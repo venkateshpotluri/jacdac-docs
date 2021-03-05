@@ -80,13 +80,30 @@ function MDXContent(_ref) {
     parentName: "p"
   }, "microcontrollers"), " and their peripherals (sensors/actuators),\nwith applications to rapid prototyping, making, and physical computing.\nJacdac includes:"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("ul", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
     parentName: "ul"
-  }, "a novel 3-wire cable and PCB edge connector"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", {
+    parentName: "li"
+  }, "a novel 3-wire cable and PCB edge connector")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
     parentName: "ul"
-  }, "device discovery and service advertisement"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", {
+    parentName: "li"
+  }, "hot-plug device discovery")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
     parentName: "ul"
-  }, "standardized service abstraction"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", {
+    parentName: "li"
+  }, "standardized service specifications")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
     parentName: "ul"
-  }, "full stack from 8-bit MCU firmware to web simulators and debuggers")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", {
+    parentName: "li"
+  }, "full stack from 8-bit MCU firmware to web simulators and debuggers")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
+    parentName: "ul"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", {
+    parentName: "li"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
+    parentName: "p"
+  }, "Try the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "strong",
+    "href": "/jacdac-docs/dashboard"
+  }, "dashboard")), " to simulate devices or visualize sensor data."))), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
     "id": "service-specifications",
     "style": {
       "position": "relative"
@@ -281,4 +298,4 @@ MDXContent.isMDXComponent = true;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-mdx-7c86706077b5e5497bfb.js.map
+//# sourceMappingURL=component---src-pages-index-mdx-d4f07721de2a37ab3648.js.map

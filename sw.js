@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-601146f033e1f14797cb.js"
+    "url": "webpack-runtime-829a95ef9c7db1130708.js"
   },
   {
     "url": "framework-d2b9019ed825b9acf8aa.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "bdf447d2b3318f558c0ee4b98589401f"
+    "revision": "d7297c8344d1e24fe188f5f2679ea65f"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -68,7 +68,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "8ec0a5fcd948f911eb6bb30b461d41b7"
+    "revision": "f69d3a17f56429bd047f9746df70fb65"
   },
   {
     "url": "page-data/sq/d/398483500.json",
@@ -84,7 +84,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "ddf46a79b4a3d7407525344ee92167c1"
+    "revision": "043738224c110dcf621c1639018e6c38"
   },
   {
     "url": "polyfill-59ee27a2411ab13ccf1c.js"
@@ -136,7 +136,7 @@ self.__precacheManifest = [
     "revision": "a8560842a69975b281a453d5e0937404"
   },
   {
-    "url": "component---src-pages-index-mdx-7c86706077b5e5497bfb.js"
+    "url": "component---src-pages-index-mdx-d4f07721de2a37ab3648.js"
   },
   {
     "url": "page-data/index/page-data.json",
