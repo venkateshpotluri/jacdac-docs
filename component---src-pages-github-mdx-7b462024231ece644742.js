@@ -84,14 +84,14 @@ function MDXContent(_ref) {
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
   }))), "GitHub Repositories"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Jacdac is Open Source on GitHub. Here is a map to help you find the part you want:"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
-    "id": "jacdac-core",
+    "id": "specification",
     "style": {
       "position": "relative"
     }
   }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
     parentName: "h2",
-    "href": "#jacdac-core",
-    "aria-label": "jacdac core permalink",
+    "href": "#specification",
+    "aria-label": "specification permalink",
     "className": "anchor before"
   }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
     parentName: "a",
@@ -105,7 +105,7 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Jacdac core"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(GithubRepositoryList, {
+  }))), "Specification"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(GithubRepositoryList, {
     repos: ["microsoft/jacdac", "microsoft/jacdac-ts"],
     showDescription: true,
     mdxType: "GithubRepositoryList"
@@ -136,14 +136,14 @@ function MDXContent(_ref) {
     showDescription: true,
     mdxType: "GithubRepositoryList"
   }), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
-    "id": "integration",
+    "id": "client-frameworks",
     "style": {
       "position": "relative"
     }
   }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
     parentName: "h2",
-    "href": "#integration",
-    "aria-label": "integration permalink",
+    "href": "#client-frameworks",
+    "aria-label": "client frameworks permalink",
     "className": "anchor before"
   }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
     parentName: "a",
@@ -157,8 +157,60 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Integration"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(GithubRepositoryList, {
-    repos: ["microsoft/jacdac-circuitpython", "microsoft/pxt-jacdac", "microsoft/jupyter-jacdac"],
+  }))), "Client frameworks"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(GithubRepositoryList, {
+    repos: ["microsoft/jacdac-circuitpython", "microsoft/pxt-jacdac", "microsoft/jacdac-ts"],
+    showDescription: true,
+    mdxType: "GithubRepositoryList"
+  }), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
+    "id": "tools",
+    "style": {
+      "position": "relative"
+    }
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "h2",
+    "href": "#tools",
+    "aria-label": "tools permalink",
+    "className": "anchor before"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Tools"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(GithubRepositoryList, {
+    repos: ["microsoft/jupyter-jacdac"],
+    showDescription: true,
+    mdxType: "GithubRepositoryList"
+  }), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
+    "id": "documentation",
+    "style": {
+      "position": "relative"
+    }
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "h2",
+    "href": "#documentation",
+    "aria-label": "documentation permalink",
+    "className": "anchor before"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Documentation"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(GithubRepositoryList, {
+    repos: ["microsoft/jacdac-docs"],
     showDescription: true,
     mdxType: "GithubRepositoryList"
   }), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
@@ -222,4 +274,4 @@ MDXContent.isMDXComponent = true;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-mdx-655b43f435ebb9eac4cc.js.map
+//# sourceMappingURL=component---src-pages-github-mdx-7b462024231ece644742.js.map
