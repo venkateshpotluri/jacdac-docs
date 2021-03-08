@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-d651e688063b7d9abea1.js"
+    "url": "webpack-runtime-0336f6c5c823a722fd9c.js"
   },
   {
     "url": "framework-d2b9019ed825b9acf8aa.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "557861e7adace528d159514d0ef3a85f"
+    "revision": "7d94e201358b12e1f4b1cc961ec30624"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -56,7 +56,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
-    "revision": "44f9cd02e9a15d7186535aebe216ca5d"
+    "revision": "1aa3c6a7fdeca2c21a700e4d5db8090c"
   },
   {
     "url": "page-data/sq/d/2270080012.json",
@@ -64,15 +64,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2461311362.json",
-    "revision": "f65a56b33b711682e6ca265624180d04"
+    "revision": "4c079006bfc7c9ed2796bdcd8e784fda"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
     "revision": "e73e04892d5ba6e9dddb6773353f6152"
-  },
-  {
-    "url": "page-data/sq/d/398483500.json",
-    "revision": "2e18f68dd432f34227dbe3706e272d20"
   },
   {
     "url": "page-data/sq/d/413816803.json",
@@ -83,8 +79,12 @@ self.__precacheManifest = [
     "revision": "744839af34bc83b2beaa07313a386ed5"
   },
   {
+    "url": "page-data/sq/d/650773314.json",
+    "revision": "36df40896b68c6d70b451c391ff57a1c"
+  },
+  {
     "url": "page-data/app-data.json",
-    "revision": "9578c7f55623e00a9e12be525731057d"
+    "revision": "69390e213a750c4c0b78726bf510b158"
   },
   {
     "url": "polyfill-59ee27a2411ab13ccf1c.js"
@@ -94,545 +94,545 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/404/page-data.json",
-    "revision": "d8cc6ca41f19162492c88ff51bdda3c3"
+    "revision": "1c98e269bbe053ef54208d6040d19e9f"
   },
   {
     "url": "page-data/404.html/page-data.json",
-    "revision": "5f993f1faa30726078392959bfd9f344"
+    "revision": "2846e49d34bc25004f1a1678e6cef223"
   },
   {
     "url": "component---src-pages-clients-mdx-f236ddb40e7bac664800.js"
   },
   {
     "url": "page-data/clients/page-data.json",
-    "revision": "4e5a50076afcac3c9d67b1cfa5baa8c7"
+    "revision": "6f72ec2714b4bcc4503595df03e091c7"
   },
   {
     "url": "component---src-pages-dashboard-mdx-ccb340511296319f7643.js"
   },
   {
     "url": "page-data/dashboard/page-data.json",
-    "revision": "aa747fc7e0cc50f22db6ee5ce4f063ee"
+    "revision": "0e342bf14417470fd91b2f1ab9b1083e"
   },
   {
     "url": "component---src-pages-devices-mdx-02886106bff594236055.js"
   },
   {
     "url": "page-data/devices/page-data.json",
-    "revision": "9206dabd01cab2ecdee6e814d61307f4"
+    "revision": "08b1f02688f8acb5ac4ce74cc0144b2b"
   },
   {
     "url": "component---src-pages-dtmi-mdx-82a51696e1201f561415.js"
   },
   {
     "url": "page-data/dtmi/page-data.json",
-    "revision": "8a9c2c9135db3dbce8172bee8ebfc05a"
+    "revision": "965ee71178dd91744e65d2565f109eea"
   },
   {
     "url": "component---src-pages-github-mdx-2b612b19b3037ed9c893.js"
   },
   {
     "url": "page-data/github/page-data.json",
-    "revision": "a8560842a69975b281a453d5e0937404"
+    "revision": "2e7b4a5ec4da9154f6d5da0e608485e2"
   },
   {
     "url": "component---src-pages-index-mdx-51828e9060124481d95b.js"
   },
   {
     "url": "page-data/index/page-data.json",
-    "revision": "9fe8c4a372014258d4653c359e2a32b3"
+    "revision": "a135a6c49b0072a981b4a57f2bd9e87b"
   },
   {
     "url": "component---src-components-spec-tsx-e7b84d4d2083b0000dc9.js"
   },
   {
     "url": "page-data/reference/page-data.json",
-    "revision": "20f638bec47a8e5a468a52bcf851446e"
+    "revision": "e1a62ea247b6e17bb709fce0ac68156d"
   },
   {
     "url": "component---src-pages-services-mdx-ec5e50d6fe65eee6e4f4.js"
   },
   {
     "url": "page-data/services/page-data.json",
-    "revision": "9e0e5ea3552e1a80c5f417bfa948bb5a"
+    "revision": "1ee630c4802dbc54e8069b123b37b082"
   },
   {
     "url": "component---src-pages-tools-mdx-cff68949109c100c3dd9.js"
   },
   {
     "url": "page-data/tools/page-data.json",
-    "revision": "6c8e22f9275b78f2d4459dba0171da7c"
+    "revision": "3c6b89831737da150181722f980322d5"
   },
   {
     "url": "component---src-pages-traces-mdx-a9dedfac44ecd3a51d61.js"
   },
   {
     "url": "page-data/traces/page-data.json",
-    "revision": "25d8462d4e6602de59d52ed1a635f9ad"
+    "revision": "23254d4df69e1e0cb18fd24b96d40e6e"
   },
   {
     "url": "page-data/reference/device-definition/page-data.json",
-    "revision": "71b32f10f68219dc7df7ded5472c0396"
+    "revision": "87f093f5b118df0070fadb5ddd1ba822"
   },
   {
     "url": "page-data/reference/glossary/page-data.json",
-    "revision": "512541aac26403c25925796abb54a470"
+    "revision": "75f0bd666a1f2a97ed4c30d99c08a701"
   },
   {
     "url": "page-data/reference/led-status/page-data.json",
-    "revision": "943f96b3d3efd78bbf247d5867db4e0e"
+    "revision": "89a4d535726146257994c906ad783563"
   },
   {
     "url": "page-data/reference/protocol/page-data.json",
-    "revision": "46ec38dce91e0d598407eda089f50ad1"
+    "revision": "dbfa3db74ebf5fa5587bd643b0b37908"
   },
   {
     "url": "page-data/reference/service-specification/page-data.json",
-    "revision": "d0242a3f9554d5e7e6cf575f699ca22e"
+    "revision": "f7fc1e19c3475099655f8de5ee440733"
   },
   {
     "url": "page-data/reference/service-tests/page-data.json",
-    "revision": "9b8669907c25e7c8880a2be598366c8d"
+    "revision": "e45d5e513b66cfa227d21932610572d6"
   },
   {
     "url": "component---src-templates-service-mdx-afd0004990cc59085c71.js"
   },
   {
     "url": "page-data/services/_base/page-data.json",
-    "revision": "3ef1e0b52619cc64803fc0acee2c9748"
+    "revision": "2ac511c1d24b5b9057e4622074d427f9"
   },
   {
     "url": "page-data/services/_sensor/page-data.json",
-    "revision": "8a28fc1e7f29f248cdabd1400a757859"
+    "revision": "71cfdd3abfd798bc2d280383e148490f"
   },
   {
     "url": "page-data/services/_system/page-data.json",
-    "revision": "eba5203229f0d92d6d6bd2a845791193"
+    "revision": "533e9f3e41acadffea6c1a2e3d8d71ba"
   },
   {
     "url": "page-data/services/accelerometer/page-data.json",
-    "revision": "78a271d859a7bba47d324eb46063f095"
+    "revision": "5d949db3f658a5482a096f4c8cf4beec"
   },
   {
     "url": "page-data/services/analogbutton/page-data.json",
-    "revision": "d9ca68fc5fde116a9b0d32bb9c21776c"
+    "revision": "ec0834afda877e1aaba128767830989b"
   },
   {
     "url": "page-data/services/arcadegamepad/page-data.json",
-    "revision": "6d0b2aac3c6f495e9309e0bcb6ac2171"
+    "revision": "58ad66b5fa8b333c9d0dfb001f61b637"
   },
   {
     "url": "page-data/services/arcadesound/page-data.json",
-    "revision": "6eaa2da5561f6286cf7eecb9c43c1295"
+    "revision": "a76f82c39d7fa389e803352bf86428f2"
   },
   {
     "url": "page-data/services/barcodereader/page-data.json",
-    "revision": "1b5b6c067861cdf262698c74f702fe16"
+    "revision": "de5add48c7ccfbd2c6bd639f761ebf19"
   },
   {
     "url": "page-data/services/barometer/page-data.json",
-    "revision": "9f2b93ac24fa208825e521a6197c0904"
+    "revision": "7a9d015e41f11307bc18230acb6d5f7a"
   },
   {
     "url": "page-data/services/bitradio/page-data.json",
-    "revision": "c3f6b211262b26c187e1581a590dca3e"
+    "revision": "264f6e269d3fe6edbc76d6a9a1286ef3"
   },
   {
     "url": "page-data/services/bootloader/page-data.json",
-    "revision": "75391ba7eaf62f91497c1482ffba9f77"
+    "revision": "0facf8e14aeb3a537099e3d0b036c9d6"
   },
   {
     "url": "page-data/services/button/page-data.json",
-    "revision": "760617f8fb95020829e578c8d47a6f93"
+    "revision": "214ea2cc26cfdbf28df6b62c5e570ed4"
   },
   {
     "url": "page-data/services/buzzer/page-data.json",
-    "revision": "56b0d113cc59a98ca8ed2c46f494f026"
+    "revision": "23d7233bd3c538ded0d9e25f8a2b9eaa"
   },
   {
     "url": "page-data/services/characterscreen/page-data.json",
-    "revision": "587d3165ddf9fa120c32140e9f471fcd"
+    "revision": "d11610d0731fa6684ed35ad9a4c5b628"
   },
   {
     "url": "page-data/services/color/page-data.json",
-    "revision": "94fd7d95395935c052dbe9d8ca9d9e0b"
+    "revision": "441e322e25965d6776813c915401f469"
   },
   {
     "url": "page-data/services/compass/page-data.json",
-    "revision": "3e4f4d5bfe988fd61891054c8a31c838"
+    "revision": "12daf63e0612f23be4a476204b2c18fd"
   },
   {
     "url": "page-data/services/control/page-data.json",
-    "revision": "aa96d2d597171385262c5b0b4cabd2f8"
+    "revision": "7fd08212ccf605d7daf9d4be0901b710"
   },
   {
     "url": "page-data/services/distance/page-data.json",
-    "revision": "9c93b58d2f4212c813a38d6704a45b9a"
+    "revision": "9661bc6ed43ae3158c09a5a1cc2a9326"
   },
   {
     "url": "page-data/services/dmx/page-data.json",
-    "revision": "67cf46fc93aa7d5294defa4baa180de3"
+    "revision": "5c49dd03a8d6b08680560da12d3b204d"
   },
   {
     "url": "page-data/services/eco2/page-data.json",
-    "revision": "cc176f0d503c89ffbedae2cc64c6900d"
+    "revision": "4b91129eb2fb3da84c082e3edf5ec0a8"
   },
   {
     "url": "page-data/services/gyroscope/page-data.json",
-    "revision": "38392c36173aebcb262cd302c1ef27c4"
+    "revision": "da44f0fb3efa8ff957439858c28f9ff0"
   },
   {
     "url": "page-data/services/heartrate/page-data.json",
-    "revision": "0f718270ef4b835232e57b1e89410b7f"
+    "revision": "c1aa5a262d7cdae99188adff4477c4be"
   },
   {
     "url": "page-data/services/hidkeyboard/page-data.json",
-    "revision": "6471900aa29f22821cfc1091515eedf0"
+    "revision": "55d7156ce18cd05c60cd74cc57f1a1e3"
   },
   {
     "url": "page-data/services/hidmouse/page-data.json",
-    "revision": "0b7ee96a30da3c62c32cbb8359cd8086"
+    "revision": "8ccf3918e7e46e0aac897cc5e836b39f"
   },
   {
     "url": "page-data/services/humidity/page-data.json",
-    "revision": "2f45529b97a9faded8186f64f1397c34"
+    "revision": "8a7ea3cd285baa6a0e265fccba150552"
   },
   {
     "url": "page-data/services/illuminance/page-data.json",
-    "revision": "fe64bd1813e21120a3c31e743e9235b7"
+    "revision": "2f3dd008ec2594c9427fa9499654ee5d"
   },
   {
     "url": "page-data/services/indexedscreen/page-data.json",
-    "revision": "155db39842ee1183af2d1d6f7bfb3a3d"
+    "revision": "edfff69f561f62be6ffb3fd7021486f2"
   },
   {
     "url": "page-data/services/iothub/page-data.json",
-    "revision": "edfd34c1bada5c82a8ecabf13d91622a"
+    "revision": "2c60a630bc1128a21055233f5d1c4b72"
   },
   {
     "url": "page-data/services/joystick/page-data.json",
-    "revision": "5dc10ab33dc72a242065c9628ae72037"
+    "revision": "c47247ca12ec6ad5ff621e447986c298"
   },
   {
     "url": "page-data/services/led/page-data.json",
-    "revision": "f790d306e028587260b446c61b6117b1"
+    "revision": "e3df56584cb6e78deb997a4a08d4c6b2"
   },
   {
     "url": "page-data/services/ledmatrix/page-data.json",
-    "revision": "fe21e5c66321e55d9ace8ca9d7a05ddd"
+    "revision": "12e02d3dfcfa8b7d00f8c2fa9774050e"
   },
   {
     "url": "page-data/services/ledpixel/page-data.json",
-    "revision": "3fcca2644e838e9645bbad18c554db5a"
+    "revision": "b87b778d2810b6a983bbb2c2ec6f33d4"
   },
   {
     "url": "page-data/services/lightlevel/page-data.json",
-    "revision": "4c1c344c0c49c89a0bccabcebe96cc70"
+    "revision": "ef116a8b4199eda711b28e2444405f35"
   },
   {
     "url": "page-data/services/logger/page-data.json",
-    "revision": "6cf3cc9183533506104d26455bd8cca3"
+    "revision": "e8da3ca398b9eb3a672e1eb9f99f2ece"
   },
   {
     "url": "page-data/services/magnetomer/page-data.json",
-    "revision": "730b42e657759cf60a0103ef34f838e1"
+    "revision": "a270dda14ca54ba46f111d232c886a02"
   },
   {
     "url": "page-data/services/matrixkeypad/page-data.json",
-    "revision": "9e72306c36a53f09fd08842b594d5357"
+    "revision": "9c9c3940f4b55a66b2f41b6045d3e7a2"
   },
   {
     "url": "page-data/services/microphone/page-data.json",
-    "revision": "0d04663a075cbb10ac4cfcdc94af58b6"
+    "revision": "73f922ff49590c595c4f76a1593c1af2"
   },
   {
     "url": "page-data/services/midioutput/page-data.json",
-    "revision": "397cde2c6357b3828ce403abd3181a3b"
+    "revision": "4f3a337daee0c78f201baa46e3e48921"
   },
   {
     "url": "page-data/services/modelrunner/page-data.json",
-    "revision": "d551ab0597125fc55251fc8aa0560fcc"
+    "revision": "997e0e72c1a62e7424e0461077824e38"
   },
   {
     "url": "page-data/services/motion/page-data.json",
-    "revision": "7985b9aaeb0e1895f17b6748db456a10"
+    "revision": "d9e1a5193580b18b88fba6c2663f22ed"
   },
   {
     "url": "page-data/services/motor/page-data.json",
-    "revision": "9a1ef945e294451c028bb1ee852833e2"
+    "revision": "b8fa32a6e13252f35bf31449e64ee19e"
   },
   {
     "url": "page-data/services/multitouch/page-data.json",
-    "revision": "3f7893172d97b8c63d26fa9b46f912a7"
+    "revision": "05c73f53ab79906d763c3908101f17d6"
   },
   {
     "url": "page-data/services/potentiometer/page-data.json",
-    "revision": "48bf7e421d25cf6479b5eeacd13db8ec"
+    "revision": "372b03193d49ed15aa3ffbc138b6e26d"
   },
   {
     "url": "page-data/services/power/page-data.json",
-    "revision": "4e70ae82396d531904b160d478dd1e7a"
+    "revision": "e85d93a69f924b230fcd720f7cb0e9fd"
   },
   {
     "url": "page-data/services/prototest/page-data.json",
-    "revision": "733d6e801231caa37db6b3a5271e7ec3"
+    "revision": "330b091128b8bdaf4c9f2abc812d4f1c"
   },
   {
     "url": "page-data/services/pulseoximeter/page-data.json",
-    "revision": "1d48caf0c817af1c538fddaf176a15f6"
+    "revision": "48bc05bf7af136032cd8df26a4a42468"
   },
   {
     "url": "page-data/services/raingauge/page-data.json",
-    "revision": "c15185d7709cf8e7c3f7de3fac0a154d"
+    "revision": "e5fb43877e79893d75de505789dc0e81"
   },
   {
     "url": "page-data/services/realtimeclock/page-data.json",
-    "revision": "1ca25b6f1ce37cc0f7ef2fab6f528353"
+    "revision": "192c4ab08826321cdb7c3255e5d36cf4"
   },
   {
     "url": "page-data/services/reflectedlight/page-data.json",
-    "revision": "b135c800463ea62f579b86f718b1b8bc"
+    "revision": "52cd95151aebd3c733a2c1874df5e6e7"
   },
   {
     "url": "page-data/services/relay/page-data.json",
-    "revision": "1b61a50004272beec6330f72b42b80ad"
+    "revision": "3cb3483141dc39834ac3a04962690652"
   },
   {
     "url": "page-data/services/rng/page-data.json",
-    "revision": "3bb9868dccfe4f2870034af846572ae6"
+    "revision": "6ef992612e40c42c8bc5c711fb4962c2"
   },
   {
     "url": "page-data/services/rolemanager/page-data.json",
-    "revision": "c6c1d8b4bab5a3a82c322779f5bc1c6a"
+    "revision": "281e1d84acd46577c4136297a1a2411b"
   },
   {
     "url": "page-data/services/rotaryencoder/page-data.json",
-    "revision": "103ed13a65840e69d20277952652087e"
+    "revision": "6dc9b1658d8e85cf6c0717a6b901d75d"
   },
   {
     "url": "page-data/services/sensoraggregator/page-data.json",
-    "revision": "5135666646da6ab783c6a217864eb33e"
+    "revision": "f9217928638cfcbe31f81f0198741e05"
   },
   {
     "url": "page-data/services/servo/page-data.json",
-    "revision": "6f8faea4a9af83eb98eb68be962d8ba4"
+    "revision": "12a4a6791cec162ede6725c27f5bc2c8"
   },
   {
     "url": "page-data/services/settings/page-data.json",
-    "revision": "2f2e49ae26dc27cea55f42adba6433b4"
+    "revision": "0ce1f749c32785f82e2ea8d6c8cb28c5"
   },
   {
     "url": "page-data/services/sevensegmentdisplay/page-data.json",
-    "revision": "f66158b8e5d325748a0520d39c7a60a9"
+    "revision": "ce35be248c505d7aed6059d7dce603f9"
   },
   {
     "url": "page-data/services/soilmoisture/page-data.json",
-    "revision": "d6b0abf3473d6d9668aea8fcca01e5e4"
+    "revision": "2ef4d3ee833a3dd808c35cbbf672ad6d"
   },
   {
     "url": "page-data/services/solenoid/page-data.json",
-    "revision": "f2d20e767df61a4bac2f92fa1beddbba"
+    "revision": "1ef460fe93677c6dd67575a04aacb8c6"
   },
   {
     "url": "page-data/services/soundlevel/page-data.json",
-    "revision": "8e3896a8db0c7b47df464977f198228e"
+    "revision": "3d4aba92db0a8118e84ddd8087c03775"
   },
   {
     "url": "page-data/services/soundplayer/page-data.json",
-    "revision": "6b09a175bdb9f2c78c5781b0de6d5091"
+    "revision": "5101291dc10acd698b779838a17c5d03"
   },
   {
     "url": "page-data/services/soundspectrum/page-data.json",
-    "revision": "c3ab48cf6fcd4dfde14af5ad83ba3cdd"
+    "revision": "7a986364e1d654f8c8c359551005eaa7"
   },
   {
     "url": "page-data/services/speechsynthesis/page-data.json",
-    "revision": "fdf152d4cd8518964c24b1c709963811"
+    "revision": "f5c7183feb697bfae52dc68612a7e53d"
   },
   {
     "url": "page-data/services/switch/page-data.json",
-    "revision": "017cd3cee36b1775cdf7a9b083a352b2"
+    "revision": "9ea2838c0869195e6ddcc4b89533212b"
   },
   {
     "url": "page-data/services/tcp/page-data.json",
-    "revision": "88c778a2539f635617920bf5d55cdc0b"
+    "revision": "db6241dc6408bb1ae688cf5d52f52bf7"
   },
   {
     "url": "page-data/services/thermocouple/page-data.json",
-    "revision": "30d97c16fb41106f63479b88f10fc2d1"
+    "revision": "9ee65548e59adf5fdf4c98410942bd90"
   },
   {
     "url": "page-data/services/thermometer/page-data.json",
-    "revision": "3a9c9b57ca3f1422f0ba76be48ca5d80"
+    "revision": "f7b5e816d8dba3fa0abeaf97deeb2541"
   },
   {
     "url": "page-data/services/trafficlight/page-data.json",
-    "revision": "c1377b98f2abea0b655c386e15177f84"
+    "revision": "3cc1cf88cba99c000d153945040ff2ce"
   },
   {
     "url": "page-data/services/tvoc/page-data.json",
-    "revision": "1ae90c307cc9928c4d1ccb3dc664e808"
+    "revision": "970e732e8d2290c14d37ad4430f72fa4"
   },
   {
     "url": "page-data/services/uvindex/page-data.json",
-    "revision": "faff4b2abb35e4820ef3d2911314912b"
+    "revision": "c587fd9b9c0e8e66357cbb7e3304314e"
   },
   {
     "url": "page-data/services/vibration/page-data.json",
-    "revision": "4212b6b1f6cb710f17509beca561beff"
+    "revision": "30406d1dce81882df1f00a2667289e9d"
   },
   {
     "url": "page-data/services/waterlevel/page-data.json",
-    "revision": "6fad575343e4ec3c111526d55538e3e5"
+    "revision": "3b6f16c3d3ef3fadc7ea29be1ac6ac69"
   },
   {
     "url": "page-data/services/weightscale/page-data.json",
-    "revision": "6b9552740efb3c14e76343617745a360"
+    "revision": "e8cd6d41868ccf2b354362e1b296be0d"
   },
   {
     "url": "page-data/services/wifi/page-data.json",
-    "revision": "d8d8f33aa89aaae8d59fc0c25f07846c"
+    "revision": "87f7358b91f0712945d832a808107706"
   },
   {
     "url": "page-data/services/winddirection/page-data.json",
-    "revision": "7fd9092866056b0ddd00b09ad22d6992"
+    "revision": "4f6c082e894e07c2e88e26abf2e3b7f3"
   },
   {
     "url": "page-data/services/windspeed/page-data.json",
-    "revision": "b1e7b38da53fbf54619e6a878956e364"
+    "revision": "f4e32ebf99f112e053f378b949966361"
   },
   {
     "url": "component---src-pages-tools-azure-device-twin-designer-mdx-cd89740eb5e1be4188d2.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",
-    "revision": "93b0fb4dd5e45810dd97b394eb483d49"
+    "revision": "07f09b27167cb3dba54c4d3a53937cc6"
   },
   {
     "url": "component---src-pages-tools-azure-iot-hub-mdx-7378fb195cf334ec32b3.js"
   },
   {
     "url": "page-data/tools/azure-iot-hub/page-data.json",
-    "revision": "004e7c864927a97d02c4b2cd40aab3d8"
+    "revision": "31efee865d1643d4163ff248138dbd50"
   },
   {
     "url": "component---src-pages-tools-collector-mdx-14ef58a3c99136e6921e.js"
   },
   {
     "url": "page-data/tools/collector/page-data.json",
-    "revision": "86213c56e8414a10344468e5f4261760"
+    "revision": "b0d8f5691925a22f3b1c1c9b3a52136e"
   },
   {
     "url": "component---src-pages-tools-device-registration-mdx-8776bc1ae06703c42575.js"
   },
   {
     "url": "page-data/tools/device-registration/page-data.json",
-    "revision": "c51fb1740b2ac652c5360079112274cc"
+    "revision": "589586050424235c39551aeeda6c4510"
   },
   {
     "url": "component---src-pages-tools-edge-impulse-mdx-6f65b4053435529069dc.js"
   },
   {
     "url": "page-data/tools/edge-impulse/page-data.json",
-    "revision": "8d2eab49ce9899d2e71ada95bbc8dea2"
+    "revision": "ca856e69efe30e6a39c5b9485169196c"
   },
   {
     "url": "component---src-pages-tools-jupyterlab-mdx-efa740bf68c7977d9171.js"
   },
   {
     "url": "page-data/tools/jupyterlab/page-data.json",
-    "revision": "703023a572e25ce06b67c1c2a1e868f5"
+    "revision": "2feb363386ed3d08eb92a1dae167bbc3"
   },
   {
     "url": "component---src-pages-tools-led-animation-designer-mdx-ab254328e87f0583485a.js"
   },
   {
     "url": "page-data/tools/led-animation-designer/page-data.json",
-    "revision": "fe388e237bfd8c7828035bde2d170d99"
+    "revision": "092f8b9dce12e2d9b19e82f8229d1338"
   },
   {
-    "url": "component---src-pages-tools-makecode-mdx-3d6f5fe55aa1b4226f28.js"
+    "url": "component---src-pages-tools-makecode-mdx-ff10d5db1270aadaf766.js"
   },
   {
     "url": "page-data/tools/makecode/page-data.json",
-    "revision": "5dd6ca05a91aa8c49f647219fddf5574"
+    "revision": "abc9280a64b2ef905d454d6248050a4a"
   },
   {
     "url": "component---src-pages-tools-makecode-editor-extension-mdx-ccca135638a346125ef1.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
-    "revision": "7bcba7b179b966c761077fb71a02c3e4"
+    "revision": "cf5626ba312f45a61a79d87d9619d334"
   },
   {
     "url": "component---src-pages-tools-makecode-sim-mdx-50522fc60469c1aa0dc1.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
-    "revision": "de05d4f367f37029233dada4916f1d8b"
+    "revision": "a08cdb16010b93955b8f6ee608052c2f"
   },
   {
     "url": "component---src-pages-tools-model-uploader-mdx-519f1b0b7a394a4eff78.js"
   },
   {
     "url": "page-data/tools/model-uploader/page-data.json",
-    "revision": "2bf4f35b0ee244656fc667bf1b00f17f"
+    "revision": "8ae291a5c69de996fc25f22fd75fbfbe"
   },
   {
     "url": "component---src-pages-tools-packet-inspector-mdx-3d41a26d10bff8555fbb.js"
   },
   {
     "url": "page-data/tools/packet-inspector/page-data.json",
-    "revision": "bc028e025c67a55b95e7b60dad922d7e"
+    "revision": "2e48bcb2eec701496ec1ecec3679cbaf"
   },
   {
     "url": "component---src-pages-tools-player-mdx-72dc7b10fe0bce9de6c9.js"
   },
   {
     "url": "page-data/tools/player/page-data.json",
-    "revision": "3cf324700d7b50cd21d5220dcbfda394"
+    "revision": "e8d82bb9446c1cf77dee405f15ff687d"
   },
   {
     "url": "component---src-pages-tools-prototest-mdx-9e2afe504ca290a0cda4.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
-    "revision": "704ee849fbb64aab9cd8ad57ef226561"
+    "revision": "d30a616c78a9f8b3fb7da0c10c0ce2aa"
   },
   {
     "url": "component---src-pages-tools-role-manager-mdx-3e4f2a1d59ed951854da.js"
   },
   {
     "url": "page-data/tools/role-manager/page-data.json",
-    "revision": "2e2a90bf4e39840311b1068f0d0e0fe8"
+    "revision": "914d985552ba48a52a3cb281d3b92812"
   },
   {
     "url": "component---src-pages-tools-service-editor-mdx-0bd3044c1f93d6ba4e23.js"
   },
   {
     "url": "page-data/tools/service-editor/page-data.json",
-    "revision": "309f2903b526f4a9db930f0c572ae1da"
+    "revision": "8a066af35eabe82d87d6effbbd7aa77d"
   },
   {
     "url": "component---src-pages-tools-service-test-editor-mdx-21e943b38f62c52a587c.js"
   },
   {
     "url": "page-data/tools/service-test-editor/page-data.json",
-    "revision": "682c89884bd455d78cb45e9b3d12b991"
+    "revision": "837f33653cccd7c9acc1f125fe634cbf"
   },
   {
     "url": "component---src-pages-tools-settings-manager-mdx-f31f3c764d297cddcbba.js"
   },
   {
     "url": "page-data/tools/settings-manager/page-data.json",
-    "revision": "421825917a175be68dab91aab982ed95"
+    "revision": "6f369e65d87eb2dce276c1dba27d7dbb"
   },
   {
     "url": "component---src-pages-tools-updater-mdx-29e9610060c5c0f0ef04.js"
   },
   {
     "url": "page-data/tools/updater/page-data.json",
-    "revision": "9c10a1abeb0d7b8f008f7274a1855ce0"
+    "revision": "101859ab3c8d57caf2269c8f7d7a6e0f"
   },
   {
     "url": "manifest.webmanifest",
@@ -728,7 +728,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-368db7fef58b85862191.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-4c421ecbf5a7c8c083bd.js`))) {
     return await fetch(event.request)
   }
 
