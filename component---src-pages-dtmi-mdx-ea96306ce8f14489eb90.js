@@ -171,7 +171,7 @@ function MDXContent(_ref) {
     "rel": "nofollow noopener noreferrer"
   }, "Azure IoT Explorer"), ",\nadd ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
     parentName: "p"
-  }, "https://microbit.github.io/jacdac-ts/dtmi"), "in the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
+  }, "https://microbit.github.io/jacdac-docs/dtmi"), "in the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
     parentName: "p"
   }, "IoT Hub Settings"), "."));
 }
@@ -181,4 +181,4 @@ MDXContent.isMDXComponent = true;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-dtmi-mdx-82a51696e1201f561415.js.map
+//# sourceMappingURL=component---src-pages-dtmi-mdx-ea96306ce8f14489eb90.js.map
