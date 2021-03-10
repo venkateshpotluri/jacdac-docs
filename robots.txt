@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://jacdac.github.io/sitemap.xml
-Host: https://jacdac.github.io
+Sitemap: https://aka.ms/sitemap.xml
+Host: https://aka.ms

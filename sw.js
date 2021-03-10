@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-24e564476f8d0d9580cf.js"
+    "url": "webpack-runtime-ce03a47af0a0dded32d5.js"
   },
   {
     "url": "framework-d2b9019ed825b9acf8aa.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "0d2918368c17dd7d0d109449f92f19a3"
+    "revision": "27d02bff2806df1e3de3fcf5a23a3b34"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,7 +60,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "88292eaf16e4b34967dd52afa6f5cf74"
+    "revision": "dcc3ab8b774d0181ce13e57ddfb6deac"
   },
   {
     "url": "page-data/sq/d/413816803.json",
@@ -72,7 +72,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "28ae19f756922b17be7a0f829223f165"
+    "revision": "f23773521c8564ed15a39f09c67eadbe"
   },
   {
     "url": "polyfill-59ee27a2411ab13ccf1c.js"
@@ -490,7 +490,7 @@ self.__precacheManifest = [
     "revision": "c924430dea19b50974430cb765815f4d"
   },
   {
-    "url": "component---src-pages-tools-azure-device-twin-designer-mdx-115f2bb2ae846de05e0f.js"
+    "url": "component---src-pages-tools-azure-device-twin-designer-mdx-89c72609a8ec15d7178f.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",

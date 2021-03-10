@@ -66,12 +66,7 @@ function MDXContent(_ref) {
   }, "device twin"), " is to be used in IoT solutions such as with Azure IoT Hubs,\nAzure IoT Plug And Play.\nThe repository of ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
     parentName: "p",
     "href": "/jacdac-docs/dtmi/"
-  }, "Azure IoT Plug And Play models"), " for services is hosted at ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "p",
-    "href": "https://jacdac.github.io/dtmi",
-    "target": "_blank",
-    "rel": "nofollow noopener noreferrer"
-  }, "https://jacdac.github.io/dtmi"), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(_components_tools_AzureDeviceTwinDesigner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }, "Azure IoT Plug And Play models"), " for services can be used to resolve models."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(_components_tools_AzureDeviceTwinDesigner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
     mdxType: "AzureDeviceTwinDesigner"
   }));
 }
@@ -99,4 +94,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-mdx-115f2bb2ae846de05e0f.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-mdx-89c72609a8ec15d7178f.js.map
