@@ -168,9 +168,6 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/sensoraggregator/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/settings/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/settings/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -229,6 +226,9 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/wifi/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/wifi/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/wifi/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/winddirection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/winddirection/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/winddirection/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>

@@ -350,13 +350,17 @@ function Toc(props) {
       var _node$frontmatter;
 
       return !!((_node$frontmatter = node.frontmatter) !== null && _node$frontmatter !== void 0 && _node$frontmatter.title) || !!node.headings.length && !/404/.test(node.headings[0].value);
+    }).filter(function (node) {
+      var _node$frontmatter2;
+
+      return !node.frontmatter || !((_node$frontmatter2 = node.frontmatter) !== null && _node$frontmatter2 !== void 0 && _node$frontmatter2.hideToc);
     }).map(function (node) {
-      var _node$frontmatter2, _node$frontmatter3, _node$frontmatter4;
+      var _node$frontmatter3, _node$frontmatter4, _node$frontmatter5;
 
       var r = {
-        name: ((_node$frontmatter2 = node.frontmatter) === null || _node$frontmatter2 === void 0 ? void 0 : _node$frontmatter2.title) || node.headings[0].value,
+        name: ((_node$frontmatter3 = node.frontmatter) === null || _node$frontmatter3 === void 0 ? void 0 : _node$frontmatter3.title) || node.headings[0].value,
         path: node.fields.slug,
-        order: ((_node$frontmatter3 = node.frontmatter) === null || _node$frontmatter3 === void 0 ? void 0 : _node$frontmatter3.order) !== undefined ? (_node$frontmatter4 = node.frontmatter) === null || _node$frontmatter4 === void 0 ? void 0 : _node$frontmatter4.order : 50
+        order: ((_node$frontmatter4 = node.frontmatter) === null || _node$frontmatter4 === void 0 ? void 0 : _node$frontmatter4.order) !== undefined ? (_node$frontmatter5 = node.frontmatter) === null || _node$frontmatter5 === void 0 ? void 0 : _node$frontmatter5.order : 50
       };
       return r;
     }).forEach(function (node) {
@@ -647,4 +651,4 @@ var ListItem = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fun
 /***/ })
 
 }]);
-//# sourceMappingURL=91-38ffc03b786ee6d26ec6.js.map
+//# sourceMappingURL=91-234841463ea5156228bd.js.map
