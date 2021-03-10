@@ -26084,7 +26084,7 @@ function Suspense(props) {
       fallback = props.fallback,
       hideFallback = props.hideFallback;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1__["Suspense"], {
-    fallback: hideFallback ? undefined : fallback || /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_LoadingProgress__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], null)
+    fallback: hideFallback ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null) : fallback || /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_LoadingProgress__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], null)
   }, children));
 }
 
@@ -57774,4 +57774,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",18,67,69]]]);
-//# sourceMappingURL=app-a74a27fec0f07d86b2cd.js.map
+//# sourceMappingURL=app-b5975df44c2b98709d37.js.map
