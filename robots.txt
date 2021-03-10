@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://aka.ms/sitemap.xml
-Host: https://aka.ms
+Sitemap: https://microsoft.github.io/sitemap.xml
+Host: https://microsoft.github.io
