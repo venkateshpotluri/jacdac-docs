@@ -16191,7 +16191,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("i8i4");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
-var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;window.analytics.page();};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__[/* default */ "g"];var activeEnv=({}).GATSBY_ACTIVE_ENV||"production"||'development';var isDev=activeEnv==='development';/*
+var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__[/* default */ "g"];var activeEnv=({}).GATSBY_ACTIVE_ENV||"production"||'development';var isDev=activeEnv==='development';/*
 export const onInitialClientRender = () => {
   if (isDev) {
     import("@axe-core/react").then(reactAxe => {
@@ -57774,4 +57774,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",18,67,69]]]);
-//# sourceMappingURL=app-90aa2eb8aca74dd911d2.js.map
+//# sourceMappingURL=app-a74a27fec0f07d86b2cd.js.map
