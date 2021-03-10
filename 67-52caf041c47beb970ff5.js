@@ -18,9 +18,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("4+mf");
 /* harmony import */ var _material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("IsqK");
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("2K/c");
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("Wbzz");
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -93,43 +95,14 @@ function Toc(props) {
 
   var theme = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])();
   var classes = useStyles();
+  var data = Object(gatsby__WEBPACK_IMPORTED_MODULE_11__["useStaticQuery"])("1044929081");
   /*
-  const data = useStaticQuery(graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-   }
-  `)
-  */
-
-  /**
-       allMdx {
-        edges {
-          node {
-            headings {
-              value
-            }
-            frontmatter {
-              title
-              order
-              hideToc
-              hideMainMenu
-            }
-            excerpt
-            fields {
-              slug
-            }
-            parent {
-              ... on File {
-                sourceInstanceName
-              }
-            }
-          }
+      site {
+        siteMetadata {
+          title
         }
-      }
+    }
+  
     allServicesJson {
         nodes {
           name
@@ -179,21 +152,28 @@ function Toc(props) {
       path: "/clients/",
       order: 5
     }];
-    /*
-    data.allMdx.edges.map(node => node.node)
-      .filter(node => !!node.frontmatter?.title || (!!node.headings.length && !/404/.test(node.headings[0].value)))
-      .filter(node => !node.frontmatter?.hideToc)
-      .map(node => {
-        const r = {
-          name: node.frontmatter?.title || node.headings[0].value,
-          path: node.fields.slug,
-          order: node.frontmatter?.order !== undefined ? node.frontmatter?.order : 50
-        }
-        return r;
-      })
-      .forEach(node => toc.push(node))
-      */
+    data.allMdx.edges.map(function (node) {
+      return node.node;
+    }).filter(function (node) {
+      var _node$frontmatter;
 
+      return !!((_node$frontmatter = node.frontmatter) !== null && _node$frontmatter !== void 0 && _node$frontmatter.title) || !!node.headings.length && !/404/.test(node.headings[0].value);
+    }).filter(function (node) {
+      var _node$frontmatter2;
+
+      return !((_node$frontmatter2 = node.frontmatter) !== null && _node$frontmatter2 !== void 0 && _node$frontmatter2.hideToc);
+    }).map(function (node) {
+      var _node$frontmatter3, _node$frontmatter4, _node$frontmatter5;
+
+      var r = {
+        name: ((_node$frontmatter3 = node.frontmatter) === null || _node$frontmatter3 === void 0 ? void 0 : _node$frontmatter3.title) || node.headings[0].value,
+        path: node.fields.slug,
+        order: ((_node$frontmatter4 = node.frontmatter) === null || _node$frontmatter4 === void 0 ? void 0 : _node$frontmatter4.order) !== undefined ? (_node$frontmatter5 = node.frontmatter) === null || _node$frontmatter5 === void 0 ? void 0 : _node$frontmatter5.order : 50
+      };
+      return r;
+    }).forEach(function (node) {
+      return toc.push(node);
+    });
     /*
     data.allServicesJson.nodes.map(node => {
       return {
@@ -263,4 +243,4 @@ function Toc(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=67-c2a2e4846b0880b33a2c.js.map
+//# sourceMappingURL=67-52caf041c47beb970ff5.js.map

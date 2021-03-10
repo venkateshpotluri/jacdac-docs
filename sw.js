@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-ce03a47af0a0dded32d5.js"
+    "url": "webpack-runtime-48ca6d6ad1881b850fbb.js"
   },
   {
     "url": "framework-d2b9019ed825b9acf8aa.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "27d02bff2806df1e3de3fcf5a23a3b34"
+    "revision": "771abca91f8f1ec6125fc4a5d73507ad"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -56,11 +56,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
-    "revision": "c872f40c4a87b9559709f5e317df8cc5"
+    "revision": "f815a9d0a381450788153d10464c4348"
+  },
+  {
+    "url": "page-data/sq/d/1044929081.json",
+    "revision": "7c3bff2b38af04f4d4714d8fb6e6ad3c"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "dcc3ab8b774d0181ce13e57ddfb6deac"
+    "revision": "350c227a642f1c5f3f64403030212368"
   },
   {
     "url": "page-data/sq/d/413816803.json",
@@ -72,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "f23773521c8564ed15a39f09c67eadbe"
+    "revision": "a5a10169019f03e7e13357172d2d08e6"
   },
   {
     "url": "polyfill-59ee27a2411ab13ccf1c.js"
@@ -82,545 +86,545 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/404/page-data.json",
-    "revision": "cc5fcf953aec25f08eb66c9bc4b0ac4b"
+    "revision": "bebcb57b8931b6aa584a860c617a5c0b"
   },
   {
     "url": "page-data/404.html/page-data.json",
-    "revision": "e02deba52d56c2837de80326fabdb85f"
+    "revision": "eb1af619b3724651ad8e47f5dce7f5a3"
   },
   {
     "url": "component---src-pages-clients-mdx-f236ddb40e7bac664800.js"
   },
   {
     "url": "page-data/clients/page-data.json",
-    "revision": "0f8dac2152393a62ae65d0653d7ef43e"
+    "revision": "893d167be4d77de95db2c3daf10a687f"
   },
   {
     "url": "component---src-pages-dashboard-mdx-ccb340511296319f7643.js"
   },
   {
     "url": "page-data/dashboard/page-data.json",
-    "revision": "86ce475cbe6d8bc5c272b41c09a2cb45"
+    "revision": "ef29f4ac00cd788415d27759d437e48f"
   },
   {
     "url": "component---src-pages-devices-mdx-02886106bff594236055.js"
   },
   {
     "url": "page-data/devices/page-data.json",
-    "revision": "40ae6464737737b0ad71a176e8ef8fb7"
+    "revision": "e82e1ad9c21b942c441a0e669abf8a33"
   },
   {
     "url": "component---src-pages-dtmi-mdx-ea96306ce8f14489eb90.js"
   },
   {
     "url": "page-data/dtmi/page-data.json",
-    "revision": "f56c2c6a50bcf4890a992019cf07970f"
+    "revision": "c859a27fc98325f2b521313230d59397"
   },
   {
     "url": "component---src-pages-github-mdx-fe17ed274181fa0a8f68.js"
   },
   {
     "url": "page-data/github/page-data.json",
-    "revision": "a1ec306f733aba7502d177decfc1ef57"
+    "revision": "86c7c46768a4fb707967a5b66087ed9c"
   },
   {
     "url": "component---src-pages-index-mdx-51828e9060124481d95b.js"
   },
   {
     "url": "page-data/index/page-data.json",
-    "revision": "f8dfa3f5965f940b72771d12f4d39dde"
+    "revision": "efca763123a85f8d4368b6e72964d9ea"
   },
   {
     "url": "component---src-components-spec-tsx-231d7eab293edf26f958.js"
   },
   {
     "url": "page-data/reference/page-data.json",
-    "revision": "3b19a8376b92ffb2c137c6a7c65d7371"
+    "revision": "3b8cd629d32a0678e55571ce49e340b0"
   },
   {
     "url": "component---src-pages-services-mdx-ec5e50d6fe65eee6e4f4.js"
   },
   {
     "url": "page-data/services/page-data.json",
-    "revision": "baf0bd887d8118f1977b52c6423d48a6"
+    "revision": "0a65bf6f4a4e5acf956bcf68d5501053"
   },
   {
     "url": "component---src-pages-tools-mdx-cff68949109c100c3dd9.js"
   },
   {
     "url": "page-data/tools/page-data.json",
-    "revision": "c9861ebf575b816cfb8339714c4895bb"
+    "revision": "eadad32932bf77b87b16c4a09a666dbe"
   },
   {
     "url": "component---src-pages-traces-mdx-a9dedfac44ecd3a51d61.js"
   },
   {
     "url": "page-data/traces/page-data.json",
-    "revision": "c527603e6045dfe0265fef3c68e5c619"
+    "revision": "637c8c766f588843ee6d1b34d2210b8e"
   },
   {
     "url": "page-data/reference/device-definition/page-data.json",
-    "revision": "00c7582160ca1d61fd6f19f7b1f6aa14"
+    "revision": "e5596458087fbc477cf83520993fbbe4"
   },
   {
     "url": "page-data/reference/glossary/page-data.json",
-    "revision": "31a8423e53dbff9113bad5573ca89439"
+    "revision": "49e8705dcd94e22a82caef8e340eb22a"
   },
   {
     "url": "page-data/reference/led-status/page-data.json",
-    "revision": "07b2110a1826b1bc64a08bda26c568e7"
+    "revision": "0827376c453849d5b7ab7cf25829026a"
   },
   {
     "url": "page-data/reference/protocol/page-data.json",
-    "revision": "e868f51fc38f895d0df2918de9f56155"
+    "revision": "ec5ba398aad0375aab6f592967c91677"
   },
   {
     "url": "page-data/reference/service-specification/page-data.json",
-    "revision": "2d04da5bd3460f26e980d79d5378a4ec"
+    "revision": "98f1da83e57e17bf2618da03571c9acc"
   },
   {
     "url": "page-data/reference/service-tests/page-data.json",
-    "revision": "feae40e4c6043a8e33fba7312c6e5aa4"
+    "revision": "5216113fd2ea08f0f50178a9d1d596e1"
   },
   {
     "url": "component---src-templates-service-mdx-9354db20c68cab525f47.js"
   },
   {
     "url": "page-data/services/_base/page-data.json",
-    "revision": "e3e0aa8e6f0355208c83ab2008504ddf"
+    "revision": "8d2a0709dcf865e4e12b9a181c7dd4e5"
   },
   {
     "url": "page-data/services/_sensor/page-data.json",
-    "revision": "49ea0916c70da284b40d566d445b996d"
+    "revision": "377cbe3590c8b8f56985ef91cef52663"
   },
   {
     "url": "page-data/services/_system/page-data.json",
-    "revision": "d188cd1110e2f1653c97d9f0a546e126"
+    "revision": "450e76d742c2e95f7ea97339c0f0a9e7"
   },
   {
     "url": "page-data/services/accelerometer/page-data.json",
-    "revision": "d95d87ccf26187c0d4bfa56b042a2e48"
+    "revision": "50024897493b903cde5d2ef56c1ab126"
   },
   {
     "url": "page-data/services/analogbutton/page-data.json",
-    "revision": "3962fe37166b8e28181130593e15942c"
+    "revision": "2558ffe4dbb8ec23e9cbd3b26488b057"
   },
   {
     "url": "page-data/services/arcadegamepad/page-data.json",
-    "revision": "449357598b7ab625eeac5fc03baf685a"
+    "revision": "d78e7b1de3ec4437cb0081b5f1f4869c"
   },
   {
     "url": "page-data/services/arcadesound/page-data.json",
-    "revision": "c3a3c07dd566bfbececf712428b2dcb3"
+    "revision": "b9ff75040587de3e65965503fa66a27a"
   },
   {
     "url": "page-data/services/barcodereader/page-data.json",
-    "revision": "4f73d25a143c8ea93e229210062df18c"
+    "revision": "cd05c9d89e43ecb8f704f9d5551e376f"
   },
   {
     "url": "page-data/services/barometer/page-data.json",
-    "revision": "2ae5fcb1b0f7896de7df65bb8f35e807"
+    "revision": "395c4a3e51dde9b88e6b4bab97faed40"
   },
   {
     "url": "page-data/services/bitradio/page-data.json",
-    "revision": "40530e256eb614a460f55178e3194102"
+    "revision": "6cca1fd7c44b9f30ce86db1af130a8a8"
   },
   {
     "url": "page-data/services/bootloader/page-data.json",
-    "revision": "132e3da9c407df9903c4689152a33039"
+    "revision": "8521fa5f26d230a4b1f7eb51d1f48e81"
   },
   {
     "url": "page-data/services/button/page-data.json",
-    "revision": "9d35cad0321eb7eadcfc29c4571896b5"
+    "revision": "534fceefc0a1ab883682d1f5b1fe9fa8"
   },
   {
     "url": "page-data/services/buzzer/page-data.json",
-    "revision": "85dfb9ab71b3d197156d82f889cce94a"
+    "revision": "b506c871ac2f42d3aedef7c6d91e687c"
   },
   {
     "url": "page-data/services/characterscreen/page-data.json",
-    "revision": "d90117349fd974a40895191cc60f7ed8"
+    "revision": "a6ad6309a9f196026d3f584417a48dca"
   },
   {
     "url": "page-data/services/color/page-data.json",
-    "revision": "4759d9116bc3f4f6cecaa7cba474fd8a"
+    "revision": "616e30e0eafb3009de55a6ee67df88c6"
   },
   {
     "url": "page-data/services/compass/page-data.json",
-    "revision": "c224d925ac6ac097270babab8157700e"
+    "revision": "0bee729027739c5d160267ca16b594fc"
   },
   {
     "url": "page-data/services/control/page-data.json",
-    "revision": "81631d9e142e1df79fba4e7c4f440487"
+    "revision": "0aa9a596389a06d6ca2f627ad3cc0ebd"
   },
   {
     "url": "page-data/services/distance/page-data.json",
-    "revision": "d59a1a0fd8048ef4f752b3c0f1273b6c"
+    "revision": "a682ac045a6847eb78de9ce45aeb2d33"
   },
   {
     "url": "page-data/services/dmx/page-data.json",
-    "revision": "4092815f14ab81fa70231cb334bf671f"
+    "revision": "4adc257c8db37c516bf9b51a4ee94e9e"
   },
   {
     "url": "page-data/services/eco2/page-data.json",
-    "revision": "4127e1040eecee43de39a79bcf06c017"
+    "revision": "31b2f082333a05234402b1c2572fd4b0"
   },
   {
     "url": "page-data/services/gyroscope/page-data.json",
-    "revision": "eed5f9f6abfb89819640a02e6c9798e4"
+    "revision": "aeafb58e91419fef4019d399a552fe82"
   },
   {
     "url": "page-data/services/heartrate/page-data.json",
-    "revision": "389f9f492e0120c7c38ce62deecb46ef"
+    "revision": "72174562b6cff317fa79caadc5a66335"
   },
   {
     "url": "page-data/services/hidkeyboard/page-data.json",
-    "revision": "7e4b30a12ffa4e06ffbf90a2a3dbb021"
+    "revision": "362a5c4d9f4f4f2b6f767b741cfa9c7e"
   },
   {
     "url": "page-data/services/hidmouse/page-data.json",
-    "revision": "da9c818d13afed3ecd20c873745613c2"
+    "revision": "a7ea83837f182b07b12bebcfb29085be"
   },
   {
     "url": "page-data/services/humidity/page-data.json",
-    "revision": "cf32c68ca468fbf37c20ed2697224143"
+    "revision": "b253cda39989c14a09204e5fefa8c919"
   },
   {
     "url": "page-data/services/illuminance/page-data.json",
-    "revision": "8c34a638b908aed9c678d71dc527e380"
+    "revision": "b035fe4a201579c379bd940d5a6f7918"
   },
   {
     "url": "page-data/services/indexedscreen/page-data.json",
-    "revision": "4a5114e255b64dced99f0c2ebd67a357"
+    "revision": "47d0f8a23738c97372a872418eb53a0a"
   },
   {
     "url": "page-data/services/iothub/page-data.json",
-    "revision": "ccb3863341b2f33b7d526df5f01c1063"
+    "revision": "dfaa9f2bf1fc040371600de6112bd715"
   },
   {
     "url": "page-data/services/joystick/page-data.json",
-    "revision": "c8bbd86f674b5291aec71f776d18d4d8"
+    "revision": "25506bb2ab1a38dd6f1608202136a0c3"
   },
   {
     "url": "page-data/services/led/page-data.json",
-    "revision": "3ac1d1881847317f866f6edfba81431b"
+    "revision": "8a29d8b099923fc316ca0c0864aa591f"
   },
   {
     "url": "page-data/services/ledmatrix/page-data.json",
-    "revision": "1d7b4a195026ee198ee10c26f0c528cd"
+    "revision": "9ed0d99a44c4e891ccbedab1cdc9556a"
   },
   {
     "url": "page-data/services/ledpixel/page-data.json",
-    "revision": "b617654e4c0923b39c8b618298f57f81"
+    "revision": "d18d28ebb0b7aeed5a42c5813397e2dd"
   },
   {
     "url": "page-data/services/lightlevel/page-data.json",
-    "revision": "efc0be2ad26a20bd1d148edbba4db1ee"
+    "revision": "f31efbff3c4388b8d7b73ab4efcc6ee2"
   },
   {
     "url": "page-data/services/logger/page-data.json",
-    "revision": "e5a78f95693ae3778059ffcd5adc4e51"
+    "revision": "94b5d27800e8ae7ae18e2f32aec63fe7"
   },
   {
     "url": "page-data/services/magnetomer/page-data.json",
-    "revision": "9ca170fea25580fd34e28c0bf843cb21"
+    "revision": "a78e35ae2694dc5c640019b2520cc3f6"
   },
   {
     "url": "page-data/services/matrixkeypad/page-data.json",
-    "revision": "c6c1cd5031fe7d8d89d76c8541561038"
+    "revision": "d088b88f9fd7656b55d12f58fd8e537e"
   },
   {
     "url": "page-data/services/microphone/page-data.json",
-    "revision": "247b5ecede5150c8bc1a7893bb61ee7f"
+    "revision": "6cde13c25f739cf624c2888275084a7f"
   },
   {
     "url": "page-data/services/midioutput/page-data.json",
-    "revision": "9a9f3de7873fee60a41a193fd8284a95"
+    "revision": "4ed16da2149f32b22ab2f472dd3c1d9c"
   },
   {
     "url": "page-data/services/modelrunner/page-data.json",
-    "revision": "859f612ee3a839a3170e4654d710f54c"
+    "revision": "7418aa82a2f957efbe6ee117780e4f8d"
   },
   {
     "url": "page-data/services/motion/page-data.json",
-    "revision": "fabd7c86f3b6a274371952bab0fe31a5"
+    "revision": "625ad89b384a06dad6f5d6662780f3bb"
   },
   {
     "url": "page-data/services/motor/page-data.json",
-    "revision": "9c774452c143f75da0935c2579c188cd"
+    "revision": "659f5c94637413976592ff0f1ab1c7bf"
   },
   {
     "url": "page-data/services/multitouch/page-data.json",
-    "revision": "64113d6892a74c6d006081f3ce1d827a"
+    "revision": "72eb1267fb11afff5d6870d0ec6b2b7c"
   },
   {
     "url": "page-data/services/potentiometer/page-data.json",
-    "revision": "4235f204d9ed29aec49506c6a83f2a81"
+    "revision": "a451959d3cde0c68f41a80d860ad810b"
   },
   {
     "url": "page-data/services/power/page-data.json",
-    "revision": "944588df7da2ce1d0e0f88d16a2d5850"
+    "revision": "bb1e440b2aa350acf0f82a297fecf39a"
   },
   {
     "url": "page-data/services/prototest/page-data.json",
-    "revision": "37f1da31f0bbc281ec9d2f511489a1e7"
+    "revision": "73123cf991f1202d59111b511250d3e8"
   },
   {
     "url": "page-data/services/pulseoximeter/page-data.json",
-    "revision": "3cd0b98b1b27b4da3eb06e41f18490dc"
+    "revision": "f4d45dc8bf5f142dadd02b900587cd7d"
   },
   {
     "url": "page-data/services/raingauge/page-data.json",
-    "revision": "cce7ded16f05d9cbeceae608aa57eb78"
+    "revision": "4577ca8604a8ab8451aa75610bbec5e9"
   },
   {
     "url": "page-data/services/realtimeclock/page-data.json",
-    "revision": "2638abe966e878336533d5fa5e94df91"
+    "revision": "d7cd8a223ac8ca2385a9e046cfee5f3c"
   },
   {
     "url": "page-data/services/reflectedlight/page-data.json",
-    "revision": "63eda296675119187f204636d7f7f0e0"
+    "revision": "3ff0064d1ab83a0810e692ad0bf28601"
   },
   {
     "url": "page-data/services/relay/page-data.json",
-    "revision": "21f42d0c344a058fea78b2701750e5e2"
+    "revision": "ff4535dda5ae6d094e6964d6af252117"
   },
   {
     "url": "page-data/services/rng/page-data.json",
-    "revision": "65733d590d9126d6b032fe4027afabe7"
+    "revision": "bc70b9dfc0bcca8e922fb612a8dfb0d1"
   },
   {
     "url": "page-data/services/rolemanager/page-data.json",
-    "revision": "52c793fcc59c52a33fd39d164d2cb30e"
+    "revision": "10113afab3549e5c139f0948a3e7f6b2"
   },
   {
     "url": "page-data/services/rotaryencoder/page-data.json",
-    "revision": "7814aad37f7b3f565955c558128b61f3"
+    "revision": "7b1018aff5b2a2104c9c3e7eefc6b5b5"
   },
   {
     "url": "page-data/services/sensoraggregator/page-data.json",
-    "revision": "7376209738915119a1d7514346b3e7b9"
+    "revision": "9e59cca1b874a215ae869840aaf0a64b"
   },
   {
     "url": "page-data/services/servo/page-data.json",
-    "revision": "8f767888b7f4e029359be996e02f9ac8"
+    "revision": "735df70ddae88ea39a053ae7059a28ad"
   },
   {
     "url": "page-data/services/settings/page-data.json",
-    "revision": "9de21d63636856d25504d05c5057d00a"
+    "revision": "ce39f3583c844d82eb8424a7324ad158"
   },
   {
     "url": "page-data/services/sevensegmentdisplay/page-data.json",
-    "revision": "32fd1fb6b171d41f007731129118c2d6"
+    "revision": "13d47ffdfc638f37f46e5dd4272a3c4e"
   },
   {
     "url": "page-data/services/soilmoisture/page-data.json",
-    "revision": "debc4798668dc54dba01bd5bfba7a8c6"
+    "revision": "8c58b056b1c90b4d028bc4ed82adc13c"
   },
   {
     "url": "page-data/services/solenoid/page-data.json",
-    "revision": "238dfef7ce932f64df55a7179b228532"
+    "revision": "48d463ee378d5e467ecb468d1dc362db"
   },
   {
     "url": "page-data/services/soundlevel/page-data.json",
-    "revision": "9bca5ac305c54ad0675f527d7d7bc876"
+    "revision": "7eec2a9ee13663080e7bf7ff025fa53f"
   },
   {
     "url": "page-data/services/soundplayer/page-data.json",
-    "revision": "a2fdcc29b65cbc28358f6e273d9c38a4"
+    "revision": "761807a7128e6751eafea6fcd28f8a5b"
   },
   {
     "url": "page-data/services/soundspectrum/page-data.json",
-    "revision": "1e95ad4e2dc89cd12760c4c0e11c9021"
+    "revision": "30e21b2e28d99fd28225054acd45878b"
   },
   {
     "url": "page-data/services/speechsynthesis/page-data.json",
-    "revision": "c6304de3fc5ed1de7d2d8a12159e870b"
+    "revision": "dbf7678d143b4e1236810ac003f15b50"
   },
   {
     "url": "page-data/services/switch/page-data.json",
-    "revision": "6e01ebe3e468f1d24e818810125db4cb"
+    "revision": "1ba37e7bd2f1c3f063cb478814664098"
   },
   {
     "url": "page-data/services/tcp/page-data.json",
-    "revision": "d7a87c92087c77ce7ad341a31ae01f34"
+    "revision": "ad8d8b29216c844a530db8f3109bbbd0"
   },
   {
     "url": "page-data/services/thermocouple/page-data.json",
-    "revision": "8d83d9b275c150eac1973d9819e50e07"
+    "revision": "b7d4980c04b8835c9301235c2da7644d"
   },
   {
     "url": "page-data/services/thermometer/page-data.json",
-    "revision": "49272bbdae6d1d6257fa86827246bf8a"
+    "revision": "597504a1783e87850f6c1605847543e5"
   },
   {
     "url": "page-data/services/trafficlight/page-data.json",
-    "revision": "90f3b3ebe1861bbd4cc4a076fd32a284"
+    "revision": "a6ca8ccd7bd27bf1df669fe90ebcfa4c"
   },
   {
     "url": "page-data/services/tvoc/page-data.json",
-    "revision": "cce66e0d62c59670709999383d1a9379"
+    "revision": "ce878aae11a25f2351c7893b1bbce72c"
   },
   {
     "url": "page-data/services/uvindex/page-data.json",
-    "revision": "d9e37d4f23978e22d1b2647139fd5220"
+    "revision": "ec3ea5092e7741aedcec08872136e016"
   },
   {
     "url": "page-data/services/vibration/page-data.json",
-    "revision": "bafb8ec5f81c27fd491a637b0dd9e90d"
+    "revision": "c62e91fe2c5329820560bc31eeccfea0"
   },
   {
     "url": "page-data/services/waterlevel/page-data.json",
-    "revision": "b8ebc1016417c082940a988686ac4d27"
+    "revision": "896c2cfa45afbc3c344258276c919151"
   },
   {
     "url": "page-data/services/weightscale/page-data.json",
-    "revision": "a010156b27d136eba73de9a56ce84340"
+    "revision": "e84f6eb756273854829228d671a3b9e3"
   },
   {
     "url": "page-data/services/wifi/page-data.json",
-    "revision": "3b5f93a2d8e44759879ce6e16a9e2e20"
+    "revision": "ae1bb1914e065b67f08af4604e5c818c"
   },
   {
     "url": "page-data/services/winddirection/page-data.json",
-    "revision": "32af3c3a69f9813e41cdd8fbe5c65cd3"
+    "revision": "738a017b7f175022d3d6264905d4622a"
   },
   {
     "url": "page-data/services/windspeed/page-data.json",
-    "revision": "c924430dea19b50974430cb765815f4d"
+    "revision": "740b03dd35ce38c79433e4253a54cd57"
   },
   {
     "url": "component---src-pages-tools-azure-device-twin-designer-mdx-89c72609a8ec15d7178f.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",
-    "revision": "ec64a599953e417e310aef34b098a3c1"
+    "revision": "0b768ece78cc64fdf3d4318cdf14fa4b"
   },
   {
     "url": "component---src-pages-tools-azure-iot-hub-mdx-7378fb195cf334ec32b3.js"
   },
   {
     "url": "page-data/tools/azure-iot-hub/page-data.json",
-    "revision": "1ed4684443ba7b508734975853b1ac70"
+    "revision": "f92f054445a7908e3670d1544c8a89d5"
   },
   {
     "url": "component---src-pages-tools-collector-mdx-14ef58a3c99136e6921e.js"
   },
   {
     "url": "page-data/tools/collector/page-data.json",
-    "revision": "a34bcc4fe2eac69cc70defb0162b2b3a"
+    "revision": "f060f9a01d1108cb5d138cb9fc6a6182"
   },
   {
     "url": "component---src-pages-tools-device-registration-mdx-8776bc1ae06703c42575.js"
   },
   {
     "url": "page-data/tools/device-registration/page-data.json",
-    "revision": "913fab33ce0ba6e0d22d5f9ac1823dba"
+    "revision": "05cd4ce62fba18d541c1529cb3565623"
   },
   {
     "url": "component---src-pages-tools-edge-impulse-mdx-6f65b4053435529069dc.js"
   },
   {
     "url": "page-data/tools/edge-impulse/page-data.json",
-    "revision": "39683520a35f645597ec4f350f1554b4"
+    "revision": "0e0cbe9a41cdd92cf5665d4460995324"
   },
   {
     "url": "component---src-pages-tools-jupyterlab-mdx-efa740bf68c7977d9171.js"
   },
   {
     "url": "page-data/tools/jupyterlab/page-data.json",
-    "revision": "da953510514db23106e4633d558ba33f"
+    "revision": "4d5ee87008ff1ca963a877607cfcd118"
   },
   {
     "url": "component---src-pages-tools-led-animation-designer-mdx-ab254328e87f0583485a.js"
   },
   {
     "url": "page-data/tools/led-animation-designer/page-data.json",
-    "revision": "26a2ad5f40ae26c0014d7d723ecb2c2b"
+    "revision": "dd149e47c5abeed93d19897974608dc1"
   },
   {
     "url": "component---src-pages-tools-makecode-mdx-297664ebd593b28e5598.js"
   },
   {
     "url": "page-data/tools/makecode/page-data.json",
-    "revision": "0a3a50928ac5b9dde8490d9a7373721d"
+    "revision": "c61fac5c40d1f4a2e319b796b7dd3ddc"
   },
   {
     "url": "component---src-pages-tools-makecode-editor-extension-mdx-ccca135638a346125ef1.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
-    "revision": "974c279d54d9f3f5cb25f0958494c796"
+    "revision": "95e77e2ed69165eb394c3d0628daa728"
   },
   {
     "url": "component---src-pages-tools-makecode-sim-mdx-50522fc60469c1aa0dc1.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
-    "revision": "0a18b6b2839219836c0fbf10c24f8ea4"
+    "revision": "d37967fe962a3d9be1a19811848616b0"
   },
   {
     "url": "component---src-pages-tools-model-uploader-mdx-519f1b0b7a394a4eff78.js"
   },
   {
     "url": "page-data/tools/model-uploader/page-data.json",
-    "revision": "da30a7348b5bd230eb8afc641473ce09"
+    "revision": "e9578bc8f766effddfaa255c0344a323"
   },
   {
     "url": "component---src-pages-tools-packet-inspector-mdx-3d41a26d10bff8555fbb.js"
   },
   {
     "url": "page-data/tools/packet-inspector/page-data.json",
-    "revision": "34c2bd741245bd97e3fedfe3d1f53ac5"
+    "revision": "85dee3e4a9e7de02d00dedb39bffd462"
   },
   {
     "url": "component---src-pages-tools-player-mdx-72dc7b10fe0bce9de6c9.js"
   },
   {
     "url": "page-data/tools/player/page-data.json",
-    "revision": "db023473794fee04e87ea402fbc6cfd8"
+    "revision": "78b2fffa0f80e4edfd8d916ebcce3d81"
   },
   {
     "url": "component---src-pages-tools-prototest-mdx-9e2afe504ca290a0cda4.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
-    "revision": "ac965b1d1c72540cf02fae454fc45845"
+    "revision": "fa711f7cb68aff653b766212ef08b809"
   },
   {
     "url": "component---src-pages-tools-role-manager-mdx-3e4f2a1d59ed951854da.js"
   },
   {
     "url": "page-data/tools/role-manager/page-data.json",
-    "revision": "2c78dd9d6e516f508086232320b1825b"
+    "revision": "4afb6b1684f1816bcc979d98a4027d82"
   },
   {
     "url": "component---src-pages-tools-service-editor-mdx-9ee6fff4132d92900a11.js"
   },
   {
     "url": "page-data/tools/service-editor/page-data.json",
-    "revision": "8432c50aab1f1f4c47bea48da85f6621"
+    "revision": "79516ae73d17082e221b9610b2cc012d"
   },
   {
     "url": "component---src-pages-tools-service-test-editor-mdx-21e943b38f62c52a587c.js"
   },
   {
     "url": "page-data/tools/service-test-editor/page-data.json",
-    "revision": "77346eedbda4f8e09f3a6134ba346afa"
+    "revision": "568b49d3279d080c0430cd2d0640d791"
   },
   {
     "url": "component---src-pages-tools-settings-manager-mdx-f31f3c764d297cddcbba.js"
   },
   {
     "url": "page-data/tools/settings-manager/page-data.json",
-    "revision": "2966dbe848123cc31455bdb40b5a65de"
+    "revision": "6791b0ae7c56c50deebd2c58fdab198d"
   },
   {
     "url": "component---src-pages-tools-updater-mdx-29e9610060c5c0f0ef04.js"
   },
   {
     "url": "page-data/tools/updater/page-data.json",
-    "revision": "69d2fd599741425f285a8d03e193e10a"
+    "revision": "99492ab3e3681962f3c2a74726b154cc"
   },
   {
     "url": "manifest.webmanifest",
