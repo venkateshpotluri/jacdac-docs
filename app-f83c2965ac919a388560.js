@@ -15882,83 +15882,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "7Q8/":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GithubRepositoryCardHeader; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("ofer");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("hlFM");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("50B7");
-/* harmony import */ var _github__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("LGN/");
-/* harmony import */ var _material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("RwSH");
-/* harmony import */ var _material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("4+mf");
-/* harmony import */ var _jacdac_ts_src_jdom_iframeclient__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("olu4");
-/* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("aVfY");
- // tslint:disable-next-line: no-submodule-imports
-
-
-
-
-
-
-
-function GithubRepositoryCardHeader(props) {
-  var slug = props.slug,
-      showRelease = props.showRelease;
-
-  var _useRepository = Object(_github__WEBPACK_IMPORTED_MODULE_4__[/* useRepository */ "h"])(slug),
-      repo = _useRepository.response,
-      repoLoading = _useRepository.loading,
-      status = _useRepository.status;
-
-  var _useLatestRelease = Object(_github__WEBPACK_IMPORTED_MODULE_4__[/* useLatestRelease */ "f"])(showRelease && slug),
-      release = _useLatestRelease.response;
-
-  var iframe = Object(_jacdac_ts_src_jdom_iframeclient__WEBPACK_IMPORTED_MODULE_7__[/* inIFrame */ "b"])();
-  var target = iframe ? "_blank" : "";
-  var title = repo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_6__["Link"], {
-    href: repo.html_url,
-    target: target
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
-    component: "span",
-    variant: "h6"
-  }, repo.organization.login)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
-    component: "span",
-    ml: 0.5,
-    mr: 0.5
-  }, "/"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_6__["Link"], {
-    href: repo.html_url,
-    target: target
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
-    component: "span",
-    variant: "h5"
-  }, repo.name))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_6__["Link"], {
-    href: "https://github.com/" + slug,
-    target: target
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
-    component: "span",
-    variant: "h6"
-  }, slug)), repoLoading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], null), status !== 403 && !repoLoading && !repo && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
-    component: "p",
-    variant: "caption"
-  }, "Unable to find repository."));
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
-    title: title,
-    subheader: release && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_6__["Link"], {
-      color: "textSecondary",
-      target: "_blank",
-      to: release.html_url
-    }, release.name),
-    avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_5___default.a, null)
-  });
-}
-
-/***/ }),
-
 /***/ "7enW":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21356,54 +21279,6 @@ function TraceList_TraceList() {
     }, gridBreakpoints)));
   }));
 }
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
-var github = __webpack_require__("LGN/");
-
-// EXTERNAL MODULE: ./src/components/GithubRepositoryCardHeader.tsx
-var GithubRepositoryCardHeader = __webpack_require__("7Q8/");
-
-// CONCATENATED MODULE: ./src/components/GithubRepositoryCard.tsx
- // tslint:disable-next-line: no-submodule-imports
-
-
-
-
-function GithubRepositoryCard(props) {
-  var slug = props.slug,
-      showRelease = props.showRelease,
-      showDescription = props.showDescription;
-
-  var _useRepository = Object(github["h" /* useRepository */])(slug),
-      repo = _useRepository.response;
-
-  var description = showDescription && (repo === null || repo === void 0 ? void 0 : repo.description);
-  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(GithubRepositoryCardHeader["a" /* default */], {
-    slug: slug,
-    showRelease: showRelease
-  }), description && /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, description && /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], null, description)));
-}
-// CONCATENATED MODULE: ./src/components/GithubRespositoryList.tsx
-
-
-
-
-function GithubRespositoryList_GithubRepositoryList(props) {
-  var repos = props.repos,
-      others = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["repos"]);
-
-  return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    container: true,
-    spacing: 2
-  }, repos.map(function (repo) {
-    return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-      item: true,
-      xs: 12,
-      key: repo
-    }, /*#__PURE__*/react_default.a.createElement(GithubRepositoryCard, Object.assign({
-      slug: repo
-    }, others)));
-  }));
-}
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
 var jdspec = __webpack_require__("A5xw");
 
@@ -21533,7 +21408,6 @@ function StatusLEDAnimation_StatusLEDAnimation(props) {
 
 
 
-
 function useMdxComponents() {
   var theme = Object(useTheme["a" /* default */])();
   var mdxComponents = Object(react["useMemo"])(function () {
@@ -21586,9 +21460,6 @@ function useMdxComponents() {
       },
       TraceList: function TraceList(props) {
         return /*#__PURE__*/react_default.a.createElement(TraceList_TraceList, props);
-      },
-      GithubRepositoryList: function GithubRepositoryList(props) {
-        return /*#__PURE__*/react_default.a.createElement(GithubRespositoryList_GithubRepositoryList, props);
       },
       SpecificationUnitList: function SpecificationUnitList(props) {
         return /*#__PURE__*/react_default.a.createElement(SpecificationUnitList_SpecificationUnitList, props);
@@ -41949,7 +41820,7 @@ function capitalize(string) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // prefer default export if available
-var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---cache-caches-gatsby-plugin-offline-app-shell-js":function componentCacheCachesGatsbyPluginOfflineAppShellJs(){return __webpack_require__.e(/* import() | component---cache-caches-gatsby-plugin-offline-app-shell-js */ 10).then(__webpack_require__.t.bind(null, "zXQ9", 7));},"component---src-components-spec-tsx":function componentSrcComponentsSpecTsx(){return __webpack_require__.e(/* import() | component---src-components-spec-tsx */ 11).then(__webpack_require__.bind(null, "NtH7"));},"component---src-pages-404-mdx":function componentSrcPages404Mdx(){return __webpack_require__.e(/* import() | component---src-pages-404-mdx */ 12).then(__webpack_require__.bind(null, "uiIr"));},"component---src-pages-clients-hardware-makecode-mdx":function componentSrcPagesClientsHardwareMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-hardware-makecode-mdx */ 13).then(__webpack_require__.bind(null, "UXmt"));},"component---src-pages-clients-mdx":function componentSrcPagesClientsMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-mdx */ 14).then(__webpack_require__.bind(null, "MsmQ"));},"component---src-pages-clients-web-iframe-mdx":function componentSrcPagesClientsWebIframeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-iframe-mdx */ 15).then(__webpack_require__.bind(null, "V3a2"));},"component---src-pages-clients-web-jdom-bus-mdx":function componentSrcPagesClientsWebJdomBusMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-bus-mdx */ 16).then(__webpack_require__.bind(null, "5D0W"));},"component---src-pages-clients-web-jdom-device-mdx":function componentSrcPagesClientsWebJdomDeviceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-device-mdx */ 17).then(__webpack_require__.bind(null, "743M"));},"component---src-pages-clients-web-jdom-event-mdx":function componentSrcPagesClientsWebJdomEventMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-event-mdx */ 18).then(__webpack_require__.bind(null, "K1KE"));},"component---src-pages-clients-web-jdom-field-mdx":function componentSrcPagesClientsWebJdomFieldMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-field-mdx */ 19).then(__webpack_require__.bind(null, "lYdl"));},"component---src-pages-clients-web-jdom-mdx":function componentSrcPagesClientsWebJdomMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-mdx */ 20).then(__webpack_require__.bind(null, "GhQM"));},"component---src-pages-clients-web-jdom-node-mdx":function componentSrcPagesClientsWebJdomNodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-node-mdx */ 21).then(__webpack_require__.bind(null, "0t5g"));},"component---src-pages-clients-web-jdom-register-mdx":function componentSrcPagesClientsWebJdomRegisterMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-register-mdx */ 22).then(__webpack_require__.bind(null, "2uWw"));},"component---src-pages-clients-web-jdom-service-mdx":function componentSrcPagesClientsWebJdomServiceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-service-mdx */ 23).then(__webpack_require__.bind(null, "MH/A"));},"component---src-pages-clients-web-mdx":function componentSrcPagesClientsWebMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 24).then(__webpack_require__.bind(null, "uxxB"));},"component---src-pages-clients-web-react-mdx":function componentSrcPagesClientsWebReactMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-react-mdx */ 25).then(__webpack_require__.bind(null, "cW1d"));},"component---src-pages-clients-web-setup-mdx":function componentSrcPagesClientsWebSetupMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-setup-mdx */ 26).then(__webpack_require__.bind(null, "UKKj"));},"component---src-pages-dashboard-tsx":function componentSrcPagesDashboardTsx(){return __webpack_require__.e(/* import() | component---src-pages-dashboard-tsx */ 27).then(__webpack_require__.bind(null, "mzE5"));},"component---src-pages-devices-tsx":function componentSrcPagesDevicesTsx(){return __webpack_require__.e(/* import() | component---src-pages-devices-tsx */ 28).then(__webpack_require__.bind(null, "NHNr"));},"component---src-pages-dtmi-mdx":function componentSrcPagesDtmiMdx(){return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 29).then(__webpack_require__.bind(null, "faxC"));},"component---src-pages-github-mdx":function componentSrcPagesGithubMdx(){return __webpack_require__.e(/* import() | component---src-pages-github-mdx */ 30).then(__webpack_require__.bind(null, "XINF"));},"component---src-pages-index-mdx":function componentSrcPagesIndexMdx(){return __webpack_require__.e(/* import() | component---src-pages-index-mdx */ 31).then(__webpack_require__.bind(null, "pfKO"));},"component---src-pages-services-tsx":function componentSrcPagesServicesTsx(){return __webpack_require__.e(/* import() | component---src-pages-services-tsx */ 32).then(__webpack_require__.bind(null, "fThz"));},"component---src-pages-tools-azure-device-twin-designer-tsx":function componentSrcPagesToolsAzureDeviceTwinDesignerTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */ 33).then(__webpack_require__.bind(null, "Ryur"));},"component---src-pages-tools-collector-tsx":function componentSrcPagesToolsCollectorTsx(){return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(0), __webpack_require__.e(34)]).then(__webpack_require__.bind(null, "xVke"));},"component---src-pages-tools-device-registration-tsx":function componentSrcPagesToolsDeviceRegistrationTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-device-registration-tsx */ 35).then(__webpack_require__.bind(null, "Zj9T"));},"component---src-pages-tools-edge-impulse-tsx":function componentSrcPagesToolsEdgeImpulseTsx(){return Promise.all(/* import() | component---src-pages-tools-edge-impulse-tsx */[__webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, "Lfy6"));},"component---src-pages-tools-jupyterlab-mdx":function componentSrcPagesToolsJupyterlabMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-jupyterlab-mdx */ 37).then(__webpack_require__.bind(null, "aGge"));},"component---src-pages-tools-led-animation-designer-tsx":function componentSrcPagesToolsLedAnimationDesignerTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-led-animation-designer-tsx */ 38).then(__webpack_require__.bind(null, "/xI6"));},"component---src-pages-tools-makecode-editor-extension-mdx":function componentSrcPagesToolsMakecodeEditorExtensionMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-editor-extension-mdx */ 39).then(__webpack_require__.bind(null, "sP+X"));},"component---src-pages-tools-makecode-mdx":function componentSrcPagesToolsMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-mdx */ 40).then(__webpack_require__.bind(null, "FCnU"));},"component---src-pages-tools-makecode-sim-mdx":function componentSrcPagesToolsMakecodeSimMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-sim-mdx */ 41).then(__webpack_require__.bind(null, "tjFP"));},"component---src-pages-tools-mdx":function componentSrcPagesToolsMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 42).then(__webpack_require__.bind(null, "Bgqm"));},"component---src-pages-tools-model-uploader-tsx":function componentSrcPagesToolsModelUploaderTsx(){return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, "tM5R"));},"component---src-pages-tools-packet-inspector-tsx":function componentSrcPagesToolsPacketInspectorTsx(){return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(43)]).then(__webpack_require__.bind(null, "q5JT"));},"component---src-pages-tools-player-mdx":function componentSrcPagesToolsPlayerMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-player-mdx */ 44).then(__webpack_require__.bind(null, "APei"));},"component---src-pages-tools-prototest-tsx":function componentSrcPagesToolsPrototestTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-prototest-tsx */ 45).then(__webpack_require__.bind(null, "QQfx"));},"component---src-pages-tools-role-manager-tsx":function componentSrcPagesToolsRoleManagerTsx(){return Promise.all(/* import() | component---src-pages-tools-role-manager-tsx */[__webpack_require__.e(0), __webpack_require__.e(46)]).then(__webpack_require__.bind(null, "tdEn"));},"component---src-pages-tools-service-editor-tsx":function componentSrcPagesToolsServiceEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(47)]).then(__webpack_require__.bind(null, "Fm1u"));},"component---src-pages-tools-service-test-editor-tsx":function componentSrcPagesToolsServiceTestEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(48)]).then(__webpack_require__.bind(null, "9Nrx"));},"component---src-pages-tools-settings-manager-tsx":function componentSrcPagesToolsSettingsManagerTsx(){return Promise.all(/* import() | component---src-pages-tools-settings-manager-tsx */[__webpack_require__.e(0), __webpack_require__.e(49)]).then(__webpack_require__.bind(null, "uvdN"));},"component---src-pages-tools-updater-tsx":function componentSrcPagesToolsUpdaterTsx(){return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(0), __webpack_require__.e(50)]).then(__webpack_require__.bind(null, "jv/G"));},"component---src-pages-traces-mdx":function componentSrcPagesTracesMdx(){return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 51).then(__webpack_require__.bind(null, "0kry"));},"component---src-templates-device-company-mdx":function componentSrcTemplatesDeviceCompanyMdx(){return __webpack_require__.e(/* import() | component---src-templates-device-company-mdx */ 52).then(__webpack_require__.bind(null, "gZ28"));},"component---src-templates-device-mdx":function componentSrcTemplatesDeviceMdx(){return __webpack_require__.e(/* import() | component---src-templates-device-mdx */ 53).then(__webpack_require__.bind(null, "MyTZ"));},"component---src-templates-service-mdx":function componentSrcTemplatesServiceMdx(){return __webpack_require__.e(/* import() | component---src-templates-service-mdx */ 54).then(__webpack_require__.bind(null, "Jhm/"));},"component---src-templates-service-playground-mdx":function componentSrcTemplatesServicePlaygroundMdx(){return Promise.all(/* import() | component---src-templates-service-playground-mdx */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(55)]).then(__webpack_require__.bind(null, "2Jyw"));},"component---src-templates-service-test-mdx":function componentSrcTemplatesServiceTestMdx(){return Promise.all(/* import() | component---src-templates-service-test-mdx */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(56)]).then(__webpack_require__.bind(null, "GnY1"));}};
+var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---cache-caches-gatsby-plugin-offline-app-shell-js":function componentCacheCachesGatsbyPluginOfflineAppShellJs(){return __webpack_require__.e(/* import() | component---cache-caches-gatsby-plugin-offline-app-shell-js */ 10).then(__webpack_require__.t.bind(null, "zXQ9", 7));},"component---src-components-spec-tsx":function componentSrcComponentsSpecTsx(){return __webpack_require__.e(/* import() | component---src-components-spec-tsx */ 11).then(__webpack_require__.bind(null, "NtH7"));},"component---src-pages-404-mdx":function componentSrcPages404Mdx(){return __webpack_require__.e(/* import() | component---src-pages-404-mdx */ 12).then(__webpack_require__.bind(null, "uiIr"));},"component---src-pages-clients-hardware-makecode-mdx":function componentSrcPagesClientsHardwareMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-hardware-makecode-mdx */ 13).then(__webpack_require__.bind(null, "UXmt"));},"component---src-pages-clients-mdx":function componentSrcPagesClientsMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-mdx */ 14).then(__webpack_require__.bind(null, "MsmQ"));},"component---src-pages-clients-web-iframe-mdx":function componentSrcPagesClientsWebIframeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-iframe-mdx */ 15).then(__webpack_require__.bind(null, "V3a2"));},"component---src-pages-clients-web-jdom-bus-mdx":function componentSrcPagesClientsWebJdomBusMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-bus-mdx */ 16).then(__webpack_require__.bind(null, "5D0W"));},"component---src-pages-clients-web-jdom-device-mdx":function componentSrcPagesClientsWebJdomDeviceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-device-mdx */ 17).then(__webpack_require__.bind(null, "743M"));},"component---src-pages-clients-web-jdom-event-mdx":function componentSrcPagesClientsWebJdomEventMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-event-mdx */ 18).then(__webpack_require__.bind(null, "K1KE"));},"component---src-pages-clients-web-jdom-field-mdx":function componentSrcPagesClientsWebJdomFieldMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-field-mdx */ 19).then(__webpack_require__.bind(null, "lYdl"));},"component---src-pages-clients-web-jdom-mdx":function componentSrcPagesClientsWebJdomMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-mdx */ 20).then(__webpack_require__.bind(null, "GhQM"));},"component---src-pages-clients-web-jdom-node-mdx":function componentSrcPagesClientsWebJdomNodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-node-mdx */ 21).then(__webpack_require__.bind(null, "0t5g"));},"component---src-pages-clients-web-jdom-register-mdx":function componentSrcPagesClientsWebJdomRegisterMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-register-mdx */ 22).then(__webpack_require__.bind(null, "2uWw"));},"component---src-pages-clients-web-jdom-service-mdx":function componentSrcPagesClientsWebJdomServiceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-service-mdx */ 23).then(__webpack_require__.bind(null, "MH/A"));},"component---src-pages-clients-web-mdx":function componentSrcPagesClientsWebMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 24).then(__webpack_require__.bind(null, "uxxB"));},"component---src-pages-clients-web-react-mdx":function componentSrcPagesClientsWebReactMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-react-mdx */ 25).then(__webpack_require__.bind(null, "cW1d"));},"component---src-pages-clients-web-setup-mdx":function componentSrcPagesClientsWebSetupMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-setup-mdx */ 26).then(__webpack_require__.bind(null, "UKKj"));},"component---src-pages-dashboard-tsx":function componentSrcPagesDashboardTsx(){return __webpack_require__.e(/* import() | component---src-pages-dashboard-tsx */ 27).then(__webpack_require__.bind(null, "mzE5"));},"component---src-pages-devices-tsx":function componentSrcPagesDevicesTsx(){return __webpack_require__.e(/* import() | component---src-pages-devices-tsx */ 28).then(__webpack_require__.bind(null, "NHNr"));},"component---src-pages-dtmi-mdx":function componentSrcPagesDtmiMdx(){return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 29).then(__webpack_require__.bind(null, "faxC"));},"component---src-pages-github-tsx":function componentSrcPagesGithubTsx(){return __webpack_require__.e(/* import() | component---src-pages-github-tsx */ 30).then(__webpack_require__.bind(null, "uhGn"));},"component---src-pages-index-mdx":function componentSrcPagesIndexMdx(){return __webpack_require__.e(/* import() | component---src-pages-index-mdx */ 31).then(__webpack_require__.bind(null, "pfKO"));},"component---src-pages-services-tsx":function componentSrcPagesServicesTsx(){return __webpack_require__.e(/* import() | component---src-pages-services-tsx */ 32).then(__webpack_require__.bind(null, "fThz"));},"component---src-pages-tools-azure-device-twin-designer-tsx":function componentSrcPagesToolsAzureDeviceTwinDesignerTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */ 33).then(__webpack_require__.bind(null, "Ryur"));},"component---src-pages-tools-collector-tsx":function componentSrcPagesToolsCollectorTsx(){return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(0), __webpack_require__.e(34)]).then(__webpack_require__.bind(null, "xVke"));},"component---src-pages-tools-device-registration-tsx":function componentSrcPagesToolsDeviceRegistrationTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-device-registration-tsx */ 35).then(__webpack_require__.bind(null, "Zj9T"));},"component---src-pages-tools-edge-impulse-tsx":function componentSrcPagesToolsEdgeImpulseTsx(){return Promise.all(/* import() | component---src-pages-tools-edge-impulse-tsx */[__webpack_require__.e(0), __webpack_require__.e(5), __webpack_require__.e(36)]).then(__webpack_require__.bind(null, "Lfy6"));},"component---src-pages-tools-jupyterlab-mdx":function componentSrcPagesToolsJupyterlabMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-jupyterlab-mdx */ 37).then(__webpack_require__.bind(null, "aGge"));},"component---src-pages-tools-led-animation-designer-tsx":function componentSrcPagesToolsLedAnimationDesignerTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-led-animation-designer-tsx */ 38).then(__webpack_require__.bind(null, "/xI6"));},"component---src-pages-tools-makecode-editor-extension-mdx":function componentSrcPagesToolsMakecodeEditorExtensionMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-editor-extension-mdx */ 39).then(__webpack_require__.bind(null, "sP+X"));},"component---src-pages-tools-makecode-mdx":function componentSrcPagesToolsMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-mdx */ 40).then(__webpack_require__.bind(null, "FCnU"));},"component---src-pages-tools-makecode-sim-mdx":function componentSrcPagesToolsMakecodeSimMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-sim-mdx */ 41).then(__webpack_require__.bind(null, "tjFP"));},"component---src-pages-tools-mdx":function componentSrcPagesToolsMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 42).then(__webpack_require__.bind(null, "Bgqm"));},"component---src-pages-tools-model-uploader-tsx":function componentSrcPagesToolsModelUploaderTsx(){return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(0), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, "tM5R"));},"component---src-pages-tools-packet-inspector-tsx":function componentSrcPagesToolsPacketInspectorTsx(){return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(43)]).then(__webpack_require__.bind(null, "q5JT"));},"component---src-pages-tools-player-mdx":function componentSrcPagesToolsPlayerMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-player-mdx */ 44).then(__webpack_require__.bind(null, "APei"));},"component---src-pages-tools-prototest-tsx":function componentSrcPagesToolsPrototestTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-prototest-tsx */ 45).then(__webpack_require__.bind(null, "QQfx"));},"component---src-pages-tools-role-manager-tsx":function componentSrcPagesToolsRoleManagerTsx(){return Promise.all(/* import() | component---src-pages-tools-role-manager-tsx */[__webpack_require__.e(0), __webpack_require__.e(46)]).then(__webpack_require__.bind(null, "tdEn"));},"component---src-pages-tools-service-editor-tsx":function componentSrcPagesToolsServiceEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(47)]).then(__webpack_require__.bind(null, "Fm1u"));},"component---src-pages-tools-service-test-editor-tsx":function componentSrcPagesToolsServiceTestEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(48)]).then(__webpack_require__.bind(null, "9Nrx"));},"component---src-pages-tools-settings-manager-tsx":function componentSrcPagesToolsSettingsManagerTsx(){return Promise.all(/* import() | component---src-pages-tools-settings-manager-tsx */[__webpack_require__.e(0), __webpack_require__.e(49)]).then(__webpack_require__.bind(null, "uvdN"));},"component---src-pages-tools-updater-tsx":function componentSrcPagesToolsUpdaterTsx(){return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(0), __webpack_require__.e(50)]).then(__webpack_require__.bind(null, "jv/G"));},"component---src-pages-traces-mdx":function componentSrcPagesTracesMdx(){return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 51).then(__webpack_require__.bind(null, "0kry"));},"component---src-templates-device-company-mdx":function componentSrcTemplatesDeviceCompanyMdx(){return __webpack_require__.e(/* import() | component---src-templates-device-company-mdx */ 52).then(__webpack_require__.bind(null, "gZ28"));},"component---src-templates-device-mdx":function componentSrcTemplatesDeviceMdx(){return __webpack_require__.e(/* import() | component---src-templates-device-mdx */ 53).then(__webpack_require__.bind(null, "MyTZ"));},"component---src-templates-service-mdx":function componentSrcTemplatesServiceMdx(){return __webpack_require__.e(/* import() | component---src-templates-service-mdx */ 54).then(__webpack_require__.bind(null, "Jhm/"));},"component---src-templates-service-playground-mdx":function componentSrcTemplatesServicePlaygroundMdx(){return Promise.all(/* import() | component---src-templates-service-playground-mdx */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(55)]).then(__webpack_require__.bind(null, "2Jyw"));},"component---src-templates-service-test-mdx":function componentSrcTemplatesServiceTestMdx(){return Promise.all(/* import() | component---src-templates-service-test-mdx */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(56)]).then(__webpack_require__.bind(null, "GnY1"));}};
 
 /***/ }),
 
@@ -49355,7 +49226,7 @@ var gatsby_theme_material_ui = __webpack_require__("4+mf");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__("Zo1I");
 
-// EXTERNAL MODULE: ./src/components/layout.tsx + 36 modules
+// EXTERNAL MODULE: ./src/components/layout.tsx + 34 modules
 var layout = __webpack_require__("9Dj+");
 
 // EXTERNAL MODULE: ./src/components/devices/useDeviceImage.ts
@@ -63982,7 +63853,7 @@ function DashboardServiceDetails(props) {
     }));
   }));
 }
-// EXTERNAL MODULE: ./src/components/layout.tsx + 36 modules
+// EXTERNAL MODULE: ./src/components/layout.tsx + 34 modules
 var layout = __webpack_require__("9Dj+");
 
 // EXTERNAL MODULE: ./src/components/useDeviceName.ts
@@ -93765,4 +93636,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",7,57,59]]]);
-//# sourceMappingURL=app-89c0f4fb2c3fcc2af848.js.map
+//# sourceMappingURL=app-f83c2965ac919a388560.js.map

@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-9536f9dcfc73e8813925.js"
+    "url": "webpack-runtime-8a1c1f9cefd16f926795.js"
   },
   {
     "url": "framework-5a5c0b1a0a0f20c48ea8.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "2775ed53911bc4ab7ea36a375c24894f"
+    "revision": "82520d43591e3e7455ba8768810f83eb"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,15 +60,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/1044929081.json",
-    "revision": "503f835c5d2f77f376b9b2c338a46571"
+    "revision": "6dccd99d8827125e53765d6abd053248"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "a96a6cf1793718f9d47ec17cf33d6aec"
+    "revision": "4c8527686c0509b7f7b291b93ee606bd"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "7f51e399cc0d8856f937a0ce9214fe0c"
+    "revision": "7f27e23ec5a48323d0facbb0ba2d1280"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "6fc55c14034e5507ed1ba2d55e9b6ca9"
+    "revision": "f390e09af5c58a912136200ac1882c43"
   },
   {
     "url": "polyfill-623288f9790caaf6aa11.js"
@@ -121,11 +121,11 @@ self.__precacheManifest = [
     "revision": "c859a27fc98325f2b521313230d59397"
   },
   {
-    "url": "component---src-pages-github-mdx-181ee2e7bb137c7d2030.js"
+    "url": "component---src-pages-github-tsx-510019bf65b4e891b92e.js"
   },
   {
     "url": "page-data/github/page-data.json",
-    "revision": "86c7c46768a4fb707967a5b66087ed9c"
+    "revision": "136b261a7a79e71281e41fdf52bcc756"
   },
   {
     "url": "component---src-pages-index-mdx-bb924002d4eb08af16d0.js"
@@ -511,7 +511,7 @@ self.__precacheManifest = [
     "revision": "434a6a80c4b427fb69b553a67014d32d"
   },
   {
-    "url": "component---src-pages-tools-device-registration-tsx-a9cbe1b97bd9525173e3.js"
+    "url": "component---src-pages-tools-device-registration-tsx-6a1f29a0468daec52d53.js"
   },
   {
     "url": "page-data/tools/device-registration/page-data.json",
@@ -622,7 +622,7 @@ self.__precacheManifest = [
     "revision": "b14e16b18d45292a9022510344317642"
   },
   {
-    "url": "component---src-pages-tools-updater-tsx-673046002131cf92ed54.js"
+    "url": "component---src-pages-tools-updater-tsx-c3b169d5d080f795c16f.js"
   },
   {
     "url": "page-data/tools/updater/page-data.json",
@@ -722,7 +722,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-89c0f4fb2c3fcc2af848.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-f83c2965ac919a388560.js`))) {
     return await fetch(event.request)
   }
 

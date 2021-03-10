@@ -612,7 +612,7 @@ var Alert = __webpack_require__("FQT7");
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__("UJQR");
 
-// EXTERNAL MODULE: ./src/components/layout.tsx + 36 modules
+// EXTERNAL MODULE: ./src/components/layout.tsx + 34 modules
 var layout = __webpack_require__("9Dj+");
 
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
