@@ -2947,6 +2947,16 @@
         "@id": "dtmi:jacdac:x1179a749:const:variant;1",
         "description": "Type of physical sensor",
         "schema": "dtmi:jacdac:x1179a749:variant;1"
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "Event"
+        ],
+        "name": "movement",
+        "@id": "dtmi:jacdac:x1179a749:event:movement;1",
+        "description": "A movement was detected.",
+        "schema": "dtmi:jacdac:x1179a749:event;1"
       }
     ],
     "extends": [

@@ -2563,7 +2563,11 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
     var testFun = cmdToTestFunction(this.command);
     var replace = this.command.call.arguments.map(function (a, i) {
-      return ["{" + (i + 1) + "}", unparse(a)];
+      var aStart = _this2._startExpressions.find(function (r) {
+        return r.e === a;
+      });
+
+      return ["{" + (i + 1) + "}", aStart && testFun.args[i] !== "register" ? aStart.v.toString() : unparse(a)];
     });
     this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
     replace.forEach(function (p) {
@@ -2914,7 +2918,7 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
           });
           var register = service.register(pkt.identifier);
           _this5.registers[regName] = register;
-          _this5.environment[regName] = 0;
+          _this5.environment[regName] = register.intValue;
 
           _this5.mount(register.subscribe(constants["s" /* CHANGE */], function () {
             var _this5$currentTest;
@@ -3545,4 +3549,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-792d1a78e623ef26b5b7.js.map
+//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-cb10e7d6feceba29ce34.js.map
