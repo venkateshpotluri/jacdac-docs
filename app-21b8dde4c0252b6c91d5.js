@@ -28886,7 +28886,6 @@ var Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](funct
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return isInfrastructure; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return serviceSpecificationFromName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return serviceSpecificationFromClassIdentifier; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "G", function() { return serviceTestFromServiceSpec; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return isSensor; });
 /* unused harmony export isActuator */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return isRegister; });
@@ -28917,10 +28916,8 @@ var Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](funct
 var _jacdac_spec_dist_services_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t("QWWp", 1);
 /* harmony import */ var _jacdac_spec_dist_devices_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("xF43");
 var _jacdac_spec_dist_devices_json__WEBPACK_IMPORTED_MODULE_2___namespace = /*#__PURE__*/__webpack_require__.t("xF43", 1);
-/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("sh2y");
-var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_3___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("Zo1I");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ZfHV");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("Zo1I");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZfHV");
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
@@ -28929,12 +28926,9 @@ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_3___namespace
 
 
 
-
  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-var _serviceSpecifications = _jacdac_spec_dist_services_json__WEBPACK_IMPORTED_MODULE_1__; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_3__;
+var _serviceSpecifications = _jacdac_spec_dist_services_json__WEBPACK_IMPORTED_MODULE_1__;
 var _customServiceSpecifications = {}; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 var _deviceRegistry = _jacdac_spec_dist_devices_json__WEBPACK_IMPORTED_MODULE_2__;
@@ -29018,7 +29012,7 @@ function isInstanceOf(classIdentifier, requiredClassIdentifier) {
   }));
 }
 function isInfrastructure(spec) {
-  return spec && ([_constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_CONTROL */ "zd"], _constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_ROLE_MANAGER */ "be"], _constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_LOGGER */ "Nd"], _constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_POWER */ "Td"], _constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_SETTINGS */ "fe"], _constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_BOOTLOADER */ "td"], _constants__WEBPACK_IMPORTED_MODULE_5__[/* SRV_PROTO_TEST */ "Ud"]].indexOf(spec.classIdentifier) > -1 || spec.shortId[0] === "_");
+  return spec && ([_constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_CONTROL */ "zd"], _constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_ROLE_MANAGER */ "be"], _constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_LOGGER */ "Nd"], _constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_POWER */ "Td"], _constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_SETTINGS */ "fe"], _constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_BOOTLOADER */ "td"], _constants__WEBPACK_IMPORTED_MODULE_4__[/* SRV_PROTO_TEST */ "Ud"]].indexOf(spec.classIdentifier) > -1 || spec.shortId[0] === "_");
 }
 /**
  * Looks up a service specification by name
@@ -29043,50 +29037,40 @@ function serviceSpecificationFromClassIdentifier(classIdentifier) {
     return s.classIdentifier === classIdentifier;
   }) || _customServiceSpecifications[classIdentifier];
 }
-/**
- * Given a service specification, see if it has a test
- * @param spec
- */
-
-function serviceTestFromServiceSpec(spec) {
-  return !!spec && _serviceTests.find(function (test) {
-    return test.serviceClassIdentifier === spec.classIdentifier;
-  });
-}
 function isSensor(spec) {
   return spec && spec.packets.some(function (pkt) {
     return isReading(pkt);
   }) && spec.packets.some(function (pkt) {
-    return pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SensorReg */ "Be"].StreamingSamples;
+    return pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SensorReg */ "Be"].StreamingSamples;
   }) && spec.packets.some(function (pkt) {
-    return pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SensorReg */ "Be"].StreamingInterval;
+    return pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SensorReg */ "Be"].StreamingInterval;
   });
 }
 function isActuator(spec) {
   return spec && spec.packets.some(function (pkt) {
-    return pkt.identifier === _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Value;
+    return pkt.identifier === _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Value;
   }) && spec.packets.some(function (pkt) {
-    return pkt.identifier === _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Intensity;
+    return pkt.identifier === _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Intensity;
   });
 }
 function isRegister(pkt) {
   return pkt && (pkt.kind == "const" || pkt.kind == "ro" || pkt.kind == "rw");
 }
 function isReading(pkt) {
-  return pkt && pkt.kind == "ro" && pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Reading;
+  return pkt && pkt.kind == "ro" && pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Reading;
 }
 function isOptionalReadingRegisterCode(code) {
-  var regs = [_constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].MinReading, _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].MaxReading, _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].ReadingError, _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].ReadingResolution, _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].StreamingPreferredInterval];
+  var regs = [_constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].MinReading, _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].MaxReading, _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].ReadingError, _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].ReadingResolution, _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].StreamingPreferredInterval];
   return regs.indexOf(code) > -1;
 }
 function isIntensity(pkt) {
-  return pkt && pkt.kind == "rw" && pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Intensity;
+  return pkt && pkt.kind == "rw" && pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Intensity;
 }
 function isValue(pkt) {
-  return pkt && pkt.kind == "rw" && pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Value;
+  return pkt && pkt.kind == "rw" && pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Value;
 }
 function isValueOrIntensity(pkt) {
-  return pkt && pkt.kind == "rw" && (pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Value || pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_5__[/* SystemReg */ "Te"].Intensity);
+  return pkt && pkt.kind == "rw" && (pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Value || pkt.identifier == _constants__WEBPACK_IMPORTED_MODULE_4__[/* SystemReg */ "Te"].Intensity);
 }
 function isConstRegister(pkt) {
   return (pkt === null || pkt === void 0 ? void 0 : pkt.kind) == "const";
@@ -29207,7 +29191,7 @@ function memberValueToString(value, info) {
 
   switch (info.type) {
     case "bytes":
-      return Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* toHex */ "V"])(value);
+      return Object(_utils__WEBPACK_IMPORTED_MODULE_3__[/* toHex */ "V"])(value);
 
     case "string":
       return value;
@@ -29224,7 +29208,7 @@ function tryParseMemberValue(text, info) {
   else if (info.type === "bytes") {
       try {
         return {
-          value: Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* fromHex */ "u"])(text)
+          value: Object(_utils__WEBPACK_IMPORTED_MODULE_3__[/* fromHex */ "u"])(text)
         };
       } catch (e) {
         return {
@@ -29243,7 +29227,7 @@ function tryParseMemberValue(text, info) {
 function parseDeviceId(id) {
   id = id.replace(/\s/g, "");
   if (id.length != 16 || !/^[a-f0-9]+$/i.test(id)) return null;
-  return Object(_utils__WEBPACK_IMPORTED_MODULE_4__[/* fromHex */ "u"])(id);
+  return Object(_utils__WEBPACK_IMPORTED_MODULE_3__[/* fromHex */ "u"])(id);
 }
 function hasPipeReport(info) {
   return info.fields.find(function (f) {
@@ -41551,13 +41535,6 @@ var TableRow = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fun
 
 /***/ }),
 
-/***/ "sh2y":
-/***/ (function(module) {
-
-module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"downUp: press down and up\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button and release it immediately\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe an Up event, followed by a Down event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"click: click the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down for 500ms and less than 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a Click event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"long click: hold the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down at least 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a LongClick event?\\\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Potentiometer tests\",\"serviceClassIdentifier\":522667846,\"tests\":[{\"description\":\"position changes on movement\",\"registers\":[],\"commands\":[{\"prompt\":\"move the slider/potentiometer\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did the position register's value change?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob back and forth\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromUpTo\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromDownTo\"}}}]},{\"description\":\"check physical position clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"note knob's physical position and quickly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"check physical position counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"note knob's physical position and quickly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"reset test\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"reset test (automated)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"reset\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"==\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Literal\",\"value\":0,\"raw\":\"0\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]}]}]");
-
-/***/ }),
-
 /***/ "tgoA":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -46953,4 +46930,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",25,75,77]]]);
-//# sourceMappingURL=app-ab407bfeaa88641fc921.js.map
+//# sourceMappingURL=app-21b8dde4c0252b6c91d5.js.map

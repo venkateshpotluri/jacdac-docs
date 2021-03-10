@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-b2290b1947e397cbdc2b.js"
+    "url": "webpack-runtime-93b18f37b30830deb440.js"
   },
   {
     "url": "framework-67a2db31f3cef5e7b7a8.js"
@@ -39,11 +39,11 @@ self.__precacheManifest = [
     "url": "styles-fbf036ab87746356518e.js"
   },
   {
-    "url": "app-ab407bfeaa88641fc921.js"
+    "url": "app-21b8dde4c0252b6c91d5.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "f52cac03958fa8e47c3535d022db0e80"
+    "revision": "40bcf611cdc77b66127752eeecc70030"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -79,7 +79,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "098b03497c786393de9b721f855ba752"
+    "revision": "9d02358f7b5e0aebacdd846c234a3b57"
   },
   {
     "url": "polyfill-3c5518b09aa415786dfe.js"
@@ -232,7 +232,7 @@ self.__precacheManifest = [
     "revision": "4a2072cf7e809507e448af13bddb24ed"
   },
   {
-    "url": "component---src-templates-service-tsx-9b774d720387b8f7da9a.js"
+    "url": "component---src-templates-service-tsx-6a237d3d9818dd4df5a8.js"
   },
   {
     "url": "page-data/services/_base/page-data.json",
@@ -662,7 +662,7 @@ self.__precacheManifest = [
     "revision": "74d24c010c1994eeb355234e8c489853"
   },
   {
-    "url": "3a5eb708880afc7da9187d37fe99af650d9ba1f9-e7d25dcc9853cf434543.js"
+    "url": "3a5eb708880afc7da9187d37fe99af650d9ba1f9-b886bc49a8a77904263e.js"
   },
   {
     "url": "component---src-pages-tools-service-test-editor-tsx-ffbb3e9622ccad750b33.js"
@@ -779,7 +779,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-ab407bfeaa88641fc921.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-21b8dde4c0252b6c91d5.js`))) {
     return await fetch(event.request)
   }
 

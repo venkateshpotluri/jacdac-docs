@@ -590,7 +590,7 @@ function ServiceMarkdown(props) {
   var classIdentifier = props.classIdentifier,
       source = props.source;
   var service = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(classIdentifier);
-  var test = Object(spec["G" /* serviceTestFromServiceSpec */])(service);
+  var test = Object(spec["serviceTestFromServiceSpec"])(service);
   var shortId = service.shortId;
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(ServiceSpecificationStatusAlert["a" /* default */], {
     specification: service
@@ -1083,4 +1083,4 @@ if (false) { var requireProp; }
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-tsx-9b774d720387b8f7da9a.js.map
+//# sourceMappingURL=component---src-templates-service-tsx-6a237d3d9818dd4df5a8.js.map

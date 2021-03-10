@@ -2689,11 +2689,11 @@ var spec = __webpack_require__("Z8Ma");
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__("JX7q");
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__("vuIU");
-
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__("dI71");
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__("vuIU");
 
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtestfuns.ts
 var jdtestfuns = __webpack_require__("et/c");
@@ -2719,24 +2719,45 @@ var index_browser_esm = __webpack_require__("faLi");
 
 
 
+
 var JDCommandStatus;
 
 (function (JDCommandStatus) {
-  JDCommandStatus[JDCommandStatus["NotStarted"] = 0] = "NotStarted";
-  JDCommandStatus[JDCommandStatus["Suceeded"] = 1] = "Suceeded";
-  JDCommandStatus[JDCommandStatus["Failed"] = 2] = "Failed";
-  JDCommandStatus[JDCommandStatus["InProgress"] = 3] = "InProgress";
-  JDCommandStatus[JDCommandStatus["TimedOut"] = 4] = "TimedOut";
+  JDCommandStatus[JDCommandStatus["NotReady"] = 0] = "NotReady";
+  JDCommandStatus[JDCommandStatus["Active"] = 1] = "Active";
+  JDCommandStatus[JDCommandStatus["RequiresUserInput"] = 2] = "RequiresUserInput";
+  JDCommandStatus[JDCommandStatus["Passed"] = 3] = "Passed";
+  JDCommandStatus[JDCommandStatus["Failed"] = 4] = "Failed";
 })(JDCommandStatus || (JDCommandStatus = {}));
 
 var JDTestStatus;
 
 (function (JDTestStatus) {
   JDTestStatus[JDTestStatus["NotReady"] = 0] = "NotReady";
-  JDTestStatus[JDTestStatus["Active"] = 1] = "Active";
-  JDTestStatus[JDTestStatus["Passed"] = 2] = "Passed";
-  JDTestStatus[JDTestStatus["Failed"] = 3] = "Failed";
+  JDTestStatus[JDTestStatus["ReadyToRun"] = 1] = "ReadyToRun";
+  JDTestStatus[JDTestStatus["Active"] = 2] = "Active";
+  JDTestStatus[JDTestStatus["Passed"] = 3] = "Passed";
+  JDTestStatus[JDTestStatus["Failed"] = 4] = "Failed";
 })(JDTestStatus || (JDTestStatus = {}));
+
+function commandStatusToTestStatus(status) {
+  switch (status) {
+    case JDCommandStatus.Active:
+      return JDTestStatus.Active;
+
+    case JDCommandStatus.Passed:
+      return JDTestStatus.Passed;
+
+    case JDCommandStatus.Failed:
+      return JDTestStatus.Failed;
+
+    case JDCommandStatus.NotReady:
+      return JDTestStatus.NotReady;
+
+    case JDCommandStatus.RequiresUserInput:
+      return JDTestStatus.Active;
+  }
+}
 
 function cmdToTestFunction(cmd) {
   var id = cmd.call.callee.name;
@@ -2744,13 +2765,48 @@ function cmdToTestFunction(cmd) {
     return t.id == id;
   });
 }
-function cmdToPrompt(cmd) {
-  return cmd.prompt ? cmd.prompt : cmdToTestFunction(cmd).prompt;
+
+function unparse(e) {
+  switch (e.type) {
+    case "CallExpression":
+      {
+        var caller = e;
+        return unparse(caller.callee) + "(" + caller.arguments.map(unparse).join(", ") + ")";
+      }
+
+    case "BinaryExpression":
+    case "LogicalExpression":
+      {
+        var be = e;
+        return "(" + unparse(be.left) + " " + be.operator + " " + unparse(be.right) + ")";
+      }
+
+    case "UnaryExpression":
+      {
+        var ue = e;
+        return "" + ue.operator + unparse(ue.argument);
+      }
+
+    case "Identifier":
+      {
+        return e.name;
+      }
+
+    case "Literal":
+      {
+        return e.raw;
+      }
+
+    default:
+      return "TODO";
+  }
 }
+
 var JDExprEvaluator = /*#__PURE__*/function () {
-  function JDExprEvaluator(env) {
+  function JDExprEvaluator(env, start) {
     this.exprStack = [];
     this.env = env;
+    this.start = start;
   }
 
   var _proto = JDExprEvaluator.prototype;
@@ -2774,6 +2830,9 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
           switch (callee.name) {
             case "start":
+              this.exprStack.push(this.start.find(function (r) {
+                return r.e === caller;
+              }).v);
               return;
 
             default: // ERROR
@@ -2912,56 +2971,369 @@ var JDExprEvaluator = /*#__PURE__*/function () {
   };
 
   return JDExprEvaluator;
-}(); // TODO: subscribe to events on the bus to get updates about the device' registers
-// TODO: allow subscribers to test event JDEventSource
+}();
 
-var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource) {
-  Object(inheritsLoose["a" /* default */])(JDTestRunner, _JDEventSource);
-
-  function JDTestRunner(testRunner, specification) {
-    var _this;
-
-    _this = _JDEventSource.call(this) || this; // collect up the start(expr) calls
-
-    _this._status = JDTestStatus.NotReady;
-    _this.startExpressions = [];
-    _this.testRunner = testRunner;
-    _this.specification = specification;
-
-    _this.specification.commands.forEach(function (cmd) {
-      var starts = Object(index_browser_esm["a" /* JSONPath */])({
-        path: "$..*[?(@.type=='CallExpression')]",
-        json: cmd.call.arguments
-      }).filter(function (ce) {
-        return ce.callee.name === "start";
-      });
-      starts.forEach(function (s) {
-        if (_this.startExpressions.indexOf(s) < 0) _this.startExpressions.push(s);
-      });
-    });
-
-    return _this;
+var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
+  function JDCommandEvaluator(env, command) {
+    this._prompt = "";
+    this._progress = 0.0;
+    this._status = JDCommandStatus.Active;
+    this._startExpressions = [];
+    this.env = env;
+    this.command = command;
   }
 
-  var _proto2 = JDTestRunner.prototype;
-
-  _proto2.reset = function reset() {
-    this.output = undefined;
-    this.status = JDTestStatus.NotReady;
-  };
+  var _proto2 = JDCommandEvaluator.prototype;
 
   _proto2.start = function start() {
-    this.status = JDTestStatus.Active; // evaluate the start conditions and create environment map
+    var _this = this;
+
+    this._startExpressions = [];
+    var testFun = cmdToTestFunction(this.command);
+    var args = this.command.call.arguments;
+    var startExprs = [];
+
+    switch (testFun.id) {
+      case "check":
+        {
+          startExprs = Object(index_browser_esm["a" /* JSONPath */])({
+            path: "$..*[?(@.type=='CallExpression')]",
+            json: args
+          }).filter(function (ce) {
+            return ce.callee.name === "start";
+          }).map(function (ce) {
+            return ce.arguments[0];
+          });
+          break;
+        }
+
+      case "changes":
+      case "increases":
+      case "decreases":
+        {
+          startExprs.push(args[0]);
+          break;
+        }
+
+      case "increasesBy":
+      case "decreasesBy":
+        {
+          startExprs.push(args[0]);
+          startExprs.push(args[1]);
+          break;
+        }
+
+      case "rangesFromUpTo":
+      case "rangesFromDownTo":
+        {
+          startExprs.push(args[1]);
+          startExprs.push(args[2]);
+          break;
+        }
+    } // evaluate the start expressions and store the results
+
+
+    startExprs.forEach(function (child) {
+      if (_this._startExpressions.findIndex(function (r) {
+        return r.e === child;
+      }) < 0) {
+        var exprEval = new JDExprEvaluator(_this.env, []);
+
+        _this._startExpressions.push({
+          e: child,
+          v: exprEval.eval(child)
+        });
+      }
+    });
+    this.createPrompt();
   };
 
-  _proto2.cancel = function cancel() {
-    // TODO
-    if (this.status === JDTestStatus.Active) this.status = JDTestStatus.Failed;
+  _proto2.createPrompt = function createPrompt() {
+    var _this2 = this;
+
+    var testFun = cmdToTestFunction(this.command);
+    var replace = this.command.call.arguments.map(function (a, i) {
+      return ["{" + (i + 1) + "}", unparse(a)];
+    });
+    this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
+    replace.forEach(function (p) {
+      return _this2._prompt = _this2._prompt.replace(p[0], p[1]);
+    });
   };
 
-  _proto2.finish = function finish(s) {
-    this.status = s;
-    this.testRunner.finishTest();
+  _proto2.evaluate = function evaluate() {
+    var testFun = cmdToTestFunction(this.command);
+    this._status = JDCommandStatus.Active;
+    this._progress = undefined;
+
+    switch (testFun.id) {
+      case "say":
+      case "ask":
+        {
+          this._status = testFun.id === "say" ? JDCommandStatus.Passed : JDCommandStatus.RequiresUserInput;
+          break;
+        }
+
+      case "check":
+        {
+          var expr = new JDExprEvaluator(this.env, this._startExpressions);
+          var ev = expr.eval(this.command.call.arguments[0]);
+          this._status = ev ? JDCommandStatus.Passed : JDCommandStatus.Active;
+          break;
+        }
+
+      case "changes":
+      case "increases":
+      case "decreases":
+        {
+          var reg = this.command.call.arguments[0];
+
+          var regSaved = this._startExpressions.find(function (r) {
+            return r.e === reg;
+          });
+
+          var regValue = this.env[unparse(reg)];
+
+          var _ref = testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v ? [JDCommandStatus.Passed, 1.0] : [JDCommandStatus.Active, 0.0],
+              status = _ref[0],
+              progress = _ref[1];
+
+          this._status = status;
+          this._progress = progress;
+          regSaved.v = regValue;
+          break;
+        }
+
+      case "increasesBy":
+      case "decreasesBy":
+        {
+          var _reg = this.command.call.arguments[0];
+
+          var _regSaved = this._startExpressions.find(function (r) {
+            return r.e === _reg;
+          });
+
+          var amt = this.command.call.arguments[1];
+
+          var amtSaved = this._startExpressions.find(function (r) {
+            return r.e === amt;
+          });
+
+          var _regValue = this.env[unparse(_reg)];
+
+          if (testFun.id === "increasesBy") {
+            if (_regValue === _regSaved.v + amtSaved.v) {
+              this._status = JDCommandStatus.Passed;
+              this._progress = 1.0;
+            } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v.v + amtSaved.v) {
+              this._status = JDCommandStatus.Active;
+              this._progress = (_regValue - _regSaved.v) / amtSaved.v;
+            } else {
+              this._status = JDCommandStatus.Active;
+            }
+          } else {
+            if (_regValue === _regSaved.v - amtSaved.v) {
+              this._status = JDCommandStatus.Passed;
+              this._progress = 1.0;
+            } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v.v - amtSaved.v) {
+              this._status = JDCommandStatus.Active;
+              this._progress = (_regSaved.v - _regValue) / amtSaved.v;
+            } else {
+              this._status = JDCommandStatus.Active;
+            }
+          }
+
+          break;
+        }
+
+      case "rangesFromUpTo":
+      case "rangesFromDownTo":
+        {
+          break;
+        }
+    }
+  };
+
+  Object(createClass["a" /* default */])(JDCommandEvaluator, [{
+    key: "prompt",
+    get: function get() {
+      return this._prompt;
+    }
+  }, {
+    key: "status",
+    get: function get() {
+      return this._status;
+    }
+  }, {
+    key: "progress",
+    get: function get() {
+      return this._progress;
+    }
+  }]);
+
+  return JDCommandEvaluator;
+}();
+
+var testrunner_JDCommandRunner = /*#__PURE__*/function (_JDEventSource) {
+  Object(inheritsLoose["a" /* default */])(JDCommandRunner, _JDEventSource);
+
+  // timeout
+  function JDCommandRunner(testRunner, env, command) {
+    var _this3;
+
+    _this3 = _JDEventSource.call(this) || this;
+    _this3._status = JDCommandStatus.NotReady;
+    _this3._output = {
+      message: "",
+      progress: 0.0
+    };
+    _this3._timeOut = 5000;
+    _this3._timeLeft = 5000;
+    _this3._commmandEvaluator = null;
+    _this3.testRunner = testRunner;
+    _this3.env = env;
+    _this3.command = command;
+    return _this3;
+  }
+
+  var _proto3 = JDCommandRunner.prototype;
+
+  _proto3.reset = function reset() {
+    this.output = {
+      message: "",
+      progress: 0.0
+    };
+    this.status = JDCommandStatus.NotReady;
+    this._commmandEvaluator = null;
+  };
+
+  _proto3.start = function start() {
+    this.status = JDCommandStatus.Active;
+    this._commmandEvaluator = new testrunner_JDCommandEvaluator(this.env, this.command);
+
+    this._commmandEvaluator.start();
+
+    this.envChange(false);
+    this.envChange(true);
+  };
+
+  _proto3.envChange = function envChange(finish) {
+    if (finish === void 0) {
+      finish = true;
+    }
+
+    if (this._commmandEvaluator) {
+      this._commmandEvaluator.evaluate();
+
+      var newOutput = {
+        message: this._commmandEvaluator.prompt,
+        progress: this._commmandEvaluator.progress
+      };
+      this.output = newOutput;
+      if (finish) this.finish(this._commmandEvaluator.status);
+    }
+  };
+
+  _proto3.cancel = function cancel() {
+    this.finish(JDCommandStatus.Failed);
+  };
+
+  _proto3.finish = function finish(s) {
+    if ((s === JDCommandStatus.Failed || s === JDCommandStatus.Passed) && (this.status === JDCommandStatus.Active || this.status === JDCommandStatus.RequiresUserInput)) {
+      this.status = s;
+      this.testRunner.finishCommand();
+    }
+  };
+
+  Object(createClass["a" /* default */])(JDCommandRunner, [{
+    key: "status",
+    get: function get() {
+      return this._status;
+    },
+    set: function set(s) {
+      if (s != this._status) {
+        this._status = s;
+        this.emit(constants["s" /* CHANGE */]);
+      }
+    }
+  }, {
+    key: "indeterminate",
+    get: function get() {
+      return this.status !== JDCommandStatus.Failed && this.status !== JDCommandStatus.Passed;
+    }
+  }, {
+    key: "output",
+    get: function get() {
+      return this._output;
+    },
+    set: function set(value) {
+      if (!this._output || this._output.message !== value.message || this._output.progress !== value.progress) {
+        this._output = value;
+        this.emit(constants["s" /* CHANGE */]);
+      }
+    }
+  }]);
+
+  return JDCommandRunner;
+}(eventsource["a" /* JDEventSource */]);
+var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
+  Object(inheritsLoose["a" /* default */])(JDTestRunner, _JDEventSource2);
+
+  function JDTestRunner(serviceTestRunner, env, testSpec) {
+    var _this4;
+
+    _this4 = _JDEventSource2.call(this) || this;
+    _this4._status = JDTestStatus.NotReady;
+    _this4.serviceTestRunner = serviceTestRunner;
+    _this4.env = env;
+    _this4.testSpec = testSpec;
+    _this4.commands = testSpec.commands.map(function (c) {
+      return new testrunner_JDCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), _this4.env, c);
+    });
+    _this4._description = testSpec.description;
+    return _this4;
+  }
+
+  var _proto4 = JDTestRunner.prototype;
+
+  _proto4.reset = function reset() {
+    this.status = JDTestStatus.NotReady;
+    this.commands.forEach(function (t) {
+      return t.reset();
+    });
+  };
+
+  _proto4.ready = function ready() {
+    if (this.status === JDTestStatus.NotReady) this.status = JDTestStatus.ReadyToRun;
+  };
+
+  _proto4.start = function start() {
+    if (this.status === JDTestStatus.ReadyToRun) {
+      this.status = JDTestStatus.Active;
+      this.commandIndex = 0;
+    }
+  };
+
+  _proto4.cancel = function cancel() {
+    this.finish(JDTestStatus.Failed);
+  };
+
+  _proto4.finish = function finish(s) {
+    if (this.status === JDTestStatus.Active) {
+      this.status = s;
+      this.serviceTestRunner.finishTest();
+    }
+  };
+
+  _proto4.envChange = function envChange() {
+    var _this$currentCommand;
+
+    (_this$currentCommand = this.currentCommand) === null || _this$currentCommand === void 0 ? void 0 : _this$currentCommand.envChange();
+  };
+
+  _proto4.finishCommand = function finishCommand() {
+    if (this.commandIndex === this.commands.length - 1) this.finish(commandStatusToTestStatus(this.currentCommand.status)); // (this.commandIndex < this.commands.length)
+    else this.commandIndex++;
   };
 
   Object(createClass["a" /* default */])(JDTestRunner, [{
@@ -2978,18 +3350,31 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource) {
   }, {
     key: "indeterminate",
     get: function get() {
-      return this.status !== JDTestStatus.NotReady && this.status !== JDTestStatus.Active;
+      return this.status !== JDTestStatus.Failed && this.status !== JDTestStatus.Passed;
     }
   }, {
-    key: "output",
+    key: "description",
     get: function get() {
-      return this._output;
+      return this._description;
+    }
+  }, {
+    key: "commandIndex",
+    get: function get() {
+      return this._commandIndex;
     },
-    set: function set(value) {
-      if (this._output !== value) {
-        this._output = value;
+    set: function set(index) {
+      if (this._commandIndex !== index) {
+        var _this$currentCommand2;
+
+        this._commandIndex = index;
+        (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.start();
         this.emit(constants["s" /* CHANGE */]);
       }
+    }
+  }, {
+    key: "currentCommand",
+    get: function get() {
+      return this.commands[this._commandIndex];
     }
   }]);
 
@@ -2998,31 +3383,54 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource) {
 var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   Object(inheritsLoose["a" /* default */])(JDServiceTestRunner, _JDServiceClient);
 
-  function JDServiceTestRunner(specification, service) {
-    var _this2;
+  function JDServiceTestRunner(testSpec, service) {
+    var _this5;
 
-    _this2 = _JDServiceClient.call(this, service) || this;
-    _this2._testIndex = -1;
-    _this2.specification = specification;
-    _this2.tests = _this2.specification.tests.map(function (t) {
-      return new testrunner_JDTestRunner(Object(assertThisInitialized["a" /* default */])(_this2), t);
+    _this5 = _JDServiceClient.call(this, service) || this;
+    _this5._testIndex = -1;
+    _this5.registers = {};
+    _this5.environment = {};
+    _this5.testSpec = testSpec;
+    _this5.tests = _this5.testSpec.tests.map(function (t) {
+      return new testrunner_JDTestRunner(Object(assertThisInitialized["a" /* default */])(_this5), _this5.environment, t);
+    });
+    var serviceSpec = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(service.serviceClass);
+
+    _this5.testSpec.tests.forEach(function (t) {
+      t.registers.forEach(function (regName) {
+        if (!_this5.registers[regName]) {
+          var pkt = serviceSpec.packets.find(function (pkt) {
+            return pkt.name === regName;
+          });
+          var register = service.register(pkt.identifier);
+          _this5.registers[regName] = register;
+          _this5.environment[regName] = 0;
+
+          _this5.mount(register.subscribe(constants["s" /* CHANGE */], function () {
+            var _this5$currentTest;
+
+            _this5.environment[regName] = register.intValue;
+            (_this5$currentTest = _this5.currentTest) === null || _this5$currentTest === void 0 ? void 0 : _this5$currentTest.envChange();
+          }));
+        }
+      });
     });
 
-    _this2.start();
+    _this5.start();
 
-    return _this2;
+    return _this5;
   }
 
-  var _proto3 = JDServiceTestRunner.prototype;
+  var _proto5 = JDServiceTestRunner.prototype;
 
-  _proto3.start = function start() {
+  _proto5.start = function start() {
     this.tests.forEach(function (t) {
       return t.reset();
     });
     this.testIndex = 0;
   };
 
-  _proto3.finishTest = function finishTest() {
+  _proto5.finishTest = function finishTest() {
     if (this.testIndex < this.tests.length) {
       this.testIndex++;
     }
@@ -3039,7 +3447,7 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
 
         this._testIndex = index;
         this.emit(constants["s" /* CHANGE */]);
-        (_this$currentTest = this.currentTest) === null || _this$currentTest === void 0 ? void 0 : _this$currentTest.start();
+        (_this$currentTest = this.currentTest) === null || _this$currentTest === void 0 ? void 0 : _this$currentTest.ready();
       }
     }
   }, {
@@ -3252,7 +3660,7 @@ function TestStepper(props) {
   }, commands.map(function (cmd, index) {
     return /*#__PURE__*/react_default.a.createElement(esm_Step_Step, {
       key: index
-    }, /*#__PURE__*/react_default.a.createElement(esm_StepLabel_StepLabel, null, cmdToPrompt(cmd) || "no prompt"), /*#__PURE__*/react_default.a.createElement(esm_StepContent_StepContent, null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    }, /*#__PURE__*/react_default.a.createElement(esm_StepLabel_StepLabel, null, /* Cannot get final name for export "cmdToPrompt" in "./jacdac-ts/src/test/testrunner.ts" (known exports: JDCommandStatus JDTestStatus JDCommandRunner JDTestRunner JDServiceTestRunner, known reexports: ) */ undefined(cmd) || "no prompt"), /*#__PURE__*/react_default.a.createElement(esm_StepContent_StepContent, null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
       container: true,
       spacing: 1,
       direction: "row"
@@ -3335,7 +3743,7 @@ function ServiceTest(props) {
   var serviceSpec = props.serviceSpec,
       showStartSimulator = props.showStartSimulator,
       _props$serviceTest = props.serviceTest,
-      serviceTest = _props$serviceTest === void 0 ? Object(spec["G" /* serviceTestFromServiceSpec */])(serviceSpec) : _props$serviceTest;
+      serviceTest = _props$serviceTest === void 0 ? Object(spec["serviceTestFromServiceSpec"])(serviceSpec) : _props$serviceTest;
   var serviceClass = serviceSpec.classIdentifier;
 
   var _useState2 = Object(react["useState"])(undefined),
@@ -3539,4 +3947,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-e7d25dcc9853cf434543.js.map
+//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-b886bc49a8a77904263e.js.map
