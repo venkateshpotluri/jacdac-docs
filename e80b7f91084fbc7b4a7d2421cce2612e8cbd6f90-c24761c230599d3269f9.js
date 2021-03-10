@@ -1292,6 +1292,27 @@ function PowerButton(props) {
 
 /***/ }),
 
+/***/ "aVfY":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingProgress; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("iae6");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function LoadingProgress(props) {
+  var size = props.size;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+    disableShrink: true,
+    variant: "indeterminate",
+    size: size || "1em"
+  });
+}
+
+/***/ }),
+
 /***/ "asyI":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1569,4 +1590,4 @@ function useAnimationFrame(callback, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=e80b7f91084fbc7b4a7d2421cce2612e8cbd6f90-a54c2061336f7f02cd86.js.map
+//# sourceMappingURL=e80b7f91084fbc7b4a7d2421cce2612e8cbd6f90-c24761c230599d3269f9.js.map

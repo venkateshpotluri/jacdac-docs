@@ -619,6 +619,27 @@ function _toArray(arr) {
 
 /***/ }),
 
+/***/ "aVfY":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingProgress; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("iae6");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function LoadingProgress(props) {
+  var size = props.size;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+    disableShrink: true,
+    variant: "indeterminate",
+    size: size || "1em"
+  });
+}
+
+/***/ }),
+
 /***/ "jjAL":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1018,4 +1039,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9b4f0e4afd1e041d33a9602de8b1b47037d3d041-2c003b6d239aa828cbba.js.map
+//# sourceMappingURL=9b4f0e4afd1e041d33a9602de8b1b47037d3d041-4017e3b139909113a311.js.map

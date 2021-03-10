@@ -531,28 +531,18 @@ function AppDrawer(props) {
     className: classes.drawerHeader
   }, toc && /*#__PURE__*/react_default.a.createElement("div", {
     className: classes.fluid
-  }, /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(DrawerSearchInput, null))), !toc && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(PacketRecorder, null), /*#__PURE__*/react_default.a.createElement("span", {
+  }, /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(DrawerSearchInput, null))), !toc && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(PacketRecorder, null), /*#__PURE__*/react_default.a.createElement("span", {
     className: classes.fluid
   }), /*#__PURE__*/react_default.a.createElement(DrawerToolsButtonGroup["a" /* default */], {
     showConnect: true
   })), /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["IconButton"], {
     "aria-label": "Collapse",
     onClick: handleDrawerClose
-  }, /*#__PURE__*/react_default.a.createElement(ChevronLeft_default.a, null))), /*#__PURE__*/react_default.a.createElement(Divider["a" /* default */], null), showSearchResults && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(DrawerSearchResults, null)), !showSearchResults && drawerType === AppContext["b" /* DrawerType */].Toc && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(Toc, {
+  }, /*#__PURE__*/react_default.a.createElement(ChevronLeft_default.a, null))), /*#__PURE__*/react_default.a.createElement(Divider["a" /* default */], null), showSearchResults && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(DrawerSearchResults, null)), !showSearchResults && drawerType === AppContext["b" /* DrawerType */].Toc && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Toc, {
     pagePath: pagePath
-  })), !showSearchResults && drawerType === AppContext["b" /* DrawerType */].Packets ? /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(PacketView, {
+  })), !showSearchResults && drawerType === AppContext["b" /* DrawerType */].Packets ? /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(PacketView, {
     showTime: true
-  })) : drawerType === AppContext["b" /* DrawerType */].Dom ? /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(JDomTreeView, null)) : undefined);
+  })) : drawerType === AppContext["b" /* DrawerType */].Dom ? /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(JDomTreeView, null)) : undefined);
 }
 
 /***/ }),
@@ -720,4 +710,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=83-02212a0cf856a8878cfc.js.map
+//# sourceMappingURL=83-6b5c8e1f260bee36325a.js.map

@@ -228,6 +228,27 @@ function GithubRepositoryCardHeader(props) {
 
 /***/ }),
 
+/***/ "aVfY":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingProgress; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("iae6");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function LoadingProgress(props) {
+  var size = props.size;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+    disableShrink: true,
+    variant: "indeterminate",
+    size: size || "1em"
+  });
+}
+
+/***/ }),
+
 /***/ "oa/T":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -672,4 +693,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-64eba6a52befb4feaea4.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-6ed73e513a9562fe18ea.js.map

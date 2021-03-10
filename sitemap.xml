@@ -168,6 +168,9 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/sensoraggregator/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/settings/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/settings/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -202,9 +205,6 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/thermocouple/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/thermocouple/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/thermocouple/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/thermometer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/thermometer/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/thermometer/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -234,8 +234,8 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/winddirection/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/windspeed/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/windspeed/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/windspeed/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmaccv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/windspeed/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmarcadebtnv20/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmarcadecontrolsv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmcrankbtnv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>

@@ -6645,9 +6645,7 @@ var AppProvider = function AppProvider(_ref) {
       showDeviceHostsDialog: showDeviceHostsDialog,
       toggleShowDeviceHostsDialog: toggleShowDeviceHostsDialog
     }
-  }, children, showDeviceHostsDialog && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-    hideFallback: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(StartSimulatorDialog, {
+  }, children, showDeviceHostsDialog && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(StartSimulatorDialog, {
     open: showDeviceHostsDialog,
     onClose: toggleShowDeviceHostsDialog
   })));
@@ -12271,13 +12269,9 @@ function LayoutWithContext(props) {
     className: Object(clsx_m["a" /* default */])(darkMode, classes.root)
   }, /*#__PURE__*/react_default.a.createElement("header", null, /*#__PURE__*/react_default.a.createElement(seo, {
     lang: "en"
-  })), !hideMainMenu && /*#__PURE__*/react_default.a.createElement("nav", null, /*#__PURE__*/react_default.a.createElement(MainAppBar, props), drawerType !== AppContext["b" /* DrawerType */].None && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(AppDrawer, {
+  })), !hideMainMenu && /*#__PURE__*/react_default.a.createElement("nav", null, /*#__PURE__*/react_default.a.createElement(MainAppBar, props), drawerType !== AppContext["b" /* DrawerType */].None && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(AppDrawer, {
     pagePath: path
-  })), toolsMenu && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], {
-    hideFallback: true
-  }, /*#__PURE__*/react_default.a.createElement(ToolsDrawer, null))), container ? /*#__PURE__*/react_default.a.createElement(esm_Container_Container, {
+  })), toolsMenu && /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(ToolsDrawer, null))), container ? /*#__PURE__*/react_default.a.createElement(esm_Container_Container, {
     maxWidth: "xl",
     disableGutters: true,
     className: mainClasses
@@ -23150,16 +23144,26 @@ if (false) {}
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("Bf0q");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _LoadingProgress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("aVfY");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Mj6V");
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_2__);
 
 
+
+
+function Fallback() {
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    Object(nprogress__WEBPACK_IMPORTED_MODULE_2__["start"])();
+    return function () {
+      return Object(nprogress__WEBPACK_IMPORTED_MODULE_2__["done"])();
+    };
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null);
+}
 
 function Suspense(props) {
-  var children = props.children,
-      fallback = props.fallback,
-      hideFallback = props.hideFallback;
+  var children = props.children;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1__["Suspense"], {
-    fallback: hideFallback ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null) : fallback || /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_LoadingProgress__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], null)
+    fallback: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Fallback, null)
   }, children));
 }
 
@@ -30969,27 +30973,6 @@ function _arrayLikeToArray(arr, len) {
   }
 
   return arr2;
-}
-
-/***/ }),
-
-/***/ "aVfY":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingProgress; });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("iae6");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function LoadingProgress(props) {
-  var size = props.size;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
-    disableShrink: true,
-    variant: "indeterminate",
-    size: size || "1em"
-  });
 }
 
 /***/ }),
@@ -47002,4 +46985,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-d49f828e55b4f63d917d.js.map
+//# sourceMappingURL=app-ce39f3828244faeebdc8.js.map

@@ -330,6 +330,27 @@ var CardMedia = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fu
 
 /***/ }),
 
+/***/ "aVfY":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoadingProgress; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("iae6");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function LoadingProgress(props) {
+  var size = props.size;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+    disableShrink: true,
+    variant: "indeterminate",
+    size: size || "1em"
+  });
+}
+
+/***/ }),
+
 /***/ "eoX3":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1356,4 +1377,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-role-manager-tsx-76f50a6128376f4fd072.js.map
+//# sourceMappingURL=component---src-pages-tools-role-manager-tsx-78d0082f4b411614cd6d.js.map
