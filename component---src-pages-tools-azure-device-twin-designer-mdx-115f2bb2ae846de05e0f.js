@@ -68,10 +68,10 @@ function MDXContent(_ref) {
     "href": "/jacdac-docs/dtmi/"
   }, "Azure IoT Plug And Play models"), " for services is hosted at ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
     parentName: "p",
-    "href": "https://microsoft.github.io/jacdac-docs/dtmi",
+    "href": "https://jacdac.github.io/dtmi",
     "target": "_blank",
     "rel": "nofollow noopener noreferrer"
-  }, "https://microsoft.github.io/jacdac-docs/dtmi"), " ."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(_components_tools_AzureDeviceTwinDesigner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }, "https://jacdac.github.io/dtmi"), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])(_components_tools_AzureDeviceTwinDesigner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
     mdxType: "AzureDeviceTwinDesigner"
   }));
 }
@@ -99,4 +99,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-mdx-cd89740eb5e1be4188d2.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-mdx-115f2bb2ae846de05e0f.js.map
