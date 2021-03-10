@@ -1797,602 +1797,42 @@ var clsx_m = __webpack_require__("iuhU");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/withStyles.js
 var withStyles = __webpack_require__("H2TA");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Paper/Paper.js
-var Paper = __webpack_require__("kKAo");
-
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/StepConnector/StepConnector.js
+// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/ListItemSecondaryAction/ListItemSecondaryAction.js
 
 
 
 
 
-var StepConnector_styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      flex: '1 1 auto'
-    },
-
-    /* Styles applied to the root element if `orientation="horizontal"`. */
-    horizontal: {},
-
-    /* Styles applied to the root element if `orientation="vertical"`. */
-    vertical: {
-      marginLeft: 12,
-      // half icon
-      padding: '0 0 8px'
-    },
-
-    /* Styles applied to the root element if `alternativeLabel={true}`. */
-    alternativeLabel: {
-      position: 'absolute',
-      top: 8 + 4,
-      left: 'calc(-50% + 20px)',
-      right: 'calc(50% + 20px)'
-    },
-
-    /* Pseudo-class applied to the root element if `active={true}`. */
-    active: {},
-
-    /* Pseudo-class applied to the root element if `completed={true}`. */
-    completed: {},
-
-    /* Pseudo-class applied to the root element if `disabled={true}`. */
-    disabled: {},
-
-    /* Styles applied to the line element. */
-    line: {
-      display: 'block',
-      borderColor: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
-    },
-
-    /* Styles applied to the root element if `orientation="horizontal"`. */
-    lineHorizontal: {
-      borderTopStyle: 'solid',
-      borderTopWidth: 1
-    },
-
-    /* Styles applied to the root element if `orientation="vertical"`. */
-    lineVertical: {
-      borderLeftStyle: 'solid',
-      borderLeftWidth: 1,
-      minHeight: 24
-    }
-  };
-};
-var StepConnector_StepConnector = /*#__PURE__*/react["forwardRef"](function StepConnector(props, ref) {
-  var active = props.active,
-      _props$alternativeLab = props.alternativeLabel,
-      alternativeLabel = _props$alternativeLab === void 0 ? false : _props$alternativeLab,
-      classes = props.classes,
-      className = props.className,
-      completed = props.completed,
-      disabled = props.disabled,
-      index = props.index,
-      _props$orientation = props.orientation,
-      orientation = _props$orientation === void 0 ? 'horizontal' : _props$orientation,
-      other = Object(objectWithoutProperties["a" /* default */])(props, ["active", "alternativeLabel", "classes", "className", "completed", "disabled", "index", "orientation"]);
-
-  return /*#__PURE__*/react["createElement"]("div", Object(esm_extends["a" /* default */])({
-    className: Object(clsx_m["a" /* default */])(classes.root, classes[orientation], className, alternativeLabel && classes.alternativeLabel, active && classes.active, completed && classes.completed, disabled && classes.disabled),
-    ref: ref
-  }, other), /*#__PURE__*/react["createElement"]("span", {
-    className: Object(clsx_m["a" /* default */])(classes.line, {
-      'horizontal': classes.lineHorizontal,
-      'vertical': classes.lineVertical
-    }[orientation])
-  }));
-});
- false ? undefined : void 0;
-/* harmony default export */ var esm_StepConnector_StepConnector = (Object(withStyles["a" /* default */])(StepConnector_styles, {
-  name: 'MuiStepConnector'
-})(StepConnector_StepConnector));
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/Stepper/Stepper.js
-
-
-
-
-
-
-
-var Stepper_styles = {
+var ListItemSecondaryAction_styles = {
   /* Styles applied to the root element. */
   root: {
-    display: 'flex',
-    padding: 24
-  },
-
-  /* Styles applied to the root element if `orientation="horizontal"`. */
-  horizontal: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-
-  /* Styles applied to the root element if `orientation="vertical"`. */
-  vertical: {
-    flexDirection: 'column'
-  },
-
-  /* Styles applied to the root element if `alternativeLabel={true}`. */
-  alternativeLabel: {
-    alignItems: 'flex-start'
+    position: 'absolute',
+    right: 16,
+    top: '50%',
+    transform: 'translateY(-50%)'
   }
 };
-var defaultConnector = /*#__PURE__*/react["createElement"](esm_StepConnector_StepConnector, null);
-var Stepper_Stepper = /*#__PURE__*/react["forwardRef"](function Stepper(props, ref) {
-  var _props$activeStep = props.activeStep,
-      activeStep = _props$activeStep === void 0 ? 0 : _props$activeStep,
-      _props$alternativeLab = props.alternativeLabel,
-      alternativeLabel = _props$alternativeLab === void 0 ? false : _props$alternativeLab,
-      children = props.children,
-      classes = props.classes,
-      className = props.className,
-      _props$connector = props.connector,
-      connectorProp = _props$connector === void 0 ? defaultConnector : _props$connector,
-      _props$nonLinear = props.nonLinear,
-      nonLinear = _props$nonLinear === void 0 ? false : _props$nonLinear,
-      _props$orientation = props.orientation,
-      orientation = _props$orientation === void 0 ? 'horizontal' : _props$orientation,
-      other = Object(objectWithoutProperties["a" /* default */])(props, ["activeStep", "alternativeLabel", "children", "classes", "className", "connector", "nonLinear", "orientation"]);
-
-  var connector = /*#__PURE__*/react["isValidElement"](connectorProp) ? /*#__PURE__*/react["cloneElement"](connectorProp, {
-    orientation: orientation
-  }) : null;
-  var childrenArray = react["Children"].toArray(children);
-  var steps = childrenArray.map(function (step, index) {
-    var state = {
-      index: index,
-      active: false,
-      completed: false,
-      disabled: false
-    };
-
-    if (activeStep === index) {
-      state.active = true;
-    } else if (!nonLinear && activeStep > index) {
-      state.completed = true;
-    } else if (!nonLinear && activeStep < index) {
-      state.disabled = true;
-    }
-
-    return /*#__PURE__*/react["cloneElement"](step, Object(esm_extends["a" /* default */])({
-      alternativeLabel: alternativeLabel,
-      connector: connector,
-      last: index + 1 === childrenArray.length,
-      orientation: orientation
-    }, state, step.props));
-  });
-  return /*#__PURE__*/react["createElement"](Paper["a" /* default */], Object(esm_extends["a" /* default */])({
-    square: true,
-    elevation: 0,
-    className: Object(clsx_m["a" /* default */])(classes.root, classes[orientation], className, alternativeLabel && classes.alternativeLabel),
-    ref: ref
-  }, other), steps);
-});
- false ? undefined : void 0;
-/* harmony default export */ var esm_Stepper_Stepper = (Object(withStyles["a" /* default */])(Stepper_styles, {
-  name: 'MuiStepper'
-})(Stepper_Stepper));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/node_modules/react-is/index.js
-var react_is = __webpack_require__("USxY");
-
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/Step/Step.js
-
-
-
-
-
-
-var Step_styles = {
-  /* Styles applied to the root element. */
-  root: {},
-
-  /* Styles applied to the root element if `orientation="horizontal"`. */
-  horizontal: {
-    paddingLeft: 8,
-    paddingRight: 8
-  },
-
-  /* Styles applied to the root element if `orientation="vertical"`. */
-  vertical: {},
-
-  /* Styles applied to the root element if `alternativeLabel={true}`. */
-  alternativeLabel: {
-    flex: 1,
-    position: 'relative'
-  },
-
-  /* Pseudo-class applied to the root element if `completed={true}`. */
-  completed: {}
-};
-var Step_Step = /*#__PURE__*/react["forwardRef"](function Step(props, ref) {
-  var _props$active = props.active,
-      active = _props$active === void 0 ? false : _props$active,
-      alternativeLabel = props.alternativeLabel,
-      children = props.children,
-      classes = props.classes,
-      className = props.className,
-      _props$completed = props.completed,
-      completed = _props$completed === void 0 ? false : _props$completed,
-      connectorProp = props.connector,
-      _props$disabled = props.disabled,
-      disabled = _props$disabled === void 0 ? false : _props$disabled,
-      _props$expanded = props.expanded,
-      expanded = _props$expanded === void 0 ? false : _props$expanded,
-      index = props.index,
-      last = props.last,
-      orientation = props.orientation,
-      other = Object(objectWithoutProperties["a" /* default */])(props, ["active", "alternativeLabel", "children", "classes", "className", "completed", "connector", "disabled", "expanded", "index", "last", "orientation"]);
-
-  var connector = connectorProp ? /*#__PURE__*/react["cloneElement"](connectorProp, {
-    orientation: orientation,
-    alternativeLabel: alternativeLabel,
-    index: index,
-    active: active,
-    completed: completed,
-    disabled: disabled
-  }) : null;
-  var newChildren = /*#__PURE__*/react["createElement"]("div", Object(esm_extends["a" /* default */])({
-    className: Object(clsx_m["a" /* default */])(classes.root, classes[orientation], className, alternativeLabel && classes.alternativeLabel, completed && classes.completed),
-    ref: ref
-  }, other), connector && alternativeLabel && index !== 0 ? connector : null, react["Children"].map(children, function (child) {
-    if (! /*#__PURE__*/react["isValidElement"](child)) {
-      return null;
-    }
-
-    if (false) {}
-
-    return /*#__PURE__*/react["cloneElement"](child, Object(esm_extends["a" /* default */])({
-      active: active,
-      alternativeLabel: alternativeLabel,
-      completed: completed,
-      disabled: disabled,
-      expanded: expanded,
-      last: last,
-      icon: index + 1,
-      orientation: orientation
-    }, child.props));
-  }));
-
-  if (connector && !alternativeLabel && index !== 0) {
-    return /*#__PURE__*/react["createElement"](react["Fragment"], null, connector, newChildren);
-  }
-
-  return newChildren;
-});
- false ? undefined : void 0;
-/* harmony default export */ var esm_Step_Step = (Object(withStyles["a" /* default */])(Step_styles, {
-  name: 'MuiStep'
-})(Step_Step));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
-var Typography = __webpack_require__("ofer");
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/createSvgIcon.js
-var createSvgIcon = __webpack_require__("5AJ6");
-
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/internal/svg-icons/CheckCircle.js
-
-
 /**
- * @ignore - internal component.
+ * Must be used as the last child of ListItem to function properly.
  */
 
-/* harmony default export */ var CheckCircle = (Object(createSvgIcon["a" /* default */])( /*#__PURE__*/react["createElement"]("path", {
-  d: "M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm-2 17l-5-5 1.4-1.4 3.6 3.6 7.6-7.6L19 8l-9 9z"
-}), 'CheckCircle'));
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/internal/svg-icons/Warning.js
-
-
-/**
- * @ignore - internal component.
- */
-
-/* harmony default export */ var Warning = (Object(createSvgIcon["a" /* default */])( /*#__PURE__*/react["createElement"]("path", {
-  d: "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
-}), 'Warning'));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js
-var SvgIcon = __webpack_require__("HR5l");
-
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/StepIcon/StepIcon.js
-
-
-
-
-
-
-var StepIcon_styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      display: 'block',
-      color: theme.palette.text.disabled,
-      '&$completed': {
-        color: theme.palette.primary.main
-      },
-      '&$active': {
-        color: theme.palette.primary.main
-      },
-      '&$error': {
-        color: theme.palette.error.main
-      }
-    },
-
-    /* Styles applied to the SVG text element. */
-    text: {
-      fill: theme.palette.primary.contrastText,
-      fontSize: theme.typography.caption.fontSize,
-      fontFamily: theme.typography.fontFamily
-    },
-
-    /* Pseudo-class applied to the root element if `active={true}`. */
-    active: {},
-
-    /* Pseudo-class applied to the root element if `completed={true}`. */
-    completed: {},
-
-    /* Pseudo-class applied to the root element if `error={true}`. */
-    error: {}
-  };
-};
-
-var _ref = /*#__PURE__*/react["createElement"]("circle", {
-  cx: "12",
-  cy: "12",
-  r: "12"
-});
-
-var StepIcon_StepIcon = /*#__PURE__*/react["forwardRef"](function StepIcon(props, ref) {
-  var _props$completed = props.completed,
-      completed = _props$completed === void 0 ? false : _props$completed,
-      icon = props.icon,
-      _props$active = props.active,
-      active = _props$active === void 0 ? false : _props$active,
-      _props$error = props.error,
-      error = _props$error === void 0 ? false : _props$error,
-      classes = props.classes;
-
-  if (typeof icon === 'number' || typeof icon === 'string') {
-    var className = Object(clsx_m["a" /* default */])(classes.root, active && classes.active, error && classes.error, completed && classes.completed);
-
-    if (error) {
-      return /*#__PURE__*/react["createElement"](Warning, {
-        className: className,
-        ref: ref
-      });
-    }
-
-    if (completed) {
-      return /*#__PURE__*/react["createElement"](CheckCircle, {
-        className: className,
-        ref: ref
-      });
-    }
-
-    return /*#__PURE__*/react["createElement"](SvgIcon["a" /* default */], {
-      className: className,
-      ref: ref
-    }, _ref, /*#__PURE__*/react["createElement"]("text", {
-      className: classes.text,
-      x: "12",
-      y: "16",
-      textAnchor: "middle"
-    }, icon));
-  }
-
-  return icon;
-});
- false ? undefined : void 0;
-/* harmony default export */ var esm_StepIcon_StepIcon = (Object(withStyles["a" /* default */])(StepIcon_styles, {
-  name: 'MuiStepIcon'
-})(StepIcon_StepIcon));
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/StepLabel/StepLabel.js
-
-
-
-
-
-
-
-var StepLabel_styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      display: 'flex',
-      alignItems: 'center',
-      '&$alternativeLabel': {
-        flexDirection: 'column'
-      },
-      '&$disabled': {
-        cursor: 'default'
-      }
-    },
-
-    /* Styles applied to the root element if `orientation="horizontal"`. */
-    horizontal: {},
-
-    /* Styles applied to the root element if `orientation="vertical"`. */
-    vertical: {},
-
-    /* Styles applied to the `Typography` component which wraps `children`. */
-    label: {
-      color: theme.palette.text.secondary,
-      '&$active': {
-        color: theme.palette.text.primary,
-        fontWeight: 500
-      },
-      '&$completed': {
-        color: theme.palette.text.primary,
-        fontWeight: 500
-      },
-      '&$alternativeLabel': {
-        textAlign: 'center',
-        marginTop: 16
-      },
-      '&$error': {
-        color: theme.palette.error.main
-      }
-    },
-
-    /* Pseudo-class applied to the `Typography` component if `active={true}`. */
-    active: {},
-
-    /* Pseudo-class applied to the `Typography` component if `completed={true}`. */
-    completed: {},
-
-    /* Pseudo-class applied to the root element and `Typography` component if `error={true}`. */
-    error: {},
-
-    /* Pseudo-class applied to the root element and `Typography` component if `disabled={true}`. */
-    disabled: {},
-
-    /* Styles applied to the `icon` container element. */
-    iconContainer: {
-      flexShrink: 0,
-      // Fix IE 11 issue
-      display: 'flex',
-      paddingRight: 8,
-      '&$alternativeLabel': {
-        paddingRight: 0
-      }
-    },
-
-    /* Pseudo-class applied to the root and icon container and `Typography` if `alternativeLabel={true}`. */
-    alternativeLabel: {},
-
-    /* Styles applied to the container element which wraps `Typography` and `optional`. */
-    labelContainer: {
-      width: '100%'
-    }
-  };
-};
-var StepLabel_StepLabel = /*#__PURE__*/react["forwardRef"](function StepLabel(props, ref) {
-  var _props$active = props.active,
-      active = _props$active === void 0 ? false : _props$active,
-      _props$alternativeLab = props.alternativeLabel,
-      alternativeLabel = _props$alternativeLab === void 0 ? false : _props$alternativeLab,
-      children = props.children,
-      classes = props.classes,
+var ListItemSecondaryAction_ListItemSecondaryAction = /*#__PURE__*/react["forwardRef"](function ListItemSecondaryAction(props, ref) {
+  var classes = props.classes,
       className = props.className,
-      _props$completed = props.completed,
-      completed = _props$completed === void 0 ? false : _props$completed,
-      _props$disabled = props.disabled,
-      disabled = _props$disabled === void 0 ? false : _props$disabled,
-      _props$error = props.error,
-      error = _props$error === void 0 ? false : _props$error,
-      expanded = props.expanded,
-      icon = props.icon,
-      last = props.last,
-      optional = props.optional,
-      _props$orientation = props.orientation,
-      orientation = _props$orientation === void 0 ? 'horizontal' : _props$orientation,
-      StepIconComponentProp = props.StepIconComponent,
-      StepIconProps = props.StepIconProps,
-      other = Object(objectWithoutProperties["a" /* default */])(props, ["active", "alternativeLabel", "children", "classes", "className", "completed", "disabled", "error", "expanded", "icon", "last", "optional", "orientation", "StepIconComponent", "StepIconProps"]);
-
-  var StepIconComponent = StepIconComponentProp;
-
-  if (icon && !StepIconComponent) {
-    StepIconComponent = esm_StepIcon_StepIcon;
-  }
-
-  return /*#__PURE__*/react["createElement"]("span", Object(esm_extends["a" /* default */])({
-    className: Object(clsx_m["a" /* default */])(classes.root, classes[orientation], className, disabled && classes.disabled, alternativeLabel && classes.alternativeLabel, error && classes.error),
-    ref: ref
-  }, other), icon || StepIconComponent ? /*#__PURE__*/react["createElement"]("span", {
-    className: Object(clsx_m["a" /* default */])(classes.iconContainer, alternativeLabel && classes.alternativeLabel)
-  }, /*#__PURE__*/react["createElement"](StepIconComponent, Object(esm_extends["a" /* default */])({
-    completed: completed,
-    active: active,
-    error: error,
-    icon: icon
-  }, StepIconProps))) : null, /*#__PURE__*/react["createElement"]("span", {
-    className: classes.labelContainer
-  }, children ? /*#__PURE__*/react["createElement"](Typography["a" /* default */], {
-    variant: "body2",
-    component: "span",
-    display: "block",
-    className: Object(clsx_m["a" /* default */])(classes.label, alternativeLabel && classes.alternativeLabel, completed && classes.completed, active && classes.active, error && classes.error)
-  }, children) : null, optional));
-});
- false ? undefined : void 0;
-StepLabel_StepLabel.muiName = 'StepLabel';
-/* harmony default export */ var esm_StepLabel_StepLabel = (Object(withStyles["a" /* default */])(StepLabel_styles, {
-  name: 'MuiStepLabel'
-})(StepLabel_StepLabel));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Collapse/Collapse.js
-var Collapse = __webpack_require__("JQEk");
-
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/StepContent/StepContent.js
-
-
-
-
-
-
-var StepContent_styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      marginTop: 8,
-      marginLeft: 12,
-      // half icon
-      paddingLeft: 8 + 12,
-      // margin + half icon
-      paddingRight: 8,
-      borderLeft: "1px solid ".concat(theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600])
-    },
-
-    /* Styles applied to the root element if `last={true}` (controlled by `Step`). */
-    last: {
-      borderLeft: 'none'
-    },
-
-    /* Styles applied to the Transition component. */
-    transition: {}
-  };
-};
-var StepContent_StepContent = /*#__PURE__*/react["forwardRef"](function StepContent(props, ref) {
-  var active = props.active,
-      alternativeLabel = props.alternativeLabel,
-      children = props.children,
-      classes = props.classes,
-      className = props.className,
-      completed = props.completed,
-      expanded = props.expanded,
-      last = props.last,
-      optional = props.optional,
-      orientation = props.orientation,
-      _props$TransitionComp = props.TransitionComponent,
-      TransitionComponent = _props$TransitionComp === void 0 ? Collapse["a" /* default */] : _props$TransitionComp,
-      _props$transitionDura = props.transitionDuration,
-      transitionDurationProp = _props$transitionDura === void 0 ? 'auto' : _props$transitionDura,
-      TransitionProps = props.TransitionProps,
-      other = Object(objectWithoutProperties["a" /* default */])(props, ["active", "alternativeLabel", "children", "classes", "className", "completed", "expanded", "last", "optional", "orientation", "TransitionComponent", "transitionDuration", "TransitionProps"]);
-
-  if (false) {}
-
-  var transitionDuration = transitionDurationProp;
-
-  if (transitionDurationProp === 'auto' && !TransitionComponent.muiSupportAuto) {
-    transitionDuration = undefined;
-  }
+      other = Object(objectWithoutProperties["a" /* default */])(props, ["classes", "className"]);
 
   return /*#__PURE__*/react["createElement"]("div", Object(esm_extends["a" /* default */])({
-    className: Object(clsx_m["a" /* default */])(classes.root, className, last && classes.last),
+    className: Object(clsx_m["a" /* default */])(classes.root, className),
     ref: ref
-  }, other), /*#__PURE__*/react["createElement"](TransitionComponent, Object(esm_extends["a" /* default */])({
-    in: active || expanded,
-    className: classes.transition,
-    timeout: transitionDuration,
-    unmountOnExit: true
-  }, TransitionProps), children));
+  }, other));
 });
  false ? undefined : void 0;
-/* harmony default export */ var esm_StepContent_StepContent = (Object(withStyles["a" /* default */])(StepContent_styles, {
-  name: 'MuiStepContent'
-})(StepContent_StepContent));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
-var Grid = __webpack_require__("tRbT");
+ListItemSecondaryAction_ListItemSecondaryAction.muiName = 'ListItemSecondaryAction';
+/* harmony default export */ var esm_ListItemSecondaryAction_ListItemSecondaryAction = (Object(withStyles["a" /* default */])(ListItemSecondaryAction_styles, {
+  name: 'MuiListItemSecondaryAction'
+})(ListItemSecondaryAction_ListItemSecondaryAction));
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__("ofer");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
 var Box = __webpack_require__("hlFM");
@@ -2664,6 +2104,9 @@ var LinearProgress_LinearProgress = /*#__PURE__*/react["forwardRef"](function Li
 /* harmony default export */ var esm_LinearProgress_LinearProgress = (Object(withStyles["a" /* default */])(LinearProgress_styles, {
   name: 'MuiLinearProgress'
 })(LinearProgress_LinearProgress));
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__("tRbT");
+
 // EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/AlertTitle/AlertTitle.js
 var AlertTitle = __webpack_require__("DObr");
 
@@ -2683,9 +2126,27 @@ var hosts = __webpack_require__("y+c1");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__("c5x+");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
-var spec = __webpack_require__("Z8Ma");
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/dist/services-tests.json
+var services_tests = __webpack_require__("sh2y");
 
+// CONCATENATED MODULE: ./jacdac-ts/src/jdom/test.ts
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+var _serviceTests = services_tests;
+/**
+ * Given a service specification, see if it has a test
+ * @param spec
+ */
+
+function serviceTestFromServiceSpec(spec) {
+  return !!spec && _serviceTests.find(function (test) {
+    return test.serviceClassIdentifier === spec.classIdentifier;
+  });
+}
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__("JX7q");
 
@@ -2709,6 +2170,9 @@ var serviceclient = __webpack_require__("eoX3");
 
 // EXTERNAL MODULE: ./jacdac-ts/node_modules/jsonpath-plus/dist/index-browser-esm.js
 var index_browser_esm = __webpack_require__("faLi");
+
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
+var spec = __webpack_require__("Z8Ma");
 
 // CONCATENATED MODULE: ./jacdac-ts/src/test/testrunner.ts
 
@@ -3521,8 +2985,8 @@ var Error = __webpack_require__("lPg6");
 var Error_default = /*#__PURE__*/__webpack_require__.n(Error);
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/CheckCircle.js
-var icons_CheckCircle = __webpack_require__("oTnw");
-var CheckCircle_default = /*#__PURE__*/__webpack_require__.n(icons_CheckCircle);
+var CheckCircle = __webpack_require__("oTnw");
+var CheckCircle_default = /*#__PURE__*/__webpack_require__.n(CheckCircle);
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/HourglassEmpty.js
 var HourglassEmpty = __webpack_require__("rsPu");
@@ -3587,6 +3051,11 @@ function TestStatusIcon(props) {
   });
 
   switch (status) {
+    case JDTestStatus.ReadyToRun:
+      return /*#__PURE__*/react_default.a.createElement(PlayCircleFilled_default.a, {
+        color: "action"
+      });
+
     case JDTestStatus.Active:
       return /*#__PURE__*/react_default.a.createElement(PlayCircleFilled_default.a, {
         color: "action"
@@ -3611,8 +3080,9 @@ function TestStatusIcon(props) {
 
 function TestListItem(props) {
   var test = props.test;
-  var specification = test.specification;
-  var description = specification.description;
+  var description = Object(useChange["a" /* default */])(test, function (t) {
+    return t.description;
+  });
   return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
     test: test
   })), /*#__PURE__*/react_default.a.createElement(ListItemText["a" /* default */], {
@@ -3633,64 +3103,118 @@ function TestList(props) {
   }))));
 }
 
-function TestStepper(props) {
-  var test = props.test;
-  var specification = test.specification;
-  var commands = specification.commands;
+function CommandStatusIcon(props) {
+  var command = props.command;
+  var status = Object(useChange["a" /* default */])(command, function (c) {
+    return c.status;
+  });
 
-  var _useState = Object(react["useState"])(0),
-      activeCommand = _useState[0],
-      setActiveCommand = _useState[1];
+  switch (status) {
+    case JDCommandStatus.Active:
+    case JDCommandStatus.RequiresUserInput:
+      return /*#__PURE__*/react_default.a.createElement(PlayCircleFilled_default.a, {
+        color: "action"
+      });
 
-  var handleNext = function handleNext() {
-    setActiveCommand(function (prev) {
-      return prev + 1;
-    });
-  };
+    case JDCommandStatus.Failed:
+      return /*#__PURE__*/react_default.a.createElement(Error_default.a, {
+        color: "error"
+      });
 
-  var handleClose = function handleClose(status) {
+    case JDCommandStatus.Passed:
+      return /*#__PURE__*/react_default.a.createElement(CheckCircle_default.a, {
+        color: "primary"
+      });
+
+    default:
+      return /*#__PURE__*/react_default.a.createElement(HourglassEmpty_default.a, {
+        color: "disabled"
+      });
+  }
+}
+
+function CommandListItem(props) {
+  var command = props.command;
+
+  var _useChange = Object(useChange["a" /* default */])(command, function (c) {
+    return c.output;
+  }),
+      message = _useChange.message,
+      progress = _useChange.progress;
+
+  var status = Object(useChange["a" /* default */])(command, function (c) {
+    return c.status;
+  });
+
+  var handleAnswer = function handleAnswer(status) {
     return function () {
-      return test.finish(status);
+      return command.finish(status);
     };
   };
 
-  return /*#__PURE__*/react_default.a.createElement(esm_Stepper_Stepper, {
-    activeStep: activeCommand,
-    orientation: "vertical"
-  }, commands.map(function (cmd, index) {
-    return /*#__PURE__*/react_default.a.createElement(esm_Step_Step, {
-      key: index
-    }, /*#__PURE__*/react_default.a.createElement(esm_StepLabel_StepLabel, null, /* Cannot get final name for export "cmdToPrompt" in "./jacdac-ts/src/test/testrunner.ts" (known exports: JDCommandStatus JDTestStatus JDCommandRunner JDTestRunner JDServiceTestRunner, known reexports: ) */ undefined(cmd) || "no prompt"), /*#__PURE__*/react_default.a.createElement(esm_StepContent_StepContent, null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-      container: true,
-      spacing: 1,
-      direction: "row"
-    }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-      item: true
-    }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-      variant: "outlined",
-      onClick: handleNext
-    }, "Next")), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-      item: true
-    }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-      variant: "outlined",
-      onClick: handleClose(JDTestStatus.Passed)
-    }, "Yes")), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-      item: true
-    }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-      variant: "outlined",
-      onClick: handleClose(JDTestStatus.Failed)
-    }, "No")))));
-  }));
+  return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CommandStatusIcon, {
+    command: command
+  })), /*#__PURE__*/react_default.a.createElement(ListItemText["a" /* default */], {
+    primary: message,
+    secondary: !progress ? "" : progress.toString()
+  }), status === JDCommandStatus.RequiresUserInput && /*#__PURE__*/react_default.a.createElement(esm_ListItemSecondaryAction_ListItemSecondaryAction, null, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleAnswer(JDCommandStatus.Passed)
+  }, "Yes"), /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleAnswer(JDCommandStatus.Failed)
+  }, "No")));
+} // TODO: end of test
+
+
+function CommandList(props) {
+  var test = props.test;
+  var commands = test.commands;
+  var status = Object(useChange["a" /* default */])(test, function (t) {
+    return t.status;
+  });
+
+  var handleRun = function handleRun() {
+    return test.start();
+  };
+
+  var handleReset = function handleReset() {
+    test.reset();
+    test.ready();
+  };
+
+  var handleCancel = function handleCancel() {
+    test.cancel();
+  };
+
+  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, status === JDTestStatus.ReadyToRun && /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleRun
+  }, "Run"), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleReset
+  }, "Reset"), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleCancel
+  }, "Cancel"), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
+    dense: false
+  }, commands.map(function (cmd, i) {
+    return /*#__PURE__*/react_default.a.createElement(CommandListItem, {
+      key: i,
+      command: cmd
+    });
+  }))));
 }
 
 function ActiveTest(props) {
   var test = props.test;
-  var specification = test.specification;
-  var description = specification.description;
+  var description = Object(useChange["a" /* default */])(test, function (t) {
+    return t.description;
+  });
   return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
     variant: "h5",
     component: "h2"
-  }, description), /*#__PURE__*/react_default.a.createElement(TestStepper, {
+  }, description), /*#__PURE__*/react_default.a.createElement(CommandList, {
     test: test
   })));
 }
@@ -3743,12 +3267,12 @@ function ServiceTest(props) {
   var serviceSpec = props.serviceSpec,
       showStartSimulator = props.showStartSimulator,
       _props$serviceTest = props.serviceTest,
-      serviceTest = _props$serviceTest === void 0 ? Object(spec["serviceTestFromServiceSpec"])(serviceSpec) : _props$serviceTest;
+      serviceTest = _props$serviceTest === void 0 ? serviceTestFromServiceSpec(serviceSpec) : _props$serviceTest;
   var serviceClass = serviceSpec.classIdentifier;
 
-  var _useState2 = Object(react["useState"])(undefined),
-      selectedService = _useState2[0],
-      setSelectedService = _useState2[1];
+  var _useState = Object(react["useState"])(undefined),
+      selectedService = _useState[0],
+      setSelectedService = _useState[1];
 
   var factory = Object(react["useCallback"])(function (service) {
     return new testrunner_JDServiceTestRunner(serviceTest, service);
@@ -3914,6 +3438,13 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "sh2y":
+/***/ (function(module) {
+
+module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"downUp: press down and up\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button and release it immediately\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe an Up event, followed by a Down event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"click: click the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down for 500ms and less than 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a Click event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"long click: hold the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down at least 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a LongClick event?\\\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Potentiometer tests\",\"serviceClassIdentifier\":522667846,\"tests\":[{\"description\":\"position changes on movement\",\"registers\":[],\"commands\":[{\"prompt\":\"move the slider/potentiometer\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did the position register's value change?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob back and forth\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromUpTo\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromDownTo\"}}}]},{\"description\":\"check physical position clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"note knob's physical position and quickly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"check physical position counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"note knob's physical position and quickly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"reset test\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"reset test (automated)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"reset\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"==\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Literal\",\"value\":0,\"raw\":\"0\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]}]}]");
+
+/***/ }),
+
 /***/ "wsLH":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3947,4 +3478,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-b886bc49a8a77904263e.js.map
+//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-719e7a82fa044f5d8adb.js.map

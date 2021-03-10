@@ -363,7 +363,7 @@ var ServiceSpecificationSelect = __webpack_require__("8uQ5");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
 
-// EXTERNAL MODULE: ./src/components/ServiceTest.tsx + 11 modules
+// EXTERNAL MODULE: ./src/components/ServiceTest.tsx + 5 modules
 var ServiceTest = __webpack_require__("kKGk");
 
 // EXTERNAL MODULE: ./src/components/github.ts + 1 modules
