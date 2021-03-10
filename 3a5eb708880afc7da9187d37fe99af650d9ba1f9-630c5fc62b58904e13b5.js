@@ -247,6 +247,33 @@ function DeviceCardHeader(props) {
 
 /***/ }),
 
+/***/ "9st9":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__("TqRt");
+
+var _interopRequireWildcard = __webpack_require__("284h");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__("q1tI"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M9 16h2V8H9v8zm3-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V8h-2v8z"
+}), 'PauseCircleOutline');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "DObr":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1831,8 +1858,17 @@ ListItemSecondaryAction_ListItemSecondaryAction.muiName = 'ListItemSecondaryActi
 /* harmony default export */ var esm_ListItemSecondaryAction_ListItemSecondaryAction = (Object(withStyles["a" /* default */])(ListItemSecondaryAction_styles, {
   name: 'MuiListItemSecondaryAction'
 })(ListItemSecondaryAction_ListItemSecondaryAction));
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardHeader/CardHeader.js
+var CardHeader = __webpack_require__("50B7");
+
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__("ofer");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardActions/CardActions.js
+var CardActions = __webpack_require__("o4QW");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__("tRbT");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
 var Box = __webpack_require__("hlFM");
@@ -2104,9 +2140,6 @@ var LinearProgress_LinearProgress = /*#__PURE__*/react["forwardRef"](function Li
 /* harmony default export */ var esm_LinearProgress_LinearProgress = (Object(withStyles["a" /* default */])(LinearProgress_styles, {
   name: 'MuiLinearProgress'
 })(LinearProgress_LinearProgress));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
-var Grid = __webpack_require__("tRbT");
-
 // EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/AlertTitle/AlertTitle.js
 var AlertTitle = __webpack_require__("DObr");
 
@@ -2119,6 +2152,10 @@ var Alert = __webpack_require__("FQT7");
 
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__("l6uw");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PauseCircleOutline.js
+var PauseCircleOutline = __webpack_require__("9st9");
+var PauseCircleOutline_default = /*#__PURE__*/__webpack_require__.n(PauseCircleOutline);
 
 // EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 22 modules
 var hosts = __webpack_require__("y+c1");
@@ -2929,9 +2966,6 @@ var useGridBreakpoints = __webpack_require__("TD2k");
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__("IzqI");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardActions/CardActions.js
-var CardActions = __webpack_require__("o4QW");
-
 // EXTERNAL MODULE: ./src/components/DeviceCardHeader.tsx + 2 modules
 var DeviceCardHeader = __webpack_require__("5oJA");
 
@@ -3023,6 +3057,7 @@ var DashboardDevice = __webpack_require__("kLoJ");
 
 
 
+
 function Diagnostics(props) {
   var serviceClass = props.serviceClass;
 
@@ -3052,7 +3087,7 @@ function TestStatusIcon(props) {
 
   switch (status) {
     case JDTestStatus.ReadyToRun:
-      return /*#__PURE__*/react_default.a.createElement(PlayCircleFilled_default.a, {
+      return /*#__PURE__*/react_default.a.createElement(PauseCircleOutline_default.a, {
         color: "action"
       });
 
@@ -3164,11 +3199,13 @@ function CommandListItem(props) {
     variant: "outlined",
     onClick: handleAnswer(JDCommandStatus.Failed)
   }, "No")));
-} // TODO: end of test
+}
 
-
-function CommandList(props) {
+function ActiveTest(props) {
   var test = props.test;
+  var description = Object(useChange["a" /* default */])(test, function (t) {
+    return t.description;
+  });
   var commands = test.commands;
   var status = Object(useChange["a" /* default */])(test, function (t) {
     return t.status;
@@ -3187,36 +3224,40 @@ function CommandList(props) {
     test.cancel();
   };
 
-  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, status === JDTestStatus.ReadyToRun && /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
-    onClick: handleRun
-  }, "Run"), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
-    onClick: handleReset
-  }, "Reset"), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
-    onClick: handleCancel
-  }, "Cancel"), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
+  var showCommands = [JDTestStatus.Active, JDTestStatus.Failed, JDTestStatus.Passed].indexOf(status) > -1;
+  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardHeader["a" /* default */], {
+    title: /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+      variant: "h5"
+    }, description),
+    avatar: /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
+      test: test
+    })
+  }), /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, showCommands && /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
     dense: false
   }, commands.map(function (cmd, i) {
     return /*#__PURE__*/react_default.a.createElement(CommandListItem, {
       key: i,
       command: cmd
     });
-  }))));
-}
-
-function ActiveTest(props) {
-  var test = props.test;
-  var description = Object(useChange["a" /* default */])(test, function (t) {
-    return t.description;
-  });
-  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
-    variant: "h5",
-    component: "h2"
-  }, description), /*#__PURE__*/react_default.a.createElement(CommandList, {
-    test: test
-  })));
+  }))), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    container: true,
+    spacing: 1
+  }, status === JDTestStatus.ReadyToRun && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true
+  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleRun
+  }, "Run")), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true
+  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleReset
+  }, "Restart")), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true
+  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleCancel
+  }, "Cancel")))));
 }
 
 function ServiceTestRunnerSelect(props) {
@@ -3478,4 +3519,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-719e7a82fa044f5d8adb.js.map
+//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-630c5fc62b58904e13b5.js.map
