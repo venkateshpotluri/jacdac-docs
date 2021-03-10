@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-69dedddb0a0d9213747d.js"
+    "url": "webpack-runtime-9536f9dcfc73e8813925.js"
   },
   {
     "url": "framework-5a5c0b1a0a0f20c48ea8.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "24c6eb95d3e7c2647c32a87b6835deb3"
+    "revision": "2775ed53911bc4ab7ea36a375c24894f"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,15 +60,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/1044929081.json",
-    "revision": "c734af98ccc8393a1eeb45767e4eb819"
+    "revision": "503f835c5d2f77f376b9b2c338a46571"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "5b7d0d0572f5ce842e6c42dc10e946e6"
+    "revision": "a96a6cf1793718f9d47ec17cf33d6aec"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "c8b1d7ed3f0fa44cdfa0013087d0fc64"
+    "revision": "7f51e399cc0d8856f937a0ce9214fe0c"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "dff52b33e9239f05f3d71ad2c5226d3c"
+    "revision": "6fc55c14034e5507ed1ba2d55e9b6ca9"
   },
   {
     "url": "polyfill-623288f9790caaf6aa11.js"
@@ -494,7 +494,7 @@ self.__precacheManifest = [
     "revision": "740b03dd35ce38c79433e4253a54cd57"
   },
   {
-    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-4618b0b3d2bb59c9a810.js"
+    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-a4643cc58832ba394e37.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",
@@ -535,11 +535,11 @@ self.__precacheManifest = [
     "revision": "4d5ee87008ff1ca963a877607cfcd118"
   },
   {
-    "url": "component---src-pages-tools-led-animation-designer-mdx-258ab3209a97d8dd3edb.js"
+    "url": "component---src-pages-tools-led-animation-designer-tsx-b3dd3bac991262d91f5b.js"
   },
   {
     "url": "page-data/tools/led-animation-designer/page-data.json",
-    "revision": "dd149e47c5abeed93d19897974608dc1"
+    "revision": "7113b22cbc63ffac8333fa2d553236ec"
   },
   {
     "url": "component---src-pages-tools-makecode-mdx-4e42a394e1903c2faa7d.js"
@@ -577,14 +577,14 @@ self.__precacheManifest = [
     "revision": "e1e1e1382c76e9a15e77ed31a1432539"
   },
   {
-    "url": "component---src-pages-tools-player-mdx-16790bc522587ffc436d.js"
+    "url": "component---src-pages-tools-player-mdx-595d63f013ffb4027b2f.js"
   },
   {
     "url": "page-data/tools/player/page-data.json",
     "revision": "78b2fffa0f80e4edfd8d916ebcce3d81"
   },
   {
-    "url": "component---src-pages-tools-prototest-tsx-046378d24dcda06011fb.js"
+    "url": "component---src-pages-tools-prototest-tsx-dd4f897a5c0d56c4f0a2.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
@@ -722,7 +722,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-04b5c14c48e0a6195b39.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-89c0f4fb2c3fcc2af848.js`))) {
     return await fetch(event.request)
   }
 

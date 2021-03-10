@@ -1,5 +1,37 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[33],{
 
+/***/ "81PJ":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Snippet; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ofer");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Indg");
+
+
+
+function Snippet(props) {
+  var value = props.value,
+      mode = props.mode,
+      download = props.download,
+      url = props.url,
+      caption = props.caption;
+  var v = typeof value === 'function' ? value() : value;
+  var className = mode && "language-" + (mode === "sts" ? "ts" : mode);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    className: className,
+    downloadName: download,
+    downloadText: download && v,
+    url: url
+  }, v), caption && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+    variant: "caption"
+  }, caption));
+}
+
+/***/ }),
+
 /***/ "Ryur":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -201,4 +233,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-4618b0b3d2bb59c9a810.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-a4643cc58832ba394e37.js.map

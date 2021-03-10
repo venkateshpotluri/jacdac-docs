@@ -126,11 +126,10 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/motion/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/motor/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/motor/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/motor/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/multitouch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/multitouch/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/multitouch/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/multitouch/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/potentiometer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/potentiometer/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/potentiometer/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -166,8 +165,8 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/rotaryencoder/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/sensoraggregator/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/sensoraggregator/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/sensoraggregator/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/servo/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/settings/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -214,6 +213,9 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/tvoc/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/uvindex/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/uvindex/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/uvindex/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/vibration/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/vibration/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -234,8 +236,6 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/windspeed/playground/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/services/windspeed/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmaccv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/services/logger/test/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmarcadebtnv20/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmarcadecontrolsv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/devices/microsoft/research/jmcrankbtnv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -260,6 +260,7 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/collector/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/device-registration/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/edge-impulse/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/led-animation-designer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/model-uploader/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/packet-inspector/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/prototest/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -276,7 +277,6 @@
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/traces/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/clients/web/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/jupyterlab/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/led-animation-designer/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/makecode-editor-extension/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/makecode-sim/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://aka.ms/jacdac/jacdac-docs/tools/makecode/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
