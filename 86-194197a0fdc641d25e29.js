@@ -1,0 +1,342 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[86],{
+
+/***/ "IsqK":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export styles */
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("wx14");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Ff2n");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("iuhU");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("H2TA");
+/* harmony import */ var _Typography__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ofer");
+/* harmony import */ var _List_ListContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("MquD");
+
+
+
+
+
+
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    flex: '1 1 auto',
+    minWidth: 0,
+    marginTop: 4,
+    marginBottom: 4
+  },
+
+  /* Styles applied to the `Typography` components if primary and secondary are set. */
+  multiline: {
+    marginTop: 6,
+    marginBottom: 6
+  },
+
+  /* Styles applied to the `Typography` components if dense. */
+  dense: {},
+
+  /* Styles applied to the root element if `inset={true}`. */
+  inset: {
+    paddingLeft: 56
+  },
+
+  /* Styles applied to the primary `Typography` component. */
+  primary: {},
+
+  /* Styles applied to the secondary `Typography` component. */
+  secondary: {}
+};
+var ListItemText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function ListItemText(props, ref) {
+  var children = props.children,
+      classes = props.classes,
+      className = props.className,
+      _props$disableTypogra = props.disableTypography,
+      disableTypography = _props$disableTypogra === void 0 ? false : _props$disableTypogra,
+      _props$inset = props.inset,
+      inset = _props$inset === void 0 ? false : _props$inset,
+      primaryProp = props.primary,
+      primaryTypographyProps = props.primaryTypographyProps,
+      secondaryProp = props.secondary,
+      secondaryTypographyProps = props.secondaryTypographyProps,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(props, ["children", "classes", "className", "disableTypography", "inset", "primary", "primaryTypographyProps", "secondary", "secondaryTypographyProps"]);
+
+  var _React$useContext = react__WEBPACK_IMPORTED_MODULE_2__["useContext"](_List_ListContext__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]),
+      dense = _React$useContext.dense;
+
+  var primary = primaryProp != null ? primaryProp : children;
+
+  if (primary != null && primary.type !== _Typography__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"] && !disableTypography) {
+    primary = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Typography__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
+      variant: dense ? 'body2' : 'body1',
+      className: classes.primary,
+      component: "span",
+      display: "block"
+    }, primaryTypographyProps), primary);
+  }
+
+  var secondary = secondaryProp;
+
+  if (secondary != null && secondary.type !== _Typography__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"] && !disableTypography) {
+    secondary = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Typography__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
+      variant: "body2",
+      className: classes.secondary,
+      color: "textSecondary",
+      display: "block"
+    }, secondaryTypographyProps), secondary);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("div", Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(classes.root, className, dense && classes.dense, inset && classes.inset, primary && secondary && classes.multiline),
+    ref: ref
+  }, other), primary, secondary);
+});
+ false ? undefined : void 0;
+/* harmony default export */ __webpack_exports__["a"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(styles, {
+  name: 'MuiListItemText'
+})(ListItemText));
+
+/***/ }),
+
+/***/ "oijz":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Toc; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("R/WZ");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("ZBNC");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("tr08");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("tVbE");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ofer");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("hlFM");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("eD//");
+/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("4+mf");
+/* harmony import */ var _material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("IsqK");
+/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("2K/c");
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("Wbzz");
+
+
+ // tslint:disable-next-line: no-submodule-imports
+
+
+
+
+var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(function (theme) {
+  return Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])({
+    root: {
+      width: '100%',
+      backgroundColor: theme.palette.background.paper
+    }
+  });
+});
+
+function treeifyToc(toc) {
+  var tree = toc.slice(0); // reconstruct tree
+
+  var tocNodes = {};
+  tree.forEach(function (node, index) {
+    var k = node.path.replace(/\/$/, '');
+
+    if (tocNodes[k]) {
+      tree[index] = undefined;
+    } else tocNodes[k] = node;
+  });
+  tree = tree.filter(function (node) {
+    return !!node;
+  });
+  tree.forEach(function (node, index) {
+    var parts = node.path.replace(/\/$/, '').split("/");
+    parts.pop();
+
+    while (parts.length) {
+      var parentPath = "" + parts.join("/");
+      var parent = tocNodes[parentPath];
+
+      if (parent) {
+        if (!parent.children) parent.children = [];
+        parent.children.push(node);
+        tree[index] = undefined;
+        break;
+      }
+
+      parts.pop();
+    }
+  });
+  var r = {
+    tree: tree.filter(function (node) {
+      return !!node;
+    }),
+    nodes: tocNodes
+  };
+
+  function sortNodes(nodes) {
+    nodes.sort(function (l, r) {
+      return l.order - r.order;
+    });
+    nodes.forEach(function (node) {
+      return node.children && sortNodes(node.children);
+    });
+  }
+
+  sortNodes(r.tree);
+  return r;
+}
+
+function Toc(props) {
+  var pagePath = props.pagePath;
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_AppContext__WEBPACK_IMPORTED_MODULE_10__[/* default */ "c"]),
+      setDrawerType = _useContext.setDrawerType;
+
+  var theme = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])();
+  var classes = useStyles();
+  var data = Object(gatsby__WEBPACK_IMPORTED_MODULE_11__["useStaticQuery"])("265560810");
+  /*
+      site {
+        siteMetadata {
+          title
+        }
+    }
+  
+    allServicesJson {
+        nodes {
+          name
+          shortId
+        }
+      } 
+    allDevicesJson {
+        nodes {
+          id
+          name
+        }
+      }
+   */
+
+  var handleClick = function handleClick() {
+    setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_10__[/* DrawerType */ "b"].None);
+  };
+
+  var tree = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    // convert pages into tree
+    var toc = [{
+      name: "Home",
+      path: "/",
+      order: 0
+    }, {
+      name: "Dashboard",
+      path: "/dashboard/",
+      order: 0.5
+    }, {
+      name: "Reference",
+      path: "/reference/",
+      order: 1
+    }, {
+      name: "Services",
+      path: "/services/",
+      order: 0.6
+    }, {
+      name: "Devices",
+      path: "/devices/",
+      order: 0.7
+    }, {
+      name: "Tools",
+      path: "/tools/",
+      order: 4
+    }, {
+      name: "Clients",
+      path: "/clients/",
+      order: 5
+    }];
+    data.allMdx.edges.map(function (node) {
+      return node.node;
+    }).filter(function (node) {
+      var _node$frontmatter;
+
+      return !!((_node$frontmatter = node.frontmatter) !== null && _node$frontmatter !== void 0 && _node$frontmatter.title) || !!node.headings.length && !/404/.test(node.headings[0].value);
+    }).map(function (node) {
+      var _node$frontmatter2, _node$frontmatter3, _node$frontmatter4;
+
+      var r = {
+        name: ((_node$frontmatter2 = node.frontmatter) === null || _node$frontmatter2 === void 0 ? void 0 : _node$frontmatter2.title) || node.headings[0].value,
+        path: node.fields.slug,
+        order: ((_node$frontmatter3 = node.frontmatter) === null || _node$frontmatter3 === void 0 ? void 0 : _node$frontmatter3.order) !== undefined ? (_node$frontmatter4 = node.frontmatter) === null || _node$frontmatter4 === void 0 ? void 0 : _node$frontmatter4.order : 50
+      };
+      return r;
+    }).forEach(function (node) {
+      return toc.push(node);
+    });
+    /*
+    data.allServicesJson.nodes.map(node => {
+      return {
+        name: node.name,
+        path: `/services/${node.shortId}/`
+      }
+    }).forEach(node => toc.push(node))
+     data.allDevicesJson.nodes.map(node => {
+      return {
+        name: node.name,
+        path: `/devices/${identifierToUrlPath(node.id)}/`
+      }
+    }).forEach(node => toc.push(node));
+    */
+
+    var _treeifyToc = treeifyToc(toc),
+        tree = _treeifyToc.tree;
+
+    return tree;
+  }, []);
+
+  function TocListItem(props) {
+    var entry = props.entry,
+        level = props.level;
+    var path = entry.path,
+        children = entry.children,
+        name = entry.name;
+    var selected = pagePath === path;
+    var sub = level === 1 || !!children && !!children.length;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+      button: true,
+      selected: selected,
+      key: 'tocitem' + path
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_8__["Link"], {
+      style: {
+        color: theme.palette.text.primary
+      },
+      onClick: handleClick,
+      to: path
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+      primary: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+        variant: sub ? "button" : "caption"
+      }, name)
+    }))), sub && !!(children !== null && children !== void 0 && children.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+      ml: level > 0 ? 1 : 0
+    }, children === null || children === void 0 ? void 0 : children.map(function (child) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TocListItem, {
+        key: 'tocitem' + child.path,
+        entry: child,
+        level: level + 1
+      });
+    })));
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    dense: true,
+    className: classes.root
+  }, tree.map(function (entry, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TocListItem, {
+      key: i,
+      entry: entry,
+      level: 0
+    });
+  }));
+}
+
+/***/ })
+
+}]);
+//# sourceMappingURL=86-194197a0fdc641d25e29.js.map
