@@ -3201,6 +3201,19 @@ function CommandListItem(props) {
   }, "No")));
 }
 
+function FirstCommand(props) {
+  var command = props.command;
+
+  var _useChange2 = Object(useChange["a" /* default */])(command, function (c) {
+    return c.output;
+  }),
+      message = _useChange2.message;
+
+  return /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
+    severity: "info"
+  }, /*#__PURE__*/react_default.a.createElement(AlertTitle["a" /* default */], null, message));
+}
+
 function ActiveTest(props) {
   var test = props.test;
   var description = Object(useChange["a" /* default */])(test, function (t) {
@@ -3225,6 +3238,8 @@ function ActiveTest(props) {
   };
 
   var showCommands = [JDTestStatus.Active, JDTestStatus.Failed, JDTestStatus.Passed].indexOf(status) > -1;
+  var firstCommand = commands[0],
+      restOfCommands = commands.slice(1);
   return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardHeader["a" /* default */], {
     title: /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
       variant: "h5"
@@ -3232,14 +3247,16 @@ function ActiveTest(props) {
     avatar: /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
       test: test
     })
-  }), /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, showCommands && /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
+  }), /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, showCommands && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(FirstCommand, {
+    command: firstCommand
+  }), /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
     dense: false
-  }, commands.map(function (cmd, i) {
+  }, restOfCommands.map(function (cmd, i) {
     return /*#__PURE__*/react_default.a.createElement(CommandListItem, {
       key: i,
       command: cmd
     });
-  }))), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  })))), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     spacing: 1
   }, status === JDTestStatus.ReadyToRun && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
@@ -3519,4 +3536,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-630c5fc62b58904e13b5.js.map
+//# sourceMappingURL=3a5eb708880afc7da9187d37fe99af650d9ba1f9-052e879c27d020d9e589.js.map
