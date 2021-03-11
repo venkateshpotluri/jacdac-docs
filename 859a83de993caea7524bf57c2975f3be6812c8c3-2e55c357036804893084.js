@@ -1473,34 +1473,24 @@ function ServiceTestRunner(props) {
     spacing: 2
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12
-  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    container: true,
-    spacing: 2,
-    direction: "row"
-  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true,
-    xs: 12,
-    sm: 3
+    xs: true
   }, /*#__PURE__*/react_default.a.createElement(TestList, {
     testRunner: testRunner,
     currentTest: currentTest,
     onSelectTest: handleSelectTest
   })), currentTest && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12,
-    sm: 6
+    xs: true
   }, /*#__PURE__*/react_default.a.createElement(ActiveTest, {
     test: currentTest
   })), service && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12,
-    sm: 3
+    xs: true
   }, /*#__PURE__*/react_default.a.createElement(DashboardDevice["a" /* default */], {
     showAvatar: true,
     showHeader: true,
     device: service.device
-  })))));
+  })));
 }
 
 /***/ }),
@@ -3133,4 +3123,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-38a65c1dc1b111107058.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-2e55c357036804893084.js.map

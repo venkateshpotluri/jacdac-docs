@@ -466,7 +466,8 @@ function ServiceTestEditor() {
     onClick: handleLoadFromGithub
   }, "Load tests from GitHub")))), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12
+    xs: 12,
+    xl: 6
   }, /*#__PURE__*/react_default.a.createElement(HighlightTextField["a" /* default */], {
     code: source,
     language: "markdown",
@@ -476,7 +477,8 @@ function ServiceTestEditor() {
     pullRequestPath: servicePath
   })), json && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12
+    xs: 12,
+    xl: 6
   }, /*#__PURE__*/react_default.a.createElement(ServiceTest["a" /* default */], {
     showStartSimulator: true,
     serviceSpec: serviceSpec,
@@ -1707,4 +1709,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-53b8bea233d1e0eab11d.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-4fdd7f25e279488f890e.js.map
