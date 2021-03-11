@@ -1538,11 +1538,15 @@ function TestStatusIcon(props) {
 }
 
 function TestListItem(props) {
-  var test = props.test;
+  var test = props.test,
+      currentTest = props.currentTest;
   var description = Object(useChange["a" /* default */])(test, function (t) {
     return t.description;
   });
-  return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
+  var selected = test === currentTest;
+  return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], {
+    selected: selected
+  }, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
     test: test
   })), /*#__PURE__*/react_default.a.createElement(ListItemText["a" /* default */], {
     primary: description
@@ -1550,14 +1554,16 @@ function TestListItem(props) {
 }
 
 function TestList(props) {
-  var testRunner = props.testRunner;
+  var testRunner = props.testRunner,
+      currentTest = props.currentTest;
   var tests = testRunner.tests;
   return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
     dense: true
   }, tests === null || tests === void 0 ? void 0 : tests.map(function (test, i) {
     return /*#__PURE__*/react_default.a.createElement(TestListItem, {
       key: i,
-      test: test
+      test: test,
+      currentTest: currentTest
     });
   }))));
 }
@@ -1731,8 +1737,8 @@ function TestProgress(props) {
   var total = tests.length;
   var executed = Object(useChange["a" /* default */])(testRunner, function (t) {
     return t.tests.reduce(function (v, t) {
-      return v + (t.indeterminate ? 1 : 0);
-    }, 0);
+      return v + (t.indeterminate ? 0 : 1);
+    }, 1);
   });
   var label = testRunner.service.friendlyName;
   return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(LinearProgressWithLabel, {
@@ -1755,7 +1761,7 @@ function ServiceTestRunner(props) {
   });
   if (!serviceTest) return /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
     severity: "warning"
-  }, "Sorry, there are no tests available for service ", service.friendlyName, ".");
+  }, "Sorry, there are no tests available for service", " ", service.friendlyName, ".");
   if (!testRunner) return /*#__PURE__*/react_default.a.createElement(LoadingProgress["a" /* default */], null);
   return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
@@ -1777,7 +1783,8 @@ function ServiceTestRunner(props) {
     xs: 12,
     sm: 3
   }, /*#__PURE__*/react_default.a.createElement(TestList, {
-    testRunner: testRunner
+    testRunner: testRunner,
+    currentTest: currentTest
   })), currentTest && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12,
@@ -3410,4 +3417,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-f0e842d787246b1e0b11.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-8290ab5e326cd5945de9.js.map
