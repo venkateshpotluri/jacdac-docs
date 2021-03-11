@@ -76,6 +76,9 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ Page; });
 
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__("4+mf");
+
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("q1tI");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
@@ -488,8 +491,11 @@ function ServiceTestEditor() {
 // CONCATENATED MODULE: ./src/pages/tools/service-test-editor.tsx
 
 
+
 function Page() {
-  return /*#__PURE__*/react_default.a.createElement(ServiceTestEditor, null);
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h1", null, "Service Test Editor"), /*#__PURE__*/react_default.a.createElement("p", null, "Read the", " ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+    to: "/reference/service-tests"
+  }, "service test"), " ", "documentation."), /*#__PURE__*/react_default.a.createElement(ServiceTestEditor, null));
 }
 
 /***/ }),
@@ -1709,4 +1715,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-4fdd7f25e279488f890e.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-a9ca5a1a56bf3556b082.js.map
