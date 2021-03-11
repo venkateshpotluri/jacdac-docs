@@ -119,6 +119,7 @@ function parseIntFloat(spec, w, allowFloat) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return escapeDeviceIdentifier; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return escapeDeviceNameIdentifier; });
 /* unused harmony export converters */
+/* unused harmony export isNumericType */
 /* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("KQm4");
 /* harmony import */ var _jdutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("3ArF");
 
@@ -1861,8 +1862,12 @@ function converters() {
 
   };
 }
+function isNumericType(field) {
+  var tp = field.type;
+  return !field.startRepeats && /^[uif]\d+(\.\d+)?$/.test(tp) && tp != "pipe_port" && tp != "bool";
+}
 
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-ab31de794a73635f01e8.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-10ded332accc0c306515.js.map
