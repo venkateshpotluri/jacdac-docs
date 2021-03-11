@@ -359,6 +359,9 @@ var createClass = __webpack_require__("vuIU");
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtestfuns.ts
 var jdtestfuns = __webpack_require__("et/c");
 
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtest.ts
+var jdtest = __webpack_require__("JK6d");
+
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
 
@@ -367,9 +370,6 @@ var eventsource = __webpack_require__("033P");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceclient.ts
 var serviceclient = __webpack_require__("eoX3");
-
-// EXTERNAL MODULE: ./jacdac-ts/node_modules/jsonpath-plus/dist/index-browser-esm.js
-var index_browser_esm = __webpack_require__("faLi");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
 var spec = __webpack_require__("Z8Ma");
@@ -666,10 +666,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     switch (testFun.id) {
       case "check":
         {
-          startExprs = Object(index_browser_esm["a" /* JSONPath */])({
-            path: "$..*[?(@.type=='CallExpression')]",
-            json: args
-          }).filter(function (ce) {
+          startExprs = Object(jdtest["a" /* getExpressionsOfType */])(args, 'CallExpression').filter(function (ce) {
             return ce.callee.name === "start";
           }).map(function (ce) {
             return ce.arguments[0];
@@ -799,7 +796,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             if (_regValue === _regSaved.v + amtSaved.v) {
               this._status = JDCommandStatus.Passed;
               this._progress = 1.0;
-            } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v.v + amtSaved.v) {
+            } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v + amtSaved.v) {
               this._status = JDCommandStatus.Active;
               this._progress = (_regValue - _regSaved.v) / amtSaved.v;
             } else {
@@ -809,7 +806,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             if (_regValue === _regSaved.v - amtSaved.v) {
               this._status = JDCommandStatus.Passed;
               this._progress = 1.0;
-            } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v.v - amtSaved.v) {
+            } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v - amtSaved.v) {
               this._status = JDCommandStatus.Active;
               this._progress = (_regSaved.v - _regValue) / amtSaved.v;
             } else {
@@ -1635,6 +1632,272 @@ var ListItemText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"]
 
 /***/ }),
 
+/***/ "JK6d":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getExpressionsOfType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parseSpecificationTestMarkdownToJSON; });
+/* harmony import */ var _jdutils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3ArF");
+/* harmony import */ var _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("et/c");
+/* harmony import */ var jsep__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("o8k2");
+/* harmony import */ var jsep__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jsep__WEBPACK_IMPORTED_MODULE_2__);
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+/* eslint-disable @typescript-eslint/triple-slash-reference */
+/// <reference path="jdspec.d.ts" />
+/// <reference path="jdtest.d.ts" />
+
+
+
+var supportedExpressions = ["BinaryExpression", "CallExpression", "Identifier", "Literal", "UnaryExpression", "LogicalExpression"];
+function getExpressionsOfType(expr, type, returnParent) {
+  if (returnParent === void 0) {
+    returnParent = false;
+  }
+
+  var results = [];
+  visit(null, expr);
+  return results;
+
+  function visit(parent, current) {
+    if (Array.isArray(current)) {
+      current.forEach(function (c) {
+        return visit(current, c);
+      });
+    } else if (typeof current === "object") {
+      if (parent && (current === null || current === void 0 ? void 0 : current.type) === type) results.push(returnParent ? parent : current);
+      Object.keys(current).forEach(function (key) {
+        visit(current, current[key]);
+      });
+    }
+  }
+} // we parse a test with respect to an existing ServiceSpec
+
+function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
+  if (filename === void 0) {
+    filename = "";
+  }
+
+  filecontent = (filecontent || "").replace(/\r/g, "");
+  var info = {
+    description: "",
+    serviceClassIdentifier: spec.classIdentifier,
+    tests: []
+  };
+  var backticksType = "";
+  var errors = [];
+  var lineNo = 0;
+  var currentTest = null;
+  var testHeading = "";
+  var testPrompt = "";
+
+  try {
+    for (var _iterator = _createForOfIteratorHelperLoose(filecontent.split(/\n/)), _step; !(_step = _iterator()).done;) {
+      var line = _step.value;
+      lineNo++;
+      processLine(line);
+    }
+  } catch (e) {
+    error("exception: " + e.message);
+  }
+
+  if (currentTest) finishTest();
+  if (errors.length) info.errors = errors;
+  return info;
+
+  function processLine(line) {
+    if (backticksType) {
+      if (line.trim() == "```") {
+        backticksType = null;
+        if (backticksType == "default") return;
+      }
+    } else {
+      var m = /^```(.*)/.exec(line);
+
+      if (m) {
+        backticksType = m[1] || "default";
+        if (backticksType == "default") return;
+      }
+    }
+
+    var interpret = backticksType == "default" || line.slice(0, 4) == "    ";
+
+    if (!interpret) {
+      var _m = /^(#+)\s*(.*)/.exec(line);
+
+      if (_m) {
+        testHeading = "";
+        testPrompt = "";
+        var hd = _m[1],
+            cont = _m[2];
+
+        if (hd == "#" && !info.description) {
+          info.description = cont.trim();
+        } else if (hd == "##") {
+          if (currentTest) finishTest();
+          testHeading = cont.trim();
+        }
+      } else {
+        testPrompt += line;
+      }
+    } else {
+      var expanded = line.replace(/\/\/.*/, "").trim();
+      if (!expanded) return;
+      processCommand(expanded);
+    }
+  }
+
+  function processCommand(expanded) {
+    if (!currentTest) {
+      if (!testHeading) error("every test must have a description (via ##)");
+      currentTest = {
+        description: testHeading,
+        registers: [],
+        commands: []
+      };
+      testHeading = "";
+    }
+
+    var call = /^([a-zA-Z]\w*)\(.*\)$/.exec(expanded);
+
+    if (!call) {
+      error("a command must be a call to a registered test function (JavaScript syntax)");
+      return;
+    }
+
+    var callee = call[1];
+    var index = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testCommandFunctions */ "a"].findIndex(function (r) {
+      return callee == r.id;
+    });
+
+    if (index < 0) {
+      error(callee + " is not a registered test command function.");
+      return;
+    }
+
+    var root = jsep__WEBPACK_IMPORTED_MODULE_2___default()(expanded);
+
+    if (!root || !root.type || root.type != "CallExpression" || !root.callee || !root.arguments) {
+      error("a command must be a call expression in JavaScript syntax");
+    } else {
+      // check for unsupported expression types
+      if (supportedExpressions.indexOf(root.type) < 0) error("Expression of type " + root.type + " not currently supported"); // check arguments
+
+      var expected = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testCommandFunctions */ "a"][index].args.length;
+      if (expected !== root.arguments.length) error(callee + " expects " + expected + " arguments; got " + root.arguments.length);else {
+        root.arguments.forEach(function (arg, a) {
+          if (_jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testCommandFunctions */ "a"][index].args[a] === "register" && arg.type !== "Identifier") {
+            error(callee + " expects a register in argument position " + (a + 1));
+          }
+        });
+        var callers = getExpressionsOfType(root, 'CallExpression');
+        callers.forEach(function (callExpr) {
+          if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
+          var id = callExpr.callee.name;
+          var indexFun = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testExpressionFunctions */ "b"].findIndex(function (r) {
+            return id == r.id;
+          });
+          if (indexFun < 0) error(id + " is not a registered test expression function.");
+
+          if (id === 'start') {
+            if (callee !== 'check') error("start expression function can only be used inside check test function");
+            var callsUnder = getExpressionsOfType(callExpr, 'CallExpression');
+            callsUnder.forEach(function (ce) {
+              if (ce.callee.type === "Identifier" && ce.callee.name === "start") error("cannot nest start underneath start");
+            });
+          }
+
+          var expected = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testExpressionFunctions */ "b"][indexFun].args.length;
+          if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
+        });
+      } // now visit all (p,c), c an Identifier that is not a callee child of CallExpression
+      // or a property child of a MemberExpression
+
+      var exprs = getExpressionsOfType(root, 'Identifier', true);
+      var visited = [];
+      exprs.forEach(function (parent) {
+        if (visited.indexOf(parent) < 0) {
+          visited.push(parent);
+          lookupReplace(parent);
+        }
+      });
+      currentTest.commands.push({
+        prompt: testPrompt,
+        call: root
+      });
+      testPrompt = "";
+    }
+  }
+
+  function lookupReplace(parent) {
+    if (Array.isArray(parent)) {
+      var exprs = parent;
+      exprs.forEach(function (child) {
+        if (child.type === "Identifier") lookup(parent, child);
+      });
+    } else {
+      Object.keys(parent).forEach(function (key) {
+        var child = parent[key];
+        if ((child === null || child === void 0 ? void 0 : child.type) !== "Identifier") return;
+
+        if (parent.type !== "MemberExpression" && parent.type !== "CallExpression" || parent.type === "MemberExpression" && child !== parent.property || parent.type === "CallExpression" && child !== parent.callee) {
+          lookup(parent, child);
+        }
+      });
+    }
+
+    function lookup(parent, child) {
+      try {
+        try {
+          var val = Object(_jdutils__WEBPACK_IMPORTED_MODULE_0__[/* parseIntFloat */ "b"])(spec, child.name);
+          var lit = {
+            type: "Literal",
+            value: val,
+            raw: val.toString()
+          };
+          /*TODO: replace the Identifier by the (resolved) Literal
+          if (parent.type) {
+              Object.keys(parent).forEach((key:string) => {
+                  if (Object.getOwnPropertyDescriptor(parent,key) == child)
+                      Object.defineProperty(parent, key, lit);
+              })
+          } else {
+               }*/
+        } catch (e) {
+          Object(_jdutils__WEBPACK_IMPORTED_MODULE_0__[/* getRegister */ "a"])(spec, child.name);
+          if (currentTest.registers.indexOf(child.name) < 0) currentTest.registers.push(child.name); // TODO: if parent is MemberExpression, continue to do lookup
+        }
+      } catch (e) {
+        error(child.name + " not found in specification");
+      }
+    }
+  }
+
+  function finishTest() {
+    info.tests.push(currentTest);
+    currentTest = null;
+  }
+
+  function error(msg) {
+    if (!msg) msg = "syntax error";
+    if (errors.some(function (e) {
+      return e.line == lineNo && e.message == msg;
+    })) return;
+    errors.push({
+      file: filename,
+      line: lineNo,
+      message: msg
+    });
+  }
+}
+
+/***/ }),
+
 /***/ "TD2k":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1777,1075 +2040,6 @@ var testExpressionFunctions = [{
 
 /***/ }),
 
-/***/ "faLi":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JSONPath; });
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-
-  try {
-    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function _construct(Parent, args, Class) {
-  if (_isNativeReflectConstruct()) {
-    _construct = Reflect.construct;
-  } else {
-    _construct = function _construct(Parent, args, Class) {
-      var a = [null];
-      a.push.apply(a, args);
-      var Constructor = Function.bind.apply(Parent, a);
-      var instance = new Constructor();
-      if (Class) _setPrototypeOf(instance, Class.prototype);
-      return instance;
-    };
-  }
-
-  return _construct.apply(null, arguments);
-}
-
-function _isNativeFunction(fn) {
-  return Function.toString.call(fn).indexOf("[native code]") !== -1;
-}
-
-function _wrapNativeSuper(Class) {
-  var _cache = typeof Map === "function" ? new Map() : undefined;
-
-  _wrapNativeSuper = function _wrapNativeSuper(Class) {
-    if (Class === null || !_isNativeFunction(Class)) return Class;
-
-    if (typeof Class !== "function") {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-
-    if (typeof _cache !== "undefined") {
-      if (_cache.has(Class)) return _cache.get(Class);
-
-      _cache.set(Class, Wrapper);
-    }
-
-    function Wrapper() {
-      return _construct(Class, arguments, _getPrototypeOf(this).constructor);
-    }
-
-    Wrapper.prototype = Object.create(Class.prototype, {
-      constructor: {
-        value: Wrapper,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-    return _setPrototypeOf(Wrapper, Class);
-  };
-
-  return _wrapNativeSuper(Class);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (typeof call === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _createSuper(Derived) {
-  var hasNativeReflectConstruct = _isNativeReflectConstruct();
-
-  return function _createSuperInternal() {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (hasNativeReflectConstruct) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _createForOfIteratorHelper(o, allowArrayLike) {
-  var it;
-
-  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-      if (it) o = it;
-      var i = 0;
-
-      var F = function F() {};
-
-      return {
-        s: F,
-        n: function n() {
-          if (i >= o.length) return {
-            done: true
-          };
-          return {
-            done: false,
-            value: o[i++]
-          };
-        },
-        e: function e(_e) {
-          throw _e;
-        },
-        f: F
-      };
-    }
-
-    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-
-  var normalCompletion = true,
-      didErr = false,
-      err;
-  return {
-    s: function s() {
-      it = o[Symbol.iterator]();
-    },
-    n: function n() {
-      var step = it.next();
-      normalCompletion = step.done;
-      return step;
-    },
-    e: function e(_e2) {
-      didErr = true;
-      err = _e2;
-    },
-    f: function f() {
-      try {
-        if (!normalCompletion && it.return != null) it.return();
-      } finally {
-        if (didErr) throw err;
-      }
-    }
-  };
-}
-/* eslint-disable unicorn/prefer-spread -- IIRC, Babel's performance
-  with this not good */
-
-
-var hasOwnProp = Object.prototype.hasOwnProperty;
-/**
-* @typedef {null|boolean|number|string|PlainObject|GenericArray} JSONObject
-*/
-
-/**
- * Copies array and then pushes item into it.
- * @param {GenericArray} arr Array to copy and into which to push
- * @param {any} item Array item to add (to end)
- * @returns {GenericArray} Copy of the original array
- */
-
-function push(arr, item) {
-  arr = arr.slice();
-  arr.push(item);
-  return arr;
-}
-/**
- * Copies array and then unshifts item into it.
- * @param {any} item Array item to add (to beginning)
- * @param {GenericArray} arr Array to copy and into which to unshift
- * @returns {GenericArray} Copy of the original array
- */
-
-
-function unshift(item, arr) {
-  arr = arr.slice();
-  arr.unshift(item);
-  return arr;
-}
-/**
- * Caught when JSONPath is used without `new` but rethrown if with `new`
- * @extends Error
- */
-
-
-var NewError = /*#__PURE__*/function (_Error) {
-  _inherits(NewError, _Error);
-
-  var _super = _createSuper(NewError);
-  /**
-   * @param {any} value The evaluated scalar value
-   */
-
-
-  function NewError(value) {
-    var _this;
-
-    _classCallCheck(this, NewError);
-
-    _this = _super.call(this, 'JSONPath should not be called with "new" (it prevents return ' + 'of (unwrapped) scalar values)');
-    _this.avoidNew = true;
-    _this.value = value;
-    _this.name = 'NewError';
-    return _this;
-  }
-
-  return NewError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-/**
-* @typedef {PlainObject} ReturnObject
-* @property {string} path
-* @property {JSONObject} value
-* @property {PlainObject|GenericArray} parent
-* @property {string} parentProperty
-*/
-
-/**
-* @callback JSONPathCallback
-* @param {string|PlainObject} preferredOutput
-* @param {"value"|"property"} type
-* @param {ReturnObject} fullRetObj
-* @returns {void}
-*/
-
-/**
-* @callback OtherTypeCallback
-* @param {JSONObject} val
-* @param {string} path
-* @param {PlainObject|GenericArray} parent
-* @param {string} parentPropName
-* @returns {boolean}
-*/
-
-/* eslint-disable max-len -- Can make multiline type after https://github.com/syavorsky/comment-parser/issues/109 */
-
-/**
- * @typedef {PlainObject} JSONPathOptions
- * @property {JSON} json
- * @property {string|string[]} path
- * @property {"value"|"path"|"pointer"|"parent"|"parentProperty"|"all"} [resultType="value"]
- * @property {boolean} [flatten=false]
- * @property {boolean} [wrap=true]
- * @property {PlainObject} [sandbox={}]
- * @property {boolean} [preventEval=false]
- * @property {PlainObject|GenericArray|null} [parent=null]
- * @property {string|null} [parentProperty=null]
- * @property {JSONPathCallback} [callback]
- * @property {OtherTypeCallback} [otherTypeCallback] Defaults to
- *   function which throws on encountering `@other`
- * @property {boolean} [autostart=true]
- */
-
-/* eslint-enable max-len -- Can make multiline type after https://github.com/syavorsky/comment-parser/issues/109 */
-
-/**
- * @param {string|JSONPathOptions} opts If a string, will be treated as `expr`
- * @param {string} [expr] JSON path to evaluate
- * @param {JSON} [obj] JSON object to evaluate against
- * @param {JSONPathCallback} [callback] Passed 3 arguments: 1) desired payload
- *     per `resultType`, 2) `"value"|"property"`, 3) Full returned object with
- *     all payloads
- * @param {OtherTypeCallback} [otherTypeCallback] If `@other()` is at the end
- *   of one's query, this will be invoked with the value of the item, its
- *   path, its parent, and its parent's property name, and it should return
- *   a boolean indicating whether the supplied value belongs to the "other"
- *   type or not (or it may handle transformations and return `false`).
- * @returns {JSONPath}
- * @class
- */
-
-
-function JSONPath(opts, expr, obj, callback, otherTypeCallback) {
-  // eslint-disable-next-line no-restricted-syntax
-  if (!(this instanceof JSONPath)) {
-    try {
-      return new JSONPath(opts, expr, obj, callback, otherTypeCallback);
-    } catch (e) {
-      if (!e.avoidNew) {
-        throw e;
-      }
-
-      return e.value;
-    }
-  }
-
-  if (typeof opts === 'string') {
-    otherTypeCallback = callback;
-    callback = obj;
-    obj = expr;
-    expr = opts;
-    opts = null;
-  }
-
-  var optObj = opts && _typeof(opts) === 'object';
-  opts = opts || {};
-  this.json = opts.json || obj;
-  this.path = opts.path || expr;
-  this.resultType = opts.resultType || 'value';
-  this.flatten = opts.flatten || false;
-  this.wrap = hasOwnProp.call(opts, 'wrap') ? opts.wrap : true;
-  this.sandbox = opts.sandbox || {};
-  this.preventEval = opts.preventEval || false;
-  this.parent = opts.parent || null;
-  this.parentProperty = opts.parentProperty || null;
-  this.callback = opts.callback || callback || null;
-
-  this.otherTypeCallback = opts.otherTypeCallback || otherTypeCallback || function () {
-    throw new TypeError('You must supply an otherTypeCallback callback option ' + 'with the @other() operator.');
-  };
-
-  if (opts.autostart !== false) {
-    var args = {
-      path: optObj ? opts.path : expr
-    };
-
-    if (!optObj) {
-      args.json = obj;
-    } else if ('json' in opts) {
-      args.json = opts.json;
-    }
-
-    var ret = this.evaluate(args);
-
-    if (!ret || _typeof(ret) !== 'object') {
-      throw new NewError(ret);
-    }
-
-    return ret;
-  }
-} // PUBLIC METHODS
-
-
-JSONPath.prototype.evaluate = function (expr, json, callback, otherTypeCallback) {
-  var _this2 = this;
-
-  var currParent = this.parent,
-      currParentProperty = this.parentProperty;
-  var flatten = this.flatten,
-      wrap = this.wrap;
-  this.currResultType = this.resultType;
-  this.currPreventEval = this.preventEval;
-  this.currSandbox = this.sandbox;
-  callback = callback || this.callback;
-  this.currOtherTypeCallback = otherTypeCallback || this.otherTypeCallback;
-  json = json || this.json;
-  expr = expr || this.path;
-
-  if (expr && _typeof(expr) === 'object' && !Array.isArray(expr)) {
-    if (!expr.path && expr.path !== '') {
-      throw new TypeError('You must supply a "path" property when providing an object ' + 'argument to JSONPath.evaluate().');
-    }
-
-    if (!hasOwnProp.call(expr, 'json')) {
-      throw new TypeError('You must supply a "json" property when providing an object ' + 'argument to JSONPath.evaluate().');
-    }
-
-    var _expr = expr;
-    json = _expr.json;
-    flatten = hasOwnProp.call(expr, 'flatten') ? expr.flatten : flatten;
-    this.currResultType = hasOwnProp.call(expr, 'resultType') ? expr.resultType : this.currResultType;
-    this.currSandbox = hasOwnProp.call(expr, 'sandbox') ? expr.sandbox : this.currSandbox;
-    wrap = hasOwnProp.call(expr, 'wrap') ? expr.wrap : wrap;
-    this.currPreventEval = hasOwnProp.call(expr, 'preventEval') ? expr.preventEval : this.currPreventEval;
-    callback = hasOwnProp.call(expr, 'callback') ? expr.callback : callback;
-    this.currOtherTypeCallback = hasOwnProp.call(expr, 'otherTypeCallback') ? expr.otherTypeCallback : this.currOtherTypeCallback;
-    currParent = hasOwnProp.call(expr, 'parent') ? expr.parent : currParent;
-    currParentProperty = hasOwnProp.call(expr, 'parentProperty') ? expr.parentProperty : currParentProperty;
-    expr = expr.path;
-  }
-
-  currParent = currParent || null;
-  currParentProperty = currParentProperty || null;
-
-  if (Array.isArray(expr)) {
-    expr = JSONPath.toPathString(expr);
-  }
-
-  if (!expr && expr !== '' || !json) {
-    return undefined;
-  }
-
-  var exprList = JSONPath.toPathArray(expr);
-
-  if (exprList[0] === '$' && exprList.length > 1) {
-    exprList.shift();
-  }
-
-  this._hasParentSelector = null;
-
-  var result = this._trace(exprList, json, ['$'], currParent, currParentProperty, callback).filter(function (ea) {
-    return ea && !ea.isParentSelector;
-  });
-
-  if (!result.length) {
-    return wrap ? [] : undefined;
-  }
-
-  if (!wrap && result.length === 1 && !result[0].hasArrExpr) {
-    return this._getPreferredOutput(result[0]);
-  }
-
-  return result.reduce(function (rslt, ea) {
-    var valOrPath = _this2._getPreferredOutput(ea);
-
-    if (flatten && Array.isArray(valOrPath)) {
-      rslt = rslt.concat(valOrPath);
-    } else {
-      rslt.push(valOrPath);
-    }
-
-    return rslt;
-  }, []);
-}; // PRIVATE METHODS
-
-
-JSONPath.prototype._getPreferredOutput = function (ea) {
-  var resultType = this.currResultType;
-
-  switch (resultType) {
-    case 'all':
-      {
-        var path = Array.isArray(ea.path) ? ea.path : JSONPath.toPathArray(ea.path);
-        ea.pointer = JSONPath.toPointer(path);
-        ea.path = typeof ea.path === 'string' ? ea.path : JSONPath.toPathString(ea.path);
-        return ea;
-      }
-
-    case 'value':
-    case 'parent':
-    case 'parentProperty':
-      return ea[resultType];
-
-    case 'path':
-      return JSONPath.toPathString(ea[resultType]);
-
-    case 'pointer':
-      return JSONPath.toPointer(ea.path);
-
-    default:
-      throw new TypeError('Unknown result type');
-  }
-};
-
-JSONPath.prototype._handleCallback = function (fullRetObj, callback, type) {
-  if (callback) {
-    var preferredOutput = this._getPreferredOutput(fullRetObj);
-
-    fullRetObj.path = typeof fullRetObj.path === 'string' ? fullRetObj.path : JSONPath.toPathString(fullRetObj.path); // eslint-disable-next-line node/callback-return
-
-    callback(preferredOutput, type, fullRetObj);
-  }
-};
-/**
- *
- * @param {string} expr
- * @param {JSONObject} val
- * @param {string} path
- * @param {PlainObject|GenericArray} parent
- * @param {string} parentPropName
- * @param {JSONPathCallback} callback
- * @param {boolean} hasArrExpr
- * @param {boolean} literalPriority
- * @returns {ReturnObject|ReturnObject[]}
- */
-
-
-JSONPath.prototype._trace = function (expr, val, path, parent, parentPropName, callback, hasArrExpr, literalPriority) {
-  var _this3 = this; // No expr to follow? return path and value as the result of
-  //  this trace branch
-
-
-  var retObj;
-
-  if (!expr.length) {
-    retObj = {
-      path: path,
-      value: val,
-      parent: parent,
-      parentProperty: parentPropName,
-      hasArrExpr: hasArrExpr
-    };
-
-    this._handleCallback(retObj, callback, 'value');
-
-    return retObj;
-  }
-
-  var loc = expr[0],
-      x = expr.slice(1); // We need to gather the return value of recursive trace calls in order to
-  // do the parent sel computation.
-
-  var ret = [];
-  /**
-   *
-   * @param {ReturnObject|ReturnObject[]} elems
-   * @returns {void}
-   */
-
-  function addRet(elems) {
-    if (Array.isArray(elems)) {
-      // This was causing excessive stack size in Node (with or
-      //  without Babel) against our performance test:
-      //  `ret.push(...elems);`
-      elems.forEach(function (t) {
-        ret.push(t);
-      });
-    } else {
-      ret.push(elems);
-    }
-  }
-
-  if ((typeof loc !== 'string' || literalPriority) && val && hasOwnProp.call(val, loc)) {
-    // simple case--directly follow property
-    addRet(this._trace(x, val[loc], push(path, loc), val, loc, callback, hasArrExpr));
-  } else if (loc === '*') {
-    // all child properties
-    this._walk(loc, x, val, path, parent, parentPropName, callback, function (m, l, _x, v, p, par, pr, cb) {
-      addRet(_this3._trace(unshift(m, _x), v, p, par, pr, cb, true, true));
-    });
-  } else if (loc === '..') {
-    // all descendent parent properties
-    // Check remaining expression with val's immediate children
-    addRet(this._trace(x, val, path, parent, parentPropName, callback, hasArrExpr));
-
-    this._walk(loc, x, val, path, parent, parentPropName, callback, function (m, l, _x, v, p, par, pr, cb) {
-      // We don't join m and x here because we only want parents,
-      //   not scalar values
-      if (_typeof(v[m]) === 'object') {
-        // Keep going with recursive descent on val's
-        //   object children
-        addRet(_this3._trace(unshift(l, _x), v[m], push(p, m), v, m, cb, true));
-      }
-    }); // The parent sel computation is handled in the frame above using the
-    // ancestor object of val
-
-  } else if (loc === '^') {
-    // This is not a final endpoint, so we do not invoke the callback here
-    this._hasParentSelector = true;
-    return {
-      path: path.slice(0, -1),
-      expr: x,
-      isParentSelector: true
-    };
-  } else if (loc === '~') {
-    // property name
-    retObj = {
-      path: push(path, loc),
-      value: parentPropName,
-      parent: parent,
-      parentProperty: null
-    };
-
-    this._handleCallback(retObj, callback, 'property');
-
-    return retObj;
-  } else if (loc === '$') {
-    // root only
-    addRet(this._trace(x, val, path, null, null, callback, hasArrExpr));
-  } else if (/^(\x2D?[0-9]*):(\x2D?[0-9]*):?([0-9]*)$/.test(loc)) {
-    // [start:end:step]  Python slice syntax
-    addRet(this._slice(loc, x, val, path, parent, parentPropName, callback));
-  } else if (loc.indexOf('?(') === 0) {
-    // [?(expr)] (filtering)
-    if (this.currPreventEval) {
-      throw new Error('Eval [?(expr)] prevented in JSONPath expression.');
-    }
-
-    this._walk(loc, x, val, path, parent, parentPropName, callback, function (m, l, _x, v, p, par, pr, cb) {
-      if (_this3._eval(l.replace(/^\?\(((?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*?)\)$/, '$1'), v[m], m, p, par, pr)) {
-        addRet(_this3._trace(unshift(m, _x), v, p, par, pr, cb, true));
-      }
-    });
-  } else if (loc[0] === '(') {
-    // [(expr)] (dynamic property/index)
-    if (this.currPreventEval) {
-      throw new Error('Eval [(expr)] prevented in JSONPath expression.');
-    } // As this will resolve to a property name (but we don't know it
-    //  yet), property and parent information is relative to the
-    //  parent of the property to which this expression will resolve
-
-
-    addRet(this._trace(unshift(this._eval(loc, val, path[path.length - 1], path.slice(0, -1), parent, parentPropName), x), val, path, parent, parentPropName, callback, hasArrExpr));
-  } else if (loc[0] === '@') {
-    // value type: @boolean(), etc.
-    var addType = false;
-    var valueType = loc.slice(1, -2);
-
-    switch (valueType) {
-      case 'scalar':
-        if (!val || !['object', 'function'].includes(_typeof(val))) {
-          addType = true;
-        }
-
-        break;
-
-      case 'boolean':
-      case 'string':
-      case 'undefined':
-      case 'function':
-        // eslint-disable-next-line valid-typeof
-        if (_typeof(val) === valueType) {
-          addType = true;
-        }
-
-        break;
-
-      case 'integer':
-        if (Number.isFinite(val) && !(val % 1)) {
-          addType = true;
-        }
-
-        break;
-
-      case 'number':
-        if (Number.isFinite(val)) {
-          addType = true;
-        }
-
-        break;
-
-      case 'nonFinite':
-        if (typeof val === 'number' && !Number.isFinite(val)) {
-          addType = true;
-        }
-
-        break;
-
-      case 'object':
-        // eslint-disable-next-line valid-typeof
-        if (val && _typeof(val) === valueType) {
-          addType = true;
-        }
-
-        break;
-
-      case 'array':
-        if (Array.isArray(val)) {
-          addType = true;
-        }
-
-        break;
-
-      case 'other':
-        addType = this.currOtherTypeCallback(val, path, parent, parentPropName);
-        break;
-
-      case 'null':
-        if (val === null) {
-          addType = true;
-        }
-
-        break;
-
-      /* istanbul ignore next */
-
-      default:
-        throw new TypeError('Unknown value type ' + valueType);
-    }
-
-    if (addType) {
-      retObj = {
-        path: path,
-        value: val,
-        parent: parent,
-        parentProperty: parentPropName
-      };
-
-      this._handleCallback(retObj, callback, 'value');
-
-      return retObj;
-    } // `-escaped property
-
-  } else if (loc[0] === '`' && val && hasOwnProp.call(val, loc.slice(1))) {
-    var locProp = loc.slice(1);
-    addRet(this._trace(x, val[locProp], push(path, locProp), val, locProp, callback, hasArrExpr, true));
-  } else if (loc.includes(',')) {
-    // [name1,name2,...]
-    var parts = loc.split(',');
-
-    var _iterator = _createForOfIteratorHelper(parts),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var part = _step.value;
-        addRet(this._trace(unshift(part, x), val, path, parent, parentPropName, callback, true));
-      } // simple case--directly follow property
-
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-  } else if (!literalPriority && val && hasOwnProp.call(val, loc)) {
-    addRet(this._trace(x, val[loc], push(path, loc), val, loc, callback, hasArrExpr, true));
-  } // We check the resulting values for parent selections. For parent
-  // selections we discard the value object and continue the trace with the
-  // current val object
-
-
-  if (this._hasParentSelector) {
-    for (var t = 0; t < ret.length; t++) {
-      var rett = ret[t];
-
-      if (rett && rett.isParentSelector) {
-        var tmp = this._trace(rett.expr, val, rett.path, parent, parentPropName, callback, hasArrExpr);
-
-        if (Array.isArray(tmp)) {
-          ret[t] = tmp[0];
-          var tl = tmp.length;
-
-          for (var tt = 1; tt < tl; tt++) {
-            t++;
-            ret.splice(t, 0, tmp[tt]);
-          }
-        } else {
-          ret[t] = tmp;
-        }
-      }
-    }
-  }
-
-  return ret;
-};
-
-JSONPath.prototype._walk = function (loc, expr, val, path, parent, parentPropName, callback, f) {
-  if (Array.isArray(val)) {
-    var n = val.length;
-
-    for (var i = 0; i < n; i++) {
-      f(i, loc, expr, val, path, parent, parentPropName, callback);
-    }
-  } else if (val && _typeof(val) === 'object') {
-    Object.keys(val).forEach(function (m) {
-      f(m, loc, expr, val, path, parent, parentPropName, callback);
-    });
-  }
-};
-
-JSONPath.prototype._slice = function (loc, expr, val, path, parent, parentPropName, callback) {
-  if (!Array.isArray(val)) {
-    return undefined;
-  }
-
-  var len = val.length,
-      parts = loc.split(':'),
-      step = parts[2] && Number.parseInt(parts[2]) || 1;
-  var start = parts[0] && Number.parseInt(parts[0]) || 0,
-      end = parts[1] && Number.parseInt(parts[1]) || len;
-  start = start < 0 ? Math.max(0, start + len) : Math.min(len, start);
-  end = end < 0 ? Math.max(0, end + len) : Math.min(len, end);
-  var ret = [];
-
-  for (var i = start; i < end; i += step) {
-    var tmp = this._trace(unshift(i, expr), val, path, parent, parentPropName, callback, true); // Should only be possible to be an array here since first part of
-    //   ``unshift(i, expr)` passed in above would not be empty, nor `~`,
-    //     nor begin with `@` (as could return objects)
-    // This was causing excessive stack size in Node (with or
-    //  without Babel) against our performance test: `ret.push(...tmp);`
-
-
-    tmp.forEach(function (t) {
-      ret.push(t);
-    });
-  }
-
-  return ret;
-};
-
-JSONPath.prototype._eval = function (code, _v, _vname, path, parent, parentPropName) {
-  if (code.includes('@parentProperty')) {
-    this.currSandbox._$_parentProperty = parentPropName;
-    code = code.replace(/@parentProperty/g, '_$_parentProperty');
-  }
-
-  if (code.includes('@parent')) {
-    this.currSandbox._$_parent = parent;
-    code = code.replace(/@parent/g, '_$_parent');
-  }
-
-  if (code.includes('@property')) {
-    this.currSandbox._$_property = _vname;
-    code = code.replace(/@property/g, '_$_property');
-  }
-
-  if (code.includes('@path')) {
-    this.currSandbox._$_path = JSONPath.toPathString(path.concat([_vname]));
-    code = code.replace(/@path/g, '_$_path');
-  }
-
-  if (code.includes('@root')) {
-    this.currSandbox._$_root = this.json;
-    code = code.replace(/@root/g, '_$_root');
-  }
-
-  if (/@([\t-\r \)\.\[\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF])/.test(code)) {
-    this.currSandbox._$_v = _v;
-    code = code.replace(/@([\t-\r \)\.\[\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF])/g, '_$_v$1');
-  }
-
-  try {
-    return this.vm.runInNewContext(code, this.currSandbox);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
-    throw new Error('jsonPath: ' + e.message + ': ' + code);
-  }
-}; // PUBLIC CLASS PROPERTIES AND METHODS
-// Could store the cache object itself
-
-
-JSONPath.cache = {};
-/**
- * @param {string[]} pathArr Array to convert
- * @returns {string} The path string
- */
-
-JSONPath.toPathString = function (pathArr) {
-  var x = pathArr,
-      n = x.length;
-  var p = '$';
-
-  for (var i = 1; i < n; i++) {
-    if (!/^(~|\^|@(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*?\(\))$/.test(x[i])) {
-      p += /^[\*0-9]+$/.test(x[i]) ? '[' + x[i] + ']' : "['" + x[i] + "']";
-    }
-  }
-
-  return p;
-};
-/**
- * @param {string} pointer JSON Path
- * @returns {string} JSON Pointer
- */
-
-
-JSONPath.toPointer = function (pointer) {
-  var x = pointer,
-      n = x.length;
-  var p = '';
-
-  for (var i = 1; i < n; i++) {
-    if (!/^(~|\^|@(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*?\(\))$/.test(x[i])) {
-      p += '/' + x[i].toString().replace(/~/g, '~0').replace(/\//g, '~1');
-    }
-  }
-
-  return p;
-};
-/**
- * @param {string} expr Expression to convert
- * @returns {string[]}
- */
-
-
-JSONPath.toPathArray = function (expr) {
-  var cache = JSONPath.cache;
-
-  if (cache[expr]) {
-    return cache[expr].concat();
-  }
-
-  var subx = [];
-  var normalized = expr // Properties
-  .replace(/@(?:null|boolean|number|string|integer|undefined|nonFinite|scalar|array|object|function|other)\(\)/g, ';$&;') // Parenthetical evaluations (filtering and otherwise), directly
-  //   within brackets or single quotes
-  .replace(/['\[](\??\((?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])*?\))['\]]/g, function ($0, $1) {
-    return '[#' + (subx.push($1) - 1) + ']';
-  }) // Escape periods and tildes within properties
-  .replace(/\['((?:(?!['\]])[\s\S])*)'\]/g, function ($0, prop) {
-    return "['" + prop.replace(/\./g, '%@%').replace(/~/g, '%%@@%%') + "']";
-  }) // Properties operator
-  .replace(/~/g, ';~;') // Split by property boundaries
-  .replace(/'?\.'?(?!(?:(?!\[)[\s\S])*\])|\['?/g, ';') // Reinsert periods within properties
-  .replace(/%@%/g, '.') // Reinsert tildes within properties
-  .replace(/%%@@%%/g, '~') // Parent
-  .replace(/(?:;)?(\^+)(?:;)?/g, function ($0, ups) {
-    return ';' + ups.split('').join(';') + ';';
-  }) // Descendents
-  .replace(/;;;|;;/g, ';..;') // Remove trailing
-  .replace(/;$|'?\]|'$/g, '');
-  var exprList = normalized.split(';').map(function (exp) {
-    var match = exp.match(/#([0-9]+)/);
-    return !match || !match[1] ? exp : subx[match[1]];
-  });
-  cache[expr] = exprList;
-  return cache[expr];
-};
-/**
-* @callback ConditionCallback
-* @param {any} item
-* @returns {boolean}
-*/
-
-/**
- * Copy items out of one array into another.
- * @param {GenericArray} source Array with items to copy
- * @param {GenericArray} target Array to which to copy
- * @param {ConditionCallback} conditionCb Callback passed the current item;
- *     will move item if evaluates to `true`
- * @returns {void}
- */
-
-
-var moveToAnotherArray = function moveToAnotherArray(source, target, conditionCb) {
-  var il = source.length;
-
-  for (var i = 0; i < il; i++) {
-    var item = source[i];
-
-    if (conditionCb(item)) {
-      target.push(source.splice(i--, 1)[0]);
-    }
-  }
-};
-
-JSONPath.prototype.vm = {
-  /**
-   * @param {string} expr Expression to evaluate
-   * @param {PlainObject} context Object whose items will be added
-   *   to evaluation
-   * @returns {any} Result of evaluated code
-   */
-  runInNewContext: function runInNewContext(expr, context) {
-    var keys = Object.keys(context);
-    var funcs = [];
-    moveToAnotherArray(keys, funcs, function (key) {
-      return typeof context[key] === 'function';
-    });
-    var values = keys.map(function (vr, i) {
-      return context[vr];
-    });
-    var funcString = funcs.reduce(function (s, func) {
-      var fString = context[func].toString();
-
-      if (!/function/.test(fString)) {
-        fString = 'function ' + fString;
-      }
-
-      return 'var ' + func + '=' + fString + ';' + s;
-    }, '');
-    expr = funcString + expr; // Mitigate http://perfectionkills.com/global-eval-what-are-the-options/#new_function
-
-    if (!/(["'])use strict\1/.test(expr) && !keys.includes('arguments')) {
-      expr = 'var arguments = undefined;' + expr;
-    } // Remove last semi so `return` will be inserted before
-    //  the previous one instead, allowing for the return
-    //  of a bare ending expression
-
-
-    expr = expr.replace(/;[\t-\r \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*$/, ''); // Insert `return`
-
-    var lastStatementEnd = expr.lastIndexOf(';');
-    var code = lastStatementEnd > -1 ? expr.slice(0, lastStatementEnd + 1) + ' return ' + expr.slice(lastStatementEnd + 1) : ' return ' + expr; // eslint-disable-next-line no-new-func
-
-    return _construct(Function, _toConsumableArray(keys).concat([code])).apply(void 0, _toConsumableArray(values));
-  }
-};
-
-
-/***/ }),
-
 /***/ "hxuT":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2984,6 +2178,821 @@ var CardActions = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 
 /***/ }),
 
+/***/ "o8k2":
+/***/ (function(module, exports, __webpack_require__) {
+
+//     JavaScript Expression Parser (JSEP) 0.3.5
+//     JSEP may be freely distributed under the MIT License
+//     https://ericsmekens.github.io/jsep/
+
+/*global module: true, exports: true, console: true */
+(function (root) {
+  'use strict'; // Node Types
+  // ----------
+  // This is the full set of types that any JSEP node can be.
+  // Store them here to save space when minified
+
+  var COMPOUND = 'Compound',
+      IDENTIFIER = 'Identifier',
+      MEMBER_EXP = 'MemberExpression',
+      LITERAL = 'Literal',
+      THIS_EXP = 'ThisExpression',
+      CALL_EXP = 'CallExpression',
+      UNARY_EXP = 'UnaryExpression',
+      BINARY_EXP = 'BinaryExpression',
+      LOGICAL_EXP = 'LogicalExpression',
+      CONDITIONAL_EXP = 'ConditionalExpression',
+      ARRAY_EXP = 'ArrayExpression',
+      PERIOD_CODE = 46,
+      // '.'
+  COMMA_CODE = 44,
+      // ','
+  SQUOTE_CODE = 39,
+      // single quote
+  DQUOTE_CODE = 34,
+      // double quotes
+  OPAREN_CODE = 40,
+      // (
+  CPAREN_CODE = 41,
+      // )
+  OBRACK_CODE = 91,
+      // [
+  CBRACK_CODE = 93,
+      // ]
+  QUMARK_CODE = 63,
+      // ?
+  SEMCOL_CODE = 59,
+      // ;
+  COLON_CODE = 58,
+      // :
+  throwError = function throwError(message, index) {
+    var error = new Error(message + ' at character ' + index);
+    error.index = index;
+    error.description = message;
+    throw error;
+  },
+      // Operations
+  // ----------
+  // Set `t` to `true` to save space (when minified, not gzipped)
+  t = true,
+      // Use a quickly-accessible map to store all of the unary operators
+  // Values are set to `true` (it really doesn't matter)
+  unary_ops = {
+    '-': t,
+    '!': t,
+    '~': t,
+    '+': t
+  },
+      // Also use a map for the binary operations but set their values to their
+  // binary precedence for quick reference:
+  // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
+  binary_ops = {
+    '||': 1,
+    '&&': 2,
+    '|': 3,
+    '^': 4,
+    '&': 5,
+    '==': 6,
+    '!=': 6,
+    '===': 6,
+    '!==': 6,
+    '<': 7,
+    '>': 7,
+    '<=': 7,
+    '>=': 7,
+    '<<': 8,
+    '>>': 8,
+    '>>>': 8,
+    '+': 9,
+    '-': 9,
+    '*': 10,
+    '/': 10,
+    '%': 10
+  },
+      // Get return the longest key length of any object
+  getMaxKeyLen = function getMaxKeyLen(obj) {
+    var max_len = 0,
+        len;
+
+    for (var key in obj) {
+      if ((len = key.length) > max_len && obj.hasOwnProperty(key)) {
+        max_len = len;
+      }
+    }
+
+    return max_len;
+  },
+      max_unop_len = getMaxKeyLen(unary_ops),
+      max_binop_len = getMaxKeyLen(binary_ops),
+      // Literals
+  // ----------
+  // Store the values to return for the various literals we may encounter
+  literals = {
+    'true': true,
+    'false': false,
+    'null': null
+  },
+      // Except for `this`, which is special. This could be changed to something like `'self'` as well
+  this_str = 'this',
+      // Returns the precedence of a binary operator or `0` if it isn't a binary operator
+  binaryPrecedence = function binaryPrecedence(op_val) {
+    return binary_ops[op_val] || 0;
+  },
+      // Utility function (gets called from multiple places)
+  // Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
+  createBinaryExpression = function createBinaryExpression(operator, left, right) {
+    var type = operator === '||' || operator === '&&' ? LOGICAL_EXP : BINARY_EXP;
+    return {
+      type: type,
+      operator: operator,
+      left: left,
+      right: right
+    };
+  },
+      // `ch` is a character code in the next three functions
+  isDecimalDigit = function isDecimalDigit(ch) {
+    return ch >= 48 && ch <= 57; // 0...9
+  },
+      isIdentifierStart = function isIdentifierStart(ch) {
+    return ch === 36 || ch === 95 || // `$` and `_`
+    ch >= 65 && ch <= 90 || // A...Z
+    ch >= 97 && ch <= 122 || // a...z
+    ch >= 128 && !binary_ops[String.fromCharCode(ch)]; // any non-ASCII that is not an operator
+  },
+      isIdentifierPart = function isIdentifierPart(ch) {
+    return ch === 36 || ch === 95 || // `$` and `_`
+    ch >= 65 && ch <= 90 || // A...Z
+    ch >= 97 && ch <= 122 || // a...z
+    ch >= 48 && ch <= 57 || // 0...9
+    ch >= 128 && !binary_ops[String.fromCharCode(ch)]; // any non-ASCII that is not an operator
+  },
+      // Parsing
+  // -------
+  // `expr` is a string with the passed in expression
+  jsep = function jsep(expr) {
+    // `index` stores the character number we are currently at while `length` is a constant
+    // All of the gobbles below will modify `index` as we move along
+    var index = 0,
+        charAtFunc = expr.charAt,
+        charCodeAtFunc = expr.charCodeAt,
+        exprI = function exprI(i) {
+      return charAtFunc.call(expr, i);
+    },
+        exprICode = function exprICode(i) {
+      return charCodeAtFunc.call(expr, i);
+    },
+        length = expr.length,
+        // Push `index` up to the next non-space character
+    gobbleSpaces = function gobbleSpaces() {
+      var ch = exprICode(index); // space or tab
+
+      while (ch === 32 || ch === 9 || ch === 10 || ch === 13) {
+        ch = exprICode(++index);
+      }
+    },
+        // The main parsing function. Much of this code is dedicated to ternary expressions
+    gobbleExpression = function gobbleExpression() {
+      var test = gobbleBinaryExpression(),
+          consequent,
+          alternate;
+      gobbleSpaces();
+
+      if (exprICode(index) === QUMARK_CODE) {
+        // Ternary expression: test ? consequent : alternate
+        index++;
+        consequent = gobbleExpression();
+
+        if (!consequent) {
+          throwError('Expected expression', index);
+        }
+
+        gobbleSpaces();
+
+        if (exprICode(index) === COLON_CODE) {
+          index++;
+          alternate = gobbleExpression();
+
+          if (!alternate) {
+            throwError('Expected expression', index);
+          }
+
+          return {
+            type: CONDITIONAL_EXP,
+            test: test,
+            consequent: consequent,
+            alternate: alternate
+          };
+        } else {
+          throwError('Expected :', index);
+        }
+      } else {
+        return test;
+      }
+    },
+        // Search for the operation portion of the string (e.g. `+`, `===`)
+    // Start by taking the longest possible binary operations (3 characters: `===`, `!==`, `>>>`)
+    // and move down from 3 to 2 to 1 character until a matching binary operation is found
+    // then, return that binary operation
+    gobbleBinaryOp = function gobbleBinaryOp() {
+      gobbleSpaces();
+      var biop,
+          to_check = expr.substr(index, max_binop_len),
+          tc_len = to_check.length;
+
+      while (tc_len > 0) {
+        // Don't accept a binary op when it is an identifier.
+        // Binary ops that start with a identifier-valid character must be followed
+        // by a non identifier-part valid character
+        if (binary_ops.hasOwnProperty(to_check) && (!isIdentifierStart(exprICode(index)) || index + to_check.length < expr.length && !isIdentifierPart(exprICode(index + to_check.length)))) {
+          index += tc_len;
+          return to_check;
+        }
+
+        to_check = to_check.substr(0, --tc_len);
+      }
+
+      return false;
+    },
+        // This function is responsible for gobbling an individual expression,
+    // e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
+    gobbleBinaryExpression = function gobbleBinaryExpression() {
+      var ch_i, node, biop, prec, stack, biop_info, left, right, i, cur_biop; // First, try to get the leftmost thing
+      // Then, check to see if there's a binary operator operating on that leftmost thing
+
+      left = gobbleToken();
+      biop = gobbleBinaryOp(); // If there wasn't a binary operator, just return the leftmost node
+
+      if (!biop) {
+        return left;
+      } // Otherwise, we need to start a stack to properly place the binary operations in their
+      // precedence structure
+
+
+      biop_info = {
+        value: biop,
+        prec: binaryPrecedence(biop)
+      };
+      right = gobbleToken();
+
+      if (!right) {
+        throwError("Expected expression after " + biop, index);
+      }
+
+      stack = [left, biop_info, right]; // Properly deal with precedence using [recursive descent](http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm)
+
+      while (biop = gobbleBinaryOp()) {
+        prec = binaryPrecedence(biop);
+
+        if (prec === 0) {
+          break;
+        }
+
+        biop_info = {
+          value: biop,
+          prec: prec
+        };
+        cur_biop = biop; // Reduce: make a binary expression from the three topmost entries.
+
+        while (stack.length > 2 && prec <= stack[stack.length - 2].prec) {
+          right = stack.pop();
+          biop = stack.pop().value;
+          left = stack.pop();
+          node = createBinaryExpression(biop, left, right);
+          stack.push(node);
+        }
+
+        node = gobbleToken();
+
+        if (!node) {
+          throwError("Expected expression after " + cur_biop, index);
+        }
+
+        stack.push(biop_info, node);
+      }
+
+      i = stack.length - 1;
+      node = stack[i];
+
+      while (i > 1) {
+        node = createBinaryExpression(stack[i - 1].value, stack[i - 2], node);
+        i -= 2;
+      }
+
+      return node;
+    },
+        // An individual part of a binary expression:
+    // e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
+    gobbleToken = function gobbleToken() {
+      var ch, to_check, tc_len;
+      gobbleSpaces();
+      ch = exprICode(index);
+
+      if (isDecimalDigit(ch) || ch === PERIOD_CODE) {
+        // Char code 46 is a dot `.` which can start off a numeric literal
+        return gobbleNumericLiteral();
+      } else if (ch === SQUOTE_CODE || ch === DQUOTE_CODE) {
+        // Single or double quotes
+        return gobbleStringLiteral();
+      } else if (ch === OBRACK_CODE) {
+        return gobbleArray();
+      } else {
+        to_check = expr.substr(index, max_unop_len);
+        tc_len = to_check.length;
+
+        while (tc_len > 0) {
+          // Don't accept an unary op when it is an identifier.
+          // Unary ops that start with a identifier-valid character must be followed
+          // by a non identifier-part valid character
+          if (unary_ops.hasOwnProperty(to_check) && (!isIdentifierStart(exprICode(index)) || index + to_check.length < expr.length && !isIdentifierPart(exprICode(index + to_check.length)))) {
+            index += tc_len;
+            return {
+              type: UNARY_EXP,
+              operator: to_check,
+              argument: gobbleToken(),
+              prefix: true
+            };
+          }
+
+          to_check = to_check.substr(0, --tc_len);
+        }
+
+        if (isIdentifierStart(ch) || ch === OPAREN_CODE) {
+          // open parenthesis
+          // `foo`, `bar.baz`
+          return gobbleVariable();
+        }
+      }
+
+      return false;
+    },
+        // Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
+    // keep track of everything in the numeric literal and then calling `parseFloat` on that string
+    gobbleNumericLiteral = function gobbleNumericLiteral() {
+      var number = '',
+          ch,
+          chCode;
+
+      while (isDecimalDigit(exprICode(index))) {
+        number += exprI(index++);
+      }
+
+      if (exprICode(index) === PERIOD_CODE) {
+        // can start with a decimal marker
+        number += exprI(index++);
+
+        while (isDecimalDigit(exprICode(index))) {
+          number += exprI(index++);
+        }
+      }
+
+      ch = exprI(index);
+
+      if (ch === 'e' || ch === 'E') {
+        // exponent marker
+        number += exprI(index++);
+        ch = exprI(index);
+
+        if (ch === '+' || ch === '-') {
+          // exponent sign
+          number += exprI(index++);
+        }
+
+        while (isDecimalDigit(exprICode(index))) {
+          //exponent itself
+          number += exprI(index++);
+        }
+
+        if (!isDecimalDigit(exprICode(index - 1))) {
+          throwError('Expected exponent (' + number + exprI(index) + ')', index);
+        }
+      }
+
+      chCode = exprICode(index); // Check to make sure this isn't a variable name that start with a number (123abc)
+
+      if (isIdentifierStart(chCode)) {
+        throwError('Variable names cannot start with a number (' + number + exprI(index) + ')', index);
+      } else if (chCode === PERIOD_CODE) {
+        throwError('Unexpected period', index);
+      }
+
+      return {
+        type: LITERAL,
+        value: parseFloat(number),
+        raw: number
+      };
+    },
+        // Parses a string literal, staring with single or double quotes with basic support for escape codes
+    // e.g. `"hello world"`, `'this is\nJSEP'`
+    gobbleStringLiteral = function gobbleStringLiteral() {
+      var str = '',
+          quote = exprI(index++),
+          closed = false,
+          ch;
+
+      while (index < length) {
+        ch = exprI(index++);
+
+        if (ch === quote) {
+          closed = true;
+          break;
+        } else if (ch === '\\') {
+          // Check for all of the common escape codes
+          ch = exprI(index++);
+
+          switch (ch) {
+            case 'n':
+              str += '\n';
+              break;
+
+            case 'r':
+              str += '\r';
+              break;
+
+            case 't':
+              str += '\t';
+              break;
+
+            case 'b':
+              str += '\b';
+              break;
+
+            case 'f':
+              str += '\f';
+              break;
+
+            case 'v':
+              str += '\x0B';
+              break;
+
+            default:
+              str += ch;
+          }
+        } else {
+          str += ch;
+        }
+      }
+
+      if (!closed) {
+        throwError('Unclosed quote after "' + str + '"', index);
+      }
+
+      return {
+        type: LITERAL,
+        value: str,
+        raw: quote + str + quote
+      };
+    },
+        // Gobbles only identifiers
+    // e.g.: `foo`, `_value`, `$x1`
+    // Also, this function checks if that identifier is a literal:
+    // (e.g. `true`, `false`, `null`) or `this`
+    gobbleIdentifier = function gobbleIdentifier() {
+      var ch = exprICode(index),
+          start = index,
+          identifier;
+
+      if (isIdentifierStart(ch)) {
+        index++;
+      } else {
+        throwError('Unexpected ' + exprI(index), index);
+      }
+
+      while (index < length) {
+        ch = exprICode(index);
+
+        if (isIdentifierPart(ch)) {
+          index++;
+        } else {
+          break;
+        }
+      }
+
+      identifier = expr.slice(start, index);
+
+      if (literals.hasOwnProperty(identifier)) {
+        return {
+          type: LITERAL,
+          value: literals[identifier],
+          raw: identifier
+        };
+      } else if (identifier === this_str) {
+        return {
+          type: THIS_EXP
+        };
+      } else {
+        return {
+          type: IDENTIFIER,
+          name: identifier
+        };
+      }
+    },
+        // Gobbles a list of arguments within the context of a function call
+    // or array literal. This function also assumes that the opening character
+    // `(` or `[` has already been gobbled, and gobbles expressions and commas
+    // until the terminator character `)` or `]` is encountered.
+    // e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
+    gobbleArguments = function gobbleArguments(termination) {
+      var ch_i,
+          args = [],
+          node,
+          closed = false;
+      var separator_count = 0;
+
+      while (index < length) {
+        gobbleSpaces();
+        ch_i = exprICode(index);
+
+        if (ch_i === termination) {
+          // done parsing
+          closed = true;
+          index++;
+
+          if (termination === CPAREN_CODE && separator_count && separator_count >= args.length) {
+            throwError('Unexpected token ' + String.fromCharCode(termination), index);
+          }
+
+          break;
+        } else if (ch_i === COMMA_CODE) {
+          // between expressions
+          index++;
+          separator_count++;
+
+          if (separator_count !== args.length) {
+            // missing argument
+            if (termination === CPAREN_CODE) {
+              throwError('Unexpected token ,', index);
+            } else if (termination === CBRACK_CODE) {
+              for (var arg = args.length; arg < separator_count; arg++) {
+                args.push(null);
+              }
+            }
+          }
+        } else {
+          node = gobbleExpression();
+
+          if (!node || node.type === COMPOUND) {
+            throwError('Expected comma', index);
+          }
+
+          args.push(node);
+        }
+      }
+
+      if (!closed) {
+        throwError('Expected ' + String.fromCharCode(termination), index);
+      }
+
+      return args;
+    },
+        // Gobble a non-literal variable name. This variable name may include properties
+    // e.g. `foo`, `bar.baz`, `foo['bar'].baz`
+    // It also gobbles function calls:
+    // e.g. `Math.acos(obj.angle)`
+    gobbleVariable = function gobbleVariable() {
+      var ch_i, node;
+      ch_i = exprICode(index);
+
+      if (ch_i === OPAREN_CODE) {
+        node = gobbleGroup();
+      } else {
+        node = gobbleIdentifier();
+      }
+
+      gobbleSpaces();
+      ch_i = exprICode(index);
+
+      while (ch_i === PERIOD_CODE || ch_i === OBRACK_CODE || ch_i === OPAREN_CODE) {
+        index++;
+
+        if (ch_i === PERIOD_CODE) {
+          gobbleSpaces();
+          node = {
+            type: MEMBER_EXP,
+            computed: false,
+            object: node,
+            property: gobbleIdentifier()
+          };
+        } else if (ch_i === OBRACK_CODE) {
+          node = {
+            type: MEMBER_EXP,
+            computed: true,
+            object: node,
+            property: gobbleExpression()
+          };
+          gobbleSpaces();
+          ch_i = exprICode(index);
+
+          if (ch_i !== CBRACK_CODE) {
+            throwError('Unclosed [', index);
+          }
+
+          index++;
+        } else if (ch_i === OPAREN_CODE) {
+          // A function call is being made; gobble all the arguments
+          node = {
+            type: CALL_EXP,
+            'arguments': gobbleArguments(CPAREN_CODE),
+            callee: node
+          };
+        }
+
+        gobbleSpaces();
+        ch_i = exprICode(index);
+      }
+
+      return node;
+    },
+        // Responsible for parsing a group of things within parentheses `()`
+    // This function assumes that it needs to gobble the opening parenthesis
+    // and then tries to gobble everything within that parenthesis, assuming
+    // that the next thing it should see is the close parenthesis. If not,
+    // then the expression probably doesn't have a `)`
+    gobbleGroup = function gobbleGroup() {
+      index++;
+      var node = gobbleExpression();
+      gobbleSpaces();
+
+      if (exprICode(index) === CPAREN_CODE) {
+        index++;
+        return node;
+      } else {
+        throwError('Unclosed (', index);
+      }
+    },
+        // Responsible for parsing Array literals `[1, 2, 3]`
+    // This function assumes that it needs to gobble the opening bracket
+    // and then tries to gobble the expressions as arguments.
+    gobbleArray = function gobbleArray() {
+      index++;
+      return {
+        type: ARRAY_EXP,
+        elements: gobbleArguments(CBRACK_CODE)
+      };
+    },
+        nodes = [],
+        ch_i,
+        node;
+
+    while (index < length) {
+      ch_i = exprICode(index); // Expressions can be separated by semicolons, commas, or just inferred without any
+      // separators
+
+      if (ch_i === SEMCOL_CODE || ch_i === COMMA_CODE) {
+        index++; // ignore separators
+      } else {
+        // Try to gobble each expression individually
+        if (node = gobbleExpression()) {
+          nodes.push(node); // If we weren't able to find a binary expression and are out of room, then
+          // the expression passed in probably has too much
+        } else if (index < length) {
+          throwError('Unexpected "' + exprI(index) + '"', index);
+        }
+      }
+    } // If there's only one expression just try returning the expression
+
+
+    if (nodes.length === 1) {
+      return nodes[0];
+    } else {
+      return {
+        type: COMPOUND,
+        body: nodes
+      };
+    }
+  }; // To be filled in by the template
+
+
+  jsep.version = '0.3.5';
+
+  jsep.toString = function () {
+    return 'JavaScript Expression Parser (JSEP) v' + jsep.version;
+  };
+  /**
+   * @method jsep.addUnaryOp
+   * @param {string} op_name The name of the unary op to add
+   * @return jsep
+   */
+
+
+  jsep.addUnaryOp = function (op_name) {
+    max_unop_len = Math.max(op_name.length, max_unop_len);
+    unary_ops[op_name] = t;
+    return this;
+  };
+  /**
+   * @method jsep.addBinaryOp
+   * @param {string} op_name The name of the binary op to add
+   * @param {number} precedence The precedence of the binary op (can be a float)
+   * @return jsep
+   */
+
+
+  jsep.addBinaryOp = function (op_name, precedence) {
+    max_binop_len = Math.max(op_name.length, max_binop_len);
+    binary_ops[op_name] = precedence;
+    return this;
+  };
+  /**
+   * @method jsep.addLiteral
+   * @param {string} literal_name The name of the literal to add
+   * @param {*} literal_value The value of the literal
+   * @return jsep
+   */
+
+
+  jsep.addLiteral = function (literal_name, literal_value) {
+    literals[literal_name] = literal_value;
+    return this;
+  };
+  /**
+   * @method jsep.removeUnaryOp
+   * @param {string} op_name The name of the unary op to remove
+   * @return jsep
+   */
+
+
+  jsep.removeUnaryOp = function (op_name) {
+    delete unary_ops[op_name];
+
+    if (op_name.length === max_unop_len) {
+      max_unop_len = getMaxKeyLen(unary_ops);
+    }
+
+    return this;
+  };
+  /**
+   * @method jsep.removeAllUnaryOps
+   * @return jsep
+   */
+
+
+  jsep.removeAllUnaryOps = function () {
+    unary_ops = {};
+    max_unop_len = 0;
+    return this;
+  };
+  /**
+   * @method jsep.removeBinaryOp
+   * @param {string} op_name The name of the binary op to remove
+   * @return jsep
+   */
+
+
+  jsep.removeBinaryOp = function (op_name) {
+    delete binary_ops[op_name];
+
+    if (op_name.length === max_binop_len) {
+      max_binop_len = getMaxKeyLen(binary_ops);
+    }
+
+    return this;
+  };
+  /**
+   * @method jsep.removeAllBinaryOps
+   * @return jsep
+   */
+
+
+  jsep.removeAllBinaryOps = function () {
+    binary_ops = {};
+    max_binop_len = 0;
+    return this;
+  };
+  /**
+   * @method jsep.removeLiteral
+   * @param {string} literal_name The name of the literal to remove
+   * @return jsep
+   */
+
+
+  jsep.removeLiteral = function (literal_name) {
+    delete literals[literal_name];
+    return this;
+  };
+  /**
+   * @method jsep.removeAllLiterals
+   * @return jsep
+   */
+
+
+  jsep.removeAllLiterals = function () {
+    literals = {};
+    return this;
+  }; // In desktop environments, have a way to restore the old value for `jsep`
+
+
+  if (false) { var old_jsep; } else {
+    // In Node.JS environments
+    if ( true && module.exports) {
+      exports = module.exports = jsep;
+    } else {
+      exports.parse = jsep;
+    }
+  }
+})(this);
+
+/***/ }),
+
 /***/ "rNA1":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3046,4 +3055,4 @@ module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIden
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-343d6f21e0eed54a3701.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-0fc929974f3b8b3476a7.js.map
