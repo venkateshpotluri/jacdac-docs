@@ -758,6 +758,9 @@ function DashboardDevice(props) {
     "aria-live": "polite",
     "aria-label": "device " + name + " started"
   }, /*#__PURE__*/react_default.a.createElement(CardHeader["a" /* default */], {
+    style: {
+      paddingBottom: 0
+    },
     avatar: showAvatar && /*#__PURE__*/react_default.a.createElement(DeviceAvatar["a" /* default */], {
       device: device
     }),
@@ -778,7 +781,11 @@ function DashboardDevice(props) {
       variant: "caption",
       gutterBottom: true
     }, specification.name))
-  }), /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(ServiceWidgets, null), expanded && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  }), /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], {
+    style: {
+      paddingTop: 0
+    }
+  }, /*#__PURE__*/react_default.a.createElement(ServiceWidgets, null), expanded && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     direction: "column",
     spacing: 1,
@@ -1618,4 +1625,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-261fb0d63e510bc1cd9a.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-54ba012970abc9198b62.js.map
