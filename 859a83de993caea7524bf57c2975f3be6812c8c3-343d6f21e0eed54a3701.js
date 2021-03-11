@@ -1191,7 +1191,7 @@ var PlayCircleFilled_default = /*#__PURE__*/__webpack_require__.n(PlayCircleFill
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__("IzqI");
 
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardDevice.tsx + 1 modules
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardDevice.tsx + 4 modules
 var DashboardDevice = __webpack_require__("kLoJ");
 
 // EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx
@@ -1713,51 +1713,6 @@ var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("pa
 }), 'PlayCircleFilled');
 
 exports.default = _default;
-
-/***/ }),
-
-/***/ "eoX3":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JDServiceClient; });
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("vuIU");
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("dI71");
-/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("v+ZI");
-
-
-
-var JDServiceClient = /*#__PURE__*/function (_JDClient) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(JDServiceClient, _JDClient);
-
-  function JDServiceClient(service) {
-    var _this;
-
-    _this = _JDClient.call(this) || this;
-    _this.service = service;
-    return _this;
-  }
-
-  var _proto = JDServiceClient.prototype;
-
-  _proto.toString = function toString() {
-    return "client of " + this.service;
-  };
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(JDServiceClient, [{
-    key: "device",
-    get: function get() {
-      return this.service.device;
-    }
-  }, {
-    key: "bus",
-    get: function get() {
-      return this.device.bus;
-    }
-  }]);
-
-  return JDServiceClient;
-}(_client__WEBPACK_IMPORTED_MODULE_2__[/* JDClient */ "a"]);
 
 /***/ }),
 
@@ -3088,39 +3043,7 @@ exports.default = _default;
 
 module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"downUp: press down and up\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button and release it immediately\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe an Up event, followed by a Down event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"click: click the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down for 500ms and less than 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a Click event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"long click: hold the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down at least 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a LongClick event?\\\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Potentiometer tests\",\"serviceClassIdentifier\":522667846,\"tests\":[{\"description\":\"position changes on movement\",\"registers\":[],\"commands\":[{\"prompt\":\"move the slider/potentiometer\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did the position register's value change?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob back and forth\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromUpTo\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromDownTo\"}}}]},{\"description\":\"check physical position clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"note knob's physical position and quickly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"check physical position counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"note knob's physical position and quickly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"reset test\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"reset test (automated)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"reset\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"==\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Literal\",\"value\":0,\"raw\":\"0\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]}]}]");
 
-/***/ }),
-
-/***/ "wsLH":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useServiceClient; });
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("KQm4");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-
-
-function useServiceClient(service, factory, deps) {
-  if (deps === void 0) {
-    deps = [];
-  }
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(undefined),
-      client = _useState[0],
-      setClient = _useState[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    var c = service && factory(service);
-    setClient(c);
-    return function () {
-      return c === null || c === void 0 ? void 0 : c.unmount();
-    };
-  }, [service].concat(Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(deps))); // don't use factory in cache!
-
-  return client;
-}
-
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-553632e215c003af9d8a.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-343d6f21e0eed54a3701.js.map

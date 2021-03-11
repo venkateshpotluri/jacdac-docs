@@ -27,6 +27,476 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "HuxJ":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useServices; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("yNWl");
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("IzqI");
+
+
+
+function useServices(options) {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_jacdac_Context__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"]),
+      bus = _useContext.bus;
+
+  var services = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(bus, function (b) {
+    return b.services(options);
+  }, [JSON.stringify(options)]);
+  return services;
+}
+
+/***/ }),
+
+/***/ "d+Gs":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export RequestedRole */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RoleManagerClient; });
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("JX7q");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("dI71");
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("HaE+");
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("vuIU");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("o0o1");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _pipes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("o8zs");
+/* harmony import */ var _serviceclient__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("eoX3");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("ZfHV");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("Zo1I");
+/* harmony import */ var _packet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("W9jF");
+/* harmony import */ var _pack__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("BsyY");
+/* harmony import */ var _hosts_hosts__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("y+c1");
+
+
+
+
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+
+
+
+
+var SCAN_DEBOUNCE = 2000;
+var RequestedRole = /*#__PURE__*/function () {
+  function RequestedRole(parent, name, serviceClass) {
+    this.candidates = [];
+    this.parent = parent;
+    this.name = name;
+    this.serviceClass = serviceClass;
+  }
+
+  var _proto = RequestedRole.prototype;
+
+  _proto.computeCandidates = function computeCandidates() {
+    var bus = this.parent.service.device.bus;
+    this.candidates = bus.services({
+      serviceClass: this.serviceClass
+    }); // check that bound service is stil update to date
+
+    if (this.candidates.indexOf(this.bound) < 0) this.bound = undefined;
+  };
+
+  _proto.select = /*#__PURE__*/function () {
+    var _select = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee(service) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(service === this.bound)) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 2:
+              if (!this.bound) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 5;
+              return this.parent.setRole(this.bound, "");
+
+            case 5:
+              _context.next = 7;
+              return this.parent.setRole(service, this.name);
+
+            case 7:
+              this.bound = service;
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function select(_x) {
+      return _select.apply(this, arguments);
+    }
+
+    return select;
+  }();
+
+  _proto.toString = function toString() {
+    var info = this.name + ":" + this.serviceClass.toString(16);
+    if (this.bound) info += " -> " + this.bound;
+    info += ", " + this.candidates.map(function (c) {
+      return c.toString();
+    }).join();
+    return info;
+  };
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(RequestedRole, [{
+    key: "parentName",
+    get: function get() {
+      var parts = this.name.split(/\//g);
+      return parts.length > 1 ? parts.slice(0, parts.length - 1).join("/") : undefined;
+    }
+  }]);
+
+  return RequestedRole;
+}();
+var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(RoleManagerClient, _JDServiceClient);
+
+  function RoleManagerClient(service) {
+    var _this;
+
+    _this = _JDServiceClient.call(this, service) || this;
+    _this.scanning = false;
+    _this.requestedRoles = undefined;
+    console.log("rdp: new");
+    var dscan = Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* debounceAsync */ "q"])(_this.scan.bind(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_this)), SCAN_DEBOUNCE);
+
+    _this.mount(_this.bus.subscribe(_constants__WEBPACK_IMPORTED_MODULE_7__[/* DEVICE_CHANGE */ "T"], Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* debounceAsync */ "q"])( /*#__PURE__*/Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this.recomputeCandidates();
+
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    })), SCAN_DEBOUNCE)));
+
+    var changeEvent = _this.service.event(_constants__WEBPACK_IMPORTED_MODULE_7__[/* RoleManagerEvent */ "fd"].Change);
+
+    _this.mount(changeEvent.subscribe(_constants__WEBPACK_IMPORTED_MODULE_7__[/* EVENT */ "jb"], dscan));
+
+    dscan();
+    return _this;
+  }
+
+  var _proto2 = RoleManagerClient.prototype;
+
+  _proto2.scan = /*#__PURE__*/function () {
+    var _scan = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee3() {
+      var _this2 = this;
+
+      var addRequested, _this$requestedRoles, inp, localDevs, ordevs, rdevs, _loop, _iterator, _step;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(this.scanning || !this.service.device.connected)) {
+                _context3.next = 2;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 2:
+              addRequested = function addRequested(devs, role, serviceClass) {
+                var r = devs.find(function (d) {
+                  return d.name == role;
+                });
+                if (!r) devs.push(r = new RequestedRole(_this2, role, serviceClass));
+                return r;
+              };
+
+              _context3.prev = 3;
+              //console.log(`rdp start`)
+              this.scanning = true;
+              inp = new _pipes__WEBPACK_IMPORTED_MODULE_5__[/* InPipeReader */ "a"](this.bus);
+              _context3.next = 8;
+              return this.service.sendPacketAsync(inp.openCommand(_constants__WEBPACK_IMPORTED_MODULE_7__[/* RoleManagerCmd */ "ed"].ListRequiredRoles), true);
+
+            case 8:
+              localDevs = this.bus.devices();
+              ordevs = ((_this$requestedRoles = this.requestedRoles) === null || _this$requestedRoles === void 0 ? void 0 : _this$requestedRoles.slice(0)) || [];
+              rdevs = [];
+
+              _loop = function _loop() {
+                var _localDevs$find;
+
+                var buf = _step.value;
+
+                var _jdunpack = Object(_pack__WEBPACK_IMPORTED_MODULE_10__[/* jdunpack */ "c"])(buf, "b[8] u32 u8 s"),
+                    devidbuf = _jdunpack[0],
+                    serviceClass = _jdunpack[1],
+                    serviceIdx = _jdunpack[2],
+                    role = _jdunpack[3];
+
+                var devid = Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* toHex */ "V"])(devidbuf); //console.log({ devidbuf, role, serviceClass })
+
+                var r = addRequested(rdevs, role, serviceClass);
+                var srv = (_localDevs$find = localDevs.find(function (d) {
+                  return d.deviceId == devid;
+                })) === null || _localDevs$find === void 0 ? void 0 : _localDevs$find.service(serviceIdx);
+                if (srv && srv.serviceClass === serviceClass) r.bound = srv;
+              };
+
+              _context3.t0 = _createForOfIteratorHelperLoose;
+              _context3.next = 15;
+              return inp.readData();
+
+            case 15:
+              _context3.t1 = _context3.sent;
+              _iterator = (0, _context3.t0)(_context3.t1);
+
+            case 17:
+              if ((_step = _iterator()).done) {
+                _context3.next = 21;
+                break;
+              }
+
+              _loop();
+
+            case 19:
+              _context3.next = 17;
+              break;
+
+            case 21:
+              rdevs.sort(function (a, b) {
+                return Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* strcmp */ "P"])(a.name, b.name);
+              });
+
+              if (rdevs.length !== ordevs.length || rdevs.some(function (dev, i) {
+                return dev.name !== ordevs[i].name || dev.bound !== ordevs[i].bound;
+              })) {
+                this.requestedRoles = rdevs;
+                this.recomputeCandidates(); //console.log(`rdp changed`, this.requestedRoles)
+
+                this.emit(_constants__WEBPACK_IMPORTED_MODULE_7__[/* CHANGE */ "s"], this.requestedRoles);
+              } //console.log(`rdp done`)
+
+
+              _context3.next = 28;
+              break;
+
+            case 25:
+              _context3.prev = 25;
+              _context3.t2 = _context3["catch"](3);
+              this.emit(_constants__WEBPACK_IMPORTED_MODULE_7__[/* ERROR */ "ib"], _context3.t2);
+
+            case 28:
+              _context3.prev = 28;
+              this.scanning = false;
+              return _context3.finish(28);
+
+            case 31:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this, [[3, 25, 28, 31]]);
+    }));
+
+    function scan() {
+      return _scan.apply(this, arguments);
+    }
+
+    return scan;
+  }();
+
+  _proto2.role = function role(service) {
+    var _this$requestedRoles2;
+
+    return (_this$requestedRoles2 = this.requestedRoles) === null || _this$requestedRoles2 === void 0 ? void 0 : _this$requestedRoles2.find(function (role) {
+      return role.bound === service;
+    });
+  };
+
+  _proto2.recomputeCandidates = function recomputeCandidates() {
+    var _this$requestedRoles3;
+
+    (_this$requestedRoles3 = this.requestedRoles) === null || _this$requestedRoles3 === void 0 ? void 0 : _this$requestedRoles3.forEach(function (rdev) {
+      return rdev.computeCandidates();
+    });
+  };
+
+  _proto2.clearRoles = /*#__PURE__*/function () {
+    var _clearRoles = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return this.service.sendCmdAsync(_constants__WEBPACK_IMPORTED_MODULE_7__[/* RoleManagerCmd */ "ed"].ClearAllRoles);
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function clearRoles() {
+      return _clearRoles.apply(this, arguments);
+    }
+
+    return clearRoles;
+  }();
+
+  _proto2.setRole = /*#__PURE__*/function () {
+    var _setRole = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.mark(function _callee5(service, role) {
+      var device, serviceIndex, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              device = service.device, serviceIndex = service.serviceIndex;
+              this.log("set role " + device + ":" + serviceIndex + " to " + role);
+              data = Object(_pack__WEBPACK_IMPORTED_MODULE_10__[/* jdpack */ "a"])("b[8] u8 s", [Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* fromHex */ "u"])(device.deviceId), serviceIndex, role || ""]);
+              _context5.next = 5;
+              return this.service.sendPacketAsync(_packet__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].from(_constants__WEBPACK_IMPORTED_MODULE_7__[/* RoleManagerCmd */ "ed"].SetRole, data), true);
+
+            case 5:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function setRole(_x2, _x3) {
+      return _setRole.apply(this, arguments);
+    }
+
+    return setRole;
+  }();
+
+  _proto2.toString = function toString() {
+    return (this.requestedRoles || []).map(function (rdp) {
+      return rdp.toString();
+    }).join('\n');
+  };
+
+  _proto2.startSimulators = function startSimulators() {
+    var _this3 = this;
+
+    if (!this.requestedRoles) return; // collect roles that need to be bound
+
+    var todos = Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* groupBy */ "w"])(this.requestedRoles.filter(function (role) {
+      return !role.bound;
+    }).map(function (role) {
+      return {
+        role: role,
+        hostDefinition: Object(_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* hostDefinitionFromServiceClass */ "d"])(role.serviceClass)
+      };
+    }).filter(function (todo) {
+      return !!todo.hostDefinition;
+    }), function (todo) {
+      return todo.role.parentName || "";
+    }); // spawn devices with group of devices
+
+    Object.keys(todos).forEach(function (parentName) {
+      var todo = todos[parentName]; // no parent, spawn individual services
+
+      if (!parentName) {
+        todo.forEach(function (t) {
+          return Object(_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(_this3.bus, t.hostDefinition.services());
+        });
+      } else {
+        // spawn all services into 1
+        Object(_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(_this3.bus, Object(_utils__WEBPACK_IMPORTED_MODULE_8__[/* arrayConcatMany */ "f"])(todo.map(function (t) {
+          return t.hostDefinition.services();
+        })));
+      }
+    });
+  };
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(RoleManagerClient, [{
+    key: "missingRoles",
+    get: function get() {
+      return (this.requestedRoles || []).filter(function (role) {
+        return !role.bound;
+      }).length > 0;
+    }
+  }]);
+
+  return RoleManagerClient;
+}(_serviceclient__WEBPACK_IMPORTED_MODULE_6__[/* JDServiceClient */ "a"]);
+
+/***/ }),
+
+/***/ "eoX3":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JDServiceClient; });
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("vuIU");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("dI71");
+/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("v+ZI");
+
+
+
+var JDServiceClient = /*#__PURE__*/function (_JDClient) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(JDServiceClient, _JDClient);
+
+  function JDServiceClient(service) {
+    var _this;
+
+    _this = _JDClient.call(this) || this;
+    _this.service = service;
+    return _this;
+  }
+
+  var _proto = JDServiceClient.prototype;
+
+  _proto.toString = function toString() {
+    return "client of " + this.service;
+  };
+
+  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(JDServiceClient, [{
+    key: "device",
+    get: function get() {
+      return this.service.device;
+    }
+  }, {
+    key: "bus",
+    get: function get() {
+      return this.device.bus;
+    }
+  }]);
+
+  return JDServiceClient;
+}(_client__WEBPACK_IMPORTED_MODULE_2__[/* JDClient */ "a"]);
+
+/***/ }),
+
 /***/ "kLoJ":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -92,6 +562,69 @@ var DeviceAvatar = __webpack_require__("puVa");
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
 var DashboardServiceWidget = __webpack_require__("rOp/");
 
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/rolemanagerclient.ts
+var rolemanagerclient = __webpack_require__("d+Gs");
+
+// EXTERNAL MODULE: ./src/components/hooks/useServices.ts
+var useServices = __webpack_require__("HuxJ");
+
+// EXTERNAL MODULE: ./src/components/useServiceClient.ts
+var useServiceClient = __webpack_require__("wsLH");
+
+// CONCATENATED MODULE: ./src/components/services/useServiceRole.ts
+
+
+
+
+
+function useServiceRole(service) {
+  var _useServices = Object(useServices["a" /* default */])({
+    serviceClass: constants["ae" /* SRV_ROLE_MANAGER */]
+  }),
+      roleManager = _useServices[0];
+
+  var roleManagerClient = Object(useServiceClient["a" /* default */])(roleManager, function (srv) {
+    return new rolemanagerclient["a" /* RoleManagerClient */](srv);
+  });
+
+  var _useState = Object(react["useState"])(roleManagerClient === null || roleManagerClient === void 0 ? void 0 : roleManagerClient.role(service)),
+      role = _useState[0],
+      setRole = _useState[1];
+
+  Object(react["useEffect"])(function () {
+    return roleManagerClient === null || roleManagerClient === void 0 ? void 0 : roleManagerClient.subscribe(constants["s" /* CHANGE */], function () {
+      var r = roleManagerClient === null || roleManagerClient === void 0 ? void 0 : roleManagerClient.role(service);
+      setRole(r);
+    });
+  }, [roleManagerClient]);
+  return role;
+}
+// CONCATENATED MODULE: ./src/components/services/ServiceRole.tsx
+
+
+
+function ServiceRole(props) {
+  var service = props.service;
+  var role = useServiceRole(service);
+  var name = role === null || role === void 0 ? void 0 : role.name;
+  return name ? /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "caption",
+    component: "div"
+  }, name) : null;
+}
+// CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
+
+
+
+
+function DashboardServiceWidgetItem(props) {
+  var service = props.service;
+  return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true
+  }, /*#__PURE__*/react_default.a.createElement(ServiceRole, {
+    service: service
+  }), /*#__PURE__*/react_default.a.createElement(DashboardServiceWidget["b" /* default */], props));
+}
 // EXTERNAL MODULE: ./src/components/DeviceActions.tsx
 var DeviceActions = __webpack_require__("8zWW");
 
@@ -205,15 +738,13 @@ function DashboardDevice(props) {
       alignItems: "flex-end",
       alignContent: "space-between"
     }, services === null || services === void 0 ? void 0 : services.map(function (service) {
-      return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-        key: "widget" + service.serviceIndex,
-        item: true
-      }, /*#__PURE__*/react_default.a.createElement(DashboardServiceWidget["b" /* default */], {
+      return /*#__PURE__*/react_default.a.createElement(DashboardServiceWidgetItem, {
+        key: service.id,
         service: service,
         expanded: expanded,
         services: services,
         variant: variant
-      }));
+      });
     }));
   };
 
@@ -1052,7 +1583,39 @@ function dashboardServiceWeight(service) {
   return view === null || view === void 0 ? void 0 : (_view$weight = view.weight) === null || _view$weight === void 0 ? void 0 : _view$weight.call(view, service);
 }
 
+/***/ }),
+
+/***/ "wsLH":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useServiceClient; });
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("KQm4");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function useServiceClient(service, factory, deps) {
+  if (deps === void 0) {
+    deps = [];
+  }
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(undefined),
+      client = _useState[0],
+      setClient = _useState[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    var c = service && factory(service);
+    setClient(c);
+    return function () {
+      return c === null || c === void 0 ? void 0 : c.unmount();
+    };
+  }, [service].concat(Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(deps))); // don't use factory in cache!
+
+  return client;
+}
+
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-7c4ab7f2971e580ad3c9.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-261fb0d63e510bc1cd9a.js.map
