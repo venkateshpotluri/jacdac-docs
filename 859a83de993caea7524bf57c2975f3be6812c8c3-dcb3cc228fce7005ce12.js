@@ -1310,6 +1310,10 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     }
   };
 
+  _proto4.next = function next() {
+    this.serviceTestRunner.next();
+  };
+
   _proto4.cancel = function cancel() {
     this.finish(JDTestStatus.Failed);
   };
@@ -1317,7 +1321,6 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   _proto4.finish = function finish(newStatus) {
     if (this.status === JDTestStatus.Active) {
       this.status = newStatus;
-      this.serviceTestRunner.finishTest();
     }
   };
 
@@ -1426,10 +1429,8 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     this.testIndex = 0;
   };
 
-  _proto5.finishTest = function finishTest() {
-    if (this.testIndex < this.tests.length) {
-      this.testIndex++;
-    }
+  _proto5.next = function next() {
+    this.testIndex++;
   };
 
   Object(createClass["a" /* default */])(JDServiceTestRunner, [{
@@ -1664,7 +1665,11 @@ function ActiveTest(props) {
   };
 
   var handleCancel = function handleCancel() {
-    test.cancel();
+    return test.cancel();
+  };
+
+  var handleNext = function handleNext() {
+    return test.next();
   };
 
   var showCommands = [JDTestStatus.Active, JDTestStatus.Failed, JDTestStatus.Passed].indexOf(status) > -1;
@@ -1686,7 +1691,11 @@ function ActiveTest(props) {
       key: i,
       command: cmd
     });
-  })))), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  }))), status === JDTestStatus.Passed && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
+    severity: "success"
+  }, "Test passed"), status === JDTestStatus.Failed && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
+    severity: "success"
+  }, "Test passed")), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     spacing: 1
   }, status === JDTestStatus.ReadyToRun && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
@@ -1704,7 +1713,12 @@ function ActiveTest(props) {
   }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
     variant: "outlined",
     onClick: handleCancel
-  }, "Cancel")))));
+  }, "Cancel")), status === JDTestStatus.Failed || status === JDTestStatus.Passed && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true
+  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleNext
+  }, "Next")))));
 }
 
 function LinearProgressWithLabel(props) {
@@ -3417,4 +3431,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-8290ab5e326cd5945de9.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-dcb3cc228fce7005ce12.js.map
