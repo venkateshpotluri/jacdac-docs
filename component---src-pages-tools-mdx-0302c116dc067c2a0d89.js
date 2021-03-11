@@ -282,6 +282,11 @@ function MDXContent(_ref) {
     parentName: "ul"
   }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
     parentName: "li",
+    "href": "/jacdac-docs/tools/service-test"
+  }, "service test"), ", test any service connected to the bus"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
+    parentName: "ul"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "li",
     "href": "/jacdac-docs/tools/prototest/"
   }, "protocol test"), ", a low level protocol tester")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
     "id": "device-catalog",
@@ -393,4 +398,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-mdx-b051f1a7236e83984f91.js.map
+//# sourceMappingURL=component---src-pages-tools-mdx-0302c116dc067c2a0d89.js.map
