@@ -1,32 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[75,99],{
 
-/***/ "3GY0":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return serviceTestFromServiceClass; });
-/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("sh2y");
-var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
- // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__;
-/**
- * Given a service specification, see if it has a test
- * @param spec
- */
-
-function serviceTestFromServiceClass(serviceClass) {
-  return serviceClass !== undefined && _serviceTests.find(function (test) {
-    return test.serviceClassIdentifier === serviceClass;
-  });
-}
-
-/***/ }),
-
 /***/ "E8kk":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -602,8 +575,8 @@ var DeviceSpecificationList = __webpack_require__("XXVM");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
 var spec = __webpack_require__("Z8Ma");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/test.ts
-var jdom_test = __webpack_require__("3GY0");
+// EXTERNAL MODULE: ./jacdac-ts/src/test/testspec.ts
+var testspec = __webpack_require__("rNA1");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__("tRbT");
@@ -621,7 +594,7 @@ function ServiceMarkdown(props) {
   var classIdentifier = props.classIdentifier,
       source = props.source;
   var service = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(classIdentifier);
-  var test = Object(jdom_test["a" /* serviceTestFromServiceClass */])(classIdentifier);
+  var test = Object(testspec["a" /* serviceTestFromServiceClass */])(classIdentifier);
   var shortId = service.shortId;
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(ServiceSpecificationStatusAlert["a" /* default */], {
     specification: service
@@ -644,11 +617,11 @@ function ServiceMarkdown(props) {
     requiredServiceClasses: [classIdentifier]
   }), /*#__PURE__*/react_default.a.createElement("h2", null, " See Also"), /*#__PURE__*/react_default.a.createElement("ul", null, /*#__PURE__*/react_default.a.createElement("li", null, /*#__PURE__*/react_default.a.createElement("a", {
     href: "https://github.com/microsoft/jacdac/edit/main/services/" + shortId + ".md"
-  }, "Edit specification source"), "."), /*#__PURE__*/react_default.a.createElement("li", null, "Read ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+  }, "Edit specification source"), "."), /*#__PURE__*/react_default.a.createElement("li", null, "Read", " ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/reference/service-specification/"
-  }, "Service Specification Language"), " reference"), /*#__PURE__*/react_default.a.createElement("li", null, "Create a new service specification using the ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+  }, "Service Specification Language"), " ", "reference"), /*#__PURE__*/react_default.a.createElement("li", null, "Create a new service specification using the", " ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/tools/service-editor/"
-  }, "Service Editor")), /*#__PURE__*/react_default.a.createElement("li", null, "Using services in JavaScript with the ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+  }, "Service Editor")), /*#__PURE__*/react_default.a.createElement("li", null, "Using services in JavaScript with the", " ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/clients/web/jdom/"
   }, "Jacdac Object Model (JDOM)"))));
 }
@@ -829,6 +802,33 @@ exports.isValidElementType = function (a) {
 };
 
 exports.typeOf = y;
+
+/***/ }),
+
+/***/ "rNA1":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return serviceTestFromServiceClass; });
+/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("sh2y");
+var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__;
+/**
+ * Given a service specification, see if it has a test
+ * @param spec
+ */
+
+function serviceTestFromServiceClass(serviceClass) {
+  return serviceClass !== undefined && _serviceTests.find(function (test) {
+    return test.serviceClassIdentifier === serviceClass;
+  });
+}
 
 /***/ }),
 
@@ -1121,4 +1121,4 @@ if (false) { var requireProp; }
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-tsx-267a683106c83b05f89b.js.map
+//# sourceMappingURL=component---src-templates-service-tsx-a8c3173fca9d913744c9.js.map

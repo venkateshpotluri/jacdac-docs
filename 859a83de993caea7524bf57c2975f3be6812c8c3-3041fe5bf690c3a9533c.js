@@ -1,32 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
-/***/ "3GY0":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return serviceTestFromServiceClass; });
-/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("sh2y");
-var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
- // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__;
-/**
- * Given a service specification, see if it has a test
- * @param spec
- */
-
-function serviceTestFromServiceClass(serviceClass) {
-  return serviceClass !== undefined && _serviceTests.find(function (test) {
-    return test.serviceClassIdentifier === serviceClass;
-  });
-}
-
-/***/ }),
-
 /***/ "56Ss":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1224,8 +1197,8 @@ var DashboardDevice = __webpack_require__("kLoJ");
 // EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx
 var LoadingProgress = __webpack_require__("aVfY");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/test.ts
-var jdom_test = __webpack_require__("3GY0");
+// EXTERNAL MODULE: ./jacdac-ts/src/test/testspec.ts
+var testspec = __webpack_require__("rNA1");
 
 // CONCATENATED MODULE: ./src/components/test/ServiceTestRunner.tsx
 
@@ -1448,7 +1421,7 @@ function ActiveTest(props) {
 function ServiceTestRunner(props) {
   var service = props.service,
       _props$serviceTest = props.serviceTest,
-      serviceTest = _props$serviceTest === void 0 ? Object(jdom_test["a" /* serviceTestFromServiceClass */])(service.serviceClass) : _props$serviceTest;
+      serviceTest = _props$serviceTest === void 0 ? Object(testspec["a" /* serviceTestFromServiceClass */])(service.serviceClass) : _props$serviceTest;
   var factory = Object(react["useCallback"])(function (service) {
     return serviceTest && new testrunner_JDServiceTestRunner(serviceTest, service);
   }, [service, serviceTest]);
@@ -3056,6 +3029,33 @@ var CardActions = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 
 /***/ }),
 
+/***/ "rNA1":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return serviceTestFromServiceClass; });
+/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("sh2y");
+var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__;
+/**
+ * Given a service specification, see if it has a test
+ * @param spec
+ */
+
+function serviceTestFromServiceClass(serviceClass) {
+  return serviceClass !== undefined && _serviceTests.find(function (test) {
+    return test.serviceClassIdentifier === serviceClass;
+  });
+}
+
+/***/ }),
+
 /***/ "rsPu":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3123,4 +3123,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-2e55c357036804893084.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-3041fe5bf690c3a9533c.js.map

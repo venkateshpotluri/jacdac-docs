@@ -610,8 +610,8 @@ var hosts = __webpack_require__("y+c1");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__("c5x+");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/test.ts
-var test = __webpack_require__("3GY0");
+// EXTERNAL MODULE: ./jacdac-ts/src/test/testspec.ts
+var testspec = __webpack_require__("rNA1");
 
 // EXTERNAL MODULE: ./src/components/useGridBreakpoints.ts
 var useGridBreakpoints = __webpack_require__("TD2k");
@@ -729,7 +729,7 @@ function ServiceTest(props) {
   var serviceSpec = props.serviceSpec,
       showStartSimulator = props.showStartSimulator,
       _props$serviceTest = props.serviceTest,
-      serviceTest = _props$serviceTest === void 0 ? Object(test["a" /* serviceTestFromServiceClass */])(serviceSpec === null || serviceSpec === void 0 ? void 0 : serviceSpec.classIdentifier) : _props$serviceTest;
+      serviceTest = _props$serviceTest === void 0 ? Object(testspec["a" /* serviceTestFromServiceClass */])(serviceSpec === null || serviceSpec === void 0 ? void 0 : serviceSpec.classIdentifier) : _props$serviceTest;
   var serviceClass = serviceSpec.classIdentifier;
 
   var _useState = Object(react["useState"])(undefined),
@@ -1715,4 +1715,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-a9ca5a1a56bf3556b082.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-4ceb2b70f13816113895.js.map

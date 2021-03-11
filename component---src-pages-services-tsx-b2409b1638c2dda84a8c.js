@@ -271,33 +271,6 @@ function useDebounce(value, delay, options) {
 
 /***/ }),
 
-/***/ "3GY0":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return serviceTestFromServiceClass; });
-/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("sh2y");
-var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
- // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__;
-/**
- * Given a service specification, see if it has a test
- * @param spec
- */
-
-function serviceTestFromServiceClass(serviceClass) {
-  return serviceClass !== undefined && _serviceTests.find(function (test) {
-    return test.serviceClassIdentifier === serviceClass;
-  });
-}
-
-/***/ }),
-
 /***/ "3SIa":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1220,8 +1193,8 @@ var ListItem = __webpack_require__("tVbE");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
 var jdom_spec = __webpack_require__("Z8Ma");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/test.ts
-var jdom_test = __webpack_require__("3GY0");
+// EXTERNAL MODULE: ./jacdac-ts/src/test/testspec.ts
+var testspec = __webpack_require__("rNA1");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__("Zo1I");
@@ -1316,7 +1289,7 @@ function ServiceSpecificatinListItem(props) {
   var makecode = Object(jdom_makecode["c" /* resolveMakecodeServiceFromClassIdentifier */])(classIdentifier);
   var simulator = Object(hosts["d" /* hostDefinitionFromServiceClass */])(classIdentifier);
   var device = !!((_deviceSpecifications = Object(jdom_spec["e" /* deviceSpecificationsForService */])(classIdentifier)) !== null && _deviceSpecifications !== void 0 && _deviceSpecifications.length);
-  var test = Object(jdom_test["a" /* serviceTestFromServiceClass */])(classIdentifier);
+  var test = Object(testspec["a" /* serviceTestFromServiceClass */])(classIdentifier);
   return /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/services/" + shortId,
     style: {
@@ -1510,7 +1483,7 @@ function ServiceCatalog() {
       return !!((_deviceSpecifications = Object(jdom_spec["e" /* deviceSpecificationsForService */])(srv.classIdentifier)) !== null && _deviceSpecifications !== void 0 && _deviceSpecifications.length);
     });
     if (test) r = r.filter(function (srv) {
-      return !!Object(jdom_test["a" /* serviceTestFromServiceClass */])(srv.classIdentifier);
+      return !!Object(testspec["a" /* serviceTestFromServiceClass */])(srv.classIdentifier);
     });
     if (sensors) r = r.filter(function (srv) {
       return Object(jdom_spec["u" /* isSensor */])(srv);
@@ -1658,9 +1631,9 @@ function ServiceCatalog() {
     services: services
   }))), /*#__PURE__*/react_default.a.createElement("h2", null, "See also"), /*#__PURE__*/react_default.a.createElement("p", null, "Known services are specified in", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     href: "https://github.com/microsoft/jacdac/tree/main/services"
-  }, "https://github.com/microsoft/jacdac/tree/main/services"), ". Use the ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+  }, "https://github.com/microsoft/jacdac/tree/main/services"), ". Use the", " ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     href: "/tools/service-editor/"
-  }, "Service Specification Editor"), " and send us a pull request to register your own service."), /*#__PURE__*/react_default.a.createElement("ul", null, /*#__PURE__*/react_default.a.createElement("li", null, /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+  }, "Service Specification Editor"), " ", "and send us a pull request to register your own service."), /*#__PURE__*/react_default.a.createElement("ul", null, /*#__PURE__*/react_default.a.createElement("li", null, /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/devices/"
   }, "Devices")), /*#__PURE__*/react_default.a.createElement("li", null, /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/tools/service-editor/"
@@ -1893,6 +1866,33 @@ var TextField = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fu
 
 /***/ }),
 
+/***/ "rNA1":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return serviceTestFromServiceClass; });
+/* harmony import */ var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("sh2y");
+var _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t("sh2y", 1);
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdspec.d.ts" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../../jacdac-spec/spectool/jdtest.d.ts" />
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+var _serviceTests = _jacdac_spec_dist_services_tests_json__WEBPACK_IMPORTED_MODULE_0__;
+/**
+ * Given a service specification, see if it has a test
+ * @param spec
+ */
+
+function serviceTestFromServiceClass(serviceClass) {
+  return serviceClass !== undefined && _serviceTests.find(function (test) {
+    return test.serviceClassIdentifier === serviceClass;
+  });
+}
+
+/***/ }),
+
 /***/ "sh2y":
 /***/ (function(module) {
 
@@ -2061,4 +2061,4 @@ function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-services-tsx-0c79048bab3019de8682.js.map
+//# sourceMappingURL=component---src-pages-services-tsx-b2409b1638c2dda84a8c.js.map
