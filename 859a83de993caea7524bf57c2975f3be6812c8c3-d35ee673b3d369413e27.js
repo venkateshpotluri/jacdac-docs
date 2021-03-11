@@ -274,33 +274,6 @@ function DeviceCardHeader(props) {
 
 /***/ }),
 
-/***/ "9st9":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__("TqRt");
-
-var _interopRequireWildcard = __webpack_require__("284h");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__("q1tI"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M9 16h2V8H9v8zm3-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V8h-2v8z"
-}), 'PauseCircleOutline');
-
-exports.default = _default;
-
-/***/ }),
-
 /***/ "D5X2":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -308,9 +281,6 @@ exports.default = _default;
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ ServiceTestRunner; });
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__("zLVn");
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("q1tI");
@@ -337,6 +307,9 @@ var CardContent = __webpack_require__("oa/T");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/List/List.js
 var List = __webpack_require__("eD//");
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/ListSubheader/ListSubheader.js
+var ListSubheader = __webpack_require__("hxuT");
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__("wx14");
 
@@ -355,7 +328,7 @@ var withStyles = __webpack_require__("H2TA");
 
 
 
-var ListItemSecondaryAction_styles = {
+var styles = {
   /* Styles applied to the root element. */
   root: {
     position: 'absolute',
@@ -380,14 +353,14 @@ var ListItemSecondaryAction_ListItemSecondaryAction = /*#__PURE__*/react["forwar
 });
  false ? undefined : void 0;
 ListItemSecondaryAction_ListItemSecondaryAction.muiName = 'ListItemSecondaryAction';
-/* harmony default export */ var esm_ListItemSecondaryAction_ListItemSecondaryAction = (Object(withStyles["a" /* default */])(ListItemSecondaryAction_styles, {
+/* harmony default export */ var esm_ListItemSecondaryAction_ListItemSecondaryAction = (Object(withStyles["a" /* default */])(styles, {
   name: 'MuiListItemSecondaryAction'
 })(ListItemSecondaryAction_ListItemSecondaryAction));
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__("Z3vd");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardHeader/CardHeader.js
-var CardHeader = __webpack_require__("50B7");
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
+var Box = __webpack_require__("hlFM");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__("ofer");
@@ -398,282 +371,8 @@ var CardActions = __webpack_require__("o4QW");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__("tRbT");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/capitalize.js
-var capitalize = __webpack_require__("NqtD");
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/colorManipulator.js
-var colorManipulator = __webpack_require__("ye/S");
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__("tr08");
-
-// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/LinearProgress/LinearProgress.js
-
-
-
-
-
-
-
-
-var TRANSITION_DURATION = 4; // seconds
-
-var LinearProgress_styles = function styles(theme) {
-  var getColor = function getColor(color) {
-    return theme.palette.type === 'light' ? Object(colorManipulator["e" /* lighten */])(color, 0.62) : Object(colorManipulator["a" /* darken */])(color, 0.5);
-  };
-
-  var backgroundPrimary = getColor(theme.palette.primary.main);
-  var backgroundSecondary = getColor(theme.palette.secondary.main);
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      position: 'relative',
-      overflow: 'hidden',
-      height: 4,
-      '@media print': {
-        colorAdjust: 'exact'
-      }
-    },
-
-    /* Styles applied to the root and bar2 element if `color="primary"`; bar2 if `variant="buffer"`. */
-    colorPrimary: {
-      backgroundColor: backgroundPrimary
-    },
-
-    /* Styles applied to the root and bar2 elements if `color="secondary"`; bar2 if `variant="buffer"`. */
-    colorSecondary: {
-      backgroundColor: backgroundSecondary
-    },
-
-    /* Styles applied to the root element if `variant="determinate"`. */
-    determinate: {},
-
-    /* Styles applied to the root element if `variant="indeterminate"`. */
-    indeterminate: {},
-
-    /* Styles applied to the root element if `variant="buffer"`. */
-    buffer: {
-      backgroundColor: 'transparent'
-    },
-
-    /* Styles applied to the root element if `variant="query"`. */
-    query: {
-      transform: 'rotate(180deg)'
-    },
-
-    /* Styles applied to the additional bar element if `variant="buffer"`. */
-    dashed: {
-      position: 'absolute',
-      marginTop: 0,
-      height: '100%',
-      width: '100%',
-      animation: '$buffer 3s infinite linear'
-    },
-
-    /* Styles applied to the additional bar element if `variant="buffer"` and `color="primary"`. */
-    dashedColorPrimary: {
-      backgroundImage: "radial-gradient(".concat(backgroundPrimary, " 0%, ").concat(backgroundPrimary, " 16%, transparent 42%)"),
-      backgroundSize: '10px 10px',
-      backgroundPosition: '0 -23px'
-    },
-
-    /* Styles applied to the additional bar element if `variant="buffer"` and `color="secondary"`. */
-    dashedColorSecondary: {
-      backgroundImage: "radial-gradient(".concat(backgroundSecondary, " 0%, ").concat(backgroundSecondary, " 16%, transparent 42%)"),
-      backgroundSize: '10px 10px',
-      backgroundPosition: '0 -23px'
-    },
-
-    /* Styles applied to the layered bar1 and bar2 elements. */
-    bar: {
-      width: '100%',
-      position: 'absolute',
-      left: 0,
-      bottom: 0,
-      top: 0,
-      transition: 'transform 0.2s linear',
-      transformOrigin: 'left'
-    },
-
-    /* Styles applied to the bar elements if `color="primary"`; bar2 if `variant` not "buffer". */
-    barColorPrimary: {
-      backgroundColor: theme.palette.primary.main
-    },
-
-    /* Styles applied to the bar elements if `color="secondary"`; bar2 if `variant` not "buffer". */
-    barColorSecondary: {
-      backgroundColor: theme.palette.secondary.main
-    },
-
-    /* Styles applied to the bar1 element if `variant="indeterminate or query"`. */
-    bar1Indeterminate: {
-      width: 'auto',
-      animation: '$indeterminate1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite'
-    },
-
-    /* Styles applied to the bar1 element if `variant="determinate"`. */
-    bar1Determinate: {
-      transition: "transform .".concat(TRANSITION_DURATION, "s linear")
-    },
-
-    /* Styles applied to the bar1 element if `variant="buffer"`. */
-    bar1Buffer: {
-      zIndex: 1,
-      transition: "transform .".concat(TRANSITION_DURATION, "s linear")
-    },
-
-    /* Styles applied to the bar2 element if `variant="indeterminate or query"`. */
-    bar2Indeterminate: {
-      width: 'auto',
-      animation: '$indeterminate2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite'
-    },
-
-    /* Styles applied to the bar2 element if `variant="buffer"`. */
-    bar2Buffer: {
-      transition: "transform .".concat(TRANSITION_DURATION, "s linear")
-    },
-    // Legends:
-    // || represents the viewport
-    // -  represents a light background
-    // x  represents a dark background
-    '@keyframes indeterminate1': {
-      //  |-----|---x-||-----||-----|
-      '0%': {
-        left: '-35%',
-        right: '100%'
-      },
-      //  |-----|-----||-----||xxxx-|
-      '60%': {
-        left: '100%',
-        right: '-90%'
-      },
-      '100%': {
-        left: '100%',
-        right: '-90%'
-      }
-    },
-    '@keyframes indeterminate2': {
-      //  |xxxxx|xxxxx||-----||-----|
-      '0%': {
-        left: '-200%',
-        right: '100%'
-      },
-      //  |-----|-----||-----||-x----|
-      '60%': {
-        left: '107%',
-        right: '-8%'
-      },
-      '100%': {
-        left: '107%',
-        right: '-8%'
-      }
-    },
-    '@keyframes buffer': {
-      '0%': {
-        opacity: 1,
-        backgroundPosition: '0 -23px'
-      },
-      '50%': {
-        opacity: 0,
-        backgroundPosition: '0 -23px'
-      },
-      '100%': {
-        opacity: 1,
-        backgroundPosition: '-200px -23px'
-      }
-    }
-  };
-};
-/**
- * ## ARIA
- *
- * If the progress bar is describing the loading progress of a particular region of a page,
- * you should use `aria-describedby` to point to the progress bar, and set the `aria-busy`
- * attribute to `true` on that region until it has finished loading.
- */
-
-var LinearProgress_LinearProgress = /*#__PURE__*/react["forwardRef"](function LinearProgress(props, ref) {
-  var classes = props.classes,
-      className = props.className,
-      _props$color = props.color,
-      color = _props$color === void 0 ? 'primary' : _props$color,
-      value = props.value,
-      valueBuffer = props.valueBuffer,
-      _props$variant = props.variant,
-      variant = _props$variant === void 0 ? 'indeterminate' : _props$variant,
-      other = Object(objectWithoutProperties["a" /* default */])(props, ["classes", "className", "color", "value", "valueBuffer", "variant"]);
-
-  var theme = Object(useTheme["a" /* default */])();
-  var rootProps = {};
-  var inlineStyles = {
-    bar1: {},
-    bar2: {}
-  };
-
-  if (variant === 'determinate' || variant === 'buffer') {
-    if (value !== undefined) {
-      rootProps['aria-valuenow'] = Math.round(value);
-      rootProps['aria-valuemin'] = 0;
-      rootProps['aria-valuemax'] = 100;
-      var transform = value - 100;
-
-      if (theme.direction === 'rtl') {
-        transform = -transform;
-      }
-
-      inlineStyles.bar1.transform = "translateX(".concat(transform, "%)");
-    } else if (false) {}
-  }
-
-  if (variant === 'buffer') {
-    if (valueBuffer !== undefined) {
-      var _transform = (valueBuffer || 0) - 100;
-
-      if (theme.direction === 'rtl') {
-        _transform = -_transform;
-      }
-
-      inlineStyles.bar2.transform = "translateX(".concat(_transform, "%)");
-    } else if (false) {}
-  }
-
-  return /*#__PURE__*/react["createElement"]("div", Object(esm_extends["a" /* default */])({
-    className: Object(clsx_m["a" /* default */])(classes.root, classes["color".concat(Object(capitalize["a" /* default */])(color))], className, {
-      'determinate': classes.determinate,
-      'indeterminate': classes.indeterminate,
-      'buffer': classes.buffer,
-      'query': classes.query
-    }[variant]),
-    role: "progressbar"
-  }, rootProps, {
-    ref: ref
-  }, other), variant === 'buffer' ? /*#__PURE__*/react["createElement"]("div", {
-    className: Object(clsx_m["a" /* default */])(classes.dashed, classes["dashedColor".concat(Object(capitalize["a" /* default */])(color))])
-  }) : null, /*#__PURE__*/react["createElement"]("div", {
-    className: Object(clsx_m["a" /* default */])(classes.bar, classes["barColor".concat(Object(capitalize["a" /* default */])(color))], (variant === 'indeterminate' || variant === 'query') && classes.bar1Indeterminate, {
-      'determinate': classes.bar1Determinate,
-      'buffer': classes.bar1Buffer
-    }[variant]),
-    style: inlineStyles.bar1
-  }), variant === 'determinate' ? null : /*#__PURE__*/react["createElement"]("div", {
-    className: Object(clsx_m["a" /* default */])(classes.bar, (variant === 'indeterminate' || variant === 'query') && classes.bar2Indeterminate, variant === 'buffer' ? [classes["color".concat(Object(capitalize["a" /* default */])(color))], classes.bar2Buffer] : classes["barColor".concat(Object(capitalize["a" /* default */])(color))]),
-    style: inlineStyles.bar2
-  }));
-});
- false ? undefined : void 0;
-/* harmony default export */ var esm_LinearProgress_LinearProgress = (Object(withStyles["a" /* default */])(LinearProgress_styles, {
-  name: 'MuiLinearProgress'
-})(LinearProgress_LinearProgress));
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/AlertTitle/AlertTitle.js
-var AlertTitle = __webpack_require__("DObr");
-
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__("FQT7");
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PauseCircleOutline.js
-var PauseCircleOutline = __webpack_require__("9st9");
-var PauseCircleOutline_default = /*#__PURE__*/__webpack_require__.n(PauseCircleOutline);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__("JX7q");
@@ -707,6 +406,13 @@ var spec = __webpack_require__("Z8Ma");
 
 
 
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 
@@ -726,10 +432,9 @@ var JDTestStatus;
 
 (function (JDTestStatus) {
   JDTestStatus[JDTestStatus["NotReady"] = 0] = "NotReady";
-  JDTestStatus[JDTestStatus["ReadyToRun"] = 1] = "ReadyToRun";
-  JDTestStatus[JDTestStatus["Active"] = 2] = "Active";
-  JDTestStatus[JDTestStatus["Passed"] = 3] = "Passed";
-  JDTestStatus[JDTestStatus["Failed"] = 4] = "Failed";
+  JDTestStatus[JDTestStatus["Active"] = 1] = "Active";
+  JDTestStatus[JDTestStatus["Passed"] = 2] = "Passed";
+  JDTestStatus[JDTestStatus["Failed"] = 3] = "Failed";
 })(JDTestStatus || (JDTestStatus = {}));
 
 function commandStatusToTestStatus(status) {
@@ -1293,21 +998,20 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   var _proto4 = JDTestRunner.prototype;
 
   _proto4.reset = function reset() {
-    this.status = JDTestStatus.NotReady;
-    this.commands.forEach(function (t) {
-      return t.reset();
-    });
-  };
-
-  _proto4.ready = function ready() {
-    if (this.status === JDTestStatus.NotReady) this.status = JDTestStatus.ReadyToRun;
+    if (this.status !== JDTestStatus.NotReady) {
+      this._status = JDTestStatus.NotReady;
+      this._commandIndex = undefined;
+      this.commands.forEach(function (t) {
+        return t.reset();
+      });
+      this.emit(constants["s" /* CHANGE */]);
+    }
   };
 
   _proto4.start = function start() {
-    if (this.status === JDTestStatus.ReadyToRun) {
-      this.status = JDTestStatus.Active;
-      this.commandIndex = 0;
-    }
+    this.reset();
+    this.status = JDTestStatus.Active;
+    this.commandIndex = 0;
   };
 
   _proto4.next = function next() {
@@ -1422,6 +1126,34 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
 
   var _proto5 = JDServiceTestRunner.prototype;
 
+  _proto5.stats = function stats() {
+    var r = {
+      total: this.tests.length,
+      success: 0,
+      failed: 0,
+      indeterminate: 0
+    };
+
+    for (var _iterator = _createForOfIteratorHelperLoose(this.tests), _step; !(_step = _iterator()).done;) {
+      var test = _step.value;
+
+      switch (test.status) {
+        case JDTestStatus.Failed:
+          r.failed++;
+          break;
+
+        case JDTestStatus.Passed:
+          r.success++;
+          break;
+
+        default:
+          r.indeterminate++;
+      }
+    }
+
+    return r;
+  };
+
   _proto5.start = function start() {
     this.tests.forEach(function (t) {
       return t.reset();
@@ -1440,17 +1172,28 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     },
     set: function set(index) {
       if (this._testIndex !== index) {
-        var _this$currentTest;
+        // stop previous test if needed
+        var ct = this.currentTest;
+
+        if (ct) {
+          if (ct.status === JDTestStatus.Active) {
+            ct.cancel();
+          }
+        } // update test
+
 
         this._testIndex = index;
         this.emit(constants["s" /* CHANGE */]);
-        (_this$currentTest = this.currentTest) === null || _this$currentTest === void 0 ? void 0 : _this$currentTest.ready();
       }
     }
   }, {
     key: "currentTest",
     get: function get() {
       return this.tests[this._testIndex];
+    },
+    set: function set(test) {
+      var index = this.tests.indexOf(test);
+      if (index > -1) this.testIndex = index;
     }
   }]);
 
@@ -1487,11 +1230,7 @@ var jdom_test = __webpack_require__("3GY0");
 // CONCATENATED MODULE: ./src/components/test/ServiceTestRunner.tsx
 
 
-
- // tslint:disable-next-line: no-submodule-imports
-
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
 
 
 
@@ -1511,11 +1250,6 @@ function TestStatusIcon(props) {
   });
 
   switch (status) {
-    case JDTestStatus.ReadyToRun:
-      return /*#__PURE__*/react_default.a.createElement(PauseCircleOutline_default.a, {
-        color: "action"
-      });
-
     case JDTestStatus.Active:
       return /*#__PURE__*/react_default.a.createElement(PlayCircleFilled_default.a, {
         color: "action"
@@ -1540,13 +1274,21 @@ function TestStatusIcon(props) {
 
 function TestListItem(props) {
   var test = props.test,
-      currentTest = props.currentTest;
+      currentTest = props.currentTest,
+      onSelectTest = props.onSelectTest;
   var description = Object(useChange["a" /* default */])(test, function (t) {
     return t.description;
   });
   var selected = test === currentTest;
+
+  var handleSelectTest = function handleSelectTest() {
+    return onSelectTest(test);
+  };
+
   return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], {
-    selected: selected
+    selected: selected,
+    button: true,
+    onClick: handleSelectTest
   }, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
     test: test
   })), /*#__PURE__*/react_default.a.createElement(ListItemText["a" /* default */], {
@@ -1556,15 +1298,21 @@ function TestListItem(props) {
 
 function TestList(props) {
   var testRunner = props.testRunner,
-      currentTest = props.currentTest;
+      currentTest = props.currentTest,
+      onSelectTest = props.onSelectTest;
   var tests = testRunner.tests;
+  var stats = Object(useChange["a" /* default */])(testRunner, function (r) {
+    return r.stats();
+  });
   return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
-    dense: true
+    dense: true,
+    subheader: /*#__PURE__*/react_default.a.createElement(ListSubheader["a" /* default */], null, stats.total + " tests, " + stats.success + " success, " + stats.failed + " failed")
   }, tests === null || tests === void 0 ? void 0 : tests.map(function (test, i) {
     return /*#__PURE__*/react_default.a.createElement(TestListItem, {
       key: i,
       test: test,
-      currentTest: currentTest
+      currentTest: currentTest,
+      onSelectTest: onSelectTest
     });
   }))));
 }
@@ -1618,7 +1366,9 @@ function CommandListItem(props) {
     };
   };
 
-  return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CommandStatusIcon, {
+  return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], {
+    selected: status === JDCommandStatus.Active
+  }, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CommandStatusIcon, {
     command: command
   })), /*#__PURE__*/react_default.a.createElement(ListItemText["a" /* default */], {
     primary: message,
@@ -1640,126 +1390,59 @@ function FirstCommand(props) {
   }),
       message = _useChange2.message;
 
-  return /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
-    severity: "info"
-  }, /*#__PURE__*/react_default.a.createElement(AlertTitle["a" /* default */], null, message));
+  return /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
+    m: 2
+  }, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "body1"
+  }, message));
 }
 
 function ActiveTest(props) {
   var test = props.test;
-  var description = Object(useChange["a" /* default */])(test, function (t) {
-    return t.description;
-  });
   var commands = test.commands;
   var status = Object(useChange["a" /* default */])(test, function (t) {
     return t.status;
   });
 
-  var handleRun = function handleRun() {
+  var handleRestart = function handleRestart() {
     return test.start();
-  };
-
-  var handleReset = function handleReset() {
-    test.reset();
-    test.ready();
-  };
-
-  var handleCancel = function handleCancel() {
-    return test.cancel();
   };
 
   var handleNext = function handleNext() {
     return test.next();
   };
 
-  var showCommands = [JDTestStatus.Active, JDTestStatus.Failed, JDTestStatus.Passed].indexOf(status) > -1;
   var firstCommand = commands[0],
-      restOfCommands = commands.slice(1);
-  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardHeader["a" /* default */], {
-    title: /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
-      variant: "h5"
-    }, description),
-    avatar: /*#__PURE__*/react_default.a.createElement(TestStatusIcon, {
-      test: test
-    })
-  }), /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, showCommands && /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(FirstCommand, {
+      restOfCommands = commands.slice(1); // auto start
+
+  Object(react["useEffect"])(function () {
+    return test.start();
+  }, [test]);
+  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "h5"
+  }, "WHEN"), /*#__PURE__*/react_default.a.createElement(FirstCommand, {
     command: firstCommand
-  }), /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
+  }), /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "h5"
+  }, "TEST"), /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
     dense: false
   }, restOfCommands.map(function (cmd, i) {
     return /*#__PURE__*/react_default.a.createElement(CommandListItem, {
       key: i,
       command: cmd
     });
-  }))), status === JDTestStatus.Passed && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
+  })), status === JDTestStatus.Passed && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
     severity: "success"
   }, "Test passed"), status === JDTestStatus.Failed && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
-    severity: "success"
-  }, "Test passed")), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    container: true,
-    spacing: 1
-  }, status === JDTestStatus.ReadyToRun && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
-    onClick: handleRun
-  }, "Run")), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
-    onClick: handleReset
-  }, "Restart")), status === JDTestStatus.Active && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
-    onClick: handleCancel
-  }, "Cancel")), status === JDTestStatus.Failed || status === JDTestStatus.Passed && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    variant: "outlined",
+    severity: "error"
+  }, "Test failed")), /*#__PURE__*/react_default.a.createElement(CardActions["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: status === JDTestStatus.Active ? "outlined" : "contained",
+    color: status === JDTestStatus.Passed ? "primary" : undefined,
     onClick: handleNext
-  }, "Next")))));
-}
-
-function LinearProgressWithLabel(props) {
-  var label = props.label,
-      value = props.value,
-      total = props.total,
-      others = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["label", "value", "total"]);
-
-  return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    container: true,
-    spacing: 2,
-    alignItems: "center"
-  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
-    variant: "h5",
-    color: "primary"
-  }, label + " " + value + " / " + total)), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true,
-    xs: true
-  }, /*#__PURE__*/react_default.a.createElement(esm_LinearProgress_LinearProgress, Object.assign({
-    variant: "determinate",
-    value: value / total * 100
-  }, others))));
-}
-
-function TestProgress(props) {
-  var testRunner = props.testRunner;
-  var tests = testRunner.tests;
-  var total = tests.length;
-  var executed = Object(useChange["a" /* default */])(testRunner, function (t) {
-    return t.tests.reduce(function (v, t) {
-      return v + (t.indeterminate ? 0 : 1);
-    }, 1);
-  });
-  var label = testRunner.service.friendlyName;
-  return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(LinearProgressWithLabel, {
-    label: label + " tests",
-    value: executed,
-    total: total
-  })));
+  }, "Next"), /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    variant: "outlined",
+    onClick: handleRestart
+  }, "Restart")));
 }
 
 function ServiceTestRunner(props) {
@@ -1773,6 +1456,14 @@ function ServiceTestRunner(props) {
   var currentTest = Object(useChange["a" /* default */])(testRunner, function (t) {
     return t === null || t === void 0 ? void 0 : t.currentTest;
   });
+
+  var handleSelectTest = function handleSelectTest(test) {
+    console.log({
+      test: test
+    });
+    testRunner.currentTest = test;
+  };
+
   if (!serviceTest) return /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
     severity: "warning"
   }, "Sorry, there are no tests available for service", " ", service.friendlyName, ".");
@@ -1781,11 +1472,6 @@ function ServiceTestRunner(props) {
     container: true,
     spacing: 2
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react_default.a.createElement(TestProgress, {
-    testRunner: testRunner
-  })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
@@ -1798,7 +1484,8 @@ function ServiceTestRunner(props) {
     sm: 3
   }, /*#__PURE__*/react_default.a.createElement(TestList, {
     testRunner: testRunner,
-    currentTest: currentTest
+    currentTest: currentTest,
+    onSelectTest: handleSelectTest
   })), currentTest && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12,
@@ -1815,52 +1502,6 @@ function ServiceTestRunner(props) {
     device: service.device
   })))));
 }
-
-/***/ }),
-
-/***/ "DObr":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export styles */
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("wx14");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Ff2n");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("H2TA");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ofer");
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("iuhU");
-
-
-
-
-
-
-var styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      fontWeight: theme.typography.fontWeightMedium,
-      marginTop: -2
-    }
-  };
-};
-var AlertTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function AlertTitle(props, ref) {
-  var classes = props.classes,
-      className = props.className,
-      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(props, ["classes", "className"]);
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
-    gutterBottom: true,
-    component: "div",
-    ref: ref,
-    className: Object(clsx__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(classes.root, className)
-  }, other));
-});
- false ? undefined : void 0;
-/* harmony default export */ __webpack_exports__["a"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(styles, {
-  name: 'MuiAlertTitle'
-})(AlertTitle));
 
 /***/ }),
 
@@ -3287,6 +2928,94 @@ JSONPath.prototype.vm = {
 
 /***/ }),
 
+/***/ "hxuT":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export styles */
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("wx14");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Ff2n");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("iuhU");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("H2TA");
+/* harmony import */ var _utils_capitalize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("NqtD");
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      boxSizing: 'border-box',
+      lineHeight: '48px',
+      listStyle: 'none',
+      color: theme.palette.text.secondary,
+      fontFamily: theme.typography.fontFamily,
+      fontWeight: theme.typography.fontWeightMedium,
+      fontSize: theme.typography.pxToRem(14)
+    },
+
+    /* Styles applied to the root element if `color="primary"`. */
+    colorPrimary: {
+      color: theme.palette.primary.main
+    },
+
+    /* Styles applied to the root element if `color="inherit"`. */
+    colorInherit: {
+      color: 'inherit'
+    },
+
+    /* Styles applied to the inner `component` element if `disableGutters={false}`. */
+    gutters: {
+      paddingLeft: 16,
+      paddingRight: 16
+    },
+
+    /* Styles applied to the root element if `inset={true}`. */
+    inset: {
+      paddingLeft: 72
+    },
+
+    /* Styles applied to the root element if `disableSticky={false}`. */
+    sticky: {
+      position: 'sticky',
+      top: 0,
+      zIndex: 1,
+      backgroundColor: 'inherit'
+    }
+  };
+};
+var ListSubheader = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function ListSubheader(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$color = props.color,
+      color = _props$color === void 0 ? 'default' : _props$color,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'li' : _props$component,
+      _props$disableGutters = props.disableGutters,
+      disableGutters = _props$disableGutters === void 0 ? false : _props$disableGutters,
+      _props$disableSticky = props.disableSticky,
+      disableSticky = _props$disableSticky === void 0 ? false : _props$disableSticky,
+      _props$inset = props.inset,
+      inset = _props$inset === void 0 ? false : _props$inset,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(props, ["classes", "className", "color", "component", "disableGutters", "disableSticky", "inset"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(classes.root, className, color !== 'default' && classes["color".concat(Object(_utils_capitalize__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(color))], inset && classes.inset, !disableSticky && classes.sticky, !disableGutters && classes.gutters),
+    ref: ref
+  }, other));
+});
+ false ? undefined : void 0;
+/* harmony default export */ __webpack_exports__["a"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(styles, {
+  name: 'MuiListSubheader'
+})(ListSubheader));
+
+/***/ }),
+
 /***/ "o4QW":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3431,4 +3160,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-dcb3cc228fce7005ce12.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-d35ee673b3d369413e27.js.map

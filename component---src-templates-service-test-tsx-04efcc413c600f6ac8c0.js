@@ -32,6 +32,52 @@ function Page(props) {
 
 /***/ }),
 
+/***/ "DObr":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export styles */
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("wx14");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Ff2n");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("H2TA");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ofer");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("iuhU");
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      fontWeight: theme.typography.fontWeightMedium,
+      marginTop: -2
+    }
+  };
+};
+var AlertTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function AlertTitle(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(props, ["classes", "className"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({
+    gutterBottom: true,
+    component: "div",
+    ref: ref,
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(classes.root, className)
+  }, other));
+});
+ false ? undefined : void 0;
+/* harmony default export */ __webpack_exports__["a"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(styles, {
+  name: 'MuiAlertTitle'
+})(AlertTitle));
+
+/***/ }),
+
 /***/ "E8kk":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -162,7 +208,7 @@ function SelectService(props) {
     severity: "info"
   }, "Not seeing your device? Try some of the following.", /*#__PURE__*/react_default.a.createElement("ul", null, /*#__PURE__*/react_default.a.createElement("li", null, "Check that your device is connected"), /*#__PURE__*/react_default.a.createElement("li", null, "Use the ", /*#__PURE__*/react_default.a.createElement("strong", null, "packet console"), " to monitor packets on the bus"), /*#__PURE__*/react_default.a.createElement("li", null, "Check the class identifier in your annoucement packets"))));
 }
-// EXTERNAL MODULE: ./src/components/test/ServiceTestRunner.tsx + 3 modules
+// EXTERNAL MODULE: ./src/components/test/ServiceTestRunner.tsx + 2 modules
 var ServiceTestRunner = __webpack_require__("D5X2");
 
 // CONCATENATED MODULE: ./src/components/test/ServiceTest.tsx
@@ -243,4 +289,4 @@ function ServiceTest(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-test-tsx-8d8cb5e79067d2c0274d.js.map
+//# sourceMappingURL=component---src-templates-service-test-tsx-04efcc413c600f6ac8c0.js.map
