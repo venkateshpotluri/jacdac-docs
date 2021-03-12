@@ -266,6 +266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_useRoleManager__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("UF2u");
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("IzqI");
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("yNWl");
+/* harmony import */ var _jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("DMAQ");
+
 
 
 
@@ -302,7 +304,7 @@ function RoleListItem(props) {
 function SelectRoleDialog(props) {
   var service = props.service,
       onClose = props.onClose;
-  var serviceName = service.friendlyName;
+  var serviceClass = service.serviceClass;
   var open = !!service;
   var dialogId = Object(react_use_id_hook__WEBPACK_IMPORTED_MODULE_9__[/* useId */ "b"])();
   var labelId = Object(react_use_id_hook__WEBPACK_IMPORTED_MODULE_9__[/* useId */ "b"])();
@@ -342,7 +344,7 @@ function SelectRoleDialog(props) {
     onClose: onClose
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     id: labelId
-  }, "Select a role this ", serviceName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], null, roles === null || roles === void 0 ? void 0 : roles.map(function (role, i) {
+  }, "Select a role this ", Object(_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_13__[/* serviceName */ "j"])(serviceClass)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], null, roles === null || roles === void 0 ? void 0 : roles.map(function (role, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(RoleListItem, {
       key: i,
       role: role,
@@ -1149,4 +1151,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=85-adecf4fedbb877e5795b.js.map
+//# sourceMappingURL=85-d01c12fbdbfb5e245558.js.map
