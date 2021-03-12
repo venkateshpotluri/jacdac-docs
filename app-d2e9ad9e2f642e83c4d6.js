@@ -5655,7 +5655,7 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
 
   _proto2.role = function role(name) {
     return this._roles.find(function (r) {
-      return r.role === name;
+      return r.serviceIndex > 0 && r.role === name;
     });
   };
 
@@ -5684,7 +5684,6 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
               return _context4.abrupt("return");
 
             case 7:
-              // set new role assignment
               data = Object(pack["a" /* jdpack */])("b[8] u8 s", [Object(utils["u" /* fromHex */])(deviceId), serviceIndex, role || ""]);
               _context4.next = 10;
               return this.service.sendPacketAsync(packet["a" /* default */].from(constants["id" /* RoleManagerCmd */].SetRole, data), true);
@@ -47342,4 +47341,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-45fc45b7780a56cc1569.js.map
+//# sourceMappingURL=app-d2e9ad9e2f642e83c4d6.js.map
