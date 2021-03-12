@@ -743,7 +743,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         return r.e === a;
       });
 
-      return ["{" + (i + 1) + "}", aStart ? aStart.v.toString() : unparse(a)];
+      return ["{" + (i + 1) + "}", aStart && aStart.v && testFun.args[i] === "number" ? aStart.v.toString() : unparse(a)];
     });
     this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
     replace.forEach(function (p) {
@@ -2100,4 +2100,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-5571b117192bcf734af1.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-9d134d5a502ef5278e18.js.map
