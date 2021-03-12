@@ -31,7 +31,7 @@ var _buttonLabels;
 
 
 
-var buttonLabels = (_buttonLabels = {}, _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Left] = "\u25C0", _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Up] = "\u25B2", _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Down] = "\u25BC", _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Right] = "\u25B6", _buttonLabels);
+var buttonLabels = (_buttonLabels = {}, _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Left] = "\u25C4", _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Up] = "\u25B2", _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Down] = "\u25BC", _buttonLabels[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadButton */ "g"].Right] = "\u25BA", _buttonLabels);
 
 function ArcadeButton(props) {
   var cx = props.cx,
@@ -88,9 +88,7 @@ function ArcadeButton(props) {
 function DashboardArcadeGamepad(props) {
   var _pos;
 
-  var service = props.service,
-      services = props.services,
-      variant = props.variant;
+  var service = props.service;
 
   var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "e"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* ArcadeGamepadReg */ "h"].AvailableButtons)),
       available = _useRegisterUnpackedV[0];
@@ -238,4 +236,4 @@ function DashboardArcadeGamepad(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=110-a9a3f29efd587d83c112.js.map
+//# sourceMappingURL=110-adc585e85f90aa52d473.js.map
