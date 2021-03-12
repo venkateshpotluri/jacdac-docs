@@ -1212,7 +1212,7 @@ var PlayCircleFilled_default = /*#__PURE__*/__webpack_require__.n(PlayCircleFill
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__("IzqI");
 
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardDevice.tsx + 5 modules
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardDevice.tsx + 4 modules
 var DashboardDevice = __webpack_require__("kLoJ");
 
 // EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx

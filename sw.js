@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-2c8967ddbf1c578a9590.js"
+    "url": "webpack-runtime-1355c4c4df84428b2239.js"
   },
   {
     "url": "framework-0e54d42fcbc1616f6e34.js"
@@ -39,11 +39,11 @@ self.__precacheManifest = [
     "url": "styles-2c9643d43c0b47709ac0.js"
   },
   {
-    "url": "app-38f7c31a8a0416a80531.js"
+    "url": "app-0f8628570d300e0a4436.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "749923a0e0ed1dda88c43b12813069f2"
+    "revision": "a3626c84ab5ee2053039dd958714fd84"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -79,7 +79,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "7ee3c0d492c7ed9113d6dc752dc66e06"
+    "revision": "02195eaa68d3af59f293574dc4705779"
   },
   {
     "url": "polyfill-bf8bab74a5baf916be05.js"
@@ -103,13 +103,13 @@ self.__precacheManifest = [
     "revision": "ea5d3a294803bc963607eef37b1638d5"
   },
   {
-    "url": "7600a3ddfab36b61eaa18c3105544a830bcb4c91-14781b1bee56ea887155.js"
+    "url": "42bb0307f181b09b1b4f25a6081deb447a2e7d87-67865764f538d2417b08.js"
   },
   {
-    "url": "5b33f922fce9c7cae978c0f2c2ea87f73d7f8bc0-1fcce13630b3d85ad7ab.js"
+    "url": "7600a3ddfab36b61eaa18c3105544a830bcb4c91-42fd8cdbdfb3817f5725.js"
   },
   {
-    "url": "b315f490e2b6b1f251bac662303b36a7e8b8718c-fea5cd8b1ee788ceb82d.js"
+    "url": "5b33f922fce9c7cae978c0f2c2ea87f73d7f8bc0-551804a08e5c62abe0af.js"
   },
   {
     "url": "d6cef60afa99a86b409c56fa2946fa45f8575455-3cbec76081a27ea28bfb.js"
@@ -139,7 +139,7 @@ self.__precacheManifest = [
     "url": "bc1de39814113fdab2fbefae2ee854f0842f6be1-b0a9f9bff03dff63c0c6.js"
   },
   {
-    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-0826c3b44e7c8ce8ce0a.js"
+    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-c12c30125e99d691313a.js"
   },
   {
     "url": "component---src-pages-dashboard-tsx-1c56da8dc5d0be05439d.js"
@@ -232,7 +232,7 @@ self.__precacheManifest = [
     "revision": "c5ce9fd4f10cc0df3e301b1ca4278b6c"
   },
   {
-    "url": "component---src-templates-service-tsx-e66bc323569962e69bcb.js"
+    "url": "component---src-templates-service-tsx-9b06df0e799e3d3d9e63.js"
   },
   {
     "url": "page-data/services/_base/page-data.json",
@@ -568,7 +568,7 @@ self.__precacheManifest = [
     "url": "5cb7c78286c5fcecf4d3c60360196e55585b6a15-4017e3b139909113a311.js"
   },
   {
-    "url": "component---src-pages-tools-device-registration-tsx-93b7f816d99a59982f17.js"
+    "url": "component---src-pages-tools-device-registration-tsx-dae751389277bb95626e.js"
   },
   {
     "url": "page-data/tools/device-registration/page-data.json",
@@ -592,7 +592,7 @@ self.__precacheManifest = [
     "revision": "537cd8f4ac8e0a6a3acac3ec1624aebb"
   },
   {
-    "url": "component---src-pages-tools-led-animation-designer-tsx-14ebce9d219fec6b7f88.js"
+    "url": "component---src-pages-tools-led-animation-designer-tsx-75f3b6e309ab9c62acda.js"
   },
   {
     "url": "page-data/tools/led-animation-designer/page-data.json",
@@ -641,7 +641,7 @@ self.__precacheManifest = [
     "revision": "e92e52f3a9625a37299f7173dd8afda8"
   },
   {
-    "url": "component---src-pages-tools-prototest-tsx-bcd6bace75ffbaaa9f5d.js"
+    "url": "component---src-pages-tools-prototest-tsx-e5e59423b72f2bc21199.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
@@ -655,7 +655,7 @@ self.__precacheManifest = [
     "revision": "e114583f0593e01b5e1c864f600d00d7"
   },
   {
-    "url": "component---src-pages-tools-service-editor-tsx-28f63a661d3347b5118c.js"
+    "url": "component---src-pages-tools-service-editor-tsx-f8b3e62548b9d282227d.js"
   },
   {
     "url": "page-data/tools/service-editor/page-data.json",
@@ -672,7 +672,7 @@ self.__precacheManifest = [
     "revision": "77e8979ad6aa9d38e005a705806733dc"
   },
   {
-    "url": "component---src-pages-tools-service-test-editor-tsx-52e43df7a94722f654bf.js"
+    "url": "component---src-pages-tools-service-test-editor-tsx-60b51fef1906b30c2b32.js"
   },
   {
     "url": "page-data/tools/service-test-editor/page-data.json",
@@ -786,7 +786,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-38f7c31a8a0416a80531.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-0f8628570d300e0a4436.js`))) {
     return await fetch(event.request)
   }
 
