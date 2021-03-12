@@ -174,8 +174,7 @@ function Carousel() {
     return /*#__PURE__*/react_default.a.createElement(DashboardDeviceItem["a" /* default */], {
       key: device.id,
       device: device,
-      showAvatar: true,
-      showHeader: true
+      showHeader: false
     });
   }), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
@@ -630,4 +629,4 @@ function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-9ad6079ca61b53ce4e5f.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-89a2ce188a93a060eebd.js.map

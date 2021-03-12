@@ -8,8 +8,10 @@
 /* unused harmony export packetsToRegisters */
 /* unused harmony export lookupRegister */
 /* unused harmony export lookupField */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getRegister; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parseIntFloat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getRegister; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return parseIntFloat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return exprVisitor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getExpressionsOfType; });
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="jdspec.d.ts" />
 function isRegister(pkt) {
@@ -92,6 +94,29 @@ function parseIntFloat(spec, w, allowFloat) {
 
   if (!en.members.hasOwnProperty(ww[1])) throw new Error(ww[1] + " is not a member of " + ww[0]);
   return en.members[ww[1]] || 0;
+}
+function exprVisitor(parent, current, structVisit) {
+  if (Array.isArray(current)) {
+    current.forEach(function (c) {
+      return exprVisitor(current, c, structVisit);
+    });
+  } else if (typeof current === "object") {
+    if (parent && current) structVisit(parent, current);
+    Object.keys(current).forEach(function (key) {
+      exprVisitor(current, current[key], structVisit);
+    });
+  }
+}
+function getExpressionsOfType(expr, type, returnParent) {
+  if (returnParent === void 0) {
+    returnParent = false;
+  }
+
+  var results = [];
+  exprVisitor(null, expr, function (p, c) {
+    if (p && c.type === type) results.push(returnParent ? p : c);
+  });
+  return results;
 }
 
 /***/ }),
@@ -1143,7 +1168,7 @@ function parseServiceSpecificationMarkdownToJSON(filecontent, includes, filename
     }
 
     try {
-      return Object(_jdutils__WEBPACK_IMPORTED_MODULE_1__[/* parseIntFloat */ "b"])(info, w, allowFloat);
+      return Object(_jdutils__WEBPACK_IMPORTED_MODULE_1__[/* parseIntFloat */ "d"])(info, w, allowFloat);
     } catch (e) {
       error(e.message);
       return 0;
@@ -1870,4 +1895,4 @@ function isNumericType(field) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-10ded332accc0c306515.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-d2accd94edbc3d6659a1.js.map

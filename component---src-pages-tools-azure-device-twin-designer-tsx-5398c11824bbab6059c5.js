@@ -221,11 +221,7 @@ function ComponentRow(props) {
     onUpdate();
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Azure Device Twin Designer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "An ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_14__["Link"], {
-    href: "https://github.com/Azure/opendigitaltwins-dtdl/"
-  }, "device twin"), " is to be used in IoT solutions such as with Azure IoT Hubs, Azure IoT Plug And Play. The repository of ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_14__["Link"], {
-    to: "/dtmi/"
-  }, "Azure IoT Plug And Play models"), " for services can be used to resolve models."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
@@ -256,7 +252,7 @@ function ComponentRow(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     title: "Remove service",
     onClick: handleComponentDelete
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_5___default.a, null))))));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_5___default.a, null)))));
 }
 
 function validateTwinComponent(twin, component) {
@@ -313,7 +309,11 @@ function AzureDeviceTwinDesigner() {
     update();
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Azure Device Twin Designer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, "An", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_14__["Link"], {
+    href: "https://github.com/Azure/opendigitaltwins-dtdl/"
+  }, "device twin"), " ", "is to be used in IoT solutions such as with Azure IoT Hubs, Azure IoT Plug And Play. The repository of", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_14__["Link"], {
+    to: "/dtmi/"
+  }, "Azure IoT Plug And Play models"), " for services can be used to resolve models."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"], {
     container: true,
     direction: "row",
     spacing: 2
@@ -347,7 +347,7 @@ function AzureDeviceTwinDesigner() {
     value: dtdlSource,
     mode: "json",
     download: "model"
-  }))));
+  })))));
 }
 
 /***/ }),
@@ -1634,4 +1634,4 @@ function deviceSpecificationToDTDL(dev, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-7f90fc4dbc44ecf628b8.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-5398c11824bbab6059c5.js.map

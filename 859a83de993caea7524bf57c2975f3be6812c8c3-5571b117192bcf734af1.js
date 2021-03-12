@@ -359,8 +359,8 @@ var createClass = __webpack_require__("vuIU");
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtestfuns.ts
 var jdtestfuns = __webpack_require__("et/c");
 
-// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtest.ts
-var jdtest = __webpack_require__("JK6d");
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
+var jdutils = __webpack_require__("3ArF");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
@@ -391,15 +391,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-var JDCommandStatus;
+var JDTestCommandStatus;
 
-(function (JDCommandStatus) {
-  JDCommandStatus[JDCommandStatus["NotReady"] = 0] = "NotReady";
-  JDCommandStatus[JDCommandStatus["Active"] = 1] = "Active";
-  JDCommandStatus[JDCommandStatus["RequiresUserInput"] = 2] = "RequiresUserInput";
-  JDCommandStatus[JDCommandStatus["Passed"] = 3] = "Passed";
-  JDCommandStatus[JDCommandStatus["Failed"] = 4] = "Failed";
-})(JDCommandStatus || (JDCommandStatus = {}));
+(function (JDTestCommandStatus) {
+  JDTestCommandStatus[JDTestCommandStatus["NotReady"] = 0] = "NotReady";
+  JDTestCommandStatus[JDTestCommandStatus["Active"] = 1] = "Active";
+  JDTestCommandStatus[JDTestCommandStatus["RequiresUserInput"] = 2] = "RequiresUserInput";
+  JDTestCommandStatus[JDTestCommandStatus["Passed"] = 3] = "Passed";
+  JDTestCommandStatus[JDTestCommandStatus["Failed"] = 4] = "Failed";
+})(JDTestCommandStatus || (JDTestCommandStatus = {}));
 
 var JDTestStatus;
 
@@ -412,19 +412,19 @@ var JDTestStatus;
 
 function commandStatusToTestStatus(status) {
   switch (status) {
-    case JDCommandStatus.Active:
+    case JDTestCommandStatus.Active:
       return JDTestStatus.Active;
 
-    case JDCommandStatus.Passed:
+    case JDTestCommandStatus.Passed:
       return JDTestStatus.Passed;
 
-    case JDCommandStatus.Failed:
+    case JDTestCommandStatus.Failed:
       return JDTestStatus.Failed;
 
-    case JDCommandStatus.NotReady:
+    case JDTestCommandStatus.NotReady:
       return JDTestStatus.NotReady;
 
-    case JDCommandStatus.RequiresUserInput:
+    case JDTestCommandStatus.RequiresUserInput:
       return JDTestStatus.Active;
   }
 }
@@ -438,6 +438,12 @@ function cmdToTestFunction(cmd) {
 
 function unparse(e) {
   switch (e.type) {
+    case "ArrayExpression":
+      {
+        var ae = e;
+        return "[" + ae.elements.map(unparse).join(", ") + "]";
+      }
+
     case "CallExpression":
       {
         var caller = e;
@@ -493,6 +499,12 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
   _proto.visitExpression = function visitExpression(e) {
     switch (e.type) {
+      case "ArrayExpression":
+        {
+          // nothing to do here yet (only used for event function)
+          break;
+        }
+
       case "CallExpression":
         {
           var caller = e;
@@ -647,9 +659,11 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
   function JDCommandEvaluator(env, command) {
     this._prompt = "";
     this._progress = "";
-    this._status = JDCommandStatus.Active;
+    this._status = JDTestCommandStatus.Active;
     this._startExpressions = [];
     this._rangeComplete = undefined;
+    this._eventsComplete = undefined;
+    this._eventsQueue = undefined;
     this.env = env;
     this.command = command;
   }
@@ -667,7 +681,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     switch (testFun.id) {
       case "check":
         {
-          startExprs = Object(jdtest["a" /* getExpressionsOfType */])(args, 'CallExpression').filter(function (ce) {
+          startExprs = Object(jdutils["b" /* getExpressionsOfType */])(args, 'CallExpression').filter(function (ce) {
             return ce.callee.name === "start";
           }).map(function (ce) {
             return ce.arguments[0];
@@ -685,17 +699,21 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
       case "increasesBy":
       case "decreasesBy":
+      case "stepsUpTo":
+      case "stepsDownTo":
         {
           startExprs.push(args[0]);
           startExprs.push(args[1]);
           break;
         }
 
-      case "rangesFromUpTo":
-      case "rangesFromDownTo":
+      case "events":
         {
-          startExprs.push(args[1]);
-          startExprs.push(args[2]);
+          var eventList = this.command.call.arguments[0];
+          this._eventsComplete = eventList.elements.map(function (id) {
+            return id.name;
+          });
+          this._eventsQueue = [];
           break;
         }
     } // evaluate the start expressions and store the results
@@ -725,7 +743,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         return r.e === a;
       });
 
-      return ["{" + (i + 1) + "}", aStart && testFun.args[i] !== "register" ? aStart.v.toString() : unparse(a)];
+      return ["{" + (i + 1) + "}", aStart ? aStart.v.toString() : unparse(a)];
     });
     this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
     replace.forEach(function (p) {
@@ -733,16 +751,20 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     });
   };
 
+  _proto2.setEvent = function setEvent(ev) {
+    this._eventsQueue.push(ev);
+  };
+
   _proto2.evaluate = function evaluate() {
     var testFun = cmdToTestFunction(this.command);
-    this._status = JDCommandStatus.Active;
+    this._status = JDTestCommandStatus.Active;
     this._progress = "";
 
     switch (testFun.id) {
       case "say":
       case "ask":
         {
-          this._status = testFun.id === "say" ? JDCommandStatus.Passed : JDCommandStatus.RequiresUserInput;
+          this._status = testFun.id === "say" ? JDTestCommandStatus.Passed : JDTestCommandStatus.RequiresUserInput;
           break;
         }
 
@@ -750,7 +772,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         {
           var expr = new JDExprEvaluator(this.env, this._startExpressions);
           var ev = expr.eval(this.command.call.arguments[0]);
-          this._status = ev ? JDCommandStatus.Passed : JDCommandStatus.Active;
+          this._status = ev ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
           break;
         }
 
@@ -765,7 +787,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           });
 
           var regValue = this.env[unparse(reg)];
-          var status = testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v ? JDCommandStatus.Passed : JDCommandStatus.Active;
+          var status = testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
           this._status = status;
           regSaved.v = regValue;
           break;
@@ -790,41 +812,41 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
           if (testFun.id === "increasesBy") {
             if (_regValue === _regSaved.v + amtSaved.v) {
-              this._status = JDCommandStatus.Passed;
+              this._status = JDTestCommandStatus.Passed;
             } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v + amtSaved.v) {
-              this._status = JDCommandStatus.Active;
+              this._status = JDTestCommandStatus.Active;
               this._progress = _regValue - _regSaved.v + " out of " + amtSaved.v;
             } else {
-              this._status = JDCommandStatus.Active;
+              this._status = JDTestCommandStatus.Active;
             }
           } else {
             if (_regValue === _regSaved.v - amtSaved.v) {
-              this._status = JDCommandStatus.Passed;
+              this._status = JDTestCommandStatus.Passed;
               this._progress = "completed";
             } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v - amtSaved.v) {
-              this._status = JDCommandStatus.Active;
+              this._status = JDTestCommandStatus.Active;
               this._progress = _regSaved.v - _regValue + " out of " + amtSaved.v;
             } else {
-              this._status = JDCommandStatus.Active;
+              this._status = JDTestCommandStatus.Active;
             }
           }
 
           break;
         }
 
-      case "rangesFromUpTo":
-      case "rangesFromDownTo":
+      case "stepsUpTo":
+      case "stepsDownTo":
         {
-          this._status = JDCommandStatus.Active;
+          this._status = JDTestCommandStatus.Active;
           var _reg2 = this.command.call.arguments[0];
           var _regValue2 = this.env[unparse(_reg2)];
-          var begin = this.command.call.arguments[1];
+          var begin = this.command.call.arguments[0];
 
           var beginSaved = this._startExpressions.find(function (r) {
             return r.e === begin;
           });
 
-          var end = this.command.call.arguments[2];
+          var end = this.command.call.arguments[1];
 
           var endSaved = this._startExpressions.find(function (r) {
             return r.e === end;
@@ -836,12 +858,31 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             if (_regValue2 === this._rangeComplete + (testFun.id == 'rangesFromUpTo' ? 1 : -1)) this._rangeComplete = _regValue2;
 
             if (this._rangeComplete === endSaved.v) {
-              this._status = JDCommandStatus.Passed;
+              this._status = JDTestCommandStatus.Passed;
             }
           }
 
           if (this._rangeComplete != undefined) {
             this._progress = testFun.id == 'rangesFromUpTo' ? "from " + beginSaved.v + " up to " + this._rangeComplete : "from " + beginSaved.v + " down to " + this._rangeComplete;
+          }
+
+          break;
+        }
+
+      case "events":
+        {
+          var _this$_eventsQueue, _this$_eventsComplete;
+
+          if (((_this$_eventsQueue = this._eventsQueue) === null || _this$_eventsQueue === void 0 ? void 0 : _this$_eventsQueue.length) > 0 && ((_this$_eventsComplete = this._eventsComplete) === null || _this$_eventsComplete === void 0 ? void 0 : _this$_eventsComplete.length) > 0) {
+            var _ev = this._eventsQueue.pop();
+
+            if (_ev === this._eventsComplete[0]) {
+              this._eventsComplete.shift();
+
+              if (this._eventsComplete.length === 0) this._status = JDTestCommandStatus.Passed;
+            }
+
+            this._progress = "got event " + _ev + "; remaining = " + this._eventsComplete;
           }
 
           break;
@@ -869,15 +910,15 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
   return JDCommandEvaluator;
 }();
 
-var testrunner_JDCommandRunner = /*#__PURE__*/function (_JDEventSource) {
-  Object(inheritsLoose["a" /* default */])(JDCommandRunner, _JDEventSource);
+var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
+  Object(inheritsLoose["a" /* default */])(JDTestCommandRunner, _JDEventSource);
 
   // timeout
-  function JDCommandRunner(testRunner, env, command) {
+  function JDTestCommandRunner(testRunner, env, command) {
     var _this3;
 
     _this3 = _JDEventSource.call(this) || this;
-    _this3._status = JDCommandStatus.NotReady;
+    _this3._status = JDTestCommandStatus.NotReady;
     _this3._output = {
       message: "",
       progress: ""
@@ -891,19 +932,19 @@ var testrunner_JDCommandRunner = /*#__PURE__*/function (_JDEventSource) {
     return _this3;
   }
 
-  var _proto3 = JDCommandRunner.prototype;
+  var _proto3 = JDTestCommandRunner.prototype;
 
   _proto3.reset = function reset() {
     this.output = {
       message: "",
       progress: ""
     };
-    this.status = JDCommandStatus.NotReady;
+    this.status = JDTestCommandStatus.NotReady;
     this._commmandEvaluator = null;
   };
 
   _proto3.start = function start() {
-    this.status = JDCommandStatus.Active;
+    this.status = JDTestCommandStatus.Active;
     this._commmandEvaluator = new testrunner_JDCommandEvaluator(this.env, this.command);
 
     this._commmandEvaluator.start();
@@ -925,22 +966,29 @@ var testrunner_JDCommandRunner = /*#__PURE__*/function (_JDEventSource) {
         progress: this._commmandEvaluator.progress
       };
       this.output = newOutput;
-      if (this._commmandEvaluator.status === JDCommandStatus.RequiresUserInput) this.status = JDCommandStatus.RequiresUserInput;else if (finish) this.finish(this._commmandEvaluator.status);
+      if (this._commmandEvaluator.status === JDTestCommandStatus.RequiresUserInput) this.status = JDTestCommandStatus.RequiresUserInput;else if (finish) this.finish(this._commmandEvaluator.status);
     }
   };
 
+  _proto3.eventChange = function eventChange(event) {
+    this._commmandEvaluator.setEvent(event);
+
+    this.envChange();
+    console.log("got " + event);
+  };
+
   _proto3.cancel = function cancel() {
-    this.finish(JDCommandStatus.Failed);
+    this.finish(JDTestCommandStatus.Failed);
   };
 
   _proto3.finish = function finish(s) {
-    if ((s === JDCommandStatus.Failed || s === JDCommandStatus.Passed) && (this.status === JDCommandStatus.Active || this.status === JDCommandStatus.RequiresUserInput)) {
+    if ((s === JDTestCommandStatus.Failed || s === JDTestCommandStatus.Passed) && (this.status === JDTestCommandStatus.Active || this.status === JDTestCommandStatus.RequiresUserInput)) {
       this.status = s;
       this.testRunner.finishCommand();
     }
   };
 
-  Object(createClass["a" /* default */])(JDCommandRunner, [{
+  Object(createClass["a" /* default */])(JDTestCommandRunner, [{
     key: "status",
     get: function get() {
       return this._status;
@@ -954,7 +1002,7 @@ var testrunner_JDCommandRunner = /*#__PURE__*/function (_JDEventSource) {
   }, {
     key: "indeterminate",
     get: function get() {
-      return this.status !== JDCommandStatus.Failed && this.status !== JDCommandStatus.Passed;
+      return this.status !== JDTestCommandStatus.Failed && this.status !== JDTestCommandStatus.Passed;
     }
   }, {
     key: "output",
@@ -969,7 +1017,7 @@ var testrunner_JDCommandRunner = /*#__PURE__*/function (_JDEventSource) {
     }
   }]);
 
-  return JDCommandRunner;
+  return JDTestCommandRunner;
 }(eventsource["a" /* JDEventSource */]);
 var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   Object(inheritsLoose["a" /* default */])(JDTestRunner, _JDEventSource2);
@@ -982,8 +1030,8 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     _this4.serviceTestRunner = serviceTestRunner;
     _this4.env = env;
     _this4.testSpec = testSpec;
-    _this4.commands = testSpec.commands.map(function (c) {
-      return new testrunner_JDCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), _this4.env, c);
+    _this4.commands = testSpec.testCommands.map(function (c) {
+      return new testrunner_JDTestCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), _this4.env, c);
     });
     _this4._description = testSpec.description;
     return _this4;
@@ -1028,6 +1076,12 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     (_this$currentCommand = this.currentCommand) === null || _this$currentCommand === void 0 ? void 0 : _this$currentCommand.envChange();
   };
 
+  _proto4.eventChange = function eventChange(event) {
+    var _this$currentCommand2;
+
+    (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.eventChange(event);
+  };
+
   _proto4.finishCommand = function finishCommand() {
     if (this.commandIndex === this.commands.length - 1) this.finish(commandStatusToTestStatus(this.currentCommand.status)); // (this.commandIndex < this.commands.length)
     else this.commandIndex++;
@@ -1061,10 +1115,10 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     },
     set: function set(index) {
       if (this._commandIndex !== index) {
-        var _this$currentCommand2;
+        var _this$currentCommand3;
 
         this._commandIndex = index;
-        (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.start();
+        (_this$currentCommand3 = this.currentCommand) === null || _this$currentCommand3 === void 0 ? void 0 : _this$currentCommand3.start();
         this.emit(constants["s" /* CHANGE */]);
       }
     }
@@ -1086,6 +1140,7 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     _this5 = _JDServiceClient.call(this, service) || this;
     _this5._testIndex = -1;
     _this5.registers = {};
+    _this5.events = {};
     _this5.environment = {};
     _this5.testSpec = testSpec;
     _this5.tests = _this5.testSpec.tests.map(function (t) {
@@ -1094,20 +1149,35 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     var serviceSpec = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(service.serviceClass);
 
     _this5.testSpec.tests.forEach(function (t) {
+      t.events.forEach(function (eventName) {
+        if (!_this5.events[eventName]) {
+          var pkt = serviceSpec.packets.find(function (pkt) {
+            return Object(spec["j" /* isEvent */])(pkt) && pkt.name === eventName;
+          });
+          var event = service.event(pkt.identifier);
+          _this5.events[eventName] = event;
+
+          _this5.mount(event.subscribe(constants["s" /* CHANGE */], function () {
+            var _this5$currentTest;
+
+            (_this5$currentTest = _this5.currentTest) === null || _this5$currentTest === void 0 ? void 0 : _this5$currentTest.eventChange(eventName);
+          }));
+        }
+      });
       t.registers.forEach(function (regName) {
         if (!_this5.registers[regName]) {
           var pkt = serviceSpec.packets.find(function (pkt) {
-            return pkt.name === regName;
+            return Object(spec["s" /* isRegister */])(pkt) && pkt.name === regName;
           });
           var register = service.register(pkt.identifier);
           _this5.registers[regName] = register;
           _this5.environment[regName] = register.intValue;
 
           _this5.mount(register.subscribe(constants["s" /* CHANGE */], function () {
-            var _this5$currentTest;
+            var _this5$currentTest2;
 
             _this5.environment[regName] = register.intValue;
-            (_this5$currentTest = _this5.currentTest) === null || _this5$currentTest === void 0 ? void 0 : _this5$currentTest.envChange();
+            (_this5$currentTest2 = _this5.currentTest) === null || _this5$currentTest2 === void 0 ? void 0 : _this5$currentTest2.envChange();
           }));
         }
       });
@@ -1318,18 +1388,18 @@ function CommandStatusIcon(props) {
   });
 
   switch (status) {
-    case JDCommandStatus.Active:
-    case JDCommandStatus.RequiresUserInput:
+    case JDTestCommandStatus.Active:
+    case JDTestCommandStatus.RequiresUserInput:
       return /*#__PURE__*/react_default.a.createElement(PlayCircleFilled_default.a, {
         color: "action"
       });
 
-    case JDCommandStatus.Failed:
+    case JDTestCommandStatus.Failed:
       return /*#__PURE__*/react_default.a.createElement(Error_default.a, {
         color: "error"
       });
 
-    case JDCommandStatus.Passed:
+    case JDTestCommandStatus.Passed:
       return /*#__PURE__*/react_default.a.createElement(CheckCircle_default.a, {
         color: "primary"
       });
@@ -1361,18 +1431,18 @@ function CommandListItem(props) {
   };
 
   return /*#__PURE__*/react_default.a.createElement(ListItem["a" /* default */], {
-    selected: status === JDCommandStatus.Active
+    selected: status === JDTestCommandStatus.Active
   }, /*#__PURE__*/react_default.a.createElement(ListItemIcon["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CommandStatusIcon, {
     command: command
   })), /*#__PURE__*/react_default.a.createElement(ListItemText["a" /* default */], {
     primary: message,
     secondary: progress
-  }), status === JDCommandStatus.RequiresUserInput && /*#__PURE__*/react_default.a.createElement(esm_ListItemSecondaryAction_ListItemSecondaryAction, null, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+  }), status === JDTestCommandStatus.RequiresUserInput && /*#__PURE__*/react_default.a.createElement(esm_ListItemSecondaryAction_ListItemSecondaryAction, null, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
     variant: "outlined",
-    onClick: handleAnswer(JDCommandStatus.Passed)
+    onClick: handleAnswer(JDTestCommandStatus.Passed)
   }, "Yes"), /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
     variant: "outlined",
-    onClick: handleAnswer(JDCommandStatus.Failed)
+    onClick: handleAnswer(JDTestCommandStatus.Failed)
   }, "No")));
 }
 
@@ -1656,272 +1726,6 @@ var ListItemText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"]
 
 /***/ }),
 
-/***/ "JK6d":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getExpressionsOfType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return parseSpecificationTestMarkdownToJSON; });
-/* harmony import */ var _jdutils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("3ArF");
-/* harmony import */ var _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("et/c");
-/* harmony import */ var jsep__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("o8k2");
-/* harmony import */ var jsep__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jsep__WEBPACK_IMPORTED_MODULE_2__);
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-/* eslint-disable @typescript-eslint/triple-slash-reference */
-/// <reference path="jdspec.d.ts" />
-/// <reference path="jdtest.d.ts" />
-
-
-
-var supportedExpressions = ["BinaryExpression", "CallExpression", "Identifier", "Literal", "UnaryExpression", "LogicalExpression"];
-function getExpressionsOfType(expr, type, returnParent) {
-  if (returnParent === void 0) {
-    returnParent = false;
-  }
-
-  var results = [];
-  visit(null, expr);
-  return results;
-
-  function visit(parent, current) {
-    if (Array.isArray(current)) {
-      current.forEach(function (c) {
-        return visit(current, c);
-      });
-    } else if (typeof current === "object") {
-      if (parent && (current === null || current === void 0 ? void 0 : current.type) === type) results.push(returnParent ? parent : current);
-      Object.keys(current).forEach(function (key) {
-        visit(current, current[key]);
-      });
-    }
-  }
-} // we parse a test with respect to an existing ServiceSpec
-
-function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
-  if (filename === void 0) {
-    filename = "";
-  }
-
-  filecontent = (filecontent || "").replace(/\r/g, "");
-  var info = {
-    description: "",
-    serviceClassIdentifier: spec.classIdentifier,
-    tests: []
-  };
-  var backticksType = "";
-  var errors = [];
-  var lineNo = 0;
-  var currentTest = null;
-  var testHeading = "";
-  var testPrompt = "";
-
-  try {
-    for (var _iterator = _createForOfIteratorHelperLoose(filecontent.split(/\n/)), _step; !(_step = _iterator()).done;) {
-      var line = _step.value;
-      lineNo++;
-      processLine(line);
-    }
-  } catch (e) {
-    error("exception: " + e.message);
-  }
-
-  if (currentTest) finishTest();
-  if (errors.length) info.errors = errors;
-  return info;
-
-  function processLine(line) {
-    if (backticksType) {
-      if (line.trim() == "```") {
-        backticksType = null;
-        if (backticksType == "default") return;
-      }
-    } else {
-      var m = /^```(.*)/.exec(line);
-
-      if (m) {
-        backticksType = m[1] || "default";
-        if (backticksType == "default") return;
-      }
-    }
-
-    var interpret = backticksType == "default" || line.slice(0, 4) == "    ";
-
-    if (!interpret) {
-      var _m = /^(#+)\s*(.*)/.exec(line);
-
-      if (_m) {
-        testHeading = "";
-        testPrompt = "";
-        var hd = _m[1],
-            cont = _m[2];
-
-        if (hd == "#" && !info.description) {
-          info.description = cont.trim();
-        } else if (hd == "##") {
-          if (currentTest) finishTest();
-          testHeading = cont.trim();
-        }
-      } else {
-        testPrompt += line;
-      }
-    } else {
-      var expanded = line.replace(/\/\/.*/, "").trim();
-      if (!expanded) return;
-      processCommand(expanded);
-    }
-  }
-
-  function processCommand(expanded) {
-    if (!currentTest) {
-      if (!testHeading) error("every test must have a description (via ##)");
-      currentTest = {
-        description: testHeading,
-        registers: [],
-        commands: []
-      };
-      testHeading = "";
-    }
-
-    var call = /^([a-zA-Z]\w*)\(.*\)$/.exec(expanded);
-
-    if (!call) {
-      error("a command must be a call to a registered test function (JavaScript syntax)");
-      return;
-    }
-
-    var callee = call[1];
-    var index = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testCommandFunctions */ "a"].findIndex(function (r) {
-      return callee == r.id;
-    });
-
-    if (index < 0) {
-      error(callee + " is not a registered test command function.");
-      return;
-    }
-
-    var root = jsep__WEBPACK_IMPORTED_MODULE_2___default()(expanded);
-
-    if (!root || !root.type || root.type != "CallExpression" || !root.callee || !root.arguments) {
-      error("a command must be a call expression in JavaScript syntax");
-    } else {
-      // check for unsupported expression types
-      if (supportedExpressions.indexOf(root.type) < 0) error("Expression of type " + root.type + " not currently supported"); // check arguments
-
-      var expected = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testCommandFunctions */ "a"][index].args.length;
-      if (expected !== root.arguments.length) error(callee + " expects " + expected + " arguments; got " + root.arguments.length);else {
-        root.arguments.forEach(function (arg, a) {
-          if (_jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testCommandFunctions */ "a"][index].args[a] === "register" && arg.type !== "Identifier") {
-            error(callee + " expects a register in argument position " + (a + 1));
-          }
-        });
-        var callers = getExpressionsOfType(root, 'CallExpression');
-        callers.forEach(function (callExpr) {
-          if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
-          var id = callExpr.callee.name;
-          var indexFun = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testExpressionFunctions */ "b"].findIndex(function (r) {
-            return id == r.id;
-          });
-          if (indexFun < 0) error(id + " is not a registered test expression function.");
-
-          if (id === 'start') {
-            if (callee !== 'check') error("start expression function can only be used inside check test function");
-            var callsUnder = getExpressionsOfType(callExpr, 'CallExpression');
-            callsUnder.forEach(function (ce) {
-              if (ce.callee.type === "Identifier" && ce.callee.name === "start") error("cannot nest start underneath start");
-            });
-          }
-
-          var expected = _jdtestfuns__WEBPACK_IMPORTED_MODULE_1__[/* testExpressionFunctions */ "b"][indexFun].args.length;
-          if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
-        });
-      } // now visit all (p,c), c an Identifier that is not a callee child of CallExpression
-      // or a property child of a MemberExpression
-
-      var exprs = getExpressionsOfType(root, 'Identifier', true);
-      var visited = [];
-      exprs.forEach(function (parent) {
-        if (visited.indexOf(parent) < 0) {
-          visited.push(parent);
-          lookupReplace(parent);
-        }
-      });
-      currentTest.commands.push({
-        prompt: testPrompt,
-        call: root
-      });
-      testPrompt = "";
-    }
-  }
-
-  function lookupReplace(parent) {
-    if (Array.isArray(parent)) {
-      var exprs = parent;
-      exprs.forEach(function (child) {
-        if (child.type === "Identifier") lookup(parent, child);
-      });
-    } else {
-      Object.keys(parent).forEach(function (key) {
-        var child = parent[key];
-        if ((child === null || child === void 0 ? void 0 : child.type) !== "Identifier") return;
-
-        if (parent.type !== "MemberExpression" && parent.type !== "CallExpression" || parent.type === "MemberExpression" && child !== parent.property || parent.type === "CallExpression" && child !== parent.callee) {
-          lookup(parent, child);
-        }
-      });
-    }
-
-    function lookup(parent, child) {
-      try {
-        try {
-          var val = Object(_jdutils__WEBPACK_IMPORTED_MODULE_0__[/* parseIntFloat */ "b"])(spec, child.name);
-          var lit = {
-            type: "Literal",
-            value: val,
-            raw: val.toString()
-          };
-          /*TODO: replace the Identifier by the (resolved) Literal
-          if (parent.type) {
-              Object.keys(parent).forEach((key:string) => {
-                  if (Object.getOwnPropertyDescriptor(parent,key) == child)
-                      Object.defineProperty(parent, key, lit);
-              })
-          } else {
-               }*/
-        } catch (e) {
-          Object(_jdutils__WEBPACK_IMPORTED_MODULE_0__[/* getRegister */ "a"])(spec, child.name);
-          if (currentTest.registers.indexOf(child.name) < 0) currentTest.registers.push(child.name); // TODO: if parent is MemberExpression, continue to do lookup
-        }
-      } catch (e) {
-        error(child.name + " not found in specification");
-      }
-    }
-  }
-
-  function finishTest() {
-    info.tests.push(currentTest);
-    currentTest = null;
-  }
-
-  function error(msg) {
-    if (!msg) msg = "syntax error";
-    if (errors.some(function (e) {
-      return e.line == lineNo && e.message == msg;
-    })) return;
-    errors.push({
-      file: filename,
-      line: lineNo,
-      message: msg
-    });
-  }
-}
-
-/***/ }),
-
 /***/ "TD2k":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2012,10 +1816,6 @@ exports.default = _default;
 /* eslint-disable @typescript-eslint/triple-slash-reference */
 /// <reference path="jdtest.d.ts" />
 var testCommandFunctions = [{
-  id: "reset",
-  args: [],
-  prompt: "sends a reset command to the module"
-}, {
   id: "changes",
   args: ["register"],
   prompt: "did the value of {1} change?"
@@ -2027,6 +1827,10 @@ var testCommandFunctions = [{
   id: "ask",
   args: [],
   prompt: undefined
+}, {
+  id: "events",
+  args: ["array"],
+  prompt: "was the event trace {1} observed?"
 }, {
   id: "check",
   args: ["boolean"],
@@ -2048,13 +1852,13 @@ var testCommandFunctions = [{
   args: ["register", "number"],
   prompt: "did the value of register {1} decrease by {2}?"
 }, {
-  id: "rangesFromUpTo",
-  args: ["register", "number", "number"],
-  prompt: "register {1} should range in value from {2} up to {3}"
+  id: "stepsUpTo",
+  args: ["register", "number"],
+  prompt: "register {1} should step up (by one) to {2}"
 }, {
-  id: "rangesFromDownTo",
-  args: ["register", "number", "number"],
-  prompt: "register {1} should range in value from {2} down to {3}"
+  id: "stepsDownTo",
+  args: ["register", "number"],
+  prompt: "register {1} should step down (by one) to {2}"
 }];
 var testExpressionFunctions = [{
   id: "start",
@@ -2202,821 +2006,6 @@ var CardActions = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 
 /***/ }),
 
-/***/ "o8k2":
-/***/ (function(module, exports, __webpack_require__) {
-
-//     JavaScript Expression Parser (JSEP) 0.3.5
-//     JSEP may be freely distributed under the MIT License
-//     https://ericsmekens.github.io/jsep/
-
-/*global module: true, exports: true, console: true */
-(function (root) {
-  'use strict'; // Node Types
-  // ----------
-  // This is the full set of types that any JSEP node can be.
-  // Store them here to save space when minified
-
-  var COMPOUND = 'Compound',
-      IDENTIFIER = 'Identifier',
-      MEMBER_EXP = 'MemberExpression',
-      LITERAL = 'Literal',
-      THIS_EXP = 'ThisExpression',
-      CALL_EXP = 'CallExpression',
-      UNARY_EXP = 'UnaryExpression',
-      BINARY_EXP = 'BinaryExpression',
-      LOGICAL_EXP = 'LogicalExpression',
-      CONDITIONAL_EXP = 'ConditionalExpression',
-      ARRAY_EXP = 'ArrayExpression',
-      PERIOD_CODE = 46,
-      // '.'
-  COMMA_CODE = 44,
-      // ','
-  SQUOTE_CODE = 39,
-      // single quote
-  DQUOTE_CODE = 34,
-      // double quotes
-  OPAREN_CODE = 40,
-      // (
-  CPAREN_CODE = 41,
-      // )
-  OBRACK_CODE = 91,
-      // [
-  CBRACK_CODE = 93,
-      // ]
-  QUMARK_CODE = 63,
-      // ?
-  SEMCOL_CODE = 59,
-      // ;
-  COLON_CODE = 58,
-      // :
-  throwError = function throwError(message, index) {
-    var error = new Error(message + ' at character ' + index);
-    error.index = index;
-    error.description = message;
-    throw error;
-  },
-      // Operations
-  // ----------
-  // Set `t` to `true` to save space (when minified, not gzipped)
-  t = true,
-      // Use a quickly-accessible map to store all of the unary operators
-  // Values are set to `true` (it really doesn't matter)
-  unary_ops = {
-    '-': t,
-    '!': t,
-    '~': t,
-    '+': t
-  },
-      // Also use a map for the binary operations but set their values to their
-  // binary precedence for quick reference:
-  // see [Order of operations](http://en.wikipedia.org/wiki/Order_of_operations#Programming_language)
-  binary_ops = {
-    '||': 1,
-    '&&': 2,
-    '|': 3,
-    '^': 4,
-    '&': 5,
-    '==': 6,
-    '!=': 6,
-    '===': 6,
-    '!==': 6,
-    '<': 7,
-    '>': 7,
-    '<=': 7,
-    '>=': 7,
-    '<<': 8,
-    '>>': 8,
-    '>>>': 8,
-    '+': 9,
-    '-': 9,
-    '*': 10,
-    '/': 10,
-    '%': 10
-  },
-      // Get return the longest key length of any object
-  getMaxKeyLen = function getMaxKeyLen(obj) {
-    var max_len = 0,
-        len;
-
-    for (var key in obj) {
-      if ((len = key.length) > max_len && obj.hasOwnProperty(key)) {
-        max_len = len;
-      }
-    }
-
-    return max_len;
-  },
-      max_unop_len = getMaxKeyLen(unary_ops),
-      max_binop_len = getMaxKeyLen(binary_ops),
-      // Literals
-  // ----------
-  // Store the values to return for the various literals we may encounter
-  literals = {
-    'true': true,
-    'false': false,
-    'null': null
-  },
-      // Except for `this`, which is special. This could be changed to something like `'self'` as well
-  this_str = 'this',
-      // Returns the precedence of a binary operator or `0` if it isn't a binary operator
-  binaryPrecedence = function binaryPrecedence(op_val) {
-    return binary_ops[op_val] || 0;
-  },
-      // Utility function (gets called from multiple places)
-  // Also note that `a && b` and `a || b` are *logical* expressions, not binary expressions
-  createBinaryExpression = function createBinaryExpression(operator, left, right) {
-    var type = operator === '||' || operator === '&&' ? LOGICAL_EXP : BINARY_EXP;
-    return {
-      type: type,
-      operator: operator,
-      left: left,
-      right: right
-    };
-  },
-      // `ch` is a character code in the next three functions
-  isDecimalDigit = function isDecimalDigit(ch) {
-    return ch >= 48 && ch <= 57; // 0...9
-  },
-      isIdentifierStart = function isIdentifierStart(ch) {
-    return ch === 36 || ch === 95 || // `$` and `_`
-    ch >= 65 && ch <= 90 || // A...Z
-    ch >= 97 && ch <= 122 || // a...z
-    ch >= 128 && !binary_ops[String.fromCharCode(ch)]; // any non-ASCII that is not an operator
-  },
-      isIdentifierPart = function isIdentifierPart(ch) {
-    return ch === 36 || ch === 95 || // `$` and `_`
-    ch >= 65 && ch <= 90 || // A...Z
-    ch >= 97 && ch <= 122 || // a...z
-    ch >= 48 && ch <= 57 || // 0...9
-    ch >= 128 && !binary_ops[String.fromCharCode(ch)]; // any non-ASCII that is not an operator
-  },
-      // Parsing
-  // -------
-  // `expr` is a string with the passed in expression
-  jsep = function jsep(expr) {
-    // `index` stores the character number we are currently at while `length` is a constant
-    // All of the gobbles below will modify `index` as we move along
-    var index = 0,
-        charAtFunc = expr.charAt,
-        charCodeAtFunc = expr.charCodeAt,
-        exprI = function exprI(i) {
-      return charAtFunc.call(expr, i);
-    },
-        exprICode = function exprICode(i) {
-      return charCodeAtFunc.call(expr, i);
-    },
-        length = expr.length,
-        // Push `index` up to the next non-space character
-    gobbleSpaces = function gobbleSpaces() {
-      var ch = exprICode(index); // space or tab
-
-      while (ch === 32 || ch === 9 || ch === 10 || ch === 13) {
-        ch = exprICode(++index);
-      }
-    },
-        // The main parsing function. Much of this code is dedicated to ternary expressions
-    gobbleExpression = function gobbleExpression() {
-      var test = gobbleBinaryExpression(),
-          consequent,
-          alternate;
-      gobbleSpaces();
-
-      if (exprICode(index) === QUMARK_CODE) {
-        // Ternary expression: test ? consequent : alternate
-        index++;
-        consequent = gobbleExpression();
-
-        if (!consequent) {
-          throwError('Expected expression', index);
-        }
-
-        gobbleSpaces();
-
-        if (exprICode(index) === COLON_CODE) {
-          index++;
-          alternate = gobbleExpression();
-
-          if (!alternate) {
-            throwError('Expected expression', index);
-          }
-
-          return {
-            type: CONDITIONAL_EXP,
-            test: test,
-            consequent: consequent,
-            alternate: alternate
-          };
-        } else {
-          throwError('Expected :', index);
-        }
-      } else {
-        return test;
-      }
-    },
-        // Search for the operation portion of the string (e.g. `+`, `===`)
-    // Start by taking the longest possible binary operations (3 characters: `===`, `!==`, `>>>`)
-    // and move down from 3 to 2 to 1 character until a matching binary operation is found
-    // then, return that binary operation
-    gobbleBinaryOp = function gobbleBinaryOp() {
-      gobbleSpaces();
-      var biop,
-          to_check = expr.substr(index, max_binop_len),
-          tc_len = to_check.length;
-
-      while (tc_len > 0) {
-        // Don't accept a binary op when it is an identifier.
-        // Binary ops that start with a identifier-valid character must be followed
-        // by a non identifier-part valid character
-        if (binary_ops.hasOwnProperty(to_check) && (!isIdentifierStart(exprICode(index)) || index + to_check.length < expr.length && !isIdentifierPart(exprICode(index + to_check.length)))) {
-          index += tc_len;
-          return to_check;
-        }
-
-        to_check = to_check.substr(0, --tc_len);
-      }
-
-      return false;
-    },
-        // This function is responsible for gobbling an individual expression,
-    // e.g. `1`, `1+2`, `a+(b*2)-Math.sqrt(2)`
-    gobbleBinaryExpression = function gobbleBinaryExpression() {
-      var ch_i, node, biop, prec, stack, biop_info, left, right, i, cur_biop; // First, try to get the leftmost thing
-      // Then, check to see if there's a binary operator operating on that leftmost thing
-
-      left = gobbleToken();
-      biop = gobbleBinaryOp(); // If there wasn't a binary operator, just return the leftmost node
-
-      if (!biop) {
-        return left;
-      } // Otherwise, we need to start a stack to properly place the binary operations in their
-      // precedence structure
-
-
-      biop_info = {
-        value: biop,
-        prec: binaryPrecedence(biop)
-      };
-      right = gobbleToken();
-
-      if (!right) {
-        throwError("Expected expression after " + biop, index);
-      }
-
-      stack = [left, biop_info, right]; // Properly deal with precedence using [recursive descent](http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm)
-
-      while (biop = gobbleBinaryOp()) {
-        prec = binaryPrecedence(biop);
-
-        if (prec === 0) {
-          break;
-        }
-
-        biop_info = {
-          value: biop,
-          prec: prec
-        };
-        cur_biop = biop; // Reduce: make a binary expression from the three topmost entries.
-
-        while (stack.length > 2 && prec <= stack[stack.length - 2].prec) {
-          right = stack.pop();
-          biop = stack.pop().value;
-          left = stack.pop();
-          node = createBinaryExpression(biop, left, right);
-          stack.push(node);
-        }
-
-        node = gobbleToken();
-
-        if (!node) {
-          throwError("Expected expression after " + cur_biop, index);
-        }
-
-        stack.push(biop_info, node);
-      }
-
-      i = stack.length - 1;
-      node = stack[i];
-
-      while (i > 1) {
-        node = createBinaryExpression(stack[i - 1].value, stack[i - 2], node);
-        i -= 2;
-      }
-
-      return node;
-    },
-        // An individual part of a binary expression:
-    // e.g. `foo.bar(baz)`, `1`, `"abc"`, `(a % 2)` (because it's in parenthesis)
-    gobbleToken = function gobbleToken() {
-      var ch, to_check, tc_len;
-      gobbleSpaces();
-      ch = exprICode(index);
-
-      if (isDecimalDigit(ch) || ch === PERIOD_CODE) {
-        // Char code 46 is a dot `.` which can start off a numeric literal
-        return gobbleNumericLiteral();
-      } else if (ch === SQUOTE_CODE || ch === DQUOTE_CODE) {
-        // Single or double quotes
-        return gobbleStringLiteral();
-      } else if (ch === OBRACK_CODE) {
-        return gobbleArray();
-      } else {
-        to_check = expr.substr(index, max_unop_len);
-        tc_len = to_check.length;
-
-        while (tc_len > 0) {
-          // Don't accept an unary op when it is an identifier.
-          // Unary ops that start with a identifier-valid character must be followed
-          // by a non identifier-part valid character
-          if (unary_ops.hasOwnProperty(to_check) && (!isIdentifierStart(exprICode(index)) || index + to_check.length < expr.length && !isIdentifierPart(exprICode(index + to_check.length)))) {
-            index += tc_len;
-            return {
-              type: UNARY_EXP,
-              operator: to_check,
-              argument: gobbleToken(),
-              prefix: true
-            };
-          }
-
-          to_check = to_check.substr(0, --tc_len);
-        }
-
-        if (isIdentifierStart(ch) || ch === OPAREN_CODE) {
-          // open parenthesis
-          // `foo`, `bar.baz`
-          return gobbleVariable();
-        }
-      }
-
-      return false;
-    },
-        // Parse simple numeric literals: `12`, `3.4`, `.5`. Do this by using a string to
-    // keep track of everything in the numeric literal and then calling `parseFloat` on that string
-    gobbleNumericLiteral = function gobbleNumericLiteral() {
-      var number = '',
-          ch,
-          chCode;
-
-      while (isDecimalDigit(exprICode(index))) {
-        number += exprI(index++);
-      }
-
-      if (exprICode(index) === PERIOD_CODE) {
-        // can start with a decimal marker
-        number += exprI(index++);
-
-        while (isDecimalDigit(exprICode(index))) {
-          number += exprI(index++);
-        }
-      }
-
-      ch = exprI(index);
-
-      if (ch === 'e' || ch === 'E') {
-        // exponent marker
-        number += exprI(index++);
-        ch = exprI(index);
-
-        if (ch === '+' || ch === '-') {
-          // exponent sign
-          number += exprI(index++);
-        }
-
-        while (isDecimalDigit(exprICode(index))) {
-          //exponent itself
-          number += exprI(index++);
-        }
-
-        if (!isDecimalDigit(exprICode(index - 1))) {
-          throwError('Expected exponent (' + number + exprI(index) + ')', index);
-        }
-      }
-
-      chCode = exprICode(index); // Check to make sure this isn't a variable name that start with a number (123abc)
-
-      if (isIdentifierStart(chCode)) {
-        throwError('Variable names cannot start with a number (' + number + exprI(index) + ')', index);
-      } else if (chCode === PERIOD_CODE) {
-        throwError('Unexpected period', index);
-      }
-
-      return {
-        type: LITERAL,
-        value: parseFloat(number),
-        raw: number
-      };
-    },
-        // Parses a string literal, staring with single or double quotes with basic support for escape codes
-    // e.g. `"hello world"`, `'this is\nJSEP'`
-    gobbleStringLiteral = function gobbleStringLiteral() {
-      var str = '',
-          quote = exprI(index++),
-          closed = false,
-          ch;
-
-      while (index < length) {
-        ch = exprI(index++);
-
-        if (ch === quote) {
-          closed = true;
-          break;
-        } else if (ch === '\\') {
-          // Check for all of the common escape codes
-          ch = exprI(index++);
-
-          switch (ch) {
-            case 'n':
-              str += '\n';
-              break;
-
-            case 'r':
-              str += '\r';
-              break;
-
-            case 't':
-              str += '\t';
-              break;
-
-            case 'b':
-              str += '\b';
-              break;
-
-            case 'f':
-              str += '\f';
-              break;
-
-            case 'v':
-              str += '\x0B';
-              break;
-
-            default:
-              str += ch;
-          }
-        } else {
-          str += ch;
-        }
-      }
-
-      if (!closed) {
-        throwError('Unclosed quote after "' + str + '"', index);
-      }
-
-      return {
-        type: LITERAL,
-        value: str,
-        raw: quote + str + quote
-      };
-    },
-        // Gobbles only identifiers
-    // e.g.: `foo`, `_value`, `$x1`
-    // Also, this function checks if that identifier is a literal:
-    // (e.g. `true`, `false`, `null`) or `this`
-    gobbleIdentifier = function gobbleIdentifier() {
-      var ch = exprICode(index),
-          start = index,
-          identifier;
-
-      if (isIdentifierStart(ch)) {
-        index++;
-      } else {
-        throwError('Unexpected ' + exprI(index), index);
-      }
-
-      while (index < length) {
-        ch = exprICode(index);
-
-        if (isIdentifierPart(ch)) {
-          index++;
-        } else {
-          break;
-        }
-      }
-
-      identifier = expr.slice(start, index);
-
-      if (literals.hasOwnProperty(identifier)) {
-        return {
-          type: LITERAL,
-          value: literals[identifier],
-          raw: identifier
-        };
-      } else if (identifier === this_str) {
-        return {
-          type: THIS_EXP
-        };
-      } else {
-        return {
-          type: IDENTIFIER,
-          name: identifier
-        };
-      }
-    },
-        // Gobbles a list of arguments within the context of a function call
-    // or array literal. This function also assumes that the opening character
-    // `(` or `[` has already been gobbled, and gobbles expressions and commas
-    // until the terminator character `)` or `]` is encountered.
-    // e.g. `foo(bar, baz)`, `my_func()`, or `[bar, baz]`
-    gobbleArguments = function gobbleArguments(termination) {
-      var ch_i,
-          args = [],
-          node,
-          closed = false;
-      var separator_count = 0;
-
-      while (index < length) {
-        gobbleSpaces();
-        ch_i = exprICode(index);
-
-        if (ch_i === termination) {
-          // done parsing
-          closed = true;
-          index++;
-
-          if (termination === CPAREN_CODE && separator_count && separator_count >= args.length) {
-            throwError('Unexpected token ' + String.fromCharCode(termination), index);
-          }
-
-          break;
-        } else if (ch_i === COMMA_CODE) {
-          // between expressions
-          index++;
-          separator_count++;
-
-          if (separator_count !== args.length) {
-            // missing argument
-            if (termination === CPAREN_CODE) {
-              throwError('Unexpected token ,', index);
-            } else if (termination === CBRACK_CODE) {
-              for (var arg = args.length; arg < separator_count; arg++) {
-                args.push(null);
-              }
-            }
-          }
-        } else {
-          node = gobbleExpression();
-
-          if (!node || node.type === COMPOUND) {
-            throwError('Expected comma', index);
-          }
-
-          args.push(node);
-        }
-      }
-
-      if (!closed) {
-        throwError('Expected ' + String.fromCharCode(termination), index);
-      }
-
-      return args;
-    },
-        // Gobble a non-literal variable name. This variable name may include properties
-    // e.g. `foo`, `bar.baz`, `foo['bar'].baz`
-    // It also gobbles function calls:
-    // e.g. `Math.acos(obj.angle)`
-    gobbleVariable = function gobbleVariable() {
-      var ch_i, node;
-      ch_i = exprICode(index);
-
-      if (ch_i === OPAREN_CODE) {
-        node = gobbleGroup();
-      } else {
-        node = gobbleIdentifier();
-      }
-
-      gobbleSpaces();
-      ch_i = exprICode(index);
-
-      while (ch_i === PERIOD_CODE || ch_i === OBRACK_CODE || ch_i === OPAREN_CODE) {
-        index++;
-
-        if (ch_i === PERIOD_CODE) {
-          gobbleSpaces();
-          node = {
-            type: MEMBER_EXP,
-            computed: false,
-            object: node,
-            property: gobbleIdentifier()
-          };
-        } else if (ch_i === OBRACK_CODE) {
-          node = {
-            type: MEMBER_EXP,
-            computed: true,
-            object: node,
-            property: gobbleExpression()
-          };
-          gobbleSpaces();
-          ch_i = exprICode(index);
-
-          if (ch_i !== CBRACK_CODE) {
-            throwError('Unclosed [', index);
-          }
-
-          index++;
-        } else if (ch_i === OPAREN_CODE) {
-          // A function call is being made; gobble all the arguments
-          node = {
-            type: CALL_EXP,
-            'arguments': gobbleArguments(CPAREN_CODE),
-            callee: node
-          };
-        }
-
-        gobbleSpaces();
-        ch_i = exprICode(index);
-      }
-
-      return node;
-    },
-        // Responsible for parsing a group of things within parentheses `()`
-    // This function assumes that it needs to gobble the opening parenthesis
-    // and then tries to gobble everything within that parenthesis, assuming
-    // that the next thing it should see is the close parenthesis. If not,
-    // then the expression probably doesn't have a `)`
-    gobbleGroup = function gobbleGroup() {
-      index++;
-      var node = gobbleExpression();
-      gobbleSpaces();
-
-      if (exprICode(index) === CPAREN_CODE) {
-        index++;
-        return node;
-      } else {
-        throwError('Unclosed (', index);
-      }
-    },
-        // Responsible for parsing Array literals `[1, 2, 3]`
-    // This function assumes that it needs to gobble the opening bracket
-    // and then tries to gobble the expressions as arguments.
-    gobbleArray = function gobbleArray() {
-      index++;
-      return {
-        type: ARRAY_EXP,
-        elements: gobbleArguments(CBRACK_CODE)
-      };
-    },
-        nodes = [],
-        ch_i,
-        node;
-
-    while (index < length) {
-      ch_i = exprICode(index); // Expressions can be separated by semicolons, commas, or just inferred without any
-      // separators
-
-      if (ch_i === SEMCOL_CODE || ch_i === COMMA_CODE) {
-        index++; // ignore separators
-      } else {
-        // Try to gobble each expression individually
-        if (node = gobbleExpression()) {
-          nodes.push(node); // If we weren't able to find a binary expression and are out of room, then
-          // the expression passed in probably has too much
-        } else if (index < length) {
-          throwError('Unexpected "' + exprI(index) + '"', index);
-        }
-      }
-    } // If there's only one expression just try returning the expression
-
-
-    if (nodes.length === 1) {
-      return nodes[0];
-    } else {
-      return {
-        type: COMPOUND,
-        body: nodes
-      };
-    }
-  }; // To be filled in by the template
-
-
-  jsep.version = '0.3.5';
-
-  jsep.toString = function () {
-    return 'JavaScript Expression Parser (JSEP) v' + jsep.version;
-  };
-  /**
-   * @method jsep.addUnaryOp
-   * @param {string} op_name The name of the unary op to add
-   * @return jsep
-   */
-
-
-  jsep.addUnaryOp = function (op_name) {
-    max_unop_len = Math.max(op_name.length, max_unop_len);
-    unary_ops[op_name] = t;
-    return this;
-  };
-  /**
-   * @method jsep.addBinaryOp
-   * @param {string} op_name The name of the binary op to add
-   * @param {number} precedence The precedence of the binary op (can be a float)
-   * @return jsep
-   */
-
-
-  jsep.addBinaryOp = function (op_name, precedence) {
-    max_binop_len = Math.max(op_name.length, max_binop_len);
-    binary_ops[op_name] = precedence;
-    return this;
-  };
-  /**
-   * @method jsep.addLiteral
-   * @param {string} literal_name The name of the literal to add
-   * @param {*} literal_value The value of the literal
-   * @return jsep
-   */
-
-
-  jsep.addLiteral = function (literal_name, literal_value) {
-    literals[literal_name] = literal_value;
-    return this;
-  };
-  /**
-   * @method jsep.removeUnaryOp
-   * @param {string} op_name The name of the unary op to remove
-   * @return jsep
-   */
-
-
-  jsep.removeUnaryOp = function (op_name) {
-    delete unary_ops[op_name];
-
-    if (op_name.length === max_unop_len) {
-      max_unop_len = getMaxKeyLen(unary_ops);
-    }
-
-    return this;
-  };
-  /**
-   * @method jsep.removeAllUnaryOps
-   * @return jsep
-   */
-
-
-  jsep.removeAllUnaryOps = function () {
-    unary_ops = {};
-    max_unop_len = 0;
-    return this;
-  };
-  /**
-   * @method jsep.removeBinaryOp
-   * @param {string} op_name The name of the binary op to remove
-   * @return jsep
-   */
-
-
-  jsep.removeBinaryOp = function (op_name) {
-    delete binary_ops[op_name];
-
-    if (op_name.length === max_binop_len) {
-      max_binop_len = getMaxKeyLen(binary_ops);
-    }
-
-    return this;
-  };
-  /**
-   * @method jsep.removeAllBinaryOps
-   * @return jsep
-   */
-
-
-  jsep.removeAllBinaryOps = function () {
-    binary_ops = {};
-    max_binop_len = 0;
-    return this;
-  };
-  /**
-   * @method jsep.removeLiteral
-   * @param {string} literal_name The name of the literal to remove
-   * @return jsep
-   */
-
-
-  jsep.removeLiteral = function (literal_name) {
-    delete literals[literal_name];
-    return this;
-  };
-  /**
-   * @method jsep.removeAllLiterals
-   * @return jsep
-   */
-
-
-  jsep.removeAllLiterals = function () {
-    literals = {};
-    return this;
-  }; // In desktop environments, have a way to restore the old value for `jsep`
-
-
-  if (false) { var old_jsep; } else {
-    // In Node.JS environments
-    if ( true && module.exports) {
-      exports = module.exports = jsep;
-    } else {
-      exports.parse = jsep;
-    }
-  }
-})(this);
-
-/***/ }),
-
 /***/ "rNA1":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3074,7 +2063,7 @@ exports.default = _default;
 /***/ "sh2y":
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"downUp: press down and up\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button and release it immediately\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe an Up event, followed by a Down event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"click: click the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down for 500ms and less than 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a Click event?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"long click: hold the button\",\"registers\":[],\"commands\":[{\"prompt\":\"press the button down at least 1500ms and release it\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did you observe a LongClick event?\\\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Potentiometer tests\",\"serviceClassIdentifier\":522667846,\"tests\":[{\"description\":\"position changes on movement\",\"registers\":[],\"commands\":[{\"prompt\":\"move the slider/potentiometer\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did the position register's value change?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob back and forth\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"turn the knob counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"turn one complete rotation counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromUpTo\"}}},{\"prompt\":\"is the knob at the same physical position?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"commands\":[{\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"rangesFromDownTo\"}}}]},{\"description\":\"reset test\",\"registers\":[\"position\"],\"commands\":[{\"prompt\":\"reset test (automated)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"reset\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"==\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Literal\",\"value\":0,\"raw\":\"0\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]}]}]");
+module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"press and release\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"Press and release the button (once)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"quick press (click)\",\"registers\":[],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"Quickly press and release the button (within 500ms of press)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Long click\",\"registers\":[],\"events\":[\"down\",\"long_click\",\"up\"],\"testCommands\":[{\"prompt\":\"Press and hold the button for 500-1500ms and then release\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"long_click\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold\",\"registers\":[],\"events\":[\"down\",\"hold\",\"up\"],\"testCommands\":[{\"prompt\":\"Press and hold the button for more than 1500ms \",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]}]},{\"description\":\"Potentiometer tests\",\"serviceClassIdentifier\":522667846,\"tests\":[{\"description\":\"position changes on movement\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"move the slider/potentiometer\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did the position register's value change?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn the knob back and forth\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn the knob clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn the knob counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn one complete rotation clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn one complete rotation counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"slowly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]}]");
 
 /***/ }),
 
@@ -3111,4 +2100,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-41eba754b0f9023f5785.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-5571b117192bcf734af1.js.map

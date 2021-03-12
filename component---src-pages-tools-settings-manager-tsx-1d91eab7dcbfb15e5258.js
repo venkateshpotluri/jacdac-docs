@@ -1029,6 +1029,9 @@ __webpack_require__.d(__webpack_exports__, "default", function() { return /* bin
 var react = __webpack_require__("q1tI");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__("4+mf");
+
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__("tRbT");
 
@@ -1675,8 +1678,9 @@ function SettingsManager() {
 // CONCATENATED MODULE: ./src/pages/tools/settings-manager.tsx
 
 
+
 function Page() {
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h1", null, "Settings Manager"), /*#__PURE__*/react_default.a.createElement("p", null, "Configure settings in a ", /*#__PURE__*/react_default.a.createElement(Link, {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h1", null, "Settings Manager"), /*#__PURE__*/react_default.a.createElement("p", null, "Configure settings in a ", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
     to: "/services/settings/"
   }, "setting store"), "."), /*#__PURE__*/react_default.a.createElement(SettingsManager, null));
 }
@@ -1716,4 +1720,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-settings-manager-tsx-5ab72948553f03090b65.js.map
+//# sourceMappingURL=component---src-pages-tools-settings-manager-tsx-1d91eab7dcbfb15e5258.js.map
