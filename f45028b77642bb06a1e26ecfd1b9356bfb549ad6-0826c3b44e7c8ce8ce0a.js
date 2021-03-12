@@ -92,6 +92,31 @@ var DeviceAvatar = __webpack_require__("puVa");
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
 var DashboardServiceWidget = __webpack_require__("rOp/");
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
+var Button = __webpack_require__("Z3vd");
+
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__("yNWl");
+
+// CONCATENATED MODULE: ./src/components/services/useRoleManager.ts
+
+
+
+function useRoleManager() {
+  var _useContext = Object(react["useContext"])(Context["a" /* default */]),
+      bus = _useContext.bus;
+
+  var _useState = Object(react["useState"])(bus.roleManager),
+      mgr = _useState[0],
+      setMgr = _useState[1];
+
+  Object(react["useEffect"])(function () {
+    return bus.subscribe(constants["Xc" /* ROLE_MANAGER_CHANGE */], function () {
+      return setMgr(bus.roleManager);
+    });
+  });
+  return mgr;
+}
 // CONCATENATED MODULE: ./src/components/services/useServiceRole.ts
 
 
@@ -114,13 +139,20 @@ function useServiceRole(service) {
 
 
 
+
 function ServiceRole(props) {
   var service = props.service;
+  var roleManager = useRoleManager();
   var role = useServiceRole(service);
-  return role ? /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
-    variant: "caption",
-    component: "div"
-  }, role) : null;
+
+  var handleClick = function handleClick() {};
+
+  if (!roleManager) return null; // nothing to do
+
+  return /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
+    size: "small",
+    onClick: handleClick
+  }, role || "...");
 }
 // CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
 
@@ -1103,4 +1135,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-d45fb1e60a7cea81557c.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-0826c3b44e7c8ce8ce0a.js.map

@@ -251,6 +251,8 @@ function makecode_sim_Page() {
 /* harmony import */ var _DashboardDevice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("kLoJ");
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("IzqI");
 /* harmony import */ var _DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("rOp/");
+/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("2K/c");
+
 
 
 
@@ -264,13 +266,16 @@ function DashboardDeviceItem(props) {
       variant = props.variant,
       other = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(props, ["device", "expanded", "toggleExpanded", "variant"]);
 
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_2__["useContext"])(_AppContext__WEBPACK_IMPORTED_MODULE_6__[/* default */ "c"]),
+      drawerType = _useContext.drawerType;
+
   var breakpoints = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(device, function () {
     var breakpointWeight = device.services().map(function (srv) {
       return Object(_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_5__[/* dashboardServiceWeight */ "a"])(srv) || (srv.readingRegister || srv.valueRegister || srv.intensityRegister ? 1 : 0);
     }).reduce(function (c, v) {
       return c + v;
     }, 0);
-    if (breakpointWeight > 3) return {
+    if (breakpointWeight > 3 || drawerType !== _AppContext__WEBPACK_IMPORTED_MODULE_6__[/* DrawerType */ "b"].None) return {
       xs: 12,
       sm: 12,
       md: 12,
@@ -295,7 +300,7 @@ function DashboardDeviceItem(props) {
       lg: 2,
       xl: "auto"
     };
-  }, [expanded]); // based on size, expanded or reduce widget size
+  }, [expanded, drawerType]); // based on size, expanded or reduce widget size
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], Object.assign({
     item: true
@@ -625,4 +630,4 @@ function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-3a16acc27945558054b1.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-9ad6079ca61b53ce4e5f.js.map
