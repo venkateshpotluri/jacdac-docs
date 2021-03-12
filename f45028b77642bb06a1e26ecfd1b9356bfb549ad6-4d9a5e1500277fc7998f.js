@@ -125,6 +125,9 @@ var DashboardServiceWidget = __webpack_require__("rOp/");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__("Z3vd");
 
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/dist/specconstants.ts
+var specconstants = __webpack_require__("N1P3");
+
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__("2K/c");
 
@@ -149,7 +152,12 @@ function useServiceRole(service) {
   }, [service]);
   return role;
 }
+// EXTERNAL MODULE: ./src/jacdac/useRegisterValue.ts
+var useRegisterValue = __webpack_require__("dYIP");
+
 // CONCATENATED MODULE: ./src/components/services/ServiceRole.tsx
+
+
 
 
 
@@ -163,17 +171,25 @@ function ServiceRole(props) {
 
   var roleManager = Object(useRoleManager["a" /* default */])();
   var role = useServiceRole(service);
+  var hasRoles = roleManager === null || roleManager === void 0 ? void 0 : roleManager.hasRoleForService(service);
+  var instanceName = Object(useRegisterValue["d" /* useRegisterStringValue */])(service.register(specconstants["Rc" /* SystemReg */].InstanceName));
 
   var handleClick = function handleClick() {
     return showSelectRoleDialog(service);
   }; // hide if no role manager or role not compatible with required roles
 
 
-  if (!(roleManager !== null && roleManager !== void 0 && roleManager.hasRoleForService(service))) return null;
+  if (!hasRoles && !instanceName) return null; // just the instance name
+
+  if (!role && instanceName) return /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "caption"
+  }, instanceName);
   return /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
     size: "small",
     onClick: handleClick
-  }, role || "...");
+  }, role || "...", instanceName && /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "caption"
+  }, "(", instanceName, ")"));
 }
 // CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
 
@@ -1156,4 +1172,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-c12c30125e99d691313a.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-4d9a5e1500277fc7998f.js.map
