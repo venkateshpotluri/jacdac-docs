@@ -5653,6 +5653,12 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
     });
   };
 
+  _proto2.role = function role(name) {
+    return this._roles.find(function (r) {
+      return r.role === name;
+    });
+  };
+
   _proto2.setRole = /*#__PURE__*/function () {
     var _setRole = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4(service, role) {
       var device, serviceIndex, data;
@@ -5680,6 +5686,13 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
 
     return setRole;
   }();
+
+  Object(createClass["a" /* default */])(BusRoleManagerClient, [{
+    key: "roles",
+    get: function get() {
+      return this._roles;
+    }
+  }]);
 
   return BusRoleManagerClient;
 }(serviceclient["a" /* JDServiceClient */]);
@@ -47301,4 +47314,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-f09e6cf7dd40bd774079.js.map
+//# sourceMappingURL=app-c072d609d1f830b3b3a3.js.map
