@@ -287,7 +287,7 @@ function RoleListItem(props) {
       bus = _useContext.bus;
 
   var bound = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"])(bus, function (b) {
-    return b.device(deviceId);
+    return b.device(deviceId, true);
   }, [deviceId]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
     button: true,
@@ -302,7 +302,6 @@ function RoleListItem(props) {
 function SelectRoleDialog(props) {
   var service = props.service,
       onClose = props.onClose;
-  var serviceClass = service.serviceClass;
   var open = !!service;
   var dialogId = Object(react_use_id_hook__WEBPACK_IMPORTED_MODULE_9__[/* useId */ "b"])();
   var labelId = Object(react_use_id_hook__WEBPACK_IMPORTED_MODULE_9__[/* useId */ "b"])();
@@ -1149,4 +1148,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=85-cb4c4bd3d8c70b045d59.js.map
+//# sourceMappingURL=85-cd2d650e8b01a314207d.js.map

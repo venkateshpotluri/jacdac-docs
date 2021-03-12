@@ -6271,6 +6271,11 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   ;
 
   _proto3.device = function device(id, skipCreate) {
+    if (id === "0000000000000000") {
+      console.warn("jadac: trying to access device 0000000000000000");
+      return undefined;
+    }
+
     var d = this._devices.find(function (d) {
       return d.deviceId == id;
     });
@@ -47341,4 +47346,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-d2e9ad9e2f642e83c4d6.js.map
+//# sourceMappingURL=app-b2733c013cc698570c96.js.map
