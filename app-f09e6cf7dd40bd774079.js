@@ -5661,7 +5661,7 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
           switch (_context4.prev = _context4.next) {
             case 0:
               device = service.device, serviceIndex = service.serviceIndex;
-              this.log("set role " + device.shortId + ":" + serviceIndex + " to " + role);
+              this.log("set role " + device.deviceId + ":" + serviceIndex + " to " + role);
               data = Object(pack["a" /* jdpack */])("b[8] u8 s", [Object(utils["u" /* fromHex */])(device.deviceId), serviceIndex, role || ""]);
               _context4.next = 5;
               return this.service.sendPacketAsync(packet["a" /* default */].from(constants["id" /* RoleManagerCmd */].SetRole, data), true);
@@ -47301,4 +47301,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-0f8628570d300e0a4436.js.map
+//# sourceMappingURL=app-f09e6cf7dd40bd774079.js.map
