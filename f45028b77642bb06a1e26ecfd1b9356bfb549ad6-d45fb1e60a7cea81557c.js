@@ -102,6 +102,9 @@ function useServiceRole(service) {
 
   Object(react["useEffect"])(function () {
     return service === null || service === void 0 ? void 0 : service.subscribe(constants["Wc" /* ROLE_CHANGE */], function () {
+      console.log("role change", {
+        service: service
+      });
       setRole(service.role);
     });
   }, [service]);
@@ -114,11 +117,10 @@ function useServiceRole(service) {
 function ServiceRole(props) {
   var service = props.service;
   var role = useServiceRole(service);
-  var name = role === null || role === void 0 ? void 0 : role.name;
-  return name ? /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+  return role ? /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
     variant: "caption",
     component: "div"
-  }, name) : null;
+  }, role) : null;
 }
 // CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
 
@@ -1101,4 +1103,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-c45da137d94ccd570bde.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-d45fb1e60a7cea81557c.js.map

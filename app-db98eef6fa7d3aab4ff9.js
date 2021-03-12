@@ -5425,9 +5425,12 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
 
     _this2 = _JDServiceClient.call(this, service) || this;
     _this2._roles = {};
-    var changeEvent = service.event(constants["Ue" /* SystemEvent */].Change); // role manager emits change events
+    _this2._needRefresh = true;
+    var changeEvent = service.event(constants["Ue" /* SystemEvent */].Change); // always debounce refresh roles
 
-    var throttledHandleChange = Object(utils["q" /* debounceAsync */])(_this2.handleChange.bind(Object(assertThisInitialized["a" /* default */])(_this2)), 200);
+    _this2.startRefreshRoles = Object(utils["q" /* debounceAsync */])(_this2.refreshRoles.bind(Object(assertThisInitialized["a" /* default */])(_this2)), 500); // role manager emits change events
+
+    var throttledHandleChange = Object(utils["q" /* debounceAsync */])(_this2.handleChange.bind(Object(assertThisInitialized["a" /* default */])(_this2)), 500);
 
     _this2.mount(changeEvent.subscribe(constants["jb" /* EVENT */], throttledHandleChange)); // assign roles when need device enter the bus
 
@@ -5440,12 +5443,19 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
     })); // clear on unmount
 
 
-    _this2.mount(_this2.clearRoles.bind(Object(assertThisInitialized["a" /* default */])(_this2)));
+    _this2.mount(_this2.clearRoles.bind(Object(assertThisInitialized["a" /* default */])(_this2))); // retry to get roles on every self-announce
+
+
+    _this2.mount(_this2.bus.subscribe(constants["md" /* SELF_ANNOUNCE */], _this2.handleSelfAnnounce.bind(Object(assertThisInitialized["a" /* default */])(_this2))));
 
     return _this2;
   }
 
   var _proto2 = BusRoleManagerClient.prototype;
+
+  _proto2.handleSelfAnnounce = function handleSelfAnnounce() {
+    if (this._needRefresh) this.startRefreshRoles();
+  };
 
   _proto2.handleChange = /*#__PURE__*/function () {
     var _handleChange = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
@@ -5453,8 +5463,8 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return this.refreshRoles();
+              console.debug("role manager change event");
+              this.startRefreshRoles();
 
             case 2:
             case "end":
@@ -5477,10 +5487,13 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              this.collectRoles();
-              this.assignRoles();
+              _context2.next = 2;
+              return this.collectRoles();
 
             case 2:
+              this.assignRoles();
+
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -5538,24 +5551,26 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
             case 18:
               // store result
               this._roles = roles;
+              this._needRefresh = false;
               console.debug("roles", {
                 roles: this._roles
               });
-              _context3.next = 26;
+              _context3.next = 28;
               break;
 
-            case 22:
-              _context3.prev = 22;
+            case 23:
+              _context3.prev = 23;
               _context3.t2 = _context3["catch"](1);
               this.log("refresh failed");
+              this._needRefresh = true;
               console.error(_context3.t2);
 
-            case 26:
+            case 28:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[1, 22]]);
+      }, _callee3, this, [[1, 23]]);
     }));
 
     function collectRoles() {
@@ -5568,14 +5583,22 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
   _proto2.assignRoles = function assignRoles() {
     var _this3 = this;
 
-    this.log("assign roles");
-    this.bus.services().forEach(function (srv) {
+    console.debug("assign roles", {
+      roles: this._roles
+    });
+    this.bus.services().filter(function (srv) {
+      return BusRoleManagerClient.unroledSrvs.indexOf(srv.serviceClass) < 0;
+    }).forEach(function (srv) {
       return _this3.assignRole(srv);
     });
   };
 
   _proto2.assignRole = function assignRole(service) {
-    var role = this._roles[service.device.deviceId + ":" + service.serviceIndex];
+    var key = service.device.deviceId + ":" + service.serviceIndex;
+    var role = this._roles[key];
+    console.debug("role " + key + " -> " + role, {
+      service: service
+    });
     service.role = role;
   };
 
@@ -5591,6 +5614,7 @@ var bus_BusRoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
  * A Jacdac bus manager. This instance maintains the list of devices on the bus.
  */
 
+bus_BusRoleManagerClient.unroledSrvs = [constants["Cd" /* SRV_CONTROL */], specconstants["Zb" /* SRV_ROLE_MANAGER */], constants["Qd" /* SRV_LOGGER */]];
 var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   Object(inheritsLoose["a" /* default */])(JDBus, _JDNode);
 
@@ -5633,10 +5657,10 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this4.on(constants["S" /* DEVICE_ANNOUNCE */], Object(utils["q" /* debounceAsync */])(_this4.pingLoggers.bind(Object(assertThisInitialized["a" /* default */])(_this4)), 1000)); // tell RTC clock the computer time
 
 
-    _this4.on(constants["S" /* DEVICE_ANNOUNCE */], Object(utils["q" /* debounceAsync */])(_this4.handleRealTimeClockSync.bind(Object(assertThisInitialized["a" /* default */])(_this4)), 1000)); // grab the default role manager
+    _this4.on(constants["S" /* DEVICE_ANNOUNCE */], _this4.handleRealTimeClockSync.bind(Object(assertThisInitialized["a" /* default */])(_this4))); // grab the default role manager
 
 
-    _this4.on(constants["S" /* DEVICE_ANNOUNCE */], Object(utils["q" /* debounceAsync */])(_this4.handleRoleManager.bind(Object(assertThisInitialized["a" /* default */])(_this4)), 1000)); // start all timers
+    _this4.on(constants["S" /* DEVICE_ANNOUNCE */], _this4.handleRoleManager.bind(Object(assertThisInitialized["a" /* default */])(_this4))); // start all timers
 
 
     _this4.start();
@@ -5859,33 +5883,23 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     return handleRealTimeClockSync;
   }();
 
-  _proto3.handleRoleManager = /*#__PURE__*/function () {
-    var _handleRoleManager = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee6(device) {
-      var service;
-      return regenerator_default.a.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              // auto allocate the first role manager
-              if (!this._roleManagerClient && device.hasService(specconstants["Zb" /* SRV_ROLE_MANAGER */])) {
-                service = device.service(specconstants["Zb" /* SRV_ROLE_MANAGER */]);
-                this.roleManager = service;
-              }
+  _proto3.handleRoleManager = function handleRoleManager(device) {
+    // auto allocate the first role manager
+    console.log("handle role manager", {
+      device: device,
+      hasRoleManager: device.hasService(specconstants["Zb" /* SRV_ROLE_MANAGER */]),
+      SRV_ROLE_MANAGER: specconstants["Zb" /* SRV_ROLE_MANAGER */]
+    });
 
-            case 1:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6, this);
-    }));
+    if (!this._roleManagerClient && device.hasService(specconstants["Zb" /* SRV_ROLE_MANAGER */])) {
+      var _device$services = device.services({
+        serviceClass: specconstants["Zb" /* SRV_ROLE_MANAGER */]
+      }),
+          service = _device$services[0];
 
-    function handleRoleManager(_x2) {
-      return _handleRoleManager.apply(this, arguments);
+      this.roleManager = service;
     }
-
-    return handleRoleManager;
-  }();
+  };
 
   _proto3.sendPacketAsync = function sendPacketAsync(p) {
     var _this$transport;
@@ -6161,27 +6175,27 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
     if (enabled) {
       if (!this._debouncedScanFirmwares) {
-        this._debouncedScanFirmwares = Object(utils["q" /* debounceAsync */])( /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee7() {
-          return regenerator_default.a.wrap(function _callee7$(_context7) {
+        this._debouncedScanFirmwares = Object(utils["q" /* debounceAsync */])( /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee6() {
+          return regenerator_default.a.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context7.prev = _context7.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
                   if (!_this11.connected) {
-                    _context7.next = 4;
+                    _context6.next = 4;
                     break;
                   }
 
                   _this11.log("info", "scanning firmwares");
 
-                  _context7.next = 4;
+                  _context6.next = 4;
                   return Object(flashing["d" /* scanFirmwares */])(_this11);
 
                 case 4:
                 case "end":
-                  return _context7.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee7);
+          }, _callee6);
         })), SCAN_FIRMWARE_INTERVAL);
         this.on(constants["S" /* DEVICE_ANNOUNCE */], this._debouncedScanFirmwares);
       }
@@ -6517,8 +6531,13 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     set: function set(service) {
       var _this$_roleManagerCli2;
 
-      // clean if needed
+      console.log("set role manager", {
+        service: service
+      }); // clean if needed
+
       if (this._roleManagerClient && this._roleManagerClient.service !== service) {
+        console.debug("unmount role manager");
+
         this._roleManagerClient.unmount();
 
         this._roleManagerClient = undefined;
@@ -6526,11 +6545,12 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
 
       if (service && service !== ((_this$_roleManagerCli2 = this._roleManagerClient) === null || _this$_roleManagerCli2 === void 0 ? void 0 : _this$_roleManagerCli2.service)) {
+        console.debug("mount role manager");
         this._roleManagerClient = new bus_BusRoleManagerClient(service);
         this.emit(constants["Xc" /* ROLE_MANAGER_CHANGE */]);
         this.emit(constants["s" /* CHANGE */]);
 
-        this._roleManagerClient.refreshRoles();
+        this._roleManagerClient.startRefreshRoles();
       }
     }
   }, {
@@ -47195,4 +47215,4 @@ function createUSBBus(options, busOptions) {
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-ceb1f36ec459746bd12b.js.map
+//# sourceMappingURL=app-db98eef6fa7d3aab4ff9.js.map
