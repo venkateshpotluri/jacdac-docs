@@ -55,11 +55,11 @@ function DashboardRoleManager(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_CmdButton__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     onClick: handleAutoBind,
     variant: "outlined",
-    title: "assign roles automatically"
-  }, "Auto bind"));
+    title: "bind roles to services automatically"
+  }, "Assign roles"));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=122-97452a9b972b1f11daf4.js.map
+//# sourceMappingURL=122-3f157442f4d6ed3bf672.js.map
