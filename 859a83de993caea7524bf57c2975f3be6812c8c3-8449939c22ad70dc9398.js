@@ -332,11 +332,11 @@ ListItemSecondaryAction_ListItemSecondaryAction.muiName = 'ListItemSecondaryActi
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__("Z3vd");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
-var Box = __webpack_require__("hlFM");
-
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__("ofer");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
+var Box = __webpack_require__("hlFM");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardActions/CardActions.js
 var CardActions = __webpack_require__("o4QW");
@@ -738,15 +738,21 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     var _this2 = this;
 
     var testFun = cmdToTestFunction(this.command);
-    var replace = this.command.call.arguments.map(function (a, i) {
+    var replaceId = this.command.call.arguments.map(function (a, i) {
+      return ["{" + (i + 1) + "}", unparse(a)];
+    });
+    var replaceVal = this.command.call.arguments.map(function (a, i) {
       var aStart = _this2._startExpressions.find(function (r) {
         return r.e === a;
       });
 
-      return ["{" + (i + 1) + "}", aStart && aStart.v && testFun.args[i] === "number" ? aStart.v.toString() : unparse(a)];
+      return ["{" + (i + 1) + ":val}", aStart && aStart.v ? aStart.v.toString() : "NA"];
     });
     this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
-    replace.forEach(function (p) {
+    replaceId.forEach(function (p) {
+      return _this2._prompt = _this2._prompt.replace(p[0], p[1]);
+    });
+    replaceVal.forEach(function (p) {
       return _this2._prompt = _this2._prompt.replace(p[0], p[1]);
     });
   };
@@ -761,10 +767,9 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     this._progress = "";
 
     switch (testFun.id) {
-      case "say":
       case "ask":
         {
-          this._status = testFun.id === "say" ? JDTestCommandStatus.Passed : JDTestCommandStatus.RequiresUserInput;
+          this._status = JDTestCommandStatus.RequiresUserInput;
           break;
         }
 
@@ -815,7 +820,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
               this._status = JDTestCommandStatus.Passed;
             } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v + amtSaved.v) {
               this._status = JDTestCommandStatus.Active;
-              this._progress = _regValue - _regSaved.v + " out of " + amtSaved.v;
+              this._progress = "current: " + _regValue + ", goal: " + (_regSaved.v + amtSaved.v);
             } else {
               this._status = JDTestCommandStatus.Active;
             }
@@ -825,7 +830,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
               this._progress = "completed";
             } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v - amtSaved.v) {
               this._status = JDTestCommandStatus.Active;
-              this._progress = _regSaved.v - _regValue + " out of " + amtSaved.v;
+              this._progress = "current: " + _regValue + " goal: " + (_regSaved.v - amtSaved.v);
             } else {
               this._status = JDTestCommandStatus.Active;
             }
@@ -840,10 +845,9 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           this._status = JDTestCommandStatus.Active;
           var _reg2 = this.command.call.arguments[0];
           var _regValue2 = this.env[unparse(_reg2)];
-          var begin = this.command.call.arguments[0];
 
           var beginSaved = this._startExpressions.find(function (r) {
-            return r.e === begin;
+            return r.e === _reg2;
           });
 
           var end = this.command.call.arguments[1];
@@ -853,9 +857,9 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           });
 
           if (this._rangeComplete === undefined) {
-            if (_regValue2 == beginSaved.v) this._rangeComplete = _regValue2;
+            this._rangeComplete = _regValue2;
           } else {
-            if (_regValue2 === this._rangeComplete + (testFun.id == 'rangesFromUpTo' ? 1 : -1)) this._rangeComplete = _regValue2;
+            if (_regValue2 === this._rangeComplete + (testFun.id == 'stepsUpTo' ? 1 : -1)) this._rangeComplete = _regValue2;
 
             if (this._rangeComplete === endSaved.v) {
               this._status = JDTestCommandStatus.Passed;
@@ -863,7 +867,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           }
 
           if (this._rangeComplete != undefined) {
-            this._progress = testFun.id == 'rangesFromUpTo' ? "from " + beginSaved.v + " up to " + this._rangeComplete : "from " + beginSaved.v + " down to " + this._rangeComplete;
+            this._progress = testFun.id == 'stepsUpTo' ? "from " + beginSaved.v + " up to " + this._rangeComplete : "from " + beginSaved.v + " down to " + this._rangeComplete;
           }
 
           break;
@@ -882,7 +886,9 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
               if (this._eventsComplete.length === 0) this._status = JDTestCommandStatus.Passed;
             }
 
-            this._progress = "got event " + _ev + "; remaining = " + this._eventsComplete;
+            this._progress = "got event " + _ev + "; remaining = [" + this._eventsComplete + "]";
+          } else {
+            this._progress = "no events received; remaining = [" + this._eventsComplete + "]";
           }
 
           break;
@@ -974,7 +980,6 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
     this._commmandEvaluator.setEvent(event);
 
     this.envChange();
-    console.log("got " + event);
   };
 
   _proto3.cancel = function cancel() {
@@ -1033,7 +1038,6 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     _this4.commands = testSpec.testCommands.map(function (c) {
       return new testrunner_JDTestCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), _this4.env, c);
     });
-    _this4._description = testSpec.description;
     return _this4;
   }
 
@@ -1106,7 +1110,12 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   }, {
     key: "description",
     get: function get() {
-      return this._description;
+      return this.testSpec.description;
+    }
+  }, {
+    key: "prompt",
+    get: function get() {
+      return this.testSpec.prompt;
     }
   }, {
     key: "commandIndex",
@@ -1157,7 +1166,7 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
           var event = service.event(pkt.identifier);
           _this5.events[eventName] = event;
 
-          _this5.mount(event.subscribe(constants["s" /* CHANGE */], function () {
+          _this5.mount(event.subscribe(constants["jb" /* EVENT */], function () {
             var _this5$currentTest;
 
             (_this5$currentTest = _this5.currentTest) === null || _this5$currentTest === void 0 ? void 0 : _this5$currentTest.eventChange(eventName);
@@ -1446,21 +1455,6 @@ function CommandListItem(props) {
   }, "No")));
 }
 
-function FirstCommand(props) {
-  var command = props.command;
-
-  var _useChange2 = Object(useChange["a" /* default */])(command, function (c) {
-    return c.output;
-  }),
-      message = _useChange2.message;
-
-  return /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
-    m: 2
-  }, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
-    variant: "body1"
-  }, message));
-}
-
 function ActiveTest(props) {
   var test = props.test;
   var commands = test.commands;
@@ -1474,23 +1468,23 @@ function ActiveTest(props) {
 
   var handleNext = function handleNext() {
     return test.next();
-  };
+  }; // auto start
 
-  var firstCommand = commands[0],
-      restOfCommands = commands.slice(1); // auto start
 
   Object(react["useEffect"])(function () {
     return test.start();
   }, [test]);
   return /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
     variant: "h5"
-  }, "WHEN"), /*#__PURE__*/react_default.a.createElement(FirstCommand, {
-    command: firstCommand
-  }), /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+  }, "DO"), /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
+    m: 2
+  }, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "body1"
+  }, test.prompt)), /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
     variant: "h5"
   }, "TEST"), /*#__PURE__*/react_default.a.createElement(List["a" /* default */], {
     dense: false
-  }, restOfCommands.map(function (cmd, i) {
+  }, commands.map(function (cmd, i) {
     return /*#__PURE__*/react_default.a.createElement(CommandListItem, {
       key: i,
       command: cmd
@@ -1522,9 +1516,6 @@ function ServiceTestRunner(props) {
   });
 
   var handleSelectTest = function handleSelectTest(test) {
-    console.log({
-      test: test
-    });
     testRunner.currentTest = test;
   };
 
@@ -1820,10 +1811,6 @@ var testCommandFunctions = [{
   args: ["register"],
   prompt: "did the value of {1} change?"
 }, {
-  id: "say",
-  args: [],
-  prompt: undefined
-}, {
   id: "ask",
   args: [],
   prompt: undefined
@@ -1838,27 +1825,27 @@ var testCommandFunctions = [{
 }, {
   id: "increases",
   args: ["register"],
-  prompt: "did the value of register {1} increase?"
+  prompt: "did the value of {1} increase?"
 }, {
   id: "decreases",
   args: ["register"],
-  prompt: "did the value of register {1} decrease?"
+  prompt: "did the value of {1} decrease?"
 }, {
   id: "increasesBy",
   args: ["register", "number"],
-  prompt: "did the value of register {1} increase by {2}?"
+  prompt: "did the value of {1} (initially {1:val}) increase by {2:val}?"
 }, {
   id: "decreasesBy",
   args: ["register", "number"],
-  prompt: "did the value of register {1} decrease by {2}?"
+  prompt: "did the value of {1} (initially {1:val}) decrease by {2:val}?"
 }, {
   id: "stepsUpTo",
   args: ["register", "number"],
-  prompt: "register {1} should step up (by one) to {2}"
+  prompt: "{1} should step up (by ones) from {1:val} to {2:val}"
 }, {
   id: "stepsDownTo",
   args: ["register", "number"],
-  prompt: "register {1} should step down (by one) to {2}"
+  prompt: "{1} should step down (by ones) from {1:val} to {2:val}"
 }];
 var testExpressionFunctions = [{
   id: "start",
@@ -2063,7 +2050,7 @@ exports.default = _default;
 /***/ "sh2y":
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"press and release\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"Press and release the button (once)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"quick press (click)\",\"registers\":[],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"Quickly press and release the button (within 500ms of press)\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Long click\",\"registers\":[],\"events\":[\"down\",\"long_click\",\"up\"],\"testCommands\":[{\"prompt\":\"Press and hold the button for 500-1500ms and then release\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"long_click\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold\",\"registers\":[],\"events\":[\"down\",\"hold\",\"up\"],\"testCommands\":[{\"prompt\":\"Press and hold the button for more than 1500ms \",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]}]},{\"description\":\"Potentiometer tests\",\"serviceClassIdentifier\":522667846,\"tests\":[{\"description\":\"position changes on movement\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"move the slider/potentiometer\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"did the position register's value change?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn the knob back and forth\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn the knob clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn the knob counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn one complete rotation clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"turn one complete rotation counter-clockwise\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"slowly turn clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"say\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]}]");
+module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"press and release\",\"prompt\":\"Press and release the button (once)\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"quick press (click)\",\"prompt\":\"Quickly press and release the button (within 500ms of press)\",\"registers\":[],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Long click\",\"prompt\":\"Press and hold the button for 500-1500ms and then release\",\"registers\":[],\"events\":[\"down\",\"long_click\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"long_click\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold\",\"prompt\":\"Press and hold the button for more than 1500ms \",\"registers\":[],\"events\":[\"down\",\"hold\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"prompt\":\"turn the knob back and forth\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"prompt\":\"turn the knob clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"prompt\":\"turn the knob counter-clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"prompt\":\"turn one complete rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"prompt\":\"turn one complete rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"prompt\":\"slowly turn clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]}]");
 
 /***/ }),
 
@@ -2100,4 +2087,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-9d134d5a502ef5278e18.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-8449939c22ad70dc9398.js.map
