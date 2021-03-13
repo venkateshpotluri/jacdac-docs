@@ -1343,7 +1343,11 @@ var useDeviceName = __webpack_require__("mAuX");
 // EXTERNAL MODULE: ./src/components/devices/useDeviceImage.ts
 var useDeviceImage = __webpack_require__("dI3M");
 
+// EXTERNAL MODULE: ./src/components/icons/JacdacIcon.tsx
+var JacdacIcon = __webpack_require__("w8dJ");
+
 // CONCATENATED MODULE: ./src/components/devices/DeviceAvatar.tsx
+
 
 
 
@@ -1374,7 +1378,6 @@ var useStyles = Object(makeStyles["a" /* default */])(function (theme) {
 });
 function DeviceAvatar(props) {
   var device = props.device,
-      showMissing = props.showMissing,
       size = props.size;
   var specification = Object(useDeviceSpecification["a" /* default */])(device);
   var imageUrl = Object(useDeviceImage["a" /* default */])(specification, "avatar");
@@ -1386,8 +1389,6 @@ function DeviceAvatar(props) {
   var _useDeviceStatusLight = Object(useDeviceStatusLightStyle["a" /* default */])(device),
       statusLEDClassName = _useDeviceStatusLight.className,
       statusLEDHelmetStyle = _useDeviceStatusLight.helmetStyle;
-
-  if (!showMissing && !host && !imageUrl) return null;
 
   var handleIdentify = /*#__PURE__*/function () {
     var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
@@ -1422,7 +1423,7 @@ function DeviceAvatar(props) {
     className: statusLEDClassName,
     icon: host ? /*#__PURE__*/react_default.a.createElement(KindIcon["b" /* default */], {
       kind: constants["if" /* VIRTUAL_DEVICE_NODE_NAME */]
-    }) : /*#__PURE__*/react_default.a.createElement(esm_Avatar_Avatar, {
+    }) : !imageUrl ? /*#__PURE__*/react_default.a.createElement(JacdacIcon["a" /* default */], null) : /*#__PURE__*/react_default.a.createElement(esm_Avatar_Avatar, {
       className: sizeClassName,
       alt: (specification === null || specification === void 0 ? void 0 : specification.name) || "Image of the device",
       src: imageUrl,
@@ -1463,4 +1464,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=c37b5bd9aed7a7d87c7dc14e0995fcee0a1542f0-beb5b134424c82790e93.js.map
+//# sourceMappingURL=c37b5bd9aed7a7d87c7dc14e0995fcee0a1542f0-e07ac0a8f0503220c022.js.map
