@@ -425,7 +425,7 @@ function PacketRecorder() {
     disabled: recording || tracing
   }, /*#__PURE__*/react_default.a.createElement(Replay_default.a, null)));
 }
-// EXTERNAL MODULE: ./src/components/DrawerToolsButtonGroup.tsx + 1 modules
+// EXTERNAL MODULE: ./src/components/DrawerToolsButtonGroup.tsx
 var DrawerToolsButtonGroup = __webpack_require__("J30M");
 
 // CONCATENATED MODULE: ./src/components/AppDrawer.tsx
