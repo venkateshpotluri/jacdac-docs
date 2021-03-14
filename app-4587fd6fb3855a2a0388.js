@@ -35833,9 +35833,6 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     if (options !== null && options !== void 0 && options.firmwareIdentifier) r = r.filter(function (r) {
       return !!r.firmwareIdentifier;
     });
-    if (options !== null && options !== void 0 && options.physical) r = r.filter(function (r) {
-      return !!r.physical;
-    });
     return r;
   }
   /**
@@ -47735,4 +47732,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-5c5c93759160ffd8fc28.js.map
+//# sourceMappingURL=app-4587fd6fb3855a2a0388.js.map
