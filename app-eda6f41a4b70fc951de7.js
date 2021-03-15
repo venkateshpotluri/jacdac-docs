@@ -35497,7 +35497,7 @@ var busstats_BusStatsMonitor = /*#__PURE__*/function (_JDEventSource) {
     var _this;
 
     _this = _JDEventSource.call(this) || this;
-    _this._prev = Array(10).fill(0).map(function () {
+    _this._prev = Array(4).fill(0).map(function () {
       return {
         packets: 0,
         announce: 0,
@@ -48340,4 +48340,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-4ca795a8d4b645db8349.js.map
+//# sourceMappingURL=app-eda6f41a4b70fc951de7.js.map
