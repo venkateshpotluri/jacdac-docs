@@ -9230,7 +9230,7 @@ function Footer() {
     role: "contentinfo",
     className: classes.footer
   }, /*#__PURE__*/react_default.a.createElement("a", {
-    href: "https://makecode.com/privacy",
+    href: "https://go.microsoft.com/fwlink/?LinkId=521839",
     target: "_blank",
     rel: "noopener noreferrer"
   }, "Privacy & Cookies"), /*#__PURE__*/react_default.a.createElement("a", {
@@ -48340,4 +48340,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-0f51539aa3252aa96103.js.map
+//# sourceMappingURL=app-4ca795a8d4b645db8349.js.map
