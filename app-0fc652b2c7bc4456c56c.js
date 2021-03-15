@@ -38965,6 +38965,7 @@ function usb_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) l
 
 
 
+
 function isWebUSBEnabled() {
   return !!flags["a" /* default */].webUSB;
 }
@@ -39170,6 +39171,9 @@ function createUSBTransport(options) {
   }
 
   return options && new usb_USBTransport(options);
+}
+function createUSBBus(options) {
+  return new bus_JDBus([createUSBTransport(options)]);
 }
 // CONCATENATED MODULE: ./jacdac-ts/src/jdom/bluetooth.ts
 
@@ -48340,4 +48344,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-eda6f41a4b70fc951de7.js.map
+//# sourceMappingURL=app-0fc652b2c7bc4456c56c.js.map
