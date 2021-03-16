@@ -71,14 +71,14 @@ function NoSsrConnectAlert(props) {
   var transports = bus.transports;
   var devices = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"])(bus, function (b) {
     return b.devices({
-      serviceClass: serviceClass
+      serviceClass: serviceClass,
+      ignoreSelf: true
     });
   });
-  var spec = Object(_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_5__[/* serviceSpecificationFromClassIdentifier */ "D"])(serviceClass);
-  var disconnected = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"])(bus, function (t) {
-    return t.disconnected;
-  });
-  if (!(devices !== null && devices !== void 0 && devices.length) && disconnected) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+  var spec = Object(_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_5__[/* serviceSpecificationFromClassIdentifier */ "D"])(serviceClass); // don't show if no transport, some devices
+
+  if (!transports.length || devices !== null && devices !== void 0 && devices.length) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
     displayPrint: "none"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
     severity: "info",
@@ -92,7 +92,6 @@ function NoSsrConnectAlert(props) {
       transparent: true
     });
   })));
-  return null;
 }
 
 function ConnectAlert(props) {
@@ -531,4 +530,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-dashboard-tsx-bccbfc9fc8b3146979cd.js.map
+//# sourceMappingURL=component---src-pages-dashboard-tsx-74f334f185001183c45e.js.map
