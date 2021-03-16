@@ -175,18 +175,30 @@ function ServiceRole(props) {
     onClick: handleClick
   }, role || "...");
 }
+// EXTERNAL MODULE: ./src/jacdac/useRegisterValue.ts
+var useRegisterValue = __webpack_require__("dYIP");
+
 // CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
+
+
 
 
 
 
 function DashboardServiceWidgetItem(props) {
   var service = props.service;
+  var instanceName = Object(useRegisterValue["d" /* useRegisterStringValue */])(service.register(constants["af" /* SystemReg */].InstanceName));
   return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
   }, /*#__PURE__*/react_default.a.createElement(ServiceRole, {
     service: service
-  }), /*#__PURE__*/react_default.a.createElement(DashboardServiceWidget["b" /* default */], props));
+  }), instanceName && /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    variant: "caption",
+    component: "span",
+    style: {
+      float: "right"
+    }
+  }, instanceName), /*#__PURE__*/react_default.a.createElement(DashboardServiceWidget["b" /* default */], props));
 }
 // EXTERNAL MODULE: ./src/components/DeviceActions.tsx
 var DeviceActions = __webpack_require__("8zWW");
@@ -1156,4 +1168,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-1d5fcaa5ec32f16dfe52.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-b0ef9aa40492a9dccf13.js.map

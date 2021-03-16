@@ -606,10 +606,10 @@ var LEDServiceHost = /*#__PURE__*/function (_ServiceHost) {
 var BuzzerServiceHost = /*#__PURE__*/function (_ServiceHost) {
   Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(BuzzerServiceHost, _ServiceHost);
 
-  function BuzzerServiceHost() {
+  function BuzzerServiceHost(options) {
     var _this;
 
-    _this = _ServiceHost.call(this, _jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* SRV_BUZZER */ "Cd"]) || this;
+    _this = _ServiceHost.call(this, _jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* SRV_BUZZER */ "Cd"], options) || this;
     _this.volume = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* BuzzerReg */ "u"].Volume, [0.2]);
 
     _this.addCommand(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* BuzzerCmd */ "t"].PlayTone, _this.handlePlayTone.bind(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(_this)));
@@ -622,11 +622,7 @@ var BuzzerServiceHost = /*#__PURE__*/function (_ServiceHost) {
   _proto.handlePlayTone = function handlePlayTone(pkt) {
     var _jdunpack = Object(_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(pkt.data, "u16 u16 u16"),
         period = _jdunpack[0],
-        duty = _jdunpack[1],
         duration = _jdunpack[2];
-
-    var _this$volume$values = this.volume.values(),
-        v = _this$volume$values[0];
 
     var frequency = 1000000 / period;
     this.emit(BuzzerServiceHost.PLAY_TONE, [frequency, duration]);
@@ -2778,10 +2774,10 @@ var switchservicehost_SwitchServiceHost = /*#__PURE__*/function (_SensorServiceH
 var trafficlightservicehost_TrafficLightServiceHost = /*#__PURE__*/function (_ServiceHost) {
   Object(inheritsLoose["a" /* default */])(TrafficLightServiceHost, _ServiceHost);
 
-  function TrafficLightServiceHost() {
+  function TrafficLightServiceHost(options) {
     var _this;
 
-    _this = _ServiceHost.call(this, constants["xe" /* SRV_TRAFFIC_LIGHT */]) || this;
+    _this = _ServiceHost.call(this, constants["xe" /* SRV_TRAFFIC_LIGHT */], options) || this;
     _this.red = _this.addRegister(constants["hf" /* TrafficLightReg */].Red, [true]);
     _this.orange = _this.addRegister(constants["hf" /* TrafficLightReg */].Orange, [false]);
     _this.green = _this.addRegister(constants["hf" /* TrafficLightReg */].Green, [false]);
@@ -4242,20 +4238,29 @@ var _hosts = [{
   services: function services() {
     return [new motorservicehost_MotorServiceHost("L"), new motorservicehost_MotorServiceHost("R"), new analogsensorservicehost_AnalogSensorServiceHost(constants["Id" /* SRV_DISTANCE */], sonarOptions), new ledpixelservicehost_LedPixelServiceHost({
       numPixels: 5,
-      variant: constants["Sb" /* LedPixelVariant */].Stick
+      variant: constants["Sb" /* LedPixelVariant */].Stick,
+      instanceName: "lights"
     })];
   }
 }, {
   name: "railway crossing (2 x lights, 2 x servos, 1 x buffer)",
   serviceClasses: [constants["xe" /* SRV_TRAFFIC_LIGHT */], constants["le" /* SRV_SERVO */], constants["Cd" /* SRV_BUZZER */]],
   services: function services() {
-    return [new trafficlightservicehost_TrafficLightServiceHost(), new servoservicehost_ServoServiceHost({
+    return [new trafficlightservicehost_TrafficLightServiceHost({
+      instanceName: "left light"
+    }), new servoservicehost_ServoServiceHost({
       minAngle: 0,
-      maxAngle: 90
-    }), new trafficlightservicehost_TrafficLightServiceHost(), new servoservicehost_ServoServiceHost({
+      maxAngle: 90,
+      instanceName: "left arm"
+    }), new trafficlightservicehost_TrafficLightServiceHost({
+      instanceName: "right light"
+    }), new servoservicehost_ServoServiceHost({
       minAngle: 0,
-      maxAngle: 90
-    }), new buzzerservicehost["a" /* default */]()];
+      maxAngle: 90,
+      instanceName: "right arm"
+    }), new buzzerservicehost["a" /* default */]({
+      instanceName: "bell"
+    })];
   }
 }, {
   name: "micro:bit v2",
@@ -4274,7 +4279,7 @@ function hosts() {
 }
 function addHost(bus, services) {
   var d = new devicehost["a" /* default */](services);
-  var device = bus.addDeviceHost(d);
+  bus.addDeviceHost(d);
   return d;
 }
 function hostDefinitionFromServiceClass(serviceClass) {
@@ -4286,4 +4291,4 @@ function hostDefinitionFromServiceClass(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=e577ed790312093c60d6f42a2eefa9c8fa2c70c1-ded960f732ab99e88bfc.js.map
+//# sourceMappingURL=e577ed790312093c60d6f42a2eefa9c8fa2c70c1-32de081b7936de64cba7.js.map

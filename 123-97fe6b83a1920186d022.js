@@ -28,9 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 function DashboardRoleManager(props) {
   var service = props.service;
   var autoBindRegister = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__[/* RoleManagerReg */ "od"].AutoBind);
-
-  var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_7__[/* useRegisterUnpackedValue */ "e"])(autoBindRegister),
-      autoBind = _useRegisterUnpackedV[0];
+  var autoBind = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_7__[/* useRegisterBoolValue */ "a"])(autoBindRegister);
 
   var handleChecked = /*#__PURE__*/function () {
     var _ref = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(ev, checked) {
@@ -73,4 +71,4 @@ function DashboardRoleManager(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=123-8fd56f38dde282a1bff1.js.map
+//# sourceMappingURL=123-97fe6b83a1920186d022.js.map
