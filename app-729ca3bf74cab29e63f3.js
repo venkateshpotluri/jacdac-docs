@@ -42766,8 +42766,6 @@ exports.DEFAULT_OPTIONS={maxWidth:650,wrapperStyle:"",backgroundColor:"white",li
 /* harmony import */ var _components_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("gfZp");
 /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("9Dj+");
 /* harmony import */ var _components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ywOB");
-/* harmony import */ var _useChange__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("IzqI");
-
 
 
 
@@ -42780,11 +42778,9 @@ function ConnectButton(props) {
       className = props.className,
       transparent = props.transparent,
       transport = props.transport;
-  var type = transport.type;
+  var connectionState = transport.connectionState,
+      type = transport.type;
   var theme = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])();
-  var connectionState = Object(_useChange__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"])(transport, function (t) {
-    return t.connectionState;
-  });
   var showDisconnect = connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__[/* ConnectionState */ "a"].Connected || connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__[/* ConnectionState */ "a"].Disconnecting;
   var inProgress = connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__[/* ConnectionState */ "a"].Connecting || connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__[/* ConnectionState */ "a"].Disconnecting;
   var small = full !== true && (!full || Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(theme.breakpoints.down(_components_layout__WEBPACK_IMPORTED_MODULE_7__[/* MOBILE_BREAKPOINT */ "c"])));
@@ -48351,4 +48347,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-144d2335741d50ae4bba.js.map
+//# sourceMappingURL=app-729ca3bf74cab29e63f3.js.map
