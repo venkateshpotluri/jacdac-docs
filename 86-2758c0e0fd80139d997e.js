@@ -144,9 +144,6 @@ function StartSimulatorDialog(props) {
       return h.name === selected;
     });
     Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(bus, host.services());
-    enqueueSnackbar(host.name + " started...", {
-      variant: "info"
-    });
     onClose();
   };
 
@@ -1210,4 +1207,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=86-db6b03a86a16db43eb5f.js.map
+//# sourceMappingURL=86-2758c0e0fd80139d997e.js.map

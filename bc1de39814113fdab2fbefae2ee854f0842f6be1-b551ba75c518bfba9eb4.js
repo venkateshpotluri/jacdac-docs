@@ -1170,7 +1170,6 @@ function ButtonWidget(props) {
   var r = w / 2;
   var cx = r;
   var cy = r;
-  var ro = r;
   var ri = r - mo;
   var rn = 8;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_SvgWidget__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
@@ -1592,4 +1591,4 @@ function useAnimationFrame(callback, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-109c5c175b24fe0d7df1.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-b551ba75c518bfba9eb4.js.map

@@ -1,5 +1,105 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[60],{
 
+/***/ "1waj":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__("TqRt");
+
+var _interopRequireWildcard = __webpack_require__("284h");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__("q1tI"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+}), 'Add');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "9pTp":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConnectAlert; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("R/WZ");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("ZBNC");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("hlFM");
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("FQT7");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("Z8Ma");
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("yNWl");
+/* harmony import */ var _jacdac_ConnectButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("nyfv");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("Bf0q");
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("IzqI");
+// tslint:disable-next-line: no-submodule-imports
+ // tslint:disable-next-line: no-submodule-imports
+
+
+
+
+
+
+
+
+var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(function (theme) {
+  return Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({
+    button: {
+      marginLeft: theme.spacing(2)
+    }
+  });
+});
+
+function NoSsrConnectAlert(props) {
+  var classes = useStyles();
+  var serviceClass = props.serviceClass;
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_4__["useContext"])(_jacdac_Context__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]),
+      bus = _useContext.bus;
+
+  var transports = bus.transports;
+  var devices = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"])(bus, function (b) {
+    return b.devices({
+      serviceClass: serviceClass,
+      ignoreSelf: true
+    });
+  });
+  var spec = Object(_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_5__[/* serviceSpecificationFromClassIdentifier */ "D"])(serviceClass); // don't show if no transport, some devices
+
+  if (!transports.length || devices !== null && devices !== void 0 && devices.length) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    displayPrint: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    severity: "info",
+    closeable: true
+  }, !spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", null, "Did you connect your device?"), spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("span", null, "Did you connect a ", spec.name, " device?"), transports.map(function (transport) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_jacdac_ConnectButton__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      key: transport.type,
+      transport: transport,
+      className: classes.button,
+      full: true,
+      transparent: true
+    });
+  })));
+}
+
+function ConnectAlert(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(NoSsrConnectAlert, props));
+}
+
+/***/ }),
+
 /***/ "DzGZ":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -32,6 +132,9 @@ __webpack_require__.d(__webpack_exports__, "default", function() { return /* bin
 var react = __webpack_require__("q1tI");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
+var Box = __webpack_require__("hlFM");
+
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__("Z3vd");
 
@@ -44,17 +147,11 @@ var responsiveFontSizes = __webpack_require__("q4d2");
 // EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 16 modules
 var ThemedLayout = __webpack_require__("kxJ/");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
-var Grid = __webpack_require__("tRbT");
-
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
 var spec = __webpack_require__("Z8Ma");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__("Zo1I");
-
-// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
-var useDevices = __webpack_require__("UJQR");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
@@ -62,30 +159,19 @@ var constants = __webpack_require__("ZfHV");
 // EXTERNAL MODULE: ./src/components/icons/MakeCodeIcon.tsx
 var MakeCodeIcon = __webpack_require__("DzGZ");
 
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
-var DashboardDeviceItem = __webpack_require__("Nisz");
-
 // EXTERNAL MODULE: ./node_modules/react-helmet/es/Helmet.js
 var Helmet = __webpack_require__("qhky");
-
-// EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
-var DarkModeContext = __webpack_require__("geQJ");
-
-// EXTERNAL MODULE: ./src/components/KindIcon.tsx
-var KindIcon = __webpack_require__("NHHF");
-
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__("2K/c");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/makecode.ts
 var makecode = __webpack_require__("ys11");
 
+// EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 2 modules
+var Dashboard = __webpack_require__("tfF2");
+
+// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
+var useDevices = __webpack_require__("UJQR");
+
 // CONCATENATED MODULE: ./src/components/makecode/MakeCodeSim.tsx
-
-
-
-
-
 
 
 
@@ -128,72 +214,44 @@ function deviceSort(l, r) {
 
 var ignoredServices = [constants["Gd" /* SRV_CONTROL */], constants["Ud" /* SRV_LOGGER */], constants["me" /* SRV_SETTINGS */], constants["ie" /* SRV_ROLE_MANAGER */], constants["ae" /* SRV_POWER */]];
 
-function Carousel() {
-  var _useContext = Object(react["useContext"])(AppContext["c" /* default */]),
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
+var deviceFilter = function deviceFilter(device) {
+  return !!device.serviceClasses.filter(function (sc) {
+    return ignoredServices.indexOf(sc) < 0;
+  }).length;
+};
 
+function Carousel() {
   var devices = Object(useDevices["a" /* default */])({
     announced: true,
     ignoreSelf: true
-  }) // ignore MakeCode device (role manager) and power devices
-  .filter(function (device) {
-    return device.serviceClasses.filter(function (sc) {
-      return ignoredServices.indexOf(sc) < 0;
-    }).length;
-  }) // show best in front
-  .sort(deviceSort);
+  }).filter(deviceFilter);
+  var extensions = Object(utils["Y" /* unique */])(Object(utils["f" /* arrayConcatMany */])(devices.map(function (device) {
+    return device.services().map(function (srv) {
+      return Object(makecode["c" /* resolveMakecodeServiceFromClassIdentifier */])(srv.serviceClass);
+    }).map(function (info) {
+      return info === null || info === void 0 ? void 0 : info.client.repo;
+    }).filter(function (q) {
+      return !!q;
+    });
+  })));
 
   var handleAdd = function handleAdd() {
     // list all devices connected to the bus
     // and query for them, let makecode show the missing ones
-    var extensions = Object(utils["Y" /* unique */])(Object(utils["f" /* arrayConcatMany */])(devices.map(function (device) {
-      return device.services().map(function (srv) {
-        return Object(makecode["c" /* resolveMakecodeServiceFromClassIdentifier */])(srv.serviceClass);
-      }).map(function (info) {
-        return info === null || info === void 0 ? void 0 : info.client.repo;
-      }).filter(function (q) {
-        return !!q;
-      });
-    })));
-
-    if (extensions !== null && extensions !== void 0 && extensions.length) {
-      // send message to makecode
-      window.parent.postMessage({
-        type: "addextensions",
-        extensions: extensions,
-        broadcast: true
-      }, "*");
-    }
+    // send message to makecode
+    window.parent.postMessage({
+      type: "addextensions",
+      extensions: extensions,
+      broadcast: true
+    }, "*");
   };
 
-  return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    container: true,
-    alignItems: "flex-start",
-    spacing: 1
-  }, devices.map(function (device) {
-    return /*#__PURE__*/react_default.a.createElement(DashboardDeviceItem["a" /* default */], {
-      key: device.id,
-      device: device,
-      showHeader: false
-    });
-  }), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    container: true,
-    spacing: 1,
-    direction: "row"
-  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
-  }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
-    size: "medium",
-    variant: "contained",
-    startIcon: /*#__PURE__*/react_default.a.createElement(KindIcon["b" /* default */], {
-      kind: constants["jf" /* VIRTUAL_DEVICE_NODE_NAME */]
-    }),
-    onClick: toggleShowDeviceHostsDialog,
-    "aria-label": "Start Simulator"
-  }, "Start simulator")), !!(devices !== null && devices !== void 0 && devices.length) && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
-    item: true
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(Dashboard["a" /* default */], {
+    showHeader: false,
+    deviceSort: deviceSort,
+    deviceFilter: deviceFilter
+  }), !!(extensions !== null && extensions !== void 0 && extensions.length) && /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
+    m: 1
   }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
     size: "medium",
     color: "primary",
@@ -201,30 +259,22 @@ function Carousel() {
     startIcon: /*#__PURE__*/react_default.a.createElement(MakeCodeIcon["a" /* default */], null),
     onClick: handleAdd,
     "aria-label": "Add blocks"
-  }, "Add blocks")))));
+  }, "Add blocks")));
 }
 
 function Page() {
-  var _useContext2 = Object(react["useContext"])(DarkModeContext["a" /* default */]),
-      toggleDarkMode = _useContext2.toggleDarkMode;
-
   var rawTheme = Object(createMuiTheme["a" /* default */])({
     palette: {
       primary: {
-        main: '#63c'
+        main: "#63c"
       },
       secondary: {
-        main: '#ffc400'
+        main: "#ffc400"
       },
-      contrastThreshold: 5.1,
-      type: "dark"
+      contrastThreshold: 5.1
     }
   });
   var theme = Object(responsiveFontSizes["a" /* default */])(rawTheme);
-  Object(react["useEffect"])(function () {
-    return toggleDarkMode('dark');
-  }, []); // always dark mode
-
   return /*#__PURE__*/react_default.a.createElement(ThemedLayout["a" /* default */], {
     theme: theme
   }, /*#__PURE__*/react_default.a.createElement(Helmet["b" /* default */], null, /*#__PURE__*/react_default.a.createElement("style", null, "\nhtml {\n    margin-right: 4px;\n    overflow-y: auto !important;\n}\nhtml, body {\n    background: transparent !important;\n}\n")), /*#__PURE__*/react_default.a.createElement(Carousel, null));
@@ -234,6 +284,76 @@ function Page() {
 
 function makecode_sim_Page() {
   return /*#__PURE__*/react_default.a.createElement(Page, null);
+}
+
+/***/ }),
+
+/***/ "H6TX":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GridHeader; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("R/WZ");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("ZBNC");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("tRbT");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("hlFM");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ofer");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("9jPY");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("iuhU");
+
+
+
+var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(function (theme) {
+  return Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({
+    hr: {
+      background: theme.palette.text.disabled,
+      marginBottom: "unset"
+    },
+    start: {
+      width: theme.spacing(2)
+    }
+  });
+});
+function GridHeader(props) {
+  var title = props.title,
+      count = props.count,
+      variant = props.variant,
+      action = props.action;
+  var classes = useStyles();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    container: true,
+    direction: "row",
+    spacing: 1,
+    justify: "center",
+    alignItems: "center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("hr", {
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(classes.hr, classes.start)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true
+  }, action && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    component: "span",
+    mr: 1
+  }, action), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    component: "span",
+    variant: variant || "subtitle1"
+  }, title), count !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    component: "span",
+    ml: 0.5
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    label: count
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("hr", {
+    className: classes.hr
+  }))));
 }
 
 /***/ }),
@@ -313,284 +433,268 @@ function DashboardDeviceItem(props) {
 
 /***/ }),
 
-/***/ "tRbT":
+/***/ "tfF2":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export styles */
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("Ff2n");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("wx14");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("iuhU");
-/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("H2TA");
 
- // A grid component using the following libs as inspiration.
-//
-// For the implementation:
-// - https://getbootstrap.com/docs/4.3/layout/grid/
-// - https://github.com/kristoferjoseph/flexboxgrid/blob/master/src/css/flexboxgrid.css
-// - https://github.com/roylee0704/react-flexbox-grid
-// - https://material.angularjs.org/latest/layout/introduction
-//
-// Follow this flexbox Guide to better understand the underlying model:
-// - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ Dashboard; });
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+var objectWithoutPropertiesLoose = __webpack_require__("zLVn");
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__("tr08");
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js
+var useMediaQuery = __webpack_require__("lopY");
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__("tRbT");
 
-var SPACINGS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-var GRID_SIZES = ['auto', true, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("q1tI");
+var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
-function generateGrid(globalStyles, theme, breakpoint) {
-  var styles = {};
-  GRID_SIZES.forEach(function (size) {
-    var key = "grid-".concat(breakpoint, "-").concat(size);
+// CONCATENATED MODULE: ./src/jacdac/useSelectedNodes.ts
 
-    if (size === true) {
-      // For the auto layouting
-      styles[key] = {
-        flexBasis: 0,
-        flexGrow: 1,
-        maxWidth: '100%'
-      };
-      return;
-    }
+function useSelectedNodes(singleSelection) {
+  var nodes = Object(react["useRef"])(new Set());
 
-    if (size === 'auto') {
-      styles[key] = {
-        flexBasis: 'auto',
-        flexGrow: 0,
-        maxWidth: 'none'
-      };
-      return;
-    } // Keep 7 significant numbers.
+  var _useState = Object(react["useState"])(0),
+      change = _useState[0],
+      setChange = _useState[1];
 
+  var selected = function selected(node) {
+    return nodes.current.has(node === null || node === void 0 ? void 0 : node.id);
+  };
 
-    var width = "".concat(Math.round(size / 12 * 10e7) / 10e5, "%"); // Close to the bootstrap implementation:
-    // https://github.com/twbs/bootstrap/blob/8fccaa2439e97ec72a4b7dc42ccc1f649790adb0/scss/mixins/_grid.scss#L41
+  var setSelected = function setSelected(node, value) {
+    if (!node) return;
+    var s = selected(node);
 
-    styles[key] = {
-      flexBasis: width,
-      flexGrow: 0,
-      maxWidth: width
-    };
-  }); // No need for a media query for the first size.
-
-  if (breakpoint === 'xs') {
-    Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(globalStyles, styles);
-  } else {
-    globalStyles[theme.breakpoints.up(breakpoint)] = styles;
-  }
-}
-
-function getOffset(val) {
-  var div = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  var parse = parseFloat(val);
-  return "".concat(parse / div).concat(String(val).replace(String(parse), '') || 'px');
-}
-
-function generateGutter(theme, breakpoint) {
-  var styles = {};
-  SPACINGS.forEach(function (spacing) {
-    var themeSpacing = theme.spacing(spacing);
-
-    if (themeSpacing === 0) {
-      return;
-    }
-
-    styles["spacing-".concat(breakpoint, "-").concat(spacing)] = {
-      margin: "-".concat(getOffset(themeSpacing, 2)),
-      width: "calc(100% + ".concat(getOffset(themeSpacing), ")"),
-      '& > $item': {
-        padding: getOffset(themeSpacing, 2)
+    if (!!value !== s) {
+      if (!value) nodes.current.delete(node.id);else {
+        if (singleSelection) nodes.current.clear();
+        nodes.current.add(node.id);
       }
-    };
-  });
-  return styles;
-} // Default CSS values
-// flex: '0 1 auto',
-// flexDirection: 'row',
-// alignItems: 'flex-start',
-// flexWrap: 'nowrap',
-// justifyContent: 'flex-start',
-
-
-var styles = function styles(theme) {
-  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({
-    /* Styles applied to the root element. */
-    root: {},
-
-    /* Styles applied to the root element if `container={true}`. */
-    container: {
-      boxSizing: 'border-box',
-      display: 'flex',
-      flexWrap: 'wrap',
-      width: '100%'
-    },
-
-    /* Styles applied to the root element if `item={true}`. */
-    item: {
-      boxSizing: 'border-box',
-      margin: '0' // For instance, it's useful when used with a `figure` element.
-
-    },
-
-    /* Styles applied to the root element if `zeroMinWidth={true}`. */
-    zeroMinWidth: {
-      minWidth: 0
-    },
-
-    /* Styles applied to the root element if `direction="column"`. */
-    'direction-xs-column': {
-      flexDirection: 'column'
-    },
-
-    /* Styles applied to the root element if `direction="column-reverse"`. */
-    'direction-xs-column-reverse': {
-      flexDirection: 'column-reverse'
-    },
-
-    /* Styles applied to the root element if `direction="row-reverse"`. */
-    'direction-xs-row-reverse': {
-      flexDirection: 'row-reverse'
-    },
-
-    /* Styles applied to the root element if `wrap="nowrap"`. */
-    'wrap-xs-nowrap': {
-      flexWrap: 'nowrap'
-    },
-
-    /* Styles applied to the root element if `wrap="reverse"`. */
-    'wrap-xs-wrap-reverse': {
-      flexWrap: 'wrap-reverse'
-    },
-
-    /* Styles applied to the root element if `alignItems="center"`. */
-    'align-items-xs-center': {
-      alignItems: 'center'
-    },
-
-    /* Styles applied to the root element if `alignItems="flex-start"`. */
-    'align-items-xs-flex-start': {
-      alignItems: 'flex-start'
-    },
-
-    /* Styles applied to the root element if `alignItems="flex-end"`. */
-    'align-items-xs-flex-end': {
-      alignItems: 'flex-end'
-    },
-
-    /* Styles applied to the root element if `alignItems="baseline"`. */
-    'align-items-xs-baseline': {
-      alignItems: 'baseline'
-    },
-
-    /* Styles applied to the root element if `alignContent="center"`. */
-    'align-content-xs-center': {
-      alignContent: 'center'
-    },
-
-    /* Styles applied to the root element if `alignContent="flex-start"`. */
-    'align-content-xs-flex-start': {
-      alignContent: 'flex-start'
-    },
-
-    /* Styles applied to the root element if `alignContent="flex-end"`. */
-    'align-content-xs-flex-end': {
-      alignContent: 'flex-end'
-    },
-
-    /* Styles applied to the root element if `alignContent="space-between"`. */
-    'align-content-xs-space-between': {
-      alignContent: 'space-between'
-    },
-
-    /* Styles applied to the root element if `alignContent="space-around"`. */
-    'align-content-xs-space-around': {
-      alignContent: 'space-around'
-    },
-
-    /* Styles applied to the root element if `justify="center"`. */
-    'justify-xs-center': {
-      justifyContent: 'center'
-    },
-
-    /* Styles applied to the root element if `justify="flex-end"`. */
-    'justify-xs-flex-end': {
-      justifyContent: 'flex-end'
-    },
-
-    /* Styles applied to the root element if `justify="space-between"`. */
-    'justify-xs-space-between': {
-      justifyContent: 'space-between'
-    },
-
-    /* Styles applied to the root element if `justify="space-around"`. */
-    'justify-xs-space-around': {
-      justifyContent: 'space-around'
-    },
-
-    /* Styles applied to the root element if `justify="space-evenly"`. */
-    'justify-xs-space-evenly': {
-      justifyContent: 'space-evenly'
+      setChange(change + 1);
     }
-  }, generateGutter(theme, 'xs'), theme.breakpoints.keys.reduce(function (accumulator, key) {
-    // Use side effect over immutability for better performance.
-    generateGrid(accumulator, theme, key);
-    return accumulator;
-  }, {}));
-};
-var Grid = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function Grid(props, ref) {
-  var _props$alignContent = props.alignContent,
-      alignContent = _props$alignContent === void 0 ? 'stretch' : _props$alignContent,
-      _props$alignItems = props.alignItems,
-      alignItems = _props$alignItems === void 0 ? 'stretch' : _props$alignItems,
-      classes = props.classes,
-      classNameProp = props.className,
-      _props$component = props.component,
-      Component = _props$component === void 0 ? 'div' : _props$component,
-      _props$container = props.container,
-      container = _props$container === void 0 ? false : _props$container,
-      _props$direction = props.direction,
-      direction = _props$direction === void 0 ? 'row' : _props$direction,
-      _props$item = props.item,
-      item = _props$item === void 0 ? false : _props$item,
-      _props$justify = props.justify,
-      justify = _props$justify === void 0 ? 'flex-start' : _props$justify,
-      _props$lg = props.lg,
-      lg = _props$lg === void 0 ? false : _props$lg,
-      _props$md = props.md,
-      md = _props$md === void 0 ? false : _props$md,
-      _props$sm = props.sm,
-      sm = _props$sm === void 0 ? false : _props$sm,
-      _props$spacing = props.spacing,
-      spacing = _props$spacing === void 0 ? 0 : _props$spacing,
-      _props$wrap = props.wrap,
-      wrap = _props$wrap === void 0 ? 'wrap' : _props$wrap,
-      _props$xl = props.xl,
-      xl = _props$xl === void 0 ? false : _props$xl,
-      _props$xs = props.xs,
-      xs = _props$xs === void 0 ? false : _props$xs,
-      _props$zeroMinWidth = props.zeroMinWidth,
-      zeroMinWidth = _props$zeroMinWidth === void 0 ? false : _props$zeroMinWidth,
-      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(props, ["alignContent", "alignItems", "classes", "className", "component", "container", "direction", "item", "justify", "lg", "md", "sm", "spacing", "wrap", "xl", "xs", "zeroMinWidth"]);
+  };
 
-  var className = Object(clsx__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(classes.root, classNameProp, container && [classes.container, spacing !== 0 && classes["spacing-xs-".concat(String(spacing))]], item && classes.item, zeroMinWidth && classes.zeroMinWidth, direction !== 'row' && classes["direction-xs-".concat(String(direction))], wrap !== 'wrap' && classes["wrap-xs-".concat(String(wrap))], alignItems !== 'stretch' && classes["align-items-xs-".concat(String(alignItems))], alignContent !== 'stretch' && classes["align-content-xs-".concat(String(alignContent))], justify !== 'flex-start' && classes["justify-xs-".concat(String(justify))], xs !== false && classes["grid-xs-".concat(String(xs))], sm !== false && classes["grid-sm-".concat(String(sm))], md !== false && classes["grid-md-".concat(String(md))], lg !== false && classes["grid-lg-".concat(String(lg))], xl !== false && classes["grid-xl-".concat(String(xl))]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({
-    className: className,
-    ref: ref
-  }, other));
-});
- false ? undefined : void 0;
-var StyledGrid = Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(styles, {
-  name: 'MuiGrid'
-})(Grid);
+  return {
+    hasSelection: nodes.current.size > 0,
+    selected: selected,
+    setSelected: setSelected,
+    toggleSelected: function toggleSelected(node) {
+      setSelected(node, !selected(node));
+    },
+    clear: function clear() {
+      nodes.current.clear();
+      setChange(0);
+    }
+  };
+}
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts
+var spec = __webpack_require__("Z8Ma");
 
-if (false) { var requireProp; }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__("Zo1I");
 
-/* harmony default export */ __webpack_exports__["a"] = (StyledGrid);
+// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
+var useDevices = __webpack_require__("UJQR");
+
+// EXTERNAL MODULE: ./src/components/layout.tsx + 16 modules
+var layout = __webpack_require__("9Dj+");
+
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__("yNWl");
+
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__("2K/c");
+
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__("l6uw");
+
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__("W1g9");
+
+// EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
+var GridHeader = __webpack_require__("H6TX");
+
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
+var DashboardDeviceItem = __webpack_require__("Nisz");
+
+// CONCATENATED MODULE: ./src/components/dashboard/DashboardDeviceGroup.tsx
+
+
+
+
+
+
+function DeviceGroup(props) {
+  var title = props.title,
+      action = props.action,
+      devices = props.devices,
+      expanded = props.expanded,
+      toggleExpanded = props.toggleExpanded,
+      children = props.children,
+      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["title", "action", "devices", "expanded", "toggleExpanded", "children"]);
+
+  var handleExpand = function handleExpand(device) {
+    return function () {
+      return toggleExpanded(device);
+    };
+  };
+
+  var sectionId = Object(react_use_id_hook_esm["b" /* useId */])();
+  if (!action && !children) return null;
+  return /*#__PURE__*/react_default.a.createElement("section", {
+    id: sectionId
+  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    container: true,
+    spacing: 1
+  }, /*#__PURE__*/react_default.a.createElement(GridHeader["a" /* default */], {
+    title: title,
+    action: action
+  }), devices === null || devices === void 0 ? void 0 : devices.map(function (device) {
+    return /*#__PURE__*/react_default.a.createElement(DashboardDeviceItem["a" /* default */], Object.assign({
+      key: device.id,
+      device: device,
+      expanded: expanded(device),
+      toggleExpanded: handleExpand(device)
+    }, other));
+  }), children));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__("1waj");
+var Add_default = /*#__PURE__*/__webpack_require__.n(Add);
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Clear.js
+var Clear = __webpack_require__("ytJY");
+var Clear_default = /*#__PURE__*/__webpack_require__.n(Clear);
+
+// EXTERNAL MODULE: ./src/components/alert/ConnectAlert.tsx
+var ConnectAlert = __webpack_require__("9pTp");
+
+// EXTERNAL MODULE: ./src/jacdac/ConnectButtons.tsx
+var ConnectButtons = __webpack_require__("j06+");
+
+// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+ // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
+
+
+
+function defaultDeviceSort(l, r) {
+  var srvScore = function srvScore(srv) {
+    return srv.packets.reduce(function (prev, pkt) {
+      return prev + (Object(spec["r" /* isReading */])(pkt) ? 10 : Object(spec["w" /* isValueOrIntensity */])(pkt) ? 1 : 0);
+    }, 0) || 0;
+  };
+
+  var score = function score(srvs) {
+    return srvs.reduce(function (prev, srv) {
+      return srvScore(srv);
+    }, 0);
+  };
+
+  var ls = score(l.services().slice(1).map(function (srv) {
+    return srv.specification;
+  }).filter(function (spec) {
+    return !!spec;
+  }));
+  var rs = score(r.services().slice(1).map(function (srv) {
+    return srv.specification;
+  }).filter(function (spec) {
+    return !!spec;
+  }));
+  if (ls !== rs) return -ls + rs;
+  return Object(utils["P" /* strcmp */])(l.deviceId, r.deviceId);
+} // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
+function defaultDeviceFilter(d) {
+  return true;
+}
+
+function Dashboard(props) {
+  var showConnect = props.showConnect,
+      _props$deviceSort = props.deviceSort,
+      deviceSort = _props$deviceSort === void 0 ? defaultDeviceSort : _props$deviceSort,
+      _props$deviceFilter = props.deviceFilter,
+      deviceFilter = _props$deviceFilter === void 0 ? defaultDeviceFilter : _props$deviceFilter,
+      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["showConnect", "deviceSort", "deviceFilter"]);
+
+  var _useContext = Object(react["useContext"])(Context["a" /* default */]),
+      bus = _useContext.bus;
+
+  var _useContext2 = Object(react["useContext"])(AppContext["c" /* default */]),
+      toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
+
+  var devices = Object(useDevices["a" /* default */])({
+    announced: true,
+    ignoreSelf: true
+  }).filter(deviceFilter).sort(deviceSort);
+  var theme = Object(useTheme["a" /* default */])();
+  var mobile = Object(useMediaQuery["a" /* default */])(theme.breakpoints.down(layout["c" /* MOBILE_BREAKPOINT */]));
+
+  var _useSelectedNodes = useSelectedNodes(mobile),
+      selected = _useSelectedNodes.selected,
+      toggleSelected = _useSelectedNodes.toggleSelected;
+
+  var _splitFilter = Object(utils["O" /* splitFilter */])(devices, function (d) {
+    return !!bus.deviceHost(d.deviceId);
+  }),
+      hosted = _splitFilter[0],
+      physicals = _splitFilter[1];
+
+  var handleClearSimulators = function handleClearSimulators() {
+    bus.deviceHosts().forEach(function (dev) {
+      return bus.removeDeviceHost(dev);
+    });
+  };
+
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(DeviceGroup, Object.assign({
+    title: "Simulators",
+    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
+      title: "start simulator",
+      onClick: toggleShowDeviceHostsDialog
+    }, /*#__PURE__*/react_default.a.createElement(Add_default.a, null)), /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
+      title: "clear simulators",
+      onClick: handleClearSimulators
+    }, /*#__PURE__*/react_default.a.createElement(Clear_default.a, null)), " "),
+    devices: hosted,
+    expanded: selected,
+    toggleExpanded: toggleSelected
+  }, other)), /*#__PURE__*/react_default.a.createElement(DeviceGroup, Object.assign({
+    title: "Devices",
+    action: showConnect && /*#__PURE__*/react_default.a.createElement(ConnectButtons["a" /* default */], {
+      full: false,
+      transparent: true
+    }),
+    devices: physicals,
+    expanded: selected,
+    toggleExpanded: toggleSelected
+  }, other), showConnect && !physicals.length && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react_default.a.createElement(ConnectAlert["a" /* default */], null))));
+}
 
 /***/ }),
 
@@ -626,7 +730,34 @@ function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
   return srv && resolveMakecodeService(srv);
 }
 
+/***/ }),
+
+/***/ "ytJY":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__("TqRt");
+
+var _interopRequireWildcard = __webpack_require__("284h");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__("q1tI"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+}), 'Clear');
+
+exports.default = _default;
+
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-cf8e96ee160125d07f2c.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-1321f1c76892faa7b77e.js.map

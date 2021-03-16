@@ -302,7 +302,7 @@ var Context = __webpack_require__("yNWl");
 
 
 
-var useStyles = Object(makeStyles["a" /* default */])(function (theme) {
+var useStyles = Object(makeStyles["a" /* default */])(function () {
   return Object(createStyles["a" /* default */])({
     root: {
       width: "100%"
@@ -339,7 +339,7 @@ function MakeCodeSimulator(props) {
   var frameRef = Object(react["useRef"])();
   var classes = useStyles();
   var src = (ghost || "") + "\n" + (code || "");
-  var url = simUrl + "#single=1&fullscren=1&nofooter=1&deps=" + encodeURIComponent(dependencies.join(',')) + "&code=" + encodeURIComponent(src);
+  var url = simUrl + "#single=1&fullscren=1&nofooter=1&deps=" + encodeURIComponent(dependencies.join(",")) + "&code=" + encodeURIComponent(src);
   var origin = new URL(url).origin;
   Object(react["useEffect"])(function () {
     return bus.subscribe([constants["uc" /* PACKET_SEND */], constants["qc" /* PACKET_PROCESS */]], function (pkt) {
@@ -667,4 +667,4 @@ function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4aea166918f41f904ef6a7d90a3550790846eead-a1389acae481702e40c7.js.map
+//# sourceMappingURL=4aea166918f41f904ef6a7d90a3550790846eead-7b29881be1133581c524.js.map

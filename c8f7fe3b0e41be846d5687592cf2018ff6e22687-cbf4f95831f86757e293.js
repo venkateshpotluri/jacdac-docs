@@ -6717,6 +6717,70 @@ var Drawer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](funct
 
 /***/ }),
 
+/***/ "Lvre":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SliderWithLabel; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("zLVn");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("R/WZ");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("csfp");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ofer");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("6Obz");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("W1g9");
+
+
+
+
+var useStyle = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(function (theme) {
+  return {
+    arrow: {
+      color: theme.palette.primary.main
+    },
+    tooltip: {
+      backgroundColor: theme.palette.primary.main
+    }
+  };
+});
+
+function ValueLabelComponent(props) {
+  var children = props.children,
+      open = props.open,
+      value = props.value;
+  var classes = useStyle();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    classes: classes,
+    open: open,
+    arrow: true,
+    color: "primary",
+    enterTouchDelay: 0,
+    placement: "top",
+    title: value
+  }, children);
+}
+
+function SliderWithLabel(props) {
+  var label = props.label,
+      others = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(props, ["label"]);
+
+  var labelId = Object(react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__[/* useId */ "b"])();
+  var sliderId = Object(react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__[/* useId */ "b"])();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    id: labelId,
+    variant: "caption",
+    gutterBottom: true
+  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], Object.assign({
+    id: sliderId,
+    "aria-labelledby": labelId,
+    "aria-label": label,
+    ValueLabelComponent: ValueLabelComponent
+  }, others)));
+}
+
+/***/ }),
+
 /***/ "NJdT":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13434,4 +13498,4 @@ function getUserAgent() {
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-1a79004cb5cf13944056.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-cbf4f95831f86757e293.js.map

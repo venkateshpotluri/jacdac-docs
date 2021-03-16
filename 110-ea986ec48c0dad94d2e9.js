@@ -30,9 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 var ACTIVE_SPEED = 0.05;
 var INACTIVE_SPEED = 0.1;
 function DashboardAnalogButton(props) {
-  var service = props.service,
-      services = props.services,
-      variant = props.variant;
+  var service = props.service;
   var pressureRegister = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* AnalogButtonReg */ "e"].Pressure);
 
   var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "e"])(pressureRegister),
@@ -42,7 +40,7 @@ function DashboardAnalogButton(props) {
       activeThreshold = _useRegisterUnpackedV2[0]; //const [buttonVariant] = useRegisterUnpackedValue<[AnalogButtonVariant]>(service.register(AnalogButtonReg.Variant));
 
 
-  var widgetSize = "clamp(5em, 25vw, 100%)";
+  var widgetSize = "clamp(3rem, 10vw, 20vw)";
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(service);
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
@@ -97,7 +95,6 @@ function DashboardAnalogButton(props) {
   var r = w / 2;
   var cx = r;
   var cy = r;
-  var ro = r;
   var rp = r - mo;
   var ri = rp - mo;
   var ps = mo;
@@ -147,4 +144,4 @@ function DashboardAnalogButton(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=110-a0d1e0acac480d7d530e.js.map
+//# sourceMappingURL=110-ea986ec48c0dad94d2e9.js.map

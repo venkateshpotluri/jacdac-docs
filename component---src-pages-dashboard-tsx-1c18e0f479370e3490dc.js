@@ -249,15 +249,33 @@ function DashboardDeviceItem(props) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Page; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("tfF2");
+
+
+function Page() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
+    showAvatar: true,
+    showHeader: true,
+    showConnect: true
+  });
+}
+
+/***/ }),
+
+/***/ "tfF2":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ Page; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ Dashboard; });
 
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__("q1tI");
-var react_default = /*#__PURE__*/__webpack_require__.n(react);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+var objectWithoutPropertiesLoose = __webpack_require__("zLVn");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
 var useTheme = __webpack_require__("tr08");
@@ -267,6 +285,10 @@ var useMediaQuery = __webpack_require__("lopY");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__("tRbT");
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("q1tI");
+var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // CONCATENATED MODULE: ./src/jacdac/useSelectedNodes.ts
 
@@ -328,8 +350,8 @@ var AppContext = __webpack_require__("2K/c");
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__("l6uw");
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-var objectWithoutPropertiesLoose = __webpack_require__("zLVn");
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__("W1g9");
 
 // EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
 var GridHeader = __webpack_require__("H6TX");
@@ -338,6 +360,7 @@ var GridHeader = __webpack_require__("H6TX");
 var DashboardDeviceItem = __webpack_require__("Nisz");
 
 // CONCATENATED MODULE: ./src/components/dashboard/DashboardDeviceGroup.tsx
+
 
 
 
@@ -358,9 +381,13 @@ function DeviceGroup(props) {
     };
   };
 
-  return /*#__PURE__*/react_default.a.createElement("section", null, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  var sectionId = Object(react_use_id_hook_esm["b" /* useId */])();
+  if (!action && !children) return null;
+  return /*#__PURE__*/react_default.a.createElement("section", {
+    id: sectionId
+  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
-    spacing: 2
+    spacing: 1
   }, /*#__PURE__*/react_default.a.createElement(GridHeader["a" /* default */], {
     title: title,
     action: action
@@ -399,13 +426,14 @@ var ConnectButtons = __webpack_require__("j06+");
 
 
 
+
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
 
 
 
 
-function deviceSort(l, r) {
+function defaultDeviceSort(l, r) {
   var srvScore = function srvScore(srv) {
     return srv.packets.reduce(function (prev, pkt) {
       return prev + (Object(spec["r" /* isReading */])(pkt) ? 10 : Object(spec["w" /* isValueOrIntensity */])(pkt) ? 1 : 0);
@@ -430,10 +458,20 @@ function deviceSort(l, r) {
   }));
   if (ls !== rs) return -ls + rs;
   return Object(utils["P" /* strcmp */])(l.deviceId, r.deviceId);
+} // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
+function defaultDeviceFilter(d) {
+  return true;
 }
 
 function Dashboard(props) {
-  var other = Object.assign({}, props);
+  var showConnect = props.showConnect,
+      _props$deviceSort = props.deviceSort,
+      deviceSort = _props$deviceSort === void 0 ? defaultDeviceSort : _props$deviceSort,
+      _props$deviceFilter = props.deviceFilter,
+      deviceFilter = _props$deviceFilter === void 0 ? defaultDeviceFilter : _props$deviceFilter,
+      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["showConnect", "deviceSort", "deviceFilter"]);
 
   var _useContext = Object(react["useContext"])(Context["a" /* default */]),
       bus = _useContext.bus;
@@ -444,7 +482,7 @@ function Dashboard(props) {
   var devices = Object(useDevices["a" /* default */])({
     announced: true,
     ignoreSelf: true
-  }).sort(deviceSort);
+  }).filter(deviceFilter).sort(deviceSort);
   var theme = Object(useTheme["a" /* default */])();
   var mobile = Object(useMediaQuery["a" /* default */])(theme.breakpoints.down(layout["c" /* MOBILE_BREAKPOINT */]));
 
@@ -478,26 +516,17 @@ function Dashboard(props) {
     toggleExpanded: toggleSelected
   }, other)), /*#__PURE__*/react_default.a.createElement(DeviceGroup, Object.assign({
     title: "Devices",
-    action: /*#__PURE__*/react_default.a.createElement(ConnectButtons["a" /* default */], {
+    action: showConnect && /*#__PURE__*/react_default.a.createElement(ConnectButtons["a" /* default */], {
       full: false,
       transparent: true
     }),
     devices: physicals,
     expanded: selected,
     toggleExpanded: toggleSelected
-  }, other), !physicals.length && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  }, other), showConnect && !physicals.length && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12
   }, /*#__PURE__*/react_default.a.createElement(ConnectAlert["a" /* default */], null))));
-}
-// CONCATENATED MODULE: ./src/pages/dashboard.tsx
-
-
-function Page() {
-  return /*#__PURE__*/react_default.a.createElement(Dashboard, {
-    showAvatar: true,
-    showHeader: true
-  });
 }
 
 /***/ }),
@@ -530,4 +559,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-dashboard-tsx-74f334f185001183c45e.js.map
+//# sourceMappingURL=component---src-pages-dashboard-tsx-1c18e0f479370e3490dc.js.map
