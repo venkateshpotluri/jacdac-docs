@@ -4263,6 +4263,12 @@ var _hosts = [{
     })];
   }
 }, {
+  name: "Arcade controller (6 x buttons)",
+  serviceClasses: [constants["Bd" /* SRV_BUTTON */]],
+  services: function services() {
+    return [new buttonservicehost_ButtonServiceHost("Left"), new buttonservicehost_ButtonServiceHost("Up"), new buttonservicehost_ButtonServiceHost("Right"), new buttonservicehost_ButtonServiceHost("Down"), new buttonservicehost_ButtonServiceHost("A"), new buttonservicehost_ButtonServiceHost("B")];
+  }
+}, {
   name: "micro:bit v2",
   serviceClasses: [constants["Rd" /* SRV_LED_MATRIX */], constants["Bd" /* SRV_BUTTON */], constants["vd" /* SRV_ACCELEROMETER */], constants["qe" /* SRV_SOUND_LEVEL */], constants["Td" /* SRV_LIGHT_LEVEL */], constants["Cd" /* SRV_BUZZER */], constants["re" /* SRV_SOUND_PLAYER */]],
   services: function services() {
@@ -4291,4 +4297,4 @@ function hostDefinitionFromServiceClass(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=e577ed790312093c60d6f42a2eefa9c8fa2c70c1-32de081b7936de64cba7.js.map
+//# sourceMappingURL=e577ed790312093c60d6f42a2eefa9c8fa2c70c1-fe49dac2c1a65bd38289.js.map

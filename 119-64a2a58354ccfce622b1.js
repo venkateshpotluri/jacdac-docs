@@ -21,6 +21,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("W1g9");
 /* harmony import */ var _hooks_useSvgButtonProps__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("jwKE");
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("Zo1I");
+/* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("aVfY");
+
 
 
 
@@ -103,6 +105,7 @@ function DashbaordRainGauge(props) {
   var sw = 1;
   var ty = h - 4;
   var fs = 8;
+  if (tiltAngle === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
     width: w,
     height: h
@@ -155,4 +158,4 @@ function DashbaordRainGauge(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=119-d7948030334f8a75d081.js.map
+//# sourceMappingURL=119-64a2a58354ccfce622b1.js.map

@@ -40,7 +40,7 @@ function DashboardAnalogButton(props) {
       activeThreshold = _useRegisterUnpackedV2[0]; //const [buttonVariant] = useRegisterUnpackedValue<[AnalogButtonVariant]>(service.register(AnalogButtonReg.Variant));
 
 
-  var widgetSize = "clamp(3rem, 10vw, 20vw)";
+  var widgetSize = "clamp(3rem, 10vw, 16vw)";
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(service);
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
@@ -144,4 +144,4 @@ function DashboardAnalogButton(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=110-ea986ec48c0dad94d2e9.js.map
+//# sourceMappingURL=110-576922e9c5359f0f3814.js.map
