@@ -384,6 +384,12 @@ var secondaryUnitConverters = {
     scale: 1 / 3600,
     offset: 0
   },
+  "cm/s": {
+    name: "centimeter per seconds",
+    unit: "m/s",
+    scale: 1 / 100,
+    offset: 0
+  },
   ppm: {
     name: "parts per million",
     unit: "/",
@@ -1895,4 +1901,4 @@ function isNumericType(field) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-29a550fc33be9c9619bc.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-0e98c7bfd1771f70ea24.js.map

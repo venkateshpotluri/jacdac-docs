@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-2d842b11b92be99a8fd7.js"
+    "url": "webpack-runtime-8fba5fe20d04f2fbb317.js"
   },
   {
     "url": "framework-c0143a60828cff4b65c7.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "5ee0967d0f835142016433967c60b7bf"
+    "revision": "fa5c851c59288dfdcef412e23eec928a"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,15 +60,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "b7e3b7068638e4f766abfd7b8420dad0"
+    "revision": "6a46285b2b4b8c1eb92170e744e7d76e"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "359b186db8e03c1103c417cd21e97391"
+    "revision": "10e937f8a884521d1acda4739399313c"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "1270c2352c86eee7c2fabe091b835226"
+    "revision": "7d04b78aec812a365a8e4379c55e4b48"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "080aa2f4e530ed036a323a902dd4c47a"
+    "revision": "2af0f1f5e7fd81565265f8b3a5c57058"
   },
   {
     "url": "polyfill-4d20de916cfd43037bf4.js"
@@ -121,7 +121,7 @@ self.__precacheManifest = [
     "url": "a7fde601a2cae358984fcd1b193ded45e0dc63d7-fcbaaefbf7a5d3aaa34b.js"
   },
   {
-    "url": "74493c31a6571423b4de02ce9ddf127887738210-29a550fc33be9c9619bc.js"
+    "url": "74493c31a6571423b4de02ce9ddf127887738210-0e98c7bfd1771f70ea24.js"
   },
   {
     "url": "e577ed790312093c60d6f42a2eefa9c8fa2c70c1-ded960f732ab99e88bfc.js"
@@ -442,6 +442,10 @@ self.__precacheManifest = [
   {
     "url": "page-data/services/rotaryencoder/page-data.json",
     "revision": "f112aa82bc6ce3dbb458cc16852d0097"
+  },
+  {
+    "url": "page-data/services/rover/page-data.json",
+    "revision": "614ffe902450035a6940b495d490b2f3"
   },
   {
     "url": "page-data/services/sensoraggregator/page-data.json",
@@ -790,7 +794,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-144d2335741d50ae4bba.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-c910abb9cb459b816557.js`))) {
     return await fetch(event.request)
   }
 

@@ -4053,6 +4053,61 @@
   },
   {
     "@type": "Interface",
+    "@id": "dtmi:jacdac:services:x0;1",
+    "displayName": "Rover",
+    "description": "A roving robot.\n\n\tidentifier: 0x19f4d06b\n\textends: _sensor",
+    "contents": [
+      {
+        "@type": "Telemetry",
+        "name": "kinematics",
+        "@id": "dtmi:jacdac:x0:ro:kinematics;1",
+        "description": "The current position and orientation of the robot.",
+        "schema": {
+          "@type": "Object",
+          "fields": [
+            {
+              "name": "x",
+              "schema": "float"
+            },
+            {
+              "name": "y",
+              "schema": "float"
+            },
+            {
+              "name": "vx",
+              "schema": "float"
+            },
+            {
+              "name": "vy",
+              "schema": "float"
+            },
+            {
+              "name": "heading",
+              "schema": "float"
+            }
+          ]
+        }
+      }
+    ],
+    "extends": [
+      "dtmi:jacdac:services:x1ffffff3;1"
+    ],
+    "schemas": [
+      {
+        "@id": "dtmi:jacdac:x0:event;1",
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "count",
+            "schema": "integer"
+          }
+        ]
+      }
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  },
+  {
+    "@type": "Interface",
     "@id": "dtmi:jacdac:services:x1d90e1c5;1",
     "displayName": "Sensor Aggregator",
     "description": "Aggregate data from multiple sensors into a single stream\n(often used as input to machine learning models on the same device, see model runner service).",
