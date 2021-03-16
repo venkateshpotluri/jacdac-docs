@@ -379,7 +379,7 @@ var jdom_spec = __webpack_require__("Z8Ma");
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__("kdz+");
 
-// EXTERNAL MODULE: ./src/components/ui/HighlightTextField.tsx
+// EXTERNAL MODULE: ./src/components/ui/HighlightTextField.tsx + 1 modules
 var HighlightTextField = __webpack_require__("lhji");
 
 // EXTERNAL MODULE: ./src/components/ServiceSpecificationSelect.tsx
@@ -782,25 +782,303 @@ function ServiceTest(props) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HighlightTextField; });
-/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rePB");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var prism_react_renderer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("3Mpw");
-/* harmony import */ var prism_react_renderer_themes_github__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nY9v");
-/* harmony import */ var prism_react_renderer_themes_vsDark__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("SoeO");
-/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("geQJ");
-/* harmony import */ var use_editable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("kWdF");
-/* harmony import */ var _material_ui_lab__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("ZiQX");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("H2TA");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("csfp");
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("tRbT");
-/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("OXkz");
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ HighlightTextField; });
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__("rePB");
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("q1tI");
+var react_default = /*#__PURE__*/__webpack_require__.n(react);
+
+// EXTERNAL MODULE: ./node_modules/prism-react-renderer/dist/index.js + 2 modules
+var dist = __webpack_require__("3Mpw");
+
+// EXTERNAL MODULE: ./node_modules/prism-react-renderer/themes/github/index.js
+var github = __webpack_require__("nY9v");
+
+// EXTERNAL MODULE: ./node_modules/prism-react-renderer/themes/vsDark/index.js
+var vsDark = __webpack_require__("SoeO");
+
+// EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
+var DarkModeContext = __webpack_require__("geQJ");
+
+// CONCATENATED MODULE: ./node_modules/use-editable/dist/use-editable.es.js
+
+var m = {
+  characterData: !0,
+  characterDataOldValue: !0,
+  childList: !0,
+  subtree: !0
+};
+
+function p(a) {
+  a = [a.firstChild];
+
+  for (var d, c = ""; d = a.pop();) {
+    d.nodeType === Node.TEXT_NODE ? c += d.textContent : d.nodeType === Node.ELEMENT_NODE && "BR" === d.nodeName && (c += "\n"), d.nextSibling && a.push(d.nextSibling), d.firstChild && a.push(d.firstChild);
+  }
+
+  "\n" !== c[c.length - 1] && (c += "\n");
+  return c;
+}
+
+function r(a) {
+  var c = window.getSelection();
+  a = [a.firstChild];
+  var d = c.focusNode;
+  c = c.focusOffset;
+  d && d.nodeType !== Node.TEXT_NODE && (c <= d.childNodes.length - 1 && (d = d.childNodes[c]), c = 0);
+
+  for (var h, k = 0, l = 0, g = ""; h = a.pop();) {
+    if (h.nodeType === Node.TEXT_NODE) {
+      var e = h.textContent;
+      h === d && (e = e.slice(0, c));
+      k += e.length;
+      g += e;
+
+      for (var f, n = /\n/g; f = n.exec(e);) {
+        g = e.slice(f.index + 1), l++;
+      }
+
+      if (h === d) {
+        break;
+      }
+    } else {
+      h.nodeType === Node.ELEMENT_NODE && "BR" === h.nodeName && (g = "", l++, k++);
+    }
+
+    h.nextSibling && h !== d && a.push(h.nextSibling);
+    h.firstChild && a.push(h.firstChild);
+  }
+
+  return {
+    position: k,
+    content: g,
+    line: l
+  };
+}
+
+function t(a, c) {
+  for (var d = window.getSelection(), k = document.createRange(), l = [a.firstChild], g = 0; a = l.pop();) {
+    if (a.nodeType === Node.TEXT_NODE) {
+      var h = a.textContent.length;
+
+      if (g + h >= c) {
+        (c -= g) === h ? k.setStartAfter(a) : k.setStart(a, c);
+        break;
+      }
+
+      g += a.textContent.length;
+    } else if (a.nodeType === Node.ELEMENT_NODE && "BR" === a.nodeName) {
+      if (g + 1 >= c) {
+        k.setStartAfter(a);
+        break;
+      }
+
+      g++;
+    }
+
+    a.nextSibling && l.push(a.nextSibling);
+    a.firstChild && l.push(a.firstChild);
+  }
+
+  d.empty();
+  d.addRange(k);
+}
+
+function B(a) {
+  var c = window.getSelection(),
+      d = window.getSelection().getRangeAt(0);
+  a = document.createTextNode(a);
+  c.getRangeAt(0).deleteContents();
+  d.insertNode(a);
+  (d = document.createRange()).setStartAfter(a);
+  c.empty();
+  c.addRange(d);
+}
+
+function useEditable(a, c, d) {
+  function k() {
+    e[0].disconnect();
+  }
+
+  function l() {
+    e[0].disconnect();
+    e[1] = !0;
+  }
+
+  function g() {
+    e[6] = -1;
+  }
+
+  d || (d = {});
+  var h = Object(react["useState"])([])[1],
+      e = Object(react["useState"])(function () {
+    var a = [null, !1, c, [], [], -1, -1];
+    "undefined" != typeof MutationObserver && (a[0] = new MutationObserver(function e(e) {
+      var d;
+      (d = a[3]).push.apply(d, e);
+    }));
+    return a;
+  })[0],
+      n = Object(react["useCallback"])(function (d) {
+    var f = a.current;
+
+    if (f) {
+      var c = r(f);
+      f = p(f);
+      e[6] = c.position + (d.length - f.length);
+      e[2](d, c);
+    }
+  }, []);
+
+  if ("object" != typeof navigator) {
+    return n;
+  }
+
+  Object(react["useLayoutEffect"])(function () {
+    e[2] = c;
+
+    if (a.current && !d.disabled) {
+      return e[1] = !1, e[0].observe(a.current, m), 0 <= e[6] && t(a.current, e[6]), k;
+    }
+  });
+  Object(react["useLayoutEffect"])(function () {
+    if (!a.current || d.disabled) {
+      e[4].length = 0, e[5] = -1;
+    } else {
+      var f = a.current;
+      -1 < e[6] && (f.focus(), t(f, e[6]));
+      var c = f.style.whiteSpace,
+          k = f.contentEditable,
+          u = !0;
+
+      try {
+        f.contentEditable = "plaintext-only";
+      } catch (b) {
+        f.contentEditable = "true", u = !1;
+      }
+
+      "pre" !== c && (f.style.whiteSpace = "pre-wrap");
+      d.indentation && (f.style.tabSize = f.style.MozTabSize = "" + d.indentation);
+
+      var v,
+          C = new RegExp("^(?:" + " ".repeat(d.indentation || 0) + "|\\t)"),
+          q = function q(b) {
+        if (a.current && -1 !== e[6]) {
+          var d = e[4],
+              c = p(f),
+              h = r(f),
+              g = new Date().valueOf(),
+              k = d[e[5]];
+          !b && 500 > g - v || k && k[1] === c ? v = g : (d[b = ++e[5]] = [h, c], d.splice(b + 1), 500 < b && (e[5]--, d.shift()));
+        }
+      },
+          w = function w() {
+        var b;
+        (b = e[3]).push.apply(b, e[0].takeRecords());
+
+        if (e[3].length) {
+          l();
+          b = p(f);
+          var d = r(f);
+          e[6] = d.position;
+
+          for (var a, c; a = e[3].pop();) {
+            null !== a.oldValue && (a.target.textContent = a.oldValue);
+
+            for (c = a.removedNodes.length - 1; 0 <= c; c--) {
+              a.target.insertBefore(a.removedNodes[c], a.nextSibling);
+            }
+
+            for (c = a.addedNodes.length - 1; 0 <= c; c--) {
+              a.addedNodes[c].parentNode && a.target.removeChild(a.addedNodes[c]);
+            }
+          }
+
+          e[2](b, d);
+        }
+      },
+          x = function x(b) {
+        if (!b.defaultPrevented && b.target === f) {
+          if (e[1]) {
+            return b.preventDefault(), h([]);
+          }
+
+          if ((b.metaKey || b.ctrlKey) && "KeyZ" === b.code) {
+            b.preventDefault(), b.shiftKey ? (b = ++e[5], (b = e[4][b]) || (e[5] = e[4].length - 1)) : (b = --e[5], (b = e[4][b]) || (e[5] = 0)), b && (l(), e[6] = b[0].position, e[2](b[1], b[0]));
+          } else if (q(), "Enter" === b.key) {
+            b.preventDefault();
+            b = r(f);
+            var a = /\S/g.exec(b.content);
+            B(b = "\n" + b.content.slice(0, a ? a.index : b.content.length));
+          } else if (!u && "Backspace" === b.key) {
+            b.preventDefault(), (b = window.getSelection().getRangeAt(0)).startContainer !== b.endContainer || b.startOffset !== b.endOffset ? b.deleteContents() : (l(), b = r(f), b = Math.max(0, b.position - 1), a = p(f), n(a.slice(0, b) + a.slice(b + 1)));
+          } else if (d.indentation && "Tab" === b.key) {
+            b.preventDefault();
+            var c = (a = r(f)).position - a.content.length,
+                g = p(f);
+            b = b.shiftKey ? g.slice(0, c) + a.content.replace(C, "") + g.slice(c + a.content.length) : g.slice(0, c) + "\t" + g.slice(c);
+            n(b);
+          }
+        }
+      },
+          y = function y(a) {
+        a.defaultPrevented || a.isComposing || ((a.metaKey || a.ctrlKey) && "KeyZ" === a.code || q(), w(), f.focus());
+      },
+          z = function z() {
+        e[6] = r(f).position;
+      },
+          A = function A(a) {
+        a.preventDefault();
+        q(!0);
+        B(a.clipboardData.getData("text/plain"));
+        q(!0);
+        w();
+      };
+
+      window.addEventListener("keydown", x);
+      f.addEventListener("focus", z);
+      f.addEventListener("blur", g);
+      f.addEventListener("paste", A);
+      f.addEventListener("keyup", y);
+      return function () {
+        window.removeEventListener("keydown", x);
+        f.removeEventListener("focus", z);
+        f.removeEventListener("blur", g);
+        f.removeEventListener("paste", A);
+        f.removeEventListener("keyup", y);
+        f.style.whiteSpace = c;
+        f.contentEditable = k;
+      };
+    }
+  }, [a.current, d.disabled, d.indentation]);
+  return n;
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
+var Alert = __webpack_require__("ZiQX");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/withStyles.js
+var withStyles = __webpack_require__("H2TA");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
+var Tooltip = __webpack_require__("csfp");
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__("tRbT");
+
+// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
+var Suspense = __webpack_require__("OXkz");
+
+// CONCATENATED MODULE: ./src/components/ui/HighlightTextField.tsx
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
@@ -816,10 +1094,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-var GithubPullRequestButton = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["lazy"])(function () {
+var GithubPullRequestButton = /*#__PURE__*/Object(react["lazy"])(function () {
   return Promise.all(/* import() */[__webpack_require__.e(14), __webpack_require__.e(89)]).then(__webpack_require__.bind(null, "ha5o"));
 });
-var AnnotationTooltip = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"])(function (theme) {
+var AnnotationTooltip = Object(withStyles["a" /* default */])(function (theme) {
   return {
     arrow: {
       color: theme.palette.error.main
@@ -831,7 +1109,7 @@ var AnnotationTooltip = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/*
       fontSize: theme.typography.body2.fontSize
     }
   };
-})(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]);
+})(Tooltip["a" /* default */]);
 function HighlightTextField(props) {
   var _ref2;
 
@@ -843,23 +1121,23 @@ function HighlightTextField(props) {
       pullRequestPath = props.pullRequestPath,
       pullRequestDescription = props.pullRequestDescription;
 
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_DarkModeContext__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]),
+  var _useContext = Object(react["useContext"])(DarkModeContext["a" /* default */]),
       darkMode = _useContext.darkMode;
 
-  var theme = darkMode === "dark" ? prism_react_renderer_themes_vsDark__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"] : prism_react_renderer_themes_github__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"];
-  var editorRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
-  Object(use_editable__WEBPACK_IMPORTED_MODULE_6__[/* useEditable */ "a"])(editorRef, onChange, {
+  var theme = darkMode === "dark" ? vsDark["a" /* default */] : github["a" /* default */];
+  var editorRef = Object(react["useRef"])(null);
+  useEditable(editorRef, onChange, {
     disabled: false,
     indentation: 4
   });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     spacing: 1,
     direction: "row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(prism_react_renderer__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], Object.assign({}, prism_react_renderer__WEBPACK_IMPORTED_MODULE_2__[/* defaultProps */ "b"], {
+  }, /*#__PURE__*/react_default.a.createElement(dist["a" /* default */], Object.assign({}, dist["b" /* defaultProps */], {
     code: code,
     language: language,
     theme: theme
@@ -868,7 +1146,7 @@ function HighlightTextField(props) {
         style = _ref.style,
         tokens = _ref.tokens,
         getTokenProps = _ref.getTokenProps;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("pre", {
+    return /*#__PURE__*/react_default.a.createElement("pre", {
       ref: editorRef,
       className: className,
       spellCheck: false,
@@ -881,7 +1159,7 @@ function HighlightTextField(props) {
         return a.line === i + 1;
       });
       var title = annotation === null || annotation === void 0 ? void 0 : annotation.message;
-      var el = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+      var el = /*#__PURE__*/react_default.a.createElement("span", {
         key: i,
         style: annotation && {
           borderBottom: "dashed 1px red"
@@ -889,29 +1167,29 @@ function HighlightTextField(props) {
       }, line.filter(function (token) {
         return !token.empty;
       }).map(function (token, key) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", getTokenProps({
+        return /*#__PURE__*/react_default.a.createElement("span", getTokenProps({
           token: token,
           key: key
         }));
       }), i < tokens.length - 1 ? "\n" : null);
-      return title ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AnnotationTooltip, {
+      return title ? /*#__PURE__*/react_default.a.createElement(AnnotationTooltip, {
         title: title,
         arrow: true,
         key: i
       }, el) : el;
     }));
-  })), !!(annotations !== null && annotations !== void 0 && annotations.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  })), !!(annotations !== null && annotations !== void 0 && annotations.length) && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+  }, /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
     severity: "error"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, annotations.map(function (a, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
+  }, /*#__PURE__*/react_default.a.createElement("ul", null, annotations.map(function (a, i) {
+    return /*#__PURE__*/react_default.a.createElement("li", {
       key: i
     }, "line ", a.line, ": ", a.message);
-  })))), pullRequestTitle && pullRequestPath && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  })))), pullRequestTitle && pullRequestPath && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(GithubPullRequestButton, {
+  }, /*#__PURE__*/react_default.a.createElement(Suspense["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(GithubPullRequestButton, {
     title: pullRequestTitle,
     head: pullRequestPath,
     description: pullRequestDescription,
@@ -1737,4 +2015,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-e5be0bd80df99392dda7.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-7c7c989171788fd5cbdb.js.map
