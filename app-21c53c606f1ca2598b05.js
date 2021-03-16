@@ -41949,7 +41949,7 @@ var FlashClient = /*#__PURE__*/function () {
                 break;
               }
 
-              log("page " + (pageAddr & 0xffffff) + " done, " + BL_RETRIES + " retries");
+              log("page " + (pageAddr & 0xffffff) + " done, " + i + "/" + BL_RETRIES + " retries");
               return _context5.abrupt("return");
 
             case 45:
@@ -48344,4 +48344,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-0fc652b2c7bc4456c56c.js.map
+//# sourceMappingURL=app-21c53c606f1ca2598b05.js.map
