@@ -246,16 +246,16 @@ function MDXContent(_ref) {
   }), " ", "support for rendering makecode snippets")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-blocks"
-  }, "{\"source\":\"let x = 0;\",\"rendered\":{\"url\":\"/images/makecode/20e9a2f5a80419b22bba41b4e4b8fec4.png\",\"width\":244.8046875,\"height\":128}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
+  }, "{\"source\":\"let x = 0;\",\"rendered\":{\"url\":\"/images/makecode/0478444cca345c7c9453691859fdf392.png\",\"width\":244.8046875,\"height\":128}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-blocks"
-  }, "{\"source\":\"let y = 0\",\"rendered\":{\"url\":\"/images/makecode/44c57febc8ae3b945d29c7c94ad605b7.png\",\"width\":244.8046875,\"height\":128}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
+  }, "{\"source\":\"let y = 0\",\"rendered\":{\"url\":\"/images/makecode/8a50a52c3949e66c87a9936609e9ed37.png\",\"width\":244.8046875,\"height\":128}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-blocks"
-  }, "{\"source\":\"modules.accelerometer.onEvent(jacdac.AccelerometerEvent.TiltUp, function () {\\n\\t\\n})\",\"rendered\":{\"url\":\"/images/makecode/8f327ad458153263aa047cd649f1c375.png\",\"width\":823.3203125,\"height\":208}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
+  }, "{\"source\":\"modules.accelerometer.onEvent(jacdac.AccelerometerEvent.TiltUp, function () {\\n\\t\\n})\",\"rendered\":{\"url\":\"/images/makecode/54369921728cbdc43e8dacf08062cb6b.png\",\"width\":823.3203125,\"height\":208}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-blocks"
-  }, "{\"source\":\"---\\n\\n---\\nnamespace myModules {\\n    //% fixedInstance block=\\\"foot\\\"\\n    export const foot = new modules.AccelerometerClient(\\\"foot\\\");\\n}\\n---\\nmyModules.foot.onEvent(jacdac.AccelerometerEvent.TiltUp, function() {\\n    \\n})\",\"rendered\":{\"url\":\"/images/makecode/71c6f1fd787e19bd51daf2f755a9b445.png\",\"width\":746.5078125,\"height\":512}}\n")));
+  }, "{\"source\":\"---\\n\\n---\\nnamespace myModules {\\n    //% fixedInstance block=\\\"foot\\\"\\n    export const foot = new modules.AccelerometerClient(\\\"foot\\\");\\n}\\n---\\nmyModules.foot.onEvent(jacdac.AccelerometerEvent.TiltUp, function() {\\n    \\n})\",\"rendered\":{\"url\":\"/images/makecode/b950fa5b2217837988846a2e4fd0819c.png\",\"width\":746.5078125,\"height\":512}}\n")));
 }
 ;
 MDXContent.isMDXComponent = true;
@@ -281,4 +281,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-mdx-58702c71bedd3d2c7e33.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-mdx-b22a79b998ce7e782f68.js.map

@@ -193,6 +193,7 @@ function DashboardServiceWidgetItem(props) {
   }, /*#__PURE__*/react_default.a.createElement(ServiceRole, {
     service: service
   }), instanceName && /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    className: "no-pointer-events",
     variant: "caption",
     component: "span",
     style: {
@@ -1171,4 +1172,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-289546c0415cc8b3b59a.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-ada758c11ef6497bd795.js.map

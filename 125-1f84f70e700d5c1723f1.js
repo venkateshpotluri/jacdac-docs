@@ -61,9 +61,10 @@ function DashboardSoilMoisture(props) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     container: true,
-    direction: "row"
+    spacing: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    item: true
+    item: true,
+    xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     width: w,
     height: h,
@@ -91,9 +92,9 @@ function DashboardSoilMoisture(props) {
     fontSize: "1.058",
     strokeWidth: ".026"
   }, textProps), tvalue))), host && hasValue && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    item: true
+    item: true,
+    xs: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
-    orientation: "vertical",
     valueLabelDisplay: "off",
     min: 0,
     max: 1,
@@ -107,4 +108,4 @@ function DashboardSoilMoisture(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=125-a56e36b7a1251141b210.js.map
+//# sourceMappingURL=125-1f84f70e700d5c1723f1.js.map

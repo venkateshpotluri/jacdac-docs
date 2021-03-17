@@ -63,9 +63,10 @@ function DashbaordWaterLevel(props) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     container: true,
-    direction: "row"
+    spacing: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    item: true
+    item: true,
+    xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
     width: w,
     height: h,
@@ -98,9 +99,9 @@ function DashbaordWaterLevel(props) {
     x: w >> 1,
     y: mty >> 1
   }, textProps), tvalue))), host && hasValue && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    item: true
+    item: true,
+    xs: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    orientation: "vertical",
     valueLabelDisplay: "off",
     min: 0,
     max: 1,
@@ -114,4 +115,4 @@ function DashbaordWaterLevel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=129-36e934531325486a9c3a.js.map
+//# sourceMappingURL=129-fc3e6e132c30530e5358.js.map

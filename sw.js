@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-d62554a5cbf21f5d0c84.js"
+    "url": "webpack-runtime-66ae5280d08c5c325709.js"
   },
   {
     "url": "framework-c0143a60828cff4b65c7.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "75a24eeabddf4e23af3bb5d952628a74"
+    "revision": "8fa8cc0fac95dc2c881740ba453bf4ae"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,15 +60,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "bdffa1d5836031e55f315c882d122ad6"
+    "revision": "0cd8b098ea8bc143078bad5b1f75cf3e"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "8354193822b6563805fa1522749e95ab"
+    "revision": "2df8aace23ea78ca763f43f21e6b377e"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "a473f08a2efdd3180cf807ac4862b0e6"
+    "revision": "d34d935a74a2f568254e082fef1b5d66"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "ee4a69f01813f930ebc90cc08cc21c0e"
+    "revision": "5681e0770e7383458b9c7147b287aef9"
   },
   {
     "url": "polyfill-4d20de916cfd43037bf4.js"
@@ -136,7 +136,7 @@ self.__precacheManifest = [
     "url": "bc1de39814113fdab2fbefae2ee854f0842f6be1-b551ba75c518bfba9eb4.js"
   },
   {
-    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-289546c0415cc8b3b59a.js"
+    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-ada758c11ef6497bd795.js"
   },
   {
     "url": "component---src-pages-dashboard-tsx-1c18e0f479370e3490dc.js"
@@ -607,7 +607,7 @@ self.__precacheManifest = [
     "revision": "33c002dadc02f97189dcfdbb9d6a4154"
   },
   {
-    "url": "component---src-pages-tools-makecode-mdx-58702c71bedd3d2c7e33.js"
+    "url": "component---src-pages-tools-makecode-mdx-b22a79b998ce7e782f68.js"
   },
   {
     "url": "page-data/tools/makecode/page-data.json",
