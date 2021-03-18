@@ -306,7 +306,7 @@ function PacketListItem(props) {
   var handleClick = function handleClick() {
     if (mobile) setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_11__[/* DrawerType */ "b"].None);
     setSelectedPacket(packet);
-    Object(gatsby__WEBPACK_IMPORTED_MODULE_17__["navigate"])('/tools/packet-inspector/');
+    Object(gatsby__WEBPACK_IMPORTED_MODULE_17__["navigate"])("/tools/packet-inspector/");
   };
 
   var selected = packet === selectedPacket;
@@ -315,7 +315,7 @@ function PacketListItem(props) {
   var primary = packet.isCRCAck && "crc ack " + packet.friendlyCommandName || packet.isAnnounce && "announce from " + packet.friendlyDeviceName || pipePackets && "pipe port:" + packet.pipePort + " " + pipePackets.length + " packets" || logMessage && Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_16__[/* jdunpack */ "c"])(packet.data, "s")[0] || ((decoded === null || decoded === void 0 ? void 0 : decoded.info.name) || packet.friendlyCommandName) + " " + (decoded ? Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_15__[/* ellipseJoin */ "s"])(decoded.decoded.map(function (f) {
     return f.humanValue;
   }), 18) : "");
-  var secondary = "" + (showTime ? Object(_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_14__[/* prettyDuration */ "d"])(packet.timestamp) + ": " : "") + (packet.isCommand ? 'to' : 'from') + " " + packet.friendlyDeviceName + "/" + packet.friendlyServiceName;
+  var secondary = "" + (showTime ? Object(_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_14__[/* prettyDuration */ "d"])(packet.timestamp) + ": " : "") + (packet.isCommand ? "to" : "from") + " " + packet.friendlyDeviceName + "/" + packet.friendlyServiceName;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     button: true,
     className: classes.item,
@@ -897,14 +897,14 @@ function PacketHeaderLayout(props) {
   }, {
     offset: 13,
     size: 1,
-    name: 'service_number',
+    name: "service_number",
     know: (_know = {}, _know[constants["Jb" /* JD_SERVICE_INDEX_PIPE */].toString(16)] = "pipe", _know[constants["Fb" /* JD_SERVICE_INDEX_CRC_ACK */].toString(16)] = "crc ack", _know),
     description: "A number that specifies an operation and code combination."
   }, {
     offset: 14,
     size: 2,
-    name: 'service_command',
-    description: 'Identifier for the command'
+    name: "service_command",
+    description: "Identifier for the command"
   }];
   var flags = [{
     position: 1,
@@ -984,7 +984,7 @@ function PacketDataLayout(props) {
   }, /*#__PURE__*/react_default.a.createElement(TableHead["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(TableRow["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(TableCell["a" /* default */], null, "name"), /*#__PURE__*/react_default.a.createElement(TableCell["a" /* default */], null, "value"))), /*#__PURE__*/react_default.a.createElement(TableBody["a" /* default */], null, decoded.decoded.map(function (member, i) {
     return /*#__PURE__*/react_default.a.createElement(TableRow["a" /* default */], {
       key: i
-    }, /*#__PURE__*/react_default.a.createElement(TableCell["a" /* default */], null, member.info.name == '_' ? info.name : member.info.name), /*#__PURE__*/react_default.a.createElement(TableCell["a" /* default */], null, /*#__PURE__*/react_default.a.createElement("code", null, member.humanValue)));
+    }, /*#__PURE__*/react_default.a.createElement(TableCell["a" /* default */], null, member.info.name == "_" ? info.name : member.info.name), /*#__PURE__*/react_default.a.createElement(TableCell["a" /* default */], null, /*#__PURE__*/react_default.a.createElement("code", null, member.humanValue)));
   }))))));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/List/List.js
@@ -1190,4 +1190,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-40579ddb57893bcc006e.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-235c0fa57e9117a970d5.js.map

@@ -456,9 +456,9 @@ var useStyles = Object(makeStyles["a" /* default */])({
     minWidth: 275
   },
   bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)'
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
   },
   title: {
     fontSize: 14
@@ -508,12 +508,12 @@ function ServiceCard(props) {
     variant: "body2",
     component: "div"
   }, hasRegisterIdentifiers && /*#__PURE__*/react_default.a.createElement(ServiceRegisters, {
-    key: 'reg' + service.id,
+    key: "reg" + service.id,
     service: service,
     showRegisterName: showMemberName,
     registerIdentifiers: registerIdentifiers
   }), hasEventIdentifiers && /*#__PURE__*/react_default.a.createElement(ServiceEvents, {
-    key: 'ev' + service.id,
+    key: "ev" + service.id,
     service: service,
     showEventName: showMemberName,
     eventIdentifiers: eventIdentifiers
@@ -1547,4 +1547,4 @@ function DeviceCard(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-bf4055f622a9e207492b.js.map
+//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-746d75c944428f7741d5.js.map
