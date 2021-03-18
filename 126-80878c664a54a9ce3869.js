@@ -183,7 +183,8 @@ var LoadingProgress = __webpack_require__("aVfY");
 
 function HostMicrophoneButton(props) {
   var host = props.host,
-      service = props.service;
+      service = props.service,
+      visible = props.visible;
   var enabledRegister = service.register(constants["Qe" /* SoundLevelReg */].Enabled);
   var enabled = Object(useRegisterValue["a" /* useRegisterBoolValue */])(enabledRegister, props);
 
@@ -237,14 +238,14 @@ function HostMicrophoneButton(props) {
 
 
   Object(react["useEffect"])(function () {
-    return host === null || host === void 0 ? void 0 : host.subscribe(constants["Jc" /* REFRESH */], function () {
+    return visible && (host === null || host === void 0 ? void 0 : host.subscribe(constants["Jc" /* REFRESH */], function () {
       var v = volume === null || volume === void 0 ? void 0 : volume();
 
       if (v !== undefined) {
         host.reading.setValues([v]);
       }
-    });
-  }, [host, volume]);
+    }));
+  }, [host, volume, visible]);
   return /*#__PURE__*/react_default.a.createElement(IconButtonWithProgress["a" /* default */], {
     "aria-label": title,
     title: title,
@@ -258,7 +259,7 @@ function DashboardSoundLevel(props) {
       service = props.service;
   var soundLevelRegister = service.register(constants["Qe" /* SoundLevelReg */].SoundLevel);
 
-  var _useRegisterUnpackedV3 = Object(useRegisterValue["e" /* useRegisterUnpackedValue */])(soundLevelRegister),
+  var _useRegisterUnpackedV3 = Object(useRegisterValue["e" /* useRegisterUnpackedValue */])(soundLevelRegister, props),
       soundLevel = _useRegisterUnpackedV3[0];
 
   var host = Object(useServiceHost["a" /* default */])(service);
@@ -311,4 +312,4 @@ function DashboardSoundLevel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=126-ec1757ea057b2441058e.js.map
+//# sourceMappingURL=126-80878c664a54a9ce3869.js.map

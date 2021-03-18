@@ -81,7 +81,8 @@ var useWidgetTheme = __webpack_require__("Lml+");
 
 function BytesBarGraphWidget(props) {
   var register = props.register,
-      size = props.size;
+      size = props.size,
+      visible = props.visible;
   var host = Object(useServiceHost["a" /* default */])(register.service);
   var color = host ? "secondary" : "primary";
 
@@ -96,7 +97,7 @@ function BytesBarGraphWidget(props) {
   var m = 2;
   var dy = (h - 2 * m) / 0xff;
   Object(react["useEffect"])(function () {
-    return register.subscribe(constants["v" /* CHANGE */], function () {
+    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(constants["Yc" /* REPORT_UPDATE */], function () {
       // render outside of react loop
       var current = pathRef.current;
       var bins = register.data;
@@ -110,10 +111,10 @@ function BytesBarGraphWidget(props) {
         d += " v " + -dy * bin + " h " + (dx - dw) + " v " + dy * bin + " h " + dw;
       }
 
-      d += ' z';
+      d += " z";
       current.setAttribute("d", d);
-    });
-  }, [register]);
+    }));
+  }, [register, visible, pathRef.current]);
   return /*#__PURE__*/react_default.a.createElement(SvgWidget["a" /* default */], {
     width: w,
     height: h,
@@ -141,7 +142,8 @@ function BytesBarGraphWidget(props) {
 
 function HostMicrophoneButton(props) {
   var host = props.host,
-      service = props.service;
+      service = props.service,
+      visible = props.visible;
   var enabledRegister = service.register(constants["Te" /* SoundSpectrumReg */].Enabled);
   var enabled = Object(useRegisterValue["a" /* useRegisterBoolValue */])(enabledRegister, props);
 
@@ -203,14 +205,14 @@ function HostMicrophoneButton(props) {
 
 
   Object(react["useEffect"])(function () {
-    return host === null || host === void 0 ? void 0 : host.subscribe(constants["Jc" /* REFRESH */], function () {
+    return visible && enabled && (host === null || host === void 0 ? void 0 : host.subscribe(constants["Jc" /* REFRESH */], function () {
       var v = spectrum === null || spectrum === void 0 ? void 0 : spectrum();
 
       if (v !== undefined) {
-        host.reading.setValues([v]);
+        host.reading.setValues([v], true);
       }
-    });
-  }, [host, spectrum]);
+    }));
+  }, [host, spectrum, visible]);
   return /*#__PURE__*/react_default.a.createElement(IconButtonWithProgress["a" /* default */], {
     "aria-label": title,
     title: title,
@@ -230,6 +232,7 @@ function DashboardSoundSpectrum(props) {
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
   }, /*#__PURE__*/react_default.a.createElement(BytesBarGraphWidget, {
+    visible: visible,
     register: frequencyBinsRegister
   })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
@@ -243,4 +246,4 @@ function DashboardSoundSpectrum(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=127-240fa529148887513fbe.js.map
+//# sourceMappingURL=127-e878215885476348227e.js.map
