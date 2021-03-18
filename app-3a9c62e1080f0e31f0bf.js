@@ -9252,7 +9252,7 @@ var DrawerToolsButtonGroup = __webpack_require__("J30M");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__("c5x+");
 
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 16 modules
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 17 modules
 var ThemedLayout = __webpack_require__("kxJ/");
 
 // EXTERNAL MODULE: ./src/components/icons/JacdacIcon.tsx
@@ -36032,6 +36032,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this3._gcDevicesEnabled = 0;
     _this3._deviceHosts = [];
     _this3.options = options;
+    console.debug("creating bus");
     _this3._transports = transports.filter(function (tr) {
       return !!tr;
     });
@@ -39067,12 +39068,12 @@ var jdom_transport = __webpack_require__("XhFH");
 
 
 
-
 function usb_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = usb_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function usb_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return usb_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return usb_arrayLikeToArray(o, minLen); }
 
 function usb_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -39125,18 +39126,53 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
   Object(inheritsLoose["a" /* default */])(USBTransport, _JDTransport);
 
   function USBTransport(options) {
-    var _this$options, _this$options$connect;
+    var _this$options, _this$options$connect, _this$options2, _this$options2$discon;
 
     var _this;
 
     _this = _JDTransport.call(this, constants["jf" /* USB_TRANSPORT */]) || this;
     _this.options = options;
+    console.debug("usb transport loaded");
     (_this$options = _this.options) === null || _this$options === void 0 ? void 0 : (_this$options$connect = _this$options.connectObservable) === null || _this$options$connect === void 0 ? void 0 : _this$options$connect.subscribe({
-      next: function next(ev) {
-        console.log("usb device event: connect, ", _this.connectionState, ev);
-        if (_this.connectionState === jdom_transport["a" /* ConnectionState */].Disconnected) Object(utils["r" /* delay */])(500).then(function () {
-          return _this.connect(true);
-        });
+      next: function () {
+        var _next = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(ev) {
+          return regenerator_default.a.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  console.log("usb device event: connect, ", _this.connectionState, ev);
+
+                  if (!_this.bus.disconnected) {
+                    _context.next = 5;
+                    break;
+                  }
+
+                  _context.next = 4;
+                  return Object(utils["r" /* delay */])(500);
+
+                case 4:
+                  if (_this.bus.disconnected) _this.connect(true);
+
+                case 5:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function next(_x) {
+          return _next.apply(this, arguments);
+        }
+
+        return next;
+      }()
+    });
+    (_this$options2 = _this.options) === null || _this$options2 === void 0 ? void 0 : (_this$options2$discon = _this$options2.disconnectObservable) === null || _this$options2$discon === void 0 ? void 0 : _this$options2$discon.subscribe({
+      next: function next() {
+        console.debug("usb event: disconnect");
+
+        _this.disconnect();
       }
     });
     return _this;
@@ -39145,21 +39181,21 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
   var _proto = USBTransport.prototype;
 
   _proto.transportConnectAsync = /*#__PURE__*/function () {
-    var _transportConnectAsync = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(background) {
+    var _transportConnectAsync = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(background) {
       var _this2 = this;
 
       var transport, onJDMessage;
-      return regenerator_default.a.wrap(function _callee$(_context) {
+      return regenerator_default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (!this.hf2) {
-                _context.next = 4;
+                _context2.next = 4;
                 break;
               }
 
               console.log("cleanup hf2");
-              _context.next = 4;
+              _context2.next = 4;
               return this.hf2.disconnectAsync();
 
             case 4:
@@ -39183,48 +39219,14 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
                 }
               };
 
-              _context.next = 9;
+              _context2.next = 9;
               return transport.connectAsync(background);
 
             case 9:
-              this.hf2 = _context.sent;
+              this.hf2 = _context2.sent;
               this.hf2.onJDMessage(onJDMessage);
 
             case 11:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function transportConnectAsync(_x) {
-      return _transportConnectAsync.apply(this, arguments);
-    }
-
-    return transportConnectAsync;
-  }();
-
-  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
-    var _transportSendPacketAsync = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(p) {
-      var buf;
-      return regenerator_default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (this.hf2) {
-                _context2.next = 2;
-                break;
-              }
-
-              throw new Error("hf2 transport disconnected");
-
-            case 2:
-              buf = p.toBuffer();
-              _context2.next = 5;
-              return this.hf2.sendJDMessageAsync(buf);
-
-            case 5:
             case "end":
               return _context2.stop();
           }
@@ -39232,30 +39234,31 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
       }, _callee2, this);
     }));
 
-    function transportSendPacketAsync(_x2) {
-      return _transportSendPacketAsync.apply(this, arguments);
+    function transportConnectAsync(_x2) {
+      return _transportConnectAsync.apply(this, arguments);
     }
 
-    return transportSendPacketAsync;
+    return transportConnectAsync;
   }();
 
-  _proto.transportDisconnectAsync = /*#__PURE__*/function () {
-    var _transportDisconnectAsync = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3() {
-      var h;
+  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
+    var _transportSendPacketAsync = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(p) {
+      var buf;
       return regenerator_default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              h = this.hf2;
-              this.hf2 = undefined;
-
-              if (!h) {
-                _context3.next = 5;
+              if (this.hf2) {
+                _context3.next = 2;
                 break;
               }
 
+              throw new Error("hf2 transport disconnected");
+
+            case 2:
+              buf = p.toBuffer();
               _context3.next = 5;
-              return h.disconnectAsync();
+              return this.hf2.sendJDMessageAsync(buf);
 
             case 5:
             case "end":
@@ -39263,6 +39266,39 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
           }
         }
       }, _callee3, this);
+    }));
+
+    function transportSendPacketAsync(_x3) {
+      return _transportSendPacketAsync.apply(this, arguments);
+    }
+
+    return transportSendPacketAsync;
+  }();
+
+  _proto.transportDisconnectAsync = /*#__PURE__*/function () {
+    var _transportDisconnectAsync = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4() {
+      var h;
+      return regenerator_default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              h = this.hf2;
+              this.hf2 = undefined;
+
+              if (!h) {
+                _context4.next = 5;
+                break;
+              }
+
+              _context4.next = 5;
+              return h.disconnectAsync();
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
     }));
 
     function transportDisconnectAsync() {
@@ -39278,6 +39314,7 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
 function createUSBTransport(options) {
   if (!options) {
     if (isWebUSBSupported()) {
+      console.debug("register usb events");
       options = {
         getDevices: usbGetDevices,
         requestDevice: usbRequestDevice,
@@ -39823,9 +39860,7 @@ var gamepadhostmanager_GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 }(jdom_client["a" /* JDClient */]);
 
 
-// CONCATENATED MODULE: ./src/jacdac/Provider.tsx
-
-
+// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
 
@@ -39855,34 +39890,39 @@ var args = sniffQueryArguments();
 flags["a" /* default */].diagnostics = args.diagnostics;
 flags["a" /* default */].webUSB = args.webUSB;
 flags["a" /* default */].webBluetooth = args.webBluetooth;
-var Provider_bus = new bus_JDBus([flags["a" /* default */].webUSB && createUSBTransport(), flags["a" /* default */].webBluetooth && createBluetoothTransport()], {
+var providerbus_bus = new bus_JDBus([flags["a" /* default */].webUSB && createUSBTransport(), flags["a" /* default */].webBluetooth && createBluetoothTransport()], {
   parentOrigin: args.parentOrigin
 });
-Provider_bus.setBackgroundFirmwareScans(true);
-gamepadhostmanager_GamepadHostManager.start(Provider_bus); // tslint:disable-next-line: no-unused-expression
+providerbus_bus.setBackgroundFirmwareScans(true);
+gamepadhostmanager_GamepadHostManager.start(providerbus_bus); // tslint:disable-next-line: no-unused-expression
 // always start bridge
 
-if (typeof window !== "undefined") new iframebridgeclient_IFrameBridgeClient(Provider_bus, args.frameId); // start bridge
+if (typeof window !== "undefined") new iframebridgeclient_IFrameBridgeClient(providerbus_bus, args.frameId); // start bridge
+
+/* harmony default export */ var providerbus = (providerbus_bus);
+// CONCATENATED MODULE: ./src/jacdac/Provider.tsx
+
+
 
 function JacdacProvider(props) {
   var children = props.children;
 
   var _useState = Object(react["useState"])(false),
       firstConnect = _useState[0],
-      setFirstConnect = _useState[1]; // connect in background on first load
+      setFirstConnect = _useState[1]; // connect in background on first load.
 
 
   Object(react["useEffect"])(function () {
     if (!firstConnect) {
       setFirstConnect(true);
-      Provider_bus.connect(true);
+      providerbus.connect(true);
     }
 
     return function () {};
   }, []);
   return /*#__PURE__*/react_default.a.createElement(Context["a" /* default */].Provider, {
     value: {
-      bus: Provider_bus
+      bus: providerbus
     }
   }, children);
 }
@@ -48463,4 +48503,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-6bf5be7ae0e8c0f06cdb.js.map
+//# sourceMappingURL=app-3a9c62e1080f0e31f0bf.js.map
