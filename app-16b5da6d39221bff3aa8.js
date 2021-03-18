@@ -39967,16 +39967,31 @@ function sniffQueryArguments() {
 var args = sniffQueryArguments();
 flags["a" /* default */].diagnostics = args.diagnostics;
 flags["a" /* default */].webUSB = args.webUSB;
-flags["a" /* default */].webBluetooth = args.webBluetooth;
-var providerbus_bus = new bus_JDBus([flags["a" /* default */].webUSB && createUSBTransport(), flags["a" /* default */].webBluetooth && createBluetoothTransport()], {
-  parentOrigin: args.parentOrigin
-});
-providerbus_bus.setBackgroundFirmwareScans(true);
-gamepadhostmanager_GamepadHostManager.start(providerbus_bus); // tslint:disable-next-line: no-unused-expression
-// always start bridge
+flags["a" /* default */].webBluetooth = args.webBluetooth; // defeat react fast-refresh
 
-if (typeof window !== "undefined") new iframebridgeclient_IFrameBridgeClient(providerbus_bus, args.frameId); // start bridge
+function createBus() {
+  var b = new bus_JDBus([flags["a" /* default */].webUSB && createUSBTransport(), flags["a" /* default */].webBluetooth && createBluetoothTransport()], {
+    parentOrigin: args.parentOrigin
+  });
+  b.setBackgroundFirmwareScans(true);
+  gamepadhostmanager_GamepadHostManager.start(b); // tslint:disable-next-line: no-unused-expression
+  // always start bridge
 
+  if (typeof window !== "undefined") {
+    new iframebridgeclient_IFrameBridgeClient(b, args.frameId) // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;
+    window.__jacdacBus = b;
+  }
+
+  return b;
+}
+
+function cachedBus() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return typeof Window !== "undefined" && window.__jacdacBus;
+}
+
+var providerbus_bus = cachedBus() || createBus();
 /* harmony default export */ var providerbus = (providerbus_bus);
 // CONCATENATED MODULE: ./src/jacdac/Provider.tsx
 
@@ -39991,6 +40006,7 @@ function JacdacProvider(props) {
 
 
   Object(react["useEffect"])(function () {
+    // bus live accross hot-reloads
     if (!firstConnect) {
       setFirstConnect(true);
       providerbus.connect(true);
@@ -48581,4 +48597,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-2f46a87589ff79bf6d33.js.map
+//# sourceMappingURL=app-16b5da6d39221bff3aa8.js.map
