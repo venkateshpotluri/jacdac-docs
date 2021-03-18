@@ -90,7 +90,7 @@ var Box = __webpack_require__("hlFM");
 // EXTERNAL MODULE: ./src/components/ServiceSpecificationStatusAlert.tsx
 var ServiceSpecificationStatusAlert = __webpack_require__("Y6fa");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 22 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx

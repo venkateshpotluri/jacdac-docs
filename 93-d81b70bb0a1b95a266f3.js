@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[91],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[93],{
 
 /***/ "4l/8":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -8,9 +8,7 @@
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useDeviceStatusLightStyle; });
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ZfHV");
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("IzqI");
-/* harmony import */ var _jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("dYIP");
-/* harmony import */ var _hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("XEv/");
-
+/* harmony import */ var _hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("XEv/");
 
 
 
@@ -54,19 +52,22 @@ function statusAnimation(status) {
   }
 }
 function useDeviceStatusLightStyle(device, options) {
-  var register = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(device, function (d) {
-    return d.service(0).register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__[/* ControlReg */ "T"].StatusLight);
-  });
   var bootloader = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(device, function (d) {
     return d.hasService(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__[/* SRV_BOOTLOADER */ "Bd"]);
   });
   var identifying = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(device, function (d) {
     return d === null || d === void 0 ? void 0 : d.identifying;
   });
-  var registerAnimation = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "e"])(register) || [0, []]; // pick animation step
+  /*
+  TODO
+  const registerAnimation = useRegisterUnpackedValue<LedAnimationData>(
+      register
+  ) || [0, []]
+  */
+  // pick animation step
 
-  var animation = identifying ? identifyAnimation : bootloader ? bootloaderAnimation : registerAnimation;
-  return Object(_hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(animation, options);
+  var animation = identifying ? identifyAnimation : bootloader ? bootloaderAnimation : undefined;
+  return Object(_hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(animation, options);
 }
 
 /***/ }),
@@ -169,11 +170,18 @@ function useWidgetTheme(color) {
 
 /***/ }),
 
-/***/ "TKHO":
+/***/ "XEv/":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hsvToCss; });
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ useLedAnimationStyle; });
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("q1tI");
+
+// CONCATENATED MODULE: ./jacdac-ts/src/jdom/color.ts
 function hsvToCss(hue, saturation, value, brightness, monochrome) {
   var csshue = hue * 360 / 0xff;
   var csssat = (monochrome ? 0xff : saturation) / 0xff;
@@ -205,18 +213,10 @@ function hsv_to_hsl(h, s, v) {
 
   return [h, s, l];
 }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__("Zo1I");
 
-/***/ }),
-
-/***/ "XEv/":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useLedAnimationStyle; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _jacdac_ts_src_jdom_color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("TKHO");
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Zo1I");
+// CONCATENATED MODULE: ./src/components/hooks/useLedAnimationStyle.ts
 
 
 
@@ -252,17 +252,18 @@ function interpolate(frames, time) {
 }
 
 function useLedAnimationStyle(animation, options) {
-  var repetitions = animation[0],
-      frames = animation[1];
+  var _ref = animation || [0, []],
+      repetitions = _ref[0],
+      frames = _ref[1];
 
-  var _ref = options || {},
-      monochrome = _ref.monochrome,
-      cssProperty = _ref.cssProperty,
-      step = _ref.step,
-      interval = _ref.interval; // generate a CSS animation for the curren frames
+  var _ref2 = options || {},
+      monochrome = _ref2.monochrome,
+      cssProperty = _ref2.cssProperty,
+      step = _ref2.step,
+      interval = _ref2.interval; // generate a CSS animation for the curren frames
 
 
-  var _useMemo = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+  var _useMemo = Object(react["useMemo"])(function () {
     if (!(frames !== null && frames !== void 0 && frames.length) || repetitions < 0) return {
       className: "",
       helmetStyle: undefined
@@ -283,9 +284,9 @@ function useLedAnimationStyle(animation, options) {
             sat = frame[1],
             value = frame[2],
             duration = frame[3];
-        var csscolor = Object(_jacdac_ts_src_jdom_color__WEBPACK_IMPORTED_MODULE_1__[/* hsvToCss */ "a"])(hue, sat, value, 0xff, monochrome);
+        var csscolor = hsvToCss(hue, sat, value, 0xff, monochrome);
         var percent = t8ms * 8 / 1000 / totals * 100;
-        kf += "  " + Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__[/* roundWithPrecision */ "K"])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
+        kf += "  " + Object(utils["K" /* roundWithPrecision */])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
         t8ms += duration; // console.log({ total8ms, totals, t8ms, duration, percent })
       });
     } else {
@@ -303,8 +304,8 @@ function useLedAnimationStyle(animation, options) {
 
 
         var percent = Math.round(kframei / (nkframes - 1) * 100);
-        var csscolor = Object(_jacdac_ts_src_jdom_color__WEBPACK_IMPORTED_MODULE_1__[/* hsvToCss */ "a"])(hue, saturation, value, 0xff, monochrome);
-        kf += "  " + Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__[/* roundWithPrecision */ "K"])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
+        var csscolor = hsvToCss(hue, saturation, value, 0xff, monochrome);
+        kf += "  " + Object(utils["K" /* roundWithPrecision */])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
       }
     }
 
@@ -326,102 +327,6 @@ function useLedAnimationStyle(animation, options) {
     className: className,
     helmetStyle: helmetStyle
   };
-}
-
-/***/ }),
-
-/***/ "dYIP":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return useRegisterHumanValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return useRegisterIntValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return useRegisterUnpackedValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return useRegisterStringValue; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useRegisterBoolValue; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("ZfHV");
-
-
-function useRegisterHumanValue(register, options) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(register === null || register === void 0 ? void 0 : register.humanValue),
-      value = _useState[0],
-      setValue = _useState[1];
-
-  var _ref = options || {},
-      visible = _ref.visible; // update value
-
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* REPORT_UPDATE */ "Yc"], function () {
-      setValue(register === null || register === void 0 ? void 0 : register.humanValue);
-    }));
-  }, [register, visible]);
-  return value;
-}
-function useRegisterIntValue(register, options) {
-  var _useState2 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(register === null || register === void 0 ? void 0 : register.intValue),
-      value = _useState2[0],
-      setValue = _useState2[1];
-
-  var _ref2 = options || {},
-      visible = _ref2.visible; // update value
-
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* REPORT_UPDATE */ "Yc"], function () {
-      setValue(register === null || register === void 0 ? void 0 : register.intValue);
-    }));
-  }, [register, visible]);
-  return value;
-}
-function useRegisterUnpackedValue(register, options) {
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(register === null || register === void 0 ? void 0 : register.unpackedValue),
-      value = _useState3[0],
-      setValue = _useState3[1];
-
-  var _ref3 = options || {},
-      visible = _ref3.visible;
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* REPORT_UPDATE */ "Yc"], function () {
-      setValue(register === null || register === void 0 ? void 0 : register.unpackedValue);
-    }));
-  }, [register, visible]);
-  return value || [];
-}
-function useRegisterStringValue(register, options) {
-  var _useState4 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(register === null || register === void 0 ? void 0 : register.stringValue),
-      value = _useState4[0],
-      setValue = _useState4[1];
-
-  var _ref4 = options || {},
-      visible = _ref4.visible; // update value
-
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* REPORT_UPDATE */ "Yc"], function () {
-      setValue(register === null || register === void 0 ? void 0 : register.stringValue);
-    }));
-  }, [register, visible]);
-  return value;
-}
-function useRegisterBoolValue(register, options) {
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(register === null || register === void 0 ? void 0 : register.boolValue),
-      value = _useState5[0],
-      setValue = _useState5[1];
-
-  var _ref5 = options || {},
-      visible = _ref5.visible; // update value
-
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* REPORT_UPDATE */ "Yc"], function () {
-      setValue(register === null || register === void 0 ? void 0 : register.boolValue);
-    }));
-  }, [register, visible]);
-  return value;
 }
 
 /***/ }),
@@ -518,4 +423,4 @@ function StatusLEDAnimation(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=91-7a961f6db106e3678c41.js.map
+//# sourceMappingURL=93-d81b70bb0a1b95a266f3.js.map

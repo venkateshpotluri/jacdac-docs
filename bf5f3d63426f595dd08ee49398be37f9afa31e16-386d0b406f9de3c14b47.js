@@ -431,162 +431,6 @@ function lightEncode(format, args) {
 
 /***/ }),
 
-/***/ "NttO":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LedAnimation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LEDServiceHost; });
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("vuIU");
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("dI71");
-/* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("ZfHV");
-/* harmony import */ var _jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("033P");
-/* harmony import */ var _jdom_servicehost__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("adpw");
-
-
-
-
-
-var LedAnimation = /*#__PURE__*/function (_JDEventSource) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(LedAnimation, _JDEventSource);
-
-  function LedAnimation(data) {
-    var _this;
-
-    _this = _JDEventSource.call(this) || this;
-    _this.data = data;
-    _this._currentStep = 0;
-    _this._currentStepStartTime = 0;
-    _this._currentHsv = 0;
-    return _this;
-  }
-
-  var _proto = LedAnimation.prototype;
-
-  _proto.update = function update(now) {
-    // grab current step
-    var _ref = this.data || [],
-        repetitions = _ref[0],
-        steps = _ref[1];
-
-    if (!(steps !== null && steps !== void 0 && steps.length)) {
-      // nothing to do
-      return;
-    } // find the step we are in
-
-
-    if (this._currentStepStartTime == 0) this._currentStepStartTime = now;
-
-    while (this._currentStep < steps.length) {
-      var _steps$this$_currentS = steps[this._currentStep],
-          h = _steps$this$_currentS[0],
-          s = _steps$this$_currentS[1],
-          v = _steps$this$_currentS[2],
-          duration8 = _steps$this$_currentS[3];
-      var duration = duration8 << 3;
-      if (duration === 0) break;
-      var elapsed = now - this._currentStepStartTime;
-
-      if (elapsed < duration) {
-        break;
-      } // restart iteration if needed
-
-
-      if (this._currentStep === steps.length - 1) {
-        // restart
-        this._currentStep = 0;
-        this._currentStepStartTime = now;
-      } else {
-        // try next step
-        this._currentStep++;
-        this._currentStepStartTime += duration;
-      }
-    } // render
-
-
-    if (this._currentStep < steps.length) {
-      var _steps$this$_currentS2 = steps[this._currentStep],
-          startHue = _steps$this$_currentS2[0],
-          startSat = _steps$this$_currentS2[1],
-          startValue = _steps$this$_currentS2[2],
-          _duration = _steps$this$_currentS2[3];
-
-      var _duration2 = _duration << 3;
-
-      var _steps = steps[(this._currentStep + 1) % steps.length],
-          endHue = _steps[0],
-          endSat = _steps[1],
-          endValue = _steps[2];
-
-      var _elapsed = now - this._currentStepStartTime;
-
-      var alpha = _elapsed / _duration2;
-      var oneAlpha = 1 - alpha;
-
-      var _h = oneAlpha * startHue + alpha * endHue;
-
-      var _s = oneAlpha * startSat + alpha * endSat;
-
-      var _v = oneAlpha * startValue + alpha * endValue;
-
-      var hsv = (_h & 0xff) << 16 | (_s & 0xff) << 8 | _v & 0xff;
-
-      if (hsv !== this._currentHsv) {
-        this._currentHsv = hsv;
-        this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* CHANGE */ "v"]);
-      }
-    }
-  };
-
-  Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(LedAnimation, [{
-    key: "hsv",
-    get: function get() {
-      return [this._currentHsv >> 16 & 0xff, this._currentHsv >> 8 & 0xff, this._currentHsv & 0xff];
-    }
-  }]);
-
-  return LedAnimation;
-}(_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__[/* JDEventSource */ "a"]);
-
-var LEDServiceHost = /*#__PURE__*/function (_ServiceHost) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(LEDServiceHost, _ServiceHost);
-
-  function LEDServiceHost(options) {
-    var _this2;
-
-    _this2 = _ServiceHost.call(this, _jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* SRV_LED */ "Rd"]) || this;
-
-    var _ref2 = options || {},
-        _ref2$ledCount = _ref2.ledCount,
-        ledCount = _ref2$ledCount === void 0 ? 1 : _ref2$ledCount,
-        _ref2$variant = _ref2.variant,
-        variant = _ref2$variant === void 0 ? _jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedVariant */ "Ub"].ThroughHole : _ref2$variant,
-        _ref2$brightness = _ref2.brightness,
-        brightness = _ref2$brightness === void 0 ? 0.5 : _ref2$brightness,
-        luminousIntensity = _ref2.luminousIntensity,
-        waveLength = _ref2.waveLength,
-        _ref2$animation = _ref2.animation,
-        animation = _ref2$animation === void 0 ? [0, []] : _ref2$animation,
-        _ref2$maxPower = _ref2.maxPower,
-        maxPower = _ref2$maxPower === void 0 ? 200 : _ref2$maxPower;
-
-    _this2.animation = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].Animation, animation);
-    _this2.brightness = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].Brightness, [brightness]);
-    _this2.maxPower = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].MaxPower, [maxPower]);
-    _this2.ledCount = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].LedCount, [ledCount]);
-    if (luminousIntensity !== undefined) _this2.luminousIntensity = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].LuminousIntensity, [luminousIntensity]);
-    if (waveLength !== undefined) _this2.waveLength = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].WaveLength, [waveLength]);
-    _this2.variant = _this2.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* LedReg */ "Tb"].Variant, [variant]);
-    return _this2;
-  }
-
-  return LEDServiceHost;
-}(_jdom_servicehost__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]);
-
-
-
-/***/ }),
-
 /***/ "swM1":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1189,7 +1033,7 @@ function rgb(r, g, b) {
   };
 }
 
-function hsv(hue, sat, val) {
+function ledpixelservicehost_hsv(hue, sat, val) {
   // scale down to 0..192
   hue = hue * 192 >> 8; // reference: based on FastLED's hsv2rgb rainbow algorithm
   // [https://github.com/FastLED/FastLED](MIT)
@@ -1550,7 +1394,7 @@ var ledpixelservicehost_LedPixelServiceHost = /*#__PURE__*/function (_ServiceHos
       var fade1 = colpos & 0xffff;
       var fade0 = 0xffff - fade1;
       var col = rgb(col0.r * fade0 + col1.r * fade1 + 0x8000 >> 16, col0.g * fade0 + col1.g * fade1 + 0x8000 >> 16, col0.b * fade0 + col1.b * fade1 + 0x8000 >> 16);
-      if (!this.set_next(usehsv ? hsv(col.r, col.g, col.b) : col)) break;
+      if (!this.set_next(usehsv ? ledpixelservicehost_hsv(col.r, col.g, col.b) : col)) break;
       colpos += colstep;
     }
 
@@ -2788,8 +2632,148 @@ var trafficlightservicehost_TrafficLightServiceHost = /*#__PURE__*/function (_Se
 }(servicehost["a" /* default */]);
 
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/ledservicehost.ts
-var ledservicehost = __webpack_require__("NttO");
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
+var eventsource = __webpack_require__("033P");
+
+// CONCATENATED MODULE: ./jacdac-ts/src/hosts/ledservicehost.ts
+
+
+
+
+
+var ledservicehost_LedAnimation = /*#__PURE__*/function (_JDEventSource) {
+  Object(inheritsLoose["a" /* default */])(LedAnimation, _JDEventSource);
+
+  function LedAnimation(data) {
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this.data = data;
+    _this._currentStep = 0;
+    _this._currentStepStartTime = 0;
+    _this._currentHsv = 0;
+    return _this;
+  }
+
+  var _proto = LedAnimation.prototype;
+
+  _proto.update = function update(now) {
+    // grab current step
+    var _ref = this.data || [],
+        repetitions = _ref[0],
+        steps = _ref[1];
+
+    if (!(steps !== null && steps !== void 0 && steps.length)) {
+      // nothing to do
+      return;
+    } // find the step we are in
+
+
+    if (this._currentStepStartTime == 0) this._currentStepStartTime = now;
+
+    while (this._currentStep < steps.length) {
+      var _steps$this$_currentS = steps[this._currentStep],
+          h = _steps$this$_currentS[0],
+          s = _steps$this$_currentS[1],
+          v = _steps$this$_currentS[2],
+          duration8 = _steps$this$_currentS[3];
+      var duration = duration8 << 3;
+      if (duration === 0) break;
+      var elapsed = now - this._currentStepStartTime;
+
+      if (elapsed < duration) {
+        break;
+      } // restart iteration if needed
+
+
+      if (this._currentStep === steps.length - 1) {
+        // restart
+        this._currentStep = 0;
+        this._currentStepStartTime = now;
+      } else {
+        // try next step
+        this._currentStep++;
+        this._currentStepStartTime += duration;
+      }
+    } // render
+
+
+    if (this._currentStep < steps.length) {
+      var _steps$this$_currentS2 = steps[this._currentStep],
+          startHue = _steps$this$_currentS2[0],
+          startSat = _steps$this$_currentS2[1],
+          startValue = _steps$this$_currentS2[2],
+          _duration = _steps$this$_currentS2[3];
+
+      var _duration2 = _duration << 3;
+
+      var _steps = steps[(this._currentStep + 1) % steps.length],
+          endHue = _steps[0],
+          endSat = _steps[1],
+          endValue = _steps[2];
+
+      var _elapsed = now - this._currentStepStartTime;
+
+      var alpha = _elapsed / _duration2;
+      var oneAlpha = 1 - alpha;
+
+      var _h = oneAlpha * startHue + alpha * endHue;
+
+      var _s = oneAlpha * startSat + alpha * endSat;
+
+      var _v = oneAlpha * startValue + alpha * endValue;
+
+      var hsv = (_h & 0xff) << 16 | (_s & 0xff) << 8 | _v & 0xff;
+
+      if (hsv !== this._currentHsv) {
+        this._currentHsv = hsv;
+        this.emit(constants["v" /* CHANGE */]);
+      }
+    }
+  };
+
+  Object(createClass["a" /* default */])(LedAnimation, [{
+    key: "hsv",
+    get: function get() {
+      return [this._currentHsv >> 16 & 0xff, this._currentHsv >> 8 & 0xff, this._currentHsv & 0xff];
+    }
+  }]);
+
+  return LedAnimation;
+}(eventsource["a" /* JDEventSource */]);
+
+var ledservicehost_LEDServiceHost = /*#__PURE__*/function (_ServiceHost) {
+  Object(inheritsLoose["a" /* default */])(LEDServiceHost, _ServiceHost);
+
+  function LEDServiceHost(options) {
+    var _this2;
+
+    _this2 = _ServiceHost.call(this, constants["Rd" /* SRV_LED */]) || this;
+
+    var _ref2 = options || {},
+        _ref2$ledCount = _ref2.ledCount,
+        ledCount = _ref2$ledCount === void 0 ? 1 : _ref2$ledCount,
+        _ref2$variant = _ref2.variant,
+        variant = _ref2$variant === void 0 ? constants["Ub" /* LedVariant */].ThroughHole : _ref2$variant,
+        luminousIntensity = _ref2.luminousIntensity,
+        waveLength = _ref2.waveLength,
+        _ref2$color = _ref2.color,
+        color = _ref2$color === void 0 ? [255, 0, 0] : _ref2$color,
+        _ref2$maxPower = _ref2.maxPower,
+        maxPower = _ref2$maxPower === void 0 ? 200 : _ref2$maxPower;
+
+    _this2.color = _this2.addRegister(constants["Tb" /* LedReg */].Color, color);
+    _this2.maxPower = _this2.addRegister(constants["Tb" /* LedReg */].MaxPower, [maxPower]);
+    _this2.ledCount = _this2.addRegister(constants["Tb" /* LedReg */].LedCount, [ledCount]);
+    if (luminousIntensity !== undefined) _this2.luminousIntensity = _this2.addRegister(constants["Tb" /* LedReg */].LuminousIntensity, [luminousIntensity]);
+    if (waveLength !== undefined) _this2.waveLength = _this2.addRegister(constants["Tb" /* LedReg */].WaveLength, [waveLength]);
+    _this2.variant = _this2.addRegister(constants["Tb" /* LedReg */].Variant, [variant]);
+    return _this2;
+  }
+
+  return LEDServiceHost;
+}(servicehost["a" /* default */]);
+
 
 // CONCATENATED MODULE: ./jacdac-ts/src/hosts/soundplayerservicehost.ts
 
@@ -3661,21 +3645,21 @@ var _hosts = [{
   name: "LED (RGB through hole)",
   serviceClasses: [constants["Rd" /* SRV_LED */]],
   services: function services() {
-    return [new ledservicehost["b" /* default */]({
+    return [new ledservicehost_LEDServiceHost({
       variant: constants["Ub" /* LedVariant */].ThroughHole,
       ledCount: 1,
-      animation: [0, [[0xff >> 1, 0xff, 0xff >> 1, 3000 >> 3], [0xff, 0xff, 0xff, 30000 >> 3]]]
+      color: [255, 0, 0]
     })];
   }
 }, {
   name: "LED (blue through hole)",
   serviceClasses: [constants["Rd" /* SRV_LED */]],
   services: function services() {
-    return [new ledservicehost["b" /* default */]({
+    return [new ledservicehost_LEDServiceHost({
       variant: constants["Ub" /* LedVariant */].ThroughHole,
       waveLength: 624,
       ledCount: 3,
-      animation: [0, [[0, 0, 0xff, 0xff]]]
+      color: [0, 0, 255]
     })];
   }
 }, {
@@ -4307,4 +4291,4 @@ function hostDefinitionFromServiceClass(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bf5f3d63426f595dd08ee49398be37f9afa31e16-836477b363fb2e138864.js.map
+//# sourceMappingURL=bf5f3d63426f595dd08ee49398be37f9afa31e16-386d0b406f9de3c14b47.js.map

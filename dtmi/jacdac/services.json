@@ -2165,12 +2165,27 @@
     "description": "A controller for 1 or more monochrome or RGB LEDs connected in parallel.",
     "contents": [
       {
-        "@type": "Property",
-        "name": "brightness",
-        "@id": "dtmi:jacdac:x1e3048f8:rw:brightness;1",
-        "description": "Set the luminosity of the strip. The value is used to scale `value` in `steps` register.\nAt `0` the power to the strip is completely shut down.",
-        "schema": "float",
-        "writable": true
+        "@type": "Telemetry",
+        "name": "color",
+        "@id": "dtmi:jacdac:x1e3048f8:ro:color;1",
+        "description": "The current color of the LED.",
+        "schema": {
+          "@type": "Object",
+          "fields": [
+            {
+              "name": "red",
+              "schema": "integer"
+            },
+            {
+              "name": "green",
+              "schema": "integer"
+            },
+            {
+              "name": "blue",
+              "schema": "integer"
+            }
+          ]
+        }
       },
       {
         "@type": [

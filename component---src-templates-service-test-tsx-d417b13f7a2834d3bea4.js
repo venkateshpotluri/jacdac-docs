@@ -136,7 +136,7 @@ var Alert = __webpack_require__("FQT7");
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__("l6uw");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 22 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts

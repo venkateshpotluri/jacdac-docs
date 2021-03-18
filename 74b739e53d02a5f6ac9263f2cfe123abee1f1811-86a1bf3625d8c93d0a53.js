@@ -52,9 +52,7 @@ var Card = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](functio
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useDeviceStatusLightStyle; });
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ZfHV");
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("IzqI");
-/* harmony import */ var _jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("dYIP");
-/* harmony import */ var _hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("XEv/");
-
+/* harmony import */ var _hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("XEv/");
 
 
 
@@ -98,19 +96,22 @@ function statusAnimation(status) {
   }
 }
 function useDeviceStatusLightStyle(device, options) {
-  var register = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(device, function (d) {
-    return d.service(0).register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__[/* ControlReg */ "T"].StatusLight);
-  });
   var bootloader = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(device, function (d) {
     return d.hasService(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__[/* SRV_BOOTLOADER */ "Bd"]);
   });
   var identifying = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(device, function (d) {
     return d === null || d === void 0 ? void 0 : d.identifying;
   });
-  var registerAnimation = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "e"])(register) || [0, []]; // pick animation step
+  /*
+  TODO
+  const registerAnimation = useRegisterUnpackedValue<LedAnimationData>(
+      register
+  ) || [0, []]
+  */
+  // pick animation step
 
-  var animation = identifying ? identifyAnimation : bootloader ? bootloaderAnimation : registerAnimation;
-  return Object(_hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(animation, options);
+  var animation = identifying ? identifyAnimation : bootloader ? bootloaderAnimation : undefined;
+  return Object(_hooks_useLedAnimationStyle__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(animation, options);
 }
 
 /***/ }),
@@ -244,11 +245,18 @@ function useDeviceSpecification(device) {
 
 /***/ }),
 
-/***/ "TKHO":
+/***/ "XEv/":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hsvToCss; });
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ useLedAnimationStyle; });
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__("q1tI");
+
+// CONCATENATED MODULE: ./jacdac-ts/src/jdom/color.ts
 function hsvToCss(hue, saturation, value, brightness, monochrome) {
   var csshue = hue * 360 / 0xff;
   var csssat = (monochrome ? 0xff : saturation) / 0xff;
@@ -280,18 +288,10 @@ function hsv_to_hsl(h, s, v) {
 
   return [h, s, l];
 }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__("Zo1I");
 
-/***/ }),
-
-/***/ "XEv/":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useLedAnimationStyle; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("q1tI");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _jacdac_ts_src_jdom_color__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("TKHO");
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Zo1I");
+// CONCATENATED MODULE: ./src/components/hooks/useLedAnimationStyle.ts
 
 
 
@@ -327,17 +327,18 @@ function interpolate(frames, time) {
 }
 
 function useLedAnimationStyle(animation, options) {
-  var repetitions = animation[0],
-      frames = animation[1];
+  var _ref = animation || [0, []],
+      repetitions = _ref[0],
+      frames = _ref[1];
 
-  var _ref = options || {},
-      monochrome = _ref.monochrome,
-      cssProperty = _ref.cssProperty,
-      step = _ref.step,
-      interval = _ref.interval; // generate a CSS animation for the curren frames
+  var _ref2 = options || {},
+      monochrome = _ref2.monochrome,
+      cssProperty = _ref2.cssProperty,
+      step = _ref2.step,
+      interval = _ref2.interval; // generate a CSS animation for the curren frames
 
 
-  var _useMemo = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+  var _useMemo = Object(react["useMemo"])(function () {
     if (!(frames !== null && frames !== void 0 && frames.length) || repetitions < 0) return {
       className: "",
       helmetStyle: undefined
@@ -358,9 +359,9 @@ function useLedAnimationStyle(animation, options) {
             sat = frame[1],
             value = frame[2],
             duration = frame[3];
-        var csscolor = Object(_jacdac_ts_src_jdom_color__WEBPACK_IMPORTED_MODULE_1__[/* hsvToCss */ "a"])(hue, sat, value, 0xff, monochrome);
+        var csscolor = hsvToCss(hue, sat, value, 0xff, monochrome);
         var percent = t8ms * 8 / 1000 / totals * 100;
-        kf += "  " + Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__[/* roundWithPrecision */ "K"])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
+        kf += "  " + Object(utils["K" /* roundWithPrecision */])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
         t8ms += duration; // console.log({ total8ms, totals, t8ms, duration, percent })
       });
     } else {
@@ -378,8 +379,8 @@ function useLedAnimationStyle(animation, options) {
 
 
         var percent = Math.round(kframei / (nkframes - 1) * 100);
-        var csscolor = Object(_jacdac_ts_src_jdom_color__WEBPACK_IMPORTED_MODULE_1__[/* hsvToCss */ "a"])(hue, saturation, value, 0xff, monochrome);
-        kf += "  " + Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__[/* roundWithPrecision */ "K"])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
+        var csscolor = hsvToCss(hue, saturation, value, 0xff, monochrome);
+        kf += "  " + Object(utils["K" /* roundWithPrecision */])(percent, 5) + "% { " + property + ": " + csscolor + "); }\n";
       }
     }
 
@@ -898,4 +899,4 @@ function DeviceAvatar(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74b739e53d02a5f6ac9263f2cfe123abee1f1811-4450acd126706b71c592.js.map
+//# sourceMappingURL=74b739e53d02a5f6ac9263f2cfe123abee1f1811-86a1bf3625d8c93d0a53.js.map
