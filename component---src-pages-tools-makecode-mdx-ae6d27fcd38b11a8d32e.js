@@ -109,10 +109,71 @@ function MDXContent(_ref) {
     parentName: "p"
   }, "Editor Extensions"), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "You can also code side-by-side using the multi editor ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
     parentName: "p",
-    "href": "https://makecode.com/multi?jacdac=1",
+    "href": "https://makecode.com/multi?jacdac=1&beta=1",
     "target": "_blank",
     "rel": "nofollow noopener noreferrer"
-  }, "https://makecode.com/multi?jacdac=1")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
+  }, "https://makecode.com/multi?jacdac=1&beta=1")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
+    "id": "configuring-your-project",
+    "style": {
+      "position": "relative"
+    }
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "h3",
+    "href": "#configuring-your-project",
+    "aria-label": "configuring your project permalink",
+    "className": "anchor before"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Configuring your project"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Create a ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
+    parentName: "p"
+  }, "new project"), ", click on ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
+    parentName: "p"
+  }, "Extensions"), " in the settings project.\nSearch for ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
+    parentName: "p"
+  }, "jacdac"), " and import ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
+    parentName: "p"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "strong",
+    "href": "https://github.com/microsoft/pxt-jacdac",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }, "https://github.com/microsoft/pxt-jacdac")), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "After the project reload, you should see the Jacdac frame under the regular simulator.\nCompile your project again and download it to your device to make sure that the Jacdac stack is running on hardware as well\n(it is not builtin the default configuration of MakeCode)."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
+    "id": "simulators",
+    "style": {
+      "position": "relative"
+    }
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "h3",
+    "href": "#simulators",
+    "aria-label": "simulators permalink",
+    "className": "anchor before"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Simulators"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "To spin a device simulator, click on the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
+    parentName: "p"
+  }, "+"), " button near the a header called \"Simulators\". Select any of the simulator.\nOnce you have a simulator (or hardware device) running, a ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
+    parentName: "p"
+  }, "Add blocks"), " button will appear. Clicking this button will\nautomatically import the blocs for those modules."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
     "id": "configuring-modules",
     "style": {
       "position": "relative"
@@ -134,22 +195,7 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Configuring modules"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Create a ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
-    parentName: "p"
-  }, "new project"), ", click on ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
-    parentName: "p"
-  }, "Extensions"), " in the settings project.\nSearch for ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
-    parentName: "p"
-  }, "jacdac"), " and import ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
-    parentName: "p"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "strong",
-    "href": "https://github.com/microsoft/pxt-jacdac",
-    "target": "_blank",
-    "rel": "nofollow noopener noreferrer"
-  }, "https://github.com/microsoft/pxt-jacdac")), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "After the project reload, you should see a ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
-    parentName: "p"
-  }, "modules"), " toolbox."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Open the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
+  }))), "Configuring modules"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Open the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
     parentName: "p"
   }, "modules"), " toolbox, click on ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
     parentName: "p"
@@ -159,51 +205,7 @@ function MDXContent(_ref) {
     parentName: "p"
   }, "head sensor"), ", etc... The configuration dialog\nprepare your project for those modules when you click on ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("strong", {
     parentName: "p"
-  }, "Save"), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Once you are back in the editor, you will find new blocks to use those modules\nand you will also find the roles of those modules in the drop down of each block."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
-    "id": "simulator-vs-hardware",
-    "style": {
-      "position": "relative"
-    }
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "h3",
-    "href": "#simulator-vs-hardware",
-    "aria-label": "simulator vs hardware permalink",
-    "className": "anchor before"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
-    parentName: "a",
-    "aria-hidden": "true",
-    "focusable": "false",
-    "height": "16",
-    "version": "1.1",
-    "viewBox": "0 0 16 16",
-    "width": "16"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
-    parentName: "svg",
-    "fillRule": "evenodd",
-    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Simulator vs hardware"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "As soon as your program uses Jacdac modules, a dedicated simulator pane will open\nand will allow you to test your code with or without hardware."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "If the simulator is running and a physical device is connected,\nthe simulator always takes precedence:\nIf the the simulator is running, the physical device is paused.\nIf the simulator is stopped, the physical device is unpaused and used as a Jacdac device."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
-    "id": "local-development",
-    "style": {
-      "position": "relative"
-    }
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "h2",
-    "href": "#local-development",
-    "aria-label": "local development permalink",
-    "className": "anchor before"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
-    parentName: "a",
-    "aria-hidden": "true",
-    "focusable": "false",
-    "height": "16",
-    "version": "1.1",
-    "viewBox": "0 0 16 16",
-    "width": "16"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
-    parentName: "svg",
-    "fillRule": "evenodd",
-    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Local Development"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "This is a special section for the Jacdac/MakeCode team to debug the setup."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
+  }, "Save"), "."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "Once you are back in the editor, you will find new blocks to use those modules\nand you will also find the roles of those modules in the drop down of each block."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
     "id": "todo",
     "style": {
       "position": "relative"
@@ -235,27 +237,7 @@ function MDXContent(_ref) {
     "type": "checkbox",
     "checked": false,
     "disabled": true
-  }), " ", "ondemand virtual device"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
-    parentName: "ul",
-    "className": "task-list-item"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("input", {
-    parentName: "li",
-    "type": "checkbox",
-    "checked": false,
-    "disabled": true
-  }), " ", "support for rendering makecode snippets")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
-    parentName: "pre",
-    "className": "language-blocks"
-  }, "{\"source\":\"let x = 0;\",\"rendered\":{\"url\":\"/images/makecode/0478444cca345c7c9453691859fdf392.png\",\"width\":244.8046875,\"height\":128}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
-    parentName: "pre",
-    "className": "language-blocks"
-  }, "{\"source\":\"let y = 0\",\"rendered\":{\"url\":\"/images/makecode/8a50a52c3949e66c87a9936609e9ed37.png\",\"width\":244.8046875,\"height\":128}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
-    parentName: "pre",
-    "className": "language-blocks"
-  }, "{\"source\":\"modules.accelerometer.onEvent(jacdac.AccelerometerEvent.TiltUp, function () {\\n\\t\\n})\",\"rendered\":{\"url\":\"/images/makecode/54369921728cbdc43e8dacf08062cb6b.png\",\"width\":823.3203125,\"height\":208}}\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
-    parentName: "pre",
-    "className": "language-blocks"
-  }, "{\"source\":\"---\\n\\n---\\nnamespace myModules {\\n    //% fixedInstance block=\\\"foot\\\"\\n    export const foot = new modules.AccelerometerClient(\\\"foot\\\");\\n}\\n---\\nmyModules.foot.onEvent(jacdac.AccelerometerEvent.TiltUp, function() {\\n    \\n})\",\"rendered\":{\"url\":\"/images/makecode/b950fa5b2217837988846a2e4fd0819c.png\",\"width\":746.5078125,\"height\":512}}\n")));
+  }), " ", "ondemand virtual device")));
 }
 ;
 MDXContent.isMDXComponent = true;
@@ -281,4 +263,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-mdx-b22a79b998ce7e782f68.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-mdx-ae6d27fcd38b11a8d32e.js.map
