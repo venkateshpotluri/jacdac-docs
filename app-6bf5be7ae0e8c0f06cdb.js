@@ -25448,7 +25448,12 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 
             _this2.setConnectionState(ConnectionState.Connected);
           } else {
-            console.debug("connection aborted in flight");
+            console.debug("connection aborted in flight", {
+              state: _this2._connectionState,
+              old: _this2._connectPromise,
+              new: _p2
+            });
+            if (!background) _this2.errorHandler(_constants__WEBPACK_IMPORTED_MODULE_5__[/* CONNECT */ "H"], new Error("connection aborted in flight"));
           }
         }).catch(function (e) {
           if (_p2 == _this2._connectPromise) {
@@ -32967,7 +32972,6 @@ function useIdleCallback(cb, timeout, deps) {
     if (typeof window === "undefined" || !cb) return;
 
     if ("requestIdleCallback" in window) {
-      console.log("use requestIdleCallback");
       var id = window.requestIdleCallback(cb, {
         timeout: timeout
       });
@@ -36035,7 +36039,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this3._transports.forEach(function (tr) {
       tr.bus = Object(assertThisInitialized["a" /* default */])(_this3); // disconnect all transprots when one starts connecting
 
-      tr.on(constants["I" /* CONNECTING */], function () {
+      tr.bus.on(constants["I" /* CONNECTING */], function () {
         return _this3.preConnect(tr);
       });
     });
@@ -36074,6 +36078,9 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   var _proto2 = JDBus.prototype;
 
   _proto2.preConnect = function preConnect(transport) {
+    console.debug("preconnect " + transport.type, {
+      transport: transport
+    });
     return Promise.all(this._transports.filter(function (t) {
       return t !== transport;
     }).map(function (t) {
@@ -36082,38 +36089,57 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto2.connect = /*#__PURE__*/function () {
-    var _connect = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee5() {
+    var _connect = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee5(background) {
       var _iterator2, _step2, transport;
 
       return regenerator_default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
+              if (!this.connected) {
+                _context5.next = 2;
+                break;
+              }
+
+              return _context5.abrupt("return");
+
+            case 2:
+              console.debug("bus: connect start", {
+                background: background
+              });
               _iterator2 = bus_createForOfIteratorHelperLoose(this._transports);
 
-            case 1:
+            case 4:
               if ((_step2 = _iterator2()).done) {
-                _context5.next = 9;
+                _context5.next = 14;
                 break;
               }
 
               transport = _step2.value;
-              _context5.next = 5;
-              return transport.connect();
+              // start connection
+              console.debug("bus: connect " + transport.type, {
+                transport: transport
+              });
+              _context5.next = 9;
+              return transport.connect(background);
 
-            case 5:
+            case 9:
+              console.log("bus: connect " + transport.type + " " + transport.connectionState, {
+                transport: transport
+              }); // keep going if not connected
+
               if (!transport.connected) {
-                _context5.next = 7;
+                _context5.next = 12;
                 break;
               }
 
-              return _context5.abrupt("break", 9);
+              return _context5.abrupt("break", 14);
 
-            case 7:
-              _context5.next = 1;
+            case 12:
+              _context5.next = 4;
               break;
 
-            case 9:
+            case 14:
             case "end":
               return _context5.stop();
           }
@@ -36121,7 +36147,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       }, _callee5, this);
     }));
 
-    function connect() {
+    function connect(_x3) {
       return _connect.apply(this, arguments);
     }
 
@@ -36369,7 +36395,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       }, _callee8, this);
     }));
 
-    function handleRealTimeClockSync(_x3) {
+    function handleRealTimeClockSync(_x4) {
       return _handleRealTimeClockSync.apply(this, arguments);
     }
 
@@ -36409,7 +36435,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       }, _callee9, this);
     }));
 
-    function sendPacketAsync(_x4) {
+    function sendPacketAsync(_x5) {
       return _sendPacketAsync.apply(this, arguments);
     }
 
@@ -37069,24 +37095,29 @@ var microbit_CMSISProto = /*#__PURE__*/function () {
           switch (_context.prev = _context.next) {
             case 0:
               if (!this.io) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
               console.debug("micro:bit: disconnect proto");
               this.stopRecvToLoop();
+
+              this._onJDMsg = function () {
+                return console.warn("rogue jd callback");
+              };
+
               _io = this.io;
               this.io = undefined;
 
               if (!_io) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 8;
+              _context.next = 9;
               return _io.disconnectAsync();
 
-            case 8:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -38274,6 +38305,10 @@ var hf2_Transport = /*#__PURE__*/function () {
       this.dev = null;
       this.epIn = null;
       this.epOut = null;
+
+      this.onData = function () {
+        return console.warn("rogue hf2 onData");
+      };
     }
   };
 
@@ -38740,6 +38775,7 @@ var hf2_HF2Proto = /*#__PURE__*/function () {
   _proto2.talkAsync = function talkAsync(cmd, data) {
     var _this5 = this;
 
+    if (!this.io) console.log("rogue hf2 instance");
     var len = 8;
     if (data) len += data.length;
     var pkt = new Uint8Array(len);
@@ -39136,6 +39172,7 @@ var usb_USBTransport = /*#__PURE__*/function (_JDTransport) {
               };
 
               onJDMessage = function onJDMessage(buf) {
+                if (!_this2.hf2) console.warn("hf2: receiving on disconnected hf2");
                 var pkts = packet["a" /* default */].fromFrame(buf, _this2.bus.timestamp);
 
                 for (var _iterator = usb_createForOfIteratorHelperLoose(pkts), _step; !(_step = _iterator()).done;) {
@@ -39838,9 +39875,7 @@ function JacdacProvider(props) {
   Object(react["useEffect"])(function () {
     if (!firstConnect) {
       setFirstConnect(true);
-      Provider_bus.transports.forEach(function (transport) {
-        return transport.connect(true);
-      });
+      Provider_bus.connect(true);
     }
 
     return function () {};
@@ -48428,4 +48463,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-38789b09cdba144a878c.js.map
+//# sourceMappingURL=app-6bf5be7ae0e8c0f06cdb.js.map

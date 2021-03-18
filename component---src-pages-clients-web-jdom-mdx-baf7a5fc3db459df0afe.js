@@ -163,7 +163,7 @@ function MDXContent(_ref) {
   }))), "JavaScript/TypeScript ES6"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "If you are using JavaScript/TypeScript ES6, import all APIs "), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-javascript"
-  }, "import { createUSBBus, CHANGE } from \"jacdac-ts\"\n\nconst bus = createUSBBus();\nawait bus.connectAsync();\nbus.on(CHANGE, () => console.log(bus.devices()\n    .map(device => device.toString())\n    .join(\", \"))\n    )\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
+  }, "import { createUSBBus, CHANGE } from \"jacdac-ts\"\n\nconst bus = createUSBBus();\nawait bus.connect();\nbus.on(CHANGE, () => console.log(bus.devices()\n    .map(device => device.toString())\n    .join(\", \"))\n    )\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h2", {
     "id": "vanilla-javascript",
     "style": {
       "position": "relative"
@@ -218,4 +218,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-web-jdom-mdx-53659e331aae0692f16a.js.map
+//# sourceMappingURL=component---src-pages-clients-web-jdom-mdx-baf7a5fc3db459df0afe.js.map

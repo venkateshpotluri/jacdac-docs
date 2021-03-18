@@ -121,10 +121,10 @@ function MDXContent(_ref) {
   }))), "Connection and disconnection"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "By default, the WebUSB bus will try to reconnect\nto any known connected physical device. The Jacdac physical device hasn't been paired yet,\nyou can initiate the connection from a user interaction handler (security measure as the user must manually pick the device)."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-javascript"
-  }, "await bus.connectAsync();\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "The bus will detect that the physical device is disconnected automatically. If you wish to disconnect manually, use"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
+  }, "await bus.connect();\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "The bus will detect that the physical device is disconnected automatically. If you wish to disconnect manually, use"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("pre", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("code", {
     parentName: "pre",
     "className": "language-javascript"
-  }, "await bus.disconnectAsync();\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "You can query the status of the connection using ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
+  }, "await bus.disconnect();\n")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "You can query the status of the connection using ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("inlineCode", {
     parentName: "p"
   }, "bus.connectionState"), ". The connection has 4 states:"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("ul", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
     parentName: "ul"
@@ -351,4 +351,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-web-jdom-bus-mdx-9f313b101d66e89d4297.js.map
+//# sourceMappingURL=component---src-pages-clients-web-jdom-bus-mdx-c49ed34502502236b459.js.map
