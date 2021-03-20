@@ -906,6 +906,14 @@
         "schema": "boolean"
       },
       {
+        "@type": "Property",
+        "name": "click_hold_time",
+        "@id": "dtmi:jacdac:x1473a263:rw:clickholdtime;1",
+        "description": "Threshold for `click` and `hold` events (see event descriptions below).",
+        "schema": "integer",
+        "writable": true
+      },
+      {
         "@type": [
           "Telemetry",
           "Event"
@@ -918,12 +926,13 @@
       {
         "@type": [
           "Telemetry",
-          "Event"
+          "TimeSpan"
         ],
         "name": "up",
         "@id": "dtmi:jacdac:x1473a263:event:up;1",
-        "description": "Emitted when button goes from active (`pressed == 1`) to inactive.",
-        "schema": "dtmi:jacdac:x1473a263:event;1"
+        "description": "Emitted when button goes from active (`pressed == 1`) to inactive. The 'time' parameter \nrecords the amount of time between the down and up events.",
+        "unit": "millisecond",
+        "schema": "integer"
       },
       {
         "@type": [
@@ -932,17 +941,7 @@
         ],
         "name": "click",
         "@id": "dtmi:jacdac:x1473a263:event:click;1",
-        "description": "Emitted together with `up` when the press time was not longer than 500ms.",
-        "schema": "dtmi:jacdac:x1473a263:event;1"
-      },
-      {
-        "@type": [
-          "Telemetry",
-          "Event"
-        ],
-        "name": "long_click",
-        "@id": "dtmi:jacdac:x1473a263:event:longclick;1",
-        "description": "Emitted after button is held for 500ms. Long click events are followed by a separate up event.",
+        "description": "Emitted together with `up` when the press time less than or equal to `click_hold_time`.",
         "schema": "dtmi:jacdac:x1473a263:event;1"
       },
       {
@@ -952,7 +951,7 @@
         ],
         "name": "hold",
         "@id": "dtmi:jacdac:x1473a263:event:hold;1",
-        "description": "Emitted after the button is held for 1500ms. Hold events are followed by a separate up event.",
+        "description": "Emitted when the press times is greater than `click_hold_time`. Hold events are followed by a separate up event.",
         "schema": "dtmi:jacdac:x1473a263:event;1"
       }
     ],

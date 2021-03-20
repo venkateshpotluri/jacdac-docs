@@ -748,8 +748,7 @@ var sensorservicehost = __webpack_require__("Lle0");
 
 
 
-var LONG_CLICK_DELAY = 500;
-var HOLD_DELAY = 1500;
+var CLICK_HOLD_TIME = 500;
 
 var buttonservicehost_ButtonServiceHost = /*#__PURE__*/function (_SensorServiceHost) {
   Object(inheritsLoose["a" /* default */])(ButtonServiceHost, _SensorServiceHost);
@@ -763,7 +762,6 @@ var buttonservicehost_ButtonServiceHost = /*#__PURE__*/function (_SensorServiceH
       streamingInterval: 50
     }) || this;
     _this._held = false;
-    _this._longClick = false;
 
     _this.on(constants["Kc" /* REFRESH */], _this.handleRefresh.bind(Object(assertThisInitialized["a" /* default */])(_this)));
 
@@ -783,32 +781,22 @@ var buttonservicehost_ButtonServiceHost = /*#__PURE__*/function (_SensorServiceH
               _this$reading$values = this.reading.values(), v = _this$reading$values[0];
 
               if (!v) {
-                _context.next = 11;
+                _context.next = 7;
                 break;
               }
 
               delay = this.device.bus.timestamp - this._downTime;
 
-              if (!(!this._longClick && delay > LONG_CLICK_DELAY)) {
+              if (!(!this._held && delay > CLICK_HOLD_TIME)) {
                 _context.next = 7;
                 break;
               }
 
-              this._longClick = true;
-              _context.next = 7;
-              return this.sendEvent(constants["r" /* ButtonEvent */].LongClick);
-
-            case 7:
-              if (!(!this._held && delay > HOLD_DELAY)) {
-                _context.next = 11;
-                break;
-              }
-
               this._held = true;
-              _context.next = 11;
+              _context.next = 7;
               return this.sendEvent(constants["r" /* ButtonEvent */].Hold);
 
-            case 11:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -843,12 +831,11 @@ var buttonservicehost_ButtonServiceHost = /*#__PURE__*/function (_SensorServiceH
             case 3:
               this._downTime = this.device.bus.timestamp;
               this._held = false;
-              this._longClick = false;
               this.reading.setValues([true]);
-              _context2.next = 9;
+              _context2.next = 8;
               return this.sendEvent(constants["r" /* ButtonEvent */].Down);
 
-            case 9:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -892,7 +879,7 @@ var buttonservicehost_ButtonServiceHost = /*#__PURE__*/function (_SensorServiceH
                 break;
               }
 
-              if (this._longClick) {
+              if (!(upTime - this._downTime < CLICK_HOLD_TIME)) {
                 _context3.next = 11;
                 break;
               }
@@ -4253,4 +4240,4 @@ function hostDefinitionFromServiceClass(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bf5f3d63426f595dd08ee49398be37f9afa31e16-97712e1ecf9a207b4245.js.map
+//# sourceMappingURL=bf5f3d63426f595dd08ee49398be37f9afa31e16-2289f20917b842cc4e64.js.map

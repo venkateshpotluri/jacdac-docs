@@ -347,6 +347,9 @@ var Grid = __webpack_require__("tRbT");
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__("FQT7");
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__("HaE+");
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__("JX7q");
 
@@ -355,6 +358,10 @@ var inheritsLoose = __webpack_require__("dI71");
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__("vuIU");
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__("o0o1");
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtestfuns.ts
 var jdtestfuns = __webpack_require__("et/c");
@@ -375,6 +382,8 @@ var serviceclient = __webpack_require__("eoX3");
 var spec = __webpack_require__("Z8Ma");
 
 // CONCATENATED MODULE: ./jacdac-ts/src/test/testrunner.ts
+
+
 
 
 
@@ -656,7 +665,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 }();
 
 var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
-  function JDCommandEvaluator(env, command) {
+  function JDCommandEvaluator(testRunner, command) {
     this._prompt = "";
     this._progress = "";
     this._status = JDTestCommandStatus.Active;
@@ -664,7 +673,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     this._rangeComplete = undefined;
     this._eventsComplete = undefined;
     this._eventsQueue = undefined;
-    this.env = env;
+    this.testRunner = testRunner;
     this.command = command;
   }
 
@@ -707,6 +716,12 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           break;
         }
 
+      case "assign":
+        {
+          startExprs.push(args[1]);
+          break;
+        }
+
       case "events":
         {
           var eventList = this.command.call.arguments[0];
@@ -719,11 +734,12 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     } // evaluate the start expressions and store the results
 
 
+    var env = this.testRunner.serviceTestRunner.environment;
     startExprs.forEach(function (child) {
       if (_this._startExpressions.findIndex(function (r) {
         return r.e === child;
       }) < 0) {
-        var exprEval = new JDExprEvaluator(_this.env, []);
+        var exprEval = new JDExprEvaluator(env, []);
 
         _this._startExpressions.push({
           e: child,
@@ -762,6 +778,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
   };
 
   _proto2.evaluate = function evaluate() {
+    var env = this.testRunner.serviceTestRunner.environment;
     var testFun = cmdToTestFunction(this.command);
     this._status = JDTestCommandStatus.Active;
     this._progress = "";
@@ -775,7 +792,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
       case "check":
         {
-          var expr = new JDExprEvaluator(this.env, this._startExpressions);
+          var expr = new JDExprEvaluator(env, this._startExpressions);
           var ev = expr.eval(this.command.call.arguments[0]);
           this._status = ev ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
           break;
@@ -791,7 +808,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             return r.e === reg;
           });
 
-          var regValue = this.env[unparse(reg)];
+          var regValue = env[unparse(reg)];
           var status = testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
           this._status = status;
           regSaved.v = regValue;
@@ -813,7 +830,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             return r.e === amt;
           });
 
-          var _regValue = this.env[unparse(_reg)];
+          var _regValue = env[unparse(_reg)];
 
           if (testFun.id === "increasesBy") {
             if (_regValue >= _regSaved.v + amtSaved.v) {
@@ -844,7 +861,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         {
           this._status = JDTestCommandStatus.Active;
           var _reg2 = this.command.call.arguments[0];
-          var _regValue2 = this.env[unparse(_reg2)];
+          var _regValue2 = env[unparse(_reg2)];
 
           var beginSaved = this._startExpressions.find(function (r) {
             return r.e === _reg2;
@@ -895,6 +912,20 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
           break;
         }
+
+      case "assign":
+        {
+          var _reg3 = this.command.call.arguments[0];
+          var jdreg = this.testRunner.serviceTestRunner.registers[_reg3.name];
+
+          var _expr = new JDExprEvaluator(env, this._startExpressions);
+
+          var _ev2 = _expr.eval(this.command.call.arguments[1]); // TODO: generalize
+
+
+          jdreg.sendSetIntAsync(_ev2);
+          this._status = JDTestCommandStatus.Passed;
+        }
     }
   };
 
@@ -922,7 +953,7 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
   Object(inheritsLoose["a" /* default */])(JDTestCommandRunner, _JDEventSource);
 
   // timeout
-  function JDTestCommandRunner(testRunner, env, command) {
+  function JDTestCommandRunner(testRunner, command) {
     var _this3;
 
     _this3 = _JDEventSource.call(this) || this;
@@ -935,7 +966,6 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
     _this3._timeLeft = 5000;
     _this3._commmandEvaluator = null;
     _this3.testRunner = testRunner;
-    _this3.env = env;
     _this3.command = command;
     return _this3;
   }
@@ -953,7 +983,7 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
 
   _proto3.start = function start() {
     this.status = JDTestCommandStatus.Active;
-    this._commmandEvaluator = new testrunner_JDCommandEvaluator(this.env, this.command);
+    this._commmandEvaluator = new testrunner_JDCommandEvaluator(this.testRunner, this.command);
 
     this._commmandEvaluator.start();
 
@@ -1029,16 +1059,15 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
 var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   Object(inheritsLoose["a" /* default */])(JDTestRunner, _JDEventSource2);
 
-  function JDTestRunner(serviceTestRunner, env, testSpec) {
+  function JDTestRunner(serviceTestRunner, testSpec) {
     var _this4;
 
     _this4 = _JDEventSource2.call(this) || this;
     _this4._status = JDTestStatus.NotReady;
     _this4.serviceTestRunner = serviceTestRunner;
-    _this4.env = env;
     _this4.testSpec = testSpec;
     _this4.commands = testSpec.testCommands.map(function (c) {
-      return new testrunner_JDTestCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), _this4.env, c);
+      return new testrunner_JDTestCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), c);
     });
     return _this4;
   }
@@ -1060,6 +1089,7 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     this.reset();
     this.status = JDTestStatus.Active;
     this.commandIndex = 0;
+    this.serviceTestRunner.refreshEnvironment();
   };
 
   _proto4.next = function next() {
@@ -1141,8 +1171,46 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   }]);
 
   return JDTestRunner;
-}(eventsource["a" /* JDEventSource */]); // TODO: what is the type of the register
-// TODO: if fixed point, then we should expect noise
+}(eventsource["a" /* JDEventSource */]);
+
+function refresh_env(_x, _x2) {
+  return _refresh_env.apply(this, arguments);
+}
+
+function _refresh_env() {
+  _refresh_env = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(registers, environment) {
+    var k, register;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.t0 = regenerator_default.a.keys(environment);
+
+          case 1:
+            if ((_context.t1 = _context.t0()).done) {
+              _context.next = 9;
+              break;
+            }
+
+            k = _context.t1.value;
+            register = registers[k];
+            _context.next = 6;
+            return register.refresh();
+
+          case 6:
+            environment[k] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
+            _context.next = 1;
+            break;
+
+          case 9:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _refresh_env.apply(this, arguments);
+}
 
 var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   Object(inheritsLoose["a" /* default */])(JDServiceTestRunner, _JDServiceClient);
@@ -1152,12 +1220,12 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
 
     _this5 = _JDServiceClient.call(this, service) || this;
     _this5._testIndex = -1;
-    _this5.registers = {};
+    _this5._registers = {};
+    _this5._environment = {};
     _this5.events = {};
-    _this5.environment = {};
     _this5.testSpec = testSpec;
     _this5.tests = _this5.testSpec.tests.map(function (t) {
-      return new testrunner_JDTestRunner(Object(assertThisInitialized["a" /* default */])(_this5), _this5.environment, t);
+      return new testrunner_JDTestRunner(Object(assertThisInitialized["a" /* default */])(_this5), t);
     });
     var serviceSpec = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(service.serviceClass);
 
@@ -1178,18 +1246,18 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
         }
       });
       t.registers.forEach(function (regName) {
-        if (!_this5.registers[regName]) {
+        if (!_this5._registers[regName]) {
           var pkt = serviceSpec.packets.find(function (pkt) {
             return Object(spec["s" /* isRegister */])(pkt) && pkt.name === regName;
           });
           var register = service.register(pkt.identifier);
-          _this5.registers[regName] = register;
-          _this5.environment[regName] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
+          _this5._registers[regName] = register;
+          _this5._environment[regName] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
 
           _this5.mount(register.subscribe(constants["v" /* CHANGE */], function () {
             var _this5$currentTest2;
 
-            _this5.environment[regName] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
+            _this5._environment[regName] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
             (_this5$currentTest2 = _this5.currentTest) === null || _this5$currentTest2 === void 0 ? void 0 : _this5$currentTest2.envChange();
           }));
         }
@@ -1202,6 +1270,10 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   }
 
   var _proto5 = JDServiceTestRunner.prototype;
+
+  _proto5.refreshEnvironment = function refreshEnvironment() {
+    refresh_env(this.registers, this.environment);
+  };
 
   _proto5.stats = function stats() {
     var r = {
@@ -1243,6 +1315,16 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   };
 
   Object(createClass["a" /* default */])(JDServiceTestRunner, [{
+    key: "environment",
+    get: function get() {
+      return this._environment;
+    }
+  }, {
+    key: "registers",
+    get: function get() {
+      return this._registers;
+    }
+  }, {
     key: "testIndex",
     get: function get() {
       return this._testIndex;
@@ -1823,6 +1905,10 @@ var testCommandFunctions = [{
   args: ["array"],
   prompt: "was the event trace {1} observed?"
 }, {
+  id: "assign",
+  args: ["register", "number"],
+  prompt: "write value {2:val} to {1}"
+}, {
   id: "check",
   args: ["boolean"],
   prompt: "does the condition {1} hold?"
@@ -2054,7 +2140,7 @@ exports.default = _default;
 /***/ "sh2y":
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"press and release\",\"prompt\":\"Press and release the button (once)\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"quick press (click)\",\"prompt\":\"Quickly press and release the button (within 500ms of press)\",\"registers\":[],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Long click\",\"prompt\":\"Press and hold the button for 500-1500ms and then release\",\"registers\":[],\"events\":[\"down\",\"long_click\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"long_click\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold\",\"prompt\":\"Press and hold the button for more than 1500ms \",\"registers\":[],\"events\":[\"down\",\"hold\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"prompt\":\"turn the knob back and forth\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"prompt\":\"turn the knob clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"prompt\":\"turn the knob counter-clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"prompt\":\"turn one complete rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"prompt\":\"turn one complete rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"prompt\":\"slowly turn clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Thermometer tests\",\"serviceClassIdentifier\":337754823,\"tests\":[{\"description\":\"in range\",\"prompt\":\"Check that thermometer temperature is in expected range\",\"registers\":[\"temperature\",\"max_temperature\",\"temperature_error\",\"min_temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"Identifier\",\"name\":\"temperature\"},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"max_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"min_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]},{\"description\":\"increase temperature\",\"prompt\":\"Blow on the sensor to increase the temperature by one degree C\",\"registers\":[\"temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"temperature\"},{\"type\":\"Literal\",\"value\":1,\"raw\":\"1.0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]}]}]");
+module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"press and release\",\"prompt\":\"Press and release the button (once)\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"quick press (click)\",\"prompt\":\"Quickly press and release the button (within 500ms of press)\",\"registers\":[],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold\",\"prompt\":\"Press and hold the button for more than 500ms \",\"registers\":[],\"events\":[\"down\",\"hold\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Change threshold to five seconds\",\"prompt\":\"Press and hold the button for between two and five seconds\",\"registers\":[\"click_hold_time\"],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"click_hold_time\"},{\"type\":\"Literal\",\"value\":5000,\"raw\":\"5000\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"assign\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Device resets threshold to 500 ms (on value < 500)\",\"prompt\":\"This test requires no user input.\",\"registers\":[\"click_hold_time\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"click_hold_time\"},{\"type\":\"Literal\",\"value\":0,\"raw\":\"0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"assign\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"===\",\"left\":{\"type\":\"Identifier\",\"name\":\"click_hold_time\"},\"right\":{\"type\":\"Literal\",\"value\":500,\"raw\":\"500\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"prompt\":\"turn the knob back and forth\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"prompt\":\"turn the knob clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"prompt\":\"turn the knob counter-clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"prompt\":\"turn one complete rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"prompt\":\"turn one complete rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"prompt\":\"slowly turn clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Thermometer tests\",\"serviceClassIdentifier\":337754823,\"tests\":[{\"description\":\"in range\",\"prompt\":\"Check that thermometer temperature is in expected range\",\"registers\":[\"temperature\",\"max_temperature\",\"temperature_error\",\"min_temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"Identifier\",\"name\":\"temperature\"},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"max_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"min_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]},{\"description\":\"increase temperature\",\"prompt\":\"Blow on the sensor to increase the temperature by one degree C\",\"registers\":[\"temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"temperature\"},{\"type\":\"Literal\",\"value\":1,\"raw\":\"1.0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]}]}]");
 
 /***/ }),
 
@@ -2091,4 +2177,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-dce7ce8b0efc1d9e1393.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-52243a0ba13e228b1024.js.map
