@@ -1036,20 +1036,11 @@ var gatsby_theme_material_ui = __webpack_require__("4+mf");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__("tRbT");
 
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__("yNWl");
-
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
 
-// EXTERNAL MODULE: ./src/jacdac/useChange.ts
-var useChange = __webpack_require__("IzqI");
-
 // EXTERNAL MODULE: ./src/components/alert/ConnectAlert.tsx
 var ConnectAlert = __webpack_require__("9pTp");
-
-// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
-var Alert = __webpack_require__("FQT7");
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("HaE+");
@@ -1371,6 +1362,9 @@ var settingsclient_SettingsClient = /*#__PURE__*/function (_JDServiceClient) {
 }(serviceclient["a" /* JDServiceClient */]);
 
 
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__("IzqI");
+
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Delete.js
 var Delete = __webpack_require__("FrwU");
 var Delete_default = /*#__PURE__*/__webpack_require__.n(Delete);
@@ -1635,6 +1629,22 @@ function SettingsCard(props) {
     onClick: handleClear
   }, "Clear")));
 }
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__("yNWl");
+
+// CONCATENATED MODULE: ./src/components/hooks/useServices.ts
+
+
+
+function useServices(options) {
+  var _useContext = Object(react["useContext"])(Context["a" /* default */]),
+      bus = _useContext.bus;
+
+  var services = Object(useChange["a" /* default */])(bus, function (b) {
+    return b.services(options);
+  }, [JSON.stringify(options)]);
+  return services;
+}
 // CONCATENATED MODULE: ./src/components/tools/SettingsManager.tsx
 
 
@@ -1642,22 +1652,13 @@ function SettingsCard(props) {
 
 
 
-
-
 function SettingsManager() {
-  var _useContext = Object(react["useContext"])(Context["a" /* default */]),
-      bus = _useContext.bus;
-
-  var services = Object(useChange["a" /* default */])(bus, function (b) {
-    return b.services({
-      serviceClass: constants["oe" /* SRV_SETTINGS */]
-    });
+  var services = useServices({
+    serviceClass: constants["oe" /* SRV_SETTINGS */]
   });
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(ConnectAlert["a" /* default */], {
     serviceClass: constants["oe" /* SRV_SETTINGS */]
-  }), !services.length && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
-    severity: "info"
-  }, "We could not find any device with the settings storage service on the bus!"), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  }), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     spacing: 2
   }, services.map(function (service) {
@@ -1716,4 +1717,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-settings-manager-tsx-5e977a115d2579472578.js.map
+//# sourceMappingURL=component---src-pages-tools-settings-manager-tsx-7480365881451370ca1c.js.map
