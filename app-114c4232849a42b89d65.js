@@ -37121,8 +37121,10 @@ var microbit_CMSISProto = /*#__PURE__*/function () {
   };
 
   _proto.error = function error(msg) {
+    var _this$io;
+
     this.stopRecvToLoop();
-    this.io.error(msg);
+    (_this$io = this.io) === null || _this$io === void 0 ? void 0 : _this$io.error(msg);
   };
 
   _proto.onJDMessage = function onJDMessage(f) {
@@ -37230,60 +37232,82 @@ var microbit_CMSISProto = /*#__PURE__*/function () {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return _this4.io.sendPacketAsync(new Uint8Array(cmds));
-
-            case 2:
               if (_this4.io) {
-                _context2.next = 5;
+                _context2.next = 4;
                 break;
               }
 
-              console.debug("micro:bit disconnected");
+              console.debug("micro:bit disconnected, skip send", {
+                cmds: cmds
+              });
+
+              _this4.error('micro:bit disconnected');
+
               return _context2.abrupt("return");
 
-            case 5:
-              _context2.next = 7;
+            case 4:
+              _context2.next = 6;
+              return _this4.io.sendPacketAsync(new Uint8Array(cmds));
+
+            case 6:
+              if (_this4.io) {
+                _context2.next = 10;
+                break;
+              }
+
+              console.debug("micro:bit disconnected, skip response", {
+                cmds: cmds
+              });
+
+              _this4.error('micro:bit disconnected');
+
+              return _context2.abrupt("return");
+
+            case 10:
+              _context2.next = 12;
               return _this4.recvAsync();
 
-            case 7:
+            case 12:
               response = _context2.sent;
 
               if (!(response[0] !== cmds[0])) {
-                _context2.next = 21;
+                _context2.next = 26;
                 break;
               }
 
-              msg = "Bad response for " + cmds[0] + " -> " + response[0];
-              console.log(msg);
-              _context2.prev = 11;
-              _context2.next = 14;
+              msg = "Bad response for " + cmds[0] + " -> " + response[0] + ", try again";
+              console.debug(msg, {
+                cmds: cmds,
+                response: response
+              });
+              _context2.prev = 16;
+              _context2.next = 19;
               return _this4.recvAsync();
 
-            case 14:
+            case 19:
               response = _context2.sent;
-              _context2.next = 20;
+              _context2.next = 25;
               break;
 
-            case 17:
-              _context2.prev = 17;
-              _context2.t0 = _context2["catch"](11);
+            case 22:
+              _context2.prev = 22;
+              _context2.t0 = _context2["catch"](16);
 
               // throw the original error in case of timeout
               _this4.error(msg);
 
-            case 20:
+            case 25:
               if (response[0] !== cmds[0]) _this4.error(msg);
 
-            case 21:
+            case 26:
               return _context2.abrupt("return", response);
 
-            case 22:
+            case 27:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[11, 17]]);
+      }, _callee2, null, [[16, 22]]);
     })));
   };
 
@@ -48611,4 +48635,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,75,77]]]);
-//# sourceMappingURL=app-5e774f1de4d67896bdba.js.map
+//# sourceMappingURL=app-114c4232849a42b89d65.js.map
