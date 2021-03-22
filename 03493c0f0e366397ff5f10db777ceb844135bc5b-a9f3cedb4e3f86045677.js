@@ -8600,29 +8600,34 @@ function () {
 
 
 // CONCATENATED MODULE: ./src/components/hooks/useAnalytics.ts
+ // YOUR_INSTRUMENTATION_KEY_GOES_HERE
 
-var appInsights = new dist_esm_ApplicationInsights({
-  instrumentationKey: 'YOUR_INSTRUMENTATION_KEY_GOES_HERE',
+var instrumentationKey = undefined;
+var appInsights = instrumentationKey && new dist_esm_ApplicationInsights({
+  instrumentationKey: instrumentationKey,
   isStorageUseDisabled: true,
   isCookieUseDisabled: true
 });
 var page = typeof window !== "undefined" ? function () {
-  return appInsights.track({
+  return appInsights === null || appInsights === void 0 ? void 0 : appInsights.track({
     name: window.location.href,
     time: new Date().toUTCString(),
     baseType: "PageData"
   });
 } : function () {};
-var useAnalytics_track = typeof window !== "undefined" ? function (name, properties) {
-  return appInsights.track({
+var useAnalytics_track = typeof window !== "undefined" ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function (name, properties) {
+  return appInsights === null || appInsights === void 0 ? void 0 : appInsights.track({
     name: name,
     time: new Date().toUTCString(),
     data: properties,
     baseType: "EventData"
   });
-} : function (name, properties) {};
+} : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function (name, properties) {};
 
 if (typeof window !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   window.analytics = {
     page: page,
     track: useAnalytics_track
@@ -8898,4 +8903,4 @@ function useDeviceHost(device) {
 /***/ })
 
 }]);
-//# sourceMappingURL=03493c0f0e366397ff5f10db777ceb844135bc5b-a07c40d34492be2ed52b.js.map
+//# sourceMappingURL=03493c0f0e366397ff5f10db777ceb844135bc5b-a9f3cedb4e3f86045677.js.map

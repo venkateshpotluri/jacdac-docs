@@ -9620,29 +9620,34 @@ function () {
 
 
 // CONCATENATED MODULE: ./src/components/hooks/useAnalytics.ts
+ // YOUR_INSTRUMENTATION_KEY_GOES_HERE
 
-var appInsights = new dist_esm_ApplicationInsights({
-  instrumentationKey: 'YOUR_INSTRUMENTATION_KEY_GOES_HERE',
+var instrumentationKey = undefined;
+var appInsights = instrumentationKey && new dist_esm_ApplicationInsights({
+  instrumentationKey: instrumentationKey,
   isStorageUseDisabled: true,
   isCookieUseDisabled: true
 });
 var page = typeof window !== "undefined" ? function () {
-  return appInsights.track({
+  return appInsights === null || appInsights === void 0 ? void 0 : appInsights.track({
     name: window.location.href,
     time: new Date().toUTCString(),
     baseType: "PageData"
   });
 } : function () {};
-var useAnalytics_track = typeof window !== "undefined" ? function (name, properties) {
-  return appInsights.track({
+var useAnalytics_track = typeof window !== "undefined" ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function (name, properties) {
+  return appInsights === null || appInsights === void 0 ? void 0 : appInsights.track({
     name: name,
     time: new Date().toUTCString(),
     data: properties,
     baseType: "EventData"
   });
-} : function (name, properties) {};
+} : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function (name, properties) {};
 
 if (typeof window !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   window.analytics = {
     page: page,
     track: useAnalytics_track
@@ -11031,4 +11036,4 @@ function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-9c5d7f55e631dbf0079f.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-e18268f4d2bfdf8c4000.js.map
