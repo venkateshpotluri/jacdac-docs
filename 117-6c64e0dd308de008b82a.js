@@ -35,7 +35,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function DashboardRoleManager(props) {
-  var service = props.service;
+  var service = props.service,
+      expanded = props.expanded;
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_5__["useContext"])(_jacdac_Context__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"]),
       bus = _useContext.bus;
@@ -79,7 +80,7 @@ function DashboardRoleManager(props) {
   };
 
   if (autoBind === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], null);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, !!(roles !== null && roles !== void 0 && roles.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_5___default.a.Fragment, null, expanded && !!(roles !== null && roles !== void 0 && roles.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
@@ -89,7 +90,7 @@ function DashboardRoleManager(props) {
       key: role.name,
       role: role
     });
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+  }))), expanded && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
@@ -112,4 +113,4 @@ function DashboardRoleManager(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=117-4c9b300a27573616461e.js.map
+//# sourceMappingURL=117-6c64e0dd308de008b82a.js.map
