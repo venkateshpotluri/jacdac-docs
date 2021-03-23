@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-899520f86fa9dcda01d9.js"
+    "url": "webpack-runtime-7ed00015f8fb2cb277e1.js"
   },
   {
     "url": "framework-2b7edf4901273164bb4a.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "7acb2bd285d062dba7787ec00a815f5c"
+    "revision": "b383ef286073aee4dc69509f8510cdb8"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "1aaa21dd9898b2c273945c1de4d5a4aa"
+    "revision": "a007b29bbbad67612b1fb19b1871c681"
   },
   {
     "url": "polyfill-d4d90feccc8ac9ef9552.js"
@@ -611,7 +611,7 @@ self.__precacheManifest = [
     "revision": "fff97a63d7d76d0afb3e023b1d340b17"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-a0920c111950cbc4a0a3.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-4397c5649de0be66a93a.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
@@ -777,7 +777,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-0b12d2a8f729de127af4.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-690d523897af9e32f380.js`))) {
     return await fetch(event.request)
   }
 

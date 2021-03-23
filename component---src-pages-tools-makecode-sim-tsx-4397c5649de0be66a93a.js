@@ -212,7 +212,7 @@ function deviceSort(l, r) {
 } // hide the makecode device itself and power devices
 
 
-var ignoredServices = [constants["Id" /* SRV_CONTROL */], constants["Wd" /* SRV_LOGGER */], constants["oe" /* SRV_SETTINGS */], constants["ke" /* SRV_ROLE_MANAGER */], constants["ce" /* SRV_POWER */]];
+var ignoredServices = [constants["Id" /* SRV_CONTROL */], constants["Wd" /* SRV_LOGGER */], constants["oe" /* SRV_SETTINGS */], constants["ke" /* SRV_ROLE_MANAGER */], constants["ce" /* SRV_POWER */], constants["de" /* SRV_PROTO_TEST */]];
 
 var deviceFilter = function deviceFilter(device) {
   return !!device.serviceClasses.filter(function (sc) {
@@ -760,4 +760,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-a0920c111950cbc4a0a3.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-4397c5649de0be66a93a.js.map
