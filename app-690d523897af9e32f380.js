@@ -51995,7 +51995,7 @@ var _hosts = [{
   name: "thermometer (outdoor)",
   serviceClasses: [constants["ye" /* SRV_THERMOMETER */]],
   services: function services() {
-    return [new sensorservicehost["a" /* default */](constants["ye" /* SRV_THERMOMETER */], outdoorThermometerOptions)];
+    return [new analogsensorservicehost_AnalogSensorServiceHost(constants["ye" /* SRV_THERMOMETER */], outdoorThermometerOptions)];
   }
 }, {
   name: "thermometer (medical)",
@@ -52794,4 +52794,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-0b12d2a8f729de127af4.js.map
+//# sourceMappingURL=app-690d523897af9e32f380.js.map

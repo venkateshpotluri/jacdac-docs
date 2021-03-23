@@ -83,6 +83,9 @@ function useReadingAuxilliaryValue(register, identifier, options) {
   }, [register, auxilliaryRegister, visible]);
   return value;
 }
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__("IzqI");
+
 // CONCATENATED MODULE: ./src/components/RegisterInput.tsx
 
 
@@ -90,6 +93,7 @@ function useReadingAuxilliaryValue(register, identifier, options) {
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -129,7 +133,9 @@ function RegisterInput(props) {
 
   var host = useRegisterHost(register);
   var hasSet = specification.kind === "rw" || host && specification.kind !== "const";
-  var hasData = !!register.data;
+  var hasData = Object(useChange["a" /* default */])(register, function (_) {
+    return !!_.data;
+  });
   var color = hasSet ? "secondary" : "primary";
   var minReading = useReadingAuxilliaryValue(register, constants["cf" /* SystemReg */].MinReading, {
     visible: visible
@@ -1619,4 +1625,4 @@ function useAnimationFrame(callback, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-8eca05be526f86551f45.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-ac278700b14e1e51e451.js.map
