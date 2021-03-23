@@ -245,6 +245,33 @@ function DashboardDeviceItem(props) {
 
 /***/ }),
 
+/***/ "PTt+":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__("TqRt");
+
+var _interopRequireWildcard = __webpack_require__("284h");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__("q1tI"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z"
+}), 'Devices');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "mzE5":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -260,7 +287,8 @@ function Page() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
     showAvatar: true,
     showHeader: true,
-    showConnect: true
+    showConnect: true,
+    showStartSimulators: true
   });
 }
 
@@ -408,11 +436,18 @@ var Add_default = /*#__PURE__*/__webpack_require__.n(Add);
 var Clear = __webpack_require__("ytJY");
 var Clear_default = /*#__PURE__*/__webpack_require__.n(Clear);
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Devices.js
+var Devices = __webpack_require__("PTt+");
+var Devices_default = /*#__PURE__*/__webpack_require__.n(Devices);
+
 // EXTERNAL MODULE: ./src/components/alert/ConnectAlert.tsx
 var ConnectAlert = __webpack_require__("9pTp");
 
 // EXTERNAL MODULE: ./src/jacdac/ConnectButtons.tsx
 var ConnectButtons = __webpack_require__("j06+");
+
+// EXTERNAL MODULE: ./src/components/services/useRoleManager.ts
+var useRoleManager = __webpack_require__("UF2u");
 
 // CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
@@ -428,6 +463,9 @@ var ConnectButtons = __webpack_require__("j06+");
 
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+ // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -467,11 +505,12 @@ function defaultDeviceFilter(d) {
 
 function Dashboard(props) {
   var showConnect = props.showConnect,
+      showStartSimulators = props.showStartSimulators,
       _props$deviceSort = props.deviceSort,
       deviceSort = _props$deviceSort === void 0 ? defaultDeviceSort : _props$deviceSort,
       _props$deviceFilter = props.deviceFilter,
       deviceFilter = _props$deviceFilter === void 0 ? defaultDeviceFilter : _props$deviceFilter,
-      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["showConnect", "deviceSort", "deviceFilter"]);
+      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["showConnect", "showStartSimulators", "deviceSort", "deviceFilter"]);
 
   var _useContext = Object(react["useContext"])(Context["a" /* default */]),
       bus = _useContext.bus;
@@ -496,15 +535,24 @@ function Dashboard(props) {
       hosted = _splitFilter[0],
       physicals = _splitFilter[1];
 
+  var roleManager = Object(useRoleManager["a" /* default */])();
+
   var handleClearSimulators = function handleClearSimulators() {
     bus.deviceHosts().forEach(function (dev) {
       return bus.removeDeviceHost(dev);
     });
   };
 
+  var handleStartSimulators = function handleStartSimulators() {
+    return roleManager === null || roleManager === void 0 ? void 0 : roleManager.startSimulators();
+  };
+
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(DeviceGroup, Object.assign({
     title: "Simulators",
-    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
+    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, showStartSimulators && /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
+      title: "start missing simulators",
+      onClick: handleStartSimulators
+    }, /*#__PURE__*/react_default.a.createElement(Devices_default.a, null)), /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
       title: "start simulator",
       onClick: toggleShowDeviceHostsDialog
     }, /*#__PURE__*/react_default.a.createElement(Add_default.a, null)), /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
@@ -559,4 +607,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-dashboard-tsx-afbb778619154d0672d5.js.map
+//# sourceMappingURL=component---src-pages-dashboard-tsx-cd1409159c198fbbd64c.js.map

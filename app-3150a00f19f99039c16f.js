@@ -40365,8 +40365,10 @@ var iframebridgeclient_IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClie
       // try as a single packet (send by the MakeCode simulator)
       var pkt = packet["a" /* default */].fromBinary(msg.data, this.bus.timestamp);
       pkts = pkt && [pkt];
-    }
+    } // bail out if unknown packet
 
+
+    if (!pkts) return;
     this.packetProcessed += pkts.length;
 
     for (var _iterator = iframebridgeclient_createForOfIteratorHelperLoose(pkts), _step; !(_step = _iterator()).done;) {
@@ -52794,4 +52796,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-690d523897af9e32f380.js.map
+//# sourceMappingURL=app-3150a00f19f99039c16f.js.map
