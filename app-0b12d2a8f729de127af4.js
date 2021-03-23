@@ -16718,11 +16718,7 @@ function contentToFirmwareRelease(content) {
   var _$exec;
 
   // filter out non-file, non-uf2
-  var version = (content === null || content === void 0 ? void 0 : content.type) === "file" && ((_$exec = /^fw-v(\d+\.\d+.\d+)\.uf2$/.exec(content.name)) === null || _$exec === void 0 ? void 0 : _$exec[1]);
-  console.log({
-    content: content,
-    version: version
-  });
+  var version = (content === null || content === void 0 ? void 0 : content.type) === "file" && ((_$exec = /^fw-(\d+\.\d+.\d+)\.uf2$/.exec(content.name)) === null || _$exec === void 0 ? void 0 : _$exec[1]);
   if (!version) return undefined;
   return {
     version: version,
@@ -16734,9 +16730,6 @@ function contentToFirmwareRelease(content) {
 }
 
 function contentsToFirmwareReleases(contents) {
-  console.log({
-    contents: contents
-  });
   return contents === null || contents === void 0 ? void 0 : contents.map(contentToFirmwareRelease).filter(function (r) {
     return !!r;
   }).sort(function (l, r) {
@@ -52801,4 +52794,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-de2b627fa068314b9746.js.map
+//# sourceMappingURL=app-0b12d2a8f729de127af4.js.map
