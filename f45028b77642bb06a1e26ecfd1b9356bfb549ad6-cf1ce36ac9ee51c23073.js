@@ -158,6 +158,7 @@ function useServiceRole(service) {
 
 
 
+
 function ServiceRole(props) {
   var service = props.service;
 
@@ -169,10 +170,13 @@ function ServiceRole(props) {
 
   var handleClick = function handleClick() {
     return showSelectRoleDialog(service);
-  }; // hide if no role manager or role not compatible with required roles
+  };
 
+  var hasRoleForService = Object(useChange["a" /* default */])(roleManager, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.hasRoleForService(service);
+  }); // hide if no role manager or role not compatible with required roles
 
-  if (!(roleManager !== null && roleManager !== void 0 && roleManager.hasRoleForService(service))) return null;
+  if (!hasRoleForService) return null;
   return /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
     size: "small",
     onClick: handleClick
@@ -1242,4 +1246,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-9e4aae2c1b904bd13e08.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-cf1ce36ac9ee51c23073.js.map

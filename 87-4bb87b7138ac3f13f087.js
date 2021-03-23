@@ -59,6 +59,7 @@ function SelectRoleDialog(props) {
   var currentRole = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"])(service, function (srv) {
     return srv.role;
   });
+  var hasRoles = !!(roles !== null && roles !== void 0 && roles.length);
 
   var handleClick = function handleClick(role) {
     return /*#__PURE__*/Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee() {
@@ -88,11 +89,11 @@ function SelectRoleDialog(props) {
     onClose: onClose
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
     id: labelId
-  }, "Select a role"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null, roles === null || roles === void 0 ? void 0 : roles.map(function (role, i) {
+  }, hasRoles ? "Select a role" : "No role available"), hasRoles && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null, roles === null || roles === void 0 ? void 0 : roles.map(function (role, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_services_RoleListItem__WEBPACK_IMPORTED_MODULE_10__[/* RoleListItem */ "a"], {
       key: i,
       role: role,
-      selected: currentRole === role,
+      selected: currentRole === role.name,
       onClick: handleClick(role)
     });
   }))));
@@ -469,4 +470,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=87-cf91429fab6f19d9da41.js.map
+//# sourceMappingURL=87-4bb87b7138ac3f13f087.js.map
