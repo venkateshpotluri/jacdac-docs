@@ -36645,7 +36645,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this.on(constants["V" /* DEVICE_ANNOUNCE */], _this.handleRealTimeClockSync.bind(Object(assertThisInitialized["a" /* default */])(_this))); // grab the default role manager
 
 
-    _this.on(constants["V" /* DEVICE_ANNOUNCE */], _this.handleRoleManager.bind(Object(assertThisInitialized["a" /* default */])(_this))); // start all timers
+    _this.on(constants["W" /* DEVICE_CHANGE */], _this.handleRoleManager.bind(Object(assertThisInitialized["a" /* default */])(_this))); // start all timers
 
 
     _this.start();
@@ -37033,16 +37033,12 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     return handleRealTimeClockSync;
   }();
 
-  _proto.handleRoleManager = function handleRoleManager(device) {
-    // auto allocate the first role manager
-    if (!this._roleManagerClient && device.hasService(constants["ke" /* SRV_ROLE_MANAGER */])) {
-      var _device$services = device.services({
-        serviceClass: constants["ke" /* SRV_ROLE_MANAGER */]
-      }),
-          service = _device$services[0];
-
-      this.setRoleManagerService(service);
-    }
+  _proto.handleRoleManager = function handleRoleManager() {
+    if (this.roleManager) return;
+    var service = this.services({
+      serviceClass: constants["ke" /* SRV_ROLE_MANAGER */]
+    })[0];
+    this.setRoleManagerService(service);
   };
 
   _proto.sendPacketAsync = /*#__PURE__*/function () {
@@ -52796,4 +52792,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-3150a00f19f99039c16f.js.map
+//# sourceMappingURL=app-e1d8d4483e24ab8e5dcd.js.map
