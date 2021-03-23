@@ -391,7 +391,7 @@ var constants = __webpack_require__("ZfHV");
 // EXTERNAL MODULE: ./src/components/test/ServiceTest.tsx + 1 modules
 var ServiceTest = __webpack_require__("P1Ev");
 
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
+// EXTERNAL MODULE: ./src/components/github.ts + 2 modules
 var github = __webpack_require__("LGN/");
 
 // EXTERNAL MODULE: ./src/components/AppContext.tsx

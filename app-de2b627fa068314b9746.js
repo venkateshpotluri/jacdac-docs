@@ -16515,6 +16515,71 @@ var asyncToGenerator = __webpack_require__("HaE+");
 var regenerator = __webpack_require__("o0o1");
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
+// CONCATENATED MODULE: ./src/components/semver.ts
+function cmp(a, b) {
+  if (!a) {
+    if (!b) return 0;else return 1;
+  } else if (!b) return -1;else {
+    var d = a.major - b.major || a.minor - b.minor || a.patch - b.patch;
+    if (d) return d;
+    if (a.pre.length == 0 && b.pre.length > 0) return 1;
+    if (a.pre.length > 0 && b.pre.length == 0) return -1;
+
+    for (var i = 0; i < a.pre.length + 1; ++i) {
+      var aa = a.pre[i];
+      var bb = b.pre[i];
+      if (!aa) {
+        if (!bb) return 0;else return -1;
+      } else if (!bb) return 1;else if (/^\d+$/.test(aa)) {
+        if (/^\d+$/.test(bb)) {
+          d = parseInt(aa) - parseInt(bb);
+          if (d) return d;
+        } else return -1;
+      } else if (/^\d+$/.test(bb)) return 1;else {
+        d = strcmp(aa, bb);
+        if (d) return d;
+      }
+    }
+
+    return 0;
+  }
+}
+
+function tryParse(v) {
+  if (!v) return null;
+
+  if ("*" === v) {
+    return {
+      major: Number.MAX_SAFE_INTEGER,
+      minor: Number.MAX_SAFE_INTEGER,
+      patch: Number.MAX_SAFE_INTEGER,
+      pre: [],
+      build: []
+    };
+  }
+
+  if (/^v\d/i.test(v)) v = v.slice(1);
+  var m = /^(\d+)\.(\d+)\.(\d+)(-([0-9a-zA-Z\-\.]+))?(\+([0-9a-zA-Z\-\.]+))?$/.exec(v);
+  if (m) return {
+    major: parseInt(m[1]),
+    minor: parseInt(m[2]),
+    patch: parseInt(m[3]),
+    pre: m[5] ? m[5].split(".") : [],
+    build: m[7] ? m[7].split(".") : []
+  };
+  return null;
+}
+
+function strcmp(a, b) {
+  if (a === b) return 0;
+  if (a < b) return -1;else return 1;
+}
+
+function semverCmp(a, b) {
+  var aa = tryParse(a);
+  var bb = tryParse(b);
+  if (!aa && !bb) return strcmp(a, b);else return cmp(aa, bb);
+}
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__("q1tI");
 
@@ -16645,8 +16710,40 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
+
 var ROOT = "https://api.github.com/";
 var GITHUB_API_KEY = "githubtoken";
+
+function contentToFirmwareRelease(content) {
+  var _$exec;
+
+  // filter out non-file, non-uf2
+  var version = (content === null || content === void 0 ? void 0 : content.type) === "file" && ((_$exec = /^fw-v(\d+\.\d+.\d+)\.uf2$/.exec(content.name)) === null || _$exec === void 0 ? void 0 : _$exec[1]);
+  console.log({
+    content: content,
+    version: version
+  });
+  if (!version) return undefined;
+  return {
+    version: version,
+    sha: content.sha,
+    size: content.size,
+    html_url: content.html_url,
+    download_url: content.download_url
+  };
+}
+
+function contentsToFirmwareReleases(contents) {
+  console.log({
+    contents: contents
+  });
+  return contents === null || contents === void 0 ? void 0 : contents.map(contentToFirmwareRelease).filter(function (r) {
+    return !!r;
+  }).sort(function (l, r) {
+    return semverCmp(l.version, r.version);
+  });
+}
+
 function normalizeSlug(slug) {
   return slug.replace(/^https:\/\/github.com\//, "");
 }
@@ -16664,19 +16761,20 @@ function fetchLatestRelease(_x, _x2) {
 
 function _fetchLatestRelease() {
   _fetchLatestRelease = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(slug, options) {
-    var uri, resp, release;
+    var uri, resp, contents, releases;
     return regenerator_default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            uri = ROOT + "repos/" + normalizeSlug(slug) + "/releases/latest";
+            // https://api.github.com/repos/microsoft/jacdac-msr-modules/contents/dist
+            uri = ROOT + "repos/" + normalizeSlug(slug) + "/contents/dist";
             _context.next = 3;
             return fetch(uri);
 
           case 3:
             resp = _context.sent;
             _context.t0 = resp.status;
-            _context.next = _context.t0 === 200 ? 7 : _context.t0 === 204 ? 7 : _context.t0 === 404 ? 11 : _context.t0 === 403 ? 12 : 15;
+            _context.next = _context.t0 === 200 ? 7 : _context.t0 === 204 ? 7 : _context.t0 === 404 ? 12 : _context.t0 === 403 ? 13 : 16;
             break;
 
           case 7:
@@ -16684,27 +16782,28 @@ function _fetchLatestRelease() {
             return resp.json();
 
           case 9:
-            release = _context.sent;
-            return _context.abrupt("return", release);
-
-          case 11:
-            return _context.abrupt("return", undefined);
+            contents = _context.sent;
+            releases = contentsToFirmwareReleases(contents);
+            return _context.abrupt("return", releases[0]);
 
           case 12:
+            return _context.abrupt("return", undefined);
+
+          case 13:
             if (!(options !== null && options !== void 0 && options.ignoreThrottled)) {
-              _context.next = 14;
+              _context.next = 15;
               break;
             }
 
             return _context.abrupt("return", undefined);
 
-          case 14:
+          case 15:
             throw new Error("Too many calls to GitHub, try again later");
 
-          case 15:
+          case 16:
             throw new Error("unknown status code " + resp.status);
 
-          case 16:
+          case 17:
           case "end":
             return _context.stop();
         }
@@ -16719,14 +16818,14 @@ function fetchReleaseBinary(_x3, _x4) {
 }
 
 function _fetchReleaseBinary() {
-  _fetchReleaseBinary = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(slug, tag) {
+  _fetchReleaseBinary = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(slug, version) {
     var downloadUrl, req, firmware;
     return regenerator_default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             // we are not using the release api because of CORS.
-            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/" + tag + "/dist/firmware.uf2";
+            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/main/dist/fw-v" + version + ".uf2";
             _context2.next = 3;
             return fetch(downloadUrl, {
               headers: {
@@ -16846,17 +16945,12 @@ function useRepository(slug) {
   return res;
 }
 function useLatestRelease(slug, options) {
-  if (!slug) return {
-    response: undefined,
-    loading: false,
-    error: undefined,
-    status: undefined
-  };
-  var uri = "repos/" + normalizeSlug(slug) + "/releases/latest";
-  var res = useFetchApi(uri, _objectSpread(_objectSpread({}, options || {}), {}, {
-    ignoreThrottled: true
-  }));
-  return res;
+  var _resp$response;
+
+  var resp = useLatestReleases(slug, options);
+  return _objectSpread(_objectSpread({}, resp), {}, {
+    response: (_resp$response = resp.response) === null || _resp$response === void 0 ? void 0 : _resp$response[0]
+  });
 }
 function useLatestReleases(slug, options) {
   if (!slug) return {
@@ -16865,11 +16959,13 @@ function useLatestReleases(slug, options) {
     error: undefined,
     status: undefined
   };
-  var uri = "repos/" + normalizeSlug(slug) + "/releases";
+  var uri = "repos/" + normalizeSlug(slug) + "/contents/dist";
   var res = useFetchApi(uri, _objectSpread(_objectSpread({}, options || {}), {}, {
     ignoreThrottled: true
   }));
-  return res;
+  return _objectSpread(_objectSpread({}, res), {}, {
+    response: contentsToFirmwareReleases(res.response)
+  });
 }
 
 /***/ }),
@@ -33400,7 +33496,7 @@ var spec = __webpack_require__("Z8Ma");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__("Zo1I");
 
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
+// EXTERNAL MODULE: ./src/components/github.ts + 2 modules
 var github = __webpack_require__("LGN/");
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
@@ -33508,7 +33604,7 @@ function useFirmwareBlobs() {
           case 13:
             rel = _context.sent;
 
-            if (rel !== null && rel !== void 0 && rel.tag_name) {
+            if (rel !== null && rel !== void 0 && rel.version) {
               _context.next = 17;
               break;
             }
@@ -33517,15 +33613,15 @@ function useFirmwareBlobs() {
             return _context.abrupt("return");
 
           case 17:
-            console.log("db: fetch binary release " + slug + "#" + rel.tag_name);
+            console.log("db: fetch binary release " + slug + " " + rel.version);
             _context.next = 20;
-            return Object(github["c" /* fetchReleaseBinary */])(slug, rel.tag_name);
+            return Object(github["c" /* fetchReleaseBinary */])(slug, rel.version);
 
           case 20:
             fw = _context.sent;
 
             if (fw) {
-              console.log("db: binary release " + slug + "#" + rel.tag_name + " downloaded");
+              console.log("db: binary release " + slug + " " + rel.version + " downloaded");
               firmwares.set(slug, fw);
             } // throttle github queries
 
@@ -48503,7 +48599,7 @@ module.exports = false;
 /***/ "xF43":
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"id\":\"microsoft-research-jmaccv2\",\"name\":\"JM Acc v2\",\"company\":\"Microsoft Research\",\"description\":\"A 3-axis accelerometer. 16G range.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[521405449],\"firmwares\":[1020174761]},{\"id\":\"microsoft-research-jmarcadebtnv20\",\"name\":\"JM ArcadeBtn v2.0\",\"company\":\"Microsoft Research\",\"description\":\"Lets you connect a single arcade button with an LED.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[343122531],\"firmwares\":[886919574]},{\"id\":\"microsoft-research-jmarcadecontrolsv2\",\"name\":\"JM Arcade Controls v2\",\"company\":\"Microsoft Research\",\"description\":\"Lets you connect arcade buttons and joystick to a Jacdac network.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[501915758],\"firmwares\":[954450524]},{\"id\":\"microsoft-research-jmcrankbtnv2\",\"name\":\"JM Crank+Btn v2\",\"company\":\"Microsoft Research\",\"description\":\"A rotary encoder with a push button.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[284830153,343122531],\"firmwares\":[813927310]},{\"id\":\"microsoft-research-jmcrankv2\",\"name\":\"JM Crank v2\",\"company\":\"Microsoft Research\",\"description\":\"A rotary encoder without a push button.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[284830153],\"firmwares\":[866678795]},{\"id\":\"microsoft-research-jmgamepadv2\",\"name\":\"JM GamePad v2\",\"company\":\"Microsoft Research\",\"description\":\"Lets you convert a plastic d-pad controller, so that it can be connected to a Jacdac network.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[501915758],\"firmwares\":[919754666]},{\"id\":\"microsoft-research-jmmachinelearning\",\"name\":\"JM Machine Learning\",\"company\":\"Microsoft Research\",\"description\":\"Lets you run machine learning models on data coming from Jacdac network.\",\"repo\":\"https://github.com/microsoft/pxt-tensorflow\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[336566904,496034245],\"firmwares\":[]},{\"id\":\"microsoft-research-jmmotorv21\",\"name\":\"JM Motor v2.1\",\"company\":\"Microsoft Research\",\"description\":\"Lets you control a single DC motor (up to 5V; yellow plastic ones work well).\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[385895640],\"firmwares\":[809626198]},{\"id\":\"microsoft-research-jmpower\",\"name\":\"JM Power\",\"company\":\"Microsoft Research\",\"description\":\"Lets you supply power to Jacdac network from a MicroUSB connection (eg. a USB battery pack).\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[530893146],\"firmwares\":[815885628]},{\"id\":\"microsoft-research-jmprotov20\",\"name\":\"JM Proto v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A prototype multi-function board.\\n* ``0x3f9bc26a`` JM Touch-Proto v2.0\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[],\"firmwares\":[1052138004]},{\"id\":\"microsoft-research-jmpwmnpxv20\",\"name\":\"JM PWM (npx) v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A light-strip controller. Supports WS2812B, APA102, and SK9822.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[309264608],\"firmwares\":[895762065]},{\"id\":\"microsoft-research-jmpwmnpxv21\",\"name\":\"JM PWM (npx) v2.1\",\"company\":\"Microsoft Research\",\"description\":\"A light-strip controller with MicroUSB connector for power. Supports WS2812B, APA102, and SK9822.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[309264608],\"firmwares\":[1013705700]},{\"id\":\"microsoft-research-jmpwmservov20\",\"name\":\"JM PWM (Servo) v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A controller for a 5V servo.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[318542083],\"firmwares\":[816890446]},{\"id\":\"microsoft-research-jmpwmservov21\",\"name\":\"JM PWM (Servo) v2.1\",\"company\":\"Microsoft Research\",\"description\":\"A controller for a 5V servo, with MicroUSB connector for power.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[318542083],\"firmwares\":[986140247]},{\"id\":\"microsoft-research-jmsliderv2\",\"name\":\"JM Slider v2\",\"company\":\"Microsoft Research\",\"description\":\"A linear potentiometer (slider).\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[522667846],\"firmwares\":[1043615261]},{\"id\":\"microsoft-research-jmsndv20\",\"name\":\"JM SND v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A simple buzzer.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[458731991],\"firmwares\":[854957595]},{\"id\":\"microsoft-research-jmtouchprotov20\",\"name\":\"JM Touch-Proto v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A multi-touch sensor based on proto board.\",\"repo\":\"https://github.com/microsoft/jacdac-stm32x0\",\"link\":\"https://github.com/microsoft/jacdac-stm32x0\",\"services\":[416636459],\"firmwares\":[1067172458]}]");
+module.exports = JSON.parse("[{\"id\":\"microsoft-research-jmaccv2\",\"name\":\"JM Acc v2\",\"company\":\"Microsoft Research\",\"description\":\"A 3-axis accelerometer. 16G range.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[521405449],\"firmwares\":[1020174761]},{\"id\":\"microsoft-research-jmarcadebtnv20\",\"name\":\"JM ArcadeBtn v2.0\",\"company\":\"Microsoft Research\",\"description\":\"Lets you connect a single arcade button with an LED.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[343122531],\"firmwares\":[886919574]},{\"id\":\"microsoft-research-jmarcadecontrolsv2\",\"name\":\"JM Arcade Controls v2\",\"company\":\"Microsoft Research\",\"description\":\"Lets you connect arcade buttons and joystick to a Jacdac network.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[501915758],\"firmwares\":[954450524]},{\"id\":\"microsoft-research-jmcrankbtnv2\",\"name\":\"JM Crank+Btn v2\",\"company\":\"Microsoft Research\",\"description\":\"A rotary encoder with a push button.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[284830153,343122531],\"firmwares\":[813927310]},{\"id\":\"microsoft-research-jmcrankv2\",\"name\":\"JM Crank v2\",\"company\":\"Microsoft Research\",\"description\":\"A rotary encoder without a push button.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[284830153],\"firmwares\":[866678795]},{\"id\":\"microsoft-research-jmgamepadv2\",\"name\":\"JM GamePad v2\",\"company\":\"Microsoft Research\",\"description\":\"Lets you convert a plastic d-pad controller, so that it can be connected to a Jacdac network.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[501915758],\"firmwares\":[919754666]},{\"id\":\"microsoft-research-jmmachinelearning\",\"name\":\"JM Machine Learning\",\"company\":\"Microsoft Research\",\"description\":\"Lets you run machine learning models on data coming from Jacdac network.\",\"repo\":\"https://github.com/microsoft/pxt-tensorflow\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[336566904,496034245],\"firmwares\":[]},{\"id\":\"microsoft-research-jmmotorv21\",\"name\":\"JM Motor v2.1\",\"company\":\"Microsoft Research\",\"description\":\"Lets you control a single DC motor (up to 5V; yellow plastic ones work well).\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[385895640],\"firmwares\":[809626198]},{\"id\":\"microsoft-research-jmpower\",\"name\":\"JM Power\",\"company\":\"Microsoft Research\",\"description\":\"Lets you supply power to Jacdac network from a MicroUSB connection (eg. a USB battery pack).\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[530893146],\"firmwares\":[815885628]},{\"id\":\"microsoft-research-jmprotov20\",\"name\":\"JM Proto v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A prototype multi-function board.\\n* ``0x3f9bc26a`` JM Touch-Proto v2.0\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[],\"firmwares\":[1052138004]},{\"id\":\"microsoft-research-jmpwmnpxv20\",\"name\":\"JM PWM (npx) v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A light-strip controller. Supports WS2812B, APA102, and SK9822.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[309264608],\"firmwares\":[895762065]},{\"id\":\"microsoft-research-jmpwmnpxv21\",\"name\":\"JM PWM (npx) v2.1\",\"company\":\"Microsoft Research\",\"description\":\"A light-strip controller with MicroUSB connector for power. Supports WS2812B, APA102, and SK9822.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[309264608],\"firmwares\":[1013705700]},{\"id\":\"microsoft-research-jmpwmservov20\",\"name\":\"JM PWM (Servo) v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A controller for a 5V servo.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[318542083],\"firmwares\":[816890446]},{\"id\":\"microsoft-research-jmpwmservov21\",\"name\":\"JM PWM (Servo) v2.1\",\"company\":\"Microsoft Research\",\"description\":\"A controller for a 5V servo, with MicroUSB connector for power.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[318542083],\"firmwares\":[986140247]},{\"id\":\"microsoft-research-jmsliderv2\",\"name\":\"JM Slider v2\",\"company\":\"Microsoft Research\",\"description\":\"A linear potentiometer (slider).\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[522667846],\"firmwares\":[1043615261]},{\"id\":\"microsoft-research-jmsndv20\",\"name\":\"JM SND v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A simple buzzer.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[458731991],\"firmwares\":[854957595]},{\"id\":\"microsoft-research-jmtouchprotov20\",\"name\":\"JM Touch-Proto v2.0\",\"company\":\"Microsoft Research\",\"description\":\"A multi-touch sensor based on proto board.\",\"repo\":\"https://github.com/microsoft/jacdac-msr-modules\",\"link\":\"https://github.com/microsoft/jacdac-msr-modules\",\"services\":[416636459],\"firmwares\":[1067172458]}]");
 
 /***/ }),
 
@@ -52705,4 +52801,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-96bd1740d66f3d646e52.js.map
+//# sourceMappingURL=app-de2b627fa068314b9746.js.map

@@ -270,7 +270,7 @@ function GithubRepositoryCardHeader(props) {
       color: "textSecondary",
       target: "_blank",
       to: release.html_url
-    }, release.name),
+    }, release.version),
     avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_5___default.a, null)
   });
 }
@@ -799,7 +799,7 @@ function FirmwareCard(props) {
       setFirmwareFile = _useFirmwareBlob.setFirmwareFile,
       firmwareBlobs = _useFirmwareBlob.firmwareBlobs;
 
-  var tag = (release === null || release === void 0 ? void 0 : release.tag_name) || "";
+  var tag = (release === null || release === void 0 ? void 0 : release.version) || "";
   var disabled = downloading;
   var version = firmwareBlobs === null || firmwareBlobs === void 0 ? void 0 : firmwareBlobs[0].version;
   var updateAvailable = !!tag && !!version && tag.slice(1) !== version.substr(0, tag.length - 1);
@@ -813,7 +813,7 @@ function FirmwareCard(props) {
   var handleReleaseChange = function handleReleaseChange(ev) {
     var v = ev.target.value;
     var rel = releases === null || releases === void 0 ? void 0 : releases.find(function (r) {
-      return r.tag_name === v;
+      return r.version === v;
     });
     setRelease(rel);
   };
@@ -895,7 +895,7 @@ function FirmwareCard(props) {
     expandIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_22___default.a, null)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     variant: "body2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("code", null, "v", version), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, " (", firmwareBlobs.length, " firmwares)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("code", null, "v", version), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, " ", "(", firmwareBlobs.length, " firmwares)"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     dense: true
   }, firmwareBlobs.map(function (blob) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
@@ -915,9 +915,9 @@ function FirmwareCard(props) {
     onChange: handleReleaseChange
   }, releases === null || releases === void 0 ? void 0 : releases.map(function (rel) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      key: rel.tag_name,
-      value: rel.tag_name
-    }, rel.tag_name);
+      key: rel.version,
+      value: rel.version
+    }, rel.version);
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], null, !downloading && release && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
     disabled: downloading,
     color: downloadColor,
@@ -1255,4 +1255,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5cb7c78286c5fcecf4d3c60360196e55585b6a15-b1b3b7c45ba181c172ab.js.map
+//# sourceMappingURL=5cb7c78286c5fcecf4d3c60360196e55585b6a15-6b65fafdd88d44f27eda.js.map

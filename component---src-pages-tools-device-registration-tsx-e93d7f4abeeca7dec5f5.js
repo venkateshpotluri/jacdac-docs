@@ -387,7 +387,7 @@ var Create_default = /*#__PURE__*/__webpack_require__.n(Create);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__("l6uw");
 
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
+// EXTERNAL MODULE: ./src/components/github.ts + 2 modules
 var github = __webpack_require__("LGN/");
 
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts

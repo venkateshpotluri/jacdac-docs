@@ -221,7 +221,7 @@ function GithubRepositoryCardHeader(props) {
       color: "textSecondary",
       target: "_blank",
       to: release.html_url
-    }, release.name),
+    }, release.version),
     avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_5___default.a, null)
   });
 }
@@ -606,7 +606,7 @@ var CardContent = __webpack_require__("oa/T");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__("ofer");
 
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
+// EXTERNAL MODULE: ./src/components/github.ts + 2 modules
 var github = __webpack_require__("LGN/");
 
 // EXTERNAL MODULE: ./src/components/GithubRepositoryCardHeader.tsx
@@ -693,4 +693,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-6ed73e513a9562fe18ea.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-17204f4a6de84f7e784b.js.map
