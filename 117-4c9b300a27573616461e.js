@@ -71,7 +71,7 @@ function DashboardRoleManager(props) {
     return _.roleManager;
   });
   var roles = Object(_jacdac_useChange__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"])(roleManager, function (_) {
-    return _.roles;
+    return _ === null || _ === void 0 ? void 0 : _.roles;
   });
 
   var handleClick = function handleClick() {
@@ -112,4 +112,4 @@ function DashboardRoleManager(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=117-f2126c321a3c86084539.js.map
+//# sourceMappingURL=117-4c9b300a27573616461e.js.map
