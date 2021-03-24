@@ -51559,13 +51559,13 @@ var _hosts = [{
   name: "humidity + temperature",
   serviceClasses: [constants["Qd" /* SRV_HUMIDITY */], constants["ze" /* SRV_THERMOMETER */]],
   services: function services() {
-    return [new humidityservicehost_HumidityServiceHost(), new analogsensorservicehost_AnalogSensorServiceHost(constants["ze" /* SRV_THERMOMETER */], outdoorThermometerOptions)];
+    return [new analogsensorservicehost_AnalogSensorServiceHost(constants["ze" /* SRV_THERMOMETER */], outdoorThermometerOptions), new humidityservicehost_HumidityServiceHost()];
   }
 }, {
   name: "humidity + temperature + barometer",
   serviceClasses: [constants["Qd" /* SRV_HUMIDITY */], constants["ze" /* SRV_THERMOMETER */], constants["Bd" /* SRV_BAROMETER */]],
   services: function services() {
-    return [new humidityservicehost_HumidityServiceHost(), new analogsensorservicehost_AnalogSensorServiceHost(constants["ze" /* SRV_THERMOMETER */], outdoorThermometerOptions), new analogsensorservicehost_AnalogSensorServiceHost(constants["Bd" /* SRV_BAROMETER */], barometerOptions)];
+    return [new analogsensorservicehost_AnalogSensorServiceHost(constants["ze" /* SRV_THERMOMETER */], outdoorThermometerOptions), new humidityservicehost_HumidityServiceHost(), new analogsensorservicehost_AnalogSensorServiceHost(constants["Bd" /* SRV_BAROMETER */], barometerOptions)];
   }
 }, {
   name: "illuminance",
@@ -52889,4 +52889,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-388e88e30a5eb1b9a635.js.map
+//# sourceMappingURL=app-539459ad1480858329b1.js.map
