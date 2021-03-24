@@ -758,7 +758,7 @@ function NodeCalls() {
       bus = _useContext.bus;
 
   var nodes = [];
-  Object(_jacdac_ts_src_jdom_node__WEBPACK_IMPORTED_MODULE_12__[/* visitNodes */ "b"])(bus, function (n) {
+  Object(_jacdac_ts_src_jdom_node__WEBPACK_IMPORTED_MODULE_12__[/* visitNodes */ "c"])(bus, function (n) {
     return nodes.push(n);
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ui_PaperBox__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
@@ -816,7 +816,7 @@ function NodeListeners() {
       bus = _useContext2.bus;
 
   var nodes = [];
-  Object(_jacdac_ts_src_jdom_node__WEBPACK_IMPORTED_MODULE_12__[/* visitNodes */ "b"])(bus, function (n) {
+  Object(_jacdac_ts_src_jdom_node__WEBPACK_IMPORTED_MODULE_12__[/* visitNodes */ "c"])(bus, function (n) {
     return nodes.push(n);
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_10___default.a.createElement(_ui_PaperBox__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
@@ -1076,4 +1076,4 @@ exports.typeOf = y;
 /***/ })
 
 }]);
-//# sourceMappingURL=79-730a8e45f08dee3d8cff.js.map
+//# sourceMappingURL=79-45218f37b76ac6a9d7d7.js.map

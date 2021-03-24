@@ -50,7 +50,7 @@ var createMuiTheme = __webpack_require__("viY9");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/responsiveFontSizes.js + 1 modules
 var responsiveFontSizes = __webpack_require__("q4d2");
 
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 18 modules
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 19 modules
 var ThemedLayout = __webpack_require__("kxJ/");
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js

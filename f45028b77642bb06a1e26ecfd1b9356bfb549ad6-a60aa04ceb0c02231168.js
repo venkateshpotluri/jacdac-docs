@@ -65,9 +65,6 @@ function useRoleManager() {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ DashboardDevice; });
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__("KQm4");
-
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
 var useTheme = __webpack_require__("tr08");
 
@@ -319,16 +316,19 @@ function useIntersectionObserver(elementRef, options) {
   }, [elementRef, threshold, root, rootMargin, frozen]);
   return entry;
 }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/node.ts
+var node = __webpack_require__("/6VE");
+
 // CONCATENATED MODULE: ./src/components/dashboard/DashboardDevice.tsx
 
 
 
 
 
-
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -378,7 +378,7 @@ function DashboardDevice(props) {
         visible: visible
       });
     }));
-  }, [].concat(Object(toConsumableArray["a" /* default */])(services), [expanded, variant, visible]));
+  }, [Object(node["b" /* dependencyId */])(services), expanded, variant, visible]);
   if (!showHeader) return /*#__PURE__*/react_default.a.createElement(Paper["a" /* default */], {
     style: {
       padding: "0.25em"
@@ -1246,4 +1246,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-cf1ce36ac9ee51c23073.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-a60aa04ceb0c02231168.js.map

@@ -517,7 +517,8 @@ exports.navigateTo = navigateTo;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return JDNode; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return visitNodes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return dependencyId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return visitNodes; });
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("dI71");
 /* harmony import */ var _eventsource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("033P");
 
@@ -547,6 +548,11 @@ var JDNode = /*#__PURE__*/function (_JDEventSource) {
 
   return JDNode;
 }(_eventsource__WEBPACK_IMPORTED_MODULE_1__[/* JDEventSource */ "a"]);
+function dependencyId(nodes) {
+  return (nodes === null || nodes === void 0 ? void 0 : nodes.map(function (node) {
+    return (node === null || node === void 0 ? void 0 : node.id) || "?";
+  }).join(",")) || "";
+}
 function visitNodes(node, vis) {
   var todo = [node];
 
@@ -9245,7 +9251,7 @@ var DrawerToolsButtonGroup = __webpack_require__("J30M");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__("c5x+");
 
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 18 modules
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 19 modules
 var ThemedLayout = __webpack_require__("kxJ/");
 
 // EXTERNAL MODULE: ./src/components/icons/JacdacIcon.tsx
@@ -35480,28 +35486,12 @@ function stableSortServices(services) {
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__("033P");
 
-// CONCATENATED MODULE: ./jacdac-ts/src/jdom/device.ts
+// CONCATENATED MODULE: ./jacdac-ts/src/jdom/qualityofservice.ts
 
 
 
 
-function device_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = device_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function device_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return device_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return device_arrayLikeToArray(o, minLen); }
-
-function device_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
-
-
-
-
-
-
-
-var device_QualityOfService = /*#__PURE__*/function (_JDEventSource) {
+var qualityofservice_QualityOfService = /*#__PURE__*/function (_JDEventSource) {
   Object(inheritsLoose["a" /* default */])(QualityOfService, _JDEventSource);
 
   function QualityOfService() {
@@ -35559,26 +35549,47 @@ var device_QualityOfService = /*#__PURE__*/function (_JDEventSource) {
 
   return QualityOfService;
 }(eventsource["a" /* JDEventSource */]);
+// CONCATENATED MODULE: ./jacdac-ts/src/jdom/device.ts
+
+
+
+
+function device_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = device_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function device_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return device_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return device_arrayLikeToArray(o, minLen); }
+
+function device_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+
+
+
+
+
+
 var device_JDDevice = /*#__PURE__*/function (_JDNode) {
   Object(inheritsLoose["a" /* default */])(JDDevice, _JDNode);
 
   function JDDevice(bus, deviceId) {
-    var _this2;
+    var _this;
 
-    _this2 = _JDNode.call(this) || this;
-    _this2._flashing = false;
-    _this2.qos = new device_QualityOfService();
-    _this2.bus = bus;
-    _this2.deviceId = deviceId;
-    _this2.connected = true;
-    _this2._lost = false;
-    _this2._identifying = false;
-    return _this2;
+    _this = _JDNode.call(this) || this;
+    _this._flashing = false;
+    _this.qos = new qualityofservice_QualityOfService();
+    _this.bus = bus;
+    _this.deviceId = deviceId;
+    _this.connected = true;
+    _this._lost = false;
+    _this._identifying = false;
+    return _this;
   }
 
-  var _proto2 = JDDevice.prototype;
+  var _proto = JDDevice.prototype;
 
-  _proto2.hasService = function hasService(service_class) {
+  _proto.hasService = function hasService(service_class) {
     if (!this.announced) return false;
     if (service_class === 0) return true; // skip first 4 bytes
 
@@ -35590,7 +35601,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     return false;
   };
 
-  _proto2.port = function port(id) {
+  _proto.port = function port(id) {
     if (!this._ports) this._ports = {};
     var key = id + "";
     var ex = this._ports[key];
@@ -35598,14 +35609,14 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     return ex;
   };
 
-  _proto2.serviceClassAt = function serviceClassAt(idx) {
+  _proto.serviceClassAt = function serviceClassAt(idx) {
     if (idx == 0) return 0;
     idx <<= 2;
     if (!this.announced || idx + 4 > this._servicesData.length) return undefined;
     return Object(utils["I" /* read32 */])(this._servicesData, idx);
   };
 
-  _proto2.initServices = function initServices() {
+  _proto.initServices = function initServices() {
     Object(utils["h" /* assert */])(this.announced);
 
     if (!this._services) {
@@ -35620,14 +35631,14 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     }
   };
 
-  _proto2.service = function service(service_number) {
+  _proto.service = function service(service_number) {
     if (!this.announced) return undefined;
     this.initServices();
     service_number = service_number | 0;
     return this._services && this._services[service_number];
   };
 
-  _proto2.services = function services(options) {
+  _proto.services = function services(options) {
     if (!this.announced) return [];
     if ((options === null || options === void 0 ? void 0 : options.serviceIndex) >= 0) return [this.service(options === null || options === void 0 ? void 0 : options.serviceIndex)];
     if (options !== null && options !== void 0 && options.serviceName && (options === null || options === void 0 ? void 0 : options.serviceClass) > -1) throw Error("serviceClass and serviceName cannot be used together");
@@ -35647,7 +35658,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     return r;
   };
 
-  _proto2.sendCtrlCommand = function sendCtrlCommand(cmd, payload) {
+  _proto.sendCtrlCommand = function sendCtrlCommand(cmd, payload) {
     if (payload === void 0) {
       payload = null;
     }
@@ -35657,7 +35668,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     return pkt.sendCmdAsync(this);
   };
 
-  _proto2.processAnnouncement = function processAnnouncement(pkt) {
+  _proto.processAnnouncement = function processAnnouncement(pkt) {
     this.qos.processAnnouncement(pkt);
     var changed = false;
     var w0 = this._servicesData ? Object(buffer["c" /* getNumber */])(this._servicesData, buffer["a" /* NumberFormat */].UInt32LE, 0) : 0;
@@ -35693,7 +35704,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     }
   };
 
-  _proto2.processPacket = function processPacket(pkt) {
+  _proto.processPacket = function processPacket(pkt) {
     this.qos.processPacket(pkt);
     this.lost = false;
     this.emit(constants["sc" /* PACKET_RECEIVE */], pkt);
@@ -35702,13 +35713,13 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     if (service) service.processPacket(pkt);
   };
 
-  _proto2.disconnect = function disconnect() {
+  _proto.disconnect = function disconnect() {
     this.connected = false;
     this.emit(constants["gb" /* DISCONNECT */]);
     this.emit(constants["v" /* CHANGE */]);
   };
 
-  _proto2.identify = /*#__PURE__*/function () {
+  _proto.identify = /*#__PURE__*/function () {
     var _identify = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
       var ctrl;
       return regenerator_default.a.wrap(function _callee$(_context) {
@@ -35755,13 +35766,13 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     return identify;
   }();
 
-  _proto2.reset = function reset() {
+  _proto.reset = function reset() {
     var _this$service;
 
     return (_this$service = this.service(0)) === null || _this$service === void 0 ? void 0 : _this$service.sendCmdAsync(constants["S" /* ControlCmd */].Reset);
   };
 
-  _proto2.resolveFirmwareIdentifier = /*#__PURE__*/function () {
+  _proto.resolveFirmwareIdentifier = /*#__PURE__*/function () {
     var _resolveFirmwareIdentifier = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2() {
       var _this$service2;
 
@@ -35792,8 +35803,8 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     return resolveFirmwareIdentifier;
   }();
 
-  _proto2.initAcks = function initAcks() {
-    var _this3 = this;
+  _proto.initAcks = function initAcks() {
+    var _this2 = this;
 
     if (this._ackAwaiting) return;
     this._ackAwaiting = [];
@@ -35801,7 +35812,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
       if (rep.serviceIndex != constants["Fb" /* JD_SERVICE_INDEX_CRC_ACK */]) return;
       var numdone = 0;
 
-      for (var _iterator = device_createForOfIteratorHelperLoose(_this3._ackAwaiting), _step; !(_step = _iterator()).done;) {
+      for (var _iterator = device_createForOfIteratorHelperLoose(_this2._ackAwaiting), _step; !(_step = _iterator()).done;) {
         var aa = _step.value;
 
         if (aa.pkt && aa.pkt.crc == rep.serviceCommand) {
@@ -35812,7 +35823,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
         }
       }
 
-      if (numdone) _this3._ackAwaiting = _this3._ackAwaiting.filter(function (aa) {
+      if (numdone) _this2._ackAwaiting = _this2._ackAwaiting.filter(function (aa) {
         return !!aa.pkt;
       });
     });
@@ -35820,7 +35831,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     var resend = function resend() {
       var numdrop = 0;
 
-      for (var _iterator2 = device_createForOfIteratorHelperLoose(_this3._ackAwaiting), _step2; !(_step2 = _iterator2()).done;) {
+      for (var _iterator2 = device_createForOfIteratorHelperLoose(_this2._ackAwaiting), _step2; !(_step2 = _iterator2()).done;) {
         var aa = _step2.value;
 
         if (aa.pkt) {
@@ -35830,12 +35841,12 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
             aa.errCb();
             numdrop++;
           } else {
-            aa.pkt.sendCmdAsync(_this3);
+            aa.pkt.sendCmdAsync(_this2);
           }
         }
       }
 
-      if (numdrop) _this3._ackAwaiting = _this3._ackAwaiting.filter(function (aa) {
+      if (numdrop) _this2._ackAwaiting = _this2._ackAwaiting.filter(function (aa) {
         return !!aa.pkt;
       });
       setTimeout(resend, Math.random() * (constants["a" /* ACK_MAX_DELAY */] - constants["b" /* ACK_MIN_DELAY */]) + constants["b" /* ACK_MIN_DELAY */]);
@@ -35845,8 +35856,8 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     setTimeout(resend, 40);
   };
 
-  _proto2.sendPktWithAck = function sendPktWithAck(pkt) {
-    var _this4 = this;
+  _proto.sendPktWithAck = function sendPktWithAck(pkt) {
+    var _this3 = this;
 
     pkt.requiresAck = true;
     this.initAcks();
@@ -35862,9 +35873,9 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
         }
       };
 
-      _this4._ackAwaiting.push(ack);
+      _this3._ackAwaiting.push(ack);
 
-      pkt.sendCmdAsync(_this4);
+      pkt.sendCmdAsync(_this3);
     });
   };
 
@@ -52793,4 +52804,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-a3c94e3cb3835d023e34.js.map
+//# sourceMappingURL=app-c24ecb70abf1aa5db1d1.js.map
