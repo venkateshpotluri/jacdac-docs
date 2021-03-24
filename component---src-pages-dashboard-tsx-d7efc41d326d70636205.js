@@ -549,7 +549,7 @@ function Dashboard(props) {
 
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(DeviceGroup, Object.assign({
     title: "Simulators",
-    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, showStartSimulators && /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
+    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, showStartSimulators && !!roleManager && /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
       title: "start missing simulators",
       onClick: handleStartSimulators
     }, /*#__PURE__*/react_default.a.createElement(Devices_default.a, null)), /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
@@ -607,4 +607,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-dashboard-tsx-cd1409159c198fbbd64c.js.map
+//# sourceMappingURL=component---src-pages-dashboard-tsx-d7efc41d326d70636205.js.map

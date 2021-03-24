@@ -171,11 +171,7 @@ var Dashboard = __webpack_require__("tfF2");
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__("UJQR");
 
-// EXTERNAL MODULE: ./src/components/services/useRoleManager.ts
-var useRoleManager = __webpack_require__("UF2u");
-
 // CONCATENATED MODULE: ./src/components/makecode/MakeCodeSim.tsx
-
 
 
 
@@ -229,7 +225,6 @@ function Carousel() {
     announced: true,
     ignoreSelf: true
   }).filter(deviceFilter);
-  var roleManager = Object(useRoleManager["a" /* default */])();
   var extensions = Object(utils["Y" /* unique */])(Object(utils["f" /* arrayConcatMany */])(devices.map(function (device) {
     return device.services().map(function (srv) {
       return Object(makecode["c" /* resolveMakecodeServiceFromClassIdentifier */])(srv.serviceClass);
@@ -255,7 +250,7 @@ function Carousel() {
     showHeader: false,
     deviceSort: deviceSort,
     deviceFilter: deviceFilter,
-    showStartSimulators: !!roleManager
+    showStartSimulators: true
   }), !!(extensions !== null && extensions !== void 0 && extensions.length) && /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
     m: 1
   }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
@@ -721,7 +716,7 @@ function Dashboard(props) {
 
   return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement(DeviceGroup, Object.assign({
     title: "Simulators",
-    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, showStartSimulators && /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
+    action: /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, showStartSimulators && !!roleManager && /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
       title: "start missing simulators",
       onClick: handleStartSimulators
     }, /*#__PURE__*/react_default.a.createElement(Devices_default.a, null)), /*#__PURE__*/react_default.a.createElement(IconButtonWithTooltip["a" /* default */], {
@@ -813,4 +808,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-308cb11ce98debf40aa4.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-2fc5d7070acce2ec2f21.js.map

@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-44b9d26e1a11c5ff5a53.js"
+    "url": "webpack-runtime-bdfbee15e5d8d9faeef0.js"
   },
   {
     "url": "framework-2b7edf4901273164bb4a.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "d616e6f168dd16f5c82589bc44ee210c"
+    "revision": "a42dddd5eb3fa35d080a27f99d695960"
   },
   {
     "url": "static/webfonts/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,15 +60,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "8e705e2e4d353ae5de5904985a0f73d2"
+    "revision": "e97be86e9ee7d460b4e11918d4feb826"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "fbba9971bbb2263ea7e636981c3ac71e"
+    "revision": "2fbe30880aafa8846f75e6747e1ba590"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "2097e92d4aa15c53539a008a85fcb92c"
+    "revision": "f7503ff3e4eadca2d6120cb98cef0ff8"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "17222b756c91c54944f94900c0d6f2d9"
+    "revision": "d5260d8ce1516004a6a7ea26151aa92c"
   },
   {
     "url": "polyfill-d4d90feccc8ac9ef9552.js"
@@ -136,7 +136,7 @@ self.__precacheManifest = [
     "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-334a7630ff0947b11e40.js"
   },
   {
-    "url": "component---src-pages-dashboard-tsx-cd1409159c198fbbd64c.js"
+    "url": "component---src-pages-dashboard-tsx-d7efc41d326d70636205.js"
   },
   {
     "url": "page-data/dashboard/page-data.json",
@@ -611,7 +611,7 @@ self.__precacheManifest = [
     "revision": "fff97a63d7d76d0afb3e023b1d340b17"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-308cb11ce98debf40aa4.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-2fc5d7070acce2ec2f21.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
