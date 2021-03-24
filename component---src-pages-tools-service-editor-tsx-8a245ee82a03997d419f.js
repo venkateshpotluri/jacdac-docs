@@ -90,7 +90,7 @@ var Box = __webpack_require__("hlFM");
 // EXTERNAL MODULE: ./src/components/ServiceSpecificationStatusAlert.tsx
 var ServiceSpecificationStatusAlert = __webpack_require__("Y6fa");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 24 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
@@ -110,7 +110,7 @@ function useDeviceHostFromServiceClass(serviceClass) {
       serviceClass: serviceClass
     });
     var def = !devices.length && Object(hosts["d" /* hostDefinitionFromServiceClass */])(serviceClass);
-    var host = def && Object(hosts["b" /* addHost */])(bus, def.services());
+    var host = def && Object(hosts["b" /* addHost */])(bus, def);
     return function () {
       return bus.removeDeviceHost(host);
     };
@@ -1055,4 +1055,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-64bf8f7a0b7d10adf325.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-8a245ee82a03997d419f.js.map

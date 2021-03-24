@@ -83,9 +83,11 @@ function DashboardPower(props) {
     };
   }();
 
+  var widgetSize = "clamp(3rem, 10vw, 16vw)";
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     width: w,
-    height: h
+    height: h,
+    size: widgetSize
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("g", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_widgets_PowerButton__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     cx: w / 2,
     cy: h / 2,
@@ -126,4 +128,4 @@ function DashboardPower(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=112-d6c1bdf343e31f2d525e.js.map
+//# sourceMappingURL=112-02888bb26ab24a2f5831.js.map

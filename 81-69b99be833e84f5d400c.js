@@ -143,7 +143,7 @@ function StartSimulatorDialog(props) {
     var host = hostDefinitions.find(function (h) {
       return h.name === selected;
     });
-    Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(bus, host.services());
+    Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(bus, host);
     onClose();
   };
 
@@ -180,7 +180,7 @@ function StartSimulatorDialog(props) {
               return Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_14__[/* delay */ "r"])(100);
 
             case 8:
-              Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(bus, host.services());
+              Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_11__[/* addHost */ "b"])(bus, host);
 
             case 9:
               _context.next = 4;
@@ -1423,4 +1423,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=81-a62b9ecec4232f37ca18.js.map
+//# sourceMappingURL=81-69b99be833e84f5d400c.js.map

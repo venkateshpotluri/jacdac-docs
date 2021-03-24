@@ -310,7 +310,7 @@ var MakeCodeIcon = __webpack_require__("DzGZ");
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 24 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./src/components/KindIcon.tsx

@@ -578,7 +578,7 @@ var useWidgetTheme = __webpack_require__("Lml+");
 // EXTERNAL MODULE: ./src/components/hooks/useThrottledValue.ts
 var useThrottledValue = __webpack_require__("cJz4");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 24 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js

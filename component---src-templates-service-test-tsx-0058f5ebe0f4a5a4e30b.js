@@ -136,7 +136,7 @@ var Alert = __webpack_require__("FQT7");
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__("l6uw");
 
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 24 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
@@ -236,7 +236,7 @@ function Diagnostics(props) {
   var hostDefinition = Object(hosts["d" /* hostDefinitionFromServiceClass */])(serviceClass);
 
   var handleStartSimulator = function handleStartSimulator() {
-    return Object(hosts["b" /* addHost */])(bus, hostDefinition.services());
+    return Object(hosts["b" /* addHost */])(bus, hostDefinition);
   };
 
   if (!hostDefinition) return null;
@@ -289,4 +289,4 @@ function ServiceTest(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-test-tsx-e7b82a761933482a288d.js.map
+//# sourceMappingURL=component---src-templates-service-test-tsx-0058f5ebe0f4a5a4e30b.js.map

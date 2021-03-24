@@ -603,7 +603,7 @@ function ServiceSpecificationCard(props) {
   var hostDefinition = Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_12__[/* hostDefinitionFromServiceClass */ "d"])(sc);
 
   var handleSimulatorClick = function handleSimulatorClick() {
-    Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_12__[/* addHost */ "b"])(bus, hostDefinition.services());
+    Object(_jacdac_ts_src_hosts_hosts__WEBPACK_IMPORTED_MODULE_12__[/* addHost */ "b"])(bus, hostDefinition);
     Object(gatsby__WEBPACK_IMPORTED_MODULE_16__["navigate"])("/dashboard/");
   };
 
@@ -1190,4 +1190,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-cd518785b87742acd714.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-f12aabc90f5c4e198aab.js.map

@@ -10280,7 +10280,8 @@ var devicehost_DeviceHost = /*#__PURE__*/function (_JDEventSource) {
     _this._restartCounter = 0;
     _this._packetCount = 0;
     _this._eventCounter = undefined;
-    _this._services = [_this.controlService = new controlservicehost_ControlServiceHost()].concat(Object(toConsumableArray["a" /* default */])(services));
+    _this.controlService = new controlservicehost_ControlServiceHost();
+    _this._services = [];
     _this.deviceId = options === null || options === void 0 ? void 0 : options.deviceId;
 
     if (!_this.deviceId) {
@@ -10295,10 +10296,7 @@ var devicehost_DeviceHost = /*#__PURE__*/function (_JDEventSource) {
 
     _this.shortId = Object(pretty["k" /* shortDeviceId */])(_this.deviceId);
 
-    _this._services.forEach(function (srv, i) {
-      srv.device = Object(assertThisInitialized["a" /* default */])(_this);
-      srv.serviceIndex = i;
-    });
+    _this.updateServices(services);
 
     _this.handleSelfAnnounce = _this.handleSelfAnnounce.bind(Object(assertThisInitialized["a" /* default */])(_this));
     _this.handlePacket = _this.handlePacket.bind(Object(assertThisInitialized["a" /* default */])(_this));
@@ -10311,6 +10309,25 @@ var devicehost_DeviceHost = /*#__PURE__*/function (_JDEventSource) {
   }
 
   var _proto = DeviceHost.prototype;
+
+  _proto.updateServices = function updateServices(services) {
+    var _this$_services,
+        _this2 = this;
+
+    // clear previous services
+    (_this$_services = this._services) === null || _this$_services === void 0 ? void 0 : _this$_services.slice(1).forEach(function (srv) {
+      return srv.device = undefined;
+    }); // store new services
+
+    this._services = [this.controlService].concat(Object(toConsumableArray["a" /* default */])(services));
+
+    this._services.forEach(function (srv, i) {
+      srv.device = _this2;
+      srv.serviceIndex = i;
+    });
+
+    this.emit(constants["v" /* CHANGE */]);
+  };
 
   _proto.start = function start() {
     if (!this._bus) return;
@@ -10520,14 +10537,14 @@ var devicehost_DeviceHost = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.handleResetIn = function handleResetIn() {
-    var _this2 = this;
+    var _this3 = this;
 
     var _this$controlService$ = this.controlService.resetIn.values(),
         t = _this$controlService$[0];
 
     if (this._resetTimeOut) clearTimeout(this._resetTimeOut);
     if (t) this._resetTimeOut = setTimeout(function () {
-      return _this2.reset();
+      return _this3.reset();
     }, t);
   };
 
@@ -35690,6 +35707,9 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     this._replay = !!pkt.replay; // notify that services got updated
 
     if (servicesChanged) {
+      this._services = undefined; // respawn services
+
+      this.initServices();
       this.lastServiceUpdate = pkt.timestamp;
       this.bus.emit(constants["V" /* DEVICE_ANNOUNCE */], this);
       this.emit(constants["c" /* ANNOUNCE */]);
@@ -36187,7 +36207,7 @@ var busstats_BusStatsMonitor = /*#__PURE__*/function (_JDEventSource) {
 
   return BusStatsMonitor;
 }(eventsource["a" /* JDEventSource */]);
-// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 23 modules
+// EXTERNAL MODULE: ./jacdac-ts/src/hosts/hosts.ts + 24 modules
 var hosts = __webpack_require__("y+c1");
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceclient.ts
@@ -36543,13 +36563,19 @@ var rolemanagerclient_RoleManagerClient = /*#__PURE__*/function (_JDServiceClien
 
       if (!parent) {
         todo.forEach(function (t) {
-          return Object(hosts["b" /* addHost */])(_this3.bus, t.hostDefinition.services());
+          return Object(hosts["b" /* addHost */])(_this3.bus, t.hostDefinition);
         });
       } else {
         // spawn all services into 1
-        Object(hosts["b" /* addHost */])(_this3.bus, Object(utils["f" /* arrayConcatMany */])(todo.map(function (t) {
-          return t.hostDefinition.services();
-        })));
+        Object(hosts["b" /* addHost */])(_this3.bus, {
+          name: "",
+          serviceClasses: [],
+          services: function services() {
+            return Object(utils["f" /* arrayConcatMany */])(todo.map(function (t) {
+              return t.hostDefinition.services();
+            }));
+          }
+        });
       }
     });
 
@@ -51140,12 +51166,35 @@ var bitradioservicehost_BitRadioServiceHost = /*#__PURE__*/function (_ServiceHos
 }(servicehost["a" /* default */]);
 
 
+// CONCATENATED MODULE: ./jacdac-ts/src/hosts/powerservicehost.ts
+
+
+
+
+var powerservicehost_PowerServiceHost = /*#__PURE__*/function (_ServiceHost) {
+  Object(inheritsLoose["a" /* default */])(PowerServiceHost, _ServiceHost);
+
+  function PowerServiceHost(options) {
+    var _this;
+
+    _this = _ServiceHost.call(this, constants["de" /* SRV_POWER */], options) || this;
+    _this.enabled = _this.addRegister(constants["Gc" /* PowerReg */].Enabled, [false]);
+    _this.maxPower = _this.addRegister(constants["Gc" /* PowerReg */].MaxPower, [500]);
+    _this.overload = _this.addRegister(constants["Gc" /* PowerReg */].Overload, [false]);
+    return _this;
+  }
+
+  return PowerServiceHost;
+}(servicehost["a" /* default */]);
+
+
 // CONCATENATED MODULE: ./jacdac-ts/src/hosts/hosts.ts
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 
@@ -51790,6 +51839,12 @@ var _hosts = [{
     })];
   }
 }, {
+  name: "power",
+  serviceClasses: [constants["de" /* SRV_POWER */]],
+  services: function services() {
+    return [new powerservicehost_PowerServiceHost()];
+  }
+}, {
   name: "RNG (random number generator)",
   serviceClasses: [constants["ke" /* SRV_RNG */]],
   services: function services() {
@@ -51878,16 +51933,20 @@ var _hosts = [{
   name: "servo x 2",
   serviceClasses: [constants["oe" /* SRV_SERVO */]],
   services: function services() {
-    return Array(2).fill(0).map(function () {
-      return new servoservicehost_ServoServiceHost(microServoOptions);
+    return Array(2).fill(0).map(function (_, i) {
+      return new servoservicehost_ServoServiceHost(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+        instanceName: "S" + i
+      }));
     });
   }
 }, {
   name: "servo x 4",
   serviceClasses: [constants["oe" /* SRV_SERVO */]],
   services: function services() {
-    return Array(4).fill(0).map(function () {
-      return new servoservicehost_ServoServiceHost(microServoOptions);
+    return Array(4).fill(0).map(function (_, i) {
+      return new servoservicehost_ServoServiceHost(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+        instanceName: "S" + i
+      }));
     });
   }
 }, {
@@ -51895,7 +51954,9 @@ var _hosts = [{
   serviceClasses: [constants["oe" /* SRV_SERVO */]],
   services: function services() {
     return Array(6).fill(0).map(function (_, i) {
-      return new servoservicehost_ServoServiceHost(microServoOptions);
+      return new servoservicehost_ServoServiceHost(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+        instanceName: "S" + i
+      }));
     });
   }
 }, {
@@ -51903,7 +51964,9 @@ var _hosts = [{
   serviceClasses: [constants["oe" /* SRV_SERVO */]],
   services: function services() {
     return Array(16).fill(0).map(function (_, i) {
-      return new servoservicehost_ServoServiceHost(microServoOptions);
+      return new servoservicehost_ServoServiceHost(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+        instanceName: "S" + i
+      }));
     });
   }
 }, {
@@ -52170,12 +52233,33 @@ var _hosts = [{
       variant: constants["Xb" /* LightLevelVariant */].LEDMatrix
     }), new buzzerservicehost["a" /* default */](), new soundplayerservicehost_SoundPlayerServiceHost(microbitSounds)];
   }
+}, {
+  name: "power + humidity",
+  serviceClasses: [constants["de" /* SRV_POWER */], constants["Qd" /* SRV_HUMIDITY */]],
+  services: function services() {
+    return [new powerservicehost_PowerServiceHost(), new humidityservicehost_HumidityServiceHost()];
+  },
+  factory: function factory(services) {
+    var dev = new devicehost["a" /* default */]([services[0]]);
+    var pwr = dev.service(1);
+    pwr.enabled.on(constants["v" /* CHANGE */], function () {
+      var enabled = !!pwr.enabled.values()[0];
+      console.log("power: " + (enabled ? "on" : "off"));
+      if (enabled) // power + rest
+        dev.updateServices(services); // power only
+      else dev.updateServices([services[0]]);
+    });
+    return dev;
+  }
 }];
 function hosts() {
   return _hosts.slice(0);
 }
-function addHost(bus, services) {
-  var d = new devicehost["a" /* default */](services);
+function addHost(bus, definition) {
+  var _definition$factory;
+
+  var services = definition.services();
+  var d = ((_definition$factory = definition.factory) === null || _definition$factory === void 0 ? void 0 : _definition$factory.call(definition, services)) || new devicehost["a" /* default */](services);
   bus.addDeviceHost(d);
   return d;
 }
@@ -52805,4 +52889,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-ec50da011d5b75eafe2e.js.map
+//# sourceMappingURL=app-388e88e30a5eb1b9a635.js.map
