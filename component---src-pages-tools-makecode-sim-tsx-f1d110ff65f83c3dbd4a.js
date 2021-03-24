@@ -171,7 +171,11 @@ var Dashboard = __webpack_require__("tfF2");
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__("UJQR");
 
+// EXTERNAL MODULE: ./src/components/services/useRoleManager.ts
+var useRoleManager = __webpack_require__("UF2u");
+
 // CONCATENATED MODULE: ./src/components/makecode/MakeCodeSim.tsx
+
 
 
 
@@ -225,6 +229,7 @@ function Carousel() {
     announced: true,
     ignoreSelf: true
   }).filter(deviceFilter);
+  var roleManager = Object(useRoleManager["a" /* default */])();
   var extensions = Object(utils["Y" /* unique */])(Object(utils["f" /* arrayConcatMany */])(devices.map(function (device) {
     return device.services().map(function (srv) {
       return Object(makecode["c" /* resolveMakecodeServiceFromClassIdentifier */])(srv.serviceClass);
@@ -250,7 +255,7 @@ function Carousel() {
     showHeader: false,
     deviceSort: deviceSort,
     deviceFilter: deviceFilter,
-    showStartSimulators: true
+    showStartSimulators: !!roleManager
   }), !!(extensions !== null && extensions !== void 0 && extensions.length) && /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
     m: 1
   }, /*#__PURE__*/react_default.a.createElement(Button["a" /* default */], {
@@ -808,4 +813,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-b38cc32e136e52151ecd.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-f1d110ff65f83c3dbd4a.js.map
