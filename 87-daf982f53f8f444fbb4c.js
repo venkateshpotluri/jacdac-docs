@@ -89,9 +89,9 @@ function SelectRoleDialog(props) {
     onClose: onClose
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
     id: labelId
-  }, hasRoles ? "Select a role" : "No role available"), hasRoles && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null, roles === null || roles === void 0 ? void 0 : roles.map(function (role, i) {
+  }, hasRoles ? "Select a role" : "No role available"), hasRoles && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null, roles === null || roles === void 0 ? void 0 : roles.map(function (role) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_services_RoleListItem__WEBPACK_IMPORTED_MODULE_10__[/* RoleListItem */ "a"], {
-      key: i,
+      key: role.name,
       role: role,
       selected: currentRole === role.name,
       onClick: handleClick(role)
@@ -470,4 +470,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=87-4bb87b7138ac3f13f087.js.map
+//# sourceMappingURL=87-daf982f53f8f444fbb4c.js.map

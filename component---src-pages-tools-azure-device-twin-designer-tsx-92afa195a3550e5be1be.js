@@ -330,7 +330,7 @@ function AzureDeviceTwinDesigner() {
     variant: variant
   })), twin.components.map(function (c, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ComponentRow, {
-      key: i,
+      key: c.name,
       twin: twin,
       component: c,
       onUpdate: update
@@ -1634,4 +1634,4 @@ function deviceSpecificationToDTDL(dev, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-86ce06c812233bdb32f7.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-92afa195a3550e5be1be.js.map

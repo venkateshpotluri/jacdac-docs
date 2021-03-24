@@ -221,7 +221,7 @@ __webpack_require__.r(__webpack_exports__);
 var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])(function (theme) {
   return Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])({
     root: {
-      width: '100%',
+      width: "100%",
       backgroundColor: theme.palette.background.paper
     }
   });
@@ -232,7 +232,7 @@ function treeifyToc(toc) {
 
   var tocNodes = {};
   tree.forEach(function (node, index) {
-    var k = node.path.replace(/\/$/, '');
+    var k = node.path.replace(/\/$/, "");
 
     if (tocNodes[k]) {
       tree[index] = undefined;
@@ -242,7 +242,7 @@ function treeifyToc(toc) {
     return !!node;
   });
   tree.forEach(function (node, index) {
-    var parts = node.path.replace(/\/$/, '').split("/");
+    var parts = node.path.replace(/\/$/, "").split("/");
     parts.pop();
 
     while (parts.length) {
@@ -289,25 +289,24 @@ function Toc(props) {
   var classes = useStyles();
   var data = Object(gatsby__WEBPACK_IMPORTED_MODULE_11__["useStaticQuery"])("2307937736");
   /*
-      site {
-        siteMetadata {
-          title
-        }
-    }
-  
-    allServicesJson {
-        nodes {
-          name
-          shortId
-        }
-      } 
-    allDevicesJson {
-        nodes {
-          id
-          name
-        }
+    site {
+      siteMetadata {
+        title
       }
-   */
+  }
+     allServicesJson {
+      nodes {
+        name
+        shortId
+      }
+    } 
+  allDevicesJson {
+      nodes {
+        id
+        name
+      }
+    }
+  */
 
   var handleClick = function handleClick() {
     setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_10__[/* DrawerType */ "b"].None);
@@ -368,16 +367,16 @@ function Toc(props) {
     });
     /*
     data.allServicesJson.nodes.map(node => {
-      return {
-        name: node.name,
-        path: `/services/${node.shortId}/`
-      }
+    return {
+    name: node.name,
+    path: `/services/${node.shortId}/`
+    }
     }).forEach(node => toc.push(node))
-     data.allDevicesJson.nodes.map(node => {
-      return {
-        name: node.name,
-        path: `/devices/${identifierToUrlPath(node.id)}/`
-      }
+    data.allDevicesJson.nodes.map(node => {
+    return {
+    name: node.name,
+    path: `/devices/${identifierToUrlPath(node.id)}/`
+    }
     }).forEach(node => toc.push(node));
     */
 
@@ -398,7 +397,7 @@ function Toc(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
       button: true,
       selected: selected,
-      key: 'tocitem' + path
+      key: "tocitem" + path
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_8__["Link"], {
       style: {
         color: theme.palette.text.primary
@@ -413,7 +412,7 @@ function Toc(props) {
       ml: level > 0 ? 1 : 0
     }, children === null || children === void 0 ? void 0 : children.map(function (child) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TocListItem, {
-        key: 'tocitem' + child.path,
+        key: "tocitem" + child.path,
         entry: child,
         level: level + 1
       });
@@ -423,9 +422,9 @@ function Toc(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     dense: true,
     className: classes.root
-  }, tree.map(function (entry, i) {
+  }, tree.map(function (entry) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TocListItem, {
-      key: i,
+      key: entry.path,
       entry: entry,
       level: 0
     });
@@ -651,4 +650,4 @@ var ListItem = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fun
 /***/ })
 
 }]);
-//# sourceMappingURL=90-0c2fa98c8f9ce22aaae9.js.map
+//# sourceMappingURL=90-26faeb7b2d0684582817.js.map

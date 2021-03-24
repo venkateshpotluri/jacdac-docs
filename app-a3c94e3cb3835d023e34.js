@@ -35689,6 +35689,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     if (changed) {
       this.bus.emit(constants["W" /* DEVICE_CHANGE */], this);
       this.bus.emit(constants["v" /* CHANGE */]);
+      this.emit(constants["v" /* CHANGE */]);
     }
   };
 
@@ -52792,4 +52793,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-e1d8d4483e24ab8e5dcd.js.map
+//# sourceMappingURL=app-a3c94e3cb3835d023e34.js.map

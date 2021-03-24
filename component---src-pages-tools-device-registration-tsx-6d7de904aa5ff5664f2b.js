@@ -2460,7 +2460,7 @@ function CompanySelect(props) {
 function DeviceRegistration() {
   var _device$name, _device$services, _device$id, _device$firmwares, _device$services2, _ref;
 
-  var _useLocalStorage = Object(useLocalStorage["a" /* default */])('jacdac:devicedesigner;2', {
+  var _useLocalStorage = Object(useLocalStorage["a" /* default */])("jacdac:devicedesigner;2", {
     id: "my-device",
     name: "My device",
     services: [],
@@ -2519,14 +2519,14 @@ function DeviceRegistration() {
   var servicesError = (_device$services = device.services) !== null && _device$services !== void 0 && _device$services.length ? "" : "Select at least one service";
   var imageError = !imageBase64 ? "missing image" : "";
   var ok = !nameError && parsedRepo && !linkError && !idError && !servicesError && !imageError && !companyError;
-  var route = (_device$id = device.id) === null || _device$id === void 0 ? void 0 : _device$id.split('-').join('/');
+  var route = (_device$id = device.id) === null || _device$id === void 0 ? void 0 : _device$id.split("-").join("/");
   var modulePath = ok && "devices/" + route + ".json";
   var imagePath = ok && "devices/" + route + ".jpg";
 
   var updateDeviceId = function updateDeviceId() {
     var companyid = Object(jdspec["d" /* escapeDeviceIdentifier */])(device.company);
     var nameid = Object(jdspec["e" /* escapeDeviceNameIdentifier */])(device.name);
-    device.id = companyid + '-' + nameid;
+    device.id = companyid + "-" + nameid;
   };
 
   var handleNameChange = function handleNameChange(ev) {
@@ -2591,7 +2591,7 @@ function DeviceRegistration() {
 
   var handleImageImported = function handleImageImported(cvs) {
     var url = cvs.toDataURL("image/jpeg", 99);
-    setImageBase64(url.slice(url.indexOf(',')));
+    setImageBase64(url.slice(url.indexOf(",")));
   };
 
   var handleCompanyChanged = function handleCompanyChanged(value) {
@@ -2665,7 +2665,7 @@ function DeviceRegistration() {
       component: "span",
       ml: 0.5,
       mb: 0.5,
-      key: i
+      key: id
     }, /*#__PURE__*/react_default.a.createElement(Chip["a" /* default */], {
       label: blob ? blob.name + " (0x" + id.toString(16) + ")" : "0x" + id.toString(16),
       onDelete: handleDeleteFirmware(i)
@@ -2709,7 +2709,7 @@ function DeviceRegistration() {
     return /*#__PURE__*/react_default.a.createElement(Box["a" /* default */], {
       component: "span",
       m: 0.5,
-      key: i
+      key: id
     }, /*#__PURE__*/react_default.a.createElement(Chip["a" /* default */], {
       label: ((_serviceSpecification = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(id)) === null || _serviceSpecification === void 0 ? void 0 : _serviceSpecification.name) || id,
       onDelete: handleDeleteService(i)
@@ -3309,4 +3309,4 @@ var TextField = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fu
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-e93d7f4abeeca7dec5f5.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-6d7de904aa5ff5664f2b.js.map
