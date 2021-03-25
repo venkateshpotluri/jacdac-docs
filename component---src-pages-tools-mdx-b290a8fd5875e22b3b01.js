@@ -56,7 +56,12 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Web Tools"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "The console and packet sniffer are accessible in all pages by clicking the history icon in the menu bar."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
+  }))), "Web Tools"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("p", null, "The console and packet sniffer are accessible in all pages by clicking the history icon in the menu bar."), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("ul", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
+    parentName: "ul"
+  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
+    parentName: "li",
+    "href": "/jacdac-docs/tools/updater/"
+  }, "updater"), ", allows to flash Jacdac module with new firmware")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
     "id": "data",
     "style": {
       "position": "relative"
@@ -99,46 +104,6 @@ function MDXContent(_ref) {
     parentName: "li",
     "href": "/jacdac-docs/tools/player/"
   }, "packet player"), ", record traces in your logic analyser and replay them to test your services")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
-    "id": "device-naming-and-update",
-    "style": {
-      "position": "relative"
-    }
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "h3",
-    "href": "#device-naming-and-update",
-    "aria-label": "device naming and update permalink",
-    "className": "anchor before"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("svg", {
-    parentName: "a",
-    "aria-hidden": "true",
-    "focusable": "false",
-    "height": "16",
-    "version": "1.1",
-    "viewBox": "0 0 16 16",
-    "width": "16"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("path", {
-    parentName: "svg",
-    "fillRule": "evenodd",
-    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Device naming and update"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("ul", null, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
-    parentName: "ul"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "li",
-    "href": "/jacdac-docs/tools/role-manager/"
-  }, "role manager"), ", assign names to devices using the ", Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "li",
-    "href": "/jacdac-docs/services/rolemanager/"
-  }, "device namer service")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
-    parentName: "ul"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "li",
-    "href": "/jacdac-docs/tools/settings-manager/"
-  }, "settings manager"), ", create or update settings in devices"), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("li", {
-    parentName: "ul"
-  }, Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("a", {
-    parentName: "li",
-    "href": "/jacdac-docs/tools/updater/"
-  }, "updater"), ", allows to flash Jacdac module with new firmware")), Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__["mdx"])("h3", {
     "id": "miscellaneous",
     "style": {
       "position": "relative"
@@ -393,4 +358,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-mdx-a5af44d10c9f91d5eb17.js.map
+//# sourceMappingURL=component---src-pages-tools-mdx-b290a8fd5875e22b3b01.js.map
