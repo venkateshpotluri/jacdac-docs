@@ -17454,7 +17454,7 @@ function contentsToFirmwareReleases(contents) {
   return contents === null || contents === void 0 ? void 0 : contents.map(contentToFirmwareRelease).filter(function (r) {
     return !!r;
   }).sort(function (l, r) {
-    return semverCmp(l.version, r.version);
+    return -semverCmp(l.version, r.version);
   });
 }
 
@@ -53686,4 +53686,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,75,77]]]);
-//# sourceMappingURL=app-c82c21efe6824aa1c0e7.js.map
+//# sourceMappingURL=app-3f4685eac1a3da832100.js.map
