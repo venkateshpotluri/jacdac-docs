@@ -20,9 +20,6 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 // EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
 var clsx_m = __webpack_require__("iuhU");
 
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__("yNWl");
-
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
 var makeStyles = __webpack_require__("R/WZ");
 
@@ -1342,17 +1339,17 @@ var AppContext = __webpack_require__("2K/c");
 // EXTERNAL MODULE: ./src/components/layout.tsx + 16 modules
 var layout = __webpack_require__("9Dj+");
 
+// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
+var useDevices = __webpack_require__("UJQR");
+
 // CONCATENATED MODULE: ./src/components/JDomTreeView.tsx
 
 
-
  // tslint:disable-next-line: no-submodule-imports
 
  // tslint:disable-next-line: no-submodule-imports
 
- // tslint:disable-next-line: no-submodule-imports
-// tslint:disable-next-line: no-submodule-imports
-// tslint:disable-next-line: no-submodule-imports match-default-export-name
+ // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
@@ -1371,6 +1368,7 @@ var layout = __webpack_require__("9Dj+");
 
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -1414,7 +1412,7 @@ function DeviceTreeItem(props) {
     return srv.readingRegister;
   })) === null || _services$find === void 0 ? void 0 : _services$find.readingRegister;
   var reading = Object(useRegisterValue["b" /* useRegisterHumanValue */])(readingRegister);
-  var alert = lost ? "lost device..." : dropped > 2 ? dropped + " lost" : undefined;
+  var alert = lost ? "lost device..." : dropped > 2 ? dropped + " pkt lost" : undefined;
   var labelInfo = [!!dropped && dropped + " lost", reading, serviceNames].filter(function (r) {
     return !!r;
   }).join(", ");
@@ -1612,8 +1610,7 @@ function JDomTreeView(props) {
       onSelect = props.onSelect,
       checkboxes = props.checkboxes,
       dashboard = props.dashboard,
-      deviceFilter = props.deviceFilter,
-      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["defaultExpanded", "defaultSelected", "defaultChecked", "onChecked", "onToggle", "onSelect", "checkboxes", "dashboard", "deviceFilter"]);
+      other = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["defaultExpanded", "defaultSelected", "defaultChecked", "onChecked", "onToggle", "onSelect", "checkboxes", "dashboard"]);
 
   var classes = useStyles();
 
@@ -1629,13 +1626,8 @@ function JDomTreeView(props) {
       checked = _useState4[0],
       setChecked = _useState4[1];
 
-  var _useContext2 = Object(react["useContext"])(Context["a" /* default */]),
-      bus = _useContext2.bus;
-
-  var devices = Object(useChange["a" /* default */])(bus, function () {
-    return bus.devices().filter(function (dev) {
-      return !deviceFilter || deviceFilter(dev);
-    });
+  var devices = Object(useDevices["a" /* default */])({
+    ignoreSelf: true
   });
 
   var handleToggle = function handleToggle(event, nodeIds) {
@@ -2411,4 +2403,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=81-473d2221e2f0825aa924.js.map
+//# sourceMappingURL=81-619a5bd5c3bc299a4175.js.map
