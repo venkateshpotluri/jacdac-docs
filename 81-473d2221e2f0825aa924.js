@@ -1,32 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[81],{
 
-/***/ "+AIW":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__("TqRt");
-
-var _interopRequireWildcard = __webpack_require__("284h");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__("q1tI"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-5 0h-2v-2h2v2zm0-4h-2V8h2v4zm-1 10c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"
-}), 'NotificationImportant');
-
-exports.default = _default;
-
-/***/ }),
-
 /***/ "0FeW":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1225,9 +1198,9 @@ var KindIcon = __webpack_require__("NHHF");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
 var Switch = __webpack_require__("UhlP");
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/NotificationImportant.js
-var NotificationImportant = __webpack_require__("+AIW");
-var NotificationImportant_default = /*#__PURE__*/__webpack_require__.n(NotificationImportant);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/SignalCellularConnectedNoInternet0Bar.js
+var SignalCellularConnectedNoInternet0Bar = __webpack_require__("tMA0");
+var SignalCellularConnectedNoInternet0Bar_default = /*#__PURE__*/__webpack_require__.n(SignalCellularConnectedNoInternet0Bar);
 
 // CONCATENATED MODULE: ./src/components/ui/StyledTreeView.tsx
 
@@ -1338,10 +1311,11 @@ function StyledTreeItem(props) {
     }), icon, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
       variant: "body2",
       className: classes.labelText
-    }, labelText), alert && /*#__PURE__*/react_default.a.createElement(NotificationImportant_default.a, null), /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+    }, labelText), alert && /*#__PURE__*/react_default.a.createElement(SignalCellularConnectedNoInternet0Bar_default.a, null), /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
       variant: "caption",
       color: "inherit"
     }, alert && /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
+      variant: "caption",
       component: "span"
     }, alert), labelInfo, actions)),
     style: {
@@ -1440,7 +1414,7 @@ function DeviceTreeItem(props) {
     return srv.readingRegister;
   })) === null || _services$find === void 0 ? void 0 : _services$find.readingRegister;
   var reading = Object(useRegisterValue["b" /* useRegisterHumanValue */])(readingRegister);
-  var alert = lost ? "Lost device..." : dropped > 2 ? dropped + " lost" : undefined;
+  var alert = lost ? "lost device..." : dropped > 2 ? dropped + " lost" : undefined;
   var labelInfo = [!!dropped && dropped + " lost", reading, serviceNames].filter(function (r) {
     return !!r;
   }).join(", ");
@@ -1498,8 +1472,6 @@ function ServiceTreeItem(props) {
   }).filter(function (ev) {
     return !eventFilter || eventFilter(ev);
   });
-  var readingRegister = service.readingRegister;
-  var reading = Object(useRegisterValue["b" /* useRegisterHumanValue */])(readingRegister);
   var instanceName = Object(useRegisterValue["d" /* useRegisterStringValue */])(service.register(constants["m" /* BaseReg */].InstanceName));
   var name = service.name + (instanceName ? " " + instanceName : "");
   var theme = Object(useTheme["a" /* default */])();
@@ -1522,7 +1494,6 @@ function ServiceTreeItem(props) {
   return /*#__PURE__*/react_default.a.createElement(StyledTreeItem, {
     nodeId: id,
     labelText: name,
-    labelInfo: reading,
     kind: "service",
     checked: open,
     setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("service")) > -1 && setChecked && handleChecked,
@@ -1569,6 +1540,11 @@ function RegisterTreeItem(props) {
   var failedGet = attempts > 2;
   var labelText = "" + ((specification === null || specification === void 0 ? void 0 : specification.name) || register.id) + (optional ? "?" : "");
   var humanValue = Object(useRegisterValue["b" /* useRegisterHumanValue */])(register);
+
+  var handleClick = function handleClick() {
+    return register.sendGetAsync();
+  };
+
   Object(react["useEffect"])(function () {
     return register === null || register === void 0 ? void 0 : register.subscribe(constants["tb" /* GET_ATTEMPT */], function () {
       setAttempts(register.lastGetAttempts);
@@ -1588,6 +1564,7 @@ function RegisterTreeItem(props) {
     kind: (specification === null || specification === void 0 ? void 0 : specification.kind) || "register",
     alert: failedGet && !optional && humanValue === undefined && "???",
     checked: (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1,
+    onClick: handleClick,
     setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("register")) > -1 && setChecked && handleChecked
   });
 }
@@ -2403,7 +2380,35 @@ function useRegisterBoolValue(register, options) {
   return value;
 }
 
+/***/ }),
+
+/***/ "tMA0":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__("TqRt");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__("q1tI"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__("8/g6"));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("path", {
+  fillOpacity: ".3",
+  d: "M22 8V2L2 22h16V8z"
+}), /*#__PURE__*/_react.default.createElement("path", {
+  d: "M20 22h2v-2h-2v2zm0-12v8h2v-8h-2z"
+})), 'SignalCellularConnectedNoInternet0Bar');
+
+exports.default = _default;
+
 /***/ })
 
 }]);
-//# sourceMappingURL=81-a19b280fa9957cd65ce5.js.map
+//# sourceMappingURL=81-473d2221e2f0825aa924.js.map

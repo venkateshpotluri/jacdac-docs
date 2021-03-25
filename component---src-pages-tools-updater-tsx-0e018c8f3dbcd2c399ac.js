@@ -1304,6 +1304,7 @@ function UpdateDeviceCard(props) {
   var flashing = Object(useChange["a" /* default */])(device, function (d) {
     return d.flashing;
   });
+  var mounted = Object(useMounted["a" /* default */])();
 
   var handleFlashing = /*#__PURE__*/function () {
     var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
@@ -1327,7 +1328,7 @@ function UpdateDeviceCard(props) {
               updateCandidates = [firmwareInfo];
               _context.next = 8;
               return Object(jdom_flashing["b" /* flashFirmwareBlob */])(bus, blob, updateCandidates, function (prog) {
-                return setProgress(prog);
+                if (mounted()) setProgress(prog);
               });
 
             case 8:
@@ -1339,7 +1340,7 @@ function UpdateDeviceCard(props) {
             case 11:
               _context.prev = 11;
               _context.t0 = _context["catch"](2);
-              setError(_context.t0);
+              if (mounted()) setError(_context.t0);
 
             case 14:
               _context.prev = 14;
@@ -1382,10 +1383,7 @@ function UpdateDeviceList() {
   var _useContext3 = Object(react["useContext"])(Context["a" /* default */]),
       bus = _useContext3.bus;
 
-  var _useState2 = Object(react["useState"])(false),
-      scanning = _useState2[0],
-      setScanning = _useState2[1];
-
+  var scanning = Object(react["useRef"])(false);
   var gridBreakpoints = Object(useGridBreakpoints["a" /* default */])();
   var safeBoot = Object(useChange["a" /* default */])(bus, function (b) {
     return b.safeBoot;
@@ -1398,11 +1396,12 @@ function UpdateDeviceList() {
   }, [safeBoot]).filter(function (dev) {
     return safeBoot || !dev.hasService(constants["Dd" /* SRV_BOOTLOADER */]);
   });
-  var isFlashing = devices.some(function (dev) {
-    return dev.flashing;
+  var isFlashing = Object(useChange["a" /* default */])(bus, function () {
+    return devices.some(function (dev) {
+      return dev.flashing;
+    });
   });
   var blobs = Object(useFirmwareBlobs["a" /* default */])();
-  var mounted = Object(useMounted["a" /* default */])();
 
   function scan() {
     return _scan.apply(this, arguments);
@@ -1415,7 +1414,7 @@ function UpdateDeviceList() {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              if (!(!(blobs !== null && blobs !== void 0 && blobs.length) || isFlashing || scanning)) {
+              if (!(!(blobs !== null && blobs !== void 0 && blobs.length) || isFlashing || scanning.current)) {
                 _context2.next = 2;
                 break;
               }
@@ -1425,13 +1424,13 @@ function UpdateDeviceList() {
             case 2:
               console.log("start scanning bus");
               _context2.prev = 3;
-              setScanning(true);
+              scanning.current = true;
               _context2.next = 7;
               return Object(jdom_flashing["d" /* scanFirmwares */])(bus);
 
             case 7:
               _context2.prev = 7;
-              if (mounted()) setScanning(false);
+              scanning.current = false;
               return _context2.finish(7);
 
             case 10:
@@ -1817,4 +1816,4 @@ function DeviceCard(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-updater-tsx-f179813e28fd1d4e217b.js.map
+//# sourceMappingURL=component---src-pages-tools-updater-tsx-0e018c8f3dbcd2c399ac.js.map

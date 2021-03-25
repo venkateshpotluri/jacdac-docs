@@ -12266,8 +12266,8 @@ function decodeMember(service, pktInfo, member, pkt, offset) {
       humanValue = "pipe to " + shortDeviceId(devid) + " port:" + port; // + " [" + toHex(buf.slice(10)) + "]"
 
       if (pkt !== null && pkt !== void 0 && (_pkt$device = pkt.device) !== null && _pkt$device !== void 0 && _pkt$device.bus) {
-        var trg = pkt.device.bus.device(devid);
-        trg.port(port).pipeType = service.shortId + "." + pktInfo.pipeType + ".report";
+        var trg = pkt.device.bus.device(devid, true);
+        if (trg) trg.port(port).pipeType = service.shortId + "." + pktInfo.pipeType + ".report";
       }
     } else {
       value = buf;
@@ -17539,7 +17539,7 @@ function _fetchReleaseBinary() {
         switch (_context2.prev = _context2.next) {
           case 0:
             // we are not using the release api because of CORS.
-            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/main/dist/fw-v" + version + ".uf2";
+            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/main/dist/fw-" + version + ".uf2";
             _context2.next = 3;
             return fetch(downloadUrl, {
               headers: {
@@ -25024,7 +25024,7 @@ var traceview_TraceView = /*#__PURE__*/function (_JDClient) {
     if (pkt.meta[this.id]) return;
     pkt.meta[this.id] = true; // resolve packet device for pretty name
 
-    if (!pkt.isMultiCommand && !pkt.device) pkt.device = this.bus.device(pkt.deviceIdentifier); // keep in filtered view
+    if (!pkt.isMultiCommand && !pkt.device) pkt.device = this.bus.device(pkt.deviceIdentifier, false, pkt); // keep in filtered view
 
     var filtered = true; // detect duplicate at the tail of the packets
 
@@ -36290,7 +36290,7 @@ function device_arrayLikeToArray(arr, len) { if (len == null || len > arr.length
 var device_JDDevice = /*#__PURE__*/function (_JDNode) {
   Object(inheritsLoose["a" /* default */])(JDDevice, _JDNode);
 
-  function JDDevice(bus, deviceId) {
+  function JDDevice(bus, deviceId, pkt) {
     var _this;
 
     _this = _JDNode.call(this) || this;
@@ -36301,6 +36301,8 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
     _this.connected = true;
     _this._lost = false;
     _this._identifying = false;
+    _this._source = pkt === null || pkt === void 0 ? void 0 : pkt.sender;
+    _this._replay = !!(pkt !== null && pkt !== void 0 && pkt.replay);
     return _this;
   }
 
@@ -36399,10 +36401,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
 
 
     var servicesChanged = !Object(utils["k" /* bufferEq */])(pkt.data, this._servicesData, 4);
-    this._servicesData = pkt.data;
-    this._source = pkt.sender || this._source; // remember who's sending those packets
-
-    this._replay = !!pkt.replay; // notify that services got updated
+    this._servicesData = pkt.data; // notify that services got updated
 
     if (servicesChanged) {
       this._services = undefined; // respawn services
@@ -36746,6 +36745,8 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
       if (value !== this._flashing) {
         this._flashing = value;
         this.emit(constants["v" /* CHANGE */]);
+        this.bus.emit(constants["W" /* DEVICE_CHANGE */], this);
+        this.bus.emit(constants["v" /* CHANGE */]);
       }
     }
   }, {
@@ -37683,19 +37684,19 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
           return _this4;
 
         case constants["eb" /* DEVICE_NODE_NAME */]:
-          return _this4.device(dev);
+          return _this4.device(dev, true);
 
         case constants["wd" /* SERVICE_NODE_NAME */]:
-          return (_this4$device = _this4.device(dev)) === null || _this4$device === void 0 ? void 0 : _this4$device.service(srv);
+          return (_this4$device = _this4.device(dev, true)) === null || _this4$device === void 0 ? void 0 : _this4$device.service(srv);
 
         case constants["Mc" /* REGISTER_NODE_NAME */]:
-          return (_this4$device2 = _this4.device(dev)) === null || _this4$device2 === void 0 ? void 0 : (_this4$device2$servic = _this4$device2.service(srv)) === null || _this4$device2$servic === void 0 ? void 0 : _this4$device2$servic.register(reg);
+          return (_this4$device2 = _this4.device(dev, true)) === null || _this4$device2 === void 0 ? void 0 : (_this4$device2$servic = _this4$device2.service(srv)) === null || _this4$device2$servic === void 0 ? void 0 : _this4$device2$servic.register(reg);
 
         case constants["ob" /* EVENT_NODE_NAME */]:
-          return (_this4$device3 = _this4.device(dev)) === null || _this4$device3 === void 0 ? void 0 : (_this4$device3$servic = _this4$device3.service(srv)) === null || _this4$device3$servic === void 0 ? void 0 : _this4$device3$servic.event(reg);
+          return (_this4$device3 = _this4.device(dev, true)) === null || _this4$device3 === void 0 ? void 0 : (_this4$device3$servic = _this4$device3.service(srv)) === null || _this4$device3$servic === void 0 ? void 0 : _this4$device3$servic.event(reg);
 
         case constants["pb" /* FIELD_NODE_NAME */]:
-          return (_this4$device4 = _this4.device(dev)) === null || _this4$device4 === void 0 ? void 0 : (_this4$device4$servic = _this4$device4.service(srv)) === null || _this4$device4$servic === void 0 ? void 0 : (_this4$device4$servic2 = _this4$device4$servic.register(reg)) === null || _this4$device4$servic2 === void 0 ? void 0 : _this4$device4$servic2.fields[idx];
+          return (_this4$device4 = _this4.device(dev, true)) === null || _this4$device4 === void 0 ? void 0 : (_this4$device4$servic = _this4$device4.service(srv)) === null || _this4$device4$servic === void 0 ? void 0 : (_this4$device4$servic2 = _this4$device4$servic.register(reg)) === null || _this4$device4$servic2 === void 0 ? void 0 : _this4$device4$servic2.fields[idx];
       }
 
       console.info("node " + id + " not found");
@@ -37925,7 +37926,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
    */
   ;
 
-  _proto.device = function device(id, skipCreate) {
+  _proto.device = function device(id, skipCreate, pkt) {
     if (id === "0000000000000000" && !skipCreate) {
       console.warn("jadac: trying to access device 0000000000000000");
       return undefined;
@@ -37941,7 +37942,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
         return undefined;
       }
 
-      d = new device_JDDevice(this, id);
+      d = new device_JDDevice(this, id, pkt);
 
       this._devices.push(d);
 
@@ -38053,7 +38054,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
   _proto.processPacket = function processPacket(pkt) {
     if (!pkt.isMultiCommand && !pkt.device) {
-      pkt.device = this.device(pkt.deviceIdentifier); // check if devices are frozen
+      pkt.device = this.device(pkt.deviceIdentifier, false, pkt); // check if devices are frozen
 
       if (!pkt.device) return;
     }
@@ -43902,7 +43903,7 @@ function _scanCore() {
             }); // store info in objects
 
             devs.forEach(function (info) {
-              var dev = bus.device(info.deviceId);
+              var dev = bus.device(info.deviceId, true);
               if (dev) dev.firmwareInfo = info;
             });
             return _context8.abrupt("return", {
@@ -44562,7 +44563,7 @@ var OutPipe = /*#__PURE__*/function () {
         port = _pkt$jdunpack[1];
 
     var id = Object(_utils__WEBPACK_IMPORTED_MODULE_7__[/* toHex */ "V"])(idbuf);
-    var dev = bus.device(id);
+    var dev = bus.device(id, false, pkt);
     return new OutPipe(dev, port, hosted);
   };
 
@@ -53686,4 +53687,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,75,77]]]);
-//# sourceMappingURL=app-3f4685eac1a3da832100.js.map
+//# sourceMappingURL=app-fa984eb8c6eb0c719255.js.map
