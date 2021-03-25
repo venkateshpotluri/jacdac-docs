@@ -66,7 +66,9 @@ function useReadingAuxilliaryValue(register, identifier, options) {
   var service = register.service,
       code = register.code;
 
-  var _ref = options || {},
+  var _ref = options || {
+    visible: true
+  },
       visible = _ref.visible;
 
   var reading = code === constants["df" /* SystemReg */].Reading || code === constants["df" /* SystemReg */].Value;
@@ -137,18 +139,13 @@ function RegisterInput(props) {
     return !!_.data;
   });
   var color = hasSet ? "secondary" : "primary";
-  var minReading = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].MinReading, {
+  var regProps = visible !== undefined ? {
     visible: visible
-  });
-  var maxReading = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].MaxReading, {
-    visible: visible
-  });
-  var readingError = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].ReadingError, {
-    visible: visible
-  });
-  var resolution = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].ReadingResolution, {
-    visible: visible
-  });
+  } : undefined;
+  var minReading = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].MinReading, regProps);
+  var maxReading = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].MaxReading, regProps);
+  var readingError = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].ReadingError, regProps);
+  var resolution = useReadingAuxilliaryValue(register, constants["df" /* SystemReg */].ReadingResolution, regProps);
   Object(react["useEffect"])(function () {
     return visible && register.subscribe(constants["ad" /* REPORT_UPDATE */], function () {
       var vs = register.unpackedValue;
@@ -1625,4 +1622,4 @@ function useAnimationFrame(callback, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-1abd85ff15752cb0a300.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-ddf06a8d5b79b3978f12.js.map

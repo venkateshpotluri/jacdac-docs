@@ -39,11 +39,10 @@ function DashboardCompass(props) {
   var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__[/* useRegisterUnpackedValue */ "c"])(headingRegister, props),
       heading = _useRegisterUnpackedV[0];
 
-  var _useRegisterUnpackedV2 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__[/* useRegisterUnpackedValue */ "c"])(enabledRegister, props),
-      enabled = _useRegisterUnpackedV2[0];
+  var enabled = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__[/* useRegisterBoolValue */ "a"])(enabledRegister, props);
 
-  var _useRegisterUnpackedV3 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__[/* useRegisterUnpackedValue */ "c"])(service.statusCodeRegister, props),
-      status = _useRegisterUnpackedV3[0];
+  var _useRegisterUnpackedV2 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__[/* useRegisterUnpackedValue */ "c"])(service.statusCodeRegister, props),
+      status = _useRegisterUnpackedV2[0];
 
   var off = !enabled;
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(service);
@@ -166,4 +165,4 @@ function DashboardCompass(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=110-7bef9b0155c4811b1f83.js.map
+//# sourceMappingURL=110-87c9403d25ef73934c93.js.map

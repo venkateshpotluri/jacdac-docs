@@ -26,10 +26,7 @@ __webpack_require__.r(__webpack_exports__);
 function DashboardSolenoid(props) {
   var service = props.service;
   var pulledRegister = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__[/* SolenoidReg */ "Re"].Pulled);
-
-  var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_1__[/* useRegisterUnpackedValue */ "c"])(pulledRegister, props),
-      pulled = _useRegisterUnpackedV[0];
-
+  var pulled = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_1__[/* useRegisterBoolValue */ "a"])(pulledRegister, props);
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(service);
   var color = host ? "secondary" : "primary";
 
@@ -87,4 +84,4 @@ function DashboardSolenoid(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=123-124037ff8ca05a9e748c.js.map
+//# sourceMappingURL=123-6587a8a6cd61af8e0685.js.map

@@ -26,7 +26,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function DashboardSevenSegmentDisplay(props) {
-  var service = props.service;
+  var service = props.service,
+      visible = props.visible;
 
   var _ref = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* SevenSegmentDisplayReg */ "Pe"].Digits)) || [new Uint8Array(0)],
       digits = _ref[0];
@@ -39,9 +40,7 @@ function DashboardSevenSegmentDisplay(props) {
   var _useRegisterUnpackedV2 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* SevenSegmentDisplayReg */ "Pe"].DigitCount), props),
       digitCount = _useRegisterUnpackedV2[0];
 
-  var _useRegisterUnpackedV3 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* SevenSegmentDisplayReg */ "Pe"].DecimalPoint), props),
-      decimalPoint = _useRegisterUnpackedV3[0];
-
+  var decimalPoint = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterBoolValue */ "a"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* SevenSegmentDisplayReg */ "Pe"].DecimalPoint), props);
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(service);
   var color = host ? "secondary" : "primary";
 
@@ -191,11 +190,12 @@ function DashboardSevenSegmentDisplay(props) {
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_RegisterInput__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    register: brightnessRegister
+    register: brightnessRegister,
+    visible: visible
   })));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=121-b0f8f163a9b64574c011.js.map
+//# sourceMappingURL=121-0f3ab596f7ba432fea9a.js.map

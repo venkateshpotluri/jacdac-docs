@@ -66,16 +66,9 @@ function DashboardTrafficLight(props) {
       services = props.services,
       variant = props.variant;
   var widgetRef = Object(react__WEBPACK_IMPORTED_MODULE_2__["useRef"])();
-
-  var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Red), props),
-      red = _useRegisterUnpackedV[0];
-
-  var _useRegisterUnpackedV2 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Orange), props),
-      orange = _useRegisterUnpackedV2[0];
-
-  var _useRegisterUnpackedV3 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Green), props),
-      green = _useRegisterUnpackedV3[0];
-
+  var red = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterBoolValue */ "a"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Red), props);
+  var orange = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterBoolValue */ "a"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Orange), props);
+  var green = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterBoolValue */ "a"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Green), props);
   var lightRegs = [_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Red, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Orange, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* TrafficLightReg */ "kf"].Green];
   var lights = [red, orange, green];
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(service);
@@ -224,4 +217,4 @@ function useKeyboardNavigationProps(parentRef, vertical) {
 /***/ })
 
 }]);
-//# sourceMappingURL=103-fb371a2eddeaeb8b8591.js.map
+//# sourceMappingURL=103-a0958accf6d941abef4f.js.map

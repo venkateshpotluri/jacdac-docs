@@ -29,15 +29,11 @@ __webpack_require__.r(__webpack_exports__);
 function DashboardPower(props) {
   var service = props.service;
   var enabledRegister = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* PowerReg */ "Gc"].Enabled);
+  var enabled = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterBoolValue */ "a"])(enabledRegister, props);
+  var overload = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterBoolValue */ "a"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* PowerReg */ "Gc"].Overload), props);
 
-  var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(enabledRegister, props),
-      enabled = _useRegisterUnpackedV[0];
-
-  var _useRegisterUnpackedV2 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* PowerReg */ "Gc"].Overload), props),
-      overload = _useRegisterUnpackedV2[0];
-
-  var _useRegisterUnpackedV3 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* PowerReg */ "Gc"].BatteryCharge), props),
-      batteryCharge = _useRegisterUnpackedV3[0];
+  var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_4__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* PowerReg */ "Gc"].BatteryCharge), props),
+      batteryCharge = _useRegisterUnpackedV[0];
 
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(service);
   var color = host ? "secondary" : "primary";
@@ -128,4 +124,4 @@ function DashboardPower(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=115-72e15bb24974a821aa76.js.map
+//# sourceMappingURL=115-1d5dac7690823f2d4e06.js.map

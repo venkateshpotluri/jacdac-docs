@@ -626,16 +626,13 @@ function DashboardServo(props) {
   var service = props.service,
       visible = props.visible;
   var enabledRegister = service.register(constants["Me" /* ServoReg */].Enabled);
-
-  var _useRegisterUnpackedV3 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(enabledRegister, props),
-      enabled = _useRegisterUnpackedV3[0];
-
+  var enabled = Object(useRegisterValue["a" /* useRegisterBoolValue */])(enabledRegister, props);
   var off = !enabled;
   var angleRegister = service.register(constants["Me" /* ServoReg */].Angle);
   var angle = useActualAngle(service, visible);
 
-  var _useRegisterUnpackedV4 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Me" /* ServoReg */].Offset)),
-      offset = _useRegisterUnpackedV4[0];
+  var _useRegisterUnpackedV3 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Me" /* ServoReg */].Offset), props),
+      offset = _useRegisterUnpackedV3[0];
 
   var host = Object(useServiceHost["a" /* default */])(service);
   var color = host ? "secondary" : "primary";
@@ -721,7 +718,8 @@ function DashboardServo(props) {
     item: true,
     xs: 12
   }, /*#__PURE__*/react_default.a.createElement(RegisterInput["a" /* default */], {
-    register: angleRegister
+    register: angleRegister,
+    visible: visible
   })));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slider/Slider.js + 1 modules
@@ -1118,10 +1116,7 @@ function ValueWidget(props) {
       others = Object(objectWithoutPropertiesLoose["a" /* default */])(props, ["valueRegister", "intensityRegister"]);
 
   var visible = others.visible;
-
-  var _useRegisterUnpackedV = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(intensityRegister, others),
-      intensity = _useRegisterUnpackedV[0];
-
+  var intensity = Object(useRegisterValue["a" /* useRegisterBoolValue */])(intensityRegister, others);
   var hasIntensity = intensity !== undefined;
   var off = hasIntensity ? !intensity : undefined;
 
@@ -1165,8 +1160,8 @@ function IntensityWidget(props) {
 
   var visible = others.visible;
 
-  var _useRegisterUnpackedV2 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(intensityRegister, others),
-      intensity = _useRegisterUnpackedV2[0];
+  var _useRegisterUnpackedV = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(intensityRegister, others),
+      intensity = _useRegisterUnpackedV[0];
 
   var off = intensity !== undefined && !intensity;
   return /*#__PURE__*/react_default.a.createElement(RegisterInput["a" /* default */], {
@@ -1249,4 +1244,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-c2b87223949ac256675f.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-88ca6540638024dfff73.js.map

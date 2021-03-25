@@ -24,10 +24,7 @@ __webpack_require__.r(__webpack_exports__);
 function DashboardMotion(props) {
   var service = props.service;
   var movingRegister = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__[/* MotionReg */ "ic"].Moving);
-
-  var _useRegisterUnpackedV = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_1__[/* useRegisterUnpackedValue */ "c"])(movingRegister, props),
-      moving = _useRegisterUnpackedV[0];
-
+  var moving = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_1__[/* useRegisterBoolValue */ "a"])(movingRegister, props);
   var host = Object(_hooks_useServiceHost__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(service);
   var color = host ? "secondary" : "primary";
 
@@ -69,4 +66,4 @@ function DashboardMotion(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=114-9f806acffd7208e52356.js.map
+//# sourceMappingURL=114-446ee3efa402f888b16f.js.map
