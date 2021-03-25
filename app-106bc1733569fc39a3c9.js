@@ -38851,7 +38851,7 @@ var microbit_CMSISProto = /*#__PURE__*/function () {
                   ptr++;
                 }
 
-                buf = buf.slice(ptr);
+                buf = buf.slice(beg);
                 this.pendingSerial = buf.length ? buf : null;
                 if (this.pendingSerial) this.lastPendingSerial = Date.now();
               } else if (this.pendingSerial) {
@@ -53687,4 +53687,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,76,78]]]);
-//# sourceMappingURL=app-bbdd364f2f9263b909bf.js.map
+//# sourceMappingURL=app-106bc1733569fc39a3c9.js.map
