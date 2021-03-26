@@ -469,6 +469,9 @@ function ServiceTestEditor() {
     };
   }();
 
+  Object(react["useEffect"])(function () {
+    if (serviceClass) handleLoadFromGithub();
+  }, [serviceClass]);
   return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     spacing: 2,
     container: true
@@ -2034,4 +2037,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-c5f04ed41b82e2aa1312.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-1a62048359a04f0f31ee.js.map

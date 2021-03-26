@@ -32391,7 +32391,11 @@ var react_use_id_hook_esm = __webpack_require__("W1g9");
 // EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx
 var LoadingProgress = __webpack_require__("aVfY");
 
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__("Zo1I");
+
 // CONCATENATED MODULE: ./src/components/GithubPullRequestButton.tsx
+
 
 
 
@@ -32441,6 +32445,9 @@ function GithubPullRequestButton(props) {
       body = _useState4[0],
       setBody = _useState4[1];
 
+  var headSuffix = Object(react["useMemo"])(function () {
+    return Object(utils["V" /* toHex */])(Object(utils["e" /* anyRandomUint32 */])(2));
+  }, []);
   var disabled = busy || !body || !title || !head || !files || !Object.keys(files).length;
 
   var handleOpenConfirm = function handleOpenConfirm() {
@@ -32478,7 +32485,7 @@ function GithubPullRequestButton(props) {
                 repo: "jacdac",
                 title: title,
                 body: body,
-                head: head,
+                head: head + "/" + headSuffix,
                 changes: [{
                   files: files,
                   commit: "added files"
@@ -35651,4 +35658,4 @@ module.exports = baseToString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-a7804a1b0a135c188a26.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-c48e936e501988361662.js.map
