@@ -255,6 +255,7 @@
 <url> <loc>https://microsoft.github.io/jacdac-docs/devices/microsoft/research/jmsliderv2/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://microsoft.github.io/jacdac-docs/devices/microsoft/research/jmsndv20/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://microsoft.github.io/jacdac-docs/devices/microsoft/research/jmtouchprotov20/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://microsoft.github.io/jacdac-docs/devices/microsoft/research/thermometerhumidity/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://microsoft.github.io/jacdac-docs/devices/microsoft/research</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://microsoft.github.io/jacdac-docs/dashboard/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://microsoft.github.io/jacdac-docs/devices/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
