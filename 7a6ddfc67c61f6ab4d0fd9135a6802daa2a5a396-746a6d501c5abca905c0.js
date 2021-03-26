@@ -499,7 +499,9 @@ function useRegisterUnpackedValue(register, options) {
       value = _useState2[0],
       setValue = _useState2[1];
 
-  var _ref2 = options || {},
+  var _ref2 = options || {
+    visible: true
+  },
       visible = _ref2.visible;
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -514,7 +516,9 @@ function useRegisterBoolValue(register, options) {
       value = _useState3[0],
       setValue = _useState3[1];
 
-  var _ref3 = options || {},
+  var _ref3 = options || {
+    visible: true
+  },
       visible = _ref3.visible; // update value
 
 
@@ -1275,4 +1279,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-a19089f13351a5dc8a52.js.map
+//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-746a6d501c5abca905c0.js.map

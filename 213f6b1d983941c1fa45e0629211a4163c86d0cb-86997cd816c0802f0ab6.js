@@ -491,7 +491,9 @@ function useRegisterUnpackedValue(register, options) {
       value = _useState2[0],
       setValue = _useState2[1];
 
-  var _ref2 = options || {},
+  var _ref2 = options || {
+    visible: true
+  },
       visible = _ref2.visible;
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -506,7 +508,9 @@ function useRegisterBoolValue(register, options) {
       value = _useState3[0],
       setValue = _useState3[1];
 
-  var _ref3 = options || {},
+  var _ref3 = options || {
+    visible: true
+  },
       visible = _ref3.visible; // update value
 
 
@@ -1005,4 +1009,4 @@ function DeviceAvatar(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=213f6b1d983941c1fa45e0629211a4163c86d0cb-8f3a7cd9d06113f0a173.js.map
+//# sourceMappingURL=213f6b1d983941c1fa45e0629211a4163c86d0cb-86997cd816c0802f0ab6.js.map
