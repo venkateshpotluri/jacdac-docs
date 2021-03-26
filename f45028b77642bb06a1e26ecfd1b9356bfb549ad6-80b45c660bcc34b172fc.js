@@ -1014,7 +1014,7 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants["le" /* SRV_ROLE
 }, _serviceViews[constants["yd" /* SRV_ACCELEROMETER */]] = {
   component: DashboardAccelerometer,
   weight: function weight() {
-    return 2;
+    return 3;
   }
 }, _serviceViews[constants["me" /* SRV_ROTARY_ENCODER */]] = {
   component: DashboardRotaryEncoder,
@@ -1098,7 +1098,7 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants["le" /* SRV_ROLE
 }, _serviceViews[constants["Od" /* SRV_GYROSCOPE */]] = {
   component: DashboardGyroscope,
   weight: function weight() {
-    return 2;
+    return 3;
   }
 }, _serviceViews[constants["ve" /* SRV_SOUND_SPECTRUM */]] = {
   component: DashboardSoundSpectrum,
@@ -1244,4 +1244,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f8a2d593a42d37a2d920.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-80b45c660bcc34b172fc.js.map
