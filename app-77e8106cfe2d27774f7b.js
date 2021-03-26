@@ -9965,15 +9965,15 @@ function Footer() {
     role: "contentinfo",
     className: classes.footer
   }, /*#__PURE__*/react_default.a.createElement("a", {
-    href: "https://go.microsoft.com/fwlink/?LinkId=521839",
+    href: "https://privacy.microsoft.com/en-us/privacystatement",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Privacy & Cookies"), /*#__PURE__*/react_default.a.createElement("a", {
-    href: "https://makecode.com/termsofuse",
+  }, "Privacy"), /*#__PURE__*/react_default.a.createElement("a", {
+    href: "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright",
     target: "_blank",
     rel: "noopener noreferrer"
   }, "Terms Of Use"), /*#__PURE__*/react_default.a.createElement("a", {
-    href: "https://makecode.com/trademarks",
+    href: "https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general",
     target: "_blank",
     rel: "noopener noreferrer"
   }, "Trademarks"), /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], {
@@ -53705,4 +53705,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-c26255aacd73785a66f7.js.map
+//# sourceMappingURL=app-77e8106cfe2d27774f7b.js.map
