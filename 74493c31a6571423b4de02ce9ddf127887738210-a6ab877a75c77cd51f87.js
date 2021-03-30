@@ -8,10 +8,9 @@
 /* unused harmony export packetsToRegisters */
 /* unused harmony export lookupRegister */
 /* unused harmony export lookupField */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getRegister; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return parseIntFloat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getRegister; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parseIntFloat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return exprVisitor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getExpressionsOfType; });
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="jdspec.d.ts" />
 function isRegister(pkt) {
@@ -106,17 +105,6 @@ function exprVisitor(parent, current, structVisit) {
       exprVisitor(current, current[key], structVisit);
     });
   }
-}
-function getExpressionsOfType(expr, type, returnParent) {
-  if (returnParent === void 0) {
-    returnParent = false;
-  }
-
-  var results = [];
-  exprVisitor(null, expr, function (p, c) {
-    if (p && c.type === type) results.push(returnParent ? p : c);
-  });
-  return results;
 }
 
 /***/ }),
@@ -1184,7 +1172,7 @@ function parseServiceSpecificationMarkdownToJSON(filecontent, includes, filename
     }
 
     try {
-      return Object(_jdutils__WEBPACK_IMPORTED_MODULE_1__[/* parseIntFloat */ "d"])(info, w, allowFloat);
+      return Object(_jdutils__WEBPACK_IMPORTED_MODULE_1__[/* parseIntFloat */ "c"])(info, w, allowFloat);
     } catch (e) {
       error(e.message);
       return 0;
@@ -1911,4 +1899,4 @@ function isNumericType(field) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-54048875b3acc1cf345a.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-a6ab877a75c77cd51f87.js.map

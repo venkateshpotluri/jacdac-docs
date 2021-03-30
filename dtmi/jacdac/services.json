@@ -906,14 +906,6 @@
         "schema": "boolean"
       },
       {
-        "@type": "Property",
-        "name": "click_hold_time",
-        "@id": "dtmi:jacdac:x1473a263:rw:clickholdtime;1",
-        "description": "Threshold for `click` and `hold` events (see event descriptions below).",
-        "schema": "integer",
-        "writable": true
-      },
-      {
         "@type": [
           "Telemetry",
           "Event"
@@ -937,22 +929,13 @@
       {
         "@type": [
           "Telemetry",
-          "Event"
-        ],
-        "name": "click",
-        "@id": "dtmi:jacdac:x1473a263:event:click;1",
-        "description": "Emitted together with `up` when the press time less than or equal to `click_hold_time`.",
-        "schema": "dtmi:jacdac:x1473a263:event;1"
-      },
-      {
-        "@type": [
-          "Telemetry",
-          "Event"
+          "TimeSpan"
         ],
         "name": "hold",
         "@id": "dtmi:jacdac:x1473a263:event:hold;1",
-        "description": "Emitted when the press times is greater than `click_hold_time`. Hold events are followed by a separate up event.",
-        "schema": "dtmi:jacdac:x1473a263:event;1"
+        "description": "Emitted when the press time is greater than 500ms, and then at least every 500ms \nas long as the button remains pressed. The 'time' parameter records the the amount of time\nthat the button has been held (since the down event).",
+        "unit": "millisecond",
+        "schema": "integer"
       }
     ],
     "extends": [

@@ -272,6 +272,12 @@ function unparse(e) {
         return unparse(caller.callee) + "(" + caller.arguments.map(unparse).join(", ") + ")";
       }
 
+    case "MemberExpression":
+      {
+        var _root = e;
+        return _root.computed ? unparse(_root.object) + "[" + unparse(_root.property) + "]" : unparse(_root.object) + "." + unparse(_root.property);
+      }
+
     case "BinaryExpression":
     case "LogicalExpression":
       {
@@ -458,10 +464,20 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           break;
         }
 
+      case "MemberExpression":
+        {
+          // member expressions are of form [register|event].field
+          var _root2 = e;
+          var lhs = _root2.object;
+          var rhs = _root2.property;
+          this.exprStack.push(this.env(lhs.name, rhs.name));
+          break;
+        }
+
       case "Identifier":
         {
           var id = e;
-          this.exprStack.push(this.env[id.name]);
+          this.exprStack.push(this.env(id.name, ""));
           break;
         }
 
@@ -487,13 +503,14 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     this._startExpressions = [];
     this._rangeComplete = undefined;
     this._eventsComplete = undefined;
-    this._eventsQueue = undefined;
     this.testRunner = testRunner;
     this.command = command;
   }
 
   var _proto2 = JDCommandEvaluator.prototype;
 
+  // TODO: define an interface between test runner and command evaluator
+  // TODO: so this all can be done modularly
   _proto2.start = function start() {
     var _this = this;
 
@@ -504,11 +521,11 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
     switch (testFun.id) {
       case "check":
+      case "awaitEvent":
+      case "nextEvent":
         {
-          startExprs = Object(jdutils["b" /* getExpressionsOfType */])(args, 'CallExpression').filter(function (ce) {
-            return ce.callee.name === "start";
-          }).map(function (ce) {
-            return ce.arguments[0];
+          Object(jdutils["a" /* exprVisitor */])(null, args, function (p, ce) {
+            if (ce.type === 'CallExpression' && ce.callee.name === "start") startExprs.push(ce.arguments[0]);
           });
           break;
         }
@@ -543,18 +560,16 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           this._eventsComplete = eventList.elements.map(function (id) {
             return id.name;
           });
-          this._eventsQueue = [];
           break;
         }
     } // evaluate the start expressions and store the results
 
 
-    var env = this.testRunner.serviceTestRunner.environment;
     startExprs.forEach(function (child) {
       if (_this._startExpressions.findIndex(function (r) {
         return r.e === child;
       }) < 0) {
-        var exprEval = new JDExprEvaluator(env, []);
+        var exprEval = new JDExprEvaluator(_this.env, []);
 
         _this._startExpressions.push({
           e: child,
@@ -588,12 +603,14 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     });
   };
 
-  _proto2.setEvent = function setEvent(ev) {
-    this._eventsQueue.push(ev);
+  _proto2.setEvent = function setEvent(ev) {};
+
+  _proto2.checkExpression = function checkExpression(e) {
+    var expr = new JDExprEvaluator(this.env, this._startExpressions);
+    return expr.eval(e) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
   };
 
   _proto2.evaluate = function evaluate() {
-    var env = this.testRunner.serviceTestRunner.environment;
     var testFun = cmdToTestFunction(this.command);
     this._status = JDTestCommandStatus.Active;
     this._progress = "";
@@ -607,9 +624,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
       case "check":
         {
-          var expr = new JDExprEvaluator(env, this._startExpressions);
-          var ev = expr.eval(this.command.call.arguments[0]);
-          this._status = ev ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
+          this._status = this.checkExpression(this.command.call.arguments[0]);
           break;
         }
 
@@ -623,7 +638,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             return r.e === reg;
           });
 
-          var regValue = env[unparse(reg)];
+          var regValue = this.env(unparse(reg));
           var status = testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
           this._status = status;
           regSaved.v = regValue;
@@ -645,7 +660,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
             return r.e === amt;
           });
 
-          var _regValue = env[unparse(_reg)];
+          var _regValue = this.env(unparse(_reg));
 
           if (testFun.id === "increasesBy") {
             if (_regValue >= _regSaved.v + amtSaved.v) {
@@ -676,7 +691,8 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         {
           this._status = JDTestCommandStatus.Active;
           var _reg2 = this.command.call.arguments[0];
-          var _regValue2 = env[unparse(_reg2)];
+
+          var _regValue2 = this.env(unparse(_reg2));
 
           var beginSaved = this._startExpressions.find(function (r) {
             return r.e === _reg2;
@@ -707,12 +723,10 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
       case "events":
         {
-          var _this$_eventsQueue, _this$_eventsComplete;
+          if (this.testRunner.hasEvent) {
+            var ev = this.testRunner.consumeEvent();
 
-          if (((_this$_eventsQueue = this._eventsQueue) === null || _this$_eventsQueue === void 0 ? void 0 : _this$_eventsQueue.length) > 0 && ((_this$_eventsComplete = this._eventsComplete) === null || _this$_eventsComplete === void 0 ? void 0 : _this$_eventsComplete.length) > 0) {
-            var _ev = this._eventsQueue.pop();
-
-            if (_ev === this._eventsComplete[0]) {
+            if (ev === this._eventsComplete[0]) {
               this._eventsComplete.shift();
 
               if (this._eventsComplete.length === 0) this._status = JDTestCommandStatus.Passed;
@@ -720,9 +734,31 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
               this._status = JDTestCommandStatus.Failed;
             }
 
-            this._progress = "got event " + _ev + "; remaining = [" + this._eventsComplete + "]";
+            this._progress = "got event " + ev + "; remaining = [" + this._eventsComplete + "]";
           } else {
             this._progress = "no events received; remaining = [" + this._eventsComplete + "]";
+          }
+
+          break;
+        }
+
+      case "awaitEvent":
+      case "nextEvent":
+        {
+          var event = this.command.call.arguments[0];
+          this._progress = "waiting for event " + event.name;
+
+          if (this.testRunner.hasEvent) {
+            var _ev = this.testRunner.consumeEvent();
+
+            if (_ev !== event.name) {
+              if (testFun.id === "nextEvent") this._status = JDTestCommandStatus.Failed;
+            } else {
+              // this._status = JDTestCommandStatus.Passed
+              this._status = this.checkExpression(this.command.call.arguments[1]);
+            }
+          } else {
+            this._progress = "no events received; " + this._progress;
           }
 
           break;
@@ -732,10 +768,9 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         {
           var _reg3 = this.command.call.arguments[0];
           var jdreg = this.testRunner.serviceTestRunner.registers[_reg3.name];
+          var expr = new JDExprEvaluator(this.env, this._startExpressions);
 
-          var _expr = new JDExprEvaluator(env, this._startExpressions);
-
-          var _ev2 = _expr.eval(this.command.call.arguments[1]); // TODO: generalize
+          var _ev2 = expr.eval(this.command.call.arguments[1]); // TODO: generalize
 
 
           jdreg.sendSetIntAsync(_ev2);
@@ -763,6 +798,19 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
     get: function get() {
       return this._progress;
     }
+  }, {
+    key: "env",
+    get: function get() {
+      var _this3 = this;
+
+      return function (root, fld) {
+        if (fld === void 0) {
+          fld = "";
+        }
+
+        return _this3.testRunner.serviceTestRunner.lookup(root, fld);
+      };
+    }
   }]);
 
   return JDCommandEvaluator;
@@ -773,20 +821,20 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
 
   // timeout
   function JDTestCommandRunner(testRunner, command) {
-    var _this3;
+    var _this4;
 
-    _this3 = _JDEventSource.call(this) || this;
-    _this3._status = JDTestCommandStatus.NotReady;
-    _this3._output = {
+    _this4 = _JDEventSource.call(this) || this;
+    _this4._status = JDTestCommandStatus.NotReady;
+    _this4._output = {
       message: "",
       progress: ""
     };
-    _this3._timeOut = 5000;
-    _this3._timeLeft = 5000;
-    _this3._commmandEvaluator = null;
-    _this3.testRunner = testRunner;
-    _this3.command = command;
-    return _this3;
+    _this4._timeOut = 5000;
+    _this4._timeLeft = 5000;
+    _this4._commmandEvaluator = null;
+    _this4.testRunner = testRunner;
+    _this4.command = command;
+    return _this4;
   }
 
   var _proto3 = JDTestCommandRunner.prototype;
@@ -825,12 +873,6 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
       this.output = newOutput;
       if (this._commmandEvaluator.status === JDTestCommandStatus.RequiresUserInput) this.status = JDTestCommandStatus.RequiresUserInput;else if (finish) this.finish(this._commmandEvaluator.status);
     }
-  };
-
-  _proto3.eventChange = function eventChange(event) {
-    this._commmandEvaluator.setEvent(event);
-
-    this.envChange();
   };
 
   _proto3.cancel = function cancel() {
@@ -879,16 +921,17 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   Object(inheritsLoose["a" /* default */])(JDTestRunner, _JDEventSource2);
 
   function JDTestRunner(serviceTestRunner, testSpec) {
-    var _this4;
+    var _this5;
 
-    _this4 = _JDEventSource2.call(this) || this;
-    _this4._status = JDTestStatus.NotReady;
-    _this4.serviceTestRunner = serviceTestRunner;
-    _this4.testSpec = testSpec;
-    _this4.commands = testSpec.testCommands.map(function (c) {
-      return new testrunner_JDTestCommandRunner(Object(assertThisInitialized["a" /* default */])(_this4), c);
+    _this5 = _JDEventSource2.call(this) || this;
+    _this5._status = JDTestStatus.NotReady;
+    _this5._currentEvent = undefined;
+    _this5.serviceTestRunner = serviceTestRunner;
+    _this5.testSpec = testSpec;
+    _this5.commands = testSpec.testCommands.map(function (c) {
+      return new testrunner_JDTestCommandRunner(Object(assertThisInitialized["a" /* default */])(_this5), c);
     });
-    return _this4;
+    return _this5;
   }
 
   var _proto4 = JDTestRunner.prototype;
@@ -932,9 +975,14 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   };
 
   _proto4.eventChange = function eventChange(event) {
-    var _this$currentCommand2;
+    this._currentEvent = event;
+    this.envChange();
+  };
 
-    (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.eventChange(event);
+  _proto4.consumeEvent = function consumeEvent() {
+    var ret = this._currentEvent;
+    this._currentEvent = undefined;
+    return ret;
   };
 
   _proto4.finishCommand = function finishCommand() {
@@ -975,12 +1023,17 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     },
     set: function set(index) {
       if (this._commandIndex !== index) {
-        var _this$currentCommand3;
+        var _this$currentCommand2;
 
         this._commandIndex = index;
-        (_this$currentCommand3 = this.currentCommand) === null || _this$currentCommand3 === void 0 ? void 0 : _this$currentCommand3.start();
+        (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.start();
         this.emit(constants["v" /* CHANGE */]);
       }
+    }
+  }, {
+    key: "hasEvent",
+    get: function get() {
+      return this._currentEvent != undefined;
     }
   }, {
     key: "currentCommand",
@@ -992,48 +1045,49 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   return JDTestRunner;
 }(eventsource["a" /* JDEventSource */]);
 
-function refresh_env(_x, _x2) {
+function refresh_env(_x) {
   return _refresh_env.apply(this, arguments);
 }
 
 function _refresh_env() {
-  _refresh_env = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(registers, environment) {
-    var k, register, retry, _register$unpackedVal;
+  _refresh_env = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(registers) {
+    var k, register, retry, val, _register$unpackedVal;
 
     return regenerator_default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.t0 = regenerator_default.a.keys(environment);
+            _context.t0 = regenerator_default.a.keys(registers);
 
           case 1:
             if ((_context.t1 = _context.t0()).done) {
-              _context.next = 11;
+              _context.next = 12;
               break;
             }
 
             k = _context.t1.value;
             register = registers[k];
             retry = 0;
+            val = undefined;
 
-          case 5:
-            _context.next = 7;
+          case 6:
+            _context.next = 8;
             return register.refresh();
 
-          case 7:
-            environment[k] = (_register$unpackedVal = register.unpackedValue) === null || _register$unpackedVal === void 0 ? void 0 : _register$unpackedVal[0];
-
           case 8:
-            if (environment[k] === undefined && retry++ < 2) {
-              _context.next = 5;
+            val = (_register$unpackedVal = register.unpackedValue) === null || _register$unpackedVal === void 0 ? void 0 : _register$unpackedVal[0];
+
+          case 9:
+            if (val === undefined && retry++ < 2) {
+              _context.next = 6;
               break;
             }
 
-          case 9:
+          case 10:
             _context.next = 1;
             break;
 
-          case 11:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -1046,65 +1100,88 @@ function _refresh_env() {
 var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   Object(inheritsLoose["a" /* default */])(JDServiceTestRunner, _JDServiceClient);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function JDServiceTestRunner(testSpec, service) {
-    var _this5;
+    var _this6;
 
-    _this5 = _JDServiceClient.call(this, service) || this;
-    _this5._testIndex = -1;
-    _this5._registers = {};
-    _this5._environment = {};
-    _this5.events = {};
-    _this5.testSpec = testSpec;
-    _this5.tests = _this5.testSpec.tests.map(function (t) {
-      return new testrunner_JDTestRunner(Object(assertThisInitialized["a" /* default */])(_this5), t);
+    _this6 = _JDServiceClient.call(this, service) || this;
+    _this6._testIndex = -1;
+    _this6._registers = {};
+    _this6._events = {};
+    _this6.testSpec = testSpec;
+    _this6.tests = _this6.testSpec.tests.map(function (t) {
+      return new testrunner_JDTestRunner(Object(assertThisInitialized["a" /* default */])(_this6), t);
     });
     var serviceSpec = Object(spec["D" /* serviceSpecificationFromClassIdentifier */])(service.serviceClass);
 
-    _this5.testSpec.tests.forEach(function (t) {
+    _this6.testSpec.tests.forEach(function (t) {
       t.events.forEach(function (eventName) {
-        if (!_this5.events[eventName]) {
+        if (!_this6.events[eventName]) {
           var pkt = serviceSpec.packets.find(function (pkt) {
             return Object(spec["j" /* isEvent */])(pkt) && pkt.name === eventName;
           });
           var event = service.event(pkt.identifier);
-          _this5.events[eventName] = event;
+          _this6.events[eventName] = event;
 
-          _this5.mount(event.subscribe(constants["nb" /* EVENT */], function () {
-            var _this5$currentTest;
+          _this6.mount(event.subscribe(constants["nb" /* EVENT */], function () {
+            var _this6$currentTest;
 
-            (_this5$currentTest = _this5.currentTest) === null || _this5$currentTest === void 0 ? void 0 : _this5$currentTest.eventChange(eventName);
+            (_this6$currentTest = _this6.currentTest) === null || _this6$currentTest === void 0 ? void 0 : _this6$currentTest.eventChange(eventName);
           }));
         }
       });
       t.registers.forEach(function (regName) {
-        if (!_this5._registers[regName]) {
+        if (!_this6._registers[regName]) {
           var pkt = serviceSpec.packets.find(function (pkt) {
             return Object(spec["s" /* isRegister */])(pkt) && pkt.name === regName;
           });
           var register = service.register(pkt.identifier);
-          _this5._registers[regName] = register;
-          _this5._environment[regName] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
+          _this6._registers[regName] = register;
 
-          _this5.mount(register.subscribe(constants["v" /* CHANGE */], function () {
-            var _this5$currentTest2;
+          _this6.mount(register.subscribe(constants["v" /* CHANGE */], function () {
+            var _this6$currentTest2;
 
-            _this5._environment[regName] = register.unpackedValue ? register.unpackedValue[0] : register.intValue;
-            (_this5$currentTest2 = _this5.currentTest) === null || _this5$currentTest2 === void 0 ? void 0 : _this5$currentTest2.envChange();
+            (_this6$currentTest2 = _this6.currentTest) === null || _this6$currentTest2 === void 0 ? void 0 : _this6$currentTest2.envChange();
           }));
         }
       });
     });
 
-    _this5.start();
+    _this6.start();
 
-    return _this5;
+    return _this6;
   }
 
   var _proto5 = JDServiceTestRunner.prototype;
 
+  _proto5.lookup = function lookup(root, fld) {
+    if (fld === void 0) {
+      fld = "";
+    }
+
+    if (root in this.registers) {
+      var _this$registers$root$;
+
+      if (!fld) return (_this$registers$root$ = this.registers[root].unpackedValue) === null || _this$registers$root$ === void 0 ? void 0 : _this$registers$root$[0];else {
+        var field = this.registers[root].fields.find(function (f) {
+          return f.name === fld;
+        });
+        return field === null || field === void 0 ? void 0 : field.value;
+      }
+    } else if (root in this.events) {
+      var _this$events$root$fie;
+
+      var _field = (_this$events$root$fie = this.events[root].fields) === null || _this$events$root$fie === void 0 ? void 0 : _this$events$root$fie.find(function (f) {
+        return f.name === fld;
+      });
+
+      return _field === null || _field === void 0 ? void 0 : _field.value;
+    }
+
+    return undefined;
+  };
+
   _proto5.refreshEnvironment = function refreshEnvironment() {
-    refresh_env(this.registers, this.environment);
+    refresh_env(this.registers);
   };
 
   _proto5.stats = function stats() {
@@ -1147,14 +1224,14 @@ var testrunner_JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   };
 
   Object(createClass["a" /* default */])(JDServiceTestRunner, [{
-    key: "environment",
-    get: function get() {
-      return this._environment;
-    }
-  }, {
     key: "registers",
     get: function get() {
       return this._registers;
+    }
+  }, {
+    key: "events",
+    get: function get() {
+      return this._events;
     }
   }, {
     key: "testIndex",
@@ -1676,8 +1753,16 @@ var testCommandFunctions = [{
   prompt: undefined
 }, {
   id: "events",
-  args: ["array"],
+  args: ["events"],
   prompt: "check that events {1} are observed"
+}, {
+  id: "awaitEvent",
+  args: ["event", "boolean"],
+  prompt: "wait for event {1} and then check {2} (other events ignored)"
+}, {
+  id: "nextEvent",
+  args: ["event", "boolean"],
+  prompt: "next event must be {1}, then check {2}"
 }, {
   id: "assign",
   args: ["register", "number"],
@@ -1864,7 +1949,7 @@ exports.default = _default;
 /***/ "sh2y":
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"press and release\",\"prompt\":\"Press and release the button (once)\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"quick press (click)\",\"prompt\":\"Quickly press and release the button (within 500ms of press)\",\"registers\":[],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold\",\"prompt\":\"Press and hold the button for more than 500ms \",\"registers\":[],\"events\":[\"down\",\"hold\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Change threshold to five seconds\",\"prompt\":\"Press and hold the button for between two and five seconds\",\"registers\":[\"click_hold_time\"],\"events\":[\"down\",\"up\",\"click\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"click_hold_time\"},{\"type\":\"Literal\",\"value\":5000,\"raw\":\"5000\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"assign\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"Identifier\",\"name\":\"click\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Device resets threshold to 500 ms (on value < 500)\",\"prompt\":\"This test requires no user input.\",\"registers\":[\"click_hold_time\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"click_hold_time\"},{\"type\":\"Literal\",\"value\":0,\"raw\":\"0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"assign\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"===\",\"left\":{\"type\":\"Identifier\",\"name\":\"click_hold_time\"},\"right\":{\"type\":\"Literal\",\"value\":500,\"raw\":\"500\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]}]},{\"description\":\"Humidity tests\",\"serviceClassIdentifier\":382210232,\"tests\":[{\"description\":\"in range\",\"prompt\":\"Check that thermometer temperature is in expected range\",\"registers\":[\"humidity\",\"max_humidity\",\"humidity_error\",\"min_humidity\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"Identifier\",\"name\":\"humidity\"},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"max_humidity\"},\"right\":{\"type\":\"Identifier\",\"name\":\"humidity_error\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"min_humidity\"},\"right\":{\"type\":\"Identifier\",\"name\":\"humidity_error\"}},\"right\":{\"type\":\"Identifier\",\"name\":\"humidity\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]},{\"description\":\"increases\",\"prompt\":\"blow on the sensor\",\"registers\":[\"humidity\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"humidity\"},{\"type\":\"Literal\",\"value\":10,\"raw\":\"10\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"decreases\",\"prompt\":\"let the sensor rest\",\"registers\":[\"humidity\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"humidity\"},{\"type\":\"Literal\",\"value\":4,\"raw\":\"4\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"calibrate\",\"prompt\":\"measure humidity using a calibrated sensor and check value\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"prompt\":\"turn the knob back and forth\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"prompt\":\"turn the knob clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"prompt\":\"turn the knob counter-clockwise\",\"registers\":[\"position\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"prompt\":\"turn one complete rotation clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"prompt\":\"turn one complete rotation counter-clockwise\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"prompt\":\"slowly turn clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Thermometer tests\",\"serviceClassIdentifier\":337754823,\"tests\":[{\"description\":\"in range\",\"prompt\":\"Check that thermometer temperature is in expected range\",\"registers\":[\"temperature\",\"max_temperature\",\"temperature_error\",\"min_temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"Identifier\",\"name\":\"temperature\"},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"max_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"min_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]},{\"description\":\"increase temperature\",\"prompt\":\"Blow on the sensor to increase the temperature by one degree C\",\"registers\":[\"temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"temperature\"},{\"type\":\"Literal\",\"value\":1,\"raw\":\"1.0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"decrease temperature\",\"prompt\":\"Let the sensor cool down to decrease the temperature by one degree C\",\"registers\":[\"temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"temperature\"},{\"type\":\"Literal\",\"value\":1,\"raw\":\"1.0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]}]}]");
+module.exports = JSON.parse("[{\"description\":\"Base tests\",\"serviceClassIdentifier\":536870899,\"tests\":[]},{\"description\":\"Sensor tests\",\"serviceClassIdentifier\":536870898,\"tests\":[]},{\"description\":\"Button tests\",\"serviceClassIdentifier\":343122531,\"tests\":[{\"description\":\"Press and release\",\"prompt\":\"Press and release the button (once)\",\"registers\":[],\"events\":[\"down\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold event\",\"prompt\":\"Press and hold the button for more than 500ms, then release\",\"registers\":[],\"events\":[\"down\",\"hold\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"Identifier\",\"name\":\"up\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}}]},{\"description\":\"Hold for 2 seconds (4 hold events)\",\"prompt\":\"Press and hold the button for 2 seconds, then release\",\"registers\":[],\"events\":[\"down\",\"hold\",\"up\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"ArrayExpression\",\"elements\":[{\"type\":\"Identifier\",\"name\":\"down\"},{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"Identifier\",\"name\":\"hold\"}]}],\"callee\":{\"type\":\"Identifier\",\"name\":\"events\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"up\"},{\"type\":\"LogicalExpression\",\"operator\":\"&&\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\">=\",\"left\":{\"type\":\"MemberExpression\",\"computed\":false,\"object\":{\"type\":\"Identifier\",\"name\":\"up\"},\"property\":{\"type\":\"Identifier\",\"name\":\"time\"}},\"right\":{\"type\":\"Literal\",\"value\":2000,\"raw\":\"2000\"}},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"<\",\"left\":{\"type\":\"MemberExpression\",\"computed\":false,\"object\":{\"type\":\"Identifier\",\"name\":\"up\"},\"property\":{\"type\":\"Identifier\",\"name\":\"time\"}},\"right\":{\"type\":\"Literal\",\"value\":2500,\"raw\":\"2500\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"nextEvent\"}}}]},{\"description\":\"Event timing for hold events\",\"prompt\":\"Press and hold the button for 2 seconds\",\"registers\":[],\"events\":[\"hold\"],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"BinaryExpression\",\"operator\":\">=\",\"left\":{\"type\":\"MemberExpression\",\"computed\":false,\"object\":{\"type\":\"Identifier\",\"name\":\"hold\"},\"property\":{\"type\":\"Identifier\",\"name\":\"time\"}},\"right\":{\"type\":\"Literal\",\"value\":500,\"raw\":\"500\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"awaitEvent\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"BinaryExpression\",\"operator\":\">=\",\"left\":{\"type\":\"MemberExpression\",\"computed\":false,\"object\":{\"type\":\"Identifier\",\"name\":\"hold\"},\"property\":{\"type\":\"Identifier\",\"name\":\"time\"}},\"right\":{\"type\":\"Literal\",\"value\":1000,\"raw\":\"1000\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"nextEvent\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"BinaryExpression\",\"operator\":\">=\",\"left\":{\"type\":\"MemberExpression\",\"computed\":false,\"object\":{\"type\":\"Identifier\",\"name\":\"hold\"},\"property\":{\"type\":\"Identifier\",\"name\":\"time\"}},\"right\":{\"type\":\"Literal\",\"value\":1500,\"raw\":\"1500\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"nextEvent\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"hold\"},{\"type\":\"BinaryExpression\",\"operator\":\">=\",\"left\":{\"type\":\"MemberExpression\",\"computed\":false,\"object\":{\"type\":\"Identifier\",\"name\":\"hold\"},\"property\":{\"type\":\"Identifier\",\"name\":\"time\"}},\"right\":{\"type\":\"Literal\",\"value\":2000,\"raw\":\"2000\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"nextEvent\"}}}]}]},{\"description\":\"Humidity tests\",\"serviceClassIdentifier\":382210232,\"tests\":[{\"description\":\"in range\",\"prompt\":\"Check that thermometer temperature is in expected range\",\"registers\":[\"humidity\",\"max_humidity\",\"humidity_error\",\"min_humidity\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"Identifier\",\"name\":\"humidity\"},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"max_humidity\"},\"right\":{\"type\":\"Identifier\",\"name\":\"humidity_error\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"min_humidity\"},\"right\":{\"type\":\"Identifier\",\"name\":\"humidity_error\"}},\"right\":{\"type\":\"Identifier\",\"name\":\"humidity\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]},{\"description\":\"increases\",\"prompt\":\"blow on the sensor\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"humidity\"},{\"type\":\"Literal\",\"value\":10,\"raw\":\"10\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"decreases\",\"prompt\":\"let the sensor rest\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"humidity\"},{\"type\":\"Literal\",\"value\":4,\"raw\":\"4\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"calibrate\",\"prompt\":\"measure humidity using a calibrated sensor and check value\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Rotary encoder tests\",\"serviceClassIdentifier\":284830153,\"tests\":[{\"description\":\"knob turn\",\"prompt\":\"turn the knob back and forth\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"changes\"}}}]},{\"description\":\"clockwise turn\",\"prompt\":\"turn the knob clockwise\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increases\"}}}]},{\"description\":\"counter-clockwise turn\",\"prompt\":\"turn the knob counter-clockwise\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreases\"}}}]},{\"description\":\"one rotation clockwise\",\"prompt\":\"turn one complete rotation clockwise\",\"registers\":[\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"one rotation counter-clockwise\",\"prompt\":\"turn one complete rotation counter-clockwise\",\"registers\":[\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]},{\"description\":\"no missing value clockwise\",\"prompt\":\"slowly turn clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsUpTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]},{\"description\":\"no missing value counter-clockwise\",\"prompt\":\"slowly turn counter-clockwise one complete rotation\",\"registers\":[\"position\",\"clicks_per_turn\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"position\"},{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"position\"},\"right\":{\"type\":\"Identifier\",\"name\":\"clicks_per_turn\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"stepsDownTo\"}}},{\"prompt\":\"is the knob at the same physical position as when you started turning?\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[],\"callee\":{\"type\":\"Identifier\",\"name\":\"ask\"}}}]}]},{\"description\":\"Thermometer tests\",\"serviceClassIdentifier\":337754823,\"tests\":[{\"description\":\"in range\",\"prompt\":\"Check that thermometer temperature is in expected range\",\"registers\":[\"temperature\",\"max_temperature\",\"temperature_error\",\"min_temperature\"],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"Identifier\",\"name\":\"temperature\"},\"right\":{\"type\":\"BinaryExpression\",\"operator\":\"+\",\"left\":{\"type\":\"Identifier\",\"name\":\"max_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}},{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"BinaryExpression\",\"operator\":\"<=\",\"left\":{\"type\":\"BinaryExpression\",\"operator\":\"-\",\"left\":{\"type\":\"Identifier\",\"name\":\"min_temperature\"},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature_error\"}},\"right\":{\"type\":\"Identifier\",\"name\":\"temperature\"}}],\"callee\":{\"type\":\"Identifier\",\"name\":\"check\"}}}]},{\"description\":\"increase temperature\",\"prompt\":\"Blow on the sensor to increase the temperature by one degree C\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"temperature\"},{\"type\":\"Literal\",\"value\":1,\"raw\":\"1.0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"increasesBy\"}}}]},{\"description\":\"decrease temperature\",\"prompt\":\"Let the sensor cool down to decrease the temperature by one degree C\",\"registers\":[],\"events\":[],\"testCommands\":[{\"prompt\":\"\",\"call\":{\"type\":\"CallExpression\",\"arguments\":[{\"type\":\"Identifier\",\"name\":\"temperature\"},{\"type\":\"Literal\",\"value\":1,\"raw\":\"1.0\"}],\"callee\":{\"type\":\"Identifier\",\"name\":\"decreasesBy\"}}}]}]}]");
 
 /***/ }),
 
@@ -1901,4 +1986,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-b9254c573ca91d30b6f5.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-78db2a33d3d21cbc2fba.js.map

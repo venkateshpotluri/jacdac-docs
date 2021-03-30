@@ -119,7 +119,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-var supportedExpressions = ["ArrayExpression", "BinaryExpression", "CallExpression", "Identifier", "Literal", "UnaryExpression", "LogicalExpression"]; // we parse a test with respect to an existing ServiceSpec
+var supportedExpressions = ["MemberExpression", "ArrayExpression", "BinaryExpression", "CallExpression", "Identifier", "Literal", "UnaryExpression", "LogicalExpression"]; // we parse a test with respect to an existing ServiceSpec
 
 function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
   if (filename === void 0) {
@@ -242,68 +242,10 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
 
       var expected = jdtestfuns["a" /* testCommandFunctions */][index].args.length;
       if (expected !== root.arguments.length) error(callee + " expects " + expected + " arguments; got " + root.arguments.length);else {
-        root.arguments.forEach(function (arg, a) {
-          if (jdtestfuns["a" /* testCommandFunctions */][index].args[a] === "register" && arg.type !== "Identifier") {
-            error(callee + " expects a register in argument position " + (a + 1));
-          }
-        });
-        var callers = Object(jdutils["b" /* getExpressionsOfType */])(root, 'CallExpression');
-        callers.forEach(function (callExpr) {
-          if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
-          var id = callExpr.callee.name;
-          var indexFun = jdtestfuns["b" /* testExpressionFunctions */].findIndex(function (r) {
-            return id == r.id;
-          });
-          if (indexFun < 0) error(id + " is not a registered test expression function.");
+        // type checking of arguments.
+        processArguments(); // check all calls in subexpressions
 
-          if (id === 'start') {
-            if (callee !== 'check') error("start expression function can only be used inside check test function");
-            var callsUnder = Object(jdutils["b" /* getExpressionsOfType */])(callExpr, 'CallExpression');
-            callsUnder.forEach(function (ce) {
-              if (ce.callee.type === "Identifier" && ce.callee.name === "start") error("cannot nest start underneath start");
-            });
-          }
-
-          var expected = jdtestfuns["b" /* testExpressionFunctions */][indexFun].args.length;
-          if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
-        }); // context sensitive checking/lookup/resolution
-
-        if (callee === 'events') {
-          var eventList = root.arguments[0];
-          if (eventList.type != 'ArrayExpression') error("events function expects a list of service events");else {
-            var _spec$packets;
-
-            var elements = eventList.elements;
-            var events = (_spec$packets = spec.packets) === null || _spec$packets === void 0 ? void 0 : _spec$packets.filter(function (pkt) {
-              return pkt.kind == "event";
-            });
-            elements.forEach(function (e) {
-              if (e.type !== 'Identifier') error("event identifier expected");else {
-                var id = e.name;
-
-                if (!events.find(function (p) {
-                  return p.name === id;
-                })) {
-                  error("no event " + id + " in specification");
-                } else {
-                  if (currentTest.events.indexOf(id) < 0) currentTest.events.push(id);
-                }
-              }
-            });
-          }
-        } else {
-          var exprs = Object(jdutils["b" /* getExpressionsOfType */])(root, 'Identifier', true);
-          var visited = [];
-          exprs.forEach(function (parent) {
-            if (visited.indexOf(parent) < 0) {
-              visited.push(parent);
-              lookupReplace(parent);
-            }
-          });
-          Object(jdutils["a" /* exprVisitor */])(null, root, function (p, c) {
-            if (c.type === 'ArrayExpression') error("array expression not allowed in this context");
-          });
-        }
+        processCalls();
       }
       currentTest.testCommands.push({
         prompt: testPrompt,
@@ -311,48 +253,137 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       });
       testPrompt = "";
     }
-  }
 
-  function lookupReplace(parent) {
-    if (Array.isArray(parent)) {
-      var exprs = parent;
-      exprs.forEach(function (child) {
-        if (child.type === "Identifier") lookup(parent, child);
-      });
-    } else {
-      Object.keys(parent).forEach(function (key) {
-        var child = parent[key];
-        if ((child === null || child === void 0 ? void 0 : child.type) !== "Identifier") return;
+    function processArguments() {
+      var eventSymTable = [];
+      root.arguments.forEach(function (arg, a) {
+        var argType = jdtestfuns["a" /* testCommandFunctions */][index].args[a];
 
-        if (parent.type !== "MemberExpression" && parent.type !== "CallExpression" || parent.type === "MemberExpression" && child !== parent.property || parent.type === "CallExpression" && child !== parent.callee) {
-          lookup(parent, child);
+        if (argType === "register" || argType === "event") {
+          if (arg.type !== "Identifier") error(callee + " expects a " + argType + " in argument position " + (a + 1));else if (argType === "event" && a === 0) {
+            var pkt = lookupEvent(arg);
+            if (pkt && eventSymTable.indexOf(pkt) === -1) eventSymTable.push(pkt);
+          }
+        } else if (argType === "events") {
+          if (arg.type != 'ArrayExpression') error("events function expects a list of service events");else {
+            arg.elements.forEach(lookupEvent);
+          }
+        } else if (argType === "number" || argType === "boolean") {
+          Object(jdutils["a" /* exprVisitor */])(root, arg, function (p, c) {
+            if (c.type === 'Identifier') {
+              lookupReplace(eventSymTable, p, c);
+            } else if (c.type === 'ArrayExpression') {
+              error("array expression not allowed in this context");
+            } else if (c.type === 'MemberExpression') {
+              var member = c; // A member expression must be of form id1.id2
+
+              if (member.object.type !== 'Identifier' || member.property.type !== 'Identifier' || member.computed) {
+                error('property access must be of form id.property');
+              }
+            }
+          });
+        } else {
+          error("unexpected argument type (" + argType + ")in jdtestfuns.ts");
         }
       });
     }
 
-    function lookup(parent, child) {
+    function processCalls() {
+      Object(jdutils["a" /* exprVisitor */])(null, root, function (parent, callExpr) {
+        if (callExpr.type !== 'CallExpression') return;
+        if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
+        var id = callExpr.callee.name;
+        var indexFun = jdtestfuns["b" /* testExpressionFunctions */].findIndex(function (r) {
+          return id == r.id;
+        });
+        if (indexFun < 0) error(id + " is not a registered test expression function.");
+
+        if (id === 'start') {
+          if (callee !== 'check') error("start expression function can only be used inside check test function");
+          Object(jdutils["a" /* exprVisitor */])(null, callExpr, function (parent, ce) {
+            if (ce.type !== 'CallExpression') return;
+            if (ce.callee.type === "Identifier" && ce.callee.name === "start") error("cannot nest start underneath start");
+          });
+        }
+
+        var expected = jdtestfuns["b" /* testExpressionFunctions */][indexFun].args.length;
+        if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
+      });
+    }
+
+    function lookupEvent(e) {
+      var _spec$packets;
+
+      var events = (_spec$packets = spec.packets) === null || _spec$packets === void 0 ? void 0 : _spec$packets.filter(function (pkt) {
+        return pkt.kind == "event";
+      });
+
+      if (e.type !== 'Identifier') {
+        error("event identifier expected");
+      } else {
+        var id = e.name;
+        var pkt = events.find(function (p) {
+          return p.name === id;
+        });
+
+        if (!pkt) {
+          error("no event " + id + " in specification");
+        } else {
+          if (currentTest.events.indexOf(id) < 0) currentTest.events.push(id);
+          return pkt;
+        }
+      }
+
+      return null;
+    }
+  }
+
+  function lookupReplace(events, parent, child) {
+    if (Array.isArray(parent)) {
+      lookup(events, parent, child);
+    } else {
+      // don't process identifiers that are callees of CallExpression or RHS of MemberExpressions
+      if ((parent === null || parent === void 0 ? void 0 : parent.type) === "CallExpression" && child === parent.callee || parent.type === "MemberExpression" && child === parent.property) return;
+      lookup(events, parent, child);
+    }
+
+    function lookup(events, parent, child) {
       try {
         try {
-          var val = Object(jdutils["d" /* parseIntFloat */])(spec, child.name);
+          var val = Object(jdutils["c" /* parseIntFloat */])(spec, child.name);
           var lit = {
             type: "Literal",
             value: val,
             raw: val.toString()
           };
-          /*TODO: replace the Identifier by the (resolved) Literal
-          if (parent.type) {
-              Object.keys(parent).forEach((key:string) => {
-                  if (Object.getOwnPropertyDescriptor(parent,key) == child)
-                      Object.defineProperty(parent, key, lit);
-              })
-          } else {
-               }*/
         } catch (e) {
-          Object(jdutils["c" /* getRegister */])(spec, child.name);
-          if (currentTest.registers.indexOf(child.name) < 0) currentTest.registers.push(child.name); // TODO: if parent is MemberExpression, continue to do lookup
+          var _toName = toName(),
+              root = _toName[0],
+              fld = _toName[1];
+
+          var regField = Object(jdutils["b" /* getRegister */])(spec, fld ? root + "." + fld : root); // if (!fld && regField.pkt.fields.length > 0)
+          //    error(`register ${root} has fields, but no field specified`)
+
+          if (currentTest.registers.indexOf(root) < 0) currentTest.registers.push(root);
         }
       } catch (e) {
-        error(child.name + " not found in specification");
+        var _toName2 = toName(),
+            _root = _toName2[0],
+            _fld = _toName2[1];
+
+        var pkt = events.find(function (pkt) {
+          return pkt.name === _root;
+        });
+        if (!pkt) error("event " + _root + " not bound correctly");else if (!_fld && pkt.fields.length > 0) error("event " + _root + " has fields, but no field specified");else if (_fld && !pkt.fields.find(function (f) {
+          return f.name === _fld;
+        })) error("Field " + _fld + " of event " + _root + " not found in specification");
+      }
+
+      function toName() {
+        if ((parent === null || parent === void 0 ? void 0 : parent.type) !== 'MemberExpression') return [child.name, ""];else {
+          var member = parent;
+          return [member.object.name, member.property.name];
+        }
       }
     }
   }
@@ -2034,4 +2065,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-c5f04ed41b82e2aa1312.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-78dbd515dbefeb6405d9.js.map
