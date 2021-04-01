@@ -221,11 +221,12 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
     }
 
     var callee = call[1];
-    var index = jdtestfuns["a" /* testCommandFunctions */].findIndex(function (r) {
+    var testCommandFunctions = Object(jdtestfuns["a" /* getTestCommandFunctions */])();
+    var cmdIndex = testCommandFunctions.findIndex(function (r) {
       return callee == r.id;
     });
 
-    if (index < 0) {
+    if (cmdIndex < 0) {
       error(callee + " is not a registered test command function.");
       return;
     }
@@ -240,7 +241,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
         if (supportedExpressions.indexOf(c.type) < 0) error("Expression of type " + c.type + " not currently supported");
       }); // check arguments
 
-      var expected = jdtestfuns["a" /* testCommandFunctions */][index].args.length;
+      var expected = testCommandFunctions[cmdIndex].args.length;
       if (expected !== root.arguments.length) error(callee + " expects " + expected + " arguments; got " + root.arguments.length);else {
         // type checking of arguments.
         processArguments(); // check all calls in subexpressions
@@ -257,7 +258,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
     function processArguments() {
       var eventSymTable = [];
       root.arguments.forEach(function (arg, a) {
-        var argType = jdtestfuns["a" /* testCommandFunctions */][index].args[a];
+        var argType = testCommandFunctions[cmdIndex].args[a];
 
         if (argType === "register" || argType === "event") {
           if (arg.type !== "Identifier") error(callee + " expects a " + argType + " in argument position " + (a + 1));else if (argType === "event" && a === 0) {
@@ -283,31 +284,39 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
             }
           });
         } else {
-          error("unexpected argument type (" + argType + ")in jdtestfuns.ts");
+          error("unexpected argument type (" + argType + ") in jdtestfuns.ts");
         }
       });
     }
 
     function processCalls() {
-      Object(jdutils["a" /* exprVisitor */])(null, root, function (parent, callExpr) {
-        if (callExpr.type !== 'CallExpression') return;
-        if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
-        var id = callExpr.callee.name;
-        var indexFun = jdtestfuns["b" /* testExpressionFunctions */].findIndex(function (r) {
-          return id == r.id;
-        });
-        if (indexFun < 0) error(id + " is not a registered test expression function.");
-
-        if (id === 'start') {
-          if (callee !== 'check') error("start expression function can only be used inside check test function");
-          Object(jdutils["a" /* exprVisitor */])(null, callExpr, function (parent, ce) {
-            if (ce.type !== 'CallExpression') return;
-            if (ce.callee.type === "Identifier" && ce.callee.name === "start") error("cannot nest start underneath start");
+      var testExpressionFunctions = Object(jdtestfuns["b" /* getTestExpressionFunctions */])();
+      root.arguments.forEach(function (arg, a) {
+        var argType = testCommandFunctions[cmdIndex].args[a];
+        Object(jdutils["a" /* exprVisitor */])(root, arg, function (parent, callExpr) {
+          if (callExpr.type !== 'CallExpression') return;
+          if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
+          var id = callExpr.callee.name;
+          var tef = testExpressionFunctions.find(function (r) {
+            return id == r.id;
           });
-        }
+          if (!tef) error(id + " is not a registered test expression function.");
 
-        var expected = jdtestfuns["b" /* testExpressionFunctions */][indexFun].args.length;
-        if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
+          if (tef.context === "expression" || tef.context === "either") {
+            if (argType != "boolean") error(id + " expression function can only be used inside a boolean expression"); // no nested calls
+
+            var rootFun = testCommandFunctions[cmdIndex];
+            if (rootFun.context === "expression" || rootFun.context === "either") error("cannot nest " + tef.id + " underneath " + rootFun.id); // look under tef
+
+            Object(jdutils["a" /* exprVisitor */])(null, callExpr, function (parent, ce) {
+              if (ce.type !== 'CallExpression') return;
+              if (ce.callee.type === "Identifier" && ce.callee.name) error("cannot nest " + ce.callee.name + " underneath " + id);
+            });
+          }
+
+          var expected = tef.args.length;
+          if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
+        });
       });
     }
 
@@ -2065,4 +2074,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-78dbd515dbefeb6405d9.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-87f54299c5ae780e6fd8.js.map
