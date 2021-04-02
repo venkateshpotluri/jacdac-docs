@@ -685,7 +685,6 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
       case "closeTo":
         {
-          // TODO: need to but this into expression evaluation as well
           var goal = this.getStart(args[1]);
           var error = this.getStart(args[2]);
           var expr = new testrunner_JDExprEvaluator(this.env, this._startExpressions);
@@ -704,7 +703,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           });
 
           var regValue = this.env(unparse(args[0]));
-          var status = testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
+          var status = regValue && regSaved.v && (testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
           this._status = status;
           regSaved.v = regValue;
           break;
@@ -869,7 +868,6 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
   Object(inheritsLoose["a" /* default */])(JDTestCommandRunner, _JDEventSource);
 
-  // timeout
   function JDTestCommandRunner(testRunner, command) {
     var _this4;
 
@@ -879,8 +877,6 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
       message: "",
       progress: ""
     };
-    _this4._timeOut = 5000;
-    _this4._timeLeft = 5000;
     _this4._commmandEvaluator = null;
     _this4.testRunner = testRunner;
     _this4.command = command;
@@ -890,11 +886,11 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
   var _proto3 = JDTestCommandRunner.prototype;
 
   _proto3.reset = function reset() {
+    this.status = JDTestCommandStatus.NotReady;
     this.output = {
       message: "",
       progress: ""
     };
-    this.status = JDTestCommandStatus.NotReady;
     this._commmandEvaluator = null;
   };
 
@@ -908,7 +904,7 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto3.envChange = function envChange() {
-    if (this._commmandEvaluator) {
+    if (this.isActive) {
       this._commmandEvaluator.evaluate();
 
       var newOutput = {
@@ -925,7 +921,7 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto3.finish = function finish(s) {
-    if ((s === JDTestCommandStatus.Failed || s === JDTestCommandStatus.Passed) && (this.status === JDTestCommandStatus.Active || this.status === JDTestCommandStatus.RequiresUserInput)) {
+    if (this.isActive && (s === JDTestCommandStatus.Failed || s === JDTestCommandStatus.Passed)) {
       this.status = s;
       this.testRunner.finishCommand();
     }
@@ -946,6 +942,11 @@ var testrunner_JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
     key: "indeterminate",
     get: function get() {
       return this.status !== JDTestCommandStatus.Failed && this.status !== JDTestCommandStatus.Passed;
+    }
+  }, {
+    key: "isActive",
+    get: function get() {
+      return this.status === JDTestCommandStatus.Active || this.status === JDTestCommandStatus.RequiresUserInput;
     }
   }, {
     key: "output",
@@ -970,7 +971,6 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
 
     _this5 = _JDEventSource2.call(this) || this;
     _this5._status = JDTestStatus.NotReady;
-    _this5._currentEvent = undefined;
     _this5.serviceTestRunner = serviceTestRunner;
     _this5.testSpec = testSpec;
     _this5.commands = testSpec.testCommands.map(function (c) {
@@ -985,6 +985,7 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     if (this.status !== JDTestStatus.NotReady) {
       this._status = JDTestStatus.NotReady;
       this._commandIndex = undefined;
+      this._currentEvent = undefined;
       this.commands.forEach(function (t) {
         return t.reset();
       });
@@ -1014,14 +1015,18 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   };
 
   _proto4.envChange = function envChange() {
-    var _this$currentCommand;
+    if (this.status === JDTestStatus.Active) {
+      var _this$currentCommand;
 
-    (_this$currentCommand = this.currentCommand) === null || _this$currentCommand === void 0 ? void 0 : _this$currentCommand.envChange();
+      (_this$currentCommand = this.currentCommand) === null || _this$currentCommand === void 0 ? void 0 : _this$currentCommand.envChange();
+    }
   };
 
   _proto4.eventChange = function eventChange(event) {
-    this._currentEvent = event;
-    this.envChange();
+    if (this.status === JDTestStatus.Active) {
+      this._currentEvent = event;
+      this.envChange();
+    }
   };
 
   _proto4.consumeEvent = function consumeEvent() {
@@ -1031,8 +1036,7 @@ var testrunner_JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
   };
 
   _proto4.finishCommand = function finishCommand() {
-    if (this.commandIndex === this.commands.length - 1) this.finish(commandStatusToTestStatus(this.currentCommand.status)); // (this.commandIndex < this.commands.length)
-    else this.commandIndex++;
+    if (this.commandIndex === this.commands.length - 1) this.finish(commandStatusToTestStatus(this.currentCommand.status));else this.commandIndex++;
   };
 
   Object(createClass["a" /* default */])(JDTestRunner, [{
@@ -2059,4 +2063,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-21b35be662ce6a45b373.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-56c1566d7e8a34a2294d.js.map
