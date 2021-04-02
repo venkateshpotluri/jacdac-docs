@@ -169,7 +169,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       }
     }
 
-    var interpret = backticksType == "default" || line.slice(0, 4) == "    ";
+    var interpret = backticksType == "default" || line.slice(0, 4) == "    " || /^\t/.exec(line);
 
     if (!interpret) {
       var _m = /^(#+)\s*(.*)/.exec(line);
@@ -2074,4 +2074,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-ca5b53ae3c4a9d4fc50d.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-6e4ea0504a1909a8550f.js.map
