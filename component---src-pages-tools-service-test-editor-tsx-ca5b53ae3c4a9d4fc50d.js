@@ -180,8 +180,8 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
         var hd = _m[1],
             cont = _m[2];
 
-        if (hd == "#" && !info.description) {
-          info.description = cont.trim();
+        if (hd == "#") {
+          if (!info.description) info.description = cont.trim();else error("use ## to start a test, not #");
         } else if (hd == "##") {
           if (currentTest) finishTest();
           testHeading = cont.trim();
@@ -2074,4 +2074,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-87f54299c5ae780e6fd8.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-ca5b53ae3c4a9d4fc50d.js.map

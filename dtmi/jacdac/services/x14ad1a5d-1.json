@@ -47,7 +47,7 @@
       "@type": "Property",
       "name": "quiet_threshold",
       "@id": "dtmi:jacdac:x14ad1a5d:rw:quietthreshold;1",
-      "description": "The sound level to trigger a quite event.",
+      "description": "The sound level to trigger a quiet event.",
       "schema": "float",
       "writable": true
     },
