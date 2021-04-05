@@ -830,7 +830,10 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           var _ev3 = _expr.eval(args[1]);
 
           if (jdreg) {
-            jdreg.sendSetIntAsync(_ev3);
+            var _jdreg$specification;
+
+            var fmt = (_jdreg$specification = jdreg.specification) === null || _jdreg$specification === void 0 ? void 0 : _jdreg$specification.packFormat;
+            jdreg.sendSetPackedAsync(fmt, [_ev3]);
             this._status = JDTestCommandStatus.Passed;
             this._progress = "wrote " + _ev3 + " to register " + reg.name;
           }
@@ -2039,4 +2042,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-da54ed4a27ce0c07f7a6.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-4dd5183615851c4bfc57.js.map
