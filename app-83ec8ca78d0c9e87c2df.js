@@ -36373,9 +36373,7 @@ var device_JDDevice = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.initServices = function initServices() {
-    Object(utils["h" /* assert */])(this.announced);
-
-    if (!this._services) {
+    if (!this._services && this._servicesData) {
       var n = this.serviceLength;
       var s = [];
 
@@ -37703,10 +37701,8 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   _proto.setRoleManagerService = function setRoleManagerService(service) {
     var _this$_roleManagerCli;
 
-    console.log("set role manager", {
-      service: service
-    }); // clean if needed
-
+    //console.log(`set role manager`, { service })
+    // clean if needed
     if (this._roleManagerClient && this._roleManagerClient.service !== service) {
       console.debug("unmount role manager");
 
@@ -53743,4 +53739,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,75,77]]]);
-//# sourceMappingURL=app-7fdf40ee5b2d28f6fd22.js.map
+//# sourceMappingURL=app-83ec8ca78d0c9e87c2df.js.map
