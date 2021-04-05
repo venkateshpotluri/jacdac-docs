@@ -1832,12 +1832,12 @@ var testFunctions = [{
   context: "command"
 }, {
   id: "awaitEvent",
-  args: ["event", "boolean"],
+  args: ["event", ["boolean", true]],
   prompt: "wait for event {1} and then check {2} (other events ignored)",
   context: "command"
 }, {
   id: "nextEvent",
-  args: ["event", "boolean"],
+  args: ["event", ["boolean", true]],
   prompt: "next event must be {1}, then check {2}",
   context: "command"
 }, {
@@ -2042,4 +2042,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-4dd5183615851c4bfc57.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-73ce4453e11792b1a4b7.js.map

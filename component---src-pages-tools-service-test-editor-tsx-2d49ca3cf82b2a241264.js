@@ -196,6 +196,16 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
     }
   }
 
+  function argsRequiredOptional(args, optional) {
+    if (optional === void 0) {
+      optional = false;
+    }
+
+    return args.filter(function (a) {
+      return !optional && typeof a === "string" || optional && typeof a === "object";
+    });
+  }
+
   function processCommand(expanded) {
     // TODO: if there is a prompt, the test has no commands, and
     // TODO: the first command is not ask/say
@@ -241,12 +251,32 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
         if (supportedExpressions.indexOf(c.type) < 0) error("Expression of type " + c.type + " not currently supported");
       }); // check arguments
 
-      var expected = testCommandFunctions[cmdIndex].args.length;
-      if (expected !== root.arguments.length) error(callee + " expects " + expected + " arguments; got " + root.arguments.length);else {
-        // type checking of arguments.
-        processArguments(); // check all calls in subexpressions
+      var command = testCommandFunctions[cmdIndex];
+      var minArgs = argsRequiredOptional(command.args).length;
+      var maxArgs = command.args.length;
+      if (root.arguments.length < minArgs) error(callee + " expects at least " + minArgs + " arguments; got " + root.arguments.length);else if (root.arguments.length > maxArgs) {
+        error(callee + " expects at most " + maxArgs + " arguments; got " + root.arguments.length);
+      } else {
+        // deal with optional arguments
+        var newExpressions = [];
 
-        processCalls();
+        for (var i = root.arguments.length; i < command.args.length; i++) {
+          var _ref = command.args[i],
+              name = _ref[0],
+              def = _ref[1];
+          var lit = {
+            type: "Literal",
+            value: def,
+            raw: def.toString()
+          };
+          newExpressions.push(lit);
+        }
+
+        root.arguments = root.arguments.concat(newExpressions); // type checking of arguments.
+
+        processArguments(command, root.arguments); // check all calls in subexpressions
+
+        processCalls(command, root.arguments);
       }
       currentTest.testCommands.push({
         prompt: testPrompt,
@@ -255,10 +285,11 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       testPrompt = "";
     }
 
-    function processArguments() {
+    function processArguments(command, args) {
       var eventSymTable = [];
-      root.arguments.forEach(function (arg, a) {
-        var argType = testCommandFunctions[cmdIndex].args[a];
+      args.forEach(function (arg, a) {
+        var argType = command.args[a];
+        if (typeof argType === "object") argType = command.args[a][0];
 
         if (argType === "register" || argType === "event") {
           if (arg.type !== "Identifier") error(callee + " expects a " + argType + " in argument position " + (a + 1));else if (argType === "event" && a === 0) {
@@ -297,10 +328,10 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       });
     }
 
-    function processCalls() {
+    function processCalls(command, args) {
       var testExpressionFunctions = Object(jdtestfuns["b" /* getTestExpressionFunctions */])();
-      root.arguments.forEach(function (arg, a) {
-        var argType = testCommandFunctions[cmdIndex].args[a];
+      args.forEach(function (arg, a) {
+        var argType = command.args[a];
         Object(jdutils["a" /* exprVisitor */])(root, arg, function (parent, callExpr) {
           if (callExpr.type !== 'CallExpression') return;
           if (callExpr.callee.type !== "Identifier") error("all calls must be direct calls");
@@ -313,8 +344,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
           if (tef.context === "expression" || tef.context === "either") {
             if (argType != "boolean") error(id + " expression function can only be used inside a boolean expression"); // no nested calls
 
-            var rootFun = testCommandFunctions[cmdIndex];
-            if (rootFun.context === "expression" || rootFun.context === "either") error("cannot nest " + tef.id + " underneath " + rootFun.id); // look under tef
+            if (command.context === "expression" || command.context === "either") error("cannot nest " + tef.id + " underneath " + command.id); // look under tef
 
             Object(jdutils["a" /* exprVisitor */])(null, callExpr, function (parent, ce) {
               if (ce.type !== 'CallExpression') return;
@@ -356,7 +386,8 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
   }
 
   function lookupRegister(root, fld) {
-    Object(jdutils["b" /* getRegister */])(spec, root, fld); // if (!fld && regField.pkt.fields.length > 0)
+    var reg = Object(jdutils["b" /* getRegister */])(spec, root, fld);
+    if (reg.pkt && (!reg.fld && !Object(jdutils["c" /* isBoolOrNumericFormat */])(reg.pkt.packFormat) || reg.fld && reg.fld.type && !Object(jdutils["c" /* isBoolOrNumericFormat */])(reg.fld.type))) error("only bool/numeric registers allowed in tests"); // if (!fld && regField.pkt.fields.length > 0)
     //    error(`register ${root} has fields, but no field specified`)
 
     if (currentTest.registers.indexOf(root) < 0) currentTest.registers.push(root);
@@ -388,7 +419,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
               root = _toName[0],
               fld = _toName[1];
 
-          var val = Object(jdutils["c" /* parseIntFloat */])(spec, fld ? root + "." + fld : root);
+          var val = Object(jdutils["d" /* parseIntFloat */])(spec, fld ? root + "." + fld : root);
           var lit = {
             type: "Literal",
             value: val,
@@ -2106,4 +2137,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-200f2d685fa786f6a31f.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-2d49ca3cf82b2a241264.js.map

@@ -4,15 +4,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isBoolOrNumericFormat; });
 /* unused harmony export isRegister */
 /* unused harmony export packetsToRegisters */
 /* unused harmony export lookupRegister */
 /* unused harmony export lookupField */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getRegister; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parseIntFloat; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return parseIntFloat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return exprVisitor; });
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="jdspec.d.ts" />
+function isBoolOrNumericFormat(fmt) {
+  return fmt === "bool" || /^[ui]\d+/i.test(fmt);
+}
 function isRegister(pkt) {
   return pkt && (pkt.kind == "const" || pkt.kind == "ro" || pkt.kind == "rw");
 }
@@ -37,7 +41,8 @@ function getRegister(spec, root, fld) {
   }
 
   var ret = {
-    pkt: null
+    pkt: undefined,
+    fld: undefined
   };
   ret.pkt = lookupRegister(spec, root);
 
@@ -1163,7 +1168,7 @@ function parseServiceSpecificationMarkdownToJSON(filecontent, includes, filename
     }
 
     try {
-      return Object(_jdutils__WEBPACK_IMPORTED_MODULE_1__[/* parseIntFloat */ "c"])(info, w, allowFloat);
+      return Object(_jdutils__WEBPACK_IMPORTED_MODULE_1__[/* parseIntFloat */ "d"])(info, w, allowFloat);
     } catch (e) {
       error(e.message);
       return 0;
@@ -1890,4 +1895,4 @@ function isNumericType(field) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-73b26d8c9d02215bfff2.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-5d33810006077b589490.js.map
