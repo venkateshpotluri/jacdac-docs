@@ -299,7 +299,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
             try {
               lookupRegister(arg.name, "");
             } catch (e) {
-              error(e);
+              error(e.message);
             }
           }
         } else if (argType === "events") {
@@ -2137,4 +2137,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-2d49ca3cf82b2a241264.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-3a63674224acd3ac8379.js.map
