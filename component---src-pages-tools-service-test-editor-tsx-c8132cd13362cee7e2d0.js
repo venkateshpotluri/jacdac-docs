@@ -370,22 +370,26 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
               root = _toName[0],
               fld = _toName[1];
 
-          var regField = Object(jdutils["b" /* getRegister */])(spec, fld ? root + "." + fld : root); // if (!fld && regField.pkt.fields.length > 0)
+          var regField = Object(jdutils["b" /* getRegister */])(spec, root, fld); // if (!fld && regField.pkt.fields.length > 0)
           //    error(`register ${root} has fields, but no field specified`)
 
           if (currentTest.registers.indexOf(root) < 0) currentTest.registers.push(root);
         }
       } catch (e) {
-        var _toName2 = toName(),
-            _root = _toName2[0],
-            _fld = _toName2[1];
+        if (events.length > 0) {
+          var _toName2 = toName(),
+              _root = _toName2[0],
+              _fld = _toName2[1];
 
-        var pkt = events.find(function (pkt) {
-          return pkt.name === _root;
-        });
-        if (!pkt) error("event " + _root + " not bound correctly");else if (!_fld && pkt.fields.length > 0) error("event " + _root + " has fields, but no field specified");else if (_fld && !pkt.fields.find(function (f) {
-          return f.name === _fld;
-        })) error("Field " + _fld + " of event " + _root + " not found in specification");
+          var pkt = events.find(function (pkt) {
+            return pkt.name === _root;
+          });
+          if (!pkt) error("event " + _root + " not bound correctly");else if (!_fld && pkt.fields.length > 0) error("event " + _root + " has fields, but no field specified");else if (_fld && !pkt.fields.find(function (f) {
+            return f.name === _fld;
+          })) error("Field " + _fld + " of event " + _root + " not found in specification");
+        } else {
+          error(e.message);
+        }
       }
 
       function toName() {
@@ -2074,4 +2078,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-6e4ea0504a1909a8550f.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-c8132cd13362cee7e2d0.js.map

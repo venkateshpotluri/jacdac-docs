@@ -31,30 +31,21 @@ function lookupField(pkt, field) {
     return member.name === field;
   });
 }
-function getRegister(spec, w) {
+function getRegister(spec, root, fld) {
+  if (fld === void 0) {
+    fld = "";
+  }
+
   var ret = {
     pkt: null
   };
+  ret.pkt = lookupRegister(spec, root);
 
-  if (/^\w+$/.test(w)) {
-    ret.pkt = lookupRegister(spec, w);
-
-    if (!ret.pkt) {
-      throw new Error("no register " + w + " found in service " + spec.shortName);
-    }
-  } else if (/^\w+\.\w+$/.test(w)) {
-    var _$exec = /^(\w+)\.(\w+)$/.exec(w),
-        reg = _$exec[0],
-        field = _$exec[1];
-
-    ret.pkt = lookupRegister(spec, reg);
-
-    if (!ret.pkt) {
-      throw new Error("no register " + reg + " found in service " + spec.shortName);
-    } else {
-      ret.fld = lookupField(ret.pkt, field);
-      if (!ret.fld) throw new Error("no field " + field + " found in register " + reg + " of service " + spec.shortName);
-    }
+  if (!ret.pkt) {
+    throw new Error("no register " + root + " found in service " + spec.shortName);
+  } else if (fld) {
+    ret.fld = lookupField(ret.pkt, fld);
+    if (!ret.fld) throw new Error("no field " + fld + " found in register " + root + " of service " + spec.shortName);
   }
 
   return ret;
@@ -1899,4 +1890,4 @@ function isNumericType(field) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-a6ab877a75c77cd51f87.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-73b26d8c9d02215bfff2.js.map
