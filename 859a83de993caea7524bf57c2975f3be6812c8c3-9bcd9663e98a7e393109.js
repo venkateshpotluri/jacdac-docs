@@ -689,8 +689,8 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           var error = this.getStart(args[2]);
           var expr = new testrunner_JDExprEvaluator(this.env, this._startExpressions);
           var ev = expr.eval(args[0]);
-          if (ev >= goal.v - error.v && ev <= goal.v + error.v) this._status = JDTestCommandStatus.Passed;
-          this._progress = "current: " + ev + "; goal: " + goal.v + "; error: " + error.v;
+          if (Math.abs(ev - goal.v) <= error.v) this._status = JDTestCommandStatus.Passed;
+          this._progress = "current: " + pretify(ev) + "; goal: " + pretify(goal.v) + "; error: " + pretify(error.v);
           break;
         }
 
@@ -2063,4 +2063,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-214c6c3b25792f9edf59.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-9bcd9663e98a7e393109.js.map

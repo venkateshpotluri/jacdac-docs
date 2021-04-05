@@ -38256,11 +38256,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
           var midSamplesAge = interval * 0xff / 2; // compute if half aged
 
           if (samplesAge > midSamplesAge) {
-            console.debug({
-              samplesAge: samplesAge,
-              midSamplesAge: midSamplesAge,
-              interval: interval
-            });
+            //console.debug({ samplesAge, midSamplesAge, interval })
             samplesRegister.sendSetPackedAsync("u8", [0xff]);
           }
         } // first query, get data asap once per second
@@ -53747,4 +53743,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",24,74,76]]]);
-//# sourceMappingURL=app-56d3734de13a619255dd.js.map
+//# sourceMappingURL=app-a766a740c8f0f7eb47be.js.map
