@@ -306,7 +306,7 @@ function unparse(e) {
   }
 }
 
-var testrunner_JDExprEvaluator = /*#__PURE__*/function () {
+var JDExprEvaluator = /*#__PURE__*/function () {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function JDExprEvaluator(env, start) {
@@ -327,6 +327,12 @@ var testrunner_JDExprEvaluator = /*#__PURE__*/function () {
     return this.exprStack.pop();
   };
 
+  _proto.getStartVal = function getStartVal(e) {
+    return this.start.find(function (r) {
+      return r.e === e;
+    }).v;
+  };
+
   _proto.visitExpression = function visitExpression(e) {
     switch (e.type) {
       case "ArrayExpression":
@@ -343,17 +349,19 @@ var testrunner_JDExprEvaluator = /*#__PURE__*/function () {
           switch (callee.name) {
             case "start":
               {
-                this.exprStack.push(this.start.find(function (r) {
-                  return r.e === caller.arguments[0];
-                }).v);
+                this.exprStack.push(this.getStartVal(caller.arguments[0]));
                 return;
               }
 
             case "closeTo":
               {
-                // TODO
-                Object(utils["h" /* assert */])(false, "closeTo as expression not yet implemented");
-                return;
+                var args = caller.arguments;
+                var goal = this.getStartVal(args[1]);
+                var error = this.getStartVal(args[2]);
+                this.visitExpression(args[0]);
+                var ev = this.exprStack.pop();
+                this.exprStack.push(ev >= goal - error && ev <= goal + error);
+                break;
               }
 
             default: // ERROR
@@ -617,7 +625,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
       if (_this._startExpressions.findIndex(function (r) {
         return r.e === child;
       }) < 0) {
-        var exprEval = new testrunner_JDExprEvaluator(_this.env, []);
+        var exprEval = new JDExprEvaluator(_this.env, []);
 
         _this._startExpressions.push({
           e: child,
@@ -654,7 +662,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
   _proto2.setEvent = function setEvent(ev) {};
 
   _proto2.checkExpression = function checkExpression(e) {
-    var expr = new testrunner_JDExprEvaluator(this.env, this._startExpressions);
+    var expr = new JDExprEvaluator(this.env, this._startExpressions);
     return expr.eval(e) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
   };
 
@@ -687,7 +695,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         {
           var goal = this.getStart(args[1]);
           var error = this.getStart(args[2]);
-          var expr = new testrunner_JDExprEvaluator(this.env, this._startExpressions);
+          var expr = new JDExprEvaluator(this.env, this._startExpressions);
           var ev = expr.eval(args[0]);
           if (Math.abs(ev - goal.v) <= error.v) this._status = JDTestCommandStatus.Passed;
           this._progress = "current: " + pretify(ev) + "; goal: " + pretify(goal.v) + "; error: " + pretify(error.v);
@@ -817,7 +825,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
           var reg = args[0];
           var jdreg = this.testRunner.serviceTestRunner.registers[reg.name];
 
-          var _expr = new testrunner_JDExprEvaluator(this.env, this._startExpressions);
+          var _expr = new JDExprEvaluator(this.env, this._startExpressions);
 
           var _ev3 = _expr.eval(this.command.call.arguments[1]); // TODO: generalize
 
@@ -2029,4 +2037,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-1941f08c0b983b8a8dee.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-03a253fe380e8e92bf12.js.map
