@@ -264,6 +264,12 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
           if (arg.type !== "Identifier") error(callee + " expects a " + argType + " in argument position " + (a + 1));else if (argType === "event" && a === 0) {
             var pkt = lookupEvent(arg);
             if (pkt && eventSymTable.indexOf(pkt) === -1) eventSymTable.push(pkt);
+          } else if (argType === "register") {
+            try {
+              lookupRegister(arg.name, "");
+            } catch (e) {
+              error(e);
+            }
           }
         } else if (argType === "events") {
           if (arg.type != 'ArrayExpression') error("events function expects a list of service events");else {
@@ -349,6 +355,13 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
     }
   }
 
+  function lookupRegister(root, fld) {
+    Object(jdutils["b" /* getRegister */])(spec, root, fld); // if (!fld && regField.pkt.fields.length > 0)
+    //    error(`register ${root} has fields, but no field specified`)
+
+    if (currentTest.registers.indexOf(root) < 0) currentTest.registers.push(root);
+  }
+
   function lookupReplace(events, parent, child) {
     if (Array.isArray(parent)) {
       var replace = lookup(events, parent, child);
@@ -387,10 +400,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
               _root = _toName2[0],
               _fld = _toName2[1];
 
-          Object(jdutils["b" /* getRegister */])(spec, _root, _fld); // if (!fld && regField.pkt.fields.length > 0)
-          //    error(`register ${root} has fields, but no field specified`)
-
-          if (currentTest.registers.indexOf(_root) < 0) currentTest.registers.push(_root);
+          lookupRegister(_root, _fld);
         }
       } catch (e) {
         if (events.length > 0) {
@@ -2096,4 +2106,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-5b1bdfa65fb59cbaa373.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-200f2d685fa786f6a31f.js.map

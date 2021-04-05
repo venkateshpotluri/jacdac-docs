@@ -648,7 +648,7 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
         return r.e === a;
       });
 
-      return ["{" + (i + 1) + ":val}", aStart && aStart.v ? Object(utils["L" /* roundWithPrecision */])(aStart.v, 3).toString() : "NA"];
+      return ["{" + (i + 1) + ":val}", aStart && aStart.v ? Object(utils["L" /* roundWithPrecision */])(aStart.v, 3).toString() : unparse(a)];
     });
     this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
     replaceId.forEach(function (p) {
@@ -827,11 +827,13 @@ var testrunner_JDCommandEvaluator = /*#__PURE__*/function () {
 
           var _expr = new JDExprEvaluator(this.env, this._startExpressions);
 
-          var _ev3 = _expr.eval(this.command.call.arguments[1]); // TODO: generalize
+          var _ev3 = _expr.eval(args[1]);
 
-
-          jdreg.sendSetIntAsync(_ev3);
-          this._status = JDTestCommandStatus.Passed;
+          if (jdreg) {
+            jdreg.sendSetIntAsync(_ev3);
+            this._status = JDTestCommandStatus.Passed;
+            this._progress = "wrote " + _ev3 + " to register " + reg.name;
+          }
         }
     }
 
@@ -2037,4 +2039,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-03a253fe380e8e92bf12.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-da54ed4a27ce0c07f7a6.js.map
