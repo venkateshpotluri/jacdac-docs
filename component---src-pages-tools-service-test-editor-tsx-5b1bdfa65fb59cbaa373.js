@@ -271,7 +271,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
           }
         } else if (argType === "number" || argType === "boolean") {
           Object(jdutils["a" /* exprVisitor */])(root, arg, function (p, c) {
-            if (c.type === 'Identifier') {
+            if (p.type !== 'MemberExpression' && c.type === 'Identifier') {
               lookupReplace(eventSymTable, p, c);
             } else if (c.type === 'ArrayExpression') {
               error("array expression not allowed in this context");
@@ -280,6 +280,8 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
 
               if (member.object.type !== 'Identifier' || member.property.type !== 'Identifier' || member.computed) {
                 error('property access must be of form id.property');
+              } else {
+                lookupReplace(eventSymTable, p, c);
               }
             }
           });
@@ -349,53 +351,69 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
 
   function lookupReplace(events, parent, child) {
     if (Array.isArray(parent)) {
-      lookup(events, parent, child);
+      var replace = lookup(events, parent, child);
+      parent.forEach(function (i) {
+        if (parent[i] === child) parent[i] = replace;
+      });
     } else {
-      // don't process identifiers that are callees of CallExpression or RHS of MemberExpressions
-      if ((parent === null || parent === void 0 ? void 0 : parent.type) === "CallExpression" && child === parent.callee || parent.type === "MemberExpression" && child === parent.property) return;
-      lookup(events, parent, child);
+      // don't process identifiers that are callees of CallExpression
+      if ((parent === null || parent === void 0 ? void 0 : parent.type) === "CallExpression" && child === parent.callee) return;
+
+      var _replace = lookup(events, parent, child);
+
+      if (_replace) {
+        Object.keys(parent).forEach(function (k) {
+          if (parent[k] === child) parent[k] = _replace;
+        });
+      }
     }
 
     function lookup(events, parent, child) {
       try {
         try {
-          var val = Object(jdutils["c" /* parseIntFloat */])(spec, child.name);
+          var _toName = toName(),
+              root = _toName[0],
+              fld = _toName[1];
+
+          var val = Object(jdutils["c" /* parseIntFloat */])(spec, fld ? root + "." + fld : root);
           var lit = {
             type: "Literal",
             value: val,
             raw: val.toString()
           };
+          return lit;
         } catch (e) {
-          var _toName = toName(),
-              root = _toName[0],
-              fld = _toName[1];
-
-          var regField = Object(jdutils["b" /* getRegister */])(spec, root, fld); // if (!fld && regField.pkt.fields.length > 0)
-          //    error(`register ${root} has fields, but no field specified`)
-
-          if (currentTest.registers.indexOf(root) < 0) currentTest.registers.push(root);
-        }
-      } catch (e) {
-        if (events.length > 0) {
           var _toName2 = toName(),
               _root = _toName2[0],
               _fld = _toName2[1];
 
+          Object(jdutils["b" /* getRegister */])(spec, _root, _fld); // if (!fld && regField.pkt.fields.length > 0)
+          //    error(`register ${root} has fields, but no field specified`)
+
+          if (currentTest.registers.indexOf(_root) < 0) currentTest.registers.push(_root);
+        }
+      } catch (e) {
+        if (events.length > 0) {
+          var _toName3 = toName(),
+              _root2 = _toName3[0],
+              _fld2 = _toName3[1];
+
           var pkt = events.find(function (pkt) {
-            return pkt.name === _root;
+            return pkt.name === _root2;
           });
-          if (!pkt) error("event " + _root + " not bound correctly");else if (!_fld && pkt.fields.length > 0) error("event " + _root + " has fields, but no field specified");else if (_fld && !pkt.fields.find(function (f) {
-            return f.name === _fld;
-          })) error("Field " + _fld + " of event " + _root + " not found in specification");
+          if (!pkt) error("event " + _root2 + " not bound correctly");else if (!_fld2 && pkt.fields.length > 0) error("event " + _root2 + " has fields, but no field specified");else if (_fld2 && !pkt.fields.find(function (f) {
+            return f.name === _fld2;
+          })) error("Field " + _fld2 + " of event " + _root2 + " not found in specification");
         } else {
           error(e.message);
         }
       }
 
+      return undefined;
+
       function toName() {
-        if ((parent === null || parent === void 0 ? void 0 : parent.type) !== 'MemberExpression') return [child.name, ""];else {
-          var member = parent;
-          return [member.object.name, member.property.name];
+        if (child.type !== 'MemberExpression') return [child.name, ""];else {
+          return [child.object.name, child.property.name];
         }
       }
     }
@@ -2078,4 +2096,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-a06ab557e9cc657ccbb7.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-5b1bdfa65fb59cbaa373.js.map
