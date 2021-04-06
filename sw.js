@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-30ed54af45f8a84ed51a.js"
+    "url": "webpack-runtime-20eaffffdcc7556ddefb.js"
   },
   {
     "url": "framework-c0143a60828cff4b65c7.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "3135aa00ec4319e13d433bb523ea6dcb"
+    "revision": "83f04554c9c1f6bac8fb76e57dbb0c76"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "9f0a2f18d4f9fce3a99ad741e9c20d3f"
+    "revision": "ba8c21f810070d156cd232eaee6c4482"
   },
   {
     "url": "polyfill-4d20de916cfd43037bf4.js"
@@ -187,7 +187,7 @@ self.__precacheManifest = [
     "url": "6e6f508a4d48336b02c09c52b4663db8917995a6-d3c182a814eae860c8cb.js"
   },
   {
-    "url": "component---src-pages-services-tsx-2a082afd5469b7e8325a.js"
+    "url": "component---src-pages-services-tsx-dbc21b66c6ec8ffa43bc.js"
   },
   {
     "url": "page-data/services/page-data.json",
@@ -549,7 +549,7 @@ self.__precacheManifest = [
     "url": "7be8bd5e1d50433339e51f16955b42d6c2521d6b-f2b1cd1bd5c5765a2a70.js"
   },
   {
-    "url": "a93809c29f21527c5152987808106017bef635d2-d98a965cdbcd9a471a9d.js"
+    "url": "a93809c29f21527c5152987808106017bef635d2-4e05245e05cff98d45c0.js"
   },
   {
     "url": "component---src-pages-tools-azure-device-twin-designer-tsx-7fbf107f21a208df2f2b.js"
@@ -610,14 +610,14 @@ self.__precacheManifest = [
     "revision": "dc554b5a7b3bba043dc9096b8a2927b6"
   },
   {
-    "url": "component---src-pages-tools-makecode-editor-extension-tsx-c47c660cddfbad099c45.js"
+    "url": "component---src-pages-tools-makecode-editor-extension-tsx-5eab7441c8a73f457c21.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
     "revision": "fff97a63d7d76d0afb3e023b1d340b17"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-de353cde95fbc24c2c26.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-d4334b4eafb62e6694f1.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
