@@ -663,7 +663,7 @@ function Page() {
     repos: ["microsoft/jacdac"],
     showDescription: true
   }), /*#__PURE__*/react_default.a.createElement("h2", null, "Module Development"), /*#__PURE__*/react_default.a.createElement("h3", null, "Schematics and C SDK"), /*#__PURE__*/react_default.a.createElement(GithubRepositoryList, {
-    repos: ["microsoft/jacdac-mdk", "microsoft/jacdac-c"],
+    repos: ["microsoft/jacdac-ddk", "microsoft/jacdac-c"],
     showDescription: true
   }), /*#__PURE__*/react_default.a.createElement("h3", null, " Platforms"), /*#__PURE__*/react_default.a.createElement(GithubRepositoryList, {
     repos: ["microsoft/jacdac-stm32x0", "microsoft/jacdac-esp32", "microsoft/jacdac-padauk"],
@@ -693,4 +693,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-071832deca14a736aaed.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-b8a2a9b18ecc1853c60e.js.map
