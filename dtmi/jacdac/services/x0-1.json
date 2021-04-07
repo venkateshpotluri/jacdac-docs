@@ -71,6 +71,13 @@
     },
     {
       "@type": "Property",
+      "name": "device_specification_url",
+      "@id": "dtmi:jacdac:x0:const:devicespecificationurl;1",
+      "description": "URL pointing to device JSON specification.",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
       "name": "firmware_url",
       "@id": "dtmi:jacdac:x0:const:firmwareurl;1",
       "description": "URL with machine-readable metadata information about updating device firmware",

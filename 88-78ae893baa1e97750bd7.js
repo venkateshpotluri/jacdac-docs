@@ -532,9 +532,17 @@ var peerjsbridge_PeerJSBridge = /*#__PURE__*/function (_JDBridge) {
 // EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
 var GridHeader = __webpack_require__("H6TX");
 
+// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
+var Alert = __webpack_require__("FQT7");
+
+// EXTERNAL MODULE: ./src/jacdac/Flags.ts
+var Flags = __webpack_require__("i4Mu");
+
 // CONCATENATED MODULE: ./src/components/peer/PeerConfiguration.tsx
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
 
 
 
@@ -567,9 +575,7 @@ function PeerItem(props) {
   return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], null, "Connect to be able join other Jacdac networks. This functionality uses the \xA0", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
-    href: "https://peerjs.com/peerserver.html"
-  }, "PeerServer Cloud Service"), "to establish connections. No data is sent through the server."), id && /*#__PURE__*/react_default.a.createElement(TextField["a" /* default */], {
+  }, /*#__PURE__*/react_default.a.createElement(Card["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(CardContent["a" /* default */], null, /*#__PURE__*/react_default.a.createElement(Typography["a" /* default */], null, "Connect to be able join other Jacdac networks."), id && /*#__PURE__*/react_default.a.createElement(TextField["a" /* default */], {
     value: id,
     disabled: true,
     fullWidth: true,
@@ -646,6 +652,7 @@ function Peers() {
   var _useContext2 = Object(react["useContext"])(Context["a" /* default */]),
       bus = _useContext2.bus;
 
+  var enabled = Flags["a" /* default */].peers;
   var peer = Object(useChange["a" /* default */])(bus, function (_) {
     return _.bridges.find(function (b) {
       return b instanceof peerjsbridge_PeerJSBridge;
@@ -657,7 +664,13 @@ function Peers() {
   }) || {},
       connections = _ref2.connections;
 
-  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h1", null, "Jacdac Web Connect"), /*#__PURE__*/react_default.a.createElement("p", null, "This section allows you to connect multiple Jacdac dashboard in real time over the web (using WebRTC)."), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  return /*#__PURE__*/react_default.a.createElement(react_default.a.Fragment, null, /*#__PURE__*/react_default.a.createElement("h1", null, "Jacdac Peers"), /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
+    severity: "warning"
+  }, "Experimental feature"), /*#__PURE__*/react_default.a.createElement("p", null, "This section allows you to connect multiple Jacdac dashboard in real time over the web (using WebRTC). This functionality uses the \xA0", /*#__PURE__*/react_default.a.createElement(gatsby_theme_material_ui["Link"], {
+    href: "https://peerjs.com/peerserver.html"
+  }, "PeerServer Cloud Service"), "to establish connections. No data is sent through the server."), !enabled && /*#__PURE__*/react_default.a.createElement(Alert["a" /* default */], {
+    severity: "error"
+  }, "This functionality is not enabled."), enabled && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     spacing: 1
   }, /*#__PURE__*/react_default.a.createElement(PeerItem, {
@@ -968,4 +981,4 @@ var TextField = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fu
 /***/ })
 
 }]);
-//# sourceMappingURL=88-9ba3e26765fa561c57df.js.map
+//# sourceMappingURL=88-78ae893baa1e97750bd7.js.map
