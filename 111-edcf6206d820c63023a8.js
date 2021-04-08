@@ -146,7 +146,7 @@ function DashboardCompass(props) {
     color: color,
     strokeWidth: 1,
     off: off,
-    onClick: server && toggleOff
+    onClick: toggleOff
   }))), server && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
@@ -165,4 +165,4 @@ function DashboardCompass(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=111-02736ee1b756f2ace714.js.map
+//# sourceMappingURL=111-edcf6206d820c63023a8.js.map
