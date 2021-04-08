@@ -3307,7 +3307,7 @@ function SoundButton(props) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return service.sendCmdAsync(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* SoundPlayerCmd */ "Te"].Play, Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__[/* jdpack */ "a"])("u0.16 s", [1, name]), false);
+              return service.sendCmdAsync(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__[/* SoundPlayerCmd */ "Te"].Play, Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__[/* jdpack */ "a"])("s", [name]), false);
 
             case 2:
             case "end":
@@ -3380,11 +3380,10 @@ function DashboardSoundPlayer(props) {
   }();
 
   Object(react__WEBPACK_IMPORTED_MODULE_2__["useEffect"])(function () {
-    if (server) server.onPlay = function (vol, name) {
-      // Setup the new Howl.
+    if (server && volume) server.onPlay = function (name) {
       var sound = new howler__WEBPACK_IMPORTED_MODULE_11__["Howl"]({
-        src: ["/jacdac-ts/sounds/" + name + ".wav"],
-        volume: vol * volume
+        src: ["/jacdac-docs/sounds/" + name + ".wav"],
+        volume: volume
       });
       sound.play();
     };
@@ -3424,4 +3423,4 @@ function DashboardSoundPlayer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=100-c663efb31eb90937a3bf.js.map
+//# sourceMappingURL=100-2388aace83329ea8e3e0.js.map

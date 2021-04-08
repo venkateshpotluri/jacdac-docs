@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-8a392b7e9ad0b435c0df.js"
+    "url": "webpack-runtime-5fab7dfb8e3e4d4406d0.js"
   },
   {
     "url": "framework-c0143a60828cff4b65c7.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "50c4f146fb55590bd360ea8273f60f0a"
+    "revision": "149e39c89165cd41111077b0430a5f38"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -68,7 +68,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "5e765d6d9e655e3582e8c1944e5f1c13"
+    "revision": "56de509a4e9041ab60400db15d790f8a"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "8ffce89488617fe28b9965073e020f6d"
+    "revision": "2d4b01cb55e24421f738fd7a7fe079ca"
   },
   {
     "url": "polyfill-4d20de916cfd43037bf4.js"
@@ -480,7 +480,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/soundplayer/page-data.json",
-    "revision": "ecbe712e063290215319c09bb9d74144"
+    "revision": "7efe74312274c87b610859db726a6a22"
   },
   {
     "url": "page-data/services/soundspectrum/page-data.json",
@@ -790,7 +790,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-16f44fd85d8ab46a9d11.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-91d8d3416849cad87461.js`))) {
     return await fetch(event.request)
   }
 
