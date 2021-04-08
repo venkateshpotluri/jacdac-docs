@@ -751,7 +751,7 @@ function PacketBadge(props) {
   var receivedAck = !failedAck && !!packet.meta[constants["Zb" /* META_ACK */]];
   var getPacket = !!packet.meta[constants["bc" /* META_GET */]];
   var direction = packet.isCommand ? "to" : "from";
-  var logMessage = packet.serviceClass === specconstants["Mb" /* SRV_LOGGER */] && packet.isReport && !packet.isRegisterGet;
+  var logMessage = packet.serviceClass === specconstants["Lb" /* SRV_LOGGER */] && packet.isReport && !packet.isRegisterGet;
   return /*#__PURE__*/react_default.a.createElement(Badge["a" /* default */], {
     badgeContent: count
   }, getPacket && !failedAck && !receivedAck && /*#__PURE__*/react_default.a.createElement(Tooltip["a" /* default */], {
@@ -1100,4 +1100,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=80-d2faa97d844dd8d8fd84.js.map
+//# sourceMappingURL=80-c9f03fe3321410a3d9f5.js.map

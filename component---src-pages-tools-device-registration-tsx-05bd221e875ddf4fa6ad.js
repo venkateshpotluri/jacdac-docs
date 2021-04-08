@@ -2502,12 +2502,12 @@ function DeviceRegistration() {
           switch (_context.prev = _context.next) {
             case 0:
               controlService = dev.service(0);
-              descrReg = controlService.register(specconstants["x" /* ControlReg */].DeviceDescription);
+              descrReg = controlService.register(specconstants["w" /* ControlReg */].DeviceDescription);
               _context.next = 4;
               return descrReg.refresh(true);
 
             case 4:
-              urlReg = controlService.register(specconstants["x" /* ControlReg */].DeviceUrl);
+              urlReg = controlService.register(specconstants["w" /* ControlReg */].DeviceUrl);
               _context.next = 7;
               return urlReg.refresh(true);
 
@@ -3197,4 +3197,4 @@ var TextField = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](fu
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-265b6d27307d59ef0477.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-05bd221e875ddf4fa6ad.js.map

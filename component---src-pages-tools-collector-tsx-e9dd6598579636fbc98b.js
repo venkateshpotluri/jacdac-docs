@@ -325,22 +325,22 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
               mapType = function _mapType(tp) {
                 switch (tp) {
                   case 1:
-                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "yc"].U8;
+                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "xc"].U8;
 
                   case 2:
-                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "yc"].U16;
+                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "xc"].U16;
 
                   case 4:
-                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "yc"].U32;
+                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "xc"].U32;
 
                   case -1:
-                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "yc"].I8;
+                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "xc"].I8;
 
                   case -2:
-                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "yc"].I16;
+                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "xc"].I16;
 
                   case -4:
-                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "yc"].I32;
+                    return _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorSampleType */ "xc"].I32;
 
                   default:
                     error("unknown storage type");
@@ -386,7 +386,7 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
 
               inputs.unshift(Object(_pack__WEBPACK_IMPORTED_MODULE_6__[/* jdpack */ "a"])("u16 u16 u32", [cfg.samplingInterval, cfg.samplesInWindow, 0]));
               _context.next = 9;
-              return this.service.register(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "xc"].Inputs).sendSetAsync(Object(_utils__WEBPACK_IMPORTED_MODULE_9__[/* bufferConcatMany */ "j"])(inputs));
+              return this.service.register(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "wc"].Inputs).sendSetAsync(Object(_utils__WEBPACK_IMPORTED_MODULE_9__[/* bufferConcatMany */ "j"])(inputs));
 
             case 9:
             case "end":
@@ -410,7 +410,7 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return this.service.register(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "xc"].StreamingSamples).sendSetPackedAsync("u32", [numSamples]);
+              return this.service.register(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "wc"].StreamingSamples).sendSetPackedAsync("u32", [numSamples]);
 
             case 2:
             case "end":
@@ -428,7 +428,7 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
   }();
 
   _proto.subscribeSample = function subscribeSample(handler) {
-    var reg = this.service.register(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "xc"].CurrentSample);
+    var reg = this.service.register(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "wc"].CurrentSample);
     return this.mount(reg.subscribe(_constants__WEBPACK_IMPORTED_MODULE_5__[/* REPORT_RECEIVE */ "Xc"], function () {
       return handler(Object(_buffer__WEBPACK_IMPORTED_MODULE_4__[/* bufferToArray */ "b"])(reg.data, _buffer__WEBPACK_IMPORTED_MODULE_4__[/* NumberFormat */ "a"].Float32LE));
     }));
@@ -473,10 +473,10 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
             case 0:
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               info = {
-                "numSamples": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "xc"].NumSamples, function (r) {
+                "numSamples": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "wc"].NumSamples, function (r) {
                   return r.intValue;
                 }),
-                "sampleSize": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "xc"].SampleSize, function (r) {
+                "sampleSize": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_3__[/* SensorAggregatorReg */ "wc"].SampleSize, function (r) {
                   return r.intValue;
                 })
               };
@@ -1413,4 +1413,4 @@ function ReadingFieldGrid(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-collector-tsx-3530e5021654689c591b.js.map
+//# sourceMappingURL=component---src-pages-tools-collector-tsx-e9dd6598579636fbc98b.js.map

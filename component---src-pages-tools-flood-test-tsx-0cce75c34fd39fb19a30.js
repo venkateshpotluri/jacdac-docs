@@ -394,7 +394,7 @@ function FloodCard(props) {
               service = device.service(0);
               data = Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_13__[/* jdpack */ "a"])("u32 u32 u8", [numResponses, startCounter, size]);
               _context.next = 4;
-              return service.sendCmdAsync(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_12__[/* ControlCmd */ "w"].FloodPing, data);
+              return service.sendCmdAsync(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_12__[/* ControlCmd */ "v"].FloodPing, data);
 
             case 4:
             case "end":
@@ -497,4 +497,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-flood-test-tsx-9beee4d86c20bec40542.js.map
+//# sourceMappingURL=component---src-pages-tools-flood-test-tsx-0cce75c34fd39fb19a30.js.map

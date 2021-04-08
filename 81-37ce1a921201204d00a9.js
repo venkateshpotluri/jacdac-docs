@@ -3420,7 +3420,7 @@ function PacketBadge(props) {
   var receivedAck = !failedAck && !!packet.meta[constants["Zb" /* META_ACK */]];
   var getPacket = !!packet.meta[constants["bc" /* META_GET */]];
   var direction = packet.isCommand ? "to" : "from";
-  var logMessage = packet.serviceClass === specconstants["Mb" /* SRV_LOGGER */] && packet.isReport && !packet.isRegisterGet;
+  var logMessage = packet.serviceClass === specconstants["Lb" /* SRV_LOGGER */] && packet.isReport && !packet.isRegisterGet;
   return /*#__PURE__*/react_default.a.createElement(Badge["a" /* default */], {
     badgeContent: count
   }, getPacket && !failedAck && !receivedAck && /*#__PURE__*/react_default.a.createElement(Tooltip["a" /* default */], {
@@ -3553,4 +3553,4 @@ exports.default = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=81-72f7e79d0a7243518140.js.map
+//# sourceMappingURL=81-37ce1a921201204d00a9.js.map

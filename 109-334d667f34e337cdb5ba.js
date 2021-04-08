@@ -17,15 +17,13 @@ __webpack_require__.r(__webpack_exports__);
 
 function DashboardBitRadio(props) {
   var service = props.service;
-  var numberReceivedEvent = service.event(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__[/* BitRadioEvent */ "i"].NumberReceived);
-  var stringReceivedEvent = service.event(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__[/* BitRadioEvent */ "i"].StringReceived);
-  var bufferReceivedEvent = service.event(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__[/* BitRadioEvent */ "i"].BufferReceived);
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       lastEvents = _useState[0],
       setLastEvents = _useState[1];
 
   var appendMessage = function appendMessage(data) {
+    if (!data) return;
     var time = data[0],
         deviceSerial = data[1],
         rssi = data[2],
@@ -47,20 +45,28 @@ function DashboardBitRadio(props) {
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return numberReceivedEvent.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* EVENT */ "lb"], function () {
-      return appendMessage(Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(numberReceivedEvent.data, "u32 u32 i8 x[3] f64 s"));
+    return service.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* REPORT_RECEIVE */ "Xc"], function (pkt) {
+      var values;
+      var data = pkt.data,
+          serviceCommand = pkt.serviceCommand;
+
+      switch (serviceCommand) {
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__[/* BitRadioCmd */ "h"].NumberReceived:
+          values = Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(data, "u32 u32 i8 x[3] f64 s");
+          break;
+
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__[/* BitRadioCmd */ "h"].StringReceived:
+          values = Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(data, "u32 u32 i8 x[1] s");
+          break;
+
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__[/* BitRadioCmd */ "h"].BufferReceived:
+          values = Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(data, "u32 u32 i8 x[1] b");
+          break;
+      }
+
+      appendMessage(values);
     });
-  }, [numberReceivedEvent, lastEvents]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return stringReceivedEvent.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* EVENT */ "lb"], function () {
-      return appendMessage(Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(stringReceivedEvent.data, "u32 u32 i8 x[1] s"));
-    });
-  }, [stringReceivedEvent, lastEvents]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return bufferReceivedEvent.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__[/* EVENT */ "lb"], function () {
-      return appendMessage(Object(_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__[/* jdunpack */ "c"])(bufferReceivedEvent.data, "u32 u32 i8 x[1] b"));
-    });
-  }, [bufferReceivedEvent, lastEvents]);
+  }, [service, lastEvents]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, lastEvents.map(function (lv, i) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: i
@@ -73,4 +79,4 @@ function DashboardBitRadio(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=109-36ce3527121f088643f4.js.map
+//# sourceMappingURL=109-334d667f34e337cdb5ba.js.map
