@@ -114,13 +114,14 @@ function DashboardLEDMatrixDisplay(props) {
       leds = _useRegisterUnpackedV[0];
 
   var _useRegisterUnpackedV2 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* LedMatrixReg */ "Ob"].Brightness), props),
-      brightness = _useRegisterUnpackedV2[0];
+      _useRegisterUnpackedV3 = _useRegisterUnpackedV2[0],
+      brightness = _useRegisterUnpackedV3 === void 0 ? 0 : _useRegisterUnpackedV3;
 
-  var _useRegisterUnpackedV3 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* LedMatrixReg */ "Ob"].Rows), props),
-      rows = _useRegisterUnpackedV3[0];
+  var _useRegisterUnpackedV4 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* LedMatrixReg */ "Ob"].Rows), props),
+      rows = _useRegisterUnpackedV4[0];
 
-  var _useRegisterUnpackedV4 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* LedMatrixReg */ "Ob"].Columns), props),
-      columns = _useRegisterUnpackedV4[0];
+  var _useRegisterUnpackedV5 = Object(_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__[/* useRegisterUnpackedValue */ "c"])(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__[/* LedMatrixReg */ "Ob"].Columns), props),
+      columns = _useRegisterUnpackedV5[0];
 
   var server = Object(_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"])(service);
   var color = server ? "secondary" : "primary";
@@ -243,4 +244,4 @@ function DashboardLEDMatrixDisplay(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=102-a2fa0972d934efab6893.js.map
+//# sourceMappingURL=102-c3da709dd7890e3ac90d.js.map

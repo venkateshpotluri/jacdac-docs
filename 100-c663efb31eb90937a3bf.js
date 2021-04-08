@@ -3283,6 +3283,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("BsyY");
 /* harmony import */ var howler__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("HlzF");
 /* harmony import */ var howler__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(howler__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("aVfY");
+
 
 
 
@@ -3390,12 +3392,14 @@ function DashboardSoundPlayer(props) {
       if (server) server.onPlay = undefined;
     };
   }, [volume, server]);
+  if (!sounds) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     container: true,
     spacing: 1
   }, sounds === null || sounds === void 0 ? void 0 : sounds.map(function (sound) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
       item: true,
+      xs: true,
       key: sound[1]
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(SoundButton, {
       service: service,
@@ -3420,4 +3424,4 @@ function DashboardSoundPlayer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=100-2f5a1020946dc39290a9.js.map
+//# sourceMappingURL=100-c663efb31eb90937a3bf.js.map
