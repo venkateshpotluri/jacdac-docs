@@ -3387,7 +3387,7 @@ function DashboardSoundPlayer(props) {
       sound.play();
     };
     return function () {
-      return server.onPlay = undefined;
+      if (server) server.onPlay = undefined;
     };
   }, [volume, server]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
@@ -3420,4 +3420,4 @@ function DashboardSoundPlayer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=100-09ae468d2d70936de37b.js.map
+//# sourceMappingURL=100-2f5a1020946dc39290a9.js.map
