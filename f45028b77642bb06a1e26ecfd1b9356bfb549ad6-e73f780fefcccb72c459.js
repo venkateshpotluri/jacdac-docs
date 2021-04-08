@@ -603,8 +603,6 @@ var PowerButton = __webpack_require__("TaZW");
 
 
 
-
-
 function useActualAngle(service, visible) {
   var _useRegisterUnpackedV = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Me" /* ServoReg */].Angle), {
     visible: visible
@@ -653,30 +651,9 @@ function DashboardServo(props) {
   var pri = 6;
   var text = enabled ? Math.round(a) + "\xB0" : "off";
 
-  var toggleOff = /*#__PURE__*/function () {
-    var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-      return regenerator_default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return enabledRegister.sendSetBoolAsync(!enabled);
-
-            case 2:
-              enabledRegister.refresh();
-
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function toggleOff() {
-      return _ref.apply(this, arguments);
-    };
-  }();
+  var toggleOff = function toggleOff() {
+    return enabledRegister.sendSetBoolAsync(!enabled, true);
+  };
 
   return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
@@ -1244,4 +1221,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-752a7bb281373e93cb85.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-e73f780fefcccb72c459.js.map
