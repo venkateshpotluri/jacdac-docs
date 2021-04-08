@@ -1,6 +1,6 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[126],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[125],{
 
-/***/ "wvcQ":
+/***/ "iPqf":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ DashboardSoundSpectrum; });
+__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ DashboardSoundLevel; });
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("HaE+");
@@ -30,6 +30,9 @@ var useServiceServer = __webpack_require__("uyZR");
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__("tRbT");
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slider/Slider.js + 1 modules
+var Slider = __webpack_require__("6Obz");
+
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Mic.js
 var Mic = __webpack_require__("3NjB");
 var Mic_default = /*#__PURE__*/__webpack_require__.n(Mic);
@@ -37,13 +40,16 @@ var Mic_default = /*#__PURE__*/__webpack_require__.n(Mic);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__("ZfHV");
 
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
+var IconButtonWithProgress = __webpack_require__("gfZp");
+
 // EXTERNAL MODULE: ./src/components/hooks/useAudioAnalyzer.ts + 1 modules
 var useAudioAnalyzer = __webpack_require__("sgTi");
 
-// CONCATENATED MODULE: ./src/components/hooks/useMicrophoneSpectrum.ts
+// CONCATENATED MODULE: ./src/components/hooks/useMicrophoneVolume.ts
 
 
-function useMicrophoneSpectrum(enabled, options) {
+function useMicrophoneVolume(enabled, options) {
   var _useMicrophoneAnalyze = Object(useAudioAnalyzer["a" /* useMicrophoneAnalyzer */])(options),
       analyser = _useMicrophoneAnalyze.analyser,
       onClickActivateMicrophone = _useMicrophoneAnalyze.onClickActivateMicrophone,
@@ -55,17 +61,25 @@ function useMicrophoneSpectrum(enabled, options) {
   }, [enabled]);
   return {
     onClickActivateMicrophone: onClickActivateMicrophone,
-    spectrum: function spectrum() {
+    volume: function volume() {
       var a = analyser();
-      if (!a) return frequencies.current;
+      if (!a) return 0;
       if (frequencies.current.length !== a.frequencyBinCount) frequencies.current = new Uint8Array(a.frequencyBinCount);
-      a === null || a === void 0 ? void 0 : a.getByteFrequencyData(frequencies.current);
-      return frequencies.current;
+      a.getByteFrequencyData(frequencies.current);
+      var max = 0;
+      var bins = frequencies.current;
+      var n = bins.length;
+
+      for (var i = 0; i < n; ++i) {
+        max = Math.max(max, bins[i]);
+      }
+
+      return max / 0xff;
     }
   };
 }
-// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
-var IconButtonWithProgress = __webpack_require__("gfZp");
+// EXTERNAL MODULE: ./src/components/hooks/useAnimationFrame.ts
+var useAnimationFrame = __webpack_require__("y4gn");
 
 // EXTERNAL MODULE: ./src/components/widgets/SvgWidget.tsx
 var SvgWidget = __webpack_require__("7/Hy");
@@ -73,16 +87,19 @@ var SvgWidget = __webpack_require__("7/Hy");
 // EXTERNAL MODULE: ./src/components/widgets/useWidgetTheme.ts
 var useWidgetTheme = __webpack_require__("Lml+");
 
-// CONCATENATED MODULE: ./src/components/widgets/BytesBarGraphWidget.tsx
+// CONCATENATED MODULE: ./src/components/widgets/TrendWidget.tsx
 
 
 
 
 
-function BytesBarGraphWidget(props) {
+
+function TrendWidget(props) {
   var register = props.register,
-      size = props.size,
-      visible = props.visible;
+      min = props.min,
+      max = props.max,
+      horizon = props.horizon,
+      size = props.size;
   var server = Object(useServiceServer["a" /* default */])(register.service);
   var color = server ? "secondary" : "primary";
 
@@ -91,30 +108,50 @@ function BytesBarGraphWidget(props) {
       controlBackground = _useWidgetTheme.controlBackground,
       active = _useWidgetTheme.active;
 
+  var dataRef = Object(react["useRef"])(undefined);
   var pathRef = Object(react["useRef"])();
-  var w = 128;
-  var h = w / 1.612;
+  var dx = 4;
   var m = 2;
-  var dy = (h - 2 * m) / 0xff;
+  var w = horizon * dx + 2 * m;
+  var h = w / 1.612;
+  var dy = (h - 2 * m) / (max - min);
   Object(react["useEffect"])(function () {
-    return visible && (register === null || register === void 0 ? void 0 : register.subscribe(constants["Yc" /* REPORT_UPDATE */], function () {
-      // render outside of react loop
-      var current = pathRef.current;
-      var bins = register.data;
-      if (!current || !bins) return;
-      var dx = (w - 2 * m) / bins.length;
-      var dw = (w - 2 * m) / (bins.length * 6);
-      var d = "M " + m + " " + (h - m) + " ";
+    dataRef.current = register ? [] : undefined; // reset data
 
-      for (var i = 0; i < bins.length; ++i) {
-        var bin = bins[i];
-        d += " v " + -dy * bin + " h " + (dx - dw) + " v " + dy * bin + " h " + dw;
+    return register === null || register === void 0 ? void 0 : register.subscribe(constants["v" /* CHANGE */], function () {
+      // register new value
+      var _ref = register.unpackedValue,
+          v = _ref[0];
+      var data = dataRef.current;
+      data.unshift(v);
+
+      while (data.length > horizon) {
+        data.pop();
+      }
+    });
+  }, [register, horizon, min, max]);
+  Object(useAnimationFrame["a" /* default */])(function () {
+    // update dom
+    var data = dataRef.current;
+    if (!data) return false; // nothing to render
+
+    if (pathRef.current) {
+      var d = "M " + w + " " + h + " ";
+      var x = w - m;
+
+      for (var i = 0; i < data.length; ++i) {
+        var v = data[i];
+        var y = h - m - (v - min) * dy;
+        d += "L " + x + " " + y;
+        x -= dx;
       }
 
-      d += " z";
-      current.setAttribute("d", d);
-    }));
-  }, [register, visible, pathRef.current]);
+      d += " V " + h + " z";
+      pathRef.current.setAttribute("d", d);
+    }
+
+    return true;
+  }, [dataRef.current]);
   return /*#__PURE__*/react_default.a.createElement(SvgWidget["a" /* default */], {
     width: w,
     height: h,
@@ -127,7 +164,11 @@ function BytesBarGraphWidget(props) {
     ref: pathRef
   }));
 }
-// CONCATENATED MODULE: ./src/components/dashboard/DashboardSoundSpectrum.tsx
+// EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx
+var LoadingProgress = __webpack_require__("aVfY");
+
+// CONCATENATED MODULE: ./src/components/dashboard/DashboardSoundLevel.tsx
+
 
 
 
@@ -141,34 +182,26 @@ function BytesBarGraphWidget(props) {
 
 
 function HostMicrophoneButton(props) {
-  var host = props.host,
+  var server = props.server,
       service = props.service,
       visible = props.visible;
-  var enabledRegister = service.register(constants["Ve" /* SoundSpectrumReg */].Enabled);
+  var enabledRegister = service.register(constants["Se" /* SoundLevelReg */].Enabled);
   var enabled = Object(useRegisterValue["a" /* useRegisterBoolValue */])(enabledRegister, props);
 
-  var _useRegisterUnpackedV = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Ve" /* SoundSpectrumReg */].MinDecibels), props),
+  var _useRegisterUnpackedV = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Se" /* SoundLevelReg */].MinDecibels), props),
       minDecibels = _useRegisterUnpackedV[0];
 
-  var _useRegisterUnpackedV2 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Ve" /* SoundSpectrumReg */].MaxDecibels), props),
+  var _useRegisterUnpackedV2 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Se" /* SoundLevelReg */].MaxDecibels), props),
       maxDecibels = _useRegisterUnpackedV2[0];
 
-  var _useRegisterUnpackedV3 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Ve" /* SoundSpectrumReg */].FftPow2Size), props),
-      fftPow2Size = _useRegisterUnpackedV3[0];
-
-  var fftSize = 1 << (fftPow2Size || 5);
-
-  var _useRegisterUnpackedV4 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(service.register(constants["Ve" /* SoundSpectrumReg */].SmoothingTimeConstant), props),
-      smoothingTimeConstant = _useRegisterUnpackedV4[0];
-
-  var _useMicrophoneSpectru = useMicrophoneSpectrum(enabled && !!host, {
-    fftSize: fftSize,
-    smoothingTimeConstant: smoothingTimeConstant,
+  var _useMicrophoneVolume = useMicrophoneVolume(enabled && !!server, {
+    fftSize: 64,
+    smoothingTimeConstant: 0,
     minDecibels: minDecibels,
     maxDecibels: maxDecibels
   }),
-      spectrum = _useMicrophoneSpectru.spectrum,
-      onClickActivateMicrophone = _useMicrophoneSpectru.onClickActivateMicrophone;
+      volume = _useMicrophoneVolume.volume,
+      onClickActivateMicrophone = _useMicrophoneVolume.onClickActivateMicrophone;
 
   var title = enabled ? "Stop microphone" : "Start microphone";
 
@@ -178,7 +211,7 @@ function HostMicrophoneButton(props) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (enabled) {
+              if (!(!enabled && server)) {
                 _context.next = 3;
                 break;
               }
@@ -205,14 +238,14 @@ function HostMicrophoneButton(props) {
 
 
   Object(react["useEffect"])(function () {
-    return visible && enabled && (host === null || host === void 0 ? void 0 : host.subscribe(constants["Jc" /* REFRESH */], function () {
-      var v = spectrum === null || spectrum === void 0 ? void 0 : spectrum();
+    return visible && (server === null || server === void 0 ? void 0 : server.subscribe(constants["Jc" /* REFRESH */], function () {
+      var v = volume === null || volume === void 0 ? void 0 : volume();
 
       if (v !== undefined) {
-        host.reading.setValues([v], true);
+        server.reading.setValues([v]);
       }
     }));
-  }, [host, spectrum, visible]);
+  }, [server, volume, visible]);
   return /*#__PURE__*/react_default.a.createElement(IconButtonWithProgress["a" /* default */], {
     "aria-label": title,
     title: title,
@@ -221,29 +254,62 @@ function HostMicrophoneButton(props) {
   }, /*#__PURE__*/react_default.a.createElement(Mic_default.a, null));
 }
 
-function DashboardSoundSpectrum(props) {
-  var service = props.service,
-      visible = props.visible;
-  var frequencyBinsRegister = service.register(constants["Ve" /* SoundSpectrumReg */].FrequencyBins);
+function DashboardSoundLevel(props) {
+  var visible = props.visible,
+      service = props.service;
+  var soundLevelRegister = service.register(constants["Se" /* SoundLevelReg */].SoundLevel);
+
+  var _useRegisterUnpackedV3 = Object(useRegisterValue["c" /* useRegisterUnpackedValue */])(soundLevelRegister, props),
+      soundLevel = _useRegisterUnpackedV3[0];
+
   var server = Object(useServiceServer["a" /* default */])(service);
+  var color = server ? "secondary" : "primary";
+
+  var onChange = function onChange(event, newValue) {
+    var svalue = newValue;
+    server === null || server === void 0 ? void 0 : server.reading.setValues([svalue]);
+    soundLevelRegister.sendGetAsync(); // refresh
+  };
+
+  if (soundLevel === undefined) return /*#__PURE__*/react_default.a.createElement(LoadingProgress["a" /* default */], null);
   return /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     container: true,
     direction: "column"
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
-  }, /*#__PURE__*/react_default.a.createElement(BytesBarGraphWidget, {
-    visible: visible,
-    register: frequencyBinsRegister
+  }, /*#__PURE__*/react_default.a.createElement(TrendWidget, {
+    register: soundLevelRegister,
+    min: 0,
+    max: 1,
+    horizon: 64
   })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true
+  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    container: true,
+    spacing: 2,
+    alignItems: "center"
+  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true
   }, /*#__PURE__*/react_default.a.createElement(HostMicrophoneButton, {
     service: service,
-    host: server,
+    server: server,
     visible: visible
-  })));
+  })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react_default.a.createElement(Slider["a" /* default */], {
+    disabled: !server,
+    valueLabelDisplay: "off",
+    min: 0,
+    max: 1,
+    step: 0.1,
+    value: soundLevel,
+    onChange: onChange,
+    color: color
+  })))));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=126-9e3ad1f67532f264389e.js.map
+//# sourceMappingURL=125-248320210f3dd465a534.js.map
