@@ -149,25 +149,25 @@ function StartSimulatorDialog(props) {
 
   var handleAddAll = /*#__PURE__*/function () {
     var _ref = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee() {
-      var allHostDefinitions, _iterator, _step, host;
+      var allProviderDefinitions, _iterator, _step, provider;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              allHostDefinitions = Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_14__[/* uniqueMap */ "ab"])(providerDefinitions.filter(function (hd) {
+              allProviderDefinitions = Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_14__[/* uniqueMap */ "ab"])(providerDefinitions.filter(function (hd) {
                 return hd.serviceClasses.length === 1;
               }), function (hd) {
                 return hd.serviceClasses[0].toString();
               }, function (h) {
                 return h;
               });
-              enqueueSnackbar("starting " + allHostDefinitions.length + " simulators...", {
+              enqueueSnackbar("starting " + allProviderDefinitions.length + " simulators...", {
                 variant: "info",
                 key: "startdevicehosts"
               });
               onClose();
-              _iterator = _createForOfIteratorHelperLoose(allHostDefinitions);
+              _iterator = _createForOfIteratorHelperLoose(allProviderDefinitions);
 
             case 4:
               if ((_step = _iterator()).done) {
@@ -175,12 +175,12 @@ function StartSimulatorDialog(props) {
                 break;
               }
 
-              host = _step.value;
+              provider = _step.value;
               _context.next = 8;
               return Object(_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_14__[/* delay */ "r"])(100);
 
             case 8:
-              Object(_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_11__[/* addServiceProvider */ "b"])(bus, host);
+              Object(_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_11__[/* addServiceProvider */ "b"])(bus, provider);
 
             case 9:
               _context.next = 4;
@@ -1423,4 +1423,4 @@ var DialogTitle = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](
 /***/ })
 
 }]);
-//# sourceMappingURL=84-ef45e7d5462a31ce3a8d.js.map
+//# sourceMappingURL=84-e6772fd1a7fd6fa2e3e6.js.map

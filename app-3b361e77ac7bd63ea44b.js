@@ -49373,8 +49373,8 @@ function addServiceProvider(bus, definition) {
   return d;
 }
 function serviceProviderDefinitionFromServiceClass(serviceClass) {
-  return _providerDefinitions.find(function (host) {
-    return host.serviceClasses.length === 1 && host.serviceClasses[0] === serviceClass;
+  return _providerDefinitions.find(function (provider) {
+    return provider.serviceClasses.length === 1 && provider.serviceClasses[0] === serviceClass;
   });
 }
 
@@ -53806,4 +53806,4 @@ var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof(window)) 
 /***/ })
 
 },[["UxWs",25,77,79]]]);
-//# sourceMappingURL=app-a480423b3e57f54a2af1.js.map
+//# sourceMappingURL=app-3b361e77ac7bd63ea44b.js.map

@@ -156,7 +156,7 @@ function ServiceSpecification(props) {
   var pipeReports = packets.filter(jdom_spec["p" /* isPipeReport */]);
   var others = packets.filter(function (r) {
     return registers.indexOf(r) < 0 && events.indexOf(r) < 0 && commands.indexOf(r) < 0 && reports.indexOf(r) < 0 && pipeReports.indexOf(r) < 0;
-  }); // spin up host on demand
+  }); // spin up provider on demand
 
   useServiceProviderFromServiceClass(node.classIdentifier);
 
@@ -343,4 +343,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-playground-tsx-4c2e92867df2b16cba37.js.map
+//# sourceMappingURL=component---src-templates-service-playground-tsx-1f93184b4f226df5f3e1.js.map
