@@ -896,7 +896,7 @@ var DashboardSolenoid = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 3356).then(__webpack_require__.bind(__webpack_require__, 73356));
 });
 var DashboardBitRadio = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(1928), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
+  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
 });
 var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAGER */.igi] = {
   component: DashboardRoleManager,
@@ -1182,4 +1182,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-a4fc0c8f29a28c5a1947.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f14d633bb7ed432f88f9.js.map

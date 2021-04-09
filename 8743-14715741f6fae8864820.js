@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1928],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[8743],{
 
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -53,40 +53,6 @@ var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("pa
 }), 'Launch');
 
 exports.Z = _default;
-
-/***/ }),
-
-/***/ 93127:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "qs": function() { return /* binding */ makeCodeServices; },
-  "K9": function() { return /* binding */ resolveMakecodeService; },
-  "WB": function() { return /* binding */ resolveMakecodeServiceFromClassIdentifier; }
-});
-
-;// CONCATENATED MODULE: ./jacdac-ts/jacdac-spec/services/makecode-extensions.json
-var makecode_extensions_namespaceObject = JSON.parse('[{"service":"accelerometer","client":{"name":"jacdac-accelerometer","repo":"microsoft/pxt-jacdac/accelerometer","qName":"modules.AccelerometerClient","default":"modules.accelerometer"}},{"service":"barometer","client":{"name":"jacdac-barometer","repo":"microsoft/pxt-jacdac/barometer","qName":"modules.BarometerClient","default":"modules.barometer"}},{"service":"button","client":{"name":"jacdac-button","repo":"microsoft/pxt-jacdac/button","qName":"modules.ButtonClient","default":"modules.button"}},{"service":"buzzer","client":{"name":"jacdac-buzzer","repo":"microsoft/pxt-jacdac/buzzer","qName":"modules.BuzzerClient","default":"modules.buzzer"}},{"service":"characterscreen","client":{"name":"jacdac-character-screen","repo":"microsoft/pxt-jacdac/character-screen","qName":"modules.CharacterScreenClient","default":"modules.characterScreen"}},{"service":"compass","client":{"name":"jacdac-compass","repo":"microsoft/pxt-jacdac/compass","qName":"modules.CompassClient","default":"modules.compass"}},{"service":"distance","client":{"name":"jacdac-distance","repo":"microsoft/pxt-jacdac/distance","qName":"modules.DistanceClient","default":"modules.distance"}},{"service":"dmx","client":{"name":"jacdac-dmx","repo":"microsoft/pxt-jacdac/dmx","qName":"modules.DmxClient","default":"modules.dmx"}},{"service":"eco2","client":{"name":"jacdac-e-co2","repo":"microsoft/pxt-jacdac/e-co2","qName":"modules.ECO2Client","default":"modules.eCO2"}},{"service":"gyroscope","client":{"name":"jacdac-gyroscope","repo":"microsoft/pxt-jacdac/gyroscope","qName":"modules.GyroscopeClient","default":"modules.gyroscope"}},{"service":"heartrate","client":{"name":"jacdac-heart-rate","repo":"microsoft/pxt-jacdac/heart-rate","qName":"modules.HeartRateClient","default":"modules.heartRate"}},{"service":"humidity","client":{"name":"jacdac-humidity","repo":"microsoft/pxt-jacdac/humidity","qName":"modules.HumidityClient","default":"modules.humidity"}},{"service":"illuminance","client":{"name":"jacdac-illuminance","repo":"microsoft/pxt-jacdac/illuminance","qName":"modules.IlluminanceClient","default":"modules.illuminance"}},{"service":"joystick","client":{"name":"jacdac-joystick","repo":"microsoft/pxt-jacdac/joystick","qName":"modules.JoystickClient","default":"modules.joystick"}},{"service":"led","client":{"name":"jacdac-led","repo":"microsoft/pxt-jacdac/led","qName":"modules.LedClient","default":"modules.led"}},{"service":"ledpixel","client":{"name":"jacdac-led-pixel","repo":"microsoft/pxt-jacdac/led-pixel","qName":"modules.LedPixelClient","default":"modules.ledPixel"}},{"service":"lightlevel","client":{"name":"jacdac-light-level","repo":"microsoft/pxt-jacdac/light-level","qName":"modules.LightLevelClient","default":"modules.lightLevel"}},{"service":"magnetomer","client":{"name":"jacdac-magnetometer","repo":"microsoft/pxt-jacdac/magnetometer","qName":"modules.MagnetometerClient","default":"modules.magnetometer"}},{"service":"modelrunner","client":{"name":"jacdac-model-runner","repo":"microsoft/pxt-jacdac/model-runner","qName":"modules.ModelRunnerClient","default":"modules.modelRunner"}},{"service":"motion","client":{"name":"jacdac-motion","repo":"microsoft/pxt-jacdac/motion","qName":"modules.MotionClient","default":"modules.motion"}},{"service":"motor","client":{"name":"jacdac-motor","repo":"microsoft/pxt-jacdac/motor","qName":"modules.MotorClient","default":"modules.motor"}},{"service":"multitouch","client":{"name":"jacdac-multitouch","repo":"microsoft/pxt-jacdac/multitouch","qName":"modules.MultitouchClient","default":"modules.multitouch"}},{"service":"potentiometer","client":{"name":"jacdac-potentiometer","repo":"microsoft/pxt-jacdac/potentiometer","qName":"modules.PotentiometerClient","default":"modules.potentiometer"}},{"service":"pulseoximeter","client":{"name":"jacdac-pulse-oximeter","repo":"microsoft/pxt-jacdac/pulse-oximeter","qName":"modules.PulseOximeterClient","default":"modules.pulseOximeter"}},{"service":"raingauge","client":{"name":"jacdac-rain-gauge","repo":"microsoft/pxt-jacdac/rain-gauge","qName":"modules.RainGaugeClient","default":"modules.rainGauge"}},{"service":"realtimeclock","client":{"name":"jacdac-real-time-clock","repo":"microsoft/pxt-jacdac/real-time-clock","qName":"modules.RealTimeClockClient","default":"modules.realTimeClock"}},{"service":"reflectedlight","client":{"name":"jacdac-reflected-light","repo":"microsoft/pxt-jacdac/reflected-light","qName":"modules.ReflectedLightClient","default":"modules.reflectedLight"}},{"service":"rotaryencoder","client":{"name":"jacdac-rotary-encoder","repo":"microsoft/pxt-jacdac/rotary-encoder","qName":"modules.RotaryEncoderClient","default":"modules.rotaryEncoder"}},{"service":"sensoraggregator","client":{"name":"jacdac-sensor-aggregator","repo":"microsoft/pxt-jacdac/sensor-aggregator","qName":"modules.SensorAggregatorClient","default":"modules.sensorAggregator"}},{"service":"servo","client":{"name":"jacdac-servo","repo":"microsoft/pxt-jacdac/servo","qName":"modules.ServoClient","default":"modules.servo"}},{"service":"settings","client":{"name":"jacdac-settings","repo":"microsoft/pxt-jacdac/settings","qName":"modules.SettingsClient","default":"modules.settings"}},{"service":"soilmoisture","client":{"name":"jacdac-soil-moisture","repo":"microsoft/pxt-jacdac/soil-moisture","qName":"modules.SoilMoistureClient","default":"modules.soilMoisture"}},{"service":"solenoid","client":{"name":"jacdac-solenoid","repo":"microsoft/pxt-jacdac/solenoid","qName":"modules.SolenoidClient","default":"modules.solenoid"}},{"service":"soundlevel","client":{"name":"jacdac-sound-level","repo":"microsoft/pxt-jacdac/sound-level","qName":"modules.SoundLevelClient","default":"modules.soundLevel"}},{"service":"tcp","client":{"name":"jacdac-tcp","repo":"microsoft/pxt-jacdac/tcp","qName":"modules.TcpClient","default":"modules.tcp"}},{"service":"thermocouple","client":{"name":"jacdac-thermocouple","repo":"microsoft/pxt-jacdac/thermocouple","qName":"modules.ThermocoupleClient","default":"modules.thermocouple"}},{"service":"thermometer","client":{"name":"jacdac-thermometer","repo":"microsoft/pxt-jacdac/thermometer","qName":"modules.ThermometerClient","default":"modules.thermometer"}},{"service":"tvoc","client":{"name":"jacdac-tvoc","repo":"microsoft/pxt-jacdac/tvoc","qName":"modules.TvocClient","default":"modules.tvoc"}},{"service":"uvindex","client":{"name":"jacdac-uv-index","repo":"microsoft/pxt-jacdac/uv-index","qName":"modules.UvIndexClient","default":"modules.uvIndex"}},{"service":"waterlevel","client":{"name":"jacdac-water-level","repo":"microsoft/pxt-jacdac/water-level","qName":"modules.WaterLevelClient","default":"modules.waterLevel"}},{"service":"weightscale","client":{"name":"jacdac-weight-scale","repo":"microsoft/pxt-jacdac/weight-scale","qName":"modules.WeightScaleClient","default":"modules.weightScale"}},{"service":"wifi","client":{"name":"jacdac-wifi","repo":"microsoft/pxt-jacdac/wifi","qName":"modules.WifiClient","default":"modules.wifi"}},{"service":"winddirection","client":{"name":"jacdac-wind-direction","repo":"microsoft/pxt-jacdac/wind-direction","qName":"modules.WindDirectionClient","default":"modules.windDirection"}},{"service":"windspeed","client":{"name":"jacdac-wind-speed","repo":"microsoft/pxt-jacdac/wind-speed","qName":"modules.WindSpeedClient","default":"modules.windSpeed"}}]');
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/makecode.ts
-
-
-function makeCodeServices() {
-  return makecode_extensions_namespaceObject.slice(0);
-}
-function resolveMakecodeService(service) {
-  return service && makecode_extensions_namespaceObject.find(function (mk) {
-    return mk.service === service.shortId;
-  });
-}
-function resolveMakecodeServiceFromClassIdentifier(serviceClass) {
-  var srv = (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
-  return srv && resolveMakecodeService(srv);
-}
 
 /***/ }),
 
@@ -607,6 +573,89 @@ function CodeBlock(props) {
 
 /***/ }),
 
+/***/ 58743:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ DashboardBitRadio; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91635);
+/* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50274);
+
+
+
+
+
+var HORIZON = 10;
+function DashboardBitRadio(props) {
+  var service = props.service;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      lastEvents = _useState[0],
+      setLastEvents = _useState[1];
+
+  var appendMessage = function appendMessage(data) {
+    if (!data) return;
+    var time = data[0],
+        deviceSerial = data[1],
+        rssi = data[2],
+        payload = data.slice(3);
+    var evs = lastEvents.slice(0);
+    var msg = {
+      time: time,
+      deviceSerial: deviceSerial,
+      rssi: rssi,
+      payload: payload
+    };
+    evs.push(msg);
+
+    while (evs.length > HORIZON) {
+      evs.shift();
+    }
+
+    setLastEvents(evs);
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return service.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .REPORT_RECEIVE */ .Gb8, function (pkt) {
+      var values;
+      var data = pkt.data,
+          serviceCommand = pkt.serviceCommand;
+
+      switch (serviceCommand) {
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.NumberReceived */ .GZs.NumberReceived:
+          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[3] f64 s");
+          break;
+
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.StringReceived */ .GZs.StringReceived:
+          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[1] s");
+          break;
+
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.BufferReceived */ .GZs.BufferReceived:
+          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[1] b");
+          break;
+      }
+
+      appendMessage(values.filter(function (v) {
+        return v !== undefined && v !== "";
+      }));
+    });
+  }, [service, lastEvents]);
+  var text = lastEvents.map(function (ev) {
+    return ev.payload.filter(function (v) {
+      return v !== undefined && v !== "";
+    }).join(",");
+  }).join("\n");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_4__.default, null, text);
+}
+
+/***/ }),
+
 /***/ 79739:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -644,4 +693,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4c539ae3dd6672a0b8bf4d5e2b6d875ddc4550ef-97186c71b18a62886b87.js.map
+//# sourceMappingURL=8743-14715741f6fae8864820.js.map
