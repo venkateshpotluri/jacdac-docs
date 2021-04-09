@@ -880,7 +880,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
       case "nextEvent":
         {
           (0,jdutils/* exprVisitor */.ao)(null, args, function (p, ce) {
-            if (ce.type !== 'CallExpression') return;
+            if (ce.type !== "CallExpression") return;
             if (ce.callee.name === "start") startExprs.push(ce.arguments[0]);else if (ce.callee.name === "closeTo") {
               startExprs.push(ce.arguments[1]);
               startExprs.push(ce.arguments[2]);
@@ -1073,7 +1073,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
           if (this._rangeComplete === undefined) {
             this._rangeComplete = _regValue2;
           } else {
-            if (_regValue2 === this._rangeComplete + (testFun.id == 'stepsUpTo' ? 1 : -1)) this._rangeComplete = _regValue2;
+            if (_regValue2 === this._rangeComplete + (testFun.id == "stepsUpTo" ? 1 : -1)) this._rangeComplete = _regValue2;
 
             if (this._rangeComplete === endSaved.v) {
               this._status = JDTestCommandStatus.Passed;
@@ -1081,7 +1081,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
           }
 
           if (this._rangeComplete != undefined) {
-            this._progress = testFun.id == 'stepsUpTo' ? "from " + pretify(beginSaved.v) + " up to " + pretify(this._rangeComplete) : "from " + pretify(beginSaved.v) + " down to " + pretify(this._rangeComplete);
+            this._progress = testFun.id == "stepsUpTo" ? "from " + pretify(beginSaved.v) + " up to " + pretify(this._rangeComplete) : "from " + pretify(beginSaved.v) + " down to " + pretify(this._rangeComplete);
           }
 
           break;
@@ -1521,7 +1521,8 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     _this6.start();
 
     return _this6;
-  }
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 
   var _proto5 = JDServiceTestRunner.prototype;
 
@@ -2003,4 +2004,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-7a462eff6f857ad9e0af.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-c9168813b5bd8affe31e.js.map

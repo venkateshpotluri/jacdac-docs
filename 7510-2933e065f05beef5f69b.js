@@ -723,7 +723,7 @@ function parseTrace(contents) {
 
     packets.push(_packet__WEBPACK_IMPORTED_MODULE_1__/* .default.fromBinary */ .Z.fromBinary(data, timestamp));
   });
-  if (packets.length) return new _trace__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z(packets, description.join('\n').trim());else return undefined;
+  if (packets.length) return new _trace__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z(packets, description.join("\n").trim());else return undefined;
 }
 function parseLogicLog(logcontents) {
   if (!logcontents) return undefined;
@@ -1080,4 +1080,4 @@ function TraceSnippet(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7510-d175d63334b1294c1901.js.map
+//# sourceMappingURL=7510-2933e065f05beef5f69b.js.map

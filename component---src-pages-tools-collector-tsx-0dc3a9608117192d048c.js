@@ -480,10 +480,10 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
             case 0:
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               info = {
-                "numSamples": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.NumSamples */ .HUt.NumSamples, function (r) {
+                numSamples: this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.NumSamples */ .HUt.NumSamples, function (r) {
                   return r.intValue;
                 }),
-                "sampleSize": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.SampleSize */ .HUt.SampleSize, function (r) {
+                sampleSize: this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.SampleSize */ .HUt.SampleSize, function (r) {
                   return r.intValue;
                 })
               };
@@ -1376,4 +1376,4 @@ function Collector() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-collector-tsx-b4f0a65eb0af97adc2ec.js.map
+//# sourceMappingURL=component---src-pages-tools-collector-tsx-0dc3a9608117192d048c.js.map

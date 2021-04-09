@@ -523,7 +523,7 @@ var JDBridge = /*#__PURE__*/function (_JDClient) {
   /**
    * Receives frame data payload and injects it into the bus
    * @param data
-   * @returns 
+   * @returns
    */
   _proto.receiveFrame = function receiveFrame(data) {
     if (!this._bus) return; // disconnected
@@ -535,7 +535,7 @@ var JDBridge = /*#__PURE__*/function (_JDClient) {
   /**
    * Receives packet data payload and injects it into the bus
    * @param data
-   * @returns 
+   * @returns
    */
   ;
 
@@ -570,7 +570,7 @@ var JDBridge = /*#__PURE__*/function (_JDClient) {
   }
   /**
    * Sends packet data over the bridge
-   * @param pkt 
+   * @param pkt
    */
   ;
 
@@ -956,4 +956,4 @@ module.exports = webpackEmptyContext;
 /***/ })
 
 }]);
-//# sourceMappingURL=147-bde3dea95a6a274a41a0.js.map
+//# sourceMappingURL=147-712a38f6c94896c76ad7.js.map

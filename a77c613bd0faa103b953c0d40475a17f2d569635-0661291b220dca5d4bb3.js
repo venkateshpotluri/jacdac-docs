@@ -307,10 +307,10 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
             case 0:
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               info = {
-                "numSamples": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.NumSamples */ .HUt.NumSamples, function (r) {
+                numSamples: this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.NumSamples */ .HUt.NumSamples, function (r) {
                   return r.intValue;
                 }),
-                "sampleSize": this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.SampleSize */ .HUt.SampleSize, function (r) {
+                sampleSize: this.getReg(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SensorAggregatorReg.SampleSize */ .HUt.SampleSize, function (r) {
                   return r.intValue;
                 })
               };
@@ -1232,19 +1232,19 @@ var ModelRunnerClient = /*#__PURE__*/function (_JDServiceClient) {
           switch (_context5.prev = _context5.next) {
             case 0:
               info = {
-                "modelSize": this.getReg(constants/* ModelRunnerReg.ModelSize */.FEd.ModelSize, function (r) {
+                modelSize: this.getReg(constants/* ModelRunnerReg.ModelSize */.FEd.ModelSize, function (r) {
                   return r.intValue;
                 }),
-                "arenaSize": this.getReg(constants/* ModelRunnerReg.AllocatedArenaSize */.FEd.AllocatedArenaSize, function (r) {
+                arenaSize: this.getReg(constants/* ModelRunnerReg.AllocatedArenaSize */.FEd.AllocatedArenaSize, function (r) {
                   return r.intValue;
                 }),
-                "inputShape": this.getReg(constants/* ModelRunnerReg.InputShape */.FEd.InputShape, function (r) {
+                inputShape: this.getReg(constants/* ModelRunnerReg.InputShape */.FEd.InputShape, function (r) {
                   return (0,buffer/* bufferToArray */._W)(r.data, buffer/* NumberFormat.UInt16LE */.y4.UInt16LE);
                 }),
-                "outputShape": this.getReg(constants/* ModelRunnerReg.OutputShape */.FEd.OutputShape, function (r) {
+                outputShape: this.getReg(constants/* ModelRunnerReg.OutputShape */.FEd.OutputShape, function (r) {
                   return (0,buffer/* bufferToArray */._W)(r.data, buffer/* NumberFormat.UInt16LE */.y4.UInt16LE);
                 }),
-                "lastError": this.getReg(constants/* ModelRunnerReg.LastError */.FEd.LastError, function (r) {
+                lastError: this.getReg(constants/* ModelRunnerReg.LastError */.FEd.LastError, function (r) {
                   return utils/* uint8ArrayToString */.DA(r.data);
                 })
               };
@@ -1927,4 +1927,4 @@ function ModelUploader() {
 /***/ })
 
 }]);
-//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-9704e3995dcc603fb270.js.map
+//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-0661291b220dca5d4bb3.js.map

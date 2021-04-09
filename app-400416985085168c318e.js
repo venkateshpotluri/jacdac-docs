@@ -25725,8 +25725,8 @@ var JDEventSource = /*#__PURE__*/function () {
   }
   /**
    * Synchronously calls each of the listeners registered for the event named eventName, in the order they were registered, passing the supplied arguments to each.
-   * @param eventName 
-   * @param args 
+   * @param eventName
+   * @param args
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
@@ -25790,7 +25790,7 @@ var JDEventSource = /*#__PURE__*/function () {
   }
   /**
    * Creates an observable from the given event
-   * @param eventName 
+   * @param eventName
    */
   ;
 
@@ -25799,8 +25799,8 @@ var JDEventSource = /*#__PURE__*/function () {
   }
   /**
    * Subscribes to an event and returns the unsubscription handler
-   * @param eventName 
-   * @param next 
+   * @param eventName
+   * @param next
    */
   ;
 
@@ -26455,9 +26455,9 @@ var FlashClient = /*#__PURE__*/function () {
   return FlashClient;
 }();
 
-var UF2_MAGIC_START0 = 0x0A324655;
-var UF2_MAGIC_START1 = 0x9E5D5157;
-var UF2_MAGIC_END = 0x0AB16F30;
+var UF2_MAGIC_START0 = 0x0a324655;
+var UF2_MAGIC_START1 = 0x9e5d5157;
+var UF2_MAGIC_END = 0x0ab16f30;
 function parseUF2(uf2, store) {
   var blobs = [];
   var currBlob;
@@ -26533,7 +26533,8 @@ function parseUF2(uf2, store) {
             v = (0,_buffer__WEBPACK_IMPORTED_MODULE_1__/* .getNumber */ .Dx)(buf, _buffer__WEBPACK_IMPORTED_MODULE_1__/* .NumberFormat.UInt32LE */ .y4.UInt32LE, i + 4);
           }
 
-          currBlob[key] = v;
+          var cbany = currBlob;
+          cbany[key] = v;
           break;
         }
       }
@@ -26776,7 +26777,7 @@ function flashFirmwareBlob(_x13, _x14, _x15, _x16) {
 }
 /**
  * This command can be sent every 50ms to keep devices in bootloader mode
- * @param bus 
+ * @param bus
  */
 
 function _flashFirmwareBlob2() {
@@ -26973,36 +26974,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 /*
-* `0xD0: set_all(C+)` - set all pixels in current range to given color pattern
-* `0xD1: fade(C+)` - set `N` pixels to color between colors in sequence
-* `0xD2: fade_hsv(C+)` - similar to `fade()`, but colors are specified and faded in HSV
-* `0xD3: rotate_fwd(K)` - rotate (shift) pixels by `K` positions away from the connector
-* `0xD4: rotate_back(K)` - same, but towards the connector
-* `0xD5: show(M=50)` - send buffer to strip and wait `M` milliseconds
-* `0xD6: range(P=0, N=length)` - range from pixel `P`, `N` pixels long
-* `0xD7: mode(K=0)` - set update mode
-* `0xD8: mode1(K=0)` - set update mode for next command only
-*/
+ * `0xD0: set_all(C+)` - set all pixels in current range to given color pattern
+ * `0xD1: fade(C+)` - set `N` pixels to color between colors in sequence
+ * `0xD2: fade_hsv(C+)` - similar to `fade()`, but colors are specified and faded in HSV
+ * `0xD3: rotate_fwd(K)` - rotate (shift) pixels by `K` positions away from the connector
+ * `0xD4: rotate_back(K)` - same, but towards the connector
+ * `0xD5: show(M=50)` - send buffer to strip and wait `M` milliseconds
+ * `0xD6: range(P=0, N=length)` - range from pixel `P`, `N` pixels long
+ * `0xD7: mode(K=0)` - set update mode
+ * `0xD8: mode1(K=0)` - set update mode for next command only
+ */
 
-var LIGHT_PROG_SET_ALL = 0xD0;
-var LIGHT_PROG_FADE = 0xD1;
-var LIGHT_PROG_FADE_HSV = 0xD2;
-var LIGHT_PROG_ROTATE_FWD = 0xD3;
-var LIGHT_PROG_ROTATE_BACK = 0xD4;
-var LIGHT_PROG_SHOW = 0xD5;
-var LIGHT_PROG_RANGE = 0xD6;
-var LIGHT_PROG_MODE = 0xD7;
-var LIGHT_PROG_MODE1 = 0xD8;
+var LIGHT_PROG_SET_ALL = 0xd0;
+var LIGHT_PROG_FADE = 0xd1;
+var LIGHT_PROG_FADE_HSV = 0xd2;
+var LIGHT_PROG_ROTATE_FWD = 0xd3;
+var LIGHT_PROG_ROTATE_BACK = 0xd4;
+var LIGHT_PROG_SHOW = 0xd5;
+var LIGHT_PROG_RANGE = 0xd6;
+var LIGHT_PROG_MODE = 0xd7;
+var LIGHT_PROG_MODE1 = 0xd8;
 var LIGHT_MODE_REPLACE = 0x00;
 var LIGHT_MODE_ADD_RGB = 0x01;
 var LIGHT_MODE_SUBTRACT_RGB = 0x02;
 var LIGHT_MODE_MULTIPLY_RGB = 0x03;
 var LIGHT_MODE_LAST = 0x03;
-var LIGHT_PROG_COLN = 0xC0;
-var LIGHT_PROG_COL1 = 0xC1;
-var LIGHT_PROG_COL2 = 0xC2;
-var LIGHT_PROG_COL3 = 0xC3;
-var LIGHT_PROG_COL1_SET = 0xCF;
+var LIGHT_PROG_COLN = 0xc0;
+var LIGHT_PROG_COL1 = 0xc1;
+var LIGHT_PROG_COL2 = 0xc2;
+var LIGHT_PROG_COL3 = 0xc3;
+var LIGHT_PROG_COL1_SET = 0xcf;
 
 function cmdCode(cmd) {
   switch (cmd) {
@@ -27071,12 +27072,12 @@ function lightEncode(format, args) {
   }
 
   function flush() {
-    if (currcmd == 0xCF) {
+    if (currcmd == 0xcf) {
       if (colors.length != 1) throw new Error("setone requires 1 color");
     } else {
       if (colors.length == 0) return;
-      if (colors.length <= 3) outarr.push(0xC0 | colors.length);else {
-        outarr.push(0xC0);
+      if (colors.length <= 3) outarr.push(0xc0 | colors.length);else {
+        outarr.push(0xc0);
         outarr.push(colors.length);
       }
     }
@@ -27118,14 +27119,14 @@ function lightEncode(format, args) {
       if (currcmd == 0x100) {
         var f = parseFloat(nextToken());
         if (isNaN(f) || f < 0 || f > 2) throw new Error("expecting scale");
-        outarr.push(0xD8); // tmpmode
+        outarr.push(0xd8); // tmpmode
 
         outarr.push(3); // mult
 
-        outarr.push(0xD0); // setall
+        outarr.push(0xd0); // setall
 
         var mm = Math.round(128 * f) & 0xff;
-        outarr.push(0xC1);
+        outarr.push(0xc1);
         outarr.push(mm);
         outarr.push(mm);
         outarr.push(mm);
@@ -28015,7 +28016,7 @@ var Packet = /*#__PURE__*/function () {
         var spec = (0,_spec__WEBPACK_IMPORTED_MODULE_6__/* .serviceSpecificationFromClassIdentifier */ .d5)(this.serviceClass);
         var code = this.eventCode;
         var pkt = spec.packets.find(function (pkt) {
-          return pkt.kind === 'event' && pkt.identifier === code;
+          return pkt.kind === "event" && pkt.identifier === code;
         });
         cmdname = pkt === null || pkt === void 0 ? void 0 : pkt.name;
       } else {
@@ -28528,12 +28529,12 @@ function prettyMemberUnit(specification, showDataType) {
     return (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .isSet */ .DM)(f) && f;
   });
   if (showDataType) parts.unshift(specification.type);
-  var helperText = parts.join(', ');
+  var helperText = parts.join(", ");
   return helperText;
 }
 function prettySize(b) {
   b = b | 0;
-  if (b < 1000) return b + 'b';else if (b < 1000000) return (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .roundWithPrecision */ .JI)(b / 1e3, 1) + 'kb';else return (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .roundWithPrecision */ .JI)(b / 1e6, 1) + 'mb';
+  if (b < 1000) return b + "b";else if (b < 1000000) return (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .roundWithPrecision */ .JI)(b / 1e3, 1) + "kb";else return (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .roundWithPrecision */ .JI)(b / 1e6, 1) + "mb";
 }
 function prettyDuration(ms) {
   var s = ms / 1000;
@@ -28968,7 +28969,7 @@ function printPacket(pkt, opts) {
   var service_name = pkt.friendlyServiceName;
   var cmdname = pkt.friendlyCommandName;
   var pdesc = devname + "/" + service_name + ": " + cmdname + "; sz=" + pkt.size;
-  if (frame_flags & _constants__WEBPACK_IMPORTED_MODULE_3__/* .JD_FRAME_FLAG_COMMAND */ .e4B) pdesc = 'to ' + pdesc;else pdesc = 'from ' + pdesc;
+  if (frame_flags & _constants__WEBPACK_IMPORTED_MODULE_3__/* .JD_FRAME_FLAG_COMMAND */ .e4B) pdesc = "to " + pdesc;else pdesc = "from " + pdesc;
   if (frame_flags & _constants__WEBPACK_IMPORTED_MODULE_3__/* .JD_FRAME_FLAG_ACK_REQUESTED */ .amS) pdesc = "[ack:" + (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .hexNum */ .Rj)(pkt.crc) + "] " + pdesc;
   var d = pkt.data;
 
@@ -30592,7 +30593,7 @@ var Trace = /*#__PURE__*/function () {
       text.unshift("");
     }
 
-    return text.join('\n');
+    return text.join("\n");
   };
 
   (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Trace, [{
@@ -31932,7 +31933,7 @@ var ArcadeGamepadServer = /*#__PURE__*/function (_SensorServer) {
   }()
   /**
    * Read the state of a browser gamepad and apply it to the sensor
-   * @param gamepad 
+   * @param gamepad
    */
   ;
 
@@ -37641,7 +37642,7 @@ var HostedFileStorage = /*#__PURE__*/function () {
 
   _proto2.saveText = function saveText(name, data) {
     return this.transport.postMessage({
-      type: 'save-text',
+      type: "save-text",
       data: {
         name: name,
         data: data
@@ -37726,7 +37727,7 @@ var HostedModelStore = /*#__PURE__*/function (_JDEventSource2) {
               path = model.path;
               _context.next = 3;
               return this.transport.postMessage({
-                type: 'file-load',
+                type: "file-load",
                 requireAck: true,
                 data: {
                   path: path
@@ -37745,8 +37746,8 @@ var HostedModelStore = /*#__PURE__*/function (_JDEventSource2) {
               return _context.abrupt("return", undefined);
 
             case 7:
-              base64 = data.mimetype === 'application/octet-stream';
-              buffer = Buffer.from(data.content, base64 ? 'base64' : undefined);
+              base64 = data.mimetype === "application/octet-stream";
+              buffer = Buffer.from(data.content, base64 ? "base64" : undefined);
               return _context.abrupt("return", new Blob([buffer], {
                 type: data.mimetype
               }));
@@ -37796,15 +37797,15 @@ var IFrameTransport = /*#__PURE__*/function (_JDIFrameClient) {
 
   _proto.postReady = function postReady() {
     this.postMessage({
-      type: 'status',
+      type: "status",
       data: {
-        status: 'ready'
+        status: "ready"
       }
     });
   }
   /**
    * Post message to client and awaits for ack if needed
-   * @param msg 
+   * @param msg
    */
   ;
 
@@ -40786,7 +40787,7 @@ var JDField = /*#__PURE__*/function (_JDNode) {
     get: function get() {
       var parts = [this.member.friendlyName];
       if (this.specification.name !== "_") parts.push(this.name);
-      return parts.join('.');
+      return parts.join(".");
     }
   }, {
     key: "unit",
@@ -40871,7 +40872,7 @@ var JDServiceMemberNode = /*#__PURE__*/function (_JDNode) {
     key: "friendlyName",
     get: function get() {
       var parts = [this.service.friendlyName, this.name];
-      return parts.join('.');
+      return parts.join(".");
     }
   }]);
 
@@ -41101,7 +41102,7 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
 
       return (_this$decoded = this.decoded) === null || _this$decoded === void 0 ? void 0 : (_this$decoded$decoded = _this$decoded.decoded) === null || _this$decoded$decoded === void 0 ? void 0 : _this$decoded$decoded.map(function (field) {
         return field.humanValue;
-      }).join(',');
+      }).join(",");
     }
   }, {
     key: "decoded",
@@ -41150,7 +41151,7 @@ var JDEvent = /*#__PURE__*/function (_JDServiceMemberNode) {
 
     var old = behind < 60;
     var missed5 = ahead < 5;
-    var isahead = ahead > 0; // ahead < 5 means we missed at most 5 events, 
+    var isahead = ahead > 0; // ahead < 5 means we missed at most 5 events,
     // so we ignore this one and rely on retransmission
     // of the missed events, and then eventually the current event
 
@@ -44063,7 +44064,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 cmds: cmds
               });
 
-              _this4.error('micro:bit disconnected');
+              _this4.error("micro:bit disconnected");
 
               return _context2.abrupt("return");
 
@@ -44081,7 +44082,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 cmds: cmds
               });
 
-              _this4.error('micro:bit disconnected');
+              _this4.error("micro:bit disconnected");
 
               return _context2.abrupt("return");
 
@@ -46711,12 +46712,12 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
   };
 
   _proto.handleGamepadConnected = function handleGamepadConnected(event) {
-    console.log('gamepad connected');
+    console.log("gamepad connected");
     if (!this.ticking) this.tick();
   };
 
   _proto.handleGamepadDisconnected = function handleGamepadDisconnected(event) {
-    console.log('gamepad disconnected');
+    console.log("gamepad disconnected");
     var gamepad = event.gamepad;
     var index = gamepad.index;
     var host = this.hosts[index];
@@ -50399,4 +50400,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ad2ca20363c19bbe3f3d.js.map
+//# sourceMappingURL=app-400416985085168c318e.js.map
