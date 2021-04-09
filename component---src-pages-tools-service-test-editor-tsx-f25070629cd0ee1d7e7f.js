@@ -504,7 +504,11 @@ var AppContext = __webpack_require__("2K/c");
 // EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
 var Markdown = __webpack_require__("kmB/");
 
+// EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
+var GridHeader = __webpack_require__("H6TX");
+
 // CONCATENATED MODULE: ./src/components/tools/ServiceTestEditor.tsx
+
 
 
 
@@ -560,7 +564,7 @@ function ServiceTestEditor() {
 
             case 3:
               ghSource = _context.sent;
-              if (ghSource) setSource(ghSource);else setError("Specification source not found");
+              setSource(ghSource || "");
               _context.next = 10;
               break;
 
@@ -576,7 +580,7 @@ function ServiceTestEditor() {
 
             case 13:
               _ghSource = _context.sent;
-              if (_ghSource) setMarkdownSource(_ghSource);else setError("Test source not found");
+              if (_ghSource) setMarkdownSource(_ghSource);else setError("Specification source not found");
               _context.next = 20;
               break;
 
@@ -620,13 +624,13 @@ function ServiceTestEditor() {
     variant: "outlined",
     disabled: !serviceSpec,
     onClick: handleLoadFromGithub
-  }, "Load tests from GitHub")))), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  }, "Load from GitHub")))), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     spacing: 2,
     container: true
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 6,
-    xl: 5
+    xs: 12,
+    sm: 7
   }, /*#__PURE__*/react_default.a.createElement(HighlightTextField["a" /* default */], {
     code: source,
     language: "markdown",
@@ -636,11 +640,13 @@ function ServiceTestEditor() {
     pullRequestPath: servicePath
   })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 6,
-    xl: 5
+    xs: 12,
+    sm: 5
   }, /*#__PURE__*/react_default.a.createElement(Markdown["a" /* default */], {
     source: markdownSource
-  }))), json && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  }))), /*#__PURE__*/react_default.a.createElement(GridHeader["a" /* default */], {
+    title: "Preview"
+  }), json && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12,
     xl: 7
@@ -732,6 +738,76 @@ var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("pa
 }), 'Info');
 
 exports.default = _default;
+
+/***/ }),
+
+/***/ "H6TX":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GridHeader; });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("R/WZ");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("ZBNC");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("tRbT");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("hlFM");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ofer");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("9jPY");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("q1tI");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("iuhU");
+
+
+
+var useStyles = Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(function (theme) {
+  return Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"])({
+    hr: {
+      background: theme.palette.text.disabled,
+      marginBottom: "unset"
+    },
+    start: {
+      width: theme.spacing(2)
+    }
+  });
+});
+function GridHeader(props) {
+  var title = props.title,
+      count = props.count,
+      variant = props.variant,
+      action = props.action;
+  var classes = useStyles();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    container: true,
+    direction: "row",
+    spacing: 1,
+    justify: "center",
+    alignItems: "center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("hr", {
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])(classes.hr, classes.start)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true
+  }, action && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    component: "span",
+    mr: 1
+  }, action), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    component: "span",
+    variant: variant || "subtitle1"
+  }, title), count !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    component: "span",
+    ml: 0.5
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    label: count
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("hr", {
+    className: classes.hr
+  }))));
+}
 
 /***/ }),
 
@@ -2172,4 +2248,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-f818a7c4b6f1337c1040.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-f25070629cd0ee1d7e7f.js.map
