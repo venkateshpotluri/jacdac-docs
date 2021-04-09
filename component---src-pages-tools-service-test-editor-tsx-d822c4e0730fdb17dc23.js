@@ -501,7 +501,11 @@ var github = __webpack_require__("LGN/");
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__("2K/c");
 
+// EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
+var Markdown = __webpack_require__("kmB/");
+
 // CONCATENATED MODULE: ./src/components/tools/ServiceTestEditor.tsx
+
 
 
 
@@ -517,6 +521,7 @@ var AppContext = __webpack_require__("2K/c");
 
 var SERVICE_TEST_SERVICE_STORAGE_KEY = "jacdac:servicetesteditor:service";
 var SERVICE_TEST_SOURCE_STORAGE_KEY = "jacdac:servicetesteditorsource";
+var SERVICE_MARKDOWN_SOURCE_STORAGE_KEY = "jacdac:servicetesteditorsource:markdown";
 function ServiceTestEditor() {
   var _useContext = Object(react["useContext"])(AppContext["c" /* default */]),
       setError = _useContext.setError;
@@ -529,6 +534,10 @@ function ServiceTestEditor() {
       source = _useLocalStorage2[0],
       setSource = _useLocalStorage2[1];
 
+  var _useLocalStorage3 = Object(useLocalStorage["a" /* default */])(SERVICE_MARKDOWN_SOURCE_STORAGE_KEY, ""),
+      markdownSource = _useLocalStorage3[0],
+      setMarkdownSource = _useLocalStorage3[1];
+
   var serviceSpec = Object(react["useMemo"])(function () {
     return Object(jdom_spec["D" /* serviceSpecificationFromClassIdentifier */])(serviceClass);
   }, [serviceClass]);
@@ -539,7 +548,8 @@ function ServiceTestEditor() {
 
   var handleLoadFromGithub = /*#__PURE__*/function () {
     var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-      var ghSource;
+      var ghSource, _ghSource;
+
       return regenerator_default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -550,7 +560,7 @@ function ServiceTestEditor() {
 
             case 3:
               ghSource = _context.sent;
-              if (ghSource) setSource(ghSource);else setError("Test source not found");
+              if (ghSource) setSource(ghSource);else setError("Specification source not found");
               _context.next = 10;
               break;
 
@@ -560,11 +570,27 @@ function ServiceTestEditor() {
               setError(_context.t0);
 
             case 10:
+              _context.prev = 10;
+              _context.next = 13;
+              return Object(github["d" /* fetchText */])("microsoft/jacdac", "main", "services/" + serviceSpec.shortId + ".md", "text/plain");
+
+            case 13:
+              _ghSource = _context.sent;
+              if (_ghSource) setMarkdownSource(_ghSource);else setError("Test source not found");
+              _context.next = 20;
+              break;
+
+            case 17:
+              _context.prev = 17;
+              _context.t1 = _context["catch"](10);
+              setError(_context.t1);
+
+            case 20:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 7]]);
+      }, _callee, null, [[0, 7], [10, 17]]);
     }));
 
     return function handleLoadFromGithub() {
@@ -595,6 +621,9 @@ function ServiceTestEditor() {
     disabled: !serviceSpec,
     onClick: handleLoadFromGithub
   }, "Load tests from GitHub")))), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    spacing: 2,
+    container: true
+  }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12,
     xl: 5
@@ -605,7 +634,13 @@ function ServiceTestEditor() {
     annotations: json === null || json === void 0 ? void 0 : json.errors,
     pullRequestTitle: json && "Service test: " + serviceSpec.name,
     pullRequestPath: servicePath
-  })), json && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+  })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
+    item: true,
+    xs: 12,
+    xl: 5
+  }, /*#__PURE__*/react_default.a.createElement(Markdown["a" /* default */], {
+    source: markdownSource
+  }))), json && /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
     xs: 12,
     xl: 7
@@ -2137,4 +2172,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-a550d73ed2577e9ba3b5.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-d822c4e0730fdb17dc23.js.map
