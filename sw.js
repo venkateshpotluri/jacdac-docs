@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-661984b2f17589cde215.js"
+    "url": "webpack-runtime-15826fb1b29d39d32d2f.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "a7f18740a77133d2d79b6c7632d8275f"
+    "revision": "50c1a5f5af5e8c5153c24cee9177d562"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "6a34b0392bbc69be30d711764a45ddf2"
+    "revision": "3ca73126bf48ea3fd04dfca8c7e5568b"
   },
   {
     "url": "polyfill-3dba7d40c3baf44701ca.js"
@@ -1324,7 +1324,7 @@ self.__precacheManifest = [
     "revision": "fff97a63d7d76d0afb3e023b1d340b17"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-64c7e6eea612888473b5.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-13241040b774f234dfb8.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",

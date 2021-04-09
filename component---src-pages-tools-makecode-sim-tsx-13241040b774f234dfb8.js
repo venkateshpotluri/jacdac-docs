@@ -112,7 +112,7 @@ function Carousel() {
     showHeader: false,
     deviceSort: deviceSort,
     deviceFilter: deviceFilter,
-    showStartSimulators: true
+    showStartSimulators: false
   }), !!(extensions !== null && extensions !== void 0 && extensions.length) && /*#__PURE__*/react.createElement(Box/* default */.Z, {
     m: 1
   }, /*#__PURE__*/react.createElement(Button/* default */.Z, {
@@ -152,4 +152,4 @@ function makecode_sim_Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-64c7e6eea612888473b5.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-13241040b774f234dfb8.js.map
