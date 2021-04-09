@@ -625,7 +625,7 @@ function ServiceTestEditor() {
     container: true
   }, /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12,
+    xs: 6,
     xl: 5
   }, /*#__PURE__*/react_default.a.createElement(HighlightTextField["a" /* default */], {
     code: source,
@@ -636,7 +636,7 @@ function ServiceTestEditor() {
     pullRequestPath: servicePath
   })), /*#__PURE__*/react_default.a.createElement(Grid["a" /* default */], {
     item: true,
-    xs: 12,
+    xs: 6,
     xl: 5
   }, /*#__PURE__*/react_default.a.createElement(Markdown["a" /* default */], {
     source: markdownSource
@@ -2172,4 +2172,4 @@ function HighlightTextField(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-d822c4e0730fdb17dc23.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-f818a7c4b6f1337c1040.js.map
