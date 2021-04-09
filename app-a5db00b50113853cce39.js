@@ -46736,6 +46736,7 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
     get: function get() {
       var _this$_runOptions3;
 
+      if (!this._runOptions) return [];
       var devices = this.bus.devices({
         announced: true,
         ignoreSelf: true
@@ -46754,7 +46755,6 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
       }).map(function (d) {
         return /^github:([^#]+)(#.?)?/.exec(d)[1];
       });
-      console.log(dependencies);
 
       if ((dependencies === null || dependencies === void 0 ? void 0 : dependencies.length) > 0) {
         // remove all needed extenions that are already in the dependencies
@@ -50520,4 +50520,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-383e789467232b645607.js.map
+//# sourceMappingURL=app-a5db00b50113853cce39.js.map
