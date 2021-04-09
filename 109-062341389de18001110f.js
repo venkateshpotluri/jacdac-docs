@@ -11,10 +11,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("N1P3");
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("ZfHV");
 /* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("BsyY");
+/* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("Indg");
 
 
 
 
+
+var HORIZON = 10;
 function DashboardBitRadio(props) {
   var service = props.service;
 
@@ -37,7 +40,7 @@ function DashboardBitRadio(props) {
     };
     evs.push(msg);
 
-    while (evs.length > 10) {
+    while (evs.length > HORIZON) {
       evs.shift();
     }
 
@@ -64,19 +67,20 @@ function DashboardBitRadio(props) {
           break;
       }
 
-      appendMessage(values);
+      appendMessage(values.filter(function (v) {
+        return v !== undefined && v !== "";
+      }));
     });
   }, [service, lastEvents]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, lastEvents.map(function (lv, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: i
-    }, lv.payload.filter(function (v) {
+  var text = lastEvents.map(function (ev) {
+    return ev.payload.filter(function (v) {
       return v !== undefined && v !== "";
-    }).join(", "));
-  }));
+    }).join(",");
+  }).join("\n");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_4__["default"], null, text);
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=109-334d667f34e337cdb5ba.js.map
+//# sourceMappingURL=109-062341389de18001110f.js.map

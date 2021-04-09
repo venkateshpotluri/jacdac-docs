@@ -1060,4 +1060,4 @@ var Tabs_Tabs = /*#__PURE__*/react["forwardRef"](function Tabs(props, ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7be8bd5e1d50433339e51f16955b42d6c2521d6b-f2b1cd1bd5c5765a2a70.js.map
+//# sourceMappingURL=7cd3ff411e9678ea7bece3fcd2fcfaadcd228989-f2b1cd1bd5c5765a2a70.js.map

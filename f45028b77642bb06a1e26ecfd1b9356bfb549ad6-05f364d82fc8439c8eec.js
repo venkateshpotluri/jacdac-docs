@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
 /***/ "1iKp":
 /***/ (function(module, exports, __webpack_require__) {
@@ -974,7 +974,7 @@ var DashboardSolenoid = /*#__PURE__*/Object(react["lazy"])(function () {
   return __webpack_require__.e(/* import() */ 125).then(__webpack_require__.bind(null, "F4wc"));
 });
 var DashboardBitRadio = /*#__PURE__*/Object(react["lazy"])(function () {
-  return __webpack_require__.e(/* import() */ 109).then(__webpack_require__.bind(null, "r5hW"));
+  return Promise.all(/* import() */[__webpack_require__.e(8), __webpack_require__.e(13), __webpack_require__.e(15), __webpack_require__.e(16), __webpack_require__.e(109)]).then(__webpack_require__.bind(null, "r5hW"));
 });
 var serviceViews = (_serviceViews = {}, _serviceViews[constants["le" /* SRV_ROLE_MANAGER */]] = {
   component: DashboardRoleManager,
@@ -1229,4 +1229,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-4649b6d392f88ecc9490.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-05f364d82fc8439c8eec.js.map

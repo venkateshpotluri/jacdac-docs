@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-e3c8bced8d2d7e4d3bb2.js"
+    "url": "webpack-runtime-bd7c59e91be06cf29f62.js"
   },
   {
     "url": "framework-c0143a60828cff4b65c7.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "9aad55e88cf69e7ec30bf056065d2009"
+    "revision": "627bca8c4e096dd394e9806274d07896"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "60a8b5ac801424a024f6e9f0a5b0210b"
+    "revision": "9894e0046ba42f048351682005879ea0"
   },
   {
     "url": "polyfill-4d20de916cfd43037bf4.js"
@@ -130,7 +130,7 @@ self.__precacheManifest = [
     "url": "bc1de39814113fdab2fbefae2ee854f0842f6be1-e35f94e595aca77225fc.js"
   },
   {
-    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-4649b6d392f88ecc9490.js"
+    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-05f364d82fc8439c8eec.js"
   },
   {
     "url": "7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-429b562736c0b167eee2.js"
@@ -143,7 +143,7 @@ self.__precacheManifest = [
     "revision": "213904b37cb7592cd6f13ee2c4f86fd1"
   },
   {
-    "url": "b9c63848ec245d9e30f1dbdb54c30b0b0e54aa8e-e9d44cb32b607b78c469.js"
+    "url": "97c3b2d01729d14971f44dc6012293e420701658-e3bdc146b602e5dae520.js"
   },
   {
     "url": "component---src-pages-devices-tsx-49aff9a11814cbdf6e38.js"
@@ -181,7 +181,7 @@ self.__precacheManifest = [
     "revision": "7118df1f90f6c103d3e407e3e0012315"
   },
   {
-    "url": "ea5bec84f4245e322b43fa433fccf95de0449133-b5cfdb91cf2dacac042f.js"
+    "url": "ea5bec84f4245e322b43fa433fccf95de0449133-80c64a645bb4be858205.js"
   },
   {
     "url": "6e6f508a4d48336b02c09c52b4663db8917995a6-d3c182a814eae860c8cb.js"
@@ -543,13 +543,13 @@ self.__precacheManifest = [
     "revision": "4082716ad0ee7c29a56ac8b0339bcf14"
   },
   {
-    "url": "cedf955bcb9c16f8fa8010180273d48c1156d4ea-58cb00e2b1cbd99c8c78.js"
+    "url": "8e9e0d5773dc3c506f63656e499090b1434d20f3-ad3569b1fa10d49c6efa.js"
   },
   {
-    "url": "7be8bd5e1d50433339e51f16955b42d6c2521d6b-f2b1cd1bd5c5765a2a70.js"
+    "url": "7cd3ff411e9678ea7bece3fcd2fcfaadcd228989-f2b1cd1bd5c5765a2a70.js"
   },
   {
-    "url": "a93809c29f21527c5152987808106017bef635d2-5be3e8526200126096bd.js"
+    "url": "4c539ae3dd6672a0b8bf4d5e2b6d875ddc4550ef-46221bb8bcf57870ff1d.js"
   },
   {
     "url": "component---src-pages-tools-azure-device-twin-designer-tsx-7fbf107f21a208df2f2b.js"
@@ -559,7 +559,7 @@ self.__precacheManifest = [
     "revision": "4a3a3db5ad8008a0e50a73f66cbdfeea"
   },
   {
-    "url": "213f6b1d983941c1fa45e0629211a4163c86d0cb-91c837fa31af1256fa90.js"
+    "url": "213f6b1d983941c1fa45e0629211a4163c86d0cb-1512cac882eff24d94b1.js"
   },
   {
     "url": "component---src-pages-tools-collector-tsx-e9dd6598579636fbc98b.js"
@@ -790,7 +790,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-6caa7946c9ecc40f939f.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-e1a3281b5f6cb37dbf66.js`))) {
     return await fetch(event.request)
   }
 
