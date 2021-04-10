@@ -82,7 +82,7 @@ function MDXContent(_ref) {
   }))), "Embedded HTML"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "The following HTML snippt inserts a Jacdac IFrame in the page\n(skinning the IFrame is beyond this guide as it is typically web site specific)."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("pre", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("code", {
     parentName: "pre",
     "className": "language-HTML"
-  }, "<iframe\n    style=\"width: 100%; height: 27rem; border: none;\"\n    allow=\"usb\"\n    sandbox=\"allow-scripts allow-same-origin\"\n    aria-label=\"Jacdac tools\"\n    src=\"https://microsoft.jacdac.io/jacdac-docs/tools/collector\" />\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Here is the live example. Make sure to disconnect Jacdac in this page before trying it out in the hosted page below."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("iframe", {
+  }, "<iframe\n    style=\"width: 100%; height: 27rem; border: none;\"\n    allow=\"usb\"\n    sandbox=\"allow-scripts allow-same-origin\"\n    aria-label=\"Jacdac tools\"\n    src=\"https://microsoft.github.io/jacdac-docs/tools/collector\" />\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Here is the live example. Make sure to disconnect Jacdac in this page before trying it out in the hosted page below."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("iframe", {
     style: {
       "width": "100%",
       "height": "27rem",
@@ -91,7 +91,7 @@ function MDXContent(_ref) {
     allow: "usb",
     sandbox: "allow-scripts allow-same-origin",
     "aria-label": "Jacdac tools",
-    src: "https://microsoft.jacdac.io/jacdac-docs/tools/collector"
+    src: "https://microsoft.github.io/jacdac-docs/tools/collector"
   }), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "message-protocol",
     "style": {
@@ -139,4 +139,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-web-iframe-mdx-8ec3cf4d85ee2057cd3a.js.map
+//# sourceMappingURL=component---src-pages-clients-web-iframe-mdx-0bf4d8795c269237c037.js.map
