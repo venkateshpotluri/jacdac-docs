@@ -1542,7 +1542,8 @@ function ModelContent(props) {
   return /*#__PURE__*/react.createElement(react.Fragment, null, lastError && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "warning"
   }, lastError), /*#__PURE__*/react.createElement(Typography/* default */.Z, null, "model size: ", modelSize === undefined ? "..." : (0,pretty/* prettySize */.or)(modelSize)), /*#__PURE__*/react.createElement(RegisterInput/* default */.Z, {
-    register: service.register(constants/* ModelRunnerReg.AutoInvokeEvery */.FEd.AutoInvokeEvery)
+    register: service.register(constants/* ModelRunnerReg.AutoInvokeEvery */.FEd.AutoInvokeEvery),
+    visible: true
   }), /*#__PURE__*/react.createElement(RegisterTrend/* default */.Z, {
     showName: true,
     register: service.register(constants/* ModelRunnerReg.Outputs */.FEd.Outputs),
@@ -1927,4 +1928,4 @@ function ModelUploader() {
 /***/ })
 
 }]);
-//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-0661291b220dca5d4bb3.js.map
+//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-c876b99a204c0973d33c.js.map

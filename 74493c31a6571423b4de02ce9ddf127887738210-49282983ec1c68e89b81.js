@@ -981,22 +981,32 @@ function parseServiceSpecificationMarkdownToJSON(filecontent, includes, filename
 
         switch (tok) {
           case "maxBytes":
-            ;
-            field[tok] = rangeCheck("u8", parseVal(words));
-            break;
+            {
+              // eslint-disable-next-line @typescript-eslint/no-extra-semi,@typescript-eslint/no-explicit-any
+              ;
+              field[tok] = rangeCheck("u8", parseVal(words));
+              break;
+            }
 
           case "typicalMin":
           case "typicalMax":
           case "absoluteMin":
           case "absoluteMax":
-            ;
-            field[tok] = rangeCheck(tp, parseVal(words));
-            break;
+            {
+              // eslint-disable-next-line @typescript-eslint/no-extra-semi,@typescript-eslint/no-explicit-any
+              ;
+              field[tok] = rangeCheck(tp, parseVal(words));
+              break;
+            }
 
           case "preferredInterval":
-            if (packetInfo[tok] !== undefined) error("field " + tok + " already set");
-            packetInfo[tok] = rangeCheck("u32", parseVal(words));
-            break;
+            {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              if (packetInfo[tok] !== undefined) error("field " + tok + " already set") // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              ;
+              packetInfo[tok] = rangeCheck("u32", parseVal(words));
+              break;
+            }
 
           default:
             error("unknown constraint: " + tok);
@@ -1749,7 +1759,7 @@ function normalizeDeviceSpecification(dev) {
 }
 function escapeDeviceIdentifier(text) {
   if (!text) text = "";
-  var escaped = text.trim().toLowerCase().replace(/([^a-z0-9\_-])+/gi, "-").replace(/^-+/, "").replace(/-+$/, "");
+  var escaped = text.trim().toLowerCase().replace(/([^a-z0-9_-])+/gi, "-").replace(/^-+/, "").replace(/-+$/, "");
   var id = snakify(escaped);
   return id;
 }
@@ -1886,4 +1896,4 @@ function exprVisitor(parent, current, structVisit) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-1eeba522875b06e22481.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-49282983ec1c68e89b81.js.map

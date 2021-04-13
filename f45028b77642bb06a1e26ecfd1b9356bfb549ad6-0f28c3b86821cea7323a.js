@@ -202,7 +202,8 @@ var ignoreRegisters = [constants/* SystemReg.StatusCode */.ZJq.StatusCode, const
 var collapsedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
 function DashboardServiceDetails(props) {
   var service = props.service,
-      expanded = props.expanded;
+      expanded = props.expanded,
+      visible = props.visible;
   var specification = (0,useChange/* default */.Z)(service, function (spec) {
     return spec.specification;
   });
@@ -240,7 +241,8 @@ function DashboardServiceDetails(props) {
       showServiceName: true,
       showRegisterName: true,
       hideMissingValues: false,
-      showTrend: false
+      showTrend: false,
+      visible: visible
     }));
   }));
 }
@@ -1182,4 +1184,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f14d633bb7ed432f88f9.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-0f28c3b86821cea7323a.js.map

@@ -400,7 +400,8 @@ function ServiceRegisters(props) {
       register: register,
       showRegisterName: showRegisterName,
       hideMissingValues: hideMissingValues,
-      showTrend: showTrends && register.code === constants/* SystemReg.Reading */.ZJq.Reading
+      showTrend: showTrends && register.code === constants/* SystemReg.Reading */.ZJq.Reading,
+      visible: true
     });
   }));
 }
@@ -1192,4 +1193,4 @@ function useEventCount(event) {
 /***/ })
 
 }]);
-//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-28ce225c82aa4841b4f8.js.map
+//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-702ea644a9c68f4d06d5.js.map

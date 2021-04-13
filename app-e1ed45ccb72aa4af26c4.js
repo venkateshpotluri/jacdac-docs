@@ -31789,16 +31789,20 @@ function arrayShuffle(a) {
 
   return a;
 }
-function uniqueName(names, name) {
+function uniqueName(names, name, separator) {
+  if (separator === void 0) {
+    separator = "";
+  }
+
   if (names.indexOf(name) < 0) return name; // allocate names
 
   var count = 2;
 
-  while (names.indexOf("" + name + count) > -1) {
+  while (names.indexOf("" + name + separator + count) > -1) {
     count++;
   }
 
-  return "" + name + count;
+  return "" + name + separator + count;
 }
 function groupBy(list, key) {
   if (!list) return {};
@@ -32604,9 +32608,12 @@ var CharacterScreenServer = /*#__PURE__*/function (_JDServiceServer) {
         _ref$columns = _ref.columns,
         columns = _ref$columns === void 0 ? 16 : _ref$columns,
         variant = _ref.variant,
-        textDirection = _ref.textDirection;
+        textDirection = _ref.textDirection,
+        _ref$brightness = _ref.brightness,
+        brightness = _ref$brightness === void 0 ? 100 : _ref$brightness;
 
     _this.message = _this.addRegister(constants/* CharacterScreenReg.Message */.OEJ.Message, [message || ""]);
+    _this.brightness = _this.addRegister(constants/* CharacterScreenReg.Brightness */.OEJ.Brightness, [brightness]);
     _this.rows = _this.addRegister(constants/* CharacterScreenReg.Rows */.OEJ.Rows, [rows]);
     _this.columns = _this.addRegister(constants/* CharacterScreenReg.Columns */.OEJ.Columns, [columns]);
     _this.variant = _this.addRegister(constants/* CharacterScreenReg.Variant */.OEJ.Variant, [variant || constants/* CharacterScreenVariant.LCD */.GLh.LCD]);
@@ -50520,4 +50527,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a5db00b50113853cce39.js.map
+//# sourceMappingURL=app-e1ed45ccb72aa4af26c4.js.map
