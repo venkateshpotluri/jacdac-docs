@@ -674,6 +674,18 @@ function parseServiceSpecificationMarkdownToJSON(filecontent, includes, filename
     }
   }
 
+  function generalKind(k) {
+    switch (k) {
+      case "const":
+      case "ro":
+      case "rw":
+        return "rw";
+
+      default:
+        return k;
+    }
+  }
+
   function startPacket(words) {
     checkBraces(null);
     var kindSt = words.shift();
@@ -823,7 +835,7 @@ function parseServiceSpecificationMarkdownToJSON(filecontent, includes, filename
     }
 
     if (info.packets.some(function (p) {
-      return p.kind == packetInfo.kind && (!/pipe/.test(p.kind) || p.pipeType == packetInfo.pipeType) && p.identifier == packetInfo.identifier;
+      return generalKind(p.kind) == generalKind(packetInfo.kind) && (!/pipe/.test(p.kind) || p.pipeType == packetInfo.pipeType) && p.identifier == packetInfo.identifier;
     })) {
       error("packet identifier already used");
     }
@@ -1896,4 +1908,4 @@ function exprVisitor(parent, current, structVisit) {
 /***/ })
 
 }]);
-//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-49282983ec1c68e89b81.js.map
+//# sourceMappingURL=74493c31a6571423b4de02ce9ddf127887738210-2a47296e957980f6255b.js.map
