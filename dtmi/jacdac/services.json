@@ -4134,10 +4134,9 @@
       {
         "@type": "Property",
         "name": "min_angle",
-        "@id": "dtmi:jacdac:x12fc9103:rw:minangle;1",
+        "@id": "dtmi:jacdac:x12fc9103:const:minangle;1",
         "description": "Lowest angle that can be set.",
-        "schema": "float",
-        "writable": true
+        "schema": "float"
       },
       {
         "@type": [
@@ -4154,10 +4153,9 @@
       {
         "@type": "Property",
         "name": "max_angle",
-        "@id": "dtmi:jacdac:x12fc9103:rw:maxangle;1",
+        "@id": "dtmi:jacdac:x12fc9103:const:maxangle;1",
         "description": "Highest angle that can be set.",
-        "schema": "float",
-        "writable": true
+        "schema": "float"
       },
       {
         "@type": [

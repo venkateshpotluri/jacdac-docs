@@ -48,19 +48,20 @@ function useRegisterServer(register) {
 
 function useReadingAuxilliaryValue(register, identifier, options) {
   if (identifier === void 0) {
-    identifier = constants/* SystemReg.ReadingError */.ZJq.ReadingError | constants/* SystemReg.ReadingResolution */.ZJq.ReadingResolution | constants/* SystemReg.MaxReading */.ZJq.MaxReading | constants/* SystemReg.MinReading */.ZJq.MinReading | constants/* SystemReg.StreamingInterval */.ZJq.StreamingInterval | constants/* SystemReg.StreamingPreferredInterval */.ZJq.StreamingPreferredInterval;
+    identifier = constants/* SystemReg.ReadingError */.ZJq.ReadingError | constants/* SystemReg.ReadingResolution */.ZJq.ReadingResolution | constants/* SystemReg.MaxReading */.ZJq.MaxReading | constants/* SystemReg.MinReading */.ZJq.MinReading | constants/* SystemReg.MinValue */.ZJq.MinValue | constants/* SystemReg.MaxValue */.ZJq.MaxValue | constants/* SystemReg.StreamingInterval */.ZJq.StreamingInterval | constants/* SystemReg.StreamingPreferredInterval */.ZJq.StreamingPreferredInterval;
   }
 
-  var service = register.service,
-      code = register.code;
+  var _ref = register || {},
+      service = _ref.service,
+      code = _ref.code;
 
-  var _ref = options || {
+  var _ref2 = options || {
     visible: true
   },
-      visible = _ref.visible;
+      visible = _ref2.visible;
 
   var reading = code === constants/* SystemReg.Reading */.ZJq.Reading || code === constants/* SystemReg.Value */.ZJq.Value;
-  var auxilliaryRegister = reading ? service.register(identifier) : undefined;
+  var auxilliaryRegister = reading && identifier ? service.register(identifier) : undefined;
 
   var _useState = (0,react.useState)(auxilliaryRegister === null || auxilliaryRegister === void 0 ? void 0 : auxilliaryRegister.unpackedValue),
       value = _useState[0],
@@ -106,7 +107,8 @@ function RegisterInput(props) {
   var service = register.service,
       specification = register.specification;
   var device = service.device;
-  var fields = register.fields;
+  var fields = register.fields,
+      code = register.code;
 
   var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
       setAppError = _useContext.setError;
@@ -129,8 +131,10 @@ function RegisterInput(props) {
   var regProps = visible !== undefined ? {
     visible: visible
   } : undefined;
-  var minReading = useReadingAuxilliaryValue(register, constants/* SystemReg.MinReading */.ZJq.MinReading, regProps);
-  var maxReading = useReadingAuxilliaryValue(register, constants/* SystemReg.MaxReading */.ZJq.MaxReading, regProps);
+  var isReading = code === constants/* SystemReg.Reading */.ZJq.Reading;
+  var isValue = !isReading && code === constants/* SystemReg.Value */.ZJq.Value;
+  var min = useReadingAuxilliaryValue(register, isReading ? constants/* SystemReg.MinReading */.ZJq.MinReading : isValue ? constants/* SystemReg.MinValue */.ZJq.MinValue : undefined, regProps);
+  var max = useReadingAuxilliaryValue(register, isReading ? constants/* SystemReg.MaxReading */.ZJq.MaxReading : isValue ? constants/* SystemReg.MaxValue */.ZJq.MaxValue : undefined, regProps);
   var readingError = useReadingAuxilliaryValue(register, constants/* SystemReg.ReadingError */.ZJq.ReadingError, regProps);
   var resolution = useReadingAuxilliaryValue(register, constants/* SystemReg.ReadingResolution */.ZJq.ReadingResolution, regProps);
   (0,react.useEffect)(function () {
@@ -246,8 +250,8 @@ function RegisterInput(props) {
     setValues: hasSet && sendArgs,
     showDataType: showDataType,
     variant: variant,
-    min: minReading,
-    max: maxReading,
+    min: min,
+    max: max,
     resolution: resolution,
     error: readingError,
     off: off,
@@ -1600,4 +1604,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-bb60bcdbb59bf4cbf217.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-696cd49813f8e8eaea49.js.map
