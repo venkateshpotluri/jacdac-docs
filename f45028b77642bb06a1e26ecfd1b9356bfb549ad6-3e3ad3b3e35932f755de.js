@@ -158,6 +158,10 @@ function ServiceRole(props) {
 }
 // EXTERNAL MODULE: ./src/jacdac/useRegisterValue.ts
 var useRegisterValue = __webpack_require__(89196);
+// EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
+var useServiceServer = __webpack_require__(49013);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Close.js
+var Close = __webpack_require__(29181);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
 
 
@@ -165,24 +169,51 @@ var useRegisterValue = __webpack_require__(89196);
 
 
 
+
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
 function DashboardServiceWidgetItem(props) {
-  var service = props.service;
+  var service = props.service,
+      expanded = props.expanded;
 
   var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SystemReg.InstanceName */.ZJq.InstanceName), props),
       instanceName = _useRegisterUnpackedV[0];
 
+  var server = (0,useServiceServer/* default */.Z)(service);
+
+  var handleRemove = function handleRemove() {
+    return server === null || server === void 0 ? void 0 : server.device.removeService(server);
+  };
+
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1,
+    alignItems: "center"
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: true
   }, /*#__PURE__*/react.createElement(ServiceRole, {
     service: service
-  }), instanceName && /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+  })), instanceName && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     className: "no-pointer-events",
     variant: "caption",
     component: "span",
     style: {
       float: "right"
     }
-  }, instanceName), /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.Z, props));
+  }, instanceName)), expanded && server && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: true,
+    alignContent: "flex-end"
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "Remove service",
+    onClick: handleRemove
+  }, /*#__PURE__*/react.createElement(Close/* default */.Z, null)))), /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.Z, props));
 }
 // EXTERNAL MODULE: ./src/components/DeviceActions.tsx
 var DeviceActions = __webpack_require__(87993);
@@ -372,7 +403,7 @@ function DashboardDevice(props) {
     }),
     action: /*#__PURE__*/react.createElement(DeviceActions/* default */.Z, {
       device: device,
-      showStopHost: expanded && !mobile,
+      showStop: expanded,
       hideIdentity: true,
       showReset: expanded && !mobile
     }, toggleExpanded && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
@@ -1184,4 +1215,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-0f28c3b86821cea7323a.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-3e3ad3b3e35932f755de.js.map

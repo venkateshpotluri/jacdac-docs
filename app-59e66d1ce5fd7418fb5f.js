@@ -29417,6 +29417,19 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
     this.emit(constants/* CHANGE */.Ver);
   };
 
+  _proto.removeService = function removeService(service) {
+    if ((service === null || service === void 0 ? void 0 : service.device) !== this) return; // not in this device;
+
+    var newServices = this._services.slice(1);
+
+    var index = newServices.indexOf(service);
+
+    if (index > -1) {
+      newServices.splice(index, 1);
+      this.updateServices(newServices);
+    }
+  };
+
   _proto.start = function start() {
     if (!this._bus) return;
     this._packetCount = 0;
@@ -32630,16 +32643,22 @@ var CharacterScreenServer = /*#__PURE__*/function (_JDServiceServer) {
 
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
 
 var HumidityServer = /*#__PURE__*/function (_SensorServer) {
   (0,inheritsLoose/* default */.Z)(HumidityServer, _SensorServer);
 
-  function HumidityServer() {
-    return _SensorServer.call(this, constants/* SRV_HUMIDITY */.JbI, {
+  function HumidityServer(options) {
+    return _SensorServer.call(this, constants/* SRV_HUMIDITY */.JbI, _objectSpread(_objectSpread({}, {
       readingValues: [40],
       readingError: [0.1],
       streamingInterval: 1000
-    }) || this;
+    }), options)) || this;
   }
 
   return HumidityServer;
@@ -34887,9 +34906,9 @@ var PowerServer = /*#__PURE__*/function (_JDServiceServer) {
 ;// CONCATENATED MODULE: ./jacdac-ts/src/servers/servers.ts
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function servers_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function servers_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { servers_ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { servers_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -34925,6 +34944,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 var indoorThermometerOptions = {
+  instanceName: "indoor",
   readingValues: [21.5],
   streamingInterval: 1000,
   minReading: -5,
@@ -34933,6 +34953,7 @@ var indoorThermometerOptions = {
   variant: constants/* ThermometerVariant.Indoor */._bR.Indoor
 };
 var outdoorThermometerOptions = {
+  instanceName: "outdoor",
   readingValues: [21.5],
   streamingInterval: 1000,
   minReading: -40,
@@ -34941,6 +34962,7 @@ var outdoorThermometerOptions = {
   variant: constants/* ThermometerVariant.Outdoor */._bR.Outdoor
 };
 var medicalThermometerOptions = {
+  instanceName: "medical",
   readingValues: [37.5],
   streamingInterval: 1000,
   minReading: 35,
@@ -34949,6 +34971,7 @@ var medicalThermometerOptions = {
   variant: constants/* ThermometerVariant.Body */._bR.Body
 };
 var barometerOptions = {
+  instanceName: "pressure",
   readingValues: [1013]
 };
 var sonarOptions = {
@@ -35148,7 +35171,7 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_ANALOG_BUTTON */.wIC],
   services: function services() {
     return Array(6).fill(0).map(function (_, i) {
-      return new AnalogSensorServer(constants/* SRV_ANALOG_BUTTON */.wIC, _objectSpread(_objectSpread({}, touchButton), {
+      return new AnalogSensorServer(constants/* SRV_ANALOG_BUTTON */.wIC, servers_objectSpread(servers_objectSpread({}, touchButton), {
         instanceName: "C" + i
       }));
     });
@@ -35158,7 +35181,7 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_ANALOG_BUTTON */.wIC],
   services: function services() {
     return Array(12).fill(0).map(function (_, i) {
-      return new AnalogSensorServer(constants/* SRV_ANALOG_BUTTON */.wIC, _objectSpread(_objectSpread({}, touchButton), {
+      return new AnalogSensorServer(constants/* SRV_ANALOG_BUTTON */.wIC, servers_objectSpread(servers_objectSpread({}, touchButton), {
         instanceName: "C" + i
       }));
     });
@@ -35225,7 +35248,9 @@ var _providerDefinitions = [{
   name: "eCO₂ + humidity + thermometer",
   serviceClasses: [constants/* SRV_E_CO2 */.bpX, constants/* SRV_HUMIDITY */.JbI, constants/* SRV_THERMOMETER */.O$i],
   services: function services() {
-    return [new AnalogSensorServer(constants/* SRV_E_CO2 */.bpX, CO2Options), new HumidityServer(), new AnalogSensorServer(constants/* SRV_THERMOMETER */.O$i, indoorThermometerOptions)];
+    return [new AnalogSensorServer(constants/* SRV_E_CO2 */.bpX, CO2Options), new HumidityServer({
+      instanceName: "humidity"
+    }), new AnalogSensorServer(constants/* SRV_THERMOMETER */.O$i, indoorThermometerOptions)];
   }
 }, {
   name: "gyroscope",
@@ -35255,13 +35280,17 @@ var _providerDefinitions = [{
   name: "humidity + temperature",
   serviceClasses: [constants/* SRV_HUMIDITY */.JbI, constants/* SRV_THERMOMETER */.O$i],
   services: function services() {
-    return [new AnalogSensorServer(constants/* SRV_THERMOMETER */.O$i, outdoorThermometerOptions), new HumidityServer()];
+    return [new AnalogSensorServer(constants/* SRV_THERMOMETER */.O$i, outdoorThermometerOptions), new HumidityServer({
+      instanceName: "humidity"
+    })];
   }
 }, {
   name: "humidity + temperature + barometer",
   serviceClasses: [constants/* SRV_HUMIDITY */.JbI, constants/* SRV_THERMOMETER */.O$i, constants/* SRV_BAROMETER */.bDe],
   services: function services() {
-    return [new AnalogSensorServer(constants/* SRV_THERMOMETER */.O$i, outdoorThermometerOptions), new HumidityServer(), new AnalogSensorServer(constants/* SRV_BAROMETER */.bDe, barometerOptions)];
+    return [new AnalogSensorServer(constants/* SRV_THERMOMETER */.O$i, outdoorThermometerOptions), new HumidityServer({
+      instanceName: "humidity"
+    }), new AnalogSensorServer(constants/* SRV_BAROMETER */.bDe, barometerOptions)];
   }
 }, {
   name: "illuminance",
@@ -35630,7 +35659,7 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return Array(2).fill(0).map(function (_, i) {
-      return new ServoServer(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+      return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
         instanceName: "S" + i
       }));
     });
@@ -35640,7 +35669,7 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return Array(4).fill(0).map(function (_, i) {
-      return new ServoServer(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+      return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
         instanceName: "S" + i
       }));
     });
@@ -35650,7 +35679,7 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return Array(6).fill(0).map(function (_, i) {
-      return new ServoServer(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+      return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
         instanceName: "S" + i
       }));
     });
@@ -35660,7 +35689,7 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return Array(16).fill(0).map(function (_, i) {
-      return new ServoServer(_objectSpread(_objectSpread({}, microServoOptions), {}, {
+      return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
         instanceName: "S" + i
       }));
     });
@@ -46811,7 +46840,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
     var _this;
 
     _this = _JDClient.call(this) || this;
-    _this.hosts = [];
+    _this.providers = [];
     _this.ticking = false;
     _this.bus = bus;
     _this.handleGamepadConnected = _this.handleGamepadConnected.bind((0,assertThisInitialized/* default */.Z)(_this));
@@ -46836,7 +46865,8 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
     if (typeof window === "undefined") return;
     window.removeEventListener("gamepadconnected", this.handleGamepadConnected);
     window.removeEventListener("gamepaddisconnected", this.handleGamepadDisconnected);
-  };
+  } // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ;
 
   _proto.handleGamepadConnected = function handleGamepadConnected(event) {
     console.log("gamepad connected");
@@ -46847,11 +46877,11 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
     console.log("gamepad disconnected");
     var gamepad = event.gamepad;
     var index = gamepad.index;
-    var host = this.hosts[index];
+    var provider = this.providers[index];
 
-    if (host) {
-      this.bus.removeServiceProvider(host.deviceHost);
-      this.hosts[index] = undefined;
+    if (provider) {
+      this.bus.removeServiceProvider(provider.deviceProvider);
+      this.providers[index] = undefined;
     }
 
     if (!this.ticking) this.tick();
@@ -46874,15 +46904,15 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
       var gamepad = gamepads[i];
       if (!gamepad) continue; // allocated host if needed
 
-      var host = this.hosts[i];
+      var host = this.providers[i];
 
       if (!host) {
         var service = new arcadegamepadserver/* default */.Z(standardButtons);
         var deviceHost = new serviceprovider/* default */.Z([service]);
         this.bus.addServiceProvider(deviceHost);
-        this.hosts[i] = host = {
+        this.providers[i] = host = {
           service: service,
-          deviceHost: deviceHost,
+          deviceProvider: deviceHost,
           timestamp: now
         };
       } // update state
@@ -46898,7 +46928,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
     this.ticking = true;
     this.update();
-    if (this.hosts.some(function (h) {
+    if (this.providers.some(function (h) {
       return h !== undefined;
     })) window.requestAnimationFrame(function () {
       return _this2.tick();
@@ -50527,4 +50557,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c691b82bdfc6d2fd33a6.js.map
+//# sourceMappingURL=app-59e66d1ce5fd7418fb5f.js.map

@@ -8946,7 +8946,7 @@ function DeviceActions(props) {
       showReset = props.showReset,
       children = props.children,
       hideIdentity = props.hideIdentity,
-      showStopHost = props.showStopHost;
+      showStop = props.showStop;
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
       bus = _useContext.bus;
@@ -8997,11 +8997,28 @@ function DeviceActions(props) {
     };
   }();
 
-  var handleStop = function handleStop() {
-    bus.removeServiceProvider(provider);
-  };
+  var handleStop = /*#__PURE__*/function () {
+    var _ref3 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              bus.removeServiceProvider(provider);
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, showStopHost && provider && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_CmdButton__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleStop() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, showStop && provider && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_CmdButton__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     trackName: "device.stop",
     size: "small",
     title: "stop simulator",
@@ -9122,4 +9139,4 @@ function useServiceProvider(device) {
 /***/ })
 
 }]);
-//# sourceMappingURL=78b9bb75cd81dbb25336aae36dc98149d36b0b9f-8129d51bac1633e94712.js.map
+//# sourceMappingURL=78b9bb75cd81dbb25336aae36dc98149d36b0b9f-5d1684c0d0e49bdc7d90.js.map
