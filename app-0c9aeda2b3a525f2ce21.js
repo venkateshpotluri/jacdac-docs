@@ -44021,7 +44021,9 @@ var CMSISProto = /*#__PURE__*/function () {
     var _this$io;
 
     this.stopRecvToLoop();
-    (_this$io = this.io) === null || _this$io === void 0 ? void 0 : _this$io.error(msg);
+    (_this$io = this.io) === null || _this$io === void 0 ? void 0 : _this$io.error(msg); // clear state
+
+    this.xchgAddr = null;
   };
 
   _proto.onJDMessage = function onJDMessage(f) {
@@ -45027,29 +45029,46 @@ var CMSISProto = /*#__PURE__*/function () {
 
             case 3:
               devid = _context18.sent;
-              if (/^9902/.test(devid)) this.error("micro:bit v1 is not supported. sorry.");
-              if (!/^990[3456789]/.test(devid)) this.error("Invalid Vendor0 response: " + devid);
+
+              if (!/^9902/.test(devid)) {
+                _context18.next = 7;
+                break;
+              }
+
+              this.error("micro:bit v1 is not supported. sorry.");
+              return _context18.abrupt("return");
+
+            case 7:
+              if (/^990[3456789]/.test(devid)) {
+                _context18.next = 10;
+                break;
+              }
+
+              this.error("Invalid Vendor0 response: " + devid);
+              return _context18.abrupt("return");
+
+            case 10:
               _context18.t0 = this.io;
-              _context18.next = 9;
+              _context18.next = 13;
               return this.talkStringAsync(0x00, 0x04);
 
-            case 9:
+            case 13:
               _context18.t1 = _context18.sent;
               _context18.t2 = "DAPLink v" + _context18.t1;
 
               _context18.t0.log.call(_context18.t0, _context18.t2);
 
-              _context18.next = 14;
+              _context18.next = 18;
               return this.setBaudRate();
 
-            case 14:
+            case 18:
               // this may reset the board
               freq = [0x11, 0, 0, 0, 0];
               (0,utils/* write32 */.Pg)(freq, 1, 10000000);
-              _context18.next = 18;
+              _context18.next = 22;
               return this.talkAsync(freq);
 
-            case 18:
+            case 22:
               inits = ["02 00", // connect
               "04 00 64 00 00 00", // configure delays
               // SWD switch
@@ -45062,80 +45081,98 @@ var CMSISProto = /*#__PURE__*/function () {
               "05 00 03 00 04 00 00 00 08 00 00 00 00 04 00 00 00 50"];
               _i = 0, _inits = inits;
 
-            case 20:
+            case 24:
               if (!(_i < _inits.length)) {
-                _context18.next = 27;
+                _context18.next = 31;
                 break;
               }
 
               ini = _inits[_i];
-              _context18.next = 24;
+              _context18.next = 28;
               return this.talkHexAsync(ini);
 
-            case 24:
+            case 28:
               _i++;
-              _context18.next = 20;
+              _context18.next = 24;
               break;
 
-            case 27:
+            case 31:
               i = 0;
 
-            case 28:
+            case 32:
               if (!(i < 100)) {
-                _context18.next = 40;
+                _context18.next = 44;
                 break;
               }
 
-              _context18.next = 31;
+              _context18.next = 35;
               return this.readDP(4);
 
-            case 31:
+            case 35:
               st = _context18.sent;
               mask = 1 << 29 | 1 << 31;
 
               if (!((st & mask) == mask)) {
-                _context18.next = 35;
+                _context18.next = 39;
                 break;
               }
 
-              return _context18.abrupt("break", 40);
+              return _context18.abrupt("break", 44);
 
-            case 35:
-              _context18.next = 37;
+            case 39:
+              _context18.next = 41;
               return (0,utils/* delay */.gw)(20);
 
-            case 37:
+            case 41:
               ++i;
-              _context18.next = 28;
+              _context18.next = 32;
               break;
-
-            case 40:
-              _context18.next = 42;
-              return this.reset();
-
-            case 42:
-              _context18.next = 44;
-              return (0,utils/* delay */.gw)(1000);
 
             case 44:
               _context18.next = 46;
-              return this.findExchange();
+              return this.reset();
 
             case 46:
-              xchg = _context18.sent;
-              this.xchgAddr = xchg;
+              _context18.next = 48;
+              return (0,utils/* delay */.gw)(1000);
+
+            case 48:
               _context18.next = 50;
-              return this.readBytes(xchg, 16);
+              return this.findExchange();
 
             case 50:
+              xchg = _context18.sent;
+
+              if (!(xchg === null)) {
+                _context18.next = 54;
+                break;
+              }
+
+              this.error("exchange address not found; add jacdac to your project");
+              return _context18.abrupt("return");
+
+            case 54:
+              this.xchgAddr = xchg;
+              _context18.next = 57;
+              return this.readBytes(xchg, 16);
+
+            case 57:
               info = _context18.sent;
               this.irqn = info[8];
-              if (info[12 + 2] != 0xff) this.error("invalid memory; try power-cycling the micro:bit"); // clear initial lock
 
-              _context18.next = 55;
+              if (!(info[12 + 2] != 0xff)) {
+                _context18.next = 62;
+                break;
+              }
+
+              this.error("invalid memory; try power-cycling the micro:bit");
+              return _context18.abrupt("return");
+
+            case 62:
+              _context18.next = 64;
               return this.writeWord(xchg + 12, 0);
 
-            case 55:
+            case 64:
               this.io.log("exchange address: 0x" + xchg.toString(16) + "; irqn=" + this.irqn);
               /* async */
 
@@ -45145,7 +45182,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 _this9.error((e === null || e === void 0 ? void 0 : e.message) || "an error occured");
               });
 
-            case 57:
+            case 66:
             case "end":
               return _context18.stop();
           }
@@ -50561,4 +50598,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-69e0e888652078149ca1.js.map
+//# sourceMappingURL=app-0c9aeda2b3a525f2ce21.js.map
