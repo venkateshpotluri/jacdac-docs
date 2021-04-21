@@ -46685,12 +46685,12 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
     console.debug("jdiframe: listening for packets");
     this.mount(this.bus.subscribe(constants/* PACKET_PROCESS */.wY8, this.postPacket));
     this.mount(this.bus.subscribe(constants/* PACKET_SEND */.RaS, this.postPacket));
-    this.mount(this.bus.subscribe(constants/* DEVICE_CHANGE */.RoP, this.handleResize)); // force compute add blocks button
+    this.mount(this.bus.subscribe(constants/* DEVICE_ANNOUNCE */.Hob, this.handleResize)); // force compute add blocks button
 
-    this.mount(this.bus.subscribe(constants/* DEVICE_CHANGE */.RoP, function () {
+    this.mount(this.bus.subscribe(constants/* DEVICE_ANNOUNCE */.Hob, function () {
       return _this2.emit(constants/* CHANGE */.Ver);
     }));
-    var id = setInterval(this.handleResize, 500);
+    var id = setInterval(this.handleResize, 1000);
     this.mount(function () {
       return clearInterval(id);
     });
@@ -46698,6 +46698,18 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
     this.mount(function () {
       return window.removeEventListener("message", _this2.handleMessage, false);
     });
+
+    if (window.parent && window.parent !== window) {
+      var frameid = window.location.hash.slice(1);
+      console.debug({
+        frameid: frameid
+      }); // notify makecode we are ready
+
+      window.parent.postMessage({
+        type: "ready",
+        frameid: frameid
+      }, "*");
+    }
   };
 
   _proto.handleMessage = function handleMessage(event) {
@@ -46829,7 +46841,11 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
     get: function get() {
       var _this$_runOptions3;
 
-      if (!this._runOptions) return [];
+      if (!this._runOptions) {
+        console.log("no run options");
+        return [];
+      }
+
       var devices = this.bus.devices({
         announced: true,
         ignoreSelf: true
@@ -50614,4 +50630,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-375213ed36d7ba7e9994.js.map
+//# sourceMappingURL=app-9f36fad37eb69574b7f9.js.map
