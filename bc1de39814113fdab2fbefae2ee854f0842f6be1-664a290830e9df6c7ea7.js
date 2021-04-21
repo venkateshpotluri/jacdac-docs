@@ -1005,7 +1005,7 @@ function MemberInput(props) {
       spellCheck: false,
       value: textValue,
       label: label,
-      inputProps: (_ref2 = {}, _ref2["aria-label"] = label, _ref2),
+      inputProps: (_ref2 = {}, _ref2["aria-label"] = label, _ref2.readOnly = disabled, _ref2),
       helperText: helperText,
       onChange: disabled ? undefined : handleChange,
       required: value === undefined,
@@ -1604,4 +1604,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-696cd49813f8e8eaea49.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-664a290830e9df6c7ea7.js.map
