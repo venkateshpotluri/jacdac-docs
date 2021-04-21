@@ -912,6 +912,8 @@ var TableRow = __webpack_require__(99395);
 var TableCell = __webpack_require__(49400);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TableBody/TableBody.js
 var TableBody = __webpack_require__(86300);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/buffer.ts
+var buffer = __webpack_require__(3482);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/packet.ts
@@ -930,6 +932,19 @@ var Tooltip = __webpack_require__(60102);
 
 
 
+
+
+function HeaderMap(props) {
+  var header = props.header,
+      offset = props.offset,
+      size = props.size,
+      name = props.name;
+  var bytes = header.slice(offset, offset + size);
+  return /*#__PURE__*/react.createElement(Tooltip/* default */.Z, {
+    title: name
+  }, /*#__PURE__*/react.createElement("span", null, (0,utils/* toHex */.NC)(bytes)));
+}
+
 function PacketHeaderLayout(props) {
   var _know;
 
@@ -944,11 +959,14 @@ function PacketHeaderLayout(props) {
   var slots = [{
     offset: 0,
     size: 2,
+    format: buffer/* NumberFormat.UInt16LE */.y4.UInt16LE,
+    formatHex: true,
     name: "frame_crc",
     description: "CRC"
   }, {
     offset: 2,
     size: 1,
+    format: buffer/* NumberFormat.UInt8LE */.y4.UInt8LE,
     name: "frame_size",
     description: "Size of the data field in bytes."
   }, {
@@ -959,22 +977,27 @@ function PacketHeaderLayout(props) {
   }, {
     offset: 4,
     size: 8,
+    formatHex: true,
     name: "device_identifiter",
     description: "64-bit device identifier"
   }, {
     offset: 12,
     size: 1,
+    format: buffer/* NumberFormat.UInt8LE */.y4.UInt8LE,
     name: "packet_size",
     description: "The size of the payload field. Maximum size is 236 bytes."
   }, {
     offset: 13,
     size: 1,
+    format: buffer/* NumberFormat.UInt8LE */.y4.UInt8LE,
     name: "service_number",
     know: (_know = {}, _know[constants/* JD_SERVICE_INDEX_PIPE.toString */.e5Z.toString(16)] = "pipe", _know[constants/* JD_SERVICE_INDEX_CRC_ACK.toString */.$rs.toString(16)] = "crc ack", _know),
     description: "A number that specifies an operation and code combination."
   }, {
     offset: 14,
     size: 2,
+    format: buffer/* NumberFormat.UInt16LE */.y4.UInt16LE,
+    formatHex: true,
     name: "service_command",
     description: "Identifier for the command"
   }];
@@ -1004,21 +1027,22 @@ function PacketHeaderLayout(props) {
       component: "span",
       key: slot.name,
       mr: theme.spacing(0.1)
-    }, /*#__PURE__*/react.createElement(Tooltip/* default */.Z, {
-      title: slot.name
-    }, /*#__PURE__*/react.createElement("span", null, (0,utils/* toHex */.NC)(header.slice(slot.offset, slot.offset + slot.size)))));
+    }, /*#__PURE__*/react.createElement(HeaderMap, Object.assign({
+      header: header
+    }, slot)));
   })))), showSlots && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
     key: "slots"
   }, /*#__PURE__*/react.createElement(TableContainer/* default */.Z, null, /*#__PURE__*/react.createElement(Table/* default */.Z, {
     size: "small"
-  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Value"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Offset"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Size"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Description"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, slots.map(function (slot) {
+  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Bytes"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Value"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Offset"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Size"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Description"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, slots.map(function (slot) {
     var _slot$know;
 
     var buf = header.slice(slot.offset, slot.offset + slot.size);
+    var value = slot.format && (0,buffer/* getNumber */.Dx)(buf, slot.format, 0);
     var known = (_slot$know = slot.know) === null || _slot$know === void 0 ? void 0 : _slot$know[(0,utils/* toHex */.NC)(buf)];
     return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
       key: slot.name
-    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, (0,utils/* toHex */.NC)(buf)), known && /*#__PURE__*/react.createElement("code", null, "(", known, ")")), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.offset), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.size), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.description));
+    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, (0,utils/* toHex */.NC)(buf))), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, value !== undefined && slot.formatHex ? "0x" + value.toString(16) : value, known && /*#__PURE__*/react.createElement("code", null, "(", known, ")")), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.offset), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.size), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.description));
   }))))), showFlags && !!flags.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
     key: "flags"
   }, /*#__PURE__*/react.createElement(TableContainer/* default */.Z, null, /*#__PURE__*/react.createElement(Table/* default */.Z, {
@@ -1111,7 +1135,7 @@ function PacketInspector() {
     packet: packet
   }), packet.friendlyCommandName + " " + (packet.isCommand ? "to" : "from") + " " + packet.friendlyDeviceName + "/" + packet.friendlyServiceName), /*#__PURE__*/react.createElement("div", null, packet.timestamp, "ms, ", /*#__PURE__*/react.createElement(KindChip/* default */.Z, {
     kind: info === null || info === void 0 ? void 0 : info.kind
-  }), ", size ", packet.size), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+  }), ", size", " ", packet.size), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body2"
   }, (0,pretty/* printPacket */.$_)(packet)), packet.sender && /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body2"
@@ -1150,4 +1174,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-636cabbc0bbdeae99635.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-54c9419cf019eecc0591.js.map
