@@ -951,11 +951,13 @@ function PacketHeaderLayout(props) {
   var packet = props.packet,
       data = props.data,
       showSlots = props.showSlots,
-      showFlags = props.showFlags;
+      showFlags = props.showFlags,
+      showCommands = props.showCommands;
   var theme = (0,useTheme/* default */.Z)();
   var pkt = packet || jdom_packet/* default.fromBinary */.Z.fromBinary((0,utils/* fromHex */.H_)(data));
   var header = pkt.header;
   var frameFlags = header[3];
+  var serviceCommand = pkt.serviceCommand;
   var slots = [{
     offset: 0,
     size: 2,
@@ -1017,7 +1019,25 @@ function PacketHeaderLayout(props) {
     name: "IDENTIFIER_IS_SERVICE_CLASS",
     description: "The packet is a multi command. The service class is the first 4 bytes of the device id."
   }].filter(function (f) {
-    return frameFlags & f.flag;
+    return (frameFlags & f.flag) === f.flag;
+  });
+  var commandFlags = [{
+    flag: constants/* CMD_GET_REG */.V4G,
+    active: (serviceCommand & constants/* CMD_GET_REG */.V4G) === constants/* CMD_GET_REG */.V4G,
+    name: "CMD_GET_REG",
+    description: "Get register value"
+  }, {
+    flag: constants/* CMD_SET_REG */.YUL,
+    active: (serviceCommand & constants/* CMD_SET_REG */.YUL) === constants/* CMD_SET_REG */.YUL,
+    name: "CMD_SET_REG",
+    description: "Set register value"
+  }, {
+    flag: constants/* CMD_EVENT_MASK */.eMy,
+    active: (serviceCommand & constants/* CMD_EVENT_MASK */.eMy) !== 0,
+    name: "CMD_EVENT_MASK",
+    description: "Command is an event"
+  }].filter(function (f) {
+    return f.active;
   });
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
     key: "header",
@@ -1043,11 +1063,23 @@ function PacketHeaderLayout(props) {
     return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
       key: slot.name
     }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, (0,utils/* toHex */.NC)(buf))), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, value !== undefined && slot.formatHex ? "0x" + value.toString(16) : value, known && /*#__PURE__*/react.createElement("code", null, "(", known, ")")), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.offset), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.size), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.description));
+  }))))), showCommands && !!commandFlags.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
+    key: "flags"
+  }, /*#__PURE__*/react.createElement(TableContainer/* default */.Z, null, /*#__PURE__*/react.createElement(Table/* default */.Z, {
+    size: "small"
+  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, {
+    colSpan: 3
+  }, "Service command")), /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Flag"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Description"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, commandFlags.map(function (flag) {
+    return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
+      key: flag.name
+    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, ("0000" + flag.flag.toString(16)).slice(-4))), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, flag.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, flag.description));
   }))))), showFlags && !!flags.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
     key: "flags"
   }, /*#__PURE__*/react.createElement(TableContainer/* default */.Z, null, /*#__PURE__*/react.createElement(Table/* default */.Z, {
     size: "small"
-  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Flag"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Description"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, flags.map(function (flag) {
+  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, {
+    colSpan: 3
+  }, "Frame flags")), /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Flag"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "Description"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, flags.map(function (flag) {
     return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
       key: flag.name
     }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, flag.position)), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, flag.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, flag.description));
@@ -1142,7 +1174,8 @@ function PacketInspector() {
   }, "sender: ", packet.sender), /*#__PURE__*/react.createElement("h3", null, "Header"), /*#__PURE__*/react.createElement(PacketHeaderLayout, {
     packet: packet,
     showSlots: true,
-    showFlags: true
+    showFlags: true,
+    showCommands: true
   }), /*#__PURE__*/react.createElement(PacketDataLayout, {
     packet: packet,
     showHex: true,
@@ -1174,4 +1207,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-54c9419cf019eecc0591.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-a056f2d8f87177a669ea.js.map
