@@ -48465,7 +48465,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67784);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
-var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();};var onServiceWorkerUpdateReady=function onServiceWorkerUpdateReady(){// force reload
+var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();// try update on every internal navigation
+navigator.serviceWorker.getRegistration().then(function(reg){if(reg)reg.update();});};var onServiceWorkerUpdateReady=function onServiceWorkerUpdateReady(){// force reload
 console.debug("offline: update ready, reloading...");window.location.reload(true);};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP;// inject React Axe into DOM tree at development time
 /* blocked by crypto import issue
 export const onInitialClientRender = () => {
@@ -50637,4 +50638,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9973b10f1b55f4140570.js.map
+//# sourceMappingURL=app-673e109c2ebf92a97eb4.js.map
