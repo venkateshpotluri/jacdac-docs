@@ -39846,7 +39846,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "52a687a9f405382fe7824a1f0c470203498eab52";
+  var sha = "a80e4a96a438a7efb5a523df1b0416485d8ba2ad";
   console.debug("footer", {
     repo: repo,
     sha: sha
@@ -39866,12 +39866,14 @@ function Footer() {
     href: "https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Trademarks"), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+  }, "Trademarks"), repo && sha && /*#__PURE__*/react.createElement("a", {
+    href: "https://github.com/" + repo + "/commit/" + sha,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, sha.slice(0, 8)), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     component: "span",
     variant: "inherit"
-  }, "\xA9 ", new Date().getFullYear(), " Microsoft Corporation"), repo && sha && /*#__PURE__*/react.createElement("a", {
-    href: "https://github.com/" + repo + "/commit/" + sha
-  }, sha));
+  }, "\xA9 ", new Date().getFullYear(), " Microsoft Corporation"));
 }
 // EXTERNAL MODULE: ./src/components/DrawerToolsButtonGroup.tsx
 var DrawerToolsButtonGroup = __webpack_require__(95743);
@@ -50646,4 +50648,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b400b561d0ac38eda0a9.js.map
+//# sourceMappingURL=app-3e8bc7c70b68615b833b.js.map
