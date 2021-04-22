@@ -39845,6 +39845,12 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 });
 function Footer() {
   var classes = useStyles();
+  var repo = ({})["GATSBY_GITHUB_REPOSITORY"];
+  var sha = ({})["GATSBY_GITHUB_SHA"];
+  console.log("footer", {
+    repo: repo,
+    sha: sha
+  });
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -39863,7 +39869,9 @@ function Footer() {
   }, "Trademarks"), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     component: "span",
     variant: "inherit"
-  }, "\xA9 ", new Date().getFullYear(), " Microsoft Corporation"));
+  }, "\xA9 ", new Date().getFullYear(), " Microsoft Corporation"), repo && sha && /*#__PURE__*/react.createElement("a", {
+    href: "https://github.com/" + repo + "/commit/" + sha
+  }, sha));
 }
 // EXTERNAL MODULE: ./src/components/DrawerToolsButtonGroup.tsx
 var DrawerToolsButtonGroup = __webpack_require__(95743);
@@ -50638,4 +50646,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-673e109c2ebf92a97eb4.js.map
+//# sourceMappingURL=app-e2ade46f4c3535c777d5.js.map
