@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "cc895fe9713135fa2caa3b1802886cb3"
+    "revision": "335518610ca62b2d3b139cfc24f3b219"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "004022a0b33c4b7cae9ad8f75b58e588"
+    "revision": "fc8fb3bcf099f029a6840c2f89d9bb93"
   },
   {
     "url": "polyfill-3dba7d40c3baf44701ca.js"
@@ -1491,7 +1491,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-e2ade46f4c3535c777d5.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-106d726ad7ff44db9c21.js`))) {
     return await fetch(event.request)
   }
 
