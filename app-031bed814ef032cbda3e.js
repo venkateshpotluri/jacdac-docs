@@ -48459,18 +48459,25 @@ console.log("Content is now available offline!");// Post to service worker that 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "onRouteUpdate": function() { return /* binding */ onRouteUpdate; },
+/* harmony export */   "onServiceWorkerUpdateReady": function() { return /* binding */ onServiceWorkerUpdateReady; },
 /* harmony export */   "wrapPageElement": function() { return /* binding */ wrapPageElement; }
 /* harmony export */ });
 /* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67784);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
-var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP;var activeEnv=({}).GATSBY_ACTIVE_ENV||"production"||'development';var isDev=activeEnv==='development';/*
+var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();};var onServiceWorkerUpdateReady=function onServiceWorkerUpdateReady(){// force reload
+console.debug("offline: update ready, reloading...");window.location.reload();};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP;// inject React Axe into DOM tree at development time
+/* blocked by crypto import issue
 export const onInitialClientRender = () => {
-  if (isDev) {
-    import("@axe-core/react").then(reactAxe => {
-      reactAxe.default(React, ReactDOM, 1000, {})
-    });
-  }
+    const activeEnv =
+        process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+    const isDev = activeEnv === "development"
+    if (isDev) {
+        console.log(`axe: injecting into DOM`)
+        import("@axe-core/react").then(reactAxe => {
+            reactAxe.default(React, ReactDOM, 1000, {})
+        })
+    }
 }
 */
 
@@ -50630,4 +50637,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9f36fad37eb69574b7f9.js.map
+//# sourceMappingURL=app-031bed814ef032cbda3e.js.map
