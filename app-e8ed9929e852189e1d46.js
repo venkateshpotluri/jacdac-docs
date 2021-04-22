@@ -39846,7 +39846,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a80e4a96a438a7efb5a523df1b0416485d8ba2ad";
+  var sha = "7b14eaea62f7b3ff213c75f95f18124fa0a92223";
   console.debug("footer", {
     repo: repo,
     sha: sha
@@ -39855,10 +39855,10 @@ function Footer() {
     role: "contentinfo",
     className: classes.footer
   }, /*#__PURE__*/react.createElement("a", {
-    href: "https://privacy.microsoft.com/en-us/privacystatement",
+    href: "https://go.microsoft.com/fwlink/?LinkId=521839",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, "Privacy"), /*#__PURE__*/react.createElement("a", {
+  }, "Privacy & Cookies"), /*#__PURE__*/react.createElement("a", {
     href: "https://www.microsoft.com/en-us/legal/intellectualproperty/copyright",
     target: "_blank",
     rel: "noopener noreferrer"
@@ -50648,4 +50648,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3e8bc7c70b68615b833b.js.map
+//# sourceMappingURL=app-e8ed9929e852189e1d46.js.map
