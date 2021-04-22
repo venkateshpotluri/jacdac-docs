@@ -48466,7 +48466,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
 var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();};var onServiceWorkerUpdateReady=function onServiceWorkerUpdateReady(){// force reload
-console.debug("offline: update ready, reloading...");window.location.reload();};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP;// inject React Axe into DOM tree at development time
+console.debug("offline: update ready, reloading...");window.location.reload(true);};var wrapPageElement=_src_components_layout__WEBPACK_IMPORTED_MODULE_0__/* .default */ .ZP;// inject React Axe into DOM tree at development time
 /* blocked by crypto import issue
 export const onInitialClientRender = () => {
     const activeEnv =
@@ -50637,4 +50637,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-031bed814ef032cbda3e.js.map
+//# sourceMappingURL=app-9973b10f1b55f4140570.js.map
