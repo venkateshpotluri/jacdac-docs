@@ -39846,7 +39846,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7b14eaea62f7b3ff213c75f95f18124fa0a92223";
+  var sha = "0a21ade35053fb692631cc8016f52b76d31b217b";
   console.debug("footer", {
     repo: repo,
     sha: sha
@@ -50648,4 +50648,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-e8ed9929e852189e1d46.js.map
+//# sourceMappingURL=app-d04c9468be67e8ef2b26.js.map
