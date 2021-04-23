@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-68572391cf07045c8882.js"
+    "url": "webpack-runtime-42a4fb0c537a9752c85b.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "a578994d42b30183c39b62c729011d43"
+    "revision": "798abfa01eff2ed6da6267c3a152401d"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,11 +60,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "f64dc589f399076ce433ac5c594d4e44"
+    "revision": "e1fbd22ba56f1dec13f54d6a0e891e59"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "93563e7abe842eeb1b54c535f959295e"
+    "revision": "15a3039fa77025432c904788697dc2cf"
   },
   {
     "url": "page-data/sq/d/413816803.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "b011ca6d137968d741a9c0930f44905b"
+    "revision": "8e60262e6a6cc99c688e6c41b1c66a72"
   },
   {
     "url": "polyfill-3dba7d40c3baf44701ca.js"
@@ -1190,7 +1190,7 @@ self.__precacheManifest = [
     "url": "5cb7c78286c5fcecf4d3c60360196e55585b6a15-c4edf6541ace0977deac.js"
   },
   {
-    "url": "component---src-templates-device-tsx-7f647d3f039e7edb7cd0.js"
+    "url": "component---src-templates-device-tsx-d0c0550108a7c8b663a0.js"
   },
   {
     "url": "page-data/devices/microsoft/research/jmaccv2/page-data.json",
@@ -1265,7 +1265,7 @@ self.__precacheManifest = [
     "revision": "ff1ee49699fd97b64f22a52156782eaf"
   },
   {
-    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-273fb8eb23cd5b836a95.js"
+    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-c9b52c10d037bd43052c.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",
@@ -1356,7 +1356,7 @@ self.__precacheManifest = [
     "revision": "e92e52f3a9625a37299f7173dd8afda8"
   },
   {
-    "url": "component---src-pages-tools-prototest-tsx-b3b038de7cd45c46ee58.js"
+    "url": "component---src-pages-tools-prototest-tsx-67bb28686296c6625722.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
@@ -1491,7 +1491,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-294f3e90a2cb67efe59f.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-985a9663a8d11ef841be.js`))) {
     return await fetch(event.request)
   }
 
