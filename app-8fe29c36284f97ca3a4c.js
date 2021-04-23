@@ -31054,12 +31054,19 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   ;
 
   _proto.errorHandler = function errorHandler(context, exception) {
+    var _this4 = this;
+
+    var wasConnected = this.connected;
     console.error("error " + context + " " + (exception === null || exception === void 0 ? void 0 : exception.message) + "\n" + (exception === null || exception === void 0 ? void 0 : exception.stack));
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, {
       context: context,
       exception: exception
     });
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+    this.disconnect() // retry connect
+    .then(function () {
+      return wasConnected && _this4.connect(true);
+    });
   };
 
   _proto.dispose = function dispose() {
@@ -39846,11 +39853,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "0a21ade35053fb692631cc8016f52b76d31b217b";
-  console.debug("footer", {
-    repo: repo,
-    sha: sha
-  });
+  var sha = "a1ecd4cd63f02c9a88fa9f553be1157fe7a35ad4";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46264,9 +46267,7 @@ var USBTransport = /*#__PURE__*/function (_JDTransport) {
               transport = new Transport(this.options);
 
               transport.onError = function (e) {
-                _this2.errorHandler(constants/* USB_TRANSPORT */.W3h, e);
-
-                _this2.disconnect();
+                return _this2.errorHandler(constants/* USB_TRANSPORT */.W3h, e);
               };
 
               onJDMessage = function onJDMessage(buf) {
@@ -50648,4 +50649,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-d04c9468be67e8ef2b26.js.map
+//# sourceMappingURL=app-8fe29c36284f97ca3a4c.js.map
