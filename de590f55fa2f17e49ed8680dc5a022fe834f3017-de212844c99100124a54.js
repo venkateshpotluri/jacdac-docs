@@ -1178,12 +1178,12 @@ function useGridBreakpoints(itemCount) {
 
 
 function useEventCount(event) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(event.count),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((event === null || event === void 0 ? void 0 : event.count) || 0),
       count = _useState[0],
       setCount = _useState[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return event.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver, function () {
+    return event === null || event === void 0 ? void 0 : event.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver, function () {
       setCount(event.count);
     });
   }, [event]);
@@ -1193,4 +1193,4 @@ function useEventCount(event) {
 /***/ })
 
 }]);
-//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-702ea644a9c68f4d06d5.js.map
+//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-de212844c99100124a54.js.map

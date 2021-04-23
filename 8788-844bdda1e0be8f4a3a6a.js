@@ -2257,12 +2257,12 @@ function ConnectAlert(props) {
 
 
 function useEventCount(event) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(event.count),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((event === null || event === void 0 ? void 0 : event.count) || 0),
       count = _useState[0],
       setCount = _useState[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return event.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver, function () {
+    return event === null || event === void 0 ? void 0 : event.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver, function () {
       setCount(event.count);
     });
   }, [event]);
@@ -2341,4 +2341,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8788-d68647349e4ad2e73f63.js.map
+//# sourceMappingURL=8788-844bdda1e0be8f4a3a6a.js.map

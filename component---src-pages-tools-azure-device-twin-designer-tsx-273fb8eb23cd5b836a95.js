@@ -1808,6 +1808,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var TraceSnippet = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 7510).then(__webpack_require__.bind(__webpack_require__, 27510));
 });
+var CodeSandboxButton = /*#__PURE__*/(/* unused pure expression or super */ null && (lazy(function () {
+  return __webpack_require__.e(/* import() */ 8574).then(__webpack_require__.bind(__webpack_require__, 18574));
+})));
 
 function HighlightedCode(props) {
   var children = props.children,
@@ -1819,7 +1822,7 @@ function HighlightedCode(props) {
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
       darkMode = _useContext.darkMode;
 
-  var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, '')) || "";
+  var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, "")) || "";
   var theme = darkMode === "dark" ? vsDark/* default */.Z : github/* default */.Z;
   var valueUri = !!downloadText && "data:application/json;charset=UTF-8," + encodeURIComponent(downloadText);
   return /*#__PURE__*/react.createElement(dist/* default */.ZP, Object.assign({}, dist/* defaultProps */.lG, {
@@ -1872,7 +1875,7 @@ function HighlightedCode(props) {
 function CodeBlock(props) {
   var children = props.children,
       className = props.className;
-  var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, '')) || "";
+  var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, "")) || "";
 
   switch (language) {
     case "trace":
@@ -1894,6 +1897,16 @@ function CodeBlock(props) {
       }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
         source: children.trim()
       }));
+
+    /*case "tsx":
+        return (
+            <>
+                <HighlightedCode {...props} />
+                <Suspense>
+                    <CodeSandboxButton source={children} />
+                </Suspense>
+            </>
+        )*/
 
     default:
       return /*#__PURE__*/react.createElement(HighlightedCode, props);
@@ -2239,4 +2252,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-4527f9194b0580d963bf.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-273fb8eb23cd5b836a95.js.map

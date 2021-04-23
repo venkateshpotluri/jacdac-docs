@@ -84,7 +84,7 @@ function MDXContent(_ref) {
   }, "JacdacContext"), " provides access to the bus, and connection/disconnection functionalies from your hooks or components."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("pre", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("code", {
     parentName: "pre",
     "className": "language-tsx"
-  }, "import { JacdacContext } from \"jacdac-ts\";\n\nfunction myComponent() {\n    const { bus, connectionState, connectAsync, disconnectAsync } = useContext(JacdacContext)\n\n    return <div>\n            <span>{bus.devices().length} devices</span>\n            <span>{connectionState}</span>\n            <button onClick={connectAsync}>connect</button>\n            <button onClick={disconnectAsync}>disconnect</button>\n        </div>\n}\nexport default MyComponent;\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "You can also use the react syntax to use this context."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("pre", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("code", {
+  }, "import React, { useContext } from \"react\"\nimport { JacdacContext } from \"jacdac-ts\"\n\nfunction MyComponent() {\n    const { bus, connectionState, connectAsync, disconnectAsync } = useContext(JacdacContext)\n\n    return <div>\n            <span>{bus.devices().length} devices</span>\n            <span>{connectionState}</span>\n            <button onClick={connectAsync}>connect</button>\n            <button onClick={disconnectAsync}>disconnect</button>\n        </div>\n}\nexport default MyComponent;\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "You can also use the react syntax to use this context."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("pre", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("code", {
     parentName: "pre",
     "className": "language-tsx"
   }, "<JacdacContext.Consumer>\n{({bus, connectionState, connectAsync, disconnectAsync}) => ...}\n</JacdacContext.Consumer>\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
@@ -142,4 +142,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-web-react-mdx-67c0c22844c9b008d3c8.js.map
+//# sourceMappingURL=component---src-pages-clients-web-react-mdx-f6ef48f5d9377e07ae2d.js.map
