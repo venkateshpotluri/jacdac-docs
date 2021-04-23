@@ -66,7 +66,7 @@ function CodeSandboxButton(props) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              content = "\n" + source.split(/\n/g).join("\n    ") + "\n";
+              content = source;
               html = "\n<html>\n    <script src=\"./node_modules/jacdac-ts/dist/jacdac-umd.js\" />\n    <body>\n        <p>\n            Open console to see messages...\n        </p>\n        <script src=\"./index.js\" />\n    </body>\n</html>    \n        ";
               _context.prev = 2;
               setImporting(true);
@@ -142,4 +142,4 @@ function CodeSandboxButton(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8574-bff94cdf0d9406c1bb9c.js.map
+//# sourceMappingURL=8574-74e374a4efdab7421f99.js.map
