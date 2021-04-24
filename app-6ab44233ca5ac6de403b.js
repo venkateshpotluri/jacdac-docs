@@ -29302,7 +29302,8 @@ var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
               return this.sendPacketAsync(pkt);
 
             case 3:
-              this.uptime.setValues([Date.now() - this.startTime], true);
+              // micros
+              this.uptime.setValues([(Date.now() - this.startTime) * 100], true);
 
             case 4:
             case "end":
@@ -29343,6 +29344,7 @@ var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
   }();
 
   _proto.handleReset = function handleReset() {
+    this.startTime = Date.now();
     this.device.reset();
   };
 
@@ -29642,9 +29644,14 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.reset = function reset() {
+    var _this$_services2;
+
     this.clearResetTimer();
     this._restartCounter = 0;
     this._packetCount = 0;
+    (_this$_services2 = this._services) === null || _this$_services2 === void 0 ? void 0 : _this$_services2.forEach(function (srv) {
+      return srv.reset();
+    });
     this.emit(constants/* RESET */.tdh);
   };
 
@@ -29799,7 +29806,7 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
   (0,inheritsLoose/* default */.Z)(JDRegisterServer, _JDEventSource);
 
   function JDRegisterServer(service, identifier, defaultValue) {
-    var _this$specification;
+    var _this$data, _this$specification;
 
     var _this;
 
@@ -29819,8 +29826,10 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
       return vi === undefined;
     })) {
       _this.data = (0,pack/* jdpack */.AV)(_this.packFormat, v);
-    } // don't check boundaries if there are none
+    } // keep a copy to handle reset
 
+
+    _this.resetData = (_this$data = _this.data) === null || _this$data === void 0 ? void 0 : _this$data.slice(0); // don't check boundaries if there are none
 
     _this.skipBoundaryCheck = !((_this$specification = _this.specification) !== null && _this$specification !== void 0 && _this$specification.fields.some(function (field) {
       return (0,utils/* isSet */.DM)(field.absoluteMin) || (0,utils/* isSet */.DM)(field.absoluteMax);
@@ -29860,6 +29869,12 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
       this.data = d;
       if (!skipChangeEvent) this.emit(constants/* CHANGE */.Ver);
     }
+  };
+
+  _proto.reset = function reset() {
+    var _this$resetData;
+
+    this.data = (_this$resetData = this.resetData) === null || _this$resetData === void 0 ? void 0 : _this$resetData.slice(0);
   };
 
   _proto.sendGetAsync = /*#__PURE__*/function () {
@@ -30034,6 +30049,12 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
     }
 
     return reg;
+  };
+
+  _proto.reset = function reset() {
+    this.registers.forEach(function (reg) {
+      return reg.reset();
+    });
   };
 
   _proto.addCommand = function addCommand(identifier, handler) {
@@ -39856,7 +39877,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "2922354640e8c6d0f3ae9103da66198f8782d57c";
+  var sha = "d2fc18cd891aedcc637e25dcf6e8361bdf8b25a2";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -41900,7 +41921,9 @@ var JDDevice = /*#__PURE__*/function (_JDNode) {
     return (0,utils/* read32 */.Zy)(this._servicesData, idx);
   };
 
-  _proto.initServices = function initServices() {
+  _proto.initServices = function initServices(force) {
+    if (force) this._services = undefined;
+
     if (!this._services && this._servicesData) {
       var n = this.serviceLength;
       var s = [];
@@ -41910,6 +41933,7 @@ var JDDevice = /*#__PURE__*/function (_JDNode) {
       }
 
       this._services = s;
+      this.lastServiceUpdate = this.bus.timestamp;
     }
   };
 
@@ -41954,23 +41978,21 @@ var JDDevice = /*#__PURE__*/function (_JDNode) {
     this.qos.processAnnouncement(pkt);
     var changed = false;
     var w0 = this._servicesData ? (0,buffer/* getNumber */.Dx)(this._servicesData, buffer/* NumberFormat.UInt32LE */.y4.UInt32LE, 0) : 0;
-    var w1 = (0,buffer/* getNumber */.Dx)(pkt.data, buffer/* NumberFormat.UInt32LE */.y4.UInt32LE, 0);
+    var w1 = (0,buffer/* getNumber */.Dx)(pkt.data, buffer/* NumberFormat.UInt32LE */.y4.UInt32LE, 0); // compare service data
+
+    var servicesChanged = !(0,utils/* bufferEq */.zo)(pkt.data, this._servicesData, 4);
+    this._servicesData = pkt.data; // check for restart
 
     if (w1 && (w1 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf) < (w0 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf)) {
+      this.initServices(true);
       this.bus.emit(constants/* DEVICE_RESTART */.eLF, this);
       this.emit(constants/* RESTART */.d0K);
       changed = true;
-    } // compare service data
+    } // notify that services got updated
 
-
-    var servicesChanged = !(0,utils/* bufferEq */.zo)(pkt.data, this._servicesData, 4);
-    this._servicesData = pkt.data; // notify that services got updated
 
     if (servicesChanged) {
-      this._services = undefined; // respawn services
-
-      this.initServices();
-      this.lastServiceUpdate = pkt.timestamp;
+      if (!changed) this.initServices(true);
       this.bus.emit(constants/* DEVICE_ANNOUNCE */.Hob, this);
       this.emit(constants/* ANNOUNCE */.oNX);
       changed = true;
@@ -50652,4 +50674,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-242e29f8262596ea59bd.js.map
+//# sourceMappingURL=app-6ab44233ca5ac6de403b.js.map
