@@ -497,6 +497,8 @@ if (false) { var requireProp; }
 
 
 function GithubRepositoryCardHeader(props) {
+  var _repo$organization;
+
   var slug = props.slug,
       showRelease = props.showRelease;
 
@@ -516,7 +518,7 @@ function GithubRepositoryCardHeader(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     component: "span",
     variant: "h6"
-  }, repo.organization.login)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+  }, (_repo$organization = repo.organization) === null || _repo$organization === void 0 ? void 0 : _repo$organization.login)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
     component: "span",
     ml: 0.5,
     mr: 0.5
@@ -682,4 +684,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-6b1645aa1ec68943f156.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-773548c863b95f9f4554.js.map
