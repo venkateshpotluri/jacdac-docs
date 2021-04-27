@@ -25885,6 +25885,7 @@ var Flags = function Flags() {};
 Flags.diagnostics = false;
 Flags.webUSB = true;
 Flags.webBluetooth = false;
+Flags.storage = false;
 
 
 /***/ }),
@@ -36199,18 +36200,20 @@ var AppProvider = function AppProvider(_ref) {
 /* harmony export */   "TB": function() { return /* binding */ DB_VALUE_CHANGE; },
 /* harmony export */   "WQ": function() { return /* binding */ DbProvider; }
 /* harmony export */ });
-/* unused harmony exports DbStore, Db */
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(5991);
-/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(63349);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(92137);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41788);
+/* unused harmony export DbStore */
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5991);
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(63349);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(41788);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
 /* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81794);
-/* harmony import */ var _useEffectAsync__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7751);
+/* harmony import */ var _jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21258);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
+/* harmony import */ var _useEffectAsync__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7751);
+
 
 
 
@@ -36223,7 +36226,7 @@ var AppProvider = function AppProvider(_ref) {
 
 var DB_VALUE_CHANGE = "dbValueChange";
 var DbStore = /*#__PURE__*/function (_JDEventSource) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DbStore, _JDEventSource);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(DbStore, _JDEventSource);
 
   function DbStore(db, name) {
     var _this;
@@ -36240,35 +36243,65 @@ var DbStore = /*#__PURE__*/function (_JDEventSource) {
     return this.db.get(this.name, id);
   };
 
-  _proto.set = function set(id, value) {
-    var _this2 = this;
+  _proto.set = /*#__PURE__*/function () {
+    var _set = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(id, value) {
+      var current;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.db.get(this.name, id);
 
-    return this.db.set(this.name, id, value).then(function () {
-      _this2.emit(DB_VALUE_CHANGE, id);
+            case 2:
+              current = _context.sent;
 
-      _this2.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
-    });
-  };
+              if (!(current !== value)) {
+                _context.next = 8;
+                break;
+              }
+
+              _context.next = 6;
+              return this.db.set(this.name, id, value);
+
+            case 6:
+              this.emit(DB_VALUE_CHANGE, id);
+              this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function set(_x, _x2) {
+      return _set.apply(this, arguments);
+    }
+
+    return set;
+  }();
 
   _proto.list = function list() {
     return this.db.list(this.name);
   };
 
   _proto.clear = /*#__PURE__*/function () {
-    var _clear = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    var _clear = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               this.db.clear(this.name);
               this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
 
             case 2:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, this);
+      }, _callee2, this);
     }));
 
     function clear() {
@@ -36280,25 +36313,26 @@ var DbStore = /*#__PURE__*/function (_JDEventSource) {
 
   return DbStore;
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
-var Db = /*#__PURE__*/function (_JDEventSource2) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Db, _JDEventSource2);
 
-  function Db() {
-    var _this3;
+var IDBDb = /*#__PURE__*/function (_JDEventSource2) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(IDBDb, _JDEventSource2);
 
-    _this3 = _JDEventSource2.call(this) || this;
-    _this3.upgrading = false;
-    _this3.blobs = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_this3), Db.STORE_BLOBS);
-    _this3.values = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_this3), Db.STORE_STORAGE);
-    _this3.firmwares = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_this3), Db.STORE_FIRMWARE_BLOBS);
-    return _this3;
+  function IDBDb() {
+    var _this2;
+
+    _this2 = _JDEventSource2.call(this) || this;
+    _this2.upgrading = false;
+    _this2.blobs = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_BLOBS);
+    _this2.values = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_STORAGE);
+    _this2.firmwares = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_FIRMWARE_BLOBS);
+    return _this2;
   }
 
-  Db.create = function create() {
+  IDBDb.create = function create() {
     return new Promise(function (resolve) {
       // create or upgrade database
-      var request = indexedDB.open(Db.DB_NAME, Db.DB_VERSION);
-      var db = new Db();
+      var request = indexedDB.open(IDBDb.DB_NAME, IDBDb.DB_VERSION);
+      var db = new IDBDb();
 
       request.onsuccess = function () {
         db.db = request.result;
@@ -36312,9 +36346,9 @@ var Db = /*#__PURE__*/function (_JDEventSource2) {
         try {
           var _db = request.result;
           var stores = _db.objectStoreNames;
-          if (!stores.contains(Db.STORE_STORAGE)) _db.createObjectStore(Db.STORE_STORAGE);
-          if (!stores.contains(Db.STORE_FIRMWARE_BLOBS)) _db.createObjectStore(Db.STORE_FIRMWARE_BLOBS);
-          if (!stores.contains(Db.STORE_BLOBS)) _db.createObjectStore(Db.STORE_BLOBS);
+          if (!stores.contains(IDBDb.STORE_STORAGE)) _db.createObjectStore(IDBDb.STORE_STORAGE);
+          if (!stores.contains(IDBDb.STORE_FIRMWARE_BLOBS)) _db.createObjectStore(IDBDb.STORE_FIRMWARE_BLOBS);
+          if (!stores.contains(IDBDb.STORE_BLOBS)) _db.createObjectStore(IDBDb.STORE_BLOBS);
 
           _db.onerror = function (event) {
             console.log("idb error", event);
@@ -36326,34 +36360,36 @@ var Db = /*#__PURE__*/function (_JDEventSource2) {
     });
   };
 
-  var _proto2 = Db.prototype;
+  var _proto2 = IDBDb.prototype;
 
   _proto2.checkUpgrading = function checkUpgrading() {
-    if (!this.db || this.upgrading) return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(100);else return Promise.resolve();
+    if (!this.db || this.upgrading) return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .delay */ .gw)(100);else return Promise.resolve();
   };
 
   _proto2.list = function list(table) {
-    var _this4 = this;
+    var _this3 = this;
 
     return this.checkUpgrading().then(function () {
       return new Promise(function (resolve, reject) {
         try {
-          var transaction = _this4.db.transaction([table], "readonly");
+          var transaction = _this3.db.transaction([table], "readonly");
 
           var blobs = transaction.objectStore(table);
           var request = blobs.getAllKeys(); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
           request.onsuccess = function (event) {
-            return resolve(event.target.result);
+            return (// eslint-disable-next-line @typescript-eslint/no-explicit-any
+              resolve(event.target.result)
+            );
           };
 
           request.onerror = function (event) {
-            _this4.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
+            _this3.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
 
             resolve(undefined);
           };
         } catch (e) {
-          _this4.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, e);
+          _this3.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, e);
 
           reject(e);
         }
@@ -36362,25 +36398,60 @@ var Db = /*#__PURE__*/function (_JDEventSource2) {
   };
 
   _proto2.get = function get(table, id) {
-    var _this5 = this;
+    var _this4 = this;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.checkUpgrading().then(function () {
+      return (// eslint-disable-next-line @typescript-eslint/no-explicit-any
+        new Promise(function (resolve, reject) {
+          try {
+            var transaction = _this4.db.transaction([table], "readonly");
+
+            var blobs = transaction.objectStore(table);
+            var request = blobs.get(id);
+
+            request.onsuccess = function (event) {
+              return (// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                resolve(event.target.result)
+              );
+            };
+
+            request.onerror = function (event) {
+              _this4.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
+
+              resolve(undefined);
+            };
+          } catch (e) {
+            _this4.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, e);
+
+            reject(e);
+          }
+        })
+      );
+    });
+  };
+
+  _proto2.set = function set(table, id, data) {
+    var _this5 = this;
+
+    return this.checkUpgrading().then(function () {
       return new Promise(function (resolve, reject) {
         try {
-          var transaction = _this5.db.transaction([table], "readonly");
+          var transaction = _this5.db.transaction([table], "readwrite");
 
           var blobs = transaction.objectStore(table);
-          var request = blobs.get(id); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          var request = data !== undefined ? blobs.put(data, id) : blobs.delete(id);
 
-          request.onsuccess = function (event) {
-            return resolve(event.target.result);
+          request.onsuccess = function () {
+            _this5.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+
+            resolve();
           };
 
           request.onerror = function (event) {
             _this5.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
 
-            resolve(undefined);
+            resolve();
           };
         } catch (e) {
           _this5.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, e);
@@ -36391,7 +36462,7 @@ var Db = /*#__PURE__*/function (_JDEventSource2) {
     });
   };
 
-  _proto2.set = function set(table, id, data) {
+  _proto2.clear = function clear(table) {
     var _this6 = this;
 
     return this.checkUpgrading().then(function () {
@@ -36400,7 +36471,7 @@ var Db = /*#__PURE__*/function (_JDEventSource2) {
           var transaction = _this6.db.transaction([table], "readwrite");
 
           var blobs = transaction.objectStore(table);
-          var request = data !== undefined ? blobs.put(data, id) : blobs.delete(id);
+          var request = blobs.clear();
 
           request.onsuccess = function () {
             _this6.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
@@ -36422,59 +36493,157 @@ var Db = /*#__PURE__*/function (_JDEventSource2) {
     });
   };
 
-  _proto2.clear = function clear(table) {
-    var _this7 = this;
-
-    return this.checkUpgrading().then(function () {
-      return new Promise(function (resolve, reject) {
-        try {
-          var transaction = _this7.db.transaction([table], "readwrite");
-
-          var blobs = transaction.objectStore(table);
-          var request = blobs.clear();
-
-          request.onsuccess = function () {
-            _this7.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
-
-            resolve();
-          };
-
-          request.onerror = function (event) {
-            _this7.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
-
-            resolve();
-          };
-        } catch (e) {
-          _this7.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, e);
-
-          reject(e);
-        }
-      });
-    });
-  };
-
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(Db, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(IDBDb, [{
     key: "db",
     get: function get() {
       return this._db;
     },
     set: function set(idb) {
-      var _this8 = this;
+      var _this7 = this;
 
       this._db = idb;
       if (this._db) this._db.onerror = function (event) {
-        _this8.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
+        _this7.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, event);
       };
     }
   }]);
 
-  return Db;
+  return IDBDb;
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
-Db.DB_VERSION = 17;
-Db.DB_NAME = "JACDAC";
-Db.STORE_BLOBS = "BLOBS";
-Db.STORE_FIRMWARE_BLOBS = "STORE_FIRMWARE_BLOBS";
-Db.STORE_STORAGE = "STORAGE";
+
+IDBDb.DB_VERSION = 17;
+IDBDb.DB_NAME = "JACDAC";
+IDBDb.STORE_BLOBS = "BLOBS";
+IDBDb.STORE_FIRMWARE_BLOBS = "STORE_FIRMWARE_BLOBS";
+IDBDb.STORE_STORAGE = "STORAGE";
+
+var MemoryDb = /*#__PURE__*/function (_JDEventSource3) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(MemoryDb, _JDEventSource3);
+
+  function MemoryDb() {
+    var _this8$tables;
+
+    var _this8;
+
+    _this8 = _JDEventSource3.call(this) || this;
+    _this8.tables = (_this8$tables = {}, _this8$tables[IDBDb.STORE_BLOBS] = {}, _this8$tables[IDBDb.STORE_STORAGE] = {}, _this8$tables[IDBDb.STORE_FIRMWARE_BLOBS] = {}, _this8$tables);
+    _this8.blobs = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_BLOBS);
+    _this8.values = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_STORAGE);
+    _this8.firmwares = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_FIRMWARE_BLOBS);
+    return _this8;
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _proto3 = MemoryDb.prototype;
+
+  _proto3.get =
+  /*#__PURE__*/
+  function () {
+    var _get = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(table, key) {
+      var _this$tables$table;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              return _context3.abrupt("return", (_this$tables$table = this.tables[table]) === null || _this$tables$table === void 0 ? void 0 : _this$tables$table[key]);
+
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function get(_x3, _x4) {
+      return _get.apply(this, arguments);
+    }
+
+    return get;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  _proto3.set =
+  /*#__PURE__*/
+  function () {
+    var _set2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(table, key, value) {
+      var t;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              t = this.tables[table];
+              if (t) t[key] = value;
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function set(_x5, _x6, _x7) {
+      return _set2.apply(this, arguments);
+    }
+
+    return set;
+  }();
+
+  _proto3.list = /*#__PURE__*/function () {
+    var _list = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(table) {
+      var keys;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              keys = Object.keys(this.tables[table] || {});
+              return _context5.abrupt("return", keys);
+
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function list(_x8) {
+      return _list.apply(this, arguments);
+    }
+
+    return list;
+  }();
+
+  _proto3.clear = /*#__PURE__*/function () {
+    var _clear2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(table) {
+      var t;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              t = this.tables[table];
+              if (t) this.tables[table] = {};
+
+            case 2:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, this);
+    }));
+
+    function clear(_x9) {
+      return _clear2.apply(this, arguments);
+    }
+
+    return clear;
+  }();
+
+  return MemoryDb;
+}(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
+
 var DbContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
   db: undefined,
   error: undefined
@@ -36493,33 +36662,47 @@ var DbProvider = function DbProvider(_ref) {
       error = _useState2[0],
       setError = _useState2[1];
 
-  (0,_useEffectAsync__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+  (0,_useEffectAsync__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
     var r;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
-            _context2.prev = 0;
-            _context2.next = 3;
-            return Db.create();
+            if (!_jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_4__/* .default.storage */ .Z.storage) {
+              _context7.next = 14;
+              break;
+            }
 
-          case 3:
-            r = _context2.sent;
+            console.debug("db: indexeddb");
+            _context7.prev = 2;
+            _context7.next = 5;
+            return IDBDb.create();
+
+          case 5:
+            r = _context7.sent;
             setDb(r);
-            _context2.next = 10;
+            _context7.next = 12;
             break;
 
-          case 7:
-            _context2.prev = 7;
-            _context2.t0 = _context2["catch"](0);
-            setError(_context2.t0);
+          case 9:
+            _context7.prev = 9;
+            _context7.t0 = _context7["catch"](2);
+            setError(_context7.t0);
 
-          case 10:
+          case 12:
+            _context7.next = 16;
+            break;
+
+          case 14:
+            console.debug("db: in memory");
+            setDb(new MemoryDb());
+
+          case 16:
           case "end":
-            return _context2.stop();
+            return _context7.stop();
         }
       }
-    }, _callee2, null, [[0, 7]]);
+    }, _callee7, null, [[2, 9]]);
   })), []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(DbContext.Provider, {
     value: {
@@ -38076,737 +38259,6 @@ var ServiceManagerProvider = function ServiceManagerProvider(_ref) {
 
 /***/ }),
 
-/***/ 29394:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ useFirmwareBlobs; },
-  "x": function() { return /* binding */ useFirmwareBlob; }
-});
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(92137);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(87757);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/flashing.ts
-var flashing = __webpack_require__(91758);
-// EXTERNAL MODULE: ./src/components/DbContext.tsx
-var DbContext = __webpack_require__(94904);
-// EXTERNAL MODULE: ./src/jacdac/useChange.ts
-var useChange = __webpack_require__(54774);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
-var github = __webpack_require__(78136);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(85061);
-;// CONCATENATED MODULE: ./src/components/hooks/useIdleCallback.ts
-
-
-function useIdleCallback(cb, timeout, deps) {
-  (0,react.useEffect)(function () {
-    if (typeof window === "undefined" || !cb) return;
-
-    if ("requestIdleCallback" in window) {
-      var id = window.requestIdleCallback(cb, {
-        timeout: timeout
-      });
-      return function () {
-        return window.cancelIdleCallback(id);
-      };
-    } else {
-      var _id = setTimeout(cb, timeout);
-
-      return function () {
-        return clearTimeout(_id);
-      };
-    }
-  }, [cb, timeout].concat((0,toConsumableArray/* default */.Z)(deps || [])));
-}
-;// CONCATENATED MODULE: ./src/components/firmware/useFirmwareBlobs.ts
-
-
-
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
-
-
-
-
-
-
-function useFirmwareBlobs() {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var _useContext2 = (0,react.useContext)(DbContext/* default */.ZP),
-      db = _useContext2.db;
-
-  var firmwares = db === null || db === void 0 ? void 0 : db.firmwares;
-  var loadFirmwares = (0,react.useCallback)( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-    var names, missingSlugs, _iterator, _step, slug, rel, fw;
-
-    return regenerator_default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            console.log("firmware: load");
-            _context.next = 3;
-            return firmwares === null || firmwares === void 0 ? void 0 : firmwares.list();
-
-          case 3:
-            names = _context.sent;
-
-            if (names) {
-              _context.next = 6;
-              break;
-            }
-
-            return _context.abrupt("return");
-
-          case 6:
-            missingSlugs = (0,utils/* unique */.Tw)((0,spec/* deviceSpecifications */.qx)().filter(function (spec) {
-              return !!(spec !== null && spec !== void 0 && spec.firmwares.length);
-            }) // needs some firmwares
-            .map(function (spec) {
-              return spec.repo;
-            }).filter(function (repo) {
-              return /^https:\/\/github.com\//.test(repo);
-            }).map(function (repo) {
-              return repo.substr("https://github.com/".length);
-            }).filter(function (slug) {
-              return names.indexOf(slug) < 0;
-            }));
-            _iterator = _createForOfIteratorHelperLoose(missingSlugs);
-
-          case 8:
-            if ((_step = _iterator()).done) {
-              _context.next = 26;
-              break;
-            }
-
-            slug = _step.value;
-            console.log("db: fetch latest release of " + slug);
-            _context.next = 13;
-            return (0,github/* fetchLatestRelease */.pY)(slug, {
-              ignoreThrottled: true
-            });
-
-          case 13:
-            rel = _context.sent;
-
-            if (rel !== null && rel !== void 0 && rel.version) {
-              _context.next = 17;
-              break;
-            }
-
-            console.warn("release not found");
-            return _context.abrupt("return");
-
-          case 17:
-            console.log("db: fetch binary release " + slug + " " + rel.version);
-            _context.next = 20;
-            return (0,github/* fetchReleaseBinary */.dW)(slug, rel.version);
-
-          case 20:
-            fw = _context.sent;
-
-            if (fw) {
-              console.log("db: binary release " + slug + " " + rel.version + " downloaded");
-              firmwares.set(slug, fw);
-            } // throttle github queries
-
-
-            _context.next = 24;
-            return (0,utils/* delay */.gw)(5000);
-
-          case 24:
-            _context.next = 8;
-            break;
-
-          case 26:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  })), [db, firmwares]);
-  useIdleCallback(loadFirmwares, 30000, [db, firmwares]);
-  (0,useChange/* useChangeAsync */.R)(firmwares, /*#__PURE__*/function () {
-    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(fw) {
-      var names, uf2s, _iterator2, _step2, name, blob, uf2Blobs;
-
-      return regenerator_default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              console.log("firmwares: change");
-              _context2.next = 3;
-              return fw === null || fw === void 0 ? void 0 : fw.list();
-
-            case 3:
-              names = _context2.sent;
-              console.log("import stored uf2", names);
-              uf2s = [];
-
-              if (!(names !== null && names !== void 0 && names.length)) {
-                _context2.next = 19;
-                break;
-              }
-
-              _iterator2 = _createForOfIteratorHelperLoose(names);
-
-            case 8:
-              if ((_step2 = _iterator2()).done) {
-                _context2.next = 19;
-                break;
-              }
-
-              name = _step2.value;
-              _context2.next = 12;
-              return fw.get(name);
-
-            case 12:
-              blob = _context2.sent;
-              _context2.next = 15;
-              return (0,flashing/* parseFirmwareFile */.Ub)(blob, name);
-
-            case 15:
-              uf2Blobs = _context2.sent;
-              uf2Blobs === null || uf2Blobs === void 0 ? void 0 : uf2Blobs.forEach(function (uf2Blob) {
-                uf2s.push(uf2Blob);
-              });
-
-            case 17:
-              _context2.next = 8;
-              break;
-
-            case 19:
-              bus.firmwareBlobs = uf2s;
-
-            case 20:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function (_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }(), []);
-  return bus.firmwareBlobs;
-}
-function useFirmwareBlob(repoSlug) {
-  repoSlug = repoSlug.replace(/^https:\/\/github\.com\//i, "");
-
-  var _useContext3 = (0,react.useContext)(DbContext/* default */.ZP),
-      db = _useContext3.db;
-
-  var firmwares = db === null || db === void 0 ? void 0 : db.firmwares;
-  var blobs = (0,useChange/* useChangeAsync */.R)(firmwares, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
-    var blob, uf2Blobs;
-    return regenerator_default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            if (repoSlug) {
-              _context3.next = 2;
-              break;
-            }
-
-            return _context3.abrupt("return", undefined);
-
-          case 2:
-            _context3.next = 4;
-            return firmwares === null || firmwares === void 0 ? void 0 : firmwares.get(repoSlug);
-
-          case 4:
-            blob = _context3.sent;
-
-            if (blob) {
-              _context3.next = 9;
-              break;
-            }
-
-            return _context3.abrupt("return", undefined);
-
-          case 9:
-            _context3.next = 11;
-            return (0,flashing/* parseFirmwareFile */.Ub)(blob, repoSlug);
-
-          case 11:
-            uf2Blobs = _context3.sent;
-            return _context3.abrupt("return", uf2Blobs);
-
-          case 13:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  })), [repoSlug]);
-
-  var setFirmwareFile = /*#__PURE__*/function () {
-    var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4(tag, f) {
-      return regenerator_default().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.next = 2;
-              return firmwares === null || firmwares === void 0 ? void 0 : firmwares.set(repoSlug, f);
-
-            case 2:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-
-    return function setFirmwareFile(_x2, _x3) {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
-  return {
-    firmwareBlobs: blobs,
-    setFirmwareFile: setFirmwareFile
-  };
-}
-
-/***/ }),
-
-/***/ 78136:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "nJ": function() { return /* binding */ GITHUB_API_KEY; },
-  "pY": function() { return /* binding */ fetchLatestRelease; },
-  "dW": function() { return /* binding */ fetchReleaseBinary; },
-  "s8": function() { return /* binding */ fetchText; },
-  "Jo": function() { return /* binding */ parseRepoUrl; },
-  "G$": function() { return /* binding */ useLatestRelease; },
-  "Fm": function() { return /* binding */ useLatestReleases; },
-  "Ux": function() { return /* binding */ useRepository; }
-});
-
-// UNUSED EXPORTS: normalizeSlug
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(96156);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(92137);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(87757);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./src/components/semver.ts
-var semver = __webpack_require__(14914);
-// EXTERNAL MODULE: ./src/components/useEffectAsync.ts
-var useEffectAsync = __webpack_require__(7751);
-;// CONCATENATED MODULE: ./src/components/useFetch.ts
-
-
-
-
-function useFetch(url, options) {
-  var _useState = (0,react.useState)(undefined),
-      response = _useState[0],
-      setResponse = _useState[1]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
-  var _useState2 = (0,react.useState)(undefined),
-      error = _useState2[0],
-      setError = _useState2[1];
-
-  var _useState3 = (0,react.useState)(undefined),
-      status = _useState3[0],
-      setStatus = _useState3[1];
-
-  var _useState4 = (0,react.useState)(true),
-      loading = _useState4[0],
-      setLoading = _useState4[1]; // start in loading mode
-
-
-  (0,useEffectAsync/* default */.Z)( /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(mounted) {
-      var res, _status, json;
-
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              setLoading(true);
-              _context.prev = 1;
-              _context.next = 4;
-              return fetch(url, options);
-
-            case 4:
-              res = _context.sent;
-
-              if (mounted()) {
-                _context.next = 7;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 7:
-              _status = res.status;
-              setStatus(_status);
-
-              if (!(_status >= 200 && _status <= 204)) {
-                _context.next = 16;
-                break;
-              }
-
-              _context.next = 12;
-              return res.json();
-
-            case 12:
-              json = _context.sent;
-
-              if (mounted()) {
-                _context.next = 15;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 15:
-              setResponse(json);
-
-            case 16:
-              _context.next = 23;
-              break;
-
-            case 18:
-              _context.prev = 18;
-              _context.t0 = _context["catch"](1);
-
-              if (mounted()) {
-                _context.next = 22;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 22:
-              setError(_context.t0);
-
-            case 23:
-              _context.prev = 23;
-              if (mounted()) setLoading(false);
-              return _context.finish(23);
-
-            case 26:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[1, 18, 23, 26]]);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }(), [url]);
-  return {
-    response: response,
-    error: error,
-    status: status,
-    loading: loading
-  };
-}
-;// CONCATENATED MODULE: ./src/components/github.ts
-
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-
-
-
-var ROOT = "https://api.github.com/";
-var GITHUB_API_KEY = "githubtoken";
-
-function contentToFirmwareRelease(content) {
-  var _$exec;
-
-  // filter out non-file, non-uf2
-  var version = (content === null || content === void 0 ? void 0 : content.type) === "file" && ((_$exec = /^fw-(\d+\.\d+.\d+)\.uf2$/.exec(content.name)) === null || _$exec === void 0 ? void 0 : _$exec[1]);
-  if (!version) return undefined;
-  return {
-    version: version,
-    sha: content.sha,
-    size: content.size,
-    html_url: content.html_url,
-    download_url: content.download_url
-  };
-}
-
-function contentsToFirmwareReleases(contents) {
-  return contents === null || contents === void 0 ? void 0 : contents.map(contentToFirmwareRelease).filter(function (r) {
-    return !!r;
-  }).sort(function (l, r) {
-    return -(0,semver/* semverCmp */.k)(l.version, r.version);
-  });
-}
-
-function normalizeSlug(slug) {
-  return slug.replace(/^https:\/\/github.com\//, "");
-}
-function parseRepoUrl(url) {
-  var m = /^https:\/\/github\.com\/([^/ \t]+)\/([^/ \t]+)\/?$/.exec(url || "");
-  if (m) return {
-    owner: m[1],
-    name: m[2]
-  };
-  return undefined;
-}
-function fetchLatestRelease(_x, _x2) {
-  return _fetchLatestRelease.apply(this, arguments);
-}
-
-function _fetchLatestRelease() {
-  _fetchLatestRelease = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(slug, options) {
-    var uri, resp, contents, releases;
-    return regenerator_default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            // https://api.github.com/repos/microsoft/jacdac-msr-modules/contents/dist
-            uri = ROOT + "repos/" + normalizeSlug(slug) + "/contents/dist";
-            _context.next = 3;
-            return fetch(uri);
-
-          case 3:
-            resp = _context.sent;
-            _context.t0 = resp.status;
-            _context.next = _context.t0 === 200 ? 7 : _context.t0 === 204 ? 7 : _context.t0 === 404 ? 12 : _context.t0 === 403 ? 13 : 16;
-            break;
-
-          case 7:
-            _context.next = 9;
-            return resp.json();
-
-          case 9:
-            contents = _context.sent;
-            releases = contentsToFirmwareReleases(contents);
-            return _context.abrupt("return", releases[0]);
-
-          case 12:
-            return _context.abrupt("return", undefined);
-
-          case 13:
-            if (!(options !== null && options !== void 0 && options.ignoreThrottled)) {
-              _context.next = 15;
-              break;
-            }
-
-            return _context.abrupt("return", undefined);
-
-          case 15:
-            throw new Error("Too many calls to GitHub, try again later");
-
-          case 16:
-            throw new Error("unknown status code " + resp.status);
-
-          case 17:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _fetchLatestRelease.apply(this, arguments);
-}
-
-function fetchReleaseBinary(_x3, _x4) {
-  return _fetchReleaseBinary.apply(this, arguments);
-}
-
-function _fetchReleaseBinary() {
-  _fetchReleaseBinary = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(slug, version) {
-    var downloadUrl, req, firmware;
-    return regenerator_default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            // we are not using the release api because of CORS.
-            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/main/dist/fw-" + version + ".uf2";
-            _context2.next = 3;
-            return fetch(downloadUrl, {
-              headers: {
-                Accept: "application/octet-stream"
-              }
-            });
-
-          case 3:
-            req = _context2.sent;
-
-            if (!(req.status == 200)) {
-              _context2.next = 9;
-              break;
-            }
-
-            _context2.next = 7;
-            return req.blob();
-
-          case 7:
-            firmware = _context2.sent;
-            return _context2.abrupt("return", firmware);
-
-          case 9:
-            return _context2.abrupt("return", undefined);
-
-          case 10:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _fetchReleaseBinary.apply(this, arguments);
-}
-
-function fetchText(_x5, _x6, _x7, _x8) {
-  return _fetchText.apply(this, arguments);
-}
-
-function _fetchText() {
-  _fetchText = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(slug, tag, path, mimeType) {
-    var downloadUrl, req, src;
-    return regenerator_default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/" + tag + "/" + path;
-            _context3.next = 3;
-            return fetch(downloadUrl, {
-              headers: {
-                Accept: mimeType
-              }
-            });
-
-          case 3:
-            req = _context3.sent;
-
-            if (!(req.status == 200)) {
-              _context3.next = 9;
-              break;
-            }
-
-            _context3.next = 7;
-            return req.text();
-
-          case 7:
-            src = _context3.sent;
-            return _context3.abrupt("return", src);
-
-          case 9:
-            return _context3.abrupt("return", undefined);
-
-          case 10:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _fetchText.apply(this, arguments);
-}
-
-function useFetchApi(path, options) {
-  var res = useFetch("" + ROOT + path);
-  if (res.status !== undefined) switch (res.status) {
-    case 200:
-    case 201:
-    case 202:
-    case 203:
-    case 204:
-      break;
-
-    case 404:
-      // unknow repo or no access
-      res.response = undefined;
-      break;
-
-    case 403:
-      // throttled
-      if (options !== null && options !== void 0 && options.ignoreThrottled) {
-        res.response = undefined;
-        return res;
-      } else throw new Error("Too many calls to GitHub, try again later");
-
-    default:
-      console.log("unknown status", res);
-      throw new Error("Unknown response from GitHub " + res.status);
-  }
-  return res;
-}
-
-function useRepository(slug) {
-  var path = "repos/" + normalizeSlug(slug);
-  var res = useFetchApi(path, {
-    ignoreThrottled: true
-  });
-  return res;
-}
-function useLatestRelease(slug, options) {
-  var _resp$response;
-
-  var resp = useLatestReleases(slug, options);
-  return _objectSpread(_objectSpread({}, resp), {}, {
-    response: (_resp$response = resp.response) === null || _resp$response === void 0 ? void 0 : _resp$response[0]
-  });
-}
-function useLatestReleases(slug, options) {
-  if (!slug) return {
-    response: undefined,
-    loading: false,
-    error: undefined,
-    status: undefined
-  };
-  return (0,react.useMemo)(function () {
-    var uri = "repos/" + normalizeSlug(slug) + "/contents/dist";
-    var res = useFetchApi(uri, _objectSpread(_objectSpread({}, options || {}), {}, {
-      ignoreThrottled: true
-    }));
-    return _objectSpread(_objectSpread({}, res), {}, {
-      response: contentsToFirmwareReleases(res.response)
-    });
-  }, [slug, options === null || options === void 0 ? void 0 : options.ignoreThrottled]);
-}
-
-/***/ }),
-
 /***/ 53074:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -39668,8 +39120,6 @@ var createMuiTheme = __webpack_require__(81864);
 var responsiveFontSizes = __webpack_require__(23581);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./src/components/firmware/useFirmwareBlobs.ts + 1 modules
-var useFirmwareBlobs = __webpack_require__(29394);
 // EXTERNAL MODULE: ./node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__(64983);
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
@@ -39877,7 +39327,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "4a855f8c787d3b044b5455790a4d8f09019ca667";
+  var sha = "b010a6466c1df176a767638828130bf90288d10b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -39989,7 +39439,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
  // tslint:disable-next-line: no-submodule-imports
-
 
 
 
@@ -40269,7 +39718,6 @@ function LayoutWithContext(props) {
       drawerType = _useContext5.drawerType,
       toolsMenu = _useContext5.toolsMenu;
 
-  (0,useFirmwareBlobs/* default */.Z)();
   var drawerOpen = drawerType !== AppContext/* DrawerType.None */.jw.None;
   var theme = (0,useTheme/* default */.Z)();
   var medium = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(MEDIUM_BREAKPOINT));
@@ -40356,80 +39804,6 @@ function MakeCodeSnippetProvider(props) {
       simUrl: simUrl
     }
   }, children);
-}
-
-/***/ }),
-
-/***/ 14914:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "k": function() { return /* binding */ semverCmp; }
-/* harmony export */ });
-function cmp(a, b) {
-  if (!a) {
-    if (!b) return 0;else return 1;
-  } else if (!b) return -1;else {
-    var d = a.major - b.major || a.minor - b.minor || a.patch - b.patch;
-    if (d) return d;
-    if (a.pre.length == 0 && b.pre.length > 0) return 1;
-    if (a.pre.length > 0 && b.pre.length == 0) return -1;
-
-    for (var i = 0; i < a.pre.length + 1; ++i) {
-      var aa = a.pre[i];
-      var bb = b.pre[i];
-      if (!aa) {
-        if (!bb) return 0;else return -1;
-      } else if (!bb) return 1;else if (/^\d+$/.test(aa)) {
-        if (/^\d+$/.test(bb)) {
-          d = parseInt(aa) - parseInt(bb);
-          if (d) return d;
-        } else return -1;
-      } else if (/^\d+$/.test(bb)) return 1;else {
-        d = strcmp(aa, bb);
-        if (d) return d;
-      }
-    }
-
-    return 0;
-  }
-}
-
-function tryParse(v) {
-  if (!v) return null;
-
-  if ("*" === v) {
-    return {
-      major: Number.MAX_SAFE_INTEGER,
-      minor: Number.MAX_SAFE_INTEGER,
-      patch: Number.MAX_SAFE_INTEGER,
-      pre: [],
-      build: []
-    };
-  }
-
-  if (/^v\d/i.test(v)) v = v.slice(1);
-  var m = /^(\d+)\.(\d+)\.(\d+)(-([0-9a-zA-Z\-\.]+))?(\+([0-9a-zA-Z\-\.]+))?$/.exec(v);
-  if (m) return {
-    major: parseInt(m[1]),
-    minor: parseInt(m[2]),
-    patch: parseInt(m[3]),
-    pre: m[5] ? m[5].split(".") : [],
-    build: m[7] ? m[7].split(".") : []
-  };
-  return null;
-}
-
-function strcmp(a, b) {
-  if (a === b) return 0;
-  if (a < b) return -1;else return 1;
-}
-
-function semverCmp(a, b) {
-  var aa = tryParse(a);
-  var bb = tryParse(b);
-  if (!aa && !bb) return strcmp(a, b);else return cmp(aa, bb);
 }
 
 /***/ }),
@@ -47567,6 +46941,7 @@ JacdacFlags.peers = false;
 
 
 function useChange(node, query, deps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)((node === null || node === void 0 ? void 0 : node.changeId) || 0),
       version = _useState[0],
       setVersion = _useState[1];
@@ -47990,7 +47365,7 @@ var wrapRootElement=wrapWithProvider;
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 // prefer default export if available
-var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---cache-caches-gatsby-plugin-offline-app-shell-js":function componentCacheCachesGatsbyPluginOfflineAppShellJs(){return __webpack_require__.e(/* import() | component---cache-caches-gatsby-plugin-offline-app-shell-js */ 4306).then(__webpack_require__.bind(__webpack_require__, 45569));},"component---src-components-spec-tsx":function componentSrcComponentsSpecTsx(){return __webpack_require__.e(/* import() | component---src-components-spec-tsx */ 7655).then(__webpack_require__.bind(__webpack_require__, 52217));},"component---src-pages-404-mdx":function componentSrcPages404Mdx(){return __webpack_require__.e(/* import() | component---src-pages-404-mdx */ 2154).then(__webpack_require__.bind(__webpack_require__, 24120));},"component---src-pages-clients-hardware-makecode-mdx":function componentSrcPagesClientsHardwareMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-hardware-makecode-mdx */ 8176).then(__webpack_require__.bind(__webpack_require__, 41719));},"component---src-pages-clients-mdx":function componentSrcPagesClientsMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-mdx */ 2858).then(__webpack_require__.bind(__webpack_require__, 63895));},"component---src-pages-clients-web-iframe-mdx":function componentSrcPagesClientsWebIframeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-iframe-mdx */ 6585).then(__webpack_require__.bind(__webpack_require__, 25645));},"component---src-pages-clients-web-jdom-bus-mdx":function componentSrcPagesClientsWebJdomBusMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-bus-mdx */ 5064).then(__webpack_require__.bind(__webpack_require__, 48420));},"component---src-pages-clients-web-jdom-device-mdx":function componentSrcPagesClientsWebJdomDeviceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-device-mdx */ 1196).then(__webpack_require__.bind(__webpack_require__, 66513));},"component---src-pages-clients-web-jdom-event-mdx":function componentSrcPagesClientsWebJdomEventMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-event-mdx */ 3784).then(__webpack_require__.bind(__webpack_require__, 70957));},"component---src-pages-clients-web-jdom-field-mdx":function componentSrcPagesClientsWebJdomFieldMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-field-mdx */ 669).then(__webpack_require__.bind(__webpack_require__, 62000));},"component---src-pages-clients-web-jdom-mdx":function componentSrcPagesClientsWebJdomMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-mdx */ 9542).then(__webpack_require__.bind(__webpack_require__, 1298));},"component---src-pages-clients-web-jdom-node-mdx":function componentSrcPagesClientsWebJdomNodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-node-mdx */ 2194).then(__webpack_require__.bind(__webpack_require__, 13694));},"component---src-pages-clients-web-jdom-register-mdx":function componentSrcPagesClientsWebJdomRegisterMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-register-mdx */ 2002).then(__webpack_require__.bind(__webpack_require__, 32955));},"component---src-pages-clients-web-jdom-service-mdx":function componentSrcPagesClientsWebJdomServiceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-service-mdx */ 2343).then(__webpack_require__.bind(__webpack_require__, 62719));},"component---src-pages-clients-web-mdx":function componentSrcPagesClientsWebMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));},"component---src-pages-clients-web-react-mdx":function componentSrcPagesClientsWebReactMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-react-mdx */ 4235).then(__webpack_require__.bind(__webpack_require__, 50262));},"component---src-pages-clients-web-setup-mdx":function componentSrcPagesClientsWebSetupMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-setup-mdx */ 4883).then(__webpack_require__.bind(__webpack_require__, 728));},"component---src-pages-dashboard-tsx":function componentSrcPagesDashboardTsx(){return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));},"component---src-pages-devices-tsx":function componentSrcPagesDevicesTsx(){return Promise.all(/* import() | component---src-pages-devices-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(880), __webpack_require__.e(8524)]).then(__webpack_require__.bind(__webpack_require__, 17673));},"component---src-pages-dtmi-mdx":function componentSrcPagesDtmiMdx(){return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 9901).then(__webpack_require__.bind(__webpack_require__, 7248));},"component---src-pages-github-tsx":function componentSrcPagesGithubTsx(){return __webpack_require__.e(/* import() | component---src-pages-github-tsx */ 2566).then(__webpack_require__.bind(__webpack_require__, 82017));},"component---src-pages-index-mdx":function componentSrcPagesIndexMdx(){return __webpack_require__.e(/* import() | component---src-pages-index-mdx */ 4809).then(__webpack_require__.bind(__webpack_require__, 95646));},"component---src-pages-services-tsx":function componentSrcPagesServicesTsx(){return Promise.all(/* import() | component---src-pages-services-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(880), __webpack_require__.e(9871), __webpack_require__.e(4300), __webpack_require__.e(7858)]).then(__webpack_require__.bind(__webpack_require__, 43668));},"component---src-pages-tools-azure-device-twin-designer-tsx":function componentSrcPagesToolsAzureDeviceTwinDesignerTsx(){return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(7750), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));},"component---src-pages-tools-collector-tsx":function componentSrcPagesToolsCollectorTsx(){return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(2950), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 56075));},"component---src-pages-tools-device-registration-tsx":function componentSrcPagesToolsDeviceRegistrationTsx(){return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));},"component---src-pages-tools-edge-impulse-tsx":function componentSrcPagesToolsEdgeImpulseTsx(){return Promise.all(/* import() | component---src-pages-tools-edge-impulse-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(5637), __webpack_require__.e(3382)]).then(__webpack_require__.bind(__webpack_require__, 2649));},"component---src-pages-tools-flood-test-tsx":function componentSrcPagesToolsFloodTestTsx(){return Promise.all(/* import() | component---src-pages-tools-flood-test-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(5356)]).then(__webpack_require__.bind(__webpack_require__, 79410));},"component---src-pages-tools-jupyterlab-mdx":function componentSrcPagesToolsJupyterlabMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-jupyterlab-mdx */ 6394).then(__webpack_require__.bind(__webpack_require__, 95844));},"component---src-pages-tools-makecode-editor-extension-tsx":function componentSrcPagesToolsMakecodeEditorExtensionTsx(){return Promise.all(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(8039), __webpack_require__.e(7750), __webpack_require__.e(6456)]).then(__webpack_require__.bind(__webpack_require__, 69416));},"component---src-pages-tools-makecode-mdx":function componentSrcPagesToolsMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-mdx */ 4800).then(__webpack_require__.bind(__webpack_require__, 41631));},"component---src-pages-tools-makecode-sim-tsx":function componentSrcPagesToolsMakecodeSimTsx(){return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 59409));},"component---src-pages-tools-mdx":function componentSrcPagesToolsMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));},"component---src-pages-tools-model-uploader-tsx":function componentSrcPagesToolsModelUploaderTsx(){return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(5637)]).then(__webpack_require__.bind(__webpack_require__, 46905));},"component---src-pages-tools-packet-inspector-tsx":function componentSrcPagesToolsPacketInspectorTsx(){return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(7617), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));},"component---src-pages-tools-peers-tsx":function componentSrcPagesToolsPeersTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-peers-tsx */ 6992).then(__webpack_require__.bind(__webpack_require__, 27238));},"component---src-pages-tools-player-mdx":function componentSrcPagesToolsPlayerMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-player-mdx */ 5347).then(__webpack_require__.bind(__webpack_require__, 28455));},"component---src-pages-tools-prototest-tsx":function componentSrcPagesToolsPrototestTsx(){return Promise.all(/* import() | component---src-pages-tools-prototest-tsx */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(5437)]).then(__webpack_require__.bind(__webpack_require__, 50381));},"component---src-pages-tools-service-editor-tsx":function componentSrcPagesToolsServiceEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(3426), __webpack_require__.e(2288), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));},"component---src-pages-tools-service-test-editor-tsx":function componentSrcPagesToolsServiceTestEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(3426), __webpack_require__.e(2288), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));},"component---src-pages-tools-service-test-tsx":function componentSrcPagesToolsServiceTestTsx(){return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));},"component---src-pages-tools-settings-manager-tsx":function componentSrcPagesToolsSettingsManagerTsx(){return Promise.all(/* import() | component---src-pages-tools-settings-manager-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(7503)]).then(__webpack_require__.bind(__webpack_require__, 5620));},"component---src-pages-tools-updater-tsx":function componentSrcPagesToolsUpdaterTsx(){return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(2352), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 38624));},"component---src-pages-traces-mdx":function componentSrcPagesTracesMdx(){return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));},"component---src-templates-device-company-tsx":function componentSrcTemplatesDeviceCompanyTsx(){return Promise.all(/* import() | component---src-templates-device-company-tsx */[__webpack_require__.e(880), __webpack_require__.e(20)]).then(__webpack_require__.bind(__webpack_require__, 96557));},"component---src-templates-device-tsx":function componentSrcTemplatesDeviceTsx(){return Promise.all(/* import() | component---src-templates-device-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(7750), __webpack_require__.e(5092), __webpack_require__.e(8323)]).then(__webpack_require__.bind(__webpack_require__, 10454));},"component---src-templates-service-playground-tsx":function componentSrcTemplatesServicePlaygroundTsx(){return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));},"component---src-templates-service-test-tsx":function componentSrcTemplatesServiceTestTsx(){return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));},"component---src-templates-service-tsx":function componentSrcTemplatesServiceTsx(){return Promise.all(/* import() | component---src-templates-service-tsx */[__webpack_require__.e(880), __webpack_require__.e(9871), __webpack_require__.e(3133)]).then(__webpack_require__.bind(__webpack_require__, 59828));}};
+var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---cache-caches-gatsby-plugin-offline-app-shell-js":function componentCacheCachesGatsbyPluginOfflineAppShellJs(){return __webpack_require__.e(/* import() | component---cache-caches-gatsby-plugin-offline-app-shell-js */ 4306).then(__webpack_require__.bind(__webpack_require__, 45569));},"component---src-components-spec-tsx":function componentSrcComponentsSpecTsx(){return __webpack_require__.e(/* import() | component---src-components-spec-tsx */ 7655).then(__webpack_require__.bind(__webpack_require__, 52217));},"component---src-pages-404-mdx":function componentSrcPages404Mdx(){return __webpack_require__.e(/* import() | component---src-pages-404-mdx */ 2154).then(__webpack_require__.bind(__webpack_require__, 24120));},"component---src-pages-clients-hardware-makecode-mdx":function componentSrcPagesClientsHardwareMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-hardware-makecode-mdx */ 8176).then(__webpack_require__.bind(__webpack_require__, 41719));},"component---src-pages-clients-mdx":function componentSrcPagesClientsMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-mdx */ 2858).then(__webpack_require__.bind(__webpack_require__, 63895));},"component---src-pages-clients-web-iframe-mdx":function componentSrcPagesClientsWebIframeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-iframe-mdx */ 6585).then(__webpack_require__.bind(__webpack_require__, 25645));},"component---src-pages-clients-web-jdom-bus-mdx":function componentSrcPagesClientsWebJdomBusMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-bus-mdx */ 5064).then(__webpack_require__.bind(__webpack_require__, 48420));},"component---src-pages-clients-web-jdom-device-mdx":function componentSrcPagesClientsWebJdomDeviceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-device-mdx */ 1196).then(__webpack_require__.bind(__webpack_require__, 66513));},"component---src-pages-clients-web-jdom-event-mdx":function componentSrcPagesClientsWebJdomEventMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-event-mdx */ 3784).then(__webpack_require__.bind(__webpack_require__, 70957));},"component---src-pages-clients-web-jdom-field-mdx":function componentSrcPagesClientsWebJdomFieldMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-field-mdx */ 669).then(__webpack_require__.bind(__webpack_require__, 62000));},"component---src-pages-clients-web-jdom-mdx":function componentSrcPagesClientsWebJdomMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-mdx */ 9542).then(__webpack_require__.bind(__webpack_require__, 1298));},"component---src-pages-clients-web-jdom-node-mdx":function componentSrcPagesClientsWebJdomNodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-node-mdx */ 2194).then(__webpack_require__.bind(__webpack_require__, 13694));},"component---src-pages-clients-web-jdom-register-mdx":function componentSrcPagesClientsWebJdomRegisterMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-register-mdx */ 2002).then(__webpack_require__.bind(__webpack_require__, 32955));},"component---src-pages-clients-web-jdom-service-mdx":function componentSrcPagesClientsWebJdomServiceMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-jdom-service-mdx */ 2343).then(__webpack_require__.bind(__webpack_require__, 62719));},"component---src-pages-clients-web-mdx":function componentSrcPagesClientsWebMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));},"component---src-pages-clients-web-react-mdx":function componentSrcPagesClientsWebReactMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-react-mdx */ 4235).then(__webpack_require__.bind(__webpack_require__, 50262));},"component---src-pages-clients-web-setup-mdx":function componentSrcPagesClientsWebSetupMdx(){return __webpack_require__.e(/* import() | component---src-pages-clients-web-setup-mdx */ 4883).then(__webpack_require__.bind(__webpack_require__, 728));},"component---src-pages-dashboard-tsx":function componentSrcPagesDashboardTsx(){return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));},"component---src-pages-devices-tsx":function componentSrcPagesDevicesTsx(){return Promise.all(/* import() | component---src-pages-devices-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(880), __webpack_require__.e(8524)]).then(__webpack_require__.bind(__webpack_require__, 17673));},"component---src-pages-dtmi-mdx":function componentSrcPagesDtmiMdx(){return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 9901).then(__webpack_require__.bind(__webpack_require__, 7248));},"component---src-pages-github-tsx":function componentSrcPagesGithubTsx(){return __webpack_require__.e(/* import() | component---src-pages-github-tsx */ 2566).then(__webpack_require__.bind(__webpack_require__, 82017));},"component---src-pages-index-mdx":function componentSrcPagesIndexMdx(){return __webpack_require__.e(/* import() | component---src-pages-index-mdx */ 4809).then(__webpack_require__.bind(__webpack_require__, 95646));},"component---src-pages-services-tsx":function componentSrcPagesServicesTsx(){return Promise.all(/* import() | component---src-pages-services-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(880), __webpack_require__.e(9871), __webpack_require__.e(4300), __webpack_require__.e(7858)]).then(__webpack_require__.bind(__webpack_require__, 43668));},"component---src-pages-tools-azure-device-twin-designer-tsx":function componentSrcPagesToolsAzureDeviceTwinDesignerTsx(){return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));},"component---src-pages-tools-collector-tsx":function componentSrcPagesToolsCollectorTsx(){return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(2950), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 56075));},"component---src-pages-tools-device-registration-tsx":function componentSrcPagesToolsDeviceRegistrationTsx(){return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(7788), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));},"component---src-pages-tools-edge-impulse-tsx":function componentSrcPagesToolsEdgeImpulseTsx(){return Promise.all(/* import() | component---src-pages-tools-edge-impulse-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(5637), __webpack_require__.e(3382)]).then(__webpack_require__.bind(__webpack_require__, 2649));},"component---src-pages-tools-flood-test-tsx":function componentSrcPagesToolsFloodTestTsx(){return Promise.all(/* import() | component---src-pages-tools-flood-test-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(5356)]).then(__webpack_require__.bind(__webpack_require__, 79410));},"component---src-pages-tools-jupyterlab-mdx":function componentSrcPagesToolsJupyterlabMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-jupyterlab-mdx */ 6394).then(__webpack_require__.bind(__webpack_require__, 95844));},"component---src-pages-tools-makecode-editor-extension-tsx":function componentSrcPagesToolsMakecodeEditorExtensionTsx(){return Promise.all(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(8039), __webpack_require__.e(6456)]).then(__webpack_require__.bind(__webpack_require__, 69416));},"component---src-pages-tools-makecode-mdx":function componentSrcPagesToolsMakecodeMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-mdx */ 4800).then(__webpack_require__.bind(__webpack_require__, 41631));},"component---src-pages-tools-makecode-sim-tsx":function componentSrcPagesToolsMakecodeSimTsx(){return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 59409));},"component---src-pages-tools-mdx":function componentSrcPagesToolsMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));},"component---src-pages-tools-model-uploader-tsx":function componentSrcPagesToolsModelUploaderTsx(){return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(5637)]).then(__webpack_require__.bind(__webpack_require__, 46905));},"component---src-pages-tools-packet-inspector-tsx":function componentSrcPagesToolsPacketInspectorTsx(){return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(7617), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));},"component---src-pages-tools-peers-tsx":function componentSrcPagesToolsPeersTsx(){return __webpack_require__.e(/* import() | component---src-pages-tools-peers-tsx */ 6992).then(__webpack_require__.bind(__webpack_require__, 27238));},"component---src-pages-tools-player-mdx":function componentSrcPagesToolsPlayerMdx(){return __webpack_require__.e(/* import() | component---src-pages-tools-player-mdx */ 5347).then(__webpack_require__.bind(__webpack_require__, 28455));},"component---src-pages-tools-prototest-tsx":function componentSrcPagesToolsPrototestTsx(){return Promise.all(/* import() | component---src-pages-tools-prototest-tsx */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(5437)]).then(__webpack_require__.bind(__webpack_require__, 50381));},"component---src-pages-tools-service-editor-tsx":function componentSrcPagesToolsServiceEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(3426), __webpack_require__.e(2288), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));},"component---src-pages-tools-service-test-editor-tsx":function componentSrcPagesToolsServiceTestEditorTsx(){return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(3426), __webpack_require__.e(2288), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));},"component---src-pages-tools-service-test-tsx":function componentSrcPagesToolsServiceTestTsx(){return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));},"component---src-pages-tools-settings-manager-tsx":function componentSrcPagesToolsSettingsManagerTsx(){return Promise.all(/* import() | component---src-pages-tools-settings-manager-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(7503)]).then(__webpack_require__.bind(__webpack_require__, 5620));},"component---src-pages-tools-updater-tsx":function componentSrcPagesToolsUpdaterTsx(){return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(2352), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 38624));},"component---src-pages-traces-mdx":function componentSrcPagesTracesMdx(){return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));},"component---src-templates-device-company-tsx":function componentSrcTemplatesDeviceCompanyTsx(){return Promise.all(/* import() | component---src-templates-device-company-tsx */[__webpack_require__.e(880), __webpack_require__.e(20)]).then(__webpack_require__.bind(__webpack_require__, 96557));},"component---src-templates-device-tsx":function componentSrcTemplatesDeviceTsx(){return Promise.all(/* import() | component---src-templates-device-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(8323)]).then(__webpack_require__.bind(__webpack_require__, 10454));},"component---src-templates-service-playground-tsx":function componentSrcTemplatesServicePlaygroundTsx(){return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(880), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));},"component---src-templates-service-test-tsx":function componentSrcTemplatesServiceTestTsx(){return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(9367), __webpack_require__.e(4830), __webpack_require__.e(316), __webpack_require__.e(9247), __webpack_require__.e(4929), __webpack_require__.e(5927), __webpack_require__.e(8039), __webpack_require__.e(2950), __webpack_require__.e(5448), __webpack_require__.e(6315), __webpack_require__.e(2288), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));},"component---src-templates-service-tsx":function componentSrcTemplatesServiceTsx(){return Promise.all(/* import() | component---src-templates-service-tsx */[__webpack_require__.e(880), __webpack_require__.e(9871), __webpack_require__.e(3133)]).then(__webpack_require__.bind(__webpack_require__, 59828));}};
 
 /***/ }),
 
@@ -50674,4 +50049,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a365a5d50d10a31ff93f.js.map
+//# sourceMappingURL=app-11055cab68451b363192.js.map
