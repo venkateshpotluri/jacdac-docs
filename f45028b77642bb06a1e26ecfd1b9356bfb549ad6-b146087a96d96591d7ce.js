@@ -366,9 +366,6 @@ function DashboardDevice(props) {
   var serviceGridRef = (0,react.useRef)();
   var intersection = useIntersectionObserver(serviceGridRef);
   var visible = !!(intersection !== null && intersection !== void 0 && intersection.isIntersecting);
-  console.log({
-    services: services
-  });
   var ServiceWidgets = (0,react.useCallback)(function () {
     var _services$filter;
 
@@ -1355,4 +1352,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f72a367e34afe2638a2d.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-b146087a96d96591d7ce.js.map
