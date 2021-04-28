@@ -439,7 +439,10 @@ function DashboardDevice(props) {
     return /*#__PURE__*/react.createElement(DashboardServiceDetails, {
       key: "details" + service.serviceIndex,
       service: service,
-      expanded: expanded
+      services: services,
+      expanded: expanded,
+      variant: variant,
+      visible: visible
     });
   }))));
 }
@@ -1352,4 +1355,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-a9f363d87a09ec429c91.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f72a367e34afe2638a2d.js.map
