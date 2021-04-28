@@ -12286,6 +12286,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 88237:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+}), 'Settings');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 96898:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -25407,6 +25435,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "b7m": function() { return /* binding */ CONST_NODE_NAME; },
 /* harmony export */   "Yuh": function() { return /* binding */ EVENT_NODE_NAME; },
 /* harmony export */   "M_U": function() { return /* binding */ SERVICE_NODE_NAME; },
+/* harmony export */   "mLn": function() { return /* binding */ SERVICE_MIXIN_NODE_NAME; },
 /* harmony export */   "tY6": function() { return /* binding */ DEVICE_NODE_NAME; },
 /* harmony export */   "UX7": function() { return /* binding */ VIRTUAL_DEVICE_NODE_NAME; },
 /* harmony export */   "oPG": function() { return /* binding */ BUS_NODE_NAME; },
@@ -25706,6 +25735,7 @@ var REPORT_NODE_NAME = "report";
 var CONST_NODE_NAME = "const";
 var EVENT_NODE_NAME = "event";
 var SERVICE_NODE_NAME = "service";
+var SERVICE_MIXIN_NODE_NAME = "serviceMixin";
 var DEVICE_NODE_NAME = "device";
 var VIRTUAL_DEVICE_NODE_NAME = "virtualdevice";
 var BUS_NODE_NAME = "bus";
@@ -36950,16 +36980,19 @@ function DrawerToolsButtonGroup(props) {
 /* harmony import */ var _material_ui_icons_FlashOn__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(39152);
 /* harmony import */ var _material_ui_icons_DataUsage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(40063);
 /* harmony import */ var _material_ui_icons_Reply__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(88855);
-/* harmony import */ var _material_ui_icons_DeviceUnknown__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(59553);
+/* harmony import */ var _material_ui_icons_DeviceUnknown__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(59553);
 /* harmony import */ var _material_ui_icons_DeviceHub__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(6212);
 /* harmony import */ var _material_ui_icons_BubbleChart__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(94550);
 /* harmony import */ var _material_ui_icons_Computer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(89333);
-/* harmony import */ var _material_ui_icons_BlurLinear__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(94556);
-/* harmony import */ var _material_ui_icons_ConfirmationNumber__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(15960);
+/* harmony import */ var _material_ui_icons_BlurLinear__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(94556);
+/* harmony import */ var _material_ui_icons_ConfirmationNumber__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(15960);
 /* harmony import */ var _material_ui_icons_NotificationsNone__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(43244);
-/* harmony import */ var _material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(39545);
+/* harmony import */ var _material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(39545);
+/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(88237);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
 /* harmony import */ var _icons_JacdacIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36656);
+ // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
@@ -37063,32 +37096,38 @@ function KindIcon(props) {
       });
       break;
 
+    case _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SERVICE_MIXIN_NODE_NAME */ .mLn:
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+        className: className
+      });
+      break;
+
     case _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PIPE_NODE_NAME */ .C1C:
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_BlurLinear__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_BlurLinear__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
         className: className
       });
       break;
 
     case _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PIPE_REPORT_NODE_NAME */ .C3l:
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_BlurLinear__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_BlurLinear__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
         className: className
       });
       break;
 
     case _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CRC_ACK_NODE_NAME */ .REx:
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_ConfirmationNumber__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_ConfirmationNumber__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
         className: className
       });
       break;
 
     case _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SERVICE_TEST_NODE_NAME */ .BCz:
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_CheckCircle__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
         className: className
       });
       break;
 
     default:
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_DeviceUnknown__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_DeviceUnknown__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
         className: className
       });
       break;
@@ -39473,7 +39512,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "4c71c188886add157b6109601c12420b9a5356eb";
+  var sha = "88a38e20962ef7d17f4f005a265e1c023ae68b53";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50222,4 +50261,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-2e79e534a80a8eed09af.js.map
+//# sourceMappingURL=app-80b7d739c7da2506476a.js.map

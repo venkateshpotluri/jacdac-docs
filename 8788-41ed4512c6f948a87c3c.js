@@ -2443,7 +2443,9 @@ function DeviceTreeItem(props) {
     return !!(dev !== null && dev !== void 0 && dev.lost);
   });
   var services = (0,useChange/* default */.Z)(device, function () {
-    return device.services().filter(function (srv) {
+    return device.services({
+      mixins: false
+    }).filter(function (srv) {
       return !serviceFilter || serviceFilter(srv);
     });
   });
@@ -2498,7 +2500,9 @@ function ServiceTreeItem(props) {
       eventFilter = props.eventFilter,
       other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["service", "checked", "setChecked", "checkboxes", "registerFilter", "eventFilter"]);
 
-  var specification = service.specification;
+  var specification = service.specification,
+      mixins = service.mixins,
+      isMixin = service.isMixin;
   var showSpecificationAction = false;
   var id = service.id;
   var open = (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1;
@@ -2543,7 +2547,7 @@ function ServiceTreeItem(props) {
     nodeId: id,
     labelText: name,
     labelInfo: reading,
-    kind: "service",
+    kind: isMixin ? constants/* SERVICE_MIXIN_NODE_NAME */.mLn : constants/* SERVICE_NODE_NAME */.M_U,
     checked: open,
     setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("service")) > -1 && setChecked && handleChecked,
     actions: showSpecificationAction ? /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
@@ -2566,6 +2570,14 @@ function ServiceTreeItem(props) {
     return /*#__PURE__*/react.createElement(EventTreeItem, Object.assign({
       key: event.id,
       event: event,
+      checked: checked,
+      setChecked: setChecked,
+      checkboxes: checkboxes
+    }, other));
+  }), mixins === null || mixins === void 0 ? void 0 : mixins.map(function (mixin) {
+    return /*#__PURE__*/react.createElement(ServiceTreeItem, Object.assign({
+      key: mixin.id,
+      service: mixin,
       checked: checked,
       setChecked: setChecked,
       checkboxes: checkboxes
@@ -2612,7 +2624,7 @@ function RegisterTreeItem(props) {
     nodeId: id,
     labelText: labelText,
     labelInfo: humanValue || attempts > 0 && "#" + attempts || "",
-    kind: (specification === null || specification === void 0 ? void 0 : specification.kind) || "register",
+    kind: (specification === null || specification === void 0 ? void 0 : specification.kind) || constants/* REGISTER_NODE_NAME */.nJc,
     alert: failedGet && !optional && humanValue === undefined && "???",
     checked: (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1,
     onClick: handleClick,
@@ -2637,7 +2649,7 @@ function EventTreeItem(props) {
     nodeId: id,
     labelText: (specification === null || specification === void 0 ? void 0 : specification.name) || event.id,
     labelInfo: (count || "") + "",
-    kind: "event",
+    kind: constants/* EVENT_NODE_NAME */.Yuh,
     checked: (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1,
     setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("event")) > -1 && setChecked && handleChecked
   });
@@ -2968,4 +2980,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8788-897cde8163175e0019fd.js.map
+//# sourceMappingURL=8788-41ed4512c6f948a87c3c.js.map
