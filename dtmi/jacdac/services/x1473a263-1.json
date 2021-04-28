@@ -6,9 +6,16 @@
   "contents": [
     {
       "@type": "Telemetry",
-      "name": "pressed",
-      "@id": "dtmi:jacdac:x1473a263:ro:pressed;1",
-      "description": "Indicates whether the button is currently active (pressed).",
+      "name": "pressure",
+      "@id": "dtmi:jacdac:x1473a263:ro:pressure;1",
+      "description": "Indicates the pressure state of the button, where ``0`` is open and ``0xffff`` is fully pressed.",
+      "schema": "float"
+    },
+    {
+      "@type": "Property",
+      "name": "analog",
+      "@id": "dtmi:jacdac:x1473a263:const:analog;1",
+      "description": "Indicates if the button provides analog ``pressure`` readings.",
       "schema": "boolean"
     },
     {
@@ -18,7 +25,7 @@
       ],
       "name": "down",
       "@id": "dtmi:jacdac:x1473a263:event:down;1",
-      "description": "Emitted when button goes from inactive (`pressed == 0`) to active.",
+      "description": "Emitted when button goes from inactive to active.",
       "schema": "dtmi:jacdac:x1473a263:event;1"
     },
     {
@@ -28,7 +35,7 @@
       ],
       "name": "up",
       "@id": "dtmi:jacdac:x1473a263:event:up;1",
-      "description": "Emitted when button goes from active (`pressed == 1`) to inactive. The 'time' parameter \nrecords the amount of time between the down and up events.",
+      "description": "Emitted when button goes from active to inactive. The 'time' parameter \nrecords the amount of time between the down and up events.",
       "unit": "millisecond",
       "schema": "integer"
     },

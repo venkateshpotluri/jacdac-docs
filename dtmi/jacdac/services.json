@@ -294,98 +294,6 @@
   },
   {
     "@type": "Interface",
-    "@id": "dtmi:jacdac:services:x1865adc9;1",
-    "displayName": "Analog Button",
-    "description": "A capacitive or pressure sensitive push-button.",
-    "contents": [
-      {
-        "@type": "Telemetry",
-        "name": "pressure",
-        "@id": "dtmi:jacdac:x1865adc9:ro:pressure;1",
-        "description": "Indicates the current pressure (``force``) on the button.",
-        "schema": "float"
-      },
-      {
-        "@type": "Property",
-        "name": "inactive_threshold",
-        "@id": "dtmi:jacdac:x1865adc9:rw:inactivethreshold;1",
-        "description": "Indicates the lower threshold for ``inactive`` events.",
-        "schema": "float",
-        "writable": true
-      },
-      {
-        "@type": "Property",
-        "name": "active_threshold",
-        "@id": "dtmi:jacdac:x1865adc9:rw:activethreshold;1",
-        "description": "Indicates the threshold for ``active`` events.",
-        "schema": "float",
-        "writable": true
-      },
-      {
-        "@type": "Property",
-        "name": "variant",
-        "@id": "dtmi:jacdac:x1865adc9:const:variant;1",
-        "description": "The type of physical button.",
-        "schema": "dtmi:jacdac:x1865adc9:variant;1"
-      },
-      {
-        "@type": [
-          "Telemetry",
-          "Event"
-        ],
-        "name": "active",
-        "@id": "dtmi:jacdac:x1865adc9:event:active;1",
-        "description": "Emitted when button goes from inactive (pressure less than threshold) to active.",
-        "schema": "dtmi:jacdac:x1865adc9:event;1"
-      },
-      {
-        "@type": [
-          "Telemetry",
-          "Event"
-        ],
-        "name": "inactive",
-        "@id": "dtmi:jacdac:x1865adc9:event:inactive;1",
-        "description": "Emitted when button goes from active (pressure higher than threshold) to inactive.",
-        "schema": "dtmi:jacdac:x1865adc9:event;1"
-      }
-    ],
-    "extends": [
-      "dtmi:jacdac:services:x1ffffff3;1",
-      "dtmi:jacdac:services:x1ffffff2;1"
-    ],
-    "schemas": [
-      {
-        "@id": "dtmi:jacdac:x1865adc9:event;1",
-        "@type": "Object",
-        "fields": [
-          {
-            "name": "count",
-            "schema": "integer"
-          }
-        ]
-      },
-      {
-        "@type": "Enum",
-        "@id": "dtmi:jacdac:x1865adc9:variant;1",
-        "valueSchema": "integer",
-        "enumValues": [
-          {
-            "name": "pressure",
-            "displayName": "Pressure",
-            "enumValue": 1
-          },
-          {
-            "name": "capacitive",
-            "displayName": "Capacitive",
-            "enumValue": 2
-          }
-        ]
-      }
-    ],
-    "@context": "dtmi:dtdl:context;2"
-  },
-  {
-    "@type": "Interface",
     "@id": "dtmi:jacdac:services:x1deaa06e;1",
     "displayName": "Arcade Gamepad",
     "description": "A gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
@@ -807,9 +715,16 @@
     "contents": [
       {
         "@type": "Telemetry",
-        "name": "pressed",
-        "@id": "dtmi:jacdac:x1473a263:ro:pressed;1",
-        "description": "Indicates whether the button is currently active (pressed).",
+        "name": "pressure",
+        "@id": "dtmi:jacdac:x1473a263:ro:pressure;1",
+        "description": "Indicates the pressure state of the button, where ``0`` is open and ``0xffff`` is fully pressed.",
+        "schema": "float"
+      },
+      {
+        "@type": "Property",
+        "name": "analog",
+        "@id": "dtmi:jacdac:x1473a263:const:analog;1",
+        "description": "Indicates if the button provides analog ``pressure`` readings.",
         "schema": "boolean"
       },
       {
@@ -819,7 +734,7 @@
         ],
         "name": "down",
         "@id": "dtmi:jacdac:x1473a263:event:down;1",
-        "description": "Emitted when button goes from inactive (`pressed == 0`) to active.",
+        "description": "Emitted when button goes from inactive to active.",
         "schema": "dtmi:jacdac:x1473a263:event;1"
       },
       {
@@ -829,7 +744,7 @@
         ],
         "name": "up",
         "@id": "dtmi:jacdac:x1473a263:event:up;1",
-        "description": "Emitted when button goes from active (`pressed == 1`) to inactive. The 'time' parameter \nrecords the amount of time between the down and up events.",
+        "description": "Emitted when button goes from active to inactive. The 'time' parameter \nrecords the amount of time between the down and up events.",
         "unit": "millisecond",
         "schema": "integer"
       },
@@ -884,6 +799,38 @@
     "schemas": [
       {
         "@id": "dtmi:jacdac:x1b57b1d7:event;1",
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "count",
+            "schema": "integer"
+          }
+        ]
+      }
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  },
+  {
+    "@type": "Interface",
+    "@id": "dtmi:jacdac:services:x2865adc9;1",
+    "displayName": "Capacitive Button",
+    "description": "A configuration service for a capacitive push-button.",
+    "contents": [
+      {
+        "@type": "Property",
+        "name": "threshold",
+        "@id": "dtmi:jacdac:x2865adc9:rw:threshold;1",
+        "description": "Indicates the threshold for ``up`` events.",
+        "schema": "float",
+        "writable": true
+      }
+    ],
+    "extends": [
+      "dtmi:jacdac:services:x1ffffff3;1"
+    ],
+    "schemas": [
+      {
+        "@id": "dtmi:jacdac:x2865adc9:event;1",
         "@type": "Object",
         "fields": [
           {
@@ -3253,6 +3200,38 @@
     "schemas": [
       {
         "@id": "dtmi:jacdac:x1fa4c95a:event;1",
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "count",
+            "schema": "integer"
+          }
+        ]
+      }
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  },
+  {
+    "@type": "Interface",
+    "@id": "dtmi:jacdac:services:x281740c3;1",
+    "displayName": "Pressure Button",
+    "description": "A pressure sensitive push-button.",
+    "contents": [
+      {
+        "@type": "Property",
+        "name": "threshold",
+        "@id": "dtmi:jacdac:x281740c3:rw:threshold;1",
+        "description": "Indicates the threshold for ``up`` events.",
+        "schema": "float",
+        "writable": true
+      }
+    ],
+    "extends": [
+      "dtmi:jacdac:services:x1ffffff3;1"
+    ],
+    "schemas": [
+      {
+        "@id": "dtmi:jacdac:x281740c3:event;1",
         "@type": "Object",
         "fields": [
           {

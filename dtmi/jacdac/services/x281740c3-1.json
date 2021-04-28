@@ -1,0 +1,32 @@
+{
+  "@type": "Interface",
+  "@id": "dtmi:jacdac:services:x281740c3;1",
+  "displayName": "Pressure Button",
+  "description": "A pressure sensitive push-button.",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "threshold",
+      "@id": "dtmi:jacdac:x281740c3:rw:threshold;1",
+      "description": "Indicates the threshold for ``up`` events.",
+      "schema": "float",
+      "writable": true
+    }
+  ],
+  "extends": [
+    "dtmi:jacdac:services:x1ffffff3;1"
+  ],
+  "schemas": [
+    {
+      "@id": "dtmi:jacdac:x281740c3:event;1",
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "count",
+          "schema": "integer"
+        }
+      ]
+    }
+  ],
+  "@context": "dtmi:dtdl:context;2"
+}
