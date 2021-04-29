@@ -176,6 +176,7 @@ var Close = __webpack_require__(29181);
 function DashboardServiceWidgetItem(props) {
   var service = props.service,
       expanded = props.expanded;
+  var isMixin = service.isMixin;
 
   var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SystemReg.InstanceName */.ZJq.InstanceName), props),
       instanceName = _useRegisterUnpackedV[0];
@@ -206,7 +207,7 @@ function DashboardServiceWidgetItem(props) {
     style: {
       float: "right"
     }
-  }, instanceName)), expanded && server && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, instanceName)), expanded && !isMixin && server && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
@@ -1352,4 +1353,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-b146087a96d96591d7ce.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-29bd49f8a3edc770237f.js.map
