@@ -277,8 +277,8 @@ var Grid = __webpack_require__(80838);
 var Box = __webpack_require__(8266);
 // EXTERNAL MODULE: ./src/components/ServiceSpecificationStatusAlert.tsx
 var ServiceSpecificationStatusAlert = __webpack_require__(49102);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 25 modules
-var servers = __webpack_require__(69834);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(3560);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
 ;// CONCATENATED MODULE: ./src/components/hooks/useServiceProviderFromServiceClass.ts
@@ -1026,4 +1026,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-05aa232920d5ccf127f2.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-bbb8ba5f6782bc4ac135.js.map

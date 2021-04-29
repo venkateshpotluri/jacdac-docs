@@ -683,8 +683,8 @@ function AnalogButton(props) {
 }
 // EXTERNAL MODULE: ./src/components/hooks/useThrottledValue.ts
 var useThrottledValue = __webpack_require__(72901);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 25 modules
-var servers = __webpack_require__(69834);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(3560);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
@@ -1005,9 +1005,6 @@ var DashboardRainGauge = /*#__PURE__*/(0,react.lazy)(function () {
 var DashboardLEDMatrix = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 9979).then(__webpack_require__.bind(__webpack_require__, 79979));
 });
-var DashboardArcadeGamepad = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 5830).then(__webpack_require__.bind(__webpack_require__, 5830));
-});
 var DashboardWindDirection = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6902).then(__webpack_require__.bind(__webpack_require__, 26902));
 });
@@ -1120,11 +1117,6 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAG
   weight: function weight() {
     return 3;
   }
-}, _serviceViews[constants/* SRV_ARCADE_GAMEPAD */.uRM] = {
-  component: DashboardArcadeGamepad,
-  weight: function weight() {
-    return 3;
-  }
 }, _serviceViews[constants/* SRV_WIND_DIRECTION */.M$m] = {
   component: DashboardWindDirection
 }, _serviceViews[constants/* SRV_MATRIX_KEYPAD */.UB9] = {
@@ -1142,7 +1134,10 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAG
 }, _serviceViews[constants/* SRV_LED */.i04] = {
   component: DashboardLED
 }, _serviceViews[constants/* SRV_JOYSTICK */.vRO] = {
-  component: DashboardJoystick
+  component: DashboardJoystick,
+  weight: function weight() {
+    return 3;
+  }
 }, _serviceViews[constants/* SRV_SEVEN_SEGMENT_DISPLAY */.hvg] = {
   component: DashboardSevenSegmentDisplay
 }, _serviceViews[constants/* SRV_MOTION */.yRl] = {
@@ -1353,4 +1348,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-29bd49f8a3edc770237f.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-a84afb69f7a22170a070.js.map

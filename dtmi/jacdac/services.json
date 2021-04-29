@@ -1985,18 +1985,22 @@
   },
   {
     "@type": "Interface",
-    "@id": "dtmi:jacdac:services:x1acb1890;1",
+    "@id": "dtmi:jacdac:services:x108f7456;1",
     "displayName": "Joystick",
     "description": "A two axis directional joystick",
     "contents": [
       {
         "@type": "Telemetry",
         "name": "direction",
-        "@id": "dtmi:jacdac:x1acb1890:ro:direction;1",
-        "description": "The direction of the joystick measure in two direction.\nIf joystick is digital, then each direction will read as either `-0x8000`, `0x0`, or `0x7fff`.",
+        "@id": "dtmi:jacdac:x108f7456:ro:direction;1",
+        "description": "If the joystick is analog, the directional buttons should be \"simulated\", based on joystick position\n(`Left` is `{ x = -1, y = 0 }`, `Up` is `{ x = 0, y = -1}`).\nIf the joystick is digital, then each direction will read as either `-1`, `0`, or `1` (in fixed representation).\nThe primary button on the joystick is `A`.",
         "schema": {
           "@type": "Object",
           "fields": [
+            {
+              "name": "buttons",
+              "schema": "dtmi:jacdac:x108f7456:buttons;1"
+            },
             {
               "name": "x",
               "schema": "float"
@@ -2011,16 +2015,23 @@
       {
         "@type": "Property",
         "name": "variant",
-        "@id": "dtmi:jacdac:x1acb1890:const:variant;1",
+        "@id": "dtmi:jacdac:x108f7456:const:variant;1",
         "description": "The type of physical joystick.",
-        "schema": "dtmi:jacdac:x1acb1890:variant;1"
+        "schema": "dtmi:jacdac:x108f7456:variant;1"
       },
       {
         "@type": "Property",
-        "name": "digital",
-        "@id": "dtmi:jacdac:x1acb1890:const:digital;1",
-        "description": "Indicates if the joystick is digital, typically made of switches.",
-        "schema": "boolean"
+        "name": "buttons_available",
+        "@id": "dtmi:jacdac:x108f7456:const:buttonsavailable;1",
+        "description": "Indicates a bitmask of the buttons that are mounted on the joystick.\nIf the `Left`/`Up`/`Right`/`Down` buttons are marked as available here, the joystick is digital.\nEven when marked as not available, they will still be simulated based on the analog joystick.",
+        "schema": "dtmi:jacdac:x108f7456:buttons;1"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "buttons_changed",
+        "@id": "dtmi:jacdac:x108f7456:event:buttonschanged;1",
+        "description": "Emitted whenever the state of buttons changes.",
+        "schema": "dtmi:jacdac:x108f7456:buttons;1"
       }
     ],
     "extends": [
@@ -2029,7 +2040,7 @@
     ],
     "schemas": [
       {
-        "@id": "dtmi:jacdac:x1acb1890:event;1",
+        "@id": "dtmi:jacdac:x108f7456:event;1",
         "@type": "Object",
         "fields": [
           {
@@ -2040,7 +2051,74 @@
       },
       {
         "@type": "Enum",
-        "@id": "dtmi:jacdac:x1acb1890:variant;1",
+        "@id": "dtmi:jacdac:x108f7456:buttons;1",
+        "valueSchema": "integer",
+        "enumValues": [
+          {
+            "name": "left",
+            "displayName": "Left",
+            "enumValue": 1
+          },
+          {
+            "name": "up",
+            "displayName": "Up",
+            "enumValue": 2
+          },
+          {
+            "name": "right",
+            "displayName": "Right",
+            "enumValue": 4
+          },
+          {
+            "name": "down",
+            "displayName": "Down",
+            "enumValue": 8
+          },
+          {
+            "name": "a",
+            "displayName": "A",
+            "enumValue": 16
+          },
+          {
+            "name": "b",
+            "displayName": "B",
+            "enumValue": 32
+          },
+          {
+            "name": "menu",
+            "displayName": "Menu",
+            "enumValue": 64
+          },
+          {
+            "name": "select",
+            "displayName": "Select",
+            "enumValue": 128
+          },
+          {
+            "name": "reset",
+            "displayName": "Reset",
+            "enumValue": 256
+          },
+          {
+            "name": "exit",
+            "displayName": "Exit",
+            "enumValue": 512
+          },
+          {
+            "name": "x",
+            "displayName": "X",
+            "enumValue": 1024
+          },
+          {
+            "name": "y",
+            "displayName": "Y",
+            "enumValue": 2048
+          }
+        ]
+      },
+      {
+        "@type": "Enum",
+        "@id": "dtmi:jacdac:x108f7456:variant;1",
         "valueSchema": "integer",
         "enumValues": [
           {
@@ -2057,6 +2135,11 @@
             "name": "arcadeStick",
             "displayName": "ArcadeStick",
             "enumValue": 3
+          },
+          {
+            "name": "gamepad",
+            "displayName": "Gamepad",
+            "enumValue": 4
           }
         ]
       }

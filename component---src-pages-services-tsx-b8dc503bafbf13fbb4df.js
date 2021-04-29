@@ -588,8 +588,8 @@ var gatsby_theme_material_ui = __webpack_require__(36176);
 var MakeCodeIcon = __webpack_require__(70654);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 25 modules
-var servers = __webpack_require__(69834);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(3560);
 // EXTERNAL MODULE: ./src/components/KindIcon.tsx
 var KindIcon = __webpack_require__(50048);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
@@ -1005,4 +1005,4 @@ function ServiceCatalog() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-services-tsx-61496358c44156007b25.js.map
+//# sourceMappingURL=component---src-pages-services-tsx-b8dc503bafbf13fbb4df.js.map
