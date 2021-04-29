@@ -32117,12 +32117,13 @@ BuzzerServer.PLAY_TONE = "playTone";
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ef": function() { return /* binding */ JOYSTICK_DPAD_BUTTONS; },
 /* harmony export */   "f8": function() { return /* binding */ JOYSTICK_ARCADE_BUTTONS; },
 /* harmony export */   "YJ": function() { return /* binding */ JOYSTICK_DPAD_AB_BUTTONS; },
 /* harmony export */   "Jx": function() { return /* binding */ JOYSTICK_GAMEPAD_EXTRA_BUTTONS; },
 /* harmony export */   "ZP": function() { return /* binding */ JoystickServer; }
 /* harmony export */ });
-/* unused harmony exports JOYSTICK_DPAD_BUTTONS, JOYSTICK_DPAD_A_BUTTONS */
+/* unused harmony export JOYSTICK_DPAD_A_BUTTONS */
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5991);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41788);
@@ -35484,7 +35485,7 @@ var _providerDefinitions = [{
     })];
   }
 }, {
-  name: "joystick (thumbstick)",
+  name: "joystick (stick)",
   serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
   services: function services() {
     return [new joystickserver/* default */.ZP({
@@ -35492,7 +35493,7 @@ var _providerDefinitions = [{
     })];
   }
 }, {
-  name: "joystick (thumbstick+button)",
+  name: "joystick (stick+A)",
   serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
   services: function services() {
     return [new joystickserver/* default */.ZP({
@@ -35501,7 +35502,16 @@ var _providerDefinitions = [{
     })];
   }
 }, {
-  name: "joystick (all buttons)",
+  name: "joystick (stick+AB)",
+  serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
+  services: function services() {
+    return [new joystickserver/* default */.ZP({
+      variant: constants/* JoystickVariant.Thumb */.BUi.Thumb,
+      buttonsAvailable: constants/* JoystickButtons.A */.xC.A | constants/* JoystickButtons.B */.xC.B
+    })];
+  }
+}, {
+  name: "joystick (Dpad + all buttons)",
   serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
   services: function services() {
     return [new joystickserver/* default */.ZP({
@@ -39493,7 +39503,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "782d79ff1971f316cd3be01dc921c7dd323605cc";
+  var sha = "f0c99e6ad77984a03911ac34fdae0eac88ad3961";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50244,4 +50254,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c2d84ac5040c415bce03.js.map
+//# sourceMappingURL=app-e2ecceb4dc656a26d631.js.map

@@ -1030,7 +1030,7 @@ var DashboardLED = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 8282).then(__webpack_require__.bind(__webpack_require__, 68282));
 });
 var DashboardJoystick = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 7675).then(__webpack_require__.bind(__webpack_require__, 27675));
+  return __webpack_require__.e(/* import() */ 7809).then(__webpack_require__.bind(__webpack_require__, 77809));
 });
 var DashboardSevenSegmentDisplay = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 353).then(__webpack_require__.bind(__webpack_require__, 50353));
@@ -1348,4 +1348,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-a84afb69f7a22170a070.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f80879c5e3c221d0cba8.js.map
