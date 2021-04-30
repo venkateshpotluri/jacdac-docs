@@ -31076,9 +31076,9 @@ var TracePlayer = /*#__PURE__*/function (_JDClient) {
 /* harmony export */   "e": function() { return /* binding */ ConnectionState; },
 /* harmony export */   "P": function() { return /* binding */ JDTransport; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92137);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5991);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5991);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41788);
 /* harmony import */ var core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17727);
 /* harmony import */ var core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87757);
@@ -31086,6 +31086,7 @@ var TracePlayer = /*#__PURE__*/function (_JDClient) {
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
 /* harmony import */ var _eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
 /* harmony import */ var _packet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57683);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
 
 
 
@@ -31101,10 +31102,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 var ConnectionState;
-/**
- * A transport marshalls Jacdac packets between a physical device on the TypeScript bus.
- */
 
 (function (ConnectionState) {
   ConnectionState["Connected"] = "connected";
@@ -31113,16 +31112,64 @@ var ConnectionState;
   ConnectionState["Disconnected"] = "disconnected";
 })(ConnectionState || (ConnectionState = {}));
 
+/**
+ * A transport marshalls Jacdac packets between a physical device on the TypeScript bus.
+ */
 var JDTransport = /*#__PURE__*/function (_JDEventSource) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(JDTransport, _JDEventSource);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(JDTransport, _JDEventSource);
 
-  function JDTransport(type) {
+  function JDTransport(type, options) {
+    var _options$connectObser, _options$connectObser2, _options$disconnectOb, _options$disconnectOb2;
+
     var _this;
 
     _this = _JDEventSource.call(this) || this;
     _this.disposed = false;
     _this._connectionState = ConnectionState.Disconnected;
     _this.type = type;
+    _this._cleanups = [options === null || options === void 0 ? void 0 : (_options$connectObser = options.connectObservable) === null || _options$connectObser === void 0 ? void 0 : (_options$connectObser2 = _options$connectObser.subscribe({
+      next: function () {
+        var _next = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  console.debug(_this.type + ": on connect");
+
+                  if (!_this.bus.disconnected) {
+                    _context.next = 5;
+                    break;
+                  }
+
+                  _context.next = 4;
+                  return (0,_utils__WEBPACK_IMPORTED_MODULE_5__/* .delay */ .gw)(500);
+
+                case 4:
+                  if (_this.bus.disconnected) _this.connect(true);
+
+                case 5:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function next() {
+          return _next.apply(this, arguments);
+        }
+
+        return next;
+      }()
+    })) === null || _options$connectObser2 === void 0 ? void 0 : _options$connectObser2.unsubscribe, options === null || options === void 0 ? void 0 : (_options$disconnectOb = options.disconnectObservable) === null || _options$disconnectOb === void 0 ? void 0 : (_options$disconnectOb2 = _options$disconnectOb.subscribe({
+      next: function next() {
+        console.debug(_this.type + ": on disconnect");
+
+        _this.disconnect();
+      }
+    })) === null || _options$disconnectOb2 === void 0 ? void 0 : _options$disconnectOb2.unsubscribe].filter(function (c) {
+      return !!c;
+    });
     return _this;
   }
 
@@ -31158,30 +31205,30 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.sendPacketAsync = /*#__PURE__*/function () {
-    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(p) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
+    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2(p) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (this.connected) {
-                _context.next = 4;
+                _context2.next = 4;
                 break;
               }
 
               this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_SEND_DISCONNECT */ .FrK, p);
-              _context.next = 6;
+              _context2.next = 6;
               break;
 
             case 4:
-              _context.next = 6;
+              _context2.next = 6;
               return this.transportSendPacketAsync(p);
 
             case 6:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, this);
+      }, _callee2, this);
     }));
 
     function sendPacketAsync(_x) {
@@ -31323,9 +31370,15 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 
   _proto.dispose = function dispose() {
     this.disposed = true;
+
+    this._cleanups.forEach(function (c) {
+      return c();
+    });
+
+    this._cleanups = [];
   };
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(JDTransport, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(JDTransport, [{
     key: "connectionState",
     get:
     /**
@@ -39544,7 +39597,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "41f4b6ffdfb71e1e42c3923b4c4baedfe132bc9c";
+  var sha = "ae6173ef6e7af5beef1dae4f32d4995369fd799c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -45752,15 +45805,6 @@ var USBIO = /*#__PURE__*/function () {
 
 
 
-function usb_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = usb_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function usb_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return usb_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return usb_arrayLikeToArray(o, minLen); }
-
-function usb_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
 
 
 
@@ -45809,127 +45853,46 @@ var WebUSBTransport = /*#__PURE__*/function (_JDTransport) {
   (0,inheritsLoose/* default */.Z)(WebUSBTransport, _JDTransport);
 
   function WebUSBTransport(options) {
-    var _this$options, _this$options$connect, _this$options$connect2, _this$options2, _this$options2$discon, _this$options2$discon2;
-
     var _this;
 
-    _this = _JDTransport.call(this, constants/* USB_TRANSPORT */.W3h) || this;
+    _this = _JDTransport.call(this, constants/* USB_TRANSPORT */.W3h, options) || this;
     _this.options = options;
-    console.debug("usb transport loaded");
-    _this._cleanups = [(_this$options = _this.options) === null || _this$options === void 0 ? void 0 : (_this$options$connect = _this$options.connectObservable) === null || _this$options$connect === void 0 ? void 0 : (_this$options$connect2 = _this$options$connect.subscribe({
-      next: function () {
-        var _next = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev) {
-          return regenerator_default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  console.log("usb device event: connect, ", _this.connectionState, ev);
-
-                  if (!_this.bus.disconnected) {
-                    _context.next = 5;
-                    break;
-                  }
-
-                  _context.next = 4;
-                  return (0,utils/* delay */.gw)(500);
-
-                case 4:
-                  if (_this.bus.disconnected) _this.connect(true);
-
-                case 5:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        function next(_x) {
-          return _next.apply(this, arguments);
-        }
-
-        return next;
-      }()
-    })) === null || _this$options$connect2 === void 0 ? void 0 : _this$options$connect2.unsubscribe, (_this$options2 = _this.options) === null || _this$options2 === void 0 ? void 0 : (_this$options2$discon = _this$options2.disconnectObservable) === null || _this$options2$discon === void 0 ? void 0 : (_this$options2$discon2 = _this$options2$discon.subscribe({
-      next: function next() {
-        console.debug("usb event: disconnect");
-
-        _this.disconnect();
-      }
-    })) === null || _this$options2$discon2 === void 0 ? void 0 : _this$options2$discon2.unsubscribe].filter(function (c) {
-      return !!c;
-    });
     return _this;
   }
 
   var _proto = WebUSBTransport.prototype;
 
-  _proto.dispose = function dispose() {
-    _JDTransport.prototype.dispose.call(this);
-
-    this._cleanups.forEach(function (c) {
-      return c();
-    });
-
-    this._cleanups = [];
-  };
-
   _proto.transportConnectAsync = /*#__PURE__*/function () {
-    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(background) {
+    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(background) {
       var _this2 = this;
 
-      var transport, onJDMessage;
-      return regenerator_default().wrap(function _callee2$(_context2) {
+      var transport;
+      return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
-              if (!this.hf2) {
-                _context2.next = 5;
-                break;
-              }
-
-              console.log("cleanup hf2");
-              _context2.next = 4;
-              return this.hf2.disconnectAsync();
-
-            case 4:
-              this.hf2 = undefined;
-
-            case 5:
               transport = new USBIO(this.options);
 
               transport.onError = function (e) {
                 return _this2.errorHandler(constants/* USB_TRANSPORT */.W3h, e);
               };
 
-              onJDMessage = function onJDMessage(buf) {
-                if (!_this2.hf2) console.warn("hf2: receiving on disconnected hf2");
-                var pkts = packet/* default.fromFrame */.Z.fromFrame(buf, _this2.bus.timestamp);
-
-                for (var _iterator = usb_createForOfIteratorHelperLoose(pkts), _step; !(_step = _iterator()).done;) {
-                  var pkt = _step.value;
-                  pkt.sender = constants/* USB_TRANSPORT */.W3h;
-
-                  _this2.bus.processPacket(pkt);
-                }
-              };
-
-              _context2.next = 10;
+              _context.next = 4;
               return transport.connectAsync(background);
 
-            case 10:
-              this.hf2 = _context2.sent;
-              this.hf2.onJDMessage(onJDMessage);
+            case 4:
+              this.hf2 = _context.sent;
+              this.hf2.onJDMessage(this.handleFrame.bind(this));
 
-            case 12:
+            case 6:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee, this);
     }));
 
-    function transportConnectAsync(_x2) {
+    function transportConnectAsync(_x) {
       return _transportConnectAsync.apply(this, arguments);
     }
 
@@ -45937,14 +45900,14 @@ var WebUSBTransport = /*#__PURE__*/function (_JDTransport) {
   }();
 
   _proto.transportSendPacketAsync = /*#__PURE__*/function () {
-    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(p) {
+    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(p) {
       var buf;
-      return regenerator_default().wrap(function _callee3$(_context3) {
+      return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (this.hf2) {
-                _context3.next = 2;
+                _context2.next = 2;
                 break;
               }
 
@@ -45952,18 +45915,18 @@ var WebUSBTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 2:
               buf = p.toBuffer();
-              _context3.next = 5;
+              _context2.next = 5;
               return this.hf2.sendJDMessageAsync(buf);
 
             case 5:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee2, this);
     }));
 
-    function transportSendPacketAsync(_x3) {
+    function transportSendPacketAsync(_x2) {
       return _transportSendPacketAsync.apply(this, arguments);
     }
 
@@ -45971,29 +45934,29 @@ var WebUSBTransport = /*#__PURE__*/function (_JDTransport) {
   }();
 
   _proto.transportDisconnectAsync = /*#__PURE__*/function () {
-    var _transportDisconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+    var _transportDisconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
       var h;
-      return regenerator_default().wrap(function _callee4$(_context4) {
+      return regenerator_default().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               h = this.hf2;
               this.hf2 = undefined;
 
               if (!h) {
-                _context4.next = 5;
+                _context3.next = 5;
                 break;
               }
 
-              _context4.next = 5;
+              _context3.next = 5;
               return h.disconnectAsync();
 
             case 5:
             case "end":
-              return _context4.stop();
+              return _context3.stop();
           }
         }
-      }, _callee4, this);
+      }, _callee3, this);
     }));
 
     function transportDisconnectAsync() {
@@ -46059,65 +46022,19 @@ var eventtargetobservable_EventTargetObservable = /*#__PURE__*/function () {
 
 
 
-
 var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
   (0,inheritsLoose/* default */.Z)(WorkerTransport, _JDTransport);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function WorkerTransport(type, worker, options) {
-    var _this$options$connect, _this$options$connect2, _this$options$disconn, _this$options$disconn2;
-
     var _this;
 
-    _this = _JDTransport.call(this, type) || this;
+    _this = _JDTransport.call(this, type, options) || this;
     _this.pending = {};
     _this.type = type;
     _this.worker = worker;
     _this.options = options;
     _this.worker.onmessage = _this.handleMessage.bind((0,assertThisInitialized/* default */.Z)(_this));
-    _this._cleanups = [(_this$options$connect = _this.options.connectObservable) === null || _this$options$connect === void 0 ? void 0 : (_this$options$connect2 = _this$options$connect.subscribe({
-      next: function () {
-        var _next = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev) {
-          return regenerator_default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  console.log("usb device event: connect, ", _this.connectionState, ev);
-
-                  if (!_this.bus.disconnected) {
-                    _context.next = 5;
-                    break;
-                  }
-
-                  _context.next = 4;
-                  return (0,utils/* delay */.gw)(500);
-
-                case 4:
-                  if (_this.bus.disconnected) _this.connect(true);
-
-                case 5:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        function next(_x) {
-          return _next.apply(this, arguments);
-        }
-
-        return next;
-      }()
-    })) === null || _this$options$connect2 === void 0 ? void 0 : _this$options$connect2.unsubscribe, (_this$options$disconn = _this.options.disconnectObservable) === null || _this$options$disconn === void 0 ? void 0 : (_this$options$disconn2 = _this$options$disconn.subscribe({
-      next: function next() {
-        console.debug("usb event: disconnect");
-
-        _this.disconnect();
-      }
-    })) === null || _this$options$disconn2 === void 0 ? void 0 : _this$options$disconn2.unsubscribe].filter(function (c) {
-      return !!c;
-    });
     return _this;
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -46184,11 +46101,11 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
   };
 
   _proto.transportSendPacketAsync = /*#__PURE__*/function () {
-    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(p) {
+    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(p) {
       var buf;
-      return regenerator_default().wrap(function _callee2$(_context2) {
+      return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
               // don't wait
               buf = p.toBuffer();
@@ -46199,13 +46116,13 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 2:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee, this);
     }));
 
-    function transportSendPacketAsync(_x2) {
+    function transportSendPacketAsync(_x) {
       return _transportSendPacketAsync.apply(this, arguments);
     }
 
@@ -46213,21 +46130,21 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
   }();
 
   _proto.transportConnectAsync = /*#__PURE__*/function () {
-    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(background) {
-      return regenerator_default().wrap(function _callee3$(_context3) {
+    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(background) {
+      return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (background) {
-                _context3.next = 3;
+                _context2.next = 3;
                 break;
               }
 
-              _context3.next = 3;
+              _context2.next = 3;
               return this.options.requestDevice();
 
             case 3:
-              _context3.next = 5;
+              _context2.next = 5;
               return this.postMessageAsync({
                 type: "connect",
                 background: background
@@ -46235,13 +46152,13 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 5:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee2, this);
     }));
 
-    function transportConnectAsync(_x3) {
+    function transportConnectAsync(_x2) {
       return _transportConnectAsync.apply(this, arguments);
     }
 
@@ -46252,16 +46169,6 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
     return this.postMessageAsync({
       type: "disconnect"
     });
-  };
-
-  _proto.dispose = function dispose() {
-    _JDTransport.prototype.dispose.call(this);
-
-    this._cleanups.forEach(function (c) {
-      return c();
-    });
-
-    this._cleanups = [];
   };
 
   return WorkerTransport;
@@ -50539,4 +50446,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-8543fd93f7410ecdf58a.js.map
+//# sourceMappingURL=app-f49b9c6fd913c889d0c4.js.map
