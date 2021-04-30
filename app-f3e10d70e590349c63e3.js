@@ -39615,7 +39615,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "cf1c6d5c6b5dff75fc5475382ce809e5ade7b50d";
+  var sha = "4f211dfc817fb533071f1a4de0d466114a29bc93";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -39688,21 +39688,27 @@ var useChange = __webpack_require__(54774);
 
 
 
+
+
 function PacketStats() {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
   var stats = bus.stats;
+  var theme = (0,useTheme/* default */.Z)();
+  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(MOBILE_BREAKPOINT));
   var current = (0,useChange/* default */.Z)(stats, function (s) {
     return s.current;
   });
-  if (!current.bytes) return null;
-  var size = (0,pretty/* prettySize */.or)(current.bytes) + "/s";
+  var diagnostics = flags/* default.diagnostics */.Z.diagnostics;
+  if (mobile || !current.bytes) return null;
+  var label = current.packets + " packets per second, " + (0,pretty/* prettySize */.or)(current.bytes) + " per second";
+  var text = diagnostics ? (current.packets | 0) + "#, " + (0,pretty/* prettySize */.or)(current.bytes) + "/s" : (0,pretty/* prettySize */.or)(current.bytes) + "/s";
   return /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "caption",
     component: "span",
-    "aria-label": size
-  }, size);
+    "aria-label": label
+  }, text);
 }
 ;// CONCATENATED MODULE: ./src/components/layout.tsx
 
@@ -50464,4 +50470,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-baced27c1daccda08678.js.map
+//# sourceMappingURL=app-f3e10d70e590349c63e3.js.map
