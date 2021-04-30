@@ -36984,17 +36984,21 @@ var DbProvider = function DbProvider(_ref) {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84377);
-/* harmony import */ var _material_ui_icons_History__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9080);
-/* harmony import */ var _material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(92516);
-/* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(89615);
+/* harmony import */ var _material_ui_icons_History__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9080);
+/* harmony import */ var _material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92516);
+/* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(89615);
 /* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79885);
 /* harmony import */ var _jacdac_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(68337);
+/* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69882);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(28142);
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
 
 
 
@@ -37009,6 +37013,9 @@ function DrawerToolsButtonGroup(props) {
       drawerType = _useContext.drawerType,
       setDrawerType = _useContext.setDrawerType;
 
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PacketsContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z),
+      recording = _useContext2.recording;
+
   var handleDrawer = function handleDrawer(drawer) {
     return function () {
       return setDrawerType(drawer);
@@ -37018,15 +37025,16 @@ function DrawerToolsButtonGroup(props) {
   var drawers = [showToc && {
     drawer: _AppContext__WEBPACK_IMPORTED_MODULE_1__/* .DrawerType.Toc */ .jw.Toc,
     label: "open table of contents",
-    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null)
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null)
   }, {
     drawer: _AppContext__WEBPACK_IMPORTED_MODULE_1__/* .DrawerType.Dom */ .jw.Dom,
     label: "open device tree",
-    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null)
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null)
   }, {
     drawer: _AppContext__WEBPACK_IMPORTED_MODULE_1__/* .DrawerType.Packets */ .jw.Packets,
     label: "open packet console",
-    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_History__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null)
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_History__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null),
+    badge: recording
   }].filter(function (d) {
     return !!d;
   }).filter(function (d) {
@@ -37040,7 +37048,10 @@ function DrawerToolsButtonGroup(props) {
       color: "inherit",
       onClick: handleDrawer(drawer.drawer),
       edge: "start"
-    }, " ", drawer.icon);
+    }, " ", drawer.badge ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+      color: "error",
+      variant: "dot"
+    }, drawer.icon) : drawer.icon);
   }), showConnect && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     transparent: true,
     full: false
@@ -39597,7 +39608,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "70338145013128132d7345738a75afe0ba9ee998";
+  var sha = "de116a2ffe152e4faa7a6f4a8ab8a2e5c30debce";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50446,4 +50457,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7471bdc5e3723f129908.js.map
+//# sourceMappingURL=app-6f578ff67e7249bb0cc8.js.map
