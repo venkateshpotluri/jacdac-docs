@@ -410,7 +410,7 @@ function DashboardDevice(props) {
     action: /*#__PURE__*/react.createElement(DeviceActions/* default */.Z, {
       device: device,
       showStop: expanded,
-      hideIdentity: true,
+      hideIdentity: !expanded,
       showReset: expanded && !mobile
     }, toggleExpanded && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
       onClick: toggleExpanded,
@@ -1348,4 +1348,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-f80879c5e3c221d0cba8.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-b6c6dbeb2e35575b577b.js.map
