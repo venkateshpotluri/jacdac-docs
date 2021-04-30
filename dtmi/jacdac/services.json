@@ -1142,7 +1142,7 @@
       },
       {
         "@type": "Enum",
-        "@id": "dtmi:jacdac:x0:restartlightflags;1",
+        "@id": "dtmi:jacdac:x0:announceflags;1",
         "valueSchema": "integer",
         "enumValues": [
           {
@@ -1171,6 +1171,11 @@
             "enumValue": 8
           },
           {
+            "name": "statusLightNone",
+            "displayName": "StatusLightNone",
+            "enumValue": 0
+          },
+          {
             "name": "statusLightMono",
             "displayName": "StatusLightMono",
             "enumValue": 16
@@ -1184,33 +1189,26 @@
             "name": "statusLightRgbFade",
             "displayName": "StatusLightRgbFade",
             "enumValue": 48
-          }
-        ]
-      },
-      {
-        "@type": "Enum",
-        "@id": "dtmi:jacdac:x0:announceflags;1",
-        "valueSchema": "integer",
-        "enumValues": [
+          },
           {
             "name": "supportsACK",
             "displayName": "SupportsACK",
-            "enumValue": 1
+            "enumValue": 256
           },
           {
             "name": "supportsBroadcast",
             "displayName": "SupportsBroadcast",
-            "enumValue": 2
+            "enumValue": 512
           },
           {
             "name": "supportsFrames",
             "displayName": "SupportsFrames",
-            "enumValue": 4
+            "enumValue": 1024
           },
           {
             "name": "isClient",
             "displayName": "IsClient",
-            "enumValue": 8
+            "enumValue": 2048
           }
         ]
       }
