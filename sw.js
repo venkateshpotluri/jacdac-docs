@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-61809c817ff585d6457d.js"
+    "url": "webpack-runtime-ed7f5edc86d030d6cd14.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "8b85b72866221f7b3326fdad94b28d5f"
+    "revision": "4942f1d342f31f9f10d3baaf8b4405f4"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "0acba3433b0bf4a7829887747afa68cd"
+    "revision": "46c9e65c378ba0387f28a8a973f8bd7b"
   },
   {
     "url": "polyfill-3dba7d40c3baf44701ca.js"
@@ -134,10 +134,10 @@ self.__precacheManifest = [
     "url": "02e38aa8e5d6b10d1b45e05692733ade4c651bf6-e91505245023ec77d40f.js"
   },
   {
-    "url": "bc1de39814113fdab2fbefae2ee854f0842f6be1-664a290830e9df6c7ea7.js"
+    "url": "bc1de39814113fdab2fbefae2ee854f0842f6be1-8697b72736b49f57fa77.js"
   },
   {
-    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-51fd12e52d964c5d39a3.js"
+    "url": "f45028b77642bb06a1e26ecfd1b9356bfb549ad6-ae176d5f79d72cb37c36.js"
   },
   {
     "url": "component---src-pages-dashboard-tsx-c9f3818c6fbc5f1b3cc1.js"
@@ -191,7 +191,7 @@ self.__precacheManifest = [
     "url": "6e6f508a4d48336b02c09c52b4663db8917995a6-95e604546f0aa40f02c1.js"
   },
   {
-    "url": "component---src-pages-services-tsx-b8dc503bafbf13fbb4df.js"
+    "url": "component---src-pages-services-tsx-2f50a7a31b17cb7a5994.js"
   },
   {
     "url": "page-data/services/page-data.json",
@@ -246,7 +246,7 @@ self.__precacheManifest = [
     "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-3ace07adb00541b8a29f.js"
   },
   {
-    "url": "component---src-templates-service-playground-tsx-15787456d9ff05341481.js"
+    "url": "component---src-templates-service-playground-tsx-beffa519200e346b5721.js"
   },
   {
     "url": "page-data/services/_base/playground/page-data.json",
@@ -256,7 +256,7 @@ self.__precacheManifest = [
     "url": "859a83de993caea7524bf57c2975f3be6812c8c3-eb0f85ea2a26047da8ed.js"
   },
   {
-    "url": "component---src-templates-service-test-tsx-9cbe4ac48eff1bd4b2cd.js"
+    "url": "component---src-templates-service-test-tsx-c985ff4c836c02573c83.js"
   },
   {
     "url": "page-data/services/_base/test/page-data.json",
@@ -1206,7 +1206,7 @@ self.__precacheManifest = [
     "url": "913832d59ba65bf5a995efa1c4e48fc9101c7c83-356c32958622053595dd.js"
   },
   {
-    "url": "component---src-templates-device-tsx-ce937dc51ba7798c13f1.js"
+    "url": "component---src-templates-device-tsx-928d24c10b4d3703c603.js"
   },
   {
     "url": "page-data/devices/microsoft/research/jmaccv2/page-data.json",
@@ -1351,7 +1351,7 @@ self.__precacheManifest = [
     "revision": "7095019d6130ac9f259d741d39146031"
   },
   {
-    "url": "component---src-pages-tools-packet-inspector-tsx-cac8acc8841061095f42.js"
+    "url": "component---src-pages-tools-packet-inspector-tsx-207682547b98e2788938.js"
   },
   {
     "url": "page-data/tools/packet-inspector/page-data.json",
@@ -1379,7 +1379,7 @@ self.__precacheManifest = [
     "revision": "b526b7b83a2e46bb8453744a9d82ade5"
   },
   {
-    "url": "component---src-pages-tools-service-editor-tsx-d280477a7b01a01d0019.js"
+    "url": "component---src-pages-tools-service-editor-tsx-4c94d3287c24f03f956c.js"
   },
   {
     "url": "page-data/tools/service-editor/page-data.json",
@@ -1393,7 +1393,7 @@ self.__precacheManifest = [
     "revision": "3a03c4eb96659b515f1fd68d486b2465"
   },
   {
-    "url": "component---src-pages-tools-service-test-editor-tsx-51359018ac2a7874542e.js"
+    "url": "component---src-pages-tools-service-test-editor-tsx-5a75c5fa118c4937c7fc.js"
   },
   {
     "url": "page-data/tools/service-test-editor/page-data.json",
@@ -1507,7 +1507,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-81fe7e6715190b7a3f58.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-4bb1eb421863f8568596.js`))) {
     return await fetch(event.request)
   }
 

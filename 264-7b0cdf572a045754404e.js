@@ -208,6 +208,8 @@ var Add = __webpack_require__(88880);
 var PlayArrow = __webpack_require__(42404);
 // EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
 var useServiceServer = __webpack_require__(49013);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/ledpixelserver.ts
+var ledpixelserver = __webpack_require__(30524);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./src/components/widgets/SvgWidget.tsx
@@ -219,7 +221,6 @@ var useRegisterValue = __webpack_require__(89196);
 // EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx
 var LoadingProgress = __webpack_require__(2285);
 ;// CONCATENATED MODULE: ./src/components/widgets/LightWidget.tsx
-
 
 
 
@@ -489,7 +490,8 @@ function LightMatrixWidget(props) {
 }
 
 function LightWidget(props) {
-  var service = props.service;
+  var service = props.service,
+      server = props.server;
 
   var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* LedPixelReg.NumPixels */.k9u.NumPixels), props),
       numPixels = _useRegisterUnpackedV[0];
@@ -503,7 +505,6 @@ function LightWidget(props) {
   var _useRegisterUnpackedV4 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* LedPixelReg.NumColumns */.k9u.NumColumns), props),
       numColumns = _useRegisterUnpackedV4[0];
 
-  var server = (0,useServiceServer/* default */.Z)(service);
   if (numPixels === undefined || actualBrightness === undefined) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null); // nothing to render
 
   if (!numPixels) return null;
@@ -538,6 +539,7 @@ function LightWidget(props) {
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -635,7 +637,7 @@ function LightCommand(props) {
     if (isNaN(ms)) ms = 100;
     var src = [mode && "tmpmode %", name + " " + sargs, "show %"].filter(function (l) {
       return !!l;
-    }).join('\n');
+    }).join("\n");
     var largs = [].concat((0,toConsumableArray/* default */.Z)(vargs), [ms]);
     var r = (0,light/* lightEncode */._S)(src, largs);
     return r;
@@ -690,7 +692,8 @@ function LightCommand(props) {
   };
 
   var handleModeChange = function handleModeChange(ev) {
-    setMode(ev.target.value);
+    var v = parseInt(ev.target.value);
+    if (!isNaN(v)) setMode(v);
   };
 
   var handleDurationChange = function handleDurationChange(ev) {
@@ -731,7 +734,7 @@ function LightCommand(props) {
 
   var handleAddColor = function handleAddColor() {
     var cs = colors.slice(0);
-    cs.push('#ff0000');
+    cs.push("#ff0000");
     setColors(cs);
   };
 
@@ -845,8 +848,11 @@ function DashboardLEDPixel(props) {
   var service = props.service,
       services = props.services,
       expanded = props.expanded;
-  var server = (0,useServiceServer/* default */.Z)(service);
+  var server = (0,useServiceServer/* default */.Z)(service, function () {
+    return new ledpixelserver/* default */.Z();
+  });
   return /*#__PURE__*/react.createElement(react.Fragment, null, server && /*#__PURE__*/react.createElement(LightWidget, Object.assign({
+    server: server,
     widgetCount: services.length
   }, props)), expanded && /*#__PURE__*/react.createElement(LightCommand, {
     service: service,
@@ -912,4 +918,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=264-3c48af6a94a7b11e1f97.js.map
+//# sourceMappingURL=264-7b0cdf572a045754404e.js.map

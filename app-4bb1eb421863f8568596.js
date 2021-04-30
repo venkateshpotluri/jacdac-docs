@@ -30242,14 +30242,36 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       _this.statusCode.setValues([specconstants/* SystemStatusCodes.CalibrationNeeded */._kj.CalibrationNeeded, 0], true);
     }
 
+    _this.handleTwinChange = _this.handleTwinChange.bind((0,assertThisInitialized/* default */.Z)(_this));
+    _this.handleTwinPacket = _this.handleTwinPacket.bind((0,assertThisInitialized/* default */.Z)(_this));
     return _this;
   }
 
   var _proto = JDServiceServer.prototype;
 
-  _proto.register = function register(identifier) {
+  _proto.handleTwinPacket = function handleTwinPacket(pkt) {
+    console.log("twin " + pkt, {
+      pkt: pkt
+    });
+    this.handlePacket(pkt);
+  };
+
+  _proto.handleTwinChange = function handleTwinChange() {
+    var _this$twin,
+        _this2 = this;
+
+    console.log("twin change");
+    (_this$twin = this.twin) === null || _this$twin === void 0 ? void 0 : _this$twin.registers().forEach(function (twinReg) {
+      var reg = _this2.register(twinReg.code);
+
+      reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue, true);
+    });
+    this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.register = function register(code) {
     return this._registers.find(function (reg) {
-      return reg.identifier === identifier;
+      return reg.identifier === code;
     });
   };
 
@@ -30331,11 +30353,19 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              if (!this.twin) {
+                _context2.next = 2;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 2:
               pkt.serviceIndex = this.serviceIndex;
-              _context2.next = 3;
+              _context2.next = 5;
               return this.device.sendPacketAsync(pkt);
 
-            case 3:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -30357,28 +30387,36 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              device = this.device;
-              bus = device.bus;
-
-              if (bus) {
-                _context3.next = 4;
+              if (!this.twin) {
+                _context3.next = 2;
                 break;
               }
 
               return _context3.abrupt("return");
 
-            case 4:
+            case 2:
+              device = this.device;
+              bus = device.bus;
+
+              if (bus) {
+                _context3.next = 6;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 6:
               now = bus.timestamp;
               cmd = device.createEventCmd(eventCode);
               pkt = packet/* default.from */.Z.from(cmd, data || new Uint8Array(0));
-              _context3.next = 9;
+              _context3.next = 11;
               return this.sendPacketAsync(pkt);
 
-            case 9:
+            case 11:
               device.delayedSend(pkt, now + 20);
               device.delayedSend(pkt, now + 100);
 
-            case 11:
+            case 13:
             case "end":
               return _context3.stop();
           }
@@ -30460,6 +30498,26 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }();
 
   (0,createClass/* default */.Z)(JDServiceServer, [{
+    key: "twin",
+    get: function get() {
+      return this._twin;
+    },
+    set: function set(service) {
+      if (this._twin) {
+        this._twin.off(constants/* PACKET_RECEIVE */.u_S, this.handleTwinChange);
+
+        this._twin.off(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
+      }
+
+      this._twin = service;
+
+      if (this._twin) {
+        this._twin.on(constants/* PACKET_RECEIVE */.u_S, this.handleTwinChange);
+
+        this._twin.on(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
+      }
+    }
+  }, {
     key: "registers",
     get: function get() {
       return this._registers.slice(0);
@@ -32502,6 +32560,635 @@ var LEDMatrixServer = /*#__PURE__*/function (_JDServiceServer) {
 
 /***/ }),
 
+/***/ 30524:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ LedPixelServer; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5991);
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63349);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41788);
+/* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
+/* harmony import */ var _jdom_light__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69130);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
+
+
+
+
+
+
+
+var PROG_EOF = 0;
+var PROG_CMD = 1;
+var PROG_NUMBER = 3;
+var PROG_COLOR_BLOCK = 4;
+
+function rgb(r, g, b) {
+  return {
+    r: r,
+    g: g,
+    b: b
+  };
+}
+
+function hsv(hue, sat, val) {
+  // scale down to 0..192
+  hue = hue * 192 >> 8; // reference: based on FastLED's hsv2rgb rainbow algorithm
+  // [https://github.com/FastLED/FastLED](MIT)
+
+  var invsat = 255 - sat;
+  var brightness_floor = val * invsat >> 8;
+  var color_amplitude = val - brightness_floor;
+  var section = hue / 0x40 >> 0; // [0..2]
+
+  var offset = hue % 0x40 >> 0; // [0..63]
+
+  var rampup = offset;
+  var rampdown = 0x40 - 1 - offset;
+  var rampup_amp_adj = rampup * color_amplitude / (256 / 4) >> 0;
+  var rampdown_amp_adj = rampdown * color_amplitude / (256 / 4) >> 0;
+  var rampup_adj_with_floor = rampup_amp_adj + brightness_floor;
+  var rampdown_adj_with_floor = rampdown_amp_adj + brightness_floor;
+  var r = 0,
+      g = 0,
+      b = 0;
+
+  if (section) {
+    if (section == 1) {
+      // section 1: 0x40..0x7F
+      r = brightness_floor;
+      g = rampdown_adj_with_floor;
+      b = rampup_adj_with_floor;
+    } else {
+      // section 2; 0x80..0xBF
+      r = rampup_adj_with_floor;
+      g = brightness_floor;
+      b = rampdown_adj_with_floor;
+    }
+  } else {
+    // section 0: 0x00..0x3F
+    r = rampdown_adj_with_floor;
+    g = rampup_adj_with_floor;
+    b = brightness_floor;
+  }
+
+  return rgb(r, g, b);
+}
+
+function mulcol(c, m) {
+  var c2 = c * m >> 7;
+  if (m < 128 && c == c2) c2--;else if (m > 128 && c == c2) c2++;
+  return c2;
+}
+
+function clamp(c) {
+  if (c < 0) return 0;
+  if (c > 255) return 255;
+  return c;
+}
+
+function SCALE0(c, i) {
+  return (c & 0xff) * (1 + (i & 0xff)) >> 8;
+}
+
+var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LedPixelServer, _JDServiceServer);
+
+  function LedPixelServer(options) {
+    var _this;
+
+    _this = _JDServiceServer.call(this, _jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .SRV_LED_PIXEL */ .zEX, options) || this;
+    _this.pxbuffer = new Uint8Array(0);
+    _this.prog_mode = 0;
+    _this.prog_tmpmode = 0;
+    _this.range_start = 0;
+    _this.range_end = 0;
+    _this.range_len = 0;
+    _this.range_ptr = 0;
+    _this.prog_ptr = 0;
+    _this.prog_size = 0;
+    _this.prog_data = new Uint8Array(0);
+    _this.dirty = true;
+    _this.inited = false;
+    _this.power_enable = false;
+
+    var _ref = options || {},
+        numColumns = _ref.numColumns,
+        _ref$maxPower = _ref.maxPower,
+        maxPower = _ref$maxPower === void 0 ? 200 : _ref$maxPower,
+        _ref$maxPixels = _ref.maxPixels,
+        maxPixels = _ref$maxPixels === void 0 ? 300 : _ref$maxPixels,
+        _ref$numPixels = _ref.numPixels,
+        numPixels = _ref$numPixels === void 0 ? 15 : _ref$numPixels;
+
+    _this.brightness = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.Brightness */ .k9u.Brightness, [15]);
+    _this.actualBrightness = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.ActualBrightness */ .k9u.ActualBrightness, [15]);
+    _this.lightType = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.LightType */ .k9u.LightType, [_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelLightType.WS2812B_GRB */ .lFE.WS2812B_GRB]);
+    _this.numPixels = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.NumPixels */ .k9u.NumPixels, [numPixels]);
+    _this.maxPower = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.MaxPower */ .k9u.MaxPower, [maxPower]);
+    _this.maxPixels = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.MaxPixels */ .k9u.MaxPixels, [maxPixels]);
+    _this.variant = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.Variant */ .k9u.Variant, [_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelVariant.Strip */ .dQg.Strip]);
+    _this.numRepeats = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.NumRepeats */ .k9u.NumRepeats, [0]);
+    if (numColumns !== undefined) _this.numColumns = _this.addRegister(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelReg.NumColumns */ .k9u.NumColumns, [numColumns]);
+
+    _this.brightness.on(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .CHANGE */ .Ver, function () {
+      return _this.intensity = _this.requested_intensity;
+    });
+
+    _this.numPixels.on(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .CHANGE */ .Ver, _this.allocRxBuffer.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(_this)));
+
+    _this.maxPixels.on(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .CHANGE */ .Ver, _this.allocRxBuffer.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(_this)));
+
+    _this.addCommand(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .LedPixelCmd.Run */ .yB$.Run, _this.handleRun.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(_this)));
+
+    _this.allocRxBuffer();
+
+    return _this;
+  }
+  /**
+   * Gets an array of RGB color numbers
+   */
+
+
+  var _proto = LedPixelServer.prototype;
+
+  _proto.jd_power_enable = function jd_power_enable(value) {
+    this.power_enable = value;
+  };
+
+  _proto.is_enabled = function is_enabled() {
+    return this.numpixels > 0 && this.requested_intensity > 0;
+  };
+
+  _proto.allocRxBuffer = function allocRxBuffer() {
+    if (this.numpixels > this.maxpixels) this.numPixels.setValues([this.maxpixels]);
+    var n = this.numpixels * 3; // don't need to prealloc here
+
+    if (n !== this.pxbuffer.length) this.pxbuffer = new Uint8Array(n);
+  };
+
+  _proto.reset_range = function reset_range() {
+    this.range_ptr = this.range_start;
+  };
+
+  _proto.set_next = function set_next(c) {
+    if (this.range_ptr >= this.range_end) return false;
+    var p = this.pxbuffer;
+    var pi = this.range_ptr++ * 3; // fast path
+
+    if (this.prog_tmpmode == _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_MODE_REPLACE */ ._I) {
+      p[pi + 0] = c.r;
+      p[pi + 1] = c.g;
+      p[pi + 2] = c.b;
+      return true;
+    }
+
+    var r = p[pi + 0],
+        g = p[pi + 1],
+        b = p[pi + 2];
+
+    switch (this.prog_tmpmode) {
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_MODE_ADD_RGB */ .xI:
+        r += c.r;
+        g += c.g;
+        b += c.b;
+        break;
+
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_MODE_SUBTRACT_RGB */ .uZ:
+        r -= c.r;
+        g -= c.g;
+        b -= c.b;
+        break;
+
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_MODE_MULTIPLY_RGB */ .Qj:
+        r = mulcol(r, c.r);
+        g = mulcol(g, c.g);
+        b = mulcol(b, c.b);
+        break;
+    }
+
+    p[pi + 0] = clamp(r);
+    p[pi + 1] = clamp(g);
+    p[pi + 2] = clamp(b);
+    return true;
+  };
+
+  _proto.limit_intensity = function limit_intensity() {
+    var numpixels = this.numpixels;
+    var requested_intensity = this.requested_intensity;
+    var maxpower = this.maxpower;
+    var pxbuffer = this.pxbuffer;
+    var n = numpixels * 3;
+    var prev_intensity = this.intensity;
+    var intensity = this.intensity;
+    intensity += 1 + (intensity >> 5);
+    if (intensity > requested_intensity) intensity = requested_intensity;
+    var current_full = 0;
+    var current = 0;
+    var current_prev = 0;
+    var di = 0;
+
+    while (n--) {
+      var v = pxbuffer[di++];
+      current += SCALE0(v, intensity);
+      current_prev += SCALE0(v, prev_intensity);
+      current_full += v;
+    } // 46uA per step of LED
+
+
+    current *= 46;
+    current_prev *= 46;
+    current_full *= 46; // 14mA is the chip at 48MHz, 930uA per LED is static
+
+    var base_current = 14000 + 930 * numpixels;
+    var current_limit = maxpower * 1000 - base_current;
+
+    if (current <= current_limit) {
+      this.intensity = intensity; // LOG("curr: %dmA; not limiting %d", (base_current + current) / 1000, state->intensity);
+
+      return;
+    }
+
+    if (current_prev <= current_limit) {
+      return; // no change needed
+    }
+
+    var inten = current_limit / (current_full >> 8) - 1;
+    if (inten < 0) inten = 0;
+    this.intensity = inten;
+  };
+
+  _proto.prog_fetch_color = function prog_fetch_color() {
+    var ptr = this.prog_ptr;
+    if (ptr + 3 > this.prog_size) return rgb(0, 0, 0);
+    var d = this.prog_data;
+    this.prog_ptr = ptr + 3;
+    return rgb(d[ptr + 0], d[ptr + 1], d[ptr + 2]);
+  };
+
+  _proto.prog_fetch = function prog_fetch() {
+    if (this.prog_ptr >= this.prog_size) return {
+      prog: PROG_EOF
+    };
+    var d = this.prog_data;
+    var c = d[this.prog_ptr++];
+
+    if (!(c & 0x80)) {
+      return {
+        dst: c,
+        prog: PROG_NUMBER
+      };
+    } else if ((c & 0xc0) == 0x80) {
+      return {
+        dst: (c & 0x3f) << 8 | d[this.prog_ptr++],
+        prog: PROG_NUMBER
+      };
+    } else switch (c) {
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_COL1 */ .oO:
+        return {
+          dst: 1,
+          prog: PROG_COLOR_BLOCK
+        };
+
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_COL2 */ .W9:
+        return {
+          dst: 2,
+          prog: PROG_COLOR_BLOCK
+        };
+
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_COL3 */ .Z3:
+        return {
+          dst: 3,
+          prog: PROG_COLOR_BLOCK
+        };
+
+      case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_COLN */ .Lp:
+        return {
+          dst: d[this.prog_ptr++],
+          prog: PROG_COLOR_BLOCK
+        };
+
+      default:
+        return {
+          dst: c,
+          prog: PROG_CMD
+        };
+    }
+  };
+
+  _proto.prog_fetch_num = function prog_fetch_num(defl) {
+    var prev = this.prog_ptr;
+    var fr = this.prog_fetch();
+    var res = fr.dst,
+        r = fr.prog;
+    if (r == PROG_NUMBER) return res;else {
+      this.prog_ptr = prev; // rollback
+
+      return defl;
+    }
+  };
+
+  _proto.prog_fetch_cmd = function prog_fetch_cmd() {
+    var cmd; // skip until there's a command
+
+    for (;;) {
+      var c = this.prog_fetch();
+
+      switch (c.prog) {
+        case PROG_CMD:
+          return c.dst;
+
+        case PROG_COLOR_BLOCK:
+          while (cmd--) {
+            this.prog_fetch_color();
+          }
+
+          break;
+
+        case PROG_EOF:
+          return 0;
+      }
+    }
+  };
+
+  _proto.prog_set = function prog_set(len) {
+    this.reset_range();
+    var start = this.prog_ptr;
+
+    for (;;) {
+      this.prog_ptr = start;
+      var ok = false;
+
+      for (var i = 0; i < len; ++i) {
+        // don't break the loop immediately if !ok - make sure the prog counter advances
+        ok = this.set_next(this.prog_fetch_color());
+      }
+
+      if (!ok) break;
+    }
+  };
+
+  _proto.prog_fade = function prog_fade(len, usehsv) {
+    if (len < 2) {
+      this.prog_set(len);
+      return;
+    }
+
+    var colidx = 0;
+    var endp = this.prog_ptr + 3 * len;
+    var col0 = this.prog_fetch_color();
+    var col1 = this.prog_fetch_color();
+    var colstep = (len - 1 << 16) / this.range_len;
+    var colpos = 0;
+    this.reset_range();
+
+    for (;;) {
+      while (colidx < colpos >> 16) {
+        colidx++;
+        col0 = col1;
+        col1 = this.prog_fetch_color();
+      }
+
+      var fade1 = colpos & 0xffff;
+      var fade0 = 0xffff - fade1;
+      var col = rgb(col0.r * fade0 + col1.r * fade1 + 0x8000 >> 16, col0.g * fade0 + col1.g * fade1 + 0x8000 >> 16, col0.b * fade0 + col1.b * fade1 + 0x8000 >> 16);
+      if (!this.set_next(usehsv ? hsv(col.r, col.g, col.b) : col)) break;
+      colpos += colstep;
+    }
+
+    this.prog_ptr = endp;
+  };
+
+  _proto.prog_rot = function prog_rot(shift) {
+    if (shift <= 0 || shift >= this.range_len) return;
+    var range_start = this.range_start;
+    var range_end = this.range_end;
+    var buf = this.pxbuffer;
+    var first = range_start * 3;
+    var middle = (range_start + shift) * 3;
+    var last = range_end * 3;
+    var next = middle;
+
+    while (first != next) {
+      var tmp = buf[first];
+      var tmp1 = buf[first + 1];
+      var tmp2 = buf[first + 2];
+      buf[first] = buf[next];
+      buf[first + 1] = buf[next + 1];
+      buf[first + 2] = buf[next + 2];
+      buf[next] = tmp;
+      buf[next + 1] = tmp1;
+      buf[next + 2] = tmp2;
+      first += 3;
+      next += 3;
+      if (next === last) next = middle;else if (first === middle) middle = next;
+    }
+  };
+
+  _proto.fetch_mode = function fetch_mode() {
+    var m = this.prog_fetch_num(0);
+    if (m > _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_MODE_LAST */ .wW) return 0;
+    return m;
+  };
+
+  _proto.prog_process = function prog_process() {
+    var data = this.prog_data;
+    if (this.prog_ptr >= this.prog_size) return false; // check that the program wasn't restarted
+    // concurrently
+
+    while (data === this.prog_data) {
+      var cmd = this.prog_fetch_cmd();
+      if (!cmd) break;
+
+      if (cmd == _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_SHOW */ .Xo) {
+        var k = this.prog_fetch_num(50);
+        this.dirty = true;
+        setTimeout(this.animationFrame.bind(this), k); // check data is still current;
+
+        return data === this.prog_data;
+      }
+
+      switch (cmd) {
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_COL1_SET */ .gd:
+          this.range_ptr = this.range_start + this.prog_fetch_num(0);
+          this.set_next(this.prog_fetch_color());
+          break;
+
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_FADE */ .r$:
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_FADE_HSV */ .zy:
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_SET_ALL */ .Ve:
+          {
+            var _this$prog_fetch = this.prog_fetch(),
+                len = _this$prog_fetch.dst,
+                pcmd = _this$prog_fetch.prog;
+
+            if (pcmd != PROG_COLOR_BLOCK || len == 0) continue; // bailout
+
+            if (cmd == _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_SET_ALL */ .Ve) this.prog_set(len);else this.prog_fade(len, cmd == _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_FADE_HSV */ .zy);
+            break;
+          }
+
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_ROTATE_BACK */ .fq:
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_ROTATE_FWD */ .ln:
+          {
+            var _k = this.prog_fetch_num(1);
+
+            var _len = this.range_len;
+            if (_len == 0) continue;
+
+            while (_k >= _len) {
+              _k -= _len;
+            }
+
+            if (cmd == _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_ROTATE_FWD */ .ln && _k != 0) _k = _len - _k;
+            this.prog_rot(_k);
+            break;
+          }
+
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_MODE1 */ .Aw:
+          this.prog_tmpmode = this.fetch_mode();
+          break;
+
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_MODE */ .T:
+          this.prog_mode = this.fetch_mode();
+          break;
+
+        case _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_RANGE */ .ht:
+          {
+            var start = this.prog_fetch_num(0);
+
+            var _len2 = this.prog_fetch_num(this.numpixels);
+
+            var numpixels = this.numpixels;
+            if (start > numpixels) start = numpixels;
+            var end = start + _len2;
+            if (end > numpixels) end = numpixels;
+            this.range_start = start;
+            this.range_end = end;
+            this.range_len = end - start;
+            break;
+          }
+      }
+
+      if (cmd != _jdom_light__WEBPACK_IMPORTED_MODULE_1__/* .LIGHT_PROG_MODE1 */ .Aw) this.prog_tmpmode = this.prog_mode;
+    }
+
+    return false;
+  }
+  /**
+   * Perform an animation step
+   */
+  ;
+
+  _proto.animationFrame = function animationFrame() {
+    if (!this.prog_process()) return; // concurrently udpated
+
+    if (!this.is_enabled()) return;
+
+    if (this.dirty) {
+      this.dirty = false;
+
+      if ((0,_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .isBufferEmpty */ .pL)(this.pxbuffer)) {
+        this.jd_power_enable(false);
+        return;
+      } else {
+        this.jd_power_enable(true);
+      }
+
+      this.limit_intensity(); // we're ready to render...
+
+      this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .RENDER */ .kq7);
+    }
+  };
+
+  _proto.sync_config = function sync_config() {
+    if (!this.is_enabled()) {
+      this.jd_power_enable(false);
+      return;
+    }
+
+    if (!this.inited) {
+      this.inited = true; // initialize?
+      // px_init(this.lighttype);
+    }
+
+    this.jd_power_enable(true);
+  };
+
+  _proto.handleRun = function handleRun(pkt) {
+    console.log("run", {
+      data: (0,_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .toHex */ .NC)(pkt.data)
+    });
+    this.prog_data = pkt.data;
+    this.prog_size = this.prog_data.length;
+    this.prog_ptr = 0;
+    this.range_start = 0;
+    this.range_end = this.range_len = this.numpixels;
+    this.prog_tmpmode = this.prog_mode = 0;
+    this.sync_config();
+    this.animationFrame();
+  };
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LedPixelServer, [{
+    key: "colors",
+    get: function get() {
+      return this.pxbuffer;
+    }
+  }, {
+    key: "maxpower",
+    get: function get() {
+      var _this$maxPower$values = this.maxPower.values(),
+          r = _this$maxPower$values[0];
+
+      return r;
+    }
+  }, {
+    key: "maxpixels",
+    get: function get() {
+      var _this$maxPixels$value = this.maxPixels.values(),
+          r = _this$maxPixels$value[0];
+
+      return r;
+    }
+  }, {
+    key: "numpixels",
+    get: function get() {
+      var _this$numPixels$value = this.numPixels.values(),
+          r = _this$numPixels$value[0];
+
+      return r;
+    }
+  }, {
+    key: "requested_intensity",
+    get: function get() {
+      var _this$brightness$valu = this.brightness.values(),
+          r = _this$brightness$valu[0];
+
+      return r;
+    }
+  }, {
+    key: "intensity",
+    get: function get() {
+      var _this$actualBrightnes = this.actualBrightness.values(),
+          r = _this$actualBrightnes[0];
+
+      return r;
+    },
+    set: function set(v) {
+      this.actualBrightness.setValues([v]);
+    }
+  }]);
+
+  return LedPixelServer;
+}(_jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+
+
+/***/ }),
+
 /***/ 83090:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -32702,7 +33389,7 @@ var SensorServer = /*#__PURE__*/function (_JDServiceServer) {
 
 /***/ }),
 
-/***/ 3560:
+/***/ 37801:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32980,623 +33667,8 @@ var HumidityServer = /*#__PURE__*/function (_SensorServer) {
 var joystickserver = __webpack_require__(26708);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/ledmatrixserver.ts
 var ledmatrixserver = __webpack_require__(41441);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/light.ts
-var light = __webpack_require__(69130);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
-;// CONCATENATED MODULE: ./jacdac-ts/src/servers/ledpixelserver.ts
-
-
-
-
-
-
-
-var PROG_EOF = 0;
-var PROG_CMD = 1;
-var PROG_NUMBER = 3;
-var PROG_COLOR_BLOCK = 4;
-
-function rgb(r, g, b) {
-  return {
-    r: r,
-    g: g,
-    b: b
-  };
-}
-
-function hsv(hue, sat, val) {
-  // scale down to 0..192
-  hue = hue * 192 >> 8; // reference: based on FastLED's hsv2rgb rainbow algorithm
-  // [https://github.com/FastLED/FastLED](MIT)
-
-  var invsat = 255 - sat;
-  var brightness_floor = val * invsat >> 8;
-  var color_amplitude = val - brightness_floor;
-  var section = hue / 0x40 >> 0; // [0..2]
-
-  var offset = hue % 0x40 >> 0; // [0..63]
-
-  var rampup = offset;
-  var rampdown = 0x40 - 1 - offset;
-  var rampup_amp_adj = rampup * color_amplitude / (256 / 4) >> 0;
-  var rampdown_amp_adj = rampdown * color_amplitude / (256 / 4) >> 0;
-  var rampup_adj_with_floor = rampup_amp_adj + brightness_floor;
-  var rampdown_adj_with_floor = rampdown_amp_adj + brightness_floor;
-  var r = 0,
-      g = 0,
-      b = 0;
-
-  if (section) {
-    if (section == 1) {
-      // section 1: 0x40..0x7F
-      r = brightness_floor;
-      g = rampdown_adj_with_floor;
-      b = rampup_adj_with_floor;
-    } else {
-      // section 2; 0x80..0xBF
-      r = rampup_adj_with_floor;
-      g = brightness_floor;
-      b = rampdown_adj_with_floor;
-    }
-  } else {
-    // section 0: 0x00..0x3F
-    r = rampdown_adj_with_floor;
-    g = rampup_adj_with_floor;
-    b = brightness_floor;
-  }
-
-  return rgb(r, g, b);
-}
-
-function mulcol(c, m) {
-  var c2 = c * m >> 7;
-  if (m < 128 && c == c2) c2--;else if (m > 128 && c == c2) c2++;
-  return c2;
-}
-
-function clamp(c) {
-  if (c < 0) return 0;
-  if (c > 255) return 255;
-  return c;
-}
-
-function SCALE0(c, i) {
-  return (c & 0xff) * (1 + (i & 0xff)) >> 8;
-}
-
-var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
-  (0,inheritsLoose/* default */.Z)(LedPixelServer, _JDServiceServer);
-
-  function LedPixelServer(options) {
-    var _this;
-
-    _this = _JDServiceServer.call(this, constants/* SRV_LED_PIXEL */.zEX, options) || this;
-    _this.pxbuffer = new Uint8Array(0);
-    _this.prog_mode = 0;
-    _this.prog_tmpmode = 0;
-    _this.range_start = 0;
-    _this.range_end = 0;
-    _this.range_len = 0;
-    _this.range_ptr = 0;
-    _this.prog_ptr = 0;
-    _this.prog_size = 0;
-    _this.prog_data = new Uint8Array(0);
-    _this.dirty = true;
-    _this.inited = false;
-    _this.power_enable = false;
-
-    var _ref = options || {},
-        numColumns = _ref.numColumns,
-        _ref$maxPower = _ref.maxPower,
-        maxPower = _ref$maxPower === void 0 ? 200 : _ref$maxPower,
-        _ref$maxPixels = _ref.maxPixels,
-        maxPixels = _ref$maxPixels === void 0 ? 300 : _ref$maxPixels,
-        _ref$numPixels = _ref.numPixels,
-        numPixels = _ref$numPixels === void 0 ? 15 : _ref$numPixels;
-
-    _this.brightness = _this.addRegister(constants/* LedPixelReg.Brightness */.k9u.Brightness, [15]);
-    _this.actualBrightness = _this.addRegister(constants/* LedPixelReg.ActualBrightness */.k9u.ActualBrightness, [15]);
-    _this.lightType = _this.addRegister(constants/* LedPixelReg.LightType */.k9u.LightType, [constants/* LedPixelLightType.WS2812B_GRB */.lFE.WS2812B_GRB]);
-    _this.numPixels = _this.addRegister(constants/* LedPixelReg.NumPixels */.k9u.NumPixels, [numPixels]);
-    _this.maxPower = _this.addRegister(constants/* LedPixelReg.MaxPower */.k9u.MaxPower, [maxPower]);
-    _this.maxPixels = _this.addRegister(constants/* LedPixelReg.MaxPixels */.k9u.MaxPixels, [maxPixels]);
-    _this.variant = _this.addRegister(constants/* LedPixelReg.Variant */.k9u.Variant, [constants/* LedPixelVariant.Strip */.dQg.Strip]);
-    _this.numRepeats = _this.addRegister(constants/* LedPixelReg.NumRepeats */.k9u.NumRepeats, [0]);
-    if (numColumns !== undefined) _this.numColumns = _this.addRegister(constants/* LedPixelReg.NumColumns */.k9u.NumColumns, [numColumns]);
-
-    _this.brightness.on(constants/* CHANGE */.Ver, function () {
-      return _this.intensity = _this.requested_intensity;
-    });
-
-    _this.numPixels.on(constants/* CHANGE */.Ver, _this.allocRxBuffer.bind((0,assertThisInitialized/* default */.Z)(_this)));
-
-    _this.maxPixels.on(constants/* CHANGE */.Ver, _this.allocRxBuffer.bind((0,assertThisInitialized/* default */.Z)(_this)));
-
-    _this.addCommand(constants/* LedPixelCmd.Run */.yB$.Run, _this.handleRun.bind((0,assertThisInitialized/* default */.Z)(_this)));
-
-    _this.allocRxBuffer();
-
-    return _this;
-  }
-  /**
-   * Gets an array of RGB color numbers
-   */
-
-
-  var _proto = LedPixelServer.prototype;
-
-  _proto.jd_power_enable = function jd_power_enable(value) {
-    this.power_enable = value;
-  };
-
-  _proto.is_enabled = function is_enabled() {
-    return this.numpixels > 0 && this.requested_intensity > 0;
-  };
-
-  _proto.allocRxBuffer = function allocRxBuffer() {
-    if (this.numpixels > this.maxpixels) this.numPixels.setValues([this.maxpixels]);
-    var n = this.numpixels * 3; // don't need to prealloc here
-
-    if (n !== this.pxbuffer.length) this.pxbuffer = new Uint8Array(n);
-  };
-
-  _proto.reset_range = function reset_range() {
-    this.range_ptr = this.range_start;
-  };
-
-  _proto.set_next = function set_next(c) {
-    if (this.range_ptr >= this.range_end) return false;
-    var p = this.pxbuffer;
-    var pi = this.range_ptr++ * 3; // fast path
-
-    if (this.prog_tmpmode == light/* LIGHT_MODE_REPLACE */._I) {
-      p[pi + 0] = c.r;
-      p[pi + 1] = c.g;
-      p[pi + 2] = c.b;
-      return true;
-    }
-
-    var r = p[pi + 0],
-        g = p[pi + 1],
-        b = p[pi + 2];
-
-    switch (this.prog_tmpmode) {
-      case light/* LIGHT_MODE_ADD_RGB */.xI:
-        r += c.r;
-        g += c.g;
-        b += c.b;
-        break;
-
-      case light/* LIGHT_MODE_SUBTRACT_RGB */.uZ:
-        r -= c.r;
-        g -= c.g;
-        b -= c.b;
-        break;
-
-      case light/* LIGHT_MODE_MULTIPLY_RGB */.Qj:
-        r = mulcol(r, c.r);
-        g = mulcol(g, c.g);
-        b = mulcol(b, c.b);
-        break;
-    }
-
-    p[pi + 0] = clamp(r);
-    p[pi + 1] = clamp(g);
-    p[pi + 2] = clamp(b);
-    return true;
-  };
-
-  _proto.limit_intensity = function limit_intensity() {
-    var numpixels = this.numpixels;
-    var requested_intensity = this.requested_intensity;
-    var maxpower = this.maxpower;
-    var pxbuffer = this.pxbuffer;
-    var n = numpixels * 3;
-    var prev_intensity = this.intensity;
-    var intensity = this.intensity;
-    intensity += 1 + (intensity >> 5);
-    if (intensity > requested_intensity) intensity = requested_intensity;
-    var current_full = 0;
-    var current = 0;
-    var current_prev = 0;
-    var di = 0;
-
-    while (n--) {
-      var v = pxbuffer[di++];
-      current += SCALE0(v, intensity);
-      current_prev += SCALE0(v, prev_intensity);
-      current_full += v;
-    } // 46uA per step of LED
-
-
-    current *= 46;
-    current_prev *= 46;
-    current_full *= 46; // 14mA is the chip at 48MHz, 930uA per LED is static
-
-    var base_current = 14000 + 930 * numpixels;
-    var current_limit = maxpower * 1000 - base_current;
-
-    if (current <= current_limit) {
-      this.intensity = intensity; // LOG("curr: %dmA; not limiting %d", (base_current + current) / 1000, state->intensity);
-
-      return;
-    }
-
-    if (current_prev <= current_limit) {
-      return; // no change needed
-    }
-
-    var inten = current_limit / (current_full >> 8) - 1;
-    if (inten < 0) inten = 0;
-    this.intensity = inten;
-  };
-
-  _proto.prog_fetch_color = function prog_fetch_color() {
-    var ptr = this.prog_ptr;
-    if (ptr + 3 > this.prog_size) return rgb(0, 0, 0);
-    var d = this.prog_data;
-    this.prog_ptr = ptr + 3;
-    return rgb(d[ptr + 0], d[ptr + 1], d[ptr + 2]);
-  };
-
-  _proto.prog_fetch = function prog_fetch() {
-    if (this.prog_ptr >= this.prog_size) return {
-      prog: PROG_EOF
-    };
-    var d = this.prog_data;
-    var c = d[this.prog_ptr++];
-
-    if (!(c & 0x80)) {
-      return {
-        dst: c,
-        prog: PROG_NUMBER
-      };
-    } else if ((c & 0xc0) == 0x80) {
-      return {
-        dst: (c & 0x3f) << 8 | d[this.prog_ptr++],
-        prog: PROG_NUMBER
-      };
-    } else switch (c) {
-      case light/* LIGHT_PROG_COL1 */.oO:
-        return {
-          dst: 1,
-          prog: PROG_COLOR_BLOCK
-        };
-
-      case light/* LIGHT_PROG_COL2 */.W9:
-        return {
-          dst: 2,
-          prog: PROG_COLOR_BLOCK
-        };
-
-      case light/* LIGHT_PROG_COL3 */.Z3:
-        return {
-          dst: 3,
-          prog: PROG_COLOR_BLOCK
-        };
-
-      case light/* LIGHT_PROG_COLN */.Lp:
-        return {
-          dst: d[this.prog_ptr++],
-          prog: PROG_COLOR_BLOCK
-        };
-
-      default:
-        return {
-          dst: c,
-          prog: PROG_CMD
-        };
-    }
-  };
-
-  _proto.prog_fetch_num = function prog_fetch_num(defl) {
-    var prev = this.prog_ptr;
-    var fr = this.prog_fetch();
-    var res = fr.dst,
-        r = fr.prog;
-    if (r == PROG_NUMBER) return res;else {
-      this.prog_ptr = prev; // rollback
-
-      return defl;
-    }
-  };
-
-  _proto.prog_fetch_cmd = function prog_fetch_cmd() {
-    var cmd; // skip until there's a command
-
-    for (;;) {
-      var c = this.prog_fetch();
-
-      switch (c.prog) {
-        case PROG_CMD:
-          return c.dst;
-
-        case PROG_COLOR_BLOCK:
-          while (cmd--) {
-            this.prog_fetch_color();
-          }
-
-          break;
-
-        case PROG_EOF:
-          return 0;
-      }
-    }
-  };
-
-  _proto.prog_set = function prog_set(len) {
-    this.reset_range();
-    var start = this.prog_ptr;
-
-    for (;;) {
-      this.prog_ptr = start;
-      var ok = false;
-
-      for (var i = 0; i < len; ++i) {
-        // don't break the loop immediately if !ok - make sure the prog counter advances
-        ok = this.set_next(this.prog_fetch_color());
-      }
-
-      if (!ok) break;
-    }
-  };
-
-  _proto.prog_fade = function prog_fade(len, usehsv) {
-    if (len < 2) {
-      this.prog_set(len);
-      return;
-    }
-
-    var colidx = 0;
-    var endp = this.prog_ptr + 3 * len;
-    var col0 = this.prog_fetch_color();
-    var col1 = this.prog_fetch_color();
-    var colstep = (len - 1 << 16) / this.range_len;
-    var colpos = 0;
-    this.reset_range();
-
-    for (;;) {
-      while (colidx < colpos >> 16) {
-        colidx++;
-        col0 = col1;
-        col1 = this.prog_fetch_color();
-      }
-
-      var fade1 = colpos & 0xffff;
-      var fade0 = 0xffff - fade1;
-      var col = rgb(col0.r * fade0 + col1.r * fade1 + 0x8000 >> 16, col0.g * fade0 + col1.g * fade1 + 0x8000 >> 16, col0.b * fade0 + col1.b * fade1 + 0x8000 >> 16);
-      if (!this.set_next(usehsv ? hsv(col.r, col.g, col.b) : col)) break;
-      colpos += colstep;
-    }
-
-    this.prog_ptr = endp;
-  };
-
-  _proto.prog_rot = function prog_rot(shift) {
-    if (shift <= 0 || shift >= this.range_len) return;
-    var range_start = this.range_start;
-    var range_end = this.range_end;
-    var buf = this.pxbuffer;
-    var first = range_start * 3;
-    var middle = (range_start + shift) * 3;
-    var last = range_end * 3;
-    var next = middle;
-
-    while (first != next) {
-      var tmp = buf[first];
-      var tmp1 = buf[first + 1];
-      var tmp2 = buf[first + 2];
-      buf[first] = buf[next];
-      buf[first + 1] = buf[next + 1];
-      buf[first + 2] = buf[next + 2];
-      buf[next] = tmp;
-      buf[next + 1] = tmp1;
-      buf[next + 2] = tmp2;
-      first += 3;
-      next += 3;
-      if (next === last) next = middle;else if (first === middle) middle = next;
-    }
-  };
-
-  _proto.fetch_mode = function fetch_mode() {
-    var m = this.prog_fetch_num(0);
-    if (m > light/* LIGHT_MODE_LAST */.wW) return 0;
-    return m;
-  };
-
-  _proto.prog_process = function prog_process() {
-    var data = this.prog_data;
-    if (this.prog_ptr >= this.prog_size) return false; // check that the program wasn't restarted
-    // concurrently
-
-    while (data === this.prog_data) {
-      var cmd = this.prog_fetch_cmd();
-      if (!cmd) break;
-
-      if (cmd == light/* LIGHT_PROG_SHOW */.Xo) {
-        var k = this.prog_fetch_num(50);
-        this.dirty = true;
-        setInterval(this.animationFrame.bind(this), k); // check data is still current;
-
-        return data === this.prog_data;
-      }
-
-      switch (cmd) {
-        case light/* LIGHT_PROG_COL1_SET */.gd:
-          this.range_ptr = this.range_start + this.prog_fetch_num(0);
-          this.set_next(this.prog_fetch_color());
-          break;
-
-        case light/* LIGHT_PROG_FADE */.r$:
-        case light/* LIGHT_PROG_FADE_HSV */.zy:
-        case light/* LIGHT_PROG_SET_ALL */.Ve:
-          {
-            var _this$prog_fetch = this.prog_fetch(),
-                len = _this$prog_fetch.dst,
-                pcmd = _this$prog_fetch.prog;
-
-            if (pcmd != PROG_COLOR_BLOCK || len == 0) continue; // bailout
-
-            if (cmd == light/* LIGHT_PROG_SET_ALL */.Ve) this.prog_set(len);else this.prog_fade(len, cmd == light/* LIGHT_PROG_FADE_HSV */.zy);
-            break;
-          }
-
-        case light/* LIGHT_PROG_ROTATE_BACK */.fq:
-        case light/* LIGHT_PROG_ROTATE_FWD */.ln:
-          {
-            var _k = this.prog_fetch_num(1);
-
-            var _len = this.range_len;
-            if (_len == 0) continue;
-
-            while (_k >= _len) {
-              _k -= _len;
-            }
-
-            if (cmd == light/* LIGHT_PROG_ROTATE_FWD */.ln && _k != 0) _k = _len - _k;
-            this.prog_rot(_k);
-            break;
-          }
-
-        case light/* LIGHT_PROG_MODE1 */.Aw:
-          this.prog_tmpmode = this.fetch_mode();
-          break;
-
-        case light/* LIGHT_PROG_MODE */.T:
-          this.prog_mode = this.fetch_mode();
-          break;
-
-        case light/* LIGHT_PROG_RANGE */.ht:
-          {
-            var start = this.prog_fetch_num(0);
-
-            var _len2 = this.prog_fetch_num(this.numpixels);
-
-            var numpixels = this.numpixels;
-            if (start > numpixels) start = numpixels;
-            var end = start + _len2;
-            if (end > numpixels) end = numpixels;
-            this.range_start = start;
-            this.range_end = end;
-            this.range_len = end - start;
-            break;
-          }
-      }
-
-      if (cmd != light/* LIGHT_PROG_MODE1 */.Aw) this.prog_tmpmode = this.prog_mode;
-    }
-
-    return false;
-  }
-  /**
-   * Perform an animation step
-   */
-  ;
-
-  _proto.animationFrame = function animationFrame() {
-    if (!this.prog_process()) return; // concurrently udpated
-
-    if (!this.is_enabled()) return;
-
-    if (this.dirty) {
-      this.dirty = false;
-
-      if ((0,utils/* isBufferEmpty */.pL)(this.pxbuffer)) {
-        this.jd_power_enable(false);
-        return;
-      } else {
-        this.jd_power_enable(true);
-      }
-
-      this.limit_intensity(); // we're ready to render...
-
-      this.emit(constants/* RENDER */.kq7);
-    }
-  };
-
-  _proto.sync_config = function sync_config() {
-    if (!this.is_enabled()) {
-      this.jd_power_enable(false);
-      return;
-    }
-
-    if (!this.inited) {
-      this.inited = true; // initialize?
-      // px_init(this.lighttype);
-    }
-
-    this.jd_power_enable(true);
-  };
-
-  _proto.handleRun = function handleRun(pkt) {
-    console.log("run", {
-      data: (0,utils/* toHex */.NC)(pkt.data)
-    });
-    this.prog_data = pkt.data;
-    this.prog_size = this.prog_data.length;
-    this.prog_ptr = 0;
-    this.range_start = 0;
-    this.range_end = this.range_len = this.numpixels;
-    this.prog_tmpmode = this.prog_mode = 0;
-    this.sync_config();
-    this.animationFrame();
-  };
-
-  (0,createClass/* default */.Z)(LedPixelServer, [{
-    key: "colors",
-    get: function get() {
-      return this.pxbuffer;
-    }
-  }, {
-    key: "maxpower",
-    get: function get() {
-      var _this$maxPower$values = this.maxPower.values(),
-          r = _this$maxPower$values[0];
-
-      return r;
-    }
-  }, {
-    key: "maxpixels",
-    get: function get() {
-      var _this$maxPixels$value = this.maxPixels.values(),
-          r = _this$maxPixels$value[0];
-
-      return r;
-    }
-  }, {
-    key: "numpixels",
-    get: function get() {
-      var _this$numPixels$value = this.numPixels.values(),
-          r = _this$numPixels$value[0];
-
-      return r;
-    }
-  }, {
-    key: "requested_intensity",
-    get: function get() {
-      var _this$brightness$valu = this.brightness.values(),
-          r = _this$brightness$valu[0];
-
-      return r;
-    }
-  }, {
-    key: "intensity",
-    get: function get() {
-      var _this$actualBrightnes = this.actualBrightness.values(),
-          r = _this$actualBrightnes[0];
-
-      return r;
-    },
-    set: function set(v) {
-      this.actualBrightness.setValues([v]);
-    }
-  }]);
-
-  return LedPixelServer;
-}(serviceserver/* default */.Z);
-
-
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/ledpixelserver.ts
+var ledpixelserver = __webpack_require__(30524);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/servers/matrixkeypadserver.ts
 
 
@@ -34083,6 +34155,8 @@ var pack = __webpack_require__(91635);
 var packet = __webpack_require__(57683);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pipes.ts
 var pipes = __webpack_require__(93642);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/servers/settingsserver.ts
 
 
@@ -35683,7 +35757,7 @@ var _providerDefinitions = [{
   name: "LED pixel ring 10",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 10,
       variant: constants/* LedPixelVariant.Ring */.dQg.Ring
     })];
@@ -35692,7 +35766,7 @@ var _providerDefinitions = [{
   name: "LED pixel ring 12",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 12,
       variant: constants/* LedPixelVariant.Ring */.dQg.Ring
     })];
@@ -35701,7 +35775,7 @@ var _providerDefinitions = [{
   name: "LED pixel ring 16",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 16,
       variant: constants/* LedPixelVariant.Ring */.dQg.Ring
     })];
@@ -35710,7 +35784,7 @@ var _providerDefinitions = [{
   name: "LED pixel ring 24",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 24,
       variant: constants/* LedPixelVariant.Ring */.dQg.Ring
     })];
@@ -35719,7 +35793,7 @@ var _providerDefinitions = [{
   name: "LED pixel jewel 7",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 7,
       variant: constants/* LedPixelVariant.Jewel */.dQg.Jewel
     })];
@@ -35728,7 +35802,7 @@ var _providerDefinitions = [{
   name: "LED pixel stick 8",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 8,
       variant: constants/* LedPixelVariant.Stick */.dQg.Stick
     })];
@@ -35737,7 +35811,7 @@ var _providerDefinitions = [{
   name: "LED pixel strip 30",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 60,
       maxPower: 1000,
       variant: constants/* LedPixelVariant.Strip */.dQg.Strip
@@ -35747,7 +35821,7 @@ var _providerDefinitions = [{
   name: "LED pixel strip 60",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 60,
       maxPower: 2000,
       variant: constants/* LedPixelVariant.Strip */.dQg.Strip
@@ -35757,7 +35831,7 @@ var _providerDefinitions = [{
   name: "LED pixel strip 150",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 150,
       maxPower: 5000,
       variant: constants/* LedPixelVariant.Strip */.dQg.Strip
@@ -35767,7 +35841,7 @@ var _providerDefinitions = [{
   name: "LED pixel strip 300",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 300,
       maxPower: 5000,
       variant: constants/* LedPixelVariant.Strip */.dQg.Strip
@@ -35777,7 +35851,7 @@ var _providerDefinitions = [{
   name: "LED pixel matrix (4x4)",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 16,
       variant: constants/* LedPixelVariant.Matrix */.dQg.Matrix
     })];
@@ -35786,7 +35860,7 @@ var _providerDefinitions = [{
   name: "LED pixel matrix (8x8)",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 64,
       variant: constants/* LedPixelVariant.Matrix */.dQg.Matrix
     })];
@@ -35795,7 +35869,7 @@ var _providerDefinitions = [{
   name: "LED pixel matrix (16x4)",
   serviceClasses: [constants/* SRV_LED_PIXEL */.zEX],
   services: function services() {
-    return [new LedPixelServer({
+    return [new ledpixelserver/* default */.Z({
       numPixels: 64,
       numColumns: 16,
       variant: constants/* LedPixelVariant.Matrix */.dQg.Matrix
@@ -36243,7 +36317,7 @@ var _providerDefinitions = [{
   name: "chassis (motor x 2 + sonar + light)",
   serviceClasses: [constants/* SRV_DISTANCE */.Sfn, constants/* SRV_LED_PIXEL */.zEX, constants/* SRV_MOTOR */.YZU],
   services: function services() {
-    return [new MotorServer("L"), new MotorServer("R"), new AnalogSensorServer(constants/* SRV_DISTANCE */.Sfn, sonarOptions), new LedPixelServer({
+    return [new MotorServer("L"), new MotorServer("R"), new AnalogSensorServer(constants/* SRV_DISTANCE */.Sfn, sonarOptions), new ledpixelserver/* default */.Z({
       numPixels: 5,
       variant: constants/* LedPixelVariant.Stick */.dQg.Stick,
       instanceName: "lights"
@@ -39626,7 +39700,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "d5d49adee4d9b3c0885be1bf58f8f6692aadb348";
+  var sha = "8b805c62ec6fcd183cf358e64f68fbf0150cf563";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -41042,12 +41116,12 @@ var jdutils = __webpack_require__(30055);
 
 
 
-
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -41163,13 +41237,49 @@ var JDService = /*#__PURE__*/function (_JDNode) {
     return event;
   };
 
-  _proto.sendPacketAsync = function sendPacketAsync(pkt, ack) {
-    pkt.device = this.device;
-    pkt.serviceIndex = this.serviceIndex;
-    if (ack !== undefined) pkt.requiresAck = !!ack;
-    this.emit(constants/* PACKET_SEND */.RaS, pkt);
-    if (pkt.requiresAck) return this.device.sendPktWithAck(pkt);else return pkt.sendCmdAsync(this.device);
-  };
+  _proto.sendPacketAsync = /*#__PURE__*/function () {
+    var _sendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(pkt, ack) {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              pkt.device = this.device;
+              pkt.serviceIndex = this.serviceIndex;
+              if (ack !== undefined) pkt.requiresAck = !!ack;
+
+              if (!pkt.requiresAck) {
+                _context.next = 8;
+                break;
+              }
+
+              _context.next = 6;
+              return this.device.sendPktWithAck(pkt);
+
+            case 6:
+              _context.next = 10;
+              break;
+
+            case 8:
+              _context.next = 10;
+              return pkt.sendCmdAsync(this.device);
+
+            case 10:
+              this.emit(constants/* PACKET_SEND */.RaS, pkt);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendPacketAsync(_x, _x2) {
+      return _sendPacketAsync.apply(this, arguments);
+    }
+
+    return sendPacketAsync;
+  }();
 
   _proto.sendCmdAsync = function sendCmdAsync(cmd, data, ack) {
     var pkt = data ? packet/* default.from */.Z.from(cmd, data) : packet/* default.onlyHeader */.Z.onlyHeader(cmd);
@@ -41255,30 +41365,30 @@ var JDService = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.receiveWithInPipe = /*#__PURE__*/function () {
-    var _receiveWithInPipe = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(cmd, packFormat) {
+    var _receiveWithInPipe = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(cmd, packFormat) {
       var inp, recv, _iterator, _step, buf, values;
 
-      return regenerator_default().wrap(function _callee$(_context) {
+      return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               inp = new pipes/* InPipeReader */.oI(this.device.bus);
-              _context.next = 3;
+              _context2.next = 3;
               return this.sendPacketAsync(inp.openCommand(cmd), true);
 
             case 3:
               recv = [];
-              _context.t0 = _createForOfIteratorHelperLoose;
-              _context.next = 7;
+              _context2.t0 = _createForOfIteratorHelperLoose;
+              _context2.next = 7;
               return inp.readData();
 
             case 7:
-              _context.t1 = _context.sent;
-              _iterator = (0, _context.t0)(_context.t1);
+              _context2.t1 = _context2.sent;
+              _iterator = (0, _context2.t0)(_context2.t1);
 
             case 9:
               if ((_step = _iterator()).done) {
-                _context.next = 15;
+                _context2.next = 15;
                 break;
               }
 
@@ -41287,21 +41397,21 @@ var JDService = /*#__PURE__*/function (_JDNode) {
               recv.push(values);
 
             case 13:
-              _context.next = 9;
+              _context2.next = 9;
               break;
 
             case 15:
-              return _context.abrupt("return", recv);
+              return _context2.abrupt("return", recv);
 
             case 16:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, this);
+      }, _callee2, this);
     }));
 
-    function receiveWithInPipe(_x, _x2) {
+    function receiveWithInPipe(_x3, _x4) {
       return _receiveWithInPipe.apply(this, arguments);
     }
 
@@ -42350,8 +42460,8 @@ var BusStatsMonitor = /*#__PURE__*/function (_JDEventSource) {
 
   return BusStatsMonitor;
 }(eventsource/* JDEventSource */.a);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
-var servers = __webpack_require__(3560);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
+var servers = __webpack_require__(37801);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceclient.ts
 var serviceclient = __webpack_require__(56763);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/rolemanagerclient.ts
@@ -50601,4 +50711,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-81fe7e6715190b7a3f58.js.map
+//# sourceMappingURL=app-4bb1eb421863f8568596.js.map

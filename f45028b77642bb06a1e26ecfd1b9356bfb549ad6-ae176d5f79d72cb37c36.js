@@ -683,8 +683,8 @@ function AnalogButton(props) {
 }
 // EXTERNAL MODULE: ./src/components/hooks/useThrottledValue.ts
 var useThrottledValue = __webpack_require__(72901);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
-var servers = __webpack_require__(3560);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
+var servers = __webpack_require__(37801);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
@@ -1348,4 +1348,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-51fd12e52d964c5d39a3.js.map
+//# sourceMappingURL=f45028b77642bb06a1e26ecfd1b9356bfb549ad6-ae176d5f79d72cb37c36.js.map

@@ -1143,11 +1143,26 @@ function useFireKey(handler) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ useServiceServer; }
 /* harmony export */ });
-/* harmony import */ var _useServiceProvider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(63793);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _useServiceProvider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(63793);
 
-function useServiceServer(service) {
-  var provider = (0,_useServiceProvider__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(service.device);
-  return provider === null || provider === void 0 ? void 0 : provider.service(service === null || service === void 0 ? void 0 : service.serviceIndex);
+
+function useServiceServer(service, createTwin) {
+  var provider = (0,_useServiceProvider__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(service.device);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined),
+      twin = _useState[0],
+      setTwin = _useState[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var t = !provider && (createTwin === null || createTwin === void 0 ? void 0 : createTwin());
+    if (t) t.twin = service;
+    setTwin(t);
+    return function () {
+      if (t) t.twin = undefined;
+    };
+  }, [service, provider]);
+  return (provider === null || provider === void 0 ? void 0 : provider.service(service === null || service === void 0 ? void 0 : service.serviceIndex)) || twin;
 }
 
 /***/ }),
@@ -1604,4 +1619,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-664a290830e9df6c7ea7.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-8697b72736b49f57fa77.js.map
