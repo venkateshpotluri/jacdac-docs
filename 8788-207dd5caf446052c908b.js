@@ -2460,7 +2460,7 @@ function DeviceTreeItem(props) {
     return service.name;
   }), 18);
   var alert = lost ? "lost device..." : dropped > 2 ? dropped + " pkt lost" : undefined;
-  var labelInfo = [!!dropped && dropped + " lost", serviceNames].filter(function (r) {
+  var labelInfo = [dropped > 1 && dropped + " lost", serviceNames].filter(function (r) {
     return !!r;
   }).join(", ");
 
@@ -2980,4 +2980,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8788-41ed4512c6f948a87c3c.js.map
+//# sourceMappingURL=8788-207dd5caf446052c908b.js.map

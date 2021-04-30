@@ -28685,7 +28685,7 @@ var InPipeReader = /*#__PURE__*/function (_InPipe) {
 /* harmony export */   "gw": function() { return /* binding */ commandName; },
 /* harmony export */   "$_": function() { return /* binding */ printPacket; }
 /* harmony export */ });
-/* unused harmony exports RegisterType, decodeMember, decodeMembers, wrapDecodedMembers, serviceShortIdOrClass, deviceServiceName, toAscii, hexDump */
+/* unused harmony exports RegisterType, prettyMicroDuration, decodeMember, decodeMembers, wrapDecodedMembers, serviceShortIdOrClass, deviceServiceName, toAscii, hexDump */
 /* harmony import */ var _buffer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3482);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
 /* harmony import */ var _spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13173);
@@ -28772,6 +28772,9 @@ function prettyDuration(ms) {
 
   r += Math.floor(s);
   return r;
+}
+function prettyMicroDuration(us) {
+  if (us < 1000) return "" + us + prettyUnit("us");else return prettyDuration(us / 1000);
 } // 2 letter + 2 digit ID; 1.8%/0.3%/0.07%/0.015% collision probability among 50/20/10/5 devices
 
 function shortDeviceId(devid) {
@@ -28856,7 +28859,7 @@ function decodeMember(service, pktInfo, member, pkt, offset) {
     } else if (member.type == "bool") {
       value = !!numValue;
       humanValue = value ? "true" : "false";
-    } else if (member.unit || scaledValue != numValue) {
+    } else if (member.unit === "ms") humanValue = prettyDuration(value);else if (member.unit === "us") humanValue = prettyMicroDuration(value);else if (member.unit || scaledValue != numValue) {
       // don't show so much digits
       var v = scaledValue;
       if (member.unit) v = (0,_utils__WEBPACK_IMPORTED_MODULE_1__/* .roundWithPrecision */ .JI)(v, 3);
@@ -39608,7 +39611,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "de116a2ffe152e4faa7a6f4a8ab8a2e5c30debce";
+  var sha = "851a2b83a4c05fe08e56bf835480ef8902840152";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50457,4 +50460,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-6f578ff67e7249bb0cc8.js.map
+//# sourceMappingURL=app-52f46211e28aae3440f1.js.map
