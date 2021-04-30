@@ -30242,7 +30242,6 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       _this.statusCode.setValues([specconstants/* SystemStatusCodes.CalibrationNeeded */._kj.CalibrationNeeded, 0], true);
     }
 
-    _this.handleTwinChange = _this.handleTwinChange.bind((0,assertThisInitialized/* default */.Z)(_this));
     _this.handleTwinPacket = _this.handleTwinPacket.bind((0,assertThisInitialized/* default */.Z)(_this));
     return _this;
   }
@@ -30254,19 +30253,6 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       pkt: pkt
     });
     this.handlePacket(pkt);
-  };
-
-  _proto.handleTwinChange = function handleTwinChange() {
-    var _this$twin,
-        _this2 = this;
-
-    console.log("twin change");
-    (_this$twin = this.twin) === null || _this$twin === void 0 ? void 0 : _this$twin.registers().forEach(function (twinReg) {
-      var reg = _this2.register(twinReg.code);
-
-      reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue, true);
-    });
-    this.emit(constants/* CHANGE */.Ver);
   };
 
   _proto.register = function register(code) {
@@ -30503,8 +30489,12 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       return this._twin;
     },
     set: function set(service) {
+      var _this2 = this;
+
+      if (service === this._twin) return;
+
       if (this._twin) {
-        this._twin.off(constants/* PACKET_RECEIVE */.u_S, this.handleTwinChange);
+        this._twin.off(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
 
         this._twin.off(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
       }
@@ -30512,10 +30502,20 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       this._twin = service;
 
       if (this._twin) {
-        this._twin.on(constants/* PACKET_RECEIVE */.u_S, this.handleTwinChange);
+        console.log("new twin");
+
+        this._twin.on(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
 
         this._twin.on(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
+
+        this._twin.registers().forEach(function (twinReg) {
+          var reg = _this2.register(twinReg.code);
+
+          reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue, true);
+        });
       }
+
+      this.emit(constants/* CHANGE */.Ver);
     }
   }, {
     key: "registers",
@@ -33156,24 +33156,24 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   }, {
     key: "numpixels",
     get: function get() {
-      var _this$numPixels$value = this.numPixels.values(),
-          r = _this$numPixels$value[0];
+      var _ref2 = this.numPixels.values() || [0],
+          r = _ref2[0];
 
       return r;
     }
   }, {
     key: "requested_intensity",
     get: function get() {
-      var _this$brightness$valu = this.brightness.values(),
-          r = _this$brightness$valu[0];
+      var _ref3 = this.brightness.values() || [0],
+          r = _ref3[0];
 
       return r;
     }
   }, {
     key: "intensity",
     get: function get() {
-      var _this$actualBrightnes = this.actualBrightness.values(),
-          r = _this$actualBrightnes[0];
+      var _ref4 = this.actualBrightness.values() || [0],
+          r = _ref4[0];
 
       return r;
     },
@@ -39700,7 +39700,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8b805c62ec6fcd183cf358e64f68fbf0150cf563";
+  var sha = "76fdea963eecf1d83b335bfa83c568894b031d34";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50711,4 +50711,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-4bb1eb421863f8568596.js.map
+//# sourceMappingURL=app-08fa11206b6c640df06d.js.map

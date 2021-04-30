@@ -299,7 +299,8 @@ function LightStripWidget(props) {
   var isRing = lightVariant === constants/* LedPixelVariant.Ring */.dQg.Ring; // paint svg via dom
 
   var paint = function paint() {
-    return setRgbLeds(pixelsRef.current, server === null || server === void 0 ? void 0 : server.colors, neocircleradius);
+    //console.log('paint')
+    setRgbLeds(pixelsRef.current, server === null || server === void 0 ? void 0 : server.colors, neocircleradius);
   }; // reposition pixels along the path
 
 
@@ -918,4 +919,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=264-7b0cdf572a045754404e.js.map
+//# sourceMappingURL=264-9b5fe8ebfaaba7064014.js.map
