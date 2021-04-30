@@ -28282,10 +28282,10 @@ function frameToPackets(frame, timestamp) {
 /* harmony export */   "oI": function() { return /* binding */ InPipeReader; }
 /* harmony export */ });
 /* unused harmony export InPipe */
-/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(63349);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(41788);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92137);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5991);
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(63349);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5991);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
@@ -28293,6 +28293,8 @@ function frameToPackets(frame, timestamp) {
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
 /* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47235);
 /* harmony import */ var _pack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(91635);
+/* harmony import */ var _random__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80303);
+
 
 
 
@@ -28334,7 +28336,7 @@ var OutPipe = /*#__PURE__*/function () {
   };
 
   _proto.respondForEach = /*#__PURE__*/function () {
-    var _respondForEach = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(items, converter) {
+    var _respondForEach = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(items, converter) {
       var n, i, _item, data;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -28385,7 +28387,7 @@ var OutPipe = /*#__PURE__*/function () {
   }();
 
   _proto.sendData = /*#__PURE__*/function () {
-    var _sendData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(buf, flags) {
+    var _sendData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(buf, flags) {
       var _this = this;
 
       var cmd, pkt;
@@ -28434,7 +28436,7 @@ var OutPipe = /*#__PURE__*/function () {
   };
 
   _proto.close = /*#__PURE__*/function () {
-    var _close = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    var _close = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -28460,7 +28462,7 @@ var OutPipe = /*#__PURE__*/function () {
     return close;
   }();
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(OutPipe, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(OutPipe, [{
     key: "count",
     get: function get() {
       return this._count;
@@ -28475,7 +28477,7 @@ var OutPipe = /*#__PURE__*/function () {
   return OutPipe;
 }();
 var InPipe = /*#__PURE__*/function (_JDClient) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(InPipe, _JDClient);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(InPipe, _JDClient);
 
   function InPipe(bus) {
     var _this2;
@@ -28483,7 +28485,7 @@ var InPipe = /*#__PURE__*/function (_JDClient) {
     _this2 = _JDClient.call(this) || this;
     _this2._count = 0;
     _this2.bus = bus;
-    _this2._handlePacket = _this2._handlePacket.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2));
+    _this2._handlePacket = _this2._handlePacket.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(_this2));
 
     _this2.allocPort();
 
@@ -28499,7 +28501,7 @@ var InPipe = /*#__PURE__*/function (_JDClient) {
   _proto2.allocPort = function allocPort() {
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      this._port = 1 + (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .randomUInt */ .sG)(511);
+      this._port = 1 + (0,_random__WEBPACK_IMPORTED_MODULE_6__/* .randomUInt */ .sG)(511);
       var info = this.bus.selfDevice.port(this._port);
 
       if (!info.localPipe && !info.pipeType) {
@@ -28537,7 +28539,7 @@ var InPipe = /*#__PURE__*/function (_JDClient) {
     this.unmount();
   };
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(InPipe, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(InPipe, [{
     key: "port",
     get: function get() {
       return this._port;
@@ -28557,7 +28559,7 @@ var InPipe = /*#__PURE__*/function (_JDClient) {
   return InPipe;
 }(_client__WEBPACK_IMPORTED_MODULE_4__/* .JDClient */ .z);
 var InPipeReader = /*#__PURE__*/function (_InPipe) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(InPipeReader, _InPipe);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(InPipeReader, _InPipe);
 
   function InPipeReader(bus) {
     var _this3;
@@ -28579,7 +28581,7 @@ var InPipeReader = /*#__PURE__*/function (_InPipe) {
   var _proto3 = InPipeReader.prototype;
 
   _proto3.readData = /*#__PURE__*/function () {
-    var _readData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(timeout) {
+    var _readData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(timeout) {
       var r;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
@@ -28616,7 +28618,7 @@ var InPipeReader = /*#__PURE__*/function (_InPipe) {
   }();
 
   _proto3.readAll = /*#__PURE__*/function () {
-    var _readAll = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(timeout) {
+    var _readAll = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(timeout) {
       var res;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
@@ -29322,6 +29324,54 @@ var ProtocolTestServer = /*#__PURE__*/function (_JDServiceServer) {
 
 /***/ }),
 
+/***/ 80303:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "dG": function() { return /* binding */ cryptoRandomUint32; },
+/* harmony export */   "RO": function() { return /* binding */ anyRandomUint32; },
+/* harmony export */   "sG": function() { return /* binding */ randomUInt; },
+/* harmony export */   "b_": function() { return /* binding */ randomDeviceId; }
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81794);
+
+function cryptoRandomUint32(length) {
+  if (typeof window === "undefined") return undefined; // not supported
+
+  var vals = new Uint32Array(length);
+  window.crypto.getRandomValues(vals);
+  return vals;
+}
+function anyRandomUint32(length) {
+  var r = cryptoRandomUint32(length);
+
+  if (!r) {
+    r = new Uint32Array(length);
+
+    for (var i = 0; i < r.length; ++i) {
+      r[i] = Math.random() * 0x100000000 >>> 0;
+    }
+  }
+
+  return r;
+}
+function randomUInt(max) {
+  var arr = anyRandomUint32(1);
+  return arr[0] % max;
+}
+function randomDeviceId() {
+  var devId = anyRandomUint32(8);
+
+  for (var i = 0; i < 8; ++i) {
+    devId[i] &= 0xff;
+  }
+
+  return (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .toHex */ .NC)(devId);
+}
+
+/***/ }),
+
 /***/ 56763:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -29510,6 +29560,8 @@ var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
+var random = __webpack_require__(80303);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/serviceprovider.ts
 
 
@@ -29522,6 +29574,7 @@ function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -29546,7 +29599,7 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
     _this.deviceId = options === null || options === void 0 ? void 0 : options.deviceId;
 
     if (!_this.deviceId) {
-      var devId = (0,utils/* anyRandomUint32 */.RO)(8);
+      var devId = (0,random/* anyRandomUint32 */.RO)(8);
 
       for (var i = 0; i < 8; ++i) {
         devId[i] &= 0xff;
@@ -31015,7 +31068,7 @@ var TracePlayer = /*#__PURE__*/function (_JDClient) {
 
 /***/ }),
 
-/***/ 62239:
+/***/ 27591:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31023,16 +31076,25 @@ var TracePlayer = /*#__PURE__*/function (_JDClient) {
 /* harmony export */   "e": function() { return /* binding */ ConnectionState; },
 /* harmony export */   "P": function() { return /* binding */ JDTransport; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92137);
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5991);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5991);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41788);
 /* harmony import */ var core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17727);
 /* harmony import */ var core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise_finally_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
 /* harmony import */ var _eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
+/* harmony import */ var _packet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57683);
 
+
+
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -31052,7 +31114,7 @@ var ConnectionState;
 })(ConnectionState || (ConnectionState = {}));
 
 var JDTransport = /*#__PURE__*/function (_JDEventSource) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(JDTransport, _JDEventSource);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(JDTransport, _JDEventSource);
 
   function JDTransport(type) {
     var _this;
@@ -31096,7 +31158,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.sendPacketAsync = /*#__PURE__*/function () {
-    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(p) {
+    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(p) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -31224,6 +31286,22 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     }
 
     return this._disconnectPromise;
+  };
+
+  _proto.handlePacket = function handlePacket(payload) {
+    var pkt = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.fromBinary */ .Z.fromBinary(payload, this.bus.timestamp);
+    pkt.sender = this.type;
+    this.bus.processPacket(pkt);
+  };
+
+  _proto.handleFrame = function handleFrame(payload) {
+    var pkts = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.fromFrame */ .Z.fromFrame(payload, this.bus.timestamp);
+
+    for (var _iterator = _createForOfIteratorHelperLoose(pkts), _step; !(_step = _iterator()).done;) {
+      var pkt = _step.value;
+      pkt.sender = this.type;
+      this.bus.processPacket(pkt);
+    }
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
@@ -31247,7 +31325,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     this.disposed = true;
   };
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(JDTransport, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(JDTransport, [{
     key: "connectionState",
     get:
     /**
@@ -31330,10 +31408,6 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "i1": function() { return /* binding */ readBlobToText; },
 /* harmony export */   "Ds": function() { return /* binding */ debounce; },
 /* harmony export */   "kl": function() { return /* binding */ debounceAsync; },
-/* harmony export */   "dG": function() { return /* binding */ cryptoRandomUint32; },
-/* harmony export */   "RO": function() { return /* binding */ anyRandomUint32; },
-/* harmony export */   "sG": function() { return /* binding */ randomUInt; },
-/* harmony export */   "b_": function() { return /* binding */ randomDeviceId; },
 /* harmony export */   "ZZ": function() { return /* binding */ JSONTryParse; },
 /* harmony export */   "JI": function() { return /* binding */ roundWithPrecision; },
 /* harmony export */   "rs": function() { return /* binding */ randomRange; },
@@ -31900,39 +31974,6 @@ function debounceAsync(handler, delay) {
       }, _callee2);
     })), delay);
   };
-}
-function cryptoRandomUint32(length) {
-  if (typeof window === "undefined") return undefined; // not supported
-
-  var vals = new Uint32Array(length);
-  window.crypto.getRandomValues(vals);
-  return vals;
-}
-function anyRandomUint32(length) {
-  var r = cryptoRandomUint32(length);
-
-  if (!r) {
-    r = new Uint32Array(length);
-
-    for (var i = 0; i < r.length; ++i) {
-      r[i] = Math.random() * 0x100000000 >>> 0;
-    }
-  }
-
-  return r;
-}
-function randomUInt(max) {
-  var arr = anyRandomUint32(1);
-  return arr[0] % max;
-}
-function randomDeviceId() {
-  var devId = anyRandomUint32(8);
-
-  for (var i = 0; i < 8; ++i) {
-    devId[i] &= 0xff;
-  }
-
-  return toHex(devId);
 }
 function JSONTryParse(src) {
   if (src === undefined || src === null) return src;
@@ -39503,7 +39544,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "f0c99e6ad77984a03911ac34fdae0eac88ad3961";
+  var sha = "a5dac82bc1a880323aed9853c11b7353468cf61b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -39532,8 +39573,8 @@ function Footer() {
 var DrawerToolsButtonGroup = __webpack_require__(95743);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 19 modules
-var ThemedLayout = __webpack_require__(33709);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 21 modules
+var ThemedLayout = __webpack_require__(30040);
 // EXTERNAL MODULE: ./src/components/icons/JacdacIcon.tsx
 var JacdacIcon = __webpack_require__(36656);
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
@@ -40361,7 +40402,7 @@ function Suspense(props) {
 
 /***/ }),
 
-/***/ 33709:
+/***/ 30040:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42486,6 +42527,8 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
   return RoleManagerClient;
 }(serviceclient/* JDServiceClient */.P);
 RoleManagerClient.unroledSrvs = [constants/* SRV_CONTROL */.gm9, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_LOGGER */.w9j];
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
+var random = __webpack_require__(80303);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/bus.ts
 
 
@@ -42505,6 +42548,7 @@ function bus_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typ
 function bus_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return bus_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return bus_arrayLikeToArray(o, minLen); }
 
 function bus_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -42549,7 +42593,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       return _this.addTransport(tr);
     });
     _this.options = _this.options || {};
-    if (!_this.options.deviceId) _this.options.deviceId = (0,utils/* randomDeviceId */.b_)();
+    if (!_this.options.deviceId) _this.options.deviceId = (0,random/* randomDeviceId */.b_)();
     _this.stats = new BusStatsMonitor((0,assertThisInitialized/* default */.Z)(_this));
 
     _this.resetTime(); // tell loggers to send data
@@ -43611,7 +43655,433 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
   return JDBus;
 }(node/* JDNode */.zb);
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/microbit.ts
+// EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
+var gatsby_browser_entry = __webpack_require__(35313);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/transport/transport.ts
+var transport = __webpack_require__(27591);
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/hf2.ts
+
+
+
+function hf2_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = hf2_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function hf2_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return hf2_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return hf2_arrayLikeToArray(o, minLen); }
+
+function hf2_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+ // see https://github.com/microsoft/uf2/blob/main/hf2.md for full spec
+
+var HF2_DEVICE_MAJOR = 42;
+var HF2_CMD_BININFO = 0x0001; // no arguments
+
+var HF2_MODE_BOOTLOADER = 0x01;
+var HF2_MODE_USERSPACE = 0x02;
+/*
+struct HF2_BININFO_Result {
+    uint32_t mode;
+    uint32_t flash_page_size;
+    uint32_t flash_num_pages;
+    uint32_t max_message_size;
+};
+*/
+
+var HF2_CMD_INFO = 0x0002; // no arguments
+// results is utf8 character array
+
+var HF2_CMD_RESET_INTO_APP = 0x0003; // no arguments, no result
+
+var HF2_CMD_RESET_INTO_BOOTLOADER = 0x0004; // no arguments, no result
+
+var HF2_CMD_START_FLASH = 0x0005; // no arguments, no result
+
+var HF2_CMD_WRITE_FLASH_PAGE = 0x0006;
+/*
+struct HF2_WRITE_FLASH_PAGE_Command {
+    uint32_t target_addr;
+    uint32_t data[flash_page_size];
+};
+*/
+// no result
+
+var HF2_CMD_CHKSUM_PAGES = 0x0007;
+/*
+struct HF2_CHKSUM_PAGES_Command {
+    uint32_t target_addr;
+    uint32_t num_pages;
+};
+struct HF2_CHKSUM_PAGES_Result {
+    uint16_t chksums[num_pages];
+};
+*/
+
+var HF2_CMD_READ_WORDS = 0x0008;
+/*
+struct HF2_READ_WORDS_Command {
+    uint32_t target_addr;
+    uint32_t num_words;
+};
+struct HF2_READ_WORDS_Result {
+    uint32_t words[num_words];
+};
+*/
+
+var HF2_CMD_WRITE_WORDS = 0x0009;
+/*
+struct HF2_WRITE_WORDS_Command {
+    uint32_t target_addr;
+    uint32_t num_words;
+    uint32_t words[num_words];
+};
+*/
+// no result
+
+var HF2_CMD_DMESG = 0x0010; // no arguments
+// results is utf8 character array
+
+var HF2_FLAG_SERIAL_OUT = 0x80;
+var HF2_FLAG_SERIAL_ERR = 0xc0;
+var HF2_FLAG_CMDPKT_LAST = 0x40;
+var HF2_FLAG_CMDPKT_BODY = 0x00;
+var HF2_FLAG_MASK = 0xc0;
+var HF2_SIZE_MASK = 63;
+var HF2_STATUS_OK = 0x00;
+var HF2_STATUS_INVALID_CMD = 0x01;
+var HF2_STATUS_EXEC_ERR = 0x02;
+var HF2_STATUS_EVENT = 0x80; // the eventId is overlayed on the tag+status; the mask corresponds
+// to the HF2_STATUS_EVENT above
+
+var HF2_EV_MASK = 0x800000;
+var HF2_CMD_JDS_CONFIG = 0x0020;
+var HF2_CMD_JDS_SEND = 0x0021;
+var HF2_EV_JDS_PACKET = 0x800020;
+var HF2Proto = /*#__PURE__*/function () {
+  function HF2Proto(io) {
+    var _this = this;
+
+    this.eventHandlers = {};
+    this.msgs = new utils/* PromiseBuffer */.Dg();
+    this.cmdSeq = Math.random() * 0xffff | 0;
+    this.lock = new utils/* PromiseQueue */.bo();
+    this.io = io;
+    var frames = [];
+
+    io.onData = function (buf) {
+      var tp = buf[0] & HF2_FLAG_MASK;
+      var len = buf[0] & 63; //console.log(`msg tp=${tp} len=${len}`)
+
+      var frame = new Uint8Array(len);
+      (0,utils/* memcpy */.Tz)(frame, 0, buf, 1, len);
+
+      if (tp & HF2_FLAG_SERIAL_OUT) {
+        _this.onSerial(frame, tp == HF2_FLAG_SERIAL_ERR);
+
+        return;
+      }
+
+      frames.push(frame);
+
+      if (tp == HF2_FLAG_CMDPKT_BODY) {
+        return;
+      } else {
+        (0,utils/* assert */.hu)(tp == HF2_FLAG_CMDPKT_LAST);
+        var total = 0;
+
+        for (var _iterator = hf2_createForOfIteratorHelperLoose(frames), _step; !(_step = _iterator()).done;) {
+          var f = _step.value;
+          total += f.length;
+        }
+
+        var r = new Uint8Array(total);
+        var ptr = 0;
+
+        for (var _iterator2 = hf2_createForOfIteratorHelperLoose(frames), _step2; !(_step2 = _iterator2()).done;) {
+          var _f = _step2.value;
+          (0,utils/* memcpy */.Tz)(r, ptr, _f);
+          ptr += _f.length;
+        }
+
+        frames = [];
+
+        if (r[2] & HF2_STATUS_EVENT) {
+          // asynchronous event
+          _this.handleEvent(r);
+        } else {
+          _this.msgs.push(r);
+        }
+      }
+    };
+  }
+
+  var _proto = HF2Proto.prototype;
+
+  _proto.error = function error(m) {
+    return this.io.error(m);
+  };
+
+  _proto.talkAsync = function talkAsync(cmd, data) {
+    var _this2 = this;
+
+    if (!this.io) console.log("rogue hf2 instance");
+    var len = 8;
+    if (data) len += data.length;
+    var pkt = new Uint8Array(len);
+    var seq = ++this.cmdSeq & 0xffff;
+    (0,utils/* write32 */.Pg)(pkt, 0, cmd);
+    (0,utils/* write16 */.SZ)(pkt, 4, seq);
+    (0,utils/* write16 */.SZ)(pkt, 6, 0);
+    if (data) (0,utils/* memcpy */.Tz)(pkt, 8, data, 0, data.length);
+    var numSkipped = 0;
+
+    var handleReturnAsync = function handleReturnAsync() {
+      return _this2.msgs.shiftAsync(1000) // we wait up to a second
+      .then(function (res) {
+        if ((0,utils/* read16 */.gI)(res, 0) != seq) {
+          if (numSkipped < 3) {
+            numSkipped++;
+
+            _this2.io.log("message out of sync, (" + seq + " vs " + (0,utils/* read16 */.gI)(res, 0) + "); will re-try");
+
+            return handleReturnAsync();
+          }
+
+          _this2.error("out of sync");
+        }
+
+        var info = "";
+        if (res[3]) info = "; info=" + res[3];
+
+        switch (res[2]) {
+          case HF2_STATUS_OK:
+            return res.slice(4);
+
+          case HF2_STATUS_INVALID_CMD:
+            _this2.error("invalid command" + info);
+
+            break;
+
+          case HF2_STATUS_EXEC_ERR:
+            _this2.error("execution error" + info);
+
+            break;
+
+          default:
+            _this2.error("error " + res[2] + info);
+
+            break;
+        }
+
+        return null;
+      }).catch(function (e) {
+        _this2.error(e);
+
+        return null;
+      });
+    };
+
+    return this.lock.enqueue("talk", function () {
+      return _this2.sendMsgAsync(pkt).then(handleReturnAsync);
+    });
+  };
+
+  _proto.sendMsgAsync = function sendMsgAsync(buf, serial) {
+    var _this3 = this;
+
+    if (serial === void 0) {
+      serial = 0;
+    }
+
+    // Util.assert(buf.length <= this.maxMsgSize)
+    var frame = new Uint8Array(64);
+
+    var loop = function loop(pos) {
+      var len = buf.length - pos;
+      if (len <= 0) return Promise.resolve();
+
+      if (len > 63) {
+        len = 63;
+        frame[0] = HF2_FLAG_CMDPKT_BODY;
+      } else {
+        frame[0] = HF2_FLAG_CMDPKT_LAST;
+      }
+
+      if (serial) frame[0] = serial == 1 ? HF2_FLAG_SERIAL_OUT : HF2_FLAG_SERIAL_ERR;
+      frame[0] |= len;
+
+      for (var i = 0; i < len; ++i) {
+        frame[i + 1] = buf[pos + i];
+      }
+
+      return _this3.io.sendPacketAsync(frame).then(function () {
+        return loop(pos + len);
+      });
+    };
+
+    return loop(0);
+  };
+
+  _proto.onEvent = function onEvent(id, f) {
+    (0,utils/* assert */.hu)(!!(id & HF2_EV_MASK));
+    this.eventHandlers[id + ""] = f;
+  };
+
+  _proto.onJDMessage = function onJDMessage(f) {
+    this.talkAsync(HF2_CMD_JDS_CONFIG, (0,utils/* encodeU32LE */.KY)([1]));
+    this.onEvent(HF2_EV_JDS_PACKET, f);
+  };
+
+  _proto.sendJDMessageAsync = function sendJDMessageAsync(buf) {
+    return this.talkAsync(HF2_CMD_JDS_SEND, buf).then(function () {});
+  };
+
+  _proto.handleEvent = function handleEvent(buf) {
+    var evid = (0,utils/* read32 */.Zy)(buf, 0);
+    var f = this.eventHandlers[evid + ""];
+
+    if (f) {
+      f(buf.slice(4));
+    } else {
+      this.io.log("unhandled event: " + evid.toString(16)); // We can get these before we're ready to recv; this is fine.
+      //if (evid === 0x800020) {
+      //    this.io.onError(new Error("hf2 corrupted"))
+      //}
+    }
+  };
+
+  _proto.onSerial = function onSerial(data, iserr) {
+    var msg = "hf2 serial: " + (0,utils/* bufferToString */.zT)(data);
+    if (iserr) console.warn(msg);else console.log(msg);
+  };
+
+  _proto.postConnectAsync = /*#__PURE__*/function () {
+    var _postConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var buf;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return this.checkMode();
+
+            case 2:
+              _context.next = 4;
+              return this.talkAsync(HF2_CMD_INFO);
+
+            case 4:
+              buf = _context.sent;
+              this.io.log("Connected to: " + (0,utils/* bufferToString */.zT)(buf));
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function postConnectAsync() {
+      return _postConnectAsync.apply(this, arguments);
+    }
+
+    return postConnectAsync;
+  }();
+
+  _proto.checkMode = /*#__PURE__*/function () {
+    var _checkMode = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      var info, mode;
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return this.talkAsync(HF2_CMD_BININFO);
+
+            case 2:
+              info = _context2.sent;
+              mode = (0,utils/* read32 */.Zy)(info, 0);
+              this.io.log("hf2 mode " + mode);
+
+              if (!(mode == HF2_MODE_USERSPACE)) {
+                _context2.next = 9;
+                break;
+              }
+
+              // all good
+              this.io.log("device in user-space mode");
+              _context2.next = 17;
+              break;
+
+            case 9:
+              if (!(mode == HF2_MODE_BOOTLOADER)) {
+                _context2.next = 16;
+                break;
+              }
+
+              this.io.log("device in bootloader mode, reseting into user-space mode");
+              _context2.next = 13;
+              return this.talkAsync(HF2_CMD_RESET_INTO_APP);
+
+            case 13:
+              // and fail
+              (0,utils/* throwError */._y)("Device in bootloader mode");
+              _context2.next = 17;
+              break;
+
+            case 16:
+              // unknown mdoe
+              (0,utils/* throwError */._y)("Unknown device operation mode");
+
+            case 17:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function checkMode() {
+      return _checkMode.apply(this, arguments);
+    }
+
+    return checkMode;
+  }();
+
+  _proto.disconnectAsync = /*#__PURE__*/function () {
+    var _disconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      var _io;
+
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!this.io) {
+                _context3.next = 5;
+                break;
+              }
+
+              _io = this.io;
+              this.io = undefined;
+              _context3.next = 5;
+              return _io.disconnectAsync();
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function disconnectAsync() {
+      return _disconnectAsync.apply(this, arguments);
+    }
+
+    return disconnectAsync;
+  }();
+
+  return HF2Proto;
+}();
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/microbit.ts
+
 
 
 
@@ -43894,58 +44364,55 @@ var CMSISProto = /*#__PURE__*/function () {
           switch (_context4.prev = _context4.next) {
             case 0:
               if (!this.io) {
-                _context4.next = 51;
+                _context4.next = 52;
                 break;
               }
 
               now = Date.now();
-              /*if (
-                  Flags.diagnostics &&
-                  this.lastXchg &&
-                  now - this.lastXchg > 50
-              ) {
-                  console.warn("slow xchg: " + (now - this.lastXchg) + "ms")
-              }*/
+
+              if (flags/* default.diagnostics */.Z.diagnostics && this.lastXchg && now - this.lastXchg > 50) {
+                console.warn("slow xchg: " + (now - this.lastXchg) + "ms");
+              }
 
               this.lastXchg = now;
               numev = 0;
-              _context4.next = 6;
+              _context4.next = 7;
               return this.readBytes(this.xchgAddr + 12, 256, true);
 
-            case 6:
+            case 7:
               inp = _context4.sent;
 
               if (!inp[2]) {
-                _context4.next = 15;
+                _context4.next = 16;
                 break;
               }
 
-              _context4.next = 10;
+              _context4.next = 11;
               return this.writeWord(this.xchgAddr + 12, 0);
 
-            case 10:
-              _context4.next = 12;
+            case 11:
+              _context4.next = 13;
               return this.triggerIRQ();
 
-            case 12:
+            case 13:
               inp = inp.slice(0, inp[2] + 12);
 
               this._onJDMsg(inp);
 
               numev++;
 
-            case 15:
+            case 16:
               sendFree = false;
 
               if (!currSend) {
-                _context4.next = 21;
+                _context4.next = 22;
                 break;
               }
 
-              _context4.next = 19;
+              _context4.next = 20;
               return this.readBytes(this.xchgAddr + 12 + 256, 4);
 
-            case 19:
+            case 20:
               send = _context4.sent;
 
               if (!send[2]) {
@@ -43955,51 +44422,51 @@ var CMSISProto = /*#__PURE__*/function () {
                 numev++;
               }
 
-            case 21:
+            case 22:
               if (!(!currSend && this.sendQ.length)) {
-                _context4.next = 42;
+                _context4.next = 43;
                 break;
               }
 
               if (sendFree) {
-                _context4.next = 27;
+                _context4.next = 28;
                 break;
               }
 
-              _context4.next = 25;
+              _context4.next = 26;
               return this.readBytes(this.xchgAddr + 12 + 256, 4);
 
-            case 25:
+            case 26:
               _send = _context4.sent;
               if (!_send[2]) sendFree = true;
 
-            case 27:
+            case 28:
               if (!sendFree) {
-                _context4.next = 41;
+                _context4.next = 42;
                 break;
               }
 
               currSend = this.sendQ.shift();
               bbody = currSend.buf.slice(4);
-              _context4.next = 32;
+              _context4.next = 33;
               return this.writeWords(this.xchgAddr + 12 + 256 + 4, new Uint32Array(bbody.buffer));
 
-            case 32:
+            case 33:
               bhead = currSend.buf.slice(0, 4);
-              _context4.next = 35;
+              _context4.next = 36;
               return this.writeWords(this.xchgAddr + 12 + 256, new Uint32Array(bhead.buffer));
 
-            case 35:
-              _context4.next = 37;
+            case 36:
+              _context4.next = 38;
               return this.triggerIRQ();
 
-            case 37:
+            case 38:
               this.lastSend = Date.now();
               numev++;
-              _context4.next = 42;
+              _context4.next = 43;
               break;
 
-            case 41:
+            case 42:
               if (this.lastSend) {
                 d = Date.now() - this.lastSend;
 
@@ -44009,32 +44476,32 @@ var CMSISProto = /*#__PURE__*/function () {
                 }
               }
 
-            case 42:
-              _context4.next = 44;
+            case 43:
+              _context4.next = 45;
               return this.readSerial();
 
-            case 44:
+            case 45:
               if (!_context4.sent) {
-                _context4.next = 46;
+                _context4.next = 47;
                 break;
               }
 
               numev++;
 
-            case 46:
+            case 47:
               if (!(numev == 0)) {
-                _context4.next = 49;
+                _context4.next = 50;
                 break;
               }
 
-              _context4.next = 49;
+              _context4.next = 50;
               return this.dapDelay(1000);
 
-            case 49:
+            case 50:
               _context4.next = 0;
               break;
 
-            case 51:
+            case 52:
             case "end":
               return _context4.stop();
           }
@@ -44830,109 +45297,37 @@ var CMSISProto = /*#__PURE__*/function () {
 
   return CMSISProto;
 }();
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/hf2.ts
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/usbio.ts
+
+
+function usbio_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = usbio_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function usbio_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return usbio_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return usbio_arrayLikeToArray(o, minLen); }
+
+function usbio_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
-function hf2_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = hf2_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function hf2_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return hf2_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return hf2_arrayLikeToArray(o, minLen); }
-
-function hf2_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
-
-
+var USB_FILTERS = {
+  filters: [{
+    // hf2 devices (incl. arcade)
+    classCode: 255,
+    subclassCode: HF2_DEVICE_MAJOR
+  }, {
+    // micro:bit v2
+    vendorId: 3368,
+    productId: 516
+  }]
+};
 var controlTransferGetReport = 0x01;
 var controlTransferSetReport = 0x09;
 var controlTransferOutReport = 0x200;
-var controlTransferInReport = 0x100; // see https://github.com/microsoft/uf2/blob/main/hf2.md for full spec
+var controlTransferInReport = 0x100;
 
-var HF2_DEVICE_MAJOR = 42;
-var HF2_CMD_BININFO = 0x0001; // no arguments
-
-var HF2_MODE_BOOTLOADER = 0x01;
-var HF2_MODE_USERSPACE = 0x02;
-/*
-struct HF2_BININFO_Result {
-    uint32_t mode;
-    uint32_t flash_page_size;
-    uint32_t flash_num_pages;
-    uint32_t max_message_size;
-};
-*/
-
-var HF2_CMD_INFO = 0x0002; // no arguments
-// results is utf8 character array
-
-var HF2_CMD_RESET_INTO_APP = 0x0003; // no arguments, no result
-
-var HF2_CMD_RESET_INTO_BOOTLOADER = 0x0004; // no arguments, no result
-
-var HF2_CMD_START_FLASH = 0x0005; // no arguments, no result
-
-var HF2_CMD_WRITE_FLASH_PAGE = 0x0006;
-/*
-struct HF2_WRITE_FLASH_PAGE_Command {
-    uint32_t target_addr;
-    uint32_t data[flash_page_size];
-};
-*/
-// no result
-
-var HF2_CMD_CHKSUM_PAGES = 0x0007;
-/*
-struct HF2_CHKSUM_PAGES_Command {
-    uint32_t target_addr;
-    uint32_t num_pages;
-};
-struct HF2_CHKSUM_PAGES_Result {
-    uint16_t chksums[num_pages];
-};
-*/
-
-var HF2_CMD_READ_WORDS = 0x0008;
-/*
-struct HF2_READ_WORDS_Command {
-    uint32_t target_addr;
-    uint32_t num_words;
-};
-struct HF2_READ_WORDS_Result {
-    uint32_t words[num_words];
-};
-*/
-
-var HF2_CMD_WRITE_WORDS = 0x0009;
-/*
-struct HF2_WRITE_WORDS_Command {
-    uint32_t target_addr;
-    uint32_t num_words;
-    uint32_t words[num_words];
-};
-*/
-// no result
-
-var HF2_CMD_DMESG = 0x0010; // no arguments
-// results is utf8 character array
-
-var HF2_FLAG_SERIAL_OUT = 0x80;
-var HF2_FLAG_SERIAL_ERR = 0xc0;
-var HF2_FLAG_CMDPKT_LAST = 0x40;
-var HF2_FLAG_CMDPKT_BODY = 0x00;
-var HF2_FLAG_MASK = 0xc0;
-var HF2_SIZE_MASK = 63;
-var HF2_STATUS_OK = 0x00;
-var HF2_STATUS_INVALID_CMD = 0x01;
-var HF2_STATUS_EXEC_ERR = 0x02;
-var HF2_STATUS_EVENT = 0x80; // the eventId is overlayed on the tag+status; the mask corresponds
-// to the HF2_STATUS_EVENT above
-
-var HF2_EV_MASK = 0x800000;
-var HF2_CMD_JDS_CONFIG = 0x0020;
-var HF2_CMD_JDS_SEND = 0x0021;
-var HF2_EV_JDS_PACKET = 0x800020;
-var Transport = /*#__PURE__*/function () {
-  function Transport(usb) {
+var USBIO = /*#__PURE__*/function () {
+  function USBIO(options) {
     this.readLoopStarted = false;
     this.ready = false;
     this.rawMode = false;
@@ -44943,11 +45338,11 @@ var Transport = /*#__PURE__*/function () {
       console.warn("usb error: " + (e ? e.stack : e));
     };
 
-    this.usb = usb;
+    this.options = options;
   } // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
-  var _proto = Transport.prototype;
+  var _proto = USBIO.prototype;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _proto.log = function log(msg, v) {
@@ -44955,7 +45350,7 @@ var Transport = /*#__PURE__*/function () {
   };
 
   _proto.mkProto = function mkProto() {
-    return this.isMicrobit ? new CMSISProto(this) : new HF2Proto(this);
+    return this.isMicrobit() ? new CMSISProto(this) : new HF2Proto(this);
   };
 
   _proto.clearDev = function clearDev() {
@@ -45022,8 +45417,7 @@ var Transport = /*#__PURE__*/function () {
 
   _proto.readLoop = /*#__PURE__*/function () {
     var _readLoop = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      var _buf;
-
+      var buf;
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -45055,15 +45449,15 @@ var Transport = /*#__PURE__*/function () {
               return this.recvPacketCoreAsync();
 
             case 10:
-              _buf = _context.sent;
+              buf = _context.sent;
 
-              if (!_buf[0]) {
+              if (!buf[0]) {
                 _context.next = 15;
                 break;
               }
 
               // we've got data; retry reading immedietly after processing it
-              this.onData(_buf);
+              this.onData(buf);
               _context.next = 17;
               break;
 
@@ -45134,15 +45528,19 @@ var Transport = /*#__PURE__*/function () {
     });
   };
 
+  _proto.isMicrobit = function isMicrobit() {
+    return this.dev && this.dev.productId == 516 && this.dev.vendorId == 3368;
+  };
+
   _proto.checkDevice = function checkDevice() {
     this.iface = undefined;
     this.altIface = undefined;
     if (!this.dev) return false;
     console.debug("connect device: " + this.dev.manufacturerName + " " + this.dev.productName); // resolve interfaces
 
-    var subcl = this.isMicrobit ? 0 : HF2_DEVICE_MAJOR;
+    var subcl = this.isMicrobit() ? 0 : HF2_DEVICE_MAJOR;
 
-    for (var _iterator = hf2_createForOfIteratorHelperLoose(this.dev.configuration.interfaces), _step; !(_step = _iterator()).done;) {
+    for (var _iterator = usbio_createForOfIteratorHelperLoose(this.dev.configuration.interfaces), _step; !(_step = _iterator()).done;) {
       var iface = _step.value;
       var alt = iface.alternates[0];
 
@@ -45153,7 +45551,7 @@ var Transport = /*#__PURE__*/function () {
       }
     }
 
-    if (this.isMicrobit) this.rawMode = true;
+    if (this.isMicrobit()) this.rawMode = true;
     return !!this.iface;
   };
 
@@ -45166,7 +45564,7 @@ var Transport = /*#__PURE__*/function () {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return this.usb.getDevices();
+              return this.options.getDevices();
 
             case 3:
               devices = _context2.sent;
@@ -45203,17 +45601,7 @@ var Transport = /*#__PURE__*/function () {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return this.usb.requestDevice({
-                filters: [{
-                  // hf2 devices (incl. arcade)
-                  classCode: 255,
-                  subclassCode: HF2_DEVICE_MAJOR
-                }, {
-                  // micro:bit v2
-                  vendorId: 3368,
-                  productId: 516
-                }]
-              });
+              return this.options.requestDevice(USB_FILTERS);
 
             case 3:
               this.dev = _context3.sent;
@@ -45262,7 +45650,7 @@ var Transport = /*#__PURE__*/function () {
 
             case 5:
               // background call and no device, just give up for now
-              if (!this.dev && background) (0,utils/* throwError */._y)("device not paired", true); // let's connect!
+              if (!this.dev && background) (0,utils/* throwError */._y)("device not paired", true); // let's connect
 
               _context4.next = 8;
               return this.openDeviceAsync();
@@ -45356,371 +45744,11 @@ var Transport = /*#__PURE__*/function () {
     return openDeviceAsync;
   }();
 
-  (0,createClass/* default */.Z)(Transport, [{
-    key: "isMicrobit",
-    get: function get() {
-      return this.dev && this.dev.productId == 516 && this.dev.vendorId == 3368;
-    }
-  }]);
-
-  return Transport;
+  return USBIO;
 }();
 
-var HF2Proto = /*#__PURE__*/function () {
-  function HF2Proto(io) {
-    var _this4 = this;
 
-    this.eventHandlers = {};
-    this.msgs = new utils/* PromiseBuffer */.Dg();
-    this.cmdSeq = Math.random() * 0xffff | 0;
-    this.lock = new utils/* PromiseQueue */.bo();
-    this.io = io;
-    var frames = [];
-
-    io.onData = function (buf) {
-      var tp = buf[0] & HF2_FLAG_MASK;
-      var len = buf[0] & 63; //console.log(`msg tp=${tp} len=${len}`)
-
-      var frame = new Uint8Array(len);
-      (0,utils/* memcpy */.Tz)(frame, 0, buf, 1, len);
-
-      if (tp & HF2_FLAG_SERIAL_OUT) {
-        _this4.onSerial(frame, tp == HF2_FLAG_SERIAL_ERR);
-
-        return;
-      }
-
-      frames.push(frame);
-
-      if (tp == HF2_FLAG_CMDPKT_BODY) {
-        return;
-      } else {
-        (0,utils/* assert */.hu)(tp == HF2_FLAG_CMDPKT_LAST);
-        var total = 0;
-
-        for (var _iterator2 = hf2_createForOfIteratorHelperLoose(frames), _step2; !(_step2 = _iterator2()).done;) {
-          var _f = _step2.value;
-          total += _f.length;
-        }
-
-        var r = new Uint8Array(total);
-        var ptr = 0;
-
-        for (var _iterator3 = hf2_createForOfIteratorHelperLoose(frames), _step3; !(_step3 = _iterator3()).done;) {
-          var _f2 = _step3.value;
-          (0,utils/* memcpy */.Tz)(r, ptr, _f2);
-          ptr += _f2.length;
-        }
-
-        frames = [];
-
-        if (r[2] & HF2_STATUS_EVENT) {
-          // asynchronous event
-          _this4.handleEvent(r);
-        } else {
-          _this4.msgs.push(r);
-        }
-      }
-    };
-  }
-
-  var _proto2 = HF2Proto.prototype;
-
-  _proto2.error = function error(m) {
-    return this.io.error(m);
-  };
-
-  _proto2.talkAsync = function talkAsync(cmd, data) {
-    var _this5 = this;
-
-    if (!this.io) console.log("rogue hf2 instance");
-    var len = 8;
-    if (data) len += data.length;
-    var pkt = new Uint8Array(len);
-    var seq = ++this.cmdSeq & 0xffff;
-    (0,utils/* write32 */.Pg)(pkt, 0, cmd);
-    (0,utils/* write16 */.SZ)(pkt, 4, seq);
-    (0,utils/* write16 */.SZ)(pkt, 6, 0);
-    if (data) (0,utils/* memcpy */.Tz)(pkt, 8, data, 0, data.length);
-    var numSkipped = 0;
-
-    var handleReturnAsync = function handleReturnAsync() {
-      return _this5.msgs.shiftAsync(1000) // we wait up to a second
-      .then(function (res) {
-        if ((0,utils/* read16 */.gI)(res, 0) != seq) {
-          if (numSkipped < 3) {
-            numSkipped++;
-
-            _this5.io.log("message out of sync, (" + seq + " vs " + (0,utils/* read16 */.gI)(res, 0) + "); will re-try");
-
-            return handleReturnAsync();
-          }
-
-          _this5.error("out of sync");
-        }
-
-        var info = "";
-        if (res[3]) info = "; info=" + res[3];
-
-        switch (res[2]) {
-          case HF2_STATUS_OK:
-            return res.slice(4);
-
-          case HF2_STATUS_INVALID_CMD:
-            _this5.error("invalid command" + info);
-
-            break;
-
-          case HF2_STATUS_EXEC_ERR:
-            _this5.error("execution error" + info);
-
-            break;
-
-          default:
-            _this5.error("error " + res[2] + info);
-
-            break;
-        }
-
-        return null;
-      }).catch(function (e) {
-        _this5.error(e);
-
-        return null;
-      });
-    };
-
-    return this.lock.enqueue("talk", function () {
-      return _this5.sendMsgAsync(pkt).then(handleReturnAsync);
-    });
-  };
-
-  _proto2.sendMsgAsync = function sendMsgAsync(buf, serial) {
-    var _this6 = this;
-
-    if (serial === void 0) {
-      serial = 0;
-    }
-
-    // Util.assert(buf.length <= this.maxMsgSize)
-    var frame = new Uint8Array(64);
-
-    var loop = function loop(pos) {
-      var len = buf.length - pos;
-      if (len <= 0) return Promise.resolve();
-
-      if (len > 63) {
-        len = 63;
-        frame[0] = HF2_FLAG_CMDPKT_BODY;
-      } else {
-        frame[0] = HF2_FLAG_CMDPKT_LAST;
-      }
-
-      if (serial) frame[0] = serial == 1 ? HF2_FLAG_SERIAL_OUT : HF2_FLAG_SERIAL_ERR;
-      frame[0] |= len;
-
-      for (var i = 0; i < len; ++i) {
-        frame[i + 1] = buf[pos + i];
-      }
-
-      return _this6.io.sendPacketAsync(frame).then(function () {
-        return loop(pos + len);
-      });
-    };
-
-    return loop(0);
-  };
-
-  _proto2.onEvent = function onEvent(id, f) {
-    (0,utils/* assert */.hu)(!!(id & HF2_EV_MASK));
-    this.eventHandlers[id + ""] = f;
-  };
-
-  _proto2.onJDMessage = function onJDMessage(f) {
-    this.talkAsync(HF2_CMD_JDS_CONFIG, (0,utils/* encodeU32LE */.KY)([1]));
-    this.onEvent(HF2_EV_JDS_PACKET, f);
-  };
-
-  _proto2.sendJDMessageAsync = function sendJDMessageAsync(buf) {
-    return this.talkAsync(HF2_CMD_JDS_SEND, buf).then(function () {});
-  };
-
-  _proto2.handleEvent = function handleEvent(buf) {
-    var evid = (0,utils/* read32 */.Zy)(buf, 0);
-    var f = this.eventHandlers[evid + ""];
-
-    if (f) {
-      f(buf.slice(4));
-    } else {
-      this.io.log("unhandled event: " + evid.toString(16)); // We can get these before we're ready to recv; this is fine.
-      //if (evid === 0x800020) {
-      //    this.io.onError(new Error("hf2 corrupted"))
-      //}
-    }
-  };
-
-  _proto2.onSerial = function onSerial(data, iserr) {
-    var msg = "hf2 serial: " + (0,utils/* bufferToString */.zT)(data);
-    if (iserr) console.warn(msg);else console.log(msg);
-  };
-
-  _proto2.postConnectAsync = /*#__PURE__*/function () {
-    var _postConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee6() {
-      var buf;
-      return regenerator_default().wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              _context6.next = 2;
-              return this.checkMode();
-
-            case 2:
-              _context6.next = 4;
-              return this.talkAsync(HF2_CMD_INFO);
-
-            case 4:
-              buf = _context6.sent;
-              this.io.log("Connected to: " + (0,utils/* bufferToString */.zT)(buf));
-
-            case 6:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6, this);
-    }));
-
-    function postConnectAsync() {
-      return _postConnectAsync.apply(this, arguments);
-    }
-
-    return postConnectAsync;
-  }();
-
-  _proto2.checkMode = /*#__PURE__*/function () {
-    var _checkMode = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee7() {
-      var info, mode;
-      return regenerator_default().wrap(function _callee7$(_context7) {
-        while (1) {
-          switch (_context7.prev = _context7.next) {
-            case 0:
-              _context7.next = 2;
-              return this.talkAsync(HF2_CMD_BININFO);
-
-            case 2:
-              info = _context7.sent;
-              mode = (0,utils/* read32 */.Zy)(info, 0);
-              this.io.log("hf2 mode " + mode);
-
-              if (!(mode == HF2_MODE_USERSPACE)) {
-                _context7.next = 9;
-                break;
-              }
-
-              // all good
-              this.io.log("device in user-space mode");
-              _context7.next = 17;
-              break;
-
-            case 9:
-              if (!(mode == HF2_MODE_BOOTLOADER)) {
-                _context7.next = 16;
-                break;
-              }
-
-              this.io.log("device in bootloader mode, reseting into user-space mode");
-              _context7.next = 13;
-              return this.talkAsync(HF2_CMD_RESET_INTO_APP);
-
-            case 13:
-              // and fail
-              (0,utils/* throwError */._y)("Device in bootloader mode");
-              _context7.next = 17;
-              break;
-
-            case 16:
-              // unknown mdoe
-              (0,utils/* throwError */._y)("Unknown device operation mode");
-
-            case 17:
-            case "end":
-              return _context7.stop();
-          }
-        }
-      }, _callee7, this);
-    }));
-
-    function checkMode() {
-      return _checkMode.apply(this, arguments);
-    }
-
-    return checkMode;
-  }();
-
-  _proto2.disconnectAsync = /*#__PURE__*/function () {
-    var _disconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee8() {
-      var _io;
-
-      return regenerator_default().wrap(function _callee8$(_context8) {
-        while (1) {
-          switch (_context8.prev = _context8.next) {
-            case 0:
-              if (!this.io) {
-                _context8.next = 5;
-                break;
-              }
-
-              _io = this.io;
-              this.io = undefined;
-              _context8.next = 5;
-              return _io.disconnectAsync();
-
-            case 5:
-            case "end":
-              return _context8.stop();
-          }
-        }
-      }, _callee8, this);
-    }));
-
-    function disconnectAsync() {
-      return _disconnectAsync.apply(this, arguments);
-    }
-
-    return disconnectAsync;
-  }();
-
-  return HF2Proto;
-}();
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/eventtargetobservable.ts
-var EventTargetObservable = /*#__PURE__*/function () {
-  function EventTargetObservable(element, eventName) {
-    this.element = element;
-    this.eventName = eventName;
-  }
-
-  var _proto = EventTargetObservable.prototype;
-
-  _proto.subscribe = function subscribe(observer) {
-    var _this = this;
-
-    var handler = function handler(ev) {
-      return !!observer.next && observer.next(ev);
-    };
-
-    this.element.addEventListener(this.eventName, handler, false);
-    return {
-      unsubscribe: function unsubscribe() {
-        return _this.element.removeEventListener(_this.eventName, handler);
-      }
-    };
-  };
-
-  return EventTargetObservable;
-}();
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/transport.ts
-var transport = __webpack_require__(62239);
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/usb.ts
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/usb.ts
 
 
 
@@ -45740,24 +45768,23 @@ function usb_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) l
 
 
 function isWebUSBEnabled() {
-  return !!Flags.webUSB;
+  return !!flags/* default.webUSB */.Z.webUSB;
 }
 function isWebUSBSupported() {
   try {
-    return typeof navigator !== "undefined" && !!navigator.usb && !!navigator.usb.requestDevice;
+    return typeof navigator !== "undefined" && !!navigator.usb && !!navigator.usb.getDevices;
   } catch (e) {
     return false;
   }
 }
-
 function usbRequestDevice(options) {
   // disabled
   if (!flags/* default.webUSB */.Z.webUSB) return Promise.resolve(undefined);
 
   try {
-    var _navigator, _navigator$usb;
+    var _navigator, _navigator$usb, _navigator$usb$reques;
 
-    return (_navigator = navigator) === null || _navigator === void 0 ? void 0 : (_navigator$usb = _navigator.usb) === null || _navigator$usb === void 0 ? void 0 : _navigator$usb.requestDevice(options);
+    return (_navigator = navigator) === null || _navigator === void 0 ? void 0 : (_navigator$usb = _navigator.usb) === null || _navigator$usb === void 0 ? void 0 : (_navigator$usb$reques = _navigator$usb.requestDevice) === null || _navigator$usb$reques === void 0 ? void 0 : _navigator$usb$reques.call(_navigator$usb, options);
   } catch (e) {
     if (flags/* default.diagnostics */.Z.diagnostics) console.warn(e);
     return undefined;
@@ -45766,22 +45793,22 @@ function usbRequestDevice(options) {
 
 function usbGetDevices() {
   // disabled
-  if (!flags/* default.webUSB */.Z.webUSB) return Promise.resolve([]);
+  if (!Flags.webUSB) return Promise.resolve([]);
 
   try {
     var _navigator2, _navigator2$usb;
 
     return ((_navigator2 = navigator) === null || _navigator2 === void 0 ? void 0 : (_navigator2$usb = _navigator2.usb) === null || _navigator2$usb === void 0 ? void 0 : _navigator2$usb.getDevices()) || Promise.resolve([]);
   } catch (e) {
-    if (flags/* default.diagnostics */.Z.diagnostics) console.warn(e);
+    if (Flags.diagnostics) console.warn(e);
     return Promise.resolve([]);
   }
 }
 
-var USBTransport = /*#__PURE__*/function (_JDTransport) {
-  (0,inheritsLoose/* default */.Z)(USBTransport, _JDTransport);
+var WebUSBTransport = /*#__PURE__*/function (_JDTransport) {
+  (0,inheritsLoose/* default */.Z)(WebUSBTransport, _JDTransport);
 
-  function USBTransport(options) {
+  function WebUSBTransport(options) {
     var _this$options, _this$options$connect, _this$options$connect2, _this$options2, _this$options2$discon, _this$options2$discon2;
 
     var _this;
@@ -45835,7 +45862,7 @@ var USBTransport = /*#__PURE__*/function (_JDTransport) {
     return _this;
   }
 
-  var _proto = USBTransport.prototype;
+  var _proto = WebUSBTransport.prototype;
 
   _proto.dispose = function dispose() {
     _JDTransport.prototype.dispose.call(this);
@@ -45857,7 +45884,7 @@ var USBTransport = /*#__PURE__*/function (_JDTransport) {
           switch (_context2.prev = _context2.next) {
             case 0:
               if (!this.hf2) {
-                _context2.next = 4;
+                _context2.next = 5;
                 break;
               }
 
@@ -45866,7 +45893,10 @@ var USBTransport = /*#__PURE__*/function (_JDTransport) {
               return this.hf2.disconnectAsync();
 
             case 4:
-              transport = new Transport(this.options);
+              this.hf2 = undefined;
+
+            case 5:
+              transport = new USBIO(this.options);
 
               transport.onError = function (e) {
                 return _this2.errorHandler(constants/* USB_TRANSPORT */.W3h, e);
@@ -45884,14 +45914,14 @@ var USBTransport = /*#__PURE__*/function (_JDTransport) {
                 }
               };
 
-              _context2.next = 9;
+              _context2.next = 10;
               return transport.connectAsync(background);
 
-            case 9:
+            case 10:
               this.hf2 = _context2.sent;
               this.hf2.onJDMessage(onJDMessage);
 
-            case 11:
+            case 12:
             case "end":
               return _context2.stop();
           }
@@ -45973,28 +46003,280 @@ var USBTransport = /*#__PURE__*/function (_JDTransport) {
     return transportDisconnectAsync;
   }();
 
-  return USBTransport;
+  return WebUSBTransport;
 }(transport/* JDTransport */.P);
 
-function createUSBTransport(options) {
-  if (!options) {
-    if (isWebUSBSupported()) {
-      console.debug("register usb events");
-      options = {
-        getDevices: usbGetDevices,
-        requestDevice: usbRequestDevice,
-        connectObservable: new EventTargetObservable(navigator.usb, "connect"),
-        disconnectObservable: new EventTargetObservable(navigator.usb, "disconnect")
-      };
-    }
-  }
+function defaultOptions() {
+  return isWebUSBSupported() && {
+    getDevices: usbGetDevices,
+    requestDevice: usbRequestDevice,
+    connectObservable: new EventTargetObservable(navigator.usb, "connect"),
+    disconnectObservable: new EventTargetObservable(navigator.usb, "disconnect")
+  };
+}
 
-  return options && new USBTransport(options);
+function createUSBTransport(options) {
+  if (!options) options = defaultOptions();
+  return options && new WebUSBTransport(options);
 }
 function createUSBBus(options) {
   return new JDBus([createUSBTransport(options)]);
 }
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/bluetooth.ts
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/eventtargetobservable.ts
+var eventtargetobservable_EventTargetObservable = /*#__PURE__*/function () {
+  function EventTargetObservable(element, eventName) {
+    this.element = element;
+    this.eventName = eventName;
+  }
+
+  var _proto = EventTargetObservable.prototype;
+
+  _proto.subscribe = function subscribe(observer) {
+    var _this = this;
+
+    var handler = function handler(ev) {
+      return !!observer.next && observer.next(ev);
+    };
+
+    this.element.addEventListener(this.eventName, handler, false);
+    return {
+      unsubscribe: function unsubscribe() {
+        return _this.element.removeEventListener(_this.eventName, handler);
+      }
+    };
+  };
+
+  return EventTargetObservable;
+}();
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/workertransport.ts
+
+
+
+
+
+
+
+
+
+
+
+var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
+  (0,inheritsLoose/* default */.Z)(WorkerTransport, _JDTransport);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function WorkerTransport(type, worker, options) {
+    var _this$options$connect, _this$options$connect2, _this$options$disconn, _this$options$disconn2;
+
+    var _this;
+
+    _this = _JDTransport.call(this, type) || this;
+    _this.pending = {};
+    _this.type = type;
+    _this.worker = worker;
+    _this.options = options;
+    _this.worker.onmessage = _this.handleMessage.bind((0,assertThisInitialized/* default */.Z)(_this));
+    _this._cleanups = [(_this$options$connect = _this.options.connectObservable) === null || _this$options$connect === void 0 ? void 0 : (_this$options$connect2 = _this$options$connect.subscribe({
+      next: function () {
+        var _next = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev) {
+          return regenerator_default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  console.log("usb device event: connect, ", _this.connectionState, ev);
+
+                  if (!_this.bus.disconnected) {
+                    _context.next = 5;
+                    break;
+                  }
+
+                  _context.next = 4;
+                  return (0,utils/* delay */.gw)(500);
+
+                case 4:
+                  if (_this.bus.disconnected) _this.connect(true);
+
+                case 5:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function next(_x) {
+          return _next.apply(this, arguments);
+        }
+
+        return next;
+      }()
+    })) === null || _this$options$connect2 === void 0 ? void 0 : _this$options$connect2.unsubscribe, (_this$options$disconn = _this.options.disconnectObservable) === null || _this$options$disconn === void 0 ? void 0 : (_this$options$disconn2 = _this$options$disconn.subscribe({
+      next: function next() {
+        console.debug("usb event: disconnect");
+
+        _this.disconnect();
+      }
+    })) === null || _this$options$disconn2 === void 0 ? void 0 : _this$options$disconn2.unsubscribe].filter(function (c) {
+      return !!c;
+    });
+    return _this;
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _proto = WorkerTransport.prototype;
+
+  _proto.postMessageAsync = function postMessageAsync(msg) {
+    var _this2 = this;
+
+    var id = msg.id = "" + Math.random();
+    var p = new Promise(function (resolve, reject) {
+      _this2.worker.postMessage(msg);
+
+      _this2.pending[id] = {
+        resolve: resolve,
+        reject: reject
+      };
+    });
+    return p;
+  };
+
+  _proto.handleMessage = function handleMessage(ev) {
+    var data = ev.data;
+
+    var _ref = data || {},
+        type = _ref.type;
+
+    switch (type) {
+      case "packet":
+        {
+          var _ref2 = data,
+              payload = _ref2.payload; //debug(`wt: packet`, payload)
+
+          this.handlePacket(payload);
+          break;
+        }
+
+      case "frame":
+        {
+          var _ref3 = data,
+              _payload = _ref3.payload; //debug(`wt: frame`, payload)
+
+          this.handleFrame(_payload);
+          break;
+        }
+
+      case "connect":
+      case "disconnect":
+        {
+          var _id = data.id,
+              error = data.error;
+
+          var _ref4 = this.pending[_id] || {},
+              resolve = _ref4.resolve,
+              reject = _ref4.reject;
+
+          if (resolve) {
+            if (error) reject(error);else resolve(undefined);
+          }
+
+          break;
+        }
+    }
+  };
+
+  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
+    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(p) {
+      var buf;
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              // don't wait
+              buf = p.toBuffer();
+              this.worker.postMessage({
+                type: "packet",
+                payload: buf
+              });
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function transportSendPacketAsync(_x2) {
+      return _transportSendPacketAsync.apply(this, arguments);
+    }
+
+    return transportSendPacketAsync;
+  }();
+
+  _proto.transportConnectAsync = /*#__PURE__*/function () {
+    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(background) {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (background) {
+                _context3.next = 3;
+                break;
+              }
+
+              _context3.next = 3;
+              return this.options.requestDevice();
+
+            case 3:
+              _context3.next = 5;
+              return this.postMessageAsync({
+                type: "connect",
+                background: background
+              });
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function transportConnectAsync(_x3) {
+      return _transportConnectAsync.apply(this, arguments);
+    }
+
+    return transportConnectAsync;
+  }();
+
+  _proto.transportDisconnectAsync = function transportDisconnectAsync() {
+    return this.postMessageAsync({
+      type: "disconnect"
+    });
+  };
+
+  _proto.dispose = function dispose() {
+    _JDTransport.prototype.dispose.call(this);
+
+    this._cleanups.forEach(function (c) {
+      return c();
+    });
+
+    this._cleanups = [];
+  };
+
+  return WorkerTransport;
+}(transport/* JDTransport */.P);
+
+function createUSBWorkerTransport(worker) {
+  return isWebUSBEnabled() && new WorkerTransport(constants/* USB_TRANSPORT */.W3h, worker, {
+    requestDevice: function requestDevice() {
+      return usbRequestDevice(USB_FILTERS).then(function () {});
+    },
+    connectObservable: new eventtargetobservable_EventTargetObservable(navigator.usb, "connect"),
+    disconnectObservable: new eventtargetobservable_EventTargetObservable(navigator.usb, "disconnect")
+  });
+}
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/bluetooth.ts
 
 
 
@@ -46008,7 +46290,7 @@ function isWebBluetoothEnabled() {
 }
 function isWebBluetoothSupported() {
   try {
-    return typeof navigator !== "undefined" && !!navigator.bluetooth && !!navigator.bluetooth.requestDevice;
+    return typeof navigator !== "undefined" && !!navigator.bluetooth && !!navigator.bluetooth.getDevices;
   } catch (e) {
     return false;
   }
@@ -46019,9 +46301,9 @@ function bleRequestDevice(options) {
   if (!flags/* default.webUSB */.Z.webUSB) return Promise.resolve(undefined);
 
   try {
-    var _navigator, _navigator$bluetooth;
+    var _navigator, _navigator$bluetooth, _navigator$bluetooth$;
 
-    return (_navigator = navigator) === null || _navigator === void 0 ? void 0 : (_navigator$bluetooth = _navigator.bluetooth) === null || _navigator$bluetooth === void 0 ? void 0 : _navigator$bluetooth.requestDevice(options);
+    return (_navigator = navigator) === null || _navigator === void 0 ? void 0 : (_navigator$bluetooth = _navigator.bluetooth) === null || _navigator$bluetooth === void 0 ? void 0 : (_navigator$bluetooth$ = _navigator$bluetooth.requestDevice) === null || _navigator$bluetooth$ === void 0 ? void 0 : _navigator$bluetooth$.call(_navigator$bluetooth, options);
   } catch (e) {
     if (flags/* default.diagnostics */.Z.diagnostics) console.warn(e);
     return undefined;
@@ -46638,6 +46920,8 @@ var jacdac_Flags = __webpack_require__(39840);
 
 
 
+
+
 function sniffQueryArguments() {
   var _window$location$hash;
 
@@ -46665,7 +46949,8 @@ flags/* default.webBluetooth */.Z.webBluetooth = args.webBluetooth;
 jacdac_Flags/* default.peers */.Z.peers = args.peers; // defeat react fast-refresh
 
 function createBus() {
-  var b = new bus_JDBus([flags/* default.webUSB */.Z.webUSB && createUSBTransport(), flags/* default.webBluetooth */.Z.webBluetooth && createBluetoothTransport()], {
+  var worker = typeof window !== "undefined" && new Worker((0,gatsby_browser_entry.withPrefix)("/jacdac-serviceworker.js"));
+  var b = new bus_JDBus([flags/* default.webUSB */.Z.webUSB && worker && createUSBWorkerTransport(worker), flags/* default.webBluetooth */.Z.webBluetooth && createBluetoothTransport()], {
     parentOrigin: args.parentOrigin
   }); // parentOrigin: args.parentOrigin,
 
@@ -47001,7 +47286,7 @@ function useLocalStorage(key, initialValue) {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36176);
-/* harmony import */ var _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(62239);
+/* harmony import */ var _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27591);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59355);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8129);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(28142);
@@ -47027,10 +47312,10 @@ function ConnectButton(props) {
   var connectionState = (0,_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(transport, function (t) {
     return t.connectionState;
   });
-  var showDisconnect = connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected || connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
-  var inProgress = connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connecting */ .e.Connecting || connectionState == _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
+  var showDisconnect = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
+  var inProgress = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connecting */ .e.Connecting || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
   var small = full !== true && (!full || (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(theme.breakpoints.down(_components_layout__WEBPACK_IMPORTED_MODULE_4__/* .MOBILE_BREAKPOINT */ .Gh)));
-  var disabled = connectionState != _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected && connectionState != _jacdac_ts_src_jdom_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnected */ .e.Disconnected;
+  var disabled = connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected && connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnected */ .e.Disconnected;
   var onClick = showDisconnect ? function () {
     return transport.disconnect();
   } : function () {
@@ -50254,4 +50539,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-e2ecceb4dc656a26d631.js.map
+//# sourceMappingURL=app-73993129ab6c48a824a6.js.map

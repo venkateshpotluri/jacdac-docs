@@ -22624,7 +22624,10 @@ var react_use_id_hook_esm = __webpack_require__(19640);
 var LoadingProgress = __webpack_require__(2285);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
+var random = __webpack_require__(80303);
 ;// CONCATENATED MODULE: ./src/components/GithubPullRequestButton.tsx
+
 
 
 
@@ -22676,7 +22679,7 @@ function GithubPullRequestButton(props) {
       setBody = _useState4[1];
 
   var headSuffix = (0,react.useMemo)(function () {
-    return (0,utils/* toHex */.NC)((0,utils/* anyRandomUint32 */.RO)(2));
+    return (0,utils/* toHex */.NC)((0,random/* anyRandomUint32 */.RO)(2));
   }, []);
   var disabled = busy || !body || !title || !head || !files || !Object.keys(files).length;
 
@@ -36261,4 +36264,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-8297ef9c09149ec1ddc9.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-0100ddec9618df9762f1.js.map

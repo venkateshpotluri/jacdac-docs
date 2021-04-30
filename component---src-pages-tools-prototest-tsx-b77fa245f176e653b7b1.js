@@ -2738,12 +2738,15 @@ var serviceprovider = __webpack_require__(73138);
 var protocoltestserver = __webpack_require__(80375);
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
+var random = __webpack_require__(80303);
 ;// CONCATENATED MODULE: ./src/pages/tools/prototest.tsx
 
 
 
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -2789,7 +2792,7 @@ function randomFieldPayload(field) {
     case "bytes":
       {
         // maxBytes?
-        var a = (0,utils/* cryptoRandomUint32 */.dG)((0,utils/* randomRange */.rs)(1, 3));
+        var a = (0,random/* cryptoRandomUint32 */.dG)((0,utils/* randomRange */.rs)(1, 3));
         r = new Uint8Array(a.buffer);
         break;
       }
@@ -3235,4 +3238,4 @@ function ProtocolTest() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-prototest-tsx-4430f1bebdc955513d31.js.map
+//# sourceMappingURL=component---src-pages-tools-prototest-tsx-b77fa245f176e653b7b1.js.map

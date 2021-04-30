@@ -606,8 +606,8 @@ var Button = __webpack_require__(83332);
 var createMuiTheme = __webpack_require__(81864);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/responsiveFontSizes.js + 1 modules
 var responsiveFontSizes = __webpack_require__(23581);
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 19 modules
-var ThemedLayout = __webpack_require__(33709);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 21 modules
+var ThemedLayout = __webpack_require__(30040);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
@@ -719,4 +719,4 @@ function makecode_sim_Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-dbf2d94171b0d41fb443.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-c2a3ff55d5c86e658463.js.map

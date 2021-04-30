@@ -684,8 +684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81794);
-/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13173);
+/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13173);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(10920);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(70274);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(85420);
@@ -694,11 +693,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(15343);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(31186);
 /* harmony import */ var _material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(61459);
-/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(95453);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(36176);
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95453);
+/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(36176);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(42862);
-/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(19640);
-
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19640);
+/* harmony import */ var _jacdac_ts_src_jdom_random__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80303);
 
 
 
@@ -706,6 +705,7 @@ __webpack_require__.r(__webpack_exports__);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -726,13 +726,13 @@ function looksRandom(n) {
 }
 
 function genServId() {
-  var n = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__/* .cryptoRandomUint32 */ .dG)(1);
+  var n = (0,_jacdac_ts_src_jdom_random__WEBPACK_IMPORTED_MODULE_6__/* .cryptoRandomUint32 */ .dG)(1);
   if (n === undefined) return undefined;
   return n[0] & 0xfffffff | 0x10000000;
 }
 
 function genFirmwareId() {
-  var n = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__/* .cryptoRandomUint32 */ .dG)(1);
+  var n = (0,_jacdac_ts_src_jdom_random__WEBPACK_IMPORTED_MODULE_6__/* .cryptoRandomUint32 */ .dG)(1);
   if (n === undefined) return undefined;
   return n[0] & 0xfffffff | 0x30000000;
 }
@@ -746,20 +746,20 @@ function toFullHex(n) {
 function uniqueServiceId() {
   var id = genServId();
 
-  while (id !== undefined && (!looksRandom(id) || (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_3__/* .serviceSpecificationFromClassIdentifier */ .d5)(id))) {
+  while (id !== undefined && (!looksRandom(id) || (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__/* .serviceSpecificationFromClassIdentifier */ .d5)(id))) {
     id = genServId();
   }
 
   return id !== undefined && toFullHex([id]);
 }
 function uniqueDeviceId() {
-  var n = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__/* .cryptoRandomUint32 */ .dG)(2);
+  var n = (0,_jacdac_ts_src_jdom_random__WEBPACK_IMPORTED_MODULE_6__/* .cryptoRandomUint32 */ .dG)(2);
   return n !== undefined && toFullHex([n[0], n[1]]);
 }
 function uniqueFirmwareId() {
   var id = genFirmwareId();
 
-  while (id !== undefined && (!looksRandom(id) || (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_3__/* .deviceSpecificationFromFirmwareIdentifier */ .IL)(id))) {
+  while (id !== undefined && (!looksRandom(id) || (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__/* .deviceSpecificationFromFirmwareIdentifier */ .IL)(id))) {
     id = genFirmwareId();
   }
 
@@ -777,8 +777,8 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ 
 function RandomGenerator(props) {
   var device = props.device,
       firmware = props.firmware;
-  var labelId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__/* .useId */ .Me)();
-  var fieldId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__/* .useId */ .Me)();
+  var labelId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_5__/* .useId */ .Me)();
+  var fieldId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_5__/* .useId */ .Me)();
   var classes = useStyles();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(device ? uniqueDeviceId() : uniqueServiceId()),
@@ -846,14 +846,14 @@ function RandomGenerator(props) {
     inputProps: {
       "aria-labelledby": labelId
     }
-  }), copySuccess && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, null)), value === undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+  }), copySuccess && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_icons_Check__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, null)), value === undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     severity: "error"
-  }, "Oops, unable to generate a strong random number.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_5__.Button, {
+  }, "Oops, unable to generate a strong random number.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_4__.Button, {
     "aria-label": "copy random number to clipboard",
     size: "small",
     variant: "contained",
     onClick: handleCopy
-  }, "Copy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_5__.Button, {
+  }, "Copy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_4__.Button, {
     "aria-label": "regenerate random number",
     size: "small",
     variant: "contained",
@@ -3385,4 +3385,4 @@ function DeviceRegistration() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-bbe09824980b422b4a73.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-69f196a9e8df572e9665.js.map

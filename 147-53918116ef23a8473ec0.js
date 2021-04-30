@@ -483,8 +483,8 @@ var constants = __webpack_require__(71815);
 var client = __webpack_require__(47235);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/packet.ts
 var packet = __webpack_require__(57683);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
+var random = __webpack_require__(80303);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/bridge.ts
 
 
@@ -511,7 +511,7 @@ var JDBridge = /*#__PURE__*/function (_JDClient) {
     var _this;
 
     _this = _JDClient.call(this) || this;
-    _this.bridgeId = (0,utils/* randomDeviceId */.b_)();
+    _this.bridgeId = (0,random/* randomDeviceId */.b_)();
     _this.packetSent = 0;
     _this.packetProcessed = 0;
     _this.handleSendPacket = _this.handleSendPacket.bind((0,assertThisInitialized/* default */.Z)(_this));
@@ -956,4 +956,4 @@ module.exports = webpackEmptyContext;
 /***/ })
 
 }]);
-//# sourceMappingURL=147-712a38f6c94896c76ad7.js.map
+//# sourceMappingURL=147-53918116ef23a8473ec0.js.map
