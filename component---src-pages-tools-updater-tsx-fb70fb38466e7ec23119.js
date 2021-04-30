@@ -1374,7 +1374,7 @@ function UpdateDeviceCard(props) {
   var blob = firmwareInfo && (blobs === null || blobs === void 0 ? void 0 : blobs.find(function (b) {
     return firmwareInfo.firmwareIdentifier == b.firmwareIdentifier;
   }));
-  var update = blob && firmwareInfo && (0,jdom_flashing/* updateApplicable */.Kl)(firmwareInfo, blob);
+  var update = (blob === null || blob === void 0 ? void 0 : blob.version) && (firmwareInfo === null || firmwareInfo === void 0 ? void 0 : firmwareInfo.version) && (0,jdom_flashing/* updateApplicable */.Kl)(firmwareInfo, blob);
   var upgrade = update && (0,semver/* semverCmp */.k)(blob.version, firmwareInfo.version) > 0;
   var flashing = (0,useChange/* default */.Z)(device, function (d) {
     return d.flashing;
@@ -1705,4 +1705,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-updater-tsx-836e0864cb9b589d6c67.js.map
+//# sourceMappingURL=component---src-pages-tools-updater-tsx-fb70fb38466e7ec23119.js.map
