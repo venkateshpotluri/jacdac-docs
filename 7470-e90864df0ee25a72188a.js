@@ -158,6 +158,7 @@ function DashboardAccelerometer(props) {
   var service = props.service,
       visible = props.visible;
   var register = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .AccelerometerReg.Forces */ .bdf.Forces);
+  (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(register, props);
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
 
@@ -197,4 +198,4 @@ function DashboardAccelerometer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7470-525b14e4acf4e021b078.js.map
+//# sourceMappingURL=7470-e90864df0ee25a72188a.js.map

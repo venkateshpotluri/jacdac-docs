@@ -136,6 +136,7 @@ function DashboardGyroscope(props) {
   var service = props.service,
       visible = props.visible;
   var register = service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .GyroscopeReg.RotationRates */ .Eju.RotationRates);
+  (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterUnpackedValue */ .Pf)(register, props);
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
 
@@ -175,4 +176,4 @@ function DashboardGyroscope(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5754-79ab47aa6fc3c51005e0.js.map
+//# sourceMappingURL=5754-bebf6ec533e1514cfbc4.js.map
