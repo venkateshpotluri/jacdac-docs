@@ -1149,17 +1149,23 @@ function useFireKey(handler) {
 
 function useServiceServer(service, createTwin) {
   var provider = (0,_useServiceProvider__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(service.device);
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(undefined),
-      twin = _useState[0],
-      setTwin = _useState[1];
-
+  var twin = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return createTwin === null || createTwin === void 0 ? void 0 : createTwin();
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var t = !provider && (createTwin === null || createTwin === void 0 ? void 0 : createTwin());
-    if (t) t.twin = service;
-    setTwin(t);
+    if (!provider && twin) {
+      console.log("set twin", {
+        twin: twin,
+        service: service
+      });
+      twin.twin = service;
+    }
+
     return function () {
-      if (t) t.twin = undefined;
+      if (twin) {
+        console.log("clean twin", twin);
+        twin.twin = undefined;
+      }
     };
   }, [service, provider]);
   return (provider === null || provider === void 0 ? void 0 : provider.service(service === null || service === void 0 ? void 0 : service.serviceIndex)) || twin;
@@ -1619,4 +1625,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-8697b72736b49f57fa77.js.map
+//# sourceMappingURL=bc1de39814113fdab2fbefae2ee854f0842f6be1-22b0ae2d9e5ace1d303d.js.map

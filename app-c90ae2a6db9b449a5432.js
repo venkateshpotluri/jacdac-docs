@@ -30502,8 +30502,6 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       this._twin = service;
 
       if (this._twin) {
-        console.log("new twin");
-
         this._twin.on(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
 
         this._twin.on(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
@@ -30511,7 +30509,7 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
         this._twin.registers().forEach(function (twinReg) {
           var reg = _this2.register(twinReg.code);
 
-          reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue, true);
+          reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue);
         });
       }
 
@@ -39700,7 +39698,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "76fdea963eecf1d83b335bfa83c568894b031d34";
+  var sha = "aa9ca7c0817f20b52597e1c33d6ac76f9ea729d1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50711,4 +50709,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-08fa11206b6c640df06d.js.map
+//# sourceMappingURL=app-c90ae2a6db9b449a5432.js.map
