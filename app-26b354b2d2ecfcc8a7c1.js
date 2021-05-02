@@ -30249,9 +30249,6 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   var _proto = JDServiceServer.prototype;
 
   _proto.handleTwinPacket = function handleTwinPacket(pkt) {
-    console.log("twin " + pkt, {
-      pkt: pkt
-    });
     this.handlePacket(pkt);
   };
 
@@ -39698,7 +39695,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "aa9ca7c0817f20b52597e1c33d6ac76f9ea729d1";
+  var sha = "379ce09413f4406e7b39c644e19cf9558743fb91";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50709,4 +50706,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c90ae2a6db9b449a5432.js.map
+//# sourceMappingURL=app-26b354b2d2ecfcc8a7c1.js.map
