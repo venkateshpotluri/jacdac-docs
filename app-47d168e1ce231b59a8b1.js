@@ -39619,7 +39619,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "280467b9f0591ed7ac0b0bcdaa916b5bfbd9f6f2";
+  var sha = "07c68dc6900ccf73ca7e85223e8800f2b2f098ed";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46634,8 +46634,8 @@ function iframebridgeclient_arrayLikeToArray(arr, len) { if (len == null || len 
 
 
 
-// hide the makecode device itself and power devices
-var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_POWER */.mQG, constants/* SRV_PROTO_TEST */.$Bn];
+// hide the makecode device itself
+var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn];
 /**
  * A client that bridges received and sent packets to a parent iframe
  */
@@ -50606,4 +50606,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-e68ad0ec6a2a0bd7e45e.js.map
+//# sourceMappingURL=app-47d168e1ce231b59a8b1.js.map
