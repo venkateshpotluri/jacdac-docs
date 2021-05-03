@@ -1883,11 +1883,6 @@ function CodeBlock(props) {
   var children = props.children,
       className = props.className;
   var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, "")) || "";
-  console.log({
-    language: language,
-    className: className,
-    children: children
-  });
 
   switch (language) {
     case "trace":
@@ -2260,4 +2255,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-c9b52c10d037bd43052c.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-d29a598ba1c665440688.js.map

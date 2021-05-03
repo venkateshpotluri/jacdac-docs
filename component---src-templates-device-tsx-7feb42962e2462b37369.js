@@ -1186,11 +1186,6 @@ function CodeBlock(props) {
   var children = props.children,
       className = props.className;
   var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, "")) || "";
-  console.log({
-    language: language,
-    className: className,
-    children: children
-  });
 
   switch (language) {
     case "trace":
@@ -1727,4 +1722,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-device-tsx-928d24c10b4d3703c603.js.map
+//# sourceMappingURL=component---src-templates-device-tsx-7feb42962e2462b37369.js.map

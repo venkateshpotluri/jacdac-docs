@@ -1,187 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[9580],{
-
-/***/ 21846:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-var __webpack_unused_export__;
-/** @license React v17.0.1
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-var b = 60103,
-    c = 60106,
-    d = 60107,
-    e = 60108,
-    f = 60114,
-    g = 60109,
-    h = 60110,
-    k = 60112,
-    l = 60113,
-    m = 60120,
-    n = 60115,
-    p = 60116,
-    q = 60121,
-    r = 60122,
-    u = 60117,
-    v = 60129,
-    w = 60131;
-
-if ("function" === typeof Symbol && Symbol.for) {
-  var x = Symbol.for;
-  b = x("react.element");
-  c = x("react.portal");
-  d = x("react.fragment");
-  e = x("react.strict_mode");
-  f = x("react.profiler");
-  g = x("react.provider");
-  h = x("react.context");
-  k = x("react.forward_ref");
-  l = x("react.suspense");
-  m = x("react.suspense_list");
-  n = x("react.memo");
-  p = x("react.lazy");
-  q = x("react.block");
-  r = x("react.server.block");
-  u = x("react.fundamental");
-  v = x("react.debug_trace_mode");
-  w = x("react.legacy_hidden");
-}
-
-function y(a) {
-  if ("object" === typeof a && null !== a) {
-    var t = a.$$typeof;
-
-    switch (t) {
-      case b:
-        switch (a = a.type, a) {
-          case d:
-          case f:
-          case e:
-          case l:
-          case m:
-            return a;
-
-          default:
-            switch (a = a && a.$$typeof, a) {
-              case h:
-              case k:
-              case p:
-              case n:
-              case g:
-                return a;
-
-              default:
-                return t;
-            }
-
-        }
-
-      case c:
-        return t;
-    }
-  }
-}
-
-var z = g,
-    A = b,
-    B = k,
-    C = d,
-    D = p,
-    E = n,
-    F = c,
-    G = f,
-    H = e,
-    I = l;
-__webpack_unused_export__ = h;
-__webpack_unused_export__ = z;
-__webpack_unused_export__ = A;
-__webpack_unused_export__ = B;
-__webpack_unused_export__ = C;
-__webpack_unused_export__ = D;
-__webpack_unused_export__ = E;
-__webpack_unused_export__ = F;
-__webpack_unused_export__ = G;
-__webpack_unused_export__ = H;
-__webpack_unused_export__ = I;
-
-__webpack_unused_export__ = function () {
-  return !1;
-};
-
-__webpack_unused_export__ = function () {
-  return !1;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === h;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === g;
-};
-
-__webpack_unused_export__ = function (a) {
-  return "object" === typeof a && null !== a && a.$$typeof === b;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === k;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === d;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === p;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === n;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === c;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === f;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === e;
-};
-
-__webpack_unused_export__ = function (a) {
-  return y(a) === l;
-};
-
-__webpack_unused_export__ = function (a) {
-  return "string" === typeof a || "function" === typeof a || a === d || a === f || a === v || a === e || a === l || a === m || a === w || "object" === typeof a && null !== a && (a.$$typeof === p || a.$$typeof === n || a.$$typeof === g || a.$$typeof === h || a.$$typeof === k || a.$$typeof === u || a.$$typeof === q || a[0] === r) ? !0 : !1;
-};
-
-__webpack_unused_export__ = y;
-
-/***/ }),
-
-/***/ 67301:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-
-if (true) {
-  /* unused reexport */ __webpack_require__(21846);
-} else {}
-
-/***/ }),
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[8743],{
 
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -737,11 +554,6 @@ function CodeBlock(props) {
   var children = props.children,
       className = props.className;
   var language = (className === null || className === void 0 ? void 0 : className.replace(/language-/, "")) || "";
-  console.log({
-    language: language,
-    className: className,
-    children: children
-  });
 
   switch (language) {
     case "trace":
@@ -773,6 +585,89 @@ function CodeBlock(props) {
     default:
       return /*#__PURE__*/react.createElement(HighlightedCode, props);
   }
+}
+
+/***/ }),
+
+/***/ 58743:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ DashboardBitRadio; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91635);
+/* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50274);
+
+
+
+
+
+var HORIZON = 10;
+function DashboardBitRadio(props) {
+  var service = props.service;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      lastEvents = _useState[0],
+      setLastEvents = _useState[1];
+
+  var appendMessage = function appendMessage(data) {
+    if (!data) return;
+    var time = data[0],
+        deviceSerial = data[1],
+        rssi = data[2],
+        payload = data.slice(3);
+    var evs = lastEvents.slice(0);
+    var msg = {
+      time: time,
+      deviceSerial: deviceSerial,
+      rssi: rssi,
+      payload: payload
+    };
+    evs.push(msg);
+
+    while (evs.length > HORIZON) {
+      evs.shift();
+    }
+
+    setLastEvents(evs);
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return service.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .REPORT_RECEIVE */ .Gb8, function (pkt) {
+      var values;
+      var data = pkt.data,
+          serviceCommand = pkt.serviceCommand;
+
+      switch (serviceCommand) {
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.NumberReceived */ .GZs.NumberReceived:
+          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[3] f64 s");
+          break;
+
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.StringReceived */ .GZs.StringReceived:
+          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[1] s");
+          break;
+
+        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.BufferReceived */ .GZs.BufferReceived:
+          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[1] b");
+          break;
+      }
+
+      appendMessage(values.filter(function (v) {
+        return v !== undefined && v !== "";
+      }));
+    });
+  }, [service, lastEvents]);
+  var text = lastEvents.map(function (ev) {
+    return ev.payload.filter(function (v) {
+      return v !== undefined && v !== "";
+    }).join(",");
+  }).join("\n");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_4__.default, null, text);
 }
 
 /***/ }),
@@ -814,4 +709,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9580-5d3fcac31c35b683a194.js.map
+//# sourceMappingURL=8743-1be64c48d3acb4918431.js.map
