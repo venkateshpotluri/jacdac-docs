@@ -838,7 +838,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 var GithubPullRequestButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8136)]).then(__webpack_require__.bind(__webpack_require__, 12540));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(9819)]).then(__webpack_require__.bind(__webpack_require__, 12540));
 });
 var AnnotationTooltip = (0,withStyles/* default */.Z)(function (theme) {
   return {
@@ -1026,4 +1026,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-4c94d3287c24f03f956c.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-533443f87d258a926438.js.map

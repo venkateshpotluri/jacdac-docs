@@ -957,8 +957,6 @@ var Avatar = /*#__PURE__*/react.forwardRef(function Avatar(props, ref) {
 var makeStyles = __webpack_require__(10920);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
 var createStyles = __webpack_require__(70274);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./src/jacdac/useDeviceSpecification.ts
@@ -1013,7 +1011,6 @@ function DeviceAvatar(props) {
   var device = props.device,
       size = props.size;
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
-  var theme = (0,useTheme/* default */.Z)();
   var imageUrl = (0,useDeviceImage/* default */.Z)(specification, "avatar");
   var name = (0,useDeviceName/* default */.Z)(device);
   var classes = useStyles();
@@ -1292,4 +1289,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2df7280def82c7b497131d3622ed028aecb8e663-dfc18893b592f76c16f3.js.map
+//# sourceMappingURL=2df7280def82c7b497131d3622ed028aecb8e663-ea07f72cd02bd3559315.js.map

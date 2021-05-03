@@ -957,8 +957,8 @@ var Add = __webpack_require__(88880);
 var Create = __webpack_require__(91814);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
-var github = __webpack_require__(78136);
+// EXTERNAL MODULE: ./src/components/github.ts + 2 modules
+var github = __webpack_require__(99819);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
 var jdspec = __webpack_require__(13996);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
@@ -3385,4 +3385,4 @@ function DeviceRegistration() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-6e21f8c6a53bd2e3ed66.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-2c399cc9592822f83631.js.map

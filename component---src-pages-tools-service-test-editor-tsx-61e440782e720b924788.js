@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6091,8136],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6091,9819],{
 
 /***/ 25297:
 /***/ (function(module, exports) {
@@ -976,7 +976,7 @@ function ServiceSpecificationSelect(props) {
 
 /***/ }),
 
-/***/ 78136:
+/***/ 99819:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1002,8 +1002,71 @@ var asyncToGenerator = __webpack_require__(92137);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(87757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./src/components/semver.ts
-var semver = __webpack_require__(14914);
+;// CONCATENATED MODULE: ./src/components/semver.ts
+function cmp(a, b) {
+  if (!a) {
+    if (!b) return 0;else return 1;
+  } else if (!b) return -1;else {
+    var d = a.major - b.major || a.minor - b.minor || a.patch - b.patch;
+    if (d) return d;
+    if (a.pre.length == 0 && b.pre.length > 0) return 1;
+    if (a.pre.length > 0 && b.pre.length == 0) return -1;
+
+    for (var i = 0; i < a.pre.length + 1; ++i) {
+      var aa = a.pre[i];
+      var bb = b.pre[i];
+      if (!aa) {
+        if (!bb) return 0;else return -1;
+      } else if (!bb) return 1;else if (/^\d+$/.test(aa)) {
+        if (/^\d+$/.test(bb)) {
+          d = parseInt(aa) - parseInt(bb);
+          if (d) return d;
+        } else return -1;
+      } else if (/^\d+$/.test(bb)) return 1;else {
+        d = strcmp(aa, bb);
+        if (d) return d;
+      }
+    }
+
+    return 0;
+  }
+}
+
+function tryParse(v) {
+  if (!v) return null;
+
+  if ("*" === v) {
+    return {
+      major: Number.MAX_SAFE_INTEGER,
+      minor: Number.MAX_SAFE_INTEGER,
+      patch: Number.MAX_SAFE_INTEGER,
+      pre: [],
+      build: []
+    };
+  }
+
+  if (/^v\d/i.test(v)) v = v.slice(1);
+  var m = /^(\d+)\.(\d+)\.(\d+)(-([0-9a-zA-Z\-\.]+))?(\+([0-9a-zA-Z\-\.]+))?$/.exec(v);
+  if (m) return {
+    major: parseInt(m[1]),
+    minor: parseInt(m[2]),
+    patch: parseInt(m[3]),
+    pre: m[5] ? m[5].split(".") : [],
+    build: m[7] ? m[7].split(".") : []
+  };
+  return null;
+}
+
+function strcmp(a, b) {
+  if (a === b) return 0;
+  if (a < b) return -1;else return 1;
+}
+
+function semverCmp(a, b) {
+  var aa = tryParse(a);
+  var bb = tryParse(b);
+  if (!aa && !bb) return strcmp(a, b);else return cmp(aa, bb);
+}
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./src/components/useEffectAsync.ts
@@ -1155,7 +1218,7 @@ function contentsToFirmwareReleases(contents) {
   return contents === null || contents === void 0 ? void 0 : contents.map(contentToFirmwareRelease).filter(function (r) {
     return !!r;
   }).sort(function (l, r) {
-    return -(0,semver/* semverCmp */.k)(l.version, r.version);
+    return -semverCmp(l.version, r.version);
   });
 }
 
@@ -1381,80 +1444,6 @@ function useLatestReleases(slug, options) {
   return _objectSpread(_objectSpread({}, res), {}, {
     response: contentsToFirmwareReleases(res.response)
   });
-}
-
-/***/ }),
-
-/***/ 14914:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "k": function() { return /* binding */ semverCmp; }
-/* harmony export */ });
-function cmp(a, b) {
-  if (!a) {
-    if (!b) return 0;else return 1;
-  } else if (!b) return -1;else {
-    var d = a.major - b.major || a.minor - b.minor || a.patch - b.patch;
-    if (d) return d;
-    if (a.pre.length == 0 && b.pre.length > 0) return 1;
-    if (a.pre.length > 0 && b.pre.length == 0) return -1;
-
-    for (var i = 0; i < a.pre.length + 1; ++i) {
-      var aa = a.pre[i];
-      var bb = b.pre[i];
-      if (!aa) {
-        if (!bb) return 0;else return -1;
-      } else if (!bb) return 1;else if (/^\d+$/.test(aa)) {
-        if (/^\d+$/.test(bb)) {
-          d = parseInt(aa) - parseInt(bb);
-          if (d) return d;
-        } else return -1;
-      } else if (/^\d+$/.test(bb)) return 1;else {
-        d = strcmp(aa, bb);
-        if (d) return d;
-      }
-    }
-
-    return 0;
-  }
-}
-
-function tryParse(v) {
-  if (!v) return null;
-
-  if ("*" === v) {
-    return {
-      major: Number.MAX_SAFE_INTEGER,
-      minor: Number.MAX_SAFE_INTEGER,
-      patch: Number.MAX_SAFE_INTEGER,
-      pre: [],
-      build: []
-    };
-  }
-
-  if (/^v\d/i.test(v)) v = v.slice(1);
-  var m = /^(\d+)\.(\d+)\.(\d+)(-([0-9a-zA-Z\-\.]+))?(\+([0-9a-zA-Z\-\.]+))?$/.exec(v);
-  if (m) return {
-    major: parseInt(m[1]),
-    minor: parseInt(m[2]),
-    patch: parseInt(m[3]),
-    pre: m[5] ? m[5].split(".") : [],
-    build: m[7] ? m[7].split(".") : []
-  };
-  return null;
-}
-
-function strcmp(a, b) {
-  if (a === b) return 0;
-  if (a < b) return -1;else return 1;
-}
-
-function semverCmp(a, b) {
-  var aa = tryParse(a);
-  var bb = tryParse(b);
-  if (!aa && !bb) return strcmp(a, b);else return cmp(aa, bb);
 }
 
 /***/ }),
@@ -2019,7 +2008,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 var GithubPullRequestButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8136)]).then(__webpack_require__.bind(__webpack_require__, 12540));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(9819)]).then(__webpack_require__.bind(__webpack_require__, 12540));
 });
 var AnnotationTooltip = (0,withStyles/* default */.Z)(function (theme) {
   return {
@@ -2538,8 +2527,8 @@ var ServiceSpecificationSelect = __webpack_require__(14247);
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./src/components/test/ServiceTest.tsx + 1 modules
 var ServiceTest = __webpack_require__(27169);
-// EXTERNAL MODULE: ./src/components/github.ts + 1 modules
-var github = __webpack_require__(78136);
+// EXTERNAL MODULE: ./src/components/github.ts + 2 modules
+var github = __webpack_require__(99819);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
@@ -2708,4 +2697,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-5a75c5fa118c4937c7fc.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-61e440782e720b924788.js.map

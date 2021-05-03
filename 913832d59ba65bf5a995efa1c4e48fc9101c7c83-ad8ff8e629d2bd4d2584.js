@@ -550,7 +550,7 @@ exports.Z = _default;
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80453);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8266);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(95823);
-/* harmony import */ var _github__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78136);
+/* harmony import */ var _github__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(99819);
 /* harmony import */ var _material_ui_icons_GitHub__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(14429);
 /* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36176);
 /* harmony import */ var _jacdac_ts_src_jdom_iframeclient__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9809);
@@ -642,7 +642,7 @@ function GithubRepositoryCardHeader(props) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(65541);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(31186);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(83332);
-/* harmony import */ var _github__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(78136);
+/* harmony import */ var _github__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(99819);
 /* harmony import */ var _useFirmwareBlobs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29394);
 /* harmony import */ var _GithubRepositoryCardHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(63037);
 /* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(95453);
@@ -909,4 +909,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=913832d59ba65bf5a995efa1c4e48fc9101c7c83-356c32958622053595dd.js.map
+//# sourceMappingURL=913832d59ba65bf5a995efa1c4e48fc9101c7c83-ad8ff8e629d2bd4d2584.js.map
