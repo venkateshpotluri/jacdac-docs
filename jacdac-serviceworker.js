@@ -471,6 +471,11 @@ class CMSISProto {
     }
     recvAsync() {
         return new Promise((resolve, reject) => {
+            // io may have been cleared
+            if (!this.io) {
+                reject(new Error("USB disconnected"));
+                return;
+            }
             this.io.recvPacketAsync().then(v => {
                 const f = resolve;
                 resolve = null;

@@ -1064,7 +1064,7 @@ function PacketHeaderLayout(props) {
       key: slot.name
     }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, (0,utils/* toHex */.NC)(buf))), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, value !== undefined && slot.formatHex ? "0x" + value.toString(16) : value, known && /*#__PURE__*/react.createElement("code", null, "(", known, ")")), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.offset), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.size), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, slot.description));
   }))))), showCommands && !!commandFlags.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
-    key: "flags"
+    key: "commandflags"
   }, /*#__PURE__*/react.createElement(TableContainer/* default */.Z, null, /*#__PURE__*/react.createElement(Table/* default */.Z, {
     size: "small"
   }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, {
@@ -1207,4 +1207,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-b3e08ab4b105bc02ce06.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-84070b1a8f14a3df6f19.js.map

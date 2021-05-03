@@ -39619,7 +39619,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "07c68dc6900ccf73ca7e85223e8800f2b2f098ed";
+  var sha = "1c5b19be15449ad8263c7f869baf65d59cc66f1e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -40784,6 +40784,15 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
     }));
   };
 
+  _proto.processPacket = function processPacket(pkt) {
+    if (pkt.isRegisterGet) this.processReport(pkt);else if (pkt.isRegisterSet) {
+      // another device sent a set packet to this register
+      // so most likely it's value changed
+      // clear any data caching to force updating the value
+      this._lastGetTimestamp = -Infinity;
+    }
+  };
+
   _proto.processReport = function processReport(pkt) {
     var updated = !(0,utils/* bufferEq */.zo)(this.data, pkt.data);
     this._lastReportPkt = pkt;
@@ -41249,7 +41258,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
       if (pkt.isRegisterGet) {
         var id = pkt.registerIdentifier;
         var reg = this.register(id);
-        if (reg) reg.processReport(pkt);
+        if (reg) reg.processPacket(pkt);
       } else if (pkt.isEvent) {
         var ev = this.event(pkt.eventCode);
         if (ev) ev.processEvent(pkt);
@@ -41259,6 +41268,12 @@ var JDService = /*#__PURE__*/function (_JDNode) {
           pkt: pkt
         });
       }
+    } else if (pkt.isRegisterSet) {
+      var _id = pkt.registerIdentifier;
+
+      var _reg = this.register(_id);
+
+      if (_reg) _reg.processPacket(pkt);
     }
   };
 
@@ -44436,6 +44451,12 @@ var CMSISProto = /*#__PURE__*/function () {
     var _this3 = this;
 
     return new Promise(function (resolve, reject) {
+      // io may have been cleared
+      if (!_this3.io) {
+        reject(new Error("USB disconnected"));
+        return;
+      }
+
       _this3.io.recvPacketAsync().then(function (v) {
         var f = resolve;
         resolve = null;
@@ -47045,8 +47066,8 @@ function createBus() {
   var b = new bus_JDBus([flags/* default.webUSB */.Z.webUSB && worker && createUSBWorkerTransport(worker), flags/* default.webBluetooth */.Z.webBluetooth && createBluetoothTransport()], {
     parentOrigin: args.parentOrigin
   }); // parentOrigin: args.parentOrigin,
+  //if (Flags.webUSB) b.setBackgroundFirmwareScans(true)
 
-  if (flags/* default.webUSB */.Z.webUSB) b.setBackgroundFirmwareScans(true);
   GamepadHostManager.start(b); // tslint:disable-next-line: no-unused-expression
   // always start bridge
 
@@ -50606,4 +50627,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-47d168e1ce231b59a8b1.js.map
+//# sourceMappingURL=app-2e295464b081862eb319.js.map
