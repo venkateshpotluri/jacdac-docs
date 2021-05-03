@@ -59,34 +59,20 @@ function MDXContent(_ref) {
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
   }))), "Jacdac - plug-and-play for microcontrollers"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
     parentName: "p"
-  }, "Jacdac"), " is a bus-based plug-and-play hardware/software stack\nfor ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
+  }, "Jacdac"), " is a bus-based plug-and-play hardware and software stack for microcontrollers and their peripherals such as sensors and actuators. Jacdac is primarily designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing. Jacdac is designed to be cheap, flexible and extensible."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Jacdac includes:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "a purpose-built 3-wire cable and edge connector that supports data communication and power delivery;"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "hot-plug device discovery;"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "standardized service specifications;"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "full stack support from 8-bit microcontoller firmware to web simulators and debuggers.")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Try the ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
     parentName: "p"
-  }, "microcontrollers"), " and their peripherals (sensors/actuators),\nwith applications to rapid prototyping, making, and physical computing.\nJacdac includes:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
-    parentName: "ul"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
-    parentName: "li"
-  }, "a novel 3-wire cable and PCB edge connector")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
-    parentName: "ul"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
-    parentName: "li"
-  }, "hot-plug device discovery")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
-    parentName: "ul"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
-    parentName: "li"
-  }, "standardized service specifications")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
-    parentName: "ul"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
-    parentName: "li"
-  }, "full stack from 8-bit MCU firmware to web simulators and debuggers")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
-    parentName: "ul"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
-    parentName: "li"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
-    parentName: "p"
-  }, "Try the ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "strong",
     "href": "/jacdac-docs/dashboard/"
-  }, "dashboard")), " to simulate devices or visualize sensor data."))), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+  }, "dashboard")), " to simulate devices or visualize live data."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "service-specifications",
     "style": {
       "position": "relative"
@@ -140,7 +126,7 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Device catalog & Firmware Updates"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "The device catalog lists the registered Jacdac devices that can be automatically detected on the bus.\nThe catalog information provides vendor information, the services supported by a device,\nfirmware, and pictures. This information is also used to automtically detect, download and flash\nfirmware onto devices."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+  }))), "Device catalog & firmware updates"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "The device catalog lists the registered Jacdac devices that can be automatically detected on the bus.\nThe catalog information provides vendor information, the services supported by a device,\nfirmware, and pictures. This information is also used to automtically detect, download and flash\nfirmware onto devices."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
   }, "Browse the ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
@@ -298,4 +284,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-mdx-1ed11f8d5e7fe23575f9.js.map
+//# sourceMappingURL=component---src-pages-index-mdx-2806f81ebd7028136d50.js.map
