@@ -1024,10 +1024,12 @@ class USBIO {
             this.rawMode = true;
         return !!this.iface;
     }
-    async tryReconnectAsync() {
+    async tryReconnectAsync(deviceId) {
         try {
             const devices = await this.options.getDevices();
-            this.dev = devices[0];
+            this.dev = deviceId
+                ? devices.find(dev => dev.serialNumber === deviceId)
+                : devices[0];
         }
         catch (e) {
             console.log(e);
@@ -1043,8 +1045,8 @@ class USBIO {
             this.dev = undefined;
         }
     }
-    async connectAsync(background) {
-        await this.tryReconnectAsync();
+    async connectAsync(background, deviceId) {
+        await this.tryReconnectAsync(deviceId);
         if (!this.dev && !background)
             await this.requestDeviceAsync();
         // background call and no device, just give up for now
@@ -1087,8 +1089,8 @@ class USBIO {
 const { debug, error: error$1 } = console;
 class USBTransportProxy {
     constructor() { }
-    async connect() {
-        debug(`jdsw: connect`);
+    async connect(deviceId) {
+        debug(`jdsw: connect`, { deviceId });
         if (this.hf2) {
             debug(`jdsw: cleanup hf2`);
             await this.hf2.disconnectAsync();
@@ -1113,7 +1115,7 @@ class USBTransportProxy {
                 payload: buf,
             });
         };
-        this.hf2 = await io.connectAsync(true);
+        this.hf2 = await io.connectAsync(true, deviceId);
         this.hf2.onJDMessage(onJDMessage);
     }
     async send(payload) {
@@ -1151,14 +1153,15 @@ onmessage = async (event) => {
     const { type, payload } = data;
     //console.debug(`jdsw, onmessage ${type}`, data)
     switch (type) {
-        case "connect":
+        case "connect": {
             if (proxy)
                 await proxy.disconnect();
-            //const { transport } = data
+            const { deviceId } = data;
             info(`jdsw: connecting`);
             proxy = new USBTransportProxy();
-            await handleCommand(data, () => proxy.connect());
+            await handleCommand(data, () => proxy.connect(deviceId));
             break;
+        }
         case "packet":
             //info(`jdsw: send`)
             proxy?.send(payload).then(() => { }, e => error(e));

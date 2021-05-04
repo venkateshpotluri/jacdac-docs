@@ -32690,10 +32690,15 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   };
 
   _proto.allocRxBuffer = function allocRxBuffer() {
-    if (this.numpixels > this.maxpixels) this.numPixels.setValues([this.maxpixels]);
-    var n = this.numpixels * 3; // don't need to prealloc here
+    var _this$numpixels = this.numpixels,
+        numpixels = _this$numpixels === void 0 ? 0 : _this$numpixels,
+        _this$maxpixels = this.maxpixels,
+        maxpixels = _this$maxpixels === void 0 ? 0 : _this$maxpixels,
+        pxbuffer = this.pxbuffer;
+    if (numpixels > maxpixels) this.numPixels.setValues([this.maxpixels]);
+    var n = numpixels * 3; // don't need to prealloc here
 
-    if (n !== this.pxbuffer.length) this.pxbuffer = new Uint8Array(n);
+    if (pxbuffer || n !== pxbuffer.length) this.pxbuffer = new Uint8Array(n);
   };
 
   _proto.reset_range = function reset_range() {
@@ -33106,40 +33111,40 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   }, {
     key: "maxpower",
     get: function get() {
-      var _this$maxPower$values = this.maxPower.values(),
-          r = _this$maxPower$values[0];
+      var _ref2 = this.maxPower.values() || [0],
+          r = _ref2[0];
 
       return r;
     }
   }, {
     key: "maxpixels",
     get: function get() {
-      var _this$maxPixels$value = this.maxPixels.values(),
-          r = _this$maxPixels$value[0];
+      var _ref3 = this.maxPixels.values() || [0],
+          r = _ref3[0];
 
       return r;
     }
   }, {
     key: "numpixels",
     get: function get() {
-      var _ref2 = this.numPixels.values() || [0],
-          r = _ref2[0];
+      var _ref4 = this.numPixels.values() || [0],
+          r = _ref4[0];
 
       return r;
     }
   }, {
     key: "requested_intensity",
     get: function get() {
-      var _ref3 = this.brightness.values() || [0],
-          r = _ref3[0];
+      var _ref5 = this.brightness.values() || [0],
+          r = _ref5[0];
 
       return r;
     }
   }, {
     key: "intensity",
     get: function get() {
-      var _ref4 = this.actualBrightness.values() || [0],
-          r = _ref4[0];
+      var _ref6 = this.actualBrightness.values() || [0],
+          r = _ref6[0];
 
       return r;
     },
@@ -39619,7 +39624,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "973bc69b1a9f291a3d62938108cd47ef71cb052b";
+  var sha = "6fe1e97a4d101adee8361bec660353719532b122";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -45815,7 +45820,7 @@ var USBIO = /*#__PURE__*/function () {
   };
 
   _proto.tryReconnectAsync = /*#__PURE__*/function () {
-    var _tryReconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+    var _tryReconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(deviceId) {
       var devices;
       return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
@@ -45827,7 +45832,9 @@ var USBIO = /*#__PURE__*/function () {
 
             case 3:
               devices = _context2.sent;
-              this.dev = devices[0];
+              this.dev = deviceId ? devices.find(function (dev) {
+                return dev.serialNumber === deviceId;
+              }) : devices[0];
               _context2.next = 11;
               break;
 
@@ -45845,7 +45852,7 @@ var USBIO = /*#__PURE__*/function () {
       }, _callee2, this, [[0, 7]]);
     }));
 
-    function tryReconnectAsync() {
+    function tryReconnectAsync(_x) {
       return _tryReconnectAsync.apply(this, arguments);
     }
 
@@ -45889,14 +45896,14 @@ var USBIO = /*#__PURE__*/function () {
   }();
 
   _proto.connectAsync = /*#__PURE__*/function () {
-    var _connectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4(background) {
+    var _connectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4(background, deviceId) {
       var proto;
       return regenerator_default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _context4.next = 2;
-              return this.tryReconnectAsync();
+              return this.tryReconnectAsync(deviceId);
 
             case 2:
               if (!(!this.dev && !background)) {
@@ -45945,7 +45952,7 @@ var USBIO = /*#__PURE__*/function () {
       }, _callee4, this, [[9, 14]]);
     }));
 
-    function connectAsync(_x) {
+    function connectAsync(_x2, _x3) {
       return _connectAsync.apply(this, arguments);
     }
 
@@ -46337,12 +46344,13 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
   _proto.transportConnectAsync = /*#__PURE__*/function () {
     var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(background) {
+      var deviceId;
       return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               if (background) {
-                _context2.next = 3;
+                _context2.next = 4;
                 break;
               }
 
@@ -46350,13 +46358,17 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
               return this.options.requestDevice();
 
             case 3:
-              _context2.next = 5;
+              deviceId = _context2.sent;
+
+            case 4:
+              _context2.next = 6;
               return this.postMessageAsync({
                 type: "connect",
+                deviceId: deviceId,
                 background: background
               });
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -46383,7 +46395,9 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 function createUSBWorkerTransport(worker) {
   return isWebUSBEnabled() && new WorkerTransport(constants/* USB_TRANSPORT */.W3h, worker, {
     requestDevice: function requestDevice() {
-      return usbRequestDevice(USB_FILTERS).then(function () {});
+      return usbRequestDevice(USB_FILTERS).then(function (dev) {
+        return dev === null || dev === void 0 ? void 0 : dev.serialNumber;
+      });
     },
     connectObservable: new eventtargetobservable_EventTargetObservable(navigator.usb, "connect"),
     disconnectObservable: new eventtargetobservable_EventTargetObservable(navigator.usb, "disconnect")
@@ -50627,4 +50641,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7487a6ff89442d6e8da0.js.map
+//# sourceMappingURL=app-311277e74e88c66cce07.js.map
