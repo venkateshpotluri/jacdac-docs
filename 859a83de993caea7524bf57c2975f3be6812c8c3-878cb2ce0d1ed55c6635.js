@@ -894,6 +894,11 @@ function DashboardServiceDetails(props) {
       return service.register(id);
     }).filter(function (reg) {
       return !!reg;
+    }) // hide optional const register without values
+    .filter(function (reg) {
+      var _reg$specification, _reg$specification2;
+
+      return !((_reg$specification = reg.specification) !== null && _reg$specification !== void 0 && _reg$specification.optional) || ((_reg$specification2 = reg.specification) === null || _reg$specification2 === void 0 ? void 0 : _reg$specification2.kind) === "const" && reg.lastGetAttempts < constants/* REGISTER_OPTIONAL_POLL_COUNT */.Go2;
     });
   }, [specification, expanded]);
   if (!(registers !== null && registers !== void 0 && registers.length)) // nothing to see here
@@ -2722,4 +2727,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-fac13ff398ae6294d9b8.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-878cb2ce0d1ed55c6635.js.map
