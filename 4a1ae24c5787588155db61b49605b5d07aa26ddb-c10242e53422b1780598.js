@@ -334,10 +334,6 @@ function ServiceRole(props) {
 }
 // EXTERNAL MODULE: ./src/jacdac/useRegisterValue.ts
 var useRegisterValue = __webpack_require__(89196);
-// EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
-var useServiceServer = __webpack_require__(49013);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Close.js
-var Close = __webpack_require__(29181);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
 
 
@@ -345,23 +341,11 @@ var Close = __webpack_require__(29181);
 
 
 
-
- // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
-
 function DashboardServiceWidgetItem(props) {
-  var service = props.service,
-      expanded = props.expanded;
-  var isMixin = service.isMixin;
+  var service = props.service;
 
   var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SystemReg.InstanceName */.ZJq.InstanceName), props),
       instanceName = _useRegisterUnpackedV[0];
-
-  var server = (0,useServiceServer/* default */.Z)(service);
-
-  var handleRemove = function handleRemove() {
-    return server === null || server === void 0 ? void 0 : server.device.removeService(server);
-  };
 
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
@@ -383,13 +367,7 @@ function DashboardServiceWidgetItem(props) {
     style: {
       float: "right"
     }
-  }, instanceName)), expanded && !isMixin && server && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "Remove service",
-    onClick: handleRemove
-  }, /*#__PURE__*/react.createElement(Close/* default */.Z, null)))), /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, props));
+  }, instanceName))), /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, props));
 }
 // EXTERNAL MODULE: ./src/components/DeviceActions.tsx
 var DeviceActions = __webpack_require__(87993);
@@ -736,4 +714,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-c10d9208f1fdaaaeb592.js.map
+//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-c10242e53422b1780598.js.map
