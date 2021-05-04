@@ -134,7 +134,7 @@ function Page() {
       secondary: {
         main: "#ffc400"
       },
-      contrastThreshold: 5.1
+      contrastThreshold: 3.1
     }
   });
   var theme = (0,responsiveFontSizes/* default */.Z)(rawTheme);
@@ -152,4 +152,4 @@ function makecode_sim_Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-0eeece484776357bf710.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-f97b68d20554dbc71da1.js.map
