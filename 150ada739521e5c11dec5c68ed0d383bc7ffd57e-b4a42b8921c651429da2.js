@@ -1134,21 +1134,19 @@ function useFireKey(handler) {
 function useServiceServer(service, createTwin) {
   var provider = (0,_useServiceProvider__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(service.device);
   var twin = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-    return createTwin === null || createTwin === void 0 ? void 0 : createTwin();
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!provider && twin) {
-      //console.log(`set twin`, { twin, service })
-      twin.twin = service;
+    if (provider) return undefined;
+    var twin = service.twin;
+
+    if (!twin && createTwin) {
+      twin = createTwin();
+      console.debug("create twin", {
+        twin: twin
+      });
+      if (twin) service.twin = twin;
     }
 
-    return function () {
-      if (twin) {
-        //console.log(`clean twin`, twin)
-        twin.twin = undefined;
-      }
-    };
-  }, [service, provider]);
+    return twin;
+  }, [service, provider, service === null || service === void 0 ? void 0 : service.changeId]);
   return (provider === null || provider === void 0 ? void 0 : provider.service(service === null || service === void 0 ? void 0 : service.serviceIndex)) || twin;
 }
 
@@ -1640,4 +1638,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-c5d559b230e7d2112f5a.js.map
+//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-b4a42b8921c651429da2.js.map

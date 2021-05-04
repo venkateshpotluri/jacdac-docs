@@ -30465,9 +30465,15 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
         this._twin.off(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
 
         this._twin.off(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
+
+        this._twinCleanup.forEach(function (tw) {
+          return tw();
+        }); // unsubscribe
+
       }
 
       this._twin = service;
+      this._twinCleanup = service ? [] : undefined;
 
       if (this._twin) {
         this._twin.on(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
@@ -30477,7 +30483,13 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
         this._twin.registers().forEach(function (twinReg) {
           var reg = _this2.register(twinReg.code);
 
-          reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue);
+          if (reg) {
+            reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue);
+
+            _this2._twinCleanup.push(twinReg.subscribe(constants/* REPORT_UPDATE */.rGZ, function () {
+              return reg.setValues(twinReg.unpackedValue);
+            }));
+          }
         });
       }
 
@@ -33089,9 +33101,6 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   };
 
   _proto.handleRun = function handleRun(pkt) {
-    console.log("run", {
-      data: (0,_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .toHex */ .NC)(pkt.data)
-    });
     this.prog_data = pkt.data;
     this.prog_size = this.prog_data.length;
     this.prog_ptr = 0;
@@ -39529,7 +39538,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b4f4372b5f00ace2af2779306d61f76c8b8c32ad";
+  var sha = "5d104f612acd9e4f4c9bcad9282a828a5417e847";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -41447,6 +41456,18 @@ var JDService = /*#__PURE__*/function (_JDNode) {
     key: "isMixin",
     get: function get() {
       return (0,jdutils/* isMixinService */.fh)(this.serviceClass);
+    }
+  }, {
+    key: "twin",
+    get: function get() {
+      return this._twin;
+    },
+    set: function set(server) {
+      if (this._twin === server) return;
+      if (this._twin) this._twin.twin = undefined;
+      this._twin = server;
+      server.twin = this;
+      this.emit(constants/* CHANGE */.Ver);
     }
   }, {
     key: "readingRegister",
@@ -50655,4 +50676,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-55e5c8357cd1cb84f647.js.map
+//# sourceMappingURL=app-c690c92cdb4eeb21a34e.js.map
