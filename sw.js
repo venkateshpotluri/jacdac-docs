@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-3442cc686ef9b864bd4f.js"
+    "url": "webpack-runtime-254f007409cd84059067.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "15dbddbb0d1d85a06ccc4782b0582641"
+    "revision": "85216e55c6860d6d0dff1a54b9d5f975"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -68,7 +68,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "ee5fd361310b6dc86eb7cb66f9ddc59a"
+    "revision": "433ab64aea41aeb5998f1d367511b281"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "2eb7b487930d50be60cdc698697a90fd"
+    "revision": "34780a27655a9c7b6662d04ccbaa2cc8"
   },
   {
     "url": "polyfill-3dba7d40c3baf44701ca.js"
@@ -140,7 +140,7 @@ self.__precacheManifest = [
     "url": "b6f49081b79fc71f009af137db34b91ac92ddb68-38acceefc5a8280ff4ef.js"
   },
   {
-    "url": "7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-00dbb1b878a6b9e26030.js"
+    "url": "7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-efaf70d150b75397fda5.js"
   },
   {
     "url": "component---src-pages-dashboard-tsx-d8ac10f7c4f5a942191b.js"
@@ -153,7 +153,7 @@ self.__precacheManifest = [
     "url": "97c3b2d01729d14971f44dc6012293e420701658-7f612c1d6440bf6939cd.js"
   },
   {
-    "url": "component---src-pages-devices-tsx-c0bd6e338340bb41bc64.js"
+    "url": "component---src-pages-devices-tsx-bdc54f1b2e41765f7573.js"
   },
   {
     "url": "page-data/devices/page-data.json",
@@ -239,7 +239,7 @@ self.__precacheManifest = [
     "revision": "9e6708422933181a098c843aa92d3703"
   },
   {
-    "url": "component---src-templates-service-tsx-053b9c30d56351f0b41f.js"
+    "url": "component---src-templates-service-tsx-ce035063c9438388dcf4.js"
   },
   {
     "url": "page-data/services/_base/page-data.json",
@@ -249,7 +249,7 @@ self.__precacheManifest = [
     "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-56751faa965aff0400c1.js"
   },
   {
-    "url": "4a1ae24c5787588155db61b49605b5d07aa26ddb-0de6cfe37a1f39269c8c.js"
+    "url": "4a1ae24c5787588155db61b49605b5d07aa26ddb-c10d9208f1fdaaaeb592.js"
   },
   {
     "url": "component---src-templates-service-playground-tsx-92cc12224102a9fc7d23.js"
@@ -259,7 +259,7 @@ self.__precacheManifest = [
     "revision": "c3e33e6fdcc038b4eecc02bb3bf59f19"
   },
   {
-    "url": "859a83de993caea7524bf57c2975f3be6812c8c3-da688faf1e697070e93d.js"
+    "url": "859a83de993caea7524bf57c2975f3be6812c8c3-73feb9b4d50e516a35e5.js"
   },
   {
     "url": "component---src-templates-service-test-tsx-c985ff4c836c02573c83.js"
@@ -1193,7 +1193,7 @@ self.__precacheManifest = [
     "revision": "bf2d47900f61836b047dce5a5cb2d25a"
   },
   {
-    "url": "component---src-templates-device-company-tsx-9d9050870ab6a5ec7a5f.js"
+    "url": "component---src-templates-device-company-tsx-1f461f745affadf45080.js"
   },
   {
     "url": "page-data/devices/microsoft/research/page-data.json",
@@ -1339,14 +1339,14 @@ self.__precacheManifest = [
     "revision": "dc554b5a7b3bba043dc9096b8a2927b6"
   },
   {
-    "url": "component---src-pages-tools-makecode-editor-extension-tsx-1d64af12ac6c863dccec.js"
+    "url": "component---src-pages-tools-makecode-editor-extension-tsx-979e1c2c1142d058bcc8.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
     "revision": "fff97a63d7d76d0afb3e023b1d340b17"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-1f1f62afa95cb99525e7.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-9fca62e95c99199f4f25.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
@@ -1357,7 +1357,7 @@ self.__precacheManifest = [
     "revision": "7095019d6130ac9f259d741d39146031"
   },
   {
-    "url": "component---src-pages-tools-packet-inspector-tsx-7586819c3adb469665a1.js"
+    "url": "component---src-pages-tools-packet-inspector-tsx-d3446f67ce04152a9456.js"
   },
   {
     "url": "page-data/tools/packet-inspector/page-data.json",
@@ -1520,7 +1520,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-b336f8454e5dd8ca3f32.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-18483a3e19db91fd7573.js`))) {
     return await fetch(event.request)
   }
 
