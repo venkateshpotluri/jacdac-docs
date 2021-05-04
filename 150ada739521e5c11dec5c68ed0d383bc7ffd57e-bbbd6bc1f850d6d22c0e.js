@@ -29,8 +29,8 @@ var react = __webpack_require__(67294);
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./src/components/fields/MembersInput.tsx + 7 modules
-var MembersInput = __webpack_require__(34866);
+// EXTERNAL MODULE: ./src/components/fields/MembersInput.tsx + 5 modules
+var MembersInput = __webpack_require__(49456);
 // EXTERNAL MODULE: ./src/components/RegisterTrend.tsx
 var RegisterTrend = __webpack_require__(88251);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
@@ -324,7 +324,7 @@ function RegisterTrend(props) {
 
 /***/ }),
 
-/***/ 34866:
+/***/ 49456:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -708,26 +708,10 @@ function ValueWithUnitWidget(props) {
     onChange: onChange
   })));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js
-var SvgIcon = __webpack_require__(46982);
-;// CONCATENATED MODULE: ./src/components/icons/HumidityIcon.tsx
-
-
-/* harmony default export */ var HumidityIcon = (function (props) {
-  return /*#__PURE__*/react.createElement(SvgIcon/* default */.Z, props, /*#__PURE__*/react.createElement("path", {
-    d: "M8.8-.03A49.327 49.327 0 00.956 11.112a8.824 8.824 0 1015.693 0A49.327 49.327 0 008.801-.029zm0 3.132a47.244 47.244 0 015.995 8.962 6.74 6.74 0 11-11.986 0A47.243 47.243 0 018.8 3.102z"
-  }));
-});
-;// CONCATENATED MODULE: ./src/components/icons/TemperatureIcon.tsx
-
-
-/* harmony default export */ var TemperatureIcon = (function (props) {
-  return /*#__PURE__*/react.createElement(SvgIcon/* default */.Z, props, /*#__PURE__*/react.createElement("path", {
-    d: "M11.365 14.761a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 12.062a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 9.363a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 6.663a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 3.964a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM4.04 3.26v14.207a1.979 1.978 0 101.284-.004V3.26a.642.642 0 00-1.285 0z"
-  }), /*#__PURE__*/react.createElement("path", {
-    d: "M4.699 0a3.302 3.301 0 00-3.323 3.3v12.726a4.668 4.666 0 106.605.022V3.3A3.302 3.301 0 004.7 0zm-.047 1.303a2.01 2.008 0 012.041 2.009v13.37a3.354 3.352 0 11-4.017-.027V3.312a2.01 2.008 0 011.976-2.01z"
-  }));
-});
+// EXTERNAL MODULE: ./src/components/icons/HumidityIcon.tsx
+var HumidityIcon = __webpack_require__(37557);
+// EXTERNAL MODULE: ./src/components/icons/TemperatureIcon.tsx
+var TemperatureIcon = __webpack_require__(74741);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
 var jdspec = __webpack_require__(13996);
 ;// CONCATENATED MODULE: ./src/components/hooks/useUnitIcon.tsx
@@ -741,11 +725,11 @@ var jdspec = __webpack_require__(13996);
 
   switch (runit) {
     case "%RH":
-      return /*#__PURE__*/react.createElement(HumidityIcon, props);
+      return /*#__PURE__*/react.createElement(HumidityIcon/* default */.Z, props);
 
     case "°C":
     case "K":
-      return /*#__PURE__*/react.createElement(TemperatureIcon, props);
+      return /*#__PURE__*/react.createElement(TemperatureIcon/* default */.Z, props);
 
     default:
       return null;
@@ -1251,6 +1235,40 @@ function useThrottledValue(value, maxRate) {
 
 /***/ }),
 
+/***/ 37557:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46982);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+
+/* harmony default export */ __webpack_exports__["Z"] = (function (props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, props, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M8.8-.03A49.327 49.327 0 00.956 11.112a8.824 8.824 0 1015.693 0A49.327 49.327 0 008.801-.029zm0 3.132a47.244 47.244 0 015.995 8.962 6.74 6.74 0 11-11.986 0A47.243 47.243 0 018.8 3.102z"
+  }));
+});
+
+/***/ }),
+
+/***/ 74741:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46982);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+
+/* harmony default export */ __webpack_exports__["Z"] = (function (props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, props, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M11.365 14.761a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 12.062a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 9.363a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 6.663a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM11.365 3.964a.635.635 0 000-1.27h-1.35a.635.635 0 000 1.27zM4.04 3.26v14.207a1.979 1.978 0 101.284-.004V3.26a.642.642 0 00-1.285 0z"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    d: "M4.699 0a3.302 3.301 0 00-3.323 3.3v12.726a4.668 4.666 0 106.605.022V3.3A3.302 3.301 0 004.7 0zm-.047 1.303a2.01 2.008 0 012.041 2.009v13.37a3.354 3.352 0 11-4.017-.027V3.312a2.01 2.008 0 011.976-2.01z"
+  }));
+});
+
+/***/ }),
+
 /***/ 2285:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1625,4 +1643,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-e57b0de6069a3604c34c.js.map
+//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-bbbd6bc1f850d6d22c0e.js.map

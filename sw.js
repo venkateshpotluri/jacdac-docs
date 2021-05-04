@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-23d8fd1bdb879cdfcc87.js"
+    "url": "webpack-runtime-a7704a78f92bbb4da23d.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "f6c892674ca91784529ebf9b6c5570fe"
+    "revision": "124a7cd0884197f5f194d6eccd22613c"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -68,7 +68,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "d8ae381adc6bb4681d2be671452765a8"
+    "revision": "ee5fd361310b6dc86eb7cb66f9ddc59a"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "eb821ae23cb21242d2756225e6372289"
+    "revision": "31f24d959fedf3383b4ce972a9f66804"
   },
   {
     "url": "polyfill-3dba7d40c3baf44701ca.js"
@@ -134,7 +134,7 @@ self.__precacheManifest = [
     "url": "aa3ff5cc3377a4a7425fa7d8f579d3541c861726-86941f80f0dd99ed441b.js"
   },
   {
-    "url": "150ada739521e5c11dec5c68ed0d383bc7ffd57e-e57b0de6069a3604c34c.js"
+    "url": "150ada739521e5c11dec5c68ed0d383bc7ffd57e-bbbd6bc1f850d6d22c0e.js"
   },
   {
     "url": "b6f49081b79fc71f009af137db34b91ac92ddb68-38acceefc5a8280ff4ef.js"
@@ -246,7 +246,7 @@ self.__precacheManifest = [
     "revision": "2d6911ad2ea6d713ee69b8f0733d3a98"
   },
   {
-    "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-c4a740e8bd9c27fea7f5.js"
+    "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-56751faa965aff0400c1.js"
   },
   {
     "url": "4a1ae24c5787588155db61b49605b5d07aa26ddb-707079799d35a142f203.js"
@@ -1385,7 +1385,7 @@ self.__precacheManifest = [
     "revision": "b526b7b83a2e46bb8453744a9d82ade5"
   },
   {
-    "url": "component---src-pages-tools-release-assets-tsx-0c8ca07e3556d01ebf71.js"
+    "url": "component---src-pages-tools-release-assets-tsx-d672b14eac4158882a95.js"
   },
   {
     "url": "page-data/tools/release-assets/page-data.json",
@@ -1520,7 +1520,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-6b9edf932eadb5e1e7fe.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-d4c8258ebdbc784d8a70.js`))) {
     return await fetch(event.request)
   }
 

@@ -967,8 +967,8 @@ function CommandInput(props) {
     device: service.device
   }), "/"), command.name.replace(/_/g, " "));
 }
-// EXTERNAL MODULE: ./src/components/fields/MembersInput.tsx + 7 modules
-var MembersInput = __webpack_require__(34866);
+// EXTERNAL MODULE: ./src/components/fields/MembersInput.tsx + 5 modules
+var MembersInput = __webpack_require__(49456);
 ;// CONCATENATED MODULE: ./src/components/DecodedPacketItem.tsx
 
 
@@ -1514,4 +1514,4 @@ function useEventRaised(eventName, node, query) {
 /***/ })
 
 }]);
-//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-c4a740e8bd9c27fea7f5.js.map
+//# sourceMappingURL=de590f55fa2f17e49ed8680dc5a022fe834f3017-56751faa965aff0400c1.js.map
