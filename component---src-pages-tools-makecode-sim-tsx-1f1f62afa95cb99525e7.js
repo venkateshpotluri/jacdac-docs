@@ -55,7 +55,10 @@ var Dashboard = __webpack_require__(23976);
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./src/components/ui/DarkModeProvider.tsx
+var DarkModeProvider = __webpack_require__(7796);
 ;// CONCATENATED MODULE: ./src/components/makecode/MakeCodeSim.tsx
+
 
 
 
@@ -134,13 +137,16 @@ function Page() {
       secondary: {
         main: "#ffc400"
       },
+      type: "light",
       contrastThreshold: 3.1
     }
   });
   var theme = (0,responsiveFontSizes/* default */.Z)(rawTheme);
-  return /*#__PURE__*/react.createElement(ThemedLayout/* default */.Z, {
+  return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
+    fixedMode: "light"
+  }, /*#__PURE__*/react.createElement(ThemedLayout/* default */.Z, {
     theme: theme
-  }, /*#__PURE__*/react.createElement(Helmet/* default */.Z, null, /*#__PURE__*/react.createElement("style", null, "\nhtml {\n    margin-right: 4px;\n}\nhtml, body {\n    background: transparent !important;\n    overflow: hidden !important;\n}\n")), /*#__PURE__*/react.createElement(Carousel, null));
+  }, /*#__PURE__*/react.createElement(Helmet/* default */.Z, null, /*#__PURE__*/react.createElement("style", null, "\nhtml {\n    margin-right: 4px;\n}\nhtml, body {\n    background: transparent !important;\n    overflow: hidden !important;\n}\n")), /*#__PURE__*/react.createElement(Carousel, null)));
 }
 ;// CONCATENATED MODULE: ./src/pages/tools/makecode-sim.tsx
 
@@ -152,4 +158,4 @@ function makecode_sim_Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-f97b68d20554dbc71da1.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-1f1f62afa95cb99525e7.js.map

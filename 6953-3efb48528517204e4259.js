@@ -505,8 +505,8 @@ var List = __webpack_require__(80791);
 var Divider = __webpack_require__(62846);
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./src/components/layout.tsx + 15 modules
-var layout = __webpack_require__(52018);
+// EXTERNAL MODULE: ./src/components/layout.tsx + 14 modules
+var layout = __webpack_require__(3390);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/createSvgIcon.js
@@ -767,4 +767,4 @@ function ToolsDrawer() {
 /***/ })
 
 }]);
-//# sourceMappingURL=6953-ab6e9abc9be345b29903.js.map
+//# sourceMappingURL=6953-3efb48528517204e4259.js.map

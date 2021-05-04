@@ -876,8 +876,8 @@ var Markdown = __webpack_require__(98784);
 var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./src/components/layout.tsx + 15 modules
-var layout = __webpack_require__(52018);
+// EXTERNAL MODULE: ./src/components/layout.tsx + 14 modules
+var layout = __webpack_require__(3390);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceImage.ts
 var useDeviceImage = __webpack_require__(81546);
 ;// CONCATENATED MODULE: ./src/components/DeviceSpecificationList.tsx
@@ -1114,4 +1114,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-devices-tsx-2a3c6071a0ac2b0031f0.js.map
+//# sourceMappingURL=component---src-pages-devices-tsx-c0bd6e338340bb41bc64.js.map

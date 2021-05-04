@@ -953,7 +953,7 @@ function PacketBadge(props) {
 /* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69882);
 /* harmony import */ var _PacketBadge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(97309);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(84377);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(52018);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3390);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(71815);
 /* harmony import */ var _jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10913);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
@@ -1080,4 +1080,4 @@ function TraceSnippet(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7510-806be81672b40b6e4b5c.js.map
+//# sourceMappingURL=7510-c142b78338a3ba886fad.js.map

@@ -918,8 +918,8 @@ function DashboardServiceDetails(props) {
     }));
   }));
 }
-// EXTERNAL MODULE: ./src/components/layout.tsx + 15 modules
-var layout = __webpack_require__(52018);
+// EXTERNAL MODULE: ./src/components/layout.tsx + 14 modules
+var layout = __webpack_require__(3390);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceName.ts
 var useDeviceName = __webpack_require__(5738);
 ;// CONCATENATED MODULE: ./src/components/hooks/useIntersectionObserver.ts
@@ -2727,4 +2727,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-878cb2ce0d1ed55c6635.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-da688faf1e697070e93d.js.map

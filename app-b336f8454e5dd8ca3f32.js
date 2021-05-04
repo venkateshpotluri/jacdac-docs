@@ -38694,7 +38694,7 @@ function TransportIcon(props) {
 
 /***/ }),
 
-/***/ 52018:
+/***/ 3390:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39416,61 +39416,10 @@ var responsiveFontSizes = __webpack_require__(23581);
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__(64983);
+// EXTERNAL MODULE: ./src/components/ui/DarkModeProvider.tsx
+var DarkModeProvider = __webpack_require__(7796);
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
-;// CONCATENATED MODULE: ./src/components/ui/DarkModeProvider.tsx
-
-
-function DarkModeProvider(props) {
-  var children = props.children;
-  var KEY = 'darkMode';
-
-  var _useState = (0,react.useState)("light"),
-      darkMode = _useState[0],
-      setDarkMode = _useState[1];
-
-  var _useState2 = (0,react.useState)(false),
-      darkModeMounted = _useState2[0],
-      setMounted = _useState2[1];
-
-  var setMode = function setMode(mode) {
-    if (typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
-    setDarkMode(mode);
-  };
-
-  var toggleDarkMode = function toggleDarkMode(mode) {
-    mode = mode || (darkMode === 'light' ? 'dark' : 'light');
-
-    if (mode === 'dark') {
-      setMode('dark');
-    } else {
-      setMode('light');
-    }
-  };
-
-  (0,react.useEffect)(function () {
-    var _window;
-
-    var localTheme = typeof window !== "undefined" && window.localStorage.getItem(KEY);
-
-    if (localTheme) {
-      setDarkMode(localTheme || 'light');
-    } else if (typeof window !== "undefined" && (_window = window) !== null && _window !== void 0 && _window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setDarkMode('dark');
-    } else {
-      setDarkMode('light');
-    }
-
-    setMounted(true);
-  }, []);
-  return /*#__PURE__*/react.createElement(DarkModeContext/* default.Provider */.Z.Provider, {
-    value: {
-      darkMode: darkMode,
-      toggleDarkMode: toggleDarkMode,
-      darkModeMounted: darkModeMounted
-    }
-  }, children);
-}
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/GitHub.js
@@ -39623,7 +39572,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "4e7b2527ff7c8eb7d30c0a935623770c3075616b";
+  var sha = "fee13b45cc5051c3c7b2b3eab6e04f739330e06f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -39743,8 +39692,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  // tslint:disable-next-line: no-import-side-effect
 
 
+ // tslint:disable-next-line: no-submodule-imports
 
-// tslint:disable-next-line: no-submodule-imports
 
 
 
@@ -39877,7 +39826,7 @@ var layout_useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   });
 });
 function Layout(props) {
-  return /*#__PURE__*/react.createElement(DarkModeProvider, null, /*#__PURE__*/react.createElement(LayoutWithDarkMode, props));
+  return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(LayoutWithDarkMode, props));
 }
 
 function LayoutWithDarkMode(props) {
@@ -40163,6 +40112,72 @@ var DarkModeContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createC
 });
 DarkModeContext.displayName = "DarkMode";
 /* harmony default export */ __webpack_exports__["Z"] = (DarkModeContext);
+
+/***/ }),
+
+/***/ 7796:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ DarkModeProvider; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91350);
+
+
+function DarkModeProvider(props) {
+  var fixedMode = props.fixedMode,
+      children = props.children;
+  var KEY = "darkMode";
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(fixedMode || "light"),
+      darkMode = _useState[0],
+      setDarkMode = _useState[1];
+
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      darkModeMounted = _useState2[0],
+      setMounted = _useState2[1];
+
+  var setMode = function setMode(mode) {
+    if (fixedMode) return;
+    if (typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
+    setDarkMode(mode);
+  };
+
+  var toggleDarkMode = function toggleDarkMode(mode) {
+    mode = mode || (darkMode === "light" ? "dark" : "light");
+
+    if (mode === "dark") {
+      setMode("dark");
+    } else {
+      setMode("light");
+    }
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _window;
+
+    var localTheme = typeof window !== "undefined" && window.localStorage.getItem(KEY);
+
+    if (localTheme) {
+      setDarkMode(localTheme || "light");
+    } else if (typeof window !== "undefined" && (_window = window) !== null && _window !== void 0 && _window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setDarkMode("dark");
+    } else {
+      setDarkMode("light");
+    }
+
+    setMounted(true);
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default.Provider */ .Z.Provider, {
+    value: {
+      darkMode: darkMode,
+      toggleDarkMode: toggleDarkMode,
+      darkModeMounted: darkModeMounted
+    }
+  }, children);
+}
 
 /***/ }),
 
@@ -47417,7 +47432,7 @@ function useLocalStorage(key, initialValue) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8129);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(28142);
 /* harmony import */ var _components_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16845);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(52018);
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3390);
 /* harmony import */ var _components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(48245);
 /* harmony import */ var _useChange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(54774);
 
@@ -48464,7 +48479,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "onServiceWorkerUpdateReady": function() { return /* binding */ onServiceWorkerUpdateReady; },
 /* harmony export */   "wrapPageElement": function() { return /* binding */ wrapPageElement; }
 /* harmony export */ });
-/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(52018);
+/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3390);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
 var onRouteUpdate=function onRouteUpdate(_ref,options){var location=_ref.location;if(window.analytics)window.analytics.page();// try update on every internal navigation
@@ -50640,4 +50655,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-30a00e11d4f8178adf5e.js.map
+//# sourceMappingURL=app-b336f8454e5dd8ca3f32.js.map
