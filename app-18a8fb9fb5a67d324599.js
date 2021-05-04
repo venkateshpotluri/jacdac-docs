@@ -32692,10 +32692,9 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   _proto.allocRxBuffer = function allocRxBuffer() {
     var _this$numpixels = this.numpixels,
         numpixels = _this$numpixels === void 0 ? 0 : _this$numpixels,
-        _this$maxpixels = this.maxpixels,
-        maxpixels = _this$maxpixels === void 0 ? 0 : _this$maxpixels,
+        maxpixels = this.maxpixels,
         pxbuffer = this.pxbuffer;
-    if (numpixels > maxpixels) this.numPixels.setValues([this.maxpixels]);
+    if (maxpixels !== undefined && numpixels > maxpixels) this.numPixels.setValues([this.maxpixels]);
     var n = numpixels * 3; // don't need to prealloc here
 
     if (pxbuffer || n !== pxbuffer.length) this.pxbuffer = new Uint8Array(n);
@@ -32748,15 +32747,15 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   };
 
   _proto.limit_intensity = function limit_intensity() {
-    var numpixels = this.numpixels;
-    var requested_intensity = this.requested_intensity;
-    var maxpower = this.maxpower;
-    var pxbuffer = this.pxbuffer;
+    var numpixels = this.numpixels,
+        requested_intensity = this.requested_intensity,
+        maxpower = this.maxpower,
+        pxbuffer = this.pxbuffer;
     var n = numpixels * 3;
     var prev_intensity = this.intensity;
     var intensity = this.intensity;
     intensity += 1 + (intensity >> 5);
-    if (intensity > requested_intensity) intensity = requested_intensity;
+    if (requested_intensity !== undefined && intensity > requested_intensity) intensity = requested_intensity;
     var current_full = 0;
     var current = 0;
     var current_prev = 0;
@@ -33111,7 +33110,7 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   }, {
     key: "maxpower",
     get: function get() {
-      var _ref2 = this.maxPower.values() || [0],
+      var _ref2 = this.maxPower.values() || [200],
           r = _ref2[0];
 
       return r;
@@ -33119,32 +33118,32 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   }, {
     key: "maxpixels",
     get: function get() {
-      var _ref3 = this.maxPixels.values() || [0],
-          r = _ref3[0];
+      var _this$maxPixels$value = this.maxPixels.values(),
+          r = _this$maxPixels$value[0];
 
       return r;
     }
   }, {
     key: "numpixels",
     get: function get() {
-      var _ref4 = this.numPixels.values() || [0],
-          r = _ref4[0];
+      var _ref3 = this.numPixels.values() || [0],
+          r = _ref3[0];
 
       return r;
     }
   }, {
     key: "requested_intensity",
     get: function get() {
-      var _ref5 = this.brightness.values() || [0],
-          r = _ref5[0];
+      var _ref4 = this.brightness.values() || [0],
+          r = _ref4[0];
 
       return r;
     }
   }, {
     key: "intensity",
     get: function get() {
-      var _ref6 = this.actualBrightness.values() || [0],
-          r = _ref6[0];
+      var _ref5 = this.actualBrightness.values() || [0],
+          r = _ref5[0];
 
       return r;
     },
@@ -39624,7 +39623,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "6fe1e97a4d101adee8361bec660353719532b122";
+  var sha = "a54bb7d1309bd39cfccba2e3bdecc618b03c2f24";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50641,4 +50640,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-311277e74e88c66cce07.js.map
+//# sourceMappingURL=app-18a8fb9fb5a67d324599.js.map
