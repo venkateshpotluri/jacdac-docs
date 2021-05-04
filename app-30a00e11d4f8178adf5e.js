@@ -33118,32 +33118,32 @@ var LedPixelServer = /*#__PURE__*/function (_JDServiceServer) {
   }, {
     key: "maxpixels",
     get: function get() {
-      var _this$maxPixels$value = this.maxPixels.values(),
-          r = _this$maxPixels$value[0];
+      var _ref3 = this.maxPixels.values() || [],
+          r = _ref3[0];
 
       return r;
     }
   }, {
     key: "numpixels",
     get: function get() {
-      var _ref3 = this.numPixels.values() || [0],
-          r = _ref3[0];
+      var _ref4 = this.numPixels.values() || [0],
+          r = _ref4[0];
 
       return r;
     }
   }, {
     key: "requested_intensity",
     get: function get() {
-      var _ref4 = this.brightness.values() || [0],
-          r = _ref4[0];
+      var _ref5 = this.brightness.values() || [0],
+          r = _ref5[0];
 
       return r;
     }
   }, {
     key: "intensity",
     get: function get() {
-      var _ref5 = this.actualBrightness.values() || [0],
-          r = _ref5[0];
+      var _ref6 = this.actualBrightness.values() || [0],
+          r = _ref6[0];
 
       return r;
     },
@@ -39623,7 +39623,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "94b26469513516c1ed78b5787a941c3da0e170a0";
+  var sha = "4e7b2527ff7c8eb7d30c0a935623770c3075616b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50640,4 +50640,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-f974e46f5a1353cd7ea1.js.map
+//# sourceMappingURL=app-30a00e11d4f8178adf5e.js.map

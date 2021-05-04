@@ -1138,16 +1138,13 @@ function useServiceServer(service, createTwin) {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!provider && twin) {
-      console.log("set twin", {
-        twin: twin,
-        service: service
-      });
+      //console.log(`set twin`, { twin, service })
       twin.twin = service;
     }
 
     return function () {
       if (twin) {
-        console.log("clean twin", twin);
+        //console.log(`clean twin`, twin)
         twin.twin = undefined;
       }
     };
@@ -1643,4 +1640,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-bbbd6bc1f850d6d22c0e.js.map
+//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-c5d559b230e7d2112f5a.js.map
