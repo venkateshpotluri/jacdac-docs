@@ -2483,7 +2483,9 @@ function DeviceTreeItem(props) {
       device: device,
       showReset: true
     })
-  }, services === null || services === void 0 ? void 0 : services.map(function (service) {
+  }, /*#__PURE__*/react.createElement(AnnounceFlagsTreeItem, {
+    device: device
+  }), services === null || services === void 0 ? void 0 : services.map(function (service) {
     return /*#__PURE__*/react.createElement(ServiceTreeItem, Object.assign({
       key: service.id,
       service: service,
@@ -2492,6 +2494,20 @@ function DeviceTreeItem(props) {
       checkboxes: checkboxes
     }, other));
   }));
+}
+
+function AnnounceFlagsTreeItem(props) {
+  var device = props.device;
+  var announceFlags = device.announceFlags,
+      id = device.id;
+  var text = [announceFlags & constants/* ControlAnnounceFlags.IsClient */.P99.IsClient && "client", announceFlags & constants/* ControlAnnounceFlags.SupportsACK */.P99.SupportsACK && "acks", announceFlags & constants/* ControlAnnounceFlags.SupportsBroadcast */.P99.SupportsBroadcast && "broadcast", announceFlags & constants/* ControlAnnounceFlags.SupportsFrames */.P99.SupportsFrames && "frames", (announceFlags & constants/* ControlAnnounceFlags.StatusLightRgbFade */.P99.StatusLightRgbFade) === constants/* ControlAnnounceFlags.StatusLightMono */.P99.StatusLightMono && "mono status LED", (announceFlags & constants/* ControlAnnounceFlags.StatusLightRgbFade */.P99.StatusLightRgbFade) === constants/* ControlAnnounceFlags.StatusLightRgbNoFade */.P99.StatusLightRgbNoFade && "rgb no fade status LED", (announceFlags & constants/* ControlAnnounceFlags.StatusLightRgbFade */.P99.StatusLightRgbFade) === constants/* ControlAnnounceFlags.StatusLightRgbFade */.P99.StatusLightRgbFade && "rgb fade status LED"].filter(function (f) {
+    return !!f;
+  }).join(", ");
+  return /*#__PURE__*/react.createElement(StyledTreeItem, {
+    nodeId: id + ":flags",
+    labelText: text,
+    labelInfo: "0x" + announceFlags.toString(16)
+  });
 }
 
 function ServiceTreeItem(props) {
@@ -3008,4 +3024,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8788-00adce1db74f0c0928dc.js.map
+//# sourceMappingURL=8788-41e9c876fe7be5daaa3d.js.map
