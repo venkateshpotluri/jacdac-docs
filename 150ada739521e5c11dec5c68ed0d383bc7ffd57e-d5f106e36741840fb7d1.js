@@ -965,7 +965,7 @@ function MemberInput(props) {
       spellCheck: false,
       value: textValue,
       label: label,
-      inputProps: (_ref = {}, _ref["aria-label"] = label, _ref),
+      inputProps: (_ref = {}, _ref["aria-label"] = label, _ref["aria-readonly"] = disabled, _ref.readOnly = disabled, _ref),
       helperText: helperText,
       onChange: disabled ? undefined : handleChange,
       required: value === undefined,
@@ -973,8 +973,6 @@ function MemberInput(props) {
       type: "text"
     });
   } else {
-    var _ref2;
-
     // numbers or string or uintarrays
     if (isWidget) // we need min/max to support a slider
       return /*#__PURE__*/react.createElement(ValueWithUnitWidget, {
@@ -989,7 +987,11 @@ function MemberInput(props) {
       spellCheck: false,
       value: textValue,
       label: label,
-      inputProps: (_ref2 = {}, _ref2["aria-label"] = label, _ref2.readOnly = disabled, _ref2),
+      inputProps: {
+        "aria-label": label,
+        "aria-readonly": disabled,
+        readOnly: disabled
+      },
       helperText: helperText,
       onChange: disabled ? undefined : handleChange,
       required: value === undefined,
@@ -1638,4 +1640,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-b4a42b8921c651429da2.js.map
+//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-d5f106e36741840fb7d1.js.map

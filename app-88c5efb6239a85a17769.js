@@ -39543,7 +39543,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "cff814048ba3fb4a2f6e08655f52d68a38371c15";
+  var sha = "50d31d7920d533f16ac17df7a4eb9ff1fd478316";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46789,8 +46789,7 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
   };
 
   _proto.handleDriverMessage = function handleDriverMessage(msg) {
-    console.log("pxt message", msg);
-
+    //console.log("pxt message", msg)
     switch (msg.type) {
       case "run":
         {
@@ -46930,9 +46929,7 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
       if ((dependencies === null || dependencies === void 0 ? void 0 : dependencies.length) > 0) {
         // remove all needed extenions that are already in the dependencies
         extensions = extensions.filter(function (extension) {
-          console.log("check ext", {
-            extension: extension
-          });
+          //console.log(`check ext`, { extension })
           return dependencies.indexOf(extension) < 0;
         });
       }
@@ -50681,4 +50678,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b1bc8916ed9b6c8165dd.js.map
+//# sourceMappingURL=app-88c5efb6239a85a17769.js.map
