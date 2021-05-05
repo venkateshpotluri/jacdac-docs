@@ -39726,7 +39726,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8fca83afb7585eff37baf99d441a66ce7c484a97";
+  var sha = "e90705bb81fc698abfc4150a1f0f4b60b78c98e2";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -40146,11 +40146,6 @@ function ui_Breadcrumbs_Breadcrumbs(props) {
   var parts = pathname.split(/\//g).filter(function (p) {
     return !!p;
   });
-  console.log({
-    location: location,
-    pathname: pathname,
-    parts: parts
-  });
   if (!parts.length) return null;
   return /*#__PURE__*/react.createElement(Breadcrumbs_Breadcrumbs, {
     "aria-label": "breadcrumb"
@@ -40475,20 +40470,24 @@ function LayoutWithContext(props) {
   var container = !medium && !/^\/(tools\/|dashboard)/.test(path);
   var mainClasses = (0,clsx_m/* default */.Z)(classes.content, (_clsx2 = {}, _clsx2[classes.contentShift] = drawerOpen, _clsx2[classes.toolsContentShift] = toolsMenu, _clsx2));
 
+  var InnerMainSection = function InnerMainSection() {
+    return /*#__PURE__*/react.createElement(react.Fragment, null, !hideUnderConstruction && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+      closeable: true,
+      severity: "warning"
+    }, "UNDER CONSTRUCTION - We are still working and changing the Jacdac specification. Do not build devices using Jacdac."), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(WebDiagnostics, null)), container && location && /*#__PURE__*/react.createElement(ui_Breadcrumbs_Breadcrumbs, {
+      location: location
+    }), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+      className: "markdown",
+      component: "span"
+    }, element));
+  };
+
   var MainSection = function MainSection() {
     return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("main", {
       className: classes.mainContent
     }, /*#__PURE__*/react.createElement("div", {
       className: classes.drawerHeader
-    }), location && /*#__PURE__*/react.createElement(ui_Breadcrumbs_Breadcrumbs, {
-      location: location
-    }), !hideUnderConstruction && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-      closeable: true,
-      severity: "warning"
-    }, "UNDER CONSTRUCTION - We are still working and changing the Jacdac specification. Do not build devices using Jacdac."), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(WebDiagnostics, null)), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-      className: "markdown",
-      component: "span"
-    }, container ? /*#__PURE__*/react.createElement(Container_Container, null, element) : element)), /*#__PURE__*/react.createElement(Footer, null));
+    }), container ? /*#__PURE__*/react.createElement(Container_Container, null, /*#__PURE__*/react.createElement(InnerMainSection, null)) : /*#__PURE__*/react.createElement(InnerMainSection, null)), /*#__PURE__*/react.createElement(Footer, null));
   };
 
   return /*#__PURE__*/react.createElement("div", {
@@ -51099,4 +51098,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3b32d9b3df6b05c2c5aa.js.map
+//# sourceMappingURL=app-8bb595c5d727db311db1.js.map
