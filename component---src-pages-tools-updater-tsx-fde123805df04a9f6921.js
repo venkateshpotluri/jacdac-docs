@@ -1373,7 +1373,7 @@ var useMounted = __webpack_require__(81888);
 function FlashDeviceButton(props) {
   var device = props.device,
       blob = props.blob,
-      ignoreFirmwareInfoCheck = props.ignoreFirmwareInfoCheck;
+      ignoreFirmwareCheck = props.ignoreFirmwareCheck;
 
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
@@ -1388,9 +1388,9 @@ function FlashDeviceButton(props) {
   var firmwareInfo = (0,useChange/* default */.Z)(device, function (d) {
     return d === null || d === void 0 ? void 0 : d.firmwareInfo;
   });
-  var update = ignoreFirmwareInfoCheck || (blob === null || blob === void 0 ? void 0 : blob.version) && (firmwareInfo === null || firmwareInfo === void 0 ? void 0 : firmwareInfo.version) && (0,jdom_flashing/* updateApplicable */.Kl)(firmwareInfo, blob);
+  var update = ignoreFirmwareCheck || (blob === null || blob === void 0 ? void 0 : blob.version) && (firmwareInfo === null || firmwareInfo === void 0 ? void 0 : firmwareInfo.version) && (0,jdom_flashing/* updateApplicable */.Kl)(firmwareInfo, blob);
   var flashing = (0,useChange/* default */.Z)(device, function (d) {
-    return d.flashing;
+    return !!(d !== null && d !== void 0 && d.flashing);
   });
   var missing = !device || !blob;
   var disabled = flashing;
@@ -1417,7 +1417,7 @@ function FlashDeviceButton(props) {
 
               updateCandidates = [firmwareInfo];
               _context.next = 8;
-              return (0,jdom_flashing/* flashFirmwareBlob */.oN)(bus, blob, updateCandidates, function (prog) {
+              return (0,jdom_flashing/* flashFirmwareBlob */.oN)(bus, blob, updateCandidates, ignoreFirmwareCheck, function (prog) {
                 if (mounted()) setProgress(prog);
               });
 
@@ -1742,6 +1742,9 @@ function ManualFirmware() {
     ignoreSimulators: true
   });
   var firmwares = (0,useFirmwareBlobs/* default */.Z)();
+  var stores = (0,utils/* unique */.Tw)(firmwares.map(function (fw) {
+    return fw.store;
+  }));
 
   var _useState = (0,react.useState)(devices === null || devices === void 0 ? void 0 : (_devices$ = devices[0]) === null || _devices$ === void 0 ? void 0 : _devices$.id),
       deviceId = _useState[0],
@@ -1751,11 +1754,18 @@ function ManualFirmware() {
       firmwareId = _useState2[0],
       setFirmwareId = _useState2[1];
 
-  var devSpecs = (0,spec/* deviceSpecifications */.qx)();
+  var _useState3 = (0,react.useState)((stores === null || stores === void 0 ? void 0 : stores[0]) || ""),
+      store = _useState3[0],
+      setStore = _useState3[1];
 
   var handleDeviceChange = function handleDeviceChange(ev) {
     var id = ev.target.value;
     setDeviceId(id);
+  };
+
+  var handleStoreChange = function handleStoreChange(ev) {
+    var store = ev.target.value;
+    setStore(store);
   };
 
   var handleFirmwareChange = function handleFirmwareChange(ev) {
@@ -1787,37 +1797,50 @@ function ManualFirmware() {
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    direction: "row",
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
   }, /*#__PURE__*/react.createElement(SelectWithLabel/* default */.Z, {
     helperText: "choose a firmware",
+    value: store,
+    onChange: handleStoreChange
+  }, stores === null || stores === void 0 ? void 0 : stores.map(function (store) {
+    return /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
+      key: store,
+      value: store
+    }, store);
+  }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(SelectWithLabel/* default */.Z, {
+    helperText: "choose a module",
     value: firmwareId,
     onChange: handleFirmwareChange
-  }, firmwares === null || firmwares === void 0 ? void 0 : firmwares.map(function (fw) {
-    var _devSpecs$find;
-
+  }, firmwares === null || firmwares === void 0 ? void 0 : firmwares.filter(function (fw) {
+    return fw.store === store;
+  }).map(function (fw) {
     return /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
       key: fwid(fw),
       value: fwid(fw)
-    }, "0x" + fw.firmwareIdentifier.toString(16), ", \xA0", (_devSpecs$find = devSpecs.find(function (ds) {
-      var _ds$firmwares;
-
-      return ((_ds$firmwares = ds.firmwares) === null || _ds$firmwares === void 0 ? void 0 : _ds$firmwares.indexOf(fw.firmwareIdentifier)) > -1;
-    })) === null || _devSpecs$find === void 0 ? void 0 : _devSpecs$find.name, fw.version, ", \xA0", /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    }, fw.name, " \xA0", /*#__PURE__*/react.createElement(Typography/* default */.Z, {
       variant: "caption"
-    }, fw.store));
-  }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    }, fw.version, ", \xA0", "0x" + fw.firmwareIdentifier.toString(16)));
+  }))))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(FlashDeviceButton, {
     device: device,
     blob: blob,
-    ignoreFirmwareInfoCheck: true
+    ignoreFirmwareCheck: true
   })));
 }
 
 function ManualFirmwareAlert() {
-  var _useState3 = (0,react.useState)(false),
-      enabled = _useState3[0],
-      setEnabled = _useState3[1];
+  var _useState4 = (0,react.useState)(false),
+      enabled = _useState4[0],
+      setEnabled = _useState4[1];
 
   var handleToggle = /*#__PURE__*/function () {
     var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
@@ -1906,4 +1929,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-updater-tsx-d3cc76fd92cbb6194efd.js.map
+//# sourceMappingURL=component---src-pages-tools-updater-tsx-fde123805df04a9f6921.js.map

@@ -26910,7 +26910,7 @@ function computeUpdates(devices, blobs) {
     return !!r;
   });
 }
-function flashFirmwareBlob(_x13, _x14, _x15, _x16) {
+function flashFirmwareBlob(_x13, _x14, _x15, _x16, _x17) {
   return _flashFirmwareBlob2.apply(this, arguments);
 }
 /**
@@ -26919,8 +26919,8 @@ function flashFirmwareBlob(_x13, _x14, _x15, _x16) {
  */
 
 function _flashFirmwareBlob2() {
-  _flashFirmwareBlob2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10(bus, blob, updateCandidates, progress) {
-    var _iterator11, _step11, d, device, flashers;
+  _flashFirmwareBlob2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10(bus, blob, updateCandidates, ignoreFirmwareCheck, progress) {
+    var _iterator11, _step11, d, device, allFlashers, flashers;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
       while (1) {
@@ -26959,33 +26959,38 @@ function _flashFirmwareBlob2() {
             return scanCore(bus, 10, true, true);
 
           case 15:
-            flashers = _context10.sent.flashers.filter(function (f) {
-              return f.dev_class == blob.firmwareIdentifier;
+            allFlashers = _context10.sent.flashers;
+            flashers = allFlashers.filter(function (f) {
+              return !!ignoreFirmwareCheck || f.dev_class == blob.firmwareIdentifier;
+            });
+            console.log({
+              allFlashers: allFlashers,
+              flashers: flashers
             });
 
             if (flashers.length) {
-              _context10.next = 18;
+              _context10.next = 20;
               break;
             }
 
             throw new Error("no devices to flash");
 
-          case 18:
+          case 20:
             if (!(flashers.length != updateCandidates.length)) {
-              _context10.next = 21;
+              _context10.next = 23;
               break;
             }
 
             console.log(flashers, blob);
             throw new Error("expected " + updateCandidates.length + " flashers, got " + flashers.length);
 
-          case 21:
+          case 23:
             flashers[0].classClients = flashers;
             log("flashing " + blob.name);
-            _context10.next = 25;
+            _context10.next = 27;
             return flashers[0].flashFirmwareBlob(blob, progress);
 
-          case 25:
+          case 27:
           case "end":
             return _context10.stop();
         }
@@ -26995,7 +27000,7 @@ function _flashFirmwareBlob2() {
   return _flashFirmwareBlob2.apply(this, arguments);
 }
 
-function sendStayInBootloaderCommand(_x17) {
+function sendStayInBootloaderCommand(_x18) {
   return _sendStayInBootloaderCommand.apply(this, arguments);
 }
 
@@ -39538,7 +39543,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "5d104f612acd9e4f4c9bcad9282a828a5417e847";
+  var sha = "b16c3f3da2cc4e80c0aaf19230a463d25f37c823";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -50676,4 +50681,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c690c92cdb4eeb21a34e.js.map
+//# sourceMappingURL=app-2854e08480869c2abef5.js.map
