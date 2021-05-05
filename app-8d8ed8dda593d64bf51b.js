@@ -39726,7 +39726,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "4d10fbf28c72c0be1bbd9a124f0d3ce56400b186";
+  var sha = "44e52d25978abdb7225e679de24466bb25a4e5ad";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46878,7 +46878,7 @@ function isWebBluetoothEnabled() {
 }
 function isWebBluetoothSupported() {
   try {
-    return typeof navigator !== "undefined" && !!navigator.bluetooth && !!navigator.bluetooth.getDevices;
+    return typeof navigator !== "undefined" && !!navigator.bluetooth && !!navigator.bluetooth.requestDevice;
   } catch (e) {
     return false;
   }
@@ -51099,4 +51099,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-be0a24fda07724303f7b.js.map
+//# sourceMappingURL=app-8d8ed8dda593d64bf51b.js.map
