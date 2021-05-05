@@ -1620,6 +1620,12 @@ function SettingsCard(props) {
     };
   }();
 
+  var secrets = values === null || values === void 0 ? void 0 : values.filter(function (value) {
+    return value.key[0] === "$";
+  });
+  var publics = values === null || values === void 0 ? void 0 : values.filter(function (value) {
+    return value.key[0] !== "$";
+  });
   if (!client) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null); // wait till loaded
 
   return /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(DeviceCardHeader/* default */.Z, {
@@ -1628,7 +1634,13 @@ function SettingsCard(props) {
   }), /*#__PURE__*/react.createElement(CardContent/* default */.Z, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     spacing: 2
-  }, values === null || values === void 0 ? void 0 : values.map(function (_ref4) {
+  }, mutable && /*#__PURE__*/react.createElement(AddSettingRow, {
+    client: client,
+    key: "add"
+  }), !!(publics !== null && publics !== void 0 && publics.length) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, "Settings"), publics === null || publics === void 0 ? void 0 : publics.map(function (_ref4) {
     var key = _ref4.key,
         value = _ref4.value;
     return /*#__PURE__*/react.createElement(SettingRow, {
@@ -1638,9 +1650,19 @@ function SettingsCard(props) {
       client: client,
       mutable: mutable
     });
-  }), mutable && /*#__PURE__*/react.createElement(AddSettingRow, {
-    client: client,
-    key: "add"
+  }), !!(secrets !== null && secrets !== void 0 && secrets.length) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, "Secrets"), secrets === null || secrets === void 0 ? void 0 : secrets.map(function (_ref5) {
+    var key = _ref5.key,
+        value = _ref5.value;
+    return /*#__PURE__*/react.createElement(SettingRow, {
+      key: key,
+      name: key,
+      value: value,
+      client: client,
+      mutable: mutable
+    });
   }))), mutable && /*#__PURE__*/react.createElement(CardActions/* default */.Z, null, /*#__PURE__*/react.createElement(CmdButton/* default */.Z, {
     trackName: "settings.clearall",
     title: "Clear all settings",
@@ -1698,4 +1720,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-settings-tsx-8a9ef1fc9863b6578f5f.js.map
+//# sourceMappingURL=component---src-pages-tools-settings-tsx-368fd8c86820fef2fb84.js.map
