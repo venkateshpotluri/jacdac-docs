@@ -779,7 +779,7 @@ function AppDrawer(props) {
       searchQuery = _useContext.searchQuery;
 
   var open = drawerType !== AppContext/* DrawerType.None */.jw.None;
-  var showSearchResults = !!searchQuery;
+  var showSearchResults = drawerType === AppContext/* DrawerType.Toc */.jw.Toc && !!searchQuery;
 
   var handleDrawerClose = function handleDrawerClose() {
     setDrawerType(AppContext/* DrawerType.None */.jw.None);
@@ -816,4 +816,4 @@ function AppDrawer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-54e2385eee15924ce774.js.map
+//# sourceMappingURL=8729-a8b7bc74cd8492c9d817.js.map
