@@ -620,7 +620,8 @@ function DeviceCardHeader(props) {
       showTemperature = props.showTemperature,
       showMedia = props.showMedia,
       showDeviceId = props.showDeviceId,
-      showAvatar = props.showAvatar;
+      showAvatar = props.showAvatar,
+      showSettings = props.showSettings;
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
   return /*#__PURE__*/react.createElement(react.Fragment, null, showMedia && /*#__PURE__*/react.createElement(DeviceCardMedia, {
     device: device
@@ -630,7 +631,8 @@ function DeviceCardHeader(props) {
     }),
     action: /*#__PURE__*/react.createElement(DeviceActions/* default */.Z, {
       device: device,
-      showReset: true
+      showReset: true,
+      showSettings: showSettings
     }),
     title: /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
       color: "textPrimary",
@@ -2249,4 +2251,4 @@ function ModelUploader() {
 /***/ })
 
 }]);
-//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-f688e9e048f95c29aa42.js.map
+//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-022787b79271a8978144.js.map

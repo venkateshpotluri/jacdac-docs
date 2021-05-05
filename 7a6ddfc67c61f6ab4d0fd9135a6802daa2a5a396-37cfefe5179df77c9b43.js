@@ -692,7 +692,7 @@ var node = __webpack_require__(60154);
 
 
 
-var ignoredServices = [constants/* SRV_CTRL */.CRz, constants/* SRV_LOGGER */.w9j];
+var ignoredServices = [constants/* SRV_CTRL */.CRz, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b];
 function DashboardDevice(props) {
   var device = props.device,
       expanded = props.expanded,
@@ -758,7 +758,8 @@ function DashboardDevice(props) {
       device: device,
       showStop: expanded,
       hideIdentity: !expanded,
-      showReset: expanded && !mobile
+      showReset: expanded && !mobile,
+      showSettings: expanded && !mobile
     }, toggleExpanded && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
       onClick: toggleExpanded,
       title: expanded ? "Collapse" : "Expand"
@@ -973,4 +974,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-18629ed62b216837ff32.js.map
+//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-37cfefe5179df77c9b43.js.map

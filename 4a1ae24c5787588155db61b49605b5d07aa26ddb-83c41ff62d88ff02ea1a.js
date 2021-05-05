@@ -504,7 +504,7 @@ var node = __webpack_require__(60154);
 
 
 
-var ignoredServices = [constants/* SRV_CTRL */.CRz, constants/* SRV_LOGGER */.w9j];
+var ignoredServices = [constants/* SRV_CTRL */.CRz, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b];
 function DashboardDevice(props) {
   var device = props.device,
       expanded = props.expanded,
@@ -570,7 +570,8 @@ function DashboardDevice(props) {
       device: device,
       showStop: expanded,
       hideIdentity: !expanded,
-      showReset: expanded && !mobile
+      showReset: expanded && !mobile,
+      showSettings: expanded && !mobile
     }, toggleExpanded && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
       onClick: toggleExpanded,
       title: expanded ? "Collapse" : "Expand"
@@ -714,4 +715,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-c10242e53422b1780598.js.map
+//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-83c41ff62d88ff02ea1a.js.map
