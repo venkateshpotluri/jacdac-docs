@@ -756,9 +756,6 @@ function useServiceRole(service) {
 
   (0,react.useEffect)(function () {
     return service === null || service === void 0 ? void 0 : service.subscribe(constants/* ROLE_CHANGE */.X5h, function () {
-      console.log("role change", {
-        service: service
-      });
       setRole(service.role);
     });
   }, [service]);
@@ -2708,4 +2705,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-895846f5491fb5314623.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-61d75c1d35721e27474a.js.map

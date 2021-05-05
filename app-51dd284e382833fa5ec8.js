@@ -39726,7 +39726,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "e90705bb81fc698abfc4150a1f0f4b60b78c98e2";
+  var sha = "81333eef7b4a9ce24ff5c51f5a54f495bb67ded6";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -45263,7 +45263,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 while (ptr < buf.length) {
                   if (buf[ptr] == 10 || buf[ptr] == 13) {
                     line = buf.slice(beg, ptr);
-                    if (line.length) console.log("SERIAL: " + (0,utils/* fromUTF8 */.W_)((0,utils/* uint8ArrayToString */.DA)(line)));
+                    if (line.length) console.debug("microbit: " + (0,utils/* fromUTF8 */.W_)((0,utils/* uint8ArrayToString */.DA)(line)));
                     beg = ptr + 1;
                   }
 
@@ -51098,4 +51098,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-8bb595c5d727db311db1.js.map
+//# sourceMappingURL=app-51dd284e382833fa5ec8.js.map
