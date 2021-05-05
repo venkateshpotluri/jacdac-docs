@@ -39543,7 +39543,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "413616e379eadbc66e84db05d4bd7f1f97d6454c";
+  var sha = "a095eace81119bfcd9917d6be30b95a1e5db41ab";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -39791,6 +39791,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+
 var WebDiagnostics = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6521).then(__webpack_require__.bind(__webpack_require__, 6521));
 });
@@ -40002,7 +40003,12 @@ function MainAppBar(props) {
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     component: "h1",
     variant: "h6"
-  }, "Jacdac", " ", pageTitle && pageTitle !== "Jacdac" && "/ " + pageTitle)), /*#__PURE__*/react.createElement("div", {
+  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+    style: {
+      color: "white"
+    },
+    to: "/"
+  }, "Jacdac"), " ", pageTitle && pageTitle !== "Jacdac" && "/ " + pageTitle)), /*#__PURE__*/react.createElement("div", {
     className: classes.grow
   }), /*#__PURE__*/react.createElement(PacketStats, null), /*#__PURE__*/react.createElement(OpenDashboardButton, {
     className: (0,clsx_m/* default */.Z)(classes.menuButton)
@@ -50678,4 +50684,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-22abb94d303f04d49d56.js.map
+//# sourceMappingURL=app-863337f2681173543d73.js.map
