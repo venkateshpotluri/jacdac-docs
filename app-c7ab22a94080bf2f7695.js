@@ -39726,7 +39726,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "11ab43b8117d4143f7f25a2bf105504212a2681f";
+  var sha = "d4172b7c042122e7c409f54528830750ed07be35";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46771,15 +46771,52 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
           break;
         }
+
+      case "error":
+        {
+          var _error = data.error;
+          console.error(_error);
+          this.handleError();
+          break;
+        }
     }
   };
 
-  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
-    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(p) {
-      var buf;
+  _proto.handleError = /*#__PURE__*/function () {
+    var _handleError = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
+            case 0:
+              console.debug("webusb: error, reconnect...");
+              _context.next = 3;
+              return this.disconnect();
+
+            case 3:
+              _context.next = 5;
+              return this.connect(true);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function handleError() {
+      return _handleError.apply(this, arguments);
+    }
+
+    return handleError;
+  }();
+
+  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
+    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(p) {
+      var buf;
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               // don't wait
               buf = p.toBuffer();
@@ -46790,10 +46827,10 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 2:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, this);
+      }, _callee2, this);
     }));
 
     function transportSendPacketAsync(_x) {
@@ -46804,25 +46841,25 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
   }();
 
   _proto.transportConnectAsync = /*#__PURE__*/function () {
-    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(background) {
+    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(background) {
       var deviceId;
-      return regenerator_default().wrap(function _callee2$(_context2) {
+      return regenerator_default().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               if (background) {
-                _context2.next = 4;
+                _context3.next = 4;
                 break;
               }
 
-              _context2.next = 3;
+              _context3.next = 3;
               return this.options.requestDevice();
 
             case 3:
-              deviceId = _context2.sent;
+              deviceId = _context3.sent;
 
             case 4:
-              _context2.next = 6;
+              _context3.next = 6;
               return this.postMessageAsync({
                 type: "connect",
                 deviceId: deviceId,
@@ -46831,10 +46868,10 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 6:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee3, this);
     }));
 
     function transportConnectAsync(_x2) {
@@ -51099,4 +51136,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b0f1ff840d0c3cd8fa79.js.map
+//# sourceMappingURL=app-c7ab22a94080bf2f7695.js.map
