@@ -963,7 +963,7 @@ var node = __webpack_require__(60154);
 
 
 
-var ignoredServices = [constants/* SRV_CTRL */.CRz, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b];
+var ignoredServices = [constants/* SRV_CTRL */.CRz, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b, constants/* SRV_PROTO_TEST */.$Bn];
 function DashboardDevice(props) {
   var device = props.device,
       expanded = props.expanded,
@@ -2705,4 +2705,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-61d75c1d35721e27474a.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-c9151f3e713f24277b12.js.map
