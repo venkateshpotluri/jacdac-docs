@@ -760,7 +760,7 @@ function StatusAlert(props) {
   switch (specification === null || specification === void 0 ? void 0 : specification.status) {
     case "deprecated":
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-        severity: "warning"
+        severity: "error"
       }, "Deprecated");
 
     case "experimental":
@@ -877,4 +877,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-tsx-c8145aa73e05a9c906ed.js.map
+//# sourceMappingURL=component---src-templates-service-tsx-b24c5051fafa89d21743.js.map
