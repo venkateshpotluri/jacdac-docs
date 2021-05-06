@@ -165,44 +165,29 @@ function RegisterInput(props) {
             case 2:
               _context.prev = 2;
               setWorking(true);
-
-              if (!server) {
-                _context.next = 10;
-                break;
-              }
-
-              server.setValues(values);
-              _context.next = 8;
-              return register.refresh();
-
-            case 8:
-              _context.next = 12;
-              break;
-
-            case 10:
-              _context.next = 12;
+              _context.next = 6;
               return register.sendSetPackedAsync(specification.packFormat, values, true);
 
-            case 12:
-              _context.next = 17;
+            case 6:
+              _context.next = 11;
               break;
 
-            case 14:
-              _context.prev = 14;
+            case 8:
+              _context.prev = 8;
               _context.t0 = _context["catch"](2);
               setAppError(_context.t0);
 
-            case 17:
-              _context.prev = 17;
+            case 11:
+              _context.prev = 11;
               setWorking(false);
-              return _context.finish(17);
+              return _context.finish(11);
 
-            case 20:
+            case 14:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 14, 17, 20]]);
+      }, _callee, null, [[2, 8, 11, 14]]);
     }));
 
     return function sendArgs(_x) {
@@ -1640,4 +1625,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-d5f106e36741840fb7d1.js.map
+//# sourceMappingURL=150ada739521e5c11dec5c68ed0d383bc7ffd57e-63b47e8a43808cb98ead.js.map
