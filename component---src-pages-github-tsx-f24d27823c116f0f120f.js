@@ -1122,7 +1122,9 @@ function GithubRepositoryList(props) {
 
 
 function Page() {
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h1", null, "GitHub Repositories"), /*#__PURE__*/react.createElement("p", null, "Jacdac is Open Source on GitHub. Here is a map to help you find the part you want:"), /*#__PURE__*/react.createElement("h2", null, "Specification"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h1", null, "GitHub Repositories"), /*#__PURE__*/react.createElement("p", null, "Jacdac is Open Source on GitHub. Here is a map to help you find the part you want:"), /*#__PURE__*/react.createElement("h2", null, "Discussions"), /*#__PURE__*/react.createElement("p", null, "Post your questions, bugs, suggestions on the centralized discussions at", " ", /*#__PURE__*/react.createElement("a", {
+    href: "https://github.com/microsoft/jacdac/discussions"
+  }, "https://github.com/microsoft/jacdac/discussions"), "."), /*#__PURE__*/react.createElement("h2", null, "Specification"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
     repos: ["microsoft/jacdac"],
     showDescription: true
   }), /*#__PURE__*/react.createElement("h2", null, "Module Development"), /*#__PURE__*/react.createElement("h3", null, "Schematics and C SDK"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
@@ -1140,20 +1142,20 @@ function Page() {
   }), /*#__PURE__*/react.createElement("h2", null, " Documentation"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
     repos: ["microsoft/jacdac-docs"],
     showDescription: true
-  }), /*#__PURE__*/react.createElement("h2", null, " Microsoft Open Source Code of Conduct"), /*#__PURE__*/react.createElement("p", null, "This project is hosted at ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  }), /*#__PURE__*/react.createElement("h2", null, " Microsoft Open Source Code of Conduct"), /*#__PURE__*/react.createElement("p", null, "This project is hosted at", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://github.com/microsoft/jacdac-docs"
-  }, "https://github.com/microsoft/jacdac-docs"), ". This project has adopted the ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  }, "https://github.com/microsoft/jacdac-docs"), ". This project has adopted the", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://opensource.microsoft.com/codeofconduct/"
   }, "Microsoft Open Source Code of Conduct"), "."), /*#__PURE__*/react.createElement("h3", null, "Resources"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://opensource.microsoft.com/codeofconduct/"
   }, "Microsoft Open Source Code of Conduct")), /*#__PURE__*/react.createElement("li", null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://opensource.microsoft.com/codeofconduct/faq/"
-  }, "Microsoft Code of Conduct FAQ")), /*#__PURE__*/react.createElement("li", null, "Contact ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  }, "Microsoft Code of Conduct FAQ")), /*#__PURE__*/react.createElement("li", null, "Contact", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "mailto:opencode@microsoft.com"
-  }, "opencode@microsoft.com"), " with questions or concerns")));
+  }, "opencode@microsoft.com"), " ", "with questions or concerns")));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-4fa3373be54e102512cd.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-f24d27823c116f0f120f.js.map
