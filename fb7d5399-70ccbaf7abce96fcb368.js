@@ -508,7 +508,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
  * Copyright 2010-2021 Three.js Authors
  * SPDX-License-Identifier: MIT
  */
-var REVISION = '127';
+var REVISION = '128';
 var MOUSE = {
   LEFT: 0,
   MIDDLE: 1,
@@ -718,57 +718,71 @@ var GLSL3 = '300 es';
  * https://github.com/mrdoob/eventdispatcher.js/
  */
 
-function EventDispatcher() {}
-
-Object.assign(EventDispatcher.prototype, {
-  addEventListener: function addEventListener(type, listener) {
-    if (this._listeners === undefined) this._listeners = {};
-    var listeners = this._listeners;
-
-    if (listeners[type] === undefined) {
-      listeners[type] = [];
-    }
-
-    if (listeners[type].indexOf(listener) === -1) {
-      listeners[type].push(listener);
-    }
-  },
-  hasEventListener: function hasEventListener(type, listener) {
-    if (this._listeners === undefined) return false;
-    var listeners = this._listeners;
-    return listeners[type] !== undefined && listeners[type].indexOf(listener) !== -1;
-  },
-  removeEventListener: function removeEventListener(type, listener) {
-    if (this._listeners === undefined) return;
-    var listeners = this._listeners;
-    var listenerArray = listeners[type];
-
-    if (listenerArray !== undefined) {
-      var index = listenerArray.indexOf(listener);
-
-      if (index !== -1) {
-        listenerArray.splice(index, 1);
-      }
-    }
-  },
-  dispatchEvent: function dispatchEvent(event) {
-    if (this._listeners === undefined) return;
-    var listeners = this._listeners;
-    var listenerArray = listeners[event.type];
-
-    if (listenerArray !== undefined) {
-      event.target = this; // Make a copy, in case listeners are removed while iterating.
-
-      var array = listenerArray.slice(0);
-
-      for (var i = 0, l = array.length; i < l; i++) {
-        array[i].call(this, event);
-      }
-
-      event.target = null;
-    }
+var EventDispatcher = /*#__PURE__*/function () {
+  function EventDispatcher() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, EventDispatcher);
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(EventDispatcher, [{
+    key: "addEventListener",
+    value: function addEventListener(type, listener) {
+      if (this._listeners === undefined) this._listeners = {};
+      var listeners = this._listeners;
+
+      if (listeners[type] === undefined) {
+        listeners[type] = [];
+      }
+
+      if (listeners[type].indexOf(listener) === -1) {
+        listeners[type].push(listener);
+      }
+    }
+  }, {
+    key: "hasEventListener",
+    value: function hasEventListener(type, listener) {
+      if (this._listeners === undefined) return false;
+      var listeners = this._listeners;
+      return listeners[type] !== undefined && listeners[type].indexOf(listener) !== -1;
+    }
+  }, {
+    key: "removeEventListener",
+    value: function removeEventListener(type, listener) {
+      if (this._listeners === undefined) return;
+      var listeners = this._listeners;
+      var listenerArray = listeners[type];
+
+      if (listenerArray !== undefined) {
+        var index = listenerArray.indexOf(listener);
+
+        if (index !== -1) {
+          listenerArray.splice(index, 1);
+        }
+      }
+    }
+  }, {
+    key: "dispatchEvent",
+    value: function dispatchEvent(event) {
+      if (this._listeners === undefined) return;
+      var listeners = this._listeners;
+      var listenerArray = listeners[event.type];
+
+      if (listenerArray !== undefined) {
+        event.target = this; // Make a copy, in case listeners are removed while iterating.
+
+        var array = listenerArray.slice(0);
+
+        for (var i = 0, l = array.length; i < l; i++) {
+          array[i].call(this, event);
+        }
+
+        event.target = null;
+      }
+    }
+  }]);
+
+  return EventDispatcher;
+}();
+
 var _lut = [];
 
 for (var i = 0; i < 256; i++) {
@@ -776,145 +790,188 @@ for (var i = 0; i < 256; i++) {
 }
 
 var _seed = 1234567;
-var MathUtils = {
-  DEG2RAD: Math.PI / 180,
-  RAD2DEG: 180 / Math.PI,
-  generateUUID: function generateUUID() {
-    // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
-    var d0 = Math.random() * 0xffffffff | 0;
-    var d1 = Math.random() * 0xffffffff | 0;
-    var d2 = Math.random() * 0xffffffff | 0;
-    var d3 = Math.random() * 0xffffffff | 0;
-    var uuid = _lut[d0 & 0xff] + _lut[d0 >> 8 & 0xff] + _lut[d0 >> 16 & 0xff] + _lut[d0 >> 24 & 0xff] + '-' + _lut[d1 & 0xff] + _lut[d1 >> 8 & 0xff] + '-' + _lut[d1 >> 16 & 0x0f | 0x40] + _lut[d1 >> 24 & 0xff] + '-' + _lut[d2 & 0x3f | 0x80] + _lut[d2 >> 8 & 0xff] + '-' + _lut[d2 >> 16 & 0xff] + _lut[d2 >> 24 & 0xff] + _lut[d3 & 0xff] + _lut[d3 >> 8 & 0xff] + _lut[d3 >> 16 & 0xff] + _lut[d3 >> 24 & 0xff]; // .toUpperCase() here flattens concatenated strings to save heap memory space.
+var DEG2RAD = Math.PI / 180;
+var RAD2DEG = 180 / Math.PI; // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
 
-    return uuid.toUpperCase();
-  },
-  clamp: function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
-  },
-  // compute euclidian modulo of m % n
-  // https://en.wikipedia.org/wiki/Modulo_operation
-  euclideanModulo: function euclideanModulo(n, m) {
-    return (n % m + m) % m;
-  },
-  // Linear mapping from range <a1, a2> to range <b1, b2>
-  mapLinear: function mapLinear(x, a1, a2, b1, b2) {
-    return b1 + (x - a1) * (b2 - b1) / (a2 - a1);
-  },
-  // https://www.gamedev.net/tutorials/programming/general-and-gameplay-programming/inverse-lerp-a-super-useful-yet-often-overlooked-function-r5230/
-  inverseLerp: function inverseLerp(x, y, value) {
-    if (x !== y) {
-      return (value - x) / (y - x);
-    } else {
-      return 0;
-    }
-  },
-  // https://en.wikipedia.org/wiki/Linear_interpolation
-  lerp: function lerp(x, y, t) {
-    return (1 - t) * x + t * y;
-  },
-  // http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
-  damp: function damp(x, y, lambda, dt) {
-    return MathUtils.lerp(x, y, 1 - Math.exp(-lambda * dt));
-  },
-  // https://www.desmos.com/calculator/vcsjnyz7x4
-  pingpong: function pingpong(x) {
-    var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-    return length - Math.abs(MathUtils.euclideanModulo(x, length * 2) - length);
-  },
-  // http://en.wikipedia.org/wiki/Smoothstep
-  smoothstep: function smoothstep(x, min, max) {
-    if (x <= min) return 0;
-    if (x >= max) return 1;
-    x = (x - min) / (max - min);
-    return x * x * (3 - 2 * x);
-  },
-  smootherstep: function smootherstep(x, min, max) {
-    if (x <= min) return 0;
-    if (x >= max) return 1;
-    x = (x - min) / (max - min);
-    return x * x * x * (x * (x * 6 - 15) + 10);
-  },
-  // Random integer from <low, high> interval
-  randInt: function randInt(low, high) {
-    return low + Math.floor(Math.random() * (high - low + 1));
-  },
-  // Random float from <low, high> interval
-  randFloat: function randFloat(low, high) {
-    return low + Math.random() * (high - low);
-  },
-  // Random float from <-range/2, range/2> interval
-  randFloatSpread: function randFloatSpread(range) {
-    return range * (0.5 - Math.random());
-  },
-  // Deterministic pseudo-random float in the interval [ 0, 1 ]
-  seededRandom: function seededRandom(s) {
-    if (s !== undefined) _seed = s % 2147483647; // Park-Miller algorithm
+function generateUUID() {
+  var d0 = Math.random() * 0xffffffff | 0;
+  var d1 = Math.random() * 0xffffffff | 0;
+  var d2 = Math.random() * 0xffffffff | 0;
+  var d3 = Math.random() * 0xffffffff | 0;
+  var uuid = _lut[d0 & 0xff] + _lut[d0 >> 8 & 0xff] + _lut[d0 >> 16 & 0xff] + _lut[d0 >> 24 & 0xff] + '-' + _lut[d1 & 0xff] + _lut[d1 >> 8 & 0xff] + '-' + _lut[d1 >> 16 & 0x0f | 0x40] + _lut[d1 >> 24 & 0xff] + '-' + _lut[d2 & 0x3f | 0x80] + _lut[d2 >> 8 & 0xff] + '-' + _lut[d2 >> 16 & 0xff] + _lut[d2 >> 24 & 0xff] + _lut[d3 & 0xff] + _lut[d3 >> 8 & 0xff] + _lut[d3 >> 16 & 0xff] + _lut[d3 >> 24 & 0xff]; // .toUpperCase() here flattens concatenated strings to save heap memory space.
 
-    _seed = _seed * 16807 % 2147483647;
-    return (_seed - 1) / 2147483646;
-  },
-  degToRad: function degToRad(degrees) {
-    return degrees * MathUtils.DEG2RAD;
-  },
-  radToDeg: function radToDeg(radians) {
-    return radians * MathUtils.RAD2DEG;
-  },
-  isPowerOfTwo: function isPowerOfTwo(value) {
-    return (value & value - 1) === 0 && value !== 0;
-  },
-  ceilPowerOfTwo: function ceilPowerOfTwo(value) {
-    return Math.pow(2, Math.ceil(Math.log(value) / Math.LN2));
-  },
-  floorPowerOfTwo: function floorPowerOfTwo(value) {
-    return Math.pow(2, Math.floor(Math.log(value) / Math.LN2));
-  },
-  setQuaternionFromProperEuler: function setQuaternionFromProperEuler(q, a, b, c, order) {
-    // Intrinsic Proper Euler Angles - see https://en.wikipedia.org/wiki/Euler_angles
-    // rotations are applied to the axes in the order specified by 'order'
-    // rotation by angle 'a' is applied first, then by angle 'b', then by angle 'c'
-    // angles are in radians
-    var cos = Math.cos;
-    var sin = Math.sin;
-    var c2 = cos(b / 2);
-    var s2 = sin(b / 2);
-    var c13 = cos((a + c) / 2);
-    var s13 = sin((a + c) / 2);
-    var c1_3 = cos((a - c) / 2);
-    var s1_3 = sin((a - c) / 2);
-    var c3_1 = cos((c - a) / 2);
-    var s3_1 = sin((c - a) / 2);
+  return uuid.toUpperCase();
+}
 
-    switch (order) {
-      case 'XYX':
-        q.set(c2 * s13, s2 * c1_3, s2 * s1_3, c2 * c13);
-        break;
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+} // compute euclidian modulo of m % n
+// https://en.wikipedia.org/wiki/Modulo_operation
 
-      case 'YZY':
-        q.set(s2 * s1_3, c2 * s13, s2 * c1_3, c2 * c13);
-        break;
 
-      case 'ZXZ':
-        q.set(s2 * c1_3, s2 * s1_3, c2 * s13, c2 * c13);
-        break;
+function euclideanModulo(n, m) {
+  return (n % m + m) % m;
+} // Linear mapping from range <a1, a2> to range <b1, b2>
 
-      case 'XZX':
-        q.set(c2 * s13, s2 * s3_1, s2 * c3_1, c2 * c13);
-        break;
 
-      case 'YXY':
-        q.set(s2 * c3_1, c2 * s13, s2 * s3_1, c2 * c13);
-        break;
+function mapLinear(x, a1, a2, b1, b2) {
+  return b1 + (x - a1) * (b2 - b1) / (a2 - a1);
+} // https://www.gamedev.net/tutorials/programming/general-and-gameplay-programming/inverse-lerp-a-super-useful-yet-often-overlooked-function-r5230/
 
-      case 'ZYZ':
-        q.set(s2 * s3_1, s2 * c3_1, c2 * s13, c2 * c13);
-        break;
 
-      default:
-        console.warn('THREE.MathUtils: .setQuaternionFromProperEuler() encountered an unknown order: ' + order);
-    }
+function inverseLerp(x, y, value) {
+  if (x !== y) {
+    return (value - x) / (y - x);
+  } else {
+    return 0;
   }
-};
+} // https://en.wikipedia.org/wiki/Linear_interpolation
+
+
+function lerp(x, y, t) {
+  return (1 - t) * x + t * y;
+} // http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
+
+
+function damp(x, y, lambda, dt) {
+  return lerp(x, y, 1 - Math.exp(-lambda * dt));
+} // https://www.desmos.com/calculator/vcsjnyz7x4
+
+
+function pingpong(x) {
+  var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  return length - Math.abs(euclideanModulo(x, length * 2) - length);
+} // http://en.wikipedia.org/wiki/Smoothstep
+
+
+function smoothstep(x, min, max) {
+  if (x <= min) return 0;
+  if (x >= max) return 1;
+  x = (x - min) / (max - min);
+  return x * x * (3 - 2 * x);
+}
+
+function smootherstep(x, min, max) {
+  if (x <= min) return 0;
+  if (x >= max) return 1;
+  x = (x - min) / (max - min);
+  return x * x * x * (x * (x * 6 - 15) + 10);
+} // Random integer from <low, high> interval
+
+
+function randInt(low, high) {
+  return low + Math.floor(Math.random() * (high - low + 1));
+} // Random float from <low, high> interval
+
+
+function randFloat(low, high) {
+  return low + Math.random() * (high - low);
+} // Random float from <-range/2, range/2> interval
+
+
+function randFloatSpread(range) {
+  return range * (0.5 - Math.random());
+} // Deterministic pseudo-random float in the interval [ 0, 1 ]
+
+
+function seededRandom(s) {
+  if (s !== undefined) _seed = s % 2147483647; // Park-Miller algorithm
+
+  _seed = _seed * 16807 % 2147483647;
+  return (_seed - 1) / 2147483646;
+}
+
+function degToRad(degrees) {
+  return degrees * DEG2RAD;
+}
+
+function radToDeg(radians) {
+  return radians * RAD2DEG;
+}
+
+function isPowerOfTwo(value) {
+  return (value & value - 1) === 0 && value !== 0;
+}
+
+function ceilPowerOfTwo(value) {
+  return Math.pow(2, Math.ceil(Math.log(value) / Math.LN2));
+}
+
+function floorPowerOfTwo(value) {
+  return Math.pow(2, Math.floor(Math.log(value) / Math.LN2));
+}
+
+function setQuaternionFromProperEuler(q, a, b, c, order) {
+  // Intrinsic Proper Euler Angles - see https://en.wikipedia.org/wiki/Euler_angles
+  // rotations are applied to the axes in the order specified by 'order'
+  // rotation by angle 'a' is applied first, then by angle 'b', then by angle 'c'
+  // angles are in radians
+  var cos = Math.cos;
+  var sin = Math.sin;
+  var c2 = cos(b / 2);
+  var s2 = sin(b / 2);
+  var c13 = cos((a + c) / 2);
+  var s13 = sin((a + c) / 2);
+  var c1_3 = cos((a - c) / 2);
+  var s1_3 = sin((a - c) / 2);
+  var c3_1 = cos((c - a) / 2);
+  var s3_1 = sin((c - a) / 2);
+
+  switch (order) {
+    case 'XYX':
+      q.set(c2 * s13, s2 * c1_3, s2 * s1_3, c2 * c13);
+      break;
+
+    case 'YZY':
+      q.set(s2 * s1_3, c2 * s13, s2 * c1_3, c2 * c13);
+      break;
+
+    case 'ZXZ':
+      q.set(s2 * c1_3, s2 * s1_3, c2 * s13, c2 * c13);
+      break;
+
+    case 'XZX':
+      q.set(c2 * s13, s2 * s3_1, s2 * c3_1, c2 * c13);
+      break;
+
+    case 'YXY':
+      q.set(s2 * c3_1, c2 * s13, s2 * s3_1, c2 * c13);
+      break;
+
+    case 'ZYZ':
+      q.set(s2 * s3_1, s2 * c3_1, c2 * s13, c2 * c13);
+      break;
+
+    default:
+      console.warn('THREE.MathUtils: .setQuaternionFromProperEuler() encountered an unknown order: ' + order);
+  }
+}
+
+var MathUtils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  DEG2RAD: DEG2RAD,
+  RAD2DEG: RAD2DEG,
+  generateUUID: generateUUID,
+  clamp: clamp,
+  euclideanModulo: euclideanModulo,
+  mapLinear: mapLinear,
+  inverseLerp: inverseLerp,
+  lerp: lerp,
+  damp: damp,
+  pingpong: pingpong,
+  smoothstep: smoothstep,
+  smootherstep: smootherstep,
+  randInt: randInt,
+  randFloat: randFloat,
+  randFloatSpread: randFloatSpread,
+  seededRandom: seededRandom,
+  degToRad: degToRad,
+  radToDeg: radToDeg,
+  isPowerOfTwo: isPowerOfTwo,
+  ceilPowerOfTwo: ceilPowerOfTwo,
+  floorPowerOfTwo: floorPowerOfTwo,
+  setQuaternionFromProperEuler: setQuaternionFromProperEuler
+});
 
 var Vector2 = /*#__PURE__*/function () {
   function Vector2() {
@@ -1619,44 +1676,54 @@ Matrix3.prototype.isMatrix3 = true;
 
 var _canvas;
 
-var ImageUtils = {
-  getDataURL: function getDataURL(image) {
-    if (/^data:/i.test(image.src)) {
-      return image.src;
-    }
+var ImageUtils = /*#__PURE__*/function () {
+  function ImageUtils() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImageUtils);
+  }
 
-    if (typeof HTMLCanvasElement == 'undefined') {
-      return image.src;
-    }
-
-    var canvas;
-
-    if (image instanceof HTMLCanvasElement) {
-      canvas = image;
-    } else {
-      if (_canvas === undefined) _canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
-      _canvas.width = image.width;
-      _canvas.height = image.height;
-
-      var context = _canvas.getContext('2d');
-
-      if (image instanceof ImageData) {
-        context.putImageData(image, 0, 0);
-      } else {
-        context.drawImage(image, 0, 0, image.width, image.height);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ImageUtils, null, [{
+    key: "getDataURL",
+    value: function getDataURL(image) {
+      if (/^data:/i.test(image.src)) {
+        return image.src;
       }
 
-      canvas = _canvas;
-    }
+      if (typeof HTMLCanvasElement == 'undefined') {
+        return image.src;
+      }
 
-    if (canvas.width > 2048 || canvas.height > 2048) {
-      console.warn('THREE.ImageUtils.getDataURL: Image converted to jpg for performance reasons', image);
-      return canvas.toDataURL('image/jpeg', 0.6);
-    } else {
-      return canvas.toDataURL('image/png');
+      var canvas;
+
+      if (image instanceof HTMLCanvasElement) {
+        canvas = image;
+      } else {
+        if (_canvas === undefined) _canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
+        _canvas.width = image.width;
+        _canvas.height = image.height;
+
+        var context = _canvas.getContext('2d');
+
+        if (image instanceof ImageData) {
+          context.putImageData(image, 0, 0);
+        } else {
+          context.drawImage(image, 0, 0, image.width, image.height);
+        }
+
+        canvas = _canvas;
+      }
+
+      if (canvas.width > 2048 || canvas.height > 2048) {
+        console.warn('THREE.ImageUtils.getDataURL: Image converted to jpg for performance reasons', image);
+        return canvas.toDataURL('image/jpeg', 0.6);
+      } else {
+        return canvas.toDataURL('image/png');
+      }
     }
-  }
-};
+  }]);
+
+  return ImageUtils;
+}();
+
 var textureId = 0;
 
 var Texture = /*#__PURE__*/function (_EventDispatcher) {
@@ -1684,7 +1751,7 @@ var Texture = /*#__PURE__*/function (_EventDispatcher) {
     Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this2), 'id', {
       value: textureId++
     });
-    _this2.uuid = MathUtils.generateUUID();
+    _this2.uuid = generateUUID();
     _this2.name = '';
     _this2.image = image;
     _this2.mipmaps = [];
@@ -1795,7 +1862,7 @@ var Texture = /*#__PURE__*/function (_EventDispatcher) {
         var image = this.image;
 
         if (image.uuid === undefined) {
-          image.uuid = MathUtils.generateUUID(); // UGH
+          image.uuid = generateUUID(); // UGH
         }
 
         if (!isRootObject && meta.images[image.uuid] === undefined) {
@@ -2857,7 +2924,7 @@ var Quaternion = /*#__PURE__*/function () {
   }, {
     key: "angleTo",
     value: function angleTo(q) {
-      return 2 * Math.acos(Math.abs(MathUtils.clamp(this.dot(q), -1, 1)));
+      return 2 * Math.acos(Math.abs(clamp(this.dot(q), -1, 1)));
     }
   }, {
     key: "rotateTowards",
@@ -3642,7 +3709,7 @@ var Vector3 = /*#__PURE__*/function () {
       if (denominator === 0) return Math.PI / 2;
       var theta = this.dot(v) / denominator; // clamp, to handle numerical problems
 
-      return Math.acos(MathUtils.clamp(theta, -1, 1));
+      return Math.acos(clamp(theta, -1, 1));
     }
   }, {
     key: "distanceTo",
@@ -5697,8 +5764,7 @@ var Euler = /*#__PURE__*/function () {
   }, {
     key: "setFromRotationMatrix",
     value: function setFromRotationMatrix(m, order, update) {
-      var clamp = MathUtils.clamp; // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-
+      // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
       var te = m.elements;
       var m11 = te[0],
           m12 = te[4],
@@ -5922,25 +5988,25 @@ var Layers = /*#__PURE__*/function () {
 
 var _object3DId = 0;
 
-var _v1$4 = new Vector3();
+var _v1$4 = new /*@__PURE__*/Vector3();
 
-var _q1 = new Quaternion();
+var _q1 = new /*@__PURE__*/Quaternion();
 
-var _m1$1 = new Matrix4();
+var _m1$1 = new /*@__PURE__*/Matrix4();
 
-var _target = new Vector3();
+var _target = new /*@__PURE__*/Vector3();
 
-var _position$3 = new Vector3();
+var _position$3 = new /*@__PURE__*/Vector3();
 
-var _scale$2 = new Vector3();
+var _scale$2 = new /*@__PURE__*/Vector3();
 
-var _quaternion$2 = new Quaternion();
+var _quaternion$2 = new /*@__PURE__*/Quaternion();
 
-var _xAxis = new Vector3(1, 0, 0);
+var _xAxis = new /*@__PURE__*/Vector3(1, 0, 0);
 
-var _yAxis = new Vector3(0, 1, 0);
+var _yAxis = new /*@__PURE__*/Vector3(0, 1, 0);
 
-var _zAxis = new Vector3(0, 0, 1);
+var _zAxis = new /*@__PURE__*/Vector3(0, 0, 1);
 
 var _addedEvent = {
   type: 'added'
@@ -5949,578 +6015,673 @@ var _removedEvent = {
   type: 'removed'
 };
 
-function Object3D() {
-  Object.defineProperty(this, 'id', {
-    value: _object3DId++
-  });
-  this.uuid = MathUtils.generateUUID();
-  this.name = '';
-  this.type = 'Object3D';
-  this.parent = null;
-  this.children = [];
-  this.up = Object3D.DefaultUp.clone();
-  var position = new Vector3();
-  var rotation = new Euler();
-  var quaternion = new Quaternion();
-  var scale = new Vector3(1, 1, 1);
+var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Object3D, _EventDispatcher3);
 
-  function onRotationChange() {
-    quaternion.setFromEuler(rotation, false);
+  var _super4 = _createSuper(Object3D);
+
+  function Object3D() {
+    var _this5;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Object3D);
+
+    _this5 = _super4.call(this);
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this5), 'id', {
+      value: _object3DId++
+    });
+    _this5.uuid = generateUUID();
+    _this5.name = '';
+    _this5.type = 'Object3D';
+    _this5.parent = null;
+    _this5.children = [];
+    _this5.up = Object3D.DefaultUp.clone();
+    var position = new Vector3();
+    var rotation = new Euler();
+    var quaternion = new Quaternion();
+    var scale = new Vector3(1, 1, 1);
+
+    function onRotationChange() {
+      quaternion.setFromEuler(rotation, false);
+    }
+
+    function onQuaternionChange() {
+      rotation.setFromQuaternion(quaternion, undefined, false);
+    }
+
+    rotation._onChange(onRotationChange);
+
+    quaternion._onChange(onQuaternionChange);
+
+    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this5), {
+      position: {
+        configurable: true,
+        enumerable: true,
+        value: position
+      },
+      rotation: {
+        configurable: true,
+        enumerable: true,
+        value: rotation
+      },
+      quaternion: {
+        configurable: true,
+        enumerable: true,
+        value: quaternion
+      },
+      scale: {
+        configurable: true,
+        enumerable: true,
+        value: scale
+      },
+      modelViewMatrix: {
+        value: new Matrix4()
+      },
+      normalMatrix: {
+        value: new Matrix3()
+      }
+    });
+    _this5.matrix = new Matrix4();
+    _this5.matrixWorld = new Matrix4();
+    _this5.matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate;
+    _this5.matrixWorldNeedsUpdate = false;
+    _this5.layers = new Layers();
+    _this5.visible = true;
+    _this5.castShadow = false;
+    _this5.receiveShadow = false;
+    _this5.frustumCulled = true;
+    _this5.renderOrder = 0;
+    _this5.animations = [];
+    _this5.userData = {};
+    return _this5;
   }
 
-  function onQuaternionChange() {
-    rotation.setFromQuaternion(quaternion, undefined, false);
-  }
-
-  rotation._onChange(onRotationChange);
-
-  quaternion._onChange(onQuaternionChange);
-
-  Object.defineProperties(this, {
-    position: {
-      configurable: true,
-      enumerable: true,
-      value: position
-    },
-    rotation: {
-      configurable: true,
-      enumerable: true,
-      value: rotation
-    },
-    quaternion: {
-      configurable: true,
-      enumerable: true,
-      value: quaternion
-    },
-    scale: {
-      configurable: true,
-      enumerable: true,
-      value: scale
-    },
-    modelViewMatrix: {
-      value: new Matrix4()
-    },
-    normalMatrix: {
-      value: new Matrix3()
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Object3D, [{
+    key: "onBeforeRender",
+    value: function onBeforeRender() {}
+  }, {
+    key: "onAfterRender",
+    value: function onAfterRender() {}
+  }, {
+    key: "applyMatrix4",
+    value: function applyMatrix4(matrix) {
+      if (this.matrixAutoUpdate) this.updateMatrix();
+      this.matrix.premultiply(matrix);
+      this.matrix.decompose(this.position, this.quaternion, this.scale);
     }
-  });
-  this.matrix = new Matrix4();
-  this.matrixWorld = new Matrix4();
-  this.matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate;
-  this.matrixWorldNeedsUpdate = false;
-  this.layers = new Layers();
-  this.visible = true;
-  this.castShadow = false;
-  this.receiveShadow = false;
-  this.frustumCulled = true;
-  this.renderOrder = 0;
-  this.animations = [];
-  this.userData = {};
-}
-
-Object3D.DefaultUp = new Vector3(0, 1, 0);
-Object3D.DefaultMatrixAutoUpdate = true;
-Object3D.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
-  constructor: Object3D,
-  isObject3D: true,
-  onBeforeRender: function onBeforeRender() {},
-  onAfterRender: function onAfterRender() {},
-  applyMatrix4: function applyMatrix4(matrix) {
-    if (this.matrixAutoUpdate) this.updateMatrix();
-    this.matrix.premultiply(matrix);
-    this.matrix.decompose(this.position, this.quaternion, this.scale);
-  },
-  applyQuaternion: function applyQuaternion(q) {
-    this.quaternion.premultiply(q);
-    return this;
-  },
-  setRotationFromAxisAngle: function setRotationFromAxisAngle(axis, angle) {
-    // assumes axis is normalized
-    this.quaternion.setFromAxisAngle(axis, angle);
-  },
-  setRotationFromEuler: function setRotationFromEuler(euler) {
-    this.quaternion.setFromEuler(euler, true);
-  },
-  setRotationFromMatrix: function setRotationFromMatrix(m) {
-    // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-    this.quaternion.setFromRotationMatrix(m);
-  },
-  setRotationFromQuaternion: function setRotationFromQuaternion(q) {
-    // assumes q is normalized
-    this.quaternion.copy(q);
-  },
-  rotateOnAxis: function rotateOnAxis(axis, angle) {
-    // rotate object on axis in object space
-    // axis is assumed to be normalized
-    _q1.setFromAxisAngle(axis, angle);
-
-    this.quaternion.multiply(_q1);
-    return this;
-  },
-  rotateOnWorldAxis: function rotateOnWorldAxis(axis, angle) {
-    // rotate object on axis in world space
-    // axis is assumed to be normalized
-    // method assumes no rotated parent
-    _q1.setFromAxisAngle(axis, angle);
-
-    this.quaternion.premultiply(_q1);
-    return this;
-  },
-  rotateX: function rotateX(angle) {
-    return this.rotateOnAxis(_xAxis, angle);
-  },
-  rotateY: function rotateY(angle) {
-    return this.rotateOnAxis(_yAxis, angle);
-  },
-  rotateZ: function rotateZ(angle) {
-    return this.rotateOnAxis(_zAxis, angle);
-  },
-  translateOnAxis: function translateOnAxis(axis, distance) {
-    // translate object by distance along axis in object space
-    // axis is assumed to be normalized
-    _v1$4.copy(axis).applyQuaternion(this.quaternion);
-
-    this.position.add(_v1$4.multiplyScalar(distance));
-    return this;
-  },
-  translateX: function translateX(distance) {
-    return this.translateOnAxis(_xAxis, distance);
-  },
-  translateY: function translateY(distance) {
-    return this.translateOnAxis(_yAxis, distance);
-  },
-  translateZ: function translateZ(distance) {
-    return this.translateOnAxis(_zAxis, distance);
-  },
-  localToWorld: function localToWorld(vector) {
-    return vector.applyMatrix4(this.matrixWorld);
-  },
-  worldToLocal: function worldToLocal(vector) {
-    return vector.applyMatrix4(_m1$1.copy(this.matrixWorld).invert());
-  },
-  lookAt: function lookAt(x, y, z) {
-    // This method does not support objects having non-uniformly-scaled parent(s)
-    if (x.isVector3) {
-      _target.copy(x);
-    } else {
-      _target.set(x, y, z);
+  }, {
+    key: "applyQuaternion",
+    value: function applyQuaternion(q) {
+      this.quaternion.premultiply(q);
+      return this;
     }
-
-    var parent = this.parent;
-    this.updateWorldMatrix(true, false);
-
-    _position$3.setFromMatrixPosition(this.matrixWorld);
-
-    if (this.isCamera || this.isLight) {
-      _m1$1.lookAt(_position$3, _target, this.up);
-    } else {
-      _m1$1.lookAt(_target, _position$3, this.up);
+  }, {
+    key: "setRotationFromAxisAngle",
+    value: function setRotationFromAxisAngle(axis, angle) {
+      // assumes axis is normalized
+      this.quaternion.setFromAxisAngle(axis, angle);
     }
-
-    this.quaternion.setFromRotationMatrix(_m1$1);
-
-    if (parent) {
-      _m1$1.extractRotation(parent.matrixWorld);
-
-      _q1.setFromRotationMatrix(_m1$1);
-
-      this.quaternion.premultiply(_q1.invert());
+  }, {
+    key: "setRotationFromEuler",
+    value: function setRotationFromEuler(euler) {
+      this.quaternion.setFromEuler(euler, true);
     }
-  },
-  add: function add(object) {
-    if (arguments.length > 1) {
-      for (var _i12 = 0; _i12 < arguments.length; _i12++) {
-        this.add(arguments[_i12]);
+  }, {
+    key: "setRotationFromMatrix",
+    value: function setRotationFromMatrix(m) {
+      // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+      this.quaternion.setFromRotationMatrix(m);
+    }
+  }, {
+    key: "setRotationFromQuaternion",
+    value: function setRotationFromQuaternion(q) {
+      // assumes q is normalized
+      this.quaternion.copy(q);
+    }
+  }, {
+    key: "rotateOnAxis",
+    value: function rotateOnAxis(axis, angle) {
+      // rotate object on axis in object space
+      // axis is assumed to be normalized
+      _q1.setFromAxisAngle(axis, angle);
+
+      this.quaternion.multiply(_q1);
+      return this;
+    }
+  }, {
+    key: "rotateOnWorldAxis",
+    value: function rotateOnWorldAxis(axis, angle) {
+      // rotate object on axis in world space
+      // axis is assumed to be normalized
+      // method assumes no rotated parent
+      _q1.setFromAxisAngle(axis, angle);
+
+      this.quaternion.premultiply(_q1);
+      return this;
+    }
+  }, {
+    key: "rotateX",
+    value: function rotateX(angle) {
+      return this.rotateOnAxis(_xAxis, angle);
+    }
+  }, {
+    key: "rotateY",
+    value: function rotateY(angle) {
+      return this.rotateOnAxis(_yAxis, angle);
+    }
+  }, {
+    key: "rotateZ",
+    value: function rotateZ(angle) {
+      return this.rotateOnAxis(_zAxis, angle);
+    }
+  }, {
+    key: "translateOnAxis",
+    value: function translateOnAxis(axis, distance) {
+      // translate object by distance along axis in object space
+      // axis is assumed to be normalized
+      _v1$4.copy(axis).applyQuaternion(this.quaternion);
+
+      this.position.add(_v1$4.multiplyScalar(distance));
+      return this;
+    }
+  }, {
+    key: "translateX",
+    value: function translateX(distance) {
+      return this.translateOnAxis(_xAxis, distance);
+    }
+  }, {
+    key: "translateY",
+    value: function translateY(distance) {
+      return this.translateOnAxis(_yAxis, distance);
+    }
+  }, {
+    key: "translateZ",
+    value: function translateZ(distance) {
+      return this.translateOnAxis(_zAxis, distance);
+    }
+  }, {
+    key: "localToWorld",
+    value: function localToWorld(vector) {
+      return vector.applyMatrix4(this.matrixWorld);
+    }
+  }, {
+    key: "worldToLocal",
+    value: function worldToLocal(vector) {
+      return vector.applyMatrix4(_m1$1.copy(this.matrixWorld).invert());
+    }
+  }, {
+    key: "lookAt",
+    value: function lookAt(x, y, z) {
+      // This method does not support objects having non-uniformly-scaled parent(s)
+      if (x.isVector3) {
+        _target.copy(x);
+      } else {
+        _target.set(x, y, z);
+      }
+
+      var parent = this.parent;
+      this.updateWorldMatrix(true, false);
+
+      _position$3.setFromMatrixPosition(this.matrixWorld);
+
+      if (this.isCamera || this.isLight) {
+        _m1$1.lookAt(_position$3, _target, this.up);
+      } else {
+        _m1$1.lookAt(_target, _position$3, this.up);
+      }
+
+      this.quaternion.setFromRotationMatrix(_m1$1);
+
+      if (parent) {
+        _m1$1.extractRotation(parent.matrixWorld);
+
+        _q1.setFromRotationMatrix(_m1$1);
+
+        this.quaternion.premultiply(_q1.invert());
+      }
+    }
+  }, {
+    key: "add",
+    value: function add(object) {
+      if (arguments.length > 1) {
+        for (var _i12 = 0; _i12 < arguments.length; _i12++) {
+          this.add(arguments[_i12]);
+        }
+
+        return this;
+      }
+
+      if (object === this) {
+        console.error('THREE.Object3D.add: object can\'t be added as a child of itself.', object);
+        return this;
+      }
+
+      if (object && object.isObject3D) {
+        if (object.parent !== null) {
+          object.parent.remove(object);
+        }
+
+        object.parent = this;
+        this.children.push(object);
+        object.dispatchEvent(_addedEvent);
+      } else {
+        console.error('THREE.Object3D.add: object not an instance of THREE.Object3D.', object);
       }
 
       return this;
     }
+  }, {
+    key: "remove",
+    value: function remove(object) {
+      if (arguments.length > 1) {
+        for (var _i13 = 0; _i13 < arguments.length; _i13++) {
+          this.remove(arguments[_i13]);
+        }
 
-    if (object === this) {
-      console.error('THREE.Object3D.add: object can\'t be added as a child of itself.', object);
+        return this;
+      }
+
+      var index = this.children.indexOf(object);
+
+      if (index !== -1) {
+        object.parent = null;
+        this.children.splice(index, 1);
+        object.dispatchEvent(_removedEvent);
+      }
+
       return this;
     }
+  }, {
+    key: "clear",
+    value: function clear() {
+      for (var _i14 = 0; _i14 < this.children.length; _i14++) {
+        var object = this.children[_i14];
+        object.parent = null;
+        object.dispatchEvent(_removedEvent);
+      }
 
-    if (object && object.isObject3D) {
+      this.children.length = 0;
+      return this;
+    }
+  }, {
+    key: "attach",
+    value: function attach(object) {
+      // adds object as a child of this, while maintaining the object's world transform
+      this.updateWorldMatrix(true, false);
+
+      _m1$1.copy(this.matrixWorld).invert();
+
       if (object.parent !== null) {
-        object.parent.remove(object);
+        object.parent.updateWorldMatrix(true, false);
+
+        _m1$1.multiply(object.parent.matrixWorld);
       }
 
-      object.parent = this;
-      this.children.push(object);
-      object.dispatchEvent(_addedEvent);
-    } else {
-      console.error('THREE.Object3D.add: object not an instance of THREE.Object3D.', object);
-    }
-
-    return this;
-  },
-  remove: function remove(object) {
-    if (arguments.length > 1) {
-      for (var _i13 = 0; _i13 < arguments.length; _i13++) {
-        this.remove(arguments[_i13]);
-      }
-
+      object.applyMatrix4(_m1$1);
+      this.add(object);
+      object.updateWorldMatrix(false, true);
       return this;
     }
-
-    var index = this.children.indexOf(object);
-
-    if (index !== -1) {
-      object.parent = null;
-      this.children.splice(index, 1);
-      object.dispatchEvent(_removedEvent);
+  }, {
+    key: "getObjectById",
+    value: function getObjectById(id) {
+      return this.getObjectByProperty('id', id);
     }
-
-    return this;
-  },
-  clear: function clear() {
-    for (var _i14 = 0; _i14 < this.children.length; _i14++) {
-      var object = this.children[_i14];
-      object.parent = null;
-      object.dispatchEvent(_removedEvent);
+  }, {
+    key: "getObjectByName",
+    value: function getObjectByName(name) {
+      return this.getObjectByProperty('name', name);
     }
+  }, {
+    key: "getObjectByProperty",
+    value: function getObjectByProperty(name, value) {
+      if (this[name] === value) return this;
 
-    this.children.length = 0;
-    return this;
-  },
-  attach: function attach(object) {
-    // adds object as a child of this, while maintaining the object's world transform
-    this.updateWorldMatrix(true, false);
+      for (var _i15 = 0, l = this.children.length; _i15 < l; _i15++) {
+        var child = this.children[_i15];
+        var object = child.getObjectByProperty(name, value);
 
-    _m1$1.copy(this.matrixWorld).invert();
+        if (object !== undefined) {
+          return object;
+        }
+      }
 
-    if (object.parent !== null) {
-      object.parent.updateWorldMatrix(true, false);
-
-      _m1$1.multiply(object.parent.matrixWorld);
+      return undefined;
     }
+  }, {
+    key: "getWorldPosition",
+    value: function getWorldPosition(target) {
+      if (target === undefined) {
+        console.warn('THREE.Object3D: .getWorldPosition() target is now required');
+        target = new Vector3();
+      }
 
-    object.applyMatrix4(_m1$1);
-    this.add(object);
-    object.updateWorldMatrix(false, true);
-    return this;
-  },
-  getObjectById: function getObjectById(id) {
-    return this.getObjectByProperty('id', id);
-  },
-  getObjectByName: function getObjectByName(name) {
-    return this.getObjectByProperty('name', name);
-  },
-  getObjectByProperty: function getObjectByProperty(name, value) {
-    if (this[name] === value) return this;
+      this.updateWorldMatrix(true, false);
+      return target.setFromMatrixPosition(this.matrixWorld);
+    }
+  }, {
+    key: "getWorldQuaternion",
+    value: function getWorldQuaternion(target) {
+      if (target === undefined) {
+        console.warn('THREE.Object3D: .getWorldQuaternion() target is now required');
+        target = new Quaternion();
+      }
 
-    for (var _i15 = 0, l = this.children.length; _i15 < l; _i15++) {
-      var child = this.children[_i15];
-      var object = child.getObjectByProperty(name, value);
+      this.updateWorldMatrix(true, false);
+      this.matrixWorld.decompose(_position$3, target, _scale$2);
+      return target;
+    }
+  }, {
+    key: "getWorldScale",
+    value: function getWorldScale(target) {
+      if (target === undefined) {
+        console.warn('THREE.Object3D: .getWorldScale() target is now required');
+        target = new Vector3();
+      }
 
-      if (object !== undefined) {
-        return object;
+      this.updateWorldMatrix(true, false);
+      this.matrixWorld.decompose(_position$3, _quaternion$2, target);
+      return target;
+    }
+  }, {
+    key: "getWorldDirection",
+    value: function getWorldDirection(target) {
+      if (target === undefined) {
+        console.warn('THREE.Object3D: .getWorldDirection() target is now required');
+        target = new Vector3();
+      }
+
+      this.updateWorldMatrix(true, false);
+      var e = this.matrixWorld.elements;
+      return target.set(e[8], e[9], e[10]).normalize();
+    }
+  }, {
+    key: "raycast",
+    value: function raycast() {}
+  }, {
+    key: "traverse",
+    value: function traverse(callback) {
+      callback(this);
+      var children = this.children;
+
+      for (var _i16 = 0, l = children.length; _i16 < l; _i16++) {
+        children[_i16].traverse(callback);
       }
     }
+  }, {
+    key: "traverseVisible",
+    value: function traverseVisible(callback) {
+      if (this.visible === false) return;
+      callback(this);
+      var children = this.children;
 
-    return undefined;
-  },
-  getWorldPosition: function getWorldPosition(target) {
-    if (target === undefined) {
-      console.warn('THREE.Object3D: .getWorldPosition() target is now required');
-      target = new Vector3();
+      for (var _i17 = 0, l = children.length; _i17 < l; _i17++) {
+        children[_i17].traverseVisible(callback);
+      }
     }
+  }, {
+    key: "traverseAncestors",
+    value: function traverseAncestors(callback) {
+      var parent = this.parent;
 
-    this.updateWorldMatrix(true, false);
-    return target.setFromMatrixPosition(this.matrixWorld);
-  },
-  getWorldQuaternion: function getWorldQuaternion(target) {
-    if (target === undefined) {
-      console.warn('THREE.Object3D: .getWorldQuaternion() target is now required');
-      target = new Quaternion();
+      if (parent !== null) {
+        callback(parent);
+        parent.traverseAncestors(callback);
+      }
     }
-
-    this.updateWorldMatrix(true, false);
-    this.matrixWorld.decompose(_position$3, target, _scale$2);
-    return target;
-  },
-  getWorldScale: function getWorldScale(target) {
-    if (target === undefined) {
-      console.warn('THREE.Object3D: .getWorldScale() target is now required');
-      target = new Vector3();
+  }, {
+    key: "updateMatrix",
+    value: function updateMatrix() {
+      this.matrix.compose(this.position, this.quaternion, this.scale);
+      this.matrixWorldNeedsUpdate = true;
     }
+  }, {
+    key: "updateMatrixWorld",
+    value: function updateMatrixWorld(force) {
+      if (this.matrixAutoUpdate) this.updateMatrix();
 
-    this.updateWorldMatrix(true, false);
-    this.matrixWorld.decompose(_position$3, _quaternion$2, target);
-    return target;
-  },
-  getWorldDirection: function getWorldDirection(target) {
-    if (target === undefined) {
-      console.warn('THREE.Object3D: .getWorldDirection() target is now required');
-      target = new Vector3();
+      if (this.matrixWorldNeedsUpdate || force) {
+        if (this.parent === null) {
+          this.matrixWorld.copy(this.matrix);
+        } else {
+          this.matrixWorld.multiplyMatrices(this.parent.matrixWorld, this.matrix);
+        }
+
+        this.matrixWorldNeedsUpdate = false;
+        force = true;
+      } // update children
+
+
+      var children = this.children;
+
+      for (var _i18 = 0, l = children.length; _i18 < l; _i18++) {
+        children[_i18].updateMatrixWorld(force);
+      }
     }
+  }, {
+    key: "updateWorldMatrix",
+    value: function updateWorldMatrix(updateParents, updateChildren) {
+      var parent = this.parent;
 
-    this.updateWorldMatrix(true, false);
-    var e = this.matrixWorld.elements;
-    return target.set(e[8], e[9], e[10]).normalize();
-  },
-  raycast: function raycast() {},
-  traverse: function traverse(callback) {
-    callback(this);
-    var children = this.children;
+      if (updateParents === true && parent !== null) {
+        parent.updateWorldMatrix(true, false);
+      }
 
-    for (var _i16 = 0, l = children.length; _i16 < l; _i16++) {
-      children[_i16].traverse(callback);
-    }
-  },
-  traverseVisible: function traverseVisible(callback) {
-    if (this.visible === false) return;
-    callback(this);
-    var children = this.children;
+      if (this.matrixAutoUpdate) this.updateMatrix();
 
-    for (var _i17 = 0, l = children.length; _i17 < l; _i17++) {
-      children[_i17].traverseVisible(callback);
-    }
-  },
-  traverseAncestors: function traverseAncestors(callback) {
-    var parent = this.parent;
-
-    if (parent !== null) {
-      callback(parent);
-      parent.traverseAncestors(callback);
-    }
-  },
-  updateMatrix: function updateMatrix() {
-    this.matrix.compose(this.position, this.quaternion, this.scale);
-    this.matrixWorldNeedsUpdate = true;
-  },
-  updateMatrixWorld: function updateMatrixWorld(force) {
-    if (this.matrixAutoUpdate) this.updateMatrix();
-
-    if (this.matrixWorldNeedsUpdate || force) {
       if (this.parent === null) {
         this.matrixWorld.copy(this.matrix);
       } else {
         this.matrixWorld.multiplyMatrices(this.parent.matrixWorld, this.matrix);
-      }
-
-      this.matrixWorldNeedsUpdate = false;
-      force = true;
-    } // update children
+      } // update children
 
 
-    var children = this.children;
+      if (updateChildren === true) {
+        var children = this.children;
 
-    for (var _i18 = 0, l = children.length; _i18 < l; _i18++) {
-      children[_i18].updateMatrixWorld(force);
-    }
-  },
-  updateWorldMatrix: function updateWorldMatrix(updateParents, updateChildren) {
-    var parent = this.parent;
-
-    if (updateParents === true && parent !== null) {
-      parent.updateWorldMatrix(true, false);
-    }
-
-    if (this.matrixAutoUpdate) this.updateMatrix();
-
-    if (this.parent === null) {
-      this.matrixWorld.copy(this.matrix);
-    } else {
-      this.matrixWorld.multiplyMatrices(this.parent.matrixWorld, this.matrix);
-    } // update children
-
-
-    if (updateChildren === true) {
-      var children = this.children;
-
-      for (var _i19 = 0, l = children.length; _i19 < l; _i19++) {
-        children[_i19].updateWorldMatrix(false, true);
+        for (var _i19 = 0, l = children.length; _i19 < l; _i19++) {
+          children[_i19].updateWorldMatrix(false, true);
+        }
       }
     }
-  },
-  toJSON: function toJSON(meta) {
-    // meta is a string when called from JSON.stringify
-    var isRootObject = meta === undefined || typeof meta === 'string';
-    var output = {}; // meta is a hash used to collect geometries, materials.
-    // not providing it implies that this is the root object
-    // being serialized.
+  }, {
+    key: "toJSON",
+    value: function toJSON(meta) {
+      // meta is a string when called from JSON.stringify
+      var isRootObject = meta === undefined || typeof meta === 'string';
+      var output = {}; // meta is a hash used to collect geometries, materials.
+      // not providing it implies that this is the root object
+      // being serialized.
 
-    if (isRootObject) {
-      // initialize meta obj
-      meta = {
-        geometries: {},
-        materials: {},
-        textures: {},
-        images: {},
-        shapes: {},
-        skeletons: {},
-        animations: {}
-      };
-      output.metadata = {
-        version: 4.5,
-        type: 'Object',
-        generator: 'Object3D.toJSON'
-      };
-    } // standard Object3D serialization
-
-
-    var object = {};
-    object.uuid = this.uuid;
-    object.type = this.type;
-    if (this.name !== '') object.name = this.name;
-    if (this.castShadow === true) object.castShadow = true;
-    if (this.receiveShadow === true) object.receiveShadow = true;
-    if (this.visible === false) object.visible = false;
-    if (this.frustumCulled === false) object.frustumCulled = false;
-    if (this.renderOrder !== 0) object.renderOrder = this.renderOrder;
-    if (JSON.stringify(this.userData) !== '{}') object.userData = this.userData;
-    object.layers = this.layers.mask;
-    object.matrix = this.matrix.toArray();
-    if (this.matrixAutoUpdate === false) object.matrixAutoUpdate = false; // object specific properties
-
-    if (this.isInstancedMesh) {
-      object.type = 'InstancedMesh';
-      object.count = this.count;
-      object.instanceMatrix = this.instanceMatrix.toJSON();
-      if (this.instanceColor !== null) object.instanceColor = this.instanceColor.toJSON();
-    } //
+      if (isRootObject) {
+        // initialize meta obj
+        meta = {
+          geometries: {},
+          materials: {},
+          textures: {},
+          images: {},
+          shapes: {},
+          skeletons: {},
+          animations: {}
+        };
+        output.metadata = {
+          version: 4.5,
+          type: 'Object',
+          generator: 'Object3D.toJSON'
+        };
+      } // standard Object3D serialization
 
 
-    function serialize(library, element) {
-      if (library[element.uuid] === undefined) {
-        library[element.uuid] = element.toJSON(meta);
+      var object = {};
+      object.uuid = this.uuid;
+      object.type = this.type;
+      if (this.name !== '') object.name = this.name;
+      if (this.castShadow === true) object.castShadow = true;
+      if (this.receiveShadow === true) object.receiveShadow = true;
+      if (this.visible === false) object.visible = false;
+      if (this.frustumCulled === false) object.frustumCulled = false;
+      if (this.renderOrder !== 0) object.renderOrder = this.renderOrder;
+      if (JSON.stringify(this.userData) !== '{}') object.userData = this.userData;
+      object.layers = this.layers.mask;
+      object.matrix = this.matrix.toArray();
+      if (this.matrixAutoUpdate === false) object.matrixAutoUpdate = false; // object specific properties
+
+      if (this.isInstancedMesh) {
+        object.type = 'InstancedMesh';
+        object.count = this.count;
+        object.instanceMatrix = this.instanceMatrix.toJSON();
+        if (this.instanceColor !== null) object.instanceColor = this.instanceColor.toJSON();
+      } //
+
+
+      function serialize(library, element) {
+        if (library[element.uuid] === undefined) {
+          library[element.uuid] = element.toJSON(meta);
+        }
+
+        return element.uuid;
       }
 
-      return element.uuid;
-    }
+      if (this.isMesh || this.isLine || this.isPoints) {
+        object.geometry = serialize(meta.geometries, this.geometry);
+        var parameters = this.geometry.parameters;
 
-    if (this.isMesh || this.isLine || this.isPoints) {
-      object.geometry = serialize(meta.geometries, this.geometry);
-      var parameters = this.geometry.parameters;
+        if (parameters !== undefined && parameters.shapes !== undefined) {
+          var shapes = parameters.shapes;
 
-      if (parameters !== undefined && parameters.shapes !== undefined) {
-        var shapes = parameters.shapes;
-
-        if (Array.isArray(shapes)) {
-          for (var _i20 = 0, l = shapes.length; _i20 < l; _i20++) {
-            var shape = shapes[_i20];
-            serialize(meta.shapes, shape);
+          if (Array.isArray(shapes)) {
+            for (var _i20 = 0, l = shapes.length; _i20 < l; _i20++) {
+              var shape = shapes[_i20];
+              serialize(meta.shapes, shape);
+            }
+          } else {
+            serialize(meta.shapes, shapes);
           }
+        }
+      }
+
+      if (this.isSkinnedMesh) {
+        object.bindMode = this.bindMode;
+        object.bindMatrix = this.bindMatrix.toArray();
+
+        if (this.skeleton !== undefined) {
+          serialize(meta.skeletons, this.skeleton);
+          object.skeleton = this.skeleton.uuid;
+        }
+      }
+
+      if (this.material !== undefined) {
+        if (Array.isArray(this.material)) {
+          var uuids = [];
+
+          for (var _i21 = 0, _l = this.material.length; _i21 < _l; _i21++) {
+            uuids.push(serialize(meta.materials, this.material[_i21]));
+          }
+
+          object.material = uuids;
         } else {
-          serialize(meta.shapes, shapes);
+          object.material = serialize(meta.materials, this.material);
+        }
+      } //
+
+
+      if (this.children.length > 0) {
+        object.children = [];
+
+        for (var _i22 = 0; _i22 < this.children.length; _i22++) {
+          object.children.push(this.children[_i22].toJSON(meta).object);
+        }
+      } //
+
+
+      if (this.animations.length > 0) {
+        object.animations = [];
+
+        for (var _i23 = 0; _i23 < this.animations.length; _i23++) {
+          var animation = this.animations[_i23];
+          object.animations.push(serialize(meta.animations, animation));
         }
       }
-    }
 
-    if (this.isSkinnedMesh) {
-      object.bindMode = this.bindMode;
-      object.bindMatrix = this.bindMatrix.toArray();
+      if (isRootObject) {
+        var geometries = extractFromCache(meta.geometries);
+        var materials = extractFromCache(meta.materials);
+        var textures = extractFromCache(meta.textures);
+        var images = extractFromCache(meta.images);
 
-      if (this.skeleton !== undefined) {
-        serialize(meta.skeletons, this.skeleton);
-        object.skeleton = this.skeleton.uuid;
+        var _shapes = extractFromCache(meta.shapes);
+
+        var skeletons = extractFromCache(meta.skeletons);
+        var animations = extractFromCache(meta.animations);
+        if (geometries.length > 0) output.geometries = geometries;
+        if (materials.length > 0) output.materials = materials;
+        if (textures.length > 0) output.textures = textures;
+        if (images.length > 0) output.images = images;
+        if (_shapes.length > 0) output.shapes = _shapes;
+        if (skeletons.length > 0) output.skeletons = skeletons;
+        if (animations.length > 0) output.animations = animations;
       }
-    }
 
-    if (this.material !== undefined) {
-      if (Array.isArray(this.material)) {
-        var uuids = [];
+      output.object = object;
+      return output; // extract data from the cache hash
+      // remove metadata on each item
+      // and return as array
 
-        for (var _i21 = 0, _l = this.material.length; _i21 < _l; _i21++) {
-          uuids.push(serialize(meta.materials, this.material[_i21]));
+      function extractFromCache(cache) {
+        var values = [];
+
+        for (var key in cache) {
+          var data = cache[key];
+          delete data.metadata;
+          values.push(data);
         }
 
-        object.material = uuids;
-      } else {
-        object.material = serialize(meta.materials, this.material);
-      }
-    } //
-
-
-    if (this.children.length > 0) {
-      object.children = [];
-
-      for (var _i22 = 0; _i22 < this.children.length; _i22++) {
-        object.children.push(this.children[_i22].toJSON(meta).object);
-      }
-    } //
-
-
-    if (this.animations.length > 0) {
-      object.animations = [];
-
-      for (var _i23 = 0; _i23 < this.animations.length; _i23++) {
-        var animation = this.animations[_i23];
-        object.animations.push(serialize(meta.animations, animation));
+        return values;
       }
     }
-
-    if (isRootObject) {
-      var geometries = extractFromCache(meta.geometries);
-      var materials = extractFromCache(meta.materials);
-      var textures = extractFromCache(meta.textures);
-      var images = extractFromCache(meta.images);
-
-      var _shapes = extractFromCache(meta.shapes);
-
-      var skeletons = extractFromCache(meta.skeletons);
-      var animations = extractFromCache(meta.animations);
-      if (geometries.length > 0) output.geometries = geometries;
-      if (materials.length > 0) output.materials = materials;
-      if (textures.length > 0) output.textures = textures;
-      if (images.length > 0) output.images = images;
-      if (_shapes.length > 0) output.shapes = _shapes;
-      if (skeletons.length > 0) output.skeletons = skeletons;
-      if (animations.length > 0) output.animations = animations;
+  }, {
+    key: "clone",
+    value: function clone(recursive) {
+      return new this.constructor().copy(this, recursive);
     }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      this.name = source.name;
+      this.up.copy(source.up);
+      this.position.copy(source.position);
+      this.rotation.order = source.rotation.order;
+      this.quaternion.copy(source.quaternion);
+      this.scale.copy(source.scale);
+      this.matrix.copy(source.matrix);
+      this.matrixWorld.copy(source.matrixWorld);
+      this.matrixAutoUpdate = source.matrixAutoUpdate;
+      this.matrixWorldNeedsUpdate = source.matrixWorldNeedsUpdate;
+      this.layers.mask = source.layers.mask;
+      this.visible = source.visible;
+      this.castShadow = source.castShadow;
+      this.receiveShadow = source.receiveShadow;
+      this.frustumCulled = source.frustumCulled;
+      this.renderOrder = source.renderOrder;
+      this.userData = JSON.parse(JSON.stringify(source.userData));
 
-    output.object = object;
-    return output; // extract data from the cache hash
-    // remove metadata on each item
-    // and return as array
-
-    function extractFromCache(cache) {
-      var values = [];
-
-      for (var key in cache) {
-        var data = cache[key];
-        delete data.metadata;
-        values.push(data);
+      if (recursive === true) {
+        for (var _i24 = 0; _i24 < source.children.length; _i24++) {
+          var child = source.children[_i24];
+          this.add(child.clone());
+        }
       }
 
-      return values;
+      return this;
     }
-  },
-  clone: function clone(recursive) {
-    return new this.constructor().copy(this, recursive);
-  },
-  copy: function copy(source) {
-    var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-    this.name = source.name;
-    this.up.copy(source.up);
-    this.position.copy(source.position);
-    this.rotation.order = source.rotation.order;
-    this.quaternion.copy(source.quaternion);
-    this.scale.copy(source.scale);
-    this.matrix.copy(source.matrix);
-    this.matrixWorld.copy(source.matrixWorld);
-    this.matrixAutoUpdate = source.matrixAutoUpdate;
-    this.matrixWorldNeedsUpdate = source.matrixWorldNeedsUpdate;
-    this.layers.mask = source.layers.mask;
-    this.visible = source.visible;
-    this.castShadow = source.castShadow;
-    this.receiveShadow = source.receiveShadow;
-    this.frustumCulled = source.frustumCulled;
-    this.renderOrder = source.renderOrder;
-    this.userData = JSON.parse(JSON.stringify(source.userData));
+  }]);
 
-    if (recursive === true) {
-      for (var _i24 = 0; _i24 < source.children.length; _i24++) {
-        var child = source.children[_i24];
-        this.add(child.clone());
-      }
-    }
+  return Object3D;
+}(EventDispatcher);
 
-    return this;
-  }
-});
+Object3D.DefaultUp = new Vector3(0, 1, 0);
+Object3D.DefaultMatrixAutoUpdate = true;
+Object3D.prototype.isObject3D = true;
 
 var _vector1 = /*@__PURE__*/new Vector3();
 
@@ -7015,7 +7176,7 @@ function Material() {
   Object.defineProperty(this, 'id', {
     value: materialId++
   });
-  this.uuid = MathUtils.generateUUID();
+  this.uuid = generateUUID();
   this.name = '';
   this.type = 'Material';
   this.fog = true;
@@ -7064,6 +7225,9 @@ function Material() {
 Material.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
   constructor: Material,
   isMaterial: true,
+  onBuild: function onBuild()
+  /* shaderobject, renderer */
+  {},
   onBeforeCompile: function onBeforeCompile()
   /* shaderobject, renderer */
   {},
@@ -7187,12 +7351,12 @@ Material.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
 
     if (this.envMap && this.envMap.isTexture) {
       data.envMap = this.envMap.toJSON(meta).uuid;
-      data.reflectivity = this.reflectivity; // Scale behind envMap
-
-      data.refractionRatio = this.refractionRatio;
       if (this.combine !== undefined) data.combine = this.combine;
-      if (this.envMapIntensity !== undefined) data.envMapIntensity = this.envMapIntensity;
     }
+
+    if (this.envMapIntensity !== undefined) data.envMapIntensity = this.envMapIntensity;
+    if (this.reflectivity !== undefined) data.reflectivity = this.reflectivity;
+    if (this.refractionRatio !== undefined) data.refractionRatio = this.refractionRatio;
 
     if (this.gradientMap && this.gradientMap.isTexture) {
       data.gradientMap = this.gradientMap.toJSON(meta).uuid;
@@ -7565,9 +7729,9 @@ var Color = /*#__PURE__*/function () {
     key: "setHSL",
     value: function setHSL(h, s, l) {
       // h,s,l ranges are in 0.0 - 1.0
-      h = MathUtils.euclideanModulo(h, 1);
-      s = MathUtils.clamp(s, 0, 1);
-      l = MathUtils.clamp(l, 0, 1);
+      h = euclideanModulo(h, 1);
+      s = clamp(s, 0, 1);
+      l = clamp(l, 0, 1);
 
       if (s === 0) {
         this.r = this.g = this.b = l;
@@ -7666,7 +7830,7 @@ var Color = /*#__PURE__*/function () {
     key: "setColorName",
     value: function setColorName(style) {
       // color keywords
-      var hex = _colorKeywords[style];
+      var hex = _colorKeywords[style.toLowerCase()];
 
       if (hex !== undefined) {
         // red
@@ -7894,9 +8058,9 @@ var Color = /*#__PURE__*/function () {
     value: function lerpHSL(color, alpha) {
       this.getHSL(_hslA);
       color.getHSL(_hslB);
-      var h = MathUtils.lerp(_hslA.h, _hslB.h, alpha);
-      var s = MathUtils.lerp(_hslA.s, _hslB.s, alpha);
-      var l = MathUtils.lerp(_hslA.l, _hslB.l, alpha);
+      var h = lerp(_hslA.h, _hslB.h, alpha);
+      var s = lerp(_hslA.s, _hslB.s, alpha);
+      var l = lerp(_hslA.l, _hslB.l, alpha);
       this.setHSL(h, s, l);
       return this;
     }
@@ -7990,38 +8154,38 @@ Color.prototype.b = 1;
 var MeshBasicMaterial = /*#__PURE__*/function (_Material) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshBasicMaterial, _Material);
 
-  var _super4 = _createSuper(MeshBasicMaterial);
+  var _super5 = _createSuper(MeshBasicMaterial);
 
   function MeshBasicMaterial(parameters) {
-    var _this5;
+    var _this6;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshBasicMaterial);
 
-    _this5 = _super4.call(this);
-    _this5.type = 'MeshBasicMaterial';
-    _this5.color = new Color(0xffffff); // emissive
+    _this6 = _super5.call(this);
+    _this6.type = 'MeshBasicMaterial';
+    _this6.color = new Color(0xffffff); // emissive
 
-    _this5.map = null;
-    _this5.lightMap = null;
-    _this5.lightMapIntensity = 1.0;
-    _this5.aoMap = null;
-    _this5.aoMapIntensity = 1.0;
-    _this5.specularMap = null;
-    _this5.alphaMap = null;
-    _this5.envMap = null;
-    _this5.combine = MultiplyOperation;
-    _this5.reflectivity = 1;
-    _this5.refractionRatio = 0.98;
-    _this5.wireframe = false;
-    _this5.wireframeLinewidth = 1;
-    _this5.wireframeLinecap = 'round';
-    _this5.wireframeLinejoin = 'round';
-    _this5.skinning = false;
-    _this5.morphTargets = false;
+    _this6.map = null;
+    _this6.lightMap = null;
+    _this6.lightMapIntensity = 1.0;
+    _this6.aoMap = null;
+    _this6.aoMapIntensity = 1.0;
+    _this6.specularMap = null;
+    _this6.alphaMap = null;
+    _this6.envMap = null;
+    _this6.combine = MultiplyOperation;
+    _this6.reflectivity = 1;
+    _this6.refractionRatio = 0.98;
+    _this6.wireframe = false;
+    _this6.wireframeLinewidth = 1;
+    _this6.wireframeLinecap = 'round';
+    _this6.wireframeLinejoin = 'round';
+    _this6.skinning = false;
+    _this6.morphTargets = false;
 
-    _this5.setValues(parameters);
+    _this6.setValues(parameters);
 
-    return _this5;
+    return _this6;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshBasicMaterial, [{
@@ -8056,344 +8220,476 @@ var MeshBasicMaterial = /*#__PURE__*/function (_Material) {
 
 MeshBasicMaterial.prototype.isMeshBasicMaterial = true;
 
-var _vector$9 = new Vector3();
+var _vector$9 = new /*@__PURE__*/Vector3();
 
-var _vector2 = new Vector2();
+var _vector2 = new /*@__PURE__*/Vector2();
 
-function BufferAttribute(array, itemSize, normalized) {
-  if (Array.isArray(array)) {
-    throw new TypeError('THREE.BufferAttribute: array should be a Typed Array.');
-  }
+var BufferAttribute = /*#__PURE__*/function () {
+  function BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BufferAttribute);
 
-  this.name = '';
-  this.array = array;
-  this.itemSize = itemSize;
-  this.count = array !== undefined ? array.length / itemSize : 0;
-  this.normalized = normalized === true;
-  this.usage = StaticDrawUsage;
-  this.updateRange = {
-    offset: 0,
-    count: -1
-  };
-  this.version = 0;
-}
-
-Object.defineProperty(BufferAttribute.prototype, 'needsUpdate', {
-  set: function set(value) {
-    if (value === true) this.version++;
-  }
-});
-Object.assign(BufferAttribute.prototype, {
-  isBufferAttribute: true,
-  onUploadCallback: function onUploadCallback() {},
-  setUsage: function setUsage(value) {
-    this.usage = value;
-    return this;
-  },
-  copy: function copy(source) {
-    this.name = source.name;
-    this.array = new source.array.constructor(source.array);
-    this.itemSize = source.itemSize;
-    this.count = source.count;
-    this.normalized = source.normalized;
-    this.usage = source.usage;
-    return this;
-  },
-  copyAt: function copyAt(index1, attribute, index2) {
-    index1 *= this.itemSize;
-    index2 *= attribute.itemSize;
-
-    for (var _i26 = 0, l = this.itemSize; _i26 < l; _i26++) {
-      this.array[index1 + _i26] = attribute.array[index2 + _i26];
+    if (Array.isArray(array)) {
+      throw new TypeError('THREE.BufferAttribute: array should be a Typed Array.');
     }
 
-    return this;
-  },
-  copyArray: function copyArray(array) {
-    this.array.set(array);
-    return this;
-  },
-  copyColorsArray: function copyColorsArray(colors) {
-    var array = this.array;
-    var offset = 0;
-
-    for (var _i27 = 0, l = colors.length; _i27 < l; _i27++) {
-      var color = colors[_i27];
-
-      if (color === undefined) {
-        console.warn('THREE.BufferAttribute.copyColorsArray(): color is undefined', _i27);
-        color = new Color();
-      }
-
-      array[offset++] = color.r;
-      array[offset++] = color.g;
-      array[offset++] = color.b;
-    }
-
-    return this;
-  },
-  copyVector2sArray: function copyVector2sArray(vectors) {
-    var array = this.array;
-    var offset = 0;
-
-    for (var _i28 = 0, l = vectors.length; _i28 < l; _i28++) {
-      var vector = vectors[_i28];
-
-      if (vector === undefined) {
-        console.warn('THREE.BufferAttribute.copyVector2sArray(): vector is undefined', _i28);
-        vector = new Vector2();
-      }
-
-      array[offset++] = vector.x;
-      array[offset++] = vector.y;
-    }
-
-    return this;
-  },
-  copyVector3sArray: function copyVector3sArray(vectors) {
-    var array = this.array;
-    var offset = 0;
-
-    for (var _i29 = 0, l = vectors.length; _i29 < l; _i29++) {
-      var vector = vectors[_i29];
-
-      if (vector === undefined) {
-        console.warn('THREE.BufferAttribute.copyVector3sArray(): vector is undefined', _i29);
-        vector = new Vector3();
-      }
-
-      array[offset++] = vector.x;
-      array[offset++] = vector.y;
-      array[offset++] = vector.z;
-    }
-
-    return this;
-  },
-  copyVector4sArray: function copyVector4sArray(vectors) {
-    var array = this.array;
-    var offset = 0;
-
-    for (var _i30 = 0, l = vectors.length; _i30 < l; _i30++) {
-      var vector = vectors[_i30];
-
-      if (vector === undefined) {
-        console.warn('THREE.BufferAttribute.copyVector4sArray(): vector is undefined', _i30);
-        vector = new Vector4();
-      }
-
-      array[offset++] = vector.x;
-      array[offset++] = vector.y;
-      array[offset++] = vector.z;
-      array[offset++] = vector.w;
-    }
-
-    return this;
-  },
-  applyMatrix3: function applyMatrix3(m) {
-    if (this.itemSize === 2) {
-      for (var _i31 = 0, l = this.count; _i31 < l; _i31++) {
-        _vector2.fromBufferAttribute(this, _i31);
-
-        _vector2.applyMatrix3(m);
-
-        this.setXY(_i31, _vector2.x, _vector2.y);
-      }
-    } else if (this.itemSize === 3) {
-      for (var _i32 = 0, _l2 = this.count; _i32 < _l2; _i32++) {
-        _vector$9.fromBufferAttribute(this, _i32);
-
-        _vector$9.applyMatrix3(m);
-
-        this.setXYZ(_i32, _vector$9.x, _vector$9.y, _vector$9.z);
-      }
-    }
-
-    return this;
-  },
-  applyMatrix4: function applyMatrix4(m) {
-    for (var _i33 = 0, l = this.count; _i33 < l; _i33++) {
-      _vector$9.x = this.getX(_i33);
-      _vector$9.y = this.getY(_i33);
-      _vector$9.z = this.getZ(_i33);
-
-      _vector$9.applyMatrix4(m);
-
-      this.setXYZ(_i33, _vector$9.x, _vector$9.y, _vector$9.z);
-    }
-
-    return this;
-  },
-  applyNormalMatrix: function applyNormalMatrix(m) {
-    for (var _i34 = 0, l = this.count; _i34 < l; _i34++) {
-      _vector$9.x = this.getX(_i34);
-      _vector$9.y = this.getY(_i34);
-      _vector$9.z = this.getZ(_i34);
-
-      _vector$9.applyNormalMatrix(m);
-
-      this.setXYZ(_i34, _vector$9.x, _vector$9.y, _vector$9.z);
-    }
-
-    return this;
-  },
-  transformDirection: function transformDirection(m) {
-    for (var _i35 = 0, l = this.count; _i35 < l; _i35++) {
-      _vector$9.x = this.getX(_i35);
-      _vector$9.y = this.getY(_i35);
-      _vector$9.z = this.getZ(_i35);
-
-      _vector$9.transformDirection(m);
-
-      this.setXYZ(_i35, _vector$9.x, _vector$9.y, _vector$9.z);
-    }
-
-    return this;
-  },
-  set: function set(value) {
-    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-    this.array.set(value, offset);
-    return this;
-  },
-  getX: function getX(index) {
-    return this.array[index * this.itemSize];
-  },
-  setX: function setX(index, x) {
-    this.array[index * this.itemSize] = x;
-    return this;
-  },
-  getY: function getY(index) {
-    return this.array[index * this.itemSize + 1];
-  },
-  setY: function setY(index, y) {
-    this.array[index * this.itemSize + 1] = y;
-    return this;
-  },
-  getZ: function getZ(index) {
-    return this.array[index * this.itemSize + 2];
-  },
-  setZ: function setZ(index, z) {
-    this.array[index * this.itemSize + 2] = z;
-    return this;
-  },
-  getW: function getW(index) {
-    return this.array[index * this.itemSize + 3];
-  },
-  setW: function setW(index, w) {
-    this.array[index * this.itemSize + 3] = w;
-    return this;
-  },
-  setXY: function setXY(index, x, y) {
-    index *= this.itemSize;
-    this.array[index + 0] = x;
-    this.array[index + 1] = y;
-    return this;
-  },
-  setXYZ: function setXYZ(index, x, y, z) {
-    index *= this.itemSize;
-    this.array[index + 0] = x;
-    this.array[index + 1] = y;
-    this.array[index + 2] = z;
-    return this;
-  },
-  setXYZW: function setXYZW(index, x, y, z, w) {
-    index *= this.itemSize;
-    this.array[index + 0] = x;
-    this.array[index + 1] = y;
-    this.array[index + 2] = z;
-    this.array[index + 3] = w;
-    return this;
-  },
-  onUpload: function onUpload(callback) {
-    this.onUploadCallback = callback;
-    return this;
-  },
-  clone: function clone() {
-    return new this.constructor(this.array, this.itemSize).copy(this);
-  },
-  toJSON: function toJSON() {
-    var data = {
-      itemSize: this.itemSize,
-      type: this.array.constructor.name,
-      array: Array.prototype.slice.call(this.array),
-      normalized: this.normalized
+    this.name = '';
+    this.array = array;
+    this.itemSize = itemSize;
+    this.count = array !== undefined ? array.length / itemSize : 0;
+    this.normalized = normalized === true;
+    this.usage = StaticDrawUsage;
+    this.updateRange = {
+      offset: 0,
+      count: -1
     };
-    if (this.name !== '') data.name = this.name;
-    if (this.usage !== StaticDrawUsage) data.usage = this.usage;
-    if (this.updateRange.offset !== 0 || this.updateRange.count !== -1) data.updateRange = this.updateRange;
-    return data;
+    this.version = 0;
+
+    this.onUploadCallback = function () {};
   }
-}); //
 
-function Int8BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Int8Array(array), itemSize, normalized);
-}
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BufferAttribute, [{
+    key: "needsUpdate",
+    set: function set(value) {
+      if (value === true) this.version++;
+    }
+  }, {
+    key: "setUsage",
+    value: function setUsage(value) {
+      this.usage = value;
+      return this;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      this.name = source.name;
+      this.array = new source.array.constructor(source.array);
+      this.itemSize = source.itemSize;
+      this.count = source.count;
+      this.normalized = source.normalized;
+      this.usage = source.usage;
+      return this;
+    }
+  }, {
+    key: "copyAt",
+    value: function copyAt(index1, attribute, index2) {
+      index1 *= this.itemSize;
+      index2 *= attribute.itemSize;
 
-Int8BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Int8BufferAttribute.prototype.constructor = Int8BufferAttribute;
+      for (var _i26 = 0, l = this.itemSize; _i26 < l; _i26++) {
+        this.array[index1 + _i26] = attribute.array[index2 + _i26];
+      }
 
-function Uint8BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Uint8Array(array), itemSize, normalized);
-}
+      return this;
+    }
+  }, {
+    key: "copyArray",
+    value: function copyArray(array) {
+      this.array.set(array);
+      return this;
+    }
+  }, {
+    key: "copyColorsArray",
+    value: function copyColorsArray(colors) {
+      var array = this.array;
+      var offset = 0;
 
-Uint8BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Uint8BufferAttribute.prototype.constructor = Uint8BufferAttribute;
+      for (var _i27 = 0, l = colors.length; _i27 < l; _i27++) {
+        var color = colors[_i27];
 
-function Uint8ClampedBufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Uint8ClampedArray(array), itemSize, normalized);
-}
+        if (color === undefined) {
+          console.warn('THREE.BufferAttribute.copyColorsArray(): color is undefined', _i27);
+          color = new Color();
+        }
 
-Uint8ClampedBufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Uint8ClampedBufferAttribute.prototype.constructor = Uint8ClampedBufferAttribute;
+        array[offset++] = color.r;
+        array[offset++] = color.g;
+        array[offset++] = color.b;
+      }
 
-function Int16BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Int16Array(array), itemSize, normalized);
-}
+      return this;
+    }
+  }, {
+    key: "copyVector2sArray",
+    value: function copyVector2sArray(vectors) {
+      var array = this.array;
+      var offset = 0;
 
-Int16BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Int16BufferAttribute.prototype.constructor = Int16BufferAttribute;
+      for (var _i28 = 0, l = vectors.length; _i28 < l; _i28++) {
+        var vector = vectors[_i28];
 
-function Uint16BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Uint16Array(array), itemSize, normalized);
-}
+        if (vector === undefined) {
+          console.warn('THREE.BufferAttribute.copyVector2sArray(): vector is undefined', _i28);
+          vector = new Vector2();
+        }
 
-Uint16BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Uint16BufferAttribute.prototype.constructor = Uint16BufferAttribute;
+        array[offset++] = vector.x;
+        array[offset++] = vector.y;
+      }
 
-function Int32BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Int32Array(array), itemSize, normalized);
-}
+      return this;
+    }
+  }, {
+    key: "copyVector3sArray",
+    value: function copyVector3sArray(vectors) {
+      var array = this.array;
+      var offset = 0;
 
-Int32BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Int32BufferAttribute.prototype.constructor = Int32BufferAttribute;
+      for (var _i29 = 0, l = vectors.length; _i29 < l; _i29++) {
+        var vector = vectors[_i29];
 
-function Uint32BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Uint32Array(array), itemSize, normalized);
-}
+        if (vector === undefined) {
+          console.warn('THREE.BufferAttribute.copyVector3sArray(): vector is undefined', _i29);
+          vector = new Vector3();
+        }
 
-Uint32BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Uint32BufferAttribute.prototype.constructor = Uint32BufferAttribute;
+        array[offset++] = vector.x;
+        array[offset++] = vector.y;
+        array[offset++] = vector.z;
+      }
 
-function Float16BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Uint16Array(array), itemSize, normalized);
-}
+      return this;
+    }
+  }, {
+    key: "copyVector4sArray",
+    value: function copyVector4sArray(vectors) {
+      var array = this.array;
+      var offset = 0;
 
-Float16BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Float16BufferAttribute.prototype.constructor = Float16BufferAttribute;
+      for (var _i30 = 0, l = vectors.length; _i30 < l; _i30++) {
+        var vector = vectors[_i30];
+
+        if (vector === undefined) {
+          console.warn('THREE.BufferAttribute.copyVector4sArray(): vector is undefined', _i30);
+          vector = new Vector4();
+        }
+
+        array[offset++] = vector.x;
+        array[offset++] = vector.y;
+        array[offset++] = vector.z;
+        array[offset++] = vector.w;
+      }
+
+      return this;
+    }
+  }, {
+    key: "applyMatrix3",
+    value: function applyMatrix3(m) {
+      if (this.itemSize === 2) {
+        for (var _i31 = 0, l = this.count; _i31 < l; _i31++) {
+          _vector2.fromBufferAttribute(this, _i31);
+
+          _vector2.applyMatrix3(m);
+
+          this.setXY(_i31, _vector2.x, _vector2.y);
+        }
+      } else if (this.itemSize === 3) {
+        for (var _i32 = 0, _l2 = this.count; _i32 < _l2; _i32++) {
+          _vector$9.fromBufferAttribute(this, _i32);
+
+          _vector$9.applyMatrix3(m);
+
+          this.setXYZ(_i32, _vector$9.x, _vector$9.y, _vector$9.z);
+        }
+      }
+
+      return this;
+    }
+  }, {
+    key: "applyMatrix4",
+    value: function applyMatrix4(m) {
+      for (var _i33 = 0, l = this.count; _i33 < l; _i33++) {
+        _vector$9.x = this.getX(_i33);
+        _vector$9.y = this.getY(_i33);
+        _vector$9.z = this.getZ(_i33);
+
+        _vector$9.applyMatrix4(m);
+
+        this.setXYZ(_i33, _vector$9.x, _vector$9.y, _vector$9.z);
+      }
+
+      return this;
+    }
+  }, {
+    key: "applyNormalMatrix",
+    value: function applyNormalMatrix(m) {
+      for (var _i34 = 0, l = this.count; _i34 < l; _i34++) {
+        _vector$9.x = this.getX(_i34);
+        _vector$9.y = this.getY(_i34);
+        _vector$9.z = this.getZ(_i34);
+
+        _vector$9.applyNormalMatrix(m);
+
+        this.setXYZ(_i34, _vector$9.x, _vector$9.y, _vector$9.z);
+      }
+
+      return this;
+    }
+  }, {
+    key: "transformDirection",
+    value: function transformDirection(m) {
+      for (var _i35 = 0, l = this.count; _i35 < l; _i35++) {
+        _vector$9.x = this.getX(_i35);
+        _vector$9.y = this.getY(_i35);
+        _vector$9.z = this.getZ(_i35);
+
+        _vector$9.transformDirection(m);
+
+        this.setXYZ(_i35, _vector$9.x, _vector$9.y, _vector$9.z);
+      }
+
+      return this;
+    }
+  }, {
+    key: "set",
+    value: function set(value) {
+      var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      this.array.set(value, offset);
+      return this;
+    }
+  }, {
+    key: "getX",
+    value: function getX(index) {
+      return this.array[index * this.itemSize];
+    }
+  }, {
+    key: "setX",
+    value: function setX(index, x) {
+      this.array[index * this.itemSize] = x;
+      return this;
+    }
+  }, {
+    key: "getY",
+    value: function getY(index) {
+      return this.array[index * this.itemSize + 1];
+    }
+  }, {
+    key: "setY",
+    value: function setY(index, y) {
+      this.array[index * this.itemSize + 1] = y;
+      return this;
+    }
+  }, {
+    key: "getZ",
+    value: function getZ(index) {
+      return this.array[index * this.itemSize + 2];
+    }
+  }, {
+    key: "setZ",
+    value: function setZ(index, z) {
+      this.array[index * this.itemSize + 2] = z;
+      return this;
+    }
+  }, {
+    key: "getW",
+    value: function getW(index) {
+      return this.array[index * this.itemSize + 3];
+    }
+  }, {
+    key: "setW",
+    value: function setW(index, w) {
+      this.array[index * this.itemSize + 3] = w;
+      return this;
+    }
+  }, {
+    key: "setXY",
+    value: function setXY(index, x, y) {
+      index *= this.itemSize;
+      this.array[index + 0] = x;
+      this.array[index + 1] = y;
+      return this;
+    }
+  }, {
+    key: "setXYZ",
+    value: function setXYZ(index, x, y, z) {
+      index *= this.itemSize;
+      this.array[index + 0] = x;
+      this.array[index + 1] = y;
+      this.array[index + 2] = z;
+      return this;
+    }
+  }, {
+    key: "setXYZW",
+    value: function setXYZW(index, x, y, z, w) {
+      index *= this.itemSize;
+      this.array[index + 0] = x;
+      this.array[index + 1] = y;
+      this.array[index + 2] = z;
+      this.array[index + 3] = w;
+      return this;
+    }
+  }, {
+    key: "onUpload",
+    value: function onUpload(callback) {
+      this.onUploadCallback = callback;
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor(this.array, this.itemSize).copy(this);
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = {
+        itemSize: this.itemSize,
+        type: this.array.constructor.name,
+        array: Array.prototype.slice.call(this.array),
+        normalized: this.normalized
+      };
+      if (this.name !== '') data.name = this.name;
+      if (this.usage !== StaticDrawUsage) data.usage = this.usage;
+      if (this.updateRange.offset !== 0 || this.updateRange.count !== -1) data.updateRange = this.updateRange;
+      return data;
+    }
+  }]);
+
+  return BufferAttribute;
+}();
+
+BufferAttribute.prototype.isBufferAttribute = true; //
+
+var Int8BufferAttribute = /*#__PURE__*/function (_BufferAttribute) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Int8BufferAttribute, _BufferAttribute);
+
+  var _super6 = _createSuper(Int8BufferAttribute);
+
+  function Int8BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Int8BufferAttribute);
+
+    return _super6.call(this, new Int8Array(array), itemSize, normalized);
+  }
+
+  return Int8BufferAttribute;
+}(BufferAttribute);
+
+var Uint8BufferAttribute = /*#__PURE__*/function (_BufferAttribute2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint8BufferAttribute, _BufferAttribute2);
+
+  var _super7 = _createSuper(Uint8BufferAttribute);
+
+  function Uint8BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint8BufferAttribute);
+
+    return _super7.call(this, new Uint8Array(array), itemSize, normalized);
+  }
+
+  return Uint8BufferAttribute;
+}(BufferAttribute);
+
+var Uint8ClampedBufferAttribute = /*#__PURE__*/function (_BufferAttribute3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint8ClampedBufferAttribute, _BufferAttribute3);
+
+  var _super8 = _createSuper(Uint8ClampedBufferAttribute);
+
+  function Uint8ClampedBufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint8ClampedBufferAttribute);
+
+    return _super8.call(this, new Uint8ClampedArray(array), itemSize, normalized);
+  }
+
+  return Uint8ClampedBufferAttribute;
+}(BufferAttribute);
+
+var Int16BufferAttribute = /*#__PURE__*/function (_BufferAttribute4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Int16BufferAttribute, _BufferAttribute4);
+
+  var _super9 = _createSuper(Int16BufferAttribute);
+
+  function Int16BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Int16BufferAttribute);
+
+    return _super9.call(this, new Int16Array(array), itemSize, normalized);
+  }
+
+  return Int16BufferAttribute;
+}(BufferAttribute);
+
+var Uint16BufferAttribute = /*#__PURE__*/function (_BufferAttribute5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint16BufferAttribute, _BufferAttribute5);
+
+  var _super10 = _createSuper(Uint16BufferAttribute);
+
+  function Uint16BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint16BufferAttribute);
+
+    return _super10.call(this, new Uint16Array(array), itemSize, normalized);
+  }
+
+  return Uint16BufferAttribute;
+}(BufferAttribute);
+
+var Int32BufferAttribute = /*#__PURE__*/function (_BufferAttribute6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Int32BufferAttribute, _BufferAttribute6);
+
+  var _super11 = _createSuper(Int32BufferAttribute);
+
+  function Int32BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Int32BufferAttribute);
+
+    return _super11.call(this, new Int32Array(array), itemSize, normalized);
+  }
+
+  return Int32BufferAttribute;
+}(BufferAttribute);
+
+var Uint32BufferAttribute = /*#__PURE__*/function (_BufferAttribute7) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint32BufferAttribute, _BufferAttribute7);
+
+  var _super12 = _createSuper(Uint32BufferAttribute);
+
+  function Uint32BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint32BufferAttribute);
+
+    return _super12.call(this, new Uint32Array(array), itemSize, normalized);
+  }
+
+  return Uint32BufferAttribute;
+}(BufferAttribute);
+
+var Float16BufferAttribute = /*#__PURE__*/function (_BufferAttribute8) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Float16BufferAttribute, _BufferAttribute8);
+
+  var _super13 = _createSuper(Float16BufferAttribute);
+
+  function Float16BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Float16BufferAttribute);
+
+    return _super13.call(this, new Uint16Array(array), itemSize, normalized);
+  }
+
+  return Float16BufferAttribute;
+}(BufferAttribute);
+
 Float16BufferAttribute.prototype.isFloat16BufferAttribute = true;
 
-function Float32BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Float32Array(array), itemSize, normalized);
-}
+var Float32BufferAttribute = /*#__PURE__*/function (_BufferAttribute9) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Float32BufferAttribute, _BufferAttribute9);
 
-Float32BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Float32BufferAttribute.prototype.constructor = Float32BufferAttribute;
+  var _super14 = _createSuper(Float32BufferAttribute);
 
-function Float64BufferAttribute(array, itemSize, normalized) {
-  BufferAttribute.call(this, new Float64Array(array), itemSize, normalized);
-}
+  function Float32BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Float32BufferAttribute);
 
-Float64BufferAttribute.prototype = Object.create(BufferAttribute.prototype);
-Float64BufferAttribute.prototype.constructor = Float64BufferAttribute;
+    return _super14.call(this, new Float32Array(array), itemSize, normalized);
+  }
+
+  return Float32BufferAttribute;
+}(BufferAttribute);
+
+var Float64BufferAttribute = /*#__PURE__*/function (_BufferAttribute10) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Float64BufferAttribute, _BufferAttribute10);
+
+  var _super15 = _createSuper(Float64BufferAttribute);
+
+  function Float64BufferAttribute(array, itemSize, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Float64BufferAttribute);
+
+    return _super15.call(this, new Float64Array(array), itemSize, normalized);
+  }
+
+  return Float64BufferAttribute;
+}(BufferAttribute);
 
 function arrayMax(array) {
   if (array.length === 0) return -Infinity;
@@ -8424,995 +8720,1089 @@ function getTypedArray(type, buffer) {
 
 var _id = 0;
 
-var _m1 = new Matrix4();
+var _m1 = new /*@__PURE__*/Matrix4();
 
-var _obj = new Object3D();
+var _obj = new /*@__PURE__*/Object3D();
 
-var _offset = new Vector3();
+var _offset = new /*@__PURE__*/Vector3();
 
-var _box$1 = new Box3();
+var _box$1 = new /*@__PURE__*/Box3();
 
-var _boxMorphTargets = new Box3();
+var _boxMorphTargets = new /*@__PURE__*/Box3();
 
-var _vector$8 = new Vector3();
+var _vector$8 = new /*@__PURE__*/Vector3();
 
-function BufferGeometry() {
-  Object.defineProperty(this, 'id', {
-    value: _id++
-  });
-  this.uuid = MathUtils.generateUUID();
-  this.name = '';
-  this.type = 'BufferGeometry';
-  this.index = null;
-  this.attributes = {};
-  this.morphAttributes = {};
-  this.morphTargetsRelative = false;
-  this.groups = [];
-  this.boundingBox = null;
-  this.boundingSphere = null;
-  this.drawRange = {
-    start: 0,
-    count: Infinity
-  };
-  this.userData = {};
-}
+var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometry, _EventDispatcher4);
 
-BufferGeometry.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
-  constructor: BufferGeometry,
-  isBufferGeometry: true,
-  getIndex: function getIndex() {
-    return this.index;
-  },
-  setIndex: function setIndex(index) {
-    if (Array.isArray(index)) {
-      this.index = new (arrayMax(index) > 65535 ? Uint32BufferAttribute : Uint16BufferAttribute)(index, 1);
-    } else {
-      this.index = index;
-    }
+  var _super16 = _createSuper(BufferGeometry);
 
-    return this;
-  },
-  getAttribute: function getAttribute(name) {
-    return this.attributes[name];
-  },
-  setAttribute: function setAttribute(name, attribute) {
-    this.attributes[name] = attribute;
-    return this;
-  },
-  deleteAttribute: function deleteAttribute(name) {
-    delete this.attributes[name];
-    return this;
-  },
-  hasAttribute: function hasAttribute(name) {
-    return this.attributes[name] !== undefined;
-  },
-  addGroup: function addGroup(start, count) {
-    var materialIndex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-    this.groups.push({
-      start: start,
-      count: count,
-      materialIndex: materialIndex
+  function BufferGeometry() {
+    var _this7;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BufferGeometry);
+
+    _this7 = _super16.call(this);
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this7), 'id', {
+      value: _id++
     });
-  },
-  clearGroups: function clearGroups() {
-    this.groups = [];
-  },
-  setDrawRange: function setDrawRange(start, count) {
-    this.drawRange.start = start;
-    this.drawRange.count = count;
-  },
-  applyMatrix4: function applyMatrix4(matrix) {
-    var position = this.attributes.position;
+    _this7.uuid = generateUUID();
+    _this7.name = '';
+    _this7.type = 'BufferGeometry';
+    _this7.index = null;
+    _this7.attributes = {};
+    _this7.morphAttributes = {};
+    _this7.morphTargetsRelative = false;
+    _this7.groups = [];
+    _this7.boundingBox = null;
+    _this7.boundingSphere = null;
+    _this7.drawRange = {
+      start: 0,
+      count: Infinity
+    };
+    _this7.userData = {};
+    return _this7;
+  }
 
-    if (position !== undefined) {
-      position.applyMatrix4(matrix);
-      position.needsUpdate = true;
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BufferGeometry, [{
+    key: "getIndex",
+    value: function getIndex() {
+      return this.index;
     }
-
-    var normal = this.attributes.normal;
-
-    if (normal !== undefined) {
-      var normalMatrix = new Matrix3().getNormalMatrix(matrix);
-      normal.applyNormalMatrix(normalMatrix);
-      normal.needsUpdate = true;
-    }
-
-    var tangent = this.attributes.tangent;
-
-    if (tangent !== undefined) {
-      tangent.transformDirection(matrix);
-      tangent.needsUpdate = true;
-    }
-
-    if (this.boundingBox !== null) {
-      this.computeBoundingBox();
-    }
-
-    if (this.boundingSphere !== null) {
-      this.computeBoundingSphere();
-    }
-
-    return this;
-  },
-  rotateX: function rotateX(angle) {
-    // rotate geometry around world x-axis
-    _m1.makeRotationX(angle);
-
-    this.applyMatrix4(_m1);
-    return this;
-  },
-  rotateY: function rotateY(angle) {
-    // rotate geometry around world y-axis
-    _m1.makeRotationY(angle);
-
-    this.applyMatrix4(_m1);
-    return this;
-  },
-  rotateZ: function rotateZ(angle) {
-    // rotate geometry around world z-axis
-    _m1.makeRotationZ(angle);
-
-    this.applyMatrix4(_m1);
-    return this;
-  },
-  translate: function translate(x, y, z) {
-    // translate geometry
-    _m1.makeTranslation(x, y, z);
-
-    this.applyMatrix4(_m1);
-    return this;
-  },
-  scale: function scale(x, y, z) {
-    // scale geometry
-    _m1.makeScale(x, y, z);
-
-    this.applyMatrix4(_m1);
-    return this;
-  },
-  lookAt: function lookAt(vector) {
-    _obj.lookAt(vector);
-
-    _obj.updateMatrix();
-
-    this.applyMatrix4(_obj.matrix);
-    return this;
-  },
-  center: function center() {
-    this.computeBoundingBox();
-    this.boundingBox.getCenter(_offset).negate();
-    this.translate(_offset.x, _offset.y, _offset.z);
-    return this;
-  },
-  setFromPoints: function setFromPoints(points) {
-    var position = [];
-
-    for (var _i37 = 0, l = points.length; _i37 < l; _i37++) {
-      var point = points[_i37];
-      position.push(point.x, point.y, point.z || 0);
-    }
-
-    this.setAttribute('position', new Float32BufferAttribute(position, 3));
-    return this;
-  },
-  computeBoundingBox: function computeBoundingBox() {
-    if (this.boundingBox === null) {
-      this.boundingBox = new Box3();
-    }
-
-    var position = this.attributes.position;
-    var morphAttributesPosition = this.morphAttributes.position;
-
-    if (position && position.isGLBufferAttribute) {
-      console.error('THREE.BufferGeometry.computeBoundingBox(): GLBufferAttribute requires a manual bounding box. Alternatively set "mesh.frustumCulled" to "false".', this);
-      this.boundingBox.set(new Vector3(-Infinity, -Infinity, -Infinity), new Vector3(+Infinity, +Infinity, +Infinity));
-      return;
-    }
-
-    if (position !== undefined) {
-      this.boundingBox.setFromBufferAttribute(position); // process morph attributes if present
-
-      if (morphAttributesPosition) {
-        for (var _i38 = 0, il = morphAttributesPosition.length; _i38 < il; _i38++) {
-          var morphAttribute = morphAttributesPosition[_i38];
-
-          _box$1.setFromBufferAttribute(morphAttribute);
-
-          if (this.morphTargetsRelative) {
-            _vector$8.addVectors(this.boundingBox.min, _box$1.min);
-
-            this.boundingBox.expandByPoint(_vector$8);
-
-            _vector$8.addVectors(this.boundingBox.max, _box$1.max);
-
-            this.boundingBox.expandByPoint(_vector$8);
-          } else {
-            this.boundingBox.expandByPoint(_box$1.min);
-            this.boundingBox.expandByPoint(_box$1.max);
-          }
-        }
-      }
-    } else {
-      this.boundingBox.makeEmpty();
-    }
-
-    if (isNaN(this.boundingBox.min.x) || isNaN(this.boundingBox.min.y) || isNaN(this.boundingBox.min.z)) {
-      console.error('THREE.BufferGeometry.computeBoundingBox(): Computed min/max have NaN values. The "position" attribute is likely to have NaN values.', this);
-    }
-  },
-  computeBoundingSphere: function computeBoundingSphere() {
-    if (this.boundingSphere === null) {
-      this.boundingSphere = new Sphere();
-    }
-
-    var position = this.attributes.position;
-    var morphAttributesPosition = this.morphAttributes.position;
-
-    if (position && position.isGLBufferAttribute) {
-      console.error('THREE.BufferGeometry.computeBoundingSphere(): GLBufferAttribute requires a manual bounding sphere. Alternatively set "mesh.frustumCulled" to "false".', this);
-      this.boundingSphere.set(new Vector3(), Infinity);
-      return;
-    }
-
-    if (position) {
-      // first, find the center of the bounding sphere
-      var center = this.boundingSphere.center;
-
-      _box$1.setFromBufferAttribute(position); // process morph attributes if present
-
-
-      if (morphAttributesPosition) {
-        for (var _i39 = 0, il = morphAttributesPosition.length; _i39 < il; _i39++) {
-          var morphAttribute = morphAttributesPosition[_i39];
-
-          _boxMorphTargets.setFromBufferAttribute(morphAttribute);
-
-          if (this.morphTargetsRelative) {
-            _vector$8.addVectors(_box$1.min, _boxMorphTargets.min);
-
-            _box$1.expandByPoint(_vector$8);
-
-            _vector$8.addVectors(_box$1.max, _boxMorphTargets.max);
-
-            _box$1.expandByPoint(_vector$8);
-          } else {
-            _box$1.expandByPoint(_boxMorphTargets.min);
-
-            _box$1.expandByPoint(_boxMorphTargets.max);
-          }
-        }
-      }
-
-      _box$1.getCenter(center); // second, try to find a boundingSphere with a radius smaller than the
-      // boundingSphere of the boundingBox: sqrt(3) smaller in the best case
-
-
-      var maxRadiusSq = 0;
-
-      for (var _i40 = 0, _il = position.count; _i40 < _il; _i40++) {
-        _vector$8.fromBufferAttribute(position, _i40);
-
-        maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$8));
-      } // process morph attributes if present
-
-
-      if (morphAttributesPosition) {
-        for (var _i41 = 0, _il2 = morphAttributesPosition.length; _i41 < _il2; _i41++) {
-          var _morphAttribute = morphAttributesPosition[_i41];
-          var morphTargetsRelative = this.morphTargetsRelative;
-
-          for (var j = 0, jl = _morphAttribute.count; j < jl; j++) {
-            _vector$8.fromBufferAttribute(_morphAttribute, j);
-
-            if (morphTargetsRelative) {
-              _offset.fromBufferAttribute(position, j);
-
-              _vector$8.add(_offset);
-            }
-
-            maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$8));
-          }
-        }
-      }
-
-      this.boundingSphere.radius = Math.sqrt(maxRadiusSq);
-
-      if (isNaN(this.boundingSphere.radius)) {
-        console.error('THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this);
-      }
-    }
-  },
-  computeFaceNormals: function computeFaceNormals() {// backwards compatibility
-  },
-  computeTangents: function computeTangents() {
-    var index = this.index;
-    var attributes = this.attributes; // based on http://www.terathon.com/code/tangent.html
-    // (per vertex tangents)
-
-    if (index === null || attributes.position === undefined || attributes.normal === undefined || attributes.uv === undefined) {
-      console.error('THREE.BufferGeometry: .computeTangents() failed. Missing required attributes (index, position, normal or uv)');
-      return;
-    }
-
-    var indices = index.array;
-    var positions = attributes.position.array;
-    var normals = attributes.normal.array;
-    var uvs = attributes.uv.array;
-    var nVertices = positions.length / 3;
-
-    if (attributes.tangent === undefined) {
-      this.setAttribute('tangent', new BufferAttribute(new Float32Array(4 * nVertices), 4));
-    }
-
-    var tangents = attributes.tangent.array;
-    var tan1 = [],
-        tan2 = [];
-
-    for (var _i42 = 0; _i42 < nVertices; _i42++) {
-      tan1[_i42] = new Vector3();
-      tan2[_i42] = new Vector3();
-    }
-
-    var vA = new Vector3(),
-        vB = new Vector3(),
-        vC = new Vector3(),
-        uvA = new Vector2(),
-        uvB = new Vector2(),
-        uvC = new Vector2(),
-        sdir = new Vector3(),
-        tdir = new Vector3();
-
-    function handleTriangle(a, b, c) {
-      vA.fromArray(positions, a * 3);
-      vB.fromArray(positions, b * 3);
-      vC.fromArray(positions, c * 3);
-      uvA.fromArray(uvs, a * 2);
-      uvB.fromArray(uvs, b * 2);
-      uvC.fromArray(uvs, c * 2);
-      vB.sub(vA);
-      vC.sub(vA);
-      uvB.sub(uvA);
-      uvC.sub(uvA);
-      var r = 1.0 / (uvB.x * uvC.y - uvC.x * uvB.y); // silently ignore degenerate uv triangles having coincident or colinear vertices
-
-      if (!isFinite(r)) return;
-      sdir.copy(vB).multiplyScalar(uvC.y).addScaledVector(vC, -uvB.y).multiplyScalar(r);
-      tdir.copy(vC).multiplyScalar(uvB.x).addScaledVector(vB, -uvC.x).multiplyScalar(r);
-      tan1[a].add(sdir);
-      tan1[b].add(sdir);
-      tan1[c].add(sdir);
-      tan2[a].add(tdir);
-      tan2[b].add(tdir);
-      tan2[c].add(tdir);
-    }
-
-    var groups = this.groups;
-
-    if (groups.length === 0) {
-      groups = [{
-        start: 0,
-        count: indices.length
-      }];
-    }
-
-    for (var _i43 = 0, il = groups.length; _i43 < il; ++_i43) {
-      var group = groups[_i43];
-      var start = group.start;
-      var count = group.count;
-
-      for (var j = start, jl = start + count; j < jl; j += 3) {
-        handleTriangle(indices[j + 0], indices[j + 1], indices[j + 2]);
-      }
-    }
-
-    var tmp = new Vector3(),
-        tmp2 = new Vector3();
-    var n = new Vector3(),
-        n2 = new Vector3();
-
-    function handleVertex(v) {
-      n.fromArray(normals, v * 3);
-      n2.copy(n);
-      var t = tan1[v]; // Gram-Schmidt orthogonalize
-
-      tmp.copy(t);
-      tmp.sub(n.multiplyScalar(n.dot(t))).normalize(); // Calculate handedness
-
-      tmp2.crossVectors(n2, t);
-      var test = tmp2.dot(tan2[v]);
-      var w = test < 0.0 ? -1.0 : 1.0;
-      tangents[v * 4] = tmp.x;
-      tangents[v * 4 + 1] = tmp.y;
-      tangents[v * 4 + 2] = tmp.z;
-      tangents[v * 4 + 3] = w;
-    }
-
-    for (var _i44 = 0, _il3 = groups.length; _i44 < _il3; ++_i44) {
-      var _group = groups[_i44];
-      var _start2 = _group.start;
-      var _count = _group.count;
-
-      for (var _j = _start2, _jl = _start2 + _count; _j < _jl; _j += 3) {
-        handleVertex(indices[_j + 0]);
-        handleVertex(indices[_j + 1]);
-        handleVertex(indices[_j + 2]);
-      }
-    }
-  },
-  computeVertexNormals: function computeVertexNormals() {
-    var index = this.index;
-    var positionAttribute = this.getAttribute('position');
-
-    if (positionAttribute !== undefined) {
-      var normalAttribute = this.getAttribute('normal');
-
-      if (normalAttribute === undefined) {
-        normalAttribute = new BufferAttribute(new Float32Array(positionAttribute.count * 3), 3);
-        this.setAttribute('normal', normalAttribute);
+  }, {
+    key: "setIndex",
+    value: function setIndex(index) {
+      if (Array.isArray(index)) {
+        this.index = new (arrayMax(index) > 65535 ? Uint32BufferAttribute : Uint16BufferAttribute)(index, 1);
       } else {
-        // reset existing normals to zero
-        for (var _i45 = 0, il = normalAttribute.count; _i45 < il; _i45++) {
-          normalAttribute.setXYZ(_i45, 0, 0, 0);
-        }
+        this.index = index;
       }
 
-      var pA = new Vector3(),
-          pB = new Vector3(),
-          pC = new Vector3();
-      var nA = new Vector3(),
-          nB = new Vector3(),
-          nC = new Vector3();
-      var cb = new Vector3(),
-          ab = new Vector3(); // indexed elements
-
-      if (index) {
-        for (var _i46 = 0, _il4 = index.count; _i46 < _il4; _i46 += 3) {
-          var vA = index.getX(_i46 + 0);
-          var vB = index.getX(_i46 + 1);
-          var vC = index.getX(_i46 + 2);
-          pA.fromBufferAttribute(positionAttribute, vA);
-          pB.fromBufferAttribute(positionAttribute, vB);
-          pC.fromBufferAttribute(positionAttribute, vC);
-          cb.subVectors(pC, pB);
-          ab.subVectors(pA, pB);
-          cb.cross(ab);
-          nA.fromBufferAttribute(normalAttribute, vA);
-          nB.fromBufferAttribute(normalAttribute, vB);
-          nC.fromBufferAttribute(normalAttribute, vC);
-          nA.add(cb);
-          nB.add(cb);
-          nC.add(cb);
-          normalAttribute.setXYZ(vA, nA.x, nA.y, nA.z);
-          normalAttribute.setXYZ(vB, nB.x, nB.y, nB.z);
-          normalAttribute.setXYZ(vC, nC.x, nC.y, nC.z);
-        }
-      } else {
-        // non-indexed elements (unconnected triangle soup)
-        for (var _i47 = 0, _il5 = positionAttribute.count; _i47 < _il5; _i47 += 3) {
-          pA.fromBufferAttribute(positionAttribute, _i47 + 0);
-          pB.fromBufferAttribute(positionAttribute, _i47 + 1);
-          pC.fromBufferAttribute(positionAttribute, _i47 + 2);
-          cb.subVectors(pC, pB);
-          ab.subVectors(pA, pB);
-          cb.cross(ab);
-          normalAttribute.setXYZ(_i47 + 0, cb.x, cb.y, cb.z);
-          normalAttribute.setXYZ(_i47 + 1, cb.x, cb.y, cb.z);
-          normalAttribute.setXYZ(_i47 + 2, cb.x, cb.y, cb.z);
-        }
-      }
-
-      this.normalizeNormals();
-      normalAttribute.needsUpdate = true;
-    }
-  },
-  merge: function merge(geometry, offset) {
-    if (!(geometry && geometry.isBufferGeometry)) {
-      console.error('THREE.BufferGeometry.merge(): geometry not an instance of THREE.BufferGeometry.', geometry);
-      return;
-    }
-
-    if (offset === undefined) {
-      offset = 0;
-      console.warn('THREE.BufferGeometry.merge(): Overwriting original geometry, starting at offset=0. ' + 'Use BufferGeometryUtils.mergeBufferGeometries() for lossless merge.');
-    }
-
-    var attributes = this.attributes;
-
-    for (var key in attributes) {
-      if (geometry.attributes[key] === undefined) continue;
-      var attribute1 = attributes[key];
-      var attributeArray1 = attribute1.array;
-      var attribute2 = geometry.attributes[key];
-      var attributeArray2 = attribute2.array;
-      var attributeOffset = attribute2.itemSize * offset;
-      var length = Math.min(attributeArray2.length, attributeArray1.length - attributeOffset);
-
-      for (var _i48 = 0, j = attributeOffset; _i48 < length; _i48++, j++) {
-        attributeArray1[j] = attributeArray2[_i48];
-      }
-    }
-
-    return this;
-  },
-  normalizeNormals: function normalizeNormals() {
-    var normals = this.attributes.normal;
-
-    for (var _i49 = 0, il = normals.count; _i49 < il; _i49++) {
-      _vector$8.fromBufferAttribute(normals, _i49);
-
-      _vector$8.normalize();
-
-      normals.setXYZ(_i49, _vector$8.x, _vector$8.y, _vector$8.z);
-    }
-  },
-  toNonIndexed: function toNonIndexed() {
-    function convertBufferAttribute(attribute, indices) {
-      var array = attribute.array;
-      var itemSize = attribute.itemSize;
-      var normalized = attribute.normalized;
-      var array2 = new array.constructor(indices.length * itemSize);
-      var index = 0,
-          index2 = 0;
-
-      for (var _i50 = 0, l = indices.length; _i50 < l; _i50++) {
-        index = indices[_i50] * itemSize;
-
-        for (var j = 0; j < itemSize; j++) {
-          array2[index2++] = array[index++];
-        }
-      }
-
-      return new BufferAttribute(array2, itemSize, normalized);
-    } //
-
-
-    if (this.index === null) {
-      console.warn('THREE.BufferGeometry.toNonIndexed(): BufferGeometry is already non-indexed.');
       return this;
     }
+  }, {
+    key: "getAttribute",
+    value: function getAttribute(name) {
+      return this.attributes[name];
+    }
+  }, {
+    key: "setAttribute",
+    value: function setAttribute(name, attribute) {
+      this.attributes[name] = attribute;
+      return this;
+    }
+  }, {
+    key: "deleteAttribute",
+    value: function deleteAttribute(name) {
+      delete this.attributes[name];
+      return this;
+    }
+  }, {
+    key: "hasAttribute",
+    value: function hasAttribute(name) {
+      return this.attributes[name] !== undefined;
+    }
+  }, {
+    key: "addGroup",
+    value: function addGroup(start, count) {
+      var materialIndex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      this.groups.push({
+        start: start,
+        count: count,
+        materialIndex: materialIndex
+      });
+    }
+  }, {
+    key: "clearGroups",
+    value: function clearGroups() {
+      this.groups = [];
+    }
+  }, {
+    key: "setDrawRange",
+    value: function setDrawRange(start, count) {
+      this.drawRange.start = start;
+      this.drawRange.count = count;
+    }
+  }, {
+    key: "applyMatrix4",
+    value: function applyMatrix4(matrix) {
+      var position = this.attributes.position;
 
-    var geometry2 = new BufferGeometry();
-    var indices = this.index.array;
-    var attributes = this.attributes; // attributes
-
-    for (var name in attributes) {
-      var attribute = attributes[name];
-      var newAttribute = convertBufferAttribute(attribute, indices);
-      geometry2.setAttribute(name, newAttribute);
-    } // morph attributes
-
-
-    var morphAttributes = this.morphAttributes;
-
-    for (var _name in morphAttributes) {
-      var morphArray = [];
-      var morphAttribute = morphAttributes[_name]; // morphAttribute: array of Float32BufferAttributes
-
-      for (var _i51 = 0, il = morphAttribute.length; _i51 < il; _i51++) {
-        var _attribute = morphAttribute[_i51];
-
-        var _newAttribute = convertBufferAttribute(_attribute, indices);
-
-        morphArray.push(_newAttribute);
+      if (position !== undefined) {
+        position.applyMatrix4(matrix);
+        position.needsUpdate = true;
       }
 
-      geometry2.morphAttributes[_name] = morphArray;
-    }
+      var normal = this.attributes.normal;
 
-    geometry2.morphTargetsRelative = this.morphTargetsRelative; // groups
-
-    var groups = this.groups;
-
-    for (var _i52 = 0, l = groups.length; _i52 < l; _i52++) {
-      var group = groups[_i52];
-      geometry2.addGroup(group.start, group.count, group.materialIndex);
-    }
-
-    return geometry2;
-  },
-  toJSON: function toJSON() {
-    var data = {
-      metadata: {
-        version: 4.5,
-        type: 'BufferGeometry',
-        generator: 'BufferGeometry.toJSON'
+      if (normal !== undefined) {
+        var normalMatrix = new Matrix3().getNormalMatrix(matrix);
+        normal.applyNormalMatrix(normalMatrix);
+        normal.needsUpdate = true;
       }
-    }; // standard BufferGeometry serialization
 
-    data.uuid = this.uuid;
-    data.type = this.type;
-    if (this.name !== '') data.name = this.name;
-    if (Object.keys(this.userData).length > 0) data.userData = this.userData;
+      var tangent = this.attributes.tangent;
 
-    if (this.parameters !== undefined) {
-      var parameters = this.parameters;
+      if (tangent !== undefined) {
+        tangent.transformDirection(matrix);
+        tangent.needsUpdate = true;
+      }
 
-      for (var key in parameters) {
-        if (parameters[key] !== undefined) data[key] = parameters[key];
+      if (this.boundingBox !== null) {
+        this.computeBoundingBox();
+      }
+
+      if (this.boundingSphere !== null) {
+        this.computeBoundingSphere();
+      }
+
+      return this;
+    }
+  }, {
+    key: "rotateX",
+    value: function rotateX(angle) {
+      // rotate geometry around world x-axis
+      _m1.makeRotationX(angle);
+
+      this.applyMatrix4(_m1);
+      return this;
+    }
+  }, {
+    key: "rotateY",
+    value: function rotateY(angle) {
+      // rotate geometry around world y-axis
+      _m1.makeRotationY(angle);
+
+      this.applyMatrix4(_m1);
+      return this;
+    }
+  }, {
+    key: "rotateZ",
+    value: function rotateZ(angle) {
+      // rotate geometry around world z-axis
+      _m1.makeRotationZ(angle);
+
+      this.applyMatrix4(_m1);
+      return this;
+    }
+  }, {
+    key: "translate",
+    value: function translate(x, y, z) {
+      // translate geometry
+      _m1.makeTranslation(x, y, z);
+
+      this.applyMatrix4(_m1);
+      return this;
+    }
+  }, {
+    key: "scale",
+    value: function scale(x, y, z) {
+      // scale geometry
+      _m1.makeScale(x, y, z);
+
+      this.applyMatrix4(_m1);
+      return this;
+    }
+  }, {
+    key: "lookAt",
+    value: function lookAt(vector) {
+      _obj.lookAt(vector);
+
+      _obj.updateMatrix();
+
+      this.applyMatrix4(_obj.matrix);
+      return this;
+    }
+  }, {
+    key: "center",
+    value: function center() {
+      this.computeBoundingBox();
+      this.boundingBox.getCenter(_offset).negate();
+      this.translate(_offset.x, _offset.y, _offset.z);
+      return this;
+    }
+  }, {
+    key: "setFromPoints",
+    value: function setFromPoints(points) {
+      var position = [];
+
+      for (var _i37 = 0, l = points.length; _i37 < l; _i37++) {
+        var point = points[_i37];
+        position.push(point.x, point.y, point.z || 0);
+      }
+
+      this.setAttribute('position', new Float32BufferAttribute(position, 3));
+      return this;
+    }
+  }, {
+    key: "computeBoundingBox",
+    value: function computeBoundingBox() {
+      if (this.boundingBox === null) {
+        this.boundingBox = new Box3();
+      }
+
+      var position = this.attributes.position;
+      var morphAttributesPosition = this.morphAttributes.position;
+
+      if (position && position.isGLBufferAttribute) {
+        console.error('THREE.BufferGeometry.computeBoundingBox(): GLBufferAttribute requires a manual bounding box. Alternatively set "mesh.frustumCulled" to "false".', this);
+        this.boundingBox.set(new Vector3(-Infinity, -Infinity, -Infinity), new Vector3(+Infinity, +Infinity, +Infinity));
+        return;
+      }
+
+      if (position !== undefined) {
+        this.boundingBox.setFromBufferAttribute(position); // process morph attributes if present
+
+        if (morphAttributesPosition) {
+          for (var _i38 = 0, il = morphAttributesPosition.length; _i38 < il; _i38++) {
+            var morphAttribute = morphAttributesPosition[_i38];
+
+            _box$1.setFromBufferAttribute(morphAttribute);
+
+            if (this.morphTargetsRelative) {
+              _vector$8.addVectors(this.boundingBox.min, _box$1.min);
+
+              this.boundingBox.expandByPoint(_vector$8);
+
+              _vector$8.addVectors(this.boundingBox.max, _box$1.max);
+
+              this.boundingBox.expandByPoint(_vector$8);
+            } else {
+              this.boundingBox.expandByPoint(_box$1.min);
+              this.boundingBox.expandByPoint(_box$1.max);
+            }
+          }
+        }
+      } else {
+        this.boundingBox.makeEmpty();
+      }
+
+      if (isNaN(this.boundingBox.min.x) || isNaN(this.boundingBox.min.y) || isNaN(this.boundingBox.min.z)) {
+        console.error('THREE.BufferGeometry.computeBoundingBox(): Computed min/max have NaN values. The "position" attribute is likely to have NaN values.', this);
+      }
+    }
+  }, {
+    key: "computeBoundingSphere",
+    value: function computeBoundingSphere() {
+      if (this.boundingSphere === null) {
+        this.boundingSphere = new Sphere();
+      }
+
+      var position = this.attributes.position;
+      var morphAttributesPosition = this.morphAttributes.position;
+
+      if (position && position.isGLBufferAttribute) {
+        console.error('THREE.BufferGeometry.computeBoundingSphere(): GLBufferAttribute requires a manual bounding sphere. Alternatively set "mesh.frustumCulled" to "false".', this);
+        this.boundingSphere.set(new Vector3(), Infinity);
+        return;
+      }
+
+      if (position) {
+        // first, find the center of the bounding sphere
+        var center = this.boundingSphere.center;
+
+        _box$1.setFromBufferAttribute(position); // process morph attributes if present
+
+
+        if (morphAttributesPosition) {
+          for (var _i39 = 0, il = morphAttributesPosition.length; _i39 < il; _i39++) {
+            var morphAttribute = morphAttributesPosition[_i39];
+
+            _boxMorphTargets.setFromBufferAttribute(morphAttribute);
+
+            if (this.morphTargetsRelative) {
+              _vector$8.addVectors(_box$1.min, _boxMorphTargets.min);
+
+              _box$1.expandByPoint(_vector$8);
+
+              _vector$8.addVectors(_box$1.max, _boxMorphTargets.max);
+
+              _box$1.expandByPoint(_vector$8);
+            } else {
+              _box$1.expandByPoint(_boxMorphTargets.min);
+
+              _box$1.expandByPoint(_boxMorphTargets.max);
+            }
+          }
+        }
+
+        _box$1.getCenter(center); // second, try to find a boundingSphere with a radius smaller than the
+        // boundingSphere of the boundingBox: sqrt(3) smaller in the best case
+
+
+        var maxRadiusSq = 0;
+
+        for (var _i40 = 0, _il = position.count; _i40 < _il; _i40++) {
+          _vector$8.fromBufferAttribute(position, _i40);
+
+          maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$8));
+        } // process morph attributes if present
+
+
+        if (morphAttributesPosition) {
+          for (var _i41 = 0, _il2 = morphAttributesPosition.length; _i41 < _il2; _i41++) {
+            var _morphAttribute = morphAttributesPosition[_i41];
+            var morphTargetsRelative = this.morphTargetsRelative;
+
+            for (var j = 0, jl = _morphAttribute.count; j < jl; j++) {
+              _vector$8.fromBufferAttribute(_morphAttribute, j);
+
+              if (morphTargetsRelative) {
+                _offset.fromBufferAttribute(position, j);
+
+                _vector$8.add(_offset);
+              }
+
+              maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$8));
+            }
+          }
+        }
+
+        this.boundingSphere.radius = Math.sqrt(maxRadiusSq);
+
+        if (isNaN(this.boundingSphere.radius)) {
+          console.error('THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this);
+        }
+      }
+    }
+  }, {
+    key: "computeFaceNormals",
+    value: function computeFaceNormals() {// backwards compatibility
+    }
+  }, {
+    key: "computeTangents",
+    value: function computeTangents() {
+      var index = this.index;
+      var attributes = this.attributes; // based on http://www.terathon.com/code/tangent.html
+      // (per vertex tangents)
+
+      if (index === null || attributes.position === undefined || attributes.normal === undefined || attributes.uv === undefined) {
+        console.error('THREE.BufferGeometry: .computeTangents() failed. Missing required attributes (index, position, normal or uv)');
+        return;
+      }
+
+      var indices = index.array;
+      var positions = attributes.position.array;
+      var normals = attributes.normal.array;
+      var uvs = attributes.uv.array;
+      var nVertices = positions.length / 3;
+
+      if (attributes.tangent === undefined) {
+        this.setAttribute('tangent', new BufferAttribute(new Float32Array(4 * nVertices), 4));
+      }
+
+      var tangents = attributes.tangent.array;
+      var tan1 = [],
+          tan2 = [];
+
+      for (var _i42 = 0; _i42 < nVertices; _i42++) {
+        tan1[_i42] = new Vector3();
+        tan2[_i42] = new Vector3();
+      }
+
+      var vA = new Vector3(),
+          vB = new Vector3(),
+          vC = new Vector3(),
+          uvA = new Vector2(),
+          uvB = new Vector2(),
+          uvC = new Vector2(),
+          sdir = new Vector3(),
+          tdir = new Vector3();
+
+      function handleTriangle(a, b, c) {
+        vA.fromArray(positions, a * 3);
+        vB.fromArray(positions, b * 3);
+        vC.fromArray(positions, c * 3);
+        uvA.fromArray(uvs, a * 2);
+        uvB.fromArray(uvs, b * 2);
+        uvC.fromArray(uvs, c * 2);
+        vB.sub(vA);
+        vC.sub(vA);
+        uvB.sub(uvA);
+        uvC.sub(uvA);
+        var r = 1.0 / (uvB.x * uvC.y - uvC.x * uvB.y); // silently ignore degenerate uv triangles having coincident or colinear vertices
+
+        if (!isFinite(r)) return;
+        sdir.copy(vB).multiplyScalar(uvC.y).addScaledVector(vC, -uvB.y).multiplyScalar(r);
+        tdir.copy(vC).multiplyScalar(uvB.x).addScaledVector(vB, -uvC.x).multiplyScalar(r);
+        tan1[a].add(sdir);
+        tan1[b].add(sdir);
+        tan1[c].add(sdir);
+        tan2[a].add(tdir);
+        tan2[b].add(tdir);
+        tan2[c].add(tdir);
+      }
+
+      var groups = this.groups;
+
+      if (groups.length === 0) {
+        groups = [{
+          start: 0,
+          count: indices.length
+        }];
+      }
+
+      for (var _i43 = 0, il = groups.length; _i43 < il; ++_i43) {
+        var group = groups[_i43];
+        var start = group.start;
+        var count = group.count;
+
+        for (var j = start, jl = start + count; j < jl; j += 3) {
+          handleTriangle(indices[j + 0], indices[j + 1], indices[j + 2]);
+        }
+      }
+
+      var tmp = new Vector3(),
+          tmp2 = new Vector3();
+      var n = new Vector3(),
+          n2 = new Vector3();
+
+      function handleVertex(v) {
+        n.fromArray(normals, v * 3);
+        n2.copy(n);
+        var t = tan1[v]; // Gram-Schmidt orthogonalize
+
+        tmp.copy(t);
+        tmp.sub(n.multiplyScalar(n.dot(t))).normalize(); // Calculate handedness
+
+        tmp2.crossVectors(n2, t);
+        var test = tmp2.dot(tan2[v]);
+        var w = test < 0.0 ? -1.0 : 1.0;
+        tangents[v * 4] = tmp.x;
+        tangents[v * 4 + 1] = tmp.y;
+        tangents[v * 4 + 2] = tmp.z;
+        tangents[v * 4 + 3] = w;
+      }
+
+      for (var _i44 = 0, _il3 = groups.length; _i44 < _il3; ++_i44) {
+        var _group = groups[_i44];
+        var _start2 = _group.start;
+        var _count = _group.count;
+
+        for (var _j = _start2, _jl = _start2 + _count; _j < _jl; _j += 3) {
+          handleVertex(indices[_j + 0]);
+          handleVertex(indices[_j + 1]);
+          handleVertex(indices[_j + 2]);
+        }
+      }
+    }
+  }, {
+    key: "computeVertexNormals",
+    value: function computeVertexNormals() {
+      var index = this.index;
+      var positionAttribute = this.getAttribute('position');
+
+      if (positionAttribute !== undefined) {
+        var normalAttribute = this.getAttribute('normal');
+
+        if (normalAttribute === undefined) {
+          normalAttribute = new BufferAttribute(new Float32Array(positionAttribute.count * 3), 3);
+          this.setAttribute('normal', normalAttribute);
+        } else {
+          // reset existing normals to zero
+          for (var _i45 = 0, il = normalAttribute.count; _i45 < il; _i45++) {
+            normalAttribute.setXYZ(_i45, 0, 0, 0);
+          }
+        }
+
+        var pA = new Vector3(),
+            pB = new Vector3(),
+            pC = new Vector3();
+        var nA = new Vector3(),
+            nB = new Vector3(),
+            nC = new Vector3();
+        var cb = new Vector3(),
+            ab = new Vector3(); // indexed elements
+
+        if (index) {
+          for (var _i46 = 0, _il4 = index.count; _i46 < _il4; _i46 += 3) {
+            var vA = index.getX(_i46 + 0);
+            var vB = index.getX(_i46 + 1);
+            var vC = index.getX(_i46 + 2);
+            pA.fromBufferAttribute(positionAttribute, vA);
+            pB.fromBufferAttribute(positionAttribute, vB);
+            pC.fromBufferAttribute(positionAttribute, vC);
+            cb.subVectors(pC, pB);
+            ab.subVectors(pA, pB);
+            cb.cross(ab);
+            nA.fromBufferAttribute(normalAttribute, vA);
+            nB.fromBufferAttribute(normalAttribute, vB);
+            nC.fromBufferAttribute(normalAttribute, vC);
+            nA.add(cb);
+            nB.add(cb);
+            nC.add(cb);
+            normalAttribute.setXYZ(vA, nA.x, nA.y, nA.z);
+            normalAttribute.setXYZ(vB, nB.x, nB.y, nB.z);
+            normalAttribute.setXYZ(vC, nC.x, nC.y, nC.z);
+          }
+        } else {
+          // non-indexed elements (unconnected triangle soup)
+          for (var _i47 = 0, _il5 = positionAttribute.count; _i47 < _il5; _i47 += 3) {
+            pA.fromBufferAttribute(positionAttribute, _i47 + 0);
+            pB.fromBufferAttribute(positionAttribute, _i47 + 1);
+            pC.fromBufferAttribute(positionAttribute, _i47 + 2);
+            cb.subVectors(pC, pB);
+            ab.subVectors(pA, pB);
+            cb.cross(ab);
+            normalAttribute.setXYZ(_i47 + 0, cb.x, cb.y, cb.z);
+            normalAttribute.setXYZ(_i47 + 1, cb.x, cb.y, cb.z);
+            normalAttribute.setXYZ(_i47 + 2, cb.x, cb.y, cb.z);
+          }
+        }
+
+        this.normalizeNormals();
+        normalAttribute.needsUpdate = true;
+      }
+    }
+  }, {
+    key: "merge",
+    value: function merge(geometry, offset) {
+      if (!(geometry && geometry.isBufferGeometry)) {
+        console.error('THREE.BufferGeometry.merge(): geometry not an instance of THREE.BufferGeometry.', geometry);
+        return;
+      }
+
+      if (offset === undefined) {
+        offset = 0;
+        console.warn('THREE.BufferGeometry.merge(): Overwriting original geometry, starting at offset=0. ' + 'Use BufferGeometryUtils.mergeBufferGeometries() for lossless merge.');
+      }
+
+      var attributes = this.attributes;
+
+      for (var key in attributes) {
+        if (geometry.attributes[key] === undefined) continue;
+        var attribute1 = attributes[key];
+        var attributeArray1 = attribute1.array;
+        var attribute2 = geometry.attributes[key];
+        var attributeArray2 = attribute2.array;
+        var attributeOffset = attribute2.itemSize * offset;
+        var length = Math.min(attributeArray2.length, attributeArray1.length - attributeOffset);
+
+        for (var _i48 = 0, j = attributeOffset; _i48 < length; _i48++, j++) {
+          attributeArray1[j] = attributeArray2[_i48];
+        }
+      }
+
+      return this;
+    }
+  }, {
+    key: "normalizeNormals",
+    value: function normalizeNormals() {
+      var normals = this.attributes.normal;
+
+      for (var _i49 = 0, il = normals.count; _i49 < il; _i49++) {
+        _vector$8.fromBufferAttribute(normals, _i49);
+
+        _vector$8.normalize();
+
+        normals.setXYZ(_i49, _vector$8.x, _vector$8.y, _vector$8.z);
+      }
+    }
+  }, {
+    key: "toNonIndexed",
+    value: function toNonIndexed() {
+      function convertBufferAttribute(attribute, indices) {
+        var array = attribute.array;
+        var itemSize = attribute.itemSize;
+        var normalized = attribute.normalized;
+        var array2 = new array.constructor(indices.length * itemSize);
+        var index = 0,
+            index2 = 0;
+
+        for (var _i50 = 0, l = indices.length; _i50 < l; _i50++) {
+          index = indices[_i50] * itemSize;
+
+          for (var j = 0; j < itemSize; j++) {
+            array2[index2++] = array[index++];
+          }
+        }
+
+        return new BufferAttribute(array2, itemSize, normalized);
+      } //
+
+
+      if (this.index === null) {
+        console.warn('THREE.BufferGeometry.toNonIndexed(): BufferGeometry is already non-indexed.');
+        return this;
+      }
+
+      var geometry2 = new BufferGeometry();
+      var indices = this.index.array;
+      var attributes = this.attributes; // attributes
+
+      for (var name in attributes) {
+        var attribute = attributes[name];
+        var newAttribute = convertBufferAttribute(attribute, indices);
+        geometry2.setAttribute(name, newAttribute);
+      } // morph attributes
+
+
+      var morphAttributes = this.morphAttributes;
+
+      for (var _name in morphAttributes) {
+        var morphArray = [];
+        var morphAttribute = morphAttributes[_name]; // morphAttribute: array of Float32BufferAttributes
+
+        for (var _i51 = 0, il = morphAttribute.length; _i51 < il; _i51++) {
+          var _attribute = morphAttribute[_i51];
+
+          var _newAttribute = convertBufferAttribute(_attribute, indices);
+
+          morphArray.push(_newAttribute);
+        }
+
+        geometry2.morphAttributes[_name] = morphArray;
+      }
+
+      geometry2.morphTargetsRelative = this.morphTargetsRelative; // groups
+
+      var groups = this.groups;
+
+      for (var _i52 = 0, l = groups.length; _i52 < l; _i52++) {
+        var group = groups[_i52];
+        geometry2.addGroup(group.start, group.count, group.materialIndex);
+      }
+
+      return geometry2;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = {
+        metadata: {
+          version: 4.5,
+          type: 'BufferGeometry',
+          generator: 'BufferGeometry.toJSON'
+        }
+      }; // standard BufferGeometry serialization
+
+      data.uuid = this.uuid;
+      data.type = this.type;
+      if (this.name !== '') data.name = this.name;
+      if (Object.keys(this.userData).length > 0) data.userData = this.userData;
+
+      if (this.parameters !== undefined) {
+        var parameters = this.parameters;
+
+        for (var key in parameters) {
+          if (parameters[key] !== undefined) data[key] = parameters[key];
+        }
+
+        return data;
+      } // for simplicity the code assumes attributes are not shared across geometries, see #15811
+
+
+      data.data = {
+        attributes: {}
+      };
+      var index = this.index;
+
+      if (index !== null) {
+        data.data.index = {
+          type: index.array.constructor.name,
+          array: Array.prototype.slice.call(index.array)
+        };
+      }
+
+      var attributes = this.attributes;
+
+      for (var _key in attributes) {
+        var attribute = attributes[_key];
+        data.data.attributes[_key] = attribute.toJSON(data.data);
+      }
+
+      var morphAttributes = {};
+      var hasMorphAttributes = false;
+
+      for (var _key2 in this.morphAttributes) {
+        var attributeArray = this.morphAttributes[_key2];
+        var array = [];
+
+        for (var _i53 = 0, il = attributeArray.length; _i53 < il; _i53++) {
+          var _attribute2 = attributeArray[_i53];
+          array.push(_attribute2.toJSON(data.data));
+        }
+
+        if (array.length > 0) {
+          morphAttributes[_key2] = array;
+          hasMorphAttributes = true;
+        }
+      }
+
+      if (hasMorphAttributes) {
+        data.data.morphAttributes = morphAttributes;
+        data.data.morphTargetsRelative = this.morphTargetsRelative;
+      }
+
+      var groups = this.groups;
+
+      if (groups.length > 0) {
+        data.data.groups = JSON.parse(JSON.stringify(groups));
+      }
+
+      var boundingSphere = this.boundingSphere;
+
+      if (boundingSphere !== null) {
+        data.data.boundingSphere = {
+          center: boundingSphere.center.toArray(),
+          radius: boundingSphere.radius
+        };
       }
 
       return data;
-    } // for simplicity the code assumes attributes are not shared across geometries, see #15811
-
-
-    data.data = {
-      attributes: {}
-    };
-    var index = this.index;
-
-    if (index !== null) {
-      data.data.index = {
-        type: index.array.constructor.name,
-        array: Array.prototype.slice.call(index.array)
-      };
     }
-
-    var attributes = this.attributes;
-
-    for (var _key in attributes) {
-      var attribute = attributes[_key];
-      data.data.attributes[_key] = attribute.toJSON(data.data);
+  }, {
+    key: "clone",
+    value: function clone() {
+      /*
+       // Handle primitives
+      	 const parameters = this.parameters;
+      	 if ( parameters !== undefined ) {
+      	 const values = [];
+      	 for ( const key in parameters ) {
+      	 values.push( parameters[ key ] );
+      	 }
+      	 const geometry = Object.create( this.constructor.prototype );
+       this.constructor.apply( geometry, values );
+       return geometry;
+      	 }
+      	 return new this.constructor().copy( this );
+       */
+      return new BufferGeometry().copy(this);
     }
-
-    var morphAttributes = {};
-    var hasMorphAttributes = false;
-
-    for (var _key2 in this.morphAttributes) {
-      var attributeArray = this.morphAttributes[_key2];
-      var array = [];
-
-      for (var _i53 = 0, il = attributeArray.length; _i53 < il; _i53++) {
-        var _attribute2 = attributeArray[_i53];
-        array.push(_attribute2.toJSON(data.data));
-      }
-
-      if (array.length > 0) {
-        morphAttributes[_key2] = array;
-        hasMorphAttributes = true;
-      }
-    }
-
-    if (hasMorphAttributes) {
-      data.data.morphAttributes = morphAttributes;
-      data.data.morphTargetsRelative = this.morphTargetsRelative;
-    }
-
-    var groups = this.groups;
-
-    if (groups.length > 0) {
-      data.data.groups = JSON.parse(JSON.stringify(groups));
-    }
-
-    var boundingSphere = this.boundingSphere;
-
-    if (boundingSphere !== null) {
-      data.data.boundingSphere = {
-        center: boundingSphere.center.toArray(),
-        radius: boundingSphere.radius
-      };
-    }
-
-    return data;
-  },
-  clone: function clone() {
-    /*
-     // Handle primitives
-    	 const parameters = this.parameters;
-    	 if ( parameters !== undefined ) {
-    	 const values = [];
-    	 for ( const key in parameters ) {
-    	 values.push( parameters[ key ] );
-    	 }
-    	 const geometry = Object.create( this.constructor.prototype );
-     this.constructor.apply( geometry, values );
-     return geometry;
-    	 }
-    	 return new this.constructor().copy( this );
-     */
-    return new BufferGeometry().copy(this);
-  },
-  copy: function copy(source) {
-    // reset
-    this.index = null;
-    this.attributes = {};
-    this.morphAttributes = {};
-    this.groups = [];
-    this.boundingBox = null;
-    this.boundingSphere = null; // used for storing cloned, shared data
-
-    var data = {}; // name
-
-    this.name = source.name; // index
-
-    var index = source.index;
-
-    if (index !== null) {
-      this.setIndex(index.clone(data));
-    } // attributes
-
-
-    var attributes = source.attributes;
-
-    for (var name in attributes) {
-      var attribute = attributes[name];
-      this.setAttribute(name, attribute.clone(data));
-    } // morph attributes
-
-
-    var morphAttributes = source.morphAttributes;
-
-    for (var _name2 in morphAttributes) {
-      var array = [];
-      var morphAttribute = morphAttributes[_name2]; // morphAttribute: array of Float32BufferAttributes
-
-      for (var _i54 = 0, l = morphAttribute.length; _i54 < l; _i54++) {
-        array.push(morphAttribute[_i54].clone(data));
-      }
-
-      this.morphAttributes[_name2] = array;
-    }
-
-    this.morphTargetsRelative = source.morphTargetsRelative; // groups
-
-    var groups = source.groups;
-
-    for (var _i55 = 0, _l3 = groups.length; _i55 < _l3; _i55++) {
-      var group = groups[_i55];
-      this.addGroup(group.start, group.count, group.materialIndex);
-    } // bounding box
-
-
-    var boundingBox = source.boundingBox;
-
-    if (boundingBox !== null) {
-      this.boundingBox = boundingBox.clone();
-    } // bounding sphere
-
-
-    var boundingSphere = source.boundingSphere;
-
-    if (boundingSphere !== null) {
-      this.boundingSphere = boundingSphere.clone();
-    } // draw range
-
-
-    this.drawRange.start = source.drawRange.start;
-    this.drawRange.count = source.drawRange.count; // user data
-
-    this.userData = source.userData;
-    return this;
-  },
-  dispose: function dispose() {
-    this.dispatchEvent({
-      type: 'dispose'
-    });
-  }
-});
-
-var _inverseMatrix$2 = new Matrix4();
-
-var _ray$2 = new Ray();
-
-var _sphere$3 = new Sphere();
-
-var _vA$1 = new Vector3();
-
-var _vB$1 = new Vector3();
-
-var _vC$1 = new Vector3();
-
-var _tempA = new Vector3();
-
-var _tempB = new Vector3();
-
-var _tempC = new Vector3();
-
-var _morphA = new Vector3();
-
-var _morphB = new Vector3();
-
-var _morphC = new Vector3();
-
-var _uvA$1 = new Vector2();
-
-var _uvB$1 = new Vector2();
-
-var _uvC$1 = new Vector2();
-
-var _intersectionPoint = new Vector3();
-
-var _intersectionPointWorld = new Vector3();
-
-function Mesh() {
-  var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
-  var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new MeshBasicMaterial();
-  Object3D.call(this);
-  this.type = 'Mesh';
-  this.geometry = geometry;
-  this.material = material;
-  this.updateMorphTargets();
-}
-
-Mesh.prototype = Object.assign(Object.create(Object3D.prototype), {
-  constructor: Mesh,
-  isMesh: true,
-  copy: function copy(source) {
-    Object3D.prototype.copy.call(this, source);
-
-    if (source.morphTargetInfluences !== undefined) {
-      this.morphTargetInfluences = source.morphTargetInfluences.slice();
-    }
-
-    if (source.morphTargetDictionary !== undefined) {
-      this.morphTargetDictionary = Object.assign({}, source.morphTargetDictionary);
-    }
-
-    this.material = source.material;
-    this.geometry = source.geometry;
-    return this;
-  },
-  updateMorphTargets: function updateMorphTargets() {
-    var geometry = this.geometry;
-
-    if (geometry.isBufferGeometry) {
-      var morphAttributes = geometry.morphAttributes;
-      var keys = Object.keys(morphAttributes);
-
-      if (keys.length > 0) {
-        var morphAttribute = morphAttributes[keys[0]];
-
-        if (morphAttribute !== undefined) {
-          this.morphTargetInfluences = [];
-          this.morphTargetDictionary = {};
-
-          for (var m = 0, ml = morphAttribute.length; m < ml; m++) {
-            var name = morphAttribute[m].name || String(m);
-            this.morphTargetInfluences.push(0);
-            this.morphTargetDictionary[name] = m;
-          }
-        }
-      }
-    } else {
-      var morphTargets = geometry.morphTargets;
-
-      if (morphTargets !== undefined && morphTargets.length > 0) {
-        console.error('THREE.Mesh.updateMorphTargets() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
-      }
-    }
-  },
-  raycast: function raycast(raycaster, intersects) {
-    var geometry = this.geometry;
-    var material = this.material;
-    var matrixWorld = this.matrixWorld;
-    if (material === undefined) return; // Checking boundingSphere distance to ray
-
-    if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
-
-    _sphere$3.copy(geometry.boundingSphere);
-
-    _sphere$3.applyMatrix4(matrixWorld);
-
-    if (raycaster.ray.intersectsSphere(_sphere$3) === false) return; //
-
-    _inverseMatrix$2.copy(matrixWorld).invert();
-
-    _ray$2.copy(raycaster.ray).applyMatrix4(_inverseMatrix$2); // Check boundingBox before continuing
-
-
-    if (geometry.boundingBox !== null) {
-      if (_ray$2.intersectsBox(geometry.boundingBox) === false) return;
-    }
-
-    var intersection;
-
-    if (geometry.isBufferGeometry) {
-      var index = geometry.index;
-      var position = geometry.attributes.position;
-      var morphPosition = geometry.morphAttributes.position;
-      var morphTargetsRelative = geometry.morphTargetsRelative;
-      var uv = geometry.attributes.uv;
-      var uv2 = geometry.attributes.uv2;
-      var groups = geometry.groups;
-      var drawRange = geometry.drawRange;
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      // reset
+      this.index = null;
+      this.attributes = {};
+      this.morphAttributes = {};
+      this.groups = [];
+      this.boundingBox = null;
+      this.boundingSphere = null; // used for storing cloned, shared data
+
+      var data = {}; // name
+
+      this.name = source.name; // index
+
+      var index = source.index;
 
       if (index !== null) {
-        // indexed buffer geometry
-        if (Array.isArray(material)) {
-          for (var _i56 = 0, il = groups.length; _i56 < il; _i56++) {
-            var group = groups[_i56];
-            var groupMaterial = material[group.materialIndex];
-            var start = Math.max(group.start, drawRange.start);
-            var end = Math.min(group.start + group.count, drawRange.start + drawRange.count);
+        this.setIndex(index.clone(data));
+      } // attributes
 
-            for (var j = start, jl = end; j < jl; j += 3) {
-              var a = index.getX(j);
-              var b = index.getX(j + 1);
-              var c = index.getX(j + 2);
-              intersection = checkBufferGeometryIntersection(this, groupMaterial, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, a, b, c);
 
-              if (intersection) {
-                intersection.faceIndex = Math.floor(j / 3); // triangle number in indexed buffer semantics
+      var attributes = source.attributes;
 
-                intersection.face.materialIndex = group.materialIndex;
-                intersects.push(intersection);
-              }
-            }
-          }
-        } else {
-          var _start3 = Math.max(0, drawRange.start);
+      for (var name in attributes) {
+        var attribute = attributes[name];
+        this.setAttribute(name, attribute.clone(data));
+      } // morph attributes
 
-          var _end2 = Math.min(index.count, drawRange.start + drawRange.count);
 
-          for (var _i57 = _start3, _il6 = _end2; _i57 < _il6; _i57 += 3) {
-            var _a = index.getX(_i57);
+      var morphAttributes = source.morphAttributes;
 
-            var _b = index.getX(_i57 + 1);
+      for (var _name2 in morphAttributes) {
+        var array = [];
+        var morphAttribute = morphAttributes[_name2]; // morphAttribute: array of Float32BufferAttributes
 
-            var _c = index.getX(_i57 + 2);
+        for (var _i54 = 0, l = morphAttribute.length; _i54 < l; _i54++) {
+          array.push(morphAttribute[_i54].clone(data));
+        }
 
-            intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a, _b, _c);
+        this.morphAttributes[_name2] = array;
+      }
 
-            if (intersection) {
-              intersection.faceIndex = Math.floor(_i57 / 3); // triangle number in indexed buffer semantics
+      this.morphTargetsRelative = source.morphTargetsRelative; // groups
 
-              intersects.push(intersection);
+      var groups = source.groups;
+
+      for (var _i55 = 0, _l3 = groups.length; _i55 < _l3; _i55++) {
+        var group = groups[_i55];
+        this.addGroup(group.start, group.count, group.materialIndex);
+      } // bounding box
+
+
+      var boundingBox = source.boundingBox;
+
+      if (boundingBox !== null) {
+        this.boundingBox = boundingBox.clone();
+      } // bounding sphere
+
+
+      var boundingSphere = source.boundingSphere;
+
+      if (boundingSphere !== null) {
+        this.boundingSphere = boundingSphere.clone();
+      } // draw range
+
+
+      this.drawRange.start = source.drawRange.start;
+      this.drawRange.count = source.drawRange.count; // user data
+
+      this.userData = source.userData;
+      return this;
+    }
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this.dispatchEvent({
+        type: 'dispose'
+      });
+    }
+  }]);
+
+  return BufferGeometry;
+}(EventDispatcher);
+
+BufferGeometry.prototype.isBufferGeometry = true;
+
+var _inverseMatrix$2 = /*@__PURE__*/new Matrix4();
+
+var _ray$2 = /*@__PURE__*/new Ray();
+
+var _sphere$3 = /*@__PURE__*/new Sphere();
+
+var _vA$1 = /*@__PURE__*/new Vector3();
+
+var _vB$1 = /*@__PURE__*/new Vector3();
+
+var _vC$1 = /*@__PURE__*/new Vector3();
+
+var _tempA = /*@__PURE__*/new Vector3();
+
+var _tempB = /*@__PURE__*/new Vector3();
+
+var _tempC = /*@__PURE__*/new Vector3();
+
+var _morphA = /*@__PURE__*/new Vector3();
+
+var _morphB = /*@__PURE__*/new Vector3();
+
+var _morphC = /*@__PURE__*/new Vector3();
+
+var _uvA$1 = /*@__PURE__*/new Vector2();
+
+var _uvB$1 = /*@__PURE__*/new Vector2();
+
+var _uvC$1 = /*@__PURE__*/new Vector2();
+
+var _intersectionPoint = /*@__PURE__*/new Vector3();
+
+var _intersectionPointWorld = /*@__PURE__*/new Vector3();
+
+var Mesh = /*#__PURE__*/function (_Object3D) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Mesh, _Object3D);
+
+  var _super17 = _createSuper(Mesh);
+
+  function Mesh() {
+    var _this8;
+
+    var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
+    var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new MeshBasicMaterial();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Mesh);
+
+    _this8 = _super17.call(this);
+    _this8.type = 'Mesh';
+    _this8.geometry = geometry;
+    _this8.material = material;
+
+    _this8.updateMorphTargets();
+
+    return _this8;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Mesh, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Mesh.prototype), "copy", this).call(this, source);
+
+      if (source.morphTargetInfluences !== undefined) {
+        this.morphTargetInfluences = source.morphTargetInfluences.slice();
+      }
+
+      if (source.morphTargetDictionary !== undefined) {
+        this.morphTargetDictionary = Object.assign({}, source.morphTargetDictionary);
+      }
+
+      this.material = source.material;
+      this.geometry = source.geometry;
+      return this;
+    }
+  }, {
+    key: "updateMorphTargets",
+    value: function updateMorphTargets() {
+      var geometry = this.geometry;
+
+      if (geometry.isBufferGeometry) {
+        var morphAttributes = geometry.morphAttributes;
+        var keys = Object.keys(morphAttributes);
+
+        if (keys.length > 0) {
+          var morphAttribute = morphAttributes[keys[0]];
+
+          if (morphAttribute !== undefined) {
+            this.morphTargetInfluences = [];
+            this.morphTargetDictionary = {};
+
+            for (var m = 0, ml = morphAttribute.length; m < ml; m++) {
+              var name = morphAttribute[m].name || String(m);
+              this.morphTargetInfluences.push(0);
+              this.morphTargetDictionary[name] = m;
             }
           }
         }
-      } else if (position !== undefined) {
-        // non-indexed buffer geometry
-        if (Array.isArray(material)) {
-          for (var _i58 = 0, _il7 = groups.length; _i58 < _il7; _i58++) {
-            var _group2 = groups[_i58];
-            var _groupMaterial = material[_group2.materialIndex];
+      } else {
+        var morphTargets = geometry.morphTargets;
 
-            var _start4 = Math.max(_group2.start, drawRange.start);
-
-            var _end3 = Math.min(_group2.start + _group2.count, drawRange.start + drawRange.count);
-
-            for (var _j2 = _start4, _jl2 = _end3; _j2 < _jl2; _j2 += 3) {
-              var _a2 = _j2;
-
-              var _b2 = _j2 + 1;
-
-              var _c2 = _j2 + 2;
-
-              intersection = checkBufferGeometryIntersection(this, _groupMaterial, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a2, _b2, _c2);
-
-              if (intersection) {
-                intersection.faceIndex = Math.floor(_j2 / 3); // triangle number in non-indexed buffer semantics
-
-                intersection.face.materialIndex = _group2.materialIndex;
-                intersects.push(intersection);
-              }
-            }
-          }
-        } else {
-          var _start5 = Math.max(0, drawRange.start);
-
-          var _end4 = Math.min(position.count, drawRange.start + drawRange.count);
-
-          for (var _i59 = _start5, _il8 = _end4; _i59 < _il8; _i59 += 3) {
-            var _a3 = _i59;
-
-            var _b3 = _i59 + 1;
-
-            var _c3 = _i59 + 2;
-
-            intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a3, _b3, _c3);
-
-            if (intersection) {
-              intersection.faceIndex = Math.floor(_i59 / 3); // triangle number in non-indexed buffer semantics
-
-              intersects.push(intersection);
-            }
-          }
+        if (morphTargets !== undefined && morphTargets.length > 0) {
+          console.error('THREE.Mesh.updateMorphTargets() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
         }
       }
-    } else if (geometry.isGeometry) {
-      console.error('THREE.Mesh.raycast() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
     }
-  }
-});
+  }, {
+    key: "raycast",
+    value: function raycast(raycaster, intersects) {
+      var geometry = this.geometry;
+      var material = this.material;
+      var matrixWorld = this.matrixWorld;
+      if (material === undefined) return; // Checking boundingSphere distance to ray
+
+      if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
+
+      _sphere$3.copy(geometry.boundingSphere);
+
+      _sphere$3.applyMatrix4(matrixWorld);
+
+      if (raycaster.ray.intersectsSphere(_sphere$3) === false) return; //
+
+      _inverseMatrix$2.copy(matrixWorld).invert();
+
+      _ray$2.copy(raycaster.ray).applyMatrix4(_inverseMatrix$2); // Check boundingBox before continuing
+
+
+      if (geometry.boundingBox !== null) {
+        if (_ray$2.intersectsBox(geometry.boundingBox) === false) return;
+      }
+
+      var intersection;
+
+      if (geometry.isBufferGeometry) {
+        var index = geometry.index;
+        var position = geometry.attributes.position;
+        var morphPosition = geometry.morphAttributes.position;
+        var morphTargetsRelative = geometry.morphTargetsRelative;
+        var uv = geometry.attributes.uv;
+        var uv2 = geometry.attributes.uv2;
+        var groups = geometry.groups;
+        var drawRange = geometry.drawRange;
+
+        if (index !== null) {
+          // indexed buffer geometry
+          if (Array.isArray(material)) {
+            for (var _i56 = 0, il = groups.length; _i56 < il; _i56++) {
+              var group = groups[_i56];
+              var groupMaterial = material[group.materialIndex];
+              var start = Math.max(group.start, drawRange.start);
+              var end = Math.min(group.start + group.count, drawRange.start + drawRange.count);
+
+              for (var j = start, jl = end; j < jl; j += 3) {
+                var a = index.getX(j);
+                var b = index.getX(j + 1);
+                var c = index.getX(j + 2);
+                intersection = checkBufferGeometryIntersection(this, groupMaterial, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, a, b, c);
+
+                if (intersection) {
+                  intersection.faceIndex = Math.floor(j / 3); // triangle number in indexed buffer semantics
+
+                  intersection.face.materialIndex = group.materialIndex;
+                  intersects.push(intersection);
+                }
+              }
+            }
+          } else {
+            var _start3 = Math.max(0, drawRange.start);
+
+            var _end2 = Math.min(index.count, drawRange.start + drawRange.count);
+
+            for (var _i57 = _start3, _il6 = _end2; _i57 < _il6; _i57 += 3) {
+              var _a = index.getX(_i57);
+
+              var _b = index.getX(_i57 + 1);
+
+              var _c = index.getX(_i57 + 2);
+
+              intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a, _b, _c);
+
+              if (intersection) {
+                intersection.faceIndex = Math.floor(_i57 / 3); // triangle number in indexed buffer semantics
+
+                intersects.push(intersection);
+              }
+            }
+          }
+        } else if (position !== undefined) {
+          // non-indexed buffer geometry
+          if (Array.isArray(material)) {
+            for (var _i58 = 0, _il7 = groups.length; _i58 < _il7; _i58++) {
+              var _group2 = groups[_i58];
+              var _groupMaterial = material[_group2.materialIndex];
+
+              var _start4 = Math.max(_group2.start, drawRange.start);
+
+              var _end3 = Math.min(_group2.start + _group2.count, drawRange.start + drawRange.count);
+
+              for (var _j2 = _start4, _jl2 = _end3; _j2 < _jl2; _j2 += 3) {
+                var _a2 = _j2;
+
+                var _b2 = _j2 + 1;
+
+                var _c2 = _j2 + 2;
+
+                intersection = checkBufferGeometryIntersection(this, _groupMaterial, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a2, _b2, _c2);
+
+                if (intersection) {
+                  intersection.faceIndex = Math.floor(_j2 / 3); // triangle number in non-indexed buffer semantics
+
+                  intersection.face.materialIndex = _group2.materialIndex;
+                  intersects.push(intersection);
+                }
+              }
+            }
+          } else {
+            var _start5 = Math.max(0, drawRange.start);
+
+            var _end4 = Math.min(position.count, drawRange.start + drawRange.count);
+
+            for (var _i59 = _start5, _il8 = _end4; _i59 < _il8; _i59 += 3) {
+              var _a3 = _i59;
+
+              var _b3 = _i59 + 1;
+
+              var _c3 = _i59 + 2;
+
+              intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a3, _b3, _c3);
+
+              if (intersection) {
+                intersection.faceIndex = Math.floor(_i59 / 3); // triangle number in non-indexed buffer semantics
+
+                intersects.push(intersection);
+              }
+            }
+          }
+        }
+      } else if (geometry.isGeometry) {
+        console.error('THREE.Mesh.raycast() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
+      }
+    }
+  }]);
+
+  return Mesh;
+}(Object3D);
+
+Mesh.prototype.isMesh = true;
 
 function checkIntersection(object, material, raycaster, ray, pA, pB, pC, point) {
   var intersect;
@@ -9533,10 +9923,10 @@ function checkBufferGeometryIntersection(object, material, raycaster, ray, posit
 var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BoxGeometry, _BufferGeometry);
 
-  var _super5 = _createSuper(BoxGeometry);
+  var _super18 = _createSuper(BoxGeometry);
 
   function BoxGeometry() {
-    var _this6;
+    var _this9;
 
     var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -9547,9 +9937,9 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BoxGeometry);
 
-    _this6 = _super5.call(this);
-    _this6.type = 'BoxGeometry';
-    _this6.parameters = {
+    _this9 = _super18.call(this);
+    _this9.type = 'BoxGeometry';
+    _this9.parameters = {
       width: width,
       height: height,
       depth: depth,
@@ -9558,7 +9948,7 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
       depthSegments: depthSegments
     };
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this6); // segments
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this9); // segments
 
 
     widthSegments = Math.floor(widthSegments);
@@ -9586,13 +9976,13 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
     buildPlane('x', 'y', 'z', -1, -1, width, height, -depth, widthSegments, heightSegments, 5); // nz
     // build geometry
 
-    _this6.setIndex(indices);
+    _this9.setIndex(indices);
 
-    _this6.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this9.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this6.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this9.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this6.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this9.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
     function buildPlane(u, v, w, udir, vdir, width, height, depth, gridX, gridY, materialIndex) {
       var segmentWidth = width / gridX;
@@ -9657,7 +10047,7 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
       numberOfVertices += vertexCounter;
     }
 
-    return _this6;
+    return _this9;
   }
 
   return BoxGeometry;
@@ -9729,424 +10119,503 @@ var default_fragment = "void main() {\n\tgl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0
  * }
  */
 
-function ShaderMaterial(parameters) {
-  Material.call(this);
-  this.type = 'ShaderMaterial';
-  this.defines = {};
-  this.uniforms = {};
-  this.vertexShader = default_vertex;
-  this.fragmentShader = default_fragment;
-  this.linewidth = 1;
-  this.wireframe = false;
-  this.wireframeLinewidth = 1;
-  this.fog = false; // set to use scene fog
+var ShaderMaterial = /*#__PURE__*/function (_Material2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShaderMaterial, _Material2);
 
-  this.lights = false; // set to use scene lights
+  var _super19 = _createSuper(ShaderMaterial);
 
-  this.clipping = false; // set to use user-defined clipping planes
+  function ShaderMaterial(parameters) {
+    var _this10;
 
-  this.skinning = false; // set to use skinning attribute streams
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShaderMaterial);
 
-  this.morphTargets = false; // set to use morph targets
+    _this10 = _super19.call(this);
+    _this10.type = 'ShaderMaterial';
+    _this10.defines = {};
+    _this10.uniforms = {};
+    _this10.vertexShader = default_vertex;
+    _this10.fragmentShader = default_fragment;
+    _this10.linewidth = 1;
+    _this10.wireframe = false;
+    _this10.wireframeLinewidth = 1;
+    _this10.fog = false; // set to use scene fog
 
-  this.morphNormals = false; // set to use morph normals
+    _this10.lights = false; // set to use scene lights
 
-  this.extensions = {
-    derivatives: false,
-    // set to use derivatives
-    fragDepth: false,
-    // set to use fragment depth values
-    drawBuffers: false,
-    // set to use draw buffers
-    shaderTextureLOD: false // set to use shader texture LOD
+    _this10.clipping = false; // set to use user-defined clipping planes
 
-  }; // When rendered geometry doesn't include these attributes but the material does,
-  // use these default values in WebGL. This avoids errors when buffer data is missing.
+    _this10.skinning = false; // set to use skinning attribute streams
 
-  this.defaultAttributeValues = {
-    'color': [1, 1, 1],
-    'uv': [0, 0],
-    'uv2': [0, 0]
-  };
-  this.index0AttributeName = undefined;
-  this.uniformsNeedUpdate = false;
-  this.glslVersion = null;
+    _this10.morphTargets = false; // set to use morph targets
 
-  if (parameters !== undefined) {
-    if (parameters.attributes !== undefined) {
-      console.error('THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.');
+    _this10.morphNormals = false; // set to use morph normals
+
+    _this10.extensions = {
+      derivatives: false,
+      // set to use derivatives
+      fragDepth: false,
+      // set to use fragment depth values
+      drawBuffers: false,
+      // set to use draw buffers
+      shaderTextureLOD: false // set to use shader texture LOD
+
+    }; // When rendered geometry doesn't include these attributes but the material does,
+    // use these default values in WebGL. This avoids errors when buffer data is missing.
+
+    _this10.defaultAttributeValues = {
+      'color': [1, 1, 1],
+      'uv': [0, 0],
+      'uv2': [0, 0]
+    };
+    _this10.index0AttributeName = undefined;
+    _this10.uniformsNeedUpdate = false;
+    _this10.glslVersion = null;
+
+    if (parameters !== undefined) {
+      if (parameters.attributes !== undefined) {
+        console.error('THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.');
+      }
+
+      _this10.setValues(parameters);
     }
 
-    this.setValues(parameters);
+    return _this10;
   }
-}
 
-ShaderMaterial.prototype = Object.create(Material.prototype);
-ShaderMaterial.prototype.constructor = ShaderMaterial;
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShaderMaterial, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(ShaderMaterial.prototype), "copy", this).call(this, source);
+
+      this.fragmentShader = source.fragmentShader;
+      this.vertexShader = source.vertexShader;
+      this.uniforms = cloneUniforms(source.uniforms);
+      this.defines = Object.assign({}, source.defines);
+      this.wireframe = source.wireframe;
+      this.wireframeLinewidth = source.wireframeLinewidth;
+      this.lights = source.lights;
+      this.clipping = source.clipping;
+      this.skinning = source.skinning;
+      this.morphTargets = source.morphTargets;
+      this.morphNormals = source.morphNormals;
+      this.extensions = Object.assign({}, source.extensions);
+      this.glslVersion = source.glslVersion;
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON(meta) {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(ShaderMaterial.prototype), "toJSON", this).call(this, meta);
+
+      data.glslVersion = this.glslVersion;
+      data.uniforms = {};
+
+      for (var name in this.uniforms) {
+        var uniform = this.uniforms[name];
+        var value = uniform.value;
+
+        if (value && value.isTexture) {
+          data.uniforms[name] = {
+            type: 't',
+            value: value.toJSON(meta).uuid
+          };
+        } else if (value && value.isColor) {
+          data.uniforms[name] = {
+            type: 'c',
+            value: value.getHex()
+          };
+        } else if (value && value.isVector2) {
+          data.uniforms[name] = {
+            type: 'v2',
+            value: value.toArray()
+          };
+        } else if (value && value.isVector3) {
+          data.uniforms[name] = {
+            type: 'v3',
+            value: value.toArray()
+          };
+        } else if (value && value.isVector4) {
+          data.uniforms[name] = {
+            type: 'v4',
+            value: value.toArray()
+          };
+        } else if (value && value.isMatrix3) {
+          data.uniforms[name] = {
+            type: 'm3',
+            value: value.toArray()
+          };
+        } else if (value && value.isMatrix4) {
+          data.uniforms[name] = {
+            type: 'm4',
+            value: value.toArray()
+          };
+        } else {
+          data.uniforms[name] = {
+            value: value
+          }; // note: the array variants v2v, v3v, v4v, m4v and tv are not supported so far
+        }
+      }
+
+      if (Object.keys(this.defines).length > 0) data.defines = this.defines;
+      data.vertexShader = this.vertexShader;
+      data.fragmentShader = this.fragmentShader;
+      var extensions = {};
+
+      for (var key in this.extensions) {
+        if (this.extensions[key] === true) extensions[key] = true;
+      }
+
+      if (Object.keys(extensions).length > 0) data.extensions = extensions;
+      return data;
+    }
+  }]);
+
+  return ShaderMaterial;
+}(Material);
+
 ShaderMaterial.prototype.isShaderMaterial = true;
 
-ShaderMaterial.prototype.copy = function (source) {
-  Material.prototype.copy.call(this, source);
-  this.fragmentShader = source.fragmentShader;
-  this.vertexShader = source.vertexShader;
-  this.uniforms = cloneUniforms(source.uniforms);
-  this.defines = Object.assign({}, source.defines);
-  this.wireframe = source.wireframe;
-  this.wireframeLinewidth = source.wireframeLinewidth;
-  this.lights = source.lights;
-  this.clipping = source.clipping;
-  this.skinning = source.skinning;
-  this.morphTargets = source.morphTargets;
-  this.morphNormals = source.morphNormals;
-  this.extensions = Object.assign({}, source.extensions);
-  this.glslVersion = source.glslVersion;
-  return this;
-};
+var Camera = /*#__PURE__*/function (_Object3D2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Camera, _Object3D2);
 
-ShaderMaterial.prototype.toJSON = function (meta) {
-  var data = Material.prototype.toJSON.call(this, meta);
-  data.glslVersion = this.glslVersion;
-  data.uniforms = {};
+  var _super20 = _createSuper(Camera);
 
-  for (var name in this.uniforms) {
-    var uniform = this.uniforms[name];
-    var value = uniform.value;
+  function Camera() {
+    var _this11;
 
-    if (value && value.isTexture) {
-      data.uniforms[name] = {
-        type: 't',
-        value: value.toJSON(meta).uuid
-      };
-    } else if (value && value.isColor) {
-      data.uniforms[name] = {
-        type: 'c',
-        value: value.getHex()
-      };
-    } else if (value && value.isVector2) {
-      data.uniforms[name] = {
-        type: 'v2',
-        value: value.toArray()
-      };
-    } else if (value && value.isVector3) {
-      data.uniforms[name] = {
-        type: 'v3',
-        value: value.toArray()
-      };
-    } else if (value && value.isVector4) {
-      data.uniforms[name] = {
-        type: 'v4',
-        value: value.toArray()
-      };
-    } else if (value && value.isMatrix3) {
-      data.uniforms[name] = {
-        type: 'm3',
-        value: value.toArray()
-      };
-    } else if (value && value.isMatrix4) {
-      data.uniforms[name] = {
-        type: 'm4',
-        value: value.toArray()
-      };
-    } else {
-      data.uniforms[name] = {
-        value: value
-      }; // note: the array variants v2v, v3v, v4v, m4v and tv are not supported so far
-    }
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Camera);
+
+    _this11 = _super20.call(this);
+    _this11.type = 'Camera';
+    _this11.matrixWorldInverse = new Matrix4();
+    _this11.projectionMatrix = new Matrix4();
+    _this11.projectionMatrixInverse = new Matrix4();
+    return _this11;
   }
 
-  if (Object.keys(this.defines).length > 0) data.defines = this.defines;
-  data.vertexShader = this.vertexShader;
-  data.fragmentShader = this.fragmentShader;
-  var extensions = {};
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Camera, [{
+    key: "copy",
+    value: function copy(source, recursive) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Camera.prototype), "copy", this).call(this, source, recursive);
 
-  for (var key in this.extensions) {
-    if (this.extensions[key] === true) extensions[key] = true;
+      this.matrixWorldInverse.copy(source.matrixWorldInverse);
+      this.projectionMatrix.copy(source.projectionMatrix);
+      this.projectionMatrixInverse.copy(source.projectionMatrixInverse);
+      return this;
+    }
+  }, {
+    key: "getWorldDirection",
+    value: function getWorldDirection(target) {
+      if (target === undefined) {
+        console.warn('THREE.Camera: .getWorldDirection() target is now required');
+        target = new Vector3();
+      }
+
+      this.updateWorldMatrix(true, false);
+      var e = this.matrixWorld.elements;
+      return target.set(-e[8], -e[9], -e[10]).normalize();
+    }
+  }, {
+    key: "updateMatrixWorld",
+    value: function updateMatrixWorld(force) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Camera.prototype), "updateMatrixWorld", this).call(this, force);
+
+      this.matrixWorldInverse.copy(this.matrixWorld).invert();
+    }
+  }, {
+    key: "updateWorldMatrix",
+    value: function updateWorldMatrix(updateParents, updateChildren) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Camera.prototype), "updateWorldMatrix", this).call(this, updateParents, updateChildren);
+
+      this.matrixWorldInverse.copy(this.matrixWorld).invert();
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor().copy(this);
+    }
+  }]);
+
+  return Camera;
+}(Object3D);
+
+Camera.prototype.isCamera = true;
+
+var PerspectiveCamera = /*#__PURE__*/function (_Camera) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PerspectiveCamera, _Camera);
+
+  var _super21 = _createSuper(PerspectiveCamera);
+
+  function PerspectiveCamera() {
+    var _this12;
+
+    var fov = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
+    var aspect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    var near = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.1;
+    var far = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2000;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PerspectiveCamera);
+
+    _this12 = _super21.call(this);
+    _this12.type = 'PerspectiveCamera';
+    _this12.fov = fov;
+    _this12.zoom = 1;
+    _this12.near = near;
+    _this12.far = far;
+    _this12.focus = 10;
+    _this12.aspect = aspect;
+    _this12.view = null;
+    _this12.filmGauge = 35; // width of the film (default in millimeters)
+
+    _this12.filmOffset = 0; // horizontal film offset (same unit as gauge)
+
+    _this12.updateProjectionMatrix();
+
+    return _this12;
   }
 
-  if (Object.keys(extensions).length > 0) data.extensions = extensions;
-  return data;
-};
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PerspectiveCamera, [{
+    key: "copy",
+    value: function copy(source, recursive) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PerspectiveCamera.prototype), "copy", this).call(this, source, recursive);
 
-function Camera() {
-  Object3D.call(this);
-  this.type = 'Camera';
-  this.matrixWorldInverse = new Matrix4();
-  this.projectionMatrix = new Matrix4();
-  this.projectionMatrixInverse = new Matrix4();
-}
-
-Camera.prototype = Object.assign(Object.create(Object3D.prototype), {
-  constructor: Camera,
-  isCamera: true,
-  copy: function copy(source, recursive) {
-    Object3D.prototype.copy.call(this, source, recursive);
-    this.matrixWorldInverse.copy(source.matrixWorldInverse);
-    this.projectionMatrix.copy(source.projectionMatrix);
-    this.projectionMatrixInverse.copy(source.projectionMatrixInverse);
-    return this;
-  },
-  getWorldDirection: function getWorldDirection(target) {
-    if (target === undefined) {
-      console.warn('THREE.Camera: .getWorldDirection() target is now required');
-      target = new Vector3();
+      this.fov = source.fov;
+      this.zoom = source.zoom;
+      this.near = source.near;
+      this.far = source.far;
+      this.focus = source.focus;
+      this.aspect = source.aspect;
+      this.view = source.view === null ? null : Object.assign({}, source.view);
+      this.filmGauge = source.filmGauge;
+      this.filmOffset = source.filmOffset;
+      return this;
     }
+    /**
+     * Sets the FOV by focal length in respect to the current .filmGauge.
+     *
+     * The default film gauge is 35, so that the focal length can be specified for
+     * a 35mm (full frame) camera.
+     *
+     * Values for focal length and film gauge must have the same unit.
+     */
 
-    this.updateWorldMatrix(true, false);
-    var e = this.matrixWorld.elements;
-    return target.set(-e[8], -e[9], -e[10]).normalize();
-  },
-  updateMatrixWorld: function updateMatrixWorld(force) {
-    Object3D.prototype.updateMatrixWorld.call(this, force);
-    this.matrixWorldInverse.copy(this.matrixWorld).invert();
-  },
-  updateWorldMatrix: function updateWorldMatrix(updateParents, updateChildren) {
-    Object3D.prototype.updateWorldMatrix.call(this, updateParents, updateChildren);
-    this.matrixWorldInverse.copy(this.matrixWorld).invert();
-  },
-  clone: function clone() {
-    return new this.constructor().copy(this);
-  }
-});
-
-function PerspectiveCamera() {
-  var fov = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
-  var aspect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  var near = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.1;
-  var far = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2000;
-  Camera.call(this);
-  this.type = 'PerspectiveCamera';
-  this.fov = fov;
-  this.zoom = 1;
-  this.near = near;
-  this.far = far;
-  this.focus = 10;
-  this.aspect = aspect;
-  this.view = null;
-  this.filmGauge = 35; // width of the film (default in millimeters)
-
-  this.filmOffset = 0; // horizontal film offset (same unit as gauge)
-
-  this.updateProjectionMatrix();
-}
-
-PerspectiveCamera.prototype = Object.assign(Object.create(Camera.prototype), {
-  constructor: PerspectiveCamera,
-  isPerspectiveCamera: true,
-  copy: function copy(source, recursive) {
-    Camera.prototype.copy.call(this, source, recursive);
-    this.fov = source.fov;
-    this.zoom = source.zoom;
-    this.near = source.near;
-    this.far = source.far;
-    this.focus = source.focus;
-    this.aspect = source.aspect;
-    this.view = source.view === null ? null : Object.assign({}, source.view);
-    this.filmGauge = source.filmGauge;
-    this.filmOffset = source.filmOffset;
-    return this;
-  },
-
-  /**
-   * Sets the FOV by focal length in respect to the current .filmGauge.
-   *
-   * The default film gauge is 35, so that the focal length can be specified for
-   * a 35mm (full frame) camera.
-   *
-   * Values for focal length and film gauge must have the same unit.
-   */
-  setFocalLength: function setFocalLength(focalLength) {
-    /** see {@link http://www.bobatkins.com/photography/technical/field_of_view.html} */
-    var vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
-    this.fov = MathUtils.RAD2DEG * 2 * Math.atan(vExtentSlope);
-    this.updateProjectionMatrix();
-  },
-
-  /**
-   * Calculates the focal length from the current .fov and .filmGauge.
-   */
-  getFocalLength: function getFocalLength() {
-    var vExtentSlope = Math.tan(MathUtils.DEG2RAD * 0.5 * this.fov);
-    return 0.5 * this.getFilmHeight() / vExtentSlope;
-  },
-  getEffectiveFOV: function getEffectiveFOV() {
-    return MathUtils.RAD2DEG * 2 * Math.atan(Math.tan(MathUtils.DEG2RAD * 0.5 * this.fov) / this.zoom);
-  },
-  getFilmWidth: function getFilmWidth() {
-    // film not completely covered in portrait format (aspect < 1)
-    return this.filmGauge * Math.min(this.aspect, 1);
-  },
-  getFilmHeight: function getFilmHeight() {
-    // film not completely covered in landscape format (aspect > 1)
-    return this.filmGauge / Math.max(this.aspect, 1);
-  },
-
-  /**
-   * Sets an offset in a larger frustum. This is useful for multi-window or
-   * multi-monitor/multi-machine setups.
-   *
-   * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
-   * the monitors are in grid like this
-   *
-   *   +---+---+---+
-   *   | A | B | C |
-   *   +---+---+---+
-   *   | D | E | F |
-   *   +---+---+---+
-   *
-   * then for each monitor you would call it like this
-   *
-   *   const w = 1920;
-   *   const h = 1080;
-   *   const fullWidth = w * 3;
-   *   const fullHeight = h * 2;
-   *
-   *   --A--
-   *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
-   *   --B--
-   *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
-   *   --C--
-   *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
-   *   --D--
-   *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
-   *   --E--
-   *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
-   *   --F--
-   *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
-   *
-   *   Note there is no reason monitors have to be the same size or in a grid.
-   */
-  setViewOffset: function setViewOffset(fullWidth, fullHeight, x, y, width, height) {
-    this.aspect = fullWidth / fullHeight;
-
-    if (this.view === null) {
-      this.view = {
-        enabled: true,
-        fullWidth: 1,
-        fullHeight: 1,
-        offsetX: 0,
-        offsetY: 0,
-        width: 1,
-        height: 1
-      };
+  }, {
+    key: "setFocalLength",
+    value: function setFocalLength(focalLength) {
+      /** see {@link http://www.bobatkins.com/photography/technical/field_of_view.html} */
+      var vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
+      this.fov = RAD2DEG * 2 * Math.atan(vExtentSlope);
+      this.updateProjectionMatrix();
     }
+    /**
+     * Calculates the focal length from the current .fov and .filmGauge.
+     */
 
-    this.view.enabled = true;
-    this.view.fullWidth = fullWidth;
-    this.view.fullHeight = fullHeight;
-    this.view.offsetX = x;
-    this.view.offsetY = y;
-    this.view.width = width;
-    this.view.height = height;
-    this.updateProjectionMatrix();
-  },
-  clearViewOffset: function clearViewOffset() {
-    if (this.view !== null) {
-      this.view.enabled = false;
+  }, {
+    key: "getFocalLength",
+    value: function getFocalLength() {
+      var vExtentSlope = Math.tan(DEG2RAD * 0.5 * this.fov);
+      return 0.5 * this.getFilmHeight() / vExtentSlope;
     }
-
-    this.updateProjectionMatrix();
-  },
-  updateProjectionMatrix: function updateProjectionMatrix() {
-    var near = this.near;
-    var top = near * Math.tan(MathUtils.DEG2RAD * 0.5 * this.fov) / this.zoom;
-    var height = 2 * top;
-    var width = this.aspect * height;
-    var left = -0.5 * width;
-    var view = this.view;
-
-    if (this.view !== null && this.view.enabled) {
-      var fullWidth = view.fullWidth,
-          fullHeight = view.fullHeight;
-      left += view.offsetX * width / fullWidth;
-      top -= view.offsetY * height / fullHeight;
-      width *= view.width / fullWidth;
-      height *= view.height / fullHeight;
+  }, {
+    key: "getEffectiveFOV",
+    value: function getEffectiveFOV() {
+      return RAD2DEG * 2 * Math.atan(Math.tan(DEG2RAD * 0.5 * this.fov) / this.zoom);
     }
+  }, {
+    key: "getFilmWidth",
+    value: function getFilmWidth() {
+      // film not completely covered in portrait format (aspect < 1)
+      return this.filmGauge * Math.min(this.aspect, 1);
+    }
+  }, {
+    key: "getFilmHeight",
+    value: function getFilmHeight() {
+      // film not completely covered in landscape format (aspect > 1)
+      return this.filmGauge / Math.max(this.aspect, 1);
+    }
+    /**
+     * Sets an offset in a larger frustum. This is useful for multi-window or
+     * multi-monitor/multi-machine setups.
+     *
+     * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
+     * the monitors are in grid like this
+     *
+     *   +---+---+---+
+     *   | A | B | C |
+     *   +---+---+---+
+     *   | D | E | F |
+     *   +---+---+---+
+     *
+     * then for each monitor you would call it like this
+     *
+     *   const w = 1920;
+     *   const h = 1080;
+     *   const fullWidth = w * 3;
+     *   const fullHeight = h * 2;
+     *
+     *   --A--
+     *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
+     *   --B--
+     *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
+     *   --C--
+     *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
+     *   --D--
+     *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
+     *   --E--
+     *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
+     *   --F--
+     *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
+     *
+     *   Note there is no reason monitors have to be the same size or in a grid.
+     */
 
-    var skew = this.filmOffset;
-    if (skew !== 0) left += near * skew / this.getFilmWidth();
-    this.projectionMatrix.makePerspective(left, left + width, top, top - height, near, this.far);
-    this.projectionMatrixInverse.copy(this.projectionMatrix).invert();
-  },
-  toJSON: function toJSON(meta) {
-    var data = Object3D.prototype.toJSON.call(this, meta);
-    data.object.fov = this.fov;
-    data.object.zoom = this.zoom;
-    data.object.near = this.near;
-    data.object.far = this.far;
-    data.object.focus = this.focus;
-    data.object.aspect = this.aspect;
-    if (this.view !== null) data.object.view = Object.assign({}, this.view);
-    data.object.filmGauge = this.filmGauge;
-    data.object.filmOffset = this.filmOffset;
-    return data;
-  }
-});
+  }, {
+    key: "setViewOffset",
+    value: function setViewOffset(fullWidth, fullHeight, x, y, width, height) {
+      this.aspect = fullWidth / fullHeight;
+
+      if (this.view === null) {
+        this.view = {
+          enabled: true,
+          fullWidth: 1,
+          fullHeight: 1,
+          offsetX: 0,
+          offsetY: 0,
+          width: 1,
+          height: 1
+        };
+      }
+
+      this.view.enabled = true;
+      this.view.fullWidth = fullWidth;
+      this.view.fullHeight = fullHeight;
+      this.view.offsetX = x;
+      this.view.offsetY = y;
+      this.view.width = width;
+      this.view.height = height;
+      this.updateProjectionMatrix();
+    }
+  }, {
+    key: "clearViewOffset",
+    value: function clearViewOffset() {
+      if (this.view !== null) {
+        this.view.enabled = false;
+      }
+
+      this.updateProjectionMatrix();
+    }
+  }, {
+    key: "updateProjectionMatrix",
+    value: function updateProjectionMatrix() {
+      var near = this.near;
+      var top = near * Math.tan(DEG2RAD * 0.5 * this.fov) / this.zoom;
+      var height = 2 * top;
+      var width = this.aspect * height;
+      var left = -0.5 * width;
+      var view = this.view;
+
+      if (this.view !== null && this.view.enabled) {
+        var fullWidth = view.fullWidth,
+            fullHeight = view.fullHeight;
+        left += view.offsetX * width / fullWidth;
+        top -= view.offsetY * height / fullHeight;
+        width *= view.width / fullWidth;
+        height *= view.height / fullHeight;
+      }
+
+      var skew = this.filmOffset;
+      if (skew !== 0) left += near * skew / this.getFilmWidth();
+      this.projectionMatrix.makePerspective(left, left + width, top, top - height, near, this.far);
+      this.projectionMatrixInverse.copy(this.projectionMatrix).invert();
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON(meta) {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PerspectiveCamera.prototype), "toJSON", this).call(this, meta);
+
+      data.object.fov = this.fov;
+      data.object.zoom = this.zoom;
+      data.object.near = this.near;
+      data.object.far = this.far;
+      data.object.focus = this.focus;
+      data.object.aspect = this.aspect;
+      if (this.view !== null) data.object.view = Object.assign({}, this.view);
+      data.object.filmGauge = this.filmGauge;
+      data.object.filmOffset = this.filmOffset;
+      return data;
+    }
+  }]);
+
+  return PerspectiveCamera;
+}(Camera);
+
+PerspectiveCamera.prototype.isPerspectiveCamera = true;
 var fov = 90,
     aspect = 1;
 
-var CubeCamera = /*#__PURE__*/function (_Object3D) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeCamera, _Object3D);
+var CubeCamera = /*#__PURE__*/function (_Object3D3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeCamera, _Object3D3);
 
-  var _super6 = _createSuper(CubeCamera);
+  var _super22 = _createSuper(CubeCamera);
 
   function CubeCamera(near, far, renderTarget) {
-    var _this7;
+    var _this13;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubeCamera);
 
-    _this7 = _super6.call(this);
-    _this7.type = 'CubeCamera';
+    _this13 = _super22.call(this);
+    _this13.type = 'CubeCamera';
 
     if (renderTarget.isWebGLCubeRenderTarget !== true) {
       console.error('THREE.CubeCamera: The constructor now expects an instance of WebGLCubeRenderTarget as third parameter.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this7);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this13);
     }
 
-    _this7.renderTarget = renderTarget;
+    _this13.renderTarget = renderTarget;
     var cameraPX = new PerspectiveCamera(fov, aspect, near, far);
-    cameraPX.layers = _this7.layers;
+    cameraPX.layers = _this13.layers;
     cameraPX.up.set(0, -1, 0);
     cameraPX.lookAt(new Vector3(1, 0, 0));
 
-    _this7.add(cameraPX);
+    _this13.add(cameraPX);
 
     var cameraNX = new PerspectiveCamera(fov, aspect, near, far);
-    cameraNX.layers = _this7.layers;
+    cameraNX.layers = _this13.layers;
     cameraNX.up.set(0, -1, 0);
     cameraNX.lookAt(new Vector3(-1, 0, 0));
 
-    _this7.add(cameraNX);
+    _this13.add(cameraNX);
 
     var cameraPY = new PerspectiveCamera(fov, aspect, near, far);
-    cameraPY.layers = _this7.layers;
+    cameraPY.layers = _this13.layers;
     cameraPY.up.set(0, 0, 1);
     cameraPY.lookAt(new Vector3(0, 1, 0));
 
-    _this7.add(cameraPY);
+    _this13.add(cameraPY);
 
     var cameraNY = new PerspectiveCamera(fov, aspect, near, far);
-    cameraNY.layers = _this7.layers;
+    cameraNY.layers = _this13.layers;
     cameraNY.up.set(0, 0, -1);
     cameraNY.lookAt(new Vector3(0, -1, 0));
 
-    _this7.add(cameraNY);
+    _this13.add(cameraNY);
 
     var cameraPZ = new PerspectiveCamera(fov, aspect, near, far);
-    cameraPZ.layers = _this7.layers;
+    cameraPZ.layers = _this13.layers;
     cameraPZ.up.set(0, -1, 0);
     cameraPZ.lookAt(new Vector3(0, 0, 1));
 
-    _this7.add(cameraPZ);
+    _this13.add(cameraPZ);
 
     var cameraNZ = new PerspectiveCamera(fov, aspect, near, far);
-    cameraNZ.layers = _this7.layers;
+    cameraNZ.layers = _this13.layers;
     cameraNZ.up.set(0, -1, 0);
     cameraNZ.lookAt(new Vector3(0, 0, -1));
 
-    _this7.add(cameraNZ);
+    _this13.add(cameraNZ);
 
-    return _this7;
+    return _this13;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubeCamera, [{
@@ -10192,17 +10661,17 @@ var CubeCamera = /*#__PURE__*/function (_Object3D) {
 var CubeTexture = /*#__PURE__*/function (_Texture) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTexture, _Texture);
 
-  var _super7 = _createSuper(CubeTexture);
+  var _super23 = _createSuper(CubeTexture);
 
   function CubeTexture(images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding) {
-    var _this8;
+    var _this14;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubeTexture);
 
     images = images !== undefined ? images : [];
     mapping = mapping !== undefined ? mapping : CubeReflectionMapping;
     format = format !== undefined ? format : RGBFormat;
-    _this8 = _super7.call(this, images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding); // Why CubeTexture._needsFlipEnvMap is necessary:
+    _this14 = _super23.call(this, images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding); // Why CubeTexture._needsFlipEnvMap is necessary:
     //
     // By convention -- likely based on the RenderMan spec from the 1990's -- cube maps are specified by WebGL (and three.js)
     // in a coordinate system in which positive-x is to the right when looking up the positive-z axis -- in other words,
@@ -10211,9 +10680,9 @@ var CubeTexture = /*#__PURE__*/function (_Texture) {
     // and the flag _needsFlipEnvMap controls this conversion. The flip is not required (and thus _needsFlipEnvMap is set to false)
     // when using WebGLCubeRenderTarget.texture as a cube texture.
 
-    _this8._needsFlipEnvMap = true;
-    _this8.flipY = false;
-    return _this8;
+    _this14._needsFlipEnvMap = true;
+    _this14.flipY = false;
+    return _this14;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubeTexture, [{
@@ -10234,10 +10703,10 @@ CubeTexture.prototype.isCubeTexture = true;
 var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLCubeRenderTarget, _WebGLRenderTarget2);
 
-  var _super8 = _createSuper(WebGLCubeRenderTarget);
+  var _super24 = _createSuper(WebGLCubeRenderTarget);
 
   function WebGLCubeRenderTarget(size, options, dummy) {
-    var _this9;
+    var _this15;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebGLCubeRenderTarget);
 
@@ -10246,13 +10715,13 @@ var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget2) {
       options = dummy;
     }
 
-    _this9 = _super8.call(this, size, size, options);
+    _this15 = _super24.call(this, size, size, options);
     options = options || {};
-    _this9.texture = new CubeTexture(undefined, options.mapping, options.wrapS, options.wrapT, options.magFilter, options.minFilter, options.format, options.type, options.anisotropy, options.encoding);
-    _this9.texture.generateMipmaps = options.generateMipmaps !== undefined ? options.generateMipmaps : false;
-    _this9.texture.minFilter = options.minFilter !== undefined ? options.minFilter : LinearFilter;
-    _this9.texture._needsFlipEnvMap = false;
-    return _this9;
+    _this15.texture = new CubeTexture(undefined, options.mapping, options.wrapS, options.wrapT, options.magFilter, options.minFilter, options.format, options.type, options.anisotropy, options.encoding);
+    _this15.texture.generateMipmaps = options.generateMipmaps !== undefined ? options.generateMipmaps : false;
+    _this15.texture.minFilter = options.minFilter !== undefined ? options.minFilter : LinearFilter;
+    _this15.texture._needsFlipEnvMap = false;
+    return _this15;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(WebGLCubeRenderTarget, [{
@@ -10321,26 +10790,26 @@ WebGLCubeRenderTarget.prototype.isWebGLCubeRenderTarget = true;
 var DataTexture = /*#__PURE__*/function (_Texture2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTexture, _Texture2);
 
-  var _super9 = _createSuper(DataTexture);
+  var _super25 = _createSuper(DataTexture);
 
   function DataTexture(data, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding) {
-    var _this10;
+    var _this16;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTexture);
 
-    _this10 = _super9.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
-    _this10.image = {
+    _this16 = _super25.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
+    _this16.image = {
       data: data || null,
       width: width || 1,
       height: height || 1
     };
-    _this10.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
-    _this10.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
-    _this10.generateMipmaps = false;
-    _this10.flipY = false;
-    _this10.unpackAlignment = 1;
-    _this10.needsUpdate = true;
-    return _this10;
+    _this16.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
+    _this16.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
+    _this16.generateMipmaps = false;
+    _this16.flipY = false;
+    _this16.unpackAlignment = 1;
+    _this16.needsUpdate = true;
+    return _this16;
   }
 
   return DataTexture;
@@ -10648,10 +11117,10 @@ function WebGLAttributes(gl, capabilities) {
 var PlaneGeometry = /*#__PURE__*/function (_BufferGeometry2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneGeometry, _BufferGeometry2);
 
-  var _super10 = _createSuper(PlaneGeometry);
+  var _super26 = _createSuper(PlaneGeometry);
 
   function PlaneGeometry() {
-    var _this11;
+    var _this17;
 
     var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -10660,9 +11129,9 @@ var PlaneGeometry = /*#__PURE__*/function (_BufferGeometry2) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PlaneGeometry);
 
-    _this11 = _super10.call(this);
-    _this11.type = 'PlaneGeometry';
-    _this11.parameters = {
+    _this17 = _super26.call(this);
+    _this17.type = 'PlaneGeometry';
+    _this17.parameters = {
       width: width,
       height: height,
       widthSegments: widthSegments,
@@ -10705,15 +11174,15 @@ var PlaneGeometry = /*#__PURE__*/function (_BufferGeometry2) {
       }
     }
 
-    _this11.setIndex(indices);
+    _this17.setIndex(indices);
 
-    _this11.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this17.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this11.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this17.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this11.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this17.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this11;
+    return _this17;
   }
 
   return PlaneGeometry;
@@ -12753,10 +13222,10 @@ function WebGLObjects(gl, geometries, attributes, info) {
 var DataTexture2DArray = /*#__PURE__*/function (_Texture3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTexture2DArray, _Texture3);
 
-  var _super11 = _createSuper(DataTexture2DArray);
+  var _super27 = _createSuper(DataTexture2DArray);
 
   function DataTexture2DArray() {
-    var _this12;
+    var _this18;
 
     var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -12765,20 +13234,21 @@ var DataTexture2DArray = /*#__PURE__*/function (_Texture3) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTexture2DArray);
 
-    _this12 = _super11.call(this, null);
-    _this12.image = {
+    _this18 = _super27.call(this, null);
+    _this18.image = {
       data: data,
       width: width,
       height: height,
       depth: depth
     };
-    _this12.magFilter = NearestFilter;
-    _this12.minFilter = NearestFilter;
-    _this12.wrapR = ClampToEdgeWrapping;
-    _this12.generateMipmaps = false;
-    _this12.flipY = false;
-    _this12.needsUpdate = true;
-    return _this12;
+    _this18.magFilter = NearestFilter;
+    _this18.minFilter = NearestFilter;
+    _this18.wrapR = ClampToEdgeWrapping;
+    _this18.generateMipmaps = false;
+    _this18.flipY = false;
+    _this18.unpackAlignment = 1;
+    _this18.needsUpdate = true;
+    return _this18;
   }
 
   return DataTexture2DArray;
@@ -12789,10 +13259,10 @@ DataTexture2DArray.prototype.isDataTexture2DArray = true;
 var DataTexture3D = /*#__PURE__*/function (_Texture4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTexture3D, _Texture4);
 
-  var _super12 = _createSuper(DataTexture3D);
+  var _super28 = _createSuper(DataTexture3D);
 
   function DataTexture3D() {
-    var _this13;
+    var _this19;
 
     var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
     var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -12808,20 +13278,21 @@ var DataTexture3D = /*#__PURE__*/function (_Texture4) {
     // 	texture.anisotropy = 16;
     //
     // See #14839
-    _this13 = _super12.call(this, null);
-    _this13.image = {
+    _this19 = _super28.call(this, null);
+    _this19.image = {
       data: data,
       width: width,
       height: height,
       depth: depth
     };
-    _this13.magFilter = NearestFilter;
-    _this13.minFilter = NearestFilter;
-    _this13.wrapR = ClampToEdgeWrapping;
-    _this13.generateMipmaps = false;
-    _this13.flipY = false;
-    _this13.needsUpdate = true;
-    return _this13;
+    _this19.magFilter = NearestFilter;
+    _this19.minFilter = NearestFilter;
+    _this19.wrapR = ClampToEdgeWrapping;
+    _this19.generateMipmaps = false;
+    _this19.flipY = false;
+    _this19.unpackAlignment = 1;
+    _this19.needsUpdate = true;
+    return _this19;
   }
 
   return DataTexture3D;
@@ -14165,7 +14636,7 @@ function WebGLPrograms(renderer, cubemaps, extensions, capabilities, bindingStat
       combine: material.combine,
       vertexTangents: material.normalMap && material.vertexTangents,
       vertexColors: material.vertexColors,
-      vertexAlphas: material.vertexColors === true && object.geometry.attributes.color && object.geometry.attributes.color.itemSize === 4,
+      vertexAlphas: material.vertexColors === true && object.geometry && object.geometry.attributes.color && object.geometry.attributes.color.itemSize === 4,
       vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.displacementMap || !!material.transmissionMap,
       uvsVertexOnly: !(!!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatNormalMap || !!material.transmissionMap) && !!material.displacementMap,
       fog: !!fog,
@@ -15003,33 +15474,33 @@ function WebGLRenderStates(extensions, capabilities) {
  */
 
 
-var MeshDepthMaterial = /*#__PURE__*/function (_Material2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDepthMaterial, _Material2);
+var MeshDepthMaterial = /*#__PURE__*/function (_Material3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDepthMaterial, _Material3);
 
-  var _super13 = _createSuper(MeshDepthMaterial);
+  var _super29 = _createSuper(MeshDepthMaterial);
 
   function MeshDepthMaterial(parameters) {
-    var _this14;
+    var _this20;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshDepthMaterial);
 
-    _this14 = _super13.call(this);
-    _this14.type = 'MeshDepthMaterial';
-    _this14.depthPacking = BasicDepthPacking;
-    _this14.skinning = false;
-    _this14.morphTargets = false;
-    _this14.map = null;
-    _this14.alphaMap = null;
-    _this14.displacementMap = null;
-    _this14.displacementScale = 1;
-    _this14.displacementBias = 0;
-    _this14.wireframe = false;
-    _this14.wireframeLinewidth = 1;
-    _this14.fog = false;
+    _this20 = _super29.call(this);
+    _this20.type = 'MeshDepthMaterial';
+    _this20.depthPacking = BasicDepthPacking;
+    _this20.skinning = false;
+    _this20.morphTargets = false;
+    _this20.map = null;
+    _this20.alphaMap = null;
+    _this20.displacementMap = null;
+    _this20.displacementScale = 1;
+    _this20.displacementBias = 0;
+    _this20.wireframe = false;
+    _this20.wireframeLinewidth = 1;
+    _this20.fog = false;
 
-    _this14.setValues(parameters);
+    _this20.setValues(parameters);
 
-    return _this14;
+    return _this20;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshDepthMaterial, [{
@@ -15076,33 +15547,33 @@ MeshDepthMaterial.prototype.isMeshDepthMaterial = true;
  * }
  */
 
-var MeshDistanceMaterial = /*#__PURE__*/function (_Material3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDistanceMaterial, _Material3);
+var MeshDistanceMaterial = /*#__PURE__*/function (_Material4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDistanceMaterial, _Material4);
 
-  var _super14 = _createSuper(MeshDistanceMaterial);
+  var _super30 = _createSuper(MeshDistanceMaterial);
 
   function MeshDistanceMaterial(parameters) {
-    var _this15;
+    var _this21;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshDistanceMaterial);
 
-    _this15 = _super14.call(this);
-    _this15.type = 'MeshDistanceMaterial';
-    _this15.referencePosition = new Vector3();
-    _this15.nearDistance = 1;
-    _this15.farDistance = 1000;
-    _this15.skinning = false;
-    _this15.morphTargets = false;
-    _this15.map = null;
-    _this15.alphaMap = null;
-    _this15.displacementMap = null;
-    _this15.displacementScale = 1;
-    _this15.displacementBias = 0;
-    _this15.fog = false;
+    _this21 = _super30.call(this);
+    _this21.type = 'MeshDistanceMaterial';
+    _this21.referencePosition = new Vector3();
+    _this21.nearDistance = 1;
+    _this21.farDistance = 1000;
+    _this21.skinning = false;
+    _this21.morphTargets = false;
+    _this21.map = null;
+    _this21.alphaMap = null;
+    _this21.displacementMap = null;
+    _this21.displacementScale = 1;
+    _this21.displacementBias = 0;
+    _this21.fog = false;
 
-    _this15.setValues(parameters);
+    _this21.setValues(parameters);
 
-    return _this15;
+    return _this21;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshDistanceMaterial, [{
@@ -15749,6 +16220,17 @@ function WebGLState(gl, extensions, capabilities) {
     if (currentBoundFramebuffers[target] !== framebuffer) {
       gl.bindFramebuffer(target, framebuffer);
       currentBoundFramebuffers[target] = framebuffer;
+
+      if (isWebGL2) {
+        // 36009 is equivalent to 36160
+        if (target === 36009) {
+          currentBoundFramebuffers[36160] = framebuffer;
+        }
+
+        if (target === 36160) {
+          currentBoundFramebuffers[36009] = framebuffer;
+        }
+      }
     }
   }
 
@@ -16181,7 +16663,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     if (scale < 1 || needsPowerOfTwo === true) {
       // only perform resize for certain image types
       if (typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement || typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement || typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap) {
-        var floor = needsPowerOfTwo ? MathUtils.floorPowerOfTwo : Math.floor;
+        var floor = needsPowerOfTwo ? floorPowerOfTwo : Math.floor;
         var width = floor(scale * image.width);
         var height = floor(scale * image.height);
         if (_canvas === undefined) _canvas = createCanvas(width, height); // cube textures can't reuse the same canvas
@@ -16205,8 +16687,8 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     return image;
   }
 
-  function isPowerOfTwo(image) {
-    return MathUtils.isPowerOfTwo(image.width) && MathUtils.isPowerOfTwo(image.height);
+  function isPowerOfTwo$1(image) {
+    return isPowerOfTwo(image.width) && isPowerOfTwo(image.height);
   }
 
   function textureNeedsPowerOfTwo(texture) {
@@ -16485,9 +16967,9 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
     _gl.pixelStorei(37443, 0);
 
-    var needsPowerOfTwo = textureNeedsPowerOfTwo(texture) && isPowerOfTwo(texture.image) === false;
+    var needsPowerOfTwo = textureNeedsPowerOfTwo(texture) && isPowerOfTwo$1(texture.image) === false;
     var image = resizeImage(texture.image, needsPowerOfTwo, false, maxTextureSize);
-    var supportsMips = isPowerOfTwo(image) || isWebGL2,
+    var supportsMips = isPowerOfTwo$1(image) || isWebGL2,
         glFormat = utils.convert(texture.format);
     var glType = utils.convert(texture.type),
         glInternalFormat = getInternalFormat(texture.internalFormat, glFormat, glType);
@@ -16635,7 +17117,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     }
 
     var image = cubeImage[0],
-        supportsMips = isPowerOfTwo(image) || isWebGL2,
+        supportsMips = isPowerOfTwo$1(image) || isWebGL2,
         glFormat = utils.convert(texture.format),
         glType = utils.convert(texture.type),
         glInternalFormat = getInternalFormat(texture.internalFormat, glFormat, glType);
@@ -16841,7 +17323,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     var isCube = renderTarget.isWebGLCubeRenderTarget === true;
     var isMultisample = renderTarget.isWebGLMultisampleRenderTarget === true;
     var isRenderTarget3D = texture.isDataTexture3D || texture.isDataTexture2DArray;
-    var supportsMips = isPowerOfTwo(renderTarget) || isWebGL2; // Handles WebGL2 RGBFormat fallback - #18858
+    var supportsMips = isPowerOfTwo$1(renderTarget) || isWebGL2; // Handles WebGL2 RGBFormat fallback - #18858
 
     if (isWebGL2 && texture.format === RGBFormat && (texture.type === FloatType || texture.type === HalfFloatType)) {
       texture.format = RGBAFormat;
@@ -16936,7 +17418,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
   function updateRenderTargetMipmap(renderTarget) {
     var texture = renderTarget.texture;
-    var supportsMips = isPowerOfTwo(renderTarget) || isWebGL2;
+    var supportsMips = isPowerOfTwo$1(renderTarget) || isWebGL2;
 
     if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
       var target = renderTarget.isWebGLCubeRenderTarget ? 34067 : 3553;
@@ -16952,18 +17434,19 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
   function updateMultisampleRenderTarget(renderTarget) {
     if (renderTarget.isWebGLMultisampleRenderTarget) {
       if (isWebGL2) {
-        var renderTargetProperties = properties.get(renderTarget);
-        state.bindFramebuffer(36008, renderTargetProperties.__webglMultisampledFramebuffer);
-        state.bindFramebuffer(36009, renderTargetProperties.__webglFramebuffer);
         var width = renderTarget.width;
         var height = renderTarget.height;
         var mask = 16384;
         if (renderTarget.depthBuffer) mask |= 256;
         if (renderTarget.stencilBuffer) mask |= 1024;
+        var renderTargetProperties = properties.get(renderTarget);
+        state.bindFramebuffer(36008, renderTargetProperties.__webglMultisampledFramebuffer);
+        state.bindFramebuffer(36009, renderTargetProperties.__webglFramebuffer);
 
         _gl.blitFramebuffer(0, 0, width, height, 0, 0, width, height, mask, 9728);
 
-        state.bindFramebuffer(36160, renderTargetProperties.__webglMultisampledFramebuffer); // see #18905
+        state.bindFramebuffer(36008, null);
+        state.bindFramebuffer(36009, renderTargetProperties.__webglMultisampledFramebuffer);
       } else {
         console.warn('THREE.WebGLRenderer: WebGLMultisampleRenderTarget can only be used with WebGL2.');
       }
@@ -17157,18 +17640,18 @@ function WebGLUtils(gl, extensions, capabilities) {
 var ArrayCamera = /*#__PURE__*/function (_PerspectiveCamera) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArrayCamera, _PerspectiveCamera);
 
-  var _super15 = _createSuper(ArrayCamera);
+  var _super31 = _createSuper(ArrayCamera);
 
   function ArrayCamera() {
-    var _this16;
+    var _this22;
 
     var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ArrayCamera);
 
-    _this16 = _super15.call(this);
-    _this16.cameras = array;
-    return _this16;
+    _this22 = _super31.call(this);
+    _this22.cameras = array;
+    return _this22;
   }
 
   return ArrayCamera;
@@ -17176,588 +17659,660 @@ var ArrayCamera = /*#__PURE__*/function (_PerspectiveCamera) {
 
 ArrayCamera.prototype.isArrayCamera = true;
 
-var Group = /*#__PURE__*/function (_Object3D2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Group, _Object3D2);
+var Group = /*#__PURE__*/function (_Object3D4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Group, _Object3D4);
 
-  var _super16 = _createSuper(Group);
+  var _super32 = _createSuper(Group);
 
   function Group() {
-    var _this17;
+    var _this23;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Group);
 
-    _this17 = _super16.call(this);
-    _this17.type = 'Group';
-    return _this17;
+    _this23 = _super32.call(this);
+    _this23.type = 'Group';
+    return _this23;
   }
 
   return Group;
 }(Object3D);
 
 Group.prototype.isGroup = true;
+var _moveEvent = {
+  type: 'move'
+};
 
-function WebXRController() {
-  this._targetRay = null;
-  this._grip = null;
-  this._hand = null;
-}
+var WebXRController = /*#__PURE__*/function () {
+  function WebXRController() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebXRController);
 
-Object.assign(WebXRController.prototype, {
-  constructor: WebXRController,
-  getHandSpace: function getHandSpace() {
-    if (this._hand === null) {
-      this._hand = new Group();
-      this._hand.matrixAutoUpdate = false;
-      this._hand.visible = false;
-      this._hand.joints = {};
-      this._hand.inputState = {
-        pinching: false
-      };
-    }
-
-    return this._hand;
-  },
-  getTargetRaySpace: function getTargetRaySpace() {
-    if (this._targetRay === null) {
-      this._targetRay = new Group();
-      this._targetRay.matrixAutoUpdate = false;
-      this._targetRay.visible = false;
-    }
-
-    return this._targetRay;
-  },
-  getGripSpace: function getGripSpace() {
-    if (this._grip === null) {
-      this._grip = new Group();
-      this._grip.matrixAutoUpdate = false;
-      this._grip.visible = false;
-    }
-
-    return this._grip;
-  },
-  dispatchEvent: function dispatchEvent(event) {
-    if (this._targetRay !== null) {
-      this._targetRay.dispatchEvent(event);
-    }
-
-    if (this._grip !== null) {
-      this._grip.dispatchEvent(event);
-    }
-
-    if (this._hand !== null) {
-      this._hand.dispatchEvent(event);
-    }
-
-    return this;
-  },
-  disconnect: function disconnect(inputSource) {
-    this.dispatchEvent({
-      type: 'disconnected',
-      data: inputSource
-    });
-
-    if (this._targetRay !== null) {
-      this._targetRay.visible = false;
-    }
-
-    if (this._grip !== null) {
-      this._grip.visible = false;
-    }
-
-    if (this._hand !== null) {
-      this._hand.visible = false;
-    }
-
-    return this;
-  },
-  update: function update(inputSource, frame, referenceSpace) {
-    var inputPose = null;
-    var gripPose = null;
-    var handPose = null;
-    var targetRay = this._targetRay;
-    var grip = this._grip;
-    var hand = this._hand;
-
-    if (inputSource && frame.session.visibilityState !== 'visible-blurred') {
-      if (targetRay !== null) {
-        inputPose = frame.getPose(inputSource.targetRaySpace, referenceSpace);
-
-        if (inputPose !== null) {
-          targetRay.matrix.fromArray(inputPose.transform.matrix);
-          targetRay.matrix.decompose(targetRay.position, targetRay.rotation, targetRay.scale);
-        }
-      }
-
-      if (hand && inputSource.hand) {
-        handPose = true;
-
-        var _iterator = _createForOfIteratorHelper(inputSource.hand.values()),
-            _step;
-
-        try {
-          for (_iterator.s(); !(_step = _iterator.n()).done;) {
-            var inputjoint = _step.value;
-            // Update the joints groups with the XRJoint poses
-            var jointPose = frame.getJointPose(inputjoint, referenceSpace);
-
-            if (hand.joints[inputjoint.jointName] === undefined) {
-              // The transform of this joint will be updated with the joint pose on each frame
-              var _joint = new Group();
-
-              _joint.matrixAutoUpdate = false;
-              _joint.visible = false;
-              hand.joints[inputjoint.jointName] = _joint; // ??
-
-              hand.add(_joint);
-            }
-
-            var joint = hand.joints[inputjoint.jointName];
-
-            if (jointPose !== null) {
-              joint.matrix.fromArray(jointPose.transform.matrix);
-              joint.matrix.decompose(joint.position, joint.rotation, joint.scale);
-              joint.jointRadius = jointPose.radius;
-            }
-
-            joint.visible = jointPose !== null;
-          } // Custom events
-          // Check pinchz
-
-        } catch (err) {
-          _iterator.e(err);
-        } finally {
-          _iterator.f();
-        }
-
-        var indexTip = hand.joints['index-finger-tip'];
-        var thumbTip = hand.joints['thumb-tip'];
-        var distance = indexTip.position.distanceTo(thumbTip.position);
-        var distanceToPinch = 0.02;
-        var threshold = 0.005;
-
-        if (hand.inputState.pinching && distance > distanceToPinch + threshold) {
-          hand.inputState.pinching = false;
-          this.dispatchEvent({
-            type: 'pinchend',
-            handedness: inputSource.handedness,
-            target: this
-          });
-        } else if (!hand.inputState.pinching && distance <= distanceToPinch - threshold) {
-          hand.inputState.pinching = true;
-          this.dispatchEvent({
-            type: 'pinchstart',
-            handedness: inputSource.handedness,
-            target: this
-          });
-        }
-      } else {
-        if (grip !== null && inputSource.gripSpace) {
-          gripPose = frame.getPose(inputSource.gripSpace, referenceSpace);
-
-          if (gripPose !== null) {
-            grip.matrix.fromArray(gripPose.transform.matrix);
-            grip.matrix.decompose(grip.position, grip.rotation, grip.scale);
-          }
-        }
-      }
-    }
-
-    if (targetRay !== null) {
-      targetRay.visible = inputPose !== null;
-    }
-
-    if (grip !== null) {
-      grip.visible = gripPose !== null;
-    }
-
-    if (hand !== null) {
-      hand.visible = handPose !== null;
-    }
-
-    return this;
+    this._targetRay = null;
+    this._grip = null;
+    this._hand = null;
   }
-});
 
-function WebXRManager(renderer, gl) {
-  var scope = this;
-  var state = renderer.state;
-  var session = null;
-  var framebufferScaleFactor = 1.0;
-  var referenceSpace = null;
-  var referenceSpaceType = 'local-floor';
-  var pose = null;
-  var controllers = [];
-  var inputSourcesMap = new Map(); //
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(WebXRController, [{
+    key: "getHandSpace",
+    value: function getHandSpace() {
+      if (this._hand === null) {
+        this._hand = new Group();
+        this._hand.matrixAutoUpdate = false;
+        this._hand.visible = false;
+        this._hand.joints = {};
+        this._hand.inputState = {
+          pinching: false
+        };
+      }
 
-  var cameraL = new PerspectiveCamera();
-  cameraL.layers.enable(1);
-  cameraL.viewport = new Vector4();
-  var cameraR = new PerspectiveCamera();
-  cameraR.layers.enable(2);
-  cameraR.viewport = new Vector4();
-  var cameras = [cameraL, cameraR];
-  var cameraVR = new ArrayCamera();
-  cameraVR.layers.enable(1);
-  cameraVR.layers.enable(2);
-  var _currentDepthNear = null;
-  var _currentDepthFar = null; //
-
-  this.enabled = false;
-  this.isPresenting = false;
-
-  this.getController = function (index) {
-    var controller = controllers[index];
-
-    if (controller === undefined) {
-      controller = new WebXRController();
-      controllers[index] = controller;
+      return this._hand;
     }
+  }, {
+    key: "getTargetRaySpace",
+    value: function getTargetRaySpace() {
+      if (this._targetRay === null) {
+        this._targetRay = new Group();
+        this._targetRay.matrixAutoUpdate = false;
+        this._targetRay.visible = false;
+        this._targetRay.hasLinearVelocity = false;
+        this._targetRay.linearVelocity = new Vector3();
+        this._targetRay.hasAngularVelocity = false;
+        this._targetRay.angularVelocity = new Vector3();
+      }
 
-    return controller.getTargetRaySpace();
-  };
-
-  this.getControllerGrip = function (index) {
-    var controller = controllers[index];
-
-    if (controller === undefined) {
-      controller = new WebXRController();
-      controllers[index] = controller;
+      return this._targetRay;
     }
+  }, {
+    key: "getGripSpace",
+    value: function getGripSpace() {
+      if (this._grip === null) {
+        this._grip = new Group();
+        this._grip.matrixAutoUpdate = false;
+        this._grip.visible = false;
+        this._grip.hasLinearVelocity = false;
+        this._grip.linearVelocity = new Vector3();
+        this._grip.hasAngularVelocity = false;
+        this._grip.angularVelocity = new Vector3();
+      }
 
-    return controller.getGripSpace();
-  };
-
-  this.getHand = function (index) {
-    var controller = controllers[index];
-
-    if (controller === undefined) {
-      controller = new WebXRController();
-      controllers[index] = controller;
+      return this._grip;
     }
+  }, {
+    key: "dispatchEvent",
+    value: function dispatchEvent(event) {
+      if (this._targetRay !== null) {
+        this._targetRay.dispatchEvent(event);
+      }
 
-    return controller.getHandSpace();
-  }; //
+      if (this._grip !== null) {
+        this._grip.dispatchEvent(event);
+      }
 
+      if (this._hand !== null) {
+        this._hand.dispatchEvent(event);
+      }
 
-  function onSessionEvent(event) {
-    var controller = inputSourcesMap.get(event.inputSource);
-
-    if (controller) {
-      controller.dispatchEvent({
-        type: event.type,
-        data: event.inputSource
+      return this;
+    }
+  }, {
+    key: "disconnect",
+    value: function disconnect(inputSource) {
+      this.dispatchEvent({
+        type: 'disconnected',
+        data: inputSource
       });
+
+      if (this._targetRay !== null) {
+        this._targetRay.visible = false;
+      }
+
+      if (this._grip !== null) {
+        this._grip.visible = false;
+      }
+
+      if (this._hand !== null) {
+        this._hand.visible = false;
+      }
+
+      return this;
     }
-  }
+  }, {
+    key: "update",
+    value: function update(inputSource, frame, referenceSpace) {
+      var inputPose = null;
+      var gripPose = null;
+      var handPose = null;
+      var targetRay = this._targetRay;
+      var grip = this._grip;
+      var hand = this._hand;
 
-  function onSessionEnd() {
-    inputSourcesMap.forEach(function (controller, inputSource) {
-      controller.disconnect(inputSource);
-    });
-    inputSourcesMap.clear();
-    _currentDepthNear = null;
-    _currentDepthFar = null; // restore framebuffer/rendering state
+      if (inputSource && frame.session.visibilityState !== 'visible-blurred') {
+        if (targetRay !== null) {
+          inputPose = frame.getPose(inputSource.targetRaySpace, referenceSpace);
 
-    state.bindXRFramebuffer(null);
-    renderer.setRenderTarget(renderer.getRenderTarget()); //
+          if (inputPose !== null) {
+            targetRay.matrix.fromArray(inputPose.transform.matrix);
+            targetRay.matrix.decompose(targetRay.position, targetRay.rotation, targetRay.scale);
 
-    animation.stop();
-    scope.isPresenting = false;
-    scope.dispatchEvent({
-      type: 'sessionend'
-    });
-  }
+            if (inputPose.linearVelocity) {
+              targetRay.hasLinearVelocity = true;
+              targetRay.linearVelocity.copy(inputPose.linearVelocity);
+            } else {
+              targetRay.hasLinearVelocity = false;
+            }
 
-  this.setFramebufferScaleFactor = function (value) {
-    framebufferScaleFactor = value;
+            if (inputPose.angularVelocity) {
+              targetRay.hasAngularVelocity = true;
+              targetRay.angularVelocity.copy(inputPose.angularVelocity);
+            } else {
+              targetRay.hasAngularVelocity = false;
+            }
 
-    if (scope.isPresenting === true) {
-      console.warn('THREE.WebXRManager: Cannot change framebuffer scale while presenting.');
-    }
-  };
-
-  this.setReferenceSpaceType = function (value) {
-    referenceSpaceType = value;
-
-    if (scope.isPresenting === true) {
-      console.warn('THREE.WebXRManager: Cannot change reference space type while presenting.');
-    }
-  };
-
-  this.getReferenceSpace = function () {
-    return referenceSpace;
-  };
-
-  this.getSession = function () {
-    return session;
-  };
-
-  this.setSession = /*#__PURE__*/function () {
-    var _ref = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(value) {
-      var attributes, layerInit, baseLayer;
-      return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              session = value;
-
-              if (!(session !== null)) {
-                _context2.next = 24;
-                break;
-              }
-
-              session.addEventListener('select', onSessionEvent);
-              session.addEventListener('selectstart', onSessionEvent);
-              session.addEventListener('selectend', onSessionEvent);
-              session.addEventListener('squeeze', onSessionEvent);
-              session.addEventListener('squeezestart', onSessionEvent);
-              session.addEventListener('squeezeend', onSessionEvent);
-              session.addEventListener('end', onSessionEnd);
-              session.addEventListener('inputsourceschange', onInputSourcesChange);
-              attributes = gl.getContextAttributes();
-
-              if (!(attributes.xrCompatible !== true)) {
-                _context2.next = 14;
-                break;
-              }
-
-              _context2.next = 14;
-              return gl.makeXRCompatible();
-
-            case 14:
-              layerInit = {
-                antialias: attributes.antialias,
-                alpha: attributes.alpha,
-                depth: attributes.depth,
-                stencil: attributes.stencil,
-                framebufferScaleFactor: framebufferScaleFactor
-              }; // eslint-disable-next-line no-undef
-
-              baseLayer = new XRWebGLLayer(session, gl, layerInit);
-              session.updateRenderState({
-                baseLayer: baseLayer
-              });
-              _context2.next = 19;
-              return session.requestReferenceSpace(referenceSpaceType);
-
-            case 19:
-              referenceSpace = _context2.sent;
-              animation.setContext(session);
-              animation.start();
-              scope.isPresenting = true;
-              scope.dispatchEvent({
-                type: 'sessionstart'
-              });
-
-            case 24:
-            case "end":
-              return _context2.stop();
+            this.dispatchEvent(_moveEvent);
           }
         }
-      }, _callee);
-    }));
 
-    return function (_x2) {
-      return _ref.apply(this, arguments);
+        if (hand && inputSource.hand) {
+          handPose = true;
+
+          var _iterator = _createForOfIteratorHelper(inputSource.hand.values()),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var inputjoint = _step.value;
+              // Update the joints groups with the XRJoint poses
+              var jointPose = frame.getJointPose(inputjoint, referenceSpace);
+
+              if (hand.joints[inputjoint.jointName] === undefined) {
+                // The transform of this joint will be updated with the joint pose on each frame
+                var _joint = new Group();
+
+                _joint.matrixAutoUpdate = false;
+                _joint.visible = false;
+                hand.joints[inputjoint.jointName] = _joint; // ??
+
+                hand.add(_joint);
+              }
+
+              var joint = hand.joints[inputjoint.jointName];
+
+              if (jointPose !== null) {
+                joint.matrix.fromArray(jointPose.transform.matrix);
+                joint.matrix.decompose(joint.position, joint.rotation, joint.scale);
+                joint.jointRadius = jointPose.radius;
+              }
+
+              joint.visible = jointPose !== null;
+            } // Custom events
+            // Check pinchz
+
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+
+          var indexTip = hand.joints['index-finger-tip'];
+          var thumbTip = hand.joints['thumb-tip'];
+          var distance = indexTip.position.distanceTo(thumbTip.position);
+          var distanceToPinch = 0.02;
+          var threshold = 0.005;
+
+          if (hand.inputState.pinching && distance > distanceToPinch + threshold) {
+            hand.inputState.pinching = false;
+            this.dispatchEvent({
+              type: 'pinchend',
+              handedness: inputSource.handedness,
+              target: this
+            });
+          } else if (!hand.inputState.pinching && distance <= distanceToPinch - threshold) {
+            hand.inputState.pinching = true;
+            this.dispatchEvent({
+              type: 'pinchstart',
+              handedness: inputSource.handedness,
+              target: this
+            });
+          }
+        } else {
+          if (grip !== null && inputSource.gripSpace) {
+            gripPose = frame.getPose(inputSource.gripSpace, referenceSpace);
+
+            if (gripPose !== null) {
+              grip.matrix.fromArray(gripPose.transform.matrix);
+              grip.matrix.decompose(grip.position, grip.rotation, grip.scale);
+
+              if (gripPose.linearVelocity) {
+                grip.hasLinearVelocity = true;
+                grip.linearVelocity.copy(gripPose.linearVelocity);
+              } else {
+                grip.hasLinearVelocity = false;
+              }
+
+              if (gripPose.angularVelocity) {
+                grip.hasAngularVelocity = true;
+                grip.angularVelocity.copy(gripPose.angularVelocity);
+              } else {
+                grip.hasAngularVelocity = false;
+              }
+            }
+          }
+        }
+      }
+
+      if (targetRay !== null) {
+        targetRay.visible = inputPose !== null;
+      }
+
+      if (grip !== null) {
+        grip.visible = gripPose !== null;
+      }
+
+      if (hand !== null) {
+        hand.visible = handPose !== null;
+      }
+
+      return this;
+    }
+  }]);
+
+  return WebXRController;
+}();
+
+var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebXRManager, _EventDispatcher5);
+
+  var _super33 = _createSuper(WebXRManager);
+
+  function WebXRManager(renderer, gl) {
+    var _this24;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebXRManager);
+
+    _this24 = _super33.call(this);
+
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this24);
+
+    var state = renderer.state;
+    var session = null;
+    var framebufferScaleFactor = 1.0;
+    var referenceSpace = null;
+    var referenceSpaceType = 'local-floor';
+    var pose = null;
+    var controllers = [];
+    var inputSourcesMap = new Map(); //
+
+    var cameraL = new PerspectiveCamera();
+    cameraL.layers.enable(1);
+    cameraL.viewport = new Vector4();
+    var cameraR = new PerspectiveCamera();
+    cameraR.layers.enable(2);
+    cameraR.viewport = new Vector4();
+    var cameras = [cameraL, cameraR];
+    var cameraVR = new ArrayCamera();
+    cameraVR.layers.enable(1);
+    cameraVR.layers.enable(2);
+    var _currentDepthNear = null;
+    var _currentDepthFar = null; //
+
+    _this24.enabled = false;
+    _this24.isPresenting = false;
+
+    _this24.getController = function (index) {
+      var controller = controllers[index];
+
+      if (controller === undefined) {
+        controller = new WebXRController();
+        controllers[index] = controller;
+      }
+
+      return controller.getTargetRaySpace();
     };
-  }();
 
-  function onInputSourcesChange(event) {
-    var inputSources = session.inputSources; // Assign inputSources to available controllers
+    _this24.getControllerGrip = function (index) {
+      var controller = controllers[index];
 
-    for (var _i112 = 0; _i112 < controllers.length; _i112++) {
-      inputSourcesMap.set(inputSources[_i112], controllers[_i112]);
-    } // Notify disconnected
+      if (controller === undefined) {
+        controller = new WebXRController();
+        controllers[index] = controller;
+      }
+
+      return controller.getGripSpace();
+    };
+
+    _this24.getHand = function (index) {
+      var controller = controllers[index];
+
+      if (controller === undefined) {
+        controller = new WebXRController();
+        controllers[index] = controller;
+      }
+
+      return controller.getHandSpace();
+    }; //
 
 
-    for (var _i113 = 0; _i113 < event.removed.length; _i113++) {
-      var inputSource = event.removed[_i113];
-      var controller = inputSourcesMap.get(inputSource);
+    function onSessionEvent(event) {
+      var controller = inputSourcesMap.get(event.inputSource);
 
       if (controller) {
         controller.dispatchEvent({
-          type: 'disconnected',
-          data: inputSource
-        });
-        inputSourcesMap.delete(inputSource);
-      }
-    } // Notify connected
-
-
-    for (var _i114 = 0; _i114 < event.added.length; _i114++) {
-      var _inputSource = event.added[_i114];
-
-      var _controller = inputSourcesMap.get(_inputSource);
-
-      if (_controller) {
-        _controller.dispatchEvent({
-          type: 'connected',
-          data: _inputSource
+          type: event.type,
+          data: event.inputSource
         });
       }
     }
-  } //
 
-
-  var cameraLPos = new Vector3();
-  var cameraRPos = new Vector3();
-  /**
-   * Assumes 2 cameras that are parallel and share an X-axis, and that
-   * the cameras' projection and world matrices have already been set.
-   * And that near and far planes are identical for both cameras.
-   * Visualization of this technique: https://computergraphics.stackexchange.com/a/4765
-   */
-
-  function setProjectionFromUnion(camera, cameraL, cameraR) {
-    cameraLPos.setFromMatrixPosition(cameraL.matrixWorld);
-    cameraRPos.setFromMatrixPosition(cameraR.matrixWorld);
-    var ipd = cameraLPos.distanceTo(cameraRPos);
-    var projL = cameraL.projectionMatrix.elements;
-    var projR = cameraR.projectionMatrix.elements; // VR systems will have identical far and near planes, and
-    // most likely identical top and bottom frustum extents.
-    // Use the left camera for these values.
-
-    var near = projL[14] / (projL[10] - 1);
-    var far = projL[14] / (projL[10] + 1);
-    var topFov = (projL[9] + 1) / projL[5];
-    var bottomFov = (projL[9] - 1) / projL[5];
-    var leftFov = (projL[8] - 1) / projL[0];
-    var rightFov = (projR[8] + 1) / projR[0];
-    var left = near * leftFov;
-    var right = near * rightFov; // Calculate the new camera's position offset from the
-    // left camera. xOffset should be roughly half `ipd`.
-
-    var zOffset = ipd / (-leftFov + rightFov);
-    var xOffset = zOffset * -leftFov; // TODO: Better way to apply this offset?
-
-    cameraL.matrixWorld.decompose(camera.position, camera.quaternion, camera.scale);
-    camera.translateX(xOffset);
-    camera.translateZ(zOffset);
-    camera.matrixWorld.compose(camera.position, camera.quaternion, camera.scale);
-    camera.matrixWorldInverse.copy(camera.matrixWorld).invert(); // Find the union of the frustum values of the cameras and scale
-    // the values so that the near plane's position does not change in world space,
-    // although must now be relative to the new union camera.
-
-    var near2 = near + zOffset;
-    var far2 = far + zOffset;
-    var left2 = left - xOffset;
-    var right2 = right + (ipd - xOffset);
-    var top2 = topFov * far / far2 * near2;
-    var bottom2 = bottomFov * far / far2 * near2;
-    camera.projectionMatrix.makePerspective(left2, right2, top2, bottom2, near2, far2);
-  }
-
-  function updateCamera(camera, parent) {
-    if (parent === null) {
-      camera.matrixWorld.copy(camera.matrix);
-    } else {
-      camera.matrixWorld.multiplyMatrices(parent.matrixWorld, camera.matrix);
-    }
-
-    camera.matrixWorldInverse.copy(camera.matrixWorld).invert();
-  }
-
-  this.getCamera = function (camera) {
-    cameraVR.near = cameraR.near = cameraL.near = camera.near;
-    cameraVR.far = cameraR.far = cameraL.far = camera.far;
-
-    if (_currentDepthNear !== cameraVR.near || _currentDepthFar !== cameraVR.far) {
-      // Note that the new renderState won't apply until the next frame. See #18320
-      session.updateRenderState({
-        depthNear: cameraVR.near,
-        depthFar: cameraVR.far
+    function onSessionEnd() {
+      inputSourcesMap.forEach(function (controller, inputSource) {
+        controller.disconnect(inputSource);
       });
-      _currentDepthNear = cameraVR.near;
-      _currentDepthFar = cameraVR.far;
+      inputSourcesMap.clear();
+      _currentDepthNear = null;
+      _currentDepthFar = null; // restore framebuffer/rendering state
+
+      state.bindXRFramebuffer(null);
+      renderer.setRenderTarget(renderer.getRenderTarget()); //
+
+      animation.stop();
+      scope.isPresenting = false;
+      scope.dispatchEvent({
+        type: 'sessionend'
+      });
     }
 
-    var parent = camera.parent;
-    var cameras = cameraVR.cameras;
-    updateCamera(cameraVR, parent);
+    _this24.setFramebufferScaleFactor = function (value) {
+      framebufferScaleFactor = value;
 
-    for (var _i115 = 0; _i115 < cameras.length; _i115++) {
-      updateCamera(cameras[_i115], parent);
-    } // update camera and its children
-
-
-    camera.matrixWorld.copy(cameraVR.matrixWorld);
-    camera.matrix.copy(cameraVR.matrix);
-    camera.matrix.decompose(camera.position, camera.quaternion, camera.scale);
-    var children = camera.children;
-
-    for (var _i116 = 0, l = children.length; _i116 < l; _i116++) {
-      children[_i116].updateMatrixWorld(true);
-    } // update projection matrix for proper view frustum culling
-
-
-    if (cameras.length === 2) {
-      setProjectionFromUnion(cameraVR, cameraL, cameraR);
-    } else {
-      // assume single camera setup (AR)
-      cameraVR.projectionMatrix.copy(cameraL.projectionMatrix);
-    }
-
-    return cameraVR;
-  }; // Animation Loop
-
-
-  var onAnimationFrameCallback = null;
-
-  function onAnimationFrame(time, frame) {
-    pose = frame.getViewerPose(referenceSpace);
-
-    if (pose !== null) {
-      var views = pose.views;
-      var baseLayer = session.renderState.baseLayer;
-      state.bindXRFramebuffer(baseLayer.framebuffer);
-      var cameraVRNeedsUpdate = false; // check if it's necessary to rebuild cameraVR's camera list
-
-      if (views.length !== cameraVR.cameras.length) {
-        cameraVR.cameras.length = 0;
-        cameraVRNeedsUpdate = true;
+      if (scope.isPresenting === true) {
+        console.warn('THREE.WebXRManager: Cannot change framebuffer scale while presenting.');
       }
+    };
 
-      for (var _i117 = 0; _i117 < views.length; _i117++) {
-        var view = views[_i117];
-        var viewport = baseLayer.getViewport(view);
-        var camera = cameras[_i117];
-        camera.matrix.fromArray(view.transform.matrix);
-        camera.projectionMatrix.fromArray(view.projectionMatrix);
-        camera.viewport.set(viewport.x, viewport.y, viewport.width, viewport.height);
+    _this24.setReferenceSpaceType = function (value) {
+      referenceSpaceType = value;
 
-        if (_i117 === 0) {
-          cameraVR.matrix.copy(camera.matrix);
+      if (scope.isPresenting === true) {
+        console.warn('THREE.WebXRManager: Cannot change reference space type while presenting.');
+      }
+    };
+
+    _this24.getReferenceSpace = function () {
+      return referenceSpace;
+    };
+
+    _this24.getSession = function () {
+      return session;
+    };
+
+    _this24.setSession = /*#__PURE__*/function () {
+      var _ref = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(value) {
+        var attributes, layerInit, baseLayer;
+        return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                session = value;
+
+                if (!(session !== null)) {
+                  _context2.next = 24;
+                  break;
+                }
+
+                session.addEventListener('select', onSessionEvent);
+                session.addEventListener('selectstart', onSessionEvent);
+                session.addEventListener('selectend', onSessionEvent);
+                session.addEventListener('squeeze', onSessionEvent);
+                session.addEventListener('squeezestart', onSessionEvent);
+                session.addEventListener('squeezeend', onSessionEvent);
+                session.addEventListener('end', onSessionEnd);
+                session.addEventListener('inputsourceschange', onInputSourcesChange);
+                attributes = gl.getContextAttributes();
+
+                if (!(attributes.xrCompatible !== true)) {
+                  _context2.next = 14;
+                  break;
+                }
+
+                _context2.next = 14;
+                return gl.makeXRCompatible();
+
+              case 14:
+                layerInit = {
+                  antialias: attributes.antialias,
+                  alpha: attributes.alpha,
+                  depth: attributes.depth,
+                  stencil: attributes.stencil,
+                  framebufferScaleFactor: framebufferScaleFactor
+                }; // eslint-disable-next-line no-undef
+
+                baseLayer = new XRWebGLLayer(session, gl, layerInit);
+                session.updateRenderState({
+                  baseLayer: baseLayer
+                });
+                _context2.next = 19;
+                return session.requestReferenceSpace(referenceSpaceType);
+
+              case 19:
+                referenceSpace = _context2.sent;
+                animation.setContext(session);
+                animation.start();
+                scope.isPresenting = true;
+                scope.dispatchEvent({
+                  type: 'sessionstart'
+                });
+
+              case 24:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x2) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    function onInputSourcesChange(event) {
+      var inputSources = session.inputSources; // Assign inputSources to available controllers
+
+      for (var _i112 = 0; _i112 < controllers.length; _i112++) {
+        inputSourcesMap.set(inputSources[_i112], controllers[_i112]);
+      } // Notify disconnected
+
+
+      for (var _i113 = 0; _i113 < event.removed.length; _i113++) {
+        var inputSource = event.removed[_i113];
+        var controller = inputSourcesMap.get(inputSource);
+
+        if (controller) {
+          controller.dispatchEvent({
+            type: 'disconnected',
+            data: inputSource
+          });
+          inputSourcesMap.delete(inputSource);
         }
+      } // Notify connected
 
-        if (cameraVRNeedsUpdate === true) {
-          cameraVR.cameras.push(camera);
+
+      for (var _i114 = 0; _i114 < event.added.length; _i114++) {
+        var _inputSource = event.added[_i114];
+
+        var _controller = inputSourcesMap.get(_inputSource);
+
+        if (_controller) {
+          _controller.dispatchEvent({
+            type: 'connected',
+            data: _inputSource
+          });
         }
       }
     } //
 
 
-    var inputSources = session.inputSources;
+    var cameraLPos = new Vector3();
+    var cameraRPos = new Vector3();
+    /**
+     * Assumes 2 cameras that are parallel and share an X-axis, and that
+     * the cameras' projection and world matrices have already been set.
+     * And that near and far planes are identical for both cameras.
+     * Visualization of this technique: https://computergraphics.stackexchange.com/a/4765
+     */
 
-    for (var _i118 = 0; _i118 < controllers.length; _i118++) {
-      var controller = controllers[_i118];
-      var inputSource = inputSources[_i118];
-      controller.update(inputSource, frame, referenceSpace);
+    function setProjectionFromUnion(camera, cameraL, cameraR) {
+      cameraLPos.setFromMatrixPosition(cameraL.matrixWorld);
+      cameraRPos.setFromMatrixPosition(cameraR.matrixWorld);
+      var ipd = cameraLPos.distanceTo(cameraRPos);
+      var projL = cameraL.projectionMatrix.elements;
+      var projR = cameraR.projectionMatrix.elements; // VR systems will have identical far and near planes, and
+      // most likely identical top and bottom frustum extents.
+      // Use the left camera for these values.
+
+      var near = projL[14] / (projL[10] - 1);
+      var far = projL[14] / (projL[10] + 1);
+      var topFov = (projL[9] + 1) / projL[5];
+      var bottomFov = (projL[9] - 1) / projL[5];
+      var leftFov = (projL[8] - 1) / projL[0];
+      var rightFov = (projR[8] + 1) / projR[0];
+      var left = near * leftFov;
+      var right = near * rightFov; // Calculate the new camera's position offset from the
+      // left camera. xOffset should be roughly half `ipd`.
+
+      var zOffset = ipd / (-leftFov + rightFov);
+      var xOffset = zOffset * -leftFov; // TODO: Better way to apply this offset?
+
+      cameraL.matrixWorld.decompose(camera.position, camera.quaternion, camera.scale);
+      camera.translateX(xOffset);
+      camera.translateZ(zOffset);
+      camera.matrixWorld.compose(camera.position, camera.quaternion, camera.scale);
+      camera.matrixWorldInverse.copy(camera.matrixWorld).invert(); // Find the union of the frustum values of the cameras and scale
+      // the values so that the near plane's position does not change in world space,
+      // although must now be relative to the new union camera.
+
+      var near2 = near + zOffset;
+      var far2 = far + zOffset;
+      var left2 = left - xOffset;
+      var right2 = right + (ipd - xOffset);
+      var top2 = topFov * far / far2 * near2;
+      var bottom2 = bottomFov * far / far2 * near2;
+      camera.projectionMatrix.makePerspective(left2, right2, top2, bottom2, near2, far2);
     }
 
-    if (onAnimationFrameCallback) onAnimationFrameCallback(time, frame);
+    function updateCamera(camera, parent) {
+      if (parent === null) {
+        camera.matrixWorld.copy(camera.matrix);
+      } else {
+        camera.matrixWorld.multiplyMatrices(parent.matrixWorld, camera.matrix);
+      }
+
+      camera.matrixWorldInverse.copy(camera.matrixWorld).invert();
+    }
+
+    _this24.getCamera = function (camera) {
+      cameraVR.near = cameraR.near = cameraL.near = camera.near;
+      cameraVR.far = cameraR.far = cameraL.far = camera.far;
+
+      if (_currentDepthNear !== cameraVR.near || _currentDepthFar !== cameraVR.far) {
+        // Note that the new renderState won't apply until the next frame. See #18320
+        session.updateRenderState({
+          depthNear: cameraVR.near,
+          depthFar: cameraVR.far
+        });
+        _currentDepthNear = cameraVR.near;
+        _currentDepthFar = cameraVR.far;
+      }
+
+      var parent = camera.parent;
+      var cameras = cameraVR.cameras;
+      updateCamera(cameraVR, parent);
+
+      for (var _i115 = 0; _i115 < cameras.length; _i115++) {
+        updateCamera(cameras[_i115], parent);
+      } // update camera and its children
+
+
+      camera.matrixWorld.copy(cameraVR.matrixWorld);
+      camera.matrix.copy(cameraVR.matrix);
+      camera.matrix.decompose(camera.position, camera.quaternion, camera.scale);
+      var children = camera.children;
+
+      for (var _i116 = 0, l = children.length; _i116 < l; _i116++) {
+        children[_i116].updateMatrixWorld(true);
+      } // update projection matrix for proper view frustum culling
+
+
+      if (cameras.length === 2) {
+        setProjectionFromUnion(cameraVR, cameraL, cameraR);
+      } else {
+        // assume single camera setup (AR)
+        cameraVR.projectionMatrix.copy(cameraL.projectionMatrix);
+      }
+
+      return cameraVR;
+    }; // Animation Loop
+
+
+    var onAnimationFrameCallback = null;
+
+    function onAnimationFrame(time, frame) {
+      pose = frame.getViewerPose(referenceSpace);
+
+      if (pose !== null) {
+        var views = pose.views;
+        var baseLayer = session.renderState.baseLayer;
+        state.bindXRFramebuffer(baseLayer.framebuffer);
+        var cameraVRNeedsUpdate = false; // check if it's necessary to rebuild cameraVR's camera list
+
+        if (views.length !== cameraVR.cameras.length) {
+          cameraVR.cameras.length = 0;
+          cameraVRNeedsUpdate = true;
+        }
+
+        for (var _i117 = 0; _i117 < views.length; _i117++) {
+          var view = views[_i117];
+          var viewport = baseLayer.getViewport(view);
+          var camera = cameras[_i117];
+          camera.matrix.fromArray(view.transform.matrix);
+          camera.projectionMatrix.fromArray(view.projectionMatrix);
+          camera.viewport.set(viewport.x, viewport.y, viewport.width, viewport.height);
+
+          if (_i117 === 0) {
+            cameraVR.matrix.copy(camera.matrix);
+          }
+
+          if (cameraVRNeedsUpdate === true) {
+            cameraVR.cameras.push(camera);
+          }
+        }
+      } //
+
+
+      var inputSources = session.inputSources;
+
+      for (var _i118 = 0; _i118 < controllers.length; _i118++) {
+        var controller = controllers[_i118];
+        var inputSource = inputSources[_i118];
+        controller.update(inputSource, frame, referenceSpace);
+      }
+
+      if (onAnimationFrameCallback) onAnimationFrameCallback(time, frame);
+    }
+
+    var animation = new WebGLAnimation();
+    animation.setAnimationLoop(onAnimationFrame);
+
+    _this24.setAnimationLoop = function (callback) {
+      onAnimationFrameCallback = callback;
+    };
+
+    _this24.dispose = function () {};
+
+    return _this24;
   }
 
-  var animation = new WebGLAnimation();
-  animation.setAnimationLoop(onAnimationFrame);
-
-  this.setAnimationLoop = function (callback) {
-    onAnimationFrameCallback = callback;
-  };
-
-  this.dispose = function () {};
-}
-
-Object.assign(WebXRManager.prototype, EventDispatcher.prototype);
+  return WebXRManager;
+}(EventDispatcher);
 
 function WebGLMaterials(properties) {
   function refreshFogUniforms(uniforms, fog) {
@@ -19150,6 +19705,7 @@ function WebGLRenderer(parameters) {
       }
     } else {
       parameters.uniforms = programCache.getUniforms(material);
+      material.onBuild(parameters, _this);
       material.onBeforeCompile(parameters, _this);
       program = programCache.acquireProgram(parameters, programCacheKey);
       programs.set(programCacheKey, program);
@@ -19213,7 +19769,7 @@ function WebGLRenderer(parameters) {
     var environment = material.isMeshStandardMaterial ? scene.environment : null;
     var encoding = _currentRenderTarget === null ? _this.outputEncoding : _currentRenderTarget.texture.encoding;
     var envMap = cubemaps.get(material.envMap || environment);
-    var vertexAlphas = material.vertexColors === true && object.geometry.attributes.color && object.geometry.attributes.color.itemSize === 4;
+    var vertexAlphas = material.vertexColors === true && object.geometry && object.geometry.attributes.color && object.geometry.attributes.color.itemSize === 4;
     var materialProperties = properties.get(material);
     var lights = currentRenderState.state.lights;
 
@@ -19334,7 +19890,7 @@ function WebGLRenderer(parameters) {
             //       64x64 pixel texture max 1024 bones * 4 pixels = (64 * 64)
             var size = Math.sqrt(bones.length * 4); // 4 pixels needed for 1 matrix
 
-            size = MathUtils.ceilPowerOfTwo(size);
+            size = ceilPowerOfTwo(size);
             size = Math.max(size, 4);
             var boneMatrices = new Float32Array(size * size * 4); // 4 floats per RGBA pixel
 
@@ -19680,12 +20236,12 @@ function WebGLRenderer(parameters) {
 var WebGL1Renderer = /*#__PURE__*/function (_WebGLRenderer) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGL1Renderer, _WebGLRenderer);
 
-  var _super17 = _createSuper(WebGL1Renderer);
+  var _super34 = _createSuper(WebGL1Renderer);
 
   function WebGL1Renderer() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebGL1Renderer);
 
-    return _super17.apply(this, arguments);
+    return _super34.apply(this, arguments);
   }
 
   return WebGL1Renderer;
@@ -19764,32 +20320,32 @@ var Fog = /*#__PURE__*/function () {
 
 Fog.prototype.isFog = true;
 
-var Scene = /*#__PURE__*/function (_Object3D3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Scene, _Object3D3);
+var Scene = /*#__PURE__*/function (_Object3D5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Scene, _Object3D5);
 
-  var _super18 = _createSuper(Scene);
+  var _super35 = _createSuper(Scene);
 
   function Scene() {
-    var _this18;
+    var _this25;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Scene);
 
-    _this18 = _super18.call(this);
-    _this18.type = 'Scene';
-    _this18.background = null;
-    _this18.environment = null;
-    _this18.fog = null;
-    _this18.overrideMaterial = null;
-    _this18.autoUpdate = true; // checked by the renderer
+    _this25 = _super35.call(this);
+    _this25.type = 'Scene';
+    _this25.background = null;
+    _this25.environment = null;
+    _this25.fog = null;
+    _this25.overrideMaterial = null;
+    _this25.autoUpdate = true; // checked by the renderer
 
     if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
       __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', {
-        detail: (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this18)
+        detail: (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this25)
       })); // eslint-disable-line no-undef
 
     }
 
-    return _this18;
+    return _this25;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Scene, [{
@@ -19822,282 +20378,339 @@ var Scene = /*#__PURE__*/function (_Object3D3) {
 
 Scene.prototype.isScene = true;
 
-function InterleavedBuffer(array, stride) {
-  this.array = array;
-  this.stride = stride;
-  this.count = array !== undefined ? array.length / stride : 0;
-  this.usage = StaticDrawUsage;
-  this.updateRange = {
-    offset: 0,
-    count: -1
-  };
-  this.version = 0;
-  this.uuid = MathUtils.generateUUID();
-}
+var InterleavedBuffer = /*#__PURE__*/function () {
+  function InterleavedBuffer(array, stride) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InterleavedBuffer);
 
-Object.defineProperty(InterleavedBuffer.prototype, 'needsUpdate', {
-  set: function set(value) {
-    if (value === true) this.version++;
-  }
-});
-Object.assign(InterleavedBuffer.prototype, {
-  isInterleavedBuffer: true,
-  onUploadCallback: function onUploadCallback() {},
-  setUsage: function setUsage(value) {
-    this.usage = value;
-    return this;
-  },
-  copy: function copy(source) {
-    this.array = new source.array.constructor(source.array);
-    this.count = source.count;
-    this.stride = source.stride;
-    this.usage = source.usage;
-    return this;
-  },
-  copyAt: function copyAt(index1, attribute, index2) {
-    index1 *= this.stride;
-    index2 *= attribute.stride;
-
-    for (var _i124 = 0, l = this.stride; _i124 < l; _i124++) {
-      this.array[index1 + _i124] = attribute.array[index2 + _i124];
-    }
-
-    return this;
-  },
-  set: function set(value) {
-    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-    this.array.set(value, offset);
-    return this;
-  },
-  clone: function clone(data) {
-    if (data.arrayBuffers === undefined) {
-      data.arrayBuffers = {};
-    }
-
-    if (this.array.buffer._uuid === undefined) {
-      this.array.buffer._uuid = MathUtils.generateUUID();
-    }
-
-    if (data.arrayBuffers[this.array.buffer._uuid] === undefined) {
-      data.arrayBuffers[this.array.buffer._uuid] = this.array.slice(0).buffer;
-    }
-
-    var array = new this.array.constructor(data.arrayBuffers[this.array.buffer._uuid]);
-    var ib = new InterleavedBuffer(array, this.stride);
-    ib.setUsage(this.usage);
-    return ib;
-  },
-  onUpload: function onUpload(callback) {
-    this.onUploadCallback = callback;
-    return this;
-  },
-  toJSON: function toJSON(data) {
-    if (data.arrayBuffers === undefined) {
-      data.arrayBuffers = {};
-    } // generate UUID for array buffer if necessary
-
-
-    if (this.array.buffer._uuid === undefined) {
-      this.array.buffer._uuid = MathUtils.generateUUID();
-    }
-
-    if (data.arrayBuffers[this.array.buffer._uuid] === undefined) {
-      data.arrayBuffers[this.array.buffer._uuid] = Array.prototype.slice.call(new Uint32Array(this.array.buffer));
-    } //
-
-
-    return {
-      uuid: this.uuid,
-      buffer: this.array.buffer._uuid,
-      type: this.array.constructor.name,
-      stride: this.stride
+    this.array = array;
+    this.stride = stride;
+    this.count = array !== undefined ? array.length / stride : 0;
+    this.usage = StaticDrawUsage;
+    this.updateRange = {
+      offset: 0,
+      count: -1
     };
+    this.version = 0;
+    this.uuid = generateUUID();
+
+    this.onUploadCallback = function () {};
   }
-});
 
-var _vector$6 = new Vector3();
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InterleavedBuffer, [{
+    key: "needsUpdate",
+    set: function set(value) {
+      if (value === true) this.version++;
+    }
+  }, {
+    key: "setUsage",
+    value: function setUsage(value) {
+      this.usage = value;
+      return this;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      this.array = new source.array.constructor(source.array);
+      this.count = source.count;
+      this.stride = source.stride;
+      this.usage = source.usage;
+      return this;
+    }
+  }, {
+    key: "copyAt",
+    value: function copyAt(index1, attribute, index2) {
+      index1 *= this.stride;
+      index2 *= attribute.stride;
 
-function InterleavedBufferAttribute(interleavedBuffer, itemSize, offset, normalized) {
-  this.name = '';
-  this.data = interleavedBuffer;
-  this.itemSize = itemSize;
-  this.offset = offset;
-  this.normalized = normalized === true;
-}
+      for (var _i124 = 0, l = this.stride; _i124 < l; _i124++) {
+        this.array[index1 + _i124] = attribute.array[index2 + _i124];
+      }
 
-Object.defineProperties(InterleavedBufferAttribute.prototype, {
-  count: {
+      return this;
+    }
+  }, {
+    key: "set",
+    value: function set(value) {
+      var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      this.array.set(value, offset);
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone(data) {
+      if (data.arrayBuffers === undefined) {
+        data.arrayBuffers = {};
+      }
+
+      if (this.array.buffer._uuid === undefined) {
+        this.array.buffer._uuid = generateUUID();
+      }
+
+      if (data.arrayBuffers[this.array.buffer._uuid] === undefined) {
+        data.arrayBuffers[this.array.buffer._uuid] = this.array.slice(0).buffer;
+      }
+
+      var array = new this.array.constructor(data.arrayBuffers[this.array.buffer._uuid]);
+      var ib = new InterleavedBuffer(array, this.stride);
+      ib.setUsage(this.usage);
+      return ib;
+    }
+  }, {
+    key: "onUpload",
+    value: function onUpload(callback) {
+      this.onUploadCallback = callback;
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON(data) {
+      if (data.arrayBuffers === undefined) {
+        data.arrayBuffers = {};
+      } // generate UUID for array buffer if necessary
+
+
+      if (this.array.buffer._uuid === undefined) {
+        this.array.buffer._uuid = generateUUID();
+      }
+
+      if (data.arrayBuffers[this.array.buffer._uuid] === undefined) {
+        data.arrayBuffers[this.array.buffer._uuid] = Array.prototype.slice.call(new Uint32Array(this.array.buffer));
+      } //
+
+
+      return {
+        uuid: this.uuid,
+        buffer: this.array.buffer._uuid,
+        type: this.array.constructor.name,
+        stride: this.stride
+      };
+    }
+  }]);
+
+  return InterleavedBuffer;
+}();
+
+InterleavedBuffer.prototype.isInterleavedBuffer = true;
+
+var _vector$6 = new /*@__PURE__*/Vector3();
+
+var InterleavedBufferAttribute = /*#__PURE__*/function () {
+  function InterleavedBufferAttribute(interleavedBuffer, itemSize, offset, normalized) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InterleavedBufferAttribute);
+
+    this.name = '';
+    this.data = interleavedBuffer;
+    this.itemSize = itemSize;
+    this.offset = offset;
+    this.normalized = normalized === true;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InterleavedBufferAttribute, [{
+    key: "count",
     get: function get() {
       return this.data.count;
     }
-  },
-  array: {
+  }, {
+    key: "array",
     get: function get() {
       return this.data.array;
     }
-  },
-  needsUpdate: {
+  }, {
+    key: "needsUpdate",
     set: function set(value) {
       this.data.needsUpdate = value;
     }
-  }
-});
-Object.assign(InterleavedBufferAttribute.prototype, {
-  isInterleavedBufferAttribute: true,
-  applyMatrix4: function applyMatrix4(m) {
-    for (var _i125 = 0, l = this.data.count; _i125 < l; _i125++) {
-      _vector$6.x = this.getX(_i125);
-      _vector$6.y = this.getY(_i125);
-      _vector$6.z = this.getZ(_i125);
+  }, {
+    key: "applyMatrix4",
+    value: function applyMatrix4(m) {
+      for (var _i125 = 0, l = this.data.count; _i125 < l; _i125++) {
+        _vector$6.x = this.getX(_i125);
+        _vector$6.y = this.getY(_i125);
+        _vector$6.z = this.getZ(_i125);
 
-      _vector$6.applyMatrix4(m);
+        _vector$6.applyMatrix4(m);
 
-      this.setXYZ(_i125, _vector$6.x, _vector$6.y, _vector$6.z);
+        this.setXYZ(_i125, _vector$6.x, _vector$6.y, _vector$6.z);
+      }
+
+      return this;
     }
+  }, {
+    key: "applyNormalMatrix",
+    value: function applyNormalMatrix(m) {
+      for (var _i126 = 0, l = this.count; _i126 < l; _i126++) {
+        _vector$6.x = this.getX(_i126);
+        _vector$6.y = this.getY(_i126);
+        _vector$6.z = this.getZ(_i126);
 
-    return this;
-  },
-  applyNormalMatrix: function applyNormalMatrix(m) {
-    for (var _i126 = 0, l = this.count; _i126 < l; _i126++) {
-      _vector$6.x = this.getX(_i126);
-      _vector$6.y = this.getY(_i126);
-      _vector$6.z = this.getZ(_i126);
+        _vector$6.applyNormalMatrix(m);
 
-      _vector$6.applyNormalMatrix(m);
+        this.setXYZ(_i126, _vector$6.x, _vector$6.y, _vector$6.z);
+      }
 
-      this.setXYZ(_i126, _vector$6.x, _vector$6.y, _vector$6.z);
+      return this;
     }
+  }, {
+    key: "transformDirection",
+    value: function transformDirection(m) {
+      for (var _i127 = 0, l = this.count; _i127 < l; _i127++) {
+        _vector$6.x = this.getX(_i127);
+        _vector$6.y = this.getY(_i127);
+        _vector$6.z = this.getZ(_i127);
 
-    return this;
-  },
-  transformDirection: function transformDirection(m) {
-    for (var _i127 = 0, l = this.count; _i127 < l; _i127++) {
-      _vector$6.x = this.getX(_i127);
-      _vector$6.y = this.getY(_i127);
-      _vector$6.z = this.getZ(_i127);
+        _vector$6.transformDirection(m);
 
-      _vector$6.transformDirection(m);
+        this.setXYZ(_i127, _vector$6.x, _vector$6.y, _vector$6.z);
+      }
 
-      this.setXYZ(_i127, _vector$6.x, _vector$6.y, _vector$6.z);
+      return this;
     }
+  }, {
+    key: "setX",
+    value: function setX(index, x) {
+      this.data.array[index * this.data.stride + this.offset] = x;
+      return this;
+    }
+  }, {
+    key: "setY",
+    value: function setY(index, y) {
+      this.data.array[index * this.data.stride + this.offset + 1] = y;
+      return this;
+    }
+  }, {
+    key: "setZ",
+    value: function setZ(index, z) {
+      this.data.array[index * this.data.stride + this.offset + 2] = z;
+      return this;
+    }
+  }, {
+    key: "setW",
+    value: function setW(index, w) {
+      this.data.array[index * this.data.stride + this.offset + 3] = w;
+      return this;
+    }
+  }, {
+    key: "getX",
+    value: function getX(index) {
+      return this.data.array[index * this.data.stride + this.offset];
+    }
+  }, {
+    key: "getY",
+    value: function getY(index) {
+      return this.data.array[index * this.data.stride + this.offset + 1];
+    }
+  }, {
+    key: "getZ",
+    value: function getZ(index) {
+      return this.data.array[index * this.data.stride + this.offset + 2];
+    }
+  }, {
+    key: "getW",
+    value: function getW(index) {
+      return this.data.array[index * this.data.stride + this.offset + 3];
+    }
+  }, {
+    key: "setXY",
+    value: function setXY(index, x, y) {
+      index = index * this.data.stride + this.offset;
+      this.data.array[index + 0] = x;
+      this.data.array[index + 1] = y;
+      return this;
+    }
+  }, {
+    key: "setXYZ",
+    value: function setXYZ(index, x, y, z) {
+      index = index * this.data.stride + this.offset;
+      this.data.array[index + 0] = x;
+      this.data.array[index + 1] = y;
+      this.data.array[index + 2] = z;
+      return this;
+    }
+  }, {
+    key: "setXYZW",
+    value: function setXYZW(index, x, y, z, w) {
+      index = index * this.data.stride + this.offset;
+      this.data.array[index + 0] = x;
+      this.data.array[index + 1] = y;
+      this.data.array[index + 2] = z;
+      this.data.array[index + 3] = w;
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone(data) {
+      if (data === undefined) {
+        console.log('THREE.InterleavedBufferAttribute.clone(): Cloning an interlaved buffer attribute will deinterleave buffer data.');
+        var array = [];
 
-    return this;
-  },
-  setX: function setX(index, x) {
-    this.data.array[index * this.data.stride + this.offset] = x;
-    return this;
-  },
-  setY: function setY(index, y) {
-    this.data.array[index * this.data.stride + this.offset + 1] = y;
-    return this;
-  },
-  setZ: function setZ(index, z) {
-    this.data.array[index * this.data.stride + this.offset + 2] = z;
-    return this;
-  },
-  setW: function setW(index, w) {
-    this.data.array[index * this.data.stride + this.offset + 3] = w;
-    return this;
-  },
-  getX: function getX(index) {
-    return this.data.array[index * this.data.stride + this.offset];
-  },
-  getY: function getY(index) {
-    return this.data.array[index * this.data.stride + this.offset + 1];
-  },
-  getZ: function getZ(index) {
-    return this.data.array[index * this.data.stride + this.offset + 2];
-  },
-  getW: function getW(index) {
-    return this.data.array[index * this.data.stride + this.offset + 3];
-  },
-  setXY: function setXY(index, x, y) {
-    index = index * this.data.stride + this.offset;
-    this.data.array[index + 0] = x;
-    this.data.array[index + 1] = y;
-    return this;
-  },
-  setXYZ: function setXYZ(index, x, y, z) {
-    index = index * this.data.stride + this.offset;
-    this.data.array[index + 0] = x;
-    this.data.array[index + 1] = y;
-    this.data.array[index + 2] = z;
-    return this;
-  },
-  setXYZW: function setXYZW(index, x, y, z, w) {
-    index = index * this.data.stride + this.offset;
-    this.data.array[index + 0] = x;
-    this.data.array[index + 1] = y;
-    this.data.array[index + 2] = z;
-    this.data.array[index + 3] = w;
-    return this;
-  },
-  clone: function clone(data) {
-    if (data === undefined) {
-      console.log('THREE.InterleavedBufferAttribute.clone(): Cloning an interlaved buffer attribute will deinterleave buffer data.');
-      var array = [];
+        for (var _i128 = 0; _i128 < this.count; _i128++) {
+          var index = _i128 * this.data.stride + this.offset;
 
-      for (var _i128 = 0; _i128 < this.count; _i128++) {
-        var index = _i128 * this.data.stride + this.offset;
-
-        for (var j = 0; j < this.itemSize; j++) {
-          array.push(this.data.array[index + j]);
+          for (var j = 0; j < this.itemSize; j++) {
+            array.push(this.data.array[index + j]);
+          }
         }
-      }
 
-      return new BufferAttribute(new this.array.constructor(array), this.itemSize, this.normalized);
-    } else {
-      if (data.interleavedBuffers === undefined) {
-        data.interleavedBuffers = {};
-      }
-
-      if (data.interleavedBuffers[this.data.uuid] === undefined) {
-        data.interleavedBuffers[this.data.uuid] = this.data.clone(data);
-      }
-
-      return new InterleavedBufferAttribute(data.interleavedBuffers[this.data.uuid], this.itemSize, this.offset, this.normalized);
-    }
-  },
-  toJSON: function toJSON(data) {
-    if (data === undefined) {
-      console.log('THREE.InterleavedBufferAttribute.toJSON(): Serializing an interlaved buffer attribute will deinterleave buffer data.');
-      var array = [];
-
-      for (var _i129 = 0; _i129 < this.count; _i129++) {
-        var index = _i129 * this.data.stride + this.offset;
-
-        for (var j = 0; j < this.itemSize; j++) {
-          array.push(this.data.array[index + j]);
+        return new BufferAttribute(new this.array.constructor(array), this.itemSize, this.normalized);
+      } else {
+        if (data.interleavedBuffers === undefined) {
+          data.interleavedBuffers = {};
         }
-      } // deinterleave data and save it as an ordinary buffer attribute for now
 
+        if (data.interleavedBuffers[this.data.uuid] === undefined) {
+          data.interleavedBuffers[this.data.uuid] = this.data.clone(data);
+        }
 
-      return {
-        itemSize: this.itemSize,
-        type: this.array.constructor.name,
-        array: array,
-        normalized: this.normalized
-      };
-    } else {
-      // save as true interlaved attribtue
-      if (data.interleavedBuffers === undefined) {
-        data.interleavedBuffers = {};
+        return new InterleavedBufferAttribute(data.interleavedBuffers[this.data.uuid], this.itemSize, this.offset, this.normalized);
       }
-
-      if (data.interleavedBuffers[this.data.uuid] === undefined) {
-        data.interleavedBuffers[this.data.uuid] = this.data.toJSON(data);
-      }
-
-      return {
-        isInterleavedBufferAttribute: true,
-        itemSize: this.itemSize,
-        data: this.data.uuid,
-        offset: this.offset,
-        normalized: this.normalized
-      };
     }
-  }
-});
+  }, {
+    key: "toJSON",
+    value: function toJSON(data) {
+      if (data === undefined) {
+        console.log('THREE.InterleavedBufferAttribute.toJSON(): Serializing an interlaved buffer attribute will deinterleave buffer data.');
+        var array = [];
+
+        for (var _i129 = 0; _i129 < this.count; _i129++) {
+          var index = _i129 * this.data.stride + this.offset;
+
+          for (var j = 0; j < this.itemSize; j++) {
+            array.push(this.data.array[index + j]);
+          }
+        } // deinterleave data and save it as an ordinary buffer attribute for now
+
+
+        return {
+          itemSize: this.itemSize,
+          type: this.array.constructor.name,
+          array: array,
+          normalized: this.normalized
+        };
+      } else {
+        // save as true interlaved attribtue
+        if (data.interleavedBuffers === undefined) {
+          data.interleavedBuffers = {};
+        }
+
+        if (data.interleavedBuffers[this.data.uuid] === undefined) {
+          data.interleavedBuffers[this.data.uuid] = this.data.toJSON(data);
+        }
+
+        return {
+          isInterleavedBufferAttribute: true,
+          itemSize: this.itemSize,
+          data: this.data.uuid,
+          offset: this.offset,
+          normalized: this.normalized
+        };
+      }
+    }
+  }]);
+
+  return InterleavedBufferAttribute;
+}();
+
+InterleavedBufferAttribute.prototype.isInterleavedBufferAttribute = true;
 /**
  * parameters = {
  *  color: <hex>,
@@ -20108,28 +20721,28 @@ Object.assign(InterleavedBufferAttribute.prototype, {
  * }
  */
 
-var SpriteMaterial = /*#__PURE__*/function (_Material4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpriteMaterial, _Material4);
+var SpriteMaterial = /*#__PURE__*/function (_Material5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpriteMaterial, _Material5);
 
-  var _super19 = _createSuper(SpriteMaterial);
+  var _super36 = _createSuper(SpriteMaterial);
 
   function SpriteMaterial(parameters) {
-    var _this19;
+    var _this26;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpriteMaterial);
 
-    _this19 = _super19.call(this);
-    _this19.type = 'SpriteMaterial';
-    _this19.color = new Color(0xffffff);
-    _this19.map = null;
-    _this19.alphaMap = null;
-    _this19.rotation = 0;
-    _this19.sizeAttenuation = true;
-    _this19.transparent = true;
+    _this26 = _super36.call(this);
+    _this26.type = 'SpriteMaterial';
+    _this26.color = new Color(0xffffff);
+    _this26.map = null;
+    _this26.alphaMap = null;
+    _this26.rotation = 0;
+    _this26.sizeAttenuation = true;
+    _this26.transparent = true;
 
-    _this19.setValues(parameters);
+    _this26.setValues(parameters);
 
-    return _this19;
+    return _this26;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpriteMaterial, [{
@@ -20177,18 +20790,18 @@ var _uvB = /*@__PURE__*/new Vector2();
 
 var _uvC = /*@__PURE__*/new Vector2();
 
-var Sprite = /*#__PURE__*/function (_Object3D4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Sprite, _Object3D4);
+var Sprite = /*#__PURE__*/function (_Object3D6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Sprite, _Object3D6);
 
-  var _super20 = _createSuper(Sprite);
+  var _super37 = _createSuper(Sprite);
 
   function Sprite(material) {
-    var _this20;
+    var _this27;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Sprite);
 
-    _this20 = _super20.call(this);
-    _this20.type = 'Sprite';
+    _this27 = _super37.call(this);
+    _this27.type = 'Sprite';
 
     if (_geometry === undefined) {
       _geometry = new BufferGeometry();
@@ -20202,10 +20815,10 @@ var Sprite = /*#__PURE__*/function (_Object3D4) {
       _geometry.setAttribute('uv', new InterleavedBufferAttribute(interleavedBuffer, 2, 3, false));
     }
 
-    _this20.geometry = _geometry;
-    _this20.material = material !== undefined ? material : new SpriteMaterial();
-    _this20.center = new Vector2(0.5, 0.5);
-    return _this20;
+    _this27.geometry = _geometry;
+    _this27.material = material !== undefined ? material : new SpriteMaterial();
+    _this27.center = new Vector2(0.5, 0.5);
+    return _this27;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Sprite, [{
@@ -20311,20 +20924,20 @@ var _v1$2 = /*@__PURE__*/new Vector3();
 
 var _v2$1 = /*@__PURE__*/new Vector3();
 
-var LOD = /*#__PURE__*/function (_Object3D5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LOD, _Object3D5);
+var LOD = /*#__PURE__*/function (_Object3D7) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LOD, _Object3D7);
 
-  var _super21 = _createSuper(LOD);
+  var _super38 = _createSuper(LOD);
 
   function LOD() {
-    var _this21;
+    var _this28;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LOD);
 
-    _this21 = _super21.call(this);
-    _this21._currentLevel = 0;
-    _this21.type = 'LOD';
-    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this21), {
+    _this28 = _super38.call(this);
+    _this28._currentLevel = 0;
+    _this28.type = 'LOD';
+    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this28), {
       levels: {
         enumerable: true,
         value: []
@@ -20333,8 +20946,8 @@ var LOD = /*#__PURE__*/function (_Object3D5) {
         value: true
       }
     });
-    _this21.autoUpdate = true;
-    return _this21;
+    _this28.autoUpdate = true;
+    return _this28;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LOD, [{
@@ -20464,118 +21077,153 @@ var LOD = /*#__PURE__*/function (_Object3D5) {
   return LOD;
 }(Object3D);
 
-var _basePosition = new Vector3();
+var _basePosition = /*@__PURE__*/new Vector3();
 
-var _skinIndex = new Vector4();
+var _skinIndex = /*@__PURE__*/new Vector4();
 
-var _skinWeight = new Vector4();
+var _skinWeight = /*@__PURE__*/new Vector4();
 
-var _vector$5 = new Vector3();
+var _vector$5 = /*@__PURE__*/new Vector3();
 
-var _matrix = new Matrix4();
+var _matrix = /*@__PURE__*/new Matrix4();
 
-function SkinnedMesh(geometry, material) {
-  Mesh.call(this, geometry, material);
-  this.type = 'SkinnedMesh';
-  this.bindMode = 'attached';
-  this.bindMatrix = new Matrix4();
-  this.bindMatrixInverse = new Matrix4();
-}
+var SkinnedMesh = /*#__PURE__*/function (_Mesh) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SkinnedMesh, _Mesh);
 
-SkinnedMesh.prototype = Object.assign(Object.create(Mesh.prototype), {
-  constructor: SkinnedMesh,
-  isSkinnedMesh: true,
-  copy: function copy(source) {
-    Mesh.prototype.copy.call(this, source);
-    this.bindMode = source.bindMode;
-    this.bindMatrix.copy(source.bindMatrix);
-    this.bindMatrixInverse.copy(source.bindMatrixInverse);
-    this.skeleton = source.skeleton;
-    return this;
-  },
-  bind: function bind(skeleton, bindMatrix) {
-    this.skeleton = skeleton;
+  var _super39 = _createSuper(SkinnedMesh);
 
-    if (bindMatrix === undefined) {
-      this.updateMatrixWorld(true);
-      this.skeleton.calculateInverses();
-      bindMatrix = this.matrixWorld;
-    }
+  function SkinnedMesh(geometry, material) {
+    var _this29;
 
-    this.bindMatrix.copy(bindMatrix);
-    this.bindMatrixInverse.copy(bindMatrix).invert();
-  },
-  pose: function pose() {
-    this.skeleton.pose();
-  },
-  normalizeSkinWeights: function normalizeSkinWeights() {
-    var vector = new Vector4();
-    var skinWeight = this.geometry.attributes.skinWeight;
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SkinnedMesh);
 
-    for (var _i134 = 0, l = skinWeight.count; _i134 < l; _i134++) {
-      vector.x = skinWeight.getX(_i134);
-      vector.y = skinWeight.getY(_i134);
-      vector.z = skinWeight.getZ(_i134);
-      vector.w = skinWeight.getW(_i134);
-      var scale = 1.0 / vector.manhattanLength();
-
-      if (scale !== Infinity) {
-        vector.multiplyScalar(scale);
-      } else {
-        vector.set(1, 0, 0, 0); // do something reasonable
-      }
-
-      skinWeight.setXYZW(_i134, vector.x, vector.y, vector.z, vector.w);
-    }
-  },
-  updateMatrixWorld: function updateMatrixWorld(force) {
-    Mesh.prototype.updateMatrixWorld.call(this, force);
-
-    if (this.bindMode === 'attached') {
-      this.bindMatrixInverse.copy(this.matrixWorld).invert();
-    } else if (this.bindMode === 'detached') {
-      this.bindMatrixInverse.copy(this.bindMatrix).invert();
-    } else {
-      console.warn('THREE.SkinnedMesh: Unrecognized bindMode: ' + this.bindMode);
-    }
-  },
-  boneTransform: function boneTransform(index, target) {
-    var skeleton = this.skeleton;
-    var geometry = this.geometry;
-
-    _skinIndex.fromBufferAttribute(geometry.attributes.skinIndex, index);
-
-    _skinWeight.fromBufferAttribute(geometry.attributes.skinWeight, index);
-
-    _basePosition.fromBufferAttribute(geometry.attributes.position, index).applyMatrix4(this.bindMatrix);
-
-    target.set(0, 0, 0);
-
-    for (var _i135 = 0; _i135 < 4; _i135++) {
-      var weight = _skinWeight.getComponent(_i135);
-
-      if (weight !== 0) {
-        var boneIndex = _skinIndex.getComponent(_i135);
-
-        _matrix.multiplyMatrices(skeleton.bones[boneIndex].matrixWorld, skeleton.boneInverses[boneIndex]);
-
-        target.addScaledVector(_vector$5.copy(_basePosition).applyMatrix4(_matrix), weight);
-      }
-    }
-
-    return target.applyMatrix4(this.bindMatrixInverse);
+    _this29 = _super39.call(this, geometry, material);
+    _this29.type = 'SkinnedMesh';
+    _this29.bindMode = 'attached';
+    _this29.bindMatrix = new Matrix4();
+    _this29.bindMatrixInverse = new Matrix4();
+    return _this29;
   }
-});
 
-function Bone() {
-  Object3D.call(this);
-  this.type = 'Bone';
-}
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SkinnedMesh, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SkinnedMesh.prototype), "copy", this).call(this, source);
 
-Bone.prototype = Object.assign(Object.create(Object3D.prototype), {
-  constructor: Bone,
-  isBone: true
-});
+      this.bindMode = source.bindMode;
+      this.bindMatrix.copy(source.bindMatrix);
+      this.bindMatrixInverse.copy(source.bindMatrixInverse);
+      this.skeleton = source.skeleton;
+      return this;
+    }
+  }, {
+    key: "bind",
+    value: function bind(skeleton, bindMatrix) {
+      this.skeleton = skeleton;
+
+      if (bindMatrix === undefined) {
+        this.updateMatrixWorld(true);
+        this.skeleton.calculateInverses();
+        bindMatrix = this.matrixWorld;
+      }
+
+      this.bindMatrix.copy(bindMatrix);
+      this.bindMatrixInverse.copy(bindMatrix).invert();
+    }
+  }, {
+    key: "pose",
+    value: function pose() {
+      this.skeleton.pose();
+    }
+  }, {
+    key: "normalizeSkinWeights",
+    value: function normalizeSkinWeights() {
+      var vector = new Vector4();
+      var skinWeight = this.geometry.attributes.skinWeight;
+
+      for (var _i134 = 0, l = skinWeight.count; _i134 < l; _i134++) {
+        vector.x = skinWeight.getX(_i134);
+        vector.y = skinWeight.getY(_i134);
+        vector.z = skinWeight.getZ(_i134);
+        vector.w = skinWeight.getW(_i134);
+        var scale = 1.0 / vector.manhattanLength();
+
+        if (scale !== Infinity) {
+          vector.multiplyScalar(scale);
+        } else {
+          vector.set(1, 0, 0, 0); // do something reasonable
+        }
+
+        skinWeight.setXYZW(_i134, vector.x, vector.y, vector.z, vector.w);
+      }
+    }
+  }, {
+    key: "updateMatrixWorld",
+    value: function updateMatrixWorld(force) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SkinnedMesh.prototype), "updateMatrixWorld", this).call(this, force);
+
+      if (this.bindMode === 'attached') {
+        this.bindMatrixInverse.copy(this.matrixWorld).invert();
+      } else if (this.bindMode === 'detached') {
+        this.bindMatrixInverse.copy(this.bindMatrix).invert();
+      } else {
+        console.warn('THREE.SkinnedMesh: Unrecognized bindMode: ' + this.bindMode);
+      }
+    }
+  }, {
+    key: "boneTransform",
+    value: function boneTransform(index, target) {
+      var skeleton = this.skeleton;
+      var geometry = this.geometry;
+
+      _skinIndex.fromBufferAttribute(geometry.attributes.skinIndex, index);
+
+      _skinWeight.fromBufferAttribute(geometry.attributes.skinWeight, index);
+
+      _basePosition.fromBufferAttribute(geometry.attributes.position, index).applyMatrix4(this.bindMatrix);
+
+      target.set(0, 0, 0);
+
+      for (var _i135 = 0; _i135 < 4; _i135++) {
+        var weight = _skinWeight.getComponent(_i135);
+
+        if (weight !== 0) {
+          var boneIndex = _skinIndex.getComponent(_i135);
+
+          _matrix.multiplyMatrices(skeleton.bones[boneIndex].matrixWorld, skeleton.boneInverses[boneIndex]);
+
+          target.addScaledVector(_vector$5.copy(_basePosition).applyMatrix4(_matrix), weight);
+        }
+      }
+
+      return target.applyMatrix4(this.bindMatrixInverse);
+    }
+  }]);
+
+  return SkinnedMesh;
+}(Mesh);
+
+SkinnedMesh.prototype.isSkinnedMesh = true;
+
+var Bone = /*#__PURE__*/function (_Object3D8) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Bone, _Object3D8);
+
+  var _super40 = _createSuper(Bone);
+
+  function Bone() {
+    var _this30;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Bone);
+
+    _this30 = _super40.call(this);
+    _this30.type = 'Bone';
+    return _this30;
+  }
+
+  return Bone;
+}(Object3D);
+
+Bone.prototype.isBone = true;
 
 var _offsetMatrix = /*@__PURE__*/new Matrix4();
 
@@ -20588,7 +21236,7 @@ var Skeleton = /*#__PURE__*/function () {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Skeleton);
 
-    this.uuid = MathUtils.generateUUID();
+    this.uuid = generateUUID();
     this.bones = bones.slice(0);
     this.boneInverses = boneInverses;
     this.boneMatrices = null;
@@ -20761,84 +21409,113 @@ var Skeleton = /*#__PURE__*/function () {
   return Skeleton;
 }();
 
-var _instanceLocalMatrix = new Matrix4();
+var _instanceLocalMatrix = /*@__PURE__*/new Matrix4();
 
-var _instanceWorldMatrix = new Matrix4();
+var _instanceWorldMatrix = /*@__PURE__*/new Matrix4();
 
 var _instanceIntersects = [];
 
-var _mesh = new Mesh();
+var _mesh = /*@__PURE__*/new Mesh();
 
-function InstancedMesh(geometry, material, count) {
-  Mesh.call(this, geometry, material);
-  this.instanceMatrix = new BufferAttribute(new Float32Array(count * 16), 16);
-  this.instanceColor = null;
-  this.count = count;
-  this.frustumCulled = false;
-}
+var InstancedMesh = /*#__PURE__*/function (_Mesh2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedMesh, _Mesh2);
 
-InstancedMesh.prototype = Object.assign(Object.create(Mesh.prototype), {
-  constructor: InstancedMesh,
-  isInstancedMesh: true,
-  copy: function copy(source) {
-    Mesh.prototype.copy.call(this, source);
-    this.instanceMatrix.copy(source.instanceMatrix);
-    if (source.instanceColor !== null) this.instanceColor = source.instanceColor.clone();
-    this.count = source.count;
-    return this;
-  },
-  getColorAt: function getColorAt(index, color) {
-    color.fromArray(this.instanceColor.array, index * 3);
-  },
-  getMatrixAt: function getMatrixAt(index, matrix) {
-    matrix.fromArray(this.instanceMatrix.array, index * 16);
-  },
-  raycast: function raycast(raycaster, intersects) {
-    var matrixWorld = this.matrixWorld;
-    var raycastTimes = this.count;
-    _mesh.geometry = this.geometry;
-    _mesh.material = this.material;
-    if (_mesh.material === undefined) return;
+  var _super41 = _createSuper(InstancedMesh);
 
-    for (var instanceId = 0; instanceId < raycastTimes; instanceId++) {
-      // calculate the world matrix for each instance
-      this.getMatrixAt(instanceId, _instanceLocalMatrix);
+  function InstancedMesh(geometry, material, count) {
+    var _this31;
 
-      _instanceWorldMatrix.multiplyMatrices(matrixWorld, _instanceLocalMatrix); // the mesh represents this single instance
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedMesh);
+
+    _this31 = _super41.call(this, geometry, material);
+    _this31.instanceMatrix = new BufferAttribute(new Float32Array(count * 16), 16);
+    _this31.instanceColor = null;
+    _this31.count = count;
+    _this31.frustumCulled = false;
+    return _this31;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedMesh, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedMesh.prototype), "copy", this).call(this, source);
+
+      this.instanceMatrix.copy(source.instanceMatrix);
+      if (source.instanceColor !== null) this.instanceColor = source.instanceColor.clone();
+      this.count = source.count;
+      return this;
+    }
+  }, {
+    key: "getColorAt",
+    value: function getColorAt(index, color) {
+      color.fromArray(this.instanceColor.array, index * 3);
+    }
+  }, {
+    key: "getMatrixAt",
+    value: function getMatrixAt(index, matrix) {
+      matrix.fromArray(this.instanceMatrix.array, index * 16);
+    }
+  }, {
+    key: "raycast",
+    value: function raycast(raycaster, intersects) {
+      var matrixWorld = this.matrixWorld;
+      var raycastTimes = this.count;
+      _mesh.geometry = this.geometry;
+      _mesh.material = this.material;
+      if (_mesh.material === undefined) return;
+
+      for (var instanceId = 0; instanceId < raycastTimes; instanceId++) {
+        // calculate the world matrix for each instance
+        this.getMatrixAt(instanceId, _instanceLocalMatrix);
+
+        _instanceWorldMatrix.multiplyMatrices(matrixWorld, _instanceLocalMatrix); // the mesh represents this single instance
 
 
-      _mesh.matrixWorld = _instanceWorldMatrix;
+        _mesh.matrixWorld = _instanceWorldMatrix;
 
-      _mesh.raycast(raycaster, _instanceIntersects); // process the result of raycast
+        _mesh.raycast(raycaster, _instanceIntersects); // process the result of raycast
 
 
-      for (var _i144 = 0, l = _instanceIntersects.length; _i144 < l; _i144++) {
-        var intersect = _instanceIntersects[_i144];
-        intersect.instanceId = instanceId;
-        intersect.object = this;
-        intersects.push(intersect);
+        for (var _i144 = 0, l = _instanceIntersects.length; _i144 < l; _i144++) {
+          var intersect = _instanceIntersects[_i144];
+          intersect.instanceId = instanceId;
+          intersect.object = this;
+          intersects.push(intersect);
+        }
+
+        _instanceIntersects.length = 0;
+      }
+    }
+  }, {
+    key: "setColorAt",
+    value: function setColorAt(index, color) {
+      if (this.instanceColor === null) {
+        this.instanceColor = new BufferAttribute(new Float32Array(this.count * 3), 3);
       }
 
-      _instanceIntersects.length = 0;
+      color.toArray(this.instanceColor.array, index * 3);
     }
-  },
-  setColorAt: function setColorAt(index, color) {
-    if (this.instanceColor === null) {
-      this.instanceColor = new BufferAttribute(new Float32Array(this.count * 3), 3);
+  }, {
+    key: "setMatrixAt",
+    value: function setMatrixAt(index, matrix) {
+      matrix.toArray(this.instanceMatrix.array, index * 16);
     }
+  }, {
+    key: "updateMorphTargets",
+    value: function updateMorphTargets() {}
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this.dispatchEvent({
+        type: 'dispose'
+      });
+    }
+  }]);
 
-    color.toArray(this.instanceColor.array, index * 3);
-  },
-  setMatrixAt: function setMatrixAt(index, matrix) {
-    matrix.toArray(this.instanceMatrix.array, index * 16);
-  },
-  updateMorphTargets: function updateMorphTargets() {},
-  dispose: function dispose() {
-    this.dispatchEvent({
-      type: 'dispose'
-    });
-  }
-});
+  return InstancedMesh;
+}(Mesh);
+
+InstancedMesh.prototype.isInstancedMesh = true;
 /**
  * parameters = {
  *  color: <hex>,
@@ -20850,27 +21527,27 @@ InstancedMesh.prototype = Object.assign(Object.create(Mesh.prototype), {
  * }
  */
 
-var LineBasicMaterial = /*#__PURE__*/function (_Material5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineBasicMaterial, _Material5);
+var LineBasicMaterial = /*#__PURE__*/function (_Material6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineBasicMaterial, _Material6);
 
-  var _super22 = _createSuper(LineBasicMaterial);
+  var _super42 = _createSuper(LineBasicMaterial);
 
   function LineBasicMaterial(parameters) {
-    var _this22;
+    var _this32;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineBasicMaterial);
 
-    _this22 = _super22.call(this);
-    _this22.type = 'LineBasicMaterial';
-    _this22.color = new Color(0xffffff);
-    _this22.linewidth = 1;
-    _this22.linecap = 'round';
-    _this22.linejoin = 'round';
-    _this22.morphTargets = false;
+    _this32 = _super42.call(this);
+    _this32.type = 'LineBasicMaterial';
+    _this32.color = new Color(0xffffff);
+    _this32.linewidth = 1;
+    _this32.linecap = 'round';
+    _this32.linejoin = 'round';
+    _this32.morphTargets = false;
 
-    _this22.setValues(parameters);
+    _this32.setValues(parameters);
 
-    return _this22;
+    return _this32;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineBasicMaterial, [{
@@ -20892,242 +21569,280 @@ var LineBasicMaterial = /*#__PURE__*/function (_Material5) {
 
 LineBasicMaterial.prototype.isLineBasicMaterial = true;
 
-var _start$1 = new Vector3();
+var _start$1 = /*@__PURE__*/new Vector3();
 
-var _end$1 = new Vector3();
+var _end$1 = /*@__PURE__*/new Vector3();
 
-var _inverseMatrix$1 = new Matrix4();
+var _inverseMatrix$1 = /*@__PURE__*/new Matrix4();
 
-var _ray$1 = new Ray();
+var _ray$1 = /*@__PURE__*/new Ray();
 
-var _sphere$1 = new Sphere();
+var _sphere$1 = /*@__PURE__*/new Sphere();
 
-function Line() {
-  var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
-  var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new LineBasicMaterial();
-  Object3D.call(this);
-  this.type = 'Line';
-  this.geometry = geometry;
-  this.material = material;
-  this.updateMorphTargets();
-}
+var Line = /*#__PURE__*/function (_Object3D9) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Line, _Object3D9);
 
-Line.prototype = Object.assign(Object.create(Object3D.prototype), {
-  constructor: Line,
-  isLine: true,
-  copy: function copy(source) {
-    Object3D.prototype.copy.call(this, source);
-    this.material = source.material;
-    this.geometry = source.geometry;
-    return this;
-  },
-  computeLineDistances: function computeLineDistances() {
-    var geometry = this.geometry;
+  var _super43 = _createSuper(Line);
 
-    if (geometry.isBufferGeometry) {
-      // we assume non-indexed geometry
-      if (geometry.index === null) {
-        var positionAttribute = geometry.attributes.position;
-        var lineDistances = [0];
+  function Line() {
+    var _this33;
 
-        for (var _i145 = 1, l = positionAttribute.count; _i145 < l; _i145++) {
-          _start$1.fromBufferAttribute(positionAttribute, _i145 - 1);
+    var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
+    var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new LineBasicMaterial();
 
-          _end$1.fromBufferAttribute(positionAttribute, _i145);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Line);
 
-          lineDistances[_i145] = lineDistances[_i145 - 1];
-          lineDistances[_i145] += _start$1.distanceTo(_end$1);
-        }
+    _this33 = _super43.call(this);
+    _this33.type = 'Line';
+    _this33.geometry = geometry;
+    _this33.material = material;
 
-        geometry.setAttribute('lineDistance', new Float32BufferAttribute(lineDistances, 1));
-      } else {
-        console.warn('THREE.Line.computeLineDistances(): Computation only possible with non-indexed BufferGeometry.');
-      }
-    } else if (geometry.isGeometry) {
-      console.error('THREE.Line.computeLineDistances() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
+    _this33.updateMorphTargets();
+
+    return _this33;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Line, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Line.prototype), "copy", this).call(this, source);
+
+      this.material = source.material;
+      this.geometry = source.geometry;
+      return this;
     }
+  }, {
+    key: "computeLineDistances",
+    value: function computeLineDistances() {
+      var geometry = this.geometry;
 
-    return this;
-  },
-  raycast: function raycast(raycaster, intersects) {
-    var geometry = this.geometry;
-    var matrixWorld = this.matrixWorld;
-    var threshold = raycaster.params.Line.threshold;
-    var drawRange = geometry.drawRange; // Checking boundingSphere distance to ray
+      if (geometry.isBufferGeometry) {
+        // we assume non-indexed geometry
+        if (geometry.index === null) {
+          var positionAttribute = geometry.attributes.position;
+          var lineDistances = [0];
 
-    if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
+          for (var _i145 = 1, l = positionAttribute.count; _i145 < l; _i145++) {
+            _start$1.fromBufferAttribute(positionAttribute, _i145 - 1);
 
-    _sphere$1.copy(geometry.boundingSphere);
+            _end$1.fromBufferAttribute(positionAttribute, _i145);
 
-    _sphere$1.applyMatrix4(matrixWorld);
+            lineDistances[_i145] = lineDistances[_i145 - 1];
+            lineDistances[_i145] += _start$1.distanceTo(_end$1);
+          }
 
-    _sphere$1.radius += threshold;
-    if (raycaster.ray.intersectsSphere(_sphere$1) === false) return; //
-
-    _inverseMatrix$1.copy(matrixWorld).invert();
-
-    _ray$1.copy(raycaster.ray).applyMatrix4(_inverseMatrix$1);
-
-    var localThreshold = threshold / ((this.scale.x + this.scale.y + this.scale.z) / 3);
-    var localThresholdSq = localThreshold * localThreshold;
-    var vStart = new Vector3();
-    var vEnd = new Vector3();
-    var interSegment = new Vector3();
-    var interRay = new Vector3();
-    var step = this.isLineSegments ? 2 : 1;
-
-    if (geometry.isBufferGeometry) {
-      var index = geometry.index;
-      var attributes = geometry.attributes;
-      var positionAttribute = attributes.position;
-
-      if (index !== null) {
-        var start = Math.max(0, drawRange.start);
-        var end = Math.min(index.count, drawRange.start + drawRange.count);
-
-        for (var _i146 = start, l = end - 1; _i146 < l; _i146 += step) {
-          var a = index.getX(_i146);
-          var b = index.getX(_i146 + 1);
-          vStart.fromBufferAttribute(positionAttribute, a);
-          vEnd.fromBufferAttribute(positionAttribute, b);
-
-          var distSq = _ray$1.distanceSqToSegment(vStart, vEnd, interRay, interSegment);
-
-          if (distSq > localThresholdSq) continue;
-          interRay.applyMatrix4(this.matrixWorld); //Move back to world space for distance calculation
-
-          var distance = raycaster.ray.origin.distanceTo(interRay);
-          if (distance < raycaster.near || distance > raycaster.far) continue;
-          intersects.push({
-            distance: distance,
-            // What do we want? intersection point on the ray or on the segment??
-            // point: raycaster.ray.at( distance ),
-            point: interSegment.clone().applyMatrix4(this.matrixWorld),
-            index: _i146,
-            face: null,
-            faceIndex: null,
-            object: this
-          });
+          geometry.setAttribute('lineDistance', new Float32BufferAttribute(lineDistances, 1));
+        } else {
+          console.warn('THREE.Line.computeLineDistances(): Computation only possible with non-indexed BufferGeometry.');
         }
-      } else {
-        var _start6 = Math.max(0, drawRange.start);
-
-        var _end5 = Math.min(positionAttribute.count, drawRange.start + drawRange.count);
-
-        for (var _i147 = _start6, _l6 = _end5 - 1; _i147 < _l6; _i147 += step) {
-          vStart.fromBufferAttribute(positionAttribute, _i147);
-          vEnd.fromBufferAttribute(positionAttribute, _i147 + 1);
-
-          var _distSq = _ray$1.distanceSqToSegment(vStart, vEnd, interRay, interSegment);
-
-          if (_distSq > localThresholdSq) continue;
-          interRay.applyMatrix4(this.matrixWorld); //Move back to world space for distance calculation
-
-          var _distance = raycaster.ray.origin.distanceTo(interRay);
-
-          if (_distance < raycaster.near || _distance > raycaster.far) continue;
-          intersects.push({
-            distance: _distance,
-            // What do we want? intersection point on the ray or on the segment??
-            // point: raycaster.ray.at( distance ),
-            point: interSegment.clone().applyMatrix4(this.matrixWorld),
-            index: _i147,
-            face: null,
-            faceIndex: null,
-            object: this
-          });
-        }
+      } else if (geometry.isGeometry) {
+        console.error('THREE.Line.computeLineDistances() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
       }
-    } else if (geometry.isGeometry) {
-      console.error('THREE.Line.raycast() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
+
+      return this;
     }
-  },
-  updateMorphTargets: function updateMorphTargets() {
-    var geometry = this.geometry;
+  }, {
+    key: "raycast",
+    value: function raycast(raycaster, intersects) {
+      var geometry = this.geometry;
+      var matrixWorld = this.matrixWorld;
+      var threshold = raycaster.params.Line.threshold;
+      var drawRange = geometry.drawRange; // Checking boundingSphere distance to ray
 
-    if (geometry.isBufferGeometry) {
-      var morphAttributes = geometry.morphAttributes;
-      var keys = Object.keys(morphAttributes);
+      if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
 
-      if (keys.length > 0) {
-        var morphAttribute = morphAttributes[keys[0]];
+      _sphere$1.copy(geometry.boundingSphere);
 
-        if (morphAttribute !== undefined) {
-          this.morphTargetInfluences = [];
-          this.morphTargetDictionary = {};
+      _sphere$1.applyMatrix4(matrixWorld);
 
-          for (var m = 0, ml = morphAttribute.length; m < ml; m++) {
-            var name = morphAttribute[m].name || String(m);
-            this.morphTargetInfluences.push(0);
-            this.morphTargetDictionary[name] = m;
+      _sphere$1.radius += threshold;
+      if (raycaster.ray.intersectsSphere(_sphere$1) === false) return; //
+
+      _inverseMatrix$1.copy(matrixWorld).invert();
+
+      _ray$1.copy(raycaster.ray).applyMatrix4(_inverseMatrix$1);
+
+      var localThreshold = threshold / ((this.scale.x + this.scale.y + this.scale.z) / 3);
+      var localThresholdSq = localThreshold * localThreshold;
+      var vStart = new Vector3();
+      var vEnd = new Vector3();
+      var interSegment = new Vector3();
+      var interRay = new Vector3();
+      var step = this.isLineSegments ? 2 : 1;
+
+      if (geometry.isBufferGeometry) {
+        var index = geometry.index;
+        var attributes = geometry.attributes;
+        var positionAttribute = attributes.position;
+
+        if (index !== null) {
+          var start = Math.max(0, drawRange.start);
+          var end = Math.min(index.count, drawRange.start + drawRange.count);
+
+          for (var _i146 = start, l = end - 1; _i146 < l; _i146 += step) {
+            var a = index.getX(_i146);
+            var b = index.getX(_i146 + 1);
+            vStart.fromBufferAttribute(positionAttribute, a);
+            vEnd.fromBufferAttribute(positionAttribute, b);
+
+            var distSq = _ray$1.distanceSqToSegment(vStart, vEnd, interRay, interSegment);
+
+            if (distSq > localThresholdSq) continue;
+            interRay.applyMatrix4(this.matrixWorld); //Move back to world space for distance calculation
+
+            var distance = raycaster.ray.origin.distanceTo(interRay);
+            if (distance < raycaster.near || distance > raycaster.far) continue;
+            intersects.push({
+              distance: distance,
+              // What do we want? intersection point on the ray or on the segment??
+              // point: raycaster.ray.at( distance ),
+              point: interSegment.clone().applyMatrix4(this.matrixWorld),
+              index: _i146,
+              face: null,
+              faceIndex: null,
+              object: this
+            });
+          }
+        } else {
+          var _start6 = Math.max(0, drawRange.start);
+
+          var _end5 = Math.min(positionAttribute.count, drawRange.start + drawRange.count);
+
+          for (var _i147 = _start6, _l6 = _end5 - 1; _i147 < _l6; _i147 += step) {
+            vStart.fromBufferAttribute(positionAttribute, _i147);
+            vEnd.fromBufferAttribute(positionAttribute, _i147 + 1);
+
+            var _distSq = _ray$1.distanceSqToSegment(vStart, vEnd, interRay, interSegment);
+
+            if (_distSq > localThresholdSq) continue;
+            interRay.applyMatrix4(this.matrixWorld); //Move back to world space for distance calculation
+
+            var _distance = raycaster.ray.origin.distanceTo(interRay);
+
+            if (_distance < raycaster.near || _distance > raycaster.far) continue;
+            intersects.push({
+              distance: _distance,
+              // What do we want? intersection point on the ray or on the segment??
+              // point: raycaster.ray.at( distance ),
+              point: interSegment.clone().applyMatrix4(this.matrixWorld),
+              index: _i147,
+              face: null,
+              faceIndex: null,
+              object: this
+            });
           }
         }
-      }
-    } else {
-      var morphTargets = geometry.morphTargets;
-
-      if (morphTargets !== undefined && morphTargets.length > 0) {
-        console.error('THREE.Line.updateMorphTargets() does not support THREE.Geometry. Use THREE.BufferGeometry instead.');
+      } else if (geometry.isGeometry) {
+        console.error('THREE.Line.raycast() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
       }
     }
-  }
-});
+  }, {
+    key: "updateMorphTargets",
+    value: function updateMorphTargets() {
+      var geometry = this.geometry;
 
-var _start = new Vector3();
+      if (geometry.isBufferGeometry) {
+        var morphAttributes = geometry.morphAttributes;
+        var keys = Object.keys(morphAttributes);
 
-var _end = new Vector3();
+        if (keys.length > 0) {
+          var morphAttribute = morphAttributes[keys[0]];
 
-function LineSegments(geometry, material) {
-  Line.call(this, geometry, material);
-  this.type = 'LineSegments';
-}
+          if (morphAttribute !== undefined) {
+            this.morphTargetInfluences = [];
+            this.morphTargetDictionary = {};
 
-LineSegments.prototype = Object.assign(Object.create(Line.prototype), {
-  constructor: LineSegments,
-  isLineSegments: true,
-  computeLineDistances: function computeLineDistances() {
-    var geometry = this.geometry;
-
-    if (geometry.isBufferGeometry) {
-      // we assume non-indexed geometry
-      if (geometry.index === null) {
-        var positionAttribute = geometry.attributes.position;
-        var lineDistances = [];
-
-        for (var _i148 = 0, l = positionAttribute.count; _i148 < l; _i148 += 2) {
-          _start.fromBufferAttribute(positionAttribute, _i148);
-
-          _end.fromBufferAttribute(positionAttribute, _i148 + 1);
-
-          lineDistances[_i148] = _i148 === 0 ? 0 : lineDistances[_i148 - 1];
-          lineDistances[_i148 + 1] = lineDistances[_i148] + _start.distanceTo(_end);
+            for (var m = 0, ml = morphAttribute.length; m < ml; m++) {
+              var name = morphAttribute[m].name || String(m);
+              this.morphTargetInfluences.push(0);
+              this.morphTargetDictionary[name] = m;
+            }
+          }
         }
-
-        geometry.setAttribute('lineDistance', new Float32BufferAttribute(lineDistances, 1));
       } else {
-        console.warn('THREE.LineSegments.computeLineDistances(): Computation only possible with non-indexed BufferGeometry.');
+        var morphTargets = geometry.morphTargets;
+
+        if (morphTargets !== undefined && morphTargets.length > 0) {
+          console.error('THREE.Line.updateMorphTargets() does not support THREE.Geometry. Use THREE.BufferGeometry instead.');
+        }
       }
-    } else if (geometry.isGeometry) {
-      console.error('THREE.LineSegments.computeLineDistances() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
     }
+  }]);
 
-    return this;
+  return Line;
+}(Object3D);
+
+Line.prototype.isLine = true;
+
+var _start = /*@__PURE__*/new Vector3();
+
+var _end = /*@__PURE__*/new Vector3();
+
+var LineSegments = /*#__PURE__*/function (_Line) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineSegments, _Line);
+
+  var _super44 = _createSuper(LineSegments);
+
+  function LineSegments(geometry, material) {
+    var _this34;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineSegments);
+
+    _this34 = _super44.call(this, geometry, material);
+    _this34.type = 'LineSegments';
+    return _this34;
   }
-});
 
-var LineLoop = /*#__PURE__*/function (_Line) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineLoop, _Line);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineSegments, [{
+    key: "computeLineDistances",
+    value: function computeLineDistances() {
+      var geometry = this.geometry;
 
-  var _super23 = _createSuper(LineLoop);
+      if (geometry.isBufferGeometry) {
+        // we assume non-indexed geometry
+        if (geometry.index === null) {
+          var positionAttribute = geometry.attributes.position;
+          var lineDistances = [];
+
+          for (var _i148 = 0, l = positionAttribute.count; _i148 < l; _i148 += 2) {
+            _start.fromBufferAttribute(positionAttribute, _i148);
+
+            _end.fromBufferAttribute(positionAttribute, _i148 + 1);
+
+            lineDistances[_i148] = _i148 === 0 ? 0 : lineDistances[_i148 - 1];
+            lineDistances[_i148 + 1] = lineDistances[_i148] + _start.distanceTo(_end);
+          }
+
+          geometry.setAttribute('lineDistance', new Float32BufferAttribute(lineDistances, 1));
+        } else {
+          console.warn('THREE.LineSegments.computeLineDistances(): Computation only possible with non-indexed BufferGeometry.');
+        }
+      } else if (geometry.isGeometry) {
+        console.error('THREE.LineSegments.computeLineDistances() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
+      }
+
+      return this;
+    }
+  }]);
+
+  return LineSegments;
+}(Line);
+
+LineSegments.prototype.isLineSegments = true;
+
+var LineLoop = /*#__PURE__*/function (_Line2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineLoop, _Line2);
+
+  var _super45 = _createSuper(LineLoop);
 
   function LineLoop(geometry, material) {
-    var _this23;
+    var _this35;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineLoop);
 
-    _this23 = _super23.call(this, geometry, material);
-    _this23.type = 'LineLoop';
-    return _this23;
+    _this35 = _super45.call(this, geometry, material);
+    _this35.type = 'LineLoop';
+    return _this35;
   }
 
   return LineLoop;
@@ -21148,28 +21863,28 @@ LineLoop.prototype.isLineLoop = true;
  * }
  */
 
-var PointsMaterial = /*#__PURE__*/function (_Material6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointsMaterial, _Material6);
+var PointsMaterial = /*#__PURE__*/function (_Material7) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointsMaterial, _Material7);
 
-  var _super24 = _createSuper(PointsMaterial);
+  var _super46 = _createSuper(PointsMaterial);
 
   function PointsMaterial(parameters) {
-    var _this24;
+    var _this36;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointsMaterial);
 
-    _this24 = _super24.call(this);
-    _this24.type = 'PointsMaterial';
-    _this24.color = new Color(0xffffff);
-    _this24.map = null;
-    _this24.alphaMap = null;
-    _this24.size = 1;
-    _this24.sizeAttenuation = true;
-    _this24.morphTargets = false;
+    _this36 = _super46.call(this);
+    _this36.type = 'PointsMaterial';
+    _this36.color = new Color(0xffffff);
+    _this36.map = null;
+    _this36.alphaMap = null;
+    _this36.size = 1;
+    _this36.sizeAttenuation = true;
+    _this36.morphTargets = false;
 
-    _this24.setValues(parameters);
+    _this36.setValues(parameters);
 
-    return _this24;
+    return _this36;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointsMaterial, [{
@@ -21192,116 +21907,138 @@ var PointsMaterial = /*#__PURE__*/function (_Material6) {
 
 PointsMaterial.prototype.isPointsMaterial = true;
 
-var _inverseMatrix = new Matrix4();
+var _inverseMatrix = /*@__PURE__*/new Matrix4();
 
-var _ray = new Ray();
+var _ray = /*@__PURE__*/new Ray();
 
-var _sphere = new Sphere();
+var _sphere = /*@__PURE__*/new Sphere();
 
-var _position$2 = new Vector3();
+var _position$2 = /*@__PURE__*/new Vector3();
 
-function Points() {
-  var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
-  var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new PointsMaterial();
-  Object3D.call(this);
-  this.type = 'Points';
-  this.geometry = geometry;
-  this.material = material;
-  this.updateMorphTargets();
-}
+var Points = /*#__PURE__*/function (_Object3D10) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Points, _Object3D10);
 
-Points.prototype = Object.assign(Object.create(Object3D.prototype), {
-  constructor: Points,
-  isPoints: true,
-  copy: function copy(source) {
-    Object3D.prototype.copy.call(this, source);
-    this.material = source.material;
-    this.geometry = source.geometry;
-    return this;
-  },
-  raycast: function raycast(raycaster, intersects) {
-    var geometry = this.geometry;
-    var matrixWorld = this.matrixWorld;
-    var threshold = raycaster.params.Points.threshold;
-    var drawRange = geometry.drawRange; // Checking boundingSphere distance to ray
+  var _super47 = _createSuper(Points);
 
-    if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
+  function Points() {
+    var _this37;
 
-    _sphere.copy(geometry.boundingSphere);
+    var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
+    var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new PointsMaterial();
 
-    _sphere.applyMatrix4(matrixWorld);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Points);
 
-    _sphere.radius += threshold;
-    if (raycaster.ray.intersectsSphere(_sphere) === false) return; //
+    _this37 = _super47.call(this);
+    _this37.type = 'Points';
+    _this37.geometry = geometry;
+    _this37.material = material;
 
-    _inverseMatrix.copy(matrixWorld).invert();
+    _this37.updateMorphTargets();
 
-    _ray.copy(raycaster.ray).applyMatrix4(_inverseMatrix);
+    return _this37;
+  }
 
-    var localThreshold = threshold / ((this.scale.x + this.scale.y + this.scale.z) / 3);
-    var localThresholdSq = localThreshold * localThreshold;
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Points, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Points.prototype), "copy", this).call(this, source);
 
-    if (geometry.isBufferGeometry) {
-      var index = geometry.index;
-      var attributes = geometry.attributes;
-      var positionAttribute = attributes.position;
-
-      if (index !== null) {
-        var start = Math.max(0, drawRange.start);
-        var end = Math.min(index.count, drawRange.start + drawRange.count);
-
-        for (var _i149 = start, il = end; _i149 < il; _i149++) {
-          var a = index.getX(_i149);
-
-          _position$2.fromBufferAttribute(positionAttribute, a);
-
-          testPoint(_position$2, a, localThresholdSq, matrixWorld, raycaster, intersects, this);
-        }
-      } else {
-        var _start7 = Math.max(0, drawRange.start);
-
-        var _end6 = Math.min(positionAttribute.count, drawRange.start + drawRange.count);
-
-        for (var _i150 = _start7, l = _end6; _i150 < l; _i150++) {
-          _position$2.fromBufferAttribute(positionAttribute, _i150);
-
-          testPoint(_position$2, _i150, localThresholdSq, matrixWorld, raycaster, intersects, this);
-        }
-      }
-    } else {
-      console.error('THREE.Points.raycast() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
+      this.material = source.material;
+      this.geometry = source.geometry;
+      return this;
     }
-  },
-  updateMorphTargets: function updateMorphTargets() {
-    var geometry = this.geometry;
+  }, {
+    key: "raycast",
+    value: function raycast(raycaster, intersects) {
+      var geometry = this.geometry;
+      var matrixWorld = this.matrixWorld;
+      var threshold = raycaster.params.Points.threshold;
+      var drawRange = geometry.drawRange; // Checking boundingSphere distance to ray
 
-    if (geometry.isBufferGeometry) {
-      var morphAttributes = geometry.morphAttributes;
-      var keys = Object.keys(morphAttributes);
+      if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
 
-      if (keys.length > 0) {
-        var morphAttribute = morphAttributes[keys[0]];
+      _sphere.copy(geometry.boundingSphere);
 
-        if (morphAttribute !== undefined) {
-          this.morphTargetInfluences = [];
-          this.morphTargetDictionary = {};
+      _sphere.applyMatrix4(matrixWorld);
 
-          for (var m = 0, ml = morphAttribute.length; m < ml; m++) {
-            var name = morphAttribute[m].name || String(m);
-            this.morphTargetInfluences.push(0);
-            this.morphTargetDictionary[name] = m;
+      _sphere.radius += threshold;
+      if (raycaster.ray.intersectsSphere(_sphere) === false) return; //
+
+      _inverseMatrix.copy(matrixWorld).invert();
+
+      _ray.copy(raycaster.ray).applyMatrix4(_inverseMatrix);
+
+      var localThreshold = threshold / ((this.scale.x + this.scale.y + this.scale.z) / 3);
+      var localThresholdSq = localThreshold * localThreshold;
+
+      if (geometry.isBufferGeometry) {
+        var index = geometry.index;
+        var attributes = geometry.attributes;
+        var positionAttribute = attributes.position;
+
+        if (index !== null) {
+          var start = Math.max(0, drawRange.start);
+          var end = Math.min(index.count, drawRange.start + drawRange.count);
+
+          for (var _i149 = start, il = end; _i149 < il; _i149++) {
+            var a = index.getX(_i149);
+
+            _position$2.fromBufferAttribute(positionAttribute, a);
+
+            testPoint(_position$2, a, localThresholdSq, matrixWorld, raycaster, intersects, this);
+          }
+        } else {
+          var _start7 = Math.max(0, drawRange.start);
+
+          var _end6 = Math.min(positionAttribute.count, drawRange.start + drawRange.count);
+
+          for (var _i150 = _start7, l = _end6; _i150 < l; _i150++) {
+            _position$2.fromBufferAttribute(positionAttribute, _i150);
+
+            testPoint(_position$2, _i150, localThresholdSq, matrixWorld, raycaster, intersects, this);
           }
         }
-      }
-    } else {
-      var morphTargets = geometry.morphTargets;
-
-      if (morphTargets !== undefined && morphTargets.length > 0) {
-        console.error('THREE.Points.updateMorphTargets() does not support THREE.Geometry. Use THREE.BufferGeometry instead.');
+      } else {
+        console.error('THREE.Points.raycast() no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
       }
     }
-  }
-});
+  }, {
+    key: "updateMorphTargets",
+    value: function updateMorphTargets() {
+      var geometry = this.geometry;
+
+      if (geometry.isBufferGeometry) {
+        var morphAttributes = geometry.morphAttributes;
+        var keys = Object.keys(morphAttributes);
+
+        if (keys.length > 0) {
+          var morphAttribute = morphAttributes[keys[0]];
+
+          if (morphAttribute !== undefined) {
+            this.morphTargetInfluences = [];
+            this.morphTargetDictionary = {};
+
+            for (var m = 0, ml = morphAttribute.length; m < ml; m++) {
+              var name = morphAttribute[m].name || String(m);
+              this.morphTargetInfluences.push(0);
+              this.morphTargetDictionary[name] = m;
+            }
+          }
+        }
+      } else {
+        var morphTargets = geometry.morphTargets;
+
+        if (morphTargets !== undefined && morphTargets.length > 0) {
+          console.error('THREE.Points.updateMorphTargets() does not support THREE.Geometry. Use THREE.BufferGeometry instead.');
+        }
+      }
+    }
+  }]);
+
+  return Points;
+}(Object3D);
+
+Points.prototype.isPoints = true;
 
 function testPoint(point, index, localThresholdSq, matrixWorld, raycaster, intersects, object) {
   var rayPointDistanceSq = _ray.distanceSqToPoint(point);
@@ -21328,20 +22065,20 @@ function testPoint(point, index, localThresholdSq, matrixWorld, raycaster, inter
 var VideoTexture = /*#__PURE__*/function (_Texture5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VideoTexture, _Texture5);
 
-  var _super25 = _createSuper(VideoTexture);
+  var _super48 = _createSuper(VideoTexture);
 
   function VideoTexture(video, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy) {
-    var _this25;
+    var _this38;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, VideoTexture);
 
-    _this25 = _super25.call(this, video, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
-    _this25.format = format !== undefined ? format : RGBFormat;
-    _this25.minFilter = minFilter !== undefined ? minFilter : LinearFilter;
-    _this25.magFilter = magFilter !== undefined ? magFilter : LinearFilter;
-    _this25.generateMipmaps = false;
+    _this38 = _super48.call(this, video, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+    _this38.format = format !== undefined ? format : RGBFormat;
+    _this38.minFilter = minFilter !== undefined ? minFilter : LinearFilter;
+    _this38.magFilter = magFilter !== undefined ? magFilter : LinearFilter;
+    _this38.generateMipmaps = false;
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this25);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this38);
 
     function updateVideo() {
       scope.needsUpdate = true;
@@ -21352,7 +22089,7 @@ var VideoTexture = /*#__PURE__*/function (_Texture5) {
       video.requestVideoFrameCallback(updateVideo);
     }
 
-    return _this25;
+    return _this38;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(VideoTexture, [{
@@ -21380,26 +22117,26 @@ VideoTexture.prototype.isVideoTexture = true;
 var CompressedTexture = /*#__PURE__*/function (_Texture6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CompressedTexture, _Texture6);
 
-  var _super26 = _createSuper(CompressedTexture);
+  var _super49 = _createSuper(CompressedTexture);
 
   function CompressedTexture(mipmaps, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding) {
-    var _this26;
+    var _this39;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CompressedTexture);
 
-    _this26 = _super26.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
-    _this26.image = {
+    _this39 = _super49.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
+    _this39.image = {
       width: width,
       height: height
     };
-    _this26.mipmaps = mipmaps; // no flipping for cube textures
+    _this39.mipmaps = mipmaps; // no flipping for cube textures
     // (also flipping doesn't work for compressed textures )
 
-    _this26.flipY = false; // can't generate mipmaps for compressed textures
+    _this39.flipY = false; // can't generate mipmaps for compressed textures
     // mips must be embedded in DDS files
 
-    _this26.generateMipmaps = false;
-    return _this26;
+    _this39.generateMipmaps = false;
+    return _this39;
   }
 
   return CompressedTexture;
@@ -21410,16 +22147,16 @@ CompressedTexture.prototype.isCompressedTexture = true;
 var CanvasTexture = /*#__PURE__*/function (_Texture7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CanvasTexture, _Texture7);
 
-  var _super27 = _createSuper(CanvasTexture);
+  var _super50 = _createSuper(CanvasTexture);
 
   function CanvasTexture(canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy) {
-    var _this27;
+    var _this40;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CanvasTexture);
 
-    _this27 = _super27.call(this, canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
-    _this27.needsUpdate = true;
-    return _this27;
+    _this40 = _super50.call(this, canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+    _this40.needsUpdate = true;
+    return _this40;
   }
 
   return CanvasTexture;
@@ -21430,10 +22167,10 @@ CanvasTexture.prototype.isCanvasTexture = true;
 var DepthTexture = /*#__PURE__*/function (_Texture8) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DepthTexture, _Texture8);
 
-  var _super28 = _createSuper(DepthTexture);
+  var _super51 = _createSuper(DepthTexture);
 
   function DepthTexture(width, height, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, format) {
-    var _this28;
+    var _this41;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DepthTexture);
 
@@ -21445,16 +22182,16 @@ var DepthTexture = /*#__PURE__*/function (_Texture8) {
 
     if (type === undefined && format === DepthFormat) type = UnsignedShortType;
     if (type === undefined && format === DepthStencilFormat) type = UnsignedInt248Type;
-    _this28 = _super28.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
-    _this28.image = {
+    _this41 = _super51.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+    _this41.image = {
       width: width,
       height: height
     };
-    _this28.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
-    _this28.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
-    _this28.flipY = false;
-    _this28.generateMipmaps = false;
-    return _this28;
+    _this41.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
+    _this41.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
+    _this41.flipY = false;
+    _this41.generateMipmaps = false;
+    return _this41;
   }
 
   return DepthTexture;
@@ -21465,10 +22202,10 @@ DepthTexture.prototype.isDepthTexture = true;
 var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CircleGeometry, _BufferGeometry3);
 
-  var _super29 = _createSuper(CircleGeometry);
+  var _super52 = _createSuper(CircleGeometry);
 
   function CircleGeometry() {
-    var _this29;
+    var _this42;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var segments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
@@ -21477,9 +22214,9 @@ var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CircleGeometry);
 
-    _this29 = _super29.call(this);
-    _this29.type = 'CircleGeometry';
-    _this29.parameters = {
+    _this42 = _super52.call(this);
+    _this42.type = 'CircleGeometry';
+    _this42.parameters = {
       radius: radius,
       segments: segments,
       thetaStart: thetaStart,
@@ -21519,15 +22256,15 @@ var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
     } // build geometry
 
 
-    _this29.setIndex(indices);
+    _this42.setIndex(indices);
 
-    _this29.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this42.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this29.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this42.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this29.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this42.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this29;
+    return _this42;
   }
 
   return CircleGeometry;
@@ -21536,10 +22273,10 @@ var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
 var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CylinderGeometry, _BufferGeometry4);
 
-  var _super30 = _createSuper(CylinderGeometry);
+  var _super53 = _createSuper(CylinderGeometry);
 
   function CylinderGeometry() {
-    var _this30;
+    var _this43;
 
     var radiusTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var radiusBottom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -21552,9 +22289,9 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CylinderGeometry);
 
-    _this30 = _super30.call(this);
-    _this30.type = 'CylinderGeometry';
-    _this30.parameters = {
+    _this43 = _super53.call(this);
+    _this43.type = 'CylinderGeometry';
+    _this43.parameters = {
       radiusTop: radiusTop,
       radiusBottom: radiusBottom,
       height: height,
@@ -21565,7 +22302,7 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
       thetaLength: thetaLength
     };
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this30);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this43);
 
     radialSegments = Math.floor(radialSegments);
     heightSegments = Math.floor(heightSegments); // buffers
@@ -21588,13 +22325,13 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
     } // build geometry
 
 
-    _this30.setIndex(indices);
+    _this43.setIndex(indices);
 
-    _this30.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this43.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this30.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this43.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this30.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this43.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
     function generateTorso() {
       var normal = new Vector3();
@@ -21722,7 +22459,7 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
       groupStart += groupCount;
     }
 
-    return _this30;
+    return _this43;
   }
 
   return CylinderGeometry;
@@ -21731,10 +22468,10 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
 var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ConeGeometry, _CylinderGeometry);
 
-  var _super31 = _createSuper(ConeGeometry);
+  var _super54 = _createSuper(ConeGeometry);
 
   function ConeGeometry() {
-    var _this31;
+    var _this44;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -21746,9 +22483,9 @@ var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ConeGeometry);
 
-    _this31 = _super31.call(this, 0, radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
-    _this31.type = 'ConeGeometry';
-    _this31.parameters = {
+    _this44 = _super54.call(this, 0, radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
+    _this44.type = 'ConeGeometry';
+    _this44.parameters = {
       radius: radius,
       height: height,
       radialSegments: radialSegments,
@@ -21757,7 +22494,7 @@ var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
       thetaStart: thetaStart,
       thetaLength: thetaLength
     };
-    return _this31;
+    return _this44;
   }
 
   return ConeGeometry;
@@ -21766,19 +22503,19 @@ var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
 var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PolyhedronGeometry, _BufferGeometry5);
 
-  var _super32 = _createSuper(PolyhedronGeometry);
+  var _super55 = _createSuper(PolyhedronGeometry);
 
   function PolyhedronGeometry(vertices, indices) {
-    var _this32;
+    var _this45;
 
     var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var detail = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PolyhedronGeometry);
 
-    _this32 = _super32.call(this);
-    _this32.type = 'PolyhedronGeometry';
-    _this32.parameters = {
+    _this45 = _super55.call(this);
+    _this45.type = 'PolyhedronGeometry';
+    _this45.parameters = {
       vertices: vertices,
       indices: indices,
       radius: radius,
@@ -21794,17 +22531,17 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
 
     generateUVs(); // build non-indexed geometry
 
-    _this32.setAttribute('position', new Float32BufferAttribute(vertexBuffer, 3));
+    _this45.setAttribute('position', new Float32BufferAttribute(vertexBuffer, 3));
 
-    _this32.setAttribute('normal', new Float32BufferAttribute(vertexBuffer.slice(), 3));
+    _this45.setAttribute('normal', new Float32BufferAttribute(vertexBuffer.slice(), 3));
 
-    _this32.setAttribute('uv', new Float32BufferAttribute(uvBuffer, 2));
+    _this45.setAttribute('uv', new Float32BufferAttribute(uvBuffer, 2));
 
     if (detail === 0) {
-      _this32.computeVertexNormals(); // flat normals
+      _this45.computeVertexNormals(); // flat normals
 
     } else {
-      _this32.normalizeNormals(); // smooth normals
+      _this45.normalizeNormals(); // smooth normals
 
     } // helper functions
 
@@ -21965,7 +22702,7 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
       return Math.atan2(-vector.y, Math.sqrt(vector.x * vector.x + vector.z * vector.z));
     }
 
-    return _this32;
+    return _this45;
   }
 
   return PolyhedronGeometry;
@@ -21974,10 +22711,10 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
 var DodecahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DodecahedronGeometry, _PolyhedronGeometry);
 
-  var _super33 = _createSuper(DodecahedronGeometry);
+  var _super56 = _createSuper(DodecahedronGeometry);
 
   function DodecahedronGeometry() {
-    var _this33;
+    var _this46;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -21992,13 +22729,13 @@ var DodecahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry) {
     -r, -t, 0, -r, t, 0, r, -t, 0, r, t, 0, // (±φ, 0, ±1/φ)
     -t, 0, -r, t, 0, -r, -t, 0, r, t, 0, r];
     var indices = [3, 11, 7, 3, 7, 15, 3, 15, 13, 7, 19, 17, 7, 17, 6, 7, 6, 15, 17, 4, 8, 17, 8, 10, 17, 10, 6, 8, 0, 16, 8, 16, 2, 8, 2, 10, 0, 12, 1, 0, 1, 18, 0, 18, 16, 6, 10, 2, 6, 2, 13, 6, 13, 15, 2, 16, 18, 2, 18, 3, 2, 3, 13, 18, 1, 9, 18, 9, 11, 18, 11, 3, 4, 14, 12, 4, 12, 0, 4, 0, 8, 11, 9, 5, 11, 5, 19, 11, 19, 7, 19, 5, 14, 19, 14, 4, 19, 4, 17, 1, 12, 14, 1, 14, 5, 1, 5, 9];
-    _this33 = _super33.call(this, vertices, indices, radius, detail);
-    _this33.type = 'DodecahedronGeometry';
-    _this33.parameters = {
+    _this46 = _super56.call(this, vertices, indices, radius, detail);
+    _this46.type = 'DodecahedronGeometry';
+    _this46.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this33;
+    return _this46;
   }
 
   return DodecahedronGeometry;
@@ -22015,28 +22752,28 @@ var _triangle = new Triangle();
 var EdgesGeometry = /*#__PURE__*/function (_BufferGeometry6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EdgesGeometry, _BufferGeometry6);
 
-  var _super34 = _createSuper(EdgesGeometry);
+  var _super57 = _createSuper(EdgesGeometry);
 
   function EdgesGeometry(geometry, thresholdAngle) {
-    var _this34;
+    var _this47;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, EdgesGeometry);
 
-    _this34 = _super34.call(this);
-    _this34.type = 'EdgesGeometry';
-    _this34.parameters = {
+    _this47 = _super57.call(this);
+    _this47.type = 'EdgesGeometry';
+    _this47.parameters = {
       thresholdAngle: thresholdAngle
     };
     thresholdAngle = thresholdAngle !== undefined ? thresholdAngle : 1;
 
     if (geometry.isGeometry === true) {
       console.error('THREE.EdgesGeometry no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this34);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this47);
     }
 
     var precisionPoints = 4;
     var precision = Math.pow(10, precisionPoints);
-    var thresholdDot = Math.cos(MathUtils.DEG2RAD * thresholdAngle);
+    var thresholdDot = Math.cos(DEG2RAD * thresholdAngle);
     var indexAttr = geometry.getIndex();
     var positionAttr = geometry.getAttribute('position');
     var indexCount = indexAttr ? indexAttr.count : positionAttr.count;
@@ -22122,9 +22859,9 @@ var EdgesGeometry = /*#__PURE__*/function (_BufferGeometry6) {
       }
     }
 
-    _this34.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this47.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    return _this34;
+    return _this47;
   }
 
   return EdgesGeometry;
@@ -22722,50 +23459,63 @@ function signedArea(data, start, end, dim) {
   return sum;
 }
 
-var ShapeUtils = {
-  // calculate area of the contour polygon
-  area: function area(contour) {
-    var n = contour.length;
-    var a = 0.0;
-
-    for (var p = n - 1, q = 0; q < n; p = q++) {
-      a += contour[p].x * contour[q].y - contour[q].x * contour[p].y;
-    }
-
-    return a * 0.5;
-  },
-  isClockWise: function isClockWise(pts) {
-    return ShapeUtils.area(pts) < 0;
-  },
-  triangulateShape: function triangulateShape(contour, holes) {
-    var vertices = []; // flat array of vertices like [ x0,y0, x1,y1, x2,y2, ... ]
-
-    var holeIndices = []; // array of hole indices
-
-    var faces = []; // final array of vertex indices like [ [ a,b,d ], [ b,c,d ] ]
-
-    removeDupEndPts(contour);
-    addContour(vertices, contour); //
-
-    var holeIndex = contour.length;
-    holes.forEach(removeDupEndPts);
-
-    for (var _i164 = 0; _i164 < holes.length; _i164++) {
-      holeIndices.push(holeIndex);
-      holeIndex += holes[_i164].length;
-      addContour(vertices, holes[_i164]);
-    } //
-
-
-    var triangles = Earcut.triangulate(vertices, holeIndices); //
-
-    for (var _i165 = 0; _i165 < triangles.length; _i165 += 3) {
-      faces.push(triangles.slice(_i165, _i165 + 3));
-    }
-
-    return faces;
+var ShapeUtils = /*#__PURE__*/function () {
+  function ShapeUtils() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShapeUtils);
   }
-};
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShapeUtils, null, [{
+    key: "area",
+    value: // calculate area of the contour polygon
+    function area(contour) {
+      var n = contour.length;
+      var a = 0.0;
+
+      for (var p = n - 1, q = 0; q < n; p = q++) {
+        a += contour[p].x * contour[q].y - contour[q].x * contour[p].y;
+      }
+
+      return a * 0.5;
+    }
+  }, {
+    key: "isClockWise",
+    value: function isClockWise(pts) {
+      return ShapeUtils.area(pts) < 0;
+    }
+  }, {
+    key: "triangulateShape",
+    value: function triangulateShape(contour, holes) {
+      var vertices = []; // flat array of vertices like [ x0,y0, x1,y1, x2,y2, ... ]
+
+      var holeIndices = []; // array of hole indices
+
+      var faces = []; // final array of vertex indices like [ [ a,b,d ], [ b,c,d ] ]
+
+      removeDupEndPts(contour);
+      addContour(vertices, contour); //
+
+      var holeIndex = contour.length;
+      holes.forEach(removeDupEndPts);
+
+      for (var _i164 = 0; _i164 < holes.length; _i164++) {
+        holeIndices.push(holeIndex);
+        holeIndex += holes[_i164].length;
+        addContour(vertices, holes[_i164]);
+      } //
+
+
+      var triangles = Earcut.triangulate(vertices, holeIndices); //
+
+      for (var _i165 = 0; _i165 < triangles.length; _i165 += 3) {
+        faces.push(triangles.slice(_i165, _i165 + 3));
+      }
+
+      return faces;
+    }
+  }]);
+
+  return ShapeUtils;
+}();
 
 function removeDupEndPts(points) {
   var l = points.length;
@@ -22807,22 +23557,22 @@ function addContour(vertices, contour) {
 var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ExtrudeGeometry, _BufferGeometry7);
 
-  var _super35 = _createSuper(ExtrudeGeometry);
+  var _super58 = _createSuper(ExtrudeGeometry);
 
   function ExtrudeGeometry(shapes, options) {
-    var _this35;
+    var _this48;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ExtrudeGeometry);
 
-    _this35 = _super35.call(this);
-    _this35.type = 'ExtrudeGeometry';
-    _this35.parameters = {
+    _this48 = _super58.call(this);
+    _this48.type = 'ExtrudeGeometry';
+    _this48.parameters = {
       shapes: shapes,
       options: options
     };
     shapes = Array.isArray(shapes) ? shapes : [shapes];
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this35);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this48);
 
     var verticesArray = [];
     var uvArray = [];
@@ -22833,11 +23583,11 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
     } // build geometry
 
 
-    _this35.setAttribute('position', new Float32BufferAttribute(verticesArray, 3));
+    _this48.setAttribute('position', new Float32BufferAttribute(verticesArray, 3));
 
-    _this35.setAttribute('uv', new Float32BufferAttribute(uvArray, 2));
+    _this48.setAttribute('uv', new Float32BufferAttribute(uvArray, 2));
 
-    _this35.computeVertexNormals(); // functions
+    _this48.computeVertexNormals(); // functions
 
 
     function addShape(shape) {
@@ -23255,7 +24005,7 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
       }
     }
 
-    return _this35;
+    return _this48;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ExtrudeGeometry, [{
@@ -23322,10 +24072,10 @@ function toJSON$1(shapes, options, data) {
 var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(IcosahedronGeometry, _PolyhedronGeometry2);
 
-  var _super36 = _createSuper(IcosahedronGeometry);
+  var _super59 = _createSuper(IcosahedronGeometry);
 
   function IcosahedronGeometry() {
-    var _this36;
+    var _this49;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -23335,13 +24085,13 @@ var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
     var t = (1 + Math.sqrt(5)) / 2;
     var vertices = [-1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, 0, 0, -1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, t, 0, -1, t, 0, 1, -t, 0, -1, -t, 0, 1];
     var indices = [0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1];
-    _this36 = _super36.call(this, vertices, indices, radius, detail);
-    _this36.type = 'IcosahedronGeometry';
-    _this36.parameters = {
+    _this49 = _super59.call(this, vertices, indices, radius, detail);
+    _this49.type = 'IcosahedronGeometry';
+    _this49.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this36;
+    return _this49;
   }
 
   return IcosahedronGeometry;
@@ -23350,10 +24100,10 @@ var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
 var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LatheGeometry, _BufferGeometry8);
 
-  var _super37 = _createSuper(LatheGeometry);
+  var _super60 = _createSuper(LatheGeometry);
 
   function LatheGeometry(points) {
-    var _this37;
+    var _this50;
 
     var segments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
     var phiStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -23361,9 +24111,9 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LatheGeometry);
 
-    _this37 = _super37.call(this);
-    _this37.type = 'LatheGeometry';
-    _this37.parameters = {
+    _this50 = _super60.call(this);
+    _this50.type = 'LatheGeometry';
+    _this50.parameters = {
       points: points,
       segments: segments,
       phiStart: phiStart,
@@ -23371,7 +24121,7 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
     };
     segments = Math.floor(segments); // clamp phiLength so it's in range of [ 0, 2PI ]
 
-    phiLength = MathUtils.clamp(phiLength, 0, Math.PI * 2); // buffers
+    phiLength = clamp(phiLength, 0, Math.PI * 2); // buffers
 
     var indices = [];
     var vertices = [];
@@ -23414,19 +24164,19 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
     } // build geometry
 
 
-    _this37.setIndex(indices);
+    _this50.setIndex(indices);
 
-    _this37.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this50.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this37.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // generate normals
+    _this50.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // generate normals
 
 
-    _this37.computeVertexNormals(); // if the geometry is closed, we need to average the normals along the seam.
+    _this50.computeVertexNormals(); // if the geometry is closed, we need to average the normals along the seam.
     // because the corresponding vertices are identical (but still have different UVs).
 
 
     if (phiLength === Math.PI * 2) {
-      var normals = _this37.attributes.normal.array;
+      var normals = _this50.attributes.normal.array;
       var n1 = new Vector3();
       var n2 = new Vector3();
       var n = new Vector3(); // this is the buffer offset for the last line of vertices
@@ -23451,7 +24201,7 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
       }
     }
 
-    return _this37;
+    return _this50;
   }
 
   return LatheGeometry;
@@ -23460,10 +24210,10 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
 var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OctahedronGeometry, _PolyhedronGeometry3);
 
-  var _super38 = _createSuper(OctahedronGeometry);
+  var _super61 = _createSuper(OctahedronGeometry);
 
   function OctahedronGeometry() {
-    var _this38;
+    var _this51;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -23472,13 +24222,13 @@ var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
 
     var vertices = [1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1];
     var indices = [0, 2, 4, 0, 4, 3, 0, 3, 5, 0, 5, 2, 1, 2, 5, 1, 5, 3, 1, 3, 4, 1, 4, 2];
-    _this38 = _super38.call(this, vertices, indices, radius, detail);
-    _this38.type = 'OctahedronGeometry';
-    _this38.parameters = {
+    _this51 = _super61.call(this, vertices, indices, radius, detail);
+    _this51.type = 'OctahedronGeometry';
+    _this51.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this38;
+    return _this51;
   }
 
   return OctahedronGeometry;
@@ -23489,97 +24239,111 @@ var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
  */
 
 
-function ParametricGeometry(func, slices, stacks) {
-  BufferGeometry.call(this);
-  this.type = 'ParametricGeometry';
-  this.parameters = {
-    func: func,
-    slices: slices,
-    stacks: stacks
-  }; // buffers
+var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ParametricGeometry, _BufferGeometry9);
 
-  var indices = [];
-  var vertices = [];
-  var normals = [];
-  var uvs = [];
-  var EPS = 0.00001;
-  var normal = new Vector3();
-  var p0 = new Vector3(),
-      p1 = new Vector3();
-  var pu = new Vector3(),
-      pv = new Vector3();
+  var _super62 = _createSuper(ParametricGeometry);
 
-  if (func.length < 3) {
-    console.error('THREE.ParametricGeometry: Function must now modify a Vector3 as third parameter.');
-  } // generate vertices, normals and uvs
+  function ParametricGeometry(func, slices, stacks) {
+    var _this52;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ParametricGeometry);
+
+    _this52 = _super62.call(this);
+    _this52.type = 'ParametricGeometry';
+    _this52.parameters = {
+      func: func,
+      slices: slices,
+      stacks: stacks
+    }; // buffers
+
+    var indices = [];
+    var vertices = [];
+    var normals = [];
+    var uvs = [];
+    var EPS = 0.00001;
+    var normal = new Vector3();
+    var p0 = new Vector3(),
+        p1 = new Vector3();
+    var pu = new Vector3(),
+        pv = new Vector3();
+
+    if (func.length < 3) {
+      console.error('THREE.ParametricGeometry: Function must now modify a Vector3 as third parameter.');
+    } // generate vertices, normals and uvs
 
 
-  var sliceCount = slices + 1;
+    var sliceCount = slices + 1;
 
-  for (var _i184 = 0; _i184 <= stacks; _i184++) {
-    var v = _i184 / stacks;
+    for (var _i184 = 0; _i184 <= stacks; _i184++) {
+      var v = _i184 / stacks;
 
-    for (var j = 0; j <= slices; j++) {
-      var u = j / slices; // vertex
+      for (var j = 0; j <= slices; j++) {
+        var u = j / slices; // vertex
 
-      func(u, v, p0);
-      vertices.push(p0.x, p0.y, p0.z); // normal
-      // approximate tangent vectors via finite differences
+        func(u, v, p0);
+        vertices.push(p0.x, p0.y, p0.z); // normal
+        // approximate tangent vectors via finite differences
 
-      if (u - EPS >= 0) {
-        func(u - EPS, v, p1);
-        pu.subVectors(p0, p1);
-      } else {
-        func(u + EPS, v, p1);
-        pu.subVectors(p1, p0);
+        if (u - EPS >= 0) {
+          func(u - EPS, v, p1);
+          pu.subVectors(p0, p1);
+        } else {
+          func(u + EPS, v, p1);
+          pu.subVectors(p1, p0);
+        }
+
+        if (v - EPS >= 0) {
+          func(u, v - EPS, p1);
+          pv.subVectors(p0, p1);
+        } else {
+          func(u, v + EPS, p1);
+          pv.subVectors(p1, p0);
+        } // cross product of tangent vectors returns surface normal
+
+
+        normal.crossVectors(pu, pv).normalize();
+        normals.push(normal.x, normal.y, normal.z); // uv
+
+        uvs.push(u, v);
       }
-
-      if (v - EPS >= 0) {
-        func(u, v - EPS, p1);
-        pv.subVectors(p0, p1);
-      } else {
-        func(u, v + EPS, p1);
-        pv.subVectors(p1, p0);
-      } // cross product of tangent vectors returns surface normal
+    } // generate indices
 
 
-      normal.crossVectors(pu, pv).normalize();
-      normals.push(normal.x, normal.y, normal.z); // uv
+    for (var _i185 = 0; _i185 < stacks; _i185++) {
+      for (var _j10 = 0; _j10 < slices; _j10++) {
+        var a = _i185 * sliceCount + _j10;
+        var b = _i185 * sliceCount + _j10 + 1;
+        var c = (_i185 + 1) * sliceCount + _j10 + 1;
+        var d = (_i185 + 1) * sliceCount + _j10; // faces one and two
 
-      uvs.push(u, v);
-    }
-  } // generate indices
-
-
-  for (var _i185 = 0; _i185 < stacks; _i185++) {
-    for (var _j10 = 0; _j10 < slices; _j10++) {
-      var a = _i185 * sliceCount + _j10;
-      var b = _i185 * sliceCount + _j10 + 1;
-      var c = (_i185 + 1) * sliceCount + _j10 + 1;
-      var d = (_i185 + 1) * sliceCount + _j10; // faces one and two
-
-      indices.push(a, b, d);
-      indices.push(b, c, d);
-    }
-  } // build geometry
+        indices.push(a, b, d);
+        indices.push(b, c, d);
+      }
+    } // build geometry
 
 
-  this.setIndex(indices);
-  this.setAttribute('position', new Float32BufferAttribute(vertices, 3));
-  this.setAttribute('normal', new Float32BufferAttribute(normals, 3));
-  this.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
-}
+    _this52.setIndex(indices);
 
-ParametricGeometry.prototype = Object.create(BufferGeometry.prototype);
-ParametricGeometry.prototype.constructor = ParametricGeometry;
+    _this52.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-var RingGeometry = /*#__PURE__*/function (_BufferGeometry9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RingGeometry, _BufferGeometry9);
+    _this52.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-  var _super39 = _createSuper(RingGeometry);
+    _this52.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+
+    return _this52;
+  }
+
+  return ParametricGeometry;
+}(BufferGeometry);
+
+var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RingGeometry, _BufferGeometry10);
+
+  var _super63 = _createSuper(RingGeometry);
 
   function RingGeometry() {
-    var _this39;
+    var _this53;
 
     var innerRadius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0.5;
     var outerRadius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -23590,9 +24354,9 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry9) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, RingGeometry);
 
-    _this39 = _super39.call(this);
-    _this39.type = 'RingGeometry';
-    _this39.parameters = {
+    _this53 = _super63.call(this);
+    _this53.type = 'RingGeometry';
+    _this53.parameters = {
       innerRadius: innerRadius,
       outerRadius: outerRadius,
       thetaSegments: thetaSegments,
@@ -23651,35 +24415,35 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry9) {
     } // build geometry
 
 
-    _this39.setIndex(indices);
+    _this53.setIndex(indices);
 
-    _this39.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this53.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this39.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this53.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this39.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this53.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this39;
+    return _this53;
   }
 
   return RingGeometry;
 }(BufferGeometry);
 
-var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapeGeometry, _BufferGeometry10);
+var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapeGeometry, _BufferGeometry11);
 
-  var _super40 = _createSuper(ShapeGeometry);
+  var _super64 = _createSuper(ShapeGeometry);
 
   function ShapeGeometry(shapes) {
-    var _this40;
+    var _this54;
 
     var curveSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShapeGeometry);
 
-    _this40 = _super40.call(this);
-    _this40.type = 'ShapeGeometry';
-    _this40.parameters = {
+    _this54 = _super64.call(this);
+    _this54.type = 'ShapeGeometry';
+    _this54.parameters = {
       shapes: shapes,
       curveSegments: curveSegments
     }; // buffers
@@ -23698,7 +24462,7 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry10) {
       for (var _i188 = 0; _i188 < shapes.length; _i188++) {
         addShape(shapes[_i188]);
 
-        _this40.addGroup(groupStart, groupCount, _i188); // enables MultiMaterial support
+        _this54.addGroup(groupStart, groupCount, _i188); // enables MultiMaterial support
 
 
         groupStart += groupCount;
@@ -23707,13 +24471,13 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     } // build geometry
 
 
-    _this40.setIndex(indices);
+    _this54.setIndex(indices);
 
-    _this40.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this54.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this40.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this54.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this40.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // helper functions
+    _this54.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // helper functions
 
 
     function addShape(shape) {
@@ -23760,7 +24524,7 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry10) {
       }
     }
 
-    return _this40;
+    return _this54;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShapeGeometry, [{
@@ -23790,13 +24554,13 @@ function _toJSON(shapes, data) {
   return data;
 }
 
-var SphereGeometry = /*#__PURE__*/function (_BufferGeometry11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SphereGeometry, _BufferGeometry11);
+var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SphereGeometry, _BufferGeometry12);
 
-  var _super41 = _createSuper(SphereGeometry);
+  var _super65 = _createSuper(SphereGeometry);
 
   function SphereGeometry() {
-    var _this41;
+    var _this55;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var widthSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
@@ -23808,9 +24572,9 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry11) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SphereGeometry);
 
-    _this41 = _super41.call(this);
-    _this41.type = 'SphereGeometry';
-    _this41.parameters = {
+    _this55 = _super65.call(this);
+    _this55.type = 'SphereGeometry';
+    _this55.parameters = {
       radius: radius,
       widthSegments: widthSegments,
       heightSegments: heightSegments,
@@ -23875,15 +24639,15 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry11) {
     } // build geometry
 
 
-    _this41.setIndex(indices);
+    _this55.setIndex(indices);
 
-    _this41.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this55.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this41.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this55.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this41.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this55.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this41;
+    return _this55;
   }
 
   return SphereGeometry;
@@ -23892,10 +24656,10 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry11) {
 var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TetrahedronGeometry, _PolyhedronGeometry4);
 
-  var _super42 = _createSuper(TetrahedronGeometry);
+  var _super66 = _createSuper(TetrahedronGeometry);
 
   function TetrahedronGeometry() {
-    var _this42;
+    var _this56;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -23904,13 +24668,13 @@ var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
 
     var vertices = [1, 1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1];
     var indices = [2, 1, 0, 0, 3, 2, 1, 3, 0, 2, 3, 1];
-    _this42 = _super42.call(this, vertices, indices, radius, detail);
-    _this42.type = 'TetrahedronGeometry';
-    _this42.parameters = {
+    _this56 = _super66.call(this, vertices, indices, radius, detail);
+    _this56.type = 'TetrahedronGeometry';
+    _this56.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this42;
+    return _this56;
   }
 
   return TetrahedronGeometry;
@@ -23936,10 +24700,10 @@ var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
 var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TextGeometry, _ExtrudeGeometry);
 
-  var _super43 = _createSuper(TextGeometry);
+  var _super67 = _createSuper(TextGeometry);
 
   function TextGeometry(text) {
-    var _this43;
+    var _this57;
 
     var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -23949,7 +24713,7 @@ var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
 
     if (!(font && font.isFont)) {
       console.error('THREE.TextGeometry: font parameter is not an instance of THREE.Font.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this43, new BufferGeometry());
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this57, new BufferGeometry());
     }
 
     var shapes = font.generateShapes(text, parameters.size); // translate parameters to ExtrudeGeometry API
@@ -23959,21 +24723,21 @@ var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
     if (parameters.bevelThickness === undefined) parameters.bevelThickness = 10;
     if (parameters.bevelSize === undefined) parameters.bevelSize = 8;
     if (parameters.bevelEnabled === undefined) parameters.bevelEnabled = false;
-    _this43 = _super43.call(this, shapes, parameters);
-    _this43.type = 'TextGeometry';
-    return _this43;
+    _this57 = _super67.call(this, shapes, parameters);
+    _this57.type = 'TextGeometry';
+    return _this57;
   }
 
   return TextGeometry;
 }(ExtrudeGeometry);
 
-var TorusGeometry = /*#__PURE__*/function (_BufferGeometry12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusGeometry, _BufferGeometry12);
+var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusGeometry, _BufferGeometry13);
 
-  var _super44 = _createSuper(TorusGeometry);
+  var _super68 = _createSuper(TorusGeometry);
 
   function TorusGeometry() {
-    var _this44;
+    var _this58;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var tube = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.4;
@@ -23983,9 +24747,9 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry12) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TorusGeometry);
 
-    _this44 = _super44.call(this);
-    _this44.type = 'TorusGeometry';
-    _this44.parameters = {
+    _this58 = _super68.call(this);
+    _this58.type = 'TorusGeometry';
+    _this58.parameters = {
       radius: radius,
       tube: tube,
       radialSegments: radialSegments,
@@ -24039,27 +24803,27 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry12) {
     } // build geometry
 
 
-    _this44.setIndex(indices);
+    _this58.setIndex(indices);
 
-    _this44.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this58.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this44.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this58.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this44.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this58.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this44;
+    return _this58;
   }
 
   return TorusGeometry;
 }(BufferGeometry);
 
-var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry13) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusKnotGeometry, _BufferGeometry13);
+var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusKnotGeometry, _BufferGeometry14);
 
-  var _super45 = _createSuper(TorusKnotGeometry);
+  var _super69 = _createSuper(TorusKnotGeometry);
 
   function TorusKnotGeometry() {
-    var _this45;
+    var _this59;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var tube = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.4;
@@ -24070,9 +24834,9 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry13) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TorusKnotGeometry);
 
-    _this45 = _super45.call(this);
-    _this45.type = 'TorusKnotGeometry';
-    _this45.parameters = {
+    _this59 = _super69.call(this);
+    _this59.type = 'TorusKnotGeometry';
+    _this59.parameters = {
       radius: radius,
       tube: tube,
       tubularSegments: tubularSegments,
@@ -24148,13 +24912,13 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry13) {
     } // build geometry
 
 
-    _this45.setIndex(indices);
+    _this59.setIndex(indices);
 
-    _this45.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this59.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this45.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this59.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this45.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // this function calculates the current position on the torus curve
+    _this59.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // this function calculates the current position on the torus curve
 
 
     function calculatePositionOnCurve(u, p, q, radius, position) {
@@ -24167,19 +24931,19 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry13) {
       position.z = radius * Math.sin(quOverP) * 0.5;
     }
 
-    return _this45;
+    return _this59;
   }
 
   return TorusKnotGeometry;
 }(BufferGeometry);
 
-var TubeGeometry = /*#__PURE__*/function (_BufferGeometry14) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TubeGeometry, _BufferGeometry14);
+var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TubeGeometry, _BufferGeometry15);
 
-  var _super46 = _createSuper(TubeGeometry);
+  var _super70 = _createSuper(TubeGeometry);
 
   function TubeGeometry(path) {
-    var _this46;
+    var _this60;
 
     var tubularSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 64;
     var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
@@ -24188,9 +24952,9 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry14) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TubeGeometry);
 
-    _this46 = _super46.call(this);
-    _this46.type = 'TubeGeometry';
-    _this46.parameters = {
+    _this60 = _super70.call(this);
+    _this60.type = 'TubeGeometry';
+    _this60.parameters = {
       path: path,
       tubularSegments: tubularSegments,
       radius: radius,
@@ -24199,9 +24963,9 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry14) {
     };
     var frames = path.computeFrenetFrames(tubularSegments, closed); // expose internals
 
-    _this46.tangents = frames.tangents;
-    _this46.normals = frames.normals;
-    _this46.binormals = frames.binormals; // helper variables
+    _this60.tangents = frames.tangents;
+    _this60.normals = frames.normals;
+    _this60.binormals = frames.binormals; // helper variables
 
     var vertex = new Vector3();
     var normal = new Vector3();
@@ -24215,13 +24979,13 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry14) {
 
     generateBufferData(); // build geometry
 
-    _this46.setIndex(indices);
+    _this60.setIndex(indices);
 
-    _this46.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this60.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this46.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this60.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this46.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // functions
+    _this60.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // functions
 
 
     function generateBufferData() {
@@ -24290,7 +25054,7 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry14) {
       }
     }
 
-    return _this46;
+    return _this60;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(TubeGeometry, [{
@@ -24305,22 +25069,22 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry14) {
   return TubeGeometry;
 }(BufferGeometry);
 
-var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WireframeGeometry, _BufferGeometry15);
+var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WireframeGeometry, _BufferGeometry16);
 
-  var _super47 = _createSuper(WireframeGeometry);
+  var _super71 = _createSuper(WireframeGeometry);
 
   function WireframeGeometry(geometry) {
-    var _this47;
+    var _this61;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WireframeGeometry);
 
-    _this47 = _super47.call(this);
-    _this47.type = 'WireframeGeometry';
+    _this61 = _super71.call(this);
+    _this61.type = 'WireframeGeometry';
 
     if (geometry.isGeometry === true) {
       console.error('THREE.WireframeGeometry no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this47);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this61);
     } // buffer
 
 
@@ -24396,9 +25160,9 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
     } // build geometry
 
 
-    _this47.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this61.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    return _this47;
+    return _this61;
   }
 
   return WireframeGeometry;
@@ -24455,24 +25219,24 @@ var Geometries = /*#__PURE__*/Object.freeze({
  * }
  */
 
-var ShadowMaterial = /*#__PURE__*/function (_Material7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShadowMaterial, _Material7);
+var ShadowMaterial = /*#__PURE__*/function (_Material8) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShadowMaterial, _Material8);
 
-  var _super48 = _createSuper(ShadowMaterial);
+  var _super72 = _createSuper(ShadowMaterial);
 
   function ShadowMaterial(parameters) {
-    var _this48;
+    var _this62;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShadowMaterial);
 
-    _this48 = _super48.call(this);
-    _this48.type = 'ShadowMaterial';
-    _this48.color = new Color(0x000000);
-    _this48.transparent = true;
+    _this62 = _super72.call(this);
+    _this62.type = 'ShadowMaterial';
+    _this62.color = new Color(0x000000);
+    _this62.transparent = true;
 
-    _this48.setValues(parameters);
+    _this62.setValues(parameters);
 
-    return _this48;
+    return _this62;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShadowMaterial, [{
@@ -24493,16 +25257,16 @@ ShadowMaterial.prototype.isShadowMaterial = true;
 var RawShaderMaterial = /*#__PURE__*/function (_ShaderMaterial) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RawShaderMaterial, _ShaderMaterial);
 
-  var _super49 = _createSuper(RawShaderMaterial);
+  var _super73 = _createSuper(RawShaderMaterial);
 
   function RawShaderMaterial(parameters) {
-    var _this49;
+    var _this63;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, RawShaderMaterial);
 
-    _this49 = _super49.call(this, parameters);
-    _this49.type = 'RawShaderMaterial';
-    return _this49;
+    _this63 = _super73.call(this, parameters);
+    _this63.type = 'RawShaderMaterial';
+    return _this63;
   }
 
   return RawShaderMaterial;
@@ -24561,95 +25325,112 @@ RawShaderMaterial.prototype.isRawShaderMaterial = true;
  * }
  */
 
-function MeshStandardMaterial(parameters) {
-  Material.call(this);
-  this.defines = {
-    'STANDARD': ''
-  };
-  this.type = 'MeshStandardMaterial';
-  this.color = new Color(0xffffff); // diffuse
+var MeshStandardMaterial = /*#__PURE__*/function (_Material9) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshStandardMaterial, _Material9);
 
-  this.roughness = 1.0;
-  this.metalness = 0.0;
-  this.map = null;
-  this.lightMap = null;
-  this.lightMapIntensity = 1.0;
-  this.aoMap = null;
-  this.aoMapIntensity = 1.0;
-  this.emissive = new Color(0x000000);
-  this.emissiveIntensity = 1.0;
-  this.emissiveMap = null;
-  this.bumpMap = null;
-  this.bumpScale = 1;
-  this.normalMap = null;
-  this.normalMapType = TangentSpaceNormalMap;
-  this.normalScale = new Vector2(1, 1);
-  this.displacementMap = null;
-  this.displacementScale = 1;
-  this.displacementBias = 0;
-  this.roughnessMap = null;
-  this.metalnessMap = null;
-  this.alphaMap = null;
-  this.envMap = null;
-  this.envMapIntensity = 1.0;
-  this.refractionRatio = 0.98;
-  this.wireframe = false;
-  this.wireframeLinewidth = 1;
-  this.wireframeLinecap = 'round';
-  this.wireframeLinejoin = 'round';
-  this.skinning = false;
-  this.morphTargets = false;
-  this.morphNormals = false;
-  this.flatShading = false;
-  this.vertexTangents = false;
-  this.setValues(parameters);
-}
+  var _super74 = _createSuper(MeshStandardMaterial);
 
-MeshStandardMaterial.prototype = Object.create(Material.prototype);
-MeshStandardMaterial.prototype.constructor = MeshStandardMaterial;
+  function MeshStandardMaterial(parameters) {
+    var _this64;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshStandardMaterial);
+
+    _this64 = _super74.call(this);
+    _this64.defines = {
+      'STANDARD': ''
+    };
+    _this64.type = 'MeshStandardMaterial';
+    _this64.color = new Color(0xffffff); // diffuse
+
+    _this64.roughness = 1.0;
+    _this64.metalness = 0.0;
+    _this64.map = null;
+    _this64.lightMap = null;
+    _this64.lightMapIntensity = 1.0;
+    _this64.aoMap = null;
+    _this64.aoMapIntensity = 1.0;
+    _this64.emissive = new Color(0x000000);
+    _this64.emissiveIntensity = 1.0;
+    _this64.emissiveMap = null;
+    _this64.bumpMap = null;
+    _this64.bumpScale = 1;
+    _this64.normalMap = null;
+    _this64.normalMapType = TangentSpaceNormalMap;
+    _this64.normalScale = new Vector2(1, 1);
+    _this64.displacementMap = null;
+    _this64.displacementScale = 1;
+    _this64.displacementBias = 0;
+    _this64.roughnessMap = null;
+    _this64.metalnessMap = null;
+    _this64.alphaMap = null;
+    _this64.envMap = null;
+    _this64.envMapIntensity = 1.0;
+    _this64.refractionRatio = 0.98;
+    _this64.wireframe = false;
+    _this64.wireframeLinewidth = 1;
+    _this64.wireframeLinecap = 'round';
+    _this64.wireframeLinejoin = 'round';
+    _this64.skinning = false;
+    _this64.morphTargets = false;
+    _this64.morphNormals = false;
+    _this64.flatShading = false;
+    _this64.vertexTangents = false;
+
+    _this64.setValues(parameters);
+
+    return _this64;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshStandardMaterial, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshStandardMaterial.prototype), "copy", this).call(this, source);
+
+      this.defines = {
+        'STANDARD': ''
+      };
+      this.color.copy(source.color);
+      this.roughness = source.roughness;
+      this.metalness = source.metalness;
+      this.map = source.map;
+      this.lightMap = source.lightMap;
+      this.lightMapIntensity = source.lightMapIntensity;
+      this.aoMap = source.aoMap;
+      this.aoMapIntensity = source.aoMapIntensity;
+      this.emissive.copy(source.emissive);
+      this.emissiveMap = source.emissiveMap;
+      this.emissiveIntensity = source.emissiveIntensity;
+      this.bumpMap = source.bumpMap;
+      this.bumpScale = source.bumpScale;
+      this.normalMap = source.normalMap;
+      this.normalMapType = source.normalMapType;
+      this.normalScale.copy(source.normalScale);
+      this.displacementMap = source.displacementMap;
+      this.displacementScale = source.displacementScale;
+      this.displacementBias = source.displacementBias;
+      this.roughnessMap = source.roughnessMap;
+      this.metalnessMap = source.metalnessMap;
+      this.alphaMap = source.alphaMap;
+      this.envMap = source.envMap;
+      this.envMapIntensity = source.envMapIntensity;
+      this.refractionRatio = source.refractionRatio;
+      this.wireframe = source.wireframe;
+      this.wireframeLinewidth = source.wireframeLinewidth;
+      this.wireframeLinecap = source.wireframeLinecap;
+      this.wireframeLinejoin = source.wireframeLinejoin;
+      this.skinning = source.skinning;
+      this.morphTargets = source.morphTargets;
+      this.morphNormals = source.morphNormals;
+      this.flatShading = source.flatShading;
+      this.vertexTangents = source.vertexTangents;
+      return this;
+    }
+  }]);
+
+  return MeshStandardMaterial;
+}(Material);
+
 MeshStandardMaterial.prototype.isMeshStandardMaterial = true;
-
-MeshStandardMaterial.prototype.copy = function (source) {
-  Material.prototype.copy.call(this, source);
-  this.defines = {
-    'STANDARD': ''
-  };
-  this.color.copy(source.color);
-  this.roughness = source.roughness;
-  this.metalness = source.metalness;
-  this.map = source.map;
-  this.lightMap = source.lightMap;
-  this.lightMapIntensity = source.lightMapIntensity;
-  this.aoMap = source.aoMap;
-  this.aoMapIntensity = source.aoMapIntensity;
-  this.emissive.copy(source.emissive);
-  this.emissiveMap = source.emissiveMap;
-  this.emissiveIntensity = source.emissiveIntensity;
-  this.bumpMap = source.bumpMap;
-  this.bumpScale = source.bumpScale;
-  this.normalMap = source.normalMap;
-  this.normalMapType = source.normalMapType;
-  this.normalScale.copy(source.normalScale);
-  this.displacementMap = source.displacementMap;
-  this.displacementScale = source.displacementScale;
-  this.displacementBias = source.displacementBias;
-  this.roughnessMap = source.roughnessMap;
-  this.metalnessMap = source.metalnessMap;
-  this.alphaMap = source.alphaMap;
-  this.envMap = source.envMap;
-  this.envMapIntensity = source.envMapIntensity;
-  this.refractionRatio = source.refractionRatio;
-  this.wireframe = source.wireframe;
-  this.wireframeLinewidth = source.wireframeLinewidth;
-  this.wireframeLinecap = source.wireframeLinecap;
-  this.wireframeLinejoin = source.wireframeLinejoin;
-  this.skinning = source.skinning;
-  this.morphTargets = source.morphTargets;
-  this.morphNormals = source.morphNormals;
-  this.flatShading = source.flatShading;
-  this.vertexTangents = source.vertexTangents;
-  return this;
-};
 /**
  * parameters = {
  *  clearcoat: <float>,
@@ -24669,65 +25450,81 @@ MeshStandardMaterial.prototype.copy = function (source) {
  * }
  */
 
+var MeshPhysicalMaterial = /*#__PURE__*/function (_MeshStandardMaterial) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhysicalMaterial, _MeshStandardMaterial);
 
-function MeshPhysicalMaterial(parameters) {
-  MeshStandardMaterial.call(this);
-  this.defines = {
-    'STANDARD': '',
-    'PHYSICAL': ''
-  };
-  this.type = 'MeshPhysicalMaterial';
-  this.clearcoat = 0.0;
-  this.clearcoatMap = null;
-  this.clearcoatRoughness = 0.0;
-  this.clearcoatRoughnessMap = null;
-  this.clearcoatNormalScale = new Vector2(1, 1);
-  this.clearcoatNormalMap = null;
-  this.reflectivity = 0.5; // maps to F0 = 0.04
+  var _super75 = _createSuper(MeshPhysicalMaterial);
 
-  Object.defineProperty(this, 'ior', {
-    get: function get() {
-      return (1 + 0.4 * this.reflectivity) / (1 - 0.4 * this.reflectivity);
-    },
-    set: function set(ior) {
-      this.reflectivity = MathUtils.clamp(2.5 * (ior - 1) / (ior + 1), 0, 1);
-    }
-  });
-  this.sheen = null; // null will disable sheen bsdf
+  function MeshPhysicalMaterial(parameters) {
+    var _this65;
 
-  this.transmission = 0.0;
-  this.transmissionMap = null;
-  this.setValues(parameters);
-}
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshPhysicalMaterial);
 
-MeshPhysicalMaterial.prototype = Object.create(MeshStandardMaterial.prototype);
-MeshPhysicalMaterial.prototype.constructor = MeshPhysicalMaterial;
-MeshPhysicalMaterial.prototype.isMeshPhysicalMaterial = true;
+    _this65 = _super75.call(this);
+    _this65.defines = {
+      'STANDARD': '',
+      'PHYSICAL': ''
+    };
+    _this65.type = 'MeshPhysicalMaterial';
+    _this65.clearcoat = 0.0;
+    _this65.clearcoatMap = null;
+    _this65.clearcoatRoughness = 0.0;
+    _this65.clearcoatRoughnessMap = null;
+    _this65.clearcoatNormalScale = new Vector2(1, 1);
+    _this65.clearcoatNormalMap = null;
+    _this65.reflectivity = 0.5; // maps to F0 = 0.04
 
-MeshPhysicalMaterial.prototype.copy = function (source) {
-  MeshStandardMaterial.prototype.copy.call(this, source);
-  this.defines = {
-    'STANDARD': '',
-    'PHYSICAL': ''
-  };
-  this.clearcoat = source.clearcoat;
-  this.clearcoatMap = source.clearcoatMap;
-  this.clearcoatRoughness = source.clearcoatRoughness;
-  this.clearcoatRoughnessMap = source.clearcoatRoughnessMap;
-  this.clearcoatNormalMap = source.clearcoatNormalMap;
-  this.clearcoatNormalScale.copy(source.clearcoatNormalScale);
-  this.reflectivity = source.reflectivity;
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this65), 'ior', {
+      get: function get() {
+        return (1 + 0.4 * this.reflectivity) / (1 - 0.4 * this.reflectivity);
+      },
+      set: function set(ior) {
+        this.reflectivity = clamp(2.5 * (ior - 1) / (ior + 1), 0, 1);
+      }
+    });
+    _this65.sheen = null; // null will disable sheen bsdf
 
-  if (source.sheen) {
-    this.sheen = (this.sheen || new Color()).copy(source.sheen);
-  } else {
-    this.sheen = null;
+    _this65.transmission = 0.0;
+    _this65.transmissionMap = null;
+
+    _this65.setValues(parameters);
+
+    return _this65;
   }
 
-  this.transmission = source.transmission;
-  this.transmissionMap = source.transmissionMap;
-  return this;
-};
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshPhysicalMaterial, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshPhysicalMaterial.prototype), "copy", this).call(this, source);
+
+      this.defines = {
+        'STANDARD': '',
+        'PHYSICAL': ''
+      };
+      this.clearcoat = source.clearcoat;
+      this.clearcoatMap = source.clearcoatMap;
+      this.clearcoatRoughness = source.clearcoatRoughness;
+      this.clearcoatRoughnessMap = source.clearcoatRoughnessMap;
+      this.clearcoatNormalMap = source.clearcoatNormalMap;
+      this.clearcoatNormalScale.copy(source.clearcoatNormalScale);
+      this.reflectivity = source.reflectivity;
+
+      if (source.sheen) {
+        this.sheen = (this.sheen || new Color()).copy(source.sheen);
+      } else {
+        this.sheen = null;
+      }
+
+      this.transmission = source.transmission;
+      this.transmissionMap = source.transmissionMap;
+      return this;
+    }
+  }]);
+
+  return MeshPhysicalMaterial;
+}(MeshStandardMaterial);
+
+MeshPhysicalMaterial.prototype.isMeshPhysicalMaterial = true;
 /**
  * parameters = {
  *  color: <hex>,
@@ -24778,57 +25575,56 @@ MeshPhysicalMaterial.prototype.copy = function (source) {
  * }
  */
 
+var MeshPhongMaterial = /*#__PURE__*/function (_Material10) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhongMaterial, _Material10);
 
-var MeshPhongMaterial = /*#__PURE__*/function (_Material8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhongMaterial, _Material8);
-
-  var _super50 = _createSuper(MeshPhongMaterial);
+  var _super76 = _createSuper(MeshPhongMaterial);
 
   function MeshPhongMaterial(parameters) {
-    var _this50;
+    var _this66;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshPhongMaterial);
 
-    _this50 = _super50.call(this);
-    _this50.type = 'MeshPhongMaterial';
-    _this50.color = new Color(0xffffff); // diffuse
+    _this66 = _super76.call(this);
+    _this66.type = 'MeshPhongMaterial';
+    _this66.color = new Color(0xffffff); // diffuse
 
-    _this50.specular = new Color(0x111111);
-    _this50.shininess = 30;
-    _this50.map = null;
-    _this50.lightMap = null;
-    _this50.lightMapIntensity = 1.0;
-    _this50.aoMap = null;
-    _this50.aoMapIntensity = 1.0;
-    _this50.emissive = new Color(0x000000);
-    _this50.emissiveIntensity = 1.0;
-    _this50.emissiveMap = null;
-    _this50.bumpMap = null;
-    _this50.bumpScale = 1;
-    _this50.normalMap = null;
-    _this50.normalMapType = TangentSpaceNormalMap;
-    _this50.normalScale = new Vector2(1, 1);
-    _this50.displacementMap = null;
-    _this50.displacementScale = 1;
-    _this50.displacementBias = 0;
-    _this50.specularMap = null;
-    _this50.alphaMap = null;
-    _this50.envMap = null;
-    _this50.combine = MultiplyOperation;
-    _this50.reflectivity = 1;
-    _this50.refractionRatio = 0.98;
-    _this50.wireframe = false;
-    _this50.wireframeLinewidth = 1;
-    _this50.wireframeLinecap = 'round';
-    _this50.wireframeLinejoin = 'round';
-    _this50.skinning = false;
-    _this50.morphTargets = false;
-    _this50.morphNormals = false;
-    _this50.flatShading = false;
+    _this66.specular = new Color(0x111111);
+    _this66.shininess = 30;
+    _this66.map = null;
+    _this66.lightMap = null;
+    _this66.lightMapIntensity = 1.0;
+    _this66.aoMap = null;
+    _this66.aoMapIntensity = 1.0;
+    _this66.emissive = new Color(0x000000);
+    _this66.emissiveIntensity = 1.0;
+    _this66.emissiveMap = null;
+    _this66.bumpMap = null;
+    _this66.bumpScale = 1;
+    _this66.normalMap = null;
+    _this66.normalMapType = TangentSpaceNormalMap;
+    _this66.normalScale = new Vector2(1, 1);
+    _this66.displacementMap = null;
+    _this66.displacementScale = 1;
+    _this66.displacementBias = 0;
+    _this66.specularMap = null;
+    _this66.alphaMap = null;
+    _this66.envMap = null;
+    _this66.combine = MultiplyOperation;
+    _this66.reflectivity = 1;
+    _this66.refractionRatio = 0.98;
+    _this66.wireframe = false;
+    _this66.wireframeLinewidth = 1;
+    _this66.wireframeLinecap = 'round';
+    _this66.wireframeLinejoin = 'round';
+    _this66.skinning = false;
+    _this66.morphTargets = false;
+    _this66.morphNormals = false;
+    _this66.flatShading = false;
 
-    _this50.setValues(parameters);
+    _this66.setValues(parameters);
 
-    return _this50;
+    return _this66;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshPhongMaterial, [{
@@ -24916,51 +25712,51 @@ MeshPhongMaterial.prototype.isMeshPhongMaterial = true;
  * }
  */
 
-var MeshToonMaterial = /*#__PURE__*/function (_Material9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshToonMaterial, _Material9);
+var MeshToonMaterial = /*#__PURE__*/function (_Material11) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshToonMaterial, _Material11);
 
-  var _super51 = _createSuper(MeshToonMaterial);
+  var _super77 = _createSuper(MeshToonMaterial);
 
   function MeshToonMaterial(parameters) {
-    var _this51;
+    var _this67;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshToonMaterial);
 
-    _this51 = _super51.call(this);
-    _this51.defines = {
+    _this67 = _super77.call(this);
+    _this67.defines = {
       'TOON': ''
     };
-    _this51.type = 'MeshToonMaterial';
-    _this51.color = new Color(0xffffff);
-    _this51.map = null;
-    _this51.gradientMap = null;
-    _this51.lightMap = null;
-    _this51.lightMapIntensity = 1.0;
-    _this51.aoMap = null;
-    _this51.aoMapIntensity = 1.0;
-    _this51.emissive = new Color(0x000000);
-    _this51.emissiveIntensity = 1.0;
-    _this51.emissiveMap = null;
-    _this51.bumpMap = null;
-    _this51.bumpScale = 1;
-    _this51.normalMap = null;
-    _this51.normalMapType = TangentSpaceNormalMap;
-    _this51.normalScale = new Vector2(1, 1);
-    _this51.displacementMap = null;
-    _this51.displacementScale = 1;
-    _this51.displacementBias = 0;
-    _this51.alphaMap = null;
-    _this51.wireframe = false;
-    _this51.wireframeLinewidth = 1;
-    _this51.wireframeLinecap = 'round';
-    _this51.wireframeLinejoin = 'round';
-    _this51.skinning = false;
-    _this51.morphTargets = false;
-    _this51.morphNormals = false;
+    _this67.type = 'MeshToonMaterial';
+    _this67.color = new Color(0xffffff);
+    _this67.map = null;
+    _this67.gradientMap = null;
+    _this67.lightMap = null;
+    _this67.lightMapIntensity = 1.0;
+    _this67.aoMap = null;
+    _this67.aoMapIntensity = 1.0;
+    _this67.emissive = new Color(0x000000);
+    _this67.emissiveIntensity = 1.0;
+    _this67.emissiveMap = null;
+    _this67.bumpMap = null;
+    _this67.bumpScale = 1;
+    _this67.normalMap = null;
+    _this67.normalMapType = TangentSpaceNormalMap;
+    _this67.normalScale = new Vector2(1, 1);
+    _this67.displacementMap = null;
+    _this67.displacementScale = 1;
+    _this67.displacementBias = 0;
+    _this67.alphaMap = null;
+    _this67.wireframe = false;
+    _this67.wireframeLinewidth = 1;
+    _this67.wireframeLinecap = 'round';
+    _this67.wireframeLinejoin = 'round';
+    _this67.skinning = false;
+    _this67.morphTargets = false;
+    _this67.morphNormals = false;
 
-    _this51.setValues(parameters);
+    _this67.setValues(parameters);
 
-    return _this51;
+    return _this67;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshToonMaterial, [{
@@ -25028,37 +25824,37 @@ MeshToonMaterial.prototype.isMeshToonMaterial = true;
  * }
  */
 
-var MeshNormalMaterial = /*#__PURE__*/function (_Material10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshNormalMaterial, _Material10);
+var MeshNormalMaterial = /*#__PURE__*/function (_Material12) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshNormalMaterial, _Material12);
 
-  var _super52 = _createSuper(MeshNormalMaterial);
+  var _super78 = _createSuper(MeshNormalMaterial);
 
   function MeshNormalMaterial(parameters) {
-    var _this52;
+    var _this68;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshNormalMaterial);
 
-    _this52 = _super52.call(this);
-    _this52.type = 'MeshNormalMaterial';
-    _this52.bumpMap = null;
-    _this52.bumpScale = 1;
-    _this52.normalMap = null;
-    _this52.normalMapType = TangentSpaceNormalMap;
-    _this52.normalScale = new Vector2(1, 1);
-    _this52.displacementMap = null;
-    _this52.displacementScale = 1;
-    _this52.displacementBias = 0;
-    _this52.wireframe = false;
-    _this52.wireframeLinewidth = 1;
-    _this52.fog = false;
-    _this52.skinning = false;
-    _this52.morphTargets = false;
-    _this52.morphNormals = false;
-    _this52.flatShading = false;
+    _this68 = _super78.call(this);
+    _this68.type = 'MeshNormalMaterial';
+    _this68.bumpMap = null;
+    _this68.bumpScale = 1;
+    _this68.normalMap = null;
+    _this68.normalMapType = TangentSpaceNormalMap;
+    _this68.normalScale = new Vector2(1, 1);
+    _this68.displacementMap = null;
+    _this68.displacementScale = 1;
+    _this68.displacementBias = 0;
+    _this68.wireframe = false;
+    _this68.wireframeLinewidth = 1;
+    _this68.fog = false;
+    _this68.skinning = false;
+    _this68.morphTargets = false;
+    _this68.morphNormals = false;
+    _this68.flatShading = false;
 
-    _this52.setValues(parameters);
+    _this68.setValues(parameters);
 
-    return _this52;
+    return _this68;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshNormalMaterial, [{
@@ -25123,45 +25919,45 @@ MeshNormalMaterial.prototype.isMeshNormalMaterial = true;
  * }
  */
 
-var MeshLambertMaterial = /*#__PURE__*/function (_Material11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshLambertMaterial, _Material11);
+var MeshLambertMaterial = /*#__PURE__*/function (_Material13) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshLambertMaterial, _Material13);
 
-  var _super53 = _createSuper(MeshLambertMaterial);
+  var _super79 = _createSuper(MeshLambertMaterial);
 
   function MeshLambertMaterial(parameters) {
-    var _this53;
+    var _this69;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshLambertMaterial);
 
-    _this53 = _super53.call(this);
-    _this53.type = 'MeshLambertMaterial';
-    _this53.color = new Color(0xffffff); // diffuse
+    _this69 = _super79.call(this);
+    _this69.type = 'MeshLambertMaterial';
+    _this69.color = new Color(0xffffff); // diffuse
 
-    _this53.map = null;
-    _this53.lightMap = null;
-    _this53.lightMapIntensity = 1.0;
-    _this53.aoMap = null;
-    _this53.aoMapIntensity = 1.0;
-    _this53.emissive = new Color(0x000000);
-    _this53.emissiveIntensity = 1.0;
-    _this53.emissiveMap = null;
-    _this53.specularMap = null;
-    _this53.alphaMap = null;
-    _this53.envMap = null;
-    _this53.combine = MultiplyOperation;
-    _this53.reflectivity = 1;
-    _this53.refractionRatio = 0.98;
-    _this53.wireframe = false;
-    _this53.wireframeLinewidth = 1;
-    _this53.wireframeLinecap = 'round';
-    _this53.wireframeLinejoin = 'round';
-    _this53.skinning = false;
-    _this53.morphTargets = false;
-    _this53.morphNormals = false;
+    _this69.map = null;
+    _this69.lightMap = null;
+    _this69.lightMapIntensity = 1.0;
+    _this69.aoMap = null;
+    _this69.aoMapIntensity = 1.0;
+    _this69.emissive = new Color(0x000000);
+    _this69.emissiveIntensity = 1.0;
+    _this69.emissiveMap = null;
+    _this69.specularMap = null;
+    _this69.alphaMap = null;
+    _this69.envMap = null;
+    _this69.combine = MultiplyOperation;
+    _this69.reflectivity = 1;
+    _this69.refractionRatio = 0.98;
+    _this69.wireframe = false;
+    _this69.wireframeLinewidth = 1;
+    _this69.wireframeLinecap = 'round';
+    _this69.wireframeLinejoin = 'round';
+    _this69.skinning = false;
+    _this69.morphTargets = false;
+    _this69.morphNormals = false;
 
-    _this53.setValues(parameters);
+    _this69.setValues(parameters);
 
-    return _this53;
+    return _this69;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshLambertMaterial, [{
@@ -25229,42 +26025,42 @@ MeshLambertMaterial.prototype.isMeshLambertMaterial = true;
  * }
  */
 
-var MeshMatcapMaterial = /*#__PURE__*/function (_Material12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshMatcapMaterial, _Material12);
+var MeshMatcapMaterial = /*#__PURE__*/function (_Material14) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshMatcapMaterial, _Material14);
 
-  var _super54 = _createSuper(MeshMatcapMaterial);
+  var _super80 = _createSuper(MeshMatcapMaterial);
 
   function MeshMatcapMaterial(parameters) {
-    var _this54;
+    var _this70;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshMatcapMaterial);
 
-    _this54 = _super54.call(this);
-    _this54.defines = {
+    _this70 = _super80.call(this);
+    _this70.defines = {
       'MATCAP': ''
     };
-    _this54.type = 'MeshMatcapMaterial';
-    _this54.color = new Color(0xffffff); // diffuse
+    _this70.type = 'MeshMatcapMaterial';
+    _this70.color = new Color(0xffffff); // diffuse
 
-    _this54.matcap = null;
-    _this54.map = null;
-    _this54.bumpMap = null;
-    _this54.bumpScale = 1;
-    _this54.normalMap = null;
-    _this54.normalMapType = TangentSpaceNormalMap;
-    _this54.normalScale = new Vector2(1, 1);
-    _this54.displacementMap = null;
-    _this54.displacementScale = 1;
-    _this54.displacementBias = 0;
-    _this54.alphaMap = null;
-    _this54.skinning = false;
-    _this54.morphTargets = false;
-    _this54.morphNormals = false;
-    _this54.flatShading = false;
+    _this70.matcap = null;
+    _this70.map = null;
+    _this70.bumpMap = null;
+    _this70.bumpScale = 1;
+    _this70.normalMap = null;
+    _this70.normalMapType = TangentSpaceNormalMap;
+    _this70.normalScale = new Vector2(1, 1);
+    _this70.displacementMap = null;
+    _this70.displacementScale = 1;
+    _this70.displacementBias = 0;
+    _this70.alphaMap = null;
+    _this70.skinning = false;
+    _this70.morphTargets = false;
+    _this70.morphNormals = false;
+    _this70.flatShading = false;
 
-    _this54.setValues(parameters);
+    _this70.setValues(parameters);
 
-    return _this54;
+    return _this70;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshMatcapMaterial, [{
@@ -25315,22 +26111,22 @@ MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true;
 var LineDashedMaterial = /*#__PURE__*/function (_LineBasicMaterial) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineDashedMaterial, _LineBasicMaterial);
 
-  var _super55 = _createSuper(LineDashedMaterial);
+  var _super81 = _createSuper(LineDashedMaterial);
 
   function LineDashedMaterial(parameters) {
-    var _this55;
+    var _this71;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineDashedMaterial);
 
-    _this55 = _super55.call(this);
-    _this55.type = 'LineDashedMaterial';
-    _this55.scale = 1;
-    _this55.dashSize = 3;
-    _this55.gapSize = 1;
+    _this71 = _super81.call(this);
+    _this71.type = 'LineDashedMaterial';
+    _this71.scale = 1;
+    _this71.dashSize = 3;
+    _this71.gapSize = 1;
 
-    _this55.setValues(parameters);
+    _this71.setValues(parameters);
 
-    return _this55;
+    return _this71;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineDashedMaterial, [{
@@ -25637,171 +26433,180 @@ var AnimationUtils = {
  *
  */
 
-function Interpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-  this.parameterPositions = parameterPositions;
-  this._cachedIndex = 0;
-  this.resultBuffer = resultBuffer !== undefined ? resultBuffer : new sampleValues.constructor(sampleSize);
-  this.sampleValues = sampleValues;
-  this.valueSize = sampleSize;
-}
+var Interpolant = /*#__PURE__*/function () {
+  function Interpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Interpolant);
 
-Object.assign(Interpolant.prototype, {
-  evaluate: function evaluate(t) {
-    var pp = this.parameterPositions;
-    var i1 = this._cachedIndex,
-        t1 = pp[i1],
-        t0 = pp[i1 - 1];
-
-    validate_interval: {
-      seek: {
-        var right;
-
-        linear_scan: {
-          //- See http://jsperf.com/comparison-to-undefined/3
-          //- slower code:
-          //-
-          //- 				if ( t >= t1 || t1 === undefined ) {
-          forward_scan: if (!(t < t1)) {
-            for (var giveUpAt = i1 + 2;;) {
-              if (t1 === undefined) {
-                if (t < t0) break forward_scan; // after end
-
-                i1 = pp.length;
-                this._cachedIndex = i1;
-                return this.afterEnd_(i1 - 1, t, t0);
-              }
-
-              if (i1 === giveUpAt) break; // this loop
-
-              t0 = t1;
-              t1 = pp[++i1];
-
-              if (t < t1) {
-                // we have arrived at the sought interval
-                break seek;
-              }
-            } // prepare binary search on the right side of the index
-
-
-            right = pp.length;
-            break linear_scan;
-          } //- slower code:
-          //-					if ( t < t0 || t0 === undefined ) {
-
-
-          if (!(t >= t0)) {
-            // looping?
-            var t1global = pp[1];
-
-            if (t < t1global) {
-              i1 = 2; // + 1, using the scan for the details
-
-              t0 = t1global;
-            } // linear reverse scan
-
-
-            for (var _giveUpAt = i1 - 2;;) {
-              if (t0 === undefined) {
-                // before start
-                this._cachedIndex = 0;
-                return this.beforeStart_(0, t, t1);
-              }
-
-              if (i1 === _giveUpAt) break; // this loop
-
-              t1 = t0;
-              t0 = pp[--i1 - 1];
-
-              if (t >= t0) {
-                // we have arrived at the sought interval
-                break seek;
-              }
-            } // prepare binary search on the left side of the index
-
-
-            right = i1;
-            i1 = 0;
-            break linear_scan;
-          } // the interval is valid
-
-
-          break validate_interval;
-        } // linear scan
-        // binary search
-
-
-        while (i1 < right) {
-          var mid = i1 + right >>> 1;
-
-          if (t < pp[mid]) {
-            right = mid;
-          } else {
-            i1 = mid + 1;
-          }
-        }
-
-        t1 = pp[i1];
-        t0 = pp[i1 - 1]; // check boundary cases, again
-
-        if (t0 === undefined) {
-          this._cachedIndex = 0;
-          return this.beforeStart_(0, t, t1);
-        }
-
-        if (t1 === undefined) {
-          i1 = pp.length;
-          this._cachedIndex = i1;
-          return this.afterEnd_(i1 - 1, t0, t);
-        }
-      } // seek
-
-
-      this._cachedIndex = i1;
-      this.intervalChanged_(i1, t0, t1);
-    } // validate_interval
-
-
-    return this.interpolate_(i1, t0, t, t1);
-  },
-  settings: null,
-  // optional, subclass-specific settings structure
-  // Note: The indirection allows central control of many interpolants.
-  // --- Protected interface
-  DefaultSettings_: {},
-  getSettings_: function getSettings_() {
-    return this.settings || this.DefaultSettings_;
-  },
-  copySampleValue_: function copySampleValue_(index) {
-    // copies a sample value to the result buffer
-    var result = this.resultBuffer,
-        values = this.sampleValues,
-        stride = this.valueSize,
-        offset = index * stride;
-
-    for (var _i209 = 0; _i209 !== stride; ++_i209) {
-      result[_i209] = values[offset + _i209];
-    }
-
-    return result;
-  },
-  // Template methods for derived classes:
-  interpolate_: function interpolate_()
-  /* i1, t0, t, t1 */
-  {
-    throw new Error('call to abstract method'); // implementations shall return this.resultBuffer
-  },
-  intervalChanged_: function intervalChanged_()
-  /* i1, t0, t1 */
-  {// empty
+    this.parameterPositions = parameterPositions;
+    this._cachedIndex = 0;
+    this.resultBuffer = resultBuffer !== undefined ? resultBuffer : new sampleValues.constructor(sampleSize);
+    this.sampleValues = sampleValues;
+    this.valueSize = sampleSize;
+    this.settings = null;
+    this.DefaultSettings_ = {};
   }
-}); // DECLARE ALIAS AFTER assign prototype
 
-Object.assign(Interpolant.prototype, {
-  //( 0, t, t0 ), returns this.resultBuffer
-  beforeStart_: Interpolant.prototype.copySampleValue_,
-  //( N-1, tN-1, t ), returns this.resultBuffer
-  afterEnd_: Interpolant.prototype.copySampleValue_
-});
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Interpolant, [{
+    key: "evaluate",
+    value: function evaluate(t) {
+      var pp = this.parameterPositions;
+      var i1 = this._cachedIndex,
+          t1 = pp[i1],
+          t0 = pp[i1 - 1];
+
+      validate_interval: {
+        seek: {
+          var right;
+
+          linear_scan: {
+            //- See http://jsperf.com/comparison-to-undefined/3
+            //- slower code:
+            //-
+            //- 				if ( t >= t1 || t1 === undefined ) {
+            forward_scan: if (!(t < t1)) {
+              for (var giveUpAt = i1 + 2;;) {
+                if (t1 === undefined) {
+                  if (t < t0) break forward_scan; // after end
+
+                  i1 = pp.length;
+                  this._cachedIndex = i1;
+                  return this.afterEnd_(i1 - 1, t, t0);
+                }
+
+                if (i1 === giveUpAt) break; // this loop
+
+                t0 = t1;
+                t1 = pp[++i1];
+
+                if (t < t1) {
+                  // we have arrived at the sought interval
+                  break seek;
+                }
+              } // prepare binary search on the right side of the index
+
+
+              right = pp.length;
+              break linear_scan;
+            } //- slower code:
+            //-					if ( t < t0 || t0 === undefined ) {
+
+
+            if (!(t >= t0)) {
+              // looping?
+              var t1global = pp[1];
+
+              if (t < t1global) {
+                i1 = 2; // + 1, using the scan for the details
+
+                t0 = t1global;
+              } // linear reverse scan
+
+
+              for (var _giveUpAt = i1 - 2;;) {
+                if (t0 === undefined) {
+                  // before start
+                  this._cachedIndex = 0;
+                  return this.beforeStart_(0, t, t1);
+                }
+
+                if (i1 === _giveUpAt) break; // this loop
+
+                t1 = t0;
+                t0 = pp[--i1 - 1];
+
+                if (t >= t0) {
+                  // we have arrived at the sought interval
+                  break seek;
+                }
+              } // prepare binary search on the left side of the index
+
+
+              right = i1;
+              i1 = 0;
+              break linear_scan;
+            } // the interval is valid
+
+
+            break validate_interval;
+          } // linear scan
+          // binary search
+
+
+          while (i1 < right) {
+            var mid = i1 + right >>> 1;
+
+            if (t < pp[mid]) {
+              right = mid;
+            } else {
+              i1 = mid + 1;
+            }
+          }
+
+          t1 = pp[i1];
+          t0 = pp[i1 - 1]; // check boundary cases, again
+
+          if (t0 === undefined) {
+            this._cachedIndex = 0;
+            return this.beforeStart_(0, t, t1);
+          }
+
+          if (t1 === undefined) {
+            i1 = pp.length;
+            this._cachedIndex = i1;
+            return this.afterEnd_(i1 - 1, t0, t);
+          }
+        } // seek
+
+
+        this._cachedIndex = i1;
+        this.intervalChanged_(i1, t0, t1);
+      } // validate_interval
+
+
+      return this.interpolate_(i1, t0, t, t1);
+    }
+  }, {
+    key: "getSettings_",
+    value: function getSettings_() {
+      return this.settings || this.DefaultSettings_;
+    }
+  }, {
+    key: "copySampleValue_",
+    value: function copySampleValue_(index) {
+      // copies a sample value to the result buffer
+      var result = this.resultBuffer,
+          values = this.sampleValues,
+          stride = this.valueSize,
+          offset = index * stride;
+
+      for (var _i209 = 0; _i209 !== stride; ++_i209) {
+        result[_i209] = values[offset + _i209];
+      }
+
+      return result;
+    } // Template methods for derived classes:
+
+  }, {
+    key: "interpolate_",
+    value: function interpolate_()
+    /* i1, t0, t, t1 */
+    {
+      throw new Error('call to abstract method'); // implementations shall return this.resultBuffer
+    }
+  }, {
+    key: "intervalChanged_",
+    value: function intervalChanged_()
+    /* i1, t0, t1 */
+    {// empty
+    }
+  }]);
+
+  return Interpolant;
+}(); // ALIAS DEFINITIONS
+
+
+Interpolant.prototype.beforeStart_ = Interpolant.prototype.copySampleValue_;
+Interpolant.prototype.afterEnd_ = Interpolant.prototype.copySampleValue_;
 /**
  * Fast and simple cubic spline interpolant.
  *
@@ -25810,145 +26615,181 @@ Object.assign(Interpolant.prototype, {
  * over their parameter interval.
  */
 
-function CubicInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-  Interpolant.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
-  this._weightPrev = -0;
-  this._offsetPrev = -0;
-  this._weightNext = -0;
-  this._offsetNext = -0;
-}
+var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicInterpolant, _Interpolant);
 
-CubicInterpolant.prototype = Object.assign(Object.create(Interpolant.prototype), {
-  constructor: CubicInterpolant,
-  DefaultSettings_: {
-    endingStart: ZeroCurvatureEnding,
-    endingEnd: ZeroCurvatureEnding
-  },
-  intervalChanged_: function intervalChanged_(i1, t0, t1) {
-    var pp = this.parameterPositions;
-    var iPrev = i1 - 2,
-        iNext = i1 + 1,
-        tPrev = pp[iPrev],
-        tNext = pp[iNext];
+  var _super82 = _createSuper(CubicInterpolant);
 
-    if (tPrev === undefined) {
-      switch (this.getSettings_().endingStart) {
-        case ZeroSlopeEnding:
-          // f'(t0) = 0
-          iPrev = i1;
-          tPrev = 2 * t0 - t1;
-          break;
+  function CubicInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
+    var _this72;
 
-        case WrapAroundEnding:
-          // use the other end of the curve
-          iPrev = pp.length - 2;
-          tPrev = t0 + pp[iPrev] - pp[iPrev + 1];
-          break;
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubicInterpolant);
 
-        default:
-          // ZeroCurvatureEnding
-          // f''(t0) = 0 a.k.a. Natural Spline
-          iPrev = i1;
-          tPrev = t1;
-      }
-    }
-
-    if (tNext === undefined) {
-      switch (this.getSettings_().endingEnd) {
-        case ZeroSlopeEnding:
-          // f'(tN) = 0
-          iNext = i1;
-          tNext = 2 * t1 - t0;
-          break;
-
-        case WrapAroundEnding:
-          // use the other end of the curve
-          iNext = 1;
-          tNext = t1 + pp[1] - pp[0];
-          break;
-
-        default:
-          // ZeroCurvatureEnding
-          // f''(tN) = 0, a.k.a. Natural Spline
-          iNext = i1 - 1;
-          tNext = t0;
-      }
-    }
-
-    var halfDt = (t1 - t0) * 0.5,
-        stride = this.valueSize;
-    this._weightPrev = halfDt / (t0 - tPrev);
-    this._weightNext = halfDt / (tNext - t1);
-    this._offsetPrev = iPrev * stride;
-    this._offsetNext = iNext * stride;
-  },
-  interpolate_: function interpolate_(i1, t0, t, t1) {
-    var result = this.resultBuffer,
-        values = this.sampleValues,
-        stride = this.valueSize,
-        o1 = i1 * stride,
-        o0 = o1 - stride,
-        oP = this._offsetPrev,
-        oN = this._offsetNext,
-        wP = this._weightPrev,
-        wN = this._weightNext,
-        p = (t - t0) / (t1 - t0),
-        pp = p * p,
-        ppp = pp * p; // evaluate polynomials
-
-    var sP = -wP * ppp + 2 * wP * pp - wP * p;
-    var s0 = (1 + wP) * ppp + (-1.5 - 2 * wP) * pp + (-0.5 + wP) * p + 1;
-    var s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p;
-    var sN = wN * ppp - wN * pp; // combine data linearly
-
-    for (var _i210 = 0; _i210 !== stride; ++_i210) {
-      result[_i210] = sP * values[oP + _i210] + s0 * values[o0 + _i210] + s1 * values[o1 + _i210] + sN * values[oN + _i210];
-    }
-
-    return result;
+    _this72 = _super82.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    _this72._weightPrev = -0;
+    _this72._offsetPrev = -0;
+    _this72._weightNext = -0;
+    _this72._offsetNext = -0;
+    _this72.DefaultSettings_ = {
+      endingStart: ZeroCurvatureEnding,
+      endingEnd: ZeroCurvatureEnding
+    };
+    return _this72;
   }
-});
 
-function LinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-  Interpolant.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
-}
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubicInterpolant, [{
+    key: "intervalChanged_",
+    value: function intervalChanged_(i1, t0, t1) {
+      var pp = this.parameterPositions;
+      var iPrev = i1 - 2,
+          iNext = i1 + 1,
+          tPrev = pp[iPrev],
+          tNext = pp[iNext];
 
-LinearInterpolant.prototype = Object.assign(Object.create(Interpolant.prototype), {
-  constructor: LinearInterpolant,
-  interpolate_: function interpolate_(i1, t0, t, t1) {
-    var result = this.resultBuffer,
-        values = this.sampleValues,
-        stride = this.valueSize,
-        offset1 = i1 * stride,
-        offset0 = offset1 - stride,
-        weight1 = (t - t0) / (t1 - t0),
-        weight0 = 1 - weight1;
+      if (tPrev === undefined) {
+        switch (this.getSettings_().endingStart) {
+          case ZeroSlopeEnding:
+            // f'(t0) = 0
+            iPrev = i1;
+            tPrev = 2 * t0 - t1;
+            break;
 
-    for (var _i211 = 0; _i211 !== stride; ++_i211) {
-      result[_i211] = values[offset0 + _i211] * weight0 + values[offset1 + _i211] * weight1;
+          case WrapAroundEnding:
+            // use the other end of the curve
+            iPrev = pp.length - 2;
+            tPrev = t0 + pp[iPrev] - pp[iPrev + 1];
+            break;
+
+          default:
+            // ZeroCurvatureEnding
+            // f''(t0) = 0 a.k.a. Natural Spline
+            iPrev = i1;
+            tPrev = t1;
+        }
+      }
+
+      if (tNext === undefined) {
+        switch (this.getSettings_().endingEnd) {
+          case ZeroSlopeEnding:
+            // f'(tN) = 0
+            iNext = i1;
+            tNext = 2 * t1 - t0;
+            break;
+
+          case WrapAroundEnding:
+            // use the other end of the curve
+            iNext = 1;
+            tNext = t1 + pp[1] - pp[0];
+            break;
+
+          default:
+            // ZeroCurvatureEnding
+            // f''(tN) = 0, a.k.a. Natural Spline
+            iNext = i1 - 1;
+            tNext = t0;
+        }
+      }
+
+      var halfDt = (t1 - t0) * 0.5,
+          stride = this.valueSize;
+      this._weightPrev = halfDt / (t0 - tPrev);
+      this._weightNext = halfDt / (tNext - t1);
+      this._offsetPrev = iPrev * stride;
+      this._offsetNext = iNext * stride;
     }
+  }, {
+    key: "interpolate_",
+    value: function interpolate_(i1, t0, t, t1) {
+      var result = this.resultBuffer,
+          values = this.sampleValues,
+          stride = this.valueSize,
+          o1 = i1 * stride,
+          o0 = o1 - stride,
+          oP = this._offsetPrev,
+          oN = this._offsetNext,
+          wP = this._weightPrev,
+          wN = this._weightNext,
+          p = (t - t0) / (t1 - t0),
+          pp = p * p,
+          ppp = pp * p; // evaluate polynomials
 
-    return result;
+      var sP = -wP * ppp + 2 * wP * pp - wP * p;
+      var s0 = (1 + wP) * ppp + (-1.5 - 2 * wP) * pp + (-0.5 + wP) * p + 1;
+      var s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p;
+      var sN = wN * ppp - wN * pp; // combine data linearly
+
+      for (var _i210 = 0; _i210 !== stride; ++_i210) {
+        result[_i210] = sP * values[oP + _i210] + s0 * values[o0 + _i210] + s1 * values[o1 + _i210] + sN * values[oN + _i210];
+      }
+
+      return result;
+    }
+  }]);
+
+  return CubicInterpolant;
+}(Interpolant);
+
+var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LinearInterpolant, _Interpolant2);
+
+  var _super83 = _createSuper(LinearInterpolant);
+
+  function LinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LinearInterpolant);
+
+    return _super83.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LinearInterpolant, [{
+    key: "interpolate_",
+    value: function interpolate_(i1, t0, t, t1) {
+      var result = this.resultBuffer,
+          values = this.sampleValues,
+          stride = this.valueSize,
+          offset1 = i1 * stride,
+          offset0 = offset1 - stride,
+          weight1 = (t - t0) / (t1 - t0),
+          weight0 = 1 - weight1;
+
+      for (var _i211 = 0; _i211 !== stride; ++_i211) {
+        result[_i211] = values[offset0 + _i211] * weight0 + values[offset1 + _i211] * weight1;
+      }
+
+      return result;
+    }
+  }]);
+
+  return LinearInterpolant;
+}(Interpolant);
 /**
  *
  * Interpolant that evaluates to the sample value at the position preceeding
  * the parameter.
  */
 
-function DiscreteInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-  Interpolant.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
-}
 
-DiscreteInterpolant.prototype = Object.assign(Object.create(Interpolant.prototype), {
-  constructor: DiscreteInterpolant,
-  interpolate_: function interpolate_(i1
-  /*, t0, t, t1 */
-  ) {
-    return this.copySampleValue_(i1 - 1);
+var DiscreteInterpolant = /*#__PURE__*/function (_Interpolant3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DiscreteInterpolant, _Interpolant3);
+
+  var _super84 = _createSuper(DiscreteInterpolant);
+
+  function DiscreteInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DiscreteInterpolant);
+
+    return _super84.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DiscreteInterpolant, [{
+    key: "interpolate_",
+    value: function interpolate_(i1
+    /*, t0, t, t1 */
+    ) {
+      return this.copySampleValue_(i1 - 1);
+    }
+  }]);
+
+  return DiscreteInterpolant;
+}(Interpolant);
 
 var KeyframeTrack = /*#__PURE__*/function () {
   function KeyframeTrack(name, times, values, interpolation) {
@@ -26282,12 +27123,12 @@ KeyframeTrack.prototype.DefaultInterpolation = InterpolateLinear;
 var BooleanKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BooleanKeyframeTrack, _KeyframeTrack);
 
-  var _super56 = _createSuper(BooleanKeyframeTrack);
+  var _super85 = _createSuper(BooleanKeyframeTrack);
 
   function BooleanKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BooleanKeyframeTrack);
 
-    return _super56.apply(this, arguments);
+    return _super85.apply(this, arguments);
   }
 
   return BooleanKeyframeTrack;
@@ -26305,12 +27146,12 @@ BooleanKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 var ColorKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ColorKeyframeTrack, _KeyframeTrack2);
 
-  var _super57 = _createSuper(ColorKeyframeTrack);
+  var _super86 = _createSuper(ColorKeyframeTrack);
 
   function ColorKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ColorKeyframeTrack);
 
-    return _super57.apply(this, arguments);
+    return _super86.apply(this, arguments);
   }
 
   return ColorKeyframeTrack;
@@ -26324,12 +27165,12 @@ ColorKeyframeTrack.prototype.ValueTypeName = 'color';
 var NumberKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(NumberKeyframeTrack, _KeyframeTrack3);
 
-  var _super58 = _createSuper(NumberKeyframeTrack);
+  var _super87 = _createSuper(NumberKeyframeTrack);
 
   function NumberKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, NumberKeyframeTrack);
 
-    return _super58.apply(this, arguments);
+    return _super87.apply(this, arguments);
   }
 
   return NumberKeyframeTrack;
@@ -26340,39 +27181,50 @@ NumberKeyframeTrack.prototype.ValueTypeName = 'number';
  * Spherical linear unit quaternion interpolant.
  */
 
-function QuaternionLinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-  Interpolant.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
-}
+var QuaternionLinearInterpolant = /*#__PURE__*/function (_Interpolant4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionLinearInterpolant, _Interpolant4);
 
-QuaternionLinearInterpolant.prototype = Object.assign(Object.create(Interpolant.prototype), {
-  constructor: QuaternionLinearInterpolant,
-  interpolate_: function interpolate_(i1, t0, t, t1) {
-    var result = this.resultBuffer,
-        values = this.sampleValues,
-        stride = this.valueSize,
-        alpha = (t - t0) / (t1 - t0);
-    var offset = i1 * stride;
+  var _super88 = _createSuper(QuaternionLinearInterpolant);
 
-    for (var end = offset + stride; offset !== end; offset += 4) {
-      Quaternion.slerpFlat(result, 0, values, offset - stride, values, offset, alpha);
-    }
+  function QuaternionLinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuaternionLinearInterpolant);
 
-    return result;
+    return _super88.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuaternionLinearInterpolant, [{
+    key: "interpolate_",
+    value: function interpolate_(i1, t0, t, t1) {
+      var result = this.resultBuffer,
+          values = this.sampleValues,
+          stride = this.valueSize,
+          alpha = (t - t0) / (t1 - t0);
+      var offset = i1 * stride;
+
+      for (var end = offset + stride; offset !== end; offset += 4) {
+        Quaternion.slerpFlat(result, 0, values, offset - stride, values, offset, alpha);
+      }
+
+      return result;
+    }
+  }]);
+
+  return QuaternionLinearInterpolant;
+}(Interpolant);
 /**
  * A Track of quaternion keyframe values.
  */
 
+
 var QuaternionKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionKeyframeTrack, _KeyframeTrack4);
 
-  var _super59 = _createSuper(QuaternionKeyframeTrack);
+  var _super89 = _createSuper(QuaternionKeyframeTrack);
 
   function QuaternionKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuaternionKeyframeTrack);
 
-    return _super59.apply(this, arguments);
+    return _super89.apply(this, arguments);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuaternionKeyframeTrack, [{
@@ -26396,12 +27248,12 @@ QuaternionKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 var StringKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(StringKeyframeTrack, _KeyframeTrack5);
 
-  var _super60 = _createSuper(StringKeyframeTrack);
+  var _super90 = _createSuper(StringKeyframeTrack);
 
   function StringKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, StringKeyframeTrack);
 
-    return _super60.apply(this, arguments);
+    return _super90.apply(this, arguments);
   }
 
   return StringKeyframeTrack;
@@ -26419,12 +27271,12 @@ StringKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 var VectorKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VectorKeyframeTrack, _KeyframeTrack6);
 
-  var _super61 = _createSuper(VectorKeyframeTrack);
+  var _super91 = _createSuper(VectorKeyframeTrack);
 
   function VectorKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, VectorKeyframeTrack);
 
-    return _super61.apply(this, arguments);
+    return _super91.apply(this, arguments);
   }
 
   return VectorKeyframeTrack;
@@ -26444,7 +27296,7 @@ var AnimationClip = /*#__PURE__*/function () {
     this.tracks = tracks;
     this.duration = duration;
     this.blendMode = blendMode;
-    this.uuid = MathUtils.generateUUID(); // this means it should figure out its duration by scanning the tracks
+    this.uuid = generateUUID(); // this means it should figure out its duration by scanning the tracks
 
     if (this.duration < 0) {
       this.resetDuration();
@@ -26784,7 +27636,9 @@ var Cache = {
   }
 };
 
-function LoadingManager(onLoad, onProgress, onError) {
+var LoadingManager = function LoadingManager(onLoad, onProgress, onError) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LoadingManager);
+
   var scope = this;
   var isLoading = false;
   var itemsLoaded = 0;
@@ -26873,254 +27727,290 @@ function LoadingManager(onLoad, onProgress, onError) {
 
     return null;
   };
-}
+};
 
 var DefaultLoadingManager = new LoadingManager();
 
-function Loader(manager) {
-  this.manager = manager !== undefined ? manager : DefaultLoadingManager;
-  this.crossOrigin = 'anonymous';
-  this.withCredentials = false;
-  this.path = '';
-  this.resourcePath = '';
-  this.requestHeader = {};
-}
+var Loader = /*#__PURE__*/function () {
+  function Loader(manager) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Loader);
 
-Object.assign(Loader.prototype, {
-  load: function load()
-  /* url, onLoad, onProgress, onError */
-  {},
-  loadAsync: function loadAsync(url, onProgress) {
-    var scope = this;
-    return new Promise(function (resolve, reject) {
-      scope.load(url, resolve, onProgress, reject);
-    });
-  },
-  parse: function parse()
-  /* data */
-  {},
-  setCrossOrigin: function setCrossOrigin(crossOrigin) {
-    this.crossOrigin = crossOrigin;
-    return this;
-  },
-  setWithCredentials: function setWithCredentials(value) {
-    this.withCredentials = value;
-    return this;
-  },
-  setPath: function setPath(path) {
-    this.path = path;
-    return this;
-  },
-  setResourcePath: function setResourcePath(resourcePath) {
-    this.resourcePath = resourcePath;
-    return this;
-  },
-  setRequestHeader: function setRequestHeader(requestHeader) {
-    this.requestHeader = requestHeader;
-    return this;
+    this.manager = manager !== undefined ? manager : DefaultLoadingManager;
+    this.crossOrigin = 'anonymous';
+    this.withCredentials = false;
+    this.path = '';
+    this.resourcePath = '';
+    this.requestHeader = {};
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Loader, [{
+    key: "load",
+    value: function load()
+    /* url, onLoad, onProgress, onError */
+    {}
+  }, {
+    key: "loadAsync",
+    value: function loadAsync(url, onProgress) {
+      var scope = this;
+      return new Promise(function (resolve, reject) {
+        scope.load(url, resolve, onProgress, reject);
+      });
+    }
+  }, {
+    key: "parse",
+    value: function parse()
+    /* data */
+    {}
+  }, {
+    key: "setCrossOrigin",
+    value: function setCrossOrigin(crossOrigin) {
+      this.crossOrigin = crossOrigin;
+      return this;
+    }
+  }, {
+    key: "setWithCredentials",
+    value: function setWithCredentials(value) {
+      this.withCredentials = value;
+      return this;
+    }
+  }, {
+    key: "setPath",
+    value: function setPath(path) {
+      this.path = path;
+      return this;
+    }
+  }, {
+    key: "setResourcePath",
+    value: function setResourcePath(resourcePath) {
+      this.resourcePath = resourcePath;
+      return this;
+    }
+  }, {
+    key: "setRequestHeader",
+    value: function setRequestHeader(requestHeader) {
+      this.requestHeader = requestHeader;
+      return this;
+    }
+  }]);
+
+  return Loader;
+}();
+
 var loading = {};
 
-function FileLoader(manager) {
-  Loader.call(this, manager);
-}
+var FileLoader = /*#__PURE__*/function (_Loader) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FileLoader, _Loader);
 
-FileLoader.prototype = Object.assign(Object.create(Loader.prototype), {
-  constructor: FileLoader,
-  load: function load(url, onLoad, onProgress, onError) {
-    if (url === undefined) url = '';
-    if (this.path !== undefined) url = this.path + url;
-    url = this.manager.resolveURL(url);
-    var scope = this;
-    var cached = Cache.get(url);
+  var _super92 = _createSuper(FileLoader);
 
-    if (cached !== undefined) {
-      scope.manager.itemStart(url);
-      setTimeout(function () {
-        if (onLoad) onLoad(cached);
-        scope.manager.itemEnd(url);
-      }, 0);
-      return cached;
-    } // Check if request is duplicate
+  function FileLoader(manager) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, FileLoader);
 
-
-    if (loading[url] !== undefined) {
-      loading[url].push({
-        onLoad: onLoad,
-        onProgress: onProgress,
-        onError: onError
-      });
-      return;
-    } // Check for data: URI
-
-
-    var dataUriRegex = /^data:(.*?)(;base64)?,(.*)$/;
-    var dataUriRegexResult = url.match(dataUriRegex);
-    var request; // Safari can not handle Data URIs through XMLHttpRequest so process manually
-
-    if (dataUriRegexResult) {
-      var mimeType = dataUriRegexResult[1];
-      var isBase64 = !!dataUriRegexResult[2];
-      var data = dataUriRegexResult[3];
-      data = decodeURIComponent(data);
-      if (isBase64) data = atob(data);
-
-      try {
-        var response;
-        var responseType = (this.responseType || '').toLowerCase();
-
-        switch (responseType) {
-          case 'arraybuffer':
-          case 'blob':
-            var view = new Uint8Array(data.length);
-
-            for (var _i228 = 0; _i228 < data.length; _i228++) {
-              view[_i228] = data.charCodeAt(_i228);
-            }
-
-            if (responseType === 'blob') {
-              response = new Blob([view.buffer], {
-                type: mimeType
-              });
-            } else {
-              response = view.buffer;
-            }
-
-            break;
-
-          case 'document':
-            var parser = new DOMParser();
-            response = parser.parseFromString(data, mimeType);
-            break;
-
-          case 'json':
-            response = JSON.parse(data);
-            break;
-
-          default:
-            // 'text' or other
-            response = data;
-            break;
-        } // Wait for next browser tick like standard XMLHttpRequest event dispatching does
-
-
-        setTimeout(function () {
-          if (onLoad) onLoad(response);
-          scope.manager.itemEnd(url);
-        }, 0);
-      } catch (error) {
-        // Wait for next browser tick like standard XMLHttpRequest event dispatching does
-        setTimeout(function () {
-          if (onError) onError(error);
-          scope.manager.itemError(url);
-          scope.manager.itemEnd(url);
-        }, 0);
-      }
-    } else {
-      // Initialise array for duplicate requests
-      loading[url] = [];
-      loading[url].push({
-        onLoad: onLoad,
-        onProgress: onProgress,
-        onError: onError
-      });
-      request = new XMLHttpRequest();
-      request.open('GET', url, true);
-      request.addEventListener('load', function (event) {
-        var response = this.response;
-        var callbacks = loading[url];
-        delete loading[url];
-
-        if (this.status === 200 || this.status === 0) {
-          // Some browsers return HTTP Status 0 when using non-http protocol
-          // e.g. 'file://' or 'data://'. Handle as success.
-          if (this.status === 0) console.warn('THREE.FileLoader: HTTP Status 0 received.'); // Add to cache only on HTTP success, so that we do not cache
-          // error response bodies as proper responses to requests.
-
-          Cache.add(url, response);
-
-          for (var _i229 = 0, il = callbacks.length; _i229 < il; _i229++) {
-            var callback = callbacks[_i229];
-            if (callback.onLoad) callback.onLoad(response);
-          }
-
-          scope.manager.itemEnd(url);
-        } else {
-          for (var _i230 = 0, _il17 = callbacks.length; _i230 < _il17; _i230++) {
-            var _callback = callbacks[_i230];
-            if (_callback.onError) _callback.onError(event);
-          }
-
-          scope.manager.itemError(url);
-          scope.manager.itemEnd(url);
-        }
-      }, false);
-      request.addEventListener('progress', function (event) {
-        var callbacks = loading[url];
-
-        for (var _i231 = 0, il = callbacks.length; _i231 < il; _i231++) {
-          var callback = callbacks[_i231];
-          if (callback.onProgress) callback.onProgress(event);
-        }
-      }, false);
-      request.addEventListener('error', function (event) {
-        var callbacks = loading[url];
-        delete loading[url];
-
-        for (var _i232 = 0, il = callbacks.length; _i232 < il; _i232++) {
-          var callback = callbacks[_i232];
-          if (callback.onError) callback.onError(event);
-        }
-
-        scope.manager.itemError(url);
-        scope.manager.itemEnd(url);
-      }, false);
-      request.addEventListener('abort', function (event) {
-        var callbacks = loading[url];
-        delete loading[url];
-
-        for (var _i233 = 0, il = callbacks.length; _i233 < il; _i233++) {
-          var callback = callbacks[_i233];
-          if (callback.onError) callback.onError(event);
-        }
-
-        scope.manager.itemError(url);
-        scope.manager.itemEnd(url);
-      }, false);
-      if (this.responseType !== undefined) request.responseType = this.responseType;
-      if (this.withCredentials !== undefined) request.withCredentials = this.withCredentials;
-      if (request.overrideMimeType) request.overrideMimeType(this.mimeType !== undefined ? this.mimeType : 'text/plain');
-
-      for (var header in this.requestHeader) {
-        request.setRequestHeader(header, this.requestHeader[header]);
-      }
-
-      request.send(null);
-    }
-
-    scope.manager.itemStart(url);
-    return request;
-  },
-  setResponseType: function setResponseType(value) {
-    this.responseType = value;
-    return this;
-  },
-  setMimeType: function setMimeType(value) {
-    this.mimeType = value;
-    return this;
+    return _super92.call(this, manager);
   }
-});
 
-var AnimationLoader = /*#__PURE__*/function (_Loader) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationLoader, _Loader);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(FileLoader, [{
+    key: "load",
+    value: function load(url, onLoad, onProgress, onError) {
+      if (url === undefined) url = '';
+      if (this.path !== undefined) url = this.path + url;
+      url = this.manager.resolveURL(url);
+      var scope = this;
+      var cached = Cache.get(url);
 
-  var _super62 = _createSuper(AnimationLoader);
+      if (cached !== undefined) {
+        scope.manager.itemStart(url);
+        setTimeout(function () {
+          if (onLoad) onLoad(cached);
+          scope.manager.itemEnd(url);
+        }, 0);
+        return cached;
+      } // Check if request is duplicate
+
+
+      if (loading[url] !== undefined) {
+        loading[url].push({
+          onLoad: onLoad,
+          onProgress: onProgress,
+          onError: onError
+        });
+        return;
+      } // Check for data: URI
+
+
+      var dataUriRegex = /^data:(.*?)(;base64)?,(.*)$/;
+      var dataUriRegexResult = url.match(dataUriRegex);
+      var request; // Safari can not handle Data URIs through XMLHttpRequest so process manually
+
+      if (dataUriRegexResult) {
+        var mimeType = dataUriRegexResult[1];
+        var isBase64 = !!dataUriRegexResult[2];
+        var data = dataUriRegexResult[3];
+        data = decodeURIComponent(data);
+        if (isBase64) data = atob(data);
+
+        try {
+          var response;
+          var responseType = (this.responseType || '').toLowerCase();
+
+          switch (responseType) {
+            case 'arraybuffer':
+            case 'blob':
+              var view = new Uint8Array(data.length);
+
+              for (var _i228 = 0; _i228 < data.length; _i228++) {
+                view[_i228] = data.charCodeAt(_i228);
+              }
+
+              if (responseType === 'blob') {
+                response = new Blob([view.buffer], {
+                  type: mimeType
+                });
+              } else {
+                response = view.buffer;
+              }
+
+              break;
+
+            case 'document':
+              var parser = new DOMParser();
+              response = parser.parseFromString(data, mimeType);
+              break;
+
+            case 'json':
+              response = JSON.parse(data);
+              break;
+
+            default:
+              // 'text' or other
+              response = data;
+              break;
+          } // Wait for next browser tick like standard XMLHttpRequest event dispatching does
+
+
+          setTimeout(function () {
+            if (onLoad) onLoad(response);
+            scope.manager.itemEnd(url);
+          }, 0);
+        } catch (error) {
+          // Wait for next browser tick like standard XMLHttpRequest event dispatching does
+          setTimeout(function () {
+            if (onError) onError(error);
+            scope.manager.itemError(url);
+            scope.manager.itemEnd(url);
+          }, 0);
+        }
+      } else {
+        // Initialise array for duplicate requests
+        loading[url] = [];
+        loading[url].push({
+          onLoad: onLoad,
+          onProgress: onProgress,
+          onError: onError
+        });
+        request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.addEventListener('load', function (event) {
+          var response = this.response;
+          var callbacks = loading[url];
+          delete loading[url];
+
+          if (this.status === 200 || this.status === 0) {
+            // Some browsers return HTTP Status 0 when using non-http protocol
+            // e.g. 'file://' or 'data://'. Handle as success.
+            if (this.status === 0) console.warn('THREE.FileLoader: HTTP Status 0 received.'); // Add to cache only on HTTP success, so that we do not cache
+            // error response bodies as proper responses to requests.
+
+            Cache.add(url, response);
+
+            for (var _i229 = 0, il = callbacks.length; _i229 < il; _i229++) {
+              var callback = callbacks[_i229];
+              if (callback.onLoad) callback.onLoad(response);
+            }
+
+            scope.manager.itemEnd(url);
+          } else {
+            for (var _i230 = 0, _il17 = callbacks.length; _i230 < _il17; _i230++) {
+              var _callback = callbacks[_i230];
+              if (_callback.onError) _callback.onError(event);
+            }
+
+            scope.manager.itemError(url);
+            scope.manager.itemEnd(url);
+          }
+        }, false);
+        request.addEventListener('progress', function (event) {
+          var callbacks = loading[url];
+
+          for (var _i231 = 0, il = callbacks.length; _i231 < il; _i231++) {
+            var callback = callbacks[_i231];
+            if (callback.onProgress) callback.onProgress(event);
+          }
+        }, false);
+        request.addEventListener('error', function (event) {
+          var callbacks = loading[url];
+          delete loading[url];
+
+          for (var _i232 = 0, il = callbacks.length; _i232 < il; _i232++) {
+            var callback = callbacks[_i232];
+            if (callback.onError) callback.onError(event);
+          }
+
+          scope.manager.itemError(url);
+          scope.manager.itemEnd(url);
+        }, false);
+        request.addEventListener('abort', function (event) {
+          var callbacks = loading[url];
+          delete loading[url];
+
+          for (var _i233 = 0, il = callbacks.length; _i233 < il; _i233++) {
+            var callback = callbacks[_i233];
+            if (callback.onError) callback.onError(event);
+          }
+
+          scope.manager.itemError(url);
+          scope.manager.itemEnd(url);
+        }, false);
+        if (this.responseType !== undefined) request.responseType = this.responseType;
+        if (this.withCredentials !== undefined) request.withCredentials = this.withCredentials;
+        if (request.overrideMimeType) request.overrideMimeType(this.mimeType !== undefined ? this.mimeType : 'text/plain');
+
+        for (var header in this.requestHeader) {
+          request.setRequestHeader(header, this.requestHeader[header]);
+        }
+
+        request.send(null);
+      }
+
+      scope.manager.itemStart(url);
+      return request;
+    }
+  }, {
+    key: "setResponseType",
+    value: function setResponseType(value) {
+      this.responseType = value;
+      return this;
+    }
+  }, {
+    key: "setMimeType",
+    value: function setMimeType(value) {
+      this.mimeType = value;
+      return this;
+    }
+  }]);
+
+  return FileLoader;
+}(Loader);
+
+var AnimationLoader = /*#__PURE__*/function (_Loader2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationLoader, _Loader2);
+
+  var _super93 = _createSuper(AnimationLoader);
 
   function AnimationLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationLoader);
 
-    return _super62.call(this, manager);
+    return _super93.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationLoader, [{
@@ -27168,99 +28058,109 @@ var AnimationLoader = /*#__PURE__*/function (_Loader) {
  */
 
 
-function CompressedTextureLoader(manager) {
-  Loader.call(this, manager);
-}
+var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CompressedTextureLoader, _Loader3);
 
-CompressedTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
-  constructor: CompressedTextureLoader,
-  load: function load(url, onLoad, onProgress, onError) {
-    var scope = this;
-    var images = [];
-    var texture = new CompressedTexture();
-    var loader = new FileLoader(this.manager);
-    loader.setPath(this.path);
-    loader.setResponseType('arraybuffer');
-    loader.setRequestHeader(this.requestHeader);
-    loader.setWithCredentials(scope.withCredentials);
-    var loaded = 0;
+  var _super94 = _createSuper(CompressedTextureLoader);
 
-    function loadTexture(i) {
-      loader.load(url[i], function (buffer) {
-        var texDatas = scope.parse(buffer, true);
-        images[i] = {
-          width: texDatas.width,
-          height: texDatas.height,
-          format: texDatas.format,
-          mipmaps: texDatas.mipmaps
-        };
-        loaded += 1;
+  function CompressedTextureLoader(manager) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CompressedTextureLoader);
 
-        if (loaded === 6) {
-          if (texDatas.mipmapCount === 1) texture.minFilter = LinearFilter;
-          texture.image = images;
+    return _super94.call(this, manager);
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CompressedTextureLoader, [{
+    key: "load",
+    value: function load(url, onLoad, onProgress, onError) {
+      var scope = this;
+      var images = [];
+      var texture = new CompressedTexture();
+      var loader = new FileLoader(this.manager);
+      loader.setPath(this.path);
+      loader.setResponseType('arraybuffer');
+      loader.setRequestHeader(this.requestHeader);
+      loader.setWithCredentials(scope.withCredentials);
+      var loaded = 0;
+
+      function loadTexture(i) {
+        loader.load(url[i], function (buffer) {
+          var texDatas = scope.parse(buffer, true);
+          images[i] = {
+            width: texDatas.width,
+            height: texDatas.height,
+            format: texDatas.format,
+            mipmaps: texDatas.mipmaps
+          };
+          loaded += 1;
+
+          if (loaded === 6) {
+            if (texDatas.mipmapCount === 1) texture.minFilter = LinearFilter;
+            texture.image = images;
+            texture.format = texDatas.format;
+            texture.needsUpdate = true;
+            if (onLoad) onLoad(texture);
+          }
+        }, onProgress, onError);
+      }
+
+      if (Array.isArray(url)) {
+        for (var _i235 = 0, il = url.length; _i235 < il; ++_i235) {
+          loadTexture(_i235);
+        }
+      } else {
+        // compressed cubemap texture stored in a single DDS file
+        loader.load(url, function (buffer) {
+          var texDatas = scope.parse(buffer, true);
+
+          if (texDatas.isCubemap) {
+            var faces = texDatas.mipmaps.length / texDatas.mipmapCount;
+
+            for (var f = 0; f < faces; f++) {
+              images[f] = {
+                mipmaps: []
+              };
+
+              for (var _i236 = 0; _i236 < texDatas.mipmapCount; _i236++) {
+                images[f].mipmaps.push(texDatas.mipmaps[f * texDatas.mipmapCount + _i236]);
+                images[f].format = texDatas.format;
+                images[f].width = texDatas.width;
+                images[f].height = texDatas.height;
+              }
+            }
+
+            texture.image = images;
+          } else {
+            texture.image.width = texDatas.width;
+            texture.image.height = texDatas.height;
+            texture.mipmaps = texDatas.mipmaps;
+          }
+
+          if (texDatas.mipmapCount === 1) {
+            texture.minFilter = LinearFilter;
+          }
+
           texture.format = texDatas.format;
           texture.needsUpdate = true;
           if (onLoad) onLoad(texture);
-        }
-      }, onProgress, onError);
-    }
-
-    if (Array.isArray(url)) {
-      for (var _i235 = 0, il = url.length; _i235 < il; ++_i235) {
-        loadTexture(_i235);
+        }, onProgress, onError);
       }
-    } else {
-      // compressed cubemap texture stored in a single DDS file
-      loader.load(url, function (buffer) {
-        var texDatas = scope.parse(buffer, true);
 
-        if (texDatas.isCubemap) {
-          var faces = texDatas.mipmaps.length / texDatas.mipmapCount;
-
-          for (var f = 0; f < faces; f++) {
-            images[f] = {
-              mipmaps: []
-            };
-
-            for (var _i236 = 0; _i236 < texDatas.mipmapCount; _i236++) {
-              images[f].mipmaps.push(texDatas.mipmaps[f * texDatas.mipmapCount + _i236]);
-              images[f].format = texDatas.format;
-              images[f].width = texDatas.width;
-              images[f].height = texDatas.height;
-            }
-          }
-
-          texture.image = images;
-        } else {
-          texture.image.width = texDatas.width;
-          texture.image.height = texDatas.height;
-          texture.mipmaps = texDatas.mipmaps;
-        }
-
-        if (texDatas.mipmapCount === 1) {
-          texture.minFilter = LinearFilter;
-        }
-
-        texture.format = texDatas.format;
-        texture.needsUpdate = true;
-        if (onLoad) onLoad(texture);
-      }, onProgress, onError);
+      return texture;
     }
+  }]);
 
-    return texture;
-  }
-});
+  return CompressedTextureLoader;
+}(Loader);
 
-var ImageLoader = /*#__PURE__*/function (_Loader2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageLoader, _Loader2);
+var ImageLoader = /*#__PURE__*/function (_Loader4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageLoader, _Loader4);
 
-  var _super63 = _createSuper(ImageLoader);
+  var _super95 = _createSuper(ImageLoader);
 
   function ImageLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImageLoader);
 
-    return _super63.call(this, manager);
+    return _super95.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ImageLoader, [{
@@ -27314,15 +28214,15 @@ var ImageLoader = /*#__PURE__*/function (_Loader2) {
   return ImageLoader;
 }(Loader);
 
-var CubeTextureLoader = /*#__PURE__*/function (_Loader3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTextureLoader, _Loader3);
+var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTextureLoader, _Loader5);
 
-  var _super64 = _createSuper(CubeTextureLoader);
+  var _super96 = _createSuper(CubeTextureLoader);
 
   function CubeTextureLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubeTextureLoader);
 
-    return _super64.call(this, manager);
+    return _super96.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubeTextureLoader, [{
@@ -27363,99 +28263,119 @@ var CubeTextureLoader = /*#__PURE__*/function (_Loader3) {
  */
 
 
-function DataTextureLoader(manager) {
-  Loader.call(this, manager);
-}
+var DataTextureLoader = /*#__PURE__*/function (_Loader6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTextureLoader, _Loader6);
 
-DataTextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
-  constructor: DataTextureLoader,
-  load: function load(url, onLoad, onProgress, onError) {
-    var scope = this;
-    var texture = new DataTexture();
-    var loader = new FileLoader(this.manager);
-    loader.setResponseType('arraybuffer');
-    loader.setRequestHeader(this.requestHeader);
-    loader.setPath(this.path);
-    loader.setWithCredentials(scope.withCredentials);
-    loader.load(url, function (buffer) {
-      var texData = scope.parse(buffer);
-      if (!texData) return;
+  var _super97 = _createSuper(DataTextureLoader);
 
-      if (texData.image !== undefined) {
-        texture.image = texData.image;
-      } else if (texData.data !== undefined) {
-        texture.image.width = texData.width;
-        texture.image.height = texData.height;
-        texture.image.data = texData.data;
-      }
+  function DataTextureLoader(manager) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTextureLoader);
 
-      texture.wrapS = texData.wrapS !== undefined ? texData.wrapS : ClampToEdgeWrapping;
-      texture.wrapT = texData.wrapT !== undefined ? texData.wrapT : ClampToEdgeWrapping;
-      texture.magFilter = texData.magFilter !== undefined ? texData.magFilter : LinearFilter;
-      texture.minFilter = texData.minFilter !== undefined ? texData.minFilter : LinearFilter;
-      texture.anisotropy = texData.anisotropy !== undefined ? texData.anisotropy : 1;
-
-      if (texData.encoding !== undefined) {
-        texture.encoding = texData.encoding;
-      }
-
-      if (texData.flipY !== undefined) {
-        texture.flipY = texData.flipY;
-      }
-
-      if (texData.format !== undefined) {
-        texture.format = texData.format;
-      }
-
-      if (texData.type !== undefined) {
-        texture.type = texData.type;
-      }
-
-      if (texData.mipmaps !== undefined) {
-        texture.mipmaps = texData.mipmaps;
-        texture.minFilter = LinearMipmapLinearFilter; // presumably...
-      }
-
-      if (texData.mipmapCount === 1) {
-        texture.minFilter = LinearFilter;
-      }
-
-      if (texData.generateMipmaps !== undefined) {
-        texture.generateMipmaps = texData.generateMipmaps;
-      }
-
-      texture.needsUpdate = true;
-      if (onLoad) onLoad(texture, texData);
-    }, onProgress, onError);
-    return texture;
+    return _super97.call(this, manager);
   }
-});
 
-function TextureLoader(manager) {
-  Loader.call(this, manager);
-}
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DataTextureLoader, [{
+    key: "load",
+    value: function load(url, onLoad, onProgress, onError) {
+      var scope = this;
+      var texture = new DataTexture();
+      var loader = new FileLoader(this.manager);
+      loader.setResponseType('arraybuffer');
+      loader.setRequestHeader(this.requestHeader);
+      loader.setPath(this.path);
+      loader.setWithCredentials(scope.withCredentials);
+      loader.load(url, function (buffer) {
+        var texData = scope.parse(buffer);
+        if (!texData) return;
 
-TextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
-  constructor: TextureLoader,
-  load: function load(url, onLoad, onProgress, onError) {
-    var texture = new Texture();
-    var loader = new ImageLoader(this.manager);
-    loader.setCrossOrigin(this.crossOrigin);
-    loader.setPath(this.path);
-    loader.load(url, function (image) {
-      texture.image = image; // JPEGs can't have an alpha channel, so memory can be saved by storing them as RGB.
+        if (texData.image !== undefined) {
+          texture.image = texData.image;
+        } else if (texData.data !== undefined) {
+          texture.image.width = texData.width;
+          texture.image.height = texData.height;
+          texture.image.data = texData.data;
+        }
 
-      var isJPEG = url.search(/\.jpe?g($|\?)/i) > 0 || url.search(/^data\:image\/jpeg/) === 0;
-      texture.format = isJPEG ? RGBFormat : RGBAFormat;
-      texture.needsUpdate = true;
+        texture.wrapS = texData.wrapS !== undefined ? texData.wrapS : ClampToEdgeWrapping;
+        texture.wrapT = texData.wrapT !== undefined ? texData.wrapT : ClampToEdgeWrapping;
+        texture.magFilter = texData.magFilter !== undefined ? texData.magFilter : LinearFilter;
+        texture.minFilter = texData.minFilter !== undefined ? texData.minFilter : LinearFilter;
+        texture.anisotropy = texData.anisotropy !== undefined ? texData.anisotropy : 1;
 
-      if (onLoad !== undefined) {
-        onLoad(texture);
-      }
-    }, onProgress, onError);
-    return texture;
+        if (texData.encoding !== undefined) {
+          texture.encoding = texData.encoding;
+        }
+
+        if (texData.flipY !== undefined) {
+          texture.flipY = texData.flipY;
+        }
+
+        if (texData.format !== undefined) {
+          texture.format = texData.format;
+        }
+
+        if (texData.type !== undefined) {
+          texture.type = texData.type;
+        }
+
+        if (texData.mipmaps !== undefined) {
+          texture.mipmaps = texData.mipmaps;
+          texture.minFilter = LinearMipmapLinearFilter; // presumably...
+        }
+
+        if (texData.mipmapCount === 1) {
+          texture.minFilter = LinearFilter;
+        }
+
+        if (texData.generateMipmaps !== undefined) {
+          texture.generateMipmaps = texData.generateMipmaps;
+        }
+
+        texture.needsUpdate = true;
+        if (onLoad) onLoad(texture, texData);
+      }, onProgress, onError);
+      return texture;
+    }
+  }]);
+
+  return DataTextureLoader;
+}(Loader);
+
+var TextureLoader = /*#__PURE__*/function (_Loader7) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TextureLoader, _Loader7);
+
+  var _super98 = _createSuper(TextureLoader);
+
+  function TextureLoader(manager) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TextureLoader);
+
+    return _super98.call(this, manager);
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(TextureLoader, [{
+    key: "load",
+    value: function load(url, onLoad, onProgress, onError) {
+      var texture = new Texture();
+      var loader = new ImageLoader(this.manager);
+      loader.setCrossOrigin(this.crossOrigin);
+      loader.setPath(this.path);
+      loader.load(url, function (image) {
+        texture.image = image; // JPEGs can't have an alpha channel, so memory can be saved by storing them as RGB.
+
+        var isJPEG = url.search(/\.jpe?g($|\?)/i) > 0 || url.search(/^data\:image\/jpeg/) === 0;
+        texture.format = isJPEG ? RGBFormat : RGBAFormat;
+        texture.needsUpdate = true;
+
+        if (onLoad !== undefined) {
+          onLoad(texture);
+        }
+      }, onProgress, onError);
+      return texture;
+    }
+  }]);
+
+  return TextureLoader;
+}(Loader);
 /**
  * Extensible curve object.
  *
@@ -27486,266 +28406,302 @@ TextureLoader.prototype = Object.assign(Object.create(Loader.prototype), {
  *
  **/
 
-function Curve() {
-  this.type = 'Curve';
-  this.arcLengthDivisions = 200;
-}
 
-Object.assign(Curve.prototype, {
-  // Virtual base class method to overwrite and implement in subclasses
+var Curve = /*#__PURE__*/function () {
+  function Curve() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Curve);
+
+    this.type = 'Curve';
+    this.arcLengthDivisions = 200;
+  } // Virtual base class method to overwrite and implement in subclasses
   //	- t [0 .. 1]
-  getPoint: function getPoint()
-  /* t, optionalTarget */
-  {
-    console.warn('THREE.Curve: .getPoint() not implemented.');
-    return null;
-  },
-  // Get point at relative position in curve according to arc length
-  // - u [0 .. 1]
-  getPointAt: function getPointAt(u, optionalTarget) {
-    var t = this.getUtoTmapping(u);
-    return this.getPoint(t, optionalTarget);
-  },
-  // Get sequence of points using getPoint( t )
-  getPoints: function getPoints() {
-    var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
-    var points = [];
 
-    for (var d = 0; d <= divisions; d++) {
-      points.push(this.getPoint(d / divisions));
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Curve, [{
+    key: "getPoint",
+    value: function getPoint()
+    /* t, optionalTarget */
+    {
+      console.warn('THREE.Curve: .getPoint() not implemented.');
+      return null;
+    } // Get point at relative position in curve according to arc length
+    // - u [0 .. 1]
+
+  }, {
+    key: "getPointAt",
+    value: function getPointAt(u, optionalTarget) {
+      var t = this.getUtoTmapping(u);
+      return this.getPoint(t, optionalTarget);
+    } // Get sequence of points using getPoint( t )
+
+  }, {
+    key: "getPoints",
+    value: function getPoints() {
+      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+      var points = [];
+
+      for (var d = 0; d <= divisions; d++) {
+        points.push(this.getPoint(d / divisions));
+      }
+
+      return points;
+    } // Get sequence of points using getPointAt( u )
+
+  }, {
+    key: "getSpacedPoints",
+    value: function getSpacedPoints() {
+      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+      var points = [];
+
+      for (var d = 0; d <= divisions; d++) {
+        points.push(this.getPointAt(d / divisions));
+      }
+
+      return points;
+    } // Get total curve arc length
+
+  }, {
+    key: "getLength",
+    value: function getLength() {
+      var lengths = this.getLengths();
+      return lengths[lengths.length - 1];
+    } // Get list of cumulative segment lengths
+
+  }, {
+    key: "getLengths",
+    value: function getLengths() {
+      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.arcLengthDivisions;
+
+      if (this.cacheArcLengths && this.cacheArcLengths.length === divisions + 1 && !this.needsUpdate) {
+        return this.cacheArcLengths;
+      }
+
+      this.needsUpdate = false;
+      var cache = [];
+      var current,
+          last = this.getPoint(0);
+      var sum = 0;
+      cache.push(0);
+
+      for (var p = 1; p <= divisions; p++) {
+        current = this.getPoint(p / divisions);
+        sum += current.distanceTo(last);
+        cache.push(sum);
+        last = current;
+      }
+
+      this.cacheArcLengths = cache;
+      return cache; // { sums: cache, sum: sum }; Sum is in the last element.
     }
+  }, {
+    key: "updateArcLengths",
+    value: function updateArcLengths() {
+      this.needsUpdate = true;
+      this.getLengths();
+    } // Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equidistant
 
-    return points;
-  },
-  // Get sequence of points using getPointAt( u )
-  getSpacedPoints: function getSpacedPoints() {
-    var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
-    var points = [];
+  }, {
+    key: "getUtoTmapping",
+    value: function getUtoTmapping(u, distance) {
+      var arcLengths = this.getLengths();
+      var i = 0;
+      var il = arcLengths.length;
+      var targetArcLength; // The targeted u distance value to get
 
-    for (var d = 0; d <= divisions; d++) {
-      points.push(this.getPointAt(d / divisions));
-    }
-
-    return points;
-  },
-  // Get total curve arc length
-  getLength: function getLength() {
-    var lengths = this.getLengths();
-    return lengths[lengths.length - 1];
-  },
-  // Get list of cumulative segment lengths
-  getLengths: function getLengths(divisions) {
-    if (divisions === undefined) divisions = this.arcLengthDivisions;
-
-    if (this.cacheArcLengths && this.cacheArcLengths.length === divisions + 1 && !this.needsUpdate) {
-      return this.cacheArcLengths;
-    }
-
-    this.needsUpdate = false;
-    var cache = [];
-    var current,
-        last = this.getPoint(0);
-    var sum = 0;
-    cache.push(0);
-
-    for (var p = 1; p <= divisions; p++) {
-      current = this.getPoint(p / divisions);
-      sum += current.distanceTo(last);
-      cache.push(sum);
-      last = current;
-    }
-
-    this.cacheArcLengths = cache;
-    return cache; // { sums: cache, sum: sum }; Sum is in the last element.
-  },
-  updateArcLengths: function updateArcLengths() {
-    this.needsUpdate = true;
-    this.getLengths();
-  },
-  // Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equidistant
-  getUtoTmapping: function getUtoTmapping(u, distance) {
-    var arcLengths = this.getLengths();
-    var i = 0;
-    var il = arcLengths.length;
-    var targetArcLength; // The targeted u distance value to get
-
-    if (distance) {
-      targetArcLength = distance;
-    } else {
-      targetArcLength = u * arcLengths[il - 1];
-    } // binary search for the index with largest value smaller than target u distance
-
-
-    var low = 0,
-        high = il - 1,
-        comparison;
-
-    while (low <= high) {
-      i = Math.floor(low + (high - low) / 2); // less likely to overflow, though probably not issue here, JS doesn't really have integers, all numbers are floats
-
-      comparison = arcLengths[i] - targetArcLength;
-
-      if (comparison < 0) {
-        low = i + 1;
-      } else if (comparison > 0) {
-        high = i - 1;
+      if (distance) {
+        targetArcLength = distance;
       } else {
-        high = i;
-        break; // DONE
-      }
-    }
-
-    i = high;
-
-    if (arcLengths[i] === targetArcLength) {
-      return i / (il - 1);
-    } // we could get finer grain at lengths, or use simple interpolation between two points
+        targetArcLength = u * arcLengths[il - 1];
+      } // binary search for the index with largest value smaller than target u distance
 
 
-    var lengthBefore = arcLengths[i];
-    var lengthAfter = arcLengths[i + 1];
-    var segmentLength = lengthAfter - lengthBefore; // determine where we are between the 'before' and 'after' points
+      var low = 0,
+          high = il - 1,
+          comparison;
 
-    var segmentFraction = (targetArcLength - lengthBefore) / segmentLength; // add that fractional amount to t
+      while (low <= high) {
+        i = Math.floor(low + (high - low) / 2); // less likely to overflow, though probably not issue here, JS doesn't really have integers, all numbers are floats
 
-    var t = (i + segmentFraction) / (il - 1);
-    return t;
-  },
-  // Returns a unit vector tangent at t
-  // In case any sub curve does not implement its tangent derivation,
-  // 2 points a small delta apart will be used to find its gradient
-  // which seems to give a reasonable approximation
-  getTangent: function getTangent(t, optionalTarget) {
-    var delta = 0.0001;
-    var t1 = t - delta;
-    var t2 = t + delta; // Capping in case of danger
+        comparison = arcLengths[i] - targetArcLength;
 
-    if (t1 < 0) t1 = 0;
-    if (t2 > 1) t2 = 1;
-    var pt1 = this.getPoint(t1);
-    var pt2 = this.getPoint(t2);
-    var tangent = optionalTarget || (pt1.isVector2 ? new Vector2() : new Vector3());
-    tangent.copy(pt2).sub(pt1).normalize();
-    return tangent;
-  },
-  getTangentAt: function getTangentAt(u, optionalTarget) {
-    var t = this.getUtoTmapping(u);
-    return this.getTangent(t, optionalTarget);
-  },
-  computeFrenetFrames: function computeFrenetFrames(segments, closed) {
-    // see http://www.cs.indiana.edu/pub/techreports/TR425.pdf
-    var normal = new Vector3();
-    var tangents = [];
-    var normals = [];
-    var binormals = [];
-    var vec = new Vector3();
-    var mat = new Matrix4(); // compute the tangent vectors for each segment on the curve
-
-    for (var _i238 = 0; _i238 <= segments; _i238++) {
-      var u = _i238 / segments;
-      tangents[_i238] = this.getTangentAt(u, new Vector3());
-
-      tangents[_i238].normalize();
-    } // select an initial normal vector perpendicular to the first tangent vector,
-    // and in the direction of the minimum tangent xyz component
-
-
-    normals[0] = new Vector3();
-    binormals[0] = new Vector3();
-    var min = Number.MAX_VALUE;
-    var tx = Math.abs(tangents[0].x);
-    var ty = Math.abs(tangents[0].y);
-    var tz = Math.abs(tangents[0].z);
-
-    if (tx <= min) {
-      min = tx;
-      normal.set(1, 0, 0);
-    }
-
-    if (ty <= min) {
-      min = ty;
-      normal.set(0, 1, 0);
-    }
-
-    if (tz <= min) {
-      normal.set(0, 0, 1);
-    }
-
-    vec.crossVectors(tangents[0], normal).normalize();
-    normals[0].crossVectors(tangents[0], vec);
-    binormals[0].crossVectors(tangents[0], normals[0]); // compute the slowly-varying normal and binormal vectors for each segment on the curve
-
-    for (var _i239 = 1; _i239 <= segments; _i239++) {
-      normals[_i239] = normals[_i239 - 1].clone();
-      binormals[_i239] = binormals[_i239 - 1].clone();
-      vec.crossVectors(tangents[_i239 - 1], tangents[_i239]);
-
-      if (vec.length() > Number.EPSILON) {
-        vec.normalize();
-        var theta = Math.acos(MathUtils.clamp(tangents[_i239 - 1].dot(tangents[_i239]), -1, 1)); // clamp for floating pt errors
-
-        normals[_i239].applyMatrix4(mat.makeRotationAxis(vec, theta));
+        if (comparison < 0) {
+          low = i + 1;
+        } else if (comparison > 0) {
+          high = i - 1;
+        } else {
+          high = i;
+          break; // DONE
+        }
       }
 
-      binormals[_i239].crossVectors(tangents[_i239], normals[_i239]);
-    } // if the curve is closed, postprocess the vectors so the first and last normal vectors are the same
+      i = high;
+
+      if (arcLengths[i] === targetArcLength) {
+        return i / (il - 1);
+      } // we could get finer grain at lengths, or use simple interpolation between two points
 
 
-    if (closed === true) {
-      var _theta = Math.acos(MathUtils.clamp(normals[0].dot(normals[segments]), -1, 1));
+      var lengthBefore = arcLengths[i];
+      var lengthAfter = arcLengths[i + 1];
+      var segmentLength = lengthAfter - lengthBefore; // determine where we are between the 'before' and 'after' points
 
-      _theta /= segments;
+      var segmentFraction = (targetArcLength - lengthBefore) / segmentLength; // add that fractional amount to t
 
-      if (tangents[0].dot(vec.crossVectors(normals[0], normals[segments])) > 0) {
-        _theta = -_theta;
-      }
+      var t = (i + segmentFraction) / (il - 1);
+      return t;
+    } // Returns a unit vector tangent at t
+    // In case any sub curve does not implement its tangent derivation,
+    // 2 points a small delta apart will be used to find its gradient
+    // which seems to give a reasonable approximation
 
-      for (var _i240 = 1; _i240 <= segments; _i240++) {
-        // twist a little...
-        normals[_i240].applyMatrix4(mat.makeRotationAxis(tangents[_i240], _theta * _i240));
+  }, {
+    key: "getTangent",
+    value: function getTangent(t, optionalTarget) {
+      var delta = 0.0001;
+      var t1 = t - delta;
+      var t2 = t + delta; // Capping in case of danger
 
-        binormals[_i240].crossVectors(tangents[_i240], normals[_i240]);
-      }
+      if (t1 < 0) t1 = 0;
+      if (t2 > 1) t2 = 1;
+      var pt1 = this.getPoint(t1);
+      var pt2 = this.getPoint(t2);
+      var tangent = optionalTarget || (pt1.isVector2 ? new Vector2() : new Vector3());
+      tangent.copy(pt2).sub(pt1).normalize();
+      return tangent;
     }
+  }, {
+    key: "getTangentAt",
+    value: function getTangentAt(u, optionalTarget) {
+      var t = this.getUtoTmapping(u);
+      return this.getTangent(t, optionalTarget);
+    }
+  }, {
+    key: "computeFrenetFrames",
+    value: function computeFrenetFrames(segments, closed) {
+      // see http://www.cs.indiana.edu/pub/techreports/TR425.pdf
+      var normal = new Vector3();
+      var tangents = [];
+      var normals = [];
+      var binormals = [];
+      var vec = new Vector3();
+      var mat = new Matrix4(); // compute the tangent vectors for each segment on the curve
 
-    return {
-      tangents: tangents,
-      normals: normals,
-      binormals: binormals
-    };
-  },
-  clone: function clone() {
-    return new this.constructor().copy(this);
-  },
-  copy: function copy(source) {
-    this.arcLengthDivisions = source.arcLengthDivisions;
-    return this;
-  },
-  toJSON: function toJSON() {
-    var data = {
-      metadata: {
-        version: 4.5,
-        type: 'Curve',
-        generator: 'Curve.toJSON'
+      for (var _i238 = 0; _i238 <= segments; _i238++) {
+        var u = _i238 / segments;
+        tangents[_i238] = this.getTangentAt(u, new Vector3());
+
+        tangents[_i238].normalize();
+      } // select an initial normal vector perpendicular to the first tangent vector,
+      // and in the direction of the minimum tangent xyz component
+
+
+      normals[0] = new Vector3();
+      binormals[0] = new Vector3();
+      var min = Number.MAX_VALUE;
+      var tx = Math.abs(tangents[0].x);
+      var ty = Math.abs(tangents[0].y);
+      var tz = Math.abs(tangents[0].z);
+
+      if (tx <= min) {
+        min = tx;
+        normal.set(1, 0, 0);
       }
-    };
-    data.arcLengthDivisions = this.arcLengthDivisions;
-    data.type = this.type;
-    return data;
-  },
-  fromJSON: function fromJSON(json) {
-    this.arcLengthDivisions = json.arcLengthDivisions;
-    return this;
-  }
-});
+
+      if (ty <= min) {
+        min = ty;
+        normal.set(0, 1, 0);
+      }
+
+      if (tz <= min) {
+        normal.set(0, 0, 1);
+      }
+
+      vec.crossVectors(tangents[0], normal).normalize();
+      normals[0].crossVectors(tangents[0], vec);
+      binormals[0].crossVectors(tangents[0], normals[0]); // compute the slowly-varying normal and binormal vectors for each segment on the curve
+
+      for (var _i239 = 1; _i239 <= segments; _i239++) {
+        normals[_i239] = normals[_i239 - 1].clone();
+        binormals[_i239] = binormals[_i239 - 1].clone();
+        vec.crossVectors(tangents[_i239 - 1], tangents[_i239]);
+
+        if (vec.length() > Number.EPSILON) {
+          vec.normalize();
+          var theta = Math.acos(clamp(tangents[_i239 - 1].dot(tangents[_i239]), -1, 1)); // clamp for floating pt errors
+
+          normals[_i239].applyMatrix4(mat.makeRotationAxis(vec, theta));
+        }
+
+        binormals[_i239].crossVectors(tangents[_i239], normals[_i239]);
+      } // if the curve is closed, postprocess the vectors so the first and last normal vectors are the same
+
+
+      if (closed === true) {
+        var _theta = Math.acos(clamp(normals[0].dot(normals[segments]), -1, 1));
+
+        _theta /= segments;
+
+        if (tangents[0].dot(vec.crossVectors(normals[0], normals[segments])) > 0) {
+          _theta = -_theta;
+        }
+
+        for (var _i240 = 1; _i240 <= segments; _i240++) {
+          // twist a little...
+          normals[_i240].applyMatrix4(mat.makeRotationAxis(tangents[_i240], _theta * _i240));
+
+          binormals[_i240].crossVectors(tangents[_i240], normals[_i240]);
+        }
+      }
+
+      return {
+        tangents: tangents,
+        normals: normals,
+        binormals: binormals
+      };
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor().copy(this);
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      this.arcLengthDivisions = source.arcLengthDivisions;
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = {
+        metadata: {
+          version: 4.5,
+          type: 'Curve',
+          generator: 'Curve.toJSON'
+        }
+      };
+      data.arcLengthDivisions = this.arcLengthDivisions;
+      data.type = this.type;
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      this.arcLengthDivisions = json.arcLengthDivisions;
+      return this;
+    }
+  }]);
+
+  return Curve;
+}();
 
 var EllipseCurve = /*#__PURE__*/function (_Curve) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EllipseCurve, _Curve);
 
-  var _super65 = _createSuper(EllipseCurve);
+  var _super99 = _createSuper(EllipseCurve);
 
   function EllipseCurve() {
-    var _this56;
+    var _this73;
 
     var aX = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     var aY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -27758,17 +28714,17 @@ var EllipseCurve = /*#__PURE__*/function (_Curve) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, EllipseCurve);
 
-    _this56 = _super65.call(this);
-    _this56.type = 'EllipseCurve';
-    _this56.aX = aX;
-    _this56.aY = aY;
-    _this56.xRadius = xRadius;
-    _this56.yRadius = yRadius;
-    _this56.aStartAngle = aStartAngle;
-    _this56.aEndAngle = aEndAngle;
-    _this56.aClockwise = aClockwise;
-    _this56.aRotation = aRotation;
-    return _this56;
+    _this73 = _super99.call(this);
+    _this73.type = 'EllipseCurve';
+    _this73.aX = aX;
+    _this73.aY = aY;
+    _this73.xRadius = xRadius;
+    _this73.yRadius = yRadius;
+    _this73.aStartAngle = aStartAngle;
+    _this73.aEndAngle = aEndAngle;
+    _this73.aClockwise = aClockwise;
+    _this73.aRotation = aRotation;
+    return _this73;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(EllipseCurve, [{
@@ -27874,16 +28830,16 @@ EllipseCurve.prototype.isEllipseCurve = true;
 var ArcCurve = /*#__PURE__*/function (_EllipseCurve) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArcCurve, _EllipseCurve);
 
-  var _super66 = _createSuper(ArcCurve);
+  var _super100 = _createSuper(ArcCurve);
 
   function ArcCurve(aX, aY, aRadius, aStartAngle, aEndAngle, aClockwise) {
-    var _this57;
+    var _this74;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ArcCurve);
 
-    _this57 = _super66.call(this, aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
-    _this57.type = 'ArcCurve';
-    return _this57;
+    _this74 = _super100.call(this, aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
+    _this74.type = 'ArcCurve';
+    return _this74;
   }
 
   return ArcCurve;
@@ -27960,10 +28916,10 @@ var px = new CubicPoly(),
 var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CatmullRomCurve3, _Curve2);
 
-  var _super67 = _createSuper(CatmullRomCurve3);
+  var _super101 = _createSuper(CatmullRomCurve3);
 
   function CatmullRomCurve3() {
-    var _this58;
+    var _this75;
 
     var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var closed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -27972,13 +28928,13 @@ var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CatmullRomCurve3);
 
-    _this58 = _super67.call(this);
-    _this58.type = 'CatmullRomCurve3';
-    _this58.points = points;
-    _this58.closed = closed;
-    _this58.curveType = curveType;
-    _this58.tension = tension;
-    return _this58;
+    _this75 = _super101.call(this);
+    _this75.type = 'CatmullRomCurve3';
+    _this75.points = points;
+    _this75.closed = closed;
+    _this75.curveType = curveType;
+    _this75.tension = tension;
+    return _this75;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CatmullRomCurve3, [{
@@ -28156,10 +29112,10 @@ function CubicBezier(t, p0, p1, p2, p3) {
 var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve, _Curve3);
 
-  var _super68 = _createSuper(CubicBezierCurve);
+  var _super102 = _createSuper(CubicBezierCurve);
 
   function CubicBezierCurve() {
-    var _this59;
+    var _this76;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
@@ -28168,13 +29124,13 @@ var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubicBezierCurve);
 
-    _this59 = _super68.call(this);
-    _this59.type = 'CubicBezierCurve';
-    _this59.v0 = v0;
-    _this59.v1 = v1;
-    _this59.v2 = v2;
-    _this59.v3 = v3;
-    return _this59;
+    _this76 = _super102.call(this);
+    _this76.type = 'CubicBezierCurve';
+    _this76.v0 = v0;
+    _this76.v1 = v1;
+    _this76.v2 = v2;
+    _this76.v3 = v3;
+    return _this76;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubicBezierCurve, [{
@@ -28232,10 +29188,10 @@ CubicBezierCurve.prototype.isCubicBezierCurve = true;
 var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve3, _Curve4);
 
-  var _super69 = _createSuper(CubicBezierCurve3);
+  var _super103 = _createSuper(CubicBezierCurve3);
 
   function CubicBezierCurve3() {
-    var _this60;
+    var _this77;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
@@ -28244,13 +29200,13 @@ var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubicBezierCurve3);
 
-    _this60 = _super69.call(this);
-    _this60.type = 'CubicBezierCurve3';
-    _this60.v0 = v0;
-    _this60.v1 = v1;
-    _this60.v2 = v2;
-    _this60.v3 = v3;
-    return _this60;
+    _this77 = _super103.call(this);
+    _this77.type = 'CubicBezierCurve3';
+    _this77.v0 = v0;
+    _this77.v1 = v1;
+    _this77.v2 = v2;
+    _this77.v3 = v3;
+    return _this77;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubicBezierCurve3, [{
@@ -28308,21 +29264,21 @@ CubicBezierCurve3.prototype.isCubicBezierCurve3 = true;
 var LineCurve = /*#__PURE__*/function (_Curve5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve, _Curve5);
 
-  var _super70 = _createSuper(LineCurve);
+  var _super104 = _createSuper(LineCurve);
 
   function LineCurve() {
-    var _this61;
+    var _this78;
 
     var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
     var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineCurve);
 
-    _this61 = _super70.call(this);
-    _this61.type = 'LineCurve';
-    _this61.v1 = v1;
-    _this61.v2 = v2;
-    return _this61;
+    _this78 = _super104.call(this);
+    _this78.type = 'LineCurve';
+    _this78.v1 = v1;
+    _this78.v2 = v2;
+    return _this78;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineCurve, [{
@@ -28390,22 +29346,22 @@ LineCurve.prototype.isLineCurve = true;
 var LineCurve3 = /*#__PURE__*/function (_Curve6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve3, _Curve6);
 
-  var _super71 = _createSuper(LineCurve3);
+  var _super105 = _createSuper(LineCurve3);
 
   function LineCurve3() {
-    var _this62;
+    var _this79;
 
     var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineCurve3);
 
-    _this62 = _super71.call(this);
-    _this62.type = 'LineCurve3';
-    _this62.isLineCurve3 = true;
-    _this62.v1 = v1;
-    _this62.v2 = v2;
-    return _this62;
+    _this79 = _super105.call(this);
+    _this79.type = 'LineCurve3';
+    _this79.isLineCurve3 = true;
+    _this79.v1 = v1;
+    _this79.v2 = v2;
+    return _this79;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineCurve3, [{
@@ -28464,10 +29420,10 @@ var LineCurve3 = /*#__PURE__*/function (_Curve6) {
 var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve, _Curve7);
 
-  var _super72 = _createSuper(QuadraticBezierCurve);
+  var _super106 = _createSuper(QuadraticBezierCurve);
 
   function QuadraticBezierCurve() {
-    var _this63;
+    var _this80;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
@@ -28475,12 +29431,12 @@ var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuadraticBezierCurve);
 
-    _this63 = _super72.call(this);
-    _this63.type = 'QuadraticBezierCurve';
-    _this63.v0 = v0;
-    _this63.v1 = v1;
-    _this63.v2 = v2;
-    return _this63;
+    _this80 = _super106.call(this);
+    _this80.type = 'QuadraticBezierCurve';
+    _this80.v0 = v0;
+    _this80.v1 = v1;
+    _this80.v2 = v2;
+    return _this80;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuadraticBezierCurve, [{
@@ -28534,10 +29490,10 @@ QuadraticBezierCurve.prototype.isQuadraticBezierCurve = true;
 var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve3, _Curve8);
 
-  var _super73 = _createSuper(QuadraticBezierCurve3);
+  var _super107 = _createSuper(QuadraticBezierCurve3);
 
   function QuadraticBezierCurve3() {
-    var _this64;
+    var _this81;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
@@ -28545,12 +29501,12 @@ var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuadraticBezierCurve3);
 
-    _this64 = _super73.call(this);
-    _this64.type = 'QuadraticBezierCurve3';
-    _this64.v0 = v0;
-    _this64.v1 = v1;
-    _this64.v2 = v2;
-    return _this64;
+    _this81 = _super107.call(this);
+    _this81.type = 'QuadraticBezierCurve3';
+    _this81.v0 = v0;
+    _this81.v1 = v1;
+    _this81.v2 = v2;
+    return _this81;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuadraticBezierCurve3, [{
@@ -28604,19 +29560,19 @@ QuadraticBezierCurve3.prototype.isQuadraticBezierCurve3 = true;
 var SplineCurve = /*#__PURE__*/function (_Curve9) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SplineCurve, _Curve9);
 
-  var _super74 = _createSuper(SplineCurve);
+  var _super108 = _createSuper(SplineCurve);
 
   function SplineCurve() {
-    var _this65;
+    var _this82;
 
     var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SplineCurve);
 
-    _this65 = _super74.call(this);
-    _this65.type = 'SplineCurve';
-    _this65.points = points;
-    return _this65;
+    _this82 = _super108.call(this);
+    _this82.type = 'SplineCurve';
+    _this82.points = points;
+    return _this82;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SplineCurve, [{
@@ -28704,19 +29660,19 @@ var Curves = /*#__PURE__*/Object.freeze({
 var CurvePath = /*#__PURE__*/function (_Curve10) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CurvePath, _Curve10);
 
-  var _super75 = _createSuper(CurvePath);
+  var _super109 = _createSuper(CurvePath);
 
   function CurvePath() {
-    var _this66;
+    var _this83;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CurvePath);
 
-    _this66 = _super75.call(this);
-    _this66.type = 'CurvePath';
-    _this66.curves = [];
-    _this66.autoClose = false; // Automatically closes the path
+    _this83 = _super109.call(this);
+    _this83.type = 'CurvePath';
+    _this83.curves = [];
+    _this83.autoClose = false; // Automatically closes the path
 
-    return _this66;
+    return _this83;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CurvePath, [{
@@ -28899,22 +29855,22 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
 var Path = /*#__PURE__*/function (_CurvePath) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Path, _CurvePath);
 
-  var _super76 = _createSuper(Path);
+  var _super110 = _createSuper(Path);
 
   function Path(points) {
-    var _this67;
+    var _this84;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Path);
 
-    _this67 = _super76.call(this);
-    _this67.type = 'Path';
-    _this67.currentPoint = new Vector2();
+    _this84 = _super110.call(this);
+    _this84.type = 'Path';
+    _this84.currentPoint = new Vector2();
 
     if (points) {
-      _this67.setFromPoints(points);
+      _this84.setFromPoints(points);
     }
 
-    return _this67;
+    return _this84;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Path, [{
@@ -29043,18 +29999,18 @@ var Path = /*#__PURE__*/function (_CurvePath) {
 var Shape = /*#__PURE__*/function (_Path) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Shape, _Path);
 
-  var _super77 = _createSuper(Shape);
+  var _super111 = _createSuper(Shape);
 
   function Shape(points) {
-    var _this68;
+    var _this85;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Shape);
 
-    _this68 = _super77.call(this, points);
-    _this68.uuid = MathUtils.generateUUID();
-    _this68.type = 'Shape';
-    _this68.holes = [];
-    return _this68;
+    _this85 = _super111.call(this, points);
+    _this85.uuid = generateUUID();
+    _this85.type = 'Shape';
+    _this85.holes = [];
+    return _this85;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Shape, [{
@@ -29126,26 +30082,30 @@ var Shape = /*#__PURE__*/function (_Path) {
   return Shape;
 }(Path);
 
-var Light = /*#__PURE__*/function (_Object3D6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Light, _Object3D6);
+var Light = /*#__PURE__*/function (_Object3D11) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Light, _Object3D11);
 
-  var _super78 = _createSuper(Light);
+  var _super112 = _createSuper(Light);
 
   function Light(color) {
-    var _this69;
+    var _this86;
 
     var intensity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Light);
 
-    _this69 = _super78.call(this);
-    _this69.type = 'Light';
-    _this69.color = new Color(color);
-    _this69.intensity = intensity;
-    return _this69;
+    _this86 = _super112.call(this);
+    _this86.type = 'Light';
+    _this86.color = new Color(color);
+    _this86.intensity = intensity;
+    return _this86;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Light, [{
+    key: "dispose",
+    value: function dispose() {// Empty here in base class; some subclasses override.
+    }
+  }, {
     key: "copy",
     value: function copy(source) {
       (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Light.prototype), "copy", this).call(this, source);
@@ -29179,22 +30139,22 @@ Light.prototype.isLight = true;
 var HemisphereLight = /*#__PURE__*/function (_Light) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLight, _Light);
 
-  var _super79 = _createSuper(HemisphereLight);
+  var _super113 = _createSuper(HemisphereLight);
 
   function HemisphereLight(skyColor, groundColor, intensity) {
-    var _this70;
+    var _this87;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, HemisphereLight);
 
-    _this70 = _super79.call(this, skyColor, intensity);
-    _this70.type = 'HemisphereLight';
+    _this87 = _super113.call(this, skyColor, intensity);
+    _this87.type = 'HemisphereLight';
 
-    _this70.position.copy(Object3D.DefaultUp);
+    _this87.position.copy(Object3D.DefaultUp);
 
-    _this70.updateMatrix();
+    _this87.updateMatrix();
 
-    _this70.groundColor = new Color(groundColor);
-    return _this70;
+    _this87.groundColor = new Color(groundColor);
+    return _this87;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(HemisphereLight, [{
@@ -29281,6 +30241,17 @@ var LightShadow = /*#__PURE__*/function () {
       return this._frameExtents;
     }
   }, {
+    key: "dispose",
+    value: function dispose() {
+      if (this.map) {
+        this.map.dispose();
+      }
+
+      if (this.mapPass) {
+        this.mapPass.dispose();
+      }
+    }
+  }, {
     key: "copy",
     value: function copy(source) {
       this.camera = source.camera.clone();
@@ -29314,23 +30285,23 @@ var LightShadow = /*#__PURE__*/function () {
 var SpotLightShadow = /*#__PURE__*/function (_LightShadow) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightShadow, _LightShadow);
 
-  var _super80 = _createSuper(SpotLightShadow);
+  var _super114 = _createSuper(SpotLightShadow);
 
   function SpotLightShadow() {
-    var _this71;
+    var _this88;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpotLightShadow);
 
-    _this71 = _super80.call(this, new PerspectiveCamera(50, 1, 0.5, 500));
-    _this71.focus = 1;
-    return _this71;
+    _this88 = _super114.call(this, new PerspectiveCamera(50, 1, 0.5, 500));
+    _this88.focus = 1;
+    return _this88;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpotLightShadow, [{
     key: "updateMatrices",
     value: function updateMatrices(light) {
       var camera = this.camera;
-      var fov = MathUtils.RAD2DEG * 2 * light.angle * this.focus;
+      var fov = RAD2DEG * 2 * light.angle * this.focus;
       var aspect = this.mapSize.width / this.mapSize.height;
       var far = light.distance || camera.far;
 
@@ -29361,10 +30332,10 @@ SpotLightShadow.prototype.isSpotLightShadow = true;
 var SpotLight = /*#__PURE__*/function (_Light2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLight, _Light2);
 
-  var _super81 = _createSuper(SpotLight);
+  var _super115 = _createSuper(SpotLight);
 
   function SpotLight(color, intensity) {
-    var _this72;
+    var _this89;
 
     var distance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var angle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Math.PI / 3;
@@ -29373,21 +30344,21 @@ var SpotLight = /*#__PURE__*/function (_Light2) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpotLight);
 
-    _this72 = _super81.call(this, color, intensity);
-    _this72.type = 'SpotLight';
+    _this89 = _super115.call(this, color, intensity);
+    _this89.type = 'SpotLight';
 
-    _this72.position.copy(Object3D.DefaultUp);
+    _this89.position.copy(Object3D.DefaultUp);
 
-    _this72.updateMatrix();
+    _this89.updateMatrix();
 
-    _this72.target = new Object3D();
-    _this72.distance = distance;
-    _this72.angle = angle;
-    _this72.penumbra = penumbra;
-    _this72.decay = decay; // for physically correct lights, should be 2.
+    _this89.target = new Object3D();
+    _this89.distance = distance;
+    _this89.angle = angle;
+    _this89.penumbra = penumbra;
+    _this89.decay = decay; // for physically correct lights, should be 2.
 
-    _this72.shadow = new SpotLightShadow();
-    return _this72;
+    _this89.shadow = new SpotLightShadow();
+    return _this89;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpotLight, [{
@@ -29401,6 +30372,11 @@ var SpotLight = /*#__PURE__*/function (_Light2) {
       // intensity = power per solid angle.
       // ref: equation (17) from https://seblagarde.files.wordpress.com/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf
       this.intensity = power / Math.PI;
+    }
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this.shadow.dispose();
     }
   }, {
     key: "copy",
@@ -29431,17 +30407,17 @@ var _lookTarget = /*@__PURE__*/new Vector3();
 var PointLightShadow = /*#__PURE__*/function (_LightShadow2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightShadow, _LightShadow2);
 
-  var _super82 = _createSuper(PointLightShadow);
+  var _super116 = _createSuper(PointLightShadow);
 
   function PointLightShadow() {
-    var _this73;
+    var _this90;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointLightShadow);
 
-    _this73 = _super82.call(this, new PerspectiveCamera(90, 1, 0.5, 500));
-    _this73._frameExtents = new Vector2(4, 2);
-    _this73._viewportCount = 6;
-    _this73._viewports = [// These viewports map a cube-map onto a 2D texture with the
+    _this90 = _super116.call(this, new PerspectiveCamera(90, 1, 0.5, 500));
+    _this90._frameExtents = new Vector2(4, 2);
+    _this90._viewportCount = 6;
+    _this90._viewports = [// These viewports map a cube-map onto a 2D texture with the
     // following orientation:
     //
     //  xzXZ
@@ -29460,9 +30436,9 @@ var PointLightShadow = /*#__PURE__*/function (_LightShadow2) {
     new Vector4(1, 1, 1, 1), // positive Y
     new Vector4(3, 0, 1, 1), // negative Y
     new Vector4(1, 0, 1, 1)];
-    _this73._cubeDirections = [new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1), new Vector3(0, 1, 0), new Vector3(0, -1, 0)];
-    _this73._cubeUps = [new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1)];
-    return _this73;
+    _this90._cubeDirections = [new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1), new Vector3(0, 1, 0), new Vector3(0, -1, 0)];
+    _this90._cubeUps = [new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1)];
+    return _this90;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointLightShadow, [{
@@ -29505,23 +30481,23 @@ PointLightShadow.prototype.isPointLightShadow = true;
 var PointLight = /*#__PURE__*/function (_Light3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLight, _Light3);
 
-  var _super83 = _createSuper(PointLight);
+  var _super117 = _createSuper(PointLight);
 
   function PointLight(color, intensity) {
-    var _this74;
+    var _this91;
 
     var distance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var decay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointLight);
 
-    _this74 = _super83.call(this, color, intensity);
-    _this74.type = 'PointLight';
-    _this74.distance = distance;
-    _this74.decay = decay; // for physically correct lights, should be 2.
+    _this91 = _super117.call(this, color, intensity);
+    _this91.type = 'PointLight';
+    _this91.distance = distance;
+    _this91.decay = decay; // for physically correct lights, should be 2.
 
-    _this74.shadow = new PointLightShadow();
-    return _this74;
+    _this91.shadow = new PointLightShadow();
+    return _this91;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointLight, [{
@@ -29535,6 +30511,11 @@ var PointLight = /*#__PURE__*/function (_Light3) {
       // intensity = power per solid angle.
       // ref: equation (15) from https://seblagarde.files.wordpress.com/2015/07/course_notes_moving_frostbite_to_pbr_v32.pdf
       this.intensity = power / (4 * Math.PI);
+    }
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this.shadow.dispose();
     }
   }, {
     key: "copy",
@@ -29553,13 +30534,13 @@ var PointLight = /*#__PURE__*/function (_Light3) {
 
 PointLight.prototype.isPointLight = true;
 
-var OrthographicCamera = /*#__PURE__*/function (_Camera) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OrthographicCamera, _Camera);
+var OrthographicCamera = /*#__PURE__*/function (_Camera2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OrthographicCamera, _Camera2);
 
-  var _super84 = _createSuper(OrthographicCamera);
+  var _super118 = _createSuper(OrthographicCamera);
 
   function OrthographicCamera() {
-    var _this75;
+    var _this92;
 
     var left = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
     var right = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -29570,20 +30551,20 @@ var OrthographicCamera = /*#__PURE__*/function (_Camera) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, OrthographicCamera);
 
-    _this75 = _super84.call(this);
-    _this75.type = 'OrthographicCamera';
-    _this75.zoom = 1;
-    _this75.view = null;
-    _this75.left = left;
-    _this75.right = right;
-    _this75.top = top;
-    _this75.bottom = bottom;
-    _this75.near = near;
-    _this75.far = far;
+    _this92 = _super118.call(this);
+    _this92.type = 'OrthographicCamera';
+    _this92.zoom = 1;
+    _this92.view = null;
+    _this92.left = left;
+    _this92.right = right;
+    _this92.top = top;
+    _this92.bottom = bottom;
+    _this92.near = near;
+    _this92.far = far;
 
-    _this75.updateProjectionMatrix();
+    _this92.updateProjectionMatrix();
 
-    return _this75;
+    return _this92;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(OrthographicCamera, [{
@@ -29661,7 +30642,8 @@ var OrthographicCamera = /*#__PURE__*/function (_Camera) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = Object3D.prototype.toJSON.call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(OrthographicCamera.prototype), "toJSON", this).call(this, meta);
+
       data.object.zoom = this.zoom;
       data.object.left = this.left;
       data.object.right = this.right;
@@ -29682,12 +30664,12 @@ OrthographicCamera.prototype.isOrthographicCamera = true;
 var DirectionalLightShadow = /*#__PURE__*/function (_LightShadow3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLightShadow, _LightShadow3);
 
-  var _super85 = _createSuper(DirectionalLightShadow);
+  var _super119 = _createSuper(DirectionalLightShadow);
 
   function DirectionalLightShadow() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DirectionalLightShadow);
 
-    return _super85.call(this, new OrthographicCamera(-5, 5, 5, -5, 0.5, 500));
+    return _super119.call(this, new OrthographicCamera(-5, 5, 5, -5, 0.5, 500));
   }
 
   return DirectionalLightShadow;
@@ -29698,26 +30680,31 @@ DirectionalLightShadow.prototype.isDirectionalLightShadow = true;
 var DirectionalLight = /*#__PURE__*/function (_Light4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLight, _Light4);
 
-  var _super86 = _createSuper(DirectionalLight);
+  var _super120 = _createSuper(DirectionalLight);
 
   function DirectionalLight(color, intensity) {
-    var _this76;
+    var _this93;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DirectionalLight);
 
-    _this76 = _super86.call(this, color, intensity);
-    _this76.type = 'DirectionalLight';
+    _this93 = _super120.call(this, color, intensity);
+    _this93.type = 'DirectionalLight';
 
-    _this76.position.copy(Object3D.DefaultUp);
+    _this93.position.copy(Object3D.DefaultUp);
 
-    _this76.updateMatrix();
+    _this93.updateMatrix();
 
-    _this76.target = new Object3D();
-    _this76.shadow = new DirectionalLightShadow();
-    return _this76;
+    _this93.target = new Object3D();
+    _this93.shadow = new DirectionalLightShadow();
+    return _this93;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DirectionalLight, [{
+    key: "dispose",
+    value: function dispose() {
+      this.shadow.dispose();
+    }
+  }, {
     key: "copy",
     value: function copy(source) {
       (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(DirectionalLight.prototype), "copy", this).call(this, source);
@@ -29736,16 +30723,16 @@ DirectionalLight.prototype.isDirectionalLight = true;
 var AmbientLight = /*#__PURE__*/function (_Light5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AmbientLight, _Light5);
 
-  var _super87 = _createSuper(AmbientLight);
+  var _super121 = _createSuper(AmbientLight);
 
   function AmbientLight(color, intensity) {
-    var _this77;
+    var _this94;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AmbientLight);
 
-    _this77 = _super87.call(this, color, intensity);
-    _this77.type = 'AmbientLight';
-    return _this77;
+    _this94 = _super121.call(this, color, intensity);
+    _this94.type = 'AmbientLight';
+    return _this94;
   }
 
   return AmbientLight;
@@ -29756,21 +30743,21 @@ AmbientLight.prototype.isAmbientLight = true;
 var RectAreaLight = /*#__PURE__*/function (_Light6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RectAreaLight, _Light6);
 
-  var _super88 = _createSuper(RectAreaLight);
+  var _super122 = _createSuper(RectAreaLight);
 
   function RectAreaLight(color, intensity) {
-    var _this78;
+    var _this95;
 
     var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
     var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, RectAreaLight);
 
-    _this78 = _super88.call(this, color, intensity);
-    _this78.type = 'RectAreaLight';
-    _this78.width = width;
-    _this78.height = height;
-    return _this78;
+    _this95 = _super122.call(this, color, intensity);
+    _this95.type = 'RectAreaLight';
+    _this95.width = width;
+    _this95.height = height;
+    return _this95;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(RectAreaLight, [{
@@ -30003,19 +30990,19 @@ SphericalHarmonics3.prototype.isSphericalHarmonics3 = true;
 var LightProbe = /*#__PURE__*/function (_Light7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LightProbe, _Light7);
 
-  var _super89 = _createSuper(LightProbe);
+  var _super123 = _createSuper(LightProbe);
 
   function LightProbe() {
-    var _this79;
+    var _this96;
 
     var sh = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new SphericalHarmonics3();
     var intensity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LightProbe);
 
-    _this79 = _super89.call(this, undefined, intensity);
-    _this79.sh = sh;
-    return _this79;
+    _this96 = _super123.call(this, undefined, intensity);
+    _this96.sh = sh;
+    return _this96;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LightProbe, [{
@@ -30049,19 +31036,19 @@ var LightProbe = /*#__PURE__*/function (_Light7) {
 
 LightProbe.prototype.isLightProbe = true;
 
-var MaterialLoader = /*#__PURE__*/function (_Loader4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MaterialLoader, _Loader4);
+var MaterialLoader = /*#__PURE__*/function (_Loader8) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MaterialLoader, _Loader8);
 
-  var _super90 = _createSuper(MaterialLoader);
+  var _super124 = _createSuper(MaterialLoader);
 
   function MaterialLoader(manager) {
-    var _this80;
+    var _this97;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MaterialLoader);
 
-    _this80 = _super90.call(this, manager);
-    _this80.textures = {};
-    return _this80;
+    _this97 = _super124.call(this, manager);
+    _this97.textures = {};
+    return _this97;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MaterialLoader, [{
@@ -30275,97 +31262,146 @@ var MaterialLoader = /*#__PURE__*/function (_Loader4) {
   return MaterialLoader;
 }(Loader);
 
-var LoaderUtils = {
-  decodeText: function decodeText(array) {
-    if (typeof TextDecoder !== 'undefined') {
-      return new TextDecoder().decode(array);
-    } // Avoid the String.fromCharCode.apply(null, array) shortcut, which
-    // throws a "maximum call stack size exceeded" error for large arrays.
+var LoaderUtils = /*#__PURE__*/function () {
+  function LoaderUtils() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LoaderUtils);
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LoaderUtils, null, [{
+    key: "decodeText",
+    value: function decodeText(array) {
+      if (typeof TextDecoder !== 'undefined') {
+        return new TextDecoder().decode(array);
+      } // Avoid the String.fromCharCode.apply(null, array) shortcut, which
+      // throws a "maximum call stack size exceeded" error for large arrays.
 
 
-    var s = '';
+      var s = '';
 
-    for (var _i268 = 0, il = array.length; _i268 < il; _i268++) {
-      // Implicitly assumes little-endian.
-      s += String.fromCharCode(array[_i268]);
+      for (var _i268 = 0, il = array.length; _i268 < il; _i268++) {
+        // Implicitly assumes little-endian.
+        s += String.fromCharCode(array[_i268]);
+      }
+
+      try {
+        // merges multi-byte utf-8 characters.
+        return decodeURIComponent(escape(s));
+      } catch (e) {
+        // see #16358
+        return s;
+      }
+    }
+  }, {
+    key: "extractUrlBase",
+    value: function extractUrlBase(url) {
+      var index = url.lastIndexOf('/');
+      if (index === -1) return './';
+      return url.substr(0, index + 1);
+    }
+  }]);
+
+  return LoaderUtils;
+}();
+
+var InstancedBufferGeometry = /*#__PURE__*/function (_BufferGeometry17) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedBufferGeometry, _BufferGeometry17);
+
+  var _super125 = _createSuper(InstancedBufferGeometry);
+
+  function InstancedBufferGeometry() {
+    var _this98;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedBufferGeometry);
+
+    _this98 = _super125.call(this);
+    _this98.type = 'InstancedBufferGeometry';
+    _this98.instanceCount = Infinity;
+    return _this98;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedBufferGeometry, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferGeometry.prototype), "copy", this).call(this, source);
+
+      this.instanceCount = source.instanceCount;
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor().copy(this);
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferGeometry.prototype), "toJSON", this).call(this, this);
+
+      data.instanceCount = this.instanceCount;
+      data.isInstancedBufferGeometry = true;
+      return data;
+    }
+  }]);
+
+  return InstancedBufferGeometry;
+}(BufferGeometry);
+
+InstancedBufferGeometry.prototype.isInstancedBufferGeometry = true;
+
+var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedBufferAttribute, _BufferAttribute11);
+
+  var _super126 = _createSuper(InstancedBufferAttribute);
+
+  function InstancedBufferAttribute(array, itemSize, normalized, meshPerAttribute) {
+    var _this99;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedBufferAttribute);
+
+    if (typeof normalized === 'number') {
+      meshPerAttribute = normalized;
+      normalized = false;
+      console.error('THREE.InstancedBufferAttribute: The constructor now expects normalized as the third argument.');
     }
 
-    try {
-      // merges multi-byte utf-8 characters.
-      return decodeURIComponent(escape(s));
-    } catch (e) {
-      // see #16358
-      return s;
+    _this99 = _super126.call(this, array, itemSize, normalized);
+    _this99.meshPerAttribute = meshPerAttribute || 1;
+    return _this99;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedBufferAttribute, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferAttribute.prototype), "copy", this).call(this, source);
+
+      this.meshPerAttribute = source.meshPerAttribute;
+      return this;
     }
-  },
-  extractUrlBase: function extractUrlBase(url) {
-    var index = url.lastIndexOf('/');
-    if (index === -1) return './';
-    return url.substr(0, index + 1);
-  }
-};
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferAttribute.prototype), "toJSON", this).call(this);
 
-function InstancedBufferGeometry() {
-  BufferGeometry.call(this);
-  this.type = 'InstancedBufferGeometry';
-  this.instanceCount = Infinity;
-}
+      data.meshPerAttribute = this.meshPerAttribute;
+      data.isInstancedBufferAttribute = true;
+      return data;
+    }
+  }]);
 
-InstancedBufferGeometry.prototype = Object.assign(Object.create(BufferGeometry.prototype), {
-  constructor: InstancedBufferGeometry,
-  isInstancedBufferGeometry: true,
-  copy: function copy(source) {
-    BufferGeometry.prototype.copy.call(this, source);
-    this.instanceCount = source.instanceCount;
-    return this;
-  },
-  clone: function clone() {
-    return new this.constructor().copy(this);
-  },
-  toJSON: function toJSON() {
-    var data = BufferGeometry.prototype.toJSON.call(this);
-    data.instanceCount = this.instanceCount;
-    data.isInstancedBufferGeometry = true;
-    return data;
-  }
-});
+  return InstancedBufferAttribute;
+}(BufferAttribute);
 
-function InstancedBufferAttribute(array, itemSize, normalized, meshPerAttribute) {
-  if (typeof normalized === 'number') {
-    meshPerAttribute = normalized;
-    normalized = false;
-    console.error('THREE.InstancedBufferAttribute: The constructor now expects normalized as the third argument.');
-  }
+InstancedBufferAttribute.prototype.isInstancedBufferAttribute = true;
 
-  BufferAttribute.call(this, array, itemSize, normalized);
-  this.meshPerAttribute = meshPerAttribute || 1;
-}
+var BufferGeometryLoader = /*#__PURE__*/function (_Loader9) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometryLoader, _Loader9);
 
-InstancedBufferAttribute.prototype = Object.assign(Object.create(BufferAttribute.prototype), {
-  constructor: InstancedBufferAttribute,
-  isInstancedBufferAttribute: true,
-  copy: function copy(source) {
-    BufferAttribute.prototype.copy.call(this, source);
-    this.meshPerAttribute = source.meshPerAttribute;
-    return this;
-  },
-  toJSON: function toJSON() {
-    var data = BufferAttribute.prototype.toJSON.call(this);
-    data.meshPerAttribute = this.meshPerAttribute;
-    data.isInstancedBufferAttribute = true;
-    return data;
-  }
-});
-
-var BufferGeometryLoader = /*#__PURE__*/function (_Loader5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometryLoader, _Loader5);
-
-  var _super91 = _createSuper(BufferGeometryLoader);
+  var _super127 = _createSuper(BufferGeometryLoader);
 
   function BufferGeometryLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BufferGeometryLoader);
 
-    return _super91.call(this, manager);
+    return _super127.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BufferGeometryLoader, [{
@@ -30518,15 +31554,15 @@ var BufferGeometryLoader = /*#__PURE__*/function (_Loader5) {
   return BufferGeometryLoader;
 }(Loader);
 
-var ObjectLoader = /*#__PURE__*/function (_Loader6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ObjectLoader, _Loader6);
+var ObjectLoader = /*#__PURE__*/function (_Loader10) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ObjectLoader, _Loader10);
 
-  var _super92 = _createSuper(ObjectLoader);
+  var _super128 = _createSuper(ObjectLoader);
 
   function ObjectLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ObjectLoader);
 
-    return _super92.call(this, manager);
+    return _super128.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ObjectLoader, [{
@@ -31243,65 +32279,82 @@ var TEXTURE_FILTER = {
   LinearMipmapLinearFilter: LinearMipmapLinearFilter
 };
 
-function ImageBitmapLoader(manager) {
-  if (typeof createImageBitmap === 'undefined') {
-    console.warn('THREE.ImageBitmapLoader: createImageBitmap() not supported.');
-  }
+var ImageBitmapLoader = /*#__PURE__*/function (_Loader11) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageBitmapLoader, _Loader11);
 
-  if (typeof fetch === 'undefined') {
-    console.warn('THREE.ImageBitmapLoader: fetch() not supported.');
-  }
+  var _super129 = _createSuper(ImageBitmapLoader);
 
-  Loader.call(this, manager);
-  this.options = {
-    premultiplyAlpha: 'none'
-  };
-}
+  function ImageBitmapLoader(manager) {
+    var _this100;
 
-ImageBitmapLoader.prototype = Object.assign(Object.create(Loader.prototype), {
-  constructor: ImageBitmapLoader,
-  isImageBitmapLoader: true,
-  setOptions: function setOptions(options) {
-    this.options = options;
-    return this;
-  },
-  load: function load(url, onLoad, onProgress, onError) {
-    if (url === undefined) url = '';
-    if (this.path !== undefined) url = this.path + url;
-    url = this.manager.resolveURL(url);
-    var scope = this;
-    var cached = Cache.get(url);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImageBitmapLoader);
 
-    if (cached !== undefined) {
-      scope.manager.itemStart(url);
-      setTimeout(function () {
-        if (onLoad) onLoad(cached);
-        scope.manager.itemEnd(url);
-      }, 0);
-      return cached;
+    _this100 = _super129.call(this, manager);
+
+    if (typeof createImageBitmap === 'undefined') {
+      console.warn('THREE.ImageBitmapLoader: createImageBitmap() not supported.');
     }
 
-    var fetchOptions = {};
-    fetchOptions.credentials = this.crossOrigin === 'anonymous' ? 'same-origin' : 'include';
-    fetchOptions.headers = this.requestHeader;
-    fetch(url, fetchOptions).then(function (res) {
-      return res.blob();
-    }).then(function (blob) {
-      return createImageBitmap(blob, Object.assign(scope.options, {
-        colorSpaceConversion: 'none'
-      }));
-    }).then(function (imageBitmap) {
-      Cache.add(url, imageBitmap);
-      if (onLoad) onLoad(imageBitmap);
-      scope.manager.itemEnd(url);
-    }).catch(function (e) {
-      if (onError) onError(e);
-      scope.manager.itemError(url);
-      scope.manager.itemEnd(url);
-    });
-    scope.manager.itemStart(url);
+    if (typeof fetch === 'undefined') {
+      console.warn('THREE.ImageBitmapLoader: fetch() not supported.');
+    }
+
+    _this100.options = {
+      premultiplyAlpha: 'none'
+    };
+    return _this100;
   }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ImageBitmapLoader, [{
+    key: "setOptions",
+    value: function setOptions(options) {
+      this.options = options;
+      return this;
+    }
+  }, {
+    key: "load",
+    value: function load(url, onLoad, onProgress, onError) {
+      if (url === undefined) url = '';
+      if (this.path !== undefined) url = this.path + url;
+      url = this.manager.resolveURL(url);
+      var scope = this;
+      var cached = Cache.get(url);
+
+      if (cached !== undefined) {
+        scope.manager.itemStart(url);
+        setTimeout(function () {
+          if (onLoad) onLoad(cached);
+          scope.manager.itemEnd(url);
+        }, 0);
+        return cached;
+      }
+
+      var fetchOptions = {};
+      fetchOptions.credentials = this.crossOrigin === 'anonymous' ? 'same-origin' : 'include';
+      fetchOptions.headers = this.requestHeader;
+      fetch(url, fetchOptions).then(function (res) {
+        return res.blob();
+      }).then(function (blob) {
+        return createImageBitmap(blob, Object.assign(scope.options, {
+          colorSpaceConversion: 'none'
+        }));
+      }).then(function (imageBitmap) {
+        Cache.add(url, imageBitmap);
+        if (onLoad) onLoad(imageBitmap);
+        scope.manager.itemEnd(url);
+      }).catch(function (e) {
+        if (onError) onError(e);
+        scope.manager.itemError(url);
+        scope.manager.itemEnd(url);
+      });
+      scope.manager.itemStart(url);
+    }
+  }]);
+
+  return ImageBitmapLoader;
+}(Loader);
+
+ImageBitmapLoader.prototype.isImageBitmapLoader = true;
 
 var ShapePath = /*#__PURE__*/function () {
   function ShapePath() {
@@ -31641,15 +32694,15 @@ function createPath(char, scale, offsetX, offsetY, data) {
 
 Font.prototype.isFont = true;
 
-var FontLoader = /*#__PURE__*/function (_Loader7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FontLoader, _Loader7);
+var FontLoader = /*#__PURE__*/function (_Loader12) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FontLoader, _Loader12);
 
-  var _super93 = _createSuper(FontLoader);
+  var _super130 = _createSuper(FontLoader);
 
   function FontLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, FontLoader);
 
-    return _super93.call(this, manager);
+    return _super130.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(FontLoader, [{
@@ -31699,15 +32752,15 @@ var AudioContext = {
   }
 };
 
-var AudioLoader = /*#__PURE__*/function (_Loader8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioLoader, _Loader8);
+var AudioLoader = /*#__PURE__*/function (_Loader13) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioLoader, _Loader13);
 
-  var _super94 = _createSuper(AudioLoader);
+  var _super131 = _createSuper(AudioLoader);
 
   function AudioLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AudioLoader);
 
-    return _super94.call(this, manager);
+    return _super131.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AudioLoader, [{
@@ -31747,16 +32800,16 @@ var AudioLoader = /*#__PURE__*/function (_Loader8) {
 var HemisphereLightProbe = /*#__PURE__*/function (_LightProbe) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLightProbe, _LightProbe);
 
-  var _super95 = _createSuper(HemisphereLightProbe);
+  var _super132 = _createSuper(HemisphereLightProbe);
 
   function HemisphereLightProbe(skyColor, groundColor) {
-    var _this81;
+    var _this101;
 
     var intensity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, HemisphereLightProbe);
 
-    _this81 = _super95.call(this, undefined, intensity);
+    _this101 = _super132.call(this, undefined, intensity);
     var color1 = new Color().set(skyColor);
     var color2 = new Color().set(groundColor);
     var sky = new Vector3(color1.r, color1.g, color1.b);
@@ -31765,11 +32818,11 @@ var HemisphereLightProbe = /*#__PURE__*/function (_LightProbe) {
     var c0 = Math.sqrt(Math.PI);
     var c1 = c0 * Math.sqrt(0.75);
 
-    _this81.sh.coefficients[0].copy(sky).add(ground).multiplyScalar(c0);
+    _this101.sh.coefficients[0].copy(sky).add(ground).multiplyScalar(c0);
 
-    _this81.sh.coefficients[1].copy(sky).sub(ground).multiplyScalar(c1);
+    _this101.sh.coefficients[1].copy(sky).sub(ground).multiplyScalar(c1);
 
-    return _this81;
+    return _this101;
   }
 
   return HemisphereLightProbe;
@@ -31780,21 +32833,21 @@ HemisphereLightProbe.prototype.isHemisphereLightProbe = true;
 var AmbientLightProbe = /*#__PURE__*/function (_LightProbe2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AmbientLightProbe, _LightProbe2);
 
-  var _super96 = _createSuper(AmbientLightProbe);
+  var _super133 = _createSuper(AmbientLightProbe);
 
   function AmbientLightProbe(color) {
-    var _this82;
+    var _this102;
 
     var intensity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AmbientLightProbe);
 
-    _this82 = _super96.call(this, undefined, intensity);
+    _this102 = _super133.call(this, undefined, intensity);
     var color1 = new Color().set(color); // without extra factor of PI in the shader, would be 2 / Math.sqrt( Math.PI );
 
-    _this82.sh.coefficients[0].set(color1.r, color1.g, color1.b).multiplyScalar(2 * Math.sqrt(Math.PI));
+    _this102.sh.coefficients[0].set(color1.r, color1.g, color1.b).multiplyScalar(2 * Math.sqrt(Math.PI));
 
-    return _this82;
+    return _this102;
   }
 
   return AmbientLightProbe;
@@ -31802,9 +32855,9 @@ var AmbientLightProbe = /*#__PURE__*/function (_LightProbe2) {
 
 AmbientLightProbe.prototype.isAmbientLightProbe = true;
 
-var _eyeRight = new Matrix4();
+var _eyeRight = /*@__PURE__*/new Matrix4();
 
-var _eyeLeft = new Matrix4();
+var _eyeLeft = /*@__PURE__*/new Matrix4();
 
 var StereoCamera = /*#__PURE__*/function () {
   function StereoCamera() {
@@ -31849,7 +32902,7 @@ var StereoCamera = /*#__PURE__*/function () {
         var projectionMatrix = camera.projectionMatrix.clone();
         var eyeSepHalf = cache.eyeSep / 2;
         var eyeSepOnProjection = eyeSepHalf * cache.near / cache.focus;
-        var ymax = cache.near * Math.tan(MathUtils.DEG2RAD * cache.fov * 0.5) / cache.zoom;
+        var ymax = cache.near * Math.tan(DEG2RAD * cache.fov * 0.5) / cache.zoom;
         var xmin, xmax; // translate xOffset
 
         _eyeLeft.elements[12] = -eyeSepHalf;
@@ -31877,10 +32930,12 @@ var StereoCamera = /*#__PURE__*/function () {
 }();
 
 var Clock = /*#__PURE__*/function () {
-  function Clock(autoStart) {
+  function Clock() {
+    var autoStart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Clock);
 
-    this.autoStart = autoStart !== undefined ? autoStart : true;
+    this.autoStart = autoStart;
     this.startTime = 0;
     this.oldTime = 0;
     this.elapsedTime = 0;
@@ -31944,28 +32999,28 @@ var _scale$1 = /*@__PURE__*/new Vector3();
 
 var _orientation$1 = /*@__PURE__*/new Vector3();
 
-var AudioListener = /*#__PURE__*/function (_Object3D7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioListener, _Object3D7);
+var AudioListener = /*#__PURE__*/function (_Object3D12) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioListener, _Object3D12);
 
-  var _super97 = _createSuper(AudioListener);
+  var _super134 = _createSuper(AudioListener);
 
   function AudioListener() {
-    var _this83;
+    var _this103;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AudioListener);
 
-    _this83 = _super97.call(this);
-    _this83.type = 'AudioListener';
-    _this83.context = AudioContext.getContext();
-    _this83.gain = _this83.context.createGain();
+    _this103 = _super134.call(this);
+    _this103.type = 'AudioListener';
+    _this103.context = AudioContext.getContext();
+    _this103.gain = _this103.context.createGain();
 
-    _this83.gain.connect(_this83.context.destination);
+    _this103.gain.connect(_this103.context.destination);
 
-    _this83.filter = null;
-    _this83.timeDelta = 0; // private
+    _this103.filter = null;
+    _this103.timeDelta = 0; // private
 
-    _this83._clock = new Clock();
-    return _this83;
+    _this103._clock = new Clock();
+    return _this103;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AudioListener, [{
@@ -32050,42 +33105,42 @@ var AudioListener = /*#__PURE__*/function (_Object3D7) {
   return AudioListener;
 }(Object3D);
 
-var Audio = /*#__PURE__*/function (_Object3D8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Audio, _Object3D8);
+var Audio = /*#__PURE__*/function (_Object3D13) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Audio, _Object3D13);
 
-  var _super98 = _createSuper(Audio);
+  var _super135 = _createSuper(Audio);
 
   function Audio(listener) {
-    var _this84;
+    var _this104;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Audio);
 
-    _this84 = _super98.call(this);
-    _this84.type = 'Audio';
-    _this84.listener = listener;
-    _this84.context = listener.context;
-    _this84.gain = _this84.context.createGain();
+    _this104 = _super135.call(this);
+    _this104.type = 'Audio';
+    _this104.listener = listener;
+    _this104.context = listener.context;
+    _this104.gain = _this104.context.createGain();
 
-    _this84.gain.connect(listener.getInput());
+    _this104.gain.connect(listener.getInput());
 
-    _this84.autoplay = false;
-    _this84.buffer = null;
-    _this84.detune = 0;
-    _this84.loop = false;
-    _this84.loopStart = 0;
-    _this84.loopEnd = 0;
-    _this84.offset = 0;
-    _this84.duration = undefined;
-    _this84.playbackRate = 1;
-    _this84.isPlaying = false;
-    _this84.hasPlaybackControl = true;
-    _this84.source = null;
-    _this84.sourceType = 'empty';
-    _this84._startedAt = 0;
-    _this84._progress = 0;
-    _this84._connected = false;
-    _this84.filters = [];
-    return _this84;
+    _this104.autoplay = false;
+    _this104.buffer = null;
+    _this104.detune = 0;
+    _this104.loop = false;
+    _this104.loopStart = 0;
+    _this104.loopEnd = 0;
+    _this104.offset = 0;
+    _this104.duration = undefined;
+    _this104.playbackRate = 1;
+    _this104.isPlaying = false;
+    _this104.hasPlaybackControl = true;
+    _this104.source = null;
+    _this104.sourceType = 'empty';
+    _this104._startedAt = 0;
+    _this104._progress = 0;
+    _this104._connected = false;
+    _this104.filters = [];
+    return _this104;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Audio, [{
@@ -32369,20 +33424,20 @@ var _orientation = /*@__PURE__*/new Vector3();
 var PositionalAudio = /*#__PURE__*/function (_Audio) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PositionalAudio, _Audio);
 
-  var _super99 = _createSuper(PositionalAudio);
+  var _super136 = _createSuper(PositionalAudio);
 
   function PositionalAudio(listener) {
-    var _this85;
+    var _this105;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PositionalAudio);
 
-    _this85 = _super99.call(this, listener);
-    _this85.panner = _this85.context.createPanner();
-    _this85.panner.panningModel = 'HRTF';
+    _this105 = _super136.call(this, listener);
+    _this105.panner = _this105.context.createPanner();
+    _this105.panner.panningModel = 'HRTF';
 
-    _this85.panner.connect(_this85.gain);
+    _this105.panner.connect(_this105.gain);
 
-    return _this85;
+    return _this105;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PositionalAudio, [{
@@ -32778,399 +33833,486 @@ var _trackRe = new RegExp('' + '^' + _directoryRe + _nodeRe + _objectRe + _prope
 
 var _supportedObjectNames = ['material', 'materials', 'bones'];
 
-function Composite(targetGroup, path, optionalParsedPath) {
-  var parsedPath = optionalParsedPath || PropertyBinding.parseTrackName(path);
-  this._targetGroup = targetGroup;
-  this._bindings = targetGroup.subscribe_(path, parsedPath);
-}
+var Composite = /*#__PURE__*/function () {
+  function Composite(targetGroup, path, optionalParsedPath) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Composite);
 
-Object.assign(Composite.prototype, {
-  getValue: function getValue(array, offset) {
-    this.bind(); // bind all binding
-
-    var firstValidIndex = this._targetGroup.nCachedObjects_,
-        binding = this._bindings[firstValidIndex]; // and only call .getValue on the first
-
-    if (binding !== undefined) binding.getValue(array, offset);
-  },
-  setValue: function setValue(array, offset) {
-    var bindings = this._bindings;
-
-    for (var _i297 = this._targetGroup.nCachedObjects_, n = bindings.length; _i297 !== n; ++_i297) {
-      bindings[_i297].setValue(array, offset);
-    }
-  },
-  bind: function bind() {
-    var bindings = this._bindings;
-
-    for (var _i298 = this._targetGroup.nCachedObjects_, n = bindings.length; _i298 !== n; ++_i298) {
-      bindings[_i298].bind();
-    }
-  },
-  unbind: function unbind() {
-    var bindings = this._bindings;
-
-    for (var _i299 = this._targetGroup.nCachedObjects_, n = bindings.length; _i299 !== n; ++_i299) {
-      bindings[_i299].unbind();
-    }
+    var parsedPath = optionalParsedPath || PropertyBinding.parseTrackName(path);
+    this._targetGroup = targetGroup;
+    this._bindings = targetGroup.subscribe_(path, parsedPath);
   }
-});
 
-function PropertyBinding(rootNode, path, parsedPath) {
-  this.path = path;
-  this.parsedPath = parsedPath || PropertyBinding.parseTrackName(path);
-  this.node = PropertyBinding.findNode(rootNode, this.parsedPath.nodeName) || rootNode;
-  this.rootNode = rootNode;
-}
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Composite, [{
+    key: "getValue",
+    value: function getValue(array, offset) {
+      this.bind(); // bind all binding
 
-Object.assign(PropertyBinding, {
-  Composite: Composite,
-  create: function create(root, path, parsedPath) {
-    if (!(root && root.isAnimationObjectGroup)) {
-      return new PropertyBinding(root, path, parsedPath);
-    } else {
-      return new PropertyBinding.Composite(root, path, parsedPath);
+      var firstValidIndex = this._targetGroup.nCachedObjects_,
+          binding = this._bindings[firstValidIndex]; // and only call .getValue on the first
+
+      if (binding !== undefined) binding.getValue(array, offset);
     }
-  },
+  }, {
+    key: "setValue",
+    value: function setValue(array, offset) {
+      var bindings = this._bindings;
 
-  /**
-   * Replaces spaces with underscores and removes unsupported characters from
-   * node names, to ensure compatibility with parseTrackName().
-   *
-   * @param {string} name Node name to be sanitized.
-   * @return {string}
-   */
-  sanitizeNodeName: function sanitizeNodeName(name) {
-    return name.replace(/\s/g, '_').replace(_reservedRe, '');
-  },
-  parseTrackName: function parseTrackName(trackName) {
-    var matches = _trackRe.exec(trackName);
-
-    if (!matches) {
-      throw new Error('PropertyBinding: Cannot parse trackName: ' + trackName);
-    }
-
-    var results = {
-      // directoryName: matches[ 1 ], // (tschw) currently unused
-      nodeName: matches[2],
-      objectName: matches[3],
-      objectIndex: matches[4],
-      propertyName: matches[5],
-      // required
-      propertyIndex: matches[6]
-    };
-    var lastDot = results.nodeName && results.nodeName.lastIndexOf('.');
-
-    if (lastDot !== undefined && lastDot !== -1) {
-      var objectName = results.nodeName.substring(lastDot + 1); // Object names must be checked against an allowlist. Otherwise, there
-      // is no way to parse 'foo.bar.baz': 'baz' must be a property, but
-      // 'bar' could be the objectName, or part of a nodeName (which can
-      // include '.' characters).
-
-      if (_supportedObjectNames.indexOf(objectName) !== -1) {
-        results.nodeName = results.nodeName.substring(0, lastDot);
-        results.objectName = objectName;
+      for (var _i297 = this._targetGroup.nCachedObjects_, n = bindings.length; _i297 !== n; ++_i297) {
+        bindings[_i297].setValue(array, offset);
       }
     }
+  }, {
+    key: "bind",
+    value: function bind() {
+      var bindings = this._bindings;
 
-    if (results.propertyName === null || results.propertyName.length === 0) {
-      throw new Error('PropertyBinding: can not parse propertyName from trackName: ' + trackName);
-    }
-
-    return results;
-  },
-  findNode: function findNode(root, nodeName) {
-    if (!nodeName || nodeName === '' || nodeName === '.' || nodeName === -1 || nodeName === root.name || nodeName === root.uuid) {
-      return root;
-    } // search into skeleton bones.
-
-
-    if (root.skeleton) {
-      var bone = root.skeleton.getBoneByName(nodeName);
-
-      if (bone !== undefined) {
-        return bone;
-      }
-    } // search into node subtree.
-
-
-    if (root.children) {
-      var searchNodeSubtree = function searchNodeSubtree(children) {
-        for (var _i300 = 0; _i300 < children.length; _i300++) {
-          var childNode = children[_i300];
-
-          if (childNode.name === nodeName || childNode.uuid === nodeName) {
-            return childNode;
-          }
-
-          var result = searchNodeSubtree(childNode.children);
-          if (result) return result;
-        }
-
-        return null;
-      };
-
-      var subTreeNode = searchNodeSubtree(root.children);
-
-      if (subTreeNode) {
-        return subTreeNode;
+      for (var _i298 = this._targetGroup.nCachedObjects_, n = bindings.length; _i298 !== n; ++_i298) {
+        bindings[_i298].bind();
       }
     }
+  }, {
+    key: "unbind",
+    value: function unbind() {
+      var bindings = this._bindings;
 
-    return null;
-  }
-});
-Object.assign(PropertyBinding.prototype, {
-  // prototype, continued
-  // these are used to "bind" a nonexistent property
-  _getValue_unavailable: function _getValue_unavailable() {},
-  _setValue_unavailable: function _setValue_unavailable() {},
-  BindingType: {
-    Direct: 0,
-    EntireArray: 1,
-    ArrayElement: 2,
-    HasFromToArray: 3
-  },
-  Versioning: {
-    None: 0,
-    NeedsUpdate: 1,
-    MatrixWorldNeedsUpdate: 2
-  },
-  GetterByBindingType: [function getValue_direct(buffer, offset) {
-    buffer[offset] = this.node[this.propertyName];
-  }, function getValue_array(buffer, offset) {
-    var source = this.resolvedProperty;
-
-    for (var _i301 = 0, n = source.length; _i301 !== n; ++_i301) {
-      buffer[offset++] = source[_i301];
-    }
-  }, function getValue_arrayElement(buffer, offset) {
-    buffer[offset] = this.resolvedProperty[this.propertyIndex];
-  }, function getValue_toArray(buffer, offset) {
-    this.resolvedProperty.toArray(buffer, offset);
-  }],
-  SetterByBindingTypeAndVersioning: [[// Direct
-  function setValue_direct(buffer, offset) {
-    this.targetObject[this.propertyName] = buffer[offset];
-  }, function setValue_direct_setNeedsUpdate(buffer, offset) {
-    this.targetObject[this.propertyName] = buffer[offset];
-    this.targetObject.needsUpdate = true;
-  }, function setValue_direct_setMatrixWorldNeedsUpdate(buffer, offset) {
-    this.targetObject[this.propertyName] = buffer[offset];
-    this.targetObject.matrixWorldNeedsUpdate = true;
-  }], [// EntireArray
-  function setValue_array(buffer, offset) {
-    var dest = this.resolvedProperty;
-
-    for (var _i302 = 0, n = dest.length; _i302 !== n; ++_i302) {
-      dest[_i302] = buffer[offset++];
-    }
-  }, function setValue_array_setNeedsUpdate(buffer, offset) {
-    var dest = this.resolvedProperty;
-
-    for (var _i303 = 0, n = dest.length; _i303 !== n; ++_i303) {
-      dest[_i303] = buffer[offset++];
-    }
-
-    this.targetObject.needsUpdate = true;
-  }, function setValue_array_setMatrixWorldNeedsUpdate(buffer, offset) {
-    var dest = this.resolvedProperty;
-
-    for (var _i304 = 0, n = dest.length; _i304 !== n; ++_i304) {
-      dest[_i304] = buffer[offset++];
-    }
-
-    this.targetObject.matrixWorldNeedsUpdate = true;
-  }], [// ArrayElement
-  function setValue_arrayElement(buffer, offset) {
-    this.resolvedProperty[this.propertyIndex] = buffer[offset];
-  }, function setValue_arrayElement_setNeedsUpdate(buffer, offset) {
-    this.resolvedProperty[this.propertyIndex] = buffer[offset];
-    this.targetObject.needsUpdate = true;
-  }, function setValue_arrayElement_setMatrixWorldNeedsUpdate(buffer, offset) {
-    this.resolvedProperty[this.propertyIndex] = buffer[offset];
-    this.targetObject.matrixWorldNeedsUpdate = true;
-  }], [// HasToFromArray
-  function setValue_fromArray(buffer, offset) {
-    this.resolvedProperty.fromArray(buffer, offset);
-  }, function setValue_fromArray_setNeedsUpdate(buffer, offset) {
-    this.resolvedProperty.fromArray(buffer, offset);
-    this.targetObject.needsUpdate = true;
-  }, function setValue_fromArray_setMatrixWorldNeedsUpdate(buffer, offset) {
-    this.resolvedProperty.fromArray(buffer, offset);
-    this.targetObject.matrixWorldNeedsUpdate = true;
-  }]],
-  getValue: function getValue_unbound(targetArray, offset) {
-    this.bind();
-    this.getValue(targetArray, offset); // Note: This class uses a State pattern on a per-method basis:
-    // 'bind' sets 'this.getValue' / 'setValue' and shadows the
-    // prototype version of these methods with one that represents
-    // the bound state. When the property is not found, the methods
-    // become no-ops.
-  },
-  setValue: function getValue_unbound(sourceArray, offset) {
-    this.bind();
-    this.setValue(sourceArray, offset);
-  },
-  // create getter / setter pair for a property in the scene graph
-  bind: function bind() {
-    var targetObject = this.node;
-    var parsedPath = this.parsedPath;
-    var objectName = parsedPath.objectName;
-    var propertyName = parsedPath.propertyName;
-    var propertyIndex = parsedPath.propertyIndex;
-
-    if (!targetObject) {
-      targetObject = PropertyBinding.findNode(this.rootNode, parsedPath.nodeName) || this.rootNode;
-      this.node = targetObject;
-    } // set fail state so we can just 'return' on error
-
-
-    this.getValue = this._getValue_unavailable;
-    this.setValue = this._setValue_unavailable; // ensure there is a value node
-
-    if (!targetObject) {
-      console.error('THREE.PropertyBinding: Trying to update node for track: ' + this.path + ' but it wasn\'t found.');
-      return;
-    }
-
-    if (objectName) {
-      var objectIndex = parsedPath.objectIndex; // special cases were we need to reach deeper into the hierarchy to get the face materials....
-
-      switch (objectName) {
-        case 'materials':
-          if (!targetObject.material) {
-            console.error('THREE.PropertyBinding: Can not bind to material as node does not have a material.', this);
-            return;
-          }
-
-          if (!targetObject.material.materials) {
-            console.error('THREE.PropertyBinding: Can not bind to material.materials as node.material does not have a materials array.', this);
-            return;
-          }
-
-          targetObject = targetObject.material.materials;
-          break;
-
-        case 'bones':
-          if (!targetObject.skeleton) {
-            console.error('THREE.PropertyBinding: Can not bind to bones as node does not have a skeleton.', this);
-            return;
-          } // potential future optimization: skip this if propertyIndex is already an integer
-          // and convert the integer string to a true integer.
-
-
-          targetObject = targetObject.skeleton.bones; // support resolving morphTarget names into indices.
-
-          for (var _i305 = 0; _i305 < targetObject.length; _i305++) {
-            if (targetObject[_i305].name === objectIndex) {
-              objectIndex = _i305;
-              break;
-            }
-          }
-
-          break;
-
-        default:
-          if (targetObject[objectName] === undefined) {
-            console.error('THREE.PropertyBinding: Can not bind to objectName of node undefined.', this);
-            return;
-          }
-
-          targetObject = targetObject[objectName];
+      for (var _i299 = this._targetGroup.nCachedObjects_, n = bindings.length; _i299 !== n; ++_i299) {
+        bindings[_i299].unbind();
       }
+    }
+  }]);
 
-      if (objectIndex !== undefined) {
-        if (targetObject[objectIndex] === undefined) {
-          console.error('THREE.PropertyBinding: Trying to bind to objectIndex of objectName, but is undefined.', this, targetObject);
-          return;
-        }
-
-        targetObject = targetObject[objectIndex];
-      }
-    } // resolve property
-
-
-    var nodeProperty = targetObject[propertyName];
-
-    if (nodeProperty === undefined) {
-      var nodeName = parsedPath.nodeName;
-      console.error('THREE.PropertyBinding: Trying to update property for track: ' + nodeName + '.' + propertyName + ' but it wasn\'t found.', targetObject);
-      return;
-    } // determine versioning scheme
+  return Composite;
+}(); // Note: This class uses a State pattern on a per-method basis:
+// 'bind' sets 'this.getValue' / 'setValue' and shadows the
+// prototype version of these methods with one that represents
+// the bound state. When the property is not found, the methods
+// become no-ops.
 
 
-    var versioning = this.Versioning.None;
-    this.targetObject = targetObject;
+var PropertyBinding = /*#__PURE__*/function () {
+  function PropertyBinding(rootNode, path, parsedPath) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PropertyBinding);
 
-    if (targetObject.needsUpdate !== undefined) {
-      // material
-      versioning = this.Versioning.NeedsUpdate;
-    } else if (targetObject.matrixWorldNeedsUpdate !== undefined) {
-      // node transform
-      versioning = this.Versioning.MatrixWorldNeedsUpdate;
-    } // determine how the property gets bound
-
-
-    var bindingType = this.BindingType.Direct;
-
-    if (propertyIndex !== undefined) {
-      // access a sub element of the property array (only primitives are supported right now)
-      if (propertyName === 'morphTargetInfluences') {
-        // potential optimization, skip this if propertyIndex is already an integer, and convert the integer string to a true integer.
-        // support resolving morphTarget names into indices.
-        if (!targetObject.geometry) {
-          console.error('THREE.PropertyBinding: Can not bind to morphTargetInfluences because node does not have a geometry.', this);
-          return;
-        }
-
-        if (targetObject.geometry.isBufferGeometry) {
-          if (!targetObject.geometry.morphAttributes) {
-            console.error('THREE.PropertyBinding: Can not bind to morphTargetInfluences because node does not have a geometry.morphAttributes.', this);
-            return;
-          }
-
-          if (targetObject.morphTargetDictionary[propertyIndex] !== undefined) {
-            propertyIndex = targetObject.morphTargetDictionary[propertyIndex];
-          }
-        } else {
-          console.error('THREE.PropertyBinding: Can not bind to morphTargetInfluences on THREE.Geometry. Use THREE.BufferGeometry instead.', this);
-          return;
-        }
-      }
-
-      bindingType = this.BindingType.ArrayElement;
-      this.resolvedProperty = nodeProperty;
-      this.propertyIndex = propertyIndex;
-    } else if (nodeProperty.fromArray !== undefined && nodeProperty.toArray !== undefined) {
-      // must use copy for Object3D.Euler/Quaternion
-      bindingType = this.BindingType.HasFromToArray;
-      this.resolvedProperty = nodeProperty;
-    } else if (Array.isArray(nodeProperty)) {
-      bindingType = this.BindingType.EntireArray;
-      this.resolvedProperty = nodeProperty;
-    } else {
-      this.propertyName = propertyName;
-    } // select getter / setter
-
-
-    this.getValue = this.GetterByBindingType[bindingType];
-    this.setValue = this.SetterByBindingTypeAndVersioning[bindingType][versioning];
-  },
-  unbind: function unbind() {
-    this.node = null; // back to the prototype version of getValue / setValue
-    // note: avoiding to mutate the shape of 'this' via 'delete'
+    this.path = path;
+    this.parsedPath = parsedPath || PropertyBinding.parseTrackName(path);
+    this.node = PropertyBinding.findNode(rootNode, this.parsedPath.nodeName) || rootNode;
+    this.rootNode = rootNode; // initial state of these methods that calls 'bind'
 
     this.getValue = this._getValue_unbound;
     this.setValue = this._setValue_unbound;
   }
-}); // DECLARE ALIAS AFTER assign prototype
 
-Object.assign(PropertyBinding.prototype, {
-  // initial state of these methods that calls 'bind'
-  _getValue_unbound: PropertyBinding.prototype.getValue,
-  _setValue_unbound: PropertyBinding.prototype.setValue
-});
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PropertyBinding, [{
+    key: "_getValue_unavailable",
+    value: // these are used to "bind" a nonexistent property
+    function _getValue_unavailable() {}
+  }, {
+    key: "_setValue_unavailable",
+    value: function _setValue_unavailable() {} // Getters
+
+  }, {
+    key: "_getValue_direct",
+    value: function _getValue_direct(buffer, offset) {
+      buffer[offset] = this.node[this.propertyName];
+    }
+  }, {
+    key: "_getValue_array",
+    value: function _getValue_array(buffer, offset) {
+      var source = this.resolvedProperty;
+
+      for (var _i300 = 0, n = source.length; _i300 !== n; ++_i300) {
+        buffer[offset++] = source[_i300];
+      }
+    }
+  }, {
+    key: "_getValue_arrayElement",
+    value: function _getValue_arrayElement(buffer, offset) {
+      buffer[offset] = this.resolvedProperty[this.propertyIndex];
+    }
+  }, {
+    key: "_getValue_toArray",
+    value: function _getValue_toArray(buffer, offset) {
+      this.resolvedProperty.toArray(buffer, offset);
+    } // Direct
+
+  }, {
+    key: "_setValue_direct",
+    value: function _setValue_direct(buffer, offset) {
+      this.targetObject[this.propertyName] = buffer[offset];
+    }
+  }, {
+    key: "_setValue_direct_setNeedsUpdate",
+    value: function _setValue_direct_setNeedsUpdate(buffer, offset) {
+      this.targetObject[this.propertyName] = buffer[offset];
+      this.targetObject.needsUpdate = true;
+    }
+  }, {
+    key: "_setValue_direct_setMatrixWorldNeedsUpdate",
+    value: function _setValue_direct_setMatrixWorldNeedsUpdate(buffer, offset) {
+      this.targetObject[this.propertyName] = buffer[offset];
+      this.targetObject.matrixWorldNeedsUpdate = true;
+    } // EntireArray
+
+  }, {
+    key: "_setValue_array",
+    value: function _setValue_array(buffer, offset) {
+      var dest = this.resolvedProperty;
+
+      for (var _i301 = 0, n = dest.length; _i301 !== n; ++_i301) {
+        dest[_i301] = buffer[offset++];
+      }
+    }
+  }, {
+    key: "_setValue_array_setNeedsUpdate",
+    value: function _setValue_array_setNeedsUpdate(buffer, offset) {
+      var dest = this.resolvedProperty;
+
+      for (var _i302 = 0, n = dest.length; _i302 !== n; ++_i302) {
+        dest[_i302] = buffer[offset++];
+      }
+
+      this.targetObject.needsUpdate = true;
+    }
+  }, {
+    key: "_setValue_array_setMatrixWorldNeedsUpdate",
+    value: function _setValue_array_setMatrixWorldNeedsUpdate(buffer, offset) {
+      var dest = this.resolvedProperty;
+
+      for (var _i303 = 0, n = dest.length; _i303 !== n; ++_i303) {
+        dest[_i303] = buffer[offset++];
+      }
+
+      this.targetObject.matrixWorldNeedsUpdate = true;
+    } // ArrayElement
+
+  }, {
+    key: "_setValue_arrayElement",
+    value: function _setValue_arrayElement(buffer, offset) {
+      this.resolvedProperty[this.propertyIndex] = buffer[offset];
+    }
+  }, {
+    key: "_setValue_arrayElement_setNeedsUpdate",
+    value: function _setValue_arrayElement_setNeedsUpdate(buffer, offset) {
+      this.resolvedProperty[this.propertyIndex] = buffer[offset];
+      this.targetObject.needsUpdate = true;
+    }
+  }, {
+    key: "_setValue_arrayElement_setMatrixWorldNeedsUpdate",
+    value: function _setValue_arrayElement_setMatrixWorldNeedsUpdate(buffer, offset) {
+      this.resolvedProperty[this.propertyIndex] = buffer[offset];
+      this.targetObject.matrixWorldNeedsUpdate = true;
+    } // HasToFromArray
+
+  }, {
+    key: "_setValue_fromArray",
+    value: function _setValue_fromArray(buffer, offset) {
+      this.resolvedProperty.fromArray(buffer, offset);
+    }
+  }, {
+    key: "_setValue_fromArray_setNeedsUpdate",
+    value: function _setValue_fromArray_setNeedsUpdate(buffer, offset) {
+      this.resolvedProperty.fromArray(buffer, offset);
+      this.targetObject.needsUpdate = true;
+    }
+  }, {
+    key: "_setValue_fromArray_setMatrixWorldNeedsUpdate",
+    value: function _setValue_fromArray_setMatrixWorldNeedsUpdate(buffer, offset) {
+      this.resolvedProperty.fromArray(buffer, offset);
+      this.targetObject.matrixWorldNeedsUpdate = true;
+    }
+  }, {
+    key: "_getValue_unbound",
+    value: function _getValue_unbound(targetArray, offset) {
+      this.bind();
+      this.getValue(targetArray, offset);
+    }
+  }, {
+    key: "_setValue_unbound",
+    value: function _setValue_unbound(sourceArray, offset) {
+      this.bind();
+      this.setValue(sourceArray, offset);
+    } // create getter / setter pair for a property in the scene graph
+
+  }, {
+    key: "bind",
+    value: function bind() {
+      var targetObject = this.node;
+      var parsedPath = this.parsedPath;
+      var objectName = parsedPath.objectName;
+      var propertyName = parsedPath.propertyName;
+      var propertyIndex = parsedPath.propertyIndex;
+
+      if (!targetObject) {
+        targetObject = PropertyBinding.findNode(this.rootNode, parsedPath.nodeName) || this.rootNode;
+        this.node = targetObject;
+      } // set fail state so we can just 'return' on error
+
+
+      this.getValue = this._getValue_unavailable;
+      this.setValue = this._setValue_unavailable; // ensure there is a value node
+
+      if (!targetObject) {
+        console.error('THREE.PropertyBinding: Trying to update node for track: ' + this.path + ' but it wasn\'t found.');
+        return;
+      }
+
+      if (objectName) {
+        var objectIndex = parsedPath.objectIndex; // special cases were we need to reach deeper into the hierarchy to get the face materials....
+
+        switch (objectName) {
+          case 'materials':
+            if (!targetObject.material) {
+              console.error('THREE.PropertyBinding: Can not bind to material as node does not have a material.', this);
+              return;
+            }
+
+            if (!targetObject.material.materials) {
+              console.error('THREE.PropertyBinding: Can not bind to material.materials as node.material does not have a materials array.', this);
+              return;
+            }
+
+            targetObject = targetObject.material.materials;
+            break;
+
+          case 'bones':
+            if (!targetObject.skeleton) {
+              console.error('THREE.PropertyBinding: Can not bind to bones as node does not have a skeleton.', this);
+              return;
+            } // potential future optimization: skip this if propertyIndex is already an integer
+            // and convert the integer string to a true integer.
+
+
+            targetObject = targetObject.skeleton.bones; // support resolving morphTarget names into indices.
+
+            for (var _i304 = 0; _i304 < targetObject.length; _i304++) {
+              if (targetObject[_i304].name === objectIndex) {
+                objectIndex = _i304;
+                break;
+              }
+            }
+
+            break;
+
+          default:
+            if (targetObject[objectName] === undefined) {
+              console.error('THREE.PropertyBinding: Can not bind to objectName of node undefined.', this);
+              return;
+            }
+
+            targetObject = targetObject[objectName];
+        }
+
+        if (objectIndex !== undefined) {
+          if (targetObject[objectIndex] === undefined) {
+            console.error('THREE.PropertyBinding: Trying to bind to objectIndex of objectName, but is undefined.', this, targetObject);
+            return;
+          }
+
+          targetObject = targetObject[objectIndex];
+        }
+      } // resolve property
+
+
+      var nodeProperty = targetObject[propertyName];
+
+      if (nodeProperty === undefined) {
+        var nodeName = parsedPath.nodeName;
+        console.error('THREE.PropertyBinding: Trying to update property for track: ' + nodeName + '.' + propertyName + ' but it wasn\'t found.', targetObject);
+        return;
+      } // determine versioning scheme
+
+
+      var versioning = this.Versioning.None;
+      this.targetObject = targetObject;
+
+      if (targetObject.needsUpdate !== undefined) {
+        // material
+        versioning = this.Versioning.NeedsUpdate;
+      } else if (targetObject.matrixWorldNeedsUpdate !== undefined) {
+        // node transform
+        versioning = this.Versioning.MatrixWorldNeedsUpdate;
+      } // determine how the property gets bound
+
+
+      var bindingType = this.BindingType.Direct;
+
+      if (propertyIndex !== undefined) {
+        // access a sub element of the property array (only primitives are supported right now)
+        if (propertyName === 'morphTargetInfluences') {
+          // potential optimization, skip this if propertyIndex is already an integer, and convert the integer string to a true integer.
+          // support resolving morphTarget names into indices.
+          if (!targetObject.geometry) {
+            console.error('THREE.PropertyBinding: Can not bind to morphTargetInfluences because node does not have a geometry.', this);
+            return;
+          }
+
+          if (targetObject.geometry.isBufferGeometry) {
+            if (!targetObject.geometry.morphAttributes) {
+              console.error('THREE.PropertyBinding: Can not bind to morphTargetInfluences because node does not have a geometry.morphAttributes.', this);
+              return;
+            }
+
+            if (targetObject.morphTargetDictionary[propertyIndex] !== undefined) {
+              propertyIndex = targetObject.morphTargetDictionary[propertyIndex];
+            }
+          } else {
+            console.error('THREE.PropertyBinding: Can not bind to morphTargetInfluences on THREE.Geometry. Use THREE.BufferGeometry instead.', this);
+            return;
+          }
+        }
+
+        bindingType = this.BindingType.ArrayElement;
+        this.resolvedProperty = nodeProperty;
+        this.propertyIndex = propertyIndex;
+      } else if (nodeProperty.fromArray !== undefined && nodeProperty.toArray !== undefined) {
+        // must use copy for Object3D.Euler/Quaternion
+        bindingType = this.BindingType.HasFromToArray;
+        this.resolvedProperty = nodeProperty;
+      } else if (Array.isArray(nodeProperty)) {
+        bindingType = this.BindingType.EntireArray;
+        this.resolvedProperty = nodeProperty;
+      } else {
+        this.propertyName = propertyName;
+      } // select getter / setter
+
+
+      this.getValue = this.GetterByBindingType[bindingType];
+      this.setValue = this.SetterByBindingTypeAndVersioning[bindingType][versioning];
+    }
+  }, {
+    key: "unbind",
+    value: function unbind() {
+      this.node = null; // back to the prototype version of getValue / setValue
+      // note: avoiding to mutate the shape of 'this' via 'delete'
+
+      this.getValue = this._getValue_unbound;
+      this.setValue = this._setValue_unbound;
+    }
+  }], [{
+    key: "create",
+    value: function create(root, path, parsedPath) {
+      if (!(root && root.isAnimationObjectGroup)) {
+        return new PropertyBinding(root, path, parsedPath);
+      } else {
+        return new PropertyBinding.Composite(root, path, parsedPath);
+      }
+    }
+    /**
+     * Replaces spaces with underscores and removes unsupported characters from
+     * node names, to ensure compatibility with parseTrackName().
+     *
+     * @param {string} name Node name to be sanitized.
+     * @return {string}
+     */
+
+  }, {
+    key: "sanitizeNodeName",
+    value: function sanitizeNodeName(name) {
+      return name.replace(/\s/g, '_').replace(_reservedRe, '');
+    }
+  }, {
+    key: "parseTrackName",
+    value: function parseTrackName(trackName) {
+      var matches = _trackRe.exec(trackName);
+
+      if (!matches) {
+        throw new Error('PropertyBinding: Cannot parse trackName: ' + trackName);
+      }
+
+      var results = {
+        // directoryName: matches[ 1 ], // (tschw) currently unused
+        nodeName: matches[2],
+        objectName: matches[3],
+        objectIndex: matches[4],
+        propertyName: matches[5],
+        // required
+        propertyIndex: matches[6]
+      };
+      var lastDot = results.nodeName && results.nodeName.lastIndexOf('.');
+
+      if (lastDot !== undefined && lastDot !== -1) {
+        var objectName = results.nodeName.substring(lastDot + 1); // Object names must be checked against an allowlist. Otherwise, there
+        // is no way to parse 'foo.bar.baz': 'baz' must be a property, but
+        // 'bar' could be the objectName, or part of a nodeName (which can
+        // include '.' characters).
+
+        if (_supportedObjectNames.indexOf(objectName) !== -1) {
+          results.nodeName = results.nodeName.substring(0, lastDot);
+          results.objectName = objectName;
+        }
+      }
+
+      if (results.propertyName === null || results.propertyName.length === 0) {
+        throw new Error('PropertyBinding: can not parse propertyName from trackName: ' + trackName);
+      }
+
+      return results;
+    }
+  }, {
+    key: "findNode",
+    value: function findNode(root, nodeName) {
+      if (!nodeName || nodeName === '' || nodeName === '.' || nodeName === -1 || nodeName === root.name || nodeName === root.uuid) {
+        return root;
+      } // search into skeleton bones.
+
+
+      if (root.skeleton) {
+        var bone = root.skeleton.getBoneByName(nodeName);
+
+        if (bone !== undefined) {
+          return bone;
+        }
+      } // search into node subtree.
+
+
+      if (root.children) {
+        var searchNodeSubtree = function searchNodeSubtree(children) {
+          for (var _i305 = 0; _i305 < children.length; _i305++) {
+            var childNode = children[_i305];
+
+            if (childNode.name === nodeName || childNode.uuid === nodeName) {
+              return childNode;
+            }
+
+            var result = searchNodeSubtree(childNode.children);
+            if (result) return result;
+          }
+
+          return null;
+        };
+
+        var subTreeNode = searchNodeSubtree(root.children);
+
+        if (subTreeNode) {
+          return subTreeNode;
+        }
+      }
+
+      return null;
+    }
+  }]);
+
+  return PropertyBinding;
+}();
+
+PropertyBinding.Composite = Composite;
+PropertyBinding.prototype.BindingType = {
+  Direct: 0,
+  EntireArray: 1,
+  ArrayElement: 2,
+  HasFromToArray: 3
+};
+PropertyBinding.prototype.Versioning = {
+  None: 0,
+  NeedsUpdate: 1,
+  MatrixWorldNeedsUpdate: 2
+};
+PropertyBinding.prototype.GetterByBindingType = [PropertyBinding.prototype._getValue_direct, PropertyBinding.prototype._getValue_array, PropertyBinding.prototype._getValue_arrayElement, PropertyBinding.prototype._getValue_toArray];
+PropertyBinding.prototype.SetterByBindingTypeAndVersioning = [[// Direct
+PropertyBinding.prototype._setValue_direct, PropertyBinding.prototype._setValue_direct_setNeedsUpdate, PropertyBinding.prototype._setValue_direct_setMatrixWorldNeedsUpdate], [// EntireArray
+PropertyBinding.prototype._setValue_array, PropertyBinding.prototype._setValue_array_setNeedsUpdate, PropertyBinding.prototype._setValue_array_setMatrixWorldNeedsUpdate], [// ArrayElement
+PropertyBinding.prototype._setValue_arrayElement, PropertyBinding.prototype._setValue_arrayElement_setNeedsUpdate, PropertyBinding.prototype._setValue_arrayElement_setMatrixWorldNeedsUpdate], [// HasToFromArray
+PropertyBinding.prototype._setValue_fromArray, PropertyBinding.prototype._setValue_fromArray_setNeedsUpdate, PropertyBinding.prototype._setValue_fromArray_setMatrixWorldNeedsUpdate]];
 /**
  *
  * A group of objects that receives a shared animation state.
@@ -33204,7 +34346,7 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
   function AnimationObjectGroup() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationObjectGroup);
 
-    this.uuid = MathUtils.generateUUID(); // cached objects followed by the active ones
+    this.uuid = generateUUID(); // cached objects followed by the active ones
 
     this._objects = Array.prototype.slice.call(arguments);
     this.nCachedObjects_ = 0; // threshold
@@ -34006,25 +35148,25 @@ var AnimationAction = /*#__PURE__*/function () {
   return AnimationAction;
 }();
 
-var AnimationMixer = /*#__PURE__*/function (_EventDispatcher3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationMixer, _EventDispatcher3);
+var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationMixer, _EventDispatcher6);
 
-  var _super100 = _createSuper(AnimationMixer);
+  var _super137 = _createSuper(AnimationMixer);
 
   function AnimationMixer(root) {
-    var _this86;
+    var _this106;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationMixer);
 
-    _this86 = _super100.call(this);
-    _this86._root = root;
+    _this106 = _super137.call(this);
+    _this106._root = root;
 
-    _this86._initMemoryManager();
+    _this106._initMemoryManager();
 
-    _this86._accuIndex = 0;
-    _this86.time = 0;
-    _this86.timeScale = 1.0;
-    return _this86;
+    _this106._accuIndex = 0;
+    _this106.time = 0;
+    _this106.timeScale = 1.0;
+    return _this106;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationMixer, [{
@@ -34605,96 +35747,180 @@ var Uniform = /*#__PURE__*/function () {
   return Uniform;
 }();
 
-function InstancedInterleavedBuffer(array, stride, meshPerAttribute) {
-  InterleavedBuffer.call(this, array, stride);
-  this.meshPerAttribute = meshPerAttribute || 1;
-}
+var InstancedInterleavedBuffer = /*#__PURE__*/function (_InterleavedBuffer) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedInterleavedBuffer, _InterleavedBuffer);
 
-InstancedInterleavedBuffer.prototype = Object.assign(Object.create(InterleavedBuffer.prototype), {
-  constructor: InstancedInterleavedBuffer,
-  isInstancedInterleavedBuffer: true,
-  copy: function copy(source) {
-    InterleavedBuffer.prototype.copy.call(this, source);
-    this.meshPerAttribute = source.meshPerAttribute;
-    return this;
-  },
-  clone: function clone(data) {
-    var ib = InterleavedBuffer.prototype.clone.call(this, data);
-    ib.meshPerAttribute = this.meshPerAttribute;
-    return ib;
-  },
-  toJSON: function toJSON(data) {
-    var json = InterleavedBuffer.prototype.toJSON.call(this, data);
-    json.isInstancedInterleavedBuffer = true;
-    json.meshPerAttribute = this.meshPerAttribute;
-    return json;
+  var _super138 = _createSuper(InstancedInterleavedBuffer);
+
+  function InstancedInterleavedBuffer(array, stride) {
+    var _this107;
+
+    var meshPerAttribute = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedInterleavedBuffer);
+
+    _this107 = _super138.call(this, array, stride);
+    _this107.meshPerAttribute = meshPerAttribute || 1;
+    return _this107;
   }
-});
 
-function GLBufferAttribute(buffer, type, itemSize, elementSize, count) {
-  this.buffer = buffer;
-  this.type = type;
-  this.itemSize = itemSize;
-  this.elementSize = elementSize;
-  this.count = count;
-  this.version = 0;
-}
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedInterleavedBuffer, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "copy", this).call(this, source);
 
-Object.defineProperty(GLBufferAttribute.prototype, 'needsUpdate', {
-  set: function set(value) {
-    if (value === true) this.version++;
-  }
-});
-Object.assign(GLBufferAttribute.prototype, {
-  isGLBufferAttribute: true,
-  setBuffer: function setBuffer(buffer) {
+      this.meshPerAttribute = source.meshPerAttribute;
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone(data) {
+      var ib = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "clone", this).call(this, data);
+
+      ib.meshPerAttribute = this.meshPerAttribute;
+      return ib;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON(data) {
+      var json = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "toJSON", this).call(this, data);
+
+      json.isInstancedInterleavedBuffer = true;
+      json.meshPerAttribute = this.meshPerAttribute;
+      return json;
+    }
+  }]);
+
+  return InstancedInterleavedBuffer;
+}(InterleavedBuffer);
+
+InstancedInterleavedBuffer.prototype.isInstancedInterleavedBuffer = true;
+
+var GLBufferAttribute = /*#__PURE__*/function () {
+  function GLBufferAttribute(buffer, type, itemSize, elementSize, count) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, GLBufferAttribute);
+
     this.buffer = buffer;
-    return this;
-  },
-  setType: function setType(type, elementSize) {
     this.type = type;
-    this.elementSize = elementSize;
-    return this;
-  },
-  setItemSize: function setItemSize(itemSize) {
     this.itemSize = itemSize;
-    return this;
-  },
-  setCount: function setCount(count) {
+    this.elementSize = elementSize;
     this.count = count;
-    return this;
+    this.version = 0;
   }
-});
 
-function Raycaster(origin, direction) {
-  var near = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-  var far = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Infinity;
-  this.ray = new Ray(origin, direction); // direction is assumed to be normalized (for accurate distance calculations)
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(GLBufferAttribute, [{
+    key: "needsUpdate",
+    set: function set(value) {
+      if (value === true) this.version++;
+    }
+  }, {
+    key: "setBuffer",
+    value: function setBuffer(buffer) {
+      this.buffer = buffer;
+      return this;
+    }
+  }, {
+    key: "setType",
+    value: function setType(type, elementSize) {
+      this.type = type;
+      this.elementSize = elementSize;
+      return this;
+    }
+  }, {
+    key: "setItemSize",
+    value: function setItemSize(itemSize) {
+      this.itemSize = itemSize;
+      return this;
+    }
+  }, {
+    key: "setCount",
+    value: function setCount(count) {
+      this.count = count;
+      return this;
+    }
+  }]);
 
-  this.near = near;
-  this.far = far;
-  this.camera = null;
-  this.layers = new Layers();
-  this.params = {
-    Mesh: {},
-    Line: {
-      threshold: 1
-    },
-    LOD: {},
-    Points: {
-      threshold: 1
-    },
-    Sprite: {}
-  };
-  Object.defineProperties(this.params, {
-    PointCloud: {
-      get: function get() {
-        console.warn('THREE.Raycaster: params.PointCloud has been renamed to params.Points.');
-        return this.Points;
+  return GLBufferAttribute;
+}();
+
+GLBufferAttribute.prototype.isGLBufferAttribute = true;
+
+var Raycaster = /*#__PURE__*/function () {
+  function Raycaster(origin, direction) {
+    var near = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    var far = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Infinity;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Raycaster);
+
+    this.ray = new Ray(origin, direction); // direction is assumed to be normalized (for accurate distance calculations)
+
+    this.near = near;
+    this.far = far;
+    this.camera = null;
+    this.layers = new Layers();
+    this.params = {
+      Mesh: {},
+      Line: {
+        threshold: 1
+      },
+      LOD: {},
+      Points: {
+        threshold: 1
+      },
+      Sprite: {}
+    };
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Raycaster, [{
+    key: "set",
+    value: function set(origin, direction) {
+      // direction is assumed to be normalized (for accurate distance calculations)
+      this.ray.set(origin, direction);
+    }
+  }, {
+    key: "setFromCamera",
+    value: function setFromCamera(coords, camera) {
+      if (camera && camera.isPerspectiveCamera) {
+        this.ray.origin.setFromMatrixPosition(camera.matrixWorld);
+        this.ray.direction.set(coords.x, coords.y, 0.5).unproject(camera).sub(this.ray.origin).normalize();
+        this.camera = camera;
+      } else if (camera && camera.isOrthographicCamera) {
+        this.ray.origin.set(coords.x, coords.y, (camera.near + camera.far) / (camera.near - camera.far)).unproject(camera); // set origin in plane of camera
+
+        this.ray.direction.set(0, 0, -1).transformDirection(camera.matrixWorld);
+        this.camera = camera;
+      } else {
+        console.error('THREE.Raycaster: Unsupported camera type: ' + camera.type);
       }
     }
-  });
-}
+  }, {
+    key: "intersectObject",
+    value: function intersectObject(object) {
+      var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var intersects = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+      _intersectObject(object, this, intersects, recursive);
+
+      intersects.sort(ascSort);
+      return intersects;
+    }
+  }, {
+    key: "intersectObjects",
+    value: function intersectObjects(objects) {
+      var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var intersects = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+      for (var _i321 = 0, l = objects.length; _i321 < l; _i321++) {
+        _intersectObject(objects[_i321], this, intersects, recursive);
+      }
+
+      intersects.sort(ascSort);
+      return intersects;
+    }
+  }]);
+
+  return Raycaster;
+}();
 
 function ascSort(a, b) {
   return a.distance - b.distance;
@@ -34708,58 +35934,18 @@ function _intersectObject(object, raycaster, intersects, recursive) {
   if (recursive === true) {
     var children = object.children;
 
-    for (var _i321 = 0, l = children.length; _i321 < l; _i321++) {
-      _intersectObject(children[_i321], raycaster, intersects, true);
+    for (var _i322 = 0, l = children.length; _i322 < l; _i322++) {
+      _intersectObject(children[_i322], raycaster, intersects, true);
     }
   }
 }
-
-Object.assign(Raycaster.prototype, {
-  set: function set(origin, direction) {
-    // direction is assumed to be normalized (for accurate distance calculations)
-    this.ray.set(origin, direction);
-  },
-  setFromCamera: function setFromCamera(coords, camera) {
-    if (camera && camera.isPerspectiveCamera) {
-      this.ray.origin.setFromMatrixPosition(camera.matrixWorld);
-      this.ray.direction.set(coords.x, coords.y, 0.5).unproject(camera).sub(this.ray.origin).normalize();
-      this.camera = camera;
-    } else if (camera && camera.isOrthographicCamera) {
-      this.ray.origin.set(coords.x, coords.y, (camera.near + camera.far) / (camera.near - camera.far)).unproject(camera); // set origin in plane of camera
-
-      this.ray.direction.set(0, 0, -1).transformDirection(camera.matrixWorld);
-      this.camera = camera;
-    } else {
-      console.error('THREE.Raycaster: Unsupported camera type: ' + camera.type);
-    }
-  },
-  intersectObject: function intersectObject(object) {
-    var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var intersects = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
-    _intersectObject(object, this, intersects, recursive);
-
-    intersects.sort(ascSort);
-    return intersects;
-  },
-  intersectObjects: function intersectObjects(objects) {
-    var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var intersects = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
-    for (var _i322 = 0, l = objects.length; _i322 < l; _i322++) {
-      _intersectObject(objects[_i322], this, intersects, recursive);
-    }
-
-    intersects.sort(ascSort);
-    return intersects;
-  }
-});
 /**
  * Ref: https://en.wikipedia.org/wiki/Spherical_coordinate_system
  *
  * The polar angle (phi) is measured from the positive y-axis. The positive y-axis is up.
  * The azimuthal angle (theta) is measured from the positive z-axis.
  */
+
 
 var Spherical = /*#__PURE__*/function () {
   function Spherical() {
@@ -34816,7 +36002,7 @@ var Spherical = /*#__PURE__*/function () {
         this.phi = 0;
       } else {
         this.theta = Math.atan2(x, z);
-        this.phi = Math.acos(MathUtils.clamp(y / this.radius, -1, 1));
+        this.phi = Math.acos(clamp(y / this.radius, -1, 1));
       }
 
       return this;
@@ -35158,7 +36344,7 @@ var Line3 = /*#__PURE__*/function () {
       var t = startEnd_startP / startEnd2;
 
       if (clampToLine) {
-        t = MathUtils.clamp(t, 0, 1);
+        t = clamp(t, 0, 1);
       }
 
       return t;
@@ -35197,49 +36383,60 @@ var Line3 = /*#__PURE__*/function () {
   return Line3;
 }();
 
-function ImmediateRenderObject(material) {
-  Object3D.call(this);
-  this.material = material;
+var ImmediateRenderObject = /*#__PURE__*/function (_Object3D14) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImmediateRenderObject, _Object3D14);
 
-  this.render = function ()
-  /* renderCallback */
-  {};
+  var _super139 = _createSuper(ImmediateRenderObject);
 
-  this.hasPositions = false;
-  this.hasNormals = false;
-  this.hasColors = false;
-  this.hasUvs = false;
-  this.positionArray = null;
-  this.normalArray = null;
-  this.colorArray = null;
-  this.uvArray = null;
-  this.count = 0;
-}
+  function ImmediateRenderObject(material) {
+    var _this108;
 
-ImmediateRenderObject.prototype = Object.create(Object3D.prototype);
-ImmediateRenderObject.prototype.constructor = ImmediateRenderObject;
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImmediateRenderObject);
+
+    _this108 = _super139.call(this);
+    _this108.material = material;
+
+    _this108.render = function ()
+    /* renderCallback */
+    {};
+
+    _this108.hasPositions = false;
+    _this108.hasNormals = false;
+    _this108.hasColors = false;
+    _this108.hasUvs = false;
+    _this108.positionArray = null;
+    _this108.normalArray = null;
+    _this108.colorArray = null;
+    _this108.uvArray = null;
+    _this108.count = 0;
+    return _this108;
+  }
+
+  return ImmediateRenderObject;
+}(Object3D);
+
 ImmediateRenderObject.prototype.isImmediateRenderObject = true;
 
 var _vector$3 = /*@__PURE__*/new Vector3();
 
-var SpotLightHelper = /*#__PURE__*/function (_Object3D9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightHelper, _Object3D9);
+var SpotLightHelper = /*#__PURE__*/function (_Object3D15) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightHelper, _Object3D15);
 
-  var _super101 = _createSuper(SpotLightHelper);
+  var _super140 = _createSuper(SpotLightHelper);
 
   function SpotLightHelper(light, color) {
-    var _this87;
+    var _this109;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpotLightHelper);
 
-    _this87 = _super101.call(this);
-    _this87.light = light;
+    _this109 = _super140.call(this);
+    _this109.light = light;
 
-    _this87.light.updateMatrixWorld();
+    _this109.light.updateMatrixWorld();
 
-    _this87.matrix = light.matrixWorld;
-    _this87.matrixAutoUpdate = false;
-    _this87.color = color;
+    _this109.matrix = light.matrixWorld;
+    _this109.matrixAutoUpdate = false;
+    _this109.color = color;
     var geometry = new BufferGeometry();
     var positions = [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, -1, 1];
 
@@ -35254,13 +36451,13 @@ var SpotLightHelper = /*#__PURE__*/function (_Object3D9) {
       fog: false,
       toneMapped: false
     });
-    _this87.cone = new LineSegments(geometry, material);
+    _this109.cone = new LineSegments(geometry, material);
 
-    _this87.add(_this87.cone);
+    _this109.add(_this109.cone);
 
-    _this87.update();
+    _this109.update();
 
-    return _this87;
+    return _this109;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpotLightHelper, [{
@@ -35301,10 +36498,10 @@ var _matrixWorldInv = /*@__PURE__*/new Matrix4();
 var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SkeletonHelper, _LineSegments);
 
-  var _super102 = _createSuper(SkeletonHelper);
+  var _super141 = _createSuper(SkeletonHelper);
 
   function SkeletonHelper(object) {
-    var _this88;
+    var _this110;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SkeletonHelper);
 
@@ -35335,14 +36532,14 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
       toneMapped: false,
       transparent: true
     });
-    _this88 = _super102.call(this, geometry, material);
-    _this88.type = 'SkeletonHelper';
-    _this88.isSkeletonHelper = true;
-    _this88.root = object;
-    _this88.bones = bones;
-    _this88.matrix = object.matrixWorld;
-    _this88.matrixAutoUpdate = false;
-    return _this88;
+    _this110 = _super141.call(this, geometry, material);
+    _this110.type = 'SkeletonHelper';
+    _this110.isSkeletonHelper = true;
+    _this110.root = object;
+    _this110.bones = bones;
+    _this110.matrix = object.matrixWorld;
+    _this110.matrixAutoUpdate = false;
+    return _this110;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SkeletonHelper, [{
@@ -35396,13 +36593,13 @@ function getBoneList(object) {
   return boneList;
 }
 
-var PointLightHelper = /*#__PURE__*/function (_Mesh) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightHelper, _Mesh);
+var PointLightHelper = /*#__PURE__*/function (_Mesh3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightHelper, _Mesh3);
 
-  var _super103 = _createSuper(PointLightHelper);
+  var _super142 = _createSuper(PointLightHelper);
 
   function PointLightHelper(light, sphereSize, color) {
-    var _this89;
+    var _this111;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointLightHelper);
 
@@ -35412,17 +36609,17 @@ var PointLightHelper = /*#__PURE__*/function (_Mesh) {
       fog: false,
       toneMapped: false
     });
-    _this89 = _super103.call(this, geometry, material);
-    _this89.light = light;
+    _this111 = _super142.call(this, geometry, material);
+    _this111.light = light;
 
-    _this89.light.updateMatrixWorld();
+    _this111.light.updateMatrixWorld();
 
-    _this89.color = color;
-    _this89.type = 'PointLightHelper';
-    _this89.matrix = _this89.light.matrixWorld;
-    _this89.matrixAutoUpdate = false;
+    _this111.color = color;
+    _this111.type = 'PointLightHelper';
+    _this111.matrix = _this111.light.matrixWorld;
+    _this111.matrixAutoUpdate = false;
 
-    _this89.update();
+    _this111.update();
     /*
     // TODO: delete this comment?
     const distanceGeometry = new THREE.IcosahedronBufferGeometry( 1, 2 );
@@ -35439,7 +36636,7 @@ var PointLightHelper = /*#__PURE__*/function (_Mesh) {
     */
 
 
-    return _this89;
+    return _this111;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointLightHelper, [{
@@ -35478,41 +36675,41 @@ var _color1 = /*@__PURE__*/new Color();
 
 var _color2 = /*@__PURE__*/new Color();
 
-var HemisphereLightHelper = /*#__PURE__*/function (_Object3D10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLightHelper, _Object3D10);
+var HemisphereLightHelper = /*#__PURE__*/function (_Object3D16) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLightHelper, _Object3D16);
 
-  var _super104 = _createSuper(HemisphereLightHelper);
+  var _super143 = _createSuper(HemisphereLightHelper);
 
   function HemisphereLightHelper(light, size, color) {
-    var _this90;
+    var _this112;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, HemisphereLightHelper);
 
-    _this90 = _super104.call(this);
-    _this90.light = light;
+    _this112 = _super143.call(this);
+    _this112.light = light;
 
-    _this90.light.updateMatrixWorld();
+    _this112.light.updateMatrixWorld();
 
-    _this90.matrix = light.matrixWorld;
-    _this90.matrixAutoUpdate = false;
-    _this90.color = color;
+    _this112.matrix = light.matrixWorld;
+    _this112.matrixAutoUpdate = false;
+    _this112.color = color;
     var geometry = new OctahedronGeometry(size);
     geometry.rotateY(Math.PI * 0.5);
-    _this90.material = new MeshBasicMaterial({
+    _this112.material = new MeshBasicMaterial({
       wireframe: true,
       fog: false,
       toneMapped: false
     });
-    if (_this90.color === undefined) _this90.material.vertexColors = true;
+    if (_this112.color === undefined) _this112.material.vertexColors = true;
     var position = geometry.getAttribute('position');
     var colors = new Float32Array(position.count * 3);
     geometry.setAttribute('color', new BufferAttribute(colors, 3));
 
-    _this90.add(new Mesh(geometry, _this90.material));
+    _this112.add(new Mesh(geometry, _this112.material));
 
-    _this90.update();
+    _this112.update();
 
-    return _this90;
+    return _this112;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(HemisphereLightHelper, [{
@@ -35553,10 +36750,10 @@ var HemisphereLightHelper = /*#__PURE__*/function (_Object3D10) {
 var GridHelper = /*#__PURE__*/function (_LineSegments2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(GridHelper, _LineSegments2);
 
-  var _super105 = _createSuper(GridHelper);
+  var _super144 = _createSuper(GridHelper);
 
   function GridHelper() {
-    var _this91;
+    var _this113;
 
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
     var divisions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
@@ -35594,9 +36791,9 @@ var GridHelper = /*#__PURE__*/function (_LineSegments2) {
       vertexColors: true,
       toneMapped: false
     });
-    _this91 = _super105.call(this, geometry, material);
-    _this91.type = 'GridHelper';
-    return _this91;
+    _this113 = _super144.call(this, geometry, material);
+    _this113.type = 'GridHelper';
+    return _this113;
   }
 
   return GridHelper;
@@ -35605,10 +36802,10 @@ var GridHelper = /*#__PURE__*/function (_LineSegments2) {
 var PolarGridHelper = /*#__PURE__*/function (_LineSegments3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PolarGridHelper, _LineSegments3);
 
-  var _super106 = _createSuper(PolarGridHelper);
+  var _super145 = _createSuper(PolarGridHelper);
 
   function PolarGridHelper() {
-    var _this92;
+    var _this114;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
     var radials = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 16;
@@ -35667,9 +36864,9 @@ var PolarGridHelper = /*#__PURE__*/function (_LineSegments3) {
       vertexColors: true,
       toneMapped: false
     });
-    _this92 = _super106.call(this, geometry, material);
-    _this92.type = 'PolarGridHelper';
-    return _this92;
+    _this114 = _super145.call(this, geometry, material);
+    _this114.type = 'PolarGridHelper';
+    return _this114;
   }
 
   return PolarGridHelper;
@@ -35681,24 +36878,24 @@ var _v2 = /*@__PURE__*/new Vector3();
 
 var _v3 = /*@__PURE__*/new Vector3();
 
-var DirectionalLightHelper = /*#__PURE__*/function (_Object3D11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLightHelper, _Object3D11);
+var DirectionalLightHelper = /*#__PURE__*/function (_Object3D17) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLightHelper, _Object3D17);
 
-  var _super107 = _createSuper(DirectionalLightHelper);
+  var _super146 = _createSuper(DirectionalLightHelper);
 
   function DirectionalLightHelper(light, size, color) {
-    var _this93;
+    var _this115;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DirectionalLightHelper);
 
-    _this93 = _super107.call(this);
-    _this93.light = light;
+    _this115 = _super146.call(this);
+    _this115.light = light;
 
-    _this93.light.updateMatrixWorld();
+    _this115.light.updateMatrixWorld();
 
-    _this93.matrix = light.matrixWorld;
-    _this93.matrixAutoUpdate = false;
-    _this93.color = color;
+    _this115.matrix = light.matrixWorld;
+    _this115.matrixAutoUpdate = false;
+    _this115.color = color;
     if (size === undefined) size = 1;
     var geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute([-size, size, 0, size, size, 0, size, -size, 0, -size, -size, 0, -size, size, 0], 3));
@@ -35706,19 +36903,19 @@ var DirectionalLightHelper = /*#__PURE__*/function (_Object3D11) {
       fog: false,
       toneMapped: false
     });
-    _this93.lightPlane = new Line(geometry, material);
+    _this115.lightPlane = new Line(geometry, material);
 
-    _this93.add(_this93.lightPlane);
+    _this115.add(_this115.lightPlane);
 
     geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 0, 0, 1], 3));
-    _this93.targetLine = new Line(geometry, material);
+    _this115.targetLine = new Line(geometry, material);
 
-    _this93.add(_this93.targetLine);
+    _this115.add(_this115.targetLine);
 
-    _this93.update();
+    _this115.update();
 
-    return _this93;
+    return _this115;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DirectionalLightHelper, [{
@@ -35770,10 +36967,10 @@ var _camera = /*@__PURE__*/new Camera();
 var CameraHelper = /*#__PURE__*/function (_LineSegments4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CameraHelper, _LineSegments4);
 
-  var _super108 = _createSuper(CameraHelper);
+  var _super147 = _createSuper(CameraHelper);
 
   function CameraHelper(camera) {
-    var _this94;
+    var _this116;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CameraHelper);
 
@@ -35843,17 +37040,17 @@ var CameraHelper = /*#__PURE__*/function (_LineSegments4) {
 
     geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3));
     geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
-    _this94 = _super108.call(this, geometry, material);
-    _this94.type = 'CameraHelper';
-    _this94.camera = camera;
-    if (_this94.camera.updateProjectionMatrix) _this94.camera.updateProjectionMatrix();
-    _this94.matrix = camera.matrixWorld;
-    _this94.matrixAutoUpdate = false;
-    _this94.pointMap = pointMap;
+    _this116 = _super147.call(this, geometry, material);
+    _this116.type = 'CameraHelper';
+    _this116.camera = camera;
+    if (_this116.camera.updateProjectionMatrix) _this116.camera.updateProjectionMatrix();
+    _this116.matrix = camera.matrixWorld;
+    _this116.matrixAutoUpdate = false;
+    _this116.pointMap = pointMap;
 
-    _this94.update();
+    _this116.update();
 
-    return _this94;
+    return _this116;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CameraHelper, [{
@@ -35895,6 +37092,12 @@ var CameraHelper = /*#__PURE__*/function (_LineSegments4) {
       setPoint('cn4', pointMap, geometry, _camera, 0, h, -1);
       geometry.getAttribute('position').needsUpdate = true;
     }
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this.geometry.dispose();
+      this.material.dispose();
+    }
   }]);
 
   return CameraHelper;
@@ -35919,10 +37122,10 @@ var _box = /*@__PURE__*/new Box3();
 var BoxHelper = /*#__PURE__*/function (_LineSegments5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BoxHelper, _LineSegments5);
 
-  var _super109 = _createSuper(BoxHelper);
+  var _super148 = _createSuper(BoxHelper);
 
   function BoxHelper(object) {
-    var _this95;
+    var _this117;
 
     var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0xffff00;
 
@@ -35933,17 +37136,17 @@ var BoxHelper = /*#__PURE__*/function (_LineSegments5) {
     var geometry = new BufferGeometry();
     geometry.setIndex(new BufferAttribute(indices, 1));
     geometry.setAttribute('position', new BufferAttribute(positions, 3));
-    _this95 = _super109.call(this, geometry, new LineBasicMaterial({
+    _this117 = _super148.call(this, geometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this95.object = object;
-    _this95.type = 'BoxHelper';
-    _this95.matrixAutoUpdate = false;
+    _this117.object = object;
+    _this117.type = 'BoxHelper';
+    _this117.matrixAutoUpdate = false;
 
-    _this95.update();
+    _this117.update();
 
-    return _this95;
+    return _this117;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BoxHelper, [{
@@ -36026,10 +37229,10 @@ var BoxHelper = /*#__PURE__*/function (_LineSegments5) {
 var Box3Helper = /*#__PURE__*/function (_LineSegments6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Box3Helper, _LineSegments6);
 
-  var _super110 = _createSuper(Box3Helper);
+  var _super149 = _createSuper(Box3Helper);
 
   function Box3Helper(box) {
-    var _this96;
+    var _this118;
 
     var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0xffff00;
 
@@ -36040,16 +37243,16 @@ var Box3Helper = /*#__PURE__*/function (_LineSegments6) {
     var geometry = new BufferGeometry();
     geometry.setIndex(new BufferAttribute(indices, 1));
     geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
-    _this96 = _super110.call(this, geometry, new LineBasicMaterial({
+    _this118 = _super149.call(this, geometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this96.box = box;
-    _this96.type = 'Box3Helper';
+    _this118.box = box;
+    _this118.type = 'Box3Helper';
 
-    _this96.geometry.computeBoundingSphere();
+    _this118.geometry.computeBoundingSphere();
 
-    return _this96;
+    return _this118;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Box3Helper, [{
@@ -36068,13 +37271,13 @@ var Box3Helper = /*#__PURE__*/function (_LineSegments6) {
   return Box3Helper;
 }(LineSegments);
 
-var PlaneHelper = /*#__PURE__*/function (_Line2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneHelper, _Line2);
+var PlaneHelper = /*#__PURE__*/function (_Line3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneHelper, _Line3);
 
-  var _super111 = _createSuper(PlaneHelper);
+  var _super150 = _createSuper(PlaneHelper);
 
   function PlaneHelper(plane) {
-    var _this97;
+    var _this119;
 
     var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var hex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0xffff00;
@@ -36086,19 +37289,19 @@ var PlaneHelper = /*#__PURE__*/function (_Line2) {
     var geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
     geometry.computeBoundingSphere();
-    _this97 = _super111.call(this, geometry, new LineBasicMaterial({
+    _this119 = _super150.call(this, geometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this97.type = 'PlaneHelper';
-    _this97.plane = plane;
-    _this97.size = size;
+    _this119.type = 'PlaneHelper';
+    _this119.plane = plane;
+    _this119.size = size;
     var positions2 = [1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1];
     var geometry2 = new BufferGeometry();
     geometry2.setAttribute('position', new Float32BufferAttribute(positions2, 3));
     geometry2.computeBoundingSphere();
 
-    _this97.add(new Mesh(geometry2, new MeshBasicMaterial({
+    _this119.add(new Mesh(geometry2, new MeshBasicMaterial({
       color: color,
       opacity: 0.2,
       transparent: true,
@@ -36106,7 +37309,7 @@ var PlaneHelper = /*#__PURE__*/function (_Line2) {
       toneMapped: false
     })));
 
-    return _this97;
+    return _this119;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PlaneHelper, [{
@@ -36131,14 +37334,14 @@ var _axis = /*@__PURE__*/new Vector3();
 
 var _lineGeometry, _coneGeometry;
 
-var ArrowHelper = /*#__PURE__*/function (_Object3D12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArrowHelper, _Object3D12);
+var ArrowHelper = /*#__PURE__*/function (_Object3D18) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArrowHelper, _Object3D18);
 
-  var _super112 = _createSuper(ArrowHelper);
+  var _super151 = _createSuper(ArrowHelper);
 
   // dir is assumed to be normalized
   function ArrowHelper() {
-    var _this98;
+    var _this120;
 
     var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3(0, 0, 1);
     var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3(0, 0, 0);
@@ -36149,8 +37352,8 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D12) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ArrowHelper);
 
-    _this98 = _super112.call(this);
-    _this98.type = 'ArrowHelper';
+    _this120 = _super151.call(this);
+    _this120.type = 'ArrowHelper';
 
     if (_lineGeometry === undefined) {
       _lineGeometry = new BufferGeometry();
@@ -36162,29 +37365,29 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D12) {
       _coneGeometry.translate(0, -0.5, 0);
     }
 
-    _this98.position.copy(origin);
+    _this120.position.copy(origin);
 
-    _this98.line = new Line(_lineGeometry, new LineBasicMaterial({
+    _this120.line = new Line(_lineGeometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this98.line.matrixAutoUpdate = false;
+    _this120.line.matrixAutoUpdate = false;
 
-    _this98.add(_this98.line);
+    _this120.add(_this120.line);
 
-    _this98.cone = new Mesh(_coneGeometry, new MeshBasicMaterial({
+    _this120.cone = new Mesh(_coneGeometry, new MeshBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this98.cone.matrixAutoUpdate = false;
+    _this120.cone.matrixAutoUpdate = false;
 
-    _this98.add(_this98.cone);
+    _this120.add(_this120.cone);
 
-    _this98.setDirection(dir);
+    _this120.setDirection(dir);
 
-    _this98.setLength(length, headLength, headWidth);
+    _this120.setLength(length, headLength, headWidth);
 
-    return _this98;
+    return _this120;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ArrowHelper, [{
@@ -36237,10 +37440,10 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D12) {
 var AxesHelper = /*#__PURE__*/function (_LineSegments7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AxesHelper, _LineSegments7);
 
-  var _super113 = _createSuper(AxesHelper);
+  var _super152 = _createSuper(AxesHelper);
 
   function AxesHelper() {
-    var _this99;
+    var _this121;
 
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -36255,10 +37458,18 @@ var AxesHelper = /*#__PURE__*/function (_LineSegments7) {
       vertexColors: true,
       toneMapped: false
     });
-    _this99 = _super113.call(this, geometry, material);
-    _this99.type = 'AxesHelper';
-    return _this99;
+    _this121 = _super152.call(this, geometry, material);
+    _this121.type = 'AxesHelper';
+    return _this121;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AxesHelper, [{
+    key: "dispose",
+    value: function dispose() {
+      this.geometry.dispose();
+      this.material.dispose();
+    }
+  }]);
 
   return AxesHelper;
 }(LineSegments);
@@ -36267,59 +37478,69 @@ var _floatView = new Float32Array(1);
 
 var _int32View = new Int32Array(_floatView.buffer);
 
-var DataUtils = {
-  // Converts float32 to float16 (stored as uint16 value).
-  toHalfFloat: function toHalfFloat(val) {
-    // Source: http://gamedev.stackexchange.com/questions/17326/conversion-of-a-number-from-single-precision-floating-point-representation-to-a/17410#17410
-
-    /* This method is faster than the OpenEXR implementation (very often
-    * used, eg. in Ogre), with the additional benefit of rounding, inspired
-    * by James Tursa?s half-precision code. */
-    _floatView[0] = val;
-    var x = _int32View[0];
-    var bits = x >> 16 & 0x8000;
-    /* Get the sign */
-
-    var m = x >> 12 & 0x07ff;
-    /* Keep one extra bit for rounding */
-
-    var e = x >> 23 & 0xff;
-    /* Using int is faster here */
-
-    /* If zero, or denormal, or exponent underflows too much for a denormal
-    	* half, return signed zero. */
-
-    if (e < 103) return bits;
-    /* If NaN, return NaN. If Inf or exponent overflow, return Inf. */
-
-    if (e > 142) {
-      bits |= 0x7c00;
-      /* If exponent was 0xff and one mantissa bit was set, it means NaN,
-      			* not Inf, so make sure we set one mantissa bit too. */
-
-      bits |= (e == 255 ? 0 : 1) && x & 0x007fffff;
-      return bits;
-    }
-    /* If exponent underflows but not too much, return a denormal */
-
-
-    if (e < 113) {
-      m |= 0x0800;
-      /* Extra rounding may overflow and set mantissa to 0 and exponent
-      	* to 1, which is OK. */
-
-      bits |= (m >> 114 - e) + (m >> 113 - e & 1);
-      return bits;
-    }
-
-    bits |= e - 112 << 10 | m >> 1;
-    /* Extra rounding. An overflow will set mantissa to 0 and increment
-    	* the exponent, which is OK. */
-
-    bits += m & 1;
-    return bits;
+var DataUtils = /*#__PURE__*/function () {
+  function DataUtils() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataUtils);
   }
-};
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DataUtils, null, [{
+    key: "toHalfFloat",
+    value: // Converts float32 to float16 (stored as uint16 value).
+    function toHalfFloat(val) {
+      // Source: http://gamedev.stackexchange.com/questions/17326/conversion-of-a-number-from-single-precision-floating-point-representation-to-a/17410#17410
+
+      /* This method is faster than the OpenEXR implementation (very often
+      * used, eg. in Ogre), with the additional benefit of rounding, inspired
+      * by James Tursa?s half-precision code. */
+      _floatView[0] = val;
+      var x = _int32View[0];
+      var bits = x >> 16 & 0x8000;
+      /* Get the sign */
+
+      var m = x >> 12 & 0x07ff;
+      /* Keep one extra bit for rounding */
+
+      var e = x >> 23 & 0xff;
+      /* Using int is faster here */
+
+      /* If zero, or denormal, or exponent underflows too much for a denormal
+      	* half, return signed zero. */
+
+      if (e < 103) return bits;
+      /* If NaN, return NaN. If Inf or exponent overflow, return Inf. */
+
+      if (e > 142) {
+        bits |= 0x7c00;
+        /* If exponent was 0xff and one mantissa bit was set, it means NaN,
+        			* not Inf, so make sure we set one mantissa bit too. */
+
+        bits |= (e == 255 ? 0 : 1) && x & 0x007fffff;
+        return bits;
+      }
+      /* If exponent underflows but not too much, return a denormal */
+
+
+      if (e < 113) {
+        m |= 0x0800;
+        /* Extra rounding may overflow and set mantissa to 0 and exponent
+        	* to 1, which is OK. */
+
+        bits |= (m >> 114 - e) + (m >> 113 - e & 1);
+        return bits;
+      }
+
+      bits |= e - 112 << 10 | m >> 1;
+      /* Extra rounding. An overflow will set mantissa to 0 and increment
+      	* the exponent, which is OK. */
+
+      bits += m & 1;
+      return bits;
+    }
+  }]);
+
+  return DataUtils;
+}();
+
 var LOD_MIN = 4;
 var LOD_MAX = 8;
 var SIZE_MAX = Math.pow(2, LOD_MAX); // The standard deviations (radians) associated with the extra mips. These are
@@ -37194,22 +38415,6 @@ Line3.prototype.center = function (optionalTarget) {
 }; //
 
 
-MathUtils.random16 = function () {
-  console.warn('THREE.Math: .random16() has been deprecated. Use Math.random() instead.');
-  return Math.random();
-};
-
-MathUtils.nearestPowerOfTwo = function (value) {
-  console.warn('THREE.Math: .nearestPowerOfTwo() has been renamed to .floorPowerOfTwo().');
-  return MathUtils.floorPowerOfTwo(value);
-};
-
-MathUtils.nextPowerOfTwo = function (value) {
-  console.warn('THREE.Math: .nextPowerOfTwo() has been renamed to .ceilPowerOfTwo().');
-  return MathUtils.ceilPowerOfTwo(value);
-}; //
-
-
 Matrix3.prototype.flattenToArrayOffset = function (array, offset) {
   console.warn('THREE.Matrix3: .flattenToArrayOffset() has been deprecated. Use .toArray() instead.');
   return this.toArray(array, offset);
@@ -37553,18 +38758,8 @@ Object.defineProperties(Mesh.prototype, {
 
 SkinnedMesh.prototype.initBones = function () {
   console.error('THREE.SkinnedMesh: initBones() has been removed.');
-};
+}; //
 
-Object.defineProperty(Curve.prototype, '__arcLengthDivisions', {
-  get: function get() {
-    console.warn('THREE.Curve: .__arcLengthDivisions is now .arcLengthDivisions.');
-    return this.arcLengthDivisions;
-  },
-  set: function set(value) {
-    console.warn('THREE.Curve: .__arcLengthDivisions is now .arcLengthDivisions.');
-    this.arcLengthDivisions = value;
-  }
-}); //
 
 PerspectiveCamera.prototype.setLens = function (focalLength, filmGauge) {
   console.warn('THREE.PerspectiveCamera.setLens is deprecated. ' + 'Use .setFocalLength and .filmGauge for a photographic setup.');
@@ -37752,42 +38947,6 @@ Object.defineProperties(BufferGeometry.prototype, {
     }
   }
 });
-Object.defineProperties(InstancedBufferGeometry.prototype, {
-  maxInstancedCount: {
-    get: function get() {
-      console.warn('THREE.InstancedBufferGeometry: .maxInstancedCount has been renamed to .instanceCount.');
-      return this.instanceCount;
-    },
-    set: function set(value) {
-      console.warn('THREE.InstancedBufferGeometry: .maxInstancedCount has been renamed to .instanceCount.');
-      this.instanceCount = value;
-    }
-  }
-});
-Object.defineProperties(Raycaster.prototype, {
-  linePrecision: {
-    get: function get() {
-      console.warn('THREE.Raycaster: .linePrecision has been deprecated. Use .params.Line.threshold instead.');
-      return this.params.Line.threshold;
-    },
-    set: function set(value) {
-      console.warn('THREE.Raycaster: .linePrecision has been deprecated. Use .params.Line.threshold instead.');
-      this.params.Line.threshold = value;
-    }
-  }
-});
-Object.defineProperties(InterleavedBuffer.prototype, {
-  dynamic: {
-    get: function get() {
-      console.warn('THREE.InterleavedBuffer: .length has been deprecated. Use .usage instead.');
-      return this.usage === DynamicDrawUsage;
-    },
-    set: function set(value) {
-      console.warn('THREE.InterleavedBuffer: .length has been deprecated. Use .usage instead.');
-      this.setUsage(value);
-    }
-  }
-});
 
 InterleavedBuffer.prototype.setDynamic = function (value) {
   console.warn('THREE.InterleavedBuffer: .setDynamic() has been deprecated. Use .setUsage() instead.');
@@ -37866,18 +39025,6 @@ Object.defineProperties(Material.prototype, {
     set: function set(value) {
       console.warn('THREE.' + this.type + ': .stencilMask has been removed. Use .stencilFuncMask instead.');
       this.stencilFuncMask = value;
-    }
-  }
-});
-Object.defineProperties(MeshPhysicalMaterial.prototype, {
-  transparency: {
-    get: function get() {
-      console.warn('THREE.MeshPhysicalMaterial: .transparency has been renamed to .transmission.');
-      return this.transmission;
-    },
-    set: function set(value) {
-      console.warn('THREE.MeshPhysicalMaterial: .transparency has been renamed to .transmission.');
-      this.transmission = value;
     }
   }
 });
@@ -38334,4 +39481,4 @@ if (typeof window !== 'undefined') {
 /***/ })
 
 }]);
-//# sourceMappingURL=fb7d5399-ee459be5a27921d066b6.js.map
+//# sourceMappingURL=fb7d5399-70ccbaf7abce96fcb368.js.map

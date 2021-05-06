@@ -254,125 +254,176 @@ var m = {
   subtree: !0
 };
 
-function p(a) {
-  a = [a.firstChild];
-
-  for (var d, c = ""; d = a.pop();) {
-    d.nodeType === Node.TEXT_NODE ? c += d.textContent : d.nodeType === Node.ELEMENT_NODE && "BR" === d.nodeName && (c += "\n"), d.nextSibling && a.push(d.nextSibling), d.firstChild && a.push(d.firstChild);
-  }
-
-  "\n" !== c[c.length - 1] && (c += "\n");
-  return c;
+function p(c) {
+  var a = window.getSelection();
+  a.empty();
+  a.addRange(c);
 }
 
-function r(a) {
-  var c = window.getSelection();
-  a = [a.firstChild];
-  var d = c.focusNode;
-  c = c.focusOffset;
-  d && d.nodeType !== Node.TEXT_NODE && (c <= d.childNodes.length - 1 && (d = d.childNodes[c]), c = 0);
+function q(c) {
+  return (c.metaKey || c.ctrlKey) && !c.altKey && "KeyZ" === c.code;
+}
 
-  for (var h, k = 0, l = 0, g = ""; h = a.pop();) {
-    if (h.nodeType === Node.TEXT_NODE) {
-      var e = h.textContent;
-      h === d && (e = e.slice(0, c));
-      k += e.length;
-      g += e;
+function r(c) {
+  c = [c.firstChild];
 
-      for (var f, n = /\n/g; f = n.exec(e);) {
-        g = e.slice(f.index + 1), l++;
-      }
-
-      if (h === d) {
-        break;
-      }
-    } else {
-      h.nodeType === Node.ELEMENT_NODE && "BR" === h.nodeName && (g = "", l++, k++);
-    }
-
-    h.nextSibling && h !== d && a.push(h.nextSibling);
-    h.firstChild && a.push(h.firstChild);
+  for (var b, a = ""; b = c.pop();) {
+    b.nodeType === Node.TEXT_NODE ? a += b.textContent : b.nodeType === Node.ELEMENT_NODE && "BR" === b.nodeName && (a += "\n"), b.nextSibling && c.push(b.nextSibling), b.firstChild && c.push(b.firstChild);
   }
 
+  "\n" !== a[a.length - 1] && (a += "\n");
+  return a;
+}
+
+function w(c) {
+  var a = window.getSelection().getRangeAt(0),
+      b = a.collapsed ? 0 : a.toString().length,
+      f = document.createRange();
+  f.setStart(c, 0);
+  f.setEnd(a.startContainer, a.startOffset);
   return {
-    position: k,
-    content: g,
-    line: l
+    position: c = (f = f.toString()).length,
+    extent: b,
+    content: f = (f = f.split("\n"))[a = f.length - 1],
+    line: a
   };
 }
 
-function t(a, c) {
-  for (var d = window.getSelection(), k = document.createRange(), l = [a.firstChild], g = 0; a = l.pop();) {
-    if (a.nodeType === Node.TEXT_NODE) {
-      var h = a.textContent.length;
+function C(c, a, b) {
+  b || (b = a);
+  var f = document.createRange();
+  c = [c.firstChild];
 
-      if (g + h >= c) {
-        (c -= g) === h ? k.setStartAfter(a) : k.setStart(a, c);
-        break;
+  for (var d, k = 0, g = a; d = c[c.length - 1];) {
+    if (d.nodeType === Node.TEXT_NODE) {
+      if (k + d.textContent.length >= g) {
+        var h = g - k;
+
+        if (g === a) {
+          if (g = f, h < d.textContent.length ? g.setStart(d, h) : g.setStartAfter(d), b !== a) {
+            g = b;
+            continue;
+          } else {
+            break;
+          }
+        } else {
+          a = f;
+          h < (b = d).textContent.length ? a.setEnd(b, h) : a.setEndAfter(b);
+          break;
+        }
       }
 
-      g += a.textContent.length;
-    } else if (a.nodeType === Node.ELEMENT_NODE && "BR" === a.nodeName) {
-      if (g + 1 >= c) {
-        k.setStartAfter(a);
-        break;
+      k += d.textContent.length;
+    } else if (d.nodeType === Node.ELEMENT_NODE && "BR" === d.nodeName) {
+      if (k + 1 >= g) {
+        if (g === a) {
+          if (h = f, 0 < d.textContent.length ? h.setStart(d, 0) : h.setStartAfter(d), b !== a) {
+            g = b;
+            continue;
+          } else {
+            break;
+          }
+        } else {
+          a = f;
+          0 < (b = d).textContent.length ? a.setEnd(b, 0) : a.setEndAfter(b);
+          break;
+        }
       }
 
-      g++;
+      k++;
     }
 
-    a.nextSibling && l.push(a.nextSibling);
-    a.firstChild && l.push(a.firstChild);
+    c.pop();
+    d.nextSibling && c.push(d.nextSibling);
+    d.firstChild && c.push(d.firstChild);
   }
 
-  d.empty();
-  d.addRange(k);
+  return f;
 }
 
-function B(a) {
-  var c = window.getSelection(),
-      d = window.getSelection().getRangeAt(0);
-  a = document.createTextNode(a);
-  c.getRangeAt(0).deleteContents();
-  d.insertNode(a);
-  (d = document.createRange()).setStartAfter(a);
-  c.empty();
-  c.addRange(d);
-}
+function useEditable(c, a, b) {
+  function f(l) {
+    var b = c.current;
 
-function useEditable(a, c, d) {
-  function k() {
-    e[0].disconnect();
+    if (b) {
+      var a = w(b);
+      b = r(b);
+      a.position += l.length - b.length;
+      e.position = a;
+      e.onChange(l, a);
+    }
   }
 
-  function l() {
-    e[0].disconnect();
-    e[1] = !0;
+  function k(l, b) {
+    var e = c.current;
+
+    if (e) {
+      var a = window.getSelection().getRangeAt(0);
+      a.deleteContents();
+      a.collapse();
+      var d = b || 0;
+      (a = C(e, b = (a = w(e)).position + (0 > d ? d : 0), a.position + (0 < d ? d : 0))).deleteContents();
+      a.insertNode(document.createTextNode(l));
+      p(C(e, b + l.length));
+    }
+  }
+
+  function d(b) {
+    var a = c.current;
+
+    if (a) {
+      a.focus();
+      var e = 0;
+
+      if ("number" == typeof b) {
+        e = b;
+      } else {
+        var l = r(a).split("\n").slice(0, b.row);
+        b.row && (e += l.join("\n").length + 1);
+        e += b.column;
+      }
+
+      p(C(a, e));
+    }
   }
 
   function g() {
-    e[6] = -1;
+    var b = c.current;
+    return {
+      text: r(b),
+      position: b = w(b)
+    };
   }
 
-  d || (d = {});
-  var h = (0,react.useState)([])[1],
-      e = (0,react.useState)(function () {
-    var a = [null, !1, c, [], [], -1, -1];
-    "undefined" != typeof MutationObserver && (a[0] = new MutationObserver(function e(e) {
-      var d;
-      (d = a[3]).push.apply(d, e);
-    }));
-    return a;
-  })[0],
-      n = (0,react.useCallback)(function (d) {
-    var f = a.current;
+  function h() {
+    e.observer.disconnect();
+  }
 
-    if (f) {
-      var c = r(f);
-      f = p(f);
-      e[6] = c.position + (d.length - f.length);
-      e[2](d, c);
-    }
+  b || (b = {});
+  var D = (0,react.useState)([])[1],
+      e = (0,react.useState)(function () {
+    var e = {
+      observer: null,
+      disconnected: !1,
+      onChange: a,
+      queue: [],
+      history: [],
+      historyAt: -1,
+      position: null
+    };
+    "undefined" != typeof MutationObserver && (e.observer = new MutationObserver(function b(b) {
+      var a;
+      (a = e.queue).push.apply(a, b);
+    }));
+    return e;
+  })[0],
+      n = (0,react.useMemo)(function () {
+    return {
+      update: f,
+      insert: k,
+      move: d,
+      getState: g
+    };
   }, []);
 
   if ("object" != typeof navigator) {
@@ -380,122 +431,145 @@ function useEditable(a, c, d) {
   }
 
   (0,react.useLayoutEffect)(function () {
-    e[2] = c;
+    e.onChange = a;
 
-    if (a.current && !d.disabled) {
-      return e[1] = !1, e[0].observe(a.current, m), 0 <= e[6] && t(a.current, e[6]), k;
+    if (c.current && !b.disabled) {
+      e.disconnected = !1;
+      e.observer.observe(c.current, m);
+
+      if (e.position) {
+        var l = e.position,
+            d = l.position;
+        p(C(c.current, d, d + l.extent));
+      }
+
+      return h;
     }
   });
   (0,react.useLayoutEffect)(function () {
-    if (!a.current || d.disabled) {
-      e[4].length = 0, e[5] = -1;
+    if (!c.current || b.disabled) {
+      e.history.length = 0, e.historyAt = -1;
     } else {
-      var f = a.current;
-      -1 < e[6] && (f.focus(), t(f, e[6]));
-      var c = f.style.whiteSpace,
-          k = f.contentEditable,
-          u = !0;
+      var a = c.current;
 
-      try {
-        f.contentEditable = "plaintext-only";
-      } catch (b) {
-        f.contentEditable = "true", u = !1;
+      if (e.position) {
+        a.focus();
+        var d = e.position,
+            f = d.position;
+        p(C(a, f, f + d.extent));
       }
 
-      "pre" !== c && (f.style.whiteSpace = "pre-wrap");
-      d.indentation && (f.style.tabSize = f.style.MozTabSize = "" + d.indentation);
+      var g = a.style.whiteSpace,
+          h = a.contentEditable,
+          k = !0;
 
-      var v,
-          C = new RegExp("^(?:" + " ".repeat(d.indentation || 0) + "|\\t)"),
-          q = function q(b) {
-        if (a.current && -1 !== e[6]) {
-          var d = e[4],
-              c = p(f),
-              h = r(f),
-              g = new Date().valueOf(),
-              k = d[e[5]];
-          !b && 500 > g - v || k && k[1] === c ? v = g : (d[b = ++e[5]] = [h, c], d.splice(b + 1), 500 < b && (e[5]--, d.shift()));
+      try {
+        a.contentEditable = "plaintext-only";
+      } catch (u) {
+        a.contentEditable = "true", k = !1;
+      }
+
+      "pre" !== g && (a.style.whiteSpace = "pre-wrap");
+      b.indentation && (a.style.tabSize = a.style.MozTabSize = "" + b.indentation);
+      d = "" + " ".repeat(b.indentation || 0);
+
+      var x,
+          E = new RegExp("^(?:" + d + ")"),
+          F = new RegExp("^(?:" + d + ")*(" + d + ")$"),
+          t = function t(b) {
+        if (c.current && e.position) {
+          var u = r(a),
+              d = w(a),
+              f = new Date().valueOf(),
+              g = e.history[e.historyAt];
+          !b && 500 > f - x || g && g[1] === u ? x = f : (b = ++e.historyAt, e.history[b] = [d, u], e.history.splice(b + 1), 500 < b && (e.historyAt--, e.history.shift()));
         }
       },
-          w = function w() {
+          v = function v() {
         var b;
-        (b = e[3]).push.apply(b, e[0].takeRecords());
+        (b = e.queue).push.apply(b, e.observer.takeRecords());
+        b = w(a);
 
-        if (e[3].length) {
-          l();
-          b = p(f);
-          var d = r(f);
-          e[6] = d.position;
+        if (e.queue.length) {
+          e.observer.disconnect();
+          e.disconnected = !0;
+          var d = r(a);
+          e.position = b;
 
-          for (var a, c; a = e[3].pop();) {
-            null !== a.oldValue && (a.target.textContent = a.oldValue);
+          for (var c, f; c = e.queue.pop();) {
+            null !== c.oldValue && (c.target.textContent = c.oldValue);
 
-            for (c = a.removedNodes.length - 1; 0 <= c; c--) {
-              a.target.insertBefore(a.removedNodes[c], a.nextSibling);
+            for (f = c.removedNodes.length - 1; 0 <= f; f--) {
+              c.target.insertBefore(c.removedNodes[f], c.nextSibling);
             }
 
-            for (c = a.addedNodes.length - 1; 0 <= c; c--) {
-              a.addedNodes[c].parentNode && a.target.removeChild(a.addedNodes[c]);
+            for (f = c.addedNodes.length - 1; 0 <= f; f--) {
+              c.addedNodes[f].parentNode && c.target.removeChild(c.addedNodes[f]);
             }
           }
 
-          e[2](b, d);
+          e.onChange(d, b);
         }
       },
-          x = function x(b) {
-        if (!b.defaultPrevented && b.target === f) {
-          if (e[1]) {
-            return b.preventDefault(), h([]);
+          y = function y(c) {
+        if (!c.defaultPrevented && c.target === a) {
+          if (e.disconnected) {
+            return c.preventDefault(), D([]);
           }
 
-          if ((b.metaKey || b.ctrlKey) && "KeyZ" === b.code) {
-            b.preventDefault(), b.shiftKey ? (b = ++e[5], (b = e[4][b]) || (e[5] = e[4].length - 1)) : (b = --e[5], (b = e[4][b]) || (e[5] = 0)), b && (l(), e[6] = b[0].position, e[2](b[1], b[0]));
-          } else if (q(), "Enter" === b.key) {
-            b.preventDefault();
-            b = r(f);
-            var a = /\S/g.exec(b.content);
-            B(b = "\n" + b.content.slice(0, a ? a.index : b.content.length));
-          } else if (!u && "Backspace" === b.key) {
-            b.preventDefault(), (b = window.getSelection().getRangeAt(0)).startContainer !== b.endContainer || b.startOffset !== b.endOffset ? b.deleteContents() : (l(), b = r(f), b = Math.max(0, b.position - 1), a = p(f), n(a.slice(0, b) + a.slice(b + 1)));
-          } else if (d.indentation && "Tab" === b.key) {
-            b.preventDefault();
-            var c = (a = r(f)).position - a.content.length,
-                g = p(f);
-            b = b.shiftKey ? g.slice(0, c) + a.content.replace(C, "") + g.slice(c + a.content.length) : g.slice(0, c) + "\t" + g.slice(c);
-            n(b);
+          if (q(c)) {
+            c.preventDefault(), c.shiftKey ? (c = ++e.historyAt, (c = e.history[c]) || (e.historyAt = e.history.length - 1)) : (c = --e.historyAt, (c = e.history[c]) || (e.historyAt = 0)), c && (e.observer.disconnect(), e.disconnected = !0, e.position = c[0], e.onChange(c[1], c[0]));
+          } else {
+            t();
+
+            if ("Enter" === c.key) {
+              c.preventDefault();
+              var d = w(a),
+                  f = /\S/g.exec(d.content);
+              d = "\n" + d.content.slice(0, f ? f.index : d.content.length);
+              n.insert(d);
+            } else if ((!k || b.indentation) && "Backspace" === c.key) {
+              c.preventDefault(), window.getSelection().getRangeAt(0).collapsed ? (d = w(a), d = F.exec(d.content), n.insert("", d ? -d[1].length : -1)) : n.insert("", 0);
+            } else if (b.indentation && "Tab" === c.key) {
+              c.preventDefault();
+              f = (d = w(a)).position - d.content.length;
+              var g = r(a);
+              d = c.shiftKey ? g.slice(0, f) + d.content.replace(E, "") + g.slice(f + d.content.length) : g.slice(0, f) + (b.indentation ? " ".repeat(b.indentation) : "\t") + g.slice(f);
+              n.update(d);
+            }
+
+            c.repeat && v();
           }
         }
       },
-          y = function y(a) {
-        a.defaultPrevented || a.isComposing || ((a.metaKey || a.ctrlKey) && "KeyZ" === a.code || q(), w(), f.focus());
+          z = function z(b) {
+        b.defaultPrevented || b.isComposing || (q(b) || t(), v(), a.focus());
       },
-          z = function z() {
-        e[6] = r(f).position;
+          A = function A(b) {
+        e.position = window.getSelection().rangeCount && b.target === a ? w(a) : null;
       },
-          A = function A(a) {
+          B = function B(a) {
         a.preventDefault();
-        q(!0);
-        B(a.clipboardData.getData("text/plain"));
-        q(!0);
-        w();
+        t(!0);
+        n.insert(a.clipboardData.getData("text/plain"));
+        t(!0);
+        v();
       };
 
-      window.addEventListener("keydown", x);
-      f.addEventListener("focus", z);
-      f.addEventListener("blur", g);
-      f.addEventListener("paste", A);
-      f.addEventListener("keyup", y);
+      document.addEventListener("selectstart", A);
+      window.addEventListener("keydown", y);
+      a.addEventListener("paste", B);
+      a.addEventListener("keyup", z);
       return function () {
-        window.removeEventListener("keydown", x);
-        f.removeEventListener("focus", z);
-        f.removeEventListener("blur", g);
-        f.removeEventListener("paste", A);
-        f.removeEventListener("keyup", y);
-        f.style.whiteSpace = c;
-        f.contentEditable = k;
+        document.removeEventListener("selectstart", A);
+        window.removeEventListener("keydown", y);
+        a.removeEventListener("paste", B);
+        a.removeEventListener("keyup", z);
+        a.style.whiteSpace = g;
+        a.contentEditable = h;
       };
     }
-  }, [a.current, d.disabled, d.indentation]);
+  }, [c.current, b.disabled, b.indentation]);
   return n;
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
@@ -718,4 +792,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-3afe3f45296512b84968.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-0de5f0d42c58eec26b28.js.map

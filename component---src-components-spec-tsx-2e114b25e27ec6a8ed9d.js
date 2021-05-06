@@ -201,19 +201,100 @@ var pageQuery = "3961430372";
  * Welcome to gatsby-plugin-mdx!
  *
  * Start reading in gatsby-node.js
- */var MDXRenderer=__webpack_require__(41048);module.exports={MDXRenderer:MDXRenderer};
+ */
+var MDXRenderer = __webpack_require__(41048);
+
+module.exports = {
+  MDXRenderer: MDXRenderer
+};
 
 /***/ }),
 
 /***/ 41048:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var _construct=__webpack_require__(69100);var _toConsumableArray=__webpack_require__(319);var _defineProperty=__webpack_require__(59713);var _objectWithoutPropertiesLoose=__webpack_require__(37316);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(67294);var _require=__webpack_require__(64983),mdx=_require.mdx;var _require2=__webpack_require__(93191),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
-var End=React.useMemo(function(){if(!children){return null;}var fullScope=_objectSpread({// React is here just in case the user doesn't pass them in
-// in a manual usage of the renderer
-React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.map(function(key){return fullScope[key];});var fn=_construct(Function,["_fn"].concat(_toConsumableArray(keys),[""+children]));return fn.apply(void 0,[{}].concat(_toConsumableArray(values)));},[children,scope]);return React.createElement(End,_objectSpread({},props));};
+var _construct = __webpack_require__(69100);
+
+var _toConsumableArray = __webpack_require__(319);
+
+var _defineProperty = __webpack_require__(59713);
+
+var _objectWithoutPropertiesLoose = __webpack_require__(37316);
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+var React = __webpack_require__(67294);
+
+var _require = __webpack_require__(64983),
+    mdx = _require.mdx;
+
+var _require2 = __webpack_require__(93191),
+    useMDXScope = _require2.useMDXScope;
+
+module.exports = function MDXRenderer(_ref) {
+  var scope = _ref.scope,
+      children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, ["scope", "children"]);
+
+  var mdxScope = useMDXScope(scope); // Memoize the compiled component
+
+  var End = React.useMemo(function () {
+    if (!children) {
+      return null;
+    }
+
+    var fullScope = _objectSpread({
+      // React is here just in case the user doesn't pass them in
+      // in a manual usage of the renderer
+      React: React,
+      mdx: mdx
+    }, mdxScope);
+
+    var keys = Object.keys(fullScope);
+    var values = keys.map(function (key) {
+      return fullScope[key];
+    });
+
+    var fn = _construct(Function, ["_fn"].concat(_toConsumableArray(keys), ["" + children]));
+
+    return fn.apply(void 0, [{}].concat(_toConsumableArray(values)));
+  }, [children, scope]);
+  return React.createElement(End, _objectSpread({}, props));
+};
 
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-components-spec-tsx-e1533507bcf2276f10d9.js.map
+//# sourceMappingURL=component---src-components-spec-tsx-2e114b25e27ec6a8ed9d.js.map

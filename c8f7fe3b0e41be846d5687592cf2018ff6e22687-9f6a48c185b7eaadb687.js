@@ -26525,6 +26525,8 @@ var slicedToArray = __webpack_require__(28481);
 var toConsumableArray = __webpack_require__(85061);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(96156);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat.js
+var es_array_flat = __webpack_require__(84944);
 // EXTERNAL MODULE: ./node_modules/three/build/three.module.js
 var three_module = __webpack_require__(93456);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
@@ -27100,6 +27102,7 @@ var areBoundsEqual = function areBoundsEqual(a, b) {
 
 /* harmony default export */ var web = (useMeasure);
 ;// CONCATENATED MODULE: ./node_modules/@react-three/fiber/dist/react-three-fiber.esm.js
+
 
 
 
@@ -27731,7 +27734,7 @@ function createRenderer(roots) {
               // instance does not have constructor, just set it to 0
               value = 0;
             }
-          } // Special treatment for objects with support for set/copy
+          } // Special treatment for objects with support for set/copy, and layers
 
 
           if (targetProp && targetProp.set && (targetProp.copy || targetProp instanceof three_module.Layers)) {
@@ -27752,8 +27755,9 @@ function createRenderer(roots) {
               else if (value !== undefined) {
                   var isColor = targetProp instanceof three_module.Color; // Allow setting array scalars
 
-                  if (!isColor && targetProp.setScalar) targetProp.setScalar(value); // Otherwise just set ...
-                  else targetProp.set(value); // Auto-convert sRGB colors, for now ...
+                  if (!isColor && targetProp.setScalar) targetProp.setScalar(value); // Layers have no copy function, we must therefore copy the mask property
+                  else if (targetProp instanceof three_module.Layers && value instanceof three_module.Layers) targetProp.mask = value.mask; // Otherwise just set ...
+                    else targetProp.set(value); // Auto-convert sRGB colors, for now ...
                   // https://github.com/react-spring/react-three-fiber/issues/344
 
                   if (!rootState.linear && isColor) targetProp.convertSRGBToLinear();
@@ -27898,16 +27902,21 @@ function createRenderer(roots) {
         });
         var restSiblings = parentInstance.children.filter(function (sibling) {
           return sibling !== child;
-        }); // TODO: the order is out of whack if data objects are present, has to be recalculated
-
+        });
         var index = restSiblings.indexOf(beforeChild);
         parentInstance.children = [].concat((0,toConsumableArray/* default */.Z)(restSiblings.slice(0, index)), [child], (0,toConsumableArray/* default */.Z)(restSiblings.slice(index)));
-        updateInstance(child);
       } else {
-        appendChild(parentInstance, child);
-      } // TODO: order!!!
+        if (child.attachArray) {
+          parentInstance.__r3f.objects.push(child);
 
+          child.parent = parentInstance;
+          var array = parentInstance[child.attachArray];
+          if (!is.arr(array)) parentInstance[child.attachArray] = [];
+          array.splice(array.indexOf(beforeChild), 0, child);
+        } else return appendChild(parentInstance, child);
+      }
 
+      updateInstance(child);
       invalidateInstance(child);
     }
   }
@@ -27921,6 +27930,8 @@ function createRenderer(roots) {
 
   function removeChild(parentInstance, child, dispose) {
     if (child) {
+      var _child$__r3f2;
+
       if (child.isObject3D) {
         var _child$__r3f;
 
@@ -27955,23 +27966,33 @@ function createRenderer(roots) {
       // when the reconciler calls it, but then carry our own check recursively
 
 
-      var shouldDispose = dispose === undefined ? child.dispose !== null && !child.__r3f.instance : dispose; // Remove nested child objects
+      var isInstance = (_child$__r3f2 = child.__r3f) == null ? void 0 : _child$__r3f2.instance;
+      var shouldDispose = dispose === undefined ? child.dispose !== null && !isInstance : dispose; // Remove nested child objects. Primitives should not have objects and children that are
+      // attached to them declaratively ...
 
-      removeRecursive(child.__r3f.objects, child, shouldDispose);
-      removeRecursive(child.children, child, shouldDispose); // Dispose item whenever the reconciler feels like it
+      if (!isInstance) {
+        var _child$__r3f3;
+
+        removeRecursive((_child$__r3f3 = child.__r3f) == null ? void 0 : _child$__r3f3.objects, child, shouldDispose);
+        removeRecursive(child.children, child, shouldDispose);
+      } // Remove references
+
+
+      if (child.__r3f) {
+        delete child.__r3f.root;
+        delete child.__r3f.objects;
+        delete child.__r3f.handlers;
+        delete child.__r3f.memoizedProps;
+        if (!isInstance) delete child.__r3f;
+      } // Dispose item whenever the reconciler feels like it
+
 
       if (shouldDispose && child.dispose && child.type !== 'Scene') {
         (0,scheduler.unstable_runWithPriority)(scheduler.unstable_IdlePriority, function () {
           return child.dispose();
         });
-      } // Remove references
+      }
 
-
-      delete child.__r3f.root;
-      delete child.__r3f.objects;
-      delete child.__r3f.handlers;
-      delete child.__r3f.memoizedProps;
-      delete child.__r3f;
       invalidateInstance(parentInstance);
     }
   }
@@ -28151,6 +28172,8 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
       shadows = _props$shadows === void 0 ? false : _props$shadows,
       _props$linear = props.linear,
       linear = _props$linear === void 0 ? false : _props$linear,
+      _props$flat = props.flat,
+      flat = _props$flat === void 0 ? false : _props$flat,
       _props$vr = props.vr,
       vr = _props$vr === void 0 ? false : _props$vr,
       _props$orthographic = props.orthographic,
@@ -28173,30 +28196,36 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
 
 
   if (!linear) {
-    gl.toneMapping = three_module.ACESFilmicToneMapping;
+    if (!flat) gl.toneMapping = three_module.ACESFilmicToneMapping;
     gl.outputEncoding = three_module.sRGBEncoding;
   }
 
   var rootState = esm(function (set, get) {
     // Create custom raycaster
     var raycaster = new three_module.Raycaster();
-    applyProps(raycaster, _objectSpread({
+
+    var _ref10 = raycastOptions || {},
+        params = _ref10.params,
+        options = (0,objectWithoutProperties/* default */.Z)(_ref10, ["params"]);
+
+    applyProps(raycaster, _objectSpread(_objectSpread({
       enabled: true
-    }, raycastOptions), {}); // Create default camera
+    }, options), {}, {
+      params: _objectSpread(_objectSpread({}, raycaster.params), params)
+    }), {}); // Create default camera
 
     var isCamera = cameraOptions instanceof three_module.Camera;
     var camera = isCamera ? cameraOptions : orthographic ? new three_module.OrthographicCamera(0, 0, 0, 0, 0.1, 1000) : new three_module.PerspectiveCamera(75, 0, 0.1, 1000);
 
     if (!isCamera) {
       camera.position.z = 5;
-      if (orthographic) camera.zoom = 100;
       if (cameraOptions) applyProps(camera, cameraOptions, {}); // Always look at center by default
 
       camera.lookAt(0, 0, 0);
     }
 
     function _setDpr(dpr) {
-      return Array.isArray(dpr) ? Math.max(Math.min(dpr[0], window.devicePixelRatio), dpr[1]) : dpr;
+      return Array.isArray(dpr) ? Math.min(Math.max(dpr[0], window.devicePixelRatio), dpr[1]) : dpr;
     }
 
     var initialDpr = _setDpr(dpr);
@@ -28260,6 +28289,7 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
         return _advance(timestamp, runGlobalEffects, get());
       },
       linear: linear,
+      flat: flat,
       scene: prepare(new three_module.Scene()),
       camera: camera,
       raycaster: raycaster,
@@ -28337,8 +28367,8 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
         initialHits: [],
         subscribe: function subscribe(ref) {
           var priority = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-          set(function (_ref10) {
-            var internal = _ref10.internal;
+          set(function (_ref11) {
+            var internal = _ref11.internal;
             return {
               internal: _objectSpread(_objectSpread({}, internal), {}, {
                 // If this subscription was given a priority, it takes rendering into its own hands
@@ -28358,8 +28388,8 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
             };
           });
           return function () {
-            set(function (_ref11) {
-              var internal = _ref11.internal;
+            set(function (_ref12) {
+              var internal = _ref12.internal;
               return {
                 internal: _objectSpread(_objectSpread({}, internal), {}, {
                   // Decrease manual flag if this subscription had a priority
@@ -28556,10 +28586,10 @@ function createPointerEvents(store) {
           })
         };
       });
-      Object.entries((_events$handlers = events == null ? void 0 : events.handlers) != null ? _events$handlers : []).forEach(function (_ref12) {
-        var _ref13 = (0,slicedToArray/* default */.Z)(_ref12, 2),
-            name = _ref13[0],
-            event = _ref13[1];
+      Object.entries((_events$handlers = events == null ? void 0 : events.handlers) != null ? _events$handlers : []).forEach(function (_ref13) {
+        var _ref14 = (0,slicedToArray/* default */.Z)(_ref13, 2),
+            name = _ref14[0],
+            event = _ref14[1];
 
         return target.addEventListener(names[name], event, {
           passive: true
@@ -28574,10 +28604,10 @@ function createPointerEvents(store) {
       if (events.connected) {
         var _events$handlers2;
 
-        Object.entries((_events$handlers2 = events.handlers) != null ? _events$handlers2 : []).forEach(function (_ref14) {
-          var _ref15 = (0,slicedToArray/* default */.Z)(_ref14, 2),
-              name = _ref15[0],
-              event = _ref15[1];
+        Object.entries((_events$handlers2 = events.handlers) != null ? _events$handlers2 : []).forEach(function (_ref15) {
+          var _ref16 = (0,slicedToArray/* default */.Z)(_ref15, 2),
+              name = _ref16[0],
+              event = _ref16[1];
 
           if (events && events.connected instanceof HTMLElement) {
             events.connected.removeEventListener(names[name], event);
@@ -28600,13 +28630,15 @@ function createPointerEvents(store) {
 
 var react_three_fiber_esm_useIsomorphicLayoutEffect = typeof window !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
-function Canvas(_ref16) {
-  var children = _ref16.children,
-      resize = _ref16.resize,
-      style = _ref16.style,
-      className = _ref16.className,
-      events = _ref16.events,
-      props = (0,objectWithoutProperties/* default */.Z)(_ref16, ["children", "resize", "style", "className", "events"]);
+function Canvas(_ref17) {
+  var children = _ref17.children,
+      tabIndex = _ref17.tabIndex,
+      resize = _ref17.resize,
+      id = _ref17.id,
+      style = _ref17.style,
+      className = _ref17.className,
+      events = _ref17.events,
+      props = (0,objectWithoutProperties/* default */.Z)(_ref17, ["children", "tabIndex", "resize", "id", "style", "className", "events"]);
 
   var _useMeasure = web(_objectSpread({
     scroll: true,
@@ -28636,7 +28668,9 @@ function Canvas(_ref16) {
   }, []);
   return /*#__PURE__*/react.createElement("div", {
     ref: ref,
+    id: id,
     className: className,
+    tabIndex: tabIndex,
     style: _objectSpread({
       position: 'relative',
       width: '100%',
@@ -28765,14 +28799,14 @@ var createRendererInstance = function createRendererInstance(gl, canvas) {
 };
 
 function render(element, canvas) {
-  var _ref17 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-      gl = _ref17.gl,
-      size = _ref17.size,
-      _ref17$mode = _ref17.mode,
-      mode = _ref17$mode === void 0 ? modes[1] : _ref17$mode,
-      events = _ref17.events,
-      onCreated = _ref17.onCreated,
-      props = (0,objectWithoutProperties/* default */.Z)(_ref17, ["gl", "size", "mode", "events", "onCreated"]);
+  var _ref18 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      gl = _ref18.gl,
+      size = _ref18.size,
+      _ref18$mode = _ref18.mode,
+      mode = _ref18$mode === void 0 ? modes[1] : _ref18$mode,
+      events = _ref18.events,
+      onCreated = _ref18.onCreated,
+      props = (0,objectWithoutProperties/* default */.Z)(_ref18, ["gl", "size", "mode", "events", "onCreated"]);
 
   var _store; // Allow size to take on container bounds initially
 
@@ -28857,11 +28891,11 @@ function render(element, canvas) {
   }
 }
 
-function Provider(_ref18) {
-  var store = _ref18.store,
-      element = _ref18.element,
-      onCreated = _ref18.onCreated,
-      target = _ref18.target;
+function Provider(_ref19) {
+  var store = _ref19.store,
+      element = _ref19.element,
+      onCreated = _ref19.onCreated,
+      target = _ref19.target;
   react.useEffect(function () {
     var state = store.getState(); // Flag the canvas active, rendering will now begin
 
@@ -28935,12 +28969,9 @@ function createPortal(children, container, implementation) {
 reconciler.injectIntoDevTools({
   bundleType:  true ? 0 : 0,
   rendererPackageName: '@react-three/fiber',
-  // @ts-ignore
-  version: "0.0.0"
+  version: '17.0.2'
 });
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat.js
-var es_array_flat = __webpack_require__(84944);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(22122);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
@@ -36264,4 +36295,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-42714962980d59f1ad9b.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-9f6a48c185b7eaadb687.js.map
