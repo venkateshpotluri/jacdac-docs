@@ -1133,8 +1133,11 @@ function Page() {
   }), /*#__PURE__*/react.createElement("h3", null, " Platforms"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
     repos: ["microsoft/jacdac-stm32x0", "microsoft/jacdac-esp32", "microsoft/jacdac-padauk"],
     showDescription: true
-  }), /*#__PURE__*/react.createElement("h2", null, " Client frameworks"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
-    repos: ["microsoft/jacdac-circuitpython", "microsoft/pxt-jacdac", "microsoft/jacdac-ts"],
+  }), /*#__PURE__*/react.createElement("h2", null, "Embedded clients"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
+    repos: ["microsoft/pxt-jacdac", "microsoft/jacdac-circuitpython"],
+    showDescription: true
+  }), /*#__PURE__*/react.createElement("h2", null, "Web libraries"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
+    repos: ["microsoft/jacdac-ts"],
     showDescription: true
   }), /*#__PURE__*/react.createElement("h2", null, " Tools & Integrations"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
     repos: ["microsoft/jupyter-jacdac"],
@@ -1158,4 +1161,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-f24d27823c116f0f120f.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-408c078927bfef1692ac.js.map
