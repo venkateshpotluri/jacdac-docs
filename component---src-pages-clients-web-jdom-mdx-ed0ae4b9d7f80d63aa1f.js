@@ -101,10 +101,14 @@ function MDXContent(_ref) {
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "strong",
     "href": "/jacdac-docs/clients/web/jdom/register/"
-  }, "register")), " is an addressed data location, organized in ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
-    parentName: "li",
+  }, "register")), " is an addressed data location, organized in ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
+    parentName: "li"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "strong",
     "href": "/jacdac-docs/clients/web/jdom/field/"
-  }, "fields"), ",\n, that may be get, set or streamed. ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "All the above elements are ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+  }, "fields")), ",\n, that may be get, set or streamed."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "Virtual servers to simulate devices.")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "All the above elements are ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "p",
     "href": "/jacdac-docs/clients/web/jdom/node/"
   }, "nodes"), " in the ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
@@ -218,4 +222,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-web-jdom-mdx-b828a63d309b08839f83.js.map
+//# sourceMappingURL=component---src-pages-clients-web-jdom-mdx-ed0ae4b9d7f80d63aa1f.js.map

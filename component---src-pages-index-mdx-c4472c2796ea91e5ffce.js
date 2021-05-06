@@ -412,7 +412,12 @@ function MDXContent(_ref) {
   }, "explore our set of ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
     "href": "/jacdac-docs/tools/"
-  }, "tools"))), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+  }, "tools")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "/jacdac-docs/clients/web"
+  }, "TypeScript/JavaScript library"), " to integrate Jacdac in your own web sites")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "community",
     "style": {
       "position": "relative"
@@ -478,4 +483,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-mdx-b43c0a03534385a72032.js.map
+//# sourceMappingURL=component---src-pages-index-mdx-c4472c2796ea91e5ffce.js.map

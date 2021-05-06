@@ -12145,13 +12145,18 @@ function extend() {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ Markdown; }
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19756);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74248);
 /* harmony import */ var react_markdown__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_markdown__WEBPACK_IMPORTED_MODULE_1__);
 
 
+
 function Markdown(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_markdown__WEBPACK_IMPORTED_MODULE_1___default()), props);
+  var source = props.source,
+      others = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(props, ["source"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_markdown__WEBPACK_IMPORTED_MODULE_1___default()), others, source);
 }
 
 /***/ }),
@@ -12165,4 +12170,4 @@ module.exports = JSON.parse('{"classId":"classID","dataType":"datatype","itemId"
 /***/ })
 
 }]);
-//# sourceMappingURL=97c3b2d01729d14971f44dc6012293e420701658-31e77519fdc6e79fb034.js.map
+//# sourceMappingURL=97c3b2d01729d14971f44dc6012293e420701658-0e801c83bf065745a2d5.js.map
