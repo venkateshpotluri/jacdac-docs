@@ -736,8 +736,8 @@ var RandomGenerator = __webpack_require__(72833);
 var useLocalStorage = __webpack_require__(86581);
 // EXTERNAL MODULE: ./src/components/ui/HighlightTextField.tsx + 1 modules
 var HighlightTextField = __webpack_require__(33024);
-// EXTERNAL MODULE: ./src/components/ServiceSpecification.tsx + 2 modules
-var ServiceSpecification = __webpack_require__(28650);
+// EXTERNAL MODULE: ./src/components/ServiceSpecification.tsx + 1 modules
+var ServiceSpecification = __webpack_require__(81857);
 ;// CONCATENATED MODULE: ./src/components/tools/ServiceSpecificationEditor.tsx
 
 
@@ -792,4 +792,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-a3ba0b16cf924b00db08.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-d91c2850334375ec2698.js.map

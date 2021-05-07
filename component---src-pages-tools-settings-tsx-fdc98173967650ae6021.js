@@ -1002,6 +1002,38 @@ function ConnectAlert(props) {
 
 /***/ }),
 
+/***/ 36134:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useServiceProviderFromServiceClass; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37801);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
+
+
+
+function useServiceProviderFromServiceClass(serviceClass) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
+      bus = _useContext.bus; // run once
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var devices = bus.devices({
+      serviceClass: serviceClass
+    });
+    var def = !devices.length && (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .serviceProviderDefinitionFromServiceClass */ .vd)(serviceClass);
+    var provider = def && (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .addServiceProvider */ .Q6)(bus, def);
+    return function () {
+      return bus.removeServiceProvider(provider);
+    };
+  }, [serviceClass]);
+}
+
+/***/ }),
+
 /***/ 2285:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1685,6 +1717,8 @@ function useServices(options) {
   }, [JSON.stringify(options)]);
   return services;
 }
+// EXTERNAL MODULE: ./src/components/hooks/useServiceProviderFromServiceClass.ts
+var useServiceProviderFromServiceClass = __webpack_require__(36134);
 ;// CONCATENATED MODULE: ./src/pages/tools/settings.tsx
 
 
@@ -1693,7 +1727,10 @@ function useServices(options) {
 
 
 
+
 function Page() {
+  // spin up provider on demand
+  (0,useServiceProviderFromServiceClass/* default */.Z)(constants/* SRV_SETTINGS */.B9b);
   var services = useServices({
     serviceClass: constants/* SRV_SETTINGS */.B9b
   });
@@ -1720,4 +1757,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-settings-tsx-368fd8c86820fef2fb84.js.map
+//# sourceMappingURL=component---src-pages-tools-settings-tsx-fdc98173967650ae6021.js.map

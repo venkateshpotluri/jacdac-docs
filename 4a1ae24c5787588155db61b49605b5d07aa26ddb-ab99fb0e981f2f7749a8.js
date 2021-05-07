@@ -1,6 +1,6 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[4762],{
 
-/***/ 28650:
+/***/ 81857:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54,30 +54,10 @@ var Grid = __webpack_require__(80838);
 var Box = __webpack_require__(8266);
 // EXTERNAL MODULE: ./src/components/ServiceSpecificationStatusAlert.tsx
 var ServiceSpecificationStatusAlert = __webpack_require__(49102);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./src/components/hooks/useServiceProviderFromServiceClass.ts
+var useServiceProviderFromServiceClass = __webpack_require__(36134);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
-;// CONCATENATED MODULE: ./src/components/hooks/useServiceProviderFromServiceClass.ts
-
-
-
-function useServiceProviderFromServiceClass(serviceClass) {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus; // run once
-
-
-  (0,react.useEffect)(function () {
-    var devices = bus.devices({
-      serviceClass: serviceClass
-    });
-    var def = !devices.length && (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(serviceClass);
-    var provider = def && (0,servers/* addServiceProvider */.Q6)(bus, def);
-    return function () {
-      return bus.removeServiceProvider(provider);
-    };
-  }, [serviceClass]);
-}
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
@@ -145,7 +125,7 @@ function ServiceSpecification(props) {
     return registers.indexOf(r) < 0 && events.indexOf(r) < 0 && commands.indexOf(r) < 0 && reports.indexOf(r) < 0 && pipeReports.indexOf(r) < 0;
   }); // spin up provider on demand
 
-  useServiceProviderFromServiceClass(node.classIdentifier);
+  (0,useServiceProviderFromServiceClass/* default */.Z)(node.classIdentifier);
 
   var reportOf = function reportOf(pkt) {
     return reports.find(function (rep) {
@@ -680,6 +660,38 @@ function DashboardDeviceItem(props) {
 
 /***/ }),
 
+/***/ 36134:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useServiceProviderFromServiceClass; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37801);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
+
+
+
+function useServiceProviderFromServiceClass(serviceClass) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
+      bus = _useContext.bus; // run once
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var devices = bus.devices({
+      serviceClass: serviceClass
+    });
+    var def = !devices.length && (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .serviceProviderDefinitionFromServiceClass */ .vd)(serviceClass);
+    var provider = def && (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .addServiceProvider */ .Q6)(bus, def);
+    return function () {
+      return bus.removeServiceProvider(provider);
+    };
+  }, [serviceClass]);
+}
+
+/***/ }),
+
 /***/ 40549:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -712,4 +724,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-8cd5d0bb350e69e7dcef.js.map
+//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-ab99fb0e981f2f7749a8.js.map

@@ -10,7 +10,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
-/* harmony import */ var _components_ServiceSpecification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28650);
+/* harmony import */ var _components_ServiceSpecification__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81857);
 
 
 
@@ -24,4 +24,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-playground-tsx-92cc12224102a9fc7d23.js.map
+//# sourceMappingURL=component---src-templates-service-playground-tsx-ed8d67fde1ecabe75856.js.map

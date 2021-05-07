@@ -26771,9 +26771,10 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "cWR": function() { return /* binding */ META_GET; },
 /* harmony export */   "q5h": function() { return /* binding */ REGISTER_PRE_GET; },
 /* harmony export */   "DnH": function() { return /* binding */ TRACE_FILTER_HORIZON; },
-/* harmony export */   "A0q": function() { return /* binding */ BLUETOOTH_JACDAC_SERVICE; },
-/* harmony export */   "tIy": function() { return /* binding */ BLUETOOTH_JACDAC_PACKET_CHARACTERISTIC; },
 /* harmony export */   "rFG": function() { return /* binding */ EMBED_MIN_ASPECT_RATIO; },
+/* harmony export */   "A0q": function() { return /* binding */ BLUETOOTH_JACDAC_SERVICE; },
+/* harmony export */   "uLq": function() { return /* binding */ BLUETOOTH_JACDAC_RX_CHARACTERISTIC; },
+/* harmony export */   "c5n": function() { return /* binding */ BLUETOOTH_JACDAC_TX_CHARACTERISTIC; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
 /* harmony export */   "vCn": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.vCn; },
 /* harmony export */   "GZs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.GZs; },
@@ -26924,7 +26925,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "wrj": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.wrj; },
 /* harmony export */   "EPs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.EPs; }
 /* harmony export */ });
-/* unused harmony exports JD_ADVERTISEMENT_0_ACK_SUPPORTED, PACKET_INVALID_CRC, PACKET_KIND_EVENT */
+/* unused harmony exports JD_ADVERTISEMENT_0_ACK_SUPPORTED, PACKET_INVALID_CRC, PACKET_KIND_EVENT, BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC */
 /* harmony import */ var _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73512);
 // Registers 0x001-0x07f - r/w common to all services
 // Registers 0x080-0x0ff - r/w defined per-service
@@ -27069,9 +27070,11 @@ var META_PIPE = "PIPE";
 var META_GET = "GET";
 var REGISTER_PRE_GET = "registerPreGet";
 var TRACE_FILTER_HORIZON = 100;
-var BLUETOOTH_JACDAC_SERVICE = "f8538af2-a97f-49f5-a554-3e373fbea2d5";
-var BLUETOOTH_JACDAC_PACKET_CHARACTERISTIC = "3ec08ed9-39b5-4f55-b2df-44691a6ac952";
 var EMBED_MIN_ASPECT_RATIO = 1.22;
+var BLUETOOTH_JACDAC_SERVICE = "f8530001-a97f-49f5-a554-3e373fbea2d5";
+var BLUETOOTH_JACDAC_RX_CHARACTERISTIC = "f8530002-a97f-49f5-a554-3e373fbea2d5";
+var BLUETOOTH_JACDAC_TX_CHARACTERISTIC = "f8530003-a97f-49f5-a554-3e373fbea2d5";
+var BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC = "f8530004-a97f-49f5-a554-3e373fbea2d5";
 
 
 /***/ }),
@@ -40925,7 +40928,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "db7f12adef1882a1ee87013364dfaac6efced3cb";
+  var sha = "661ac89ca2e95e5bbcc8db123e375b535303e7c9";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -48090,6 +48093,8 @@ function createUSBWorkerTransport(worker) {
 
 
 
+
+var JD_BLE_FIRST_CHUNK_FLAG = 0x80;
 function isWebBluetoothEnabled() {
   return !!Flags.webBluetooth;
 }
@@ -48108,6 +48113,9 @@ function bleRequestDevice(options) {
   try {
     var _navigator, _navigator$bluetooth, _navigator$bluetooth$;
 
+    console.debug("bluetooth request", {
+      options: options
+    });
     return (_navigator = navigator) === null || _navigator === void 0 ? void 0 : (_navigator$bluetooth = _navigator.bluetooth) === null || _navigator$bluetooth === void 0 ? void 0 : (_navigator$bluetooth$ = _navigator$bluetooth.requestDevice) === null || _navigator$bluetooth$ === void 0 ? void 0 : _navigator$bluetooth$.call(_navigator$bluetooth, options);
   } catch (e) {
     if (flags/* default.diagnostics */.Z.diagnostics) console.warn(e);
@@ -48170,8 +48178,9 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
               _context.next = 9;
               return bleRequestDevice({
                 filters: [{
-                  services: [constants/* BLUETOOTH_JACDAC_SERVICE */.A0q]
-                }]
+                  namePrefix: "BBC micro:bit"
+                }],
+                optionalServices: [constants/* BLUETOOTH_JACDAC_SERVICE */.A0q]
               });
 
             case 9:
@@ -48202,19 +48211,24 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
             case 19:
               this._service = _context.sent;
               _context.next = 22;
-              return this._service.getCharacteristic(constants/* BLUETOOTH_JACDAC_PACKET_CHARACTERISTIC */.tIy);
+              return this._service.getCharacteristic(constants/* BLUETOOTH_JACDAC_RX_CHARACTERISTIC */.uLq);
 
             case 22:
-              this._characteristic = _context.sent;
+              this._rxCharacteristic = _context.sent;
+              _context.next = 25;
+              return this._service.getCharacteristic(constants/* BLUETOOTH_JACDAC_TX_CHARACTERISTIC */.c5n);
+
+            case 25:
+              this._txCharacteristic = _context.sent;
 
               // listen for incoming packet
-              this._characteristic.addEventListener("characteristicvaluechanged", this.handleCharacteristicChanged, false); // start listening
+              this._rxCharacteristic.addEventListener("characteristicvaluechanged", this.handleCharacteristicChanged, false); // start listening
 
 
-              _context.next = 26;
-              return this._characteristic.startNotifications();
+              _context.next = 29;
+              return this._rxCharacteristic.startNotifications();
 
-            case 26:
+            case 29:
             case "end":
               return _context.stop();
           }
@@ -48231,12 +48245,12 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
 
   _proto.transportSendPacketAsync = /*#__PURE__*/function () {
     var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(p) {
-      var data;
+      var data, length, totalChunks, remainingChunks, sent, n, chunk, header;
       return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              if (this._characteristic) {
+              if (this._txCharacteristic) {
                 _context2.next = 3;
                 break;
               }
@@ -48246,10 +48260,27 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 3:
               data = p.toBuffer();
+              length = data.length;
+              totalChunks = Math.ceil(data.length / 18);
+              remainingChunks = totalChunks == 0 ? 0 : totalChunks - 1;
+              sent = 0;
 
-              this._characteristic.writeValueWithoutResponse(data);
+              while (sent < length) {
+                n = Math.min(18, length - sent);
+                chunk = data.slice(sent, sent + n);
+                header = new Uint8Array(2);
+                header[0] = totalChunks & 0x7f;
+                if (sent == 0) header[0] |= JD_BLE_FIRST_CHUNK_FLAG;
+                header[1] = remainingChunks;
 
-            case 5:
+                this._txCharacteristic.writeValueWithoutResponse((0,utils/* bufferConcat */.gX)(header, chunk));
+
+                sent += n;
+                remainingChunks = remainingChunks == 0 ? 0 : remainingChunks - 1;
+                console.log("chunk: " + chunk.toString() + " [" + remainingChunks + " chunks remaining]");
+              }
+
+            case 9:
             case "end":
               return _context2.stop();
           }
@@ -48266,7 +48297,7 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
 
   _proto.transportDisconnectAsync = /*#__PURE__*/function () {
     var _transportDisconnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
-      var _this$_characteristic, _this$_device2;
+      var _this$_rxCharacterist, _this$_device2;
 
       return regenerator_default().wrap(function _callee3$(_context3) {
         while (1) {
@@ -48283,15 +48314,17 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
               console.debug("ble: disconnecting");
 
               try {
-                (_this$_characteristic = this._characteristic) === null || _this$_characteristic === void 0 ? void 0 : _this$_characteristic.removeEventListener("characteristicvaluechanged", this.handleCharacteristicChanged);
+                (_this$_rxCharacterist = this._rxCharacteristic) === null || _this$_rxCharacterist === void 0 ? void 0 : _this$_rxCharacterist.removeEventListener("characteristicvaluechanged", this.handleCharacteristicChanged);
                 (_this$_device2 = this._device) === null || _this$_device2 === void 0 ? void 0 : _this$_device2.removeEventListener("gattserverdisconnected", this.handleDisconnected);
 
                 this._server.disconnect();
               } finally {
-                this._characteristic = undefined;
+                this._rxCharacteristic = undefined;
+                this._txCharacteristic = undefined;
                 this._service = undefined;
                 this._server = undefined;
                 this._device = undefined;
+                this._rxBuffer = undefined;
               }
 
             case 4:
@@ -48315,10 +48348,29 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
   };
 
   _proto.handleCharacteristicChanged = function handleCharacteristicChanged() {
-    var data = new Uint8Array(this._characteristic.value.buffer);
-    var pkt = packet/* default.fromBinary */.Z.fromBinary(data, this.bus.timestamp);
-    pkt.sender = constants/* BLUETOOTH_TRANSPORT */.HZx;
-    this.bus.processPacket(pkt);
+    var data = new Uint8Array(this._rxCharacteristic.value.buffer);
+    var packetData = data.slice(2);
+    console.log("received length " + data.length);
+
+    if (data[0] & JD_BLE_FIRST_CHUNK_FLAG) {
+      if (this._rxBuffer) console.error("Dropped buffer. Chunks remaining: " + this._rxChunkCounter);
+      this._rxBuffer = new Uint8Array();
+      this._rxChunkCounter = data[0] & 0x7f;
+      console.log("Initial chunk counter: " + this._rxChunkCounter);
+    }
+
+    this._rxChunkCounter = this._rxChunkCounter == 0 ? 0 : this._rxChunkCounter - 1;
+    console.log("after modification chunk counter: " + this._rxChunkCounter);
+    if (data[1] !== this._rxChunkCounter) console.error("Data out of order. Expected chunk: " + this._rxChunkCounter + " Got chunk: " + data[1]);else this._rxBuffer = (0,utils/* bufferConcat */.gX)(this._rxBuffer, packetData);
+
+    if (this._rxChunkCounter == 0) {
+      var pkt = packet/* default.fromBinary */.Z.fromBinary(this._rxBuffer, this.bus.timestamp);
+      console.log("processed packet " + pkt);
+      pkt.sender = constants/* BLUETOOTH_TRANSPORT */.HZx;
+      this.bus.processPacket(pkt);
+      this._rxBuffer = undefined;
+      this._rxChunkCounter = 0;
+    }
   };
 
   return BluetoothTransport;
@@ -56102,4 +56154,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-aa058eaa65bdd2e871a6.js.map
+//# sourceMappingURL=app-2f6fd5463a58212a3f95.js.map
