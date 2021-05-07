@@ -1340,15 +1340,13 @@ function Collector() {
 
   var chartPalette = (0,useChartPalette/* default */.Z)();
   var readingRegisters = (0,useChange/* default */.Z)(bus, function (bus) {
-    return bus.devices().map(function (device) {
-      var _device$services$find;
-
-      return (_device$services$find = device.services().find(function (srv) {
+    return (0,utils/* arrayConcatMany */.ue)(bus.devices().map(function (device) {
+      return device.services().filter(function (srv) {
         return (0,spec/* isSensor */.rq)(srv.specification);
-      })) === null || _device$services$find === void 0 ? void 0 : _device$services$find.readingRegister;
-    }).filter(function (reg) {
-      return !!reg;
-    });
+      }).map(function (srv) {
+        return srv.readingRegister;
+      });
+    }));
   });
   var recordingRegisters = readingRegisters.filter(function (reg) {
     return registerIdsChecked.indexOf(reg.id) > -1;
@@ -1505,7 +1503,7 @@ function Collector() {
 
   var handleAggregatorChecked = function handleAggregatorChecked(srv) {
     return function () {
-      var id = (srv === null || srv === void 0 ? void 0 : srv.id) == aggregatorId ? '' : srv === null || srv === void 0 ? void 0 : srv.id;
+      var id = (srv === null || srv === void 0 ? void 0 : srv.id) == aggregatorId ? "" : srv === null || srv === void 0 ? void 0 : srv.id;
       setAggregatorId(id);
     };
   };
@@ -1571,16 +1569,16 @@ function Collector() {
     key: "aggregators"
   }, /*#__PURE__*/react.createElement("h3", null, "(Optional) Choose a data aggregator"), /*#__PURE__*/react.createElement("p", null, "A ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     to: "/services/aggregator"
-  }, "data aggregator"), " service collects collects sensor data on the bus and returns an aggregated at regular intervals."), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, "data aggregator"), " ", "service collects collects sensor data on the bus and returns an aggregated at regular intervals."), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true
   }, aggregators.map(function (aggregator) {
     return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-      key: 'aggregate' + aggregator.id,
+      key: "aggregate" + aggregator.id,
       item: true,
       xs: 4
     }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(DeviceCardHeader/* default */.Z, {
       device: aggregator.device,
-      showMedia: true
+      showAvatar: true
     }), /*#__PURE__*/react.createElement(CardActions/* default */.Z, null, /*#__PURE__*/react.createElement(Switch/* default */.Z, {
       checked: aggregatorId == aggregator.id,
       disabled: recording,
@@ -1674,4 +1672,4 @@ function Collector() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-collector-tsx-9261ef96260a28cfefa2.js.map
+//# sourceMappingURL=component---src-pages-tools-collector-tsx-06c2a6ac7fcc4724f83a.js.map
