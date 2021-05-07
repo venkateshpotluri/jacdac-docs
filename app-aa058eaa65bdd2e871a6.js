@@ -30763,17 +30763,20 @@ var serviceserver = __webpack_require__(34106);
 var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
   (0,inheritsLoose/* default */.Z)(ControlServer, _JDServiceServer);
 
-  function ControlServer() {
+  function ControlServer(options) {
     var _this;
 
     _this = _JDServiceServer.call(this, constants/* SRV_CTRL */.CRz) || this;
     _this.statusLightColor = undefined;
+
+    var _ref = options || {},
+        resetIn = _ref.resetIn;
+
     _this.startTime = Date.now();
-    _this.resetIn = _this.addRegister(constants/* ControlReg.ResetIn */.toU.ResetIn, [0]);
     _this.deviceDescription = _this.addRegister(constants/* ControlReg.DeviceDescription */.toU.DeviceDescription);
     _this.mcuTemperature = _this.addRegister(constants/* ControlReg.McuTemperature */.toU.McuTemperature, [25]);
-    _this.resetIn = _this.addRegister(constants/* ControlReg.ResetIn */.toU.ResetIn);
     _this.uptime = _this.addRegister(constants/* ControlReg.Uptime */.toU.Uptime);
+    if (resetIn) _this.resetIn = _this.addRegister(constants/* ControlReg.ResetIn */.toU.ResetIn, [0]);
 
     _this.addCommand(constants/* ControlCmd.Services */.VSW.Services, _this.announce.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
@@ -30792,7 +30795,8 @@ var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
 
   _proto.announce = /*#__PURE__*/function () {
     var _announce = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      var pkt;
+      var pkt, _this$resetIn$values, resetIn, resetTimestamp;
+
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -30806,9 +30810,27 @@ var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
 
             case 3:
               // micros
-              this.uptime.setValues([(Date.now() - this.startTime) * 100], true);
+              this.uptime.setValues([(Date.now() - this.startTime) * 100], true); // check if we need to reset
 
-            case 4:
+              if (this.resetIn) {
+                _this$resetIn$values = this.resetIn.values(), resetIn = _this$resetIn$values[0];
+
+                if (resetIn) {
+                  resetTimestamp = resetIn / 1000 + this.resetIn.lastSetTime;
+
+                  if (resetTimestamp < this.device.bus.timestamp) {
+                    // reset in expired
+                    console.debug(this + " reset in expired", {
+                      resetIn: resetIn,
+                      lastSet: this.resetIn.lastSetTime,
+                      resetTimestamp: resetTimestamp
+                    });
+                    this.device.reset();
+                  }
+                }
+              }
+
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -30901,7 +30923,7 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
     _this._restartCounter = 0;
     _this._packetCount = 0;
     _this._eventCounter = undefined;
-    _this.controlService = new ControlServer();
+    _this.controlService = new ControlServer(options);
     _this._services = [];
     _this.deviceId = options === null || options === void 0 ? void 0 : options.deviceId;
 
@@ -30921,8 +30943,6 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
 
     _this.handleSelfAnnounce = _this.handleSelfAnnounce.bind((0,assertThisInitialized/* default */.Z)(_this));
     _this.handlePacket = _this.handlePacket.bind((0,assertThisInitialized/* default */.Z)(_this));
-
-    _this.controlService.resetIn.on(constants/* REPORT_RECEIVE */.Gb8, _this.handleResetIn.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
     _this.on(constants/* REFRESH */.RGM, _this.refreshRegisters.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
@@ -30976,7 +30996,6 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
 
   _proto.stop = function stop() {
     this._delayedPackets = undefined;
-    this.clearResetTimer();
     if (!this._bus) return;
 
     this._bus.off(constants/* SELF_ANNOUNCE */.Pbc, this.handleSelfAnnounce);
@@ -31159,32 +31178,12 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
   _proto.reset = function reset() {
     var _this$_services2;
 
-    this.clearResetTimer();
     this._restartCounter = 0;
     this._packetCount = 0;
     (_this$_services2 = this._services) === null || _this$_services2 === void 0 ? void 0 : _this$_services2.forEach(function (srv) {
       return srv.reset();
     });
     this.emit(constants/* RESET */.tdh);
-  };
-
-  _proto.clearResetTimer = function clearResetTimer() {
-    if (this._resetTimeOut) {
-      clearTimeout(this._resetTimeOut);
-      this._resetTimeOut = undefined;
-    }
-  };
-
-  _proto.handleResetIn = function handleResetIn() {
-    var _this3 = this;
-
-    var _this$controlService$ = this.controlService.resetIn.values(),
-        t = _this$controlService$[0];
-
-    if (this._resetTimeOut) clearTimeout(this._resetTimeOut);
-    if (t) this._resetTimeOut = setTimeout(function () {
-      return _this3.reset();
-    }, t);
   };
 
   (0,createClass/* default */.Z)(JDServiceProvider, [{
@@ -31456,6 +31455,7 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
         changed = true;
       }
 
+      this.lastSetTime = this.service.device.bus.timestamp;
       this.emit(constants/* REPORT_RECEIVE */.Gb8);
       if (changed) this.emit(constants/* CHANGE */.Ver);
     }
@@ -37237,7 +37237,8 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_MOTOR */.YZU],
   services: function services() {
     return [new MotorServer()];
-  }
+  },
+  resetIn: true
 }, {
   name: "protocol test",
   serviceClasses: [constants/* SRV_PROTO_TEST */.$Bn],
@@ -37344,22 +37345,26 @@ var _providerDefinitions = [{
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return [new ServoServer(microServoOptions)];
-  }
+  },
+  resetIn: true
 }, {
   name: "servo (270°)",
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return [new ServoServer(microServo270Options)];
-  }
+  },
+  resetIn: true
 }, {
   name: "servo (360°)",
   serviceClasses: [constants/* SRV_SERVO */.$X_],
   services: function services() {
     return [new ServoServer(microServo360Options)];
-  }
+  },
+  resetIn: true
 }, {
   name: "servo x 2",
   serviceClasses: [constants/* SRV_SERVO */.$X_],
+  resetIn: true,
   services: function services() {
     return Array(2).fill(0).map(function (_, i) {
       return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
@@ -37370,6 +37375,7 @@ var _providerDefinitions = [{
 }, {
   name: "servo x 4",
   serviceClasses: [constants/* SRV_SERVO */.$X_],
+  resetIn: true,
   services: function services() {
     return Array(4).fill(0).map(function (_, i) {
       return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
@@ -37380,6 +37386,7 @@ var _providerDefinitions = [{
 }, {
   name: "servo x 6",
   serviceClasses: [constants/* SRV_SERVO */.$X_],
+  resetIn: true,
   services: function services() {
     return Array(6).fill(0).map(function (_, i) {
       return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
@@ -37390,6 +37397,7 @@ var _providerDefinitions = [{
 }, {
   name: "servo x 16",
   serviceClasses: [constants/* SRV_SERVO */.$X_],
+  resetIn: true,
   services: function services() {
     return Array(16).fill(0).map(function (_, i) {
       return new ServoServer(servers_objectSpread(servers_objectSpread({}, microServoOptions), {}, {
@@ -37687,7 +37695,10 @@ function addServiceProvider(bus, definition) {
   var _definition$factory;
 
   var services = definition.services();
-  var d = ((_definition$factory = definition.factory) === null || _definition$factory === void 0 ? void 0 : _definition$factory.call(definition, services)) || new serviceprovider/* default */.Z(services);
+  var options = {
+    resetIn: definition.resetIn
+  };
+  var d = ((_definition$factory = definition.factory) === null || _definition$factory === void 0 ? void 0 : _definition$factory.call(definition, services)) || new serviceprovider/* default */.Z(services, options);
   bus.addServiceProvider(d);
   return d;
 }
@@ -40914,7 +40925,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c0f98e7e69e62eca871f87657df5828531a24b34";
+  var sha = "db7f12adef1882a1ee87013364dfaac6efced3cb";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -47974,47 +47985,18 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
         {
           var _error = data.error;
           console.error(_error);
-          this.handleError();
+          this.errorHandler("worker", _error);
           break;
         }
     }
   };
 
-  _proto.handleError = /*#__PURE__*/function () {
-    var _handleError = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
+    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(p) {
+      var buf;
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
-            case 0:
-              console.debug("webusb: error, reconnect...");
-              _context.next = 3;
-              return this.disconnect();
-
-            case 3:
-              _context.next = 5;
-              return this.connect(true);
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function handleError() {
-      return _handleError.apply(this, arguments);
-    }
-
-    return handleError;
-  }();
-
-  _proto.transportSendPacketAsync = /*#__PURE__*/function () {
-    var _transportSendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(p) {
-      var buf;
-      return regenerator_default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
             case 0:
               // don't wait
               buf = p.toBuffer();
@@ -48025,10 +48007,10 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 2:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2, this);
+      }, _callee, this);
     }));
 
     function transportSendPacketAsync(_x) {
@@ -48039,25 +48021,25 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
   }();
 
   _proto.transportConnectAsync = /*#__PURE__*/function () {
-    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(background) {
+    var _transportConnectAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(background) {
       var deviceId;
-      return regenerator_default().wrap(function _callee3$(_context3) {
+      return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (background) {
-                _context3.next = 4;
+                _context2.next = 4;
                 break;
               }
 
-              _context3.next = 3;
+              _context2.next = 3;
               return this.options.requestDevice();
 
             case 3:
-              deviceId = _context3.sent;
+              deviceId = _context2.sent;
 
             case 4:
-              _context3.next = 6;
+              _context2.next = 6;
               return this.postMessageAsync({
                 type: "connect",
                 deviceId: deviceId,
@@ -48066,10 +48048,10 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
             case 6:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee2, this);
     }));
 
     function transportConnectAsync(_x2) {
@@ -48755,7 +48737,7 @@ function sniffQueryArguments() {
   return {
     diagnostics: params.get("dbg") === "1",
     webUSB: isWebUSBSupported() && params.get("webusb") !== "0" && !toolsMakecode,
-    webBluetooth: isWebBluetoothSupported() && params.get("webble") === "1" && !toolsMakecode,
+    webBluetooth: isWebBluetoothSupported() && params.get("webble") !== "0" && !toolsMakecode,
     peers: params.get("peers") === "1",
     parentOrigin: params.get("parentOrigin"),
     frameId: (_window$location$hash = window.location.hash) === null || _window$location$hash === void 0 ? void 0 : _window$location$hash.slice(1)
@@ -56120,4 +56102,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a7b80c9784355a87c1a4.js.map
+//# sourceMappingURL=app-aa058eaa65bdd2e871a6.js.map
