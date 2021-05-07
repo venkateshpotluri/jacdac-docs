@@ -296,7 +296,7 @@
     "@type": "Interface",
     "@id": "dtmi:jacdac:services:x1deaa06e;1",
     "displayName": "Arcade Gamepad",
-    "description": "A gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
+    "description": "This service is deprecated in favor or `joystick`; it is currently used by the micro:bit Arcade smart shield though.\nA gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
     "contents": [
       {
         "@type": "Telemetry",
@@ -1044,7 +1044,7 @@
     "@type": "Interface",
     "@id": "dtmi:jacdac:services:x0;1",
     "displayName": "Control",
-    "description": "Control service is always service index `0`.\nIt handles actions common to all services on a device.",
+    "description": "Control service is always service index `0`.\nIt handles actions common to all services on a device.\n\nNote: some of the optional features (including `flood_ping`, `mcu_temperature`, and all string registers)\nare not implemented in `8bit` version.",
     "contents": [
       {
         "@type": [

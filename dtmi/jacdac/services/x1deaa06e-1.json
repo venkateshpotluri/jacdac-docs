@@ -2,7 +2,7 @@
   "@type": "Interface",
   "@id": "dtmi:jacdac:services:x1deaa06e;1",
   "displayName": "Arcade Gamepad",
-  "description": "A gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
+  "description": "This service is deprecated in favor or `joystick`; it is currently used by the micro:bit Arcade smart shield though.\nA gamepad with direction and action buttons for one player.\nIf a device has multiple controllers, it should have multiple gamepad services, using consecutive service identifiers.",
   "contents": [
     {
       "@type": "Telemetry",

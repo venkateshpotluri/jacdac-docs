@@ -14,6 +14,7 @@
   },
   "classIdentifier": 382210232,
   "enums": {},
+  "constants": {},
   "packets": [
     {
       "kind": "const",
@@ -220,7 +221,8 @@
     }
   ],
   "tags": [
-    "C"
+    "C",
+    "8bit"
   ],
   "group": "Environment"
 }

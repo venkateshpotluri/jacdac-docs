@@ -13,6 +13,7 @@
   },
   "classIdentifier": 458824639,
   "enums": {},
+  "constants": {},
   "packets": [
     {
       "kind": "const",
@@ -198,5 +199,7 @@
       "packFormat": "u16.16"
     }
   ],
-  "tags": []
+  "tags": [
+    "8bit"
+  ]
 }

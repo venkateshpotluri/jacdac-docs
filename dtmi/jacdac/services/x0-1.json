@@ -2,7 +2,7 @@
   "@type": "Interface",
   "@id": "dtmi:jacdac:services:x0;1",
   "displayName": "Control",
-  "description": "Control service is always service index `0`.\nIt handles actions common to all services on a device.",
+  "description": "Control service is always service index `0`.\nIt handles actions common to all services on a device.\n\nNote: some of the optional features (including `flood_ping`, `mcu_temperature`, and all string registers)\nare not implemented in `8bit` version.",
   "contents": [
     {
       "@type": [

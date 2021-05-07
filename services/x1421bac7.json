@@ -23,6 +23,7 @@
       }
     }
   },
+  "constants": {},
   "packets": [
     {
       "kind": "const",
@@ -242,7 +243,8 @@
     }
   ],
   "tags": [
-    "C"
+    "C",
+    "8bit"
   ],
   "group": "Environment"
 }

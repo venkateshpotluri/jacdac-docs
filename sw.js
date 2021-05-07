@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-e69efbb364d76579fb1b.js"
+    "url": "webpack-runtime-da8c107e8df97deb9ab3.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "2b63072387d456485c6578b221058ed1"
+    "revision": "76b264d8c18b0e43f0ff362a6802d5ab"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,15 +57,15 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "0f13a44ade87c8333179b9a55db291b2"
+    "revision": "45c4b1d351f664e5ef689c5fe954bfbd"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "53de9353ecedee20abe5eddcfbbe8821"
+    "revision": "812e021461a5ab6d04f3a70e4c21c59e"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "4bbcef073e615f031ee53b28650b0a7e"
+    "revision": "40141bd38739f17f844a7c46b1a0bec3"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "3e8fb66d8b94ec8afa9878563b5b69e8"
+    "revision": "8c1c6692f30c844120fb3e714f47b446"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -119,7 +119,7 @@ self.__precacheManifest = [
     "url": "970b859fc0222c3a14879a94739936ceea0948d8-9badd738472214289195.js"
   },
   {
-    "url": "41f844d316a1c90d74e9bae1d54c706c95ccce76-fa0def520441598dc73c.js"
+    "url": "41f844d316a1c90d74e9bae1d54c706c95ccce76-566128193517e87a2fa4.js"
   },
   {
     "url": "7e50ab330d019563fa2c1411d956918dbb5df381-2700104de7cf5134ad0d.js"
@@ -225,11 +225,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/reference/protocol/page-data.json",
-    "revision": "676e07c0dfb6c1604f9c135e3cde17fe"
+    "revision": "5eb106f1877ba86450d0ebe7f5f3b36f"
   },
   {
     "url": "page-data/reference/service-specification/page-data.json",
-    "revision": "f3f1d73298fe69993adb8b9099d708ae"
+    "revision": "9eaa0f2358ef0fd3eeab9024fcabe042"
   },
   {
     "url": "page-data/reference/service-tests/page-data.json",
@@ -279,7 +279,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/_system/page-data.json",
-    "revision": "5b0a4c62cd3f2c1e9d0962cfdb944e06"
+    "revision": "f2264bf2c99499278cef85100f8b6142"
   },
   {
     "url": "page-data/services/_system/playground/page-data.json",
@@ -303,7 +303,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/arcadegamepad/page-data.json",
-    "revision": "f4cc9624786b8f4625e5a99b23ff2724"
+    "revision": "90a94186113ff0990cd5a51f07b2acf4"
   },
   {
     "url": "page-data/services/arcadegamepad/playground/page-data.json",
@@ -339,7 +339,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/barometer/page-data.json",
-    "revision": "db8e612a49c8b0b722c466c2417342fb"
+    "revision": "b77fe75829b38238aaa3f4e4ac78e7b9"
   },
   {
     "url": "page-data/services/barometer/playground/page-data.json",
@@ -447,7 +447,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/control/page-data.json",
-    "revision": "137265fc5f8d79bcdb31e16991d9a411"
+    "revision": "5c2c33d31d65d376a5057366c0b50699"
   },
   {
     "url": "page-data/services/control/playground/page-data.json",
@@ -459,7 +459,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/distance/page-data.json",
-    "revision": "7562a32ce213620a1b14edd373765ba3"
+    "revision": "64daa61ec57ee4916052446b27e93652"
   },
   {
     "url": "page-data/services/distance/playground/page-data.json",
@@ -483,7 +483,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/eco2/page-data.json",
-    "revision": "90034c0fb21bc6b663256d4f87e697c6"
+    "revision": "accde452770e3ac566fe87115e172dae"
   },
   {
     "url": "page-data/services/eco2/playground/page-data.json",
@@ -507,7 +507,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/heartrate/page-data.json",
-    "revision": "becb307a662d0f2d7c89bb616ffdba84"
+    "revision": "f21ec5e3ae47aa5771395d7326e449b5"
   },
   {
     "url": "page-data/services/heartrate/playground/page-data.json",
@@ -543,7 +543,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/humidity/page-data.json",
-    "revision": "323232a544ce3f92794dfb1aa54a446b"
+    "revision": "072fc0d4fcedafe8c28fa4dbef75c404"
   },
   {
     "url": "page-data/services/humidity/playground/page-data.json",
@@ -555,7 +555,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/illuminance/page-data.json",
-    "revision": "bbc1d1887c752a3d6a51720d27b0cc13"
+    "revision": "2f4d4ac3f53ab793db408cf1549e5c39"
   },
   {
     "url": "page-data/services/illuminance/playground/page-data.json",
@@ -603,7 +603,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/led/page-data.json",
-    "revision": "de13573a903682e75d254a56f26e1eb4"
+    "revision": "65b0efa30cc0af7cb7ac440ac3092a66"
   },
   {
     "url": "page-data/services/led/playground/page-data.json",
@@ -807,7 +807,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/pulseoximeter/page-data.json",
-    "revision": "bbd07eda0bd4d9e89ab7f9b367648688"
+    "revision": "cb7a063af21acd20f587e7f34077fa96"
   },
   {
     "url": "page-data/services/pulseoximeter/playground/page-data.json",
@@ -819,7 +819,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/raingauge/page-data.json",
-    "revision": "d9b16121a141ae7baa53ed80efac0940"
+    "revision": "7713a69db445f257777ee8a89c80a799"
   },
   {
     "url": "page-data/services/raingauge/playground/page-data.json",
@@ -1059,7 +1059,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/thermocouple/page-data.json",
-    "revision": "30345e7c6b41e270273975e7a9d7d110"
+    "revision": "74585ea04f008ad69b9d90a8bb34e974"
   },
   {
     "url": "page-data/services/thermocouple/playground/page-data.json",
@@ -1071,7 +1071,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/thermometer/page-data.json",
-    "revision": "843244d29c98ee9011a11271b7706ea5"
+    "revision": "b21c5a3535207b42de2775f5a3204092"
   },
   {
     "url": "page-data/services/thermometer/playground/page-data.json",
@@ -1095,7 +1095,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/tvoc/page-data.json",
-    "revision": "27d0de4be8273900fc9ecd33f3a6c478"
+    "revision": "63d3c3e2c7e5c9e06769b6e96b8fc5f7"
   },
   {
     "url": "page-data/services/tvoc/playground/page-data.json",
@@ -1107,7 +1107,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/uvindex/page-data.json",
-    "revision": "ccb4290c2f4d9ad36f19b33697e0718a"
+    "revision": "4f825ea77782ac64056af0043d73802f"
   },
   {
     "url": "page-data/services/uvindex/playground/page-data.json",
@@ -1143,7 +1143,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/weightscale/page-data.json",
-    "revision": "49ffe173fc5425d0770cd4e66fa9ddf1"
+    "revision": "a515b912cb5f4289c3e9b01582c5771a"
   },
   {
     "url": "page-data/services/weightscale/playground/page-data.json",
@@ -1167,7 +1167,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/winddirection/page-data.json",
-    "revision": "8e534775623b414dd735e70c26abea8b"
+    "revision": "de981724f3bc46eec7aa1c8889f51b2c"
   },
   {
     "url": "page-data/services/winddirection/playground/page-data.json",
@@ -1179,7 +1179,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/windspeed/page-data.json",
-    "revision": "03472f4443fc67ab36887f38a10bcdce"
+    "revision": "dea2a6b45cf2be7a4cdb6cb849e2d400"
   },
   {
     "url": "page-data/services/windspeed/playground/page-data.json",
@@ -1517,7 +1517,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-a3ad961c052c41e70fa9.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-a7b80c9784355a87c1a4.js`))) {
     return await fetch(event.request)
   }
 

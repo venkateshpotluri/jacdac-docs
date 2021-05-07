@@ -13,6 +13,7 @@
   },
   "classIdentifier": 280710838,
   "enums": {},
+  "constants": {},
   "packets": [
     {
       "kind": "const",
@@ -182,6 +183,8 @@
       "packFormat": "u8.8"
     }
   ],
-  "tags": [],
+  "tags": [
+    "8bit"
+  ],
   "group": "Biometric"
 }
