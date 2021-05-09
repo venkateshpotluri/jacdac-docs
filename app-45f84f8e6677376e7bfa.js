@@ -40960,7 +40960,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "3248e16e5ebaa1a23d6edcfe810d3d1a6a4f0679";
+  var sha = "b2f4d5838b033579b18c4b005114728dc1ac1e24";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -47540,7 +47540,7 @@ var USBIO = /*#__PURE__*/function () {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return this.options.getDevices();
+              return this.options.getDevices(USB_FILTERS);
 
             case 3:
               devices = _context2.sent;
@@ -56190,4 +56190,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-6990abc1df9e3769de9a.js.map
+//# sourceMappingURL=app-45f84f8e6677376e7bfa.js.map

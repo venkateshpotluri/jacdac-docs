@@ -1026,7 +1026,7 @@ class USBIO {
     }
     async tryReconnectAsync(deviceId) {
         try {
-            const devices = await this.options.getDevices();
+            const devices = await this.options.getDevices(USB_FILTERS);
             this.dev = deviceId
                 ? devices.find(dev => dev.serialNumber === deviceId)
                 : devices[0];
