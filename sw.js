@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "4f02fcab08e31920f5b85d651e5e4ccf"
+    "revision": "713518e201c7cf7b7e3589ca164a558a"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "d3cd78a538d6d2aeada26838da054715"
+    "revision": "dd3cdf75c9d81ea53ccce3b2f82306ff"
   },
   {
     "url": "page-data/sq/d/413816803.json",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "27f71808a05837ba277fbaf7b2bd3cc5"
+    "revision": "d1e78e75487a3904d2aadec5041424ff"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -225,7 +225,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/reference/protocol/page-data.json",
-    "revision": "5eb106f1877ba86450d0ebe7f5f3b36f"
+    "revision": "a053823ff359036e9b179085a2efa5cf"
   },
   {
     "url": "page-data/reference/service-specification/page-data.json",
@@ -375,7 +375,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/button/page-data.json",
-    "revision": "8772236891a9a0f2d760e9935a38fa2d"
+    "revision": "fbb32d9bba0242f7b4d130710b773970"
   },
   {
     "url": "page-data/services/button/playground/page-data.json",
@@ -555,7 +555,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/illuminance/page-data.json",
-    "revision": "2f4d4ac3f53ab793db408cf1549e5c39"
+    "revision": "11f442e090208a1ae6fd14c3c8a0c760"
   },
   {
     "url": "page-data/services/illuminance/playground/page-data.json",
@@ -591,7 +591,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/joystick/page-data.json",
-    "revision": "dd840004100c8969f7e145ca8479056e"
+    "revision": "b846334e3bb76fefe7b4e2483ea586bd"
   },
   {
     "url": "page-data/services/joystick/playground/page-data.json",
@@ -603,7 +603,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/led/page-data.json",
-    "revision": "65b0efa30cc0af7cb7ac440ac3092a66"
+    "revision": "f04fa1039375e4fbcfff60d54741b4c5"
   },
   {
     "url": "page-data/services/led/playground/page-data.json",
@@ -639,7 +639,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/lightlevel/page-data.json",
-    "revision": "36136e7986921387f6f95dfc301bda2e"
+    "revision": "ffac045b8f28c8a799c7476432f12e6f"
   },
   {
     "url": "page-data/services/lightlevel/playground/page-data.json",
@@ -1517,7 +1517,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-2f6fd5463a58212a3f95.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-3ec42a69dbf763bbbc3a.js`))) {
     return await fetch(event.request)
   }
 
