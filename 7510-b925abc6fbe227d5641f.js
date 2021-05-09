@@ -944,21 +944,19 @@ function PacketBadge(props) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(10920);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(70274);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(59355);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8129);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(4381);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(50144);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(38030);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(8266);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(4381);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(50144);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(38030);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(8266);
 /* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69882);
 /* harmony import */ var _PacketBadge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(97309);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(84377);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(55344);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10913);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
-/* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(91635);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(35313);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10913);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(81794);
+/* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(91635);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(35313);
+/* harmony import */ var _hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(20509);
 
 
 
@@ -991,34 +989,36 @@ function PacketListItem(props) {
       setDrawerType = _useContext2.setDrawerType;
 
   var classes = useStyles();
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)();
-  var mobile = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(theme.breakpoints.down(_layout__WEBPACK_IMPORTED_MODULE_4__/* .MOBILE_BREAKPOINT */ .Gh));
+
+  var _useMediaQueries = (0,_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(),
+      mobile = _useMediaQueries.mobile;
+
   var decoded = packet.decoded;
 
   var handleClick = function handleClick() {
     if (mobile) setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .DrawerType.None */ .jw.None);
     setSelectedPacket(packet);
-    (0,gatsby__WEBPACK_IMPORTED_MODULE_9__.navigate)("/tools/packet-inspector/");
+    (0,gatsby__WEBPACK_IMPORTED_MODULE_8__.navigate)("/tools/packet-inspector/");
   };
 
   var selected = packet === selectedPacket;
-  var logMessage = packet.serviceClass === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_LOGGER */ .w9j && packet.isReport && packet.isEvent;
-  var pipePackets = packet.meta[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .META_PIPE */ .YHR];
-  var primary = packet.isCRCAck && "crc ack " + packet.friendlyCommandName || packet.isAnnounce && "announce from " + packet.friendlyDeviceName || pipePackets && "pipe port:" + packet.pipePort + " " + pipePackets.length + " packets" || logMessage && (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_8__/* .jdunpack */ .TE)(packet.data, "s")[0] || ((decoded === null || decoded === void 0 ? void 0 : decoded.info.name) || packet.friendlyCommandName) + " " + (decoded ? (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .ellipseJoin */ .VA)(decoded.decoded.map(function (f) {
+  var logMessage = packet.serviceClass === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .SRV_LOGGER */ .w9j && packet.isReport && packet.isEvent;
+  var pipePackets = packet.meta[_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .META_PIPE */ .YHR];
+  var primary = packet.isCRCAck && "crc ack " + packet.friendlyCommandName || packet.isAnnounce && "announce from " + packet.friendlyDeviceName || pipePackets && "pipe port:" + packet.pipePort + " " + pipePackets.length + " packets" || logMessage && (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_7__/* .jdunpack */ .TE)(packet.data, "s")[0] || ((decoded === null || decoded === void 0 ? void 0 : decoded.info.name) || packet.friendlyCommandName) + " " + (decoded ? (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_6__/* .ellipseJoin */ .VA)(decoded.decoded.map(function (f) {
     return f.humanValue;
   }), 18) : "");
-  var secondary = "" + (showTime ? (0,_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_6__/* .prettyDuration */ .Xh)(packet.timestamp) + ": " : "") + (packet.isCommand ? "to" : "from") + " " + packet.friendlyDeviceName + "/" + packet.friendlyServiceName;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
+  var secondary = "" + (showTime ? (0,_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_5__/* .prettyDuration */ .Xh)(packet.timestamp) + ": " : "") + (packet.isCommand ? "to" : "from") + " " + packet.friendlyDeviceName + "/" + packet.friendlyServiceName;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
     button: true,
     className: classes.item,
     dense: true,
     onClick: handleClick,
     selected: selected
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PacketBadge__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PacketBadge__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     packet: packet,
     count: count
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
-    primary: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
+    primary: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
       textOverflow: "ellipsis"
     }, primary),
     secondary: secondary
@@ -1080,4 +1080,4 @@ function TraceSnippet(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7510-fcf56d2fb34ba05f8357.js.map
+//# sourceMappingURL=7510-b925abc6fbe227d5641f.js.map

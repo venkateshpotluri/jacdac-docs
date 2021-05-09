@@ -860,10 +860,6 @@ var GridListTileBar = /*#__PURE__*/react.forwardRef(function GridListTileBar(pro
 var makeStyles = __webpack_require__(10920);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
 var createStyles = __webpack_require__(70274);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js
-var useMediaQuery = __webpack_require__(8129);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__(80453);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
@@ -876,10 +872,10 @@ var Markdown = __webpack_require__(98784);
 var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./src/components/layout.tsx + 20 modules
-var layout = __webpack_require__(55344);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceImage.ts
 var useDeviceImage = __webpack_require__(81546);
+// EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
+var useMediaQueries = __webpack_require__(20509);
 ;// CONCATENATED MODULE: ./src/components/DeviceSpecificationList.tsx
 
 
@@ -913,10 +909,12 @@ function DeviceSpecificationList(props) {
       shuffle = props.shuffle,
       requiredServiceClasses = props.requiredServiceClasses,
       company = props.company;
-  var theme = (0,useTheme/* default */.Z)();
   var classes = useStyles();
-  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(layout/* MOBILE_BREAKPOINT */.Gh));
-  var medium = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(layout/* MEDIUM_BREAKPOINT */.qA));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries.mobile,
+      medium = _useMediaQueries.medium;
+
   var cols = mobile ? 1 : medium ? 3 : 4;
   var specs = (0,react.useMemo)(function () {
     var r = (0,jdom_spec/* deviceSpecifications */.qx)();
@@ -1114,4 +1112,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-devices-tsx-a2a6b6b3466090604fd2.js.map
+//# sourceMappingURL=component---src-pages-devices-tsx-d4be1070c395322208be.js.map

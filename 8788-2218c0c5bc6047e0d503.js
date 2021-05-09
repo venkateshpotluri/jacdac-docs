@@ -1822,10 +1822,6 @@ var ArrowRight = __webpack_require__(33629);
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js
-var useMediaQuery = __webpack_require__(8129);
 // EXTERNAL MODULE: ./src/jacdac/useRegisterValue.ts
 var useRegisterValue = __webpack_require__(89196);
 // EXTERNAL MODULE: ./src/jacdac/useEventCount.ts
@@ -1850,6 +1846,8 @@ var Typography = __webpack_require__(80453);
 var Collapse = __webpack_require__(39055);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/colorManipulator.js
 var colorManipulator = __webpack_require__(37595);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__(59355);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/useForkRef.js
 var useForkRef = __webpack_require__(11291);
 ;// CONCATENATED MODULE: ./node_modules/@material-ui/lab/esm/TreeItem/TreeItem.js
@@ -2418,10 +2416,10 @@ function StyledTreeItem(props) {
 var Launch = __webpack_require__(58504);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./src/components/layout.tsx + 20 modules
-var layout = __webpack_require__(55344);
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__(53074);
+// EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
+var useMediaQueries = __webpack_require__(20509);
 ;// CONCATENATED MODULE: ./src/components/JDomTreeView.tsx
 
 
@@ -2432,7 +2430,6 @@ var useDevices = __webpack_require__(53074);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
 
 
 
@@ -2478,8 +2475,11 @@ function DeviceTreeItem(props) {
       return !serviceFilter || serviceFilter(srv);
     });
   });
-  var theme = (0,useTheme/* default */.Z)();
-  var showActions = (0,useMediaQuery/* default */.Z)(theme.breakpoints.up("sm"));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries.mobile;
+
+  var showActions = !mobile;
   var dropped = (0,useChange/* default */.Z)(device.qos, function (qos) {
     return qos.dropped;
   });
@@ -2571,8 +2571,9 @@ function ServiceTreeItem(props) {
   var readingRegister = service.readingRegister;
   var reading = (0,useRegisterValue/* useRegisterHumanValue */.e_)(readingRegister);
   var name = service.name + (instanceName ? " " + instanceName : "");
-  var theme = (0,useTheme/* default */.Z)();
-  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(layout/* MOBILE_BREAKPOINT */.Gh));
+
+  var _useMediaQueries2 = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries2.mobile;
 
   var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
       setDrawerType = _useContext.setDrawerType;
@@ -3050,4 +3051,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8788-4ee03ef7543c5c0810f3.js.map
+//# sourceMappingURL=8788-2218c0c5bc6047e0d503.js.map

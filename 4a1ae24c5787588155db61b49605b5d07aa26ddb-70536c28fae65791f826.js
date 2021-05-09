@@ -222,10 +222,6 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ DashboardDevice; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js
-var useMediaQuery = __webpack_require__(8129);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Paper/Paper.js
@@ -413,8 +409,6 @@ function DashboardServiceDetails(props) {
     }));
   }));
 }
-// EXTERNAL MODULE: ./src/components/layout.tsx + 20 modules
-var layout = __webpack_require__(55344);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceName.ts
 var useDeviceName = __webpack_require__(5738);
 ;// CONCATENATED MODULE: ./src/components/hooks/useIntersectionObserver.ts
@@ -461,6 +455,8 @@ function useIntersectionObserver(elementRef, options) {
 }
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/node.ts
 var node = __webpack_require__(60154);
+// EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
+var useMediaQueries = __webpack_require__(20509);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardDevice.tsx
 
 
@@ -498,8 +494,10 @@ function DashboardDevice(props) {
     });
   });
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
-  var theme = (0,useTheme/* default */.Z)();
-  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(layout/* MOBILE_BREAKPOINT */.Gh));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries.mobile;
+
   var serviceGridRef = (0,react.useRef)();
   var intersection = useIntersectionObserver(serviceGridRef);
   var visible = !!(intersection !== null && intersection !== void 0 && intersection.isIntersecting);
@@ -724,4 +722,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-ab99fb0e981f2f7749a8.js.map
+//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-70536c28fae65791f826.js.map

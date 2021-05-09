@@ -1186,15 +1186,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": function() { return /* binding */ StartSimulatorDialog; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(52468);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(96422);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(65733);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(80838);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(65541);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(83332);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(52468);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(96422);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(65733);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(65541);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(83332);
 /* harmony import */ var notistack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70076);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67294);
 /* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19640);
@@ -1205,6 +1205,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(20392);
 /* harmony import */ var _KindIcon__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(50048);
 /* harmony import */ var _ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(15789);
+/* harmony import */ var _hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(20509);
 
 
 
@@ -1213,6 +1214,7 @@ function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -1246,11 +1248,18 @@ function StartSimulatorDialog(props) {
     return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP)();
   }, []);
 
+  var _useMediaQueries = (0,_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(),
+      mobile = _useMediaQueries.mobile;
+
   var handleChange = function handleChange(ev) {
     setSelected(ev.target.value);
   };
 
-  var handleClick = function handleClick() {
+  var handleCancel = function handleCancel() {
+    onClose();
+  };
+
+  var handleStart = function handleStart() {
     var provider = providerDefinitions.find(function (h) {
       return h.name === selected;
     });
@@ -1259,7 +1268,7 @@ function StartSimulatorDialog(props) {
   };
 
   var handleAddAll = /*#__PURE__*/function () {
-    var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var allProviderDefinitions, _iterator, _step, provider;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -1310,17 +1319,18 @@ function StartSimulatorDialog(props) {
     };
   }();
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
     id: deviceHostDialogId,
     "aria-labelledby": deviceHostLabelId,
     open: open,
-    onClose: onClose
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+    onClose: onClose,
+    fullScreen: mobile
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
     id: deviceHostLabelId
-  }, "Start a simulator"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, "Start a simulator"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
     container: true,
     spacing: 2
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
@@ -1330,29 +1340,36 @@ function StartSimulatorDialog(props) {
     value: selected,
     onChange: handleChange
   }, providerDefinitions.map(function (host) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
       key: host.name,
       value: host.name
     }, host.name);
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
     container: true,
     spacing: 1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, mobile && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, {
+    "aria-label": "cancel",
+    variant: "contained",
+    title: "Cancel",
+    onClick: handleCancel
+  }, "cancel")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, {
     "aria-label": "start " + selected,
     color: "primary",
     variant: "contained",
     title: "Start new simulator",
-    onClick: handleClick,
+    onClick: handleStart,
     startIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_KindIcon__WEBPACK_IMPORTED_MODULE_9__/* .default */ .ZP, {
       kind: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .VIRTUAL_DEVICE_NODE_NAME */ .UX7
     })
-  }, "start")), _jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_6__/* .default.diagnostics */ .Z.diagnostics && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, "start")), _jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_6__/* .default.diagnostics */ .Z.diagnostics && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, {
     variant: "outlined",
     onClick: handleAddAll
   }, "start all simulators")))))));
@@ -1416,4 +1433,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4610-0ab5f1f27d1298244ceb.js.map
+//# sourceMappingURL=4610-8724624a94b0e170ee28.js.map

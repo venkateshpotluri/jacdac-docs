@@ -170,10 +170,6 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 var objectWithoutPropertiesLoose = __webpack_require__(19756);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js
-var useMediaQuery = __webpack_require__(8129);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/react/index.js
@@ -223,8 +219,6 @@ var spec = __webpack_require__(13173);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__(53074);
-// EXTERNAL MODULE: ./src/components/layout.tsx + 20 modules
-var layout = __webpack_require__(55344);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -290,6 +284,8 @@ var ConnectAlert = __webpack_require__(94431);
 var ConnectButtons = __webpack_require__(68337);
 // EXTERNAL MODULE: ./src/components/services/useRoleManager.ts
 var useRoleManager = __webpack_require__(40549);
+// EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
+var useMediaQueries = __webpack_require__(20509);
 ;// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
 
@@ -302,10 +298,10 @@ var useRoleManager = __webpack_require__(40549);
 
 
 
-
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -363,8 +359,9 @@ function Dashboard(props) {
     announced: true,
     ignoreSelf: true
   }).filter(deviceFilter).sort(deviceSort);
-  var theme = (0,useTheme/* default */.Z)();
-  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(layout/* MOBILE_BREAKPOINT */.Gh));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries.mobile;
 
   var _useSelectedNodes = useSelectedNodes(mobile),
       selected = _useSelectedNodes.selected,
@@ -430,10 +427,6 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ DashboardDevice; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/useMediaQuery/useMediaQuery.js
-var useMediaQuery = __webpack_require__(8129);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Paper/Paper.js
@@ -621,8 +614,6 @@ function DashboardServiceDetails(props) {
     }));
   }));
 }
-// EXTERNAL MODULE: ./src/components/layout.tsx + 20 modules
-var layout = __webpack_require__(55344);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceName.ts
 var useDeviceName = __webpack_require__(5738);
 ;// CONCATENATED MODULE: ./src/components/hooks/useIntersectionObserver.ts
@@ -669,6 +660,8 @@ function useIntersectionObserver(elementRef, options) {
 }
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/node.ts
 var node = __webpack_require__(60154);
+// EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
+var useMediaQueries = __webpack_require__(20509);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardDevice.tsx
 
 
@@ -706,8 +699,10 @@ function DashboardDevice(props) {
     });
   });
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
-  var theme = (0,useTheme/* default */.Z)();
-  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(layout/* MOBILE_BREAKPOINT */.Gh));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries.mobile;
+
   var serviceGridRef = (0,react.useRef)();
   var intersection = useIntersectionObserver(serviceGridRef);
   var visible = !!(intersection !== null && intersection !== void 0 && intersection.isIntersecting);
@@ -971,4 +966,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-e3fae39c5526022c9661.js.map
+//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-f3611a041f0b316081aa.js.map

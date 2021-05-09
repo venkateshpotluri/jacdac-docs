@@ -26677,6 +26677,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "byt": function() { return /* binding */ JD_DEVICE_LOST_DELAY; },
 /* harmony export */   "SkZ": function() { return /* binding */ JD_DEVICE_DISCONNECTED_DELAY; },
 /* harmony export */   "CRz": function() { return /* binding */ SRV_CTRL; },
+/* harmony export */   "vgB": function() { return /* binding */ MAX_SERVICES_LENGTH; },
 /* harmony export */   "nxl": function() { return /* binding */ NEW_LISTENER; },
 /* harmony export */   "MnB": function() { return /* binding */ REMOVE_LISTENER; },
 /* harmony export */   "pzj": function() { return /* binding */ CONNECTION_STATE; },
@@ -26974,6 +26975,7 @@ var JD_DEVICE_LOST_DELAY = 1500; // time without seeing a packet to be considere
 
 var JD_DEVICE_DISCONNECTED_DELAY = 5000;
 var SRV_CTRL = 0;
+var MAX_SERVICES_LENGTH = 59;
 var NEW_LISTENER = "newListener";
 var REMOVE_LISTENER = "removeListener";
 var CONNECTION_STATE = "connectionState";
@@ -30964,6 +30966,12 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
     }); // store new services
 
     this._services = [this.controlService].concat((0,toConsumableArray/* default */.Z)(services));
+
+    if (this._services.length >= constants/* MAX_SERVICES_LENGTH */.vgB) {
+      this.emit(constants/* ERROR */.pnR, "too many services (" + this._services.length + ") > " + constants/* MAX_SERVICES_LENGTH */.vgB);
+      console.warn("jacdac: dropping services to " + constants/* MAX_SERVICES_LENGTH */.vgB);
+      this._services = this._services.slice(0, constants/* MAX_SERVICES_LENGTH */.vgB);
+    }
 
     this._services.forEach(function (srv, i) {
       srv.device = _this2;
@@ -39978,6 +39986,30 @@ function useDevices(options, deps) {
 
 /***/ }),
 
+/***/ 20509:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useMediaQueries; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59355);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8129);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55344);
+
+
+function useMediaQueries() {
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)();
+  var mobile = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(theme.breakpoints.down(_layout__WEBPACK_IMPORTED_MODULE_0__/* .MOBILE_BREAKPOINT */ .Gh));
+  var medium = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(theme.breakpoints.down(_layout__WEBPACK_IMPORTED_MODULE_0__/* .MEDIUM_BREAKPOINT */ .qA));
+  return {
+    mobile: mobile,
+    medium: medium
+  };
+}
+
+/***/ }),
+
 /***/ 36656:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -40928,7 +40960,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ef2720fa2d2c56d96de57bc8f54bd6f52da010f7";
+  var sha = "3248e16e5ebaa1a23d6edcfe810d3d1a6a4f0679";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -40997,6 +41029,8 @@ var pretty = __webpack_require__(10913);
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
+var useMediaQueries = __webpack_require__(20509);
 ;// CONCATENATED MODULE: ./src/components/PacketStats.tsx
 
 
@@ -41010,8 +41044,10 @@ function PacketStats() {
       bus = _useContext.bus;
 
   var stats = bus.stats;
-  var theme = (0,useTheme/* default */.Z)();
-  var mobile = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(MOBILE_BREAKPOINT));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      mobile = _useMediaQueries.mobile;
+
   var current = (0,useChange/* default */.Z)(stats, function (s) {
     return s.current;
   });
@@ -41405,6 +41441,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+
 var WebDiagnostics = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6521).then(__webpack_require__.bind(__webpack_require__, 6521));
 });
@@ -41678,8 +41715,10 @@ function LayoutWithContext(props) {
       toolsMenu = _useContext6.toolsMenu;
 
   var drawerOpen = drawerType !== AppContext/* DrawerType.None */.jw.None;
-  var theme = (0,useTheme/* default */.Z)();
-  var medium = (0,useMediaQuery/* default */.Z)(theme.breakpoints.down(MEDIUM_BREAKPOINT));
+
+  var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
+      medium = _useMediaQueries.medium;
+
   var container = !medium && !/^\/(tools\/|dashboard)/.test(path);
   var mainClasses = (0,clsx_m/* default */.Z)(classes.content, (_clsx2 = {}, _clsx2[classes.contentShift] = drawerOpen, _clsx2[classes.toolsContentShift] = toolsMenu, _clsx2));
 
@@ -49137,13 +49176,11 @@ function useLocalStorage(key, initialValue) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36176);
 /* harmony import */ var _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27591);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59355);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8129);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(28142);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(28142);
 /* harmony import */ var _components_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16845);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(55344);
-/* harmony import */ var _components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(48245);
-/* harmony import */ var _useChange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(54774);
+/* harmony import */ var _components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48245);
+/* harmony import */ var _useChange__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54774);
+/* harmony import */ var _components_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20509);
 
 
 
@@ -49158,24 +49195,27 @@ function ConnectButton(props) {
       transparent = props.transparent,
       transport = props.transport;
   var type = transport.type;
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)();
-  var connectionState = (0,_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(transport, function (t) {
+  var connectionState = (0,_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(transport, function (t) {
     return t.connectionState;
   });
   var showDisconnect = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
   var inProgress = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connecting */ .e.Connecting || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
-  var small = full !== true && (!full || (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(theme.breakpoints.down(_components_layout__WEBPACK_IMPORTED_MODULE_4__/* .MOBILE_BREAKPOINT */ .Gh)));
+
+  var _useMediaQueries = (0,_components_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(),
+      mobile = _useMediaQueries.mobile;
+
+  var small = full !== true && (!full || mobile);
   var disabled = connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected && connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnected */ .e.Disconnected;
   var onClick = showDisconnect ? function () {
     return transport.disconnect();
   } : function () {
     return transport.connect();
   };
-  var icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
+  var icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
     color: "primary",
     variant: "dot",
     invisible: !showDisconnect
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     type: transport.type
   }));
   var label = showDisconnect ? "disconnect from " + type : "connect to a Jacdac device with " + type;
@@ -56150,4 +56190,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3ec42a69dbf763bbbc3a.js.map
+//# sourceMappingURL=app-6990abc1df9e3769de9a.js.map
