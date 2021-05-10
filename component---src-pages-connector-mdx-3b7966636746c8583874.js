@@ -217,8 +217,8 @@ function MDXContent(_ref) {
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
   }))), "Ideation stage"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We explored several different approaches for plugging a cable connector directly onto a PCB. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
     parentName: "p",
-    "src": "https://user-images.githubusercontent.com/71759622/117636233-832eb400-b178-11eb-8878-8c9327ca728e.gif",
-    "alt": "ezgif com-gif-maker (1)"
+    "src": "/jacdac-docs/static/ideationstageanimation-a6169f29f49d48a27aaad1b6a1535622.gif",
+    "alt": "Animation of ideation stage concepts"
   })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "the-solution--reversible-haptic-feedback-compact-design",
     "style": {
@@ -263,11 +263,47 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Reversible connector"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "There's no need to worry about accidentally swapping the Power and Data wires on your breadboard.\nThe Jacdac connector is engineered to be completely reversible, so you won't even have to think\nabout the right orientation as you plug the cable. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+  }))), "Reversible connector"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "There's no need to worry about accidentally swapping the Power and Data wires on your breadboard.\nThe Jacdac connector is engineered to be completely reversible, so you won't even have to think\nabout the right orientation as you plug the cable. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
     parentName: "p",
-    "src": "https://user-images.githubusercontent.com/71759622/117639979-6eecb600-b17c-11eb-9417-6daf49900389.gif",
-    "alt": "ezgif com-gif-maker (4)"
-  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "className": "gatsby-resp-image-wrapper",
+    "style": {
+      "position": "relative",
+      "display": "block",
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": "800px"
+    }
+  }, "\n      ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
+    parentName: "span",
+    "className": "gatsby-resp-image-background-image",
+    "style": {
+      "paddingBottom": "56.49999999999999%",
+      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "backgroundImage": "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAACxElEQVQoz22SS0xTQRSGz723haS9bdoLvc+qtLwuuDHVlgACQlqhIhSVV1ssxShQ8AUEqsUHQhFXRFlgSCBG3PgIcWMgLgxLH1ETE0UT1DYuXOhOg6hAx0zDQ6J/cjKTnMk355/5Af5SNBqFSCQCkY/vACEUr3BfBwmwDWxWK2RkZIAgCGCxWICmaVKlUgFBEJCSkgL/CIN+//q+DorOPyUAgBgKByFBZ1Xk5+Uw6enpJp7nbRaLhaZpGtRqNUFRVPyidfVf8sOD2RlIy9sOc/Nz8G0ViAuruyuwX85MfWUypUZlWf5qNptRcnLye51Ot1ur1QLDMKQsyxvA4ycPUd6WKsrZ5iY87W5ybKSeRAgpf/74kj378NbI8JUTKw21RShbTkEmkxllZWXdJwgikpCQcHMVQfE8vwHsOl0Nja1VYG/3gN1dBo+mB2Hu9duyyfGBT9evdqLwef9Cs9+Bcm0yMhgMb4xGYylJkouJiYlBhUIBSqWS4jhuAxg64znX0e0OOfuD6sIauyN4OTDT0RuYCDT7xkavhZ5MjA0+HhronA7391ZzUhap1WqnNBrNCsMwrF6vB71eT2wC1gSqkav5IHIcqYr2XGhCU3f7UCDUgMpb60dvT944fu/ORDs+p1CqtvI8/4xlWcSy7AGGYeLvh3ubLNubXEt2f+VySWM5qjhaGXO1uJYqT9U+bxtqc+L+AkJEEsNcFAQBCYIQkSRpF55Ip9ORa4y1D4yrxLcP7TnsjBV5y5bzPaXLFX4nCvbUH7OVWIHW0MUsy37AMFEUh1mWJUVRBIPBQJEkCWlpacCy7Ob8FXpLUYFnL8qrt8cKvA7kb3ct+gKuF+IWaZzjOGzvM8dxRTjQRqMRB5vCe2wTr5mZmZuB+W47hqHcupJYTm0xqjvri+0o2ImSmCQ81UtJktTYoiiKGESsgSRJgv/pD6Zk526uRJFaAAAAAElFTkSuQmCC')",
+      "backgroundSize": "cover",
+      "display": "block"
+    }
+  }), "\n  ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "span",
+    "className": "gatsby-resp-image-image",
+    "alt": "mechanical click for connector",
+    "title": "mechanical click for connector",
+    "src": "/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/5a190/mechanicalclickconnector.png",
+    "srcSet": ["/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/772e8/mechanicalclickconnector.png 200w", "/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/e17e5/mechanicalclickconnector.png 400w", "/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/5a190/mechanicalclickconnector.png 800w", "/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/c1b63/mechanicalclickconnector.png 1200w", "/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/29007/mechanicalclickconnector.png 1600w", "/jacdac-docs/static/a996568f6bd75f561e739215e4bee5d7/29114/mechanicalclickconnector.png 1920w"],
+    "sizes": "(max-width: 800px) 100vw, 800px",
+    "style": {
+      "width": "100%",
+      "height": "100%",
+      "margin": "0",
+      "verticalAlign": "middle",
+      "position": "absolute",
+      "top": "0",
+      "left": "0"
+    },
+    "loading": "lazy"
+  }), "\n    ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
     "id": "mechanical-click-feedback",
     "style": {
       "position": "relative"
@@ -571,4 +607,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-connector-mdx-25107370f750b1106b78.js.map
+//# sourceMappingURL=component---src-pages-connector-mdx-3b7966636746c8583874.js.map
