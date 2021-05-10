@@ -120,6 +120,106 @@ function MDXContent(_ref) {
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
   }))), "The problem"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "There are plenty of prototyping cables on the market.\nThe issue is that there are also plenty of compromises that come with using them.\nThey are fiddly, require high dexterity, and are easy to damage.\nWe therefore decided to design a new cable connector and completely reimagine the plug-and-play experience. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+    "id": "the-design-process",
+    "style": {
+      "position": "relative"
+    }
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "h2",
+    "href": "#the-design-process",
+    "aria-label": "the design process permalink",
+    "className": "anchor before"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "The design process"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "id": "off-the-shelf-connectors",
+    "style": {
+      "position": "relative"
+    }
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "h3",
+    "href": "#off-the-shelf-connectors",
+    "aria-label": "off the shelf connectors permalink",
+    "className": "anchor before"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Off-the-shelf connectors"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We evaluated all the available options on the market, without finding anything able to tick all the boxes. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "p",
+    "src": "https://user-images.githubusercontent.com/71759622/117635643-e9670700-b177-11eb-8731-46b47fca1e0a.png",
+    "alt": "Prototyping Cables Comparison"
+  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "id": "enabling-a-cheaper-modules-ecosystem",
+    "style": {
+      "position": "relative"
+    }
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "h3",
+    "href": "#enabling-a-cheaper-modules-ecosystem",
+    "aria-label": "enabling a cheaper modules ecosystem permalink",
+    "className": "anchor before"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Enabling a cheaper modules ecosystem."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We decided to remove the need for any female port on the modules. This reduced assembly costs and time, but increased the technical challenge of making the new cable connector."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "p",
+    "src": "https://user-images.githubusercontent.com/71759622/117635932-39de6480-b178-11eb-8b73-111378f027ae.png",
+    "alt": "Enabling a cheaper modules ecosystem"
+  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "id": "ideation-stage",
+    "style": {
+      "position": "relative"
+    }
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "h3",
+    "href": "#ideation-stage",
+    "aria-label": "ideation stage permalink",
+    "className": "anchor before"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Ideation stage"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We explored several different approaches for plugging a cable connector directly onto a PCB. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "p",
+    "src": "https://user-images.githubusercontent.com/71759622/117636233-832eb400-b178-11eb-8878-8c9327ca728e.gif",
+    "alt": "ezgif com-gif-maker (1)"
+  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "the-solution--reversible-haptic-feedback-compact-design",
     "style": {
       "position": "relative"
@@ -163,47 +263,11 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Reversible connector"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "There's no need to worry about accidentally swapping the Power and Data wires on your breadboard.\nThe Jacdac connector is engineered to be completely reversible, so you won't even have to think\nabout the right orientation as you plug the cable. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
+  }))), "Reversible connector"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "There's no need to worry about accidentally swapping the Power and Data wires on your breadboard.\nThe Jacdac connector is engineered to be completely reversible, so you won't even have to think\nabout the right orientation as you plug the cable. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
     parentName: "p",
-    "className": "gatsby-resp-image-wrapper",
-    "style": {
-      "position": "relative",
-      "display": "block",
-      "marginLeft": "auto",
-      "marginRight": "auto",
-      "maxWidth": "800px"
-    }
-  }, "\n      ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
-    parentName: "span",
-    "className": "gatsby-resp-image-background-image",
-    "style": {
-      "paddingBottom": "56.49999999999999%",
-      "position": "relative",
-      "bottom": "0",
-      "left": "0",
-      "backgroundImage": "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAACVElEQVQoz2NgIABiYmIYFBUVGdzd3RnExMQYJCQkGGRkZEBs5v///zNISUnB+AyioqL4DSsqKmKQl5dnMDc3Z0hKSmJ0c3Nj1tTUZAZpBmEuLi4GaWlpP1lZ2Xh2dnYGGxsbTEO6V0xn6F41g6F6ej1D96rJDLOOrWAorEtnqq5qYAgJCWHQ1dVl4ODgYBQXF4+QkJCYIyUlVSUnJ6cgLi4OtgQO+lZMZMiqLWLwSY9mSG0uZYhNT2Aqa69kLjIwZKhsz2fo65su7O/vn2Fubt4jKSm5SVhYuFFCQkJeUlKSQVZWFtXLy7ZOYgCFBwi0Typhmri4gyk+M4mhfVY3g4eOBoOrr12IkZHeZ01Nzf+ioqL/paSk/EAuEhERAYUps5ycHMjFCANXbJ8MN7B/ZiXDoq1zGOLzM3TapjR3985tudA6vfy/kb3ROXZW1j4efj4FUVGwa1hEREQYBQQEGPj5+cERIycnhzAQBibPa3CbsnrC6sTc5N+pZVn/Uxpz/jtHujZNTfeHqmBkEBAQZOLh4WEoKSkBuwoU8yggoiASpA4MEquSDpZ2F/4PSQv9Z+Zjv5ZNRUI/tSIW7AM+YQEWPl4+Rpg+UHLCCm492cFgH+fJoB/kAOKy6XiZRmp7GFvmNmYzsGnIMOS3pjMzyoszCBqpM+h5mDNoOZgwqKmp4U5vb78cY7CJdmPQ9LYG8y1CbBn0fcwY2qc3Mqm7mDId//8YLC5jqsGgZK7NQBAo2OkxqDgZMohbaDGImqozuCV4MVsG2THB5KVN1BkUDTQYiAEAbn2Wjn/gKMsAAAAASUVORK5CYII=')",
-      "backgroundSize": "cover",
-      "display": "block"
-    }
-  }), "\n  ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
-    parentName: "span",
-    "className": "gatsby-resp-image-image",
-    "alt": "cable plugin into module",
-    "title": "cable plugin into module",
-    "src": "/jacdac-docs/static/681cc3017360301325698a5321d77a16/5a190/cablepluggingintomodule.png",
-    "srcSet": ["/jacdac-docs/static/681cc3017360301325698a5321d77a16/772e8/cablepluggingintomodule.png 200w", "/jacdac-docs/static/681cc3017360301325698a5321d77a16/e17e5/cablepluggingintomodule.png 400w", "/jacdac-docs/static/681cc3017360301325698a5321d77a16/5a190/cablepluggingintomodule.png 800w", "/jacdac-docs/static/681cc3017360301325698a5321d77a16/c1b63/cablepluggingintomodule.png 1200w", "/jacdac-docs/static/681cc3017360301325698a5321d77a16/29007/cablepluggingintomodule.png 1600w", "/jacdac-docs/static/681cc3017360301325698a5321d77a16/29114/cablepluggingintomodule.png 1920w"],
-    "sizes": "(max-width: 800px) 100vw, 800px",
-    "style": {
-      "width": "100%",
-      "height": "100%",
-      "margin": "0",
-      "verticalAlign": "middle",
-      "position": "absolute",
-      "top": "0",
-      "left": "0"
-    },
-    "loading": "lazy"
-  }), "\n    ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "src": "https://user-images.githubusercontent.com/71759622/117639979-6eecb600-b17c-11eb-9417-6daf49900389.gif",
+    "alt": "ezgif com-gif-maker (4)"
+  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
     "id": "mechanical-click-feedback",
     "style": {
       "position": "relative"
@@ -507,4 +571,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-connector-mdx-7bafa56ad9deeff370a0.js.map
+//# sourceMappingURL=component---src-pages-connector-mdx-25107370f750b1106b78.js.map
