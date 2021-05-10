@@ -36,70 +36,14 @@ function MDXContent(_ref) {
     components: components,
     mdxType: "MDXLayout"
   }), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h1", {
-    "id": "jacdac-plug-and-play-for-microcontrollers",
-    "style": {
-      "position": "relative"
-    }
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
-    parentName: "h1",
-    "href": "#jacdac-plug-and-play-for-microcontrollers",
-    "aria-label": "jacdac plug and play for microcontrollers permalink",
-    "className": "anchor before"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
-    parentName: "a",
-    "aria-hidden": "true",
-    "focusable": "false",
-    "height": "16",
-    "version": "1.1",
-    "viewBox": "0 0 16 16",
-    "width": "16"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
-    parentName: "svg",
-    "fillRule": "evenodd",
-    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Jacdac: plug-and-play for microcontrollers"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
-    parentName: "p"
-  }, "Jacdac"), " is a bus-based plug-and-play hardware and software stack for microcontrollers and their peripherals such as sensors and actuators. Jacdac is primarily designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing. Jacdac is designed to be cheap, flexible and extensible."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
+    align: "center"
+  }, "Jacdac: plug-and-play for microcontrollers"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
+    align: "center"
+  }, "Jacdac is a bus-based plug-and-play hardware and software stack for microcontrollers and their peripherals such as sensors and actuators. Jacdac is primarily designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing. Jacdac     is designed to be cheap, flexible and extensible."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
     parentName: "p",
-    "className": "gatsby-resp-image-wrapper",
-    "style": {
-      "position": "relative",
-      "display": "block",
-      "marginLeft": "auto",
-      "marginRight": "auto",
-      "maxWidth": "800px"
-    }
-  }, "\n      ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
-    parentName: "span",
-    "className": "gatsby-resp-image-background-image",
-    "style": {
-      "paddingBottom": "56.49999999999999%",
-      "position": "relative",
-      "bottom": "0",
-      "left": "0",
-      "backgroundImage": "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAALCAYAAAB/Ca1DAAAACXBIWXMAAAsTAAALEwEAmpwYAAACX0lEQVQoz2NgwAGMHJ2ZbAKCGSx8Aw10DAz+a2mo/dfS1jkOkpswbSGDnr4BA0nA1MSYydzUhMHU2MjTysryi5m52R9LS4uLfmEBHH4h/gw2djYMCW1JDBENcQwJ7cmYBujp6TGIiYnBsaW/I2tQRTyDT154pGOUz3vX+IC7TnF+N1Ut9ZV1/e0YLGPcWDxqoxhcK8IZnIuCMQ0UEhKCGyYuLs4gKCDEoKwhD5aTlJSsk5CSzFRQkfcXFRaVk5aRYbDL9GXwqIlicC0Pw26gsLAwsoG8oqKiKgJ8/PL8vPwaYmLiFjwMDBocDMy2oiKiVkoaKs4ueYHtQQ2xUr7VUQz+1VGMGAaCXCUtLc0gJyfHKCYm5iYuLu6kqqluw8TIbDB7yVTDwKqcYyqOppMEuHlTZRXl6h3yAmf6NsTKedZFM3hVRWIaKCoqysDFxQVhi4jIi4mLB9m7O5cqq6pOVlOU9XNqLHXU8bBtEuHj9+fj4wfFAruquTaDhr0BI1YvgwwEubL12CYGfh5ekBAjJwd7OicDo1JAdqxbQl1ZI1SpdmRaTGXVpAbxmu56hpK6Uga8BkZVpTGmdRQzhFcka+Q0lV7t3drMr/T4P3tAZs6TyMSIfAYGBhlrJ9tqj0AvSRdfNwZHTyeGwKZ4TAP///8PjpiSye1MtbMmMOT01Ruu3LrzdWZXtXpOTzNDaJg+r098BJ8Av4CFAL9AOj8vHx8/Lx8DPx8//gS9ZMN0htmrpjAsWjeZZdaqBbJb9y1kZjOxYohPtWDQNtZnEBQSEpWSkpJkZmIGq3fxdEUxAAAbYJDt17D3mwAAAABJRU5ErkJggg==')",
-      "backgroundSize": "cover",
-      "display": "block"
-    }
-  }), "\n  ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
-    parentName: "span",
-    "className": "gatsby-resp-image-image",
-    "alt": "micro:bit V2 connected to Jacdac modules",
-    "title": "micro:bit V2 connected to Jacdac modules",
-    "src": "/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/5a190/microbitadapterwithmodules.png",
-    "srcSet": ["/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/772e8/microbitadapterwithmodules.png 200w", "/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/e17e5/microbitadapterwithmodules.png 400w", "/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/5a190/microbitadapterwithmodules.png 800w", "/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/c1b63/microbitadapterwithmodules.png 1200w", "/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/29007/microbitadapterwithmodules.png 1600w", "/jacdac-docs/static/4eb2b80073850efe24a23718cd96a0a6/29114/microbitadapterwithmodules.png 1920w"],
-    "sizes": "(max-width: 800px) 100vw, 800px",
-    "style": {
-      "width": "100%",
-      "height": "100%",
-      "margin": "0",
-      "verticalAlign": "middle",
-      "position": "absolute",
-      "top": "0",
-      "left": "0"
-    },
-    "loading": "lazy"
-  }), "\n    ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Jacdac includes:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    "src": "https://user-images.githubusercontent.com/71759622/117645536-9e062600-b182-11eb-8b3a-813e24b9cba6.png",
+    "alt": "Many Modules Together v3"
+  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Jacdac includes:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
   }, "a purpose-built 3-wire cable and edge connector that supports data communication and power delivery;"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
@@ -483,4 +427,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-mdx-c4472c2796ea91e5ffce.js.map
+//# sourceMappingURL=component---src-pages-index-mdx-376534d708370a326913.js.map
