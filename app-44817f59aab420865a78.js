@@ -40960,7 +40960,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "0d77c012ee93bdee2b4b4a630b55953e8d9ef22c";
+  var sha = "2724e944d6d38c27b2450ea2f6b6ca0b52ddd4a0";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46044,6 +46044,8 @@ var HF2Proto = /*#__PURE__*/function () {
 
 
 
+var MICROBIT_V2_VENDOR_ID = 3368;
+var MICROBIT_V2_PRODUCT_ID = 516;
 var CMSISProto = /*#__PURE__*/function () {
   function CMSISProto(io) {
     this.q = new utils/* PromiseQueue */.bo();
@@ -47282,8 +47284,8 @@ var USB_FILTERS = {
     subclassCode: HF2_DEVICE_MAJOR
   }, {
     // micro:bit v2
-    vendorId: 3368,
-    productId: 516
+    vendorId: MICROBIT_V2_VENDOR_ID,
+    productId: MICROBIT_V2_PRODUCT_ID
   }]
 };
 var controlTransferGetReport = 0x01;
@@ -56179,4 +56181,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3a56bb1cb37dbd4399e8.js.map
+//# sourceMappingURL=app-44817f59aab420865a78.js.map

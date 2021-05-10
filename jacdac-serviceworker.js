@@ -411,6 +411,8 @@ class HF2Proto {
     }
 }
 
+const MICROBIT_V2_VENDOR_ID = 3368;
+const MICROBIT_V2_PRODUCT_ID = 516;
 class CMSISProto {
     constructor(io) {
         this.io = io;
@@ -854,8 +856,8 @@ const USB_FILTERS = {
         },
         {
             // micro:bit v2
-            vendorId: 3368,
-            productId: 516,
+            vendorId: MICROBIT_V2_VENDOR_ID,
+            productId: MICROBIT_V2_PRODUCT_ID,
         },
     ],
 };
