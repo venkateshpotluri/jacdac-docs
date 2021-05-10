@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-c23fdcac689317de3923.js"
+    "url": "webpack-runtime-2466b0f0ab5ef84f7fff.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "5eb02c212dae86ecff603cfbc6604d7e"
+    "revision": "f8aa69c3baa08c75a246b0be147371b1"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -61,11 +61,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "3bc1df82211b9715bd88ca874e8a86cc"
+    "revision": "31e84c89691ad973c1c9487706816026"
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "4c18ec232669399c5a3551313e5a6ca9"
+    "revision": "633440cb38596a37d1c170652d43eba4"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "2b789eb0bec13e94aac33d14487a8515"
+    "revision": "99fe10663866fec8fb750d8292531b64"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -97,7 +97,7 @@ self.__precacheManifest = [
     "revision": "ea5d3a294803bc963607eef37b1638d5"
   },
   {
-    "url": "component---src-pages-connector-mdx-3b7966636746c8583874.js"
+    "url": "component---src-pages-connector-mdx-84bf5ec0d3b239de2882.js"
   },
   {
     "url": "page-data/connector/page-data.json",
@@ -1524,7 +1524,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-c43b5f39a5bc30092615.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-0edb60b9599232656d40.js`))) {
     return await fetch(event.request)
   }
 
