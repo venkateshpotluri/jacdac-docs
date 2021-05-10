@@ -163,11 +163,47 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Off-the-shelf connectors"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We evaluated all the available options on the market, without finding anything able to tick all the boxes. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+  }))), "Off-the-shelf connectors"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We evaluated all the available options on the market, without finding anything able to tick all the boxes. "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
     parentName: "p",
-    "src": "./images/prototypingcablescomparison.png",
-    "alt": "Prototyping Cables Comparison"
-  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "className": "gatsby-resp-image-wrapper",
+    "style": {
+      "position": "relative",
+      "display": "block",
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": "800px"
+    }
+  }, "\n      ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
+    parentName: "span",
+    "className": "gatsby-resp-image-background-image",
+    "style": {
+      "paddingBottom": "47.5%",
+      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "backgroundImage": "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKCAYAAAC0VX7mAAAACXBIWXMAABcRAAAXEQHKJvM/AAAC4ElEQVQoz0XRW0jTcRQH8B9kqZmajh5CKw26ENKDESjRTTJ3dxrUcw9JIIjulraxxPAhSoqKHjIznc50l/9ubs1NnTgtjdI5zSIslpaVmhQ9RP4939h68OG8nPPlA4cv8/sDjz0eLxxubs3RZyWXyUi+R61ktXRQt+cpuYxt5Gtto2CvkYb9HeSL3Ts7yWzrILOzi8zubjLbu3hfuxF9bcZJNr/wKfThfRTc82aq9IjRUZ6HEZaA27pjUHrPgcvPQjApBcvGdPwJpWN8XyoCmZkwtJRA41Sg1ilDw6NiPpAlQDBje5h9/bbo+764Atfr1vVKy2nSmySk7Soh09m9NJSSTDeuF1KdSUj11mJq4M6Qb3c6BVOSSNdSTAaPkJYGttOXfgFf/6QIda1nw2x8bDQy//kHohMNtBBKptClbDh2ZuBB1RE0Np1CbbcYyl4FauylUFnk8OYIEExNQW2LEDVuBe5zx3HPcYJXu+RQuRVhFpmamJ2LLuPXtJ4wwqj/7kHcqsiHoV2Iav85aOwyaG0yaBwyXLFK4ckRYCQtGROmbIwO7Ed1fzkuBy7wGk4GLScLs+nI5OjM23msTOnWMcioM1CIS95yaJ0yaKwSqDkJ1DYJVHYptBYx3Lsy8GJbAjCwCXiZCJs8Gy1lB3htjwgqhyzMRkLB4Fx0CasRfRzs8hegwl0WB9WcFCpOugGaxejdk4HRxM2Yv5iAaGUiukW70Xz+4AYYGh5aWPm5tv7rTT1hmJH3YR4aNQW41iaE2lWK2CuxUdvl0Fqk8OQKMLwlCT2HsmAszMVNfQEam07yWqsUGrs8BgY/RhdW6cekjvCS0buyNIQYwx19IWr6yhEPxkDHf9CbkxkvRWcSodYmhXv/DjgO7+Rj5amdpWH2+tX4p+XVv+u/ZwyEMUaziq0YYgxNuqOoeiaHyiKC0ipCDSeGyiyEJysVg0lbcLW5CNVOSXynsop4pU0EpU0c/geZsffE1TJn7QAAAABJRU5ErkJggg==')",
+      "backgroundSize": "cover",
+      "display": "block"
+    }
+  }), "\n  ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "span",
+    "className": "gatsby-resp-image-image",
+    "alt": "Prototyping Cables Comparison",
+    "title": "Prototyping Cables Comparison",
+    "src": "/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/5a190/prototypingcablescomparison.png",
+    "srcSet": ["/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/772e8/prototypingcablescomparison.png 200w", "/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/e17e5/prototypingcablescomparison.png 400w", "/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/5a190/prototypingcablescomparison.png 800w", "/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/c1b63/prototypingcablescomparison.png 1200w", "/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/29007/prototypingcablescomparison.png 1600w", "/jacdac-docs/static/85cff51ddfe775094b50fcd615c7792b/71ba4/prototypingcablescomparison.png 1870w"],
+    "sizes": "(max-width: 800px) 100vw, 800px",
+    "style": {
+      "width": "100%",
+      "height": "100%",
+      "margin": "0",
+      "verticalAlign": "middle",
+      "position": "absolute",
+      "top": "0",
+      "left": "0"
+    },
+    "loading": "lazy"
+  }), "\n    ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
     "id": "enabling-a-cheaper-modules-ecosystem",
     "style": {
       "position": "relative"
@@ -607,4 +643,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-connector-mdx-deadf99cf945b42c1da5.js.map
+//# sourceMappingURL=component---src-pages-connector-mdx-4a0cff07e8d4a4cea47f.js.map
