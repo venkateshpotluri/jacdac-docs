@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-9a300a9a3461c8808dfe.js"
+    "url": "webpack-runtime-4c46a9beec0a2b64d3e6.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "6f7c92ecbdf26474feef3e005a200cdd"
+    "revision": "28b707d5051a34d63e5d426f065e5a6b"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "cd843b2a8940a2515160c445073eaf75"
+    "revision": "85e14a025429a5e3358c3a42057956fd"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "bffcf970528db79216863562a727d523"
+    "revision": "7da0f1ea26114962584e73ad2acf77d1"
   },
   {
     "url": "page-data/sq/d/413816803.json",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "5633ff0054f1341c6407acf37b55fcc1"
+    "revision": "4d5d31d2d9c6e31f9fb9d5d226f397b0"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -198,7 +198,7 @@ self.__precacheManifest = [
     "revision": "82cbdb525dcf8c1ef73ee046171969c3"
   },
   {
-    "url": "component---src-pages-tools-mdx-81ac4f6ce89a753b1748.js"
+    "url": "component---src-pages-tools-mdx-cce1a95d35ed0c9d7bb8.js"
   },
   {
     "url": "page-data/tools/page-data.json",
@@ -1326,7 +1326,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/tools/jupyterlab/page-data.json",
-    "revision": "537cd8f4ac8e0a6a3acac3ec1624aebb"
+    "revision": "3fe8dd702344e6999471e84c7d6daee1"
   },
   {
     "url": "component---src-pages-tools-makecode-mdx-bd51b9537b604dc9ca80.js"
@@ -1352,6 +1352,13 @@ self.__precacheManifest = [
   {
     "url": "page-data/tools/model-uploader/page-data.json",
     "revision": "7095019d6130ac9f259d741d39146031"
+  },
+  {
+    "url": "component---src-pages-tools-node-red-mdx-9960a7b93e40a6fefbb8.js"
+  },
+  {
+    "url": "page-data/tools/node-red/page-data.json",
+    "revision": "300b89c70594670e6eacadfebced1387"
   },
   {
     "url": "component---src-pages-tools-packet-inspector-tsx-41ba2e2d3424685df1ae.js"
@@ -1517,7 +1524,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-44817f59aab420865a78.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-3dcade218e109672c180.js`))) {
     return await fetch(event.request)
   }
 

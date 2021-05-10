@@ -189,6 +189,16 @@ function MDXContent(_ref) {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
+    "href": "/jacdac-docs/tools/node-red"
+  }, "Node-Red node"), ", use Jacdac to generate events in ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "https://nodered.org/",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }, "node-red")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
     "href": "/jacdac-docs/tools/jupyterlab/"
   }, "JupyterLab"), ", an extension in JupyterLab, Jupyter's next-generation notebook interface."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
@@ -301,4 +311,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-mdx-81ac4f6ce89a753b1748.js.map
+//# sourceMappingURL=component---src-pages-tools-mdx-cce1a95d35ed0c9d7bb8.js.map

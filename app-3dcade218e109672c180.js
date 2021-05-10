@@ -40960,7 +40960,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "2724e944d6d38c27b2450ea2f6b6ca0b52ddd4a0";
+  var sha = "1f023c8937b686f3741f1665fe98343ac2b7b575";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -51490,6 +51490,9 @@ exports.components = {
   "component---src-pages-tools-model-uploader-tsx": function componentSrcPagesToolsModelUploaderTsx() {
     return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(7685), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5637)]).then(__webpack_require__.bind(__webpack_require__, 46905));
   },
+  "component---src-pages-tools-node-red-mdx": function componentSrcPagesToolsNodeRedMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-tools-node-red-mdx */ 9701).then(__webpack_require__.bind(__webpack_require__, 60611));
+  },
   "component---src-pages-tools-packet-inspector-tsx": function componentSrcPagesToolsPacketInspectorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(7685), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(7617), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));
   },
@@ -56181,4 +56184,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-44817f59aab420865a78.js.map
+//# sourceMappingURL=app-3dcade218e109672c180.js.map
