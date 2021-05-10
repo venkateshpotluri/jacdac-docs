@@ -189,11 +189,47 @@ function MDXContent(_ref) {
     parentName: "svg",
     "fillRule": "evenodd",
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
-  }))), "Enabling a cheaper modules ecosystem."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We decided to remove the need for any female port on the modules. This reduced assembly costs and time, but increased the technical challenge of making the new cable connector."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+  }))), "Enabling a cheaper modules ecosystem."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We decided to remove the need for any female port on the modules. This reduced assembly costs and time, but increased the technical challenge of making the new cable connector."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
     parentName: "p",
-    "src": "./images/enablingacheapermodulesecosystem.png",
-    "alt": "Enabling a cheaper modules ecosystem"
-  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
+    "className": "gatsby-resp-image-wrapper",
+    "style": {
+      "position": "relative",
+      "display": "block",
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": "800px"
+    }
+  }, "\n      ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
+    parentName: "span",
+    "className": "gatsby-resp-image-background-image",
+    "style": {
+      "paddingBottom": "36.50000000000001%",
+      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "backgroundImage": "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAHCAYAAAAIy204AAAACXBIWXMAABcRAAAXEQHKJvM/AAACHklEQVQozzWQS2gTYRSFr4orRXAlbiuIWmkUaRep4EK0qNguFK1RUKlufGDFhVAmigvFnRVFBRcVcSGC4Cqpj0RjLERjmqRJo22aZCbzaJpkZmxmMpP555+5Mj7u5nLOdw8HLui6HrUtCykh1DI7brvdppqmoaqqjGkYZWoRpMR2TcNwfy0vY6vVUjRNC3ZM06aEoG0RV9f1P0zTNBF4SYxGEl8wFI/SRHbaFQSBNptNRERmtjhXnpz6hKHPEXd27odrGiYqqqooshJM5jJ2KB7Ft1Mxl5dErxAbjYYIE29eRXadGsTuo/vp0JmAu6mri/b29eGLiWfMzSf3ytuODeDmAb/z6PFDxzI7OMYw8vj98eBJ5irZcmQf+oYPOvHpb44kiHgiEBDhztMHHw9dPosHLp52rt29hZPhsBOLxZBjWebCbaYyNHoe944Mu89fv3Rti2A+n1fCH97fOH79Ej18ZQQHR89hMpdxtZaGiURCAmFRelepclipcuZifclCRItSioZhjHECX+QEHstVltTqS473206nI7e0FsPy1TbLV0mZY21ZUWyPEUJ4SKdS3YVcfncuk/UnE1/7s9nsznq97pMkacNMOtObSn7fs/Bz3u8Q26eq6g5ZlrcvzBc3zqQz/kwq3Y+IPaZh9Kiq6qvValsBANYAwGr4OysQEUqlEngbANYCwDrvxtM8z0OhUPD8VQCw/h9f6eX+Z38DmqyLjYPCdTQAAAAASUVORK5CYII=')",
+      "backgroundSize": "cover",
+      "display": "block"
+    }
+  }), "\n  ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "span",
+    "className": "gatsby-resp-image-image",
+    "alt": "Enabling a cheaper modules ecosystem",
+    "title": "Enabling a cheaper modules ecosystem",
+    "src": "/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/5a190/enablingacheapermodulesecosystem.png",
+    "srcSet": ["/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/772e8/enablingacheapermodulesecosystem.png 200w", "/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/e17e5/enablingacheapermodulesecosystem.png 400w", "/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/5a190/enablingacheapermodulesecosystem.png 800w", "/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/c1b63/enablingacheapermodulesecosystem.png 1200w", "/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/29007/enablingacheapermodulesecosystem.png 1600w", "/jacdac-docs/static/05d8f134b9eff7ffecde9851214ae867/ca98b/enablingacheapermodulesecosystem.png 1968w"],
+    "sizes": "(max-width: 800px) 100vw, 800px",
+    "style": {
+      "width": "100%",
+      "height": "100%",
+      "margin": "0",
+      "verticalAlign": "middle",
+      "position": "absolute",
+      "top": "0",
+      "left": "0"
+    },
+    "loading": "lazy"
+  }), "\n    ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
     "id": "ideation-stage",
     "style": {
       "position": "relative"
@@ -571,4 +607,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-connector-mdx-446a5e874379399a90b8.js.map
+//# sourceMappingURL=component---src-pages-connector-mdx-b6925b32ebbd2215f757.js.map
