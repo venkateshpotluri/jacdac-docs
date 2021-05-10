@@ -663,9 +663,13 @@ function DashboardBitRadio(props) {
     });
   }, [service, lastEvents]);
   var text = lastEvents.map(function (ev) {
-    return ev.payload.filter(function (v) {
+    var _ev$payload;
+
+    return (_ev$payload = ev.payload) === null || _ev$payload === void 0 ? void 0 : _ev$payload.filter(function (v) {
       return v !== undefined && v !== "";
     }).join(",");
+  }).filter(function (el) {
+    return !!el;
   }).join("\n");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_4__.default, null, text);
 }
@@ -709,4 +713,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8743-0129d1f3bed5b550ab6c.js.map
+//# sourceMappingURL=8743-8b992e3bb8c758639d33.js.map
