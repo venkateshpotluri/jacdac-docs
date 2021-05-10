@@ -39,11 +39,47 @@ function MDXContent(_ref) {
     align: "center"
   }, "Jacdac: plug-and-play for microcontrollers"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", {
     align: "center"
-  }, "Jacdac is a bus-based plug-and-play hardware and software stack for microcontrollers and their peripherals such as sensors and actuators. Jacdac is primarily designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing. Jacdac     is designed to be cheap, flexible and extensible."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+  }, "Jacdac is a bus-based plug-and-play hardware and software stack for microcontrollers and their peripherals such as sensors and actuators. Jacdac is primarily designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing. Jacdac     is designed to be cheap, flexible and extensible."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
     parentName: "p",
-    "src": "https://user-images.githubusercontent.com/71759622/117645536-9e062600-b182-11eb-8b3a-813e24b9cba6.png",
-    "alt": "Many Modules Together v3"
-  })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Jacdac includes:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    "className": "gatsby-resp-image-wrapper",
+    "style": {
+      "position": "relative",
+      "display": "block",
+      "marginLeft": "auto",
+      "marginRight": "auto",
+      "maxWidth": "800px"
+    }
+  }, "\n      ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("span", {
+    parentName: "span",
+    "className": "gatsby-resp-image-background-image",
+    "style": {
+      "paddingBottom": "71.50000000000001%",
+      "position": "relative",
+      "bottom": "0",
+      "left": "0",
+      "backgroundImage": "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOCAYAAAAvxDzwAAAACXBIWXMAAAsTAAALEwEAmpwYAAADuklEQVQ4y2WTXUxbZRjH/y2MngLt6Xve95zTj3P6QU8LtECxQKGoYdMVCAPGHCBtaYHB+HAjEwYbZnzjEjaXbLvZrrb5sRinDrlwzkSJX9F44S6MbmaJ0UQTL3ZjvPai5oCbOp/knzfPc/HLk///eYHHqqysDKFQaFvRaNTY3Ny8PTeZTBAEYQ8hpFvvPR4PnE6nLpcsy/WyLEOSJCOOXZ5F30tZ9J5II7s8bHj+1FCet7wkz+3zIBAIdGua1kM4C6hDsjHK9lNKe3nCEx1aXFwMVVU1p9PZ8DfciMlLM+iby6BnNm3ILA0jtTwCLVIKJjAEg8FWr9c7L3J8zMHkQbvDXi3JUoOqqo018TqdGWaMrdtstgLGGERRBBavLWBgZcTQv3gIY+svNGbWRs+WhLWLsigthSvCPZQntUqltqWG/Dd/yeXgUdwKIbbNOw/u0VhdbIszc20cx4ExlidJEpBdPYzU/JChby6L1KnBUHJp+IBWFWxihIb4giK4i5jgj1fcVSLae32fvIwz968b6zOJXwdPjn5/75u73vFDY0hl+436urqPKK0uRy6Xw/3cAzQdfAbp06MoiQRgNprgK/HBpbiOG4A23mQ55lKVp8oipXhudeh4YqLz9MrCAjqiuw2Y3AnU4XBATwaCKECURUiy9CwVWZoQ0mWxWHoopT1cARf7+fcf3fuOtlSa8vP323hbwy5ArGyK4KPpt2CpkQEeaG9v36G6XK5tM2VZpoSQ8Ypw2CLb5fDBoaRIRBowJcpx7uqFN+JDqVxNuu22KNOszUZamcgOPDy1iljkn7uz2+3IZrNIJpOw8ta4XZanHU7Htb37Wq5TRj9WFWW5QLGpT4zNJytbd28IxHbF7nDUMspWmUBrmUAhUmb4D5AQAkopTByHgF9DNBLVvG7PmKIocdXtSU6tpap/+2PKmsjuLMVb+S5P0HdFDXob3UEvXH638RFQT0YHioyg0FqcX1BkhtnKjRbyhfPmQiOq2s8itbj8fvfk0T+fTNTHRuZO5gPY88FXH85+/t3XtZ99+yW27nxhePzHYeL8CWwOpnB57gimXpm5Nb5y5Ad0dZjMo+8iNLPR2NKbyaX7e28CYIQnTSVl/jXV5064/V6oPo/xf8DpS2e2X/2ENrc+/em1tzdyACz6rGPudQyMd1b1T4xI3C6TQgjZyyh7kQq0hgoU7N8ePqz1N89vw3S9c/vW/Ks3blwEkAcR6Jw+l9fa9TQi0Vrd80Ke51OSJHVnDg8Y6uIxhCpCj0B/ATyI2y4XSVlXAAAAAElFTkSuQmCC')",
+      "backgroundSize": "cover",
+      "display": "block"
+    }
+  }), "\n  ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
+    parentName: "span",
+    "className": "gatsby-resp-image-image",
+    "alt": "Many Modules Together",
+    "title": "Many Modules Together",
+    "src": "/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/5a190/manymodulestogether.png",
+    "srcSet": ["/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/772e8/manymodulestogether.png 200w", "/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/e17e5/manymodulestogether.png 400w", "/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/5a190/manymodulestogether.png 800w", "/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/c1b63/manymodulestogether.png 1200w", "/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/29007/manymodulestogether.png 1600w", "/jacdac-docs/static/69ff5198bfa17b213b3595b449a48a96/a5262/manymodulestogether.png 2388w"],
+    "sizes": "(max-width: 800px) 100vw, 800px",
+    "style": {
+      "width": "100%",
+      "height": "100%",
+      "margin": "0",
+      "verticalAlign": "middle",
+      "position": "absolute",
+      "top": "0",
+      "left": "0"
+    },
+    "loading": "lazy"
+  }), "\n    ")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Jacdac includes:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
   }, "a purpose-built 3-wire cable and edge connector that supports data communication and power delivery;"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
@@ -427,4 +463,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-mdx-376534d708370a326913.js.map
+//# sourceMappingURL=component---src-pages-index-mdx-a55573a8c2451157dc3e.js.map
