@@ -1853,8 +1853,8 @@ var createStyles = __webpack_require__(70274);
 var createMuiTheme = __webpack_require__(81864);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/responsiveFontSizes.js + 1 modules
 var responsiveFontSizes = __webpack_require__(23581);
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 22 modules
-var ThemedLayout = __webpack_require__(2086);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 23 modules
+var ThemedLayout = __webpack_require__(77023);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(92137);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
@@ -2691,4 +2691,4 @@ function MakeCodeEditorExtensionPage() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-ffb3ebea4832ee893e6c.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-b406b6a8aaf1e1f3e426.js.map

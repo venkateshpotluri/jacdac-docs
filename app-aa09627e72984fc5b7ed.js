@@ -32563,6 +32563,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
       console.debug(this._connectionState + " -> " + state);
       this._connectionState = state;
       this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECTION_STATE */ .pzj, this._connectionState);
+      this.bus.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECTION_STATE */ .pzj);
 
       switch (this._connectionState) {
         case ConnectionState.Connected:
@@ -40960,7 +40961,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "3cae5d1bdc267c5a75363eb2a8e7c3eb47357ebb";
+  var sha = "b91afe0afcdc0309b9c0cdfd6fe13da2eafe91f6";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -41158,8 +41159,8 @@ function useMdxComponents() {
   }, []);
   return mdxComponents;
 }
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 22 modules
-var ThemedLayout = __webpack_require__(2086);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 23 modules
+var ThemedLayout = __webpack_require__(77023);
 ;// CONCATENATED MODULE: ./src/components/ui/ThemedMdxLayout.tsx
 
 
@@ -42189,7 +42190,7 @@ function Suspense(props) {
 
 /***/ }),
 
-/***/ 2086:
+/***/ 77023:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42385,7 +42386,42 @@ var JDServiceMemberNode = /*#__PURE__*/function (_JDNode) {
 }(node/* JDNode */.zb);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
 var pack = __webpack_require__(91635);
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/packobject.ts
+/**
+ * Unrolls an array of packed values into a friendly object structure
+ * @param data
+ * @param fields
+ * @returns
+ */
+function unpackedToObject(data, fields, defaultName) {
+  if (!data || !fields) return undefined;
+  var r = {};
+
+  for (var i = 0; i < data.length; ++i) {
+    var field = fields[i];
+    var value = data[i];
+    var name = field.name,
+        startRepeats = field.startRepeats;
+    var prettyName = name === "_" && defaultName ? defaultName : name;
+
+    if (startRepeats) {
+      var _ret = function () {
+        var repeatData = data.slice(i);
+        var repeatFields = fields.slice(i);
+        r["repeat"] = repeatData.map(function (rdata) {
+          return unpackedToObject(rdata, repeatFields);
+        });
+        return "break";
+      }();
+
+      if (_ret === "break") break;
+    } else r[prettyName] = value;
+  }
+
+  return r;
+}
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/register.ts
+
 
 
 
@@ -42580,6 +42616,12 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
       var d = this.data;
       var fmt = (_this$specification4 = this.specification) === null || _this$specification4 === void 0 ? void 0 : _this$specification4.packFormat;
       return d && fmt && (0,pack/* jdunpack */.TE)(this.data, fmt);
+    }
+  }, {
+    key: "objectValue",
+    get: function get() {
+      var specification = this.specification;
+      return unpackedToObject(this.unpackedValue, specification === null || specification === void 0 ? void 0 : specification.fields, specification.name);
     }
   }, {
     key: "intValue",
@@ -44186,10 +44228,9 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.debug("role manager change event");
               this.startRefreshRoles();
 
-            case 2:
+            case 1:
             case "end":
               return _context.stop();
           }
@@ -44256,28 +44297,27 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              console.debug("query roles");
               this._lastRefreshAttempt = this.bus.timestamp;
               previousRolesHash = JSON.stringify(this._roles);
-              _context3.prev = 3;
+              _context3.prev = 2;
               inp = new pipes/* InPipeReader */.oI(this.bus);
-              _context3.next = 7;
+              _context3.next = 6;
               return this.service.sendPacketAsync(inp.openCommand(constants/* RoleManagerCmd.ListRequiredRoles */.zGD.ListRequiredRoles), true);
 
-            case 7:
+            case 6:
               // collect all roles
               roles = [];
               _context3.t0 = rolemanagerclient_createForOfIteratorHelperLoose;
-              _context3.next = 11;
+              _context3.next = 10;
               return inp.readData();
 
-            case 11:
+            case 10:
               _context3.t1 = _context3.sent;
               _iterator = (0, _context3.t0)(_context3.t1);
 
-            case 13:
+            case 12:
               if ((_step = _iterator()).done) {
-                _context3.next = 20;
+                _context3.next = 19;
                 break;
               }
 
@@ -44291,38 +44331,32 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
                 name: name
               });
 
-            case 18:
-              _context3.next = 13;
+            case 17:
+              _context3.next = 12;
               break;
 
-            case 20:
+            case 19:
               // store result if changed
               if (JSON.stringify(roles) !== previousRolesHash) {
                 this._roles = roles;
-                console.debug("updated roles", {
-                  roles: this._roles
-                });
                 this.emit(constants/* CHANGE */.Ver);
               }
 
-              _context3.next = 28;
+              _context3.next = 26;
               break;
 
-            case 23:
-              _context3.prev = 23;
-              _context3.t2 = _context3["catch"](3);
+            case 22:
+              _context3.prev = 22;
+              _context3.t2 = _context3["catch"](2);
               this._needRefresh = true;
-              console.debug("refresh failed", {
-                refresh: this._needRefresh
-              });
-              console.error(_context3.t2);
+              this.emit(constants/* ERROR */.pnR, _context3.t2);
 
-            case 28:
+            case 26:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[3, 23]]);
+      }, _callee3, this, [[2, 22]]);
     }));
 
     function collectRoles() {
@@ -44335,9 +44369,6 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
   _proto.assignRoles = function assignRoles() {
     var _this2 = this;
 
-    console.debug("assign roles", {
-      roles: this._roles
-    });
     this.bus.services().filter(function (srv) {
       return RoleManagerClient.unroledSrvs.indexOf(srv.serviceClass) < 0;
     }).forEach(function (srv) {
@@ -45357,7 +45388,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       }).map(function (service) {
         return service.registers() // someone is listening for reports
         .filter(function (reg) {
-          return reg.listenerCount(constants/* REPORT_UPDATE */.rGZ) > 0;
+          return reg.listenerCount(constants/* REPORT_RECEIVE */.Gb8) > 0 || reg.listenerCount(constants/* REPORT_UPDATE */.rGZ) > 0;
         }) // ask if data is missing or non-const/status code
         .filter(function (reg) {
           return !reg.data || !((0,jdom_spec/* isConstRegister */.n6)(reg.specification) || reg.code === constants/* SystemReg.StatusCode */.ZJq.StatusCode || reg.code === constants/* SystemReg.ReadingError */.ZJq.ReadingError);
@@ -56184,4 +56215,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-36e18bf01da1c10bd4f9.js.map
+//# sourceMappingURL=app-aa09627e72984fc5b7ed.js.map

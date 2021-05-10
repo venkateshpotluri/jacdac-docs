@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-bac56350527f9d9ee890.js"
+    "url": "webpack-runtime-b07e36269c09e1d7f79b.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "84dfc6cfe5386bde04e51b2c5e678524"
+    "revision": "3370c288e5461f6b60f4d54f4c81c6ea"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "0f8615c608e28986bbc22a94dd3a6a66"
+    "revision": "a06da5ebf6805b1a7072658035e6c09f"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -1336,14 +1336,14 @@ self.__precacheManifest = [
     "revision": "dc554b5a7b3bba043dc9096b8a2927b6"
   },
   {
-    "url": "component---src-pages-tools-makecode-editor-extension-tsx-ffb3ebea4832ee893e6c.js"
+    "url": "component---src-pages-tools-makecode-editor-extension-tsx-b406b6a8aaf1e1f3e426.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
     "revision": "fff97a63d7d76d0afb3e023b1d340b17"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-9fca62e95c99199f4f25.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-4361e012025626c78d51.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
@@ -1524,7 +1524,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-36e18bf01da1c10bd4f9.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-aa09627e72984fc5b7ed.js`))) {
     return await fetch(event.request)
   }
 
