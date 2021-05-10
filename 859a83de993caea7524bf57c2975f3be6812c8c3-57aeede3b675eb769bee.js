@@ -939,6 +939,8 @@ function useIntersectionObserver(elementRef, options) {
 var node = __webpack_require__(60154);
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
+// EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
+var notistack_esm = __webpack_require__(70076);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardDevice.tsx
 
 
@@ -948,6 +950,7 @@ var useMediaQueries = __webpack_require__(20509);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -983,6 +986,18 @@ function DashboardDevice(props) {
   var serviceGridRef = (0,react.useRef)();
   var intersection = useIntersectionObserver(serviceGridRef);
   var visible = !!(intersection !== null && intersection !== void 0 && intersection.isIntersecting);
+
+  var _useSnackbar = (0,notistack_esm/* useSnackbar */.Ds)(),
+      enqueueSnackbar = _useSnackbar.enqueueSnackbar;
+
+  (0,react.useEffect)(function () {
+    return device === null || device === void 0 ? void 0 : device.subscribe(constants/* RESTART */.d0K, function () {
+      console.debug(device.shortId + " restarted...");
+      enqueueSnackbar(device.shortId + " restarted...", {
+        variant: "warning"
+      });
+    });
+  });
   var ServiceWidgets = (0,react.useCallback)(function () {
     var _services$filter;
 
@@ -2703,4 +2718,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-a0e0e736c0f5f89db495.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-57aeede3b675eb769bee.js.map
