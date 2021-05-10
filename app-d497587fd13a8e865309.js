@@ -41315,7 +41315,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7ab7cdfb0297f442e6c5832403bc1aef461f2b41";
+  var sha = "372878ef9e35f16ae5db1b2ef94be377f05153f2";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -42076,7 +42076,7 @@ function LayoutWithContext(props) {
   var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
       medium = _useMediaQueries.medium;
 
-  var container = !medium && !/^\/(tools\/\w|dashboard)/.test(path); // && path !== "/"
+  var container = !medium && !/^\/(tools\/makecode-|dashboard)/.test(path); // && path !== "/"
 
   var mainClasses = (0,clsx_m/* default */.Z)(classes.content, (_clsx2 = {}, _clsx2[classes.container] = container, _clsx2[classes.contentShift] = drawerOpen, _clsx2[classes.toolsContentShift] = toolsMenu, _clsx2));
 
@@ -56597,4 +56597,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-309b14dd4218323fcc15.js.map
+//# sourceMappingURL=app-d497587fd13a8e865309.js.map
