@@ -191,7 +191,7 @@ function MDXContent(_ref) {
     "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
   }))), "Enabling a cheaper modules ecosystem."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "We decided to remove the need for any female port on the modules. This reduced assembly costs and time, but increased the technical challenge of making the new cable connector."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("img", {
     parentName: "p",
-    "src": "https://user-images.githubusercontent.com/71759622/117635932-39de6480-b178-11eb-8b73-111378f027ae.png",
+    "src": "./images/enablingacheapermodulesecosystem.png",
     "alt": "Enabling a cheaper modules ecosystem"
   })), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h3", {
     "id": "ideation-stage",
@@ -571,4 +571,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-connector-mdx-84bf5ec0d3b239de2882.js.map
+//# sourceMappingURL=component---src-pages-connector-mdx-446a5e874379399a90b8.js.map
