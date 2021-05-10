@@ -40960,7 +40960,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b2f4d5838b033579b18c4b005114728dc1ac1e24";
+  var sha = "4f039b80bf327cf2a44249a394da848e428f9830";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -44657,42 +44657,31 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
               return _context.abrupt("return");
 
             case 2:
-              console.debug("bus: connect start", {
-                background: background
-              });
               _iterator = bus_createForOfIteratorHelperLoose(this._transports);
 
-            case 4:
+            case 3:
               if ((_step = _iterator()).done) {
-                _context.next = 14;
+                _context.next = 11;
                 break;
               }
 
               transport = _step.value;
-              // start connection
-              console.debug("bus: connect " + transport.type, {
-                transport: transport
-              });
-              _context.next = 9;
+              _context.next = 7;
               return transport.connect(background);
 
-            case 9:
-              console.log("bus: connect " + transport.type + " " + transport.connectionState, {
-                transport: transport
-              }); // keep going if not connected
-
+            case 7:
               if (!transport.connected) {
-                _context.next = 12;
+                _context.next = 9;
                 break;
               }
 
-              return _context.abrupt("break", 14);
+              return _context.abrupt("break", 11);
 
-            case 12:
-              _context.next = 4;
+            case 9:
+              _context.next = 3;
               break;
 
-            case 14:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -56190,4 +56179,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-45f84f8e6677376e7bfa.js.map
+//# sourceMappingURL=app-1d0b80ed5896685104cb.js.map
