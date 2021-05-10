@@ -64,6 +64,13 @@ function MDXContent(_ref) {
     "rel": "nofollow noopener noreferrer"
   }, "pxt-jacdac"), " contains MakeCode support many Jacdac services.\nThe following editors are currently supported:"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
+  }, "micro:bit beta witn V2 hardware ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "https://makecode.microbit.org/beta",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }, "https://makecode.microbit.org/beta")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
   }, "Arcade beta ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
     "href": "https://arcade.makecode.com/beta",
@@ -116,6 +123,66 @@ function MDXContent(_ref) {
   }, "Jacdac"), " section in the toolbox, under ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("strong", {
     parentName: "li"
   }, "Advanced"), ".")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+    "id": "servers",
+    "style": {
+      "position": "relative"
+    }
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "h2",
+    "href": "#servers",
+    "aria-label": "servers permalink",
+    "className": "anchor before"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "Servers"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "It is also possible to spin some server services using MakeCode. This can be useful to test Jacdac until more modules are available."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+    "id": "microbit-v2-server",
+    "style": {
+      "position": "relative"
+    }
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "h2",
+    "href": "#microbit-v2-server",
+    "aria-label": "microbit v2 server permalink",
+    "className": "anchor before"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("svg", {
+    parentName: "a",
+    "aria-hidden": "true",
+    "focusable": "false",
+    "height": "16",
+    "version": "1.1",
+    "viewBox": "0 0 16 16",
+    "width": "16"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("path", {
+    parentName: "svg",
+    "fillRule": "evenodd",
+    "d": "M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"
+  }))), "micro:bit V2 server"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("ul", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "Open the micro:bit beta editor at ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "https://makecode.microbit.org/beta",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }, "https://makecode.microbit.org/beta")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "From the home screen, import ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "https://github.com/microsoft/pxt-jacdac/devices/microbit",
+    "target": "_blank",
+    "rel": "nofollow noopener noreferrer"
+  }, "https://github.com/microsoft/pxt-jacdac/devices/microbit")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, "Download to a micro:bit V2")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "Once downloaded, the firmware will expose most of the micro:bit sensors as Jacdac services."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "open-source",
     "style": {
       "position": "relative"
@@ -167,4 +234,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-hardware-makecode-mdx-057ac4e0be2b1a873421.js.map
+//# sourceMappingURL=component---src-pages-clients-hardware-makecode-mdx-b48f0404b57da3d1fae0.js.map

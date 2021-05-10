@@ -40961,7 +40961,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b91afe0afcdc0309b9c0cdfd6fe13da2eafe91f6";
+  var sha = "b07f788e44eae0523f52c0a58f5c2386fcaca9f5";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -43243,6 +43243,12 @@ var JDService = /*#__PURE__*/function (_JDNode) {
       }
 
       return this._statusCodeRegister;
+    }
+  }, {
+    key: "instanceName",
+    get: function get() {
+      var r = this.register(specconstants/* SystemReg.InstanceName */.ZJq.InstanceName);
+      return r === null || r === void 0 ? void 0 : r.stringValue;
     }
     /**
      * Gets the specification of the service. Undefined if unknown
@@ -56215,4 +56221,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-aa09627e72984fc5b7ed.js.map
+//# sourceMappingURL=app-c1644e11be9d9e05204c.js.map
