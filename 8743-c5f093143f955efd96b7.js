@@ -657,7 +657,7 @@ function DashboardBitRadio(props) {
           break;
       }
 
-      appendMessage(values.filter(function (v) {
+      if (values) appendMessage(values.filter(function (v) {
         return v !== undefined && v !== "";
       }));
     });
@@ -713,4 +713,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8743-8b992e3bb8c758639d33.js.map
+//# sourceMappingURL=8743-c5f093143f955efd96b7.js.map
