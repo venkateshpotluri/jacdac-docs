@@ -38276,7 +38276,9 @@ var AppProvider = function AppProvider(_ref) {
     console.error(e);
     var msg = (e === null || e === void 0 ? void 0 : e.message) || e + "";
     enqueueSnackbar(msg, {
-      variant: "error"
+      variant: "error",
+      preventDuplicate: true,
+      autoHideDuration: 4000
     });
   };
 
@@ -41637,7 +41639,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "fbba063552860cd2755cda4fa753d153aae86698";
+  var sha = "6e6bfbadd7d55ec8c73b5dd87958330d3029a23c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -56971,4 +56973,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-294fa87b215c801fcd90.js.map
+//# sourceMappingURL=app-31d89025e54feccc1a97.js.map
