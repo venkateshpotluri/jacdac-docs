@@ -3338,24 +3338,32 @@ function DashboardSoundPlayer(props) {
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
   var sounds = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__/* .useChangeAsync */ .R)(service, /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-    var sounds;
+    var _sounds;
+
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return service.receiveWithInPipe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .SoundPlayerCmd.ListSounds */ .TFx.ListSounds, "u32 s");
+            _context2.prev = 0;
+            _context2.next = 3;
+            return service.receiveWithInPipe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .SoundPlayerCmd.ListSounds */ .TFx.ListSounds, "u32 s", 1000);
 
-          case 2:
-            sounds = _context2.sent;
-            return _context2.abrupt("return", sounds);
+          case 3:
+            _sounds = _context2.sent;
+            return _context2.abrupt("return", _sounds);
 
-          case 4:
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            console.error(_context2.t0);
+            return _context2.abrupt("return", []);
+
+          case 11:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2);
+    }, _callee2, null, [[0, 7]]);
   })), [service]);
 
   var handleVolumeChange = /*#__PURE__*/function () {
@@ -3423,4 +3431,4 @@ function DashboardSoundPlayer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9082-ad9b3daf2e17ee9ab88d.js.map
+//# sourceMappingURL=9082-9c0fd31242ce10ad6d59.js.map

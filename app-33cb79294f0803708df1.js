@@ -41315,7 +41315,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "3cb6410c82da2b8ff83de846fade9f349a8e74fd";
+  var sha = "70b173a169d6dba15cdf1363a2eebbac6730c624";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -43405,7 +43405,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.receiveWithInPipe = /*#__PURE__*/function () {
-    var _receiveWithInPipe = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(cmd, packFormat) {
+    var _receiveWithInPipe = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(cmd, packFormat, timeout) {
       var inp, recv, _iterator, _step, buf, values;
 
       return regenerator_default().wrap(function _callee2$(_context2) {
@@ -43420,7 +43420,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
               recv = [];
               _context2.t0 = _createForOfIteratorHelperLoose;
               _context2.next = 7;
-              return inp.readData();
+              return inp.readData(timeout);
 
             case 7:
               _context2.t1 = _context2.sent;
@@ -43451,7 +43451,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
       }, _callee2, this);
     }));
 
-    function receiveWithInPipe(_x3, _x4) {
+    function receiveWithInPipe(_x3, _x4, _x5) {
       return _receiveWithInPipe.apply(this, arguments);
     }
 
@@ -44673,7 +44673,7 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
               roles = [];
               _context3.t0 = rolemanagerclient_createForOfIteratorHelperLoose;
               _context3.next = 10;
-              return inp.readData();
+              return inp.readData(1000);
 
             case 10:
               _context3.t1 = _context3.sent;
@@ -45254,8 +45254,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     //console.log(`set role manager`, { service })
     // clean if needed
     if (this._roleManagerClient && this._roleManagerClient.service !== service) {
-      console.debug("unmount role manager");
-
+      //console.debug("unmount role manager")
       this._roleManagerClient.unmount();
 
       this._roleManagerClient = undefined;
@@ -45263,7 +45262,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
 
     if (service && service !== ((_this$_roleManagerCli = this._roleManagerClient) === null || _this$_roleManagerCli === void 0 ? void 0 : _this$_roleManagerCli.service)) {
-      console.debug("mount role manager");
+      //console.debug("mount role manager")
       this._roleManagerClient = new RoleManagerClient(service);
       this.emit(constants/* ROLE_MANAGER_CHANGE */.kqR);
       this.emit(constants/* CHANGE */.Ver);
@@ -56598,4 +56597,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a3f8a60914315527eaf7.js.map
+//# sourceMappingURL=app-33cb79294f0803708df1.js.map
