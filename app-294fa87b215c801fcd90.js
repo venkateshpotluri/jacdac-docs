@@ -27128,6 +27128,8 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "A0q": function() { return /* binding */ BLUETOOTH_JACDAC_SERVICE; },
 /* harmony export */   "uLq": function() { return /* binding */ BLUETOOTH_JACDAC_RX_CHARACTERISTIC; },
 /* harmony export */   "c5n": function() { return /* binding */ BLUETOOTH_JACDAC_TX_CHARACTERISTIC; },
+/* harmony export */   "Wdl": function() { return /* binding */ TRANSPORT_CONNECT_RETRY_DELAY; },
+/* harmony export */   "U5y": function() { return /* binding */ TRANSPORT_PULSE_TIMEOUT; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
 /* harmony export */   "vCn": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.vCn; },
 /* harmony export */   "GZs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.GZs; },
@@ -27429,6 +27431,8 @@ var BLUETOOTH_JACDAC_SERVICE = "f8530001-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_RX_CHARACTERISTIC = "f8530002-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_TX_CHARACTERISTIC = "f8530003-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC = "f8530004-a97f-49f5-a554-3e373fbea2d5";
+var TRANSPORT_CONNECT_RETRY_DELAY = 500;
+var TRANSPORT_PULSE_TIMEOUT = JD_DEVICE_DISCONNECTED_DELAY;
 
 
 /***/ }),
@@ -32862,27 +32866,30 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     _this.disposed = false;
     _this._connectionState = ConnectionState.Disconnected;
     _this.type = type;
+    _this._checkPulse = !!(options !== null && options !== void 0 && options.checkPulse);
     _this._cleanups = [options === null || options === void 0 ? void 0 : (_options$connectObser = options.connectObservable) === null || _options$connectObser === void 0 ? void 0 : (_options$connectObser2 = _options$connectObser.subscribe({
       next: function () {
         var _next = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
+          var _this$bus;
+
+          var _this$bus2;
+
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  console.debug(_this.type + ": on connect");
-
-                  if (!_this.bus.disconnected) {
-                    _context.next = 5;
+                  if (!((_this$bus = _this.bus) !== null && _this$bus !== void 0 && _this$bus.disconnected)) {
+                    _context.next = 4;
                     break;
                   }
 
-                  _context.next = 4;
-                  return (0,_utils__WEBPACK_IMPORTED_MODULE_5__/* .delay */ .gw)(500);
+                  _context.next = 3;
+                  return (0,_utils__WEBPACK_IMPORTED_MODULE_5__/* .delay */ .gw)(_constants__WEBPACK_IMPORTED_MODULE_2__/* .TRANSPORT_CONNECT_RETRY_DELAY */ .Wdl);
+
+                case 3:
+                  if ((_this$bus2 = _this.bus) !== null && _this$bus2 !== void 0 && _this$bus2.disconnected) _this.connect(true);
 
                 case 4:
-                  if (_this.bus.disconnected) _this.connect(true);
-
-                case 5:
                 case "end":
                   return _context.stop();
               }
@@ -32898,8 +32905,6 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
       }()
     })) === null || _options$connectObser2 === void 0 ? void 0 : _options$connectObser2.unsubscribe, options === null || options === void 0 ? void 0 : (_options$disconnectOb = options.disconnectObservable) === null || _options$disconnectOb === void 0 ? void 0 : (_options$disconnectOb2 = _options$disconnectOb.subscribe({
       next: function next() {
-        console.debug(_this.type + ": on disconnect");
-
         _this.disconnect();
       }
     })) === null || _options$disconnectOb2 === void 0 ? void 0 : _options$disconnectOb2.unsubscribe].filter(function (c) {
@@ -32913,6 +32918,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   _proto.setConnectionState = function setConnectionState(state) {
     if (this._connectionState !== state) {
       console.debug(this._connectionState + " -> " + state);
+      this._lastReceivedTime = state === ConnectionState.Connected ? this._bus.timestamp : undefined;
       this._connectionState = state;
       this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECTION_STATE */ .pzj, this._connectionState);
       this.bus.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECTION_STATE */ .pzj);
@@ -32940,31 +32946,96 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     }
   };
 
-  _proto.sendPacketAsync = /*#__PURE__*/function () {
-    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2(p) {
+  _proto.checkPulse = /*#__PURE__*/function () {
+    var _checkPulse = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
+      var devices, t;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              (0,_utils__WEBPACK_IMPORTED_MODULE_5__/* .assert */ .hu)(this._checkPulse);
+
               if (this.connected) {
-                _context2.next = 4;
+                _context2.next = 3;
                 break;
               }
 
-              this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_SEND_DISCONNECT */ .FrK, p);
-              _context2.next = 6;
-              break;
+              return _context2.abrupt("return");
 
-            case 4:
-              _context2.next = 6;
-              return this.transportSendPacketAsync(p);
+            case 3:
+              if (!this.bus.safeBoot) {
+                _context2.next = 5;
+                break;
+              }
 
-            case 6:
+              return _context2.abrupt("return");
+
+            case 5:
+              // don't mess with flashing bootloaders
+              devices = this.bus.devices();
+
+              if (!devices.some(function (dev) {
+                return dev.flashing;
+              })) {
+                _context2.next = 8;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 8:
+              // detect if the proxy device is lost
+              t = this.bus.timestamp - this._lastReceivedTime;
+
+              if (!(t > _constants__WEBPACK_IMPORTED_MODULE_2__/* .TRANSPORT_PULSE_TIMEOUT */ .U5y)) {
+                _context2.next = 13;
+                break;
+              }
+
+              this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .LOST */ .XWw);
+              _context2.next = 13;
+              return this.reconnect();
+
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
       }, _callee2, this);
+    }));
+
+    function checkPulse() {
+      return _checkPulse.apply(this, arguments);
+    }
+
+    return checkPulse;
+  }();
+
+  _proto.sendPacketAsync = /*#__PURE__*/function () {
+    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee3(p) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (this.connected) {
+                _context3.next = 4;
+                break;
+              }
+
+              this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_SEND_DISCONNECT */ .FrK, p);
+              _context3.next = 6;
+              break;
+
+            case 4:
+              _context3.next = 6;
+              return this.transportSendPacketAsync(p);
+
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
     }));
 
     function sendPacketAsync(_x) {
@@ -33071,14 +33142,46 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     return this._disconnectPromise;
   };
 
+  _proto.reconnect = /*#__PURE__*/function () {
+    var _reconnect = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return this.disconnect();
+
+            case 2:
+              _context4.next = 4;
+              return this.connect(true);
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function reconnect() {
+      return _reconnect.apply(this, arguments);
+    }
+
+    return reconnect;
+  }();
+
   _proto.handlePacket = function handlePacket(payload) {
-    var pkt = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.fromBinary */ .Z.fromBinary(payload, this.bus.timestamp);
+    var timestamp = this.bus.timestamp;
+    this._lastReceivedTime = timestamp;
+    var pkt = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.fromBinary */ .Z.fromBinary(payload, timestamp);
     pkt.sender = this.type;
     this.bus.processPacket(pkt);
   };
 
   _proto.handleFrame = function handleFrame(payload) {
-    var pkts = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.fromFrame */ .Z.fromFrame(payload, this.bus.timestamp);
+    var timestamp = this.bus.timestamp;
+    this._lastReceivedTime = timestamp;
+    var pkts = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.fromFrame */ .Z.fromFrame(payload, timestamp);
 
     for (var _iterator = _createForOfIteratorHelperLoose(pkts), _step; !(_step = _iterator()).done;) {
       var pkt = _step.value;
@@ -33115,6 +33218,19 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   };
 
   (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(JDTransport, [{
+    key: "bus",
+    get: function get() {
+      return this._bus;
+    },
+    set: function set(bus) {
+      (0,_utils__WEBPACK_IMPORTED_MODULE_5__/* .assert */ .hu)(!this._bus && !!bus);
+      this._bus = bus;
+
+      if (this._checkPulse) {
+        this._bus.on(_constants__WEBPACK_IMPORTED_MODULE_2__/* .SELF_ANNOUNCE */ .Pbc, this.checkPulse.bind(this));
+      }
+    }
+  }, {
     key: "connectionState",
     get:
     /**
@@ -41521,7 +41637,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "4393e4e691f7ab5a8b0bf3367ec83fc6e8a606df";
+  var sha = "fbba063552860cd2755cda4fa753d153aae86698";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46216,6 +46332,8 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 }(node/* JDNode */.zb);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(35313);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(96156);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/transport/transport.ts
 var transport = __webpack_require__(27591);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/hf2.ts
@@ -46651,7 +46769,6 @@ var CMSISProto = /*#__PURE__*/function () {
     this.q = new utils/* PromiseQueue */.bo();
     this.sendQ = [];
     this.io = io;
-    console.log("micro:bit: start proto");
   }
 
   var _proto = CMSISProto.prototype;
@@ -46800,45 +46917,37 @@ var CMSISProto = /*#__PURE__*/function () {
           switch (_context2.prev = _context2.next) {
             case 0:
               if (_this4.io) {
-                _context2.next = 4;
+                _context2.next = 3;
                 break;
               }
-
-              console.debug("micro:bit disconnected, skip send", {
-                cmds: cmds
-              });
 
               _this4.error("micro:bit disconnected");
 
               return _context2.abrupt("return");
 
-            case 4:
-              _context2.next = 6;
+            case 3:
+              _context2.next = 5;
               return _this4.io.sendPacketAsync(new Uint8Array(cmds));
 
-            case 6:
+            case 5:
               if (_this4.io) {
-                _context2.next = 10;
+                _context2.next = 8;
                 break;
               }
-
-              console.debug("micro:bit disconnected, skip response", {
-                cmds: cmds
-              });
 
               _this4.error("micro:bit disconnected");
 
               return _context2.abrupt("return");
 
-            case 10:
-              _context2.next = 12;
+            case 8:
+              _context2.next = 10;
               return _this4.recvAsync();
 
-            case 12:
+            case 10:
               response = _context2.sent;
 
               if (!(response[0] !== cmds[0])) {
-                _context2.next = 26;
+                _context2.next = 24;
                 break;
               }
 
@@ -46847,34 +46956,34 @@ var CMSISProto = /*#__PURE__*/function () {
                 cmds: cmds,
                 response: response
               });
-              _context2.prev = 16;
-              _context2.next = 19;
+              _context2.prev = 14;
+              _context2.next = 17;
               return _this4.recvAsync();
 
-            case 19:
+            case 17:
               response = _context2.sent;
-              _context2.next = 25;
+              _context2.next = 23;
               break;
 
-            case 22:
-              _context2.prev = 22;
-              _context2.t0 = _context2["catch"](16);
+            case 20:
+              _context2.prev = 20;
+              _context2.t0 = _context2["catch"](14);
 
               // throw the original error in case of timeout
               _this4.error(msg);
 
-            case 25:
+            case 23:
               if (response[0] !== cmds[0]) _this4.error(msg);
 
-            case 26:
+            case 24:
               return _context2.abrupt("return", response);
 
-            case 27:
+            case 25:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[16, 22]]);
+      }, _callee2, null, [[14, 20]]);
     })));
   };
 
@@ -47273,39 +47382,50 @@ var CMSISProto = /*#__PURE__*/function () {
                     switch (_context9.prev = _context9.next) {
                       case 0:
                         if (!(ptr < count)) {
-                          _context9.next = 19;
+                          _context9.next = 22;
                           break;
                         }
 
                         ch = Math.min(count - ptrTX, MAX);
 
                         if (!ch) {
-                          _context9.next = 9;
+                          _context9.next = 12;
                           break;
                         }
 
                         req[2] = ch;
                         req.set(dataBytes.slice(ptrTX * 4, (ptrTX + ch) * 4), 5);
-                        _context9.next = 7;
+
+                        if (_this6.io) {
+                          _context9.next = 8;
+                          break;
+                        }
+
+                        _this6.error("disconnected");
+
+                        return _context9.abrupt("return");
+
+                      case 8:
+                        _context9.next = 10;
                         return _this6.io.sendPacketAsync(ch == MAX ? req : req.slice(0, 5 + 4 * ch));
 
-                      case 7:
+                      case 10:
                         ptrTX += ch;
                         lastCh = ch;
 
-                      case 9:
+                      case 12:
                         if (!(overhang-- > 0)) {
-                          _context9.next = 11;
+                          _context9.next = 14;
                           break;
                         }
 
                         return _context9.abrupt("continue", 0);
 
-                      case 11:
-                        _context9.next = 13;
+                      case 14:
+                        _context9.next = 16;
                         return _this6.recvAsync();
 
-                      case 13:
+                      case 16:
                         _buf = _context9.sent;
                         if (_buf[0] != req[0]) _this6.error("bad response, " + _buf[0] + " != " + req[0]);
                         if (_buf[1] != MAX && _buf[1] != lastCh) _this6.error("bad response, " + _buf[1] + " != " + MAX + " && " + _buf[1] + " != " + lastCh);
@@ -47313,7 +47433,7 @@ var CMSISProto = /*#__PURE__*/function () {
                         _context9.next = 0;
                         break;
 
-                      case 19:
+                      case 22:
                       case "end":
                         return _context9.stop();
                     }
@@ -47404,44 +47524,75 @@ var CMSISProto = /*#__PURE__*/function () {
                     switch (_context12.prev = _context12.next) {
                       case 0:
                         if (!(ptr < count || numPending)) {
-                          _context12.next = 23;
+                          _context12.next = 30;
                           break;
                         }
 
                         ch = Math.min(count - ptrTX, MAX);
 
                         if (!(ch > 0)) {
-                          _context12.next = 8;
+                          _context12.next = 11;
                           break;
                         }
 
                         req[2] = ch;
                         numPending++;
-                        _context12.next = 7;
-                        return _this7.io.sendPacketAsync(req);
 
-                      case 7:
-                        ptrTX += ch;
+                        if (_this7.io) {
+                          _context12.next = 8;
+                          break;
+                        }
+
+                        _this7.error("disconnected");
+
+                        return _context12.abrupt("return");
 
                       case 8:
+                        _context12.next = 10;
+                        return _this7.io.sendPacketAsync(req);
+
+                      case 10:
+                        ptrTX += ch;
+
+                      case 11:
                         if (!(overhang-- > 0)) {
-                          _context12.next = 10;
+                          _context12.next = 13;
                           break;
                         }
 
                         return _context12.abrupt("continue", 0);
 
-                      case 10:
-                        _context12.next = 12;
+                      case 13:
+                        _context12.next = 15;
                         return _this7.recvAsync();
 
-                      case 12:
+                      case 15:
                         _buf2 = _context12.sent;
                         numPending--;
-                        if (_buf2[0] != req[0]) _this7.error("bad response");
+
+                        if (!(_buf2[0] != req[0])) {
+                          _context12.next = 20;
+                          break;
+                        }
+
+                        _this7.error("bad response");
+
+                        return _context12.abrupt("return");
+
+                      case 20:
                         len = _buf2[1];
                         words = new Uint32Array(_buf2.slice(4, (1 + len) * 4).buffer);
-                        if (words.length != len) _this7.error("bad response2");
+
+                        if (!(words.length != len)) {
+                          _context12.next = 25;
+                          break;
+                        }
+
+                        _this7.error("bad response2");
+
+                        return _context12.abrupt("return");
+
+                      case 25:
                         res.set(words, ptr); // limit transfer, according to JD frame size
 
                         if (jdmode && ptr == 0) {
@@ -47454,7 +47605,7 @@ var CMSISProto = /*#__PURE__*/function () {
                         _context12.next = 0;
                         break;
 
-                      case 23:
+                      case 30:
                       case "end":
                         return _context12.stop();
                     }
@@ -47877,6 +48028,7 @@ function usbio_arrayLikeToArray(arr, len) { if (len == null || len > arr.length)
 
 
 
+
 var USB_FILTERS = {
   filters: [{
     // hf2 devices (incl. arcade)
@@ -47913,7 +48065,9 @@ var USBIO = /*#__PURE__*/function () {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _proto.log = function log(msg, v) {
-    if (v != undefined) console.log("usb: " + msg, v);else console.log("usb: " + msg);
+    if (flags/* default.diagnostics */.Z.diagnostics) {
+      if (v != undefined) console.debug("usb: " + msg, v);else console.debug("usb: " + msg);
+    }
   };
 
   _proto.mkProto = function mkProto() {
@@ -48323,6 +48477,12 @@ var USBIO = /*#__PURE__*/function () {
 
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
 
 
 
@@ -48371,7 +48531,9 @@ var WebUSBTransport = /*#__PURE__*/function (_JDTransport) {
   function WebUSBTransport(options) {
     var _this;
 
-    _this = _JDTransport.call(this, constants/* USB_TRANSPORT */.W3h, options) || this;
+    _this = _JDTransport.call(this, constants/* USB_TRANSPORT */.W3h, _objectSpread(_objectSpread({}, options), {}, {
+      checkPulse: true
+    })) || this;
     _this.options = options;
     return _this;
   }
@@ -48705,6 +48867,7 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
 function createUSBWorkerTransport(worker) {
   return isWebUSBEnabled() && new WorkerTransport(constants/* USB_TRANSPORT */.W3h, worker, {
+    checkPulse: true,
     requestDevice: function requestDevice() {
       return usbRequestDevice(USB_FILTERS).then(function (dev) {
         return dev === null || dev === void 0 ? void 0 : dev.serialNumber;
@@ -48773,7 +48936,9 @@ var BluetoothTransport = /*#__PURE__*/function (_JDTransport) {
   function BluetoothTransport() {
     var _this;
 
-    _this = _JDTransport.call(this, constants/* BLUETOOTH_TRANSPORT */.HZx) || this;
+    _this = _JDTransport.call(this, constants/* BLUETOOTH_TRANSPORT */.HZx, {
+      checkPulse: true
+    }) || this;
     _this.handleDisconnected = _this.handleDisconnected.bind((0,assertThisInitialized/* default */.Z)(_this));
     _this.handleCharacteristicChanged = _this.handleCharacteristicChanged.bind((0,assertThisInitialized/* default */.Z)(_this));
     return _this;
@@ -56806,4 +56971,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-4ec5dfdddd5ae0683b2a.js.map
+//# sourceMappingURL=app-294fa87b215c801fcd90.js.map

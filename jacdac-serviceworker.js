@@ -418,7 +418,6 @@ class CMSISProto {
         this.io = io;
         this.q = new PromiseQueue();
         this.sendQ = [];
-        console.log(`micro:bit: start proto`);
     }
     startRecvToLoop() {
         console.assert(!this._lastInterval);
@@ -503,14 +502,12 @@ class CMSISProto {
     talkAsync(cmds) {
         return this.q.enqueue("talk", async () => {
             if (!this.io) {
-                console.debug(`micro:bit disconnected, skip send`, { cmds });
                 this.error("micro:bit disconnected");
                 return; // disconnected
             }
             //console.log("TALK", cmds)
             await this.io.sendPacketAsync(new Uint8Array(cmds));
             if (!this.io) {
-                console.debug(`micro:bit disconnected, skip response`, { cmds });
                 this.error("micro:bit disconnected");
                 return; // disconnected
             }
@@ -678,6 +675,10 @@ class CMSISProto {
                 if (ch) {
                     req[2] = ch;
                     req.set(dataBytes.slice(ptrTX * 4, (ptrTX + ch) * 4), 5);
+                    if (!this.io) {
+                        this.error("disconnected");
+                        return;
+                    }
                     await this.io.sendPacketAsync(ch == MAX ? req : req.slice(0, 5 + 4 * ch));
                     ptrTX += ch;
                     lastCh = ch;
@@ -715,6 +716,10 @@ class CMSISProto {
                 if (ch > 0) {
                     req[2] = ch;
                     numPending++;
+                    if (!this.io) {
+                        this.error("disconnected");
+                        return;
+                    }
                     await this.io.sendPacketAsync(req);
                     ptrTX += ch;
                 }
@@ -722,12 +727,16 @@ class CMSISProto {
                     continue;
                 const buf = await this.recvAsync();
                 numPending--;
-                if (buf[0] != req[0])
+                if (buf[0] != req[0]) {
                     this.error("bad response");
+                    return;
+                }
                 const len = buf[1];
                 const words = new Uint32Array(buf.slice(4, (1 + len) * 4).buffer);
-                if (words.length != len)
+                if (words.length != len) {
                     this.error("bad response2");
+                    return;
+                }
                 res.set(words, ptr);
                 // limit transfer, according to JD frame size
                 if (jdmode && ptr == 0) {
@@ -879,10 +888,12 @@ class USBIO {
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     log(msg, v) {
-        if (v != undefined)
-            console.log("usb: " + msg, v);
-        else
-            console.log("usb: " + msg);
+        if (Flags.diagnostics) {
+            if (v != undefined)
+                console.debug("usb: " + msg, v);
+            else
+                console.debug("usb: " + msg);
+        }
     }
     mkProto() {
         return this.isMicrobit() ? new CMSISProto(this) : new HF2Proto(this);
@@ -1088,13 +1099,13 @@ class USBIO {
     }
 }
 
-const { debug, error: error$1 } = console;
+const { debug: debug$1, error: error$1 } = console;
 class USBTransportProxy {
     constructor() { }
     async connect(deviceId) {
-        debug(`jdsw: connect`, { deviceId });
+        debug$1(`jdsw: connect`, { deviceId });
         if (this.hf2) {
-            debug(`jdsw: cleanup hf2`);
+            debug$1(`jdsw: cleanup hf2`);
             await this.hf2.disconnectAsync();
             this.hf2 = undefined;
         }
@@ -1124,7 +1135,7 @@ class USBTransportProxy {
         await this.hf2?.sendJDMessageAsync(payload);
     }
     async disconnect() {
-        debug(`jdsw: disconnect`);
+        debug$1(`jdsw: disconnect`);
         const h = this.hf2;
         this.hf2 = undefined;
         if (h)
@@ -1132,8 +1143,8 @@ class USBTransportProxy {
     }
 }
 
-const { info, error } = console;
-info(`jdsw: starting...`);
+const { debug, error } = console;
+debug(`jdsw: starting...`);
 let proxy;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleCommand(resp, handler) {
@@ -1159,7 +1170,7 @@ onmessage = async (event) => {
             if (proxy)
                 await proxy.disconnect();
             const { deviceId } = data;
-            info(`jdsw: connecting`);
+            debug(`jdsw: connecting`);
             proxy = new USBTransportProxy();
             await handleCommand(data, () => proxy.connect(deviceId));
             break;
@@ -1171,11 +1182,11 @@ onmessage = async (event) => {
             break;
         case "disconnect":
             if (proxy) {
-                info(`jdsw: disconnecting`);
-                await handleCommand(data, () => proxy.disconnect());
+                debug(`jdsw: disconnecting`);
+                await handleCommand(data, () => proxy?.disconnect());
             }
             break;
     }
 };
-info(`jdsw: ready...`);
+debug(`jdsw: ready...`);
 //# sourceMappingURL=jacdac-serviceworker.js.map
