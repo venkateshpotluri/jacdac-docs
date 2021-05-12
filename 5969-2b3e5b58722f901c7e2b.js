@@ -539,17 +539,16 @@ function DashboardHIDKeyboard(props) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              inputButtonRef.current.value = "";
-              _context2.next = 3;
+              _context2.next = 2;
               return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .delay */ .gw)(100);
 
-            case 3:
+            case 2:
               unpacked = [[[selector, modifiers, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardAction.Press */ .gBd.Press]]];
               data = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdpack */ .AV)("r: u16 u8 u8", unpacked);
-              _context2.next = 7;
+              _context2.next = 6;
               return service.sendCmdAsync(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardCmd.Key */ .Fnq.Key, data);
 
-            case 7:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -634,4 +633,4 @@ function useMounted() {
 /***/ })
 
 }]);
-//# sourceMappingURL=5969-7d9de072da6cb1815a65.js.map
+//# sourceMappingURL=5969-2b3e5b58722f901c7e2b.js.map
