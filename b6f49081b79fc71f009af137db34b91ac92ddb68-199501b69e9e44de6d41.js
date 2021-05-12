@@ -293,8 +293,8 @@ function AnalogButton(props) {
 }
 // EXTERNAL MODULE: ./src/components/hooks/useThrottledValue.ts
 var useThrottledValue = __webpack_require__(72901);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
-var servers = __webpack_require__(25606);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 25 modules
+var servers = __webpack_require__(89979);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
@@ -938,4 +938,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-364b3cd59e90a22d8852.js.map
+//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-199501b69e9e44de6d41.js.map
