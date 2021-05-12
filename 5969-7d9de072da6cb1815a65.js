@@ -479,6 +479,7 @@ function DashboardHIDKeyboard(props) {
 
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(service);
   var classes = useStyles();
+  var inputButtonRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
 
   var handleKeyDown = function handleKeyDown(ev) {
     ev.stopPropagation();
@@ -489,6 +490,10 @@ function DashboardHIDKeyboard(props) {
         metaKey = ev.metaKey,
         key = ev.key;
     console.log({
+      altKey: altKey,
+      ctrlKey: ctrlKey,
+      shiftKey: shiftKey,
+      metaKey: metaKey,
       key: key
     });
     var newSelector = selectors[key.toLowerCase()] || 0;
@@ -508,12 +513,13 @@ function DashboardHIDKeyboard(props) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              inputButtonRef.current.value = "";
               setSelector(0);
               setModifiers(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardModifiers.None */ .Q2Q.None);
-              _context.next = 4;
+              _context.next = 5;
               return service.sendCmdAsync(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardCmd.Clear */ .Fnq.Clear);
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -533,7 +539,7 @@ function DashboardHIDKeyboard(props) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              console.log('send');
+              inputButtonRef.current.value = "";
               _context2.next = 3;
               return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .delay */ .gw)(100);
 
@@ -582,6 +588,7 @@ function DashboardHIDKeyboard(props) {
     item: true,
     xs: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("input", {
+    ref: inputButtonRef,
     onFocus: handleClick,
     disabled: disabled,
     placeholder: "focus to send",
@@ -627,4 +634,4 @@ function useMounted() {
 /***/ })
 
 }]);
-//# sourceMappingURL=5969-0cc11918c2b49d942564.js.map
+//# sourceMappingURL=5969-7d9de072da6cb1815a65.js.map
