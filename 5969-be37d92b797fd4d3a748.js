@@ -443,7 +443,17 @@ var selectors = {
   "7": 0x24,
   "8": 0x25,
   "9": 0x26,
-  "0": 0x27
+  "0": 0x27,
+  "enter": 0x28,
+  "escape": 0x29,
+  "backspace": 0x2a,
+  "tab": 0x2b,
+  " ": 0x2c,
+  "-": 0x2d,
+  "_": 0x2d,
+  "=": 0x2e,
+  "+": 0x2e // TODO entire list
+
 };
 var reverseSelectors = Object.keys(selectors).reduce(function (r, key) {
   r[selectors[key]] = key;
@@ -468,14 +478,14 @@ function DashboardBuzzer(props) {
   var handleKeyDown = function handleKeyDown(ev) {
     ev.stopPropagation();
     ev.preventDefault();
-    console.log({
-      ev: ev
-    });
     var altKey = ev.altKey,
         ctrlKey = ev.ctrlKey,
         shiftKey = ev.shiftKey,
         metaKey = ev.metaKey,
         key = ev.key;
+    console.log({
+      key: key
+    });
     var newSelector = selectors[key.toLowerCase()] || 0;
     var newModifiers = modifiers | (altKey && _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardModifiers.LeftAlt */ .Q2Q.LeftAlt) | (metaKey && _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardModifiers.LeftGUI */ .Q2Q.LeftGUI) | (ctrlKey && _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardModifiers.LeftControl */ .Q2Q.LeftControl) | (shiftKey && _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_2__/* .HidKeyboardModifiers.LeftShift */ .Q2Q.LeftShift);
     if (newSelector) setSelector(newSelector);
@@ -586,4 +596,4 @@ function useMounted() {
 /***/ })
 
 }]);
-//# sourceMappingURL=5969-c744c9e487319dedf15f.js.map
+//# sourceMappingURL=5969-be37d92b797fd4d3a748.js.map
