@@ -37262,9 +37262,10 @@ var HIDMouseServer = /*#__PURE__*/function (_JDServiceServer) {
   _proto.handleMove = function handleMove(pkt) {
     var _pkt$jdunpack = pkt.jdunpack("i16 i16 u16"),
         dx = _pkt$jdunpack[0],
-        dy = _pkt$jdunpack[1];
+        dy = _pkt$jdunpack[1],
+        time = _pkt$jdunpack[2];
 
-    this.setLastCommand("move " + dx + " " + dy);
+    this.setLastCommand("move " + dx + " " + dy + " " + time);
   };
 
   _proto.handleSetButton = function handleSetButton(pkt) {
@@ -37280,9 +37281,10 @@ var HIDMouseServer = /*#__PURE__*/function (_JDServiceServer) {
 
   _proto.handleWheel = function handleWheel(pkt) {
     var _pkt$jdunpack3 = pkt.jdunpack("i16 u16"),
-        dy = _pkt$jdunpack3[0];
+        dy = _pkt$jdunpack3[0],
+        time = _pkt$jdunpack3[1];
 
-    this.setLastCommand("wheel " + dy);
+    this.setLastCommand("wheel " + dy + " " + time);
   };
 
   (0,createClass/* default */.Z)(HIDMouseServer, [{
@@ -41878,7 +41880,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c6986ae864466037f0fd581ded2df5d5f1235e23";
+  var sha = "16f134a01aa88e558ee8c433e1de64b1dc58b70b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57189,4 +57191,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-36040b36e5006fec85de.js.map
+//# sourceMappingURL=app-f1020289b95a0d562f53.js.map
