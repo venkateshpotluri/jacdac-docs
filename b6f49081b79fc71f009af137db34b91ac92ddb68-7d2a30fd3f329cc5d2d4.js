@@ -681,6 +681,9 @@ var DashboardBitRadio = /*#__PURE__*/(0,react.lazy)(function () {
 var DashboardHIDKeyboard = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5969).then(__webpack_require__.bind(__webpack_require__, 25969));
 });
+var DashboardHIDMouse = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 5233).then(__webpack_require__.bind(__webpack_require__, 45233));
+});
 var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAGER */.igi] = {
   component: DashboardRoleManager,
   weight: function weight() {
@@ -797,6 +800,11 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAG
   component: DashboardHIDKeyboard,
   weight: function weight() {
     return 3;
+  }
+}, _serviceViews[constants/* SRV_HID_MOUSE */.Eef] = {
+  component: DashboardHIDMouse,
+  weight: function weight() {
+    return 2;
   }
 }, _serviceViews);
 var collapsedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
@@ -938,4 +946,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-199501b69e9e44de6d41.js.map
+//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-7d2a30fd3f329cc5d2d4.js.map
