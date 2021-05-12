@@ -41639,7 +41639,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a264d0c209c2f7b6fd6889c4bb00c5b5720db67c";
+  var sha = "075ceb99d5e718176f5d7235c8476416bceb7f2f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -43102,6 +43102,48 @@ function unpackedToObject(data, fields, defaultName) {
 
   return r;
 }
+function objectToUnpacked(pkt, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+msg) {
+  if (!msg) return [];
+  if (typeof msg === "number" || typeof msg === "string") return [msg];else if (typeof msg === "boolean") return [msg ? 1 : 0];else if (Array.isArray(msg)) {
+    // assume a packaged layout
+    return msg;
+  } else {
+    var fields = pkt.fields;
+    var r = [];
+
+    for (var i = 0; i < fields.length; ++i) {
+      var field = fields[i];
+      var name = field.name === "_" ? pkt.name : field.name;
+      var value = msg[name];
+
+      if (field.startRepeats) {
+        var _ret2 = function () {
+          var repeatFields = fields.slice(i);
+          r.push( // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          value.map(function (vrow) {
+            var arow = [];
+
+            for (var j = 0; j < repeatFields.length; ++j) {
+              var rfield = repeatFields[j];
+              var rname = rfield.name;
+              arow.push(vrow[rname]);
+            }
+
+            return arow;
+          }));
+          return "break";
+        }();
+
+        if (_ret2 === "break") break;
+      } else {
+        r.push(value);
+      }
+    }
+
+    return r;
+  }
+}
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/register.ts
 
 
@@ -44266,6 +44308,10 @@ var JDDevice = /*#__PURE__*/function (_JDNode) {
     this._servicesData = pkt.data; // check for restart
 
     if (w1 && (w1 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf) < (w0 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf)) {
+      console.debug(this + " restart detected", {
+        new: w1 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf,
+        old: w0 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf
+      });
       this.initServices(true);
       this.bus.emit(constants/* DEVICE_RESTART */.eLF, this);
       this.emit(constants/* RESTART */.d0K);
@@ -56970,4 +57016,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-be58d3ef9e4ea72a5688.js.map
+//# sourceMappingURL=app-8ca64d9065fa738320cd.js.map
