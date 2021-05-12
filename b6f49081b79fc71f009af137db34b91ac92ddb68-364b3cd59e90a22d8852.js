@@ -293,8 +293,8 @@ function AnalogButton(props) {
 }
 // EXTERNAL MODULE: ./src/components/hooks/useThrottledValue.ts
 var useThrottledValue = __webpack_require__(72901);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(25606);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
@@ -796,7 +796,7 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAG
 }, _serviceViews[constants/* SRV_HID_KEYBOARD */.Hg9] = {
   component: DashboardHIDKeyboard,
   weight: function weight() {
-    return 2;
+    return 3;
   }
 }, _serviceViews);
 var collapsedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
@@ -938,4 +938,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-42979c121fcbcfd86a4e.js.map
+//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-364b3cd59e90a22d8852.js.map
