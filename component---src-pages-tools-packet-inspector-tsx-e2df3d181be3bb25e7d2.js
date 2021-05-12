@@ -744,130 +744,6 @@ function PacketListItem(props) {
 
 /***/ }),
 
-/***/ 31921:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ ServiceSpecificationCard; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(85420);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(95823);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4998);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(29114);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(80453);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(31186);
-/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
-/* harmony import */ var _IDChip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(92681);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36176);
-/* harmony import */ var _ui_Markdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(98784);
-/* harmony import */ var _ServiceSpecificationStatusAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(49102);
-/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37801);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(20392);
-/* harmony import */ var _KindIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(50048);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(71815);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(35313);
-
-
-
-
-
-
-
-
-
-
-
-
-function ServiceSpecificationCard(props) {
-  var _spec, _spec2, _spec3, _spec4, _spec5;
-
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z),
-      bus = _useContext.bus;
-
-  var serviceClass = props.serviceClass,
-      specification = props.specification,
-      showReleaseStatus = props.showReleaseStatus,
-      showServiceClass = props.showServiceClass;
-  var spec = specification;
-  if (!spec && serviceClass !== undefined) spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .serviceSpecificationFromClassIdentifier */ .d5)(serviceClass);
-  var sc = ((_spec = spec) === null || _spec === void 0 ? void 0 : _spec.classIdentifier) || serviceClass;
-  var srv = ((_spec2 = spec) === null || _spec2 === void 0 ? void 0 : _spec2.shortId) || (sc === null || sc === void 0 ? void 0 : sc.toString(16));
-  var hostDefinition = (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__/* .serviceProviderDefinitionFromServiceClass */ .vd)(sc);
-
-  var handleSimulatorClick = function handleSimulatorClick() {
-    (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__/* .addServiceProvider */ .Q6)(bus, hostDefinition);
-    (0,gatsby__WEBPACK_IMPORTED_MODULE_10__.navigate)("/dashboard/");
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
-    title: ((_spec3 = spec) === null || _spec3 === void 0 ? void 0 : _spec3.name) || "???",
-    subheader: showServiceClass && srv && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IDChip__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
-      id: sc,
-      filter: "srv:" + srv
-    }),
-    action: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, hostDefinition && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-      size: "small",
-      onClick: handleSimulatorClick,
-      avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_KindIcon__WEBPACK_IMPORTED_MODULE_8__/* .default */ .ZP, {
-        kind: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_9__/* .VIRTUAL_DEVICE_NODE_NAME */ .UX7
-      }),
-      "aria-label": "start simulator and open dashboard",
-      label: "simulator"
-    }))
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, null, ((_spec4 = spec) === null || _spec4 === void 0 ? void 0 : _spec4.notes["short"]) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
-    variant: "body2",
-    component: "div"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Markdown__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    source: ((_spec5 = spec) === null || _spec5 === void 0 ? void 0 : _spec5.notes["short"].split(".", 1)[0]) + "."
-  })), showReleaseStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ServiceSpecificationStatusAlert__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    specification: spec
-  })), spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "outlined",
-    "aria-label": "open service " + spec.shortId + " page",
-    to: "/services/" + spec.shortId + "/"
-  }, "More...")));
-}
-
-/***/ }),
-
-/***/ 79739:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ PaperBox; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19756);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(59355);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8266);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(58063);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-
-
-
-function PaperBox(props) {
-  var children = props.children,
-      padding = props.padding,
-      elevation = props.elevation,
-      bgcolor = props.bgcolor,
-      others = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(props, ["children", "padding", "elevation", "bgcolor"]);
-
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, Object.assign({}, others, {
-    bgcolor: bgcolor,
-    mb: theme.spacing(0.25)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    square: true,
-    elevation: elevation
-  }, padding !== 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
-    p: theme.spacing(padding || 0.25)
-  }, children), padding === 0 && children));
-}
-
-/***/ }),
-
 /***/ 55662:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1087,7 +963,16 @@ function PacketHeaderLayout(props) {
 }
 // EXTERNAL MODULE: ./src/components/PacketBadge.tsx + 1 modules
 var PacketBadge = __webpack_require__(97309);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
+var pack = __webpack_require__(91635);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/packobject.ts
+var packobject = __webpack_require__(53616);
+// EXTERNAL MODULE: ./src/components/CodeBlock.tsx + 4 modules
+var CodeBlock = __webpack_require__(50274);
 ;// CONCATENATED MODULE: ./src/components/PacketDataLayout.tsx
+
+
+
 
 
 
@@ -1098,21 +983,32 @@ function PacketDataLayout(props) {
 
   var packet = props.packet,
       showHex = props.showHex,
-      showDecoded = props.showDecoded;
+      showDecoded = props.showDecoded,
+      showUnpacked = props.showUnpacked,
+      showJSON = props.showJSON;
   var data = packet.data,
       decoded = packet.decoded;
   var info = decoded === null || decoded === void 0 ? void 0 : decoded.info;
+  var unpacked = (info === null || info === void 0 ? void 0 : info.packFormat) && (0,pack/* jdunpack */.TE)(data, info.packFormat);
   return /*#__PURE__*/react.createElement(react.Fragment, null, showHex && !!data.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
     padding: 0
   }, /*#__PURE__*/react.createElement(Tooltip/* default */.Z, {
     title: (decoded === null || decoded === void 0 ? void 0 : (_decoded$info = decoded.info) === null || _decoded$info === void 0 ? void 0 : _decoded$info.packFormat) || "unknown data layout"
   }, /*#__PURE__*/react.createElement("pre", null, (0,utils/* toHex */.NC)(data)))), showDecoded && !!(decoded !== null && decoded !== void 0 && decoded.decoded.length) && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, null, /*#__PURE__*/react.createElement(TableContainer/* default */.Z, null, /*#__PURE__*/react.createElement(Table/* default */.Z, {
     size: "small"
-  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "value"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, decoded.decoded.map(function (member, i) {
+  }, /*#__PURE__*/react.createElement(TableHead/* default */.Z, null, /*#__PURE__*/react.createElement(TableRow/* default */.Z, null, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "name"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "value"), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, "pretty"))), /*#__PURE__*/react.createElement(TableBody/* default */.Z, null, decoded.decoded.map(function (member, i) {
     return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
       key: i
-    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, member.info.name == "_" ? info.name : member.info.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, member.humanValue)));
-  }))))));
+    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, member.info.name == "_" ? info.name : member.info.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, member.value)), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, member.humanValue)));
+  }))))), showUnpacked && (info === null || info === void 0 ? void 0 : info.packFormat) && /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    pb: 2
+  }, /*#__PURE__*/react.createElement(CodeBlock.default, {
+    className: "language-json"
+  }, JSON.stringify(unpacked, null, 4))), showJSON && (info === null || info === void 0 ? void 0 : info.packFormat) && /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    pb: 2
+  }, /*#__PURE__*/react.createElement(CodeBlock.default, {
+    className: "language-json"
+  }, JSON.stringify((0,packobject/* unpackedToObject */.f)(unpacked, info.fields, info.name), null, 4))));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/List/List.js
 var List = __webpack_require__(80791);
@@ -1179,7 +1075,9 @@ function PacketInspector() {
   }), /*#__PURE__*/react.createElement(PacketDataLayout, {
     packet: packet,
     showHex: true,
-    showDecoded: true
+    showDecoded: true,
+    showJSON: true,
+    showUnpacked: true
   }), ack && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h3", null, "Ack received"), /*#__PURE__*/react.createElement(PacketList, {
     packets: [ack]
   })), get && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h3", null, "GET request"), /*#__PURE__*/react.createElement(PacketList, {
@@ -1207,4 +1105,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-41ba2e2d3424685df1ae.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-e2df3d181be3bb25e7d2.js.map

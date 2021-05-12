@@ -619,7 +619,7 @@ var DashboardWindDirection = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6902).then(__webpack_require__.bind(__webpack_require__, 26902));
 });
 var DashboardMatrixKeypad = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 7859).then(__webpack_require__.bind(__webpack_require__, 7859));
+  return __webpack_require__.e(/* import() */ 7111).then(__webpack_require__.bind(__webpack_require__, 7859));
 });
 var DashboardReflectedLight = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5149).then(__webpack_require__.bind(__webpack_require__, 65149));
@@ -676,7 +676,7 @@ var DashboardSolenoid = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 3356).then(__webpack_require__.bind(__webpack_require__, 73356));
 });
 var DashboardBitRadio = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
+  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
 });
 var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAGER */.igi] = {
   component: DashboardRoleManager,
@@ -930,4 +930,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-38acceefc5a8280ff4ef.js.map
+//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-d1886475d700bdaa08b6.js.map

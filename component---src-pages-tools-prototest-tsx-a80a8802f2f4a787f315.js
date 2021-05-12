@@ -2107,7 +2107,7 @@ function Snippet(props) {
       download = props.download,
       url = props.url,
       caption = props.caption;
-  var v = typeof value === 'function' ? value() : value;
+  var v = typeof value === "function" ? value() : value;
   var className = mode && "language-" + (mode === "sts" ? "ts" : mode);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_1__.default, {
     className: className,
@@ -2799,4 +2799,4 @@ function ProtocolTest() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-prototest-tsx-c004d62dc5c7de348e59.js.map
+//# sourceMappingURL=component---src-pages-tools-prototest-tsx-a80a8802f2f4a787f315.js.map

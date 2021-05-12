@@ -1760,7 +1760,7 @@ function Snippet(props) {
       download = props.download,
       url = props.url,
       caption = props.caption;
-  var v = typeof value === 'function' ? value() : value;
+  var v = typeof value === "function" ? value() : value;
   var className = mode && "language-" + (mode === "sts" ? "ts" : mode);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_1__.default, {
     className: className,
@@ -1975,4 +1975,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-bdbeaa21892802e99c22.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-71e0dfbb6cad0716afa1.js.map

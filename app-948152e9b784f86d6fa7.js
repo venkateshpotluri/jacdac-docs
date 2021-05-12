@@ -29923,6 +29923,92 @@ function frameToPackets(frame, timestamp) {
 
 /***/ }),
 
+/***/ 53616:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "f": function() { return /* binding */ unpackedToObject; }
+/* harmony export */ });
+/* unused harmony export objectToUnpacked */
+/**
+ * Unrolls an array of packed values into a friendly object structure
+ * @param data
+ * @param fields
+ * @returns
+ */
+function unpackedToObject(data, fields, defaultName) {
+  if (!data || !fields) return undefined;
+  var r = {};
+
+  for (var i = 0; i < data.length; ++i) {
+    var field = fields[i];
+    var value = data[i];
+    var name = field.name,
+        startRepeats = field.startRepeats;
+    var prettyName = name === "_" && defaultName ? defaultName : name;
+
+    if (startRepeats) {
+      var _ret = function () {
+        var repeatData = data.slice(i);
+        var repeatFields = fields.slice(i);
+        r["repeat"] = repeatData.map(function (rdata) {
+          return unpackedToObject(rdata, repeatFields);
+        });
+        return "break";
+      }();
+
+      if (_ret === "break") break;
+    } else r[prettyName] = value;
+  }
+
+  return r;
+}
+function objectToUnpacked(pkt, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+msg) {
+  if (!msg) return [];
+  if (typeof msg === "number" || typeof msg === "string") return [msg];else if (typeof msg === "boolean") return [msg ? 1 : 0];else if (Array.isArray(msg)) {
+    // assume a packaged layout
+    return msg;
+  } else {
+    var fields = pkt.fields;
+    var r = [];
+
+    for (var i = 0; i < fields.length; ++i) {
+      var field = fields[i];
+      var name = field.name === "_" ? pkt.name : field.name;
+      var value = msg[name];
+
+      if (field.startRepeats) {
+        var _ret2 = function () {
+          var repeatFields = fields.slice(i);
+          r.push( // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          value.map(function (vrow) {
+            var arow = [];
+
+            for (var j = 0; j < repeatFields.length; ++j) {
+              var rfield = repeatFields[j];
+              var rname = rfield.name;
+              arow.push(vrow[rname]);
+            }
+
+            return arow;
+          }));
+          return "break";
+        }();
+
+        if (_ret2 === "break") break;
+      } else {
+        r.push(value);
+      }
+    }
+
+    return r;
+  }
+}
+
+/***/ }),
+
 /***/ 93642:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -41639,7 +41725,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "075ceb99d5e718176f5d7235c8476416bceb7f2f";
+  var sha = "1d72a39544525da0e972536e4f6249f8687ad08a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -41762,7 +41848,7 @@ var TableRow = __webpack_require__(99395);
 
 
 var CodeBlock = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(274)]).then(__webpack_require__.bind(__webpack_require__, 50274));
+  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(274)]).then(__webpack_require__.bind(__webpack_require__, 50274));
 });
 
 var _RandomGenerator = /*#__PURE__*/(0,react.lazy)(function () {
@@ -41837,8 +41923,8 @@ function useMdxComponents() {
   }, []);
   return mdxComponents;
 }
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 23 modules
-var ThemedLayout = __webpack_require__(77023);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 22 modules
+var ThemedLayout = __webpack_require__(2086);
 ;// CONCATENATED MODULE: ./src/components/ui/ThemedMdxLayout.tsx
 
 
@@ -42872,7 +42958,7 @@ function Suspense(props) {
 
 /***/ }),
 
-/***/ 77023:
+/***/ 2086:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43068,82 +43154,8 @@ var JDServiceMemberNode = /*#__PURE__*/function (_JDNode) {
 }(node/* JDNode */.zb);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
 var pack = __webpack_require__(91635);
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/packobject.ts
-/**
- * Unrolls an array of packed values into a friendly object structure
- * @param data
- * @param fields
- * @returns
- */
-function unpackedToObject(data, fields, defaultName) {
-  if (!data || !fields) return undefined;
-  var r = {};
-
-  for (var i = 0; i < data.length; ++i) {
-    var field = fields[i];
-    var value = data[i];
-    var name = field.name,
-        startRepeats = field.startRepeats;
-    var prettyName = name === "_" && defaultName ? defaultName : name;
-
-    if (startRepeats) {
-      var _ret = function () {
-        var repeatData = data.slice(i);
-        var repeatFields = fields.slice(i);
-        r["repeat"] = repeatData.map(function (rdata) {
-          return unpackedToObject(rdata, repeatFields);
-        });
-        return "break";
-      }();
-
-      if (_ret === "break") break;
-    } else r[prettyName] = value;
-  }
-
-  return r;
-}
-function objectToUnpacked(pkt, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-msg) {
-  if (!msg) return [];
-  if (typeof msg === "number" || typeof msg === "string") return [msg];else if (typeof msg === "boolean") return [msg ? 1 : 0];else if (Array.isArray(msg)) {
-    // assume a packaged layout
-    return msg;
-  } else {
-    var fields = pkt.fields;
-    var r = [];
-
-    for (var i = 0; i < fields.length; ++i) {
-      var field = fields[i];
-      var name = field.name === "_" ? pkt.name : field.name;
-      var value = msg[name];
-
-      if (field.startRepeats) {
-        var _ret2 = function () {
-          var repeatFields = fields.slice(i);
-          r.push( // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          value.map(function (vrow) {
-            var arow = [];
-
-            for (var j = 0; j < repeatFields.length; ++j) {
-              var rfield = repeatFields[j];
-              var rname = rfield.name;
-              arow.push(vrow[rname]);
-            }
-
-            return arow;
-          }));
-          return "break";
-        }();
-
-        if (_ret2 === "break") break;
-      } else {
-        r.push(value);
-      }
-    }
-
-    return r;
-  }
-}
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/packobject.ts
+var packobject = __webpack_require__(53616);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/register.ts
 
 
@@ -43345,7 +43357,7 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
     key: "objectValue",
     get: function get() {
       var specification = this.specification;
-      return unpackedToObject(this.unpackedValue, specification === null || specification === void 0 ? void 0 : specification.fields, specification.name);
+      return (0,packobject/* unpackedToObject */.f)(this.unpackedValue, specification === null || specification === void 0 ? void 0 : specification.fields, specification.name);
     }
   }, {
     key: "intValue",
@@ -52275,7 +52287,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-services-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(880), __webpack_require__.e(9871), __webpack_require__.e(4300), __webpack_require__.e(7858)]).then(__webpack_require__.bind(__webpack_require__, 43668));
   },
   "component---src-pages-tools-azure-device-twin-designer-tsx": function componentSrcPagesToolsAzureDeviceTwinDesignerTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));
+    return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(880), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));
   },
   "component---src-pages-tools-collector-tsx": function componentSrcPagesToolsCollectorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(1094), __webpack_require__.e(8026), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 56075));
@@ -52305,7 +52317,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5637)]).then(__webpack_require__.bind(__webpack_require__, 46905));
   },
   "component---src-pages-tools-packet-inspector-tsx": function componentSrcPagesToolsPacketInspectorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(7617), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));
+    return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(7617), __webpack_require__.e(5244), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));
   },
   "component---src-pages-tools-peers-tsx": function componentSrcPagesToolsPeersTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-peers-tsx */ 6992).then(__webpack_require__.bind(__webpack_require__, 27238));
@@ -52314,16 +52326,16 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-player-mdx */ 5347).then(__webpack_require__.bind(__webpack_require__, 28455));
   },
   "component---src-pages-tools-prototest-tsx": function componentSrcPagesToolsPrototestTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-prototest-tsx */[__webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(5437)]).then(__webpack_require__.bind(__webpack_require__, 50381));
+    return Promise.all(/* import() | component---src-pages-tools-prototest-tsx */[__webpack_require__.e(880), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(5437)]).then(__webpack_require__.bind(__webpack_require__, 50381));
   },
   "component---src-pages-tools-release-assets-tsx": function componentSrcPagesToolsReleaseAssetsTsx() {
     return Promise.all(/* import() | component---src-pages-tools-release-assets-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5619), __webpack_require__.e(9225)]).then(__webpack_require__.bind(__webpack_require__, 71044));
   },
   "component---src-pages-tools-service-editor-tsx": function componentSrcPagesToolsServiceEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5619), __webpack_require__.e(3426), __webpack_require__.e(7617), __webpack_require__.e(4762), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
+    return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(7859), __webpack_require__.e(5619), __webpack_require__.e(7617), __webpack_require__.e(4762), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
   },
   "component---src-pages-tools-service-test-editor-tsx": function componentSrcPagesToolsServiceTestEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5619), __webpack_require__.e(3426), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(7859), __webpack_require__.e(5619), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
   },
   "component---src-pages-tools-service-test-tsx": function componentSrcPagesToolsServiceTestTsx() {
     return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5619), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
@@ -52332,7 +52344,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-settings-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(1094), __webpack_require__.e(5560)]).then(__webpack_require__.bind(__webpack_require__, 33734));
   },
   "component---src-pages-tools-updater-tsx": function componentSrcPagesToolsUpdaterTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(1094), __webpack_require__.e(2352), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 27617));
+    return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(1094), __webpack_require__.e(8472), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 27617));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -52341,7 +52353,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-templates-device-company-tsx */[__webpack_require__.e(880), __webpack_require__.e(20)]).then(__webpack_require__.bind(__webpack_require__, 96557));
   },
   "component---src-templates-device-tsx": function componentSrcTemplatesDeviceTsx() {
-    return Promise.all(/* import() | component---src-templates-device-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(880), __webpack_require__.e(3426), __webpack_require__.e(2352), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(8323)]).then(__webpack_require__.bind(__webpack_require__, 10454));
+    return Promise.all(/* import() | component---src-templates-device-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(880), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(5244), __webpack_require__.e(8323)]).then(__webpack_require__.bind(__webpack_require__, 10454));
   },
   "component---src-templates-service-playground-tsx": function componentSrcTemplatesServicePlaygroundTsx() {
     return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(8770), __webpack_require__.e(328), __webpack_require__.e(2927), __webpack_require__.e(3981), __webpack_require__.e(6387), __webpack_require__.e(1094), __webpack_require__.e(880), __webpack_require__.e(8026), __webpack_require__.e(8353), __webpack_require__.e(8946), __webpack_require__.e(5619), __webpack_require__.e(7617), __webpack_require__.e(4762), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
@@ -57016,4 +57028,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-8ca64d9065fa738320cd.js.map
+//# sourceMappingURL=app-948152e9b784f86d6fa7.js.map
