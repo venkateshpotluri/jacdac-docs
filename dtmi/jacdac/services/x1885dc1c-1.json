@@ -2,7 +2,7 @@
   "@type": "Interface",
   "@id": "dtmi:jacdac:services:x1885dc1c;1",
   "displayName": "HID Mouse",
-  "description": "Controls a HID mouse. \n\nThis service cannot be simulated.",
+  "description": "Controls a HID mouse.",
   "contents": [],
   "extends": [
     "dtmi:jacdac:services:x1ffffff3;1"
@@ -24,19 +24,19 @@
       "valueSchema": "integer",
       "enumValues": [
         {
+          "name": "left",
+          "displayName": "Left",
+          "enumValue": 1
+        },
+        {
           "name": "right",
           "displayName": "Right",
-          "enumValue": 1
+          "enumValue": 2
         },
         {
           "name": "middle",
           "displayName": "Middle",
           "enumValue": 4
-        },
-        {
-          "name": "left",
-          "displayName": "Left",
-          "enumValue": 2
         }
       ]
     },

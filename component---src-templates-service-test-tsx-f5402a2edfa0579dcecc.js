@@ -97,8 +97,8 @@ var Info = __webpack_require__(12531);
 var Alert = __webpack_require__(95453);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 25 modules
-var servers = __webpack_require__(89979);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(25606);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./jacdac-ts/src/test/testspec.ts + 1 modules
@@ -289,4 +289,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-test-tsx-63a07543bdb3953fee77.js.map
+//# sourceMappingURL=component---src-templates-service-test-tsx-f5402a2edfa0579dcecc.js.map

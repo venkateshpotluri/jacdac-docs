@@ -681,7 +681,7 @@ function DashboardDeviceItem(props) {
 /* harmony export */   "Z": function() { return /* binding */ useServiceProviderFromServiceClass; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89979);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25606);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
 
 
@@ -737,4 +737,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-9746c34a61e9818f3044.js.map
+//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-2454a4d03f3dcc032a4d.js.map

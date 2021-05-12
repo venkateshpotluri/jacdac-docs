@@ -1572,7 +1572,7 @@
     "@type": "Interface",
     "@id": "dtmi:jacdac:services:x18b05b6a;1",
     "displayName": "HID Keyboard",
-    "description": "Control a HID keyboard. \n\nThis service cannot be simulated.\n\nThe codes for the key (selectors) is defined in the [HID Keyboard\nspecification](https://usb.org/sites/default/files/hut1_21.pdf), chapter 10 Keyboard/Keypad Page, page 81.\nModifiers are in page 87.\n\nThe device keeps tracks of the key state and is able to clear it all with the clear command.",
+    "description": "Control a HID keyboard. \n\nThe codes for the key (selectors) is defined in the [HID Keyboard\nspecification](https://usb.org/sites/default/files/hut1_21.pdf), chapter 10 Keyboard/Keypad Page, page 81.\nModifiers are in page 87.\n\nThe device keeps tracks of the key state and is able to clear it all with the clear command.",
     "contents": [],
     "extends": [
       "dtmi:jacdac:services:x1ffffff3;1"
@@ -1669,7 +1669,7 @@
     "@type": "Interface",
     "@id": "dtmi:jacdac:services:x1885dc1c;1",
     "displayName": "HID Mouse",
-    "description": "Controls a HID mouse. \n\nThis service cannot be simulated.",
+    "description": "Controls a HID mouse.",
     "contents": [],
     "extends": [
       "dtmi:jacdac:services:x1ffffff3;1"
@@ -1691,19 +1691,19 @@
         "valueSchema": "integer",
         "enumValues": [
           {
+            "name": "left",
+            "displayName": "Left",
+            "enumValue": 1
+          },
+          {
             "name": "right",
             "displayName": "Right",
-            "enumValue": 1
+            "enumValue": 2
           },
           {
             "name": "middle",
             "displayName": "Middle",
             "enumValue": 4
-          },
-          {
-            "name": "left",
-            "displayName": "Left",
-            "enumValue": 2
           }
         ]
       },

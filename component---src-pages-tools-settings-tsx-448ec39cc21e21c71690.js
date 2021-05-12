@@ -1010,7 +1010,7 @@ function ConnectAlert(props) {
 /* harmony export */   "Z": function() { return /* binding */ useServiceProviderFromServiceClass; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89979);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(25606);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
 
 
@@ -1757,4 +1757,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-settings-tsx-ee3c8c1b7e3366b27d05.js.map
+//# sourceMappingURL=component---src-pages-tools-settings-tsx-448ec39cc21e21c71690.js.map
