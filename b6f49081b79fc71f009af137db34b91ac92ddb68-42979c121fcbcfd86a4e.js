@@ -678,6 +678,9 @@ var DashboardSolenoid = /*#__PURE__*/(0,react.lazy)(function () {
 var DashboardBitRadio = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(7859), __webpack_require__.e(8472), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
 });
+var DashboardHIDKeyboard = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 5969).then(__webpack_require__.bind(__webpack_require__, 25969));
+});
 var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAGER */.igi] = {
   component: DashboardRoleManager,
   weight: function weight() {
@@ -789,6 +792,11 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAG
   component: DashboardBitRadio,
   weight: function weight() {
     return 6;
+  }
+}, _serviceViews[constants/* SRV_HID_KEYBOARD */.Hg9] = {
+  component: DashboardHIDKeyboard,
+  weight: function weight() {
+    return 2;
   }
 }, _serviceViews);
 var collapsedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
@@ -930,4 +938,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-d1886475d700bdaa08b6.js.map
+//# sourceMappingURL=b6f49081b79fc71f009af137db34b91ac92ddb68-42979c121fcbcfd86a4e.js.map
