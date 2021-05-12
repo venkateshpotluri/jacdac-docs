@@ -479,10 +479,6 @@ function DashboardHIDKeyboard(props) {
 
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(service);
   var classes = useStyles();
-  console.log({
-    selector: selector,
-    modifiers: modifiers.toString(16)
-  });
 
   var handleKeyDown = function handleKeyDown(ev) {
     ev.stopPropagation();
@@ -631,4 +627,4 @@ function useMounted() {
 /***/ })
 
 }]);
-//# sourceMappingURL=5969-cc0564141bd214117f0f.js.map
+//# sourceMappingURL=5969-0cc11918c2b49d942564.js.map
