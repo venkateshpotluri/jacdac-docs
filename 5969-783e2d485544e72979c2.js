@@ -500,7 +500,35 @@ var selectors = {
   numpad8: 0x60,
   numpad9: 0x61,
   numpad0: 0x62,
-  numpaddecimal: 0x63
+  numpaddecimal: 0x63,
+  numpadequal: 0x67,
+  f13: 0x68,
+  f14: 0x69,
+  f15: 0x6a,
+  f16: 0x6b,
+  f17: 0x6c,
+  f18: 0x6d,
+  f19: 0x6e,
+  f20: 0x6f,
+  f21: 0x70,
+  f22: 0x71,
+  f23: 0x72,
+  f24: 0x73,
+  execute: 0x74,
+  help: 0x75,
+  contextmenu: 0x76,
+  select: 0x77,
+  stop: 0x78,
+  again: 0x79,
+  undo: 0x7a,
+  cut: 0x7b,
+  copy: 0x7c,
+  paste: 0x7d,
+  find: 0x7e,
+  mute: 0x7f,
+  volumeup: 0x80,
+  volumedown: 0x81,
+  numpadcomma: 0x85
 };
 var reverseSelectors = Object.keys(selectors).reduce(function (r, key) {
   if (!r[selectors[key]]) r[selectors[key]] = key;
@@ -714,4 +742,4 @@ function useMounted() {
 /***/ })
 
 }]);
-//# sourceMappingURL=5969-88641458d502efe9a853.js.map
+//# sourceMappingURL=5969-783e2d485544e72979c2.js.map
