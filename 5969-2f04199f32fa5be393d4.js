@@ -559,7 +559,7 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ 
 });
 
 function renderKey(selector, modifiers) {
-  var flags = ["Ctrl", "Shift", "Alt", "GUI", "Right Ctrl", "Right Shift", "Right Alt", "Right GUI"];
+  var flags = ["ctrl", "shift", "alt", "cmd", "right ctrl", "right shift", "right alt", "right cmd"];
   var values = [];
   flags.forEach(function (flag, i) {
     if (modifiers & 1 << i) {
@@ -742,4 +742,4 @@ function useMounted() {
 /***/ })
 
 }]);
-//# sourceMappingURL=5969-783e2d485544e72979c2.js.map
+//# sourceMappingURL=5969-2f04199f32fa5be393d4.js.map

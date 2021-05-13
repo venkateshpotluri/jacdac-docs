@@ -41899,7 +41899,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8a19cdfb71d1b9ef5baefb72abba95221486b388";
+  var sha = "70cc5b741b465f1116b13b352ca21516d2848e65";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -49594,9 +49594,15 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
   };
 
   _proto.deviceFilter = function deviceFilter(device) {
+    var _this3 = this;
+
     return device.services().some(function (srv) {
-      return ignoredServices.indexOf(srv.serviceClass) < 1;
+      return _this3.serviceFilter(srv);
     });
+  };
+
+  _proto.serviceFilter = function serviceFilter(srv) {
+    return ignoredServices.indexOf(srv.serviceClass) < 1;
   };
 
   _proto.postAddExtensions = function postAddExtensions() {
@@ -57214,4 +57220,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-cc54a268aabb62f01222.js.map
+//# sourceMappingURL=app-5a55f4c453b47e5c56ef.js.map

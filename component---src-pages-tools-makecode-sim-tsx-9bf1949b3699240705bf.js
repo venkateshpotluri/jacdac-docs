@@ -83,7 +83,8 @@ function Carousel() {
       bus = _useContext.bus;
 
   var iframeBridge = bus.iframeBridge;
-  var deviceFilter = iframeBridge.deviceFilter;
+  var deviceFilter = iframeBridge.deviceFilter,
+      serviceFilter = iframeBridge.serviceFilter;
   var extensions = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(iframeBridge, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.candidateExtensions;
   });
@@ -96,6 +97,7 @@ function Carousel() {
     showHeader: false,
     deviceSort: deviceSort,
     deviceFilter: deviceFilter,
+    serviceFilter: serviceFilter,
     showStartSimulators: false
   }), !!(extensions !== null && extensions !== void 0 && extensions.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
     m: 1
@@ -138,4 +140,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-9fca62e95c99199f4f25.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-9bf1949b3699240705bf.js.map

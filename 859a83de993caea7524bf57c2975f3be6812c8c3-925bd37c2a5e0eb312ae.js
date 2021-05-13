@@ -965,6 +965,7 @@ var notistack_esm = __webpack_require__(70076);
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b, constants/* SRV_PROTO_TEST */.$Bn];
 function DashboardDevice(props) {
   var device = props.device,
+      serviceFilter = props.serviceFilter,
       expanded = props.expanded,
       toggleExpanded = props.toggleExpanded,
       variant = props.variant,
@@ -999,7 +1000,7 @@ function DashboardDevice(props) {
     });
   });
   var ServiceWidgets = (0,react.useCallback)(function () {
-    var _services$filter;
+    var _services$filter, _services$filter$filt;
 
     return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
       ref: serviceGridRef,
@@ -1011,7 +1012,9 @@ function DashboardDevice(props) {
       alignContent: "space-between"
     }, services === null || services === void 0 ? void 0 : (_services$filter = services.filter(function (srv) {
       return expanded || !srv.isMixin;
-    })) === null || _services$filter === void 0 ? void 0 : _services$filter.map(function (service) {
+    })) === null || _services$filter === void 0 ? void 0 : (_services$filter$filt = _services$filter.filter(function (srv) {
+      return !serviceFilter || serviceFilter(srv);
+    })) === null || _services$filter$filt === void 0 ? void 0 : _services$filter$filt.map(function (service) {
       return /*#__PURE__*/react.createElement(DashboardServiceWidgetItem, {
         key: service.id,
         service: service,
@@ -2718,4 +2721,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-a3438983b61622f3f6c9.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-925bd37c2a5e0eb312ae.js.map
