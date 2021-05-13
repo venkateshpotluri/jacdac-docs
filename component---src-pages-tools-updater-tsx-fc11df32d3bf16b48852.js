@@ -545,9 +545,9 @@ var useStyles = (0,makeStyles/* default */.Z)(function () {
   return (0,createStyles/* default */.Z)({
     root: {},
     bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)'
+      display: "inline-block",
+      margin: "0 2px",
+      transform: "scale(0.8)"
     },
     title: {
       fontSize: 14
@@ -588,7 +588,7 @@ function DeviceCard(props) {
   var classes = useStyles();
   var services = (0,useChange/* default */.Z)(device, function () {
     return device.services().filter(function (service) {
-      return service.serviceClass != constants/* SRV_CTRL */.CRz && service.serviceClass != constants/* SRV_LOGGER */.w9j;
+      return service.serviceClass != constants/* SRV_CONTROL */.gm9 && service.serviceClass != constants/* SRV_LOGGER */.w9j;
     });
   });
   return /*#__PURE__*/react.createElement(Card/* default */.Z, {
@@ -1931,4 +1931,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-updater-tsx-f4687fbd9ee3b7945a44.js.map
+//# sourceMappingURL=component---src-pages-tools-updater-tsx-fc11df32d3bf16b48852.js.map

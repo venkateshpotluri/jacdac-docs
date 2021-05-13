@@ -27037,7 +27037,6 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "GJf": function() { return /* binding */ JD_ADVERTISEMENT_0_COUNTER_MASK; },
 /* harmony export */   "byt": function() { return /* binding */ JD_DEVICE_LOST_DELAY; },
 /* harmony export */   "SkZ": function() { return /* binding */ JD_DEVICE_DISCONNECTED_DELAY; },
-/* harmony export */   "CRz": function() { return /* binding */ SRV_CTRL; },
 /* harmony export */   "vgB": function() { return /* binding */ MAX_SERVICES_LENGTH; },
 /* harmony export */   "nxl": function() { return /* binding */ NEW_LISTENER; },
 /* harmony export */   "MnB": function() { return /* binding */ REMOVE_LISTENER; },
@@ -27343,7 +27342,6 @@ var JD_ADVERTISEMENT_0_ACK_SUPPORTED = 0x00000100; // time withouth seeing a pac
 var JD_DEVICE_LOST_DELAY = 1500; // time without seeing a packet to be considered "disconnected"
 
 var JD_DEVICE_DISCONNECTED_DELAY = 5000;
-var SRV_CTRL = 0;
 var MAX_SERVICES_LENGTH = 59;
 var NEW_LISTENER = "newListener";
 var REMOVE_LISTENER = "removeListener";
@@ -28488,7 +28486,7 @@ function _scanCore() {
             reg = _arr[_i2];
             pkt = _packet__WEBPACK_IMPORTED_MODULE_2__/* .default.onlyHeader */ .Z.onlyHeader(_constants__WEBPACK_IMPORTED_MODULE_3__/* .CMD_GET_REG */ .V4G | reg);
             _context8.next = 15;
-            return pkt.sendAsMultiCommandAsync(bus, _constants__WEBPACK_IMPORTED_MODULE_3__/* .SRV_CTRL */ .CRz);
+            return pkt.sendAsMultiCommandAsync(bus, _constants__WEBPACK_IMPORTED_MODULE_3__/* .SRV_CONTROL */ .gm9);
 
           case 15:
             _context8.next = 17;
@@ -31228,7 +31226,7 @@ var ControlServer = /*#__PURE__*/function (_JDServiceServer) {
   function ControlServer(options) {
     var _this;
 
-    _this = _JDServiceServer.call(this, constants/* SRV_CTRL */.CRz) || this;
+    _this = _JDServiceServer.call(this, constants/* SRV_CONTROL */.gm9) || this;
     _this.statusLightColor = undefined;
 
     var _ref = options || {},
@@ -41901,7 +41899,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "85b63d9520dc54d4a56c048c4bf81764d8e5354d";
+  var sha = "39e518b7b1e98242aac721e6ac4f754a4b14fe1f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -49439,9 +49437,11 @@ function iframebridgeclient_arrayLikeToArray(arr, len) { if (len == null || len 
 
 
 
+var ignoredServices = [specconstants/* SRV_CONTROL */.gm9, specconstants/* SRV_LOGGER */.w9j, specconstants/* SRV_SETTINGS */.B9b, specconstants/* SRV_ROLE_MANAGER */.igi, specconstants/* SRV_PROTO_TEST */.$Bn];
 /**
  * A client that bridges received and sent packets to a parent iframe
  */
+
 var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
   (0,inheritsLoose/* default */.Z)(IFrameBridgeClient, _JDIFrameClient);
 
@@ -49594,7 +49594,9 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
   };
 
   _proto.deviceFilter = function deviceFilter(device) {
-    return !device.isClient;
+    return device.services().some(function (srv) {
+      return ignoredServices.indexOf(srv.serviceClass) < 1;
+    });
   };
 
   _proto.postAddExtensions = function postAddExtensions() {
@@ -57212,4 +57214,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-6a03e273dd1455043260.js.map
+//# sourceMappingURL=app-273a600686eb328aabd0.js.map

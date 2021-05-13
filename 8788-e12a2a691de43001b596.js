@@ -2484,7 +2484,7 @@ function DeviceTreeItem(props) {
     return qos.dropped;
   });
   var serviceNames = (0,utils/* ellipseJoin */.VA)(services.filter(function (service) {
-    return service.serviceClass !== constants/* SRV_CTRL */.CRz && service.serviceClass !== constants/* SRV_LOGGER */.w9j;
+    return service.serviceClass !== constants/* SRV_CONTROL */.gm9 && service.serviceClass !== constants/* SRV_LOGGER */.w9j && service.serviceClass !== constants/* SRV_ROLE_MANAGER */.igi && service.serviceClass !== constants/* SRV_SETTINGS */.B9b;
   }).map(function (service) {
     return service.name;
   }), 18);
@@ -3051,4 +3051,4 @@ function useRegisterBoolValue(register, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8788-a1134c04c2bf17210a07.js.map
+//# sourceMappingURL=8788-e12a2a691de43001b596.js.map
