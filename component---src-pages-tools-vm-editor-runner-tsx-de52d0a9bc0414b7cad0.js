@@ -764,7 +764,10 @@ var environment = __webpack_require__(96699);
 var vm_expr = __webpack_require__(18108);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/vmrunner.ts
+
 
 
 
@@ -774,7 +777,7 @@ var VMStatus;
 
 (function (VMStatus) {
   VMStatus[VMStatus["Ready"] = 0] = "Ready";
-  VMStatus[VMStatus["Waiting"] = 1] = "Waiting";
+  VMStatus[VMStatus["Running"] = 1] = "Running";
   VMStatus[VMStatus["Completed"] = 2] = "Completed";
   VMStatus[VMStatus["Stopped"] = 3] = "Stopped";
 })(VMStatus || (VMStatus = {}));
@@ -799,8 +802,8 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
   _proto.evaluate = function evaluate() {
     var _this2 = this;
 
-    console.log((0,vm_expr/* unparse */.Z)(this.gc.command));
-    this._status = VMStatus.Waiting;
+    // console.log(unparse(this.gc.command))
+    this._status = VMStatus.Running;
     var args = this.gc.command.arguments;
 
     switch (this.inst) {
@@ -809,7 +812,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
           var event = args[0];
 
           if (this.env.hasEvent(event)) {
-            this._status = this.checkExpression(args[1]) ? VMStatus.Completed : VMStatus.Waiting;
+            this._status = this.checkExpression(args[1]) ? VMStatus.Completed : VMStatus.Running;
           }
 
           break;
@@ -817,7 +820,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
 
       case "awaitCondition":
         {
-          this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Waiting;
+          this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Running;
           break;
         }
 
@@ -863,14 +866,14 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
 
 var IT4CommandRunner = /*#__PURE__*/function () {
   function IT4CommandRunner(env, gc) {
-    this._status = VMStatus.Waiting;
+    this._status = VMStatus.Running;
     this._eval = new IT4CommandEvaluator(env, gc);
   }
 
   var _proto2 = IT4CommandRunner.prototype;
 
   _proto2.reset = function reset() {
-    this.status = VMStatus.Waiting;
+    this.status = VMStatus.Running;
   };
 
   _proto2.step = function step() {
@@ -904,7 +907,7 @@ var IT4CommandRunner = /*#__PURE__*/function () {
   }, {
     key: "isWaiting",
     get: function get() {
-      return this.status === VMStatus.Waiting;
+      return this.status === VMStatus.Running;
     }
   }]);
 
@@ -934,6 +937,7 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   };
 
   _proto3.post_process = function post_process() {
+    // console.log(`IT4HandlerRunner${this.id}.step: ${this._commandIndex}`)
     if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
   } // run-to-completion semantics
   ;
@@ -949,7 +953,6 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
     this._currentCommand.step();
 
     this.post_process();
-    console.log("IT4HandlerRunner" + this.id + ".step: " + this._commandIndex);
 
     while (this._currentCommand.status === VMStatus.Completed && this._commandIndex < this.handler.commands.length - 1) {
       this._commandIndex++;
@@ -958,7 +961,6 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
       this._currentCommand.step();
 
       this.post_process();
-      console.log("IT4HandlerRunner" + this.id + ".step: " + this._commandIndex);
     }
   };
 
@@ -1002,18 +1004,18 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
       return h.reset();
     });
 
-    console.log(this._running);
+    this.emit(constants/* CHANGE */.Ver);
   };
 
   _proto4.start = function start() {
     console.log("VM start");
     this._running = true;
+    this.emit(constants/* CHANGE */.Ver);
     this.run();
   };
 
   _proto4.run = function run() {
     if (!this._running) return;
-    console.log("run");
 
     this._env.refreshEnvironment();
 
@@ -1032,13 +1034,15 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
       this._waitQueue = nextTime;
 
       this._env.consumeEvent();
+    } else {
+      this.emit(constants/* CHANGE */.Ver);
     }
   };
 
   (0,createClass/* default */.Z)(IT4ProgramRunner, [{
     key: "status",
     get: function get() {
-      return this._running === false ? VMStatus.Ready : this._waitQueue.length > 0 ? VMStatus.Waiting : VMStatus.Completed;
+      return this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
     }
   }]);
 
@@ -1065,10 +1069,10 @@ function VMRunner(props) {
     return json && new IT4ProgramRunner(json, bus);
   }, [bus, json]);
   var testRunner = (0,useChange/* default */.Z)(bus, factory);
-  var status = (0,useChange/* default */.Z)(testRunner, function (t) {
-    return t === null || t === void 0 ? void 0 : t.status;
-  });
   if (!testRunner) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null);
+  var status = (0,useChange/* default */.Z)(testRunner, function (t) {
+    return t.status;
+  });
 
   var handleRun = function handleRun() {
     return testRunner.start();
@@ -1078,8 +1082,7 @@ function VMRunner(props) {
     return testRunner.cancel();
   };
 
-  var running = status !== VMStatus.Ready; // TODO fix
-
+  var running = status === VMStatus.Running;
   return /*#__PURE__*/react.createElement(Button/* default */.Z, {
     variant: "contained",
     onClick: running ? handleCancel : handleRun,
@@ -1146,4 +1149,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-4eb1f49fff1fae6a8e75.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-de52d0a9bc0414b7cad0.js.map
