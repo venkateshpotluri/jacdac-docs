@@ -88,6 +88,14 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8"
 
 /***/ }),
 
+/***/ 14862:
+/***/ (function(module) {
+
+"use strict";
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/d478707b7ec899457f36a52e91500448/50c0c/dashboardtemp.png","srcSet":"/jacdac-docs/static/d478707b7ec899457f36a52e91500448/50e8a/dashboardtemp.png 157w,\\n/jacdac-docs/static/d478707b7ec899457f36a52e91500448/8ea28/dashboardtemp.png 313w,\\n/jacdac-docs/static/d478707b7ec899457f36a52e91500448/50c0c/dashboardtemp.png 626w","sizes":"(min-width: 626px) 626px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/d478707b7ec899457f36a52e91500448/720ec/dashboardtemp.webp 157w,\\n/jacdac-docs/static/d478707b7ec899457f36a52e91500448/5d8d7/dashboardtemp.webp 313w,\\n/jacdac-docs/static/d478707b7ec899457f36a52e91500448/aa945/dashboardtemp.webp 626w","type":"image/webp","sizes":"(min-width: 626px) 626px, 100vw"}]},"width":626,"height":215}');
+
+/***/ }),
+
 /***/ 51976:
 /***/ (function(module) {
 
@@ -40982,6 +40990,16 @@ function Home() {
     })
   }), /*#__PURE__*/react.createElement(SplitGrid, {
     right: true,
+    subtitle: "Service specifications",
+    description: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
+    buttonUrl: "/services",
+    image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
+      src: "./dashboardtemp.png",
+      alt: "A dashboard of humidity temperature module",
+      __imageData: __webpack_require__(14862)
+    })
+  }), /*#__PURE__*/react.createElement(SplitGrid, {
+    right: false,
     subtitle: "Simulate and communicate from the browser",
     description: "The Jacdac bus can be simulated in the browser and communicate to hardware without any driver or program installation.",
     image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
@@ -41087,20 +41105,6 @@ function Home() {
                 }
             />
 
-            <SplitGrid
-                right={false}
-                subtitle={"Service specifications"}
-                description={
-                    "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet."
-                }
-                buttonUrl="/services"
-                image={
-                    <StaticImage
-                        src={"./dashboardtemp.png"}
-                        alt="A dashboard of humidity temperature module"
-                    />
-                }
-            />
 
             <SplitGrid
                 right={true}
@@ -42180,7 +42184,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "125684899ef323acd172067862d928adbe24726a";
+  var sha = "e7c783ac7ee4eed14bf97c4c0b1ec08004d6e42e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57498,4 +57502,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-4e58c1d94ac298112e2e.js.map
+//# sourceMappingURL=app-d8e73417d71327af5691.js.map
