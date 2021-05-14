@@ -498,7 +498,7 @@ function HighlightedCode(props) {
   var theme = darkMode === "dark" ? vsDark/* default */.Z : github/* default */.Z;
   var valueUri = !!downloadText && "data:application/json;charset=UTF-8," + encodeURIComponent(downloadText);
   return /*#__PURE__*/react.createElement(dist/* default */.ZP, Object.assign({}, dist/* defaultProps */.lG, {
-    code: children.replace(/[\s\r\n]*/g, ""),
+    code: children.replace(/[\s\r\n]*$/g, ""),
     language: language,
     theme: theme
   }), function (_ref) {
@@ -626,4 +626,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=274-6b98a68484925c846c3c.js.map
+//# sourceMappingURL=274-0af64e46c4c263d06cce.js.map

@@ -1636,7 +1636,7 @@ function HighlightedCode(props) {
   var theme = darkMode === "dark" ? vsDark/* default */.Z : github/* default */.Z;
   var valueUri = !!downloadText && "data:application/json;charset=UTF-8," + encodeURIComponent(downloadText);
   return /*#__PURE__*/react.createElement(dist/* default */.ZP, Object.assign({}, dist/* defaultProps */.lG, {
-    code: children.replace(/[\s\r\n]*/g, ""),
+    code: children.replace(/[\s\r\n]*$/g, ""),
     language: language,
     theme: theme
   }), function (_ref) {
@@ -2799,4 +2799,4 @@ function ProtocolTest() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-prototest-tsx-703c693f6b3c3bdeb59d.js.map
+//# sourceMappingURL=component---src-pages-tools-prototest-tsx-395cf7e0adb63d9d05d3.js.map
