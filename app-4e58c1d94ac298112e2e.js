@@ -36,7 +36,7 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808"
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808","images":{"fallback":{"src":"/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/cd728/hotplugicon.svg","srcSet":"/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/9ee82/hotplugicon.svg 16w,\\n/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/27e2e/hotplugicon.svg 32w,\\n/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/cd728/hotplugicon.svg 64w","sizes":"(min-width: 64px) 64px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/e789a/hotplugicon.webp 16w,\\n/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/ef6ff/hotplugicon.webp 32w,\\n/jacdac-docs/static/11b709417aafc7dc4cc34fef58cf5e04/8257c/hotplugicon.webp 64w","type":"image/webp","sizes":"(min-width: 64px) 64px, 100vw"}]},"width":64,"height":64}');
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808","images":{"fallback":{"src":"/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/cd728/hotplugicon.svg","srcSet":"/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/9ee82/hotplugicon.svg 16w,\\n/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/27e2e/hotplugicon.svg 32w,\\n/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/cd728/hotplugicon.svg 64w","sizes":"(min-width: 64px) 64px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/e789a/hotplugicon.webp 16w,\\n/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/ef6ff/hotplugicon.webp 32w,\\n/jacdac-docs/static/4ad03449ab515ead70060b8875c76b99/8257c/hotplugicon.webp 64w","type":"image/webp","sizes":"(min-width: 64px) 64px, 100vw"}]},"width":64,"height":64}');
 
 /***/ }),
 
@@ -60,7 +60,7 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8"
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808","images":{"fallback":{"src":"/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/cd728/firmwareupdateicon.svg","srcSet":"/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/9ee82/firmwareupdateicon.svg 16w,\\n/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/27e2e/firmwareupdateicon.svg 32w,\\n/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/cd728/firmwareupdateicon.svg 64w","sizes":"(min-width: 64px) 64px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/e789a/firmwareupdateicon.webp 16w,\\n/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/ef6ff/firmwareupdateicon.webp 32w,\\n/jacdac-docs/static/be2f434736b744fac5ed5f2e1a244e6d/8257c/firmwareupdateicon.webp 64w","type":"image/webp","sizes":"(min-width: 64px) 64px, 100vw"}]},"width":64,"height":64}');
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808","images":{"fallback":{"src":"/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/cd728/firmwareupdateicon.svg","srcSet":"/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/9ee82/firmwareupdateicon.svg 16w,\\n/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/27e2e/firmwareupdateicon.svg 32w,\\n/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/cd728/firmwareupdateicon.svg 64w","sizes":"(min-width: 64px) 64px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/e789a/firmwareupdateicon.webp 16w,\\n/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/ef6ff/firmwareupdateicon.webp 32w,\\n/jacdac-docs/static/88bab76e206800ab2b367e3a914d594b/8257c/firmwareupdateicon.webp 64w","type":"image/webp","sizes":"(min-width: 64px) 64px, 100vw"}]},"width":64,"height":64}');
 
 /***/ }),
 
@@ -42180,7 +42180,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "16a309baef5c93e5f537211237a93c4f7b908599";
+  var sha = "125684899ef323acd172067862d928adbe24726a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57498,4 +57498,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-f5a322533aa5fd1fda7f.js.map
+//# sourceMappingURL=app-4e58c1d94ac298112e2e.js.map
