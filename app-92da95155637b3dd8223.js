@@ -41083,7 +41083,10 @@ function Home() {
       __imageData: __webpack_require__(51976)
     }),
     subtitle: "JavaScript package",
-    description: "Integrate Jacdac into your web site or node.js application using our TypeScript/JavaScript npm package."
+    description: "Integrate Jacdac into your web site or node.js application using our TypeScript/JavaScript npm package.",
+    buttonText: "Learn more",
+    buttonUrl: "/clients/javascript",
+    buttonVariant: "link"
   }))), /*#__PURE__*/react.createElement(CenterGrid, {
     subtitle: "Can I add Jacdac to my PCB?",
     description: "Absolutely. We would be thrilled if you used a Jacdac PCB connector on your board or product! You can use the name Jacdac without royalties or attribution.",
@@ -42201,7 +42204,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "de006b3d0fb2a725a1a64f148097efe82c93c7be";
+  var sha = "57cf9f597369a84c8739c4c29cd23f0b3fbef08d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57522,4 +57525,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-1adc076893bbe51899c4.js.map
+//# sourceMappingURL=app-92da95155637b3dd8223.js.map

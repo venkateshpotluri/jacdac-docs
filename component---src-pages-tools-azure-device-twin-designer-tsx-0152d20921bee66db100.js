@@ -1547,7 +1547,7 @@ function HighlightedCode(props) {
   var theme = darkMode === "dark" ? vsDark/* default */.Z : github/* default */.Z;
   var valueUri = !!downloadText && "data:application/json;charset=UTF-8," + encodeURIComponent(downloadText);
   return /*#__PURE__*/react.createElement(dist/* default */.ZP, Object.assign({}, dist/* defaultProps */.lG, {
-    code: children,
+    code: children.replace(/[\s\r\n]*/g, ""),
     language: language,
     theme: theme
   }), function (_ref) {
@@ -1975,4 +1975,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-71e0dfbb6cad0716afa1.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-0152d20921bee66db100.js.map
