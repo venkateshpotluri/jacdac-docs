@@ -84,6 +84,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 42404:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M8 5v14l11-7z"
+}), 'PlayArrow');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 94431:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1022,9 +1050,12 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
 var LoadingProgress = __webpack_require__(2285);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
+var PlayArrow = __webpack_require__(42404);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunner.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -1039,6 +1070,7 @@ function VMRunner(props) {
   var status = (0,useChange/* default */.Z)(testRunner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
   });
+  if (!testRunner) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null);
 
   var handleRun = function handleRun() {
     return testRunner.start();
@@ -1048,21 +1080,14 @@ function VMRunner(props) {
     return testRunner.cancel();
   };
 
-  if (!testRunner) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null);
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    spacing: 2
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 3
-  }, /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "outlined",
-    color: status !== VMStatus.Ready ? "primary" : "default",
-    onClick: handleRun
-  }, "Run"), /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "outlined",
-    onClick: handleCancel
-  }, "Cancel")));
+  var running = status !== VMStatus.Ready; // TODO fix
+
+  return /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "contained",
+    onClick: running ? handleCancel : handleRun,
+    color: running ? "default" : "primary",
+    startIcon: running ? /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null)
+  }, running ? "Stop" : "Run");
 }
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
@@ -1112,12 +1137,13 @@ function VMEditorRunner() {
     title: "Preview"
   }), json && bus && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
-    xs: 12,
-    xl: 7
+    xs: 12
   }, /*#__PURE__*/react.createElement(VMRunner, {
     json: json,
     bus: bus
-  })), /*#__PURE__*/react.createElement(Dashboard/* default */.Z, null));
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Dashboard/* default */.Z, null)));
 }
 ;// CONCATENATED MODULE: ./src/pages/tools/vm-editor-runner.tsx
 
@@ -1129,4 +1155,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-7d9c02dba46a73d2f158.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-cc0df72f8032c0d82927.js.map
