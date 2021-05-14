@@ -40755,7 +40755,7 @@ function CarouselGrid(props) {
     direction: "row",
     spacing: 2,
     alignContent: "center",
-    alignItems: "center"
+    alignItems: "flex-start"
   }, children));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
@@ -40779,13 +40779,20 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
       textAlign: "center"
     },
     description: {
-      fontSize: theme.typography.fontSize * 1.5
+      fontSize: theme.typography.fontSize * 2.1
+    },
+    caption: {
+      fontSize: theme.typography.fontSize * 1.8
+    },
+    button: {
+      fontSize: theme.typography.fontSize * 1.8
     }
   });
 });
 function FeatureItem(props) {
   var title = props.title,
       subtitle = props.subtitle,
+      subtitle2 = props.subtitle2,
       description = props.description,
       buttonText = props.buttonText,
       buttonUrl = props.buttonUrl,
@@ -40815,7 +40822,13 @@ function FeatureItem(props) {
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "h2",
     className: cls
-  }, subtitle)), description && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, subtitle)), subtitle2 && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "h3",
+    className: cls
+  }, subtitle2)), description && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
@@ -40826,18 +40839,17 @@ function FeatureItem(props) {
     xs: 12
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body2",
-    className: cls
+    className: (0,clsx_m/* default */.Z)(cls, classes.caption)
   }, caption)), buttonUrl && buttonText && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
-    xs: 12
+    xs: 12,
+    className: (0,clsx_m/* default */.Z)(cls, classes.button)
   }, buttonVariant === "link" ? /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
-    to: buttonUrl,
-    className: cls
+    to: buttonUrl
   }, buttonText, " >") : /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
     variant: "contained",
     color: buttonColor,
-    to: buttonUrl,
-    className: cls
+    to: buttonUrl
   }, buttonText)), image && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12,
@@ -40927,8 +40939,8 @@ function Home() {
       __imageData: __webpack_require__(37892)
     })
   }), /*#__PURE__*/react.createElement(CenterGrid, {
-    description: "Designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing.",
-    caption: "Cheap, flexible and extensible."
+    subtitle2: "Designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing.",
+    description: "Cheap, flexible and extensible."
   }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -40982,7 +40994,8 @@ function Home() {
   }), /*#__PURE__*/react.createElement(SplitGrid, {
     right: false,
     subtitle: "How does it work?",
-    description: "Jacdac packets are sent serially among physical devices on the Jacdac bus and may also be sent over WebUSB/WebBLE, providing connectivity to web-based tooling and services running in the web browser.",
+    caption: "Jacdac packets are sent serially among physical devices on the Jacdac bus and may also be sent over WebUSB/WebBLE, providing connectivity to web-based tooling and services running in the web browser.",
+    imageColumns: 8,
     image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
       src: "./buttoncable.png",
       alt: "A Jacdac humidity module plugging into a Jacdac cable",
@@ -40991,7 +41004,7 @@ function Home() {
   }), /*#__PURE__*/react.createElement(SplitGrid, {
     right: true,
     subtitle: "Service specifications",
-    description: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
+    caption: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
     buttonUrl: "/services",
     image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
       src: "./dashboardtemp.png",
@@ -41001,7 +41014,7 @@ function Home() {
   }), /*#__PURE__*/react.createElement(SplitGrid, {
     right: false,
     subtitle: "Simulate and communicate from the browser",
-    description: "The Jacdac bus can be simulated in the browser and communicate to hardware without any driver or program installation.",
+    caption: "The Jacdac bus can be simulated in the browser and communicate to hardware without any driver or program installation.",
     image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
       src: "./dashboard.png",
       alt: "A dashboard of simulated devices",
@@ -41018,7 +41031,7 @@ function Home() {
   }), /*#__PURE__*/react.createElement(SplitGrid, {
     right: true,
     title: "Beautifully simple.",
-    description: "The device catalog lists the registered Jacdac devices that can be automatically detected on the bus. The catalog information provides vendor information, the services supported by a device, firmware, and pictures.",
+    caption: "The device catalog lists the registered Jacdac devices that can be automatically detected on the bus. The catalog information provides vendor information, the services supported by a device, firmware, and pictures.",
     buttonText: "Discover the device catalog",
     buttonVariant: "link",
     buttonUrl: "/devices",
@@ -42184,7 +42197,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "e1fed15cbf70b85aa6398c515c572999d1050f64";
+  var sha = "51d7faa7ddac01065815d053f9805fdcc2355c1d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57505,4 +57518,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-6fbff6973e2649b390cb.js.map
+//# sourceMappingURL=app-5f4d31dfddcfc9bbe89f.js.map
