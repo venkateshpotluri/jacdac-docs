@@ -40779,7 +40779,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
       textAlign: "center"
     },
     description: {
-      fontSize: theme.typography.fontSize * 2.1
+      fontSize: theme.typography.fontSize * 2
     },
     caption: {
       fontSize: theme.typography.fontSize * 1.8
@@ -40912,7 +40912,7 @@ function SplitGrid(props) {
     direction: "row",
     alignContent: "flex-start",
     alignItems: "flex-start",
-    spacing: 2
+    spacing: 4
   }, right ? imageItem : textItem, right ? textItem : imageItem));
 }
 ;// CONCATENATED MODULE: ./src/components/home/Home.tsx
@@ -42197,7 +42197,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "51d7faa7ddac01065815d053f9805fdcc2355c1d";
+  var sha = "564eb91fdf2a2aca1d7c29e82a54b5f48f960c9f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57518,4 +57518,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-5f4d31dfddcfc9bbe89f.js.map
+//# sourceMappingURL=app-2f02c01a1bba69ffcc9c.js.map
