@@ -40863,7 +40863,8 @@ function FeatureItem(props) {
 function CenterGrid(props) {
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
-    xs: 12
+    xs: 12,
+    sm: 8
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     spacing: 2,
@@ -40926,7 +40927,10 @@ function SplitGrid(props) {
 function Home() {
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
-    spacing: 10
+    spacing: 10,
+    direction: "column",
+    alignContent: "center",
+    alignItems: "center"
   }, /*#__PURE__*/react.createElement(SplitGrid, {
     title: "Jacdac",
     subtitle: "plug-and-play for microcontrollers",
@@ -40939,8 +40943,8 @@ function Home() {
       __imageData: __webpack_require__(37892)
     })
   }), /*#__PURE__*/react.createElement(CenterGrid, {
-    subtitle2: "Designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing.",
-    description: "Cheap, flexible and extensible."
+    description: "Designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing.",
+    caption: "Cheap, flexible and extensible."
   }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -42197,7 +42201,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "564eb91fdf2a2aca1d7c29e82a54b5f48f960c9f";
+  var sha = "de006b3d0fb2a725a1a64f148097efe82c93c7be";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57518,4 +57522,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-2f02c01a1bba69ffcc9c.js.map
+//# sourceMappingURL=app-1adc076893bbe51899c4.js.map
