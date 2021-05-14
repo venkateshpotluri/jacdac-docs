@@ -752,8 +752,6 @@ var HighlightTextField = __webpack_require__(33024);
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
 var GridHeader = __webpack_require__(95393);
-// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
-var Alert = __webpack_require__(95453);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
@@ -1103,7 +1101,6 @@ var Dashboard = __webpack_require__(23976);
 
 
 
-
 var VM_MARKDOWN_SOURCE_STORAGE_KEY = "jacdac:vmeditorsource:markdown";
 function VMEditorRunner() {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
@@ -1120,20 +1117,14 @@ function VMEditorRunner() {
     spacing: 2,
     container: true
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    spacing: 2,
-    container: true
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
-    xs: 12,
-    sm: 7
+    xs: 12
   }, /*#__PURE__*/react.createElement(HighlightTextField/* default */.Z, {
     code: source,
     language: "markdown",
     onChange: setSource,
     annotations: json === null || json === void 0 ? void 0 : json.errors
-  }))), json && bus === undefined && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "warning"
-  }, "Cannot run VM without a bus!"), /*#__PURE__*/react.createElement(GridHeader/* default */.Z, {
+  })), /*#__PURE__*/react.createElement(GridHeader/* default */.Z, {
     title: "Preview"
   }), json && bus && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
@@ -1155,4 +1146,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-cc0df72f8032c0d82927.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-4eb1f49fff1fae6a8e75.js.map
