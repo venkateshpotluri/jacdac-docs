@@ -996,7 +996,6 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   var _proto4 = IT4ProgramRunner.prototype;
 
   _proto4.cancel = function cancel() {
-    console.log("VM stop");
     this._running = false;
     this._waitQueue = this._handlers.slice(0);
 
@@ -1008,7 +1007,6 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto4.start = function start() {
-    console.log("VM start");
     this._running = true;
     this.emit(constants/* CHANGE */.Ver);
     this.run();
@@ -1042,7 +1040,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   (0,createClass/* default */.Z)(IT4ProgramRunner, [{
     key: "status",
     get: function get() {
-      return this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
+      var ret = this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
+      return ret;
     }
   }]);
 
@@ -1067,9 +1066,10 @@ function VMRunner(props) {
       bus = props.bus;
   var factory = (0,react.useCallback)(function (bus) {
     return json && new IT4ProgramRunner(json, bus);
-  }, [bus, json]);
-  var testRunner = (0,useChange/* default */.Z)(bus, factory);
-  if (!testRunner) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null);
+  }, [json]);
+  var testRunner = (0,react.useMemo)(function () {
+    return factory(bus);
+  }, [json]);
   var status = (0,useChange/* default */.Z)(testRunner, function (t) {
     return t.status;
   });
@@ -1136,6 +1136,7 @@ function VMEditorRunner() {
     json: json,
     bus: bus
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Dashboard/* default */.Z, null)));
 }
@@ -1149,4 +1150,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-de52d0a9bc0414b7cad0.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-30550a84a1afa864d215.js.map
