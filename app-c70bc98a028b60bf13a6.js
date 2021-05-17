@@ -27162,6 +27162,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "nm3": function() { return /* binding */ REGISTER_POLL_REPORT_MAX_INTERVAL; },
 /* harmony export */   "Go2": function() { return /* binding */ REGISTER_OPTIONAL_POLL_COUNT; },
 /* harmony export */   "cXd": function() { return /* binding */ STREAMING_DEFAULT_INTERVAL; },
+/* harmony export */   "Cot": function() { return /* binding */ PING_LOGGERS_POLL; },
 /* harmony export */   "k0Y": function() { return /* binding */ ROLE_MANAGER_POLL; },
 /* harmony export */   "W3h": function() { return /* binding */ USB_TRANSPORT; },
 /* harmony export */   "HZx": function() { return /* binding */ BLUETOOTH_TRANSPORT; },
@@ -27473,6 +27474,7 @@ var REGISTER_POLL_REPORT_INTERVAL = 5001;
 var REGISTER_POLL_REPORT_MAX_INTERVAL = 60000;
 var REGISTER_OPTIONAL_POLL_COUNT = 3;
 var STREAMING_DEFAULT_INTERVAL = 50;
+var PING_LOGGERS_POLL = 1000;
 var ROLE_MANAGER_POLL = 1500;
 var USB_TRANSPORT = "USB";
 var BLUETOOTH_TRANSPORT = "Bluetooth";
@@ -29931,7 +29933,7 @@ var Packet = /*#__PURE__*/function () {
     get: function get() {
       var _this$device3;
 
-      if (this.frameFlags & _constants__WEBPACK_IMPORTED_MODULE_1__/* .JD_FRAME_FLAG_IDENTIFIER_IS_SERVICE_CLASS */ .Amr) return "*";
+      if (this.isMultiCommand) return "*";
       return ((_this$device3 = this.device) === null || _this$device3 === void 0 ? void 0 : _this$device3.friendlyName) || this.deviceIdentifier;
     }
   }, {
@@ -29969,6 +29971,16 @@ var Packet = /*#__PURE__*/function () {
           return pkt.kind === "event" && pkt.identifier === code;
         });
         cmdname = pkt === null || pkt === void 0 ? void 0 : pkt.name;
+      } else if (this.isReport) {
+        var _spec = (0,_spec__WEBPACK_IMPORTED_MODULE_6__/* .serviceSpecificationFromClassIdentifier */ .d5)(this.serviceClass);
+
+        var _code = this.serviceCommand & ~_constants__WEBPACK_IMPORTED_MODULE_1__/* .CMD_GET_REG */ .V4G;
+
+        var _pkt = _spec.packets.find(function (pkt) {
+          return pkt.kind === "report" && pkt.identifier === _code;
+        });
+
+        cmdname = _pkt === null || _pkt === void 0 ? void 0 : _pkt.name;
       } else {
         cmdname = (0,_pretty__WEBPACK_IMPORTED_MODULE_3__/* .commandName */ .gw)(cmd, this.serviceClass);
       }
@@ -42334,7 +42346,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "0b2dcf3afc5e423846afc92a86189de82cf39839";
+  var sha = "8a96ff6deb8bd99db421ea4133b197d4880b89ec";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -45938,6 +45950,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this._transports = [];
     _this._bridges = [];
     _this._devices = [];
+    _this._lastPingLoggerTime = 0;
     _this._minLoggerPriority = constants/* LoggerPriority.Log */.qit.Log;
     _this._announcing = false;
     _this._gcDevicesEnabled = 0;
@@ -45952,10 +45965,10 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     if (!_this.options.deviceId) _this.options.deviceId = (0,random/* randomDeviceId */.b_)();
     _this.stats = new BusStatsMonitor((0,assertThisInitialized/* default */.Z)(_this));
 
-    _this.resetTime(); // tell loggers to send data
+    _this.resetTime(); // tell loggers to send data, every now and then
 
 
-    _this.on(constants/* DEVICE_ANNOUNCE */.Hob, (0,utils/* debounceAsync */.kl)(_this.pingLoggers.bind((0,assertThisInitialized/* default */.Z)(_this)), 1000)); // tell RTC clock the computer time
+    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.pingLoggers.bind((0,assertThisInitialized/* default */.Z)(_this))); // tell RTC clock the computer time
 
 
     _this.on(constants/* DEVICE_ANNOUNCE */.Hob, _this.handleRealTimeClockSync.bind((0,assertThisInitialized/* default */.Z)(_this))); // grab the default role manager
@@ -46327,16 +46340,21 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              if (!(this._minLoggerPriority < constants/* LoggerPriority.Silent */.qit.Silent)) {
-                _context5.next = 4;
+              if (!(this._minLoggerPriority < constants/* LoggerPriority.Silent */.qit.Silent && this.timestamp - this._lastPingLoggerTime > constants/* PING_LOGGERS_POLL */.Cot && this.devices({
+                ignoreSelf: true,
+                serviceClass: constants/* SRV_LOGGER */.w9j
+              }).length > 0)) {
+                _context5.next = 6;
                 break;
               }
 
-              pkt = packet/* default.jdpacked */.Z.jdpacked(0x2000 | constants/* LoggerReg.MinPriority */.hXV.MinPriority, "i32", [this._minLoggerPriority]);
-              _context5.next = 4;
+              console.debug("ping loggers " + this.minLoggerPriority);
+              this._lastPingLoggerTime = this.timestamp;
+              pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | constants/* LoggerReg.MinPriority */.hXV.MinPriority, "u8", [this._minLoggerPriority]);
+              _context5.next = 6;
               return pkt.sendAsMultiCommandAsync(this, constants/* SRV_LOGGER */.w9j);
 
-            case 4:
+            case 6:
             case "end":
               return _context5.stop();
           }
@@ -57693,4 +57711,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-8d1df14f22bbbbe5a8d4.js.map
+//# sourceMappingURL=app-c70bc98a028b60bf13a6.js.map
