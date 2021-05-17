@@ -42368,7 +42368,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "bd2bf7297de233b648e39b820df5841c94b30a87";
+  var sha = "5d184711a710474f5cfe81021e176852dfadcc09";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -44963,10 +44963,10 @@ var JDDevice = /*#__PURE__*/function (_JDNode) {
     this._servicesData = pkt.data; // check for restart
 
     if (w1 && (w1 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf) < (w0 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf)) {
-      console.debug(this + " restart detected", {
-        new: w1 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf,
-        old: w0 & constants/* JD_ADVERTISEMENT_0_COUNTER_MASK */.GJf
-      });
+      //console.debug(`${this} restart detected`, {
+      //    new: w1 & JD_ADVERTISEMENT_0_COUNTER_MASK,
+      //    old: w0 & JD_ADVERTISEMENT_0_COUNTER_MASK,
+      //})
       this.initServices(true);
       this.bus.emit(constants/* DEVICE_RESTART */.eLF, this);
       this.emit(constants/* RESTART */.d0K);
@@ -46366,17 +46366,16 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
                 ignoreSelf: true,
                 serviceClass: constants/* SRV_LOGGER */.w9j
               }).length > 0)) {
-                _context5.next = 6;
+                _context5.next = 5;
                 break;
               }
 
-              console.debug("ping loggers " + this.minLoggerPriority);
               this._lastPingLoggerTime = this.timestamp;
               pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | constants/* LoggerReg.MinPriority */.hXV.MinPriority, "u8", [this._minLoggerPriority]);
-              _context5.next = 6;
+              _context5.next = 5;
               return pkt.sendAsMultiCommandAsync(this, constants/* SRV_LOGGER */.w9j);
 
-            case 6:
+            case 5:
             case "end":
               return _context5.stop();
           }
@@ -57733,4 +57732,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-098d7283eca66a5184f0.js.map
+//# sourceMappingURL=app-c1f3e0eac1a44fede51d.js.map
