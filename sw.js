@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-2d6aacef9d9a6708b5a2.js"
+    "url": "webpack-runtime-c56a7606e270acce1dc3.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "75a78698189201d80b2bacf24ac01d75"
+    "revision": "c022bbf387e6f01f56fbb79a064a51a5"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "400ad91f642411d67c307047465cdfb7"
+    "revision": "03ca9e9d4d29dc078b2e2fb26682e2a2"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -1531,7 +1531,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-c70bc98a028b60bf13a6.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-098d7283eca66a5184f0.js`))) {
     return await fetch(event.request)
   }
 

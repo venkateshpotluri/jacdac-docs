@@ -27474,7 +27474,7 @@ var REGISTER_POLL_REPORT_INTERVAL = 5001;
 var REGISTER_POLL_REPORT_MAX_INTERVAL = 60000;
 var REGISTER_OPTIONAL_POLL_COUNT = 3;
 var STREAMING_DEFAULT_INTERVAL = 50;
-var PING_LOGGERS_POLL = 1000;
+var PING_LOGGERS_POLL = 2400;
 var ROLE_MANAGER_POLL = 1500;
 var USB_TRANSPORT = "USB";
 var BLUETOOTH_TRANSPORT = "Bluetooth";
@@ -39711,6 +39711,8 @@ function parsePacketFilter(bus, text) {
   var firmwares = new Set();
   var repeatedAnnounce = undefined;
   var announce = undefined;
+  var resetIn = undefined;
+  var minPriority = undefined;
   var regGet = undefined;
   var regSet = undefined;
   var requiresAck = undefined;
@@ -39754,6 +39756,16 @@ function parsePacketFilter(bus, text) {
       case "repeated-announce":
       case "ra":
         repeatedAnnounce = parseBoolean(value);
+        break;
+
+      case "reset-in":
+      case "ri":
+        resetIn = parseBoolean(value);
+        break;
+
+      case "min-priority":
+      case "mi":
+        minPriority = parseBoolean(value);
         break;
 
       case "requires-ack":
@@ -39864,6 +39876,8 @@ function parsePacketFilter(bus, text) {
   var props = {
     announce: announce,
     repeatedAnnounce: repeatedAnnounce,
+    resetIn: resetIn,
+    minPriority: minPriority,
     requiresAck: requiresAck,
     collapseAck: collapseAck,
     log: log,
@@ -39901,6 +39915,8 @@ function parsePacketFilter(bus, text) {
 function compileFilter(props) {
   var announce = props.announce,
       repeatedAnnounce = props.repeatedAnnounce,
+      resetIn = props.resetIn,
+      minPriority = props.minPriority,
       requiresAck = props.requiresAck,
       log = props.log,
       firmwareIdentifiers = props.firmwareIdentifiers,
@@ -39926,6 +39942,12 @@ function compileFilter(props) {
   });
   if (repeatedAnnounce !== undefined) filters.push(function (pkt) {
     return !pkt.isAnnounce || pkt.isRepeatedAnnounce === repeatedAnnounce;
+  });
+  if (resetIn !== undefined) filters.push(function (pkt) {
+    return (pkt.isRegisterSet && pkt.serviceClass == specconstants/* SRV_CONTROL */.gm9 && pkt.registerIdentifier === specconstants/* ControlReg.ResetIn */.toU.ResetIn) === resetIn;
+  });
+  if (minPriority !== undefined) filters.push(function (pkt) {
+    return (pkt.isRegisterSet && pkt.serviceClass == specconstants/* SRV_LOGGER */.w9j && pkt.registerIdentifier === specconstants/* LoggerReg.MinPriority */.hXV.MinPriority) === minPriority;
   });
   if (requiresAck !== undefined) filters.push(function (pkt) {
     return pkt.requiresAck === requiresAck;
@@ -40306,7 +40328,7 @@ var PacketsProvider = function PacketsProvider(_ref) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var _useDbValue = (0,useDbValue/* default */.Z)("packetfilter", "repeated-announce:false"),
+  var _useDbValue = (0,useDbValue/* default */.Z)("packetfilter", "announce:false reset-in:false min-priority:false"),
       filter = _useDbValue.value,
       _setFilter = _useDbValue.setValue;
 
@@ -42346,7 +42368,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8a96ff6deb8bd99db421ea4133b197d4880b89ec";
+  var sha = "bd2bf7297de233b648e39b820df5841c94b30a87";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -45951,7 +45973,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this._bridges = [];
     _this._devices = [];
     _this._lastPingLoggerTime = 0;
-    _this._minLoggerPriority = constants/* LoggerPriority.Log */.qit.Log;
+    _this._minLoggerPriority = constants/* LoggerPriority.Debug */.qit.Debug;
     _this._announcing = false;
     _this._gcDevicesEnabled = 0;
     _this._serviceProviders = [];
@@ -57711,4 +57733,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c70bc98a028b60bf13a6.js.map
+//# sourceMappingURL=app-098d7283eca66a5184f0.js.map
