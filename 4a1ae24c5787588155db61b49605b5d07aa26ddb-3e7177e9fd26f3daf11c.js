@@ -500,7 +500,7 @@ function DashboardDevice(props) {
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
 
   var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
-      mobile = _useMediaQueries.mobile;
+      mobile = _useMediaQueries.xs;
 
   var serviceGridRef = (0,react.useRef)();
   var intersection = useIntersectionObserver(serviceGridRef);
@@ -740,4 +740,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-62b044c9b485fd1b80d6.js.map
+//# sourceMappingURL=4a1ae24c5787588155db61b49605b5d07aa26ddb-3e7177e9fd26f3daf11c.js.map

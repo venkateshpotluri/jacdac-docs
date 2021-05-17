@@ -29967,7 +29967,7 @@ var Packet = /*#__PURE__*/function () {
       } else if (this.isEvent) {
         var spec = (0,_spec__WEBPACK_IMPORTED_MODULE_6__/* .serviceSpecificationFromClassIdentifier */ .d5)(this.serviceClass);
         var code = this.eventCode;
-        var pkt = spec.packets.find(function (pkt) {
+        var pkt = spec === null || spec === void 0 ? void 0 : spec.packets.find(function (pkt) {
           return pkt.kind === "event" && pkt.identifier === code;
         });
         cmdname = pkt === null || pkt === void 0 ? void 0 : pkt.name;
@@ -29976,7 +29976,7 @@ var Packet = /*#__PURE__*/function () {
 
         var _code = this.serviceCommand & ~_constants__WEBPACK_IMPORTED_MODULE_1__/* .CMD_GET_REG */ .V4G;
 
-        var _pkt = _spec.packets.find(function (pkt) {
+        var _pkt = _spec === null || _spec === void 0 ? void 0 : _spec.packets.find(function (pkt) {
           return pkt.kind === "report" && pkt.identifier === _code;
         });
 
@@ -41408,9 +41408,11 @@ function useDevices(options, deps) {
 
 function useMediaQueries() {
   var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)();
+  var xs = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(theme.breakpoints.down("xs"));
   var mobile = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(theme.breakpoints.down(_layout__WEBPACK_IMPORTED_MODULE_0__/* .MOBILE_BREAKPOINT */ .Gh));
   var medium = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(theme.breakpoints.down(_layout__WEBPACK_IMPORTED_MODULE_0__/* .MEDIUM_BREAKPOINT */ .qA));
   return {
+    xs: xs,
     mobile: mobile,
     medium: medium
   };
@@ -42368,7 +42370,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "5d184711a710474f5cfe81021e176852dfadcc09";
+  var sha = "f192dbc81d4854972c2af338cc373cf1b91426d1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57732,4 +57734,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c1f3e0eac1a44fede51d.js.map
+//# sourceMappingURL=app-e375ddd2d704263719be.js.map
