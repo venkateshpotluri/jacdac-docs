@@ -33099,8 +33099,9 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   _proto.setConnectionState = function setConnectionState(state) {
     if (this._connectionState !== state) {
       console.debug(this._connectionState + " -> " + state);
-      this._lastReceivedTime = state === ConnectionState.Connected ? this._bus.timestamp : undefined;
       this._connectionState = state;
+      this._connectionTime = state === ConnectionState.Connected ? this.bus.timestamp : undefined;
+      this._lastReceivedTime = undefined;
       this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECTION_STATE */ .pzj, this._connectionState);
       this.bus.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECTION_STATE */ .pzj);
 
@@ -33166,18 +33167,33 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 
             case 8:
               // detect if the proxy device is lost
-              t = this.bus.timestamp - this._lastReceivedTime;
+              t = this.bus.timestamp - (this._lastReceivedTime || this._connectionTime);
 
               if (!(t > _constants__WEBPACK_IMPORTED_MODULE_2__/* .TRANSPORT_PULSE_TIMEOUT */ .U5y)) {
-                _context2.next = 13;
+                _context2.next = 19;
                 break;
               }
 
               this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .LOST */ .XWw);
-              _context2.next = 13;
+              console.debug(this.type + ": lost connection with device");
+
+              if (!(this._lastReceivedTime !== undefined)) {
+                _context2.next = 17;
+                break;
+              }
+
+              _context2.next = 15;
               return this.reconnect();
 
-            case 13:
+            case 15:
+              _context2.next = 19;
+              break;
+
+            case 17:
+              _context2.next = 19;
+              return this.disconnect(true);
+
+            case 19:
             case "end":
               return _context2.stop();
           }
@@ -33229,11 +33245,11 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   _proto.connect = function connect(background) {
     var _this2 = this;
 
-    console.debug("connection " + this.type);
+    console.debug(this.type + ": connect " + (background ? "(background)" : ""));
     if (this.disposed) throw new Error("attempted to connect to a disposed transport"); // already connected
 
     if (this.connectionState == ConnectionState.Connected) {
-      console.debug("already connected");
+      console.debug(this.type + ": already connected");
       return Promise.resolve();
     } // connecting
 
@@ -33241,7 +33257,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     if (!this._connectPromise) {
       // already disconnecting, retry when disconnected
       if (this._disconnectPromise) {
-        console.debug("queuing connect after disconnecting");
+        console.debug(this.type + ": queuing connect after disconnecting");
         var _p = this._disconnectPromise;
         this._disconnectPromise = undefined;
         this._connectPromise = _p.then(function () {
@@ -33249,7 +33265,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
         });
       } else {
         // starting a fresh connection
-        console.debug("connecting");
+        console.debug(this.type + ": connecting");
         this._connectPromise = Promise.resolve();
         this.setConnectionState(ConnectionState.Connecting);
         this._connectPromise = this._connectPromise.then(function () {
@@ -33262,7 +33278,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 
             _this2.setConnectionState(ConnectionState.Connected);
           } else {
-            console.debug("connection aborted in flight", {
+            console.debug(_this2.type + ": connection aborted in flight", {
               state: _this2._connectionState,
               old: _this2._connectPromise,
               new: _p2
@@ -33274,14 +33290,14 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 
             _this2.setConnectionState(ConnectionState.Disconnected);
 
-            if (!background) _this2.errorHandler(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECT */ .JD8, e);else console.debug("background connect failed");
+            if (!background) _this2.errorHandler(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECT */ .JD8, e);else console.debug(_this2.type + ": background connect failed");
           } else {
-            console.debug("connection error aborted in flight");
+            console.debug(_this2.type + ": connection error aborted in flight");
           }
         });
       }
     } else {
-      console.debug("connect with existing promise");
+      console.debug(this.type + ": connect with existing promise");
     }
 
     return this._connectPromise;
@@ -33296,11 +33312,11 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     if (!this._disconnectPromise) {
       // connection in progress, wait and disconnect when done
       if (this._connectPromise) {
-        console.debug("cancelling connection and disconnect");
+        console.debug(this.type + ": cancelling connection and disconnect");
         this._connectPromise = undefined;
       }
 
-      console.debug("disconnecting");
+      console.debug(this.type + ": disconnecting");
       this._disconnectPromise = Promise.resolve();
       this.setConnectionState(ConnectionState.Disconnecting);
       this._disconnectPromise = this._disconnectPromise.then(function () {
@@ -33316,7 +33332,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
         _this3.setConnectionState(ConnectionState.Disconnected);
       });
     } else {
-      console.debug("disconnect with existing promise");
+      console.debug(this.type + ": disconnect with existing promise");
     }
 
     return this._disconnectPromise;
@@ -33328,14 +33344,15 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
+              console.debug(this.type + ": reconnect");
+              _context4.next = 3;
               return this.disconnect(true);
 
-            case 2:
-              _context4.next = 4;
+            case 3:
+              _context4.next = 5;
               return this.connect(true);
 
-            case 4:
+            case 5:
             case "end":
               return _context4.stop();
           }
@@ -33374,7 +33391,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   _proto.errorHandler = function errorHandler(context, exception) {
     var _this4 = this;
 
-    var wasConnected = this.connected; //const code = errorCode(exception)
+    var receivedAnything = this._lastReceivedTime !== undefined; //const code = errorCode(exception)
 
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, {
       context: context,
@@ -33388,9 +33405,10 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
     this.disconnect(true) // retry connect
     .then(function () {
-      if (wasConnected) {
-        console.debug("reconnect after error");
-        wasConnected && _this4.connect(true);
+      if (receivedAnything) {
+        console.debug(_this4.type + ": reconnect after error");
+
+        _this4.connect(true);
       }
     });
   };
@@ -42317,7 +42335,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "1482046ee413ff15cd85f5e0b31a6e9c92dd17fd";
+  var sha = "9299f1396d6ec7e9981d6fe305c02d75298f7db7";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57676,4 +57694,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-cc252d21a50cc46af9b0.js.map
+//# sourceMappingURL=app-40bd27ef02bad2d4fc84.js.map
