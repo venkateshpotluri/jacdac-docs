@@ -40292,8 +40292,7 @@ var PacketsProvider = function PacketsProvider(_ref) {
   var children = _ref.children;
 
   var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus,
-      disconnectAsync = _useContext.disconnectAsync;
+      bus = _useContext.bus;
 
   var _useDbValue = (0,useDbValue/* default */.Z)("packetfilter", "repeated-announce:false"),
       filter = _useDbValue.value,
@@ -40389,7 +40388,7 @@ var PacketsProvider = function PacketsProvider(_ref) {
             case 5:
               clearPackets();
               _context.next = 8;
-              return disconnectAsync();
+              return bus.disconnect();
 
             case 8:
               player.current.start();
@@ -42335,7 +42334,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "9299f1396d6ec7e9981d6fe305c02d75298f7db7";
+  var sha = "0b2dcf3afc5e423846afc92a86189de82cf39839";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57694,4 +57693,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-40bd27ef02bad2d4fc84.js.map
+//# sourceMappingURL=app-8d1df14f22bbbbe5a8d4.js.map
