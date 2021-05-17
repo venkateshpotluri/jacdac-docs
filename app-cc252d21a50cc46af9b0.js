@@ -27503,10 +27503,31 @@ var ERROR_MICROBIT_INVALID_MEMORY = "microbit/invalid-memory";
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ errorCode; }
+/* harmony export */   "py": function() { return /* binding */ JDError; },
+/* harmony export */   "ZP": function() { return /* binding */ errorPath; }
 /* harmony export */ });
-function errorCode(e) {
-  return e === null || e === void 0 ? void 0 : e.code;
+/* unused harmony export JACDAC_ERROR */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var JACDAC_ERROR = "JacdacError";
+var JDError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDError, _Error);
+
+  function JDError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = JACDAC_ERROR;
+    return _this;
+  }
+
+  return JDError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
 }
 
 /***/ }),
@@ -38526,10 +38547,10 @@ function serviceProviderDefinitionFromServiceClass(serviceClass) {
 /* harmony import */ var notistack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70076);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67294);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(52800);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81794);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20392);
-/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
+/* harmony import */ var _jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(52800);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20392);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(69672);
 
 
 
@@ -38571,7 +38592,7 @@ AppContext.displayName = "app";
 var AppProvider = function AppProvider(_ref) {
   var children = _ref.children;
 
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z),
       bus = _useContext.bus;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(DrawerType.None),
@@ -38600,10 +38621,10 @@ var AppProvider = function AppProvider(_ref) {
   var widgetMode = typeof window !== "undefined" && /widget=1/.test(window.location.href); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   var setError = function setError(e) {
-    if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .isCancelError */ .G5)(e)) return;
+    if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .isCancelError */ .G5)(e)) return;
     console.error(e);
     var msg = (e === null || e === void 0 ? void 0 : e.message) || e + "";
-    var code = (0,_jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(e);
+    var code = (0,_jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP)(e);
     enqueueSnackbar(msg, {
       variant: "error",
       preventDuplicate: true,
@@ -38628,7 +38649,7 @@ var AppProvider = function AppProvider(_ref) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     return bus.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__/* .ERROR */ .pnR, function (e) {
-      if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .isCancelError */ .G5)(e.exception)) return;
+      if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .isCancelError */ .G5)(e.exception)) return;
       setError(e.exception);
     });
   }, []);
@@ -38660,10 +38681,10 @@ var AppProvider = function AppProvider(_ref) {
       toggleShowDeviceHostsDialog: toggleShowDeviceHostsDialog,
       showSelectRoleDialog: showSelectRoleDialog
     }
-  }, children, showDeviceHostsDialog && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StartSimulatorDialog, {
+  }, children, showDeviceHostsDialog && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StartSimulatorDialog, {
     open: showDeviceHostsDialog,
     onClose: toggleShowDeviceHostsDialog
-  })), showSelectRoleDialogService && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(SelectRoleDialog, {
+  })), showSelectRoleDialogService && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(SelectRoleDialog, {
     service: showSelectRoleDialogService,
     onClose: handleCloseRoleDialog
   })));
@@ -42296,7 +42317,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "739d907ef884791522234b2497e7f827839dcf99";
+  var sha = "1482046ee413ff15cd85f5e0b31a6e9c92dd17fd";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -48648,7 +48669,7 @@ var CMSISProto = /*#__PURE__*/function () {
   return CMSISProto;
 }();
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/error.ts
-var error = __webpack_require__(52800);
+var jdom_error = __webpack_require__(52800);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/usbio.ts
 
 
@@ -48689,7 +48710,7 @@ var USBIO = /*#__PURE__*/function () {
     this.onData = function (v) {};
 
     this.onError = function (e) {
-      console.warn("usb error: " + ((0,error/* default */.Z)(e) || "") + " " + (e ? e.stack : e));
+      console.warn("usb error: " + ((0,jdom_error/* default */.ZP)(e) || "") + " " + (e ? e.stack : e));
     };
 
     this.options = options;
@@ -48768,8 +48789,7 @@ var USBIO = /*#__PURE__*/function () {
   };
 
   _proto.error = function error(msg, code) {
-    var e = new Error("device " + (this.dev ? this.dev.productName : "n/a") + " (" + msg + ")");
-    if (code !== undefined) e.code = code;
+    var e = new jdom_error/* JDError */.py("device " + (this.dev ? this.dev.productName : "n/a") + " (" + msg + ")", code);
     this.onError(e);
   };
 
@@ -57656,4 +57676,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-457d7b1564cb05569eea.js.map
+//# sourceMappingURL=app-cc252d21a50cc46af9b0.js.map
