@@ -42236,7 +42236,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ccb6529d06a0145a85eafcb77e8222d88c46691b";
+  var sha = "dbef7a888335513c493d38f0b2ae12f62bdc47c5";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -52812,8 +52812,14 @@ exports.components = {
   "component---src-pages-dtmi-mdx": function componentSrcPagesDtmiMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 9901).then(__webpack_require__.bind(__webpack_require__, 7248));
   },
+  "component---src-pages-errors-microbit-invalid-memory-mdx": function componentSrcPagesErrorsMicrobitInvalidMemoryMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-invalid-memory-mdx */ 4347).then(__webpack_require__.bind(__webpack_require__, 79318));
+  },
   "component---src-pages-errors-microbit-jacdac-missing-mdx": function componentSrcPagesErrorsMicrobitJacdacMissingMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-jacdac-missing-mdx */ 7003).then(__webpack_require__.bind(__webpack_require__, 3150));
+  },
+  "component---src-pages-errors-microbit-unknown-hardware-revision-mdx": function componentSrcPagesErrorsMicrobitUnknownHardwareRevisionMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-unknown-hardware-revision-mdx */ 1455).then(__webpack_require__.bind(__webpack_require__, 43688));
   },
   "component---src-pages-errors-microbit-v-1-not-supported-mdx": function componentSrcPagesErrorsMicrobitV1NotSupportedMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-v-1-not-supported-mdx */ 3462).then(__webpack_require__.bind(__webpack_require__, 86386));
@@ -57569,4 +57575,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ef127602b02232fd926a.js.map
+//# sourceMappingURL=app-8e410e76f9b2e011a0c4.js.map
