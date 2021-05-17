@@ -27178,6 +27178,10 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "c5n": function() { return /* binding */ BLUETOOTH_JACDAC_TX_CHARACTERISTIC; },
 /* harmony export */   "Wdl": function() { return /* binding */ TRANSPORT_CONNECT_RETRY_DELAY; },
 /* harmony export */   "U5y": function() { return /* binding */ TRANSPORT_PULSE_TIMEOUT; },
+/* harmony export */   "IsD": function() { return /* binding */ ERROR_MICROBIT_V1; },
+/* harmony export */   "CM_": function() { return /* binding */ ERROR_MICROBIT_UNKNOWN; },
+/* harmony export */   "kbU": function() { return /* binding */ ERROR_MICROBIT_JACDAC_MISSING; },
+/* harmony export */   "mZW": function() { return /* binding */ ERROR_MICROBIT_INVALID_MEMORY; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
 /* harmony export */   "vCn": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.vCn; },
 /* harmony export */   "GZs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.GZs; },
@@ -27486,7 +27490,24 @@ var BLUETOOTH_JACDAC_TX_CHARACTERISTIC = "f8530003-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC = "f8530004-a97f-49f5-a554-3e373fbea2d5";
 var TRANSPORT_CONNECT_RETRY_DELAY = 500;
 var TRANSPORT_PULSE_TIMEOUT = JD_DEVICE_DISCONNECTED_DELAY;
+var ERROR_MICROBIT_V1 = "microbit/v1-not-supported";
+var ERROR_MICROBIT_UNKNOWN = "microbit/unknown-hardware-revision";
+var ERROR_MICROBIT_JACDAC_MISSING = "microbit/jacdac-missing";
+var ERROR_MICROBIT_INVALID_MEMORY = "microbit/invalid-memory";
 
+
+/***/ }),
+
+/***/ 52800:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ errorCode; }
+/* harmony export */ });
+function errorCode(e) {
+  return e === null || e === void 0 ? void 0 : e.code;
+}
 
 /***/ }),
 
@@ -33224,8 +33245,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
               state: _this2._connectionState,
               old: _this2._connectPromise,
               new: _p2
-            });
-            if (!background) _this2.errorHandler(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CONNECT */ .JD8, new Error("connection aborted in flight"));
+            }); // already reported
           }
         }).catch(function (e) {
           if (_p2 == _this2._connectPromise) {
@@ -33333,7 +33353,8 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
   _proto.errorHandler = function errorHandler(context, exception) {
     var _this4 = this;
 
-    var wasConnected = this.connected;
+    var wasConnected = this.connected; //const code = errorCode(exception)
+
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, {
       context: context,
       exception: exception
@@ -33346,7 +33367,10 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
     this.disconnect(true) // retry connect
     .then(function () {
-      return wasConnected && _this4.connect(true);
+      if (wasConnected) {
+        console.debug("reconnect after error");
+        wasConnected && _this4.connect(true);
+      }
     });
   };
 
@@ -38498,22 +38522,26 @@ function serviceProviderDefinitionFromServiceClass(serviceClass) {
 /* harmony export */   "jw": function() { return /* binding */ DrawerType; },
 /* harmony export */   "wI": function() { return /* binding */ AppProvider; }
 /* harmony export */ });
-/* harmony import */ var notistack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70076);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20392);
-/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(69672);
+/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36176);
+/* harmony import */ var notistack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70076);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(52800);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81794);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20392);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
 
 
 
 
 
 
-var StartSimulatorDialog = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.lazy)(function () {
+
+
+var StartSimulatorDialog = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_2__.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(8104), __webpack_require__.e(9950), __webpack_require__.e(596), __webpack_require__.e(2345), __webpack_require__.e(4610)]).then(__webpack_require__.bind(__webpack_require__, 44610));
 });
-var SelectRoleDialog = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.lazy)(function () {
+var SelectRoleDialog = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_2__.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(8104), __webpack_require__.e(317), __webpack_require__.e(2255)]).then(__webpack_require__.bind(__webpack_require__, 31745));
 });
 var DrawerType;
@@ -38525,7 +38553,7 @@ var DrawerType;
   DrawerType[DrawerType["Dom"] = 3] = "Dom";
 })(DrawerType || (DrawerType = {}));
 
-var AppContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
+var AppContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_2__.createContext)({
   drawerType: DrawerType.None,
   setDrawerType: function setDrawerType() {},
   searchQuery: undefined,
@@ -38543,42 +38571,46 @@ AppContext.displayName = "app";
 var AppProvider = function AppProvider(_ref) {
   var children = _ref.children;
 
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z),
       bus = _useContext.bus;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(DrawerType.None),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(DrawerType.None),
       type = _useState[0],
       setType = _useState[1];
 
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
       searchQuery = _useState2[0],
       setSearchQuery = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       toolsMenu = _useState3[0],
       _setToolsMenu = _useState3[1];
 
-  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
       showDeviceHostsDialog = _useState4[0],
       setShowDeviceHostsDialog = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(undefined),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
       showSelectRoleDialogService = _useState5[0],
       setShowSelectRoleDialogService = _useState5[1];
 
-  var _useSnackbar = (0,notistack__WEBPACK_IMPORTED_MODULE_0__/* .useSnackbar */ .Ds)(),
+  var _useSnackbar = (0,notistack__WEBPACK_IMPORTED_MODULE_1__/* .useSnackbar */ .Ds)(),
       enqueueSnackbar = _useSnackbar.enqueueSnackbar;
 
   var widgetMode = typeof window !== "undefined" && /widget=1/.test(window.location.href); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   var setError = function setError(e) {
-    if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .isCancelError */ .G5)(e)) return;
+    if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .isCancelError */ .G5)(e)) return;
     console.error(e);
     var msg = (e === null || e === void 0 ? void 0 : e.message) || e + "";
+    var code = (0,_jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(e);
     enqueueSnackbar(msg, {
       variant: "error",
       preventDuplicate: true,
-      autoHideDuration: 4000
+      autoHideDuration: code ? 8000 : 4000,
+      action: code && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        to: "/errors/" + code
+      }, "Help")
     });
   };
 
@@ -38594,10 +38626,10 @@ var AppProvider = function AppProvider(_ref) {
   }; // notify errors
 
 
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    return bus.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .ERROR */ .pnR, function (e) {
-      if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .isCancelError */ .G5)(e.exception)) return;
-      setError(e.exception.message);
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    return bus.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_3__/* .ERROR */ .pnR, function (e) {
+      if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .isCancelError */ .G5)(e.exception)) return;
+      setError(e.exception);
     });
   }, []);
 
@@ -38615,7 +38647,7 @@ var AppProvider = function AppProvider(_ref) {
     return setShowSelectRoleDialogService(srv);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(AppContext.Provider, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(AppContext.Provider, {
     value: {
       drawerType: type,
       setDrawerType: setDrawerType,
@@ -38628,10 +38660,10 @@ var AppProvider = function AppProvider(_ref) {
       toggleShowDeviceHostsDialog: toggleShowDeviceHostsDialog,
       showSelectRoleDialog: showSelectRoleDialog
     }
-  }, children, showDeviceHostsDialog && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(StartSimulatorDialog, {
+  }, children, showDeviceHostsDialog && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(StartSimulatorDialog, {
     open: showDeviceHostsDialog,
     onClose: toggleShowDeviceHostsDialog
-  })), showSelectRoleDialogService && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(SelectRoleDialog, {
+  })), showSelectRoleDialogService && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(SelectRoleDialog, {
     service: showSelectRoleDialogService,
     onClose: handleCloseRoleDialog
   })));
@@ -42204,7 +42236,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "9d9cba2d1edcb08ffa27d5ff209f056dc9805d5d";
+  var sha = "ccb6529d06a0145a85eafcb77e8222d88c46691b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -47301,6 +47333,7 @@ var HF2Proto = /*#__PURE__*/function () {
 
 
 
+
 var MICROBIT_V2_VENDOR_ID = 3368;
 var MICROBIT_V2_PRODUCT_ID = 516;
 var CMSISProto = /*#__PURE__*/function () {
@@ -47335,11 +47368,11 @@ var CMSISProto = /*#__PURE__*/function () {
     }
   };
 
-  _proto.error = function error(msg) {
+  _proto.error = function error(msg, code) {
     var _this$io;
 
     this.stopRecvToLoop();
-    (_this$io = this.io) === null || _this$io === void 0 ? void 0 : _this$io.error(msg); // clear state
+    (_this$io = this.io) === null || _this$io === void 0 ? void 0 : _this$io.error(msg, code); // clear state
 
     this.xchgAddr = null;
   };
@@ -48390,7 +48423,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 break;
               }
 
-              this.error("micro:bit v1 is not supported. sorry.");
+              this.error("micro:bit v1 is not supported. sorry.", constants/* ERROR_MICROBIT_V1 */.IsD);
               return _context18.abrupt("return");
 
             case 7:
@@ -48399,7 +48432,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 break;
               }
 
-              this.error("Invalid Vendor0 response: " + devid);
+              this.error("Invalid Vendor0 response: " + devid, constants/* ERROR_MICROBIT_UNKNOWN */.CM_);
               return _context18.abrupt("return");
 
             case 10:
@@ -48503,7 +48536,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 break;
               }
 
-              this.error("exchange address not found; add jacdac to your project");
+              this.error("exchange address not found; add jacdac to your project", constants/* ERROR_MICROBIT_JACDAC_MISSING */.kbU);
               return _context18.abrupt("return");
 
             case 54:
@@ -48520,7 +48553,7 @@ var CMSISProto = /*#__PURE__*/function () {
                 break;
               }
 
-              this.error("invalid memory; try power-cycling the micro:bit");
+              this.error("invalid memory; try power-cycling the micro:bit", constants/* ERROR_MICROBIT_INVALID_MEMORY */.mZW);
               return _context18.abrupt("return");
 
             case 62:
@@ -48554,6 +48587,8 @@ var CMSISProto = /*#__PURE__*/function () {
 
   return CMSISProto;
 }();
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/error.ts
+var error = __webpack_require__(52800);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/transport/usbio.ts
 
 
@@ -48562,6 +48597,7 @@ function usbio_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (t
 function usbio_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return usbio_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return usbio_arrayLikeToArray(o, minLen); }
 
 function usbio_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -48593,7 +48629,7 @@ var USBIO = /*#__PURE__*/function () {
     this.onData = function (v) {};
 
     this.onError = function (e) {
-      console.warn("usb error: " + (e ? e.stack : e));
+      console.warn("usb error: " + ((0,error/* default */.Z)(e) || "") + " " + (e ? e.stack : e));
     };
 
     this.options = options;
@@ -48671,8 +48707,10 @@ var USBIO = /*#__PURE__*/function () {
     return this.dev.transferIn(this.epIn.endpointNumber, 64).then(final);
   };
 
-  _proto.error = function error(msg) {
-    this.onError(new Error("device " + (this.dev ? this.dev.productName : "n/a") + " (" + msg + ")"));
+  _proto.error = function error(msg, code) {
+    var e = new Error("device " + (this.dev ? this.dev.productName : "n/a") + " (" + msg + ")");
+    if (code !== undefined) e.code = code;
+    this.onError(e);
   };
 
   _proto.readLoop = /*#__PURE__*/function () {
@@ -52773,6 +52811,12 @@ exports.components = {
   },
   "component---src-pages-dtmi-mdx": function componentSrcPagesDtmiMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 9901).then(__webpack_require__.bind(__webpack_require__, 7248));
+  },
+  "component---src-pages-errors-microbit-jacdac-missing-mdx": function componentSrcPagesErrorsMicrobitJacdacMissingMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-jacdac-missing-mdx */ 7003).then(__webpack_require__.bind(__webpack_require__, 3150));
+  },
+  "component---src-pages-errors-microbit-v-1-not-supported-mdx": function componentSrcPagesErrorsMicrobitV1NotSupportedMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-v-1-not-supported-mdx */ 3462).then(__webpack_require__.bind(__webpack_require__, 86386));
   },
   "component---src-pages-github-tsx": function componentSrcPagesGithubTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-github-tsx */ 2566).then(__webpack_require__.bind(__webpack_require__, 82017));
@@ -57525,4 +57569,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-6d12ebf03822d2710027.js.map
+//# sourceMappingURL=app-ef127602b02232fd926a.js.map
