@@ -925,7 +925,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 /***/ 87757:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-module.exports = __webpack_require__(3076);
+module.exports = __webpack_require__(35666);
 
 
 /***/ }),
@@ -20696,7 +20696,7 @@ var useSnackbar = function useSnackbar() {
 
 /***/ }),
 
-/***/ 35666:
+/***/ 2075:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
@@ -39278,6 +39278,66 @@ function DrawerToolsButtonGroup(props) {
 
 /***/ }),
 
+/***/ 80691:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ErrorList; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35313);
+/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36176);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
+
+
+
+
+
+function ErrorListItem(props) {
+  var slug = props.slug,
+      title = props.title;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    to: "/" + slug
+  }, title));
+}
+
+function ErrorList() {
+  var _data$allMdx, _data$allMdx$nodes;
+
+  var data = (0,gatsby__WEBPACK_IMPORTED_MODULE_1__.useStaticQuery)("2898794040");
+  console.log("data", {
+    data: data
+  });
+  var nodes = data === null || data === void 0 ? void 0 : (_data$allMdx = data.allMdx) === null || _data$allMdx === void 0 ? void 0 : (_data$allMdx$nodes = _data$allMdx.nodes) === null || _data$allMdx$nodes === void 0 ? void 0 : _data$allMdx$nodes.filter(function (node) {
+    var _node$frontmatter;
+
+    return node.slug.indexOf("/") > -1 && ((_node$frontmatter = node.frontmatter) === null || _node$frontmatter === void 0 ? void 0 : _node$frontmatter.title);
+  }).map(function (node) {
+    return {
+      slug: node.slug,
+      title: node.frontmatter.title
+    };
+  });
+  var groups = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .groupBy */ .vM)(nodes, function (node) {
+    return node.slug.split("/", 2)[1];
+  });
+  var groupNames = Object.keys(groups);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, groupNames.map(function (group) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
+      key: group
+    }, group), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+      key: group + "list"
+    }, groups[group].map(function (node) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ErrorListItem, Object.assign({
+        key: node.slug
+      }, node));
+    })));
+  }));
+}
+
+/***/ }),
+
 /***/ 50048:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -42236,7 +42296,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "dbef7a888335513c493d38f0b2ae12f62bdc47c5";
+  var sha = "739d907ef884791522234b2497e7f827839dcf99";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -43444,7 +43504,7 @@ function IconButtonWithTooltip(props) {
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42862);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35666);
+/* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2075);
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -52383,7 +52443,7 @@ exports.onRouteUpdate = exports.onRouteUpdateDelayed = exports.onClientEntry = v
 
 var _extends2 = _interopRequireDefault(__webpack_require__(67154));
 
-var _nprogress = _interopRequireDefault(__webpack_require__(35666));
+var _nprogress = _interopRequireDefault(__webpack_require__(2075));
 
 var defaultOptions = {
   color: "#29d"
@@ -52811,6 +52871,9 @@ exports.components = {
   },
   "component---src-pages-dtmi-mdx": function componentSrcPagesDtmiMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-dtmi-mdx */ 9901).then(__webpack_require__.bind(__webpack_require__, 7248));
+  },
+  "component---src-pages-errors-mdx": function componentSrcPagesErrorsMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-errors-mdx */ 4198).then(__webpack_require__.bind(__webpack_require__, 31502));
   },
   "component---src-pages-errors-microbit-invalid-memory-mdx": function componentSrcPagesErrorsMicrobitInvalidMemoryMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-errors-microbit-invalid-memory-mdx */ 4347).then(__webpack_require__.bind(__webpack_require__, 79318));
@@ -55307,6 +55370,22 @@ var react__WEBPACK_IMPORTED_MODULE_1___namespace_cache;
 
 /***/ }),
 
+/***/ 53184:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var react__WEBPACK_IMPORTED_MODULE_1___namespace_cache;
+/* harmony import */ var _src_components_ErrorList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(80691);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+
+
+/* harmony default export */ __webpack_exports__["Z"] = ({
+  ErrorList: _src_components_ErrorList__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z,
+  React: /*#__PURE__*/ (react__WEBPACK_IMPORTED_MODULE_1___namespace_cache || (react__WEBPACK_IMPORTED_MODULE_1___namespace_cache = __webpack_require__.t(react__WEBPACK_IMPORTED_MODULE_1__, 2)))
+});
+
+/***/ }),
+
 /***/ 15643:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -55371,9 +55450,11 @@ var mdx_components = __webpack_require__(88756);
 ;// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
 var scope_0 = __webpack_require__(63558)/* .default */ .Z;
 
-var scope_1 = __webpack_require__(15643)/* .default */ .Z;
+var scope_1 = __webpack_require__(53184)/* .default */ .Z;
 
-/* harmony default export */ var mdx_scopes = (Object.assign({}, scope_0, scope_1));
+var scope_2 = __webpack_require__(15643)/* .default */ .Z;
+
+/* harmony default export */ var mdx_scopes = (Object.assign({}, scope_0, scope_1, scope_2));
 ;// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/wrap-root-element.js
 
 
@@ -56811,7 +56892,7 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 3076:
+/***/ 35666:
 /***/ (function(module) {
 
 /**
@@ -57575,4 +57656,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-8e410e76f9b2e011a0c4.js.map
+//# sourceMappingURL=app-457d7b1564cb05569eea.js.map
