@@ -419,7 +419,10 @@ function Dashboard(props) {
     devices: simulators,
     expanded: selected,
     toggleExpanded: toggleSelected
-  }, other), showStartSimulators && !(simulators !== null && simulators !== void 0 && simulators.length) && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+  }, other), showStartSimulators && !(simulators !== null && simulators !== void 0 && simulators.length) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
   }, "Simulate a", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
     onClick: handleStartSimulator(specconstants/* SRV_BUTTON */.XJR),
@@ -440,7 +443,7 @@ function Dashboard(props) {
   }, "\uD83D\uDEA6"), "... or many more by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "start simulator",
     onClick: toggleShowDeviceHostsDialog
-  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), ".")), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
+  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), "."))), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
     title: "Devices",
     action: showConnect && /*#__PURE__*/react.createElement(ConnectButtons/* default */.Z, {
       full: false,
@@ -1163,4 +1166,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-abe843ed02a51dc6e76a.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-7f4542b8210f052991fd.js.map
