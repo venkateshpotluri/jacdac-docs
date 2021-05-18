@@ -915,9 +915,8 @@ var SettingsClient = /*#__PURE__*/function (_JDServiceClient) {
               return _context3.abrupt("return", output.map(function (pkt) {
                 var _pkt$jdunpack = pkt.jdunpack("z b"),
                     key = _pkt$jdunpack[0],
-                    valueb = _pkt$jdunpack[1];
+                    value = _pkt$jdunpack[1];
 
-                var value = valueb.length > 0 ? (0,_utils__WEBPACK_IMPORTED_MODULE_6__/* .bufferToString */ .zT)(valueb) : undefined;
                 return key && {
                   key: key,
                   value: value
@@ -1874,4 +1873,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-settings-tsx-6942c435d95a3387d04e.js.map
+//# sourceMappingURL=component---src-pages-tools-settings-tsx-008555c86ca619c8d2b5.js.map

@@ -600,9 +600,8 @@ var SettingsClient = /*#__PURE__*/function (_JDServiceClient) {
               return _context3.abrupt("return", output.map(function (pkt) {
                 var _pkt$jdunpack = pkt.jdunpack("z b"),
                     key = _pkt$jdunpack[0],
-                    valueb = _pkt$jdunpack[1];
+                    value = _pkt$jdunpack[1];
 
-                var value = valueb.length > 0 ? (0,_utils__WEBPACK_IMPORTED_MODULE_6__/* .bufferToString */ .zT)(valueb) : undefined;
                 return key && {
                   key: key,
                   value: value
@@ -1706,11 +1705,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+var FORMAT = "b[8] u32 u8 u8 u16 u16";
 
 function HIDEventToBuffer(event, ev) {
-  var deviceId = (0,utils/* stringToBuffer */.k8)(event.service.device.deviceId);
-  var payload = (0,pack/* jdpack */.AV)("b[8] u32 u8 u8 u16", [deviceId, event.service.serviceClass, event.code, ev.selector, ev.modifiers]);
+  var deviceId = (0,utils/* fromHex */.H_)(event.service.device.deviceId);
+  var service = event.service,
+      code = event.code;
+  var serviceClass = service.serviceClass,
+      serviceIndex = service.serviceIndex;
+  var selector = ev.selector,
+      modifiers = ev.modifiers;
+  var payload = (0,pack/* jdpack */.AV)(FORMAT, [deviceId, serviceClass, serviceIndex, code, selector, modifiers]);
   return payload;
+}
+
+function bufferToHIDEvent(key, data, bus) {
+  var _device$service;
+
+  if ((data === null || data === void 0 ? void 0 : data.length) !== 18) return undefined;
+
+  var _jdunpack = (0,pack/* jdunpack */.TE)(data, FORMAT),
+      deviceId = _jdunpack[0],
+      serviceClass = _jdunpack[1],
+      serviceIndex = _jdunpack[2],
+      eventCode = _jdunpack[3],
+      selector = _jdunpack[4],
+      modifiers = _jdunpack[5];
+
+  var deviceIds = (0,utils/* toHex */.NC)(deviceId);
+  var device = bus.device(deviceIds, true);
+  var event = device === null || device === void 0 ? void 0 : (_device$service = device.service(serviceIndex)) === null || _device$service === void 0 ? void 0 : _device$service.event(eventCode);
+  if (!event || event.service.serviceClass !== serviceClass) return undefined;
+  return {
+    key: key,
+    eventId: event.id,
+    selector: selector,
+    modifiers: modifiers
+  };
 }
 
 function SelectHIDEvent(props) {
@@ -1847,7 +1878,7 @@ function HIDEvents() {
     return new settingsclient/* default */.Z(srv);
   });
   (0,useChange/* default */.Z)(settings, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-    var hes, all, _iterator, _step, kv, value;
+    var hes, all, _iterator, _step, kv, key, value, he;
 
     return regenerator_default().wrap(function _callee$(_context) {
       while (1) {
@@ -1876,11 +1907,9 @@ function HIDEvents() {
               return (_entry$key = entry.key) === null || _entry$key === void 0 ? void 0 : _entry$key.startsWith(PREFIX);
             })); !(_step = _iterator()).done;) {
               kv = _step.value;
-              value = kv.value; // decode value
-
-              console.log({
-                value: value
-              });
+              key = kv.key, value = kv.value;
+              he = bufferToHIDEvent(key, value, bus);
+              if (he) hes.push(he);
             }
 
           case 8:
@@ -1984,4 +2013,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-7caeac8e2f90340fa921.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-535f31ff2515717a936e.js.map
