@@ -290,6 +290,10 @@ var useMediaQueries = __webpack_require__(20509);
 var Alert = __webpack_require__(6809);
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(25606);
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/dist/specconstants.ts
+var specconstants = __webpack_require__(73512);
 ;// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
 
@@ -305,6 +309,8 @@ var gatsby_theme_material_ui = __webpack_require__(36176);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
 
 
 
@@ -391,6 +397,13 @@ function Dashboard(props) {
     return roleManager === null || roleManager === void 0 ? void 0 : roleManager.startSimulators();
   };
 
+  var handleStartSimulator = function handleStartSimulator(serviceClass) {
+    return function () {
+      var provider = (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(serviceClass);
+      (0,servers/* addServiceProvider */.Q6)(bus, provider);
+    };
+  };
+
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
     title: "Simulators",
     action: /*#__PURE__*/react.createElement(react.Fragment, null, showStartSimulators && !!roleManager && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
@@ -406,9 +419,28 @@ function Dashboard(props) {
     devices: simulators,
     expanded: selected,
     toggleExpanded: toggleSelected
-  }, other), showStartSimulators && (simulators === null || simulators === void 0 ? void 0 : simulators.length) && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+  }, other), showStartSimulators && !(simulators !== null && simulators !== void 0 && simulators.length) && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
-  }, "Simulate a ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, null, "button"), " or a", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, null, "servo"), "... or any other by clicking", /*#__PURE__*/react.createElement(Add/* default */.Z, null), ".")), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
+  }, "Simulate a", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(specconstants/* SRV_BUTTON */.XJR),
+    title: "button",
+    "aria-label": "start button simulator"
+  }, "\uD83D\uDD18"), ", or a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(specconstants/* SRV_POTENTIOMETER */.GQv),
+    title: "slider",
+    "aria-label": "start slider simulator"
+  }, "\uD83C\uDF9A\uFE0F"), ", or a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(specconstants/* SRV_LED */.i04),
+    title: "LED",
+    "aria-label": "start LED simulator"
+  }, "\uD83D\uDCA1"), ", or a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(specconstants/* SRV_TRAFFIC_LIGHT */.jHN),
+    title: "traffic light",
+    "aria-label": "start traffic light simulator"
+  }, "\uD83D\uDEA6"), "... or many more by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), ".")), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
     title: "Devices",
     action: showConnect && /*#__PURE__*/react.createElement(ConnectButtons/* default */.Z, {
       full: false,
@@ -1131,4 +1163,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-c919f9484b8555044d69.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-abe843ed02a51dc6e76a.js.map
