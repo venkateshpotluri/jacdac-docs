@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(80838);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(42862);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
-/* harmony import */ var _widgets_CanvasWidget__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(46054);
+/* harmony import */ var _widgets_CanvasWidget__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11535);
 /* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2285);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(69672);
 /* harmony import */ var _ui_SliderWithLabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(23461);
@@ -176,4 +176,4 @@ function DashboardGyroscope(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5754-bebf6ec533e1514cfbc4.js.map
+//# sourceMappingURL=5754-e60b14fdbc783cf5533d.js.map
