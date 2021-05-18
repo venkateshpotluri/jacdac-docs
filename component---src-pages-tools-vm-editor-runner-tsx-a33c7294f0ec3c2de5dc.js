@@ -451,7 +451,8 @@ function Dashboard(props) {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "info"
+    severity: "info",
+    closeable: true
   }, "Simulate devices (", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
     onClick: handleStartSimulator(constants/* SRV_BUTTON */.XJR),
     title: "button",
@@ -1197,4 +1198,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-0257645695bc518e2d29.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-a33c7294f0ec3c2de5dc.js.map
