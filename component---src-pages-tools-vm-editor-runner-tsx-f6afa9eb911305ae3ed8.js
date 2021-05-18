@@ -320,8 +320,8 @@ var Alert = __webpack_require__(6809);
 var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
 var servers = __webpack_require__(25606);
-// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/dist/specconstants.ts
-var specconstants = __webpack_require__(73512);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
 ;// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
 
@@ -452,23 +452,27 @@ function Dashboard(props) {
     xs: 12
   }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
-  }, "Simulate a", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
-    onClick: handleStartSimulator(specconstants/* SRV_BUTTON */.XJR),
+  }, "Simulate devices (", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(constants/* SRV_BUTTON */.XJR),
     title: "button",
     "aria-label": "start button simulator"
-  }, "\uD83D\uDD18"), ", or a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
-    onClick: handleStartSimulator(specconstants/* SRV_POTENTIOMETER */.GQv),
-    title: "slider",
-    "aria-label": "start slider simulator"
-  }, "\uD83C\uDF9A\uFE0F"), ", or a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
-    onClick: handleStartSimulator(specconstants/* SRV_LED */.i04),
+  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(constants/* SRV_BUZZER */.J1$),
+    title: "buzzer",
+    "aria-label": "start buzzer simulator"
+  }, "\uD83C\uDFB9"), /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(constants/* SRV_JOYSTICK */.vRO),
+    title: "joystick",
+    "aria-label": "start joystick simulator"
+  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(constants/* SRV_LED */.i04),
     title: "LED",
     "aria-label": "start LED simulator"
-  }, "\uD83D\uDCA1"), ", or a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
-    onClick: handleStartSimulator(specconstants/* SRV_TRAFFIC_LIGHT */.jHN),
+  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    onClick: handleStartSimulator(constants/* SRV_TRAFFIC_LIGHT */.jHN),
     title: "traffic light",
     "aria-label": "start traffic light simulator"
-  }, "\uD83D\uDEA6"), "... or many more by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "start simulator",
     onClick: toggleShowDeviceHostsDialog
   }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), "."))), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
@@ -1193,4 +1197,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-6bfa041fad5b5f843bca.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-f6afa9eb911305ae3ed8.js.map

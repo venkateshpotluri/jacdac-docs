@@ -37815,6 +37815,15 @@ var _providerDefinitions = [{
     })];
   }
 }, {
+  name: "joystick (stick + A + B)",
+  serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
+  services: function services() {
+    return [new joystickserver/* default */.ZP({
+      variant: constants/* JoystickVariant.Thumb */.BUi.Thumb,
+      buttonsAvailable: constants/* JoystickButtons.A */.xC.A | constants/* JoystickButtons.B */.xC.B
+    })];
+  }
+}, {
   name: "joystick (stick)",
   serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
   services: function services() {
@@ -37829,15 +37838,6 @@ var _providerDefinitions = [{
     return [new joystickserver/* default */.ZP({
       variant: constants/* JoystickVariant.Thumb */.BUi.Thumb,
       buttonsAvailable: constants/* JoystickButtons.A */.xC.A
-    })];
-  }
-}, {
-  name: "joystick (stick+AB)",
-  serviceClasses: [constants/* SRV_JOYSTICK */.vRO],
-  services: function services() {
-    return [new joystickserver/* default */.ZP({
-      variant: constants/* JoystickVariant.Thumb */.BUi.Thumb,
-      buttonsAvailable: constants/* JoystickButtons.A */.xC.A | constants/* JoystickButtons.B */.xC.B
     })];
   }
 }, {
@@ -42370,7 +42370,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "095453352838975f8df83492f3b92b17645596c0";
+  var sha = "92fd2c6c36c4dcef20730741ec9d0ec879228453";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -49918,7 +49918,7 @@ function iframebridgeclient_arrayLikeToArray(arr, len) { if (len == null || len 
 
 
 
-var ignoredServices = [specconstants/* SRV_CONTROL */.gm9, specconstants/* SRV_LOGGER */.w9j, specconstants/* SRV_SETTINGS */.B9b, specconstants/* SRV_ROLE_MANAGER */.igi, specconstants/* SRV_PROTO_TEST */.$Bn];
+var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_SETTINGS */.B9b, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn];
 /**
  * A client that bridges received and sent packets to a parent iframe
  */
@@ -57734,4 +57734,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-07072c8722d0395a70c7.js.map
+//# sourceMappingURL=app-c38f9db4d372658a6772.js.map
