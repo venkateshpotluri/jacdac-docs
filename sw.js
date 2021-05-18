@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-17f977ca306ea18b3901.js"
+    "url": "webpack-runtime-df81ed1378739506b181.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "a61b7ae6d94fb80f05ee85dc5a811316"
+    "revision": "3f5803b8d659bc360613717f34330cad"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "2d1d40c12cf6830991ebf0e92657584a"
+    "revision": "b1adc72b1b5d5cf4d4ba85c152514807"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "2531fc8a3ba60437e9491777f35fdea7"
+    "revision": "47aa5f9d0f9bae31743ae61420e4614b"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -138,7 +138,7 @@ self.__precacheManifest = [
     "url": "764b3c2138e8ca093be82979494a11d3d5314f45-3992d542df91fc9ea2cc.js"
   },
   {
-    "url": "component---src-pages-dashboard-tsx-eebf65e76304c8b1b1c3.js"
+    "url": "component---src-pages-dashboard-tsx-c9306e44a93005b94406.js"
   },
   {
     "url": "page-data/dashboard/page-data.json",
@@ -267,7 +267,7 @@ self.__precacheManifest = [
     "url": "859a83de993caea7524bf57c2975f3be6812c8c3-6675b6e068a712ac7c64.js"
   },
   {
-    "url": "component---src-templates-service-test-tsx-f5402a2edfa0579dcecc.js"
+    "url": "component---src-templates-service-test-tsx-0208af239ad0e996fb2a.js"
   },
   {
     "url": "page-data/services/_base/test/page-data.json",
@@ -1319,7 +1319,7 @@ self.__precacheManifest = [
     "url": "a77c613bd0faa103b953c0d40475a17f2d569635-022787b79271a8978144.js"
   },
   {
-    "url": "component---src-pages-tools-edge-impulse-tsx-cd1913e59f93b12328c7.js"
+    "url": "component---src-pages-tools-edge-impulse-tsx-f282c41cd2710d0bca85.js"
   },
   {
     "url": "page-data/tools/edge-impulse/page-data.json",
@@ -1347,7 +1347,7 @@ self.__precacheManifest = [
     "revision": "8f6256b0f209021e94527886b16a3c47"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-5722f26b753e279c65b2.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-9f00a1c84e857ab07bd1.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
@@ -1379,7 +1379,7 @@ self.__precacheManifest = [
     "revision": "1e0c394909775532a4d1fd14a1edd2ba"
   },
   {
-    "url": "component---src-pages-tools-prototest-tsx-395cf7e0adb63d9d05d3.js"
+    "url": "component---src-pages-tools-prototest-tsx-7bc6e65f72c92c9a7847.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
@@ -1410,7 +1410,7 @@ self.__precacheManifest = [
     "url": "f1139de310d90dc95ca6e4e18c0f2676774ddbf9-c34fdaddd712e06e067f.js"
   },
   {
-    "url": "component---src-pages-tools-service-test-editor-tsx-b04b0886c1cdc40af0dc.js"
+    "url": "component---src-pages-tools-service-test-editor-tsx-959cc55d769f01ebf825.js"
   },
   {
     "url": "page-data/tools/service-test-editor/page-data.json",
@@ -1431,7 +1431,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-runner-tsx-f6afa9eb911305ae3ed8.js"
+    "url": "component---src-pages-tools-vm-editor-runner-tsx-0257645695bc518e2d29.js"
   },
   {
     "url": "page-data/tools/vm-editor-runner/page-data.json",
@@ -1531,7 +1531,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-c38f9db4d372658a6772.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-77ea2784407abd0b5597.js`))) {
     return await fetch(event.request)
   }
 

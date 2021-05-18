@@ -314,14 +314,14 @@ var ConnectButtons = __webpack_require__(68337);
 var useRoleManager = __webpack_require__(40549);
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
-var Alert = __webpack_require__(6809);
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
 var servers = __webpack_require__(25606);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
+var Alert = __webpack_require__(95453);
 ;// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
 
@@ -1197,4 +1197,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-f6afa9eb911305ae3ed8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-0257645695bc518e2d29.js.map
