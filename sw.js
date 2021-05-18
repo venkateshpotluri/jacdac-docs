@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-0afa658112408a3fd410.js"
+    "url": "webpack-runtime-833ae55ed4a0a1f48d51.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "2efb5b16b838374c8bd01cddf58001fc"
+    "revision": "d40ee66fc04c53d59c502937c12d505e"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "b1adc72b1b5d5cf4d4ba85c152514807"
+    "revision": "a91bce24f6d8483f895d02ea47d081b4"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "8a9d0861e051073210a9d15af8e4076d"
+    "revision": "98d5a0d7b11548fedb3087b302accaaf"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -108,22 +108,22 @@ self.__precacheManifest = [
     "revision": "74243350f565b1856d3b83287adc7a22"
   },
   {
-    "url": "f3f9a1d234f307307be1d4bf4437cd8455a717d6-204b076976d14705fb69.js"
+    "url": "8a29b2e49896b397dc1c3d085cd9fc2314e15c50-e375a42b5368eef9b509.js"
   },
   {
-    "url": "fe9279ec7271a7ecc6fc46a8f018953abef65561-1a2f64cdf02de6acd35e.js"
+    "url": "00a9dd9d229097a497f04e046b9b6a222f9e9281-156f4f2fe6d821fbe36d.js"
   },
   {
-    "url": "deb97fadcdb336410d490ca599ff7abf3b046268-f74b28a72fd490a8c421.js"
+    "url": "9997b0037f44ffc29519c3555873da40c6936a19-4f8e70602b8bf07ed9d5.js"
   },
   {
-    "url": "279d7c0160efc70f7737bb3340d7c079de5c561a-785fdfa7708ebb067402.js"
+    "url": "af6ce624fe8bf6fd001823ac41cd97338ae792ab-e48ec900e8d6657e079b.js"
   },
   {
     "url": "73adcdd8a542553a7ae3e11b5d40c78a618eeada-19c6c29f05dc3ff320c6.js"
   },
   {
-    "url": "7c900424e1ceeb16f5253194a4f36ae3d870ef6d-7332ab5c03623a003bc5.js"
+    "url": "7c900424e1ceeb16f5253194a4f36ae3d870ef6d-e6c08e9483fd9f5d6832.js"
   },
   {
     "url": "6b6990f222072935044e69ef7f8d8ea69768f871-db40d97e1633f498ff53.js"
@@ -148,7 +148,7 @@ self.__precacheManifest = [
     "url": "97c3b2d01729d14971f44dc6012293e420701658-0e801c83bf065745a2d5.js"
   },
   {
-    "url": "component---src-pages-devices-tsx-d4be1070c395322208be.js"
+    "url": "component---src-pages-devices-tsx-ae3d5671c03b345add9e.js"
   },
   {
     "url": "page-data/devices/page-data.json",
@@ -196,7 +196,7 @@ self.__precacheManifest = [
     "url": "6e6f508a4d48336b02c09c52b4663db8917995a6-95e604546f0aa40f02c1.js"
   },
   {
-    "url": "component---src-pages-services-tsx-85f983efae5e55da141e.js"
+    "url": "component---src-pages-services-tsx-d0b568695e0573db136a.js"
   },
   {
     "url": "page-data/services/page-data.json",
@@ -1220,7 +1220,7 @@ self.__precacheManifest = [
     "url": "6362df6d6ad2d4629b1004aa17c180a25ab662e1-e2978b7fa650a4aa120f.js"
   },
   {
-    "url": "component---src-templates-device-tsx-6b7d9375b8e878ddae1e.js"
+    "url": "component---src-templates-device-tsx-2246df09b0735b0c407f.js"
   },
   {
     "url": "page-data/devices/microsoft/research/jmaccv2/page-data.json",
@@ -1295,14 +1295,14 @@ self.__precacheManifest = [
     "revision": "fc8bd57726b1df41cc0ec5cd57f20d3e"
   },
   {
-    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-7325aa56d846849fd4fb.js"
+    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-3310c671c713e454b8e0.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",
     "revision": "ff5285a436ec812b17df5eb8792f62ce"
   },
   {
-    "url": "component---src-pages-tools-collector-tsx-06c2a6ac7fcc4724f83a.js"
+    "url": "component---src-pages-tools-collector-tsx-250083a8b6f52c9b913f.js"
   },
   {
     "url": "page-data/tools/collector/page-data.json",
@@ -1333,6 +1333,13 @@ self.__precacheManifest = [
     "revision": "677f8989a3f9a1576caaaf8c05db5e42"
   },
   {
+    "url": "component---src-pages-tools-hid-events-tsx-55f0c3659f00b9f7d8a9.js"
+  },
+  {
+    "url": "page-data/tools/hid-events/page-data.json",
+    "revision": "5f46fd05545eeccb8891cb5aefc8effb"
+  },
+  {
     "url": "component---src-pages-tools-jupyterlab-mdx-78e2885ca36df3346cc4.js"
   },
   {
@@ -1340,7 +1347,7 @@ self.__precacheManifest = [
     "revision": "4a751e68e828ee7cd8ac85ce4b16fa03"
   },
   {
-    "url": "component---src-pages-tools-makecode-editor-extension-tsx-a6c95cb79abc4f3ec886.js"
+    "url": "component---src-pages-tools-makecode-editor-extension-tsx-ab43c2395dc7414c7978.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
@@ -1365,7 +1372,7 @@ self.__precacheManifest = [
     "revision": "3c7d6b3107bf56b6c2128273625f1aed"
   },
   {
-    "url": "component---src-pages-tools-peers-tsx-43f93b89cc48048d9d76.js"
+    "url": "component---src-pages-tools-peers-tsx-a17dee5ef4d51afbeaa5.js"
   },
   {
     "url": "page-data/tools/peers/page-data.json",
@@ -1386,7 +1393,7 @@ self.__precacheManifest = [
     "revision": "bd2af067366e07e1b37f6dd103dbd8e0"
   },
   {
-    "url": "component---src-pages-tools-release-assets-tsx-bfc363534b66890944dc.js"
+    "url": "component---src-pages-tools-release-assets-tsx-eb58d5b75e31038cbd10.js"
   },
   {
     "url": "page-data/tools/release-assets/page-data.json",
@@ -1417,7 +1424,7 @@ self.__precacheManifest = [
     "revision": "def730d1d1cf2aa826b51909094a80cb"
   },
   {
-    "url": "component---src-pages-tools-settings-tsx-448ec39cc21e21c71690.js"
+    "url": "component---src-pages-tools-settings-tsx-36f1814136ef0384778e.js"
   },
   {
     "url": "page-data/tools/settings/page-data.json",
@@ -1531,7 +1538,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-f1437c23980a0a427977.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-59ca8f49328c5493cff3.js`))) {
     return await fetch(event.request)
   }
 
