@@ -19691,7 +19691,7 @@ var REASONS = {
 
 var transformer = {
   toContainerAnchorOrigin: function toContainerAnchorOrigin(origin) {
-    return "containerAnchorOrigin" + origin;
+    return "anchorOrigin" + origin;
   },
   toAnchorOrigin: function toAnchorOrigin(_ref) {
     var vertical = _ref.vertical,
@@ -19779,6 +19779,18 @@ var getTransitionDirection = function getTransitionDirection(anchorOrigin) {
   }
 
   return DIRECTION[anchorOrigin.vertical];
+};
+/**
+ * Omit all class keys except what we need for collapse component
+ */
+
+
+var omitNonCollapseKeys = function omitNonCollapseKeys(classes, dense) {
+  return {
+    container: classes.collapseContainer,
+    wrapper: (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(classes.collapseWrapper, dense && classes.collapseWrapperDense),
+    wrapperInner: classes.collapseWrapperInner
+  };
 };
 
 var CheckIcon = function CheckIcon(props) {
@@ -19969,7 +19981,9 @@ var Snackbar = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(fu
 });
 
 var styles$1 = function styles(theme) {
-  // @ts-ignore
+  var _collapseContainer, _collapseWrapperInner; // @ts-ignore
+
+
   var mode = theme.palette.mode || theme.palette.type;
   var backgroundColor = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__/* .emphasize */ ._4)(theme.palette.background["default"], mode === 'light' ? 0.8 : 0.98);
   return (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(_extends({}, allClasses.mui, {
@@ -20019,7 +20033,27 @@ var styles$1 = function styles(theme) {
       right: 0,
       bottom: 0,
       left: 0
-    }
+    },
+    collapseContainer: (_collapseContainer = {}, _collapseContainer[theme.breakpoints.down('xs')] = {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1)
+    }, _collapseContainer),
+    collapseWrapper: {
+      transition: theme.transitions.create(['margin-bottom'], {
+        easing: 'ease'
+      }),
+      marginTop: SNACKBAR_INDENTS.snackbar["default"],
+      marginBottom: SNACKBAR_INDENTS.snackbar["default"]
+    },
+    collapseWrapperDense: {
+      marginTop: SNACKBAR_INDENTS.snackbar.dense,
+      marginBottom: SNACKBAR_INDENTS.snackbar.dense
+    },
+    collapseWrapperInner: (_collapseWrapperInner = {
+      width: 'auto'
+    }, _collapseWrapperInner[theme.breakpoints.down('xs')] = {
+      width: '100%'
+    }, _collapseWrapperInner)
   }));
 };
 
@@ -20055,6 +20089,7 @@ var SnackbarItem = function SnackbarItem(_ref) {
   };
 
   var style = props.style,
+      dense = props.dense,
       otherAriaAttributes = props.ariaAttributes,
       otherClassName = props.className,
       hideIconVariant = props.hideIconVariant,
@@ -20115,6 +20150,7 @@ var SnackbarItem = function SnackbarItem(_ref) {
     unmountOnExit: true,
     timeout: 175,
     "in": collapsed,
+    classes: omitNonCollapseKeys(classes, dense),
     onExited: callbacks.onExited
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement(Snackbar, Object.assign({}, other, singleSnackProps, {
     open: open,
@@ -20146,65 +20182,61 @@ var SnackbarItem = function SnackbarItem(_ref) {
 };
 
 var SnackbarItem$1 = /*#__PURE__*/(0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(styles$1)(SnackbarItem);
-var collapse = {
-  container: '& > .MuiCollapse-container',
-  wrapper: '& > .MuiCollapse-container > .MuiCollapse-wrapper'
-};
-var xsWidthMargin = 16;
 var useStyle = /*#__PURE__*/(0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(function (theme) {
-  var _root, _rootDense, _left, _right, _center;
+  var _root, _center;
 
   return {
     root: (_root = {
       boxSizing: 'border-box',
       display: 'flex',
       maxHeight: '100%',
+      maxWidth: '100%',
       position: 'fixed',
+      flexDirection: 'column',
       zIndex: theme.zIndex.snackbar,
       height: 'auto',
       width: 'auto',
-      transition: 'top 300ms ease 0ms, right 300ms ease 0ms, bottom 300ms ease 0ms, left 300ms ease 0ms, margin 300ms ease 0ms, max-width 300ms ease 0ms',
-      // container itself is invisible and should not block clicks, clicks should be passed to its children 
-      pointerEvents: 'none'
-    }, _root[collapse.container] = {
-      pointerEvents: 'all'
-    }, _root[collapse.wrapper] = {
-      padding: SNACKBAR_INDENTS.snackbar["default"] + "px 0px",
-      transition: 'padding 300ms ease 0ms'
-    }, _root.maxWidth = "calc(100% - " + SNACKBAR_INDENTS.view["default"] * 2 + "px)", _root[theme.breakpoints.down('xs')] = {
-      width: '100%',
-      maxWidth: "calc(100% - " + xsWidthMargin * 2 + "px)"
+      minWidth: 288,
+      transition: theme.transitions.create(['top', 'right', 'bottom', 'left'], {
+        easing: 'ease'
+      })
+    }, _root[theme.breakpoints.down('xs')] = {
+      left: '0 !important',
+      right: '0 !important',
+      width: '100%'
     }, _root),
-    rootDense: (_rootDense = {}, _rootDense[collapse.wrapper] = {
-      padding: SNACKBAR_INDENTS.snackbar.dense + "px 0px"
-    }, _rootDense),
-    top: {
-      top: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"],
-      flexDirection: 'column'
-    },
-    bottom: {
-      bottom: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"],
+    reverseColumns: {
       flexDirection: 'column-reverse'
     },
-    left: (_left = {
+    top: {
+      top: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"]
+    },
+    topDense: {
+      top: SNACKBAR_INDENTS.view.dense - SNACKBAR_INDENTS.snackbar.dense
+    },
+    bottom: {
+      bottom: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"]
+    },
+    bottomDense: {
+      bottom: SNACKBAR_INDENTS.view.dense - SNACKBAR_INDENTS.snackbar.dense
+    },
+    left: {
       left: SNACKBAR_INDENTS.view["default"]
-    }, _left[theme.breakpoints.up('sm')] = {
-      alignItems: 'flex-start'
-    }, _left[theme.breakpoints.down('xs')] = {
-      left: xsWidthMargin + "px"
-    }, _left),
-    right: (_right = {
+    },
+    leftDense: {
+      left: SNACKBAR_INDENTS.view.dense
+    },
+    right: {
       right: SNACKBAR_INDENTS.view["default"]
-    }, _right[theme.breakpoints.up('sm')] = {
-      alignItems: 'flex-end'
-    }, _right[theme.breakpoints.down('xs')] = {
-      right: xsWidthMargin + "px"
-    }, _right),
+    },
+    rightDense: {
+      right: SNACKBAR_INDENTS.view.dense
+    },
     center: (_center = {
       left: '50%',
       transform: 'translateX(-50%)'
-    }, _center[theme.breakpoints.up('sm')] = {
-      alignItems: 'center'
+    }, _center[theme.breakpoints.down('xs')] = {
+      transform: 'translateX(0)'
     }, _center)
   };
 });
@@ -20217,8 +20249,9 @@ var SnackbarContainer = function SnackbarContainer(props) {
       dense = props.dense,
       other = _objectWithoutPropertiesLoose(props, ["className", "anchorOrigin", "dense"]);
 
-  var combinedClassname = (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(classes[anchorOrigin.vertical], classes[anchorOrigin.horizontal], classes.root, // root should come after others to override maxWidth
-  className, dense && classes.rootDense);
+  var combinedClassname = (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(classes.root, classes[anchorOrigin.vertical], classes[anchorOrigin.horizontal], // @ts-ignore
+  classes["" + anchorOrigin.vertical + (dense ? 'Dense' : '')], // @ts-ignore
+  classes["" + anchorOrigin.horizontal + (dense ? 'Dense' : '')], className, anchorOrigin.vertical === 'bottom' && classes.reverseColumns);
   return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", Object.assign({
     className: combinedClassname
   }, other));
@@ -24484,6 +24517,8 @@ exports.p2 = _useScrollRestoration.useScrollRestoration;
 "use strict";
 
 
+var _interopRequireWildcard = __webpack_require__(20862);
+
 var _interopRequireDefault = __webpack_require__(95318);
 
 exports.__esModule = true;
@@ -24498,10 +24533,6 @@ var React = _interopRequireWildcard(__webpack_require__(67294));
 var _propTypes = _interopRequireDefault(__webpack_require__(45697));
 
 var _sessionStorage = __webpack_require__(21142);
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var ScrollContext = /*#__PURE__*/React.createContext(new _sessionStorage.SessionStorage());
 exports.ScrollContext = ScrollContext;
@@ -42339,7 +42370,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "eebf29c51416e817ed66031c0d154fba62525bf1";
+  var sha = "0785d6d15617831db421ea64ef49bca06e127e4e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57703,4 +57734,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-5ef03781edf5d560b49f.js.map
+//# sourceMappingURL=app-dd79f67fecd4ebe8ae6a.js.map

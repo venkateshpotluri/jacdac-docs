@@ -9599,7 +9599,7 @@ exports.D = childrenToReact;
  *
  * @typedef {keyof IntrinsicElements} ReactMarkdownNames
  *
- * @typedef {{ [key: string]: unknown, className?: string }} ReactBaseProps
+ * @typedef {Object.<string, unknown>} ReactBaseProps
  *
  * To do: is `data-sourcepos` typeable?
  *
@@ -9989,8 +9989,6 @@ function flattenPosition(pos) {
 
 var React = __webpack_require__(67294);
 
-var vfile = __webpack_require__(31663);
-
 var unified = __webpack_require__(75061);
 
 var parse = __webpack_require__(57019);
@@ -10097,24 +10095,10 @@ function ReactMarkdown(options) {
   .use(options.remarkPlugins || options.plugins || []).use(remarkRehype, {
     allowDangerousHtml: true
   }).use(options.rehypePlugins || []).use(filter, options);
-  /** @type {vfile} */
-
-  var file;
-
-  if (typeof options.children === 'string') {
-    file = vfile(options.children);
-  } else {
-    if (options.children !== undefined && options.children !== null) {
-      console.warn("[react-markdown] Warning: please pass a string as `children` (not: `".concat(options.children, "`)"));
-    }
-
-    file = vfile();
-  }
   /** @type {Root} */
   // @ts-ignore we’ll throw if it isn’t a root next.
 
-
-  var hastNode = processor.runSync(processor.parse(file), file);
+  var hastNode = processor.runSync(processor.parse(options.children || ''));
 
   if (hastNode.type !== 'root') {
     throw new TypeError('Expected a `root` node');
@@ -12186,4 +12170,4 @@ module.exports = JSON.parse('{"classId":"classID","dataType":"datatype","itemId"
 /***/ })
 
 }]);
-//# sourceMappingURL=97c3b2d01729d14971f44dc6012293e420701658-aaf95ccbe5700b7abee9.js.map
+//# sourceMappingURL=97c3b2d01729d14971f44dc6012293e420701658-0e801c83bf065745a2d5.js.map

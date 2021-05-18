@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CanvasWidget = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(3737), __webpack_require__.e(317)]).then(__webpack_require__.bind(__webpack_require__, 11535));
+  return Promise.all(/* import() */[__webpack_require__.e(3737), __webpack_require__.e(317)]).then(__webpack_require__.bind(__webpack_require__, 46054));
 });
 
 var valueDisplay = function valueDisplay(v) {
@@ -198,4 +198,4 @@ function DashboardAccelerometer(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7470-3b155783ac66ab94a6fc.js.map
+//# sourceMappingURL=7470-e90864df0ee25a72188a.js.map

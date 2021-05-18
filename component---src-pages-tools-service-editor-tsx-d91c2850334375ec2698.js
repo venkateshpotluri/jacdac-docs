@@ -290,19 +290,14 @@ function w(c) {
 }
 
 function C(c, a, b) {
-  0 >= a && (a = 0);
-
-  if (!b || 0 > b) {
-    b = a;
-  }
-
+  b || (b = a);
   var f = document.createRange();
   c = [c.firstChild];
 
-  for (var d, l = 0, g = a; d = c[c.length - 1];) {
+  for (var d, k = 0, g = a; d = c[c.length - 1];) {
     if (d.nodeType === Node.TEXT_NODE) {
-      if (l + d.textContent.length >= g) {
-        var h = g - l;
+      if (k + d.textContent.length >= g) {
+        var h = g - k;
 
         if (g === a) {
           if (g = f, h < d.textContent.length ? g.setStart(d, h) : g.setStartAfter(d), b !== a) {
@@ -318,9 +313,9 @@ function C(c, a, b) {
         }
       }
 
-      l += d.textContent.length;
+      k += d.textContent.length;
     } else if (d.nodeType === Node.ELEMENT_NODE && "BR" === d.nodeName) {
-      if (l + 1 >= g) {
+      if (k + 1 >= g) {
         if (g === a) {
           if (h = f, 0 < d.textContent.length ? h.setStart(d, 0) : h.setStartAfter(d), b !== a) {
             g = b;
@@ -335,7 +330,7 @@ function C(c, a, b) {
         }
       }
 
-      l++;
+      k++;
     }
 
     c.pop();
@@ -347,19 +342,19 @@ function C(c, a, b) {
 }
 
 function useEditable(c, a, b) {
-  function f(k) {
+  function f(l) {
     var b = c.current;
 
     if (b) {
       var a = w(b);
       b = r(b);
-      a.position += k.length - b.length;
+      a.position += l.length - b.length;
       e.position = a;
-      e.onChange(k, a);
+      e.onChange(l, a);
     }
   }
 
-  function l(k, b) {
+  function k(l, b) {
     var e = c.current;
 
     if (e) {
@@ -368,8 +363,8 @@ function useEditable(c, a, b) {
       a.collapse();
       var d = b || 0;
       (a = C(e, b = (a = w(e)).position + (0 > d ? d : 0), a.position + (0 < d ? d : 0))).deleteContents();
-      k && a.insertNode(document.createTextNode(k));
-      p(C(e, b + k.length));
+      a.insertNode(document.createTextNode(l));
+      p(C(e, b + l.length));
     }
   }
 
@@ -383,8 +378,8 @@ function useEditable(c, a, b) {
       if ("number" == typeof b) {
         e = b;
       } else {
-        var k = r(a).split("\n").slice(0, b.row);
-        b.row && (e += k.join("\n").length + 1);
+        var l = r(a).split("\n").slice(0, b.row);
+        b.row && (e += l.join("\n").length + 1);
         e += b.column;
       }
 
@@ -425,7 +420,7 @@ function useEditable(c, a, b) {
       n = (0,react.useMemo)(function () {
     return {
       update: f,
-      insert: l,
+      insert: k,
       move: d,
       getState: g
     };
@@ -443,9 +438,9 @@ function useEditable(c, a, b) {
       e.observer.observe(c.current, m);
 
       if (e.position) {
-        var k = e.position,
-            d = k.position;
-        p(C(c.current, d, d + k.extent));
+        var l = e.position,
+            d = l.position;
+        p(C(c.current, d, d + l.extent));
       }
 
       return h;
@@ -466,12 +461,12 @@ function useEditable(c, a, b) {
 
       var g = a.style.whiteSpace,
           h = a.contentEditable,
-          l = !0;
+          k = !0;
 
       try {
         a.contentEditable = "plaintext-only";
       } catch (u) {
-        a.contentEditable = "true", l = !1;
+        a.contentEditable = "true", k = !1;
       }
 
       "pre" !== g && (a.style.whiteSpace = "pre-wrap");
@@ -533,7 +528,7 @@ function useEditable(c, a, b) {
                   f = /\S/g.exec(d.content);
               d = "\n" + d.content.slice(0, f ? f.index : d.content.length);
               n.insert(d);
-            } else if ((!l || b.indentation) && "Backspace" === c.key) {
+            } else if ((!k || b.indentation) && "Backspace" === c.key) {
               c.preventDefault(), window.getSelection().getRangeAt(0).collapsed ? (d = w(a), d = F.exec(d.content), n.insert("", d ? -d[1].length : -1)) : n.insert("", 0);
             } else if (b.indentation && "Tab" === c.key) {
               c.preventDefault();
@@ -797,4 +792,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-3374d4ff7ebd91975116.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-d91c2850334375ec2698.js.map

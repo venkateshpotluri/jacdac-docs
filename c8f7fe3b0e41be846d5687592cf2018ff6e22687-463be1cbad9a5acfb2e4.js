@@ -26497,7 +26497,7 @@ function SliderWithLabel(props) {
 
 /***/ }),
 
-/***/ 11535:
+/***/ 46054:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26513,16 +26513,6 @@ __webpack_require__.d(__webpack_exports__, {
 var objectWithoutPropertiesLoose = __webpack_require__(19756);
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6610);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(5991);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
-var inherits = __webpack_require__(10379);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(46070);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(77608);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/construct.js + 1 modules
 var construct = __webpack_require__(13894);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js
@@ -26542,7 +26532,7 @@ var three_module = __webpack_require__(93456);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(87757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-;// CONCATENATED MODULE: ./node_modules/zustand/esm/index.js
+;// CONCATENATED MODULE: ./node_modules/@react-three/fiber/node_modules/zustand/esm/index.js
 
 
 
@@ -26711,7 +26701,7 @@ function create(createState) {
 }
 
 /* harmony default export */ var esm = (create);
-;// CONCATENATED MODULE: ./node_modules/zustand/esm/shallow.js
+;// CONCATENATED MODULE: ./node_modules/@react-three/fiber/node_modules/zustand/esm/shallow.js
 function shallow(objA, objB) {
   if (Object.is(objA, objB)) {
     return true;
@@ -26908,6 +26898,8 @@ useAsset.peek = function () {
 };
 
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(6610);
 // EXTERNAL MODULE: ./node_modules/debounce/index.js
 var debounce = __webpack_require__(62881);
 ;// CONCATENATED MODULE: ./node_modules/react-use-measure/dist/web.js
@@ -27118,16 +27110,6 @@ var areBoundsEqual = function areBoundsEqual(a, b) {
 
 
 
-
-
-
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -27311,12 +27293,15 @@ function createEvents(store) {
 
   function patchIntersects(intersections, event) {
     var _store$getState3 = store.getState(),
-        internal = _store$getState3.internal; // If the interaction is captured, make all capturing targets  part of the
-    // intersect.
+        internal = _store$getState3.internal; // If the interaction is captured take that into account, the captured event has to be part of the intersects
 
 
-    if ('pointerId' in event && internal.capturedMap.has(event.pointerId)) {
-      intersections.push.apply(intersections, (0,toConsumableArray/* default */.Z)(internal.capturedMap.get(event.pointerId).values()));
+    if (internal.captured && event.type !== 'click' && event.type !== 'wheel') {
+      internal.captured.forEach(function (captured) {
+        if (!intersections.find(function (hit) {
+          return hit.eventObject === captured.eventObject;
+        })) intersections.push(captured);
+      });
     }
 
     return intersections;
@@ -27342,7 +27327,8 @@ function createEvents(store) {
         };
 
         var localState = {
-          stopped: false
+          stopped: false,
+          captured: false
         };
 
         var _iterator2 = react_three_fiber_esm_createForOfIteratorHelper(intersections),
@@ -27352,25 +27338,17 @@ function createEvents(store) {
           var _loop = function _loop() {
             var hit = _step2.value;
 
-            var hasPointerCapture = function hasPointerCapture(id) {
-              var _internal$capturedMap, _internal$capturedMap2;
-
-              return (_internal$capturedMap = (_internal$capturedMap2 = internal.capturedMap.get(id)) == null ? void 0 : _internal$capturedMap2.has(hit.eventObject)) != null ? _internal$capturedMap : false;
-            };
-
             var setPointerCapture = function setPointerCapture(id) {
-              if (internal.capturedMap.has(id)) {
-                // if the pointerId was previously captured, we add the hit to the
-                // event capturedMap.
-                internal.capturedMap.get(id).set(hit.eventObject, hit);
-              } else {
-                // if the pointerId was not previously captured, we create a map
-                // containing the hitObject, and the hit. hitObject is used for
-                // faster access.
-                internal.capturedMap.set(id, new Map([[hit.eventObject, hit]]));
-              } // Call the original event now
+              // If the hit is going to be captured flag that we're in captured state
+              if (!localState.captured) {
+                localState.captured = true; // The captured hit array is reset to collect hits
+
+                internal.captured = [];
+              } // Push hits to the array
 
 
+              if (internal.captured) internal.captured.push(hit) // Call the original event now
+              ;
               event.target.setPointerCapture(id);
             }; // Add native event props
 
@@ -27378,15 +27356,10 @@ function createEvents(store) {
             var extractEventProps = {};
 
             for (var prop in Object.getPrototypeOf(event)) {
-              var property = event[prop]; // Only copy over atomics, leave functions alone as these should be
-              // called as event.nativeEvent.fn()
-
-              if (typeof property !== 'function') extractEventProps[prop] = property;
+              extractEventProps[prop] = event[prop];
             }
 
             var raycastEvent = _objectSpread(_objectSpread(_objectSpread({}, hit), extractEventProps), {}, {
-              spaceX: mouse.x,
-              spaceY: mouse.y,
               intersections: intersections,
               stopped: localState.stopped,
               delta: delta,
@@ -27395,15 +27368,13 @@ function createEvents(store) {
               camera: camera,
               // Hijack stopPropagation, which just sets a flag
               stopPropagation: function stopPropagation() {
-                var _internal$capturedMap3; // https://github.com/pmndrs/react-three-fiber/issues/596
+                // https://github.com/pmndrs/react-three-fiber/issues/596
                 // Events are not allowed to stop propagation if the pointer has been captured
-                // We only authorize stopPropagation...
+                var cap = internal.captured;
 
-
-                if ( // ...if the event doesn't have a pointerId (hence it can't
-                // have been captured)...
-                !('pointerId' in event) || // ... or if the hit object is capturing the event
-                (_internal$capturedMap3 = internal.capturedMap.get(event.pointerId)) != null && _internal$capturedMap3.has(hit.eventObject)) {
+                if (!cap || cap.find(function (h) {
+                  return h.eventObject.id === hit.eventObject.id;
+                })) {
                   raycastEvent.stopped = localState.stopped = true; // Propagation is stopped, remove all other hover records
                   // An event handler is only allowed to flush other handlers if it is hovered itself
 
@@ -27416,20 +27387,15 @@ function createEvents(store) {
                   }
                 }
               },
-              // there should be a distinction between target and currentTarget
-              target: {
-                hasPointerCapture: hasPointerCapture,
+              target: _objectSpread(_objectSpread({}, event.target), {}, {
                 setPointerCapture: setPointerCapture,
                 releasePointerCapture: releasePointerCapture
-              },
-              currentTarget: {
-                hasPointerCapture: hasPointerCapture,
+              }),
+              currentTarget: _objectSpread(_objectSpread({}, event.currentTarget), {}, {
                 setPointerCapture: setPointerCapture,
                 releasePointerCapture: releasePointerCapture
-              },
-              sourceEvent: event,
-              // deprecated
-              nativeEvent: event
+              }),
+              sourceEvent: event
             }); // Call subscribers
 
 
@@ -27491,15 +27457,8 @@ function createEvents(store) {
         };
 
       case 'onLostPointerCapture':
-        return function (event) {
-          if ('pointerId' in event) {
-            // this will be a problem if one target releases the pointerId
-            // and another one is still keeping it, as the line below
-            // indifferently deletes all capturing references.
-            store.getState().internal.capturedMap.delete(event.pointerId);
-          }
-
-          cancelPointer([]);
+        return function () {
+          return store.getState().internal.captured = undefined, cancelPointer([]);
         };
     } // Any other pointer goes here ...
 
@@ -27570,7 +27529,7 @@ function createEvents(store) {
       if ((name === 'onClick' || name === 'onContextMenu' || name === 'onDoubleClick') && !hits.length) {
         if (calculateDistance(event) <= 2) {
           pointerMissed(event, internal.interaction);
-          if (onPointerMissed) onPointerMissed(event);
+          if (onPointerMissed) onPointerMissed();
         }
       }
     };
@@ -27621,7 +27580,7 @@ var extend = function extend(objects) {
 function prepare(object, state) {
   var instance = object;
 
-  if (state != null && state.instance || !instance.__r3f) {
+  if (!instance.__r3f) {
     instance.__r3f = _objectSpread({
       root: null,
       memoizedProps: {},
@@ -28041,22 +28000,7 @@ function createRenderer(roots) {
   function switchInstance(instance, type, newProps, fiber) {
     var parent = instance.parent;
     if (!parent) return;
-    var newInstance = createInstance(type, newProps, instance.__r3f.root); // https://github.com/pmndrs/react-three-fiber/issues/1348
-    // When args change the instance has to be re-constructed, which then
-    // forces r3f to re-parent the children and non-scene objects
-
-    if (instance.children) {
-      instance.children.forEach(function (child) {
-        return appendChild(newInstance, child);
-      });
-      instance.children = [];
-    }
-
-    instance.__r3f.objects.forEach(function (child) {
-      return appendChild(newInstance, child);
-    });
-
-    instance.__r3f.objects = [];
+    var newInstance = createInstance(type, newProps, instance.__r3f.root);
     removeChild(parent, instance);
     appendChild(parent, newInstance) // This evil hack switches the react-internal fiber node
     // https://github.com/facebook/react/issues/14983
@@ -28254,12 +28198,6 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
   if (!linear) {
     if (!flat) gl.toneMapping = three_module.ACESFilmicToneMapping;
     gl.outputEncoding = three_module.sRGBEncoding;
-  } // clock.elapsedTime is updated using advance(timestamp)
-
-
-  if (frameloop === 'never') {
-    clock.stop();
-    clock.elapsedTime = 0;
   }
 
   var rootState = esm(function (set, get) {
@@ -28424,9 +28362,9 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
         interaction: [],
         hovered: new Map(),
         subscribers: [],
+        captured: undefined,
         initialClick: [0, 0],
         initialHits: [],
-        capturedMap: new Map(),
         subscribe: function subscribe(ref) {
           var priority = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
           set(function (_ref11) {
@@ -28544,14 +28482,7 @@ function run(effects, timestamp) {
 
 function render$1(timestamp, state) {
   // Run local effects
-  var delta = state.clock.getDelta(); // In frameloop='never' mode, clock times are updated using the provided timestamp
-
-  if (state.frameloop === 'never' && typeof timestamp === 'number') {
-    delta = timestamp - state.clock.elapsedTime;
-    state.clock.oldTime = state.clock.elapsedTime;
-    state.clock.elapsedTime = timestamp;
-  } // Call subscribers (useFrame)
-
+  var delta = state.clock.getDelta(); // Call subscribers (useFrame)
 
   for (i = 0; i < state.internal.subscribers.length; i++) {
     state.internal.subscribers[i].ref.current(state, delta);
@@ -28624,16 +28555,16 @@ function createPointerEvents(store) {
       handlePointer = _createEvents.handlePointer;
 
   var names = {
-    onClick: ['click', false],
-    onContextMenu: ['contextmenu', false],
-    onDoubleClick: ['dblclick', false],
-    onWheel: ['wheel', true],
-    onPointerDown: ['pointerdown', true],
-    onPointerUp: ['pointerup', true],
-    onPointerLeave: ['pointerleave', true],
-    onPointerMove: ['pointermove', true],
-    onPointerCancel: ['pointercancel', true],
-    onLostPointerCapture: ['lostpointercapture', true]
+    onClick: 'click',
+    onContextMenu: 'contextmenu',
+    onDoubleClick: 'dblclick',
+    onWheel: 'wheel',
+    onPointerDown: 'pointerdown',
+    onPointerUp: 'pointerup',
+    onPointerLeave: 'pointerleave',
+    onPointerMove: 'pointermove',
+    onPointerCancel: 'pointercancel',
+    onLostPointerCapture: 'lostpointercapture'
   };
   return {
     connected: false,
@@ -28660,12 +28591,8 @@ function createPointerEvents(store) {
             name = _ref14[0],
             event = _ref14[1];
 
-        var _names$name = (0,slicedToArray/* default */.Z)(names[name], 2),
-            eventName = _names$name[0],
-            passive = _names$name[1];
-
-        target.addEventListener(eventName, event, {
-          passive: passive
+        return target.addEventListener(names[name], event, {
+          passive: true
         });
       });
     },
@@ -28683,10 +28610,7 @@ function createPointerEvents(store) {
               event = _ref16[1];
 
           if (events && events.connected instanceof HTMLElement) {
-            var _names$name2 = (0,slicedToArray/* default */.Z)(names[name], 1),
-                eventName = _names$name2[0];
-
-            events.connected.removeEventListener(eventName, event);
+            events.connected.removeEventListener(names[name], event);
           }
         });
         set(function (state) {
@@ -28706,71 +28630,15 @@ function createPointerEvents(store) {
 
 var react_three_fiber_esm_useIsomorphicLayoutEffect = typeof window !== 'undefined' ? react.useLayoutEffect : react.useEffect;
 
-function Block(_ref17) {
-  var set = _ref17.set;
-  react_three_fiber_esm_useIsomorphicLayoutEffect(function () {
-    set(new Promise(function () {
-      return null;
-    }));
-    return function () {
-      return set(false);
-    };
-  }, []);
-  return null;
-}
-
-var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  (0,inherits/* default */.Z)(ErrorBoundary, _React$Component);
-
-  var _super = _createSuper(ErrorBoundary);
-
-  function ErrorBoundary() {
-    var _this;
-
-    (0,classCallCheck/* default */.Z)(this, ErrorBoundary);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-    _this.state = {
-      error: false
-    };
-    return _this;
-  }
-
-  (0,createClass/* default */.Z)(ErrorBoundary, [{
-    key: "componentDidCatch",
-    value: function componentDidCatch(error) {
-      this.props.set(error);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return this.state.error ? null : this.props.children;
-    }
-  }]);
-
-  return ErrorBoundary;
-}(react.Component);
-
-ErrorBoundary.getDerivedStateFromError = function () {
-  return {
-    error: true
-  };
-};
-
-function Canvas(_ref18) {
-  var children = _ref18.children,
-      fallback = _ref18.fallback,
-      tabIndex = _ref18.tabIndex,
-      resize = _ref18.resize,
-      id = _ref18.id,
-      style = _ref18.style,
-      className = _ref18.className,
-      events = _ref18.events,
-      props = (0,objectWithoutProperties/* default */.Z)(_ref18, ["children", "fallback", "tabIndex", "resize", "id", "style", "className", "events"]);
+function Canvas(_ref17) {
+  var children = _ref17.children,
+      tabIndex = _ref17.tabIndex,
+      resize = _ref17.resize,
+      id = _ref17.id,
+      style = _ref17.style,
+      className = _ref17.className,
+      events = _ref17.events,
+      props = (0,objectWithoutProperties/* default */.Z)(_ref17, ["children", "tabIndex", "resize", "id", "style", "className", "events"]);
 
   var _useMeasure = web(_objectSpread({
     scroll: true,
@@ -28784,37 +28652,15 @@ function Canvas(_ref18) {
       size = _useMeasure2[1];
 
   var canvas = react.useRef(null);
-
-  var _React$useState = react.useState(false),
-      _React$useState2 = (0,slicedToArray/* default */.Z)(_React$useState, 2),
-      block = _React$useState2[0],
-      setBlock = _React$useState2[1];
-
-  var _React$useState3 = react.useState(false),
-      _React$useState4 = (0,slicedToArray/* default */.Z)(_React$useState3, 2),
-      error = _React$useState4[0],
-      setError = _React$useState4[1]; // Suspend this component if block is a promise (2nd run)
-
-
-  if (block) throw block; // Throw exception outwards if anything within canvas throws
-
-  if (error) throw error; // Execute JSX in the reconciler as a layout-effect
-
   react_three_fiber_esm_useIsomorphicLayoutEffect(function () {
     if (size.width > 0 && size.height > 0) {
-      render( /*#__PURE__*/react.createElement(ErrorBoundary, {
-        set: setError
-      }, /*#__PURE__*/react.createElement(react.Suspense, {
-        fallback: /*#__PURE__*/react.createElement(Block, {
-          set: setBlock
-        })
-      }, children)), canvas.current, _objectSpread(_objectSpread({}, props), {}, {
+      render(children, canvas.current, _objectSpread(_objectSpread({}, props), {}, {
         size: size,
         events: events || createPointerEvents
       }));
     }
   }, [size, children]);
-  react_three_fiber_esm_useIsomorphicLayoutEffect(function () {
+  react.useEffect(function () {
     var container = canvas.current;
     return function () {
       return unmountComponentAtNode(container);
@@ -28836,7 +28682,7 @@ function Canvas(_ref18) {
     style: {
       display: 'block'
     }
-  }, fallback));
+  }));
 }
 
 function useThree() {
@@ -28858,7 +28704,7 @@ function useFrame(callback) {
     return void (ref.current = callback);
   }, [callback]); // Subscribe/unsub
 
-  react.useLayoutEffect(function () {
+  react.useEffect(function () {
     var unsubscribe = subscribe(ref, renderPriority);
     return function () {
       return unsubscribe();
@@ -28900,8 +28746,8 @@ function loadingFn(extensions, onProgress) {
     var loader = new Proto();
     if (extensions) extensions(loader); // Go through the urls and load them
 
-    for (var _len2 = arguments.length, input = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-      input[_key2 - 1] = arguments[_key2];
+    for (var _len = arguments.length, input = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      input[_key - 1] = arguments[_key];
     }
 
     return Promise.all(input.map(function (input) {
@@ -28910,7 +28756,9 @@ function loadingFn(extensions, onProgress) {
           if (data.scene) Object.assign(data, buildGraph(data.scene));
           res(data);
         }, onProgress, function (error) {
-          return reject("Could not load ".concat(input, ": ").concat(error.message));
+          var _error$message;
+
+          return reject((_error$message = error.message) != null ? _error$message : "failure loading ".concat(input));
         });
       });
     }));
@@ -28951,14 +28799,14 @@ var createRendererInstance = function createRendererInstance(gl, canvas) {
 };
 
 function render(element, canvas) {
-  var _ref19 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-      gl = _ref19.gl,
-      size = _ref19.size,
-      _ref19$mode = _ref19.mode,
-      mode = _ref19$mode === void 0 ? modes[1] : _ref19$mode,
-      events = _ref19.events,
-      onCreated = _ref19.onCreated,
-      props = (0,objectWithoutProperties/* default */.Z)(_ref19, ["gl", "size", "mode", "events", "onCreated"]);
+  var _ref18 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+      gl = _ref18.gl,
+      size = _ref18.size,
+      _ref18$mode = _ref18.mode,
+      mode = _ref18$mode === void 0 ? modes[1] : _ref18$mode,
+      events = _ref18.events,
+      onCreated = _ref18.onCreated,
+      props = (0,objectWithoutProperties/* default */.Z)(_ref18, ["gl", "size", "mode", "events", "onCreated"]);
 
   var _store; // Allow size to take on container bounds initially
 
@@ -29043,11 +28891,11 @@ function render(element, canvas) {
   }
 }
 
-function Provider(_ref20) {
-  var store = _ref20.store,
-      element = _ref20.element,
-      onCreated = _ref20.onCreated,
-      target = _ref20.target;
+function Provider(_ref19) {
+  var store = _ref19.store,
+      element = _ref19.element,
+      onCreated = _ref19.onCreated,
+      target = _ref19.target;
   react.useEffect(function () {
     var state = store.getState(); // Flag the canvas active, rendering will now begin
 
@@ -29128,6 +28976,14 @@ reconciler.injectIntoDevTools({
 var esm_extends = __webpack_require__(22122);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__(63349);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
+var inherits = __webpack_require__(10379);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
+var possibleConstructorReturn = __webpack_require__(46070);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(77608);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(5991);
 ;// CONCATENATED MODULE: ./node_modules/three-stdlib/lines/LineSegmentsGeometry.js
 
 
@@ -29136,9 +28992,9 @@ var assertThisInitialized = __webpack_require__(63349);
 
 
 
-function LineSegmentsGeometry_createSuper(Derived) { var hasNativeReflectConstruct = LineSegmentsGeometry_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
 
-function LineSegmentsGeometry_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 
 
@@ -29146,7 +29002,7 @@ function LineSegmentsGeometry_isNativeReflectConstruct() { if (typeof Reflect ==
 var LineSegmentsGeometry = /*#__PURE__*/function (_InstancedBufferGeome) {
   (0,inherits/* default */.Z)(LineSegmentsGeometry, _InstancedBufferGeome);
 
-  var _super = LineSegmentsGeometry_createSuper(LineSegmentsGeometry);
+  var _super = _createSuper(LineSegmentsGeometry);
 
   function LineSegmentsGeometry() {
     var _this;
@@ -29919,34 +29775,34 @@ var Line2 = /*#__PURE__*/function (_LineSegments) {
 
 
 
-var Line = /*#__PURE__*/react.forwardRef(function Line(_ref, ref) {
+var Line = /*#__PURE__*/(0,react.forwardRef)(function Line(_ref, ref) {
   var points = _ref.points,
       _ref$color = _ref.color,
       color = _ref$color === void 0 ? 'black' : _ref$color,
       vertexColors = _ref.vertexColors,
       lineWidth = _ref.lineWidth,
       dashed = _ref.dashed,
-      rest = (0,objectWithoutProperties/* default */.Z)(_ref, ["points", "color", "vertexColors", "lineWidth", "dashed"]);
+      rest = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, ["points", "color", "vertexColors", "lineWidth", "dashed"]);
 
-  var _React$useState = react.useState(function () {
+  var _useState = (0,react.useState)(function () {
     return new Line2();
   }),
-      _React$useState2 = (0,slicedToArray/* default */.Z)(_React$useState, 1),
-      line2 = _React$useState2[0];
+      _useState2 = (0,slicedToArray/* default */.Z)(_useState, 1),
+      line2 = _useState2[0];
 
-  var _React$useState3 = react.useState(function () {
+  var _useState3 = (0,react.useState)(function () {
     return new LineMaterial();
   }),
-      _React$useState4 = (0,slicedToArray/* default */.Z)(_React$useState3, 1),
-      lineMaterial = _React$useState4[0];
+      _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 1),
+      lineMaterial = _useState4[0];
 
-  var _React$useState5 = react.useState(function () {
+  var _useState5 = (0,react.useState)(function () {
     return new three_module.Vector2(512, 512);
   }),
-      _React$useState6 = (0,slicedToArray/* default */.Z)(_React$useState5, 1),
-      resolution = _React$useState6[0];
+      _useState6 = (0,slicedToArray/* default */.Z)(_useState5, 1),
+      resolution = _useState6[0];
 
-  var lineGeom = react.useMemo(function () {
+  var lineGeom = (0,react.useMemo)(function () {
     var geom = new LineGeometry();
     var pValues = points.map(function (p) {
       return p instanceof three_module.Vector3 ? p.toArray() : p;
@@ -29962,10 +29818,10 @@ var Line = /*#__PURE__*/react.forwardRef(function Line(_ref, ref) {
 
     return geom;
   }, [points, vertexColors]);
-  react.useLayoutEffect(function () {
+  (0,react.useLayoutEffect)(function () {
     line2.computeLineDistances();
   }, [points, line2]);
-  react.useLayoutEffect(function () {
+  (0,react.useLayoutEffect)(function () {
     if (dashed) {
       lineMaterial.defines.USE_DASH = '';
     } else {
@@ -29975,15 +29831,15 @@ var Line = /*#__PURE__*/react.forwardRef(function Line(_ref, ref) {
 
     lineMaterial.needsUpdate = true;
   }, [dashed, lineMaterial]);
-  return /*#__PURE__*/react.createElement("primitive", (0,esm_extends/* default */.Z)({
+  return /*#__PURE__*/(0,react.createElement)("primitive", (0,esm_extends/* default */.Z)({
     dispose: undefined,
     object: line2,
     ref: ref
-  }, rest), /*#__PURE__*/react.createElement("primitive", {
+  }, rest), /*#__PURE__*/(0,react.createElement)("primitive", {
     dispose: undefined,
     object: lineGeom,
     attach: "geometry"
-  }), /*#__PURE__*/react.createElement("primitive", (0,esm_extends/* default */.Z)({
+  }), /*#__PURE__*/(0,react.createElement)("primitive", (0,esm_extends/* default */.Z)({
     dispose: undefined,
     object: lineMaterial,
     attach: "material",
@@ -30002,14 +29858,14 @@ var Line = /*#__PURE__*/react.forwardRef(function Line(_ref, ref) {
 
 function shapes_create(type) {
   var El = type + 'BufferGeometry';
-  return /*#__PURE__*/react.forwardRef(function (_ref, ref) {
+  return /*#__PURE__*/(0,react.forwardRef)(function (_ref, ref) {
     var args = _ref.args,
         children = _ref.children,
-        props = (0,objectWithoutProperties/* default */.Z)(_ref, ["args", "children"]);
+        props = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, ["args", "children"]);
 
-    return /*#__PURE__*/react.createElement("mesh", (0,esm_extends/* default */.Z)({
+    return /*#__PURE__*/(0,react.createElement)("mesh", (0,esm_extends/* default */.Z)({
       ref: ref
-    }, props), /*#__PURE__*/react.createElement(El, {
+    }, props), /*#__PURE__*/(0,react.createElement)(El, {
       attach: "geometry",
       args: args
     }), children);
@@ -30972,12 +30828,12 @@ var MapControls = /*#__PURE__*/(/* unused pure expression or super */ null && (f
 
 
 
-var OrbitControls_OrbitControls = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
+var OrbitControls_OrbitControls = /*#__PURE__*/(0,react.forwardRef)(function (_ref, ref) {
   var camera = _ref.camera,
       regress = _ref.regress,
       _ref$enableDamping = _ref.enableDamping,
       enableDamping = _ref$enableDamping === void 0 ? true : _ref$enableDamping,
-      restProps = (0,objectWithoutProperties/* default */.Z)(_ref, ["camera", "regress", "enableDamping"]);
+      restProps = (0,objectWithoutPropertiesLoose/* default */.Z)(_ref, ["camera", "regress", "enableDamping"]);
 
   var invalidate = useThree(function (_ref2) {
     var invalidate = _ref2.invalidate;
@@ -30996,13 +30852,13 @@ var OrbitControls_OrbitControls = /*#__PURE__*/react.forwardRef(function (_ref, 
     return performance;
   });
   var explCamera = camera || defaultCamera;
-  var controls = react.useMemo(function () {
+  var controls = (0,react.useMemo)(function () {
     return new OrbitControls(explCamera);
   }, [explCamera]);
   useFrame(function () {
     return controls.update();
   });
-  react.useEffect(function () {
+  (0,react.useEffect)(function () {
     var callback = function callback() {
       invalidate();
       if (regress) performance.regress();
@@ -31013,9 +30869,9 @@ var OrbitControls_OrbitControls = /*#__PURE__*/react.forwardRef(function (_ref, 
     return function () {
       controls.removeEventListener('change', callback);
       controls.dispose();
-    }; // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
   }, [regress, controls, invalidate]);
-  return /*#__PURE__*/react.createElement("primitive", (0,esm_extends/* default */.Z)({
+  return /*#__PURE__*/(0,react.createElement)("primitive", (0,esm_extends/* default */.Z)({
     ref: ref,
     object: controls,
     enableDamping: enableDamping
@@ -36439,4 +36295,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-b51494750d8ffeef06ff.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-463be1cbad9a5acfb2e4.js.map

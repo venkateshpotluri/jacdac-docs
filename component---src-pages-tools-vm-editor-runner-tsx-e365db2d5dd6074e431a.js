@@ -314,6 +314,10 @@ var ConnectButtons = __webpack_require__(68337);
 var useRoleManager = __webpack_require__(40549);
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
+var Alert = __webpack_require__(6809);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
 ;// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
 
@@ -329,6 +333,8 @@ var useMediaQueries = __webpack_require__(20509);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
 
 
 
@@ -398,7 +404,7 @@ function Dashboard(props) {
   var _splitFilter = (0,utils/* splitFilter */.ap)(devices, function (d) {
     return !!bus.findServiceProvider(d.deviceId);
   }),
-      hosted = _splitFilter[0],
+      simulators = _splitFilter[0],
       physicals = _splitFilter[1];
 
   var roleManager = (0,useRoleManager/* default */.Z)();
@@ -425,10 +431,12 @@ function Dashboard(props) {
       title: "clear simulators",
       onClick: handleClearSimulators
     }, /*#__PURE__*/react.createElement(Clear/* default */.Z, null)), " "),
-    devices: hosted,
+    devices: simulators,
     expanded: selected,
     toggleExpanded: toggleSelected
-  }, other)), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
+  }, other), showStartSimulators && (simulators === null || simulators === void 0 ? void 0 : simulators.length) && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "info"
+  }, "Simulate a ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, null, "button"), " or a", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, null, "servo"), "... or any other by clicking", /*#__PURE__*/react.createElement(Add/* default */.Z, null), ".")), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
     title: "Devices",
     action: showConnect && /*#__PURE__*/react.createElement(ConnectButtons/* default */.Z, {
       full: false,
@@ -1150,4 +1158,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-30550a84a1afa864d215.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-e365db2d5dd6074e431a.js.map
