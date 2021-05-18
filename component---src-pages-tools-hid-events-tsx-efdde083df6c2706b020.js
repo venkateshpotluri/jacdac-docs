@@ -1705,7 +1705,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-var FORMAT = "b[8] u32 u8 u8 u16 u16";
+// all settings keys are prefixed with this string
+var PREFIX = "@ke_"; // data layout format (18bytes)
+
+var FORMAT = "b[8] u32 u8 u8 u16 u16"; // data layout types
 
 function HIDEventToBuffer(event, ev) {
   var deviceId = (0,utils/* fromHex */.H_)(event.service.device.deviceId);
@@ -1861,7 +1864,6 @@ function SelectHIDEvent(props) {
   }, /*#__PURE__*/react.createElement(Add/* default */.Z, null))));
 }
 
-var PREFIX = "@ke_";
 function HIDEvents() {
   var _useContext2 = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext2.bus;
@@ -2013,4 +2015,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-535f31ff2515717a936e.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-efdde083df6c2706b020.js.map
