@@ -153,7 +153,12 @@ function MDXContent(_ref) {
     "href": "https://arcade.makecode.com/hardware",
     "target": "_blank",
     "rel": "nofollow noopener noreferrer"
-  }, "hardware console"))), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+  }, "hardware console")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "/jacdac-docs/tools/hid-events"
+  }, "HID keyboard events"))), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "integration-points",
     "style": {
       "position": "relative"
@@ -289,4 +294,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-mdx-cec8e8543a1618ea6dc6.js.map
+//# sourceMappingURL=component---src-pages-tools-mdx-9ca721825b217de455f0.js.map
