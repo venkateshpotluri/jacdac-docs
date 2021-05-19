@@ -42379,7 +42379,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "53224912fb24610710241e3e0ba276828fce3cc3";
+  var sha = "93f1ac82a795b938954e7f62bc89963889d2147c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -42577,8 +42577,8 @@ function useMdxComponents() {
   }, []);
   return mdxComponents;
 }
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 22 modules
-var ThemedLayout = __webpack_require__(2086);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 23 modules
+var ThemedLayout = __webpack_require__(23921);
 ;// CONCATENATED MODULE: ./src/components/ui/ThemedMdxLayout.tsx
 
 
@@ -43631,7 +43631,7 @@ function Suspense(props) {
 
 /***/ }),
 
-/***/ 2086:
+/***/ 23921:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50322,7 +50322,10 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 // EXTERNAL MODULE: ./src/jacdac/Flags.ts
 var jacdac_Flags = __webpack_require__(39840);
+;// CONCATENATED MODULE: ./jacdac-ts/package.json
+var package_namespaceObject = {"i8":"1.13.32"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
+
 
 
 
@@ -50360,7 +50363,7 @@ flags/* default.webBluetooth */.Z.webBluetooth = args.webBluetooth;
 jacdac_Flags/* default.peers */.Z.peers = args.peers; // defeat react fast-refresh
 
 function createBus() {
-  var worker = typeof window !== "undefined" && new Worker((0,gatsby_browser_entry.withPrefix)("/jacdac-serviceworker.js"));
+  var worker = typeof window !== "undefined" && new Worker((0,gatsby_browser_entry.withPrefix)("/jacdac-serviceworker-" + package_namespaceObject.i8 + ".js"));
   var b = new bus_JDBus([flags/* default.webUSB */.Z.webUSB && worker && createUSBWorkerTransport(worker), flags/* default.webBluetooth */.Z.webBluetooth && createBluetoothTransport()], {
     parentOrigin: args.parentOrigin
   }); // parentOrigin: args.parentOrigin,
@@ -57794,4 +57797,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-2db7a768dbc855290986.js.map
+//# sourceMappingURL=app-a65fc9b13fba829aa7c4.js.map

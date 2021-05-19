@@ -1074,7 +1074,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(83332);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(81864);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(23581);
-/* harmony import */ var _components_ui_ThemedLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2086);
+/* harmony import */ var _components_ui_ThemedLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(23921);
 /* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13173);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
 /* harmony import */ var _components_icons_MakeCodeIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70654);
@@ -1184,4 +1184,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-fd17325481b7ab4464b0.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-00e1700c93961e11f38e.js.map
