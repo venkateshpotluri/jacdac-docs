@@ -19736,7 +19736,7 @@ var REASONS = {
 
 var transformer = {
   toContainerAnchorOrigin: function toContainerAnchorOrigin(origin) {
-    return "anchorOrigin" + origin;
+    return "containerAnchorOrigin" + origin;
   },
   toAnchorOrigin: function toAnchorOrigin(_ref) {
     var vertical = _ref.vertical,
@@ -19824,18 +19824,6 @@ var getTransitionDirection = function getTransitionDirection(anchorOrigin) {
   }
 
   return DIRECTION[anchorOrigin.vertical];
-};
-/**
- * Omit all class keys except what we need for collapse component
- */
-
-
-var omitNonCollapseKeys = function omitNonCollapseKeys(classes, dense) {
-  return {
-    container: classes.collapseContainer,
-    wrapper: (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(classes.collapseWrapper, dense && classes.collapseWrapperDense),
-    wrapperInner: classes.collapseWrapperInner
-  };
 };
 
 var CheckIcon = function CheckIcon(props) {
@@ -20026,9 +20014,7 @@ var Snackbar = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(fu
 });
 
 var styles$1 = function styles(theme) {
-  var _collapseContainer, _collapseWrapperInner; // @ts-ignore
-
-
+  // @ts-ignore
   var mode = theme.palette.mode || theme.palette.type;
   var backgroundColor = (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__/* .emphasize */ ._4)(theme.palette.background["default"], mode === 'light' ? 0.8 : 0.98);
   return (0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(_extends({}, allClasses.mui, {
@@ -20078,27 +20064,7 @@ var styles$1 = function styles(theme) {
       right: 0,
       bottom: 0,
       left: 0
-    },
-    collapseContainer: (_collapseContainer = {}, _collapseContainer[theme.breakpoints.down('xs')] = {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1)
-    }, _collapseContainer),
-    collapseWrapper: {
-      transition: theme.transitions.create(['margin-bottom'], {
-        easing: 'ease'
-      }),
-      marginTop: SNACKBAR_INDENTS.snackbar["default"],
-      marginBottom: SNACKBAR_INDENTS.snackbar["default"]
-    },
-    collapseWrapperDense: {
-      marginTop: SNACKBAR_INDENTS.snackbar.dense,
-      marginBottom: SNACKBAR_INDENTS.snackbar.dense
-    },
-    collapseWrapperInner: (_collapseWrapperInner = {
-      width: 'auto'
-    }, _collapseWrapperInner[theme.breakpoints.down('xs')] = {
-      width: '100%'
-    }, _collapseWrapperInner)
+    }
   }));
 };
 
@@ -20134,7 +20100,6 @@ var SnackbarItem = function SnackbarItem(_ref) {
   };
 
   var style = props.style,
-      dense = props.dense,
       otherAriaAttributes = props.ariaAttributes,
       otherClassName = props.className,
       hideIconVariant = props.hideIconVariant,
@@ -20195,7 +20160,6 @@ var SnackbarItem = function SnackbarItem(_ref) {
     unmountOnExit: true,
     timeout: 175,
     "in": collapsed,
-    classes: omitNonCollapseKeys(classes, dense),
     onExited: callbacks.onExited
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement(Snackbar, Object.assign({}, other, singleSnackProps, {
     open: open,
@@ -20227,61 +20191,65 @@ var SnackbarItem = function SnackbarItem(_ref) {
 };
 
 var SnackbarItem$1 = /*#__PURE__*/(0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(styles$1)(SnackbarItem);
+var collapse = {
+  container: '& > .MuiCollapse-container',
+  wrapper: '& > .MuiCollapse-container > .MuiCollapse-wrapper'
+};
+var xsWidthMargin = 16;
 var useStyle = /*#__PURE__*/(0,_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(function (theme) {
-  var _root, _center;
+  var _root, _rootDense, _left, _right, _center;
 
   return {
     root: (_root = {
       boxSizing: 'border-box',
       display: 'flex',
       maxHeight: '100%',
-      maxWidth: '100%',
       position: 'fixed',
-      flexDirection: 'column',
       zIndex: theme.zIndex.snackbar,
       height: 'auto',
       width: 'auto',
-      minWidth: 288,
-      transition: theme.transitions.create(['top', 'right', 'bottom', 'left'], {
-        easing: 'ease'
-      })
-    }, _root[theme.breakpoints.down('xs')] = {
-      left: '0 !important',
-      right: '0 !important',
-      width: '100%'
+      transition: 'top 300ms ease 0ms, right 300ms ease 0ms, bottom 300ms ease 0ms, left 300ms ease 0ms, margin 300ms ease 0ms, max-width 300ms ease 0ms',
+      // container itself is invisible and should not block clicks, clicks should be passed to its children 
+      pointerEvents: 'none'
+    }, _root[collapse.container] = {
+      pointerEvents: 'all'
+    }, _root[collapse.wrapper] = {
+      padding: SNACKBAR_INDENTS.snackbar["default"] + "px 0px",
+      transition: 'padding 300ms ease 0ms'
+    }, _root.maxWidth = "calc(100% - " + SNACKBAR_INDENTS.view["default"] * 2 + "px)", _root[theme.breakpoints.down('xs')] = {
+      width: '100%',
+      maxWidth: "calc(100% - " + xsWidthMargin * 2 + "px)"
     }, _root),
-    reverseColumns: {
-      flexDirection: 'column-reverse'
-    },
+    rootDense: (_rootDense = {}, _rootDense[collapse.wrapper] = {
+      padding: SNACKBAR_INDENTS.snackbar.dense + "px 0px"
+    }, _rootDense),
     top: {
-      top: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"]
-    },
-    topDense: {
-      top: SNACKBAR_INDENTS.view.dense - SNACKBAR_INDENTS.snackbar.dense
+      top: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"],
+      flexDirection: 'column'
     },
     bottom: {
-      bottom: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"]
+      bottom: SNACKBAR_INDENTS.view["default"] - SNACKBAR_INDENTS.snackbar["default"],
+      flexDirection: 'column-reverse'
     },
-    bottomDense: {
-      bottom: SNACKBAR_INDENTS.view.dense - SNACKBAR_INDENTS.snackbar.dense
-    },
-    left: {
+    left: (_left = {
       left: SNACKBAR_INDENTS.view["default"]
-    },
-    leftDense: {
-      left: SNACKBAR_INDENTS.view.dense
-    },
-    right: {
+    }, _left[theme.breakpoints.up('sm')] = {
+      alignItems: 'flex-start'
+    }, _left[theme.breakpoints.down('xs')] = {
+      left: xsWidthMargin + "px"
+    }, _left),
+    right: (_right = {
       right: SNACKBAR_INDENTS.view["default"]
-    },
-    rightDense: {
-      right: SNACKBAR_INDENTS.view.dense
-    },
+    }, _right[theme.breakpoints.up('sm')] = {
+      alignItems: 'flex-end'
+    }, _right[theme.breakpoints.down('xs')] = {
+      right: xsWidthMargin + "px"
+    }, _right),
     center: (_center = {
       left: '50%',
       transform: 'translateX(-50%)'
-    }, _center[theme.breakpoints.down('xs')] = {
-      transform: 'translateX(0)'
+    }, _center[theme.breakpoints.up('sm')] = {
+      alignItems: 'center'
     }, _center)
   };
 });
@@ -20294,9 +20262,8 @@ var SnackbarContainer = function SnackbarContainer(props) {
       dense = props.dense,
       other = _objectWithoutPropertiesLoose(props, ["className", "anchorOrigin", "dense"]);
 
-  var combinedClassname = (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(classes.root, classes[anchorOrigin.vertical], classes[anchorOrigin.horizontal], // @ts-ignore
-  classes["" + anchorOrigin.vertical + (dense ? 'Dense' : '')], // @ts-ignore
-  classes["" + anchorOrigin.horizontal + (dense ? 'Dense' : '')], className, anchorOrigin.vertical === 'bottom' && classes.reverseColumns);
+  var combinedClassname = (0,clsx__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(classes[anchorOrigin.vertical], classes[anchorOrigin.horizontal], classes.root, // root should come after others to override maxWidth
+  className, dense && classes.rootDense);
   return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", Object.assign({
     className: combinedClassname
   }, other));
@@ -24562,8 +24529,6 @@ exports.p2 = _useScrollRestoration.useScrollRestoration;
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(20862);
-
 var _interopRequireDefault = __webpack_require__(95318);
 
 exports.__esModule = true;
@@ -24578,6 +24543,10 @@ var React = _interopRequireWildcard(__webpack_require__(67294));
 var _propTypes = _interopRequireDefault(__webpack_require__(45697));
 
 var _sessionStorage = __webpack_require__(21142);
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var ScrollContext = /*#__PURE__*/React.createContext(new _sessionStorage.SessionStorage());
 exports.ScrollContext = ScrollContext;
@@ -27639,7 +27608,7 @@ var JDEventSource = /*#__PURE__*/function () {
 
   _proto.addListenerInternal = function addListenerInternal(eventName, handler, once) {
     if (!eventName || !handler) {
-      return this;
+      return;
     }
 
     var eventListeners = this.listeners[eventName] || (this.listeners[eventName] = []);
@@ -29640,6 +29609,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+var _console = console,
+    warn = _console.warn;
 var Packet = /*#__PURE__*/function () {
   function Packet() {
     this._meta = undefined;
@@ -30043,21 +30014,21 @@ function frameToPackets(frame, timestamp) {
   var size = frame[2] || 0;
 
   if (frame.length < size + 12) {
-    (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .warn */ .ZK)(timestamp + "ms: got only " + frame.length + " bytes; expecting " + (size + 12));
+    warn(timestamp + "ms: got only " + frame.length + " bytes; expecting " + (size + 12));
   } else if (size < 4) {
-    (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .warn */ .ZK)(timestamp + "ms: empty packet");
+    warn(timestamp + "ms: empty packet");
   } else {
     var computed = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .crc */ .Br)(frame.slice(2, size + 12));
     var actual = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .read16 */ .gI)(frame, 0);
     if (actual != computed) console.error("crc mismatch; sz=" + size + " got:" + actual + ", exp:" + computed);
     var res = [];
-    if (frame.length != 12 + frame[2]) (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .warn */ .ZK)(timestamp + "ms: unexpected packet len: " + frame.length);
+    if (frame.length != 12 + frame[2]) warn(timestamp + "ms: unexpected packet len: " + frame.length);
 
     for (var ptr = 12; ptr < 12 + frame[2];) {
       var psz = frame[ptr] + 4;
       var sz = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .ALIGN */ .Hp)(psz);
       var pkt = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .bufferConcat */ .gX)(frame.slice(0, 12), frame.slice(ptr, ptr + psz));
-      if (ptr + sz > 12 + frame[2]) (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .warn */ .ZK)(timestamp + "ms: invalid frame compression, res len=" + res.length);
+      if (ptr + sz > 12 + frame[2]) warn(timestamp + "ms: invalid frame compression, res len=" + res.length);
       var p = Packet.fromBinary(pkt);
       p.timestamp = timestamp;
       res.push(p); // only set req_ack flag on first packet - otherwise we would sent multiple acks
@@ -30194,6 +30165,8 @@ msg) {
 
 
 
+var _console = console,
+    warn = _console.warn;
 var OutPipe = /*#__PURE__*/function () {
   function OutPipe(device, port, hosted) {
     this._count = 0;
@@ -30289,7 +30262,7 @@ var OutPipe = /*#__PURE__*/function () {
                 break;
               }
 
-              (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .warn */ .ZK)("sending data over closed pipe");
+              warn("sending data over closed pipe");
               return _context2.abrupt("return");
 
             case 3:
@@ -33538,7 +33511,6 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "_y": function() { return /* binding */ throwError; },
 /* harmony export */   "G5": function() { return /* binding */ isCancelError; },
 /* harmony export */   "qc": function() { return /* binding */ setAckError; },
-/* harmony export */   "ZK": function() { return /* binding */ warn; },
 /* harmony export */   "gw": function() { return /* binding */ delay; },
 /* harmony export */   "Tz": function() { return /* binding */ memcpy; },
 /* harmony export */   "eT": function() { return /* binding */ strcmp; },
@@ -33590,7 +33562,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "ei": function() { return /* binding */ pick; },
 /* harmony export */   "ap": function() { return /* binding */ splitFilter; }
 /* harmony export */ });
-/* unused harmony exports isAckError, log, fnv1, decodeU32LE, jsonCopyFrom, flatClone, range */
+/* unused harmony exports isAckError, fnv1, decodeU32LE, jsonCopyFrom, flatClone, range */
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -33622,14 +33594,6 @@ function setAckError(e) {
 function isAckError(e) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return !!(e !== null && e !== void 0 && e.__ack);
-} // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-function log(msg, v) {
-  if (v === undefined) console.log("JD: " + msg);else console.log("JD: " + msg, v);
-} // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-function warn(msg, v) {
-  if (v === undefined) console.log("JD-WARN: " + msg);else console.log("JD-WARN: " + msg, v);
 }
 function delay(millis, value) {
   return new Promise(function (resolve) {
@@ -40818,7 +40782,7 @@ var IFrameTransport = /*#__PURE__*/function (_JDIFrameClient) {
       var ack = msg;
       var awaiter = this.ackAwaiters[ack.ackId];
       delete this.ackAwaiters[ack.ackId];
-      awaiter === null || awaiter === void 0 ? void 0 : awaiter(msg);
+      if (awaiter) awaiter(msg);
     } else {
       this.emit("message:" + msg.type, msg);
     }
@@ -42415,7 +42379,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "50517769d9bafedf352f2f61473600a78224c64c";
+  var sha = "834255d688b35d16853c6ed9bbb241f9f4d92e8b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46586,14 +46550,14 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       this._serviceProviders.push(provider);
 
       provider.bus = this;
-      this.emit(constants/* SERVICE_PROVIDER_ADDED */.D4B);
+      this.emit(constants/* SERVICE_PROVIDER_ADDED */.D4B, provider);
       this.emit(constants/* CHANGE */.Ver);
     }
 
     return this.device(provider.deviceId);
   }
   /**
-   * Adds the service provider to the bus
+   * Removes the service provider from the bus
    * @param provider
    */
   ;
@@ -46623,7 +46587,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       this._serviceProviders.splice(i, 1);
 
       provider.bus = undefined;
-      this.emit(constants/* SERVICE_PROVIDER_REMOVED */.$dk); // removed host
+      this.emit(constants/* SERVICE_PROVIDER_REMOVED */.$dk, provider); // removed host
 
       this.emit(constants/* CHANGE */.Ver);
     }
@@ -53455,7 +53419,10 @@ var strip_prefix = __webpack_require__(70412);
 
   return path;
 });
+// EXTERNAL MODULE: ./.cache/redirect-utils.js + 1 modules
+var redirect_utils = __webpack_require__(91037);
 ;// CONCATENATED MODULE: ./.cache/find-path.js
+
 
 
 
@@ -53559,6 +53526,12 @@ var findPath = function findPath(rawPathname) {
 
   if (pathCache.has(trimmedPathname)) {
     return pathCache.get(trimmedPathname);
+  }
+
+  var redirect = (0,redirect_utils/* maybeGetBrowserRedirect */.J)(rawPathname);
+
+  if (redirect) {
+    return findPath(redirect.toPath);
   }
 
   var foundPath = findMatchPath(trimmedPathname);
@@ -54549,7 +54522,7 @@ var PageRenderer = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ 70053:
+/***/ 19009:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54573,8 +54546,8 @@ var ready_default = /*#__PURE__*/__webpack_require__.n(ready);
 var gatsby_browser_entry = __webpack_require__(35313);
 // EXTERNAL MODULE: ./.cache/loader.js + 1 modules
 var loader = __webpack_require__(18854);
-;// CONCATENATED MODULE: ./.cache/redirects.json
-var redirects_namespaceObject = [];
+// EXTERNAL MODULE: ./.cache/redirect-utils.js + 1 modules
+var redirect_utils = __webpack_require__(91037);
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
 var emitter = __webpack_require__(22615);
 ;// CONCATENATED MODULE: ./.cache/route-announcer-props.js
@@ -54610,28 +54583,12 @@ var gatsby_link = __webpack_require__(38037);
 
 
 
- // Convert to a map for faster lookup in maybeRedirect()
 
-var redirectMap = new Map();
-var redirectIgnoreCaseMap = new Map();
-redirects_namespaceObject.forEach(function (redirect) {
-  if (redirect.ignoreCase) {
-    redirectIgnoreCaseMap.set(redirect.fromPath, redirect);
-  } else {
-    redirectMap.set(redirect.fromPath, redirect);
-  }
-});
 
 function maybeRedirect(pathname) {
-  var redirect = redirectMap.get(pathname);
-
-  if (!redirect) {
-    redirect = redirectIgnoreCaseMap.get(pathname.toLowerCase());
-  }
+  var redirect = (0,redirect_utils/* maybeGetBrowserRedirect */.J)(pathname);
 
   if (redirect != null) {
-    if (false) {}
-
     window.___replace(redirect.toPath);
 
     return true;
@@ -54676,13 +54633,8 @@ var navigation_navigate = function navigate(to, options) {
   var _parsePath = (0,gatsby_link/* parsePath */.cP)(to),
       pathname = _parsePath.pathname;
 
-  var redirect = redirectMap.get(pathname);
-
-  if (!redirect) {
-    redirect = redirectIgnoreCaseMap.get(pathname.toLowerCase());
-  } // If we're redirecting, just replace the passed in pathname
+  var redirect = (0,redirect_utils/* maybeGetBrowserRedirect */.J)(pathname); // If we're redirecting, just replace the passed in pathname
   // to the one we want to redirect to.
-
 
   if (redirect) {
     to = redirect.toPath;
@@ -55335,6 +55287,42 @@ if (false) {} else if (true) {
 exports.O = function (Component) {
   return Component;
 };
+
+/***/ }),
+
+/***/ 91037:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "J": function() { return /* binding */ maybeGetBrowserRedirect; }
+});
+
+;// CONCATENATED MODULE: ./.cache/redirects.json
+var redirects_namespaceObject = [];
+;// CONCATENATED MODULE: ./.cache/redirect-utils.js
+ // Convert to a map for faster lookup in maybeRedirect()
+
+var redirectMap = new Map();
+var redirectIgnoreCaseMap = new Map();
+redirects_namespaceObject.forEach(function (redirect) {
+  if (redirect.ignoreCase) {
+    redirectIgnoreCaseMap.set(redirect.fromPath, redirect);
+  } else {
+    redirectMap.set(redirect.fromPath, redirect);
+  }
+});
+function maybeGetBrowserRedirect(pathname) {
+  var redirect = redirectMap.get(pathname);
+
+  if (!redirect) {
+    redirect = redirectIgnoreCaseMap.get(pathname.toLowerCase());
+  }
+
+  return redirect;
+}
 
 /***/ }),
 
@@ -57802,8 +57790,8 @@ try {
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
-/******/ __webpack_require__.O(0, [9774,532], function() { return __webpack_exec__(70053); });
+/******/ __webpack_require__.O(0, [9774,532], function() { return __webpack_exec__(19009); });
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9d1f74afd50026e522eb.js.map
+//# sourceMappingURL=app-dfd638f4a544db3893b8.js.map
