@@ -858,7 +858,7 @@ function Page() {
     repos: ["microsoft/jacdac-ts"],
     showDescription: true
   }), /*#__PURE__*/react.createElement("h2", null, " Tools & Integrations"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
-    repos: ["microsoft/node-red-contrib-jacdac", "microsoft/jupyter-jacdac"],
+    repos: ["microsoft/jacdac-multitool", "microsoft/node-red-contrib-jacdac", "microsoft/jupyter-jacdac"],
     showDescription: true
   }), /*#__PURE__*/react.createElement("h2", null, " Documentation"), /*#__PURE__*/react.createElement(GithubRepositoryList, {
     repos: ["microsoft/jacdac-docs"],
@@ -879,4 +879,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-0b2aba127bdadb5b7c56.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-cb4225e55224d25bfed9.js.map
