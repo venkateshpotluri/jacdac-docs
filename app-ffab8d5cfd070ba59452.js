@@ -27506,7 +27506,8 @@ var BLUETOOTH_JACDAC_RX_CHARACTERISTIC = "f8530002-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_TX_CHARACTERISTIC = "f8530003-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC = "f8530004-a97f-49f5-a554-3e373fbea2d5";
 var TRANSPORT_CONNECT_RETRY_DELAY = 500;
-var TRANSPORT_PULSE_TIMEOUT = JD_DEVICE_DISCONNECTED_DELAY;
+var TRANSPORT_PULSE_TIMEOUT = 15000; // don't interfere with manual flashing of devices
+
 var ERROR_MICROBIT_V1 = "microbit/v1-not-supported";
 var ERROR_MICROBIT_UNKNOWN = "microbit/unknown-hardware-revision";
 var ERROR_MICROBIT_JACDAC_MISSING = "microbit/jacdac-missing";
@@ -42379,7 +42380,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b94dc80611dbf6fb462e1700113a616c9874b472";
+  var sha = "df72b3a08a842b91d42bff53997e3573b6b20767";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57797,4 +57798,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9c65dcd1582a1beeeb2e.js.map
+//# sourceMappingURL=app-ffab8d5cfd070ba59452.js.map
