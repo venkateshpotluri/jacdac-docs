@@ -582,7 +582,7 @@ function DashboardDeviceItem(props) {
 
 /***/ }),
 
-/***/ 30765:
+/***/ 36227:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -603,6 +603,11 @@ var jsep_default = /*#__PURE__*/__webpack_require__.n(jsep);
 var jdutils = __webpack_require__(30055);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/ir.ts
 var IT4Functions = [{
+  id: "role",
+  args: ["Identifier", "Identifier"],
+  prompt: "role variable {1} of service type {2}",
+  context: "command"
+}, {
   id: "awaitEvent",
   args: ["event", ["boolean", true]],
   prompt: "wait for event {1} and then check {2} (other events ignored)",
@@ -628,12 +633,15 @@ var IT4Functions = [{
   prompt: "terminates the current handler",
   context: "command"
 }];
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/markdown.ts
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -647,6 +655,9 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
   filecontent = (filecontent || "").replace(/\r/g, "");
   var info = {
     description: "",
+    roles: [],
+    registers: [],
+    events: [],
     handlers: []
   };
   var backticksType = "";
@@ -654,6 +665,28 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
   var lineNo = 0;
   var currentHandler = null;
   var handlerHeading = "";
+  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(undefined, function (role) {
+    // lookup in roles first
+    var shortId = info.roles.find(function (pair) {
+      return pair.role === role;
+    });
+
+    if (shortId) {
+      // must succeed
+      return (0,spec/* serviceSpecificationFromName */.kB)(shortId.serviceShortName);
+    } else {
+      var service = (0,spec/* serviceSpecificationFromName */.kB)(role);
+
+      if (!service) {
+        error("can't find service with shortId=" + role);
+        return undefined;
+      }
+
+      return service;
+    }
+  }, supportedExpressions, (jsep_default()), function (e) {
+    return error(e);
+  });
 
   try {
     for (var _iterator = _createForOfIteratorHelperLoose(filecontent.split(/\n/)), _step; !(_step = _iterator()).done;) {
@@ -665,7 +698,7 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
     error("exception: " + e.message);
   }
 
-  if (currentHandler) finishHandler();
+  if (currentHandler) finishHandler(symbolResolver);
   if (errors.length) info.errors = errors;
   return info;
 
@@ -697,7 +730,7 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
         if (hd == "#") {
           if (!info.description) info.description = cont.trim();else error("use ## to start a handler, not #");
         } else if (hd == "##") {
-          if (currentHandler) finishHandler();
+          if (currentHandler) finishHandler(symbolResolver);
           handlerHeading = cont.trim();
         }
       }
@@ -706,16 +739,6 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
       if (!expanded) return;
       processCommand(expanded);
     }
-  }
-
-  function argsRequiredOptional(args, optional) {
-    if (optional === void 0) {
-      optional = false;
-    }
-
-    return args.filter(function (a) {
-      return !optional && typeof a === "string" || optional && typeof a === "object";
-    });
   }
 
   function processCommand(expanded) {
@@ -728,59 +751,35 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
       handlerHeading = "";
     }
 
-    var call = /^([a-zA-Z]\w*)\(.*\)$/.exec(expanded);
+    var ret = symbolResolver.processLine(expanded, IT4Functions);
 
-    if (!call) {
-      error("a command must be a call to a registered ITTT function (JavaScript syntax)");
-      return;
-    }
+    if (ret) {
+      var command = ret[0],
+          root = ret[1];
 
-    var callee = call[1];
-    var cmdIndex = IT4Functions.findIndex(function (r) {
-      return callee == r.id;
-    });
-
-    if (cmdIndex < 0) {
-      error(callee + " is not a registered ITTT function.");
-      return;
-    } else if (currentHandler.commands.length === 0 && callee !== "awaitEvent" && callee !== "awaitCondition") {
-      error("An ITTT handler must begin with call to an await function (awaitEvent | awaitCondition)");
-      return;
-    }
-
-    var root = jsep_default()(expanded);
-
-    if (!root || !root.type || root.type != "CallExpression" || !root.callee || !root.arguments) {
-      error("a command must be a call expression in JavaScript syntax");
-    } else {
-      // check for unsupported expression types
-      (0,jdutils/* exprVisitor */.ao)(null, root, function (p, c) {
-        if (supportedExpressions.indexOf(c.type) < 0) error("Expression of type " + c.type + " not currently supported");
-      }); // check arguments
-
-      var command = IT4Functions[cmdIndex];
-      var minArgs = argsRequiredOptional(command.args).length;
-      var maxArgs = command.args.length;
-      if (root.arguments.length < minArgs) error(callee + " expects at least " + minArgs + " arguments; got " + root.arguments.length);else if (root.arguments.length > maxArgs) {
-        error(callee + " expects at most " + maxArgs + " arguments; got " + root.arguments.length);
-      } else {
-        // deal with optional arguments
-        var newExpressions = [];
-
-        for (var i = root.arguments.length; i < command.args.length; i++) {
-          var _ref = command.args[i],
-              name = _ref[0],
-              def = _ref[1];
-          var lit = {
-            type: "Literal",
-            value: def,
-            raw: def.toString()
-          };
-          newExpressions.push(lit);
+      if (currentHandler.commands.length === 0) {
+        if (command.id === "role") {
+          // TODO: check
+          var role = root.arguments[0].name;
+          var serviceShortName = root.arguments[1].name;
+          var service = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortName);
+          if (!service) error("can't find service with shortId=" + serviceShortName);else if (info.roles.find(function (pair) {
+            return pair.role === role;
+          })) error("role with name " + role + " already declared");else info.roles.push({
+            role: role,
+            serviceShortName: serviceShortName
+          });
+          return;
+        } else if (command.id !== "awaitEvent" && command.id !== "awaitCondition") {
+          error("An ITTT handler must begin with call to an await function (awaitEvent | awaitCondition)");
+          return;
         }
-
-        root.arguments = root.arguments.concat(newExpressions);
+      } else {
+        if (command.id === "role") {
+          error("roles must be declared at beginning of handler");
+        }
       }
+
       currentHandler.commands.push({
         guard: undefined,
         command: root
@@ -788,8 +787,15 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
     }
   }
 
-  function finishHandler() {
-    info.handlers.push(currentHandler);
+  function finishHandler(sym) {
+    if (currentHandler.commands.length > 0) info.handlers.push(currentHandler);
+    sym.registers.forEach(function (r) {
+      if (info.registers.indexOf(r) < 0) info.registers.push(r);
+    });
+    sym.events.forEach(function (e) {
+      if (info.events.indexOf(e) < 0) info.events.push(e);
+    });
+    sym.reset();
     currentHandler = null;
   }
 
@@ -819,15 +825,131 @@ var Button = __webpack_require__(83332);
 var inheritsLoose = __webpack_require__(41788);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(5991);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
-var environment = __webpack_require__(96699);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
-var vm_expr = __webpack_require__(18108);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(25606);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/rolemanager.ts
+
+
+
+
+
+var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(MyRoleManager, _JDEventSource);
+
+  function MyRoleManager(bus, notify) {
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this._roles = {};
+    _this._devices = [];
+    _this.bus = bus;
+    _this.notify = notify;
+
+    _this.bus.on(constants/* DEVICE_ANNOUNCE */.Hob, function (dev) {
+      return _this.addServices(dev);
+    });
+
+    _this.bus.on(constants/* DEVICE_DISCONNECT */.O55, function (dev) {
+      return _this.removeServices(dev);
+    });
+
+    return _this;
+  }
+
+  var _proto = MyRoleManager.prototype;
+
+  _proto.addServices = function addServices(dev) {
+    var _this2 = this;
+
+    dev.services().forEach(function (s) {
+      var key = Object.keys(_this2._roles).find(function (k) {
+        return typeof _this2._roles[k] === "string" && _this2.nameMatch(_this2._roles[k], s.specification.shortName);
+      });
+
+      if (key && _this2._devices.indexOf(dev) === -1) {
+        _this2._roles[key] = s;
+
+        _this2._devices.push(dev);
+
+        if (_this2.notify) _this2.notify(key, s, true);
+      }
+    });
+  };
+
+  _proto.removeServices = function removeServices(dev) {
+    var _this3 = this;
+
+    if (this._devices.indexOf(dev) >= 0) {
+      this._devices = this._devices.filter(function (d) {
+        return d !== dev;
+      });
+      var key = Object.keys(this._roles).find(function (k) {
+        return typeof _this3._roles[k] !== "string" && dev.services().indexOf(_this3._roles[k]) >= 0;
+      });
+
+      if (key) {
+        var _service = this._roles[key];
+        this._roles[key] = this._roles[key].specification.shortName;
+        if (this.notify) this.notify(key, _service, false);
+      }
+    }
+  };
+
+  _proto.getService = function getService(role) {
+    var s = this._roles[role];
+    return !s || typeof s === "string" ? undefined : s;
+  };
+
+  _proto.nameMatch = function nameMatch(n1, n2) {
+    var cn1 = n1.slice(0).toLowerCase().replace("_", " ").trim();
+    var cn2 = n2.slice(0).toLowerCase().replace("_", " ").trim();
+    return cn1 === cn2;
+  };
+
+  _proto.getServicesFromName = function getServicesFromName(root) {
+    var _this4 = this;
+
+    return this.bus.services().filter(function (s) {
+      return _this4.nameMatch(s.specification.shortName, root);
+    });
+  };
+
+  _proto.addRoleService = function addRoleService(role, serviceShortName) {
+    var _this5 = this;
+
+    var s = this._roles[role];
+    if (s && typeof s !== "string") return;
+    var existingInstance = Object.values(this._roles).find(function (r) {
+      return typeof r === "string" && _this5.nameMatch(r, serviceShortName) || typeof r === "object" && _this5.nameMatch(r.specification.shortName, serviceShortName);
+    });
+    this._roles[role] = serviceShortName;
+    var ret = this.getServicesFromName(serviceShortName);
+
+    if (existingInstance || ret.length === 0) {
+      // spin up a new simulator
+      var _service2 = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortName);
+
+      if (_service2) {
+        var provider = (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(_service2 === null || _service2 === void 0 ? void 0 : _service2.classIdentifier);
+        if (provider) (0,servers/* addServiceProvider */.Q6)(this.bus, provider);
+      }
+    } else {
+      this._roles[role] = ret[0];
+    }
+  };
+
+  return MyRoleManager;
+}(eventsource/* JDEventSource */.a);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
+var environment = __webpack_require__(96699);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
+var vm_expr = __webpack_require__(18108);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/vmrunner.ts
+
 
 
 
@@ -998,7 +1120,6 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   };
 
   _proto3.post_process = function post_process() {
-    // console.log(`IT4HandlerRunner${this.id}.step: ${this._commandIndex}`)
     if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
   } // run-to-completion semantics
   ;
@@ -1044,7 +1165,33 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
     _this3 = _JDEventSource.call(this) || this;
     _this3._waitQueue = [];
     _this3._running = false;
-    _this3._env = new environment/* VMEnvironment */.uH(bus, function () {
+    _this3.program = program;
+    _this3._rm = new MyRoleManager(bus, function (role, service, added) {
+      _this3._env.serviceChanged(role, service, added);
+
+      if (added) {
+        _this3.program.registers.forEach(function (r) {
+          var _r$split = r.split("."),
+              root = _r$split[0],
+              reg = _r$split[1];
+
+          if (root === role) {
+            _this3._env.registerRegister(role, reg);
+          }
+        });
+
+        _this3.program.events.forEach(function (e) {
+          var _e$split = e.split("."),
+              root = _e$split[0],
+              ev = _e$split[1];
+
+          if (root === role) {
+            _this3._env.registerEvent(role, ev);
+          }
+        });
+      }
+    });
+    _this3._env = new environment/* VMEnvironment */.uH(function () {
       _this3.run();
     });
     _this3._handlers = program.handlers.map(function (h, index) {
@@ -1068,6 +1215,11 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto4.start = function start() {
+    var _this4 = this;
+
+    this.program.roles.forEach(function (role) {
+      _this4._rm.addRoleService(role.role, role.serviceShortName);
+    });
     this._running = true;
     this.emit(constants/* CHANGE */.Ver);
     this.run();
@@ -1211,4 +1363,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-4b783792ba23d2c28dfd.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-238311aba5d3741a79ee.js.map

@@ -192,58 +192,69 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
 var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMEnvironment, _JDEventSource);
 
-  function VMEnvironment(bus, notifyOnChange) {
+  function VMEnvironment(notifyOnChange) {
     var _this2;
 
     _this2 = _JDEventSource.call(this) || this;
     _this2._currentEvent = undefined;
-    _this2._services = {};
+    _this2._envs = {};
     _this2._locals = {};
-    _this2.bus = bus;
     _this2.notifyOnChange = notifyOnChange;
     return _this2;
   }
 
   var _proto2 = VMEnvironment.prototype;
 
-  _proto2.getRootName = function getRootName(e) {
-    if (!e || typeof e === "string" || e.type !== "MemberExpression") return undefined;
-    return e.object.name;
+  _proto2.serviceChanged = function serviceChanged(role, service, added) {
+    if (this._envs[role]) {
+      this._envs[role].unmount();
+
+      this._envs[role] = undefined;
+    }
+
+    if (added) {
+      this._envs[role] = new VMServiceEnvironment(service);
+    }
   };
 
-  _proto2.nameMatch = function nameMatch(n1, n2) {
-    var cn1 = n1.slice(0).toLowerCase().replace("_", " ").trim();
-    var cn2 = n2.slice(0).toLowerCase().replace("_", " ").trim();
-    return cn1 === cn2;
+  _proto2.registerRegister = function registerRegister(role, reg) {
+    var serviceEnv = this.getService(role);
+
+    if (serviceEnv) {
+      serviceEnv.registerRegister(reg, this.notifyOnChange);
+    }
   };
 
-  _proto2.getServiceFromName = function getServiceFromName(root) {
+  _proto2.registerEvent = function registerEvent(role, ev) {
     var _this3 = this;
 
-    // policy for resolution goes here
-    return this.bus.services().find(function (s) {
-      return _this3.nameMatch(s.specification.shortName, root);
-    });
+    var serviceEnv = this.getService(role);
+
+    if (serviceEnv) {
+      serviceEnv.registerEvent(ev, function () {
+        _this3._currentEvent = role + "." + ev;
+
+        _this3.notifyOnChange();
+      });
+    }
+  };
+
+  _proto2.getRootName = function getRootName(e) {
+    if (!e) return undefined;
+    if (typeof e === "string") return e;
+    if (e.type === "MemberExpression") return e.object.name;
+    return undefined;
   };
 
   _proto2.getService = function getService(e) {
     var root = this.getRootName(e);
     if (!root) return undefined;
-
-    if (!this._services[root]) {
-      var service = this.getServiceFromName(root);
-
-      if (service) {
-        this._services[root] = new VMServiceEnvironment(service);
-      } else return undefined;
-    }
-
-    return this._services[root];
+    return this._envs[root];
   };
 
   _proto2.refreshEnvironment = function refreshEnvironment() {
-    Object.values(this._services).forEach(function (s) {
-      return s.refreshEnvironment();
+    Object.values(this._envs).forEach(function (s) {
+      return s === null || s === void 0 ? void 0 : s.refreshEnvironment();
     });
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
@@ -268,13 +279,11 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
     if (serviceEnv && me.property.type === "Identifier") {
       var reg = me.property.name;
-      serviceEnv.registerRegister(reg, this.notifyOnChange);
       return serviceEnv.lookup(reg);
     }
 
     return undefined;
-  } // TODO: need do a notify
-  ;
+  };
 
   _proto2.writeRegister = function writeRegister(e, ev) {
     var serviceEnv = this.getService(e);
@@ -282,7 +291,6 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
     if (serviceEnv && me.property.type === "Identifier") {
       var reg = me.property.name;
-      serviceEnv.registerRegister(reg, this.notifyOnChange);
       return serviceEnv.writeRegister(reg, ev);
     }
 
@@ -308,27 +316,21 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto2.hasEvent = function hasEvent(e) {
-    var _this4 = this;
-
+    var roleName = this.getRootName(e);
     var serviceEnv = this.getService(e);
     if (!serviceEnv) return false;
     var me = e;
 
-    if (serviceEnv && me.property.type === "Identifier") {
+    if (me.property.type === "Identifier") {
       var event = me.property.name;
-      serviceEnv.registerEvent(event, function () {
-        _this4._currentEvent = event;
-
-        _this4.notifyOnChange();
-      });
-      return this._currentEvent === event;
+      return this._currentEvent === roleName + "." + event;
     }
 
     return false;
   };
 
   _proto2.unsubscribe = function unsubscribe() {
-    Object.values(this._services).forEach(function (vs) {
+    Object.values(this._envs).forEach(function (vs) {
       return vs.unmount();
     });
   };
@@ -588,7 +590,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
       case "MemberExpression":
         {
-          // for now, we don't support evaluation of obj or prop 
+          // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
           this.exprStack.push(val);
@@ -1038,4 +1040,4 @@ function useRoleManager() {
 /***/ })
 
 }]);
-//# sourceMappingURL=39504046960eea78697a10eb737b49eea4403ae4-6cf785de7c00416bf8be.js.map
+//# sourceMappingURL=39504046960eea78697a10eb737b49eea4403ae4-7d4002a85b428ac11aa0.js.map

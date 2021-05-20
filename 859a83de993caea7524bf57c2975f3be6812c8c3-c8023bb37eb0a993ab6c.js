@@ -1466,14 +1466,18 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     });
 
     _this6.testSpec.tests.forEach(function (t) {
-      t.events.forEach(function (eventName) {
+      t.events.forEach(function (s) {
+        var eventName = s.substr(s.indexOf(".") + 1);
+
         _this6._env.registerEvent(eventName, function () {
           var _this6$currentTest;
 
           (_this6$currentTest = _this6.currentTest) === null || _this6$currentTest === void 0 ? void 0 : _this6$currentTest.eventChange(eventName);
         });
       });
-      t.registers.forEach(function (regName) {
+      t.registers.forEach(function (s) {
+        var regName = s.substr(s.indexOf(".") + 1);
+
         _this6._env.registerRegister(regName, function () {
           var _this6$currentTest2;
 
@@ -1940,4 +1944,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-6675b6e068a712ac7c64.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-c8023bb37eb0a993ab6c.js.map

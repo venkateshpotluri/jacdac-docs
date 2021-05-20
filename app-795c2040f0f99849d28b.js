@@ -26598,15 +26598,12 @@ var WindSpeedReg;
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "zF": function() { return /* binding */ isBoolOrNumericFormat; },
 /* harmony export */   "fh": function() { return /* binding */ isMixinService; },
-/* harmony export */   "NY": function() { return /* binding */ getRegister; },
 /* harmony export */   "Qv": function() { return /* binding */ parseIntFloat; },
+/* harmony export */   "ll": function() { return /* binding */ SpecSymbolResolver; },
 /* harmony export */   "ao": function() { return /* binding */ exprVisitor; }
 /* harmony export */ });
-/* unused harmony exports isRegister, packetsToRegisters, lookupRegister, lookupField */
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="jdspec.d.ts" />
+/* unused harmony exports isBoolOrNumericFormat, isRegister, packetsToRegisters, lookupRegister, lookupField, getRegister */
 function isBoolOrNumericFormat(fmt) {
   return fmt === "bool" || /^[ui]\d+/i.test(fmt);
 }
@@ -26685,7 +26682,307 @@ function parseIntFloat(spec, w, allowFloat) {
 
   if (!en.members.hasOwnProperty(ww[1])) throw new Error(ww[1] + " is not a member of " + ww[0]);
   return en.members[ww[1]] || 0;
-} // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} // static resolution of accesses to service specification
+
+var SpecSymbolResolver = /*#__PURE__*/function () {
+  function SpecSymbolResolver(spec, role2spec, supportedExpressions, parser, error) {
+    this.spec = spec;
+    this.role2spec = role2spec;
+    this.supportedExpressions = supportedExpressions;
+    this.parser = parser;
+    this.error = error;
+    this.reset();
+  }
+
+  var _proto = SpecSymbolResolver.prototype;
+
+  _proto.reset = function reset() {
+    this.registers = [];
+    this.events = [];
+  };
+
+  _proto.processLine = function processLine(line, funs) {
+    var _this = this;
+
+    var call = /^([a-zA-Z]\w*)\(.*\)$/.exec(line);
+
+    if (!call) {
+      this.error("a command must be a call to a registered function (JavaScript syntax)");
+      return undefined;
+    }
+
+    var callee = call[1];
+    var cmdIndex = funs.findIndex(function (r) {
+      return callee == r.id;
+    });
+
+    if (cmdIndex < 0) {
+      this.error(callee + " is not a registered function.");
+      return undefined;
+    }
+
+    var root = this.parser(line);
+
+    if (!root || !root.type || root.type != "CallExpression" || !root.callee || !root.arguments) {
+      this.error("a command must be a call expression in JavaScript syntax");
+      return undefined;
+    } // check for unsupported expression types
+
+
+    exprVisitor(null, root, function (p, c) {
+      if (_this.supportedExpressions.indexOf(c.type) < 0) _this.error("Expression of type " + c.type + " not currently supported");
+    }); // check arguments
+
+    var command = funs[cmdIndex];
+    var minArgs = argsRequiredOptional(command.args).length;
+    var maxArgs = command.args.length;
+
+    if (root.arguments.length < minArgs) {
+      this.error(callee + " expects at least " + minArgs + " arguments; got " + root.arguments.length);
+      return undefined;
+    } else if (root.arguments.length > maxArgs) {
+      this.error(callee + " expects at most " + maxArgs + " arguments; got " + root.arguments.length);
+      return undefined;
+    } // deal with optional arguments
+
+
+    var newExpressions = [];
+
+    for (var i = root.arguments.length; i < command.args.length; i++) {
+      var _ref = command.args[i],
+          name = _ref[0],
+          def = _ref[1];
+      var lit = {
+        type: "Literal",
+        value: def,
+        raw: def.toString()
+      };
+      newExpressions.push(lit);
+    }
+
+    root.arguments = root.arguments.concat(newExpressions); // type checking of arguments.
+
+    this.processArguments(command, root);
+    return [command, root];
+
+    function argsRequiredOptional(args, optional) {
+      if (optional === void 0) {
+        optional = false;
+      }
+
+      return args.filter(function (a) {
+        return !optional && typeof a === "string" || optional && typeof a === "object";
+      });
+    }
+  };
+
+  _proto.processArguments = function processArguments(command, root) {
+    var _this2 = this;
+
+    var args = root.arguments;
+    var eventSymTable = [];
+    args.forEach(function (arg, a) {
+      var argType = command.args[a];
+      if (typeof argType === "object") argType = command.args[a][0];
+
+      if (argType === "register" || argType === "event" || argType == "Identifier") {
+        if (argType == "Identifier") {
+          _this2.check(arg, "Identifier");
+        } else if (argType === "event" && a === 0) {
+          var pkt = _this2.lookupEvent(arg);
+
+          if (pkt && eventSymTable.indexOf(pkt) === -1) eventSymTable.push(pkt);
+        } else if (argType === "register") {
+          try {
+            _this2.lookupRegister(arg);
+          } catch (e) {
+            _this2.error(e.message);
+          }
+        }
+      } else if (argType === "events") {
+        if (arg.type != 'ArrayExpression') _this2.error("events function expects a list of service events");else {
+          arg.elements.forEach(function (e) {
+            return _this2.lookupEvent(e);
+          });
+        }
+      } else if (argType === "number" || argType === "boolean") {
+        exprVisitor(root, arg, function (p, c) {
+          // TODO
+          if (p.type !== 'MemberExpression' && c.type === 'Identifier') {
+            _this2.lookupReplace(eventSymTable, p, c);
+          } else if (c.type === 'ArrayExpression') {
+            _this2.error("array expression not allowed in this context");
+          } else if (c.type === 'MemberExpression') {
+            var member = c; // A member expression must be of form <Identifier>.<memberExpression|Identifier>
+
+            if (member.object.type !== 'Identifier' || member.computed) {
+              _this2.error('property access must be of form id.property');
+            } else {
+              _this2.lookupReplace(eventSymTable, p, c);
+            }
+          }
+        });
+      } else {
+        _this2.error("unexpected argument type (" + argType + ")");
+      }
+    });
+  } // TODO: OR
+  ;
+
+  _proto.check = function check(e, type) {
+    if (e.type !== type) this.error("expected " + type + "; got " + e.type);
+  };
+
+  _proto.specResolve = function specResolve(e) {
+    if (this.spec) {
+      return [this.spec.shortName, this.spec, e];
+    } // otherwise, we must have a memberexpression at top-level
+    // where the object references a role variable or specification shortName
+
+
+    this.check(e, "MemberExpression");
+    this.check(e.object, "Identifier");
+
+    if (this.role2spec) {
+      var obj = e.object;
+
+      if (!this.role2spec(obj.name)) {
+        this.error("no specification found for " + obj.name);
+      }
+
+      return [obj.name, this.role2spec(obj.name), e.property];
+    }
+  };
+
+  _proto.destructAccessPath = function destructAccessPath(e, expectIdentifier) {
+    if (expectIdentifier === void 0) {
+      expectIdentifier = false;
+    }
+
+    if (e.type === "Identifier") {
+      return [e.name, ""];
+    } else if (!expectIdentifier && e.type === "MemberExpression") {
+      var object = e.object;
+      var property = e.property;
+      this.check(object, "Identifier");
+      this.check(property, "Identifier");
+      return [object.name, property.name];
+    } else {
+      if (!expectIdentifier) this.error("expected Identifier or MemberExpression; got " + e.type);else this.error("expected Identifier; got " + e.type);
+      return undefined;
+    }
+  };
+
+  _proto.lookupEvent = function lookupEvent(e) {
+    var _spec$packets;
+
+    var _this$specResolve = this.specResolve(e),
+        role = _this$specResolve[0],
+        spec = _this$specResolve[1],
+        rest = _this$specResolve[2];
+
+    var _this$destructAccessP = this.destructAccessPath(rest, true),
+        id = _this$destructAccessP[0],
+        _ = _this$destructAccessP[1];
+
+    var events = (_spec$packets = spec.packets) === null || _spec$packets === void 0 ? void 0 : _spec$packets.filter(function (pkt) {
+      return pkt.kind == "event";
+    });
+    var pkt = events.find(function (p) {
+      return p.name === id;
+    });
+
+    if (!pkt) {
+      this.error("no event " + id + " in specification");
+      return undefined;
+    } else {
+      var ev = role + "." + id;
+      if (this.events.indexOf(ev) < 0) this.events.push(ev);
+      return pkt;
+    }
+  };
+
+  _proto.lookupRegister = function lookupRegister(e) {
+    var _this$specResolve2 = this.specResolve(e),
+        role = _this$specResolve2[0],
+        spec = _this$specResolve2[1],
+        rest = _this$specResolve2[2];
+
+    var _this$destructAccessP2 = this.destructAccessPath(rest),
+        root = _this$destructAccessP2[0],
+        fld = _this$destructAccessP2[1];
+
+    this.lookupRegisterRaw(spec, root, fld);
+    var reg = role + "." + root;
+    if (this.registers.indexOf(reg) < 0) this.registers.push(reg);
+  };
+
+  _proto.lookupRegisterRaw = function lookupRegisterRaw(spec, root, fld) {
+    var reg = getRegister(spec, root, fld);
+    if (reg.pkt && (!reg.fld && !isBoolOrNumericFormat(reg.pkt.packFormat) || reg.fld && reg.fld.type && !isBoolOrNumericFormat(reg.fld.type))) this.error("only bool/numeric registers allowed"); // if (!fld && regField.pkt.fields.length > 0)
+    //    error(`register ${root} has fields, but no field specified`)
+  };
+
+  _proto.lookupReplace = function lookupReplace(events, parent, child) {
+    if (Array.isArray(parent)) {
+      var replace = this.lookup(events, parent, child);
+      parent.forEach(function (i) {
+        if (parent[i] === child) parent[i] = replace;
+      });
+    } else {
+      // don't process identifiers that are callees of CallExpression
+      if ((parent === null || parent === void 0 ? void 0 : parent.type) === "CallExpression" && child === parent.callee) return;
+
+      var _replace = this.lookup(events, parent, child);
+
+      if (_replace) {
+        Object.keys(parent).forEach(function (k) {
+          if (parent[k] === child) parent[k] = _replace;
+        });
+      }
+    }
+  };
+
+  _proto.lookup = function lookup(events, parent, child) {
+    var _this$specResolve3 = this.specResolve(child),
+        role = _this$specResolve3[0],
+        spec = _this$specResolve3[1],
+        rest = _this$specResolve3[2];
+
+    var _this$destructAccessP3 = this.destructAccessPath(rest),
+        root = _this$destructAccessP3[0],
+        fld = _this$destructAccessP3[1];
+
+    try {
+      try {
+        var val = parseIntFloat(spec, fld ? root + "." + fld : root);
+        var lit = {
+          type: "Literal",
+          value: val,
+          raw: val.toString()
+        };
+        return lit;
+      } catch (e) {
+        this.lookupRegisterRaw(spec, root, fld);
+        var reg = role + "." + root;
+        if (this.registers.indexOf(reg) < 0) this.registers.push(reg);
+      }
+    } catch (e) {
+      if (events.length > 0) {
+        var pkt = events.find(function (pkt) {
+          return pkt.name === root;
+        });
+        if (!pkt) this.error("event " + root + " not bound correctly");else if (!fld && pkt.fields.length > 0) this.error("event " + root + " has fields, but no field specified");else if (fld && !pkt.fields.find(function (f) {
+          return f.name === fld;
+        })) this.error("Field " + fld + " of event " + root + " not found in specification");
+      } else {
+        this.error(e.message);
+      }
+    }
+  };
+
+  return SpecSymbolResolver;
+}(); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 function exprVisitor(parent, current, structVisit) {
   if (Array.isArray(current)) {
@@ -42380,7 +42677,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "df72b3a08a842b91d42bff53997e3573b6b20767";
+  var sha = "00b5a22b0fe7881a6c85bab9f8e35c754f039d06";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -53075,7 +53372,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(7606), __webpack_require__.e(1962), __webpack_require__.e(9996), __webpack_require__.e(3691), __webpack_require__.e(3916), __webpack_require__.e(8472), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 27617));
   },
   "component---src-pages-tools-vm-editor-runner-tsx": function componentSrcPagesToolsVmEditorRunnerTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(7606), __webpack_require__.e(1962), __webpack_require__.e(9996), __webpack_require__.e(3691), __webpack_require__.e(4087), __webpack_require__.e(3916), __webpack_require__.e(9831), __webpack_require__.e(6739), __webpack_require__.e(8698), __webpack_require__.e(1131), __webpack_require__.e(245), __webpack_require__.e(3165), __webpack_require__.e(115), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 30765));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(7606), __webpack_require__.e(1962), __webpack_require__.e(9996), __webpack_require__.e(3691), __webpack_require__.e(4087), __webpack_require__.e(3916), __webpack_require__.e(9831), __webpack_require__.e(6739), __webpack_require__.e(8698), __webpack_require__.e(1131), __webpack_require__.e(245), __webpack_require__.e(3165), __webpack_require__.e(115), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 36227));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -57798,4 +58095,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ffab8d5cfd070ba59452.js.map
+//# sourceMappingURL=app-795c2040f0f99849d28b.js.map

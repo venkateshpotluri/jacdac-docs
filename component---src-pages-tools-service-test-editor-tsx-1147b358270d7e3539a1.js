@@ -821,9 +821,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-/* eslint-disable @typescript-eslint/triple-slash-reference */
-/// <reference path="jdspec.d.ts" />
-/// <reference path="jdtest.d.ts" />
 
 
 
@@ -847,6 +844,9 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
   var currentTest = null;
   var testHeading = "";
   var testPrompt = "";
+  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(spec, undefined, supportedExpressions, (jsep_default()), function (e) {
+    return error(e);
+  });
 
   try {
     for (var _iterator = _createForOfIteratorHelperLoose(filecontent.split(/\n/)), _step; !(_step = _iterator()).done;) {
@@ -858,7 +858,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
     error("exception: " + e.message);
   }
 
-  if (currentTest) finishTest();
+  if (currentTest) finishTest(symbolResolver);
   if (errors.length) info.errors = errors;
   return info;
 
@@ -891,7 +891,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
         if (hd == "#") {
           if (!info.description) info.description = cont.trim();else error("use ## to start a test, not #");
         } else if (hd == "##") {
-          if (currentTest) finishTest();
+          if (currentTest) finishTest(symbolResolver);
           testHeading = cont.trim();
         }
       } else {
@@ -902,16 +902,6 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       if (!expanded) return;
       processCommand(expanded);
     }
-  }
-
-  function argsRequiredOptional(args, optional) {
-    if (optional === void 0) {
-      optional = false;
-    }
-
-    return args.filter(function (a) {
-      return !optional && typeof a === "string" || optional && typeof a === "object";
-    });
   }
 
   function processCommand(expanded) {
@@ -931,112 +921,23 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       testPrompt = "";
     }
 
-    var call = /^([a-zA-Z]\w*)\(.*\)$/.exec(expanded);
+    var ret = symbolResolver.processLine(expanded, (0,jdtestfuns/* getTestCommandFunctions */.f)());
 
-    if (!call) {
-      error("a command must be a call to a registered test function (JavaScript syntax)");
-      return;
-    }
+    if (ret) {
+      var command = ret[0],
+          root = ret[1]; // check all calls in subexpressions
 
-    var callee = call[1];
-    var testCommandFunctions = (0,jdtestfuns/* getTestCommandFunctions */.f)();
-    var cmdIndex = testCommandFunctions.findIndex(function (r) {
-      return callee == r.id;
-    });
-
-    if (cmdIndex < 0) {
-      error(callee + " is not a registered test command function.");
-      return;
-    }
-
-    var root = jsep_default()(expanded);
-
-    if (!root || !root.type || root.type != "CallExpression" || !root.callee || !root.arguments) {
-      error("a command must be a call expression in JavaScript syntax");
-    } else {
-      // check for unsupported expression types
-      (0,jdutils/* exprVisitor */.ao)(null, root, function (p, c) {
-        if (supportedExpressions.indexOf(c.type) < 0) error("Expression of type " + c.type + " not currently supported");
-      }); // check arguments
-
-      var command = testCommandFunctions[cmdIndex];
-      var minArgs = argsRequiredOptional(command.args).length;
-      var maxArgs = command.args.length;
-      if (root.arguments.length < minArgs) error(callee + " expects at least " + minArgs + " arguments; got " + root.arguments.length);else if (root.arguments.length > maxArgs) {
-        error(callee + " expects at most " + maxArgs + " arguments; got " + root.arguments.length);
-      } else {
-        // deal with optional arguments
-        var newExpressions = [];
-
-        for (var i = root.arguments.length; i < command.args.length; i++) {
-          var _ref = command.args[i],
-              name = _ref[0],
-              def = _ref[1];
-          var lit = {
-            type: "Literal",
-            value: def,
-            raw: def.toString()
-          };
-          newExpressions.push(lit);
-        }
-
-        root.arguments = root.arguments.concat(newExpressions); // type checking of arguments.
-
-        processArguments(command, root.arguments); // check all calls in subexpressions
-
-        processCalls(command, root.arguments);
-      }
+      processCalls(command, root);
       currentTest.testCommands.push({
         prompt: testPrompt,
         call: root
       });
       testPrompt = "";
-    }
+    } // this checking is specific to test functions (for now)
 
-    function processArguments(command, args) {
-      var eventSymTable = [];
-      args.forEach(function (arg, a) {
-        var argType = command.args[a];
-        if (typeof argType === "object") argType = command.args[a][0];
 
-        if (argType === "register" || argType === "event") {
-          if (arg.type !== "Identifier") error(callee + " expects a " + argType + " in argument position " + (a + 1));else if (argType === "event" && a === 0) {
-            var pkt = lookupEvent(arg);
-            if (pkt && eventSymTable.indexOf(pkt) === -1) eventSymTable.push(pkt);
-          } else if (argType === "register") {
-            try {
-              lookupRegister(arg.name, "");
-            } catch (e) {
-              error(e.message);
-            }
-          }
-        } else if (argType === "events") {
-          if (arg.type != 'ArrayExpression') error("events function expects a list of service events");else {
-            arg.elements.forEach(lookupEvent);
-          }
-        } else if (argType === "number" || argType === "boolean") {
-          (0,jdutils/* exprVisitor */.ao)(root, arg, function (p, c) {
-            if (p.type !== 'MemberExpression' && c.type === 'Identifier') {
-              lookupReplace(eventSymTable, p, c);
-            } else if (c.type === 'ArrayExpression') {
-              error("array expression not allowed in this context");
-            } else if (c.type === 'MemberExpression') {
-              var member = c; // A member expression must be of form id1.id2
-
-              if (member.object.type !== 'Identifier' || member.property.type !== 'Identifier' || member.computed) {
-                error('property access must be of form id.property');
-              } else {
-                lookupReplace(eventSymTable, p, c);
-              }
-            }
-          });
-        } else {
-          error("unexpected argument type (" + argType + ") in jdtestfuns.ts");
-        }
-      });
-    }
-
-    function processCalls(command, args) {
+    function processCalls(command, root) {
+      var args = root.arguments;
       var testExpressionFunctions = (0,jdtestfuns/* getTestExpressionFunctions */.V)();
       args.forEach(function (arg, a) {
         var argType = command.args[a];
@@ -1061,114 +962,16 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
           }
 
           var expected = tef.args.length;
-          if (expected !== callExpr.arguments.length) error(callee + " expects " + expected + " arguments; got " + callExpr.arguments.length);
+          if (expected !== callExpr.arguments.length) error("Expected " + expected + " arguments; got " + callExpr.arguments.length);
         });
       });
     }
-
-    function lookupEvent(e) {
-      var _spec$packets;
-
-      var events = (_spec$packets = spec.packets) === null || _spec$packets === void 0 ? void 0 : _spec$packets.filter(function (pkt) {
-        return pkt.kind == "event";
-      });
-
-      if (e.type !== 'Identifier') {
-        error("event identifier expected");
-      } else {
-        var id = e.name;
-        var pkt = events.find(function (p) {
-          return p.name === id;
-        });
-
-        if (!pkt) {
-          error("no event " + id + " in specification");
-        } else {
-          if (currentTest.events.indexOf(id) < 0) currentTest.events.push(id);
-          return pkt;
-        }
-      }
-
-      return null;
-    }
   }
 
-  function lookupRegister(root, fld) {
-    var reg = (0,jdutils/* getRegister */.NY)(spec, root, fld);
-    if (reg.pkt && (!reg.fld && !(0,jdutils/* isBoolOrNumericFormat */.zF)(reg.pkt.packFormat) || reg.fld && reg.fld.type && !(0,jdutils/* isBoolOrNumericFormat */.zF)(reg.fld.type))) error("only bool/numeric registers allowed in tests"); // if (!fld && regField.pkt.fields.length > 0)
-    //    error(`register ${root} has fields, but no field specified`)
-
-    if (currentTest.registers.indexOf(root) < 0) currentTest.registers.push(root);
-  }
-
-  function lookupReplace(events, parent, child) {
-    if (Array.isArray(parent)) {
-      var replace = lookup(events, parent, child);
-      parent.forEach(function (i) {
-        if (parent[i] === child) parent[i] = replace;
-      });
-    } else {
-      // don't process identifiers that are callees of CallExpression
-      if ((parent === null || parent === void 0 ? void 0 : parent.type) === "CallExpression" && child === parent.callee) return;
-
-      var _replace = lookup(events, parent, child);
-
-      if (_replace) {
-        Object.keys(parent).forEach(function (k) {
-          if (parent[k] === child) parent[k] = _replace;
-        });
-      }
-    }
-
-    function lookup(events, parent, child) {
-      try {
-        try {
-          var _toName = toName(),
-              root = _toName[0],
-              fld = _toName[1];
-
-          var val = (0,jdutils/* parseIntFloat */.Qv)(spec, fld ? root + "." + fld : root);
-          var lit = {
-            type: "Literal",
-            value: val,
-            raw: val.toString()
-          };
-          return lit;
-        } catch (e) {
-          var _toName2 = toName(),
-              _root = _toName2[0],
-              _fld = _toName2[1];
-
-          lookupRegister(_root, _fld);
-        }
-      } catch (e) {
-        if (events.length > 0) {
-          var _toName3 = toName(),
-              _root2 = _toName3[0],
-              _fld2 = _toName3[1];
-
-          var pkt = events.find(function (pkt) {
-            return pkt.name === _root2;
-          });
-          if (!pkt) error("event " + _root2 + " not bound correctly");else if (!_fld2 && pkt.fields.length > 0) error("event " + _root2 + " has fields, but no field specified");else if (_fld2 && !pkt.fields.find(function (f) {
-            return f.name === _fld2;
-          })) error("Field " + _fld2 + " of event " + _root2 + " not found in specification");
-        } else {
-          error(e.message);
-        }
-      }
-
-      return undefined;
-
-      function toName() {
-        if (child.type !== 'MemberExpression') return [child.name, ""];else {
-          return [child.object.name, child.property.name];
-        }
-      }
-    }
-  }
-
-  function finishTest() {
+  function finishTest(s) {
+    currentTest.registers = s.registers;
+    currentTest.events = s.events;
+    s.reset();
     info.tests.push(currentTest);
     currentTest = null;
   }
@@ -1367,4 +1170,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-c6814a143346af61228b.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-1147b358270d7e3539a1.js.map
