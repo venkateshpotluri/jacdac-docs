@@ -561,6 +561,24 @@ exports.Z = _default;
 
 
 
+
+function MakeCodeFolderLink(props) {
+  var slug = props.slug,
+      folder = props.folder,
+      repo = props.repo;
+
+  var _useFetchJSON = (0,_github__WEBPACK_IMPORTED_MODULE_1__/* .useFetchJSON */ .J$)(slug, repo.default_branch, "pxt.json", "application/json"),
+      pxtJson = _useFetchJSON.response;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    href: repo.html_url + "/tree/" + repo.default_branch + "/" + folder,
+    target: "blank"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+    component: "span",
+    variant: "h5"
+  }, (pxtJson === null || pxtJson === void 0 ? void 0 : pxtJson.name) || repo.name + "/ " + folder));
+}
+
 function GithubRepositoryCardHeader(props) {
   var _repo$organization;
 
@@ -575,27 +593,29 @@ function GithubRepositoryCardHeader(props) {
   var _useLatestRelease = (0,_github__WEBPACK_IMPORTED_MODULE_1__/* .useLatestRelease */ .G$)(showRelease && slug),
       release = _useLatestRelease.response;
 
-  var target = "_blank"; // always bounce out to github
+  var _normalizeSlug = (0,_github__WEBPACK_IMPORTED_MODULE_1__/* .normalizeSlug */ .E1)(slug),
+      folder = _normalizeSlug.folder;
 
-  var title = repo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__.Link, {
-    href: repo.html_url,
-    target: target
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+  var title = repo ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     component: "span",
     variant: "h6"
-  }, (_repo$organization = repo.organization) === null || _repo$organization === void 0 ? void 0 : _repo$organization.login)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+  }, (_repo$organization = repo.organization) === null || _repo$organization === void 0 ? void 0 : _repo$organization.login), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     component: "span",
     ml: 0.5,
     mr: 0.5
-  }, "/"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__.Link, {
+  }, "/"), folder ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(MakeCodeFolderLink, {
+    slug: slug,
+    folder: folder,
+    repo: repo
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__.Link, {
     href: repo.html_url,
-    target: target
+    target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     component: "span",
     variant: "h5"
   }, repo.name))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_2__.Link, {
     href: "https://github.com/" + slug,
-    target: target
+    target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     component: "span",
     variant: "h6"
@@ -914,4 +934,4 @@ function SelectWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=913832d59ba65bf5a995efa1c4e48fc9101c7c83-3259bf9eb3aa3347aa8a.js.map
+//# sourceMappingURL=913832d59ba65bf5a995efa1c4e48fc9101c7c83-ab16df5b1e472eab85fd.js.map

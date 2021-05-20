@@ -11,13 +11,13 @@ __webpack_require__.d(__webpack_exports__, {
   "pY": function() { return /* binding */ fetchLatestRelease; },
   "dW": function() { return /* binding */ fetchReleaseBinary; },
   "s8": function() { return /* binding */ fetchText; },
+  "E1": function() { return /* binding */ normalizeSlug; },
   "Jo": function() { return /* binding */ parseRepoUrl; },
+  "J$": function() { return /* binding */ useFetchJSON; },
   "G$": function() { return /* binding */ useLatestRelease; },
   "Fm": function() { return /* binding */ useLatestReleases; },
   "Ux": function() { return /* binding */ useRepository; }
 });
-
-// UNUSED EXPORTS: normalizeSlug
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(96156);
@@ -247,7 +247,12 @@ function contentsToFirmwareReleases(contents) {
 }
 
 function normalizeSlug(slug) {
-  return slug.replace(/^https:\/\/github.com\//, "");
+  var cleaned = slug.replace(/^https:\/\/github.com\//, "");
+  var parts = cleaned.split("/");
+  return {
+    repoPath: parts[0] + "/" + parts[1],
+    folder: parts.slice(2).join("/")
+  };
 }
 function parseRepoUrl(url) {
   var m = /^https:\/\/github\.com\/([^/ \t]+)\/([^/ \t]+)\/?$/.exec(url || "");
@@ -263,49 +268,51 @@ function fetchLatestRelease(_x, _x2) {
 
 function _fetchLatestRelease() {
   _fetchLatestRelease = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(slug, options) {
-    var uri, resp, contents, releases;
+    var _normalizeSlug4, repoPath, uri, resp, contents, releases;
+
     return regenerator_default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             // https://api.github.com/repos/microsoft/jacdac-msr-modules/contents/dist
-            uri = ROOT + "repos/" + normalizeSlug(slug) + "/contents/dist";
-            _context.next = 3;
+            _normalizeSlug4 = normalizeSlug(slug), repoPath = _normalizeSlug4.repoPath;
+            uri = ROOT + "repos/" + repoPath + "/contents/dist";
+            _context.next = 4;
             return fetch(uri);
 
-          case 3:
+          case 4:
             resp = _context.sent;
             _context.t0 = resp.status;
-            _context.next = _context.t0 === 200 ? 7 : _context.t0 === 204 ? 7 : _context.t0 === 404 ? 12 : _context.t0 === 403 ? 13 : 16;
+            _context.next = _context.t0 === 200 ? 8 : _context.t0 === 204 ? 8 : _context.t0 === 404 ? 13 : _context.t0 === 403 ? 14 : 17;
             break;
 
-          case 7:
-            _context.next = 9;
+          case 8:
+            _context.next = 10;
             return resp.json();
 
-          case 9:
+          case 10:
             contents = _context.sent;
             releases = contentsToFirmwareReleases(contents);
             return _context.abrupt("return", releases[0]);
 
-          case 12:
+          case 13:
             return _context.abrupt("return", undefined);
 
-          case 13:
+          case 14:
             if (!(options !== null && options !== void 0 && options.ignoreThrottled)) {
-              _context.next = 15;
+              _context.next = 16;
               break;
             }
 
             return _context.abrupt("return", undefined);
 
-          case 15:
+          case 16:
             throw new Error("Too many calls to GitHub, try again later");
 
-          case 16:
+          case 17:
             throw new Error("unknown status code " + resp.status);
 
-          case 17:
+          case 18:
           case "end":
             return _context.stop();
         }
@@ -321,39 +328,41 @@ function fetchReleaseBinary(_x3, _x4) {
 
 function _fetchReleaseBinary() {
   _fetchReleaseBinary = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(slug, version) {
-    var downloadUrl, req, firmware;
+    var _normalizeSlug5, repoPath, downloadUrl, req, firmware;
+
     return regenerator_default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             // we are not using the release api because of CORS.
-            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/main/dist/fw-" + version + ".uf2";
-            _context2.next = 3;
+            _normalizeSlug5 = normalizeSlug(slug), repoPath = _normalizeSlug5.repoPath;
+            downloadUrl = "https://raw.githubusercontent.com/" + repoPath + "/main/dist/fw-" + version + ".uf2";
+            _context2.next = 4;
             return fetch(downloadUrl, {
               headers: {
                 Accept: "application/octet-stream"
               }
             });
 
-          case 3:
+          case 4:
             req = _context2.sent;
 
             if (!(req.status == 200)) {
-              _context2.next = 9;
+              _context2.next = 10;
               break;
             }
 
-            _context2.next = 7;
+            _context2.next = 8;
             return req.blob();
 
-          case 7:
+          case 8:
             firmware = _context2.sent;
             return _context2.abrupt("return", firmware);
 
-          case 9:
+          case 10:
             return _context2.abrupt("return", undefined);
 
-          case 10:
+          case 11:
           case "end":
             return _context2.stop();
         }
@@ -369,38 +378,40 @@ function fetchText(_x5, _x6, _x7, _x8) {
 
 function _fetchText() {
   _fetchText = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(slug, tag, path, mimeType) {
-    var downloadUrl, req, src;
+    var _normalizeSlug6, repoPath, folder, downloadUrl, req, src;
+
     return regenerator_default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            downloadUrl = "https://raw.githubusercontent.com/" + normalizeSlug(slug) + "/" + tag + "/" + path;
-            _context3.next = 3;
+            _normalizeSlug6 = normalizeSlug(slug), repoPath = _normalizeSlug6.repoPath, folder = _normalizeSlug6.folder;
+            downloadUrl = "https://raw.githubusercontent.com/" + repoPath + "/" + tag + "/" + (folder ? folder + "/" : "") + path;
+            _context3.next = 4;
             return fetch(downloadUrl, {
               headers: {
                 Accept: mimeType
               }
             });
 
-          case 3:
+          case 4:
             req = _context3.sent;
 
             if (!(req.status == 200)) {
-              _context3.next = 9;
+              _context3.next = 10;
               break;
             }
 
-            _context3.next = 7;
+            _context3.next = 8;
             return req.text();
 
-          case 7:
+          case 8:
             src = _context3.sent;
             return _context3.abrupt("return", src);
 
-          case 9:
+          case 10:
             return _context3.abrupt("return", undefined);
 
-          case 10:
+          case 11:
           case "end":
             return _context3.stop();
         }
@@ -439,8 +450,23 @@ function useFetchApi(path, options) {
   return res;
 }
 
+function useFetchJSON(slug, tag, path, mimeType) {
+  var _normalizeSlug = normalizeSlug(slug),
+      repoPath = _normalizeSlug.repoPath,
+      folder = _normalizeSlug.folder;
+
+  var downloadUrl = "https://raw.githubusercontent.com/" + repoPath + "/" + tag + "/" + (folder ? folder + "/" : "") + path;
+  return useFetch(downloadUrl, {
+    headers: {
+      Accept: mimeType
+    }
+  });
+}
 function useRepository(slug) {
-  var path = "repos/" + normalizeSlug(slug);
+  var _normalizeSlug2 = normalizeSlug(slug),
+      repoPath = _normalizeSlug2.repoPath;
+
+  var path = "repos/" + repoPath;
   var res = useFetchApi(path, {
     ignoreThrottled: true
   });
@@ -461,7 +487,11 @@ function useLatestReleases(slug, options) {
     error: undefined,
     status: undefined
   };
-  var uri = "repos/" + normalizeSlug(slug) + "/contents/dist";
+
+  var _normalizeSlug3 = normalizeSlug(slug),
+      repoPath = _normalizeSlug3.repoPath;
+
+  var uri = "repos/" + repoPath + "/contents/dist";
   var res = useFetchApi(uri, _objectSpread(_objectSpread({}, options || {}), {}, {
     ignoreThrottled: true
   }));
@@ -473,4 +503,4 @@ function useLatestReleases(slug, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9819-2fa72845c629c5fd129d.js.map
+//# sourceMappingURL=9819-2084b2d7f87a6c2adf9e.js.map
