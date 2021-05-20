@@ -229,7 +229,7 @@ function MakeCodeFolderLink(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     component: "span",
     variant: "h5"
-  }, (pxtJson === null || pxtJson === void 0 ? void 0 : pxtJson.name) || repo.name + "/ " + folder));
+  }, repo.name + "/ " + ((pxtJson === null || pxtJson === void 0 ? void 0 : pxtJson.name) || folder)));
 }
 
 function GithubRepositoryCardHeader(props) {
@@ -929,4 +929,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-github-tsx-e3405ddedad9334e762d.js.map
+//# sourceMappingURL=component---src-pages-github-tsx-f621c9902236fbba592c.js.map
