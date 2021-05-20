@@ -38660,7 +38660,7 @@ var AppProvider = function AppProvider(_ref) {
   var widgetMode = typeof window !== "undefined" && /widget=1/.test(window.location.href); // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   var setError = function setError(e) {
-    if ((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .isCancelError */ .G5)(e)) return;
+    if (!e || (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .isCancelError */ .G5)(e)) return;
     console.error(e);
     var msg = (e === null || e === void 0 ? void 0 : e.message) || e + "";
     var code = (0,_jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP)(e);
@@ -42379,7 +42379,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8388349f2e8cd2a38450bf4ecc0d67f93c7b81e3";
+  var sha = "b94dc80611dbf6fb462e1700113a616c9874b472";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -57797,4 +57797,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-028e11572267f187e835.js.map
+//# sourceMappingURL=app-9c65dcd1582a1beeeb2e.js.map
