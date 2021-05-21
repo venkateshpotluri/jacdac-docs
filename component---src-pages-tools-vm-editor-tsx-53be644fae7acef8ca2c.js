@@ -12652,7 +12652,6 @@ var useServices = __webpack_require__(2928);
 
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
 var DECLARE_ROLE_TYPE_PREFIX = "jacdac_role_set_";
-var MISSING_GROUP = "Miscellanous";
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
 var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -12983,10 +12982,7 @@ function loadBlocks() {
   });
   cachedBlocks = {
     blocks: blocks,
-    services: services,
-    groups: (0,utils/* groupBy */.vM)(jdBlocks, function (block) {
-      return block.service.group || MISSING_GROUP;
-    })
+    services: services
   };
   return cachedBlocks;
 }
@@ -13006,38 +13002,45 @@ function useToolbox(blockServices) {
   var _useMemo = (0,react.useMemo)(function () {
     return loadBlocks();
   }, []),
-      groups = _useMemo.groups;
+      blocks = _useMemo.blocks,
+      services = _useMemo.services;
 
   var liveServices = (0,useServices/* default */.Z)({
     specification: true
   });
-  var services = (0,utils/* unique */.Tw)([].concat((0,toConsumableArray/* default */.Z)(blockServices), (0,toConsumableArray/* default */.Z)(liveServices.filter(function (srv) {
+  var toolboxServices = (0,utils/* unique */.Tw)([].concat((0,toConsumableArray/* default */.Z)(blockServices), (0,toConsumableArray/* default */.Z)(liveServices.filter(function (srv) {
     return ignoredServices.indexOf(srv.serviceClass) < 0;
   }).map(function (service) {
     var _service$specificatio;
 
     return (_service$specificatio = service.specification) === null || _service$specificatio === void 0 ? void 0 : _service$specificatio.shortId;
-  }))));
-  var toolboxCategories = [].concat((0,toConsumableArray/* default */.Z)(Object.keys(groups).map(function (group) {
+  })))).map(function (serviceShortId) {
+    return services.find(function (service) {
+      return service.shortId === serviceShortId;
+    });
+  }).filter(function (srv) {
+    return !!srv;
+  });
+  var toolboxCategories = [].concat((0,toConsumableArray/* default */.Z)(toolboxServices.map(function (service) {
     return {
-      group: group,
-      groupBlocks: groups[group].filter(function (block) {
-        return !services || services.indexOf(block.service.shortId) > -1;
+      service: service,
+      serviceBlocks: blocks.filter(function (block) {
+        return block.service === service;
       })
     };
   }).map(function (_ref7) {
-    var group = _ref7.group,
-        groupBlocks = _ref7.groupBlocks;
+    var service = _ref7.service,
+        serviceBlocks = _ref7.serviceBlocks;
     return {
-      name: group,
+      name: service.name,
       colour: "#5CA699",
-      blocks: groupBlocks.map(function (block) {
+      blocks: serviceBlocks.map(function (block) {
         return {
           type: block.type,
           values: block.values
         };
       }),
-      button: Object.values((0,utils/* uniqueMap */.EM)(groupBlocks, function (block) {
+      button: Object.values((0,utils/* uniqueMap */.EM)(serviceBlocks, function (block) {
         return block.service.shortId;
       }, function (block) {
         return block.service;
@@ -13164,12 +13167,6 @@ function BlocklyModalDialogs() {
 
   var callback = (0,react.useRef)();
   var showDialog = !!dialogType;
-  console.log({
-    dialogType: dialogType,
-    message: message,
-    value: value,
-    callback: callback
-  });
   (0,react.useEffect)(function () {
     // store older
     var previous = {
@@ -13344,7 +13341,7 @@ function VmEditor(props) {
     workspaceConfiguration: {
       comments: false,
       css: true,
-      trash: false,
+      trashcan: false,
       grid: {
         spacing: 25,
         length: 1,
@@ -13426,4 +13423,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-457b92d0aaede6e02a18.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-53be644fae7acef8ca2c.js.map
