@@ -13152,8 +13152,9 @@ function loadBlocks() {
       service: service,
       value: value
     };
-  })), [{
-    type: "jacdac_await_condition",
+  })), [// specific blocks
+  {
+    type: "jacdac_while_event",
     message0: "while %1",
     args0: [{
       type: "input_value",
@@ -13166,14 +13167,12 @@ function loadBlocks() {
     tooltip: "",
     helpUrl: ""
   }, {
-    type: "jacdac_wait_ms",
-    message0: "wait %1 ms",
+    type: "jacdac_wait",
+    message0: "wait %1 s",
     args0: [{
-      type: "field_number",
-      name: "NAME",
-      value: 0,
-      min: 0,
-      max: 5000
+      type: "input_value",
+      name: "TIME",
+      check: "Number"
     }],
     inputsInline: true,
     previousStatement: "Statement",
@@ -13192,6 +13191,16 @@ function loadBlocks() {
     }],
     colour: HUE,
     output: "Boolean"
+  }, {
+    type: "jacdac_time_picker",
+    message0: "%1",
+    args0: [{
+      type: "field_dropdown",
+      name: "VALUE",
+      options: [["0.1", "0.1"], ["1", "1"], ["5", "5"], ["30", "30"], ["60", "60"]]
+    }],
+    colour: HUE,
+    output: "Number"
   }, {
     type: "jacdac_angle",
     message0: "%1",
@@ -13364,6 +13373,20 @@ function useToolbox(blockServices) {
       })
     };
   })), [{
+    name: "Commands",
+    colour: "%{BKY_LISTS_HUE}",
+    blocks: [{
+      type: "jacdac_while_event"
+    }, {
+      type: "jacdac_wait",
+      values: {
+        TIME: {
+          type: "jacdac_time_picker",
+          shadow: true
+        }
+      }
+    }]
+  }, {
     name: "Logic",
     colour: "%{BKY_LOGIC_HUE}",
     blocks: [{
@@ -13734,4 +13757,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b2f807b4a1470a084df9.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-165fdbb8752504bd729a.js.map
