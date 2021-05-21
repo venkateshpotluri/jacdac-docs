@@ -12917,6 +12917,44 @@ function loadBlocks() {
     }],
     colour: HUE,
     output: "Boolean"
+  }, {
+    type: "jacdac_math_arithmetic",
+    message0: "%1 %2 %3",
+    args0: [{
+      type: "input_value",
+      name: "A",
+      check: "Number"
+    }, {
+      type: "field_dropdown",
+      name: "OP",
+      options: [["%{BKY_MATH_ADDITION_SYMBOL}", "ADD"], ["%{BKY_MATH_SUBTRACTION_SYMBOL}", "MINUS"], ["%{BKY_MATH_MULTIPLICATION_SYMBOL}", "MULTIPLY"], ["%{BKY_MATH_DIVISION_SYMBOL}", "DIVIDE"]]
+    }, {
+      type: "input_value",
+      name: "B",
+      check: "Number"
+    }],
+    inputsInline: true,
+    output: "Number",
+    style: "math_blocks",
+    helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
+    extensions: ["math_op_tooltip"]
+  }, // Block for advanced math operators with single operand.
+  {
+    type: "jacdac_math_single",
+    message0: "%1 %2",
+    args0: [{
+      type: "field_dropdown",
+      name: "OP",
+      options: [["-", "NEG"], ["%{BKY_MATH_SINGLE_OP_ABSOLUTE}", "ABS"]]
+    }, {
+      type: "input_value",
+      name: "NUM",
+      check: "Number"
+    }],
+    output: "Number",
+    style: "math_blocks",
+    helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
+    extensions: ["math_op_tooltip"]
   }]);
   console.log({
     blocks: blocks
@@ -13009,11 +13047,32 @@ function useToolbox(blockServices) {
     name: "Logic",
     colour: "%{BKY_LOGIC_HUE}",
     blocks: [{
-      type: "logic_compare"
+      type: "logic_compare",
+      values: {
+        A: {
+          type: "math_number"
+        },
+        B: {
+          type: "math_number"
+        }
+      }
     }, {
-      type: "logic_operation"
+      type: "logic_operation",
+      values: {
+        A: {
+          type: "logic_boolean"
+        },
+        B: {
+          type: "logic_boolean"
+        }
+      }
     }, {
-      type: "logic_negate"
+      type: "logic_negate",
+      values: {
+        BOOL: {
+          type: "logic_boolean"
+        }
+      }
     }, {
       type: "logic_boolean"
     }]
@@ -13021,7 +13080,22 @@ function useToolbox(blockServices) {
     name: "Math",
     colour: "%{BKY_MATH_HUE}",
     blocks: [{
-      type: "math_arithmetic"
+      type: "jacdac_math_arithmetic",
+      values: {
+        A: {
+          type: "math_number"
+        },
+        B: {
+          type: "math_number"
+        }
+      }
+    }, {
+      type: "jacdac_math_single",
+      values: {
+        NUM: {
+          type: "math_number"
+        }
+      }
     }, {
       type: "math_number"
     }]
@@ -13338,4 +13412,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6a2dcb516531207d2522.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5ee9dade302230c567de.js.map
