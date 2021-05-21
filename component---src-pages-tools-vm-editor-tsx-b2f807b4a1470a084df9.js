@@ -13067,15 +13067,15 @@ function loadBlocks() {
       message0: isBoolean(intensity) ? "set %1 %2" : "set %1 " + intensity.name + " to " + intensity.fields.map(function (field, i) {
         return (field.name === "_" ? "" : field.name + " ") + "%" + (i + 2);
       }).join(" "),
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field, i) {
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field) {
         return {
           type: "input_value",
-          name: "VALUE" + i,
+          name: field.name,
           check: toBlocklyType(field)
         };
       }))),
-      values: (0,utils/* toMap */.qL)(intensity.fields, function (_, i) {
-        return "VALUE" + i;
+      values: (0,utils/* toMap */.qL)(intensity.fields, function (field) {
+        return field.name;
       }, function (field) {
         return field.type === "bool" ? {
           type: "jacdac_on_off",
@@ -13102,15 +13102,15 @@ function loadBlocks() {
       message0: "set %1 " + (0,jdspec/* humanify */.lW)(value.name) + " to " + value.fields.map(function (_, i) {
         return "%" + (2 + i);
       }).join(" "),
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (field, i) {
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (field) {
         return {
           type: "input_value",
-          name: "VALUE" + i,
+          name: field.name,
           check: toBlocklyType(field)
         };
       }))),
-      values: (0,utils/* toMap */.qL)(value.fields, function (_, i) {
-        return "VALUE" + i;
+      values: (0,utils/* toMap */.qL)(value.fields, function (field) {
+        return field.name;
       }, function (field) {
         return field.type === "bool" ? {
           type: "jacdac_on_off",
@@ -13734,4 +13734,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-60d6a0fc10bff8e5705e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b2f807b4a1470a084df9.js.map
