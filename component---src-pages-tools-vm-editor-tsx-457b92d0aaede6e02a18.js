@@ -13164,6 +13164,12 @@ function BlocklyModalDialogs() {
 
   var callback = (0,react.useRef)();
   var showDialog = !!dialogType;
+  console.log({
+    dialogType: dialogType,
+    message: message,
+    value: value,
+    callback: callback
+  });
   (0,react.useEffect)(function () {
     // store older
     var previous = {
@@ -13338,7 +13344,7 @@ function VmEditor(props) {
     workspaceConfiguration: {
       comments: false,
       css: true,
-      trashcan: false,
+      trash: false,
       grid: {
         spacing: 25,
         length: 1,
@@ -13420,4 +13426,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-81cb7335b5b914293d26.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-457b92d0aaede6e02a18.js.map
