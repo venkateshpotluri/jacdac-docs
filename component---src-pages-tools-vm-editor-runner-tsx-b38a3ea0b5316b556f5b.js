@@ -932,16 +932,16 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
     var _this2 = this;
 
     dev.services().forEach(function (s) {
-      var key = Object.keys(_this2._roles).find(function (k) {
+      var role = Object.keys(_this2._roles).find(function (k) {
         return typeof _this2._roles[k] === "string" && _this2.nameMatch(_this2._roles[k], s.specification.shortName);
       });
 
-      if (key && _this2._devices.indexOf(dev) === -1) {
-        _this2._roles[key] = s;
+      if (role && _this2._devices.indexOf(dev) === -1) {
+        _this2._roles[role] = s;
 
         _this2._devices.push(dev);
 
-        if (_this2.notify) _this2.notify(key, s, true);
+        if (_this2.notify) _this2.notify(role, s, true);
       }
     });
   };
@@ -953,14 +953,15 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
       this._devices = this._devices.filter(function (d) {
         return d !== dev;
       });
-      var key = Object.keys(this._roles).find(function (k) {
+
+      var _role = Object.keys(this._roles).find(function (k) {
         return typeof _this3._roles[k] !== "string" && dev.services().indexOf(_this3._roles[k]) >= 0;
       });
 
-      if (key) {
-        var _service = this._roles[key];
-        this._roles[key] = this._roles[key].specification.shortName;
-        if (this.notify) this.notify(key, _service, false);
+      if (_role) {
+        var _service = this._roles[_role];
+        this._roles[_role] = this._roles[_role].specification.shortName;
+        if (this.notify) this.notify(_role, _service, false);
       }
     }
   };
@@ -1001,7 +1002,10 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
 
       if (_service2) {
         var provider = (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(_service2 === null || _service2 === void 0 ? void 0 : _service2.classIdentifier);
-        if (provider) (0,servers/* addServiceProvider */.Q6)(this.bus, provider);
+
+        if (provider) {
+          var serviceProvider = (0,servers/* addServiceProvider */.Q6)(this.bus, provider);
+        }
       }
     } else {
       this._roles[role] = ret[0];
@@ -1429,4 +1433,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-d2456a388c08b26f3dc5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-b38a3ea0b5316b556f5b.js.map
