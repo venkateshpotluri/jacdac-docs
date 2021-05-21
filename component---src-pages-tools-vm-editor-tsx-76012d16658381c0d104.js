@@ -11782,14 +11782,6 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ Page; }
 });
 
-// NAMESPACE OBJECT: ./src/components/blockly/useToolbox.ts
-var useToolbox_namespaceObject = {};
-__webpack_require__.r(useToolbox_namespaceObject);
-__webpack_require__.d(useToolbox_namespaceObject, {
-  "ZP": function() { return useToolbox; },
-  "of": function() { return scanServices; }
-});
-
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
 var makeStyles = __webpack_require__(10920);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
@@ -12025,8 +12017,7 @@ var useServices = __webpack_require__(2928);
 
 
 
-var initialXml = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
-var START_SIMULATOR_CALLBACK_KEY = "jacdac_start_simulator";
+var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
 var DECLARE_ROLE_TYPE_PREFIX = "jacdac_role_set_";
 var MISSING_GROUP = "Miscellanous";
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
@@ -12097,23 +12088,7 @@ function loadBlocks() {
     return !!kv.events.length;
   }); // generate blocks
 
-  var blocks = [{
-    type: "jacdac_configuration",
-    message0: "configuration",
-    inputsInline: true,
-    nextStatement: "Role",
-    style: "variable_blocks"
-  }].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
-    return {
-      type: "" + DECLARE_ROLE_TYPE_PREFIX + service.shortId,
-      message0: "define " + (0,jdspec/* humanify */.lW)(service.shortName) + " %1",
-      args0: [fieldVariable(service)],
-      style: "variable_blocks",
-      previousStatement: "Role",
-      nextStatement: "Role",
-      service: service
-    };
-  })), (0,toConsumableArray/* default */.Z)(events.map(function (_ref) {
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
     return {
@@ -12332,7 +12307,6 @@ function useToolbox(blockServices) {
   var _useMemo = (0,react.useMemo)(function () {
     return loadBlocks();
   }, []),
-      blocks = _useMemo.blocks,
       groups = _useMemo.groups;
 
   var liveServices = (0,useServices/* default */.Z)({
@@ -12345,38 +12319,39 @@ function useToolbox(blockServices) {
 
     return (_service$specificatio = service.specification) === null || _service$specificatio === void 0 ? void 0 : _service$specificatio.shortId;
   }))));
-
-  var toolboxBlocks = (0,toConsumableArray/* default */.Z)(blocks.map(function (block) {
+  var toolboxCategories = [].concat((0,toConsumableArray/* default */.Z)(Object.keys(groups).map(function (group) {
     return {
-      type: block.type
+      group: group,
+      groupBlocks: groups[group].filter(function (block) {
+        return !services || services.indexOf(block.service.shortId) > -1;
+      })
     };
-  }));
-
-  var toolboxCategories = [{
-    name: "Configuration",
-    colour: "#0f00ff",
-    button: [{
-      text: "Start simulator",
-      callbackKey: START_SIMULATOR_CALLBACK_KEY
-    }],
-    blocks: [{
-      type: "jacdac_configuration"
-    }]
-  }].concat((0,toConsumableArray/* default */.Z)(Object.keys(groups).map(function (group) {
+  }).map(function (_ref7) {
+    var group = _ref7.group,
+        groupBlocks = _ref7.groupBlocks;
     return {
       name: group,
       colour: "#5CA699",
-      blocks: groups[group].filter(function (block) {
-        return !services || services.indexOf(block.service.shortId) > -1;
-      }).map(function (block) {
+      blocks: groupBlocks.map(function (block) {
         return {
           type: block.type
+        };
+      }),
+      button: Object.values((0,utils/* uniqueMap */.EM)(groupBlocks, function (block) {
+        return block.service.shortId;
+      }, function (block) {
+        return block.service;
+      })).map(function (service) {
+        return {
+          text: "Add " + service.name + " role",
+          callbackKey: "jacdac_add_role_callback_" + service.shortId,
+          service: service
         };
       })
     };
   })), [{
     name: "Logic",
-    style: "logic_blocks",
+    categorystyle: "logic_category",
     blocks: [{
       type: "logic_compare"
     }, {
@@ -12388,7 +12363,7 @@ function useToolbox(blockServices) {
     }]
   }, {
     name: "Math",
-    style: "math_blocks",
+    categorystyle: "math_category",
     blocks: [{
       type: "math_arithmetic"
     }, {
@@ -12400,13 +12375,10 @@ function useToolbox(blockServices) {
     return !!((_cat$blocks = cat.blocks) !== null && _cat$blocks !== void 0 && _cat$blocks.length);
   });
   return {
-    toolboxBlocks: toolboxBlocks,
     toolboxCategories: toolboxCategories,
-    initialXml: initialXml
+    newProjectXml: NEW_PROJET_XML
   };
 }
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/blockly/VmEditor.tsx
 
 
@@ -12428,17 +12400,13 @@ function VmEditor(props) {
       onXmlChange = props.onXmlChange,
       initialXml = props.initialXml;
 
-  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
-
   var _useState = (0,react.useState)([]),
       services = _useState[0],
       setServices = _useState[1];
 
   var _useToolbox = useToolbox(services),
-      toolboxBlocks = _useToolbox.toolboxBlocks,
       toolboxCategories = _useToolbox.toolboxCategories,
-      defaultInitialXml = _useToolbox.initialXml; // ReactBlockly
+      newProjectXml = _useToolbox.newProjectXml; // ReactBlockly
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -12461,12 +12429,9 @@ function VmEditor(props) {
     workspace.addChangeListener((blockly_default()).Events.disableOrphans); // The plugin must be initialized before it has any effect.
 
     var disableTopBlocksPlugin = new DisableTopBlocks();
-    disableTopBlocksPlugin.init(); // buttons
+    disableTopBlocksPlugin.init();
+  }; // blockly did a change
 
-    workspace.registerButtonCallback(useToolbox_namespaceObject.DECLARE_ROLE_CALLBACK_KEY, function () {
-      toggleShowDeviceHostsDialog();
-    });
-  };
 
   var handleChange = function handleChange(workspace) {
     initWorkspace();
@@ -12476,11 +12441,25 @@ function VmEditor(props) {
     var allBlocks = workspace.getAllBlocks(false);
     var newServices = scanServices(allBlocks);
     if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
-  };
+  }; // track workspace changes and update callbacks
 
+
+  (0,react.useEffect)(function () {
+    // collect buttons
+    var workspace = resolveWorkspace();
+    var buttons = (0,utils/* arrayConcatMany */.ue)(toolboxCategories === null || toolboxCategories === void 0 ? void 0 : toolboxCategories.filter(function (cat) {
+      return cat.button;
+    }).map(function (cat) {
+      return cat.button;
+    }));
+    buttons.forEach(function (button) {
+      return workspace.registerButtonCallback(button.callbackKey, function () {
+        return blockly_default().Variables.createVariableButtonHandler(workspace, null, button.service.shortId);
+      });
+    });
+  }, [JSON.stringify(toolboxCategories)]);
   return /*#__PURE__*/react.createElement(dist/* default */.ZP, {
     ref: reactBlockly,
-    toolboxBlocks: toolboxBlocks,
     toolboxCategories: toolboxCategories,
     workspaceConfiguration: {
       comments: false,
@@ -12502,7 +12481,7 @@ function VmEditor(props) {
         }
       }
     },
-    initialXml: initialXml || defaultInitialXml,
+    initialXml: initialXml || newProjectXml,
     wrapperDivClassName: className,
     workspaceDidChange: handleChange
   });
@@ -12567,4 +12546,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-139829e017a886079225.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-76012d16658381c0d104.js.map
