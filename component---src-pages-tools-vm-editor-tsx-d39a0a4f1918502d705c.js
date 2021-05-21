@@ -1,5 +1,51 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1762],{
 
+/***/ 66213:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ _get; }
+});
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(77608);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/superPropBase.js
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = (0,getPrototypeOf/* default */.Z)(object);
+    if (object === null) break;
+  }
+
+  return object;
+}
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/get.js
+
+function _get(target, property, receiver) {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get;
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = _superPropBase(target, property);
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+      if (desc.get) {
+        return desc.get.call(receiver);
+      }
+
+      return desc.value;
+    };
+  }
+
+  return _get(target, property, receiver || target);
+}
+
+/***/ }),
+
 /***/ 21407:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -12403,7 +12449,7 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 84470:
+/***/ 81657:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12430,9 +12476,243 @@ var dist = __webpack_require__(691);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(6610);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(5991);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/get.js + 1 modules
+var get = __webpack_require__(66213);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
+var inherits = __webpack_require__(10379);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
+var possibleConstructorReturn = __webpack_require__(46070);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(77608);
 // EXTERNAL MODULE: ./node_modules/blockly/core-browser.js
 var core_browser = __webpack_require__(90888);
 var core_browser_default = /*#__PURE__*/__webpack_require__.n(core_browser);
+;// CONCATENATED MODULE: ./node_modules/@blockly/field-slider/src/field_slider.js
+
+
+
+
+
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Number slider input field.
+ * @author kozbial@google.com (Monica Kozbial)
+ */
+
+/**
+ * Slider field.
+ */
+
+var FieldSlider = /*#__PURE__*/function (_Blockly$FieldNumber) {
+  (0,inherits/* default */.Z)(FieldSlider, _Blockly$FieldNumber);
+
+  var _super = _createSuper(FieldSlider);
+
+  /**
+   * Class for an number slider field.
+   * @param {string|number=} opt_value The initial value of the field. Should
+   *    cast to a number. Defaults to 0.
+   * @param {?(string|number)=} opt_min Minimum value.
+   * @param {?(string|number)=} opt_max Maximum value.
+   * @param {?(string|number)=} opt_precision Precision for value.
+   * @param {?Function=} opt_validator A function that is called to validate
+   *    changes to the field's value. Takes in a number & returns a validated
+   *    number, or null to abort the change.
+   * @param {Object=} opt_config A map of options used to configure the field.
+   *    See the [field creation documentation]{@link https://developers.google.com/blockly/guides/create-custom-blocks/fields/built-in-fields/number#creation}
+   *    for a list of properties this parameter supports.
+   * @extends {Blockly.FieldNumber}
+   * @constructor
+   */
+  function FieldSlider(opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config) {
+    var _this;
+
+    (0,classCallCheck/* default */.Z)(this, FieldSlider);
+
+    _this = _super.call(this, opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config);
+    /**
+     * Array holding info needed to unbind events.
+     * Used for disposing.
+     * Ex: [[node, name, func], [node, name, func]].
+     * @type {!Array.<Array<?>>}
+     * @private
+     */
+
+    _this.boundEvents_ = [];
+    /**
+     * The HTML range input element.
+     * @type {?HTMLInputElement}
+     * @private
+     */
+
+    _this.sliderInput_ = null;
+    return _this;
+  }
+  /**
+   * Constructs a FieldSlider from a JSON arg object.
+   * @param {!Object} options A JSON object with options (value, min, max, and
+   *                          precision).
+   * @return {!FieldSlider} The new field instance.
+   * @package
+   * @nocollapse
+   */
+
+
+  (0,createClass/* default */.Z)(FieldSlider, [{
+    key: "showEditor_",
+    value:
+    /**
+     * Show the inline free-text editor on top of the text along with the slider
+     *    editor.
+     * @param {Event=} opt_e Optional mouse event that triggered the field to
+     *     open, or undefined if triggered programmatically.
+     * @param {boolean=} _opt_quietInput Quiet input.
+     * @protected
+     * @override
+     */
+    function showEditor_(opt_e, _opt_quietInput) {
+      // Mobile browsers have issues with in-line textareas (focus & keyboards).
+      var noFocus = core_browser.utils.userAgent.MOBILE || core_browser.utils.userAgent.ANDROID || core_browser.utils.userAgent.IPAD;
+
+      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "showEditor_", this).call(this, opt_e, noFocus); // Build the DOM.
+
+
+      var editor = this.dropdownCreate_();
+      core_browser.DropDownDiv.getContentDiv().appendChild(editor);
+      core_browser.DropDownDiv.setColour(this.sourceBlock_.style.colourPrimary, this.sourceBlock_.style.colourTertiary);
+      core_browser.DropDownDiv.showPositionedByField(this, this.dropdownDispose_.bind(this));
+    }
+    /**
+     * Updates the slider when the field rerenders.
+     * @protected
+     * @override
+     */
+
+  }, {
+    key: "render_",
+    value: function render_() {
+      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "render_", this).call(this);
+
+      this.updateSlider_();
+    }
+    /**
+     * Creates the slider editor and add event listeners.
+     * @return {!Element} The newly created slider.
+     * @private
+     */
+
+  }, {
+    key: "dropdownCreate_",
+    value: function dropdownCreate_() {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'fieldSliderContainer';
+      var sliderInput = document.createElement('input');
+      sliderInput.setAttribute('type', 'range');
+      sliderInput.setAttribute('min', this.min_);
+      sliderInput.setAttribute('max', this.max_);
+      sliderInput.setAttribute('step', this.precision_);
+      sliderInput.setAttribute('value', this.getValue());
+      sliderInput.className = 'fieldSlider';
+      wrapper.appendChild(sliderInput);
+      this.sliderInput_ = sliderInput;
+      this.boundEvents_.push(core_browser.bindEventWithChecks_(sliderInput, 'input', this, this.onSliderChange_));
+      return wrapper;
+    }
+    /**
+     * Disposes of events belonging to the slider editor.
+     * @private
+     */
+
+  }, {
+    key: "dropdownDispose_",
+    value: function dropdownDispose_() {
+      var _iterator = _createForOfIteratorHelper(this.boundEvents_),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var event = _step.value;
+          core_browser.unbindEvent_(event);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      this.sliderInput_ = null;
+    }
+    /**
+     * Sets the text to match the slider's position.
+     * @private
+     */
+
+  }, {
+    key: "onSliderChange_",
+    value: function onSliderChange_() {
+      this.setEditorValue_(this.sliderInput_.value);
+    }
+    /**
+     * Updates the slider when the field rerenders.
+     * @private
+     */
+
+  }, {
+    key: "updateSlider_",
+    value: function updateSlider_() {
+      if (!this.sliderInput_) {
+        return;
+      }
+
+      this.sliderInput_.setAttribute('value', this.getValue());
+    }
+  }], [{
+    key: "fromJson",
+    value: function fromJson(options) {
+      return new FieldSlider(options['value'], undefined, undefined, undefined, undefined, options);
+    }
+  }]);
+
+  return FieldSlider;
+}(core_browser.FieldNumber);
+core_browser.fieldRegistry.register('field_slider', FieldSlider);
+/**
+ * CSS for slider field.
+ */
+
+core_browser.Css.register([
+/* eslint-disable indent */
+".fieldSliderContainer {\n      align-items: center;\n      display: flex;\n      height: 32px;\n      justify-content: center;\n      width: 150px;\n    }\n    .fieldSlider {\n      -webkit-appearance: none;\n      background: transparent; /* override white in chrome */\n      margin: 4px;\n      padding: 0;\n      width: 100%;\n    }\n    .fieldSlider:focus {\n      outline: none;\n    }\n    /* Webkit */\n    .fieldSlider::-webkit-slider-runnable-track {\n      background: #ddd;\n      border-radius: 5px;\n      height: 10px;\n    }\n    .fieldSlider::-webkit-slider-thumb {\n      -webkit-appearance: none;\n      background: #fff;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      margin-top: -7px;\n      width: 24px;\n    }\n    /* Firefox */\n    .fieldSlider::-moz-range-track {\n      background: #ddd;\n      border-radius: 5px;\n      height: 10px;\n    }\n    .fieldSlider::-moz-range-thumb {\n      background: #fff;\n      border: none;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      width: 24px;\n    }\n    .fieldSlider::-moz-focus-outer {\n      /* override the focus border style */\n      border: 0;\n    }\n    /* IE */\n    .fieldSlider::-ms-track {\n      /* IE wont let the thumb overflow the track, so fake it */\n      background: transparent;\n      border-color: transparent;\n      border-width: 15px 0;\n      /* remove default tick marks */\n      color: transparent;\n      height: 10px;\n      width: 100%;\n      margin: -4px 0;\n    }\n    .fieldSlider::-ms-fill-lower  {\n      background: #ddd;\n      border-radius: 5px;\n    }\n    .fieldSlider::-ms-fill-upper  {\n      background: #ddd;\n      border-radius: 5px;\n    }\n    .fieldSlider::-ms-thumb {\n      background: #fff;\n      border: none;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      width: 24px;\n    }"
+/* eslint-enable indent */
+]);
+;// CONCATENATED MODULE: ./node_modules/@blockly/field-slider/src/index.js
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 ;// CONCATENATED MODULE: ./node_modules/@blockly/theme-modern/src/index.js
 /**
  * @license
@@ -12532,10 +12812,6 @@ var core_browser_default = /*#__PURE__*/__webpack_require__.n(core_browser);
   'fontStyle': {},
   'startHats': null
 }));
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6610);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(5991);
 ;// CONCATENATED MODULE: ./node_modules/@blockly/disable-top-blocks/src/index.js
 
 
@@ -12651,9 +12927,20 @@ var useServices = __webpack_require__(2928);
 
 
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
-var DECLARE_ROLE_TYPE_PREFIX = "jacdac_role_set_";
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
 var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+function isBooleanField(field) {
+  return field.type === "bool";
+}
+
+function isBoolean(pkt) {
+  return pkt.fields.length === 1 && isBooleanField(pkt.fields[0]);
+}
+
+function toBlocklyType(field) {
+  return isBooleanField(field) ? "Boolean" : "Number";
+}
 
 var cachedBlocks;
 
@@ -12777,12 +13064,14 @@ function loadBlocks() {
         intensity = _ref4.intensity;
     return {
       type: "jacdac_" + service.shortId + "_intensity_set",
-      message0: "set %1 %2",
+      message0: isBoolean(intensity) ? "set %1 %2" : "set %1 " + intensity.name + " to " + intensity.fields.map(function (field, i) {
+        return (field.name === "_" ? "" : field.name + " ") + "%" + (i + 2);
+      }).join(" "),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field, i) {
         return {
           type: "input_value",
           name: "VALUE" + i,
-          check: field.type === "bool" ? "Boolean" : "Number"
+          check: toBlocklyType(field)
         };
       }))),
       values: (0,utils/* toMap */.qL)(intensity.fields, function (_, i) {
@@ -12792,10 +13081,7 @@ function loadBlocks() {
           type: "jacdac_on_off",
           shadow: true
         } : {
-          type: "math_number",
-          min: 0,
-          max: 1,
-          precision: 0.1,
+          type: "jacdac_percent",
           shadow: true
         };
       }),
@@ -12820,7 +13106,7 @@ function loadBlocks() {
         return {
           type: "input_value",
           name: "VALUE" + i,
-          check: field.type === "bool" ? "Boolean" : "Number"
+          check: toBlocklyType(field)
         };
       }))),
       values: (0,utils/* toMap */.qL)(value.fields, function (_, i) {
@@ -12828,6 +13114,9 @@ function loadBlocks() {
       }, function (field) {
         return field.type === "bool" ? {
           type: "jacdac_on_off",
+          shadow: true
+        } : field.unit == "°" ? {
+          type: "jacdac_angle",
           shadow: true
         } : {
           type: "math_number",
@@ -12892,27 +13181,8 @@ function loadBlocks() {
     colour: 230,
     tooltip: "",
     helpUrl: ""
-  }, {
-    type: "jacdac_servo_write_angle",
-    message0: "set %1 angle to %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "ROLE",
-      variable: "servo"
-    }, {
-      type: "input_dummy"
-    }, {
-      type: "input_value",
-      name: "VALUE",
-      check: "Number"
-    }],
-    inputsInline: true,
-    previousStatement: "Statement",
-    nextStatement: "Statement",
-    colour: HUE,
-    tooltip: "",
-    helpUrl: ""
-  }, {
+  }, // shadow field editors
+  {
     type: "jacdac_on_off",
     message0: "%1",
     args0: [{
@@ -12923,6 +13193,43 @@ function loadBlocks() {
     colour: HUE,
     output: "Boolean"
   }, {
+    type: "jacdac_angle",
+    message0: "%1",
+    args0: [{
+      type: "field_angle",
+      name: "VALUE",
+      min: 0,
+      max: 360,
+      precision: 10
+    }],
+    colour: HUE,
+    output: "Number"
+  }, {
+    type: "jacdac_percent",
+    message0: "%1 %",
+    args0: [{
+      type: "field_slider",
+      name: "VALUE",
+      min: 0,
+      max: 100,
+      precision: 1
+    }],
+    colour: HUE,
+    output: "Number"
+  }, {
+    type: "jacdac_ratio",
+    message0: "%1",
+    args0: [{
+      type: "field_slider",
+      name: "VALUE",
+      min: 0,
+      max: 1,
+      precision: 0.1
+    }],
+    colour: HUE,
+    output: "Number"
+  }, // custom math blocks
+  {
     type: "jacdac_math_arithmetic",
     message0: "%1 %2 %3",
     args0: [{
@@ -12987,15 +13294,17 @@ function loadBlocks() {
   return cachedBlocks;
 }
 
-function scanServices(blocks) {
-  var declarers = blocks.filter(function (b) {
-    return b.isEnabled() && b.type.startsWith(DECLARE_ROLE_TYPE_PREFIX);
+var builtinTypes = ["", "Boolean", "Number", "String"];
+function scanServices(workspace) {
+  // blockly has the tendency to keep all variables around
+  // make sure they are referencedin the workspace
+  var variableTypes = workspace.getVariableTypes();
+  var services = variableTypes.filter(function (v) {
+    return builtinTypes.indexOf(v) < 0;
   });
-  var services = (0,utils/* unique */.Tw)(declarers.map(function (b) {
-    return b.type.substring(DECLARE_ROLE_TYPE_PREFIX.length);
-  })).filter(function (srv) {
-    return !!srv;
-  }).sort();
+  console.log({
+    variableTypes: variableTypes
+  });
   return services;
 }
 function useToolbox(blockServices) {
@@ -13261,6 +13570,7 @@ function BlocklyModalDialogs() {
 
 
 
+
 /*
 import {
     ContinuousToolbox,
@@ -13315,8 +13625,7 @@ function VmEditor(props) {
     var newXml = blockly_default().Xml.domToText(blockly_default().Xml.workspaceToDom(workspace));
     onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(newXml); // update toolbox with declared roles
 
-    var allBlocks = workspace.getAllBlocks(false);
-    var newServices = scanServices(allBlocks);
+    var newServices = scanServices(workspace);
     if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
   }; // track workspace changes and update callbacks
 
@@ -13423,4 +13732,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-53be644fae7acef8ca2c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d39a0a4f1918502d705c.js.map
