@@ -12789,12 +12789,14 @@ function loadBlocks() {
         return "VALUE" + i;
       }, function (field) {
         return field.type === "bool" ? {
-          type: "jacdac_on_off"
+          type: "jacdac_on_off",
+          shadow: true
         } : {
           type: "math_number",
           min: 0,
           max: 1,
-          precision: 0.1
+          precision: 0.1,
+          shadow: true
         };
       }),
       inputsInline: true,
@@ -12824,12 +12826,14 @@ function loadBlocks() {
         return "VALUE" + i;
       }, function (field) {
         return field.type === "bool" ? {
-          type: "jacdac_on_off"
+          type: "jacdac_on_off",
+          shadow: true
         } : {
           type: "math_number",
           value: field.defaultValue || 0,
           min: field.absoluteMin,
-          max: field.absoluteMax
+          max: field.absoluteMax,
+          shadow: true
         };
       }),
       inputsInline: true,
@@ -13050,27 +13054,32 @@ function useToolbox(blockServices) {
       type: "logic_compare",
       values: {
         A: {
-          type: "math_number"
+          type: "math_number",
+          shadow: true
         },
         B: {
-          type: "math_number"
+          type: "math_number",
+          shadow: true
         }
       }
     }, {
       type: "logic_operation",
       values: {
         A: {
-          type: "logic_boolean"
+          type: "logic_boolean",
+          shadow: true
         },
         B: {
-          type: "logic_boolean"
+          type: "logic_boolean",
+          shadow: true
         }
       }
     }, {
       type: "logic_negate",
       values: {
         BOOL: {
-          type: "logic_boolean"
+          type: "logic_boolean",
+          shadow: true
         }
       }
     }, {
@@ -13083,17 +13092,20 @@ function useToolbox(blockServices) {
       type: "jacdac_math_arithmetic",
       values: {
         A: {
-          type: "math_number"
+          type: "math_number",
+          shadow: true
         },
         B: {
-          type: "math_number"
+          type: "math_number",
+          shadow: true
         }
       }
     }, {
       type: "jacdac_math_single",
       values: {
         NUM: {
-          type: "math_number"
+          type: "math_number",
+          shadow: true
         }
       }
     }, {
@@ -13412,4 +13424,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5ee9dade302230c567de.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f77ed35579fe126c1800.js.map
