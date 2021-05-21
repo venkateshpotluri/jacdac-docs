@@ -12984,7 +12984,7 @@ function useToolbox(blockServices) {
     };
   })), [{
     name: "Logic",
-    categorystyle: "logic_category",
+    colour: "%{BKY_LOGIC_HUE}",
     blocks: [{
       type: "logic_compare"
     }, {
@@ -12996,7 +12996,7 @@ function useToolbox(blockServices) {
     }]
   }, {
     name: "Math",
-    categorystyle: "math_category",
+    colour: "%{BKY_MATH_HUE}",
     blocks: [{
       type: "math_arithmetic"
     }, {
@@ -13004,7 +13004,8 @@ function useToolbox(blockServices) {
     }]
   }, {
     name: "Variables",
-    custom: "VARIABLE_DYNAMIC"
+    colour: "%{BKY_VARIABLES_HUE}",
+    custom: "VARIABLE"
   }]).filter(function (cat) {
     var _cat$blocks;
 
@@ -13314,4 +13315,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-84ac42ccdebc0e17b77b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5087f91d8334d0dc2120.js.map
