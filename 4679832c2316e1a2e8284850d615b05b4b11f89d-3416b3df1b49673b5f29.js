@@ -316,8 +316,7 @@ function SimulateDeviceAlert() {
       toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
 
   return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "info",
-    closeable: true
+    severity: "info"
   }, "Simulate devices (", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_BUTTON */.XJR),
     title: "button",
@@ -1045,4 +1044,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4679832c2316e1a2e8284850d615b05b4b11f89d-847346ed181f557c17b4.js.map
+//# sourceMappingURL=4679832c2316e1a2e8284850d615b05b4b11f89d-3416b3df1b49673b5f29.js.map

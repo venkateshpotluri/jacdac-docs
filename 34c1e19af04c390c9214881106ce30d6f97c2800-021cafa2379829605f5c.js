@@ -676,7 +676,7 @@ var DashboardSolenoid = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 3356).then(__webpack_require__.bind(__webpack_require__, 73356));
 });
 var DashboardBitRadio = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(880), __webpack_require__.e(1131), __webpack_require__.e(8472), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
+  return Promise.all(/* import() */[__webpack_require__.e(3701), __webpack_require__.e(1131), __webpack_require__.e(8472), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
 });
 var DashboardHIDKeyboard = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5969).then(__webpack_require__.bind(__webpack_require__, 25969));
@@ -946,4 +946,4 @@ function dashboardServiceWeight(service) {
 /***/ })
 
 }]);
-//# sourceMappingURL=34c1e19af04c390c9214881106ce30d6f97c2800-5c56133db171c80b6814.js.map
+//# sourceMappingURL=34c1e19af04c390c9214881106ce30d6f97c2800-021cafa2379829605f5c.js.map

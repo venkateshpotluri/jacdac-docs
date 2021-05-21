@@ -13304,14 +13304,29 @@ function loadBlocks() {
 }
 
 function domToJSON(workspace) {
-  var variablesToJSON = function variablesToJSON(variableList) {
-    return variableList.map(function (variable) {
-      return {
-        name: variable.name,
-        type: variable.type,
-        id: variable.getId()
-      };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  var clean = function clean(o) {
+    if (!o) return o;
+    Object.keys(o).forEach(function (k) {
+      if (o[k] === undefined) delete o[k];else if (Array.isArray(o[k])) {
+        if (!o[k].length) delete o[k];else {
+          o[k] = o[k].filter(function (v) {
+            return v !== undefined && v !== null;
+          }).map(function (v) {
+            return clean(v);
+          });
+        }
+      } else if (typeof o === "object") clean(o[k]);
     });
+    return o;
+  };
+
+  var variableToJSON = function variableToJSON(variable) {
+    return {
+      name: variable.name,
+      type: variable.type,
+      id: variable.getId()
+    };
   };
 
   var fieldToJSON = function fieldToJSON(field) {
@@ -13335,14 +13350,13 @@ function domToJSON(workspace) {
 
 
     var element = {
-      block: block.isShadow() ? "shadow" : "block",
       type: block.type,
       id: block.id,
-      inputs: block.inputList.map(function (input, i) {
+      inputs: block.inputList.map(function (input) {
         var _input$fieldRow, _input$connection;
 
         var container = {
-          input: input.type,
+          type: input.type,
           name: input.name,
           fields: (_input$fieldRow = input.fieldRow) === null || _input$fieldRow === void 0 ? void 0 : _input$fieldRow.map(function (field) {
             return fieldToJSON(field);
@@ -13356,18 +13370,11 @@ function domToJSON(workspace) {
     return element;
   };
 
-  var clean = function clean(o) {
-    if (!o) return;
-    Object.keys(o).forEach(function (k) {
-      if (o[k] === undefined) delete o[k];else if (Array.isArray(o[k]) && !o[k].length) delete o[k];else if (typeof o === "object") clean(o[k]);
-    });
-  };
-
   try {
     var variables = blockly_default().Variables.allUsedVarModels(workspace);
     var blocks = workspace.getTopBlocks(true);
     var json = {
-      variables: variablesToJSON(variables),
+      variables: variables.map(variableToJSON),
       blocks: blocks.map(blockToJSON)
     };
     clean(json);
@@ -13379,14 +13386,10 @@ function domToJSON(workspace) {
 }
 var builtinTypes = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
-  // blockly has the tendency to keep all variables around
-  // make sure they are referencedin the workspace
-  var variables = workspace.getAllVariables().filter(function (v) {
+  var variables = blockly_default().Variables.allUsedVarModels(workspace).filter(function (v) {
     return builtinTypes.indexOf(v.type) < 0;
-  }) // remove buildins
-  .filter(function (v) {
-    return !!workspace.getVariableUsesById(v.getId()).length;
-  });
+  }); // remove buildins
+
   var services = variables.map(function (v) {
     return v.type;
   });
@@ -13684,6 +13687,7 @@ import {
 function VmEditor(props) {
   var className = props.className,
       onXmlChange = props.onXmlChange,
+      onJSONChange = props.onJSONChange,
       initialXml = props.initialXml;
 
   var _useState = (0,react.useState)([]),
@@ -13722,11 +13726,18 @@ function VmEditor(props) {
   var handleChange = function handleChange(workspace) {
     initWorkspace(); // save xml
 
-    var newXml = blockly_default().Xml.domToText(blockly_default().Xml.workspaceToDom(workspace));
-    onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(newXml); // emit json
+    if (onXmlChange) {
+      var newXml = blockly_default().Xml.domToText(blockly_default().Xml.workspaceToDom(workspace));
+      onXmlChange(newXml);
+    }
 
-    var json = domToJSON(workspace);
-    console.log(json); // update toolbox with declared roles
+    if (onJSONChange) {
+      // emit json
+      var _json = domToJSON(workspace);
+
+      onJSONChange(_json);
+    } // update toolbox with declared roles
+
 
     var newServices = scanServices(workspace);
     if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
@@ -13779,9 +13790,12 @@ function VmEditor(props) {
 var Dashboard = __webpack_require__(65063);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
+// EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
+var Markdown = __webpack_require__(98784);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
 ;// CONCATENATED MODULE: ./src/pages/tools/vm-editor.tsx
+
 
 
 
@@ -13803,8 +13817,17 @@ function Page() {
       xml = _useLocalStorage[0],
       setXml = _useLocalStorage[1];
 
+  var _useState = (0,react.useState)(""),
+      source = _useState[0],
+      setSource = _useState[1];
+
   var handleXml = function handleXml(xml) {
     setXml(xml);
+  };
+
+  var handleJSON = function handleJSON(json) {
+    var newSource = JSON.stringify(json, null, 2);
+    setSource(newSource);
   };
 
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -13823,8 +13846,14 @@ function Page() {
   }, /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(VmEditor, {
     className: classes.editor,
     initialXml: xml,
-    onXmlChange: handleXml
+    onXmlChange: handleXml,
+    onJSONChange: handleJSON
   }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
+    source: "\n```json\n" + source + "\n```                \n"
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Dashboard/* default */.Z, {
@@ -13835,4 +13864,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4544e44c7ce548a70fcd.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-20e63918142dd3a8bac3.js.map
