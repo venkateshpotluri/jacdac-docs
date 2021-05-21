@@ -13298,12 +13298,14 @@ var builtinTypes = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
   // blockly has the tendency to keep all variables around
   // make sure they are referencedin the workspace
-  var variableTypes = workspace.getVariableTypes();
-  var services = variableTypes.filter(function (v) {
-    return builtinTypes.indexOf(v) < 0;
+  var variables = workspace.getAllVariables().filter(function (v) {
+    return builtinTypes.indexOf(v.type) < 0;
+  }) // remove buildins
+  .filter(function (v) {
+    return !!workspace.getVariableUsesById(v.getId()).length;
   });
-  console.log({
-    variableTypes: variableTypes
+  var services = variables.map(function (v) {
+    return v.type;
   });
   return services;
 }
@@ -13732,4 +13734,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d39a0a4f1918502d705c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-60d6a0fc10bff8e5705e.js.map
