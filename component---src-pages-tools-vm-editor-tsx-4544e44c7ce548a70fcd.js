@@ -13303,54 +13303,79 @@ function loadBlocks() {
   return cachedBlocks;
 }
 
-function createGenerator() {
-  var gen = new Blockly.Generator("Jacdac");
-  var PRECEDENCE = 0;
-
-  var _loadBlocks = loadBlocks(),
-      blocks = _loadBlocks.blocks;
-
-  var generate = function generate(block, b) {
-    var json = {
-      type: block.type
-    };
-    console.log({
-      b: b
+function domToJSON(workspace) {
+  var variablesToJSON = function variablesToJSON(variableList) {
+    return variableList.map(function (variable) {
+      return {
+        name: variable.name,
+        type: variable.type,
+        id: variable.getId()
+      };
     });
-    if (block.output) return [JSON.stringify(json), PRECEDENCE];
-    return JSON.stringify(json);
-  }; // builts from blockly
-
-
-  gen["logic_null"] = function () {
-    return ["null", PRECEDENCE];
   };
 
-  gen["text"] = function (block) {
-    var textValue = block.getFieldValue("TEXT");
-    var code = '"' + textValue + '"';
-    return [code, PRECEDENCE];
+  var fieldToJSON = function fieldToJSON(field) {
+    if (field.isSerializable()) {
+      var container = blockly_default().utils.xml.createElement("field");
+      container.setAttribute("name", field.name || "");
+      var fieldXml = field.toXml(container);
+      return fieldXml.outerHTML;
+    }
+
+    return undefined;
   };
 
-  gen["math_number"] = function (block) {
-    var code = Number(block.getFieldValue("NUM"));
-    return [code, PRECEDENCE];
-  };
+  var blockToJSON = function blockToJSON(block) {
+    if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // Skip over insertion markers.
 
-  gen["logic_boolean"] = function (block) {
-    var code = block.getFieldValue("BOOL") == "TRUE" ? "true" : "false";
-    return [code, PRECEDENCE];
-  }; // add pre-generator generators
+    if (block.isInsertionMarker()) {
+      var child = block.getChildren(false)[0];
+      if (child) return blockToJSON(child);else return undefined;
+    } // dump object
 
 
-  blocks.filter(function (block) {
-    return !gen[block.type];
-  }).forEach(function (block) {
-    return gen[block.type] = function (b) {
-      return generate(block, b);
+    var element = {
+      block: block.isShadow() ? "shadow" : "block",
+      type: block.type,
+      id: block.id,
+      inputs: block.inputList.map(function (input, i) {
+        var _input$fieldRow, _input$connection;
+
+        var container = {
+          input: input.type,
+          name: input.name,
+          fields: (_input$fieldRow = input.fieldRow) === null || _input$fieldRow === void 0 ? void 0 : _input$fieldRow.map(function (field) {
+            return fieldToJSON(field);
+          }),
+          child: blockToJSON((_input$connection = input.connection) === null || _input$connection === void 0 ? void 0 : _input$connection.targetBlock())
+        };
+        return container;
+      }),
+      next: blockToJSON(block.getNextBlock())
     };
-  });
-  return gen;
+    return element;
+  };
+
+  var clean = function clean(o) {
+    if (!o) return;
+    Object.keys(o).forEach(function (k) {
+      if (o[k] === undefined) delete o[k];else if (Array.isArray(o[k]) && !o[k].length) delete o[k];else if (typeof o === "object") clean(o[k]);
+    });
+  };
+
+  try {
+    var variables = blockly_default().Variables.allUsedVarModels(workspace);
+    var blocks = workspace.getTopBlocks(true);
+    var json = {
+      variables: variablesToJSON(variables),
+      blocks: blocks.map(blockToJSON)
+    };
+    clean(json);
+    return json;
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
 }
 var builtinTypes = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
@@ -13699,10 +13724,9 @@ function VmEditor(props) {
 
     var newXml = blockly_default().Xml.domToText(blockly_default().Xml.workspaceToDom(workspace));
     onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(newXml); // emit json
-    //const gen = createGenerator()
-    //const vm = gen.workspaceToCode(workspace)
-    //console.log({ vm })
-    // update toolbox with declared roles
+
+    var json = domToJSON(workspace);
+    console.log(json); // update toolbox with declared roles
 
     var newServices = scanServices(workspace);
     if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
@@ -13811,4 +13835,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2d52c75d8485ac8c91f5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4544e44c7ce548a70fcd.js.map
