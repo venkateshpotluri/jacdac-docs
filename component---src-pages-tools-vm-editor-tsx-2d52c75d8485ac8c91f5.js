@@ -13314,7 +13314,11 @@ function createGenerator() {
     var json = {
       type: block.type
     };
-    return [JSON.stringify(json), PRECEDENCE];
+    console.log({
+      b: b
+    });
+    if (block.output) return [JSON.stringify(json), PRECEDENCE];
+    return JSON.stringify(json);
   }; // builts from blockly
 
 
@@ -13691,9 +13695,14 @@ function VmEditor(props) {
 
 
   var handleChange = function handleChange(workspace) {
-    initWorkspace();
+    initWorkspace(); // save xml
+
     var newXml = blockly_default().Xml.domToText(blockly_default().Xml.workspaceToDom(workspace));
-    onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(newXml); // update toolbox with declared roles
+    onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(newXml); // emit json
+    //const gen = createGenerator()
+    //const vm = gen.workspaceToCode(workspace)
+    //console.log({ vm })
+    // update toolbox with declared roles
 
     var newServices = scanServices(workspace);
     if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
@@ -13802,4 +13811,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1c249c306c7cd69d86a4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2d52c75d8485ac8c91f5.js.map
