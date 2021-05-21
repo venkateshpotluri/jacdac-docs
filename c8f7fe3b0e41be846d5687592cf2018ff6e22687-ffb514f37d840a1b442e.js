@@ -1352,6 +1352,40 @@ var DialogContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(f
 
 /***/ }),
 
+/***/ 32253:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export styles */
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22122);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34621);
+/* harmony import */ var _Typography__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(80453);
+
+
+
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    marginBottom: 12
+  }
+};
+var DialogContentText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(function DialogContentText(props, ref) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Typography__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)({
+    component: "p",
+    variant: "body1",
+    color: "textSecondary",
+    ref: ref
+  }, props));
+});
+ false ? 0 : void 0;
+/* harmony default export */ __webpack_exports__["Z"] = ((0,_styles_withStyles__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(styles, {
+  name: 'MuiDialogContentText'
+})(DialogContentText));
+
+/***/ }),
+
 /***/ 96422:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -24260,7 +24294,7 @@ function ImportButton(props) {
 
 /***/ }),
 
-/***/ 87051:
+/***/ 22632:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25951,35 +25985,8 @@ createPullRequest.VERSION = octokit_plugin_create_pull_request_dist_web_VERSION;
 
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(22122);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/withStyles.js
-var withStyles = __webpack_require__(34621);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__(80453);
-;// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
-
-
-
-
-var styles = {
-  /* Styles applied to the root element. */
-  root: {
-    marginBottom: 12
-  }
-};
-var DialogContentText = /*#__PURE__*/react.forwardRef(function DialogContentText(props, ref) {
-  return /*#__PURE__*/react.createElement(Typography/* default */.Z, (0,esm_extends/* default */.Z)({
-    component: "p",
-    variant: "body1",
-    color: "textSecondary",
-    ref: ref
-  }, props));
-});
- false ? 0 : void 0;
-/* harmony default export */ var DialogContentText_DialogContentText = ((0,withStyles/* default */.Z)(styles, {
-  name: 'MuiDialogContentText'
-})(DialogContentText));
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
@@ -25988,6 +25995,8 @@ var TextField = __webpack_require__(1059);
 var Dialog = __webpack_require__(52468);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
 var DialogContent = __webpack_require__(65733);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
+var DialogContentText = __webpack_require__(32253);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
 var DialogActions = __webpack_require__(89952);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -26182,7 +26191,7 @@ function GithubPullRequestButton(props) {
   }, label))), /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
     open: confirmDialog,
     onClose: handleCloseConfirm
-  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText_DialogContentText, null, "We will open a new Pull Request in ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, "We will open a new Pull Request in ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://github.com/microsoft/jacdac",
     rel: "noreferrer nofollower"
   }, "microsoft/jacdac"), " with your files. If needed, we will fork ", /*#__PURE__*/react.createElement("code", null, "microsoft/jacdac"), " under your account and create a Pull Request in that repository."), /*#__PURE__*/react.createElement(ApiKeyAccordion/* default */.Z, {
@@ -36440,4 +36449,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-38eefde6c97513a9ccf4.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-ffb514f37d840a1b442e.js.map

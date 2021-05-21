@@ -1063,7 +1063,7 @@ var JDBridge = /*#__PURE__*/function (_JDClient) {
 
 
 // EXTERNAL MODULE: ./node_modules/peerjs/dist/peerjs.min.js
-var peerjs_min = __webpack_require__(80229);
+var peerjs_min = __webpack_require__(35168);
 var peerjs_min_default = /*#__PURE__*/__webpack_require__.n(peerjs_min);
 ;// CONCATENATED MODULE: ./src/components/peer/peerjsbridge.ts
 
@@ -1419,4 +1419,4 @@ module.exports = webpackEmptyContext;
 /***/ })
 
 }]);
-//# sourceMappingURL=147-49716869ab79aa76b721.js.map
+//# sourceMappingURL=147-72827c1faee811a8379d.js.map

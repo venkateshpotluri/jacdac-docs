@@ -2955,7 +2955,7 @@ var useGridBreakpoints = __webpack_require__(7746);
 
 
 var GithubPullRequestButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(3879)]).then(__webpack_require__.bind(__webpack_require__, 87051));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(3879)]).then(__webpack_require__.bind(__webpack_require__, 22632));
 });
 
 function CompanySelect(props) {
@@ -3387,4 +3387,4 @@ function DeviceRegistration() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-7d82c16f194f915306b0.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-e8b88a5d1c09e2509993.js.map
