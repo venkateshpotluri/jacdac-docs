@@ -12782,7 +12782,8 @@ function loadBlocks() {
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field, i) {
         return {
           type: "input_value",
-          name: "VALUE" + i
+          name: "VALUE" + i,
+          check: field.type === "bool" ? "Boolean" : "Number"
         };
       }))),
       values: (0,utils/* toMap */.qL)(intensity.fields, function (_, i) {
@@ -12816,10 +12817,11 @@ function loadBlocks() {
       message0: "set %1 " + (0,jdspec/* humanify */.lW)(value.name) + " to " + value.fields.map(function (_, i) {
         return "%" + (2 + i);
       }).join(" "),
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (_, i) {
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (field, i) {
         return {
           type: "input_value",
-          name: "VALUE" + i
+          name: "VALUE" + i,
+          check: field.type === "bool" ? "Boolean" : "Number"
         };
       }))),
       values: (0,utils/* toMap */.qL)(value.fields, function (_, i) {
@@ -13424,4 +13426,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f77ed35579fe126c1800.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-818577c30b311f1dcc6b.js.map
