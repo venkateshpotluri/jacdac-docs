@@ -13303,6 +13303,51 @@ function loadBlocks() {
   return cachedBlocks;
 }
 
+function createGenerator() {
+  var gen = new Blockly.Generator("Jacdac");
+  var PRECEDENCE = 0;
+
+  var _loadBlocks = loadBlocks(),
+      blocks = _loadBlocks.blocks;
+
+  var generate = function generate(block, b) {
+    var json = {
+      type: block.type
+    };
+    return [JSON.stringify(json), PRECEDENCE];
+  }; // builts from blockly
+
+
+  gen["logic_null"] = function () {
+    return ["null", PRECEDENCE];
+  };
+
+  gen["text"] = function (block) {
+    var textValue = block.getFieldValue("TEXT");
+    var code = '"' + textValue + '"';
+    return [code, PRECEDENCE];
+  };
+
+  gen["math_number"] = function (block) {
+    var code = Number(block.getFieldValue("NUM"));
+    return [code, PRECEDENCE];
+  };
+
+  gen["logic_boolean"] = function (block) {
+    var code = block.getFieldValue("BOOL") == "TRUE" ? "true" : "false";
+    return [code, PRECEDENCE];
+  }; // add pre-generator generators
+
+
+  blocks.filter(function (block) {
+    return !gen[block.type];
+  }).forEach(function (block) {
+    return gen[block.type] = function (b) {
+      return generate(block, b);
+    };
+  });
+  return gen;
+}
 var builtinTypes = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
   // blockly has the tendency to keep all variables around
@@ -13757,4 +13802,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-165fdbb8752504bd729a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1c249c306c7cd69d86a4.js.map
