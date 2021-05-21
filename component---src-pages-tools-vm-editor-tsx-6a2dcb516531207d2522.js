@@ -12779,18 +12779,24 @@ function loadBlocks() {
     return {
       type: "jacdac_" + service.shortId + "_intensity_set",
       message0: "set %1 %2",
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field) {
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field, i) {
+        return {
+          type: "input_value",
+          name: "VALUE" + i
+        };
+      }))),
+      values: (0,utils/* toMap */.qL)(intensity.fields, function (_, i) {
+        return "VALUE" + i;
+      }, function (field) {
         return field.type === "bool" ? {
-          type: "field_dropdown",
-          name: "VALUE",
-          options: [["on", "ON"], ["off", "OFF"]]
+          type: "jacdac_on_off"
         } : {
           type: "math_number",
           min: 0,
           max: 1,
           precision: 0.1
         };
-      }))),
+      }),
       inputsInline: true,
       colour: HUE,
       tooltip: "",
@@ -12808,19 +12814,24 @@ function loadBlocks() {
       message0: "set %1 " + (0,jdspec/* humanify */.lW)(value.name) + " to " + value.fields.map(function (_, i) {
         return "%" + (2 + i);
       }).join(" "),
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (field) {
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (_, i) {
+        return {
+          type: "input_value",
+          name: "VALUE" + i
+        };
+      }))),
+      values: (0,utils/* toMap */.qL)(value.fields, function (_, i) {
+        return "VALUE" + i;
+      }, function (field) {
         return field.type === "bool" ? {
-          type: "field_dropdown",
-          name: "VALUE",
-          options: [["on", "ON"], ["off", "OFF"]]
+          type: "jacdac_on_off"
         } : {
-          type: "field_number",
-          name: "VALUE",
+          type: "math_number",
           value: field.defaultValue || 0,
           min: field.absoluteMin,
           max: field.absoluteMax
         };
-      }))),
+      }),
       inputsInline: true,
       colour: HUE,
       tooltip: "",
@@ -12893,9 +12904,19 @@ function loadBlocks() {
     inputsInline: true,
     previousStatement: "Statement",
     nextStatement: "Statement",
-    colour: 230,
+    colour: HUE,
     tooltip: "",
     helpUrl: ""
+  }, {
+    type: "jacdac_on_off",
+    message0: "%1",
+    args0: [{
+      type: "field_dropdown",
+      name: "VALUE",
+      options: [["on", "ON"], ["off", "OFF"]]
+    }],
+    colour: HUE,
+    output: "Boolean"
   }]);
   console.log({
     blocks: blocks
@@ -12968,7 +12989,8 @@ function useToolbox(blockServices) {
       colour: "#5CA699",
       blocks: groupBlocks.map(function (block) {
         return {
-          type: block.type
+          type: block.type,
+          values: block.values
         };
       }),
       button: Object.values((0,utils/* uniqueMap */.EM)(groupBlocks, function (block) {
@@ -13316,4 +13338,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-add6e5898def8ca0f7b6.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6a2dcb516531207d2522.js.map

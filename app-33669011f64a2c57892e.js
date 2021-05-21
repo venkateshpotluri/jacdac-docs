@@ -33853,6 +33853,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "rs": function() { return /* binding */ randomRange; },
 /* harmony export */   "Tw": function() { return /* binding */ unique; },
 /* harmony export */   "EM": function() { return /* binding */ uniqueMap; },
+/* harmony export */   "qL": function() { return /* binding */ toMap; },
 /* harmony export */   "VA": function() { return /* binding */ ellipseJoin; },
 /* harmony export */   "r": function() { return /* binding */ arrayShuffle; },
 /* harmony export */   "yZ": function() { return /* binding */ uniqueName; },
@@ -34452,6 +34453,15 @@ function uniqueMap(values, id, converter) {
   }
 
   return Object.values(r).map(converter);
+}
+function toMap(a, keyConverter, valueConverter) {
+  var m = {};
+
+  for (var i = 0; i < a.length; ++i) {
+    m[keyConverter(a[i], i)] = valueConverter(a[i], i);
+  }
+
+  return m;
 }
 function ellipseJoin(values, maxChars, ellipse) {
   if (ellipse === void 0) {
@@ -42677,7 +42687,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b62857a398cdfb7901afc1c66dc441910fdf441b";
+  var sha = "5d9f9748ba109502ef03b94c7143286d0f8f736b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -58098,4 +58108,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-75034d611f806ec1656e.js.map
+//# sourceMappingURL=app-33669011f64a2c57892e.js.map
