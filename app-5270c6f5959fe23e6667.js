@@ -27388,6 +27388,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "GJf": function() { return /* binding */ JD_ADVERTISEMENT_0_COUNTER_MASK; },
 /* harmony export */   "byt": function() { return /* binding */ JD_DEVICE_LOST_DELAY; },
 /* harmony export */   "SkZ": function() { return /* binding */ JD_DEVICE_DISCONNECTED_DELAY; },
+/* harmony export */   "_$y": function() { return /* binding */ RESET_IN_TIME_US; },
 /* harmony export */   "vgB": function() { return /* binding */ MAX_SERVICES_LENGTH; },
 /* harmony export */   "nxl": function() { return /* binding */ NEW_LISTENER; },
 /* harmony export */   "MnB": function() { return /* binding */ REMOVE_LISTENER; },
@@ -27699,6 +27700,7 @@ var JD_ADVERTISEMENT_0_ACK_SUPPORTED = 0x00000100; // time withouth seeing a pac
 var JD_DEVICE_LOST_DELAY = 1500; // time without seeing a packet to be considered "disconnected"
 
 var JD_DEVICE_DISCONNECTED_DELAY = 5000;
+var RESET_IN_TIME_US = 2000000;
 var MAX_SERVICES_LENGTH = 59;
 var NEW_LISTENER = "newListener";
 var REMOVE_LISTENER = "removeListener";
@@ -30474,8 +30476,6 @@ var OutPipe = /*#__PURE__*/function () {
   }
 
   OutPipe.from = function from(bus, pkt, hosted) {
-    bus.enableAnnounce(); // ned self device
-
     var _pkt$jdunpack = pkt.jdunpack("b[8] u16"),
         idbuf = _pkt$jdunpack[0],
         port = _pkt$jdunpack[1];
@@ -30648,8 +30648,6 @@ var InPipe = /*#__PURE__*/function (_JDClient) {
     _this2._handlePacket = _this2._handlePacket.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(_this2));
 
     _this2.allocPort();
-
-    _this2.bus.enableAnnounce();
 
     _this2.mount(_this2.bus.selfDevice.subscribe(_constants__WEBPACK_IMPORTED_MODULE_1__/* .PACKET_RECEIVE */ .u_S, _this2._handlePacket));
 
@@ -40077,10 +40075,13 @@ function parsePacketFilter(bus, text) {
 
       case "reset-in":
       case "ri":
+      case "resetin":
         resetIn = parseBoolean(value);
         break;
 
       case "min-priority":
+      case "minpri":
+      case "minpriority":
       case "mi":
         minPriority = parseBoolean(value);
         break;
@@ -40260,8 +40261,8 @@ function compileFilter(props) {
   if (repeatedAnnounce !== undefined) filters.push(function (pkt) {
     return !pkt.isAnnounce || pkt.isRepeatedAnnounce === repeatedAnnounce;
   });
-  if (resetIn !== undefined) filters.push(function (pkt) {
-    return (pkt.isRegisterSet && pkt.serviceClass == specconstants/* SRV_CONTROL */.gm9 && pkt.registerIdentifier === specconstants/* ControlReg.ResetIn */.toU.ResetIn) === resetIn;
+  if (resetIn === false) filters.push(function (pkt) {
+    return !(pkt.isRegisterSet && pkt.serviceClass === specconstants/* SRV_CONTROL */.gm9 && pkt.registerIdentifier === specconstants/* ControlReg.ResetIn */.toU.ResetIn);
   });
   if (minPriority !== undefined) filters.push(function (pkt) {
     return (pkt.isRegisterSet && pkt.serviceClass == specconstants/* SRV_LOGGER */.w9j && pkt.registerIdentifier === specconstants/* LoggerReg.MinPriority */.hXV.MinPriority) === minPriority;
@@ -42687,7 +42688,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7bed5c96b77b3015763539a084cd7176a1b0e553";
+  var sha = "cbd615522a53c6a0e9b3807ec1dc68f6c6549c7b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -46296,6 +46297,7 @@ function bus_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) l
 
 
 
+
 var SCAN_FIRMWARE_INTERVAL = 30000;
 
 /**
@@ -46316,8 +46318,9 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this._bridges = [];
     _this._devices = [];
     _this._lastPingLoggerTime = 0;
+    _this._lastResetInTime = 0;
+    _this._restartCounter = 0;
     _this._minLoggerPriority = constants/* LoggerPriority.Debug */.qit.Debug;
-    _this._announcing = false;
     _this._gcDevicesEnabled = 0;
     _this._serviceProviders = [];
     _this.options = options;
@@ -46331,7 +46334,12 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this.stats = new BusStatsMonitor((0,assertThisInitialized/* default */.Z)(_this));
 
     _this.resetTime(); // tell loggers to send data, every now and then
+    // send resetin packets
 
+
+    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.sendAnnounce.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.sendResetIn.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
     _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.pingLoggers.bind((0,assertThisInitialized/* default */.Z)(_this))); // tell RTC clock the computer time
 
@@ -47070,6 +47078,9 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
         if (pkt.serviceCommand == constants/* CMD_ADVERTISEMENT_DATA */.zf$) {
           isAnnounce = true;
           pkt.device.processAnnouncement(pkt);
+        } else if (pkt.serviceCommand == (constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn)) {
+          // someone else is doing reset in
+          this._lastResetInTime = this.timestamp;
         }
       }
 
@@ -47086,20 +47097,22 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     }
   };
 
-  _proto.enableAnnounce = function enableAnnounce() {
-    var _this9 = this;
+  _proto.sendAnnounce = function sendAnnounce() {
+    // we do not support any services (at least yet)
+    if (this._restartCounter < 0xf) this._restartCounter++;
+    var pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_ADVERTISEMENT_DATA */.zf$, "u32", [this._restartCounter | 0x100]);
+    pkt.serviceIndex = constants/* JD_SERVICE_INDEX_CTRL */.fey;
+    pkt.deviceIdentifier = this.selfDeviceId;
+    pkt.sendReportAsync(this.selfDevice);
+  };
 
-    if (!this._announcing) return;
-    this._announcing = true;
-    var restartCounter = 0;
-    this.on(constants/* SELF_ANNOUNCE */.Pbc, function () {
-      // we do not support any services (at least yet)
-      if (restartCounter < 0xf) restartCounter++;
-      var pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_ADVERTISEMENT_DATA */.zf$, "u32", [restartCounter | 0x100]);
-      pkt.serviceIndex = constants/* JD_SERVICE_INDEX_CTRL */.fey;
-      pkt.deviceIdentifier = _this9.selfDeviceId;
-      pkt.sendReportAsync(_this9.selfDevice);
-    });
+  _proto.sendResetIn = function sendResetIn() {
+    if (this._lastResetInTime - this.timestamp > constants/* RESET_IN_TIME_US */._$y / 3) return;
+    this._lastResetInTime = this.timestamp;
+    var rst = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn, "u32", [constants/* RESET_IN_TIME_US */._$y]);
+    rst.serviceIndex = constants/* JD_SERVICE_INDEX_CTRL */.fey;
+    rst.deviceIdentifier = this.selfDeviceId;
+    rst.sendCmdAsync(this.selfDevice);
   }
   /**
    * Cycles through all known registers and refreshes the once that have REPORT_UPDATE registered
@@ -47204,7 +47217,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   ;
 
   _proto.withTimeout = function withTimeout(timeout, p) {
-    var _this10 = this;
+    var _this9 = this;
 
     return new Promise(function (resolve, reject) {
       var done = false;
@@ -47212,19 +47225,19 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
         if (!done) {
           done = true;
 
-          if (!_this10._transports.some(function (tr) {
+          if (!_this9._transports.some(function (tr) {
             return tr.connected;
           })) {
             // the bus got disconnected so all operation will
             // time out going further
-            _this10.emit(constants/* TIMEOUT_DISCONNECT */.Xxe);
+            _this9.emit(constants/* TIMEOUT_DISCONNECT */.Xxe);
 
             resolve(undefined);
           } else {
             // the command timed out
-            _this10.emit(constants/* TIMEOUT */.LXI);
+            _this9.emit(constants/* TIMEOUT */.LXI);
 
-            _this10.emit(constants/* ERROR */.pnR, "Timeout (" + timeout + "ms)");
+            _this9.emit(constants/* ERROR */.pnR, "Timeout (" + timeout + "ms)");
 
             resolve(undefined);
           }
@@ -47237,7 +47250,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
           resolve(v);
         } else {
           // we already gave up
-          _this10.emit(constants/* LATE */.h2Z);
+          _this9.emit(constants/* LATE */.h2Z);
         }
       }, function (e) {
         if (!done) {
@@ -47265,15 +47278,15 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       return !!this._safeBootInterval;
     },
     set: function set(enabled) {
-      var _this11 = this;
+      var _this10 = this;
 
       if (enabled && !this._safeBootInterval) {
         this._safeBootInterval = setInterval(function () {
           // don't send message if any device is flashing
-          if (_this11._devices.some(function (d) {
+          if (_this10._devices.some(function (d) {
             return d.flashing;
           })) return;
-          (0,flashing/* sendStayInBootloaderCommand */.s_)(_this11);
+          (0,flashing/* sendStayInBootloaderCommand */.s_)(_this10);
         }, 50);
         this.emit(constants/* CHANGE */.Ver);
       } else if (!enabled && this._safeBootInterval) {
@@ -58108,4 +58121,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-dc1e75e49bf623c789fd.js.map
+//# sourceMappingURL=app-5270c6f5959fe23e6667.js.map
