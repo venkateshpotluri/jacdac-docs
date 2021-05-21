@@ -12719,7 +12719,8 @@ function loadBlocks() {
     };
   }).filter(function (kv) {
     return !!kv.events.length;
-  }); // generate blocks
+  });
+  var HUE = 230; // generate blocks
 
   var blocks = [].concat((0,toConsumableArray/* default */.Z)(events.map(function (_ref) {
     var service = _ref.service,
@@ -12734,7 +12735,7 @@ function loadBlocks() {
           return [event.name, event.name];
         })
       }],
-      style: "logic_blocks",
+      colour: HUE,
       inputsInline: true,
       nextStatement: null,
       tooltip: "",
@@ -12746,20 +12747,35 @@ function loadBlocks() {
     var service = _ref2.service,
         reading = _ref2.reading;
     return {
-      type: "jacdac_" + service.shortId + "_reading",
-      message0: "%1 " + (0,jdspec/* humanify */.lW)(reading.name),
+      type: "jacdac_" + service.shortId + "_reading_change",
+      message0: "when %1 " + (0,jdspec/* humanify */.lW)(reading.name) + " change",
       args0: [fieldVariable(service)],
       inputsInline: true,
-      output: "Number",
-      colour: 230,
+      nextStatement: "Statement",
+      colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
       reading: reading
     };
-  })), (0,toConsumableArray/* default */.Z)(intensities.map(function (_ref3) {
+  })), (0,toConsumableArray/* default */.Z)(readings.map(function (_ref3) {
     var service = _ref3.service,
-        intensity = _ref3.intensity;
+        reading = _ref3.reading;
+    return {
+      type: "jacdac_" + service.shortId + "_reading",
+      message0: "%1 " + (0,jdspec/* humanify */.lW)(reading.name),
+      args0: [fieldVariable(service)],
+      inputsInline: true,
+      output: "Number",
+      colour: HUE,
+      tooltip: "",
+      helpUrl: "",
+      service: service,
+      reading: reading
+    };
+  })), (0,toConsumableArray/* default */.Z)(intensities.map(function (_ref4) {
+    var service = _ref4.service,
+        intensity = _ref4.intensity;
     return {
       type: "jacdac_" + service.shortId + "_intensity_set",
       message0: "set %1 %2",
@@ -12776,7 +12792,7 @@ function loadBlocks() {
         };
       }))),
       inputsInline: true,
-      colour: 230,
+      colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
@@ -12784,9 +12800,9 @@ function loadBlocks() {
       previousStatement: "Statement",
       nextStatement: "Statement"
     };
-  })), (0,toConsumableArray/* default */.Z)(values.map(function (_ref4) {
-    var service = _ref4.service,
-        value = _ref4.value;
+  })), (0,toConsumableArray/* default */.Z)(values.map(function (_ref5) {
+    var service = _ref5.service,
+        value = _ref5.value;
     return {
       type: "jacdac_" + service.shortId + "_value_set",
       message0: "set %1 " + (0,jdspec/* humanify */.lW)(value.name) + " to " + value.fields.map(function (_, i) {
@@ -12806,7 +12822,7 @@ function loadBlocks() {
         };
       }))),
       inputsInline: true,
-      colour: 230,
+      colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
@@ -12816,35 +12832,20 @@ function loadBlocks() {
     };
   })), (0,toConsumableArray/* default */.Z)(values.filter(function (v) {
     return v.value.fields.length === 1;
-  }).map(function (_ref5) {
-    var service = _ref5.service,
-        value = _ref5.value;
+  }).map(function (_ref6) {
+    var service = _ref6.service,
+        value = _ref6.value;
     return {
       type: "jacdac_" + service.shortId + "_value_get",
       message0: "%1 " + (0,jdspec/* humanify */.lW)(value.name),
       args0: [fieldVariable(service)],
       inputsInline: true,
       output: value.fields[0].type === "bool" ? "Boolean" : "Number",
-      colour: 230,
+      colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
       value: value
-    };
-  })), (0,toConsumableArray/* default */.Z)(readings.map(function (_ref6) {
-    var service = _ref6.service,
-        reading = _ref6.reading;
-    return {
-      type: "jacdac_" + service.shortId + "_reading_change",
-      message0: "when %1 " + (0,jdspec/* humanify */.lW)(reading.name) + " change",
-      args0: [fieldVariable(service)],
-      inputsInline: true,
-      nextStatement: "Statement",
-      style: "logic_blocks",
-      tooltip: "",
-      helpUrl: "",
-      service: service,
-      reading: reading
     };
   })), [{
     type: "jacdac_await_condition",
@@ -13315,4 +13316,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5087f91d8334d0dc2120.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-add6e5898def8ca0f7b6.js.map
