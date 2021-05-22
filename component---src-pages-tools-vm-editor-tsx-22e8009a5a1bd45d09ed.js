@@ -14613,6 +14613,29 @@ function blockToExpression(block) {
   return undefined;
 }
 
+function blockToCommand(block) {
+  var command;
+  var type = block.type,
+      inputs = block.inputs;
+
+  switch (type) {
+    case WAIT_BLOCK:
+      {
+        var time = blockToExpression(inputs[0].child);
+        command = {
+          type: "CallExpression",
+          arguments: [time],
+          callee: undefined // TODO
+
+        };
+      }
+  }
+
+  return {
+    command: command
+  };
+}
+
 function workspaceJSONToIT4Program(workspace) {
   console.debug("compile it4", {
     workspace: workspace
@@ -14653,6 +14676,8 @@ function workspaceJSONToIT4Program(workspace) {
     }
   });
   var handlers = workspace.blocks.map(function (top) {
+    var _top$children;
+
     var type = top.type,
         inputs = top.inputs;
     var commands = [];
@@ -14664,7 +14689,8 @@ function workspaceJSONToIT4Program(workspace) {
         command: {
           type: "CallExpression",
           arguments: [blockToExpression(condition)],
-          callee: undefined
+          callee: undefined // TODO
+
         }
       });
     } else {
@@ -14677,9 +14703,13 @@ function workspaceJSONToIT4Program(workspace) {
         service: service,
         events: _events,
         def: def
-      });
-    }
+      }); // TODO
+    } // process children
 
+
+    (_top$children = top.children) === null || _top$children === void 0 ? void 0 : _top$children.forEach(function (child) {
+      return commands.push(blockToCommand(child));
+    });
     return {
       description: type,
       commands: commands
@@ -14925,4 +14955,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-bebd2d8b4f8594fa7cee.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-22e8009a5a1bd45d09ed.js.map
