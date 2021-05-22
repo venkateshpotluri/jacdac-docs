@@ -27920,23 +27920,30 @@ function createRenderer(roots) {
   }
 
   function appendChild(parentInstance, child) {
+    var addedAsChild = false;
+
     if (child) {
-      if (child.isObject3D) {
+      // The attach attribute implies that the object attaches itself on the parent
+      if (child.attachArray) {
+        if (!is.arr(parentInstance[child.attachArray])) parentInstance[child.attachArray] = [];
+        parentInstance[child.attachArray].push(child);
+      } else if (child.attachObject) {
+        if (!is.obj(parentInstance[child.attachObject[0]])) parentInstance[child.attachObject[0]] = {};
+        parentInstance[child.attachObject[0]][child.attachObject[1]] = child;
+      } else if (child.attach && !is.fun(child.attach)) {
+        parentInstance[child.attach] = child;
+      } else if (child.isObject3D) {
+        // add in the usual parent-child way
         parentInstance.add(child);
-      } else {
+        addedAsChild = true;
+      }
+
+      if (!addedAsChild) {
+        // This is for anything that used attach, and for non-Object3Ds that don't get attached to props;
+        // that is, anything that's a child in React but not a child in the scenegraph.
         parentInstance.__r3f.objects.push(child);
 
-        child.parent = parentInstance; // The attach attribute implies that the object attaches itself on the parent
-
-        if (child.attachArray) {
-          if (!is.arr(parentInstance[child.attachArray])) parentInstance[child.attachArray] = [];
-          parentInstance[child.attachArray].push(child);
-        } else if (child.attachObject) {
-          if (!is.obj(parentInstance[child.attachObject[0]])) parentInstance[child.attachObject[0]] = {};
-          parentInstance[child.attachObject[0]][child.attachObject[1]] = child;
-        } else if (child.attach) {
-          parentInstance[child.attach] = child;
-        }
+        child.parent = parentInstance;
       }
 
       updateInstance(child);
@@ -27945,8 +27952,18 @@ function createRenderer(roots) {
   }
 
   function insertBefore(parentInstance, child, beforeChild) {
+    var added = false;
+
     if (child) {
-      if (child.isObject3D) {
+      if (child.attachArray) {
+        var array = parentInstance[child.attachArray];
+        if (!is.arr(array)) parentInstance[child.attachArray] = [];
+        array.splice(array.indexOf(beforeChild), 0, child);
+      } else if (child.attachObject || child.attach && !is.fun(child.attach)) {
+        // attach and attachObject don't have an order anyway, so just append
+        added = true;
+        return appendChild(parentInstance, child);
+      } else if (child.isObject3D) {
         child.parent = parentInstance;
         child.dispatchEvent({
           type: 'added'
@@ -27956,15 +27973,13 @@ function createRenderer(roots) {
         });
         var index = restSiblings.indexOf(beforeChild);
         parentInstance.children = [].concat((0,toConsumableArray/* default */.Z)(restSiblings.slice(0, index)), [child], (0,toConsumableArray/* default */.Z)(restSiblings.slice(index)));
-      } else {
-        if (child.attachArray) {
-          parentInstance.__r3f.objects.push(child);
+        added = true;
+      }
 
-          child.parent = parentInstance;
-          var array = parentInstance[child.attachArray];
-          if (!is.arr(array)) parentInstance[child.attachArray] = [];
-          array.splice(array.indexOf(beforeChild), 0, child);
-        } else return appendChild(parentInstance, child);
+      if (!added) {
+        parentInstance.__r3f.objects.push(child);
+
+        child.parent = parentInstance;
       }
 
       updateInstance(child);
@@ -27983,28 +27998,35 @@ function createRenderer(roots) {
     if (child) {
       var _child$__r3f2;
 
-      if (child.isObject3D) {
+      if (parentInstance.__r3f.objects) {
+        var oldLength = parentInstance.__r3f.objects.length;
+        parentInstance.__r3f.objects = parentInstance.__r3f.objects.filter(function (x) {
+          return x !== child;
+        });
+        var newLength = parentInstance.__r3f.objects.length; // was it in the list?
+
+        if (newLength < oldLength) {
+          // we had also set this, so we must clear it now
+          child.parent = null;
+        }
+      } // Remove attachment
+
+
+      if (child.attachArray) {
+        parentInstance[child.attachArray] = parentInstance[child.attachArray].filter(function (x) {
+          return x !== child;
+        });
+      } else if (child.attachObject) {
+        delete parentInstance[child.attachObject[0]][child.attachObject[1]];
+      } else if (child.attach && !is.fun(child.attach)) {
+        parentInstance[child.attach] = null;
+      } else if (child.isObject3D) {
         var _child$__r3f;
 
         parentInstance.remove(child); // Remove interactivity
 
         if ((_child$__r3f = child.__r3f) != null && _child$__r3f.root) {
           removeInteractivity(child.__r3f.root, child);
-        }
-      } else {
-        child.parent = null;
-        if (parentInstance.__r3f.objects) parentInstance.__r3f.objects = parentInstance.__r3f.objects.filter(function (x) {
-          return x !== child;
-        }); // Remove attachment
-
-        if (child.attachArray) {
-          parentInstance[child.attachArray] = parentInstance[child.attachArray].filter(function (x) {
-            return x !== child;
-          });
-        } else if (child.attachObject) {
-          delete parentInstance[child.attachObject[0]][child.attachObject[1]];
-        } else if (child.attach) {
-          parentInstance[child.attach] = null;
         }
       } // Allow objects to bail out of recursive dispose alltogether by passing dispose={null}
       // Never dispose of primitives because their state may be kept outside of React!
@@ -36449,4 +36471,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-ffb514f37d840a1b442e.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-e702fbaa0303f34f63ac.js.map
