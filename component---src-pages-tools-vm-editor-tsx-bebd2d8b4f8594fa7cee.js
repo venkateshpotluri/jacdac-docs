@@ -14519,7 +14519,11 @@ var ops = {
   LT: "<",
   GT: ">",
   LTE: "<=",
-  GTE: ">="
+  GTE: ">=",
+  NEG: "-",
+  ADD: "+",
+  MUL: "*",
+  DIV: "/"
 };
 
 function blockToExpression(block) {
@@ -14536,26 +14540,55 @@ function blockToExpression(block) {
   console.log("block", block);
 
   switch (type) {
-    case "logic_operation":
+    case "jacdac_math_single":
+      {
+        var argument = blockToExpression(inputs[0].child);
+        var op = inputs[0].fields["op"].value;
+        return {
+          type: "UnaryExpression",
+          operator: ops[op] || op,
+          argument: argument,
+          prefix: false // TODO:?
+
+        };
+      }
+
+    case "jacdac_math_arithmetic":
       {
         var left = blockToExpression(inputs[0].child);
         var right = blockToExpression(inputs[1].child);
-        var op = inputs[1].fields["op"].value;
+        var _op = inputs[1].fields["op"].value;
+        return {
+          type: "BinaryExpression",
+          operator: ops[_op] || _op,
+          left: left,
+          right: right
+        };
+      }
+
+    case "logic_operation":
+      {
+        var _left = blockToExpression(inputs[0].child);
+
+        var _right = blockToExpression(inputs[1].child);
+
+        var _op2 = inputs[1].fields["op"].value;
         return {
           type: "LogicalExpression",
-          left: left,
-          right: right,
-          operator: ops[op] || op
+          operator: ops[_op2] || _op2,
+          left: _left,
+          right: _right
         };
       }
 
     case "logic_negate":
       {
-        var argument = blockToExpression(inputs[0].child);
+        var _argument = blockToExpression(inputs[0].child);
+
         return {
           type: "UnaryExpression",
           operator: "!",
-          argument: argument,
+          argument: _argument,
           prefix: false // TODO:?
 
         };
@@ -14563,16 +14596,16 @@ function blockToExpression(block) {
 
     case "logic_compare":
       {
-        var _left = blockToExpression(inputs[0].child);
+        var _left2 = blockToExpression(inputs[0].child);
 
-        var _right = blockToExpression(inputs[1].child);
+        var _right2 = blockToExpression(inputs[1].child);
 
-        var _op = inputs[1].fields["op"].value;
+        var _op3 = inputs[1].fields["op"].value;
         return {
           type: "BinaryExpression",
-          left: _left,
-          right: _right,
-          operator: ops[_op] || _op
+          operator: ops[_op3] || _op3,
+          left: _left2,
+          right: _right2
         };
       }
   }
@@ -14892,4 +14925,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-36f02026ef9463d23228.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-bebd2d8b4f8594fa7cee.js.map
