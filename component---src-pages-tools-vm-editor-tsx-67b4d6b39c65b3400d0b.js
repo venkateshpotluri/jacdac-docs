@@ -14409,6 +14409,7 @@ function VmEditor(props) {
   var reactBlockly = (0,react.useRef)();
   var workspaceReady = (0,react.useRef)(false);
   var theme = darkMode === "dark" ? theme_dark_src : src;
+  var gridColor = darkMode === "dark" ? "#555" : "#ccc";
 
   var resolveWorkspace = function resolveWorkspace() {
     var _reactBlockly$current, _reactBlockly$current2, _reactBlockly$current3;
@@ -14476,7 +14477,7 @@ function VmEditor(props) {
       grid: {
         spacing: 25,
         length: 1,
-        colour: "#ccc",
+        colour: gridColor,
         snap: true
       },
       renderer: "zelos",
@@ -14573,4 +14574,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-da95a2f7dd5b15c530d0.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-67b4d6b39c65b3400d0b.js.map
