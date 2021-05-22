@@ -13641,6 +13641,10 @@ var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jac
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
 var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
+var WHILE_CONDITION_BLOCK = "jacdac_while_event";
+var WHILE_CONDITION_BLOCK_CONDITION = "condition";
+var WAIT_BLOCK = "jacdac_wait";
+
 function isBooleanField(field) {
   return field.type === "bool";
 }
@@ -13864,11 +13868,11 @@ function loadBlocks() {
     };
   })), [// specific blocks
   {
-    type: "jacdac_while_event",
+    type: WHILE_CONDITION_BLOCK,
     message0: "while %1",
     args0: [{
       type: "input_value",
-      name: "CONDITION",
+      name: WHILE_CONDITION_BLOCK_CONDITION,
       check: "Boolean"
     }],
     style: "logic_blocks",
@@ -13877,7 +13881,7 @@ function loadBlocks() {
     tooltip: "",
     helpUrl: ""
   }, {
-    type: "jacdac_wait",
+    type: WAIT_BLOCK,
     message0: "wait %1 s",
     args0: [{
       type: "input_value",
@@ -14078,7 +14082,7 @@ function useToolbox(blockServices) {
     name: "Commands",
     colour: "%{BKY_LISTS_HUE}",
     blocks: [{
-      type: "jacdac_while_event"
+      type: WHILE_CONDITION_BLOCK
     }, {
       type: "jacdac_wait",
       values: {
@@ -14449,7 +14453,9 @@ function domToJSON(workspace) {
     });
     var json = {
       variables: variables.map(variableToJSON),
-      blocks: blocks.map(blockToJSON)
+      blocks: blocks.map(blockToJSON).filter(function (b) {
+        return !!b;
+      })
     };
     return json;
   } catch (e) {
@@ -14505,7 +14511,47 @@ function it4generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.
 
 
 
+var ops = {
+  AND: "&&",
+  OR: "||"
+};
+
+function blockToExpression(block) {
+  if (!block) return undefined;
+  var type = block.type,
+      value = block.value,
+      inputs = block.inputs;
+  if (value) // literal
+    return {
+      type: "Literal",
+      value: value,
+      raw: value + ""
+    };
+  console.log("block", block);
+
+  switch (type) {
+    case "logic_operation":
+      {
+        var left = blockToExpression(inputs[0].child);
+        var right = blockToExpression(inputs[1].child);
+        var op = inputs[1].fields["op"].value;
+        return {
+          type: "LogicalExpression",
+          left: left,
+          right: right,
+          operator: ops[op] || op
+        };
+      }
+  }
+
+  return undefined;
+}
+
 function workspaceJSONToIT4Program(workspace) {
+  console.debug("compile it4", {
+    workspace: workspace
+  });
+
   var _loadBlocks = loadBlocks(),
       blocks = _loadBlocks.blocks;
 
@@ -14541,13 +14587,37 @@ function workspaceJSONToIT4Program(workspace) {
     }
   });
   var handlers = workspace.blocks.map(function (top) {
-    var description = top.type; // TODO
+    var type = top.type,
+        inputs = top.inputs;
+    var commands = [];
 
-    var handler = {
-      description: description,
-      commands: []
+    if (type === WHILE_CONDITION_BLOCK) {
+      // this is while (...)
+      var condition = inputs[0].child;
+      commands.push({
+        command: {
+          type: "CallExpression",
+          arguments: [blockToExpression(condition)],
+          callee: undefined
+        }
+      });
+    } else {
+      var def = blocks.find(function (def) {
+        return def.type === type;
+      });
+      var service = def.service,
+          _events = def.events;
+      console.log("event", {
+        service: service,
+        events: _events,
+        def: def
+      });
+    }
+
+    return {
+      description: type,
+      commands: commands
     };
-    return handler;
   });
   return {
     description: "not required?",
@@ -14633,9 +14703,14 @@ function VmEditor(props) {
       onJSONChange === null || onJSONChange === void 0 ? void 0 : onJSONChange(_json);
 
       if (onIT4ProgramChange) {
-        var _program = workspaceJSONToIT4Program(_json);
+        try {
+          var _program = workspaceJSONToIT4Program(_json);
 
-        onIT4ProgramChange(_program);
+          onIT4ProgramChange(_program);
+        } catch (e) {
+          console.error(e);
+          onIT4ProgramChange(undefined);
+        }
       }
     } // update toolbox with declared roles
 
@@ -14784,4 +14859,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8a68e63dea2b50195976.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-698ae2759e2432272c32.js.map
