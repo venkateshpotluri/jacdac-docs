@@ -43202,7 +43202,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a0c2ee6a80c1d1e455b9e9ac20ca30ebf70660a6";
+  var sha = "5a42a2762f8fdb1479a0fc4118703f952a11e349";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -53813,7 +53813,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-connector-mdx */ 249).then(__webpack_require__.bind(__webpack_require__, 66224));
   },
   "component---src-pages-dashboard-tsx": function componentSrcPagesDashboardTsx() {
-    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(8394), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
+    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
   },
   "component---src-pages-devices-tsx": function componentSrcPagesDevicesTsx() {
     return Promise.all(/* import() | component---src-pages-devices-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(3701), __webpack_require__.e(8524)]).then(__webpack_require__.bind(__webpack_require__, 17673));
@@ -53870,7 +53870,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(6456)]).then(__webpack_require__.bind(__webpack_require__, 25900));
   },
   "component---src-pages-tools-makecode-sim-tsx": function componentSrcPagesToolsMakecodeSimTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(8394), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
+    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
   },
   "component---src-pages-tools-mdx": function componentSrcPagesToolsMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));
@@ -53897,10 +53897,10 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(1131), __webpack_require__.e(7617), __webpack_require__.e(4762), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
   },
   "component---src-pages-tools-service-test-editor-tsx": function componentSrcPagesToolsServiceTestEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(1131), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(115), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(1131), __webpack_require__.e(4669), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(115), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
   },
   "component---src-pages-tools-service-test-tsx": function componentSrcPagesToolsServiceTestTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(4669), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
   },
   "component---src-pages-tools-settings-tsx": function componentSrcPagesToolsSettingsTsx() {
     return Promise.all(/* import() | component---src-pages-tools-settings-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7395), __webpack_require__.e(5560)]).then(__webpack_require__.bind(__webpack_require__, 360));
@@ -53909,10 +53909,10 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7395), __webpack_require__.e(8472), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 27617));
   },
   "component---src-pages-tools-vm-editor-runner-tsx": function componentSrcPagesToolsVmEditorRunnerTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(1131), __webpack_require__.e(8394), __webpack_require__.e(115), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 36227));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(1131), __webpack_require__.e(4669), __webpack_require__.e(115), __webpack_require__.e(4131), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 86795));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(8394), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 98437));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(4669), __webpack_require__.e(4131), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 35545));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -53927,7 +53927,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(7617), __webpack_require__.e(4762), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
   },
   "component---src-templates-service-test-tsx": function componentSrcTemplatesServiceTestTsx() {
-    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
+    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(4669), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
   },
   "component---src-templates-service-tsx": function componentSrcTemplatesServiceTsx() {
     return Promise.all(/* import() | component---src-templates-service-tsx */[__webpack_require__.e(3701), __webpack_require__.e(9871), __webpack_require__.e(3133)]).then(__webpack_require__.bind(__webpack_require__, 59828));
@@ -58653,4 +58653,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3a92962751624baae6a9.js.map
+//# sourceMappingURL=app-41523d9b2534c03a6a7e.js.map

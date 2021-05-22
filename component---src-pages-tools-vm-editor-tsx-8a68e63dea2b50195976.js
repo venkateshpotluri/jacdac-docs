@@ -12449,7 +12449,78 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 98437:
+/***/ 95393:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ GridHeader; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70274);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8266);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80453);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4998);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85505);
+
+
+
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)({
+    hr: {
+      background: theme.palette.text.disabled,
+      marginBottom: "unset"
+    },
+    start: {
+      width: theme.spacing(2)
+    }
+  });
+});
+function GridHeader(props) {
+  var title = props.title,
+      count = props.count,
+      variant = props.variant,
+      action = props.action;
+  var classes = useStyles();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    container: true,
+    direction: "row",
+    spacing: 1,
+    justify: "center",
+    alignItems: "center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(classes.hr, classes.start)
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    item: true
+  }, action && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    component: "span",
+    mr: 1
+  }, action), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    component: "span",
+    variant: variant || "subtitle1"
+  }, title), count !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    component: "span",
+    ml: 0.5
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    label: count
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+    className: classes.hr
+  }))));
+}
+
+/***/ }),
+
+/***/ 35545:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13557,7 +13628,7 @@ var spec = __webpack_require__(13173);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/hooks/useServices.ts
 var useServices = __webpack_require__(2928);
-;// CONCATENATED MODULE: ./src/components/blockly/useToolbox.ts
+;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
 
@@ -13583,7 +13654,6 @@ function toBlocklyType(field) {
 }
 
 var cachedBlocks;
-
 function loadBlocks() {
   if (cachedBlocks) return cachedBlocks;
 
@@ -13682,7 +13752,7 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      reading: reading
+      register: reading
     };
   })), (0,toConsumableArray/* default */.Z)(readings.map(function (_ref3) {
     var service = _ref3.service,
@@ -13697,7 +13767,7 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      reading: reading
+      register: reading
     };
   })), (0,toConsumableArray/* default */.Z)(intensities.map(function (_ref4) {
     var service = _ref4.service,
@@ -13730,7 +13800,7 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      intensity: intensity,
+      register: intensity,
       previousStatement: "Statement",
       nextStatement: "Statement"
     };
@@ -13771,7 +13841,7 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      value: value,
+      register: value,
       previousStatement: "Statement",
       nextStatement: "Statement"
     };
@@ -13790,7 +13860,7 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      value: value
+      register: value
     };
   })), [// specific blocks
   {
@@ -13939,7 +14009,6 @@ function loadBlocks() {
   };
   return cachedBlocks;
 }
-
 var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
   var variables = blockly_default().Variables.allUsedVarModels(workspace).filter(function (v) {
@@ -14113,7 +14182,7 @@ var DialogActions = __webpack_require__(89952);
 var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
 var react_use_id_hook_esm = __webpack_require__(19640);
-;// CONCATENATED MODULE: ./src/components/blockly/BlocklyModalDialogs.tsx
+;// CONCATENATED MODULE: ./src/components/vm/BlocklyModalDialogs.tsx
 
 
 
@@ -14224,7 +14293,7 @@ function BlocklyModalDialogs() {
     onClick: handleOk
   }, "Ok")));
 }
-;// CONCATENATED MODULE: ./src/components/blockly/jsongenerator.ts
+;// CONCATENATED MODULE: ./src/components/vm/jsongenerator.ts
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = jsongenerator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function jsongenerator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return jsongenerator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return jsongenerator_arrayLikeToArray(o, minLen); }
@@ -14296,9 +14365,9 @@ function domToJSON(workspace) {
     if (flags/* default.diagnostics */.Z.diagnostics) j["xml"] = xml.outerHTML; // dump attributes
 
     for (var _iterator = _createForOfIteratorHelperLoose(xml.getAttributeNames()), _step; !(_step = _iterator()).done;) {
-      var name = _step.value;
-      var v = xml.getAttribute(name);
-      j[name.toLowerCase()] = v;
+      var _name = _step.value;
+      var v = xml.getAttribute(_name);
+      j[_name.toLowerCase()] = v;
     }
 
     for (var _iterator2 = _createForOfIteratorHelperLoose(xml.childNodes), _step2; !(_step2 = _iterator2()).done;) {
@@ -14388,11 +14457,58 @@ function domToJSON(workspace) {
     return undefined;
   }
 }
+function visitBlock(block, visitor) {
+  var _visitor$visitBlock;
+
+  if (!block) return;
+  (_visitor$visitBlock = visitor.visitBlock) === null || _visitor$visitBlock === void 0 ? void 0 : _visitor$visitBlock.call(visitor, block);
+  var inputs = block.inputs,
+      children = block.children;
+  inputs === null || inputs === void 0 ? void 0 : inputs.forEach(function (input) {
+    return visitInput(input, visitor);
+  });
+  children === null || children === void 0 ? void 0 : children.forEach(function (child) {
+    return visitBlock(child, visitor);
+  });
+}
+function visitInput(input, visitor) {
+  var _visitor$visitInput;
+
+  if (!input) return;
+  (_visitor$visitInput = visitor.visitInput) === null || _visitor$visitInput === void 0 ? void 0 : _visitor$visitInput.call(visitor, input);
+  var fields = input.fields,
+      child = input.child;
+  if (fields) Object.keys(fields).map(function (k) {
+    return visitField(k, fields[k], visitor);
+  });
+  visitBlock(child, visitor);
+}
+function visitField(name, field, visitor) {
+  var _visitor$visitField;
+
+  if (!field) return;
+  (_visitor$visitField = visitor.visitField) === null || _visitor$visitField === void 0 ? void 0 : _visitor$visitField.call(visitor, name, field);
+}
+function visitWorkspace(workspace, visitor) {
+  workspace.blocks.forEach(function (block) {
+    return visitBlock(block, visitor);
+  });
+}
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
-;// CONCATENATED MODULE: ./src/components/blockly/it4generator.ts
+;// CONCATENATED MODULE: ./src/components/vm/it4generator.ts
+function it4generator_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = it4generator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function it4generator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return it4generator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return it4generator_arrayLikeToArray(o, minLen); }
+
+function it4generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 function workspaceJSONToIT4Program(workspace) {
+  var _loadBlocks = loadBlocks(),
+      blocks = _loadBlocks.blocks;
+
   var roles = workspace.variables.filter(function (v) {
     return BUILTIN_TYPES.indexOf(v.type) < 0;
   }).map(function (v) {
@@ -14400,12 +14516,39 @@ function workspaceJSONToIT4Program(workspace) {
       role: v.name,
       serviceShortName: v.type
     };
-  }); // collect registers and events
-  // visit all the nodes in the blockly tree
+  }); // visit all the nodes in the blockly tree
 
   var registers = [];
-  var events = [];
-  var handlers = [];
+  var events = []; // collect registers and events
+
+  visitWorkspace(workspace, {
+    visitBlock: function visitBlock(b) {
+      var def = /^jacdac_/.test(b.type) && blocks.find(function (d) {
+        return d.type === b.type;
+      });
+      if (!def) return;
+      var service = def.service,
+          register = def.register,
+          defEvents = def.events;
+      if (register) registers.push(service.shortId + "." + register.name);
+
+      if (defEvents) {
+        for (var _iterator = it4generator_createForOfIteratorHelperLoose(defEvents), _step; !(_step = _iterator()).done;) {
+          var event = _step.value;
+          events.push(service.shortId + "." + event.name);
+        }
+      }
+    }
+  });
+  var handlers = workspace.blocks.map(function (top) {
+    var description = top.type; // TODO
+
+    var handler = {
+      description: description,
+      commands: []
+    };
+    return handler;
+  });
   return {
     description: "not required?",
     roles: roles,
@@ -14414,7 +14557,7 @@ function workspaceJSONToIT4Program(workspace) {
     handlers: handlers
   };
 }
-;// CONCATENATED MODULE: ./src/components/blockly/VmEditor.tsx
+;// CONCATENATED MODULE: ./src/components/vm/VmEditor.tsx
 
 
 
@@ -14552,7 +14695,10 @@ var Alert = __webpack_require__(95453);
 var Markdown = __webpack_require__(98784);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/vm/VMRunner.tsx + 2 modules
+var VMRunner = __webpack_require__(88523);
 ;// CONCATENATED MODULE: ./src/pages/tools/vm-editor.tsx
+
 
 
 
@@ -14617,7 +14763,12 @@ function Page() {
     onXmlChange: handleXml,
     onJSONChange: handleJSON,
     onIT4ProgramChange: handleI4Program
-  }))), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(VMRunner/* default */.Z, {
+    program: program
+  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
@@ -14633,4 +14784,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-19e1a159eeb920e490c2.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8a68e63dea2b50195976.js.map
