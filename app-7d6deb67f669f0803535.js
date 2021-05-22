@@ -41828,8 +41828,8 @@ function Home() {
       __imageData: __webpack_require__(37892)
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
-    description: "Not only a new protocol designed for easier physical connectivity. It is an entire stack that bridges the world of the low cost microcontroller to the web browser and beyond.",
-    caption: "Cheap, flexible and extensible."
+    subtitle3: "Not only a new protocol designed for easier physical connectivity. It is an entire stack that bridges the world of the low cost microcontroller to the web browser and beyond.",
+    description: "Cheap, flexible and extensible."
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     item: true,
     xs: 12
@@ -43202,7 +43202,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "6225ed0c0ff996831d928a1d2e273df08b4256f3";
+  var sha = "9abfbd28f362795165c290a68f8a5aa067c87532";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -58653,4 +58653,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7369c5dfa6cf8fcf0c5f.js.map
+//# sourceMappingURL=app-7d6deb67f669f0803535.js.map
