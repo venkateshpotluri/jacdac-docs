@@ -64,14 +64,6 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808"
 
 /***/ }),
 
-/***/ 94071:
-/***/ (function(module) {
-
-"use strict";
-module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/36674/dashboard.png","srcSet":"/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/49fac/dashboard.png 149w,\\n/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/7795f/dashboard.png 297w,\\n/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/36674/dashboard.png 594w","sizes":"(min-width: 594px) 594px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/21b31/dashboard.webp 149w,\\n/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/90214/dashboard.webp 297w,\\n/jacdac-docs/static/b1bfec9370a94caba4b1c5477a8daddc/5b97f/dashboard.webp 594w","type":"image/webp","sizes":"(min-width: 594px) 594px, 100vw"}]},"width":594,"height":598}');
-
-/***/ }),
-
 /***/ 21279:
 /***/ (function(module) {
 
@@ -41944,7 +41936,7 @@ function Protocol() {
     }),
     buttonText: "Learn more",
     buttonVariant: "link",
-    buttonUrl: "/reference/protocol/"
+    buttonUrl: "/protocol/"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: true,
     subtitle: "8-bit and up.",
@@ -41955,9 +41947,9 @@ function Protocol() {
       alt: "A LED module",
       __imageData: __webpack_require__(40780)
     }),
-    buttonText: "PADUK firmware",
+    buttonText: "Device Development Kit",
     buttonVariant: "link",
-    buttonUrl: "https://github.com/microsoft/jacdac-padauk"
+    buttonUrl: "https://github.com/microsoft/jacdac-ddk"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: false,
     subtitle: "PCB Connector.",
@@ -42192,25 +42184,17 @@ function Home() {
     }),
     description: "Full stack from 8bit MCU to web development",
     caption: "The responsibility of the physical layer is to send/receive a byte buffer (representing a Jacdac frame from the transport layer over a particular media): Single Wire Serial connects MCUs to each other using UART, WebUSB connects MCU to web browser"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    right: true,
-    subtitle3: "Simulate and communicate from the browser.",
-    description: "Jacdac packets are sent serially among physical devices on the Jacdac bus and may also be sent over WebUSB/WebBLE, providing connectivity to web-based tooling and services running in the web browser.",
-    imageColumns: 6,
-    centered: true,
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__.S, {
-      src: "./dashboard.png",
-      alt: "A dashboard of simulated devices",
-      __imageData: __webpack_require__(94071)
-    })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     subtitle: "Enabling a cheaper ecosystem.",
     description: "A PCB edge connector was chosen for Jacdac primarily because it essentially adds no cost to a product. A module is a small PCB that includes an MCU connected to an on-board sensor or actuator.",
     image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__.S, {
       src: "./rhtempvertical.png",
       alt: "Humidity temperature module vertial",
       __imageData: __webpack_require__(63545)
-    })
+    }),
+    buttonText: "Hardware overview",
+    buttonVariant: "link",
+    buttonUrl: "/hardware/"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: true,
     subtitle: "Time to join.",
@@ -42282,7 +42266,7 @@ function Home() {
     description: "Absolutely. We would be thrilled if you used a Jacdac PCB connector on your board or product! You can use the name Jacdac without royalties or attribution.",
     buttonText: "Integrate Jacdac into your hardware",
     buttonVariant: "link",
-    buttonUrl: "/connector"
+    buttonUrl: "/hardware/"
   }));
 }
 
@@ -43486,7 +43470,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "426c2f16002ba409dd19f6d71b3e7eb149edfcd3";
+  var sha = "d79c324dc95c5be396fa976cc204e5056d9a686f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -58979,4 +58963,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-770100fdba22f568a042.js.map
+//# sourceMappingURL=app-9a80868421b3c33b8ebd.js.map
