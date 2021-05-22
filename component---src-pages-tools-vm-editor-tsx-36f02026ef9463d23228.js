@@ -14513,7 +14513,13 @@ function it4generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.
 
 var ops = {
   AND: "&&",
-  OR: "||"
+  OR: "||",
+  EQ: "===",
+  NEQ: "!==",
+  LT: "<",
+  GT: ">",
+  LTE: "<=",
+  GTE: ">="
 };
 
 function blockToExpression(block) {
@@ -14521,7 +14527,7 @@ function blockToExpression(block) {
   var type = block.type,
       value = block.value,
       inputs = block.inputs;
-  if (value) // literal
+  if (value !== undefined) // literal
     return {
       type: "Literal",
       value: value,
@@ -14540,6 +14546,33 @@ function blockToExpression(block) {
           left: left,
           right: right,
           operator: ops[op] || op
+        };
+      }
+
+    case "logic_negate":
+      {
+        var argument = blockToExpression(inputs[0].child);
+        return {
+          type: "UnaryExpression",
+          operator: "!",
+          argument: argument,
+          prefix: false // TODO:?
+
+        };
+      }
+
+    case "logic_compare":
+      {
+        var _left = blockToExpression(inputs[0].child);
+
+        var _right = blockToExpression(inputs[1].child);
+
+        var _op = inputs[1].fields["op"].value;
+        return {
+          type: "BinaryExpression",
+          left: _left,
+          right: _right,
+          operator: ops[_op] || _op
         };
       }
   }
@@ -14859,4 +14892,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-698ae2759e2432272c32.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-36f02026ef9463d23228.js.map
