@@ -13738,14 +13738,6 @@ function domToJSON(workspace) {
 
 
 
-/*
-import {
-    ContinuousToolbox,
-    ContinuousFlyout,
-    ContinuousMetrics,
-} from "@blockly/continuous-toolbox"
-*/
-
 
 
 
@@ -13932,4 +13924,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-9426a2c0676866455514.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d88bd817cf9c13f80ae7.js.map
