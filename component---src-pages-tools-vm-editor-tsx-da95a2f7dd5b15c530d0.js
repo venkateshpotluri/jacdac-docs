@@ -12449,7 +12449,7 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 98637:
+/***/ 99592:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13420,6 +13420,38 @@ var overrideOldBlockDefinitions = function overrideOldBlockDefinitions() {
   'fontStyle': {},
   'startHats': null
 }));
+;// CONCATENATED MODULE: ./node_modules/@blockly/theme-dark/src/index.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Dark theme.
+ */
+
+/**
+ * Dark theme.
+ */
+
+/* harmony default export */ var theme_dark_src = (core_browser_default().Theme.defineTheme('theme_dark', {
+  'base': (core_browser_default()).Themes.Classic,
+  'componentStyles': {
+    'workspaceBackgroundColour': '#1e1e1e',
+    'toolboxBackgroundColour': 'blackBackground',
+    'toolboxForegroundColour': '#fff',
+    'flyoutBackgroundColour': '#252526',
+    'flyoutForegroundColour': '#ccc',
+    'flyoutOpacity': 1,
+    'scrollbarColour': '#797979',
+    'insertionMarkerColour': '#fff',
+    'insertionMarkerOpacity': 0.3,
+    'scrollbarOpacity': 0.4,
+    'cursorColour': '#d0d0d0',
+    'blackBackground': '#333'
+  }
+}));
 ;// CONCATENATED MODULE: ./node_modules/@blockly/disable-top-blocks/src/index.js
 
 
@@ -14339,7 +14371,11 @@ function domToJSON(workspace) {
     return undefined;
   }
 }
+// EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
+var DarkModeContext = __webpack_require__(91350);
 ;// CONCATENATED MODULE: ./src/components/blockly/VmEditor.tsx
+
+
 
 
 
@@ -14357,6 +14393,9 @@ function VmEditor(props) {
       onJSONChange = props.onJSONChange,
       initialXml = props.initialXml;
 
+  var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
+      darkMode = _useContext.darkMode;
+
   var _useState = (0,react.useState)([]),
       services = _useState[0],
       setServices = _useState[1];
@@ -14369,6 +14408,7 @@ function VmEditor(props) {
 
   var reactBlockly = (0,react.useRef)();
   var workspaceReady = (0,react.useRef)(false);
+  var theme = darkMode === "dark" ? theme_dark_src : src;
 
   var resolveWorkspace = function resolveWorkspace() {
     var _reactBlockly$current, _reactBlockly$current2, _reactBlockly$current3;
@@ -14440,7 +14480,7 @@ function VmEditor(props) {
         snap: true
       },
       renderer: "zelos",
-      theme: src,
+      theme: theme,
       oneBasedIndex: false,
       move: {
         scrollbars: {
@@ -14533,4 +14573,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-cb0656823add9a9d6ff3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-da95a2f7dd5b15c530d0.js.map

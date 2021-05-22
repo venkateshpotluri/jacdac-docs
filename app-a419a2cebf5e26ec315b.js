@@ -42686,7 +42686,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "712e3e53d1f955c33b238a4b8fcde7e826528693";
+  var sha = "4474002927f176112d62838f16e6b56af68b18bf";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -53396,7 +53396,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(1131), __webpack_require__.e(8394), __webpack_require__.e(115), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 36227));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(8394), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 98637));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(3701), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(8394), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 99592));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -58119,4 +58119,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-d484ef0c757b78cc3fe0.js.map
+//# sourceMappingURL=app-a419a2cebf5e26ec315b.js.map
