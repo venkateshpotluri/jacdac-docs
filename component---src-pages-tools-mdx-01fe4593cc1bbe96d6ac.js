@@ -135,6 +135,11 @@ function MDXContent(_ref) {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
+    "href": "/jacdac-docs/tools/vm-editor"
+  }, "virtual machine editor"), ", block coding for the VM"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
     "href": "/jacdac-docs/tools/model-uploader/"
   }, "model uploader"), ", deploy Machine Learning models (like TensorFlow Lite)"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
@@ -294,4 +299,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-mdx-9ca721825b217de455f0.js.map
+//# sourceMappingURL=component---src-pages-tools-mdx-01fe4593cc1bbe96d6ac.js.map

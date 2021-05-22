@@ -104,6 +104,14 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8"
 
 /***/ }),
 
+/***/ 47718:
+/***/ (function(module) {
+
+"use strict";
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/1e429/recordit.png","srcSet":"/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/c4ae8/recordit.png 186w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/f590b/recordit.png 371w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/1e429/recordit.png 742w","sizes":"(min-width: 742px) 742px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/110d6/recordit.webp 186w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/cb3c1/recordit.webp 371w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/9274c/recordit.webp 742w","type":"image/webp","sizes":"(min-width: 742px) 742px, 100vw"}]},"width":742,"height":395}');
+
+/***/ }),
+
 /***/ 47823:
 /***/ (function(module) {
 
@@ -41318,7 +41326,7 @@ function FeatureItem(props) {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    variant: "body2",
+    variant: "subtitle2",
     className: (0,clsx_m/* default */.Z)(cls, classes.caption)
   }, caption)), buttonUrl && buttonText && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
@@ -41423,7 +41431,7 @@ function Home() {
       __imageData: __webpack_require__(37892)
     })
   }), /*#__PURE__*/react.createElement(CenterGrid, {
-    description: "Designed for \u201Cmodular electronics\u201D scenarios that support rapid prototyping, creative exploration, making and learning through physical computing.",
+    description: "Not only a new protocol designed for easier physical connectivity. It is an entire stack that bridges the world of the low cost microcontroller to the web browser and beyond.",
     caption: "Cheap, flexible and extensible."
   }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
@@ -41451,13 +41459,13 @@ function Home() {
   }))), /*#__PURE__*/react.createElement(SplitGrid, {
     right: false,
     subtitle: "Plug it in.",
-    description: "Jacdac uses 3-pin custom-designed connectors to quickly interface development boards with sensors, LCDs, relays and more.",
+    description: "Jacdac relies on a 3-wire bus for power delivery and data transfer. A purpose-built connector is used to interface with the Jacdac PCB edge connector.",
     image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
       src: "./rotarycable.png",
       alt: "A rotary encoder module with a Jacdac cable attached.",
       __imageData: __webpack_require__(47823)
     }),
-    buttonText: "The new connector and cable",
+    buttonText: "Physical interconnect",
     buttonVariant: "link",
     buttonUrl: "/connector"
   }), /*#__PURE__*/react.createElement(SplitGrid, {
@@ -41472,9 +41480,25 @@ function Home() {
       alt: "Web simulator of a rotary encoder",
       __imageData: __webpack_require__(23197)
     })
+  }), /*#__PURE__*/react.createElement(SplitGrid, {
+    right: false,
+    subtitle: "Record it.",
+    description: "Instantly start to collect streaming data from Jacdac devices into various output formats. Yes, it\u2019s as easy as it sounds.",
+    buttonText: "Try the data collector",
+    buttonVariant: "link",
+    buttonUrl: "/tools/data-collector",
+    imageColumns: 8,
+    image: /*#__PURE__*/react.createElement(index_browser_9d48d01a.S, {
+      src: "./recordit.png",
+      alt: "Charts of recorded data",
+      __imageData: __webpack_require__(47718)
+    })
   }), /*#__PURE__*/react.createElement(CenterGrid, {
-    subtitle: "Discover the benefits that Jacdac brings.",
-    description: "Jacdac devices communicate using packets over a bus, where each device can advertise itself and the set of services it provides. A service provides registers, events and commands to communicate with other devices."
+    subtitle: "Discover the benefits of Jacdac protocol.",
+    description: "Jacdac devices communicate using packets over a bus, where each device can advertise itself and the set of services it provides. A service provides registers, events and commands to communicate with other devices.",
+    buttonText: "Protocol specification",
+    buttonVariant: "link",
+    buttonUrl: "/reference/protocol"
   }), /*#__PURE__*/react.createElement(SplitGrid, {
     right: false,
     subtitle: "How does it work?",
@@ -42686,7 +42710,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "724d7ce013197df403a04f74bd6bf06402ae0634";
+  var sha = "f1321df53ed38d33c5446ef331d5dd17acdf6b56";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -58119,4 +58143,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ed06a71946adf50d0ebc.js.map
+//# sourceMappingURL=app-a617bc348ab063fa9ec3.js.map
