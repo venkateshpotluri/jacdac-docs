@@ -1127,9 +1127,6 @@ function useServiceServer(service, createTwin) {
 
     if (!twin && createTwin) {
       twin = createTwin();
-      console.debug("create twin", {
-        twin: twin
-      });
       if (twin) service.twin = twin;
     }
 
@@ -1626,4 +1623,4 @@ function useWidgetTheme(color) {
 /***/ })
 
 }]);
-//# sourceMappingURL=eaa87770764e2a82a87282a047c68d755dced608-084f1f31ae6cf450d4fc.js.map
+//# sourceMappingURL=eaa87770764e2a82a87282a047c68d755dced608-e5431e35ae4598f6650d.js.map

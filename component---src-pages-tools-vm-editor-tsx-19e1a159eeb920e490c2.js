@@ -12449,7 +12449,7 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 99592:
+/***/ 98437:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13940,10 +13940,10 @@ function loadBlocks() {
   return cachedBlocks;
 }
 
-var builtinTypes = ["", "Boolean", "Number", "String"];
+var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
   var variables = blockly_default().Variables.allUsedVarModels(workspace).filter(function (v) {
-    return builtinTypes.indexOf(v.type) < 0;
+    return BUILTIN_TYPES.indexOf(v.type) < 0;
   }); // remove buildins
 
   var services = variables.map(function (v) {
@@ -14224,12 +14224,12 @@ function BlocklyModalDialogs() {
     onClick: handleOk
   }, "Ok")));
 }
-;// CONCATENATED MODULE: ./src/components/blockly/generator.ts
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = generator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+;// CONCATENATED MODULE: ./src/components/blockly/jsongenerator.ts
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = jsongenerator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
-function generator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return generator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return generator_arrayLikeToArray(o, minLen); }
+function jsongenerator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return jsongenerator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return jsongenerator_arrayLikeToArray(o, minLen); }
 
-function generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function jsongenerator_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -14323,6 +14323,22 @@ function domToJSON(workspace) {
     return undefined;
   };
 
+  var flattenNext = function flattenNext(block) {
+    // flatten the linked list of next into an array
+    var children = [];
+    var current = block.next;
+
+    while (current) {
+      children.push(current);
+      current = current.next;
+    }
+
+    if (children.length) {
+      block.children = children;
+      block.next = undefined;
+    }
+  };
+
   var blockToJSON = function blockToJSON(block) {
     var _builtins$block$type;
 
@@ -14352,6 +14368,7 @@ function domToJSON(workspace) {
       }) : undefined,
       next: blockToJSON(block.getNextBlock())
     };
+    flattenNext(element);
     clean(element);
     return element;
   };
@@ -14373,7 +14390,32 @@ function domToJSON(workspace) {
 }
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
+;// CONCATENATED MODULE: ./src/components/blockly/it4generator.ts
+
+function workspaceJSONToIT4Program(workspace) {
+  var roles = workspace.variables.filter(function (v) {
+    return BUILTIN_TYPES.indexOf(v.type) < 0;
+  }).map(function (v) {
+    return {
+      role: v.name,
+      serviceShortName: v.type
+    };
+  }); // collect registers and events
+  // visit all the nodes in the blockly tree
+
+  var registers = [];
+  var events = [];
+  var handlers = [];
+  return {
+    description: "not required?",
+    roles: roles,
+    registers: registers,
+    events: events,
+    handlers: handlers
+  };
+}
 ;// CONCATENATED MODULE: ./src/components/blockly/VmEditor.tsx
+
 
 
 
@@ -14391,6 +14433,7 @@ function VmEditor(props) {
   var className = props.className,
       onXmlChange = props.onXmlChange,
       onJSONChange = props.onJSONChange,
+      onIT4ProgramChange = props.onIT4ProgramChange,
       initialXml = props.initialXml;
 
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
@@ -14440,11 +14483,17 @@ function VmEditor(props) {
     } // save json
 
 
-    if (onJSONChange) {
+    if (onJSONChange || onIT4ProgramChange) {
       // emit json
       var _json = domToJSON(workspace);
 
-      onJSONChange(_json);
+      onJSONChange === null || onJSONChange === void 0 ? void 0 : onJSONChange(_json);
+
+      if (onIT4ProgramChange) {
+        var _program = workspaceJSONToIT4Program(_json);
+
+        onIT4ProgramChange(_program);
+      }
     } // update toolbox with declared roles
 
 
@@ -14527,17 +14576,26 @@ function Page() {
       xml = _useLocalStorage[0],
       setXml = _useLocalStorage[1];
 
-  var _useState = (0,react.useState)(""),
+  var _useState = (0,react.useState)(),
       source = _useState[0],
       setSource = _useState[1];
+
+  var _useState2 = (0,react.useState)(),
+      program = _useState2[0],
+      setProgram = _useState2[1];
 
   var handleXml = function handleXml(xml) {
     setXml(xml);
   };
 
   var handleJSON = function handleJSON(json) {
-    var newSource = JSON.stringify(json, null, 2);
-    setSource(newSource);
+    var newSource = JSON.stringify(json);
+    if (JSON.stringify(source) !== newSource) setSource(json);
+  };
+
+  var handleI4Program = function handleI4Program(json) {
+    var newProgram = JSON.stringify(json);
+    if (JSON.stringify(program) !== newProgram) setProgram(json);
   };
 
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -14557,12 +14615,13 @@ function Page() {
     className: classes.editor,
     initialXml: xml,
     onXmlChange: handleXml,
-    onJSONChange: handleJSON
+    onJSONChange: handleJSON,
+    onIT4ProgramChange: handleI4Program
   }))), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
-    source: "\n```json\n" + source + "\n```   \n\n```xml\n" + xml + "\n```                \n"
+    source: "\n### IT4 program\n\n```json\n" + JSON.stringify(program, null, 2) + "\n```   \n\n### Workspace JSON\n\n```json\n" + JSON.stringify(source, null, 2) + "\n```   \n\n### Blockly XML\n\n```xml\n" + xml + "\n```                \n"
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -14574,4 +14633,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-67b4d6b39c65b3400d0b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-19e1a159eeb920e490c2.js.map
