@@ -12449,7 +12449,7 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 14421:
+/***/ 98637:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12715,6 +12715,612 @@ core_browser.Css.register([
  * SPDX-License-Identifier: Apache-2.0
  */
 
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/insertion_marker_manager_monkey_patch.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Overrides methods on Blockly.InsertionMarkerManager to
+ * allow blocks to hook in dynamic functionality when they have pending
+ * connections.
+ * @author anjali@code.org (Anjali Pal)
+ */
+
+
+core_browser.InsertionMarkerManager.prototype.update = function (dxy, deleteArea) {
+  var candidate = this.getCandidate_(dxy);
+  this.wouldDeleteBlock_ = this.shouldDelete_(candidate, deleteArea);
+  var shouldUpdate = this.wouldDeleteBlock_ || this.shouldUpdatePreviews_(candidate, dxy);
+
+  if (shouldUpdate) {
+    // Begin monkey patch
+    if (candidate.closest && candidate.closest.sourceBlock_.onPendingConnection) {
+      candidate.closest.sourceBlock_.onPendingConnection(candidate.closest);
+
+      if (!this.pendingBlocks) {
+        this.pendingBlocks = new Set();
+      }
+
+      this.pendingBlocks.add(candidate.closest.sourceBlock_);
+    } // End monkey patch
+    // Don't fire events for insertion marker creation or movement.
+
+
+    core_browser.Events.disable();
+    this.maybeHidePreview_(candidate);
+    this.maybeShowPreview_(candidate);
+    core_browser.Events.enable();
+  }
+};
+
+var oldDispose = core_browser.InsertionMarkerManager.prototype.dispose;
+
+core_browser.InsertionMarkerManager.prototype.dispose = function () {
+  if (this.pendingBlocks) {
+    this.pendingBlocks.forEach(function (block) {
+      if (block.finalizeConnections) {
+        block.finalizeConnections();
+      }
+    });
+  }
+
+  oldDispose.call(this);
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_if.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Defines a version of the if block with dyanmic
+ *     inputs that appear when a block is dragged over inputs on the block.
+ */
+
+core_browser.Blocks.dynamic_if = {
+  /**
+   * Counter for the next input to add to this block.
+   * @type {number}
+   */
+  inputCounter: 1,
+
+  /**
+   * Minimum number of inputs for this block.
+   * @type {number}
+   */
+  minInputs: 1,
+
+  /**
+   * Block for if/elseif/else statements. Must have one if input.
+   * Can have any number of elseif inputs and optionally one else input.
+   * @this {Blockly.Block}
+   */
+  init: function init() {
+    this.setHelpUrl(core_browser.Msg.CONTROLS_IF_HELPURL);
+    this.setStyle('logic_blocks');
+    this.appendValueInput('IF0').setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
+    this.appendStatementInput('DO0').appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+    this.setNextStatement(true);
+    this.setPreviousStatement(true);
+    this.setTooltip(core_browser.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+
+  /**
+   * Create XML to represent if/elseif/else inputs.
+   * @return {!Element} XML storage element.
+   * @this {Blockly.Block}
+   */
+  mutationToDom: function mutationToDom() {
+    var container = core_browser.utils.xml.createElement('mutation');
+    var inputNames = this.inputList.filter(function (input) {
+      return input.name.includes('IF');
+    }).map(function (input) {
+      return input.name.replace('IF', '');
+    }).join(',');
+    container.setAttribute('inputs', inputNames);
+    var hasElse = !!this.getInput('ELSE');
+    container.setAttribute('else', hasElse);
+    container.setAttribute('next', this.inputCounter);
+    return container;
+  },
+
+  /**
+   * Parse XML to restore the inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this {Blockly.Block}
+   */
+  domToMutation: function domToMutation(xmlElement) {
+    var inputs = xmlElement.getAttribute('inputs');
+
+    if (inputs) {
+      var inputNumbers = inputs.split(',');
+
+      if (this.getInput('IF0')) {
+        this.removeInput('IF0');
+      }
+
+      if (this.getInput('DO0')) {
+        this.removeInput('DO0');
+      }
+
+      var first = inputNumbers[0];
+      this.appendValueInput('IF' + first).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
+      this.appendStatementInput('DO' + first).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+
+      for (var i = 1; i < inputNumbers.length; i++) {
+        this.appendValueInput('IF' + inputNumbers[i]).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSEIF, 'elseif');
+        this.appendStatementInput('DO' + inputNumbers[i]).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+      }
+    }
+
+    var hasElse = xmlElement.getAttribute('else');
+
+    if (hasElse == 'true') {
+      this.appendStatementInput('ELSE').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSE, 'else');
+    }
+
+    var next = parseInt(xmlElement.getAttribute('next'));
+    this.inputCounter = next;
+  },
+
+  /**
+   * Finds the index of a connection. Used to determine where in the block to
+   * insert new inputs.
+   * @param {!Blockly.Connection} connection A connection on this block.
+   * @return {?number} The index of the connection in the this.inputList.
+   */
+  findInputIndexForConnection: function findInputIndexForConnection(connection) {
+    for (var i = 0; i < this.inputList.length; i++) {
+      var input = this.inputList[i];
+
+      if (input.connection == connection) {
+        return i;
+      }
+    }
+
+    return null;
+  },
+
+  /**
+   * Inserts a boolean value input and statement input at the specified index.
+   * @param {number} index Index of the input before which to add new inputs.
+   */
+  insertElseIf: function insertElseIf(index) {
+    var caseNumber = this.inputCounter;
+    this.appendValueInput('IF' + caseNumber).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSEIF, 'elseif');
+    this.appendStatementInput('DO' + caseNumber).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+    this.moveInputBefore('IF' + caseNumber, this.inputList[index].name);
+    this.moveInputBefore('DO' + caseNumber, this.inputList[index + 1].name);
+    this.inputCounter++;
+  },
+
+  /**
+   * Called when a block is dragged over one of the connections on this block.
+   * @param {!Blockly.Connection} connection The connection on this block that
+   * has a pending connection.
+   */
+  onPendingConnection: function onPendingConnection(connection) {
+    if (connection.type === core_browser.NEXT_STATEMENT && !this.getInput('ELSE')) {
+      this.appendStatementInput('ELSE').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSE, 'else');
+    }
+
+    var inputIndex = this.findInputIndexForConnection(connection);
+
+    if (inputIndex === null) {
+      return;
+    }
+
+    var input = this.inputList[inputIndex];
+
+    if (connection.targetConnection && input.name.includes('IF')) {
+      var nextIfInput = this.inputList[inputIndex + 2];
+
+      if (!nextIfInput || nextIfInput.name == 'ELSE') {
+        this.insertElseIf(inputIndex + 2);
+      } else {
+        var nextIfConnection = nextIfInput && nextIfInput.connection.targetConnection;
+
+        if (nextIfConnection && !nextIfConnection.sourceBlock_.isInsertionMarker()) {
+          this.insertElseIf(inputIndex + 2);
+        }
+      }
+    }
+  },
+
+  /**
+   * Called when a block drag ends if the dragged block had a pending connection
+   * with this block.
+   */
+  finalizeConnections: function finalizeConnections() {
+    var _this = this;
+
+    var toRemove = []; // Remove Else If inputs if neither the if nor the do has a connected block.
+
+    for (var i = 2; i < this.inputList.length - 1; i += 2) {
+      var ifConnection = this.inputList[i];
+      var doConnection = this.inputList[i + 1];
+
+      if (!ifConnection.connection.targetConnection && !doConnection.connection.targetConnection) {
+        toRemove.push(ifConnection.name);
+        toRemove.push(doConnection.name);
+      }
+    }
+
+    toRemove.forEach(function (input) {
+      return _this.removeInput(input);
+    }); // Remove Else input if it doesn't have a connected block.
+
+    var elseInput = this.getInput('ELSE');
+
+    if (elseInput && !elseInput.connection.targetConnection) {
+      this.removeInput(elseInput.name);
+    } // Remove the If input if it is empty and there is at least one Else If
+
+
+    if (this.inputList.length > 2) {
+      var ifInput = this.inputList[0];
+      var doInput = this.inputList[1];
+      var nextInput = this.inputList[2];
+
+      if (nextInput.name.includes('IF') && !ifInput.connection.targetConnection && !doInput.connection.targetConnection) {
+        this.removeInput(ifInput.name);
+        this.removeInput(doInput.name);
+        nextInput.removeField('elseif');
+        nextInput.appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
+      }
+    }
+  }
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_text_join.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Defines a version of the text_join block with dyanmic
+ *    inputs that appear when a block is dragged over inputs on the block.
+ */
+
+core_browser.Blocks.dynamic_text_join = {
+  /**
+   * Counter for the next input to add to this block.
+   * @type {number}
+   */
+  inputCounter: 2,
+
+  /**
+   * Minimum number of inputs for this block.
+   * @type {number}
+   */
+  minInputs: 2,
+
+  /**
+   * Block for concatenating any number of strings.
+   * @this {Blockly.Block}
+   */
+  init: function init() {
+    this.setHelpUrl(core_browser.Msg.TEXT_JOIN_HELPURL);
+    this.setStyle('text_blocks');
+    this.appendValueInput('ADD0').appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+    this.appendValueInput('ADD1');
+    this.setOutput(true, 'String');
+    this.setTooltip(core_browser.Msg.TEXT_JOIN_TOOLTIP);
+  },
+
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this {Blockly.Block}
+   */
+  mutationToDom: function mutationToDom() {
+    var container = core_browser.utils.xml.createElement('mutation');
+    var inputNames = this.inputList.map(function (input) {
+      return input.name;
+    }).join(',');
+    container.setAttribute('inputs', inputNames);
+    container.setAttribute('next', this.inputCounter);
+    return container;
+  },
+
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this {Blockly.Block}
+   */
+  domToMutation: function domToMutation(xmlElement) {
+    var _this = this;
+
+    var items = xmlElement.getAttribute('inputs');
+
+    if (items) {
+      var inputNames = items.split(',');
+      this.inputList = [];
+      inputNames.forEach(function (name) {
+        return _this.appendValueInput(name);
+      });
+      this.inputList[0].appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+    }
+
+    var next = parseInt(xmlElement.getAttribute('next'));
+    this.inputCounter = next;
+  },
+
+  /**
+   * Check whether a new input should be added and determine where it should go.
+   * @param {!Blockly.Connection} connection The connection that has a
+   *     pending connection.
+   * @return {number} The index before which to insert a new input,
+   *     or null if no input should be added.
+   */
+  getIndexForNewInput: function getIndexForNewInput(connection) {
+    if (!connection.targetConnection) {
+      // this connection is available
+      return null;
+    }
+
+    var connectionIndex;
+
+    for (var i = 0; i < this.inputList.length; i++) {
+      if (this.inputList[i].connection == connection) {
+        connectionIndex = i;
+      }
+    }
+
+    if (connectionIndex == this.inputList.length - 1) {
+      // this connection is the last one and already has a block in it, so
+      // we should add a new connection at the end.
+      return this.inputList.length + 1;
+    }
+
+    var nextInput = this.inputList[connectionIndex + 1];
+    var nextConnection = nextInput && nextInput.connection.targetConnection;
+
+    if (nextConnection && !nextConnection.sourceBlock_.isInsertionMarker()) {
+      return connectionIndex + 1;
+    } // Don't add new connection
+
+
+    return null;
+  },
+
+  /**
+   * Called when a block is dragged over one of the connections on this block.
+   * @param {!Blockly.Connection} connection The connection on this block that
+   *     has a pending connection.
+   */
+  onPendingConnection: function onPendingConnection(connection) {
+    var insertIndex = this.getIndexForNewInput(connection);
+
+    if (insertIndex == null) {
+      return;
+    }
+
+    this.appendValueInput('ADD' + this.inputCounter++);
+    this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
+  },
+
+  /**
+   * Called when a block drag ends if the dragged block had a pending connection
+   * with this block.
+   */
+  finalizeConnections: function finalizeConnections() {
+    var _this2 = this;
+
+    if (this.inputList.length > this.minInputs) {
+      var toRemove = [];
+      this.inputList.forEach(function (input) {
+        var targetConnection = input.connection.targetConnection;
+
+        if (!targetConnection) {
+          toRemove.push(input.name);
+        }
+      });
+
+      if (this.inputList.length - toRemove.length < this.minInputs) {
+        // Always show at least two inputs
+        toRemove = toRemove.slice(this.minInputs);
+      }
+
+      toRemove.forEach(function (inputName) {
+        return _this2.removeInput(inputName);
+      }); // The first input should have the block text. If we removed the
+      // first input, add the block text to the new first input.
+
+      if (this.inputList[0].fieldRow.length == 0) {
+        this.inputList[0].appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+      }
+    }
+  }
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_list_create.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Defines a version of the list_create block with dyanmic
+ *     inputs that appear when a block is dragged over inputs on the block.
+ */
+
+core_browser.Blocks.dynamic_list_create = {
+  /**
+   * Counter for the next input to add to this block.
+   * @type {number}
+   */
+  inputCounter: 2,
+
+  /**
+   * Minimum number of inputs for this block.
+   * @type {number}
+   */
+  minInputs: 2,
+
+  /**
+   * Block for concatenating any number of strings.
+   * @this {Blockly.Block}
+   */
+  init: function init() {
+    this.setHelpUrl(core_browser.Msg.LISTS_CREATE_WITH_HELPURL);
+    this.setStyle('list_blocks');
+    this.appendValueInput('ADD0').appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+    this.appendValueInput('ADD1');
+    this.setOutput(true, 'Array');
+    this.setTooltip(core_browser.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this {Blockly.Block}
+   */
+  mutationToDom: function mutationToDom() {
+    var container = core_browser.utils.xml.createElement('mutation');
+    var inputNames = this.inputList.map(function (input) {
+      return input.name;
+    }).join(',');
+    container.setAttribute('inputs', inputNames);
+    container.setAttribute('next', this.inputCounter);
+    return container;
+  },
+
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this {Blockly.Block}
+   */
+  domToMutation: function domToMutation(xmlElement) {
+    var _this = this;
+
+    var items = xmlElement.getAttribute('inputs');
+
+    if (items) {
+      var inputNames = items.split(',');
+      this.inputList = [];
+      inputNames.forEach(function (name) {
+        return _this.appendValueInput(name);
+      });
+      this.inputList[0].appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+    }
+
+    var next = parseInt(xmlElement.getAttribute('next'));
+    this.inputCounter = next;
+  },
+
+  /**
+   * Check whether a new input should be added and determine where it should go.
+   * @param {!Blockly.Connection} connection The connection that has a
+   *     pending connection.
+   * @return {number} The index before which to insert a new input,
+   *     or null if no input should be added.
+   */
+  getIndexForNewInput: function getIndexForNewInput(connection) {
+    if (!connection.targetConnection) {
+      // this connection is available
+      return null;
+    }
+
+    var connectionIndex;
+
+    for (var i = 0; i < this.inputList.length; i++) {
+      if (this.inputList[i].connection == connection) {
+        connectionIndex = i;
+      }
+    }
+
+    if (connectionIndex == this.inputList.length - 1) {
+      // this connection is the last one and already has a block in it, so
+      // we should add a new connection at the end.
+      return this.inputList.length + 1;
+    }
+
+    var nextInput = this.inputList[connectionIndex + 1];
+    var nextConnection = nextInput && nextInput.connection.targetConnection;
+
+    if (nextConnection && !nextConnection.sourceBlock_.isInsertionMarker()) {
+      return connectionIndex + 1;
+    } // Don't add new connection
+
+
+    return null;
+  },
+
+  /**
+   * Called when a block is dragged over one of the connections on this block.
+   * @param {!Blockly.Connection} connection The connection on this block that
+   * has a pending connection.
+   */
+  onPendingConnection: function onPendingConnection(connection) {
+    var insertIndex = this.getIndexForNewInput(connection);
+
+    if (insertIndex == null) {
+      return;
+    }
+
+    this.appendValueInput('ADD' + this.inputCounter++);
+    this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
+  },
+
+  /**
+   * Called when a block drag ends if the dragged block had a pending connection
+   * with this block.
+   */
+  finalizeConnections: function finalizeConnections() {
+    var _this2 = this;
+
+    if (this.inputList.length > this.minInputs) {
+      var toRemove = [];
+      this.inputList.forEach(function (input) {
+        var targetConnection = input.connection.targetConnection;
+
+        if (!targetConnection) {
+          toRemove.push(input.name);
+        }
+      });
+
+      if (this.inputList.length - toRemove.length < this.minInputs) {
+        // Always show at least two inputs
+        toRemove = toRemove.slice(this.minInputs);
+      }
+
+      toRemove.forEach(function (inputName) {
+        return _this2.removeInput(inputName);
+      }); // The first input should have the block text. If we removed the
+      // first input, add the block text to the new first input.
+
+      if (this.inputList[0].fieldRow.length == 0) {
+        this.inputList[0].appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+      }
+    }
+  }
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/index.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Adds blocks that replace the built-in mutator UI with dynamic
+ *     connections that appear when a block is dragged over inputs on the block.
+ */
+
+
+
+
+var overrideOldBlockDefinitions = function overrideOldBlockDefinitions() {
+  Blockly.Blocks['list_create'] = Blockly.Blocks['dynamic_list_create'];
+  Blockly.Blocks['text_join'] = Blockly.Blocks['dynamic_text_join'];
+  Blockly.Blocks['controls_if'] = Blockly.Blocks['dynamic_if'];
+};
 ;// CONCATENATED MODULE: ./node_modules/@blockly/theme-modern/src/index.js
 /**
  * @license
@@ -13385,6 +13991,8 @@ function useToolbox(blockServices) {
     name: "Logic",
     colour: "%{BKY_LOGIC_HUE}",
     blocks: [{
+      type: "dynamic_if"
+    }, {
       type: "logic_compare",
       values: {
         A: {
@@ -13742,6 +14350,7 @@ function domToJSON(workspace) {
 
 
 
+
 function VmEditor(props) {
   var className = props.className,
       onXmlChange = props.onXmlChange,
@@ -13924,4 +14533,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d88bd817cf9c13f80ae7.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-cb0656823add9a9d6ff3.js.map
