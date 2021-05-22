@@ -42235,16 +42235,6 @@ function Home() {
       alt: "A Jacdac humidity module plugging into a Jacdac cable",
       __imageData: __webpack_require__(40111)
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    right: true,
-    subtitle: "Service specifications",
-    caption: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
-    buttonUrl: "/services",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__.S, {
-      src: "./dashboardtemp.png",
-      alt: "A dashboard of humidity temperature module",
-      __imageData: __webpack_require__(14862)
-    })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CarouselGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     item: true,
     xs: 12,
@@ -42295,107 +42285,6 @@ function Home() {
     buttonUrl: "/connector"
   }));
 }
-/*
-<SplitGrid
-                right={false}
-                subtitle={"Connector"}
-                description={
-                    "Jacdac uses 3-pin custom-designed connectors to quickly interface development boards with sensors, LCDs, relays and more."
-                }
-                buttonUrl="/connector"
-                image={
-                    <StaticImage
-                        src={"./mechanicalclickconnector.png"}
-                        alt="Jacdac mechanical click connector"
-                    />
-                }
-            />
-            <SplitGrid
-                right={true}
-                subtitle={"Protocol"}
-                description={
-                    "Jacdac devices communicate using packets over a bus, where each device can advertise itself and the set of services it provides. A service provides registers, events and commands to communicate with other devices."
-                }
-                buttonUrl="/reference/protocol/"
-                image={
-                    <StaticImage
-                        src={"./bustopology.png"}
-                        alt="Four cable joining into a module"
-                    />
-                }
-            />
-
-
-            <SplitGrid
-                right={true}
-                subtitle={"Device catalog"}
-                description={
-                    "The device catalog lists the registered Jacdac devices that can be automatically detected on the bus. The catalog information provides vendor information, the services supported by a device, firmware, and pictures."
-                }
-                buttonUrl="/devices"
-                image={
-                    <StaticImage
-                        src={"./jacdacrhtempmodule.png"}
-                        alt="A humidity temperature module"
-                    />
-                }
-            />
-
-            <SplitGrid
-                right={false}
-                subtitle={"Firmware updates"}
-                description={
-                    "The device catalog is automatically detect, download and flash firmware onto devices."
-                }
-                buttonUrl="/tools/updater"
-                image={
-                    <StaticImage
-                        src={"./jacdacsinglergbledmodule.png"}
-                        alt="A single color LED module"
-                    />
-                }
-            />
-
-            <SplitGrid
-                right={true}
-                subtitle={"Transport"}
-                description={
-                    "Jacdac packets are sent serially among physical devices on the Jacdac bus and may also be sent over WebUSB/WebBLE, providing connectivity to web-based tooling and services running in the web browser."
-                }
-                buttonUrl={"/reference/protocol/#transport-layer"}
-                image={
-                    <StaticImage src={"./longcable.png"} alt="A long cable" />
-                }
-            />
-
-            <SplitGrid
-                right={false}
-                subtitle={"Web simulators and tools"}
-                description={
-                    "The Jacdac bus can be simulated in the browser and communicate to hardware without any driver or program installation."
-                }
-                buttonText="Dasboard"
-                buttonUrl="/dashboard"
-                image={
-                    <StaticImage
-                        src={"./dashboardlight.png"}
-                        alt="A single color LED module"
-                    />
-                }
-            />
-
-            <SplitGrid
-                right={true}
-                subtitle={"JavaScript package"}
-                description={
-                    "Integrate Jacdac into your web site or node.js application using our TypeScript/JavaScript npm library."
-                }
-                buttonUrl="/clients/web"
-                imageColumns={3}
-                image={<StaticImage src={"./html5.png"} alt="HTML5 logo" />}
-            />
-        </Grid>
-        */
 
 /***/ }),
 
@@ -43597,7 +43486,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "0b0f7c0d3e35c9f5001e5544a2fc82e62f7302fd";
+  var sha = "426c2f16002ba409dd19f6d71b3e7eb149edfcd3";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -59090,4 +58979,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-0e7cb351e3c91a4ddd82.js.map
+//# sourceMappingURL=app-770100fdba22f568a042.js.map
