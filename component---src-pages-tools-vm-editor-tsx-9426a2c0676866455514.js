@@ -13595,6 +13595,15 @@ function generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.len
 
 
 function domToJSON(workspace) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  var clean = function clean(o) {
+    return Object.keys(o).filter(function (k) {
+      return o[k] === undefined || o[k] === null;
+    }).forEach(function (k) {
+      return delete o[k];
+    });
+  };
+
   var builtins = {
     logic_null: function logic_null() {
       return null;
@@ -13634,7 +13643,7 @@ function domToJSON(workspace) {
   };
 
   var fieldsToJSON = function fieldsToJSON(fields) {
-    return (0,utils/* toMap */.qL)(fields, function (field) {
+    return !fields.length ? undefined : (0,utils/* toMap */.qL)(fields, function (field) {
       var _field$name;
 
       return (_field$name = field.name) === null || _field$name === void 0 ? void 0 : _field$name.toLowerCase();
@@ -13703,6 +13712,7 @@ function domToJSON(workspace) {
       }) : undefined,
       next: blockToJSON(block.getNextBlock())
     };
+    clean(element);
     return element;
   };
 
@@ -13910,12 +13920,7 @@ function Page() {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
-    source: "\n```xml\n" + xml + "\n```                \n"
-  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
-    source: "\n```json\n" + source + "\n```                \n"
+    source: "\n```json\n" + source + "\n```   \n\n```xml\n" + xml + "\n```                \n"
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -13927,4 +13932,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-837661e4b25513489322.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-9426a2c0676866455514.js.map
