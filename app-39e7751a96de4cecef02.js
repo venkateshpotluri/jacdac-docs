@@ -42160,7 +42160,7 @@ function Home() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: true,
     subtitle: "Protocol.",
-    description: "Bus topology, dynamic discovery, standardized services for micro-controllers.",
+    description: "Bus topology, dynamic discovery, standardized services designed for micro-controllers.",
     buttonText: "Learn more",
     buttonVariant: "link",
     buttonUrl: "/protocol/",
@@ -42171,7 +42171,7 @@ function Home() {
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: false,
-    subtitle: "Standardized Services.",
+    subtitle: "Services catalog.",
     description: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
     buttonText: "Explore services",
     buttonVariant: "link",
@@ -43720,7 +43720,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b0ecea22bde98cabec4b6ca8b28e66d45f037d8d";
+  var sha = "a10f08ac9af97334a2301f70091b7693315e6001";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -59234,4 +59234,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-4c1b365068fcad6b0f23.js.map
+//# sourceMappingURL=app-39e7751a96de4cecef02.js.map
