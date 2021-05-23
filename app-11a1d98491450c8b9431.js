@@ -54891,6 +54891,7 @@ function Tools() {
   (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_SERVO */ .$X_);
   (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_POTENTIOMETER */ .GQv);
   (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_LED_PIXEL */ .zEX);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_LED_MATRIX */ .ZmS);
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
       setDrawerType = _useContext.setDrawerType,
@@ -54909,7 +54910,7 @@ function Tools() {
     return setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .DrawerType.Packets */ .jw.Packets);
   };
 
-  var simulatorClass = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_SERVO */ .$X_;
+  var simulatorClass = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_LED_MATRIX */ .ZmS;
   var dashboards = (0,_hooks_useDevices__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)({
     ignoreSelf: true,
     announced: true
@@ -56300,7 +56301,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "e3d601c9a755f7d3a0d5f96ea1f08fc306b8bcbe";
+  var sha = "dcebfe445250e779ce396260d94681fbd9d2c6b8";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72352,4 +72353,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-47acb302cc599c1b3896.js.map
+//# sourceMappingURL=app-11a1d98491450c8b9431.js.map
