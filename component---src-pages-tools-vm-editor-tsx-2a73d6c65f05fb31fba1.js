@@ -13739,7 +13739,8 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      events: events
+      events: events,
+      command: "event"
     };
   });
   var readingChangeBlocks = readings.map(function (_ref2) {
@@ -13755,7 +13756,8 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: reading
+      register: reading,
+      command: "reading_change_event"
     };
   });
   var readingGetBlocks = readings.map(function (_ref3) {
@@ -13771,7 +13773,8 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: reading
+      register: reading,
+      command: "reading_get"
     };
   });
   var intensitySetBlocks = intensities.map(function (_ref4) {
@@ -13807,7 +13810,8 @@ function loadBlocks() {
       service: service,
       register: intensity,
       previousStatement: "Statement",
-      nextStatement: "Statement"
+      nextStatement: "Statement",
+      command: "intensity_set"
     };
   });
   var valueSetBlocks = values.map(function (_ref5) {
@@ -13849,7 +13853,8 @@ function loadBlocks() {
       service: service,
       register: value,
       previousStatement: "Statement",
-      nextStatement: "Statement"
+      nextStatement: "Statement",
+      command: "value_set"
     };
   });
   var valueGetBlocks = values.filter(function (v) {
@@ -13867,7 +13872,8 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: value
+      register: value,
+      command: "value_get"
     };
   });
   var shadowBlocks = [{
@@ -13992,9 +13998,9 @@ function loadBlocks() {
     style: "math_blocks",
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
-  }]; // generate blocks
-
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(readingChangeBlocks), (0,toConsumableArray/* default */.Z)(readingGetBlocks), (0,toConsumableArray/* default */.Z)(intensitySetBlocks), (0,toConsumableArray/* default */.Z)(valueSetBlocks), (0,toConsumableArray/* default */.Z)(valueGetBlocks), commandBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
+  }];
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(readingChangeBlocks), (0,toConsumableArray/* default */.Z)(readingGetBlocks), (0,toConsumableArray/* default */.Z)(intensitySetBlocks), (0,toConsumableArray/* default */.Z)(valueSetBlocks), (0,toConsumableArray/* default */.Z)(valueGetBlocks));
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), commandBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
 
   blocks.map(function (block) {
     return (blockly_default()).Blocks[block.type] = {
@@ -14003,7 +14009,7 @@ function loadBlocks() {
       }
     };
   });
-  var jdBlocks = blocks.filter(function (block) {
+  var jdBlocks = serviceBlocks.filter(function (block) {
     return !!block.service;
   });
   var services = (0,utils/* uniqueMap */.EM)(jdBlocks, function (block) {
@@ -14013,6 +14019,7 @@ function loadBlocks() {
   });
   cachedBlocks = {
     blocks: blocks,
+    serviceBlocks: serviceBlocks,
     services: services
   };
   return cachedBlocks;
@@ -14032,7 +14039,7 @@ function useToolbox(blockServices) {
   var _useMemo = (0,react.useMemo)(function () {
     return loadBlocks();
   }, []),
-      blocks = _useMemo.blocks,
+      serviceBlocks = _useMemo.serviceBlocks,
       services = _useMemo.services;
 
   var liveServices = (0,useServices/* default */.Z)({
@@ -14054,7 +14061,7 @@ function useToolbox(blockServices) {
   var toolboxCategories = [].concat((0,toConsumableArray/* default */.Z)(toolboxServices.map(function (service) {
     return {
       service: service,
-      serviceBlocks: blocks.filter(function (block) {
+      serviceBlocks: serviceBlocks.filter(function (block) {
         return block.service === service;
       })
     };
@@ -14959,4 +14966,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8cd2fdb9b99f68d5e814.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2a73d6c65f05fb31fba1.js.map
