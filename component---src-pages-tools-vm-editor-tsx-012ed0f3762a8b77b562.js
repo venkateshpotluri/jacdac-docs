@@ -14522,6 +14522,7 @@ function it4generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.
 
 
 
+
 var ops = {
   AND: "&&",
   OR: "||",
@@ -14653,7 +14654,7 @@ function workspaceJSONToIT4Program(workspace) {
   });
 
   var _loadBlocks = loadBlocks(),
-      blocks = _loadBlocks.blocks;
+      serviceBlocks = _loadBlocks.serviceBlocks;
 
   var roles = workspace.variables.filter(function (v) {
     return BUILTIN_TYPES.indexOf(v.type) < 0;
@@ -14669,13 +14670,15 @@ function workspaceJSONToIT4Program(workspace) {
 
   visitWorkspace(workspace, {
     visitBlock: function visitBlock(b) {
-      var def = /^jacdac_/.test(b.type) && blocks.find(function (d) {
+      var def = /^jacdac_/.test(b.type) && serviceBlocks.find(function (d) {
         return d.type === b.type;
       });
       if (!def) return;
-      var service = def.service,
-          register = def.register,
-          defEvents = def.events;
+      var service = def.service;
+      var _ref = def,
+          register = _ref.register;
+      var _ref2 = def,
+          defEvents = _ref2.events;
       if (register) registers.push(service.shortId + "." + register.name);
 
       if (defEvents) {
@@ -14705,16 +14708,35 @@ function workspaceJSONToIT4Program(workspace) {
         }
       });
     } else {
-      var def = blocks.find(function (def) {
+      var def = serviceBlocks.find(function (def) {
         return def.type === type;
       });
-      var service = def.service,
-          _events = def.events;
-      console.log("event", {
-        service: service,
-        events: _events,
-        def: def
-      }); // TODO
+      (0,utils/* assert */.hu)(!!def);
+      var command = def.command;
+
+      switch (command) {
+        case "event":
+          {
+            var _ref3 = def,
+                service = _ref3.service,
+                _events = _ref3.events; // TODO
+
+            break;
+          }
+
+        case "reading_change_event":
+        case "reading_get":
+        case "intensity_set":
+        case "value_get":
+        case "value_set":
+          {
+            var _ref4 = def,
+                _service = _ref4.service,
+                register = _ref4.register; // TODO
+
+            break;
+          }
+      }
     } // process children
 
 
@@ -14966,4 +14988,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2a73d6c65f05fb31fba1.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-012ed0f3762a8b77b562.js.map
