@@ -13639,8 +13639,7 @@ var useServices = __webpack_require__(2928);
 
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
-var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
+var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged];
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
@@ -13720,9 +13719,8 @@ function loadBlocks() {
   }).filter(function (kv) {
     return !!kv.events.length;
   });
-  var HUE = 230; // generate blocks
-
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(events.map(function (_ref) {
+  var HUE = 230;
+  var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
     return {
@@ -13743,7 +13741,8 @@ function loadBlocks() {
       service: service,
       events: events
     };
-  })), (0,toConsumableArray/* default */.Z)(readings.map(function (_ref2) {
+  });
+  var readingChangeBlocks = readings.map(function (_ref2) {
     var service = _ref2.service,
         reading = _ref2.reading;
     return {
@@ -13758,7 +13757,8 @@ function loadBlocks() {
       service: service,
       register: reading
     };
-  })), (0,toConsumableArray/* default */.Z)(readings.map(function (_ref3) {
+  });
+  var readingGetBlocks = readings.map(function (_ref3) {
     var service = _ref3.service,
         reading = _ref3.reading;
     return {
@@ -13773,7 +13773,8 @@ function loadBlocks() {
       service: service,
       register: reading
     };
-  })), (0,toConsumableArray/* default */.Z)(intensities.map(function (_ref4) {
+  });
+  var intensitySetBlocks = intensities.map(function (_ref4) {
     var service = _ref4.service,
         intensity = _ref4.intensity;
     return {
@@ -13808,7 +13809,8 @@ function loadBlocks() {
       previousStatement: "Statement",
       nextStatement: "Statement"
     };
-  })), (0,toConsumableArray/* default */.Z)(values.map(function (_ref5) {
+  });
+  var valueSetBlocks = values.map(function (_ref5) {
     var service = _ref5.service,
         value = _ref5.value;
     return {
@@ -13849,7 +13851,8 @@ function loadBlocks() {
       previousStatement: "Statement",
       nextStatement: "Statement"
     };
-  })), (0,toConsumableArray/* default */.Z)(values.filter(function (v) {
+  });
+  var valueGetBlocks = values.filter(function (v) {
     return v.value.fields.length === 1;
   }).map(function (_ref6) {
     var service = _ref6.service,
@@ -13866,36 +13869,8 @@ function loadBlocks() {
       service: service,
       register: value
     };
-  })), [// specific blocks
-  {
-    type: WHILE_CONDITION_BLOCK,
-    message0: "while %1",
-    args0: [{
-      type: "input_value",
-      name: WHILE_CONDITION_BLOCK_CONDITION,
-      check: "Boolean"
-    }],
-    style: "logic_blocks",
-    inputsInline: true,
-    nextStatement: "Statement",
-    tooltip: "",
-    helpUrl: ""
-  }, {
-    type: WAIT_BLOCK,
-    message0: "wait %1 s",
-    args0: [{
-      type: "input_value",
-      name: "TIME",
-      check: "Number"
-    }],
-    inputsInline: true,
-    previousStatement: "Statement",
-    nextStatement: "Statement",
-    colour: 230,
-    tooltip: "",
-    helpUrl: ""
-  }, // shadow field editors
-  {
+  });
+  var shadowBlocks = [{
     type: "jacdac_on_off",
     message0: "%1",
     args0: [{
@@ -13951,8 +13926,36 @@ function loadBlocks() {
     }],
     colour: HUE,
     output: "Number"
-  }, // custom math blocks
-  {
+  }];
+  var commandBlocks = [{
+    type: WHILE_CONDITION_BLOCK,
+    message0: "while %1",
+    args0: [{
+      type: "input_value",
+      name: WHILE_CONDITION_BLOCK_CONDITION,
+      check: "Boolean"
+    }],
+    style: "logic_blocks",
+    inputsInline: true,
+    nextStatement: "Statement",
+    tooltip: "",
+    helpUrl: ""
+  }, {
+    type: WAIT_BLOCK,
+    message0: "wait %1 s",
+    args0: [{
+      type: "input_value",
+      name: "TIME",
+      check: "Number"
+    }],
+    inputsInline: true,
+    previousStatement: "Statement",
+    nextStatement: "Statement",
+    colour: 230,
+    tooltip: "",
+    helpUrl: ""
+  }];
+  var mathBlocks = [{
     type: "jacdac_math_arithmetic",
     message0: "%1 %2 %3",
     args0: [{
@@ -13973,8 +13976,7 @@ function loadBlocks() {
     style: "math_blocks",
     helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
     extensions: ["math_op_tooltip"]
-  }, // Block for advanced math operators with single operand.
-  {
+  }, {
     type: "jacdac_math_single",
     message0: "%1 %2",
     args0: [{
@@ -13990,7 +13992,9 @@ function loadBlocks() {
     style: "math_blocks",
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
-  }]); // register blocks with Blockly, happens once
+  }]; // generate blocks
+
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(readingChangeBlocks), (0,toConsumableArray/* default */.Z)(readingGetBlocks), (0,toConsumableArray/* default */.Z)(intensitySetBlocks), (0,toConsumableArray/* default */.Z)(valueSetBlocks), (0,toConsumableArray/* default */.Z)(valueGetBlocks), commandBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
 
   blocks.map(function (block) {
     return (blockly_default()).Blocks[block.type] = {
@@ -14955,4 +14959,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-22e8009a5a1bd45d09ed.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8cd2fdb9b99f68d5e814.js.map
