@@ -547,6 +547,10 @@ function Toc(props) {
       path: "/software/",
       order: 0.6
     }, {
+      name: "Tools",
+      path: "/tools/",
+      order: 0.7
+    }, {
       name: "Reference",
       path: "/reference/",
       order: 0.8
@@ -558,10 +562,6 @@ function Toc(props) {
       name: "Devices",
       path: "/devices/",
       order: 0.95
-    }, {
-      name: "Tools",
-      path: "/tools/",
-      order: 4
     }, {
       name: "Clients",
       path: "/clients/",
@@ -658,4 +658,4 @@ function Toc(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=1018-59ca6dad7bc48ea559cd.js.map
+//# sourceMappingURL=1018-a61ed6c52452cc8549bc.js.map
