@@ -41918,7 +41918,7 @@ function Protocol() {
       __imageData: __webpack_require__(68305)
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
-    subtitle: "Plug-and-play",
+    subtitle: "Plug-and-play.",
     description: "Every Jacdac device has a tiny micro-controller that runs the Jacdac protocol and communicates with the bus.",
     image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__.S, {
       src: "./rhtempvertical.png",
@@ -41956,7 +41956,7 @@ function Protocol() {
     description: "A PCB edge connector was chosen for Jacdac primarily because it essentially adds no cost to a product.",
     buttonText: "Physical connector",
     buttonVariant: "link",
-    buttonUrl: "/connector/",
+    buttonUrl: "/hardware/connector/",
     imageColumns: 6,
     image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__.S, {
       src: "./mechanicalclickconnector.png",
@@ -42022,7 +42022,7 @@ function Protocol() {
     description: "Absolutely. We would be thrilled if you used a Jacdac PCB connector on your board or product! You can use the name Jacdac without royalties or attribution.",
     buttonText: "Integrate Jacdac into your hardware",
     buttonVariant: "link",
-    buttonUrl: "/connector"
+    buttonUrl: "/hardware/connector"
   }));
 }
 
@@ -42112,7 +42112,7 @@ function Home() {
     }),
     buttonText: "Physical interconnect",
     buttonVariant: "link",
-    buttonUrl: "/connector"
+    buttonUrl: "/hardware/"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: true,
     subtitle: "Visualize it.",
@@ -42405,7 +42405,7 @@ function Protocol() {
     description: "Absolutely. We would be thrilled if you used a Jacdac PCB connector on your board or product! You can use the name Jacdac without royalties or attribution.",
     buttonText: "Integrate Jacdac into your hardware",
     buttonVariant: "link",
-    buttonUrl: "/connector"
+    buttonUrl: "/hardware/"
   }));
 }
 
@@ -43470,7 +43470,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "1f77fb17cd266bdd6e31e9347f0d99ee1130e53c";
+  var sha = "1c65c85908c7b6efd491c2fcd999d3cf00d8ccba";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -54077,9 +54077,6 @@ exports.components = {
   "component---src-pages-clients-web-mdx": function componentSrcPagesClientsWebMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));
   },
-  "component---src-pages-connector-mdx": function componentSrcPagesConnectorMdx() {
-    return __webpack_require__.e(/* import() | component---src-pages-connector-mdx */ 249).then(__webpack_require__.bind(__webpack_require__, 66224));
-  },
   "component---src-pages-dashboard-tsx": function componentSrcPagesDashboardTsx() {
     return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(6176), __webpack_require__.e(9160), __webpack_require__.e(1259), __webpack_require__.e(8540), __webpack_require__.e(7790), __webpack_require__.e(7395), __webpack_require__.e(7927), __webpack_require__.e(5419), __webpack_require__.e(4035), __webpack_require__.e(1138), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
   },
@@ -54106,6 +54103,9 @@ exports.components = {
   },
   "component---src-pages-github-tsx": function componentSrcPagesGithubTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-github-tsx */ 2566).then(__webpack_require__.bind(__webpack_require__, 82017));
+  },
+  "component---src-pages-hardware-connector-mdx": function componentSrcPagesHardwareConnectorMdx() {
+    return __webpack_require__.e(/* import() | component---src-pages-hardware-connector-mdx */ 2124).then(__webpack_require__.bind(__webpack_require__, 80427));
   },
   "component---src-pages-hardware-mdx": function componentSrcPagesHardwareMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-hardware-mdx */ 3244).then(__webpack_require__.bind(__webpack_require__, 67319));
@@ -58963,4 +58963,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-1c71a4d2e21e0b96328f.js.map
+//# sourceMappingURL=app-c06049bf9d542bd92131.js.map

@@ -543,10 +543,6 @@ function Toc(props) {
       path: "/hardware/",
       order: 0.6
     }, {
-      name: "Connector",
-      path: "/connector/",
-      order: 0.6
-    }, {
       name: "Reference",
       path: "/reference/",
       order: 0.8
@@ -658,4 +654,4 @@ function Toc(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=1018-7aac4e3022d49e3a115b.js.map
+//# sourceMappingURL=1018-899ae1f1191387230a0b.js.map
