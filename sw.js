@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-1aadb62da528fbe66057.js"
+    "url": "webpack-runtime-5760aaf0ea1967219f6e.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "0deca6e54a5cffb6d40ebbb60e940fec"
+    "revision": "2cb7f7753b34d707f3f7d9cade2bb4dc"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "35d6a07c89f9250a1a1d7946a8050092"
+    "revision": "dfec443d24e1a35ac536677d6414f77d"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "a161120e7df30e7f99ada0ca7d12b6fa"
+    "revision": "a31a20318f50cb7153ec8c7e33baf9dd"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -1434,7 +1434,7 @@ self.__precacheManifest = [
     "url": "8681e1d67a6dd0cf4967cae72c671a181d17268f-41a82f2d0df0914c9413.js"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-ed0730caaf7d97a33dd4.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-c8f6e52c5e27aa7b2117.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1541,7 +1541,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-a5c561367998900b0394.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-5611b641d803b1f59bca.js`))) {
     return await fetch(event.request)
   }
 

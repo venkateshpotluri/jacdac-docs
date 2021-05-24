@@ -45860,9 +45860,10 @@ var WindSpeedReg;
 /* harmony export */   "lW": function() { return /* binding */ humanify; },
 /* harmony export */   "dj": function() { return /* binding */ normalizeDeviceSpecification; },
 /* harmony export */   "o9": function() { return /* binding */ escapeDeviceIdentifier; },
-/* harmony export */   "qh": function() { return /* binding */ escapeDeviceNameIdentifier; }
+/* harmony export */   "qh": function() { return /* binding */ escapeDeviceNameIdentifier; },
+/* harmony export */   "FV": function() { return /* binding */ isNumericType; }
 /* harmony export */ });
-/* unused harmony exports unitDescription, secondaryUnitConverters, capitalize, snakify, dashify, TYPESCRIPT_STATIC_NAMESPACE, packFormat, packInfo, converters, isNumericType */
+/* unused harmony exports unitDescription, secondaryUnitConverters, capitalize, snakify, dashify, TYPESCRIPT_STATIC_NAMESPACE, packFormat, packInfo, converters */
 /* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(85061);
 /* harmony import */ var _jdutils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30055);
 
@@ -69000,7 +69001,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "00ed4f18f2c67be9ccd8149381917258e839b6e0";
+  var sha = "bd88be6da3d6e1545342e77151bf0a1447310d03";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -85092,4 +85093,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a5c561367998900b0394.js.map
+//# sourceMappingURL=app-5611b641d803b1f59bca.js.map

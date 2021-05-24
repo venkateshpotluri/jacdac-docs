@@ -13713,16 +13713,19 @@ function loadBlocks() {
       template: "event"
     };
   });
-  var registerChangeEventBlocks = registers.filter(function (_ref2) {
+  var registerChangeByEventBlocks = registers.filter(function (_ref2) {
     var service = _ref2.service;
     return !service.packets.some(function (pkt) {
       return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
     });
-  }).map(function (_ref3) {
-    var service = _ref3.service,
-        register = _ref3.register;
+  }).filter(function (_ref3) {
+    var register = _ref3.register;
+    return register.fields.length === 1 && (0,jdspec/* isNumericType */.FV)(register.fields[0]);
+  }).map(function (_ref4) {
+    var service = _ref4.service,
+        register = _ref4.register;
     return {
-      type: "jacdac_" + service.shortId + "_" + register.name + "_change_event",
+      type: "jacdac_" + service.shortId + "_" + register.name + "_change_by_event",
       message0: "when %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change by %2",
       args0: [fieldVariable(service), {
         type: "input_value",
@@ -13732,12 +13735,7 @@ function loadBlocks() {
         return !!v;
       }),
       values: {
-        threshold: {
-          type: "math_number",
-          value: 1,
-          min: 0,
-          shadow: true
-        }
+        threshold: fieldToShadow(register.fields[0])
       },
       inputsInline: true,
       nextStatement: "Statement",
@@ -13749,9 +13747,9 @@ function loadBlocks() {
       template: "register_change_event"
     };
   });
-  var registerGetBlocks = registers.map(function (_ref4) {
-    var service = _ref4.service,
-        register = _ref4.register;
+  var registerGetBlocks = registers.map(function (_ref5) {
+    var service = _ref5.service,
+        register = _ref5.register;
     return {
       type: "jacdac_" + service.shortId + "_" + register.name + "_get",
       message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (register.fields.length > 1 ? " %2" : ""),
@@ -13774,12 +13772,12 @@ function loadBlocks() {
       template: "register_get"
     };
   });
-  var registerSetBlocks = registers.filter(function (_ref5) {
-    var register = _ref5.register;
+  var registerSetBlocks = registers.filter(function (_ref6) {
+    var register = _ref6.register;
     return register.kind === "rw";
-  }).map(function (_ref6) {
-    var service = _ref6.service,
-        register = _ref6.register;
+  }).map(function (_ref7) {
+    var service = _ref7.service,
+        register = _ref7.register;
     return {
       type: "jacdac_" + service.shortId + "_" + register.name + "_set",
       message0: "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
@@ -13796,9 +13794,9 @@ function loadBlocks() {
       template: "register_set"
     };
   });
-  var commandBlocks = commands.map(function (_ref7) {
-    var service = _ref7.service,
-        command = _ref7.command;
+  var commandBlocks = commands.map(function (_ref8) {
+    var service = _ref8.service,
+        command = _ref8.command;
     return {
       type: "jacdac_" + service.shortId + "_value_get",
       message0: (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
@@ -13815,7 +13813,7 @@ function loadBlocks() {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeEventBlocks), (0,toConsumableArray/* default */.Z)(registerGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks));
   var shadowBlocks = [{
     type: "jacdac_on_off",
     message0: "%1",
@@ -14004,9 +14002,9 @@ function useToolbox(blockServices) {
         return block.service === service;
       })
     };
-  }).map(function (_ref8) {
-    var service = _ref8.service,
-        serviceBlocks = _ref8.serviceBlocks;
+  }).map(function (_ref9) {
+    var service = _ref9.service,
+        serviceBlocks = _ref9.serviceBlocks;
     return {
       name: service.name,
       colour: "#5CA699",
@@ -14927,4 +14925,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ed0730caaf7d97a33dd4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c8f6e52c5e27aa7b2117.js.map
