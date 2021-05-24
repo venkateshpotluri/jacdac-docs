@@ -144,6 +144,14 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808"
 
 /***/ }),
 
+/***/ 21521:
+/***/ (function(module) {
+
+"use strict";
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/a77a1/nodered.png","srcSet":"/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/9d9b2/nodered.png 58w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/2e653/nodered.png 116w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/a77a1/nodered.png 231w","sizes":"(min-width: 231px) 231px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/9cce1/nodered.webp 58w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/a0338/nodered.webp 116w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/1a4a7/nodered.webp 231w","type":"image/webp","sizes":"(min-width: 231px) 231px, 100vw"}]},"width":231,"height":200}');
+
+/***/ }),
+
 /***/ 40780:
 /***/ (function(module) {
 
@@ -54734,6 +54742,18 @@ function Software() {
       alt: "Block code to swipe a servo",
       __imageData: __webpack_require__(87997)
     })
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    right: false,
+    subtitle: "Node-RED.",
+    description: "Add Jacdac to your Node-RED flows.",
+    buttonText: "Jacdac node",
+    buttonVariant: "link",
+    buttonUrl: "https://flows.nodered.org/node/node-red-contrib-jacdac",
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+      src: "./nodered.png",
+      alt: "Jacdac nodes for Node-RED",
+      __imageData: __webpack_require__(21521)
+    })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     subtitle2: "Developer tools.",
     description: "Investigate and diagnose issues through our debugging tools."
@@ -54921,16 +54941,13 @@ function Tools() {
     alignItems: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     title: "Tools",
-    subtitle3: "Get productive with Jacdac.",
+    subtitle3: "Visualize, debug, sniff, track, record, replay, update... from your browser.",
     imageColumns: 6,
     image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__.S, {
       src: "./dashboard.png",
       alt: "Dashboard",
       __imageData: __webpack_require__(94071)
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-    subtitle2: "Developer tools.",
-    description: "Investigate and diagnose issues through our debugging tools."
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     right: true,
     subtitle: "Dashboard",
@@ -56289,7 +56306,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "64a6ebcb36d3acbaa5976b23dfefce0be6b39ab5";
+  var sha = "febd15de3015a68f63db0f91acfc0c6cf1788313";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72341,4 +72358,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7fca334bf688a78bb1b1.js.map
+//# sourceMappingURL=app-0338897fbdea8ee6c25c.js.map
