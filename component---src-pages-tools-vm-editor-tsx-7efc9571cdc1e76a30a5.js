@@ -13703,7 +13703,7 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       register: reading,
-      command: "reading_get"
+      command: "register_get"
     };
   });
   var intensitySetBlocks = intensities.map(function (_ref4) {
@@ -13740,7 +13740,7 @@ function loadBlocks() {
       register: intensity,
       previousStatement: "Statement",
       nextStatement: "Statement",
-      command: "intensity_set"
+      command: "register_set"
     };
   });
   var valueSetBlocks = values.map(function (_ref5) {
@@ -13783,7 +13783,7 @@ function loadBlocks() {
       register: value,
       previousStatement: "Statement",
       nextStatement: "Statement",
-      command: "value_set"
+      command: "register_set"
     };
   });
   var valueGetBlocks = values.filter(function (v) {
@@ -13802,9 +13802,10 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       register: value,
-      command: "value_get"
+      command: "register_get"
     };
   });
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(readingChangeBlocks), (0,toConsumableArray/* default */.Z)(readingGetBlocks), (0,toConsumableArray/* default */.Z)(intensitySetBlocks), (0,toConsumableArray/* default */.Z)(valueSetBlocks), (0,toConsumableArray/* default */.Z)(valueGetBlocks));
   var shadowBlocks = [{
     type: "jacdac_on_off",
     message0: "%1",
@@ -13928,7 +13929,6 @@ function loadBlocks() {
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
   }];
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(readingChangeBlocks), (0,toConsumableArray/* default */.Z)(readingGetBlocks), (0,toConsumableArray/* default */.Z)(intensitySetBlocks), (0,toConsumableArray/* default */.Z)(valueSetBlocks), (0,toConsumableArray/* default */.Z)(valueGetBlocks));
   var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), commandBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
 
   blocks.map(function (block) {
@@ -14654,10 +14654,8 @@ function workspaceJSONToIT4Program(workspace) {
           }
 
         case "reading_change_event":
-        case "reading_get":
-        case "intensity_set":
-        case "value_get":
-        case "value_set":
+        case "register_set":
+        case "register_get":
           {
             var _ref4 = def,
                 _service = _ref4.service,
@@ -14917,4 +14915,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-504a9fbd822a97105a65.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7efc9571cdc1e76a30a5.js.map
