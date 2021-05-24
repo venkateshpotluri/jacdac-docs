@@ -55027,7 +55027,7 @@ function Tools() {
       __imageData: __webpack_require__(47718)
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
-    right: false,
+    right: true,
     subtitle: "JupyterLab 2.0.",
     description: "Collect data from your JupyterLab notebooks.",
     buttonText: "Collect data",
@@ -56346,7 +56346,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "37e05178a2376e293bf18f45099009af81969c4a";
+  var sha = "6a4338cd5029c10c77c59320ec462f4274689fca";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72398,4 +72398,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7afe05883982881fd040.js.map
+//# sourceMappingURL=app-9a67c83d651f4b9f6aaf.js.map
