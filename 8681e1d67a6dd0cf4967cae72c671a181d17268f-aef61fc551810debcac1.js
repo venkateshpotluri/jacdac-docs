@@ -322,7 +322,6 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
   _proto2.sendCommand = function sendCommand(e, values) {
     var serviceEnv = this.getService(e);
-    console.log(serviceEnv);
 
     if (serviceEnv) {
       serviceEnv.sendCommand(e.property, values);
@@ -1245,4 +1244,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-9e110bcbad2cd12c8b60.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-aef61fc551810debcac1.js.map
