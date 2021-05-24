@@ -47751,53 +47751,18 @@ function isNumericType(field) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fh": function() { return /* binding */ isMixinService; },
 /* harmony export */   "Qv": function() { return /* binding */ parseIntFloat; },
+/* harmony export */   "ao": function() { return /* binding */ exprVisitor; },
 /* harmony export */   "ll": function() { return /* binding */ SpecSymbolResolver; },
-/* harmony export */   "ao": function() { return /* binding */ exprVisitor; }
+/* harmony export */   "F2": function() { return /* binding */ SpecAwareMarkDownParser; }
 /* harmony export */ });
-/* unused harmony exports isBoolOrNumericFormat, isRegister, packetsToRegisters, lookupRegister, lookupField, getRegister */
-function isBoolOrNumericFormat(fmt) {
-  return fmt === "bool" || /^[ui]\d+/i.test(fmt);
-}
+/* unused harmony export packetsToRegisters */
 function isMixinService(serviceClass) {
   return (serviceClass & 0x20000000) == 0x20000000;
-}
-function isRegister(pkt) {
-  return pkt && (pkt.kind == "const" || pkt.kind == "ro" || pkt.kind == "rw");
 }
 function packetsToRegisters(packets) {
   return packets.filter(function (pkt) {
     return !pkt.derived && isRegister(pkt);
   });
-}
-function lookupRegister(spec, id) {
-  return spec.packets.find(function (pkt) {
-    return isRegister(pkt) && pkt.name === id;
-  });
-}
-function lookupField(pkt, field) {
-  return pkt.fields.find(function (member) {
-    return member.name === field;
-  });
-}
-function getRegister(spec, root, fld) {
-  if (fld === void 0) {
-    fld = "";
-  }
-
-  var ret = {
-    pkt: undefined,
-    fld: undefined
-  };
-  ret.pkt = lookupRegister(spec, root);
-
-  if (!ret.pkt) {
-    throw new Error("no register " + root + " found in service " + spec.shortName);
-  } else if (fld) {
-    ret.fld = lookupField(ret.pkt, fld);
-    if (!ret.fld) throw new Error("no field " + fld + " found in register " + root + " of service " + spec.shortName);
-  }
-
-  return ret;
 }
 function parseIntFloat(spec, w, allowFloat) {
   if (allowFloat === void 0) {
@@ -47833,14 +47798,25 @@ function parseIntFloat(spec, w, allowFloat) {
 
   if (!en.members.hasOwnProperty(ww[1])) throw new Error(ww[1] + " is not a member of " + ww[0]);
   return en.members[ww[1]] || 0;
-} // static resolution of accesses to service specification
+} // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
+function exprVisitor(parent, current, structVisit) {
+  if (Array.isArray(current)) {
+    ;
+    current.forEach(function (c) {
+      return exprVisitor(current, c, structVisit);
+    });
+  } else if (typeof current === "object") {
+    if (parent && current) structVisit(parent, current);
+    Object.keys(current).forEach(function (key) {
+      exprVisitor(current, current[key], structVisit);
+    });
+  }
+}
 var SpecSymbolResolver = /*#__PURE__*/function () {
-  function SpecSymbolResolver(spec, role2spec, supportedExpressions, parser, error) {
+  function SpecSymbolResolver(spec, role2spec, error) {
     this.spec = spec;
     this.role2spec = role2spec;
-    this.supportedExpressions = supportedExpressions;
-    this.parser = parser;
     this.error = error;
     this.reset();
   }
@@ -47850,133 +47826,6 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   _proto.reset = function reset() {
     this.registers = [];
     this.events = [];
-  };
-
-  _proto.processLine = function processLine(line, funs) {
-    var _this = this;
-
-    var call = /^([a-zA-Z]\w*)\(.*\)$/.exec(line);
-
-    if (!call) {
-      this.error("a command must be a call to a registered function (JavaScript syntax)");
-      return undefined;
-    }
-
-    var callee = call[1];
-    var cmdIndex = funs.findIndex(function (r) {
-      return callee == r.id;
-    });
-
-    if (cmdIndex < 0) {
-      this.error(callee + " is not a registered function.");
-      return undefined;
-    }
-
-    var root = this.parser(line);
-
-    if (!root || !root.type || root.type != "CallExpression" || !root.callee || !root.arguments) {
-      this.error("a command must be a call expression in JavaScript syntax");
-      return undefined;
-    } // check for unsupported expression types
-
-
-    exprVisitor(null, root, function (p, c) {
-      if (_this.supportedExpressions.indexOf(c.type) < 0) _this.error("Expression of type " + c.type + " not currently supported");
-    }); // check arguments
-
-    var command = funs[cmdIndex];
-    var minArgs = argsRequiredOptional(command.args).length;
-    var maxArgs = command.args.length;
-
-    if (root.arguments.length < minArgs) {
-      this.error(callee + " expects at least " + minArgs + " arguments; got " + root.arguments.length);
-      return undefined;
-    } else if (root.arguments.length > maxArgs) {
-      this.error(callee + " expects at most " + maxArgs + " arguments; got " + root.arguments.length);
-      return undefined;
-    } // deal with optional arguments
-
-
-    var newExpressions = [];
-
-    for (var i = root.arguments.length; i < command.args.length; i++) {
-      var _ref = command.args[i],
-          name = _ref[0],
-          def = _ref[1];
-      var lit = {
-        type: "Literal",
-        value: def,
-        raw: def.toString()
-      };
-      newExpressions.push(lit);
-    }
-
-    root.arguments = root.arguments.concat(newExpressions); // type checking of arguments.
-
-    this.processArguments(command, root);
-    return [command, root];
-
-    function argsRequiredOptional(args, optional) {
-      if (optional === void 0) {
-        optional = false;
-      }
-
-      return args.filter(function (a) {
-        return !optional && typeof a === "string" || optional && typeof a === "object";
-      });
-    }
-  };
-
-  _proto.processArguments = function processArguments(command, root) {
-    var _this2 = this;
-
-    var args = root.arguments;
-    var eventSymTable = [];
-    args.forEach(function (arg, a) {
-      var argType = command.args[a];
-      if (typeof argType === "object") argType = command.args[a][0];
-
-      if (argType === "register" || argType === "event" || argType == "Identifier") {
-        if (argType == "Identifier") {
-          _this2.check(arg, "Identifier");
-        } else if (argType === "event" && a === 0) {
-          var pkt = _this2.lookupEvent(arg);
-
-          if (pkt && eventSymTable.indexOf(pkt) === -1) eventSymTable.push(pkt);
-        } else if (argType === "register") {
-          try {
-            _this2.lookupRegister(arg);
-          } catch (e) {
-            _this2.error(e.message);
-          }
-        }
-      } else if (argType === "events") {
-        if (arg.type != 'ArrayExpression') _this2.error("events function expects a list of service events");else {
-          arg.elements.forEach(function (e) {
-            return _this2.lookupEvent(e);
-          });
-        }
-      } else if (argType === "number" || argType === "boolean") {
-        exprVisitor(root, arg, function (p, c) {
-          // TODO
-          if (p.type !== 'MemberExpression' && c.type === 'Identifier') {
-            _this2.lookupReplace(eventSymTable, p, c);
-          } else if (c.type === 'ArrayExpression') {
-            _this2.error("array expression not allowed in this context");
-          } else if (c.type === 'MemberExpression') {
-            var member = c; // A member expression must be of form <Identifier>.<memberExpression|Identifier>
-
-            if (member.object.type !== 'Identifier' || member.computed) {
-              _this2.error('property access must be of form id.property');
-            } else {
-              _this2.lookupReplace(eventSymTable, p, c);
-            }
-          }
-        });
-      } else {
-        _this2.error("unexpected argument type (" + argType + ")");
-      }
-    });
   } // TODO: OR
   ;
 
@@ -48133,19 +47982,246 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   };
 
   return SpecSymbolResolver;
-}(); // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-function exprVisitor(parent, current, structVisit) {
-  if (Array.isArray(current)) {
-    current.forEach(function (c) {
-      return exprVisitor(current, c, structVisit);
-    });
-  } else if (typeof current === "object") {
-    if (parent && current) structVisit(parent, current);
-    Object.keys(current).forEach(function (key) {
-      exprVisitor(current, current[key], structVisit);
-    });
+}();
+var SpecAwareMarkDownParser = /*#__PURE__*/function () {
+  function SpecAwareMarkDownParser(resolver, supportedExpressions, parser, error) {
+    this.resolver = resolver;
+    this.supportedExpressions = supportedExpressions;
+    this.parser = parser;
+    this.error = error;
   }
+
+  var _proto2 = SpecAwareMarkDownParser.prototype;
+
+  _proto2.processLine = function processLine(line, funs) {
+    var _this = this,
+        _root$callee;
+
+    var root = this.parser(line);
+
+    if (!root || !root.type || root.type != "CallExpression") {
+      this.error("a command must be a call expression in JavaScript syntax");
+      return undefined;
+    } // check for unsupported expression types
+
+
+    exprVisitor(null, root, function (p, c) {
+      if (_this.supportedExpressions.indexOf(c.type) < 0) _this.error("Expression of type " + c.type + " not currently supported");
+    }); // first lookup in known functions
+
+    var callee = (_root$callee = root.callee) === null || _root$callee === void 0 ? void 0 : _root$callee.name;
+    var cmdIndex = funs.findIndex(function (r) {
+      return callee == r.id;
+    });
+    var theCommand = undefined;
+
+    if (cmdIndex < 0) {
+      if (root.callee.type === "MemberExpression") {
+        var _this$resolver$specRe = this.resolver.specResolve(root.callee),
+            _role = _this$resolver$specRe[0],
+            _spec = _this$resolver$specRe[1],
+            rest = _this$resolver$specRe[2];
+
+        var _this$resolver$destru = this.resolver.destructAccessPath(rest),
+            command = _this$resolver$destru[0],
+            _ = _this$resolver$destru[1];
+
+        if (!_role) {
+          this.error("command does not conform to expected call expression");
+          return undefined;
+        } else {
+          var _spec$packets2;
+
+          // we have a spec, now look for command
+          var commands = (_spec$packets2 = _spec.packets) === null || _spec$packets2 === void 0 ? void 0 : _spec$packets2.filter(function (pkt) {
+            return pkt.kind === "command";
+          });
+          theCommand = commands.find(function (c) {
+            return (c === null || c === void 0 ? void 0 : c.name) === command;
+          });
+
+          if (!theCommand) {
+            this.error("cannot find command named " + command + " in spec " + _spec.shortName);
+          } else return this.processCommandFunction(root, theCommand);
+        }
+      } else {
+        if (callee) this.error(callee + " is not a registered function.");else this.error("command does not conform to expected call expression");
+        return undefined;
+      }
+    } else return this.processTestFunction(funs, root, cmdIndex);
+
+    return undefined;
+  };
+
+  _proto2.processCommandFunction = function processCommandFunction(root, command) {
+    var _command$fields,
+        _this2 = this;
+
+    if (root.arguments.length !== (command === null || command === void 0 ? void 0 : (_command$fields = command.fields) === null || _command$fields === void 0 ? void 0 : _command$fields.length)) {
+      this.error("Command " + command.name + " expects " + command.fields.length + " arguments: got " + root.arguments.length);
+    } else {
+      var args = root.arguments;
+      args.forEach(function (arg) {
+        _this2.visitReplace(root, arg, []);
+      });
+    }
+
+    return [undefined, root];
+  };
+
+  _proto2.processTestFunction = function processTestFunction(funs, root, cmdIndex) {
+    var _root$callee2;
+
+    var callee = (_root$callee2 = root.callee) === null || _root$callee2 === void 0 ? void 0 : _root$callee2.name; // check arguments
+
+    var command = funs[cmdIndex];
+    var minArgs = argsRequiredOptional(command.args).length;
+    var maxArgs = command.args.length;
+
+    if (root.arguments.length < minArgs) {
+      this.error(callee + " expects at least " + minArgs + " arguments; got " + root.arguments.length);
+      return undefined;
+    } else if (root.arguments.length > maxArgs) {
+      this.error(callee + " expects at most " + maxArgs + " arguments; got " + root.arguments.length);
+      return undefined;
+    } // deal with optional arguments
+
+
+    var newExpressions = [];
+
+    for (var i = root.arguments.length; i < command.args.length; i++) {
+      var _ref = command.args[i],
+          name = _ref[0],
+          def = _ref[1];
+      var lit = {
+        type: "Literal",
+        value: def,
+        raw: def.toString()
+      };
+      newExpressions.push(lit);
+    }
+
+    root.arguments = root.arguments.concat(newExpressions); // type checking of arguments.
+
+    this.processTestArguments(command, root);
+    return [command, root];
+
+    function argsRequiredOptional(args, optional) {
+      if (optional === void 0) {
+        optional = false;
+      }
+
+      return args.filter(function (a) {
+        return !optional && typeof a === "string" || optional && typeof a === "object";
+      });
+    }
+  };
+
+  _proto2.processTestArguments = function processTestArguments(command, root) {
+    var _this3 = this;
+
+    var args = root.arguments;
+    var eventSymTable = [];
+    args.forEach(function (arg, a) {
+      var argType = command.args[a];
+      if (typeof argType === "object") argType = command.args[a][0];
+
+      if (argType === "register" || argType === "event" || argType == "Identifier") {
+        if (argType == "Identifier") {
+          _this3.resolver.check(arg, "Identifier");
+        } else if (argType === "event" && a === 0) {
+          var pkt = _this3.resolver.lookupEvent(arg);
+
+          if (pkt && eventSymTable.indexOf(pkt) === -1) eventSymTable.push(pkt);
+        } else if (argType === "register") {
+          try {
+            _this3.resolver.lookupRegister(arg);
+          } catch (e) {
+            _this3.error(e.message);
+          }
+        }
+      } else if (argType === "events") {
+        if (arg.type != "ArrayExpression") _this3.error("events function expects a list of service events");else {
+          ;
+          arg.elements.forEach(function (e) {
+            return _this3.resolver.lookupEvent(e);
+          });
+        }
+      } else if (argType === "number" || argType === "boolean") {
+        _this3.visitReplace(root, arg, eventSymTable);
+      } else {
+        _this3.error("unexpected argument type (" + argType + ")");
+      }
+    });
+  };
+
+  _proto2.visitReplace = function visitReplace(root, arg, eventSymTable) {
+    var _this4 = this;
+
+    if (eventSymTable === void 0) {
+      eventSymTable = [];
+    }
+
+    exprVisitor(root, arg, function (p, c) {
+      // TODO
+      if (p.type !== "MemberExpression" && c.type === "Identifier") {
+        _this4.resolver.lookupReplace(eventSymTable, p, c);
+      } else if (c.type === "ArrayExpression") {
+        _this4.error("array expression not allowed in this context");
+      } else if (c.type === "MemberExpression") {
+        var member = c; // A member expression must be of form <Identifier>.<memberExpression|Identifier>
+
+        if (member.object.type !== "Identifier" || member.computed) {
+          _this4.error("property access must be of form id.property");
+        } else {
+          _this4.resolver.lookupReplace(eventSymTable, p, c);
+        }
+      }
+    });
+  };
+
+  return SpecAwareMarkDownParser;
+}(); // private stuff
+
+function isBoolOrNumericFormat(fmt) {
+  return fmt === "bool" || /^[ui]\d+/i.test(fmt);
+}
+
+function isRegister(pkt) {
+  return pkt && (pkt.kind == "const" || pkt.kind == "ro" || pkt.kind == "rw");
+}
+
+function lookupRegister(spec, id) {
+  return spec.packets.find(function (pkt) {
+    return isRegister(pkt) && pkt.name === id;
+  });
+}
+
+function lookupField(pkt, field) {
+  return pkt.fields.find(function (member) {
+    return member.name === field;
+  });
+}
+
+function getRegister(spec, root, fld) {
+  if (fld === void 0) {
+    fld = "";
+  }
+
+  var ret = {
+    pkt: undefined,
+    fld: undefined
+  };
+  ret.pkt = lookupRegister(spec, root);
+
+  if (!ret.pkt) {
+    throw new Error("no register " + root + " found in service " + spec.shortName);
+  } else if (fld) {
+    ret.fld = lookupField(ret.pkt, fld);
+    if (!ret.fld) throw new Error("no field " + fld + " found in register " + root + " of service " + spec.shortName);
+  }
+
+  return ret;
 }
 
 /***/ }),
@@ -69002,7 +69078,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ff0a2ad0b2fee956c34248c52334eedb82a17342";
+  var sha = "bb782f910713b929263703aceeeaa0cc1dcde8e6";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -74280,7 +74356,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
         if (pkt.serviceCommand == constants/* CMD_ADVERTISEMENT_DATA */.zf$) {
           isAnnounce = true;
           pkt.device.processAnnouncement(pkt);
-        } else if (pkt.serviceCommand == (constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn)) {
+        } else if (pkt.isMultiCommand && pkt.serviceCommand == (constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn)) {
           // someone else is doing reset in
           this._lastResetInTime = this.timestamp;
         }
@@ -74309,12 +74385,14 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.sendResetIn = function sendResetIn() {
-    if (this._lastResetInTime - this.timestamp > constants/* RESET_IN_TIME_US */._$y / 3) return;
+    // don't send reset if already received
+    // or no devices
+    if (this._lastResetInTime - this.timestamp > constants/* RESET_IN_TIME_US */._$y / 3 || !this.devices({
+      ignoreSelf: true
+    }).length) return;
     this._lastResetInTime = this.timestamp;
     var rst = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn, "u32", [constants/* RESET_IN_TIME_US */._$y]);
-    rst.serviceIndex = constants/* JD_SERVICE_INDEX_CTRL */.fey;
-    rst.deviceIdentifier = this.selfDeviceId;
-    rst.sendCmdAsync(this.selfDevice);
+    rst.sendAsMultiCommandAsync(this, specconstants/* SRV_CONTROL */.gm9);
   }
   /**
    * Cycles through all known registers and refreshes the once that have REPORT_UPDATE registered
@@ -77844,7 +77922,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.37"};
+var package_namespaceObject = {"i8":"1.13.38"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -85094,4 +85172,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-923e94222d70030e2e0e.js.map
+//# sourceMappingURL=app-f4cb8cf1e206b0e9924f.js.map

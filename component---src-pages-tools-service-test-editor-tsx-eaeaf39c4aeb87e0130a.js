@@ -887,7 +887,10 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
   var currentTest = null;
   var testHeading = "";
   var testPrompt = "";
-  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(spec, undefined, supportedExpressions, (jsep_default()), function (e) {
+  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(spec, undefined, function (e) {
+    return error(e);
+  });
+  var parser = new jdutils/* SpecAwareMarkDownParser */.F2(symbolResolver, supportedExpressions, (jsep_default()), function (e) {
     return error(e);
   });
 
@@ -964,7 +967,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       testPrompt = "";
     }
 
-    var ret = symbolResolver.processLine(expanded, (0,jdtestfuns/* getTestCommandFunctions */.f)());
+    var ret = parser.processLine(expanded, (0,jdtestfuns/* getTestCommandFunctions */.f)());
 
     if (ret) {
       var command = ret[0],
@@ -1213,4 +1216,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-69e4d261c9b2233ab4d0.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-eaeaf39c4aeb87e0130a.js.map
