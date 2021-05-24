@@ -54853,19 +54853,17 @@ function SplitGrid(props) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ Tools; }
 /* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(39285);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(80838);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(39285);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83580);
 /* harmony import */ var _SplitGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72587);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(84377);
-/* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38037);
-/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(69672);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(71815);
-/* harmony import */ var _hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(36134);
-/* harmony import */ var _hooks_useDevices__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(53074);
-/* harmony import */ var _dashboard_DashboardDevice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(54886);
-
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69672);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(71815);
+/* harmony import */ var _hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36134);
+/* harmony import */ var _hooks_useDevices__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(53074);
+/* harmony import */ var _dashboard_DashboardDevice__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(54886);
 
 
 
@@ -54886,21 +54884,15 @@ var PacketView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(functi
 function Tools() {
   var _useDevices;
 
-  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_BUTTON */ .XJR);
-  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_JOYSTICK */ .vRO);
-  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_SERVO */ .$X_);
-  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_POTENTIOMETER */ .GQv);
-  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_LED_PIXEL */ .zEX);
-  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_LED_MATRIX */ .ZmS);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_BUTTON */ .XJR);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_JOYSTICK */ .vRO);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_SERVO */ .$X_);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_POTENTIOMETER */ .GQv);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_LED_PIXEL */ .zEX);
+  (0,_hooks_useServiceProviderFromServiceClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_LED_MATRIX */ .ZmS);
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
-      setDrawerType = _useContext.setDrawerType,
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
-
-  var handleStartSimulator = function handleStartSimulator() {
-    toggleShowDeviceHostsDialog();
-    (0,gatsby_link__WEBPACK_IMPORTED_MODULE_4__/* .navigate */ .c4)("/dashboard/");
-  };
+      setDrawerType = _useContext.setDrawerType;
 
   var handleShowDeviceTree = function handleShowDeviceTree() {
     return setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .DrawerType.Dom */ .jw.Dom);
@@ -54910,19 +54902,19 @@ function Tools() {
     return setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .DrawerType.Packets */ .jw.Packets);
   };
 
-  var simulatorClass = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_LED_MATRIX */ .ZmS;
-  var dashboards = (0,_hooks_useDevices__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)({
+  var simulatorClass = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_LED_MATRIX */ .ZmS;
+  var dashboards = (0,_hooks_useDevices__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)({
     ignoreSelf: true,
     announced: true
   }).filter(function (dev) {
-    return !dev.hasService(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_6__/* .SRV_ROLE_MANAGER */ .igi) && !dev.hasService(simulatorClass);
+    return !dev.hasService(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .SRV_ROLE_MANAGER */ .igi) && !dev.hasService(simulatorClass);
   }).slice(0, 4);
-  var simulator = (_useDevices = (0,_hooks_useDevices__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)({
+  var simulator = (_useDevices = (0,_hooks_useDevices__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)({
     ignoreSelf: true,
     announced: true,
     serviceClass: simulatorClass
   })) === null || _useDevices === void 0 ? void 0 : _useDevices[0];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     container: true,
     spacing: 10,
     direction: "column",
@@ -54932,7 +54924,7 @@ function Tools() {
     title: "Tools",
     subtitle3: "Get productive with Jacdac.",
     imageColumns: 6,
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__.S, {
       src: "./dashboard.png",
       alt: "Dashboard",
       __imageData: __webpack_require__(94071)
@@ -54944,16 +54936,16 @@ function Tools() {
     right: true,
     subtitle: "Dashboard",
     description: "Visualize and interact with physical or simulated devices in the dashboard.",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
       container: true,
       spacing: 1
     }, dashboards.map(function (device) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
         item: true,
         key: device.id,
         xs: 12,
         sm: 6
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_dashboard_DashboardDevice__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_dashboard_DashboardDevice__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
         device: device
       })));
     })),
@@ -54964,17 +54956,14 @@ function Tools() {
     right: false,
     subtitle: "Simulators.",
     description: "Spin up virtual device and services to test your client software. Both physical and simulated devices can interact together.",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, simulator && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_dashboard_DashboardDevice__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, simulator && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_dashboard_DashboardDevice__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
       device: simulator
-    }))),
-    buttonText: "Start a simulator",
-    buttonVariant: "link",
-    onButtonClick: handleStartSimulator
+    })))
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     right: true,
     subtitle: "Device Tree",
     description: "Inspect devices, services, registers and events in the device tree.",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(JDomTreeView, null)),
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(JDomTreeView, null)),
     buttonText: "Open Device Tree",
     buttonVariant: "link",
     onButtonClick: handleShowDeviceTree
@@ -54986,7 +54975,7 @@ function Tools() {
       style: {
         height: "14rem"
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PacketView, null))),
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PacketView, null))),
     buttonText: "Open Packet Console",
     buttonVariant: "link",
     onButtonClick: handleShowPacketConsole
@@ -56301,7 +56290,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "dcebfe445250e779ce396260d94681fbd9d2c6b8";
+  var sha = "c6f865809fd6f3147f06e5f869939c5e320214f4";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72353,4 +72342,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-11a1d98491450c8b9431.js.map
+//# sourceMappingURL=app-a0a48ea24d48fc242f8d.js.map
