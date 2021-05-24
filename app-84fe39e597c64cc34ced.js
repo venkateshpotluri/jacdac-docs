@@ -54665,19 +54665,17 @@ function Protocol() {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ Software; }
 /* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(39285);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(80838);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(39285);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83580);
 /* harmony import */ var _SplitGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72587);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(84377);
 /* harmony import */ var _CarouselGrid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(30043);
 /* harmony import */ var _FeatureItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19586);
-/* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(89615);
+/* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(89615);
 /* harmony import */ var _icons_JacdacIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(36656);
-/* harmony import */ var _KindIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(50048);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(71815);
-/* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(38037);
+/* harmony import */ var _material_ui_icons_History__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(9080);
 
 
 
@@ -54690,23 +54688,19 @@ function Protocol() {
 
 
 
-
-
 function Software() {
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
-      setDrawerType = _useContext.setDrawerType,
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
+      setDrawerType = _useContext.setDrawerType;
 
-  var handleStartSimulator = function handleStartSimulator() {
-    toggleShowDeviceHostsDialog();
-    (0,gatsby_link__WEBPACK_IMPORTED_MODULE_9__/* .navigate */ .c4)("/dashboard/");
+  var handleShowPackets = function handleShowPackets() {
+    return setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .DrawerType.Packets */ .jw.Packets);
   };
 
   var handleShowDeviceTree = function handleShowDeviceTree() {
     return setDrawerType(_AppContext__WEBPACK_IMPORTED_MODULE_3__/* .DrawerType.Dom */ .jw.Dom);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
     container: true,
     spacing: 10,
     direction: "column",
@@ -54716,7 +54710,7 @@ function Software() {
     title: "Software",
     subtitle3: "Integrate Jacdac into your web, Node.JS or embedded apps.",
     imageColumns: 6,
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__.S, {
       src: "./dashboard.png",
       alt: "Dashboard",
       __imageData: __webpack_require__(94071)
@@ -54731,7 +54725,7 @@ function Software() {
     buttonText: "JavaScript library",
     buttonVariant: "link",
     buttonUrl: "/clients/javascript",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__.S, {
       src: "./html5.png",
       alt: "A Jacdac humidity module plugging into a Jacdac cable",
       __imageData: __webpack_require__(17983)
@@ -54741,7 +54735,7 @@ function Software() {
     subtitle: "Web USB",
     subtitle3: "and Web Bluetooth",
     description: "No driver installation needed to access the Jacdac devices from your web applications thanks to Web USB or Web Bluetooth.",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__.S, {
       src: "./bustopology.png",
       alt: "Bus topology",
       __imageData: __webpack_require__(37301)
@@ -54753,7 +54747,7 @@ function Software() {
     buttonText: "MakeCode library",
     buttonVariant: "link",
     buttonUrl: "/clients/makecode",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__.S, {
       src: "./makecode.png",
       alt: "Block code to swipe a servo",
       __imageData: __webpack_require__(87997)
@@ -54765,7 +54759,7 @@ function Software() {
     buttonText: "Jacdac node",
     buttonVariant: "link",
     buttonUrl: "https://flows.nodered.org/node/node-red-contrib-jacdac",
-    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_11__.S, {
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__.S, {
       src: "./nodered.png",
       alt: "Jacdac nodes for Node-RED",
       __imageData: __webpack_require__(21521)
@@ -54773,7 +54767,7 @@ function Software() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     subtitle2: "Developer tools.",
     description: "Investigate and diagnose issues through our debugging tools."
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CarouselGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CarouselGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
     item: true,
     xs: 12,
     sm: 4
@@ -54786,26 +54780,12 @@ function Software() {
     buttonText: "Try the dashboard",
     buttonVariant: "link",
     buttonUrl: "/dashboard/"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
     item: true,
     xs: 12,
     sm: 4
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FeatureItem__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    startImage: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_KindIcon__WEBPACK_IMPORTED_MODULE_7__/* .default */ .ZP, {
-      kind: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_8__/* .VIRTUAL_DEVICE_NODE_NAME */ .UX7,
-      fontSize: "large"
-    }),
-    description: "Simulators.",
-    caption: "Spin up virtual device and services to test your client software. Both physical and simulated devices can interact together.",
-    buttonText: "Start a simulator",
-    buttonVariant: "link",
-    onButtonClick: handleStartSimulator
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
-    item: true,
-    xs: 12,
-    sm: 4
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FeatureItem__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    startImage: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+    startImage: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
       fontSize: "large"
     }),
     description: "Device Tree.",
@@ -54813,6 +54793,19 @@ function Software() {
     buttonText: "Open Device Tree",
     buttonVariant: "link",
     onButtonClick: handleShowDeviceTree
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    item: true,
+    xs: 12,
+    sm: 4
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FeatureItem__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    startImage: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_History__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+      fontSize: "large"
+    }),
+    description: "Packet console.",
+    caption: "Inspect every packet moving on the bus, save and reload traces from the web or your logic analyzer.",
+    buttonText: "Show packets",
+    buttonVariant: "link",
+    onButtonClick: handleShowPackets
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     subtitle2: "Can I add Jacdac to my web app?",
     description: "Absolutely! You can embed our dashboard or add our JavaScript package.",
@@ -56346,7 +56339,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "2ab37e21bc9b22ffaf0b1a1a1ef2b2fc297905f5";
+  var sha = "604b6ee9e74bbe4c2a5355eaddccbbb2410295c9";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72398,4 +72391,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c332bfbc8e81e83d677e.js.map
+//# sourceMappingURL=app-84fe39e597c64cc34ced.js.map
