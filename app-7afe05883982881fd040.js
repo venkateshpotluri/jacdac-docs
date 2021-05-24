@@ -196,7 +196,7 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8"
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/c2d17/jupyterlab.png","srcSet":"/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/2c67b/jupyterlab.png 200w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/6addd/jupyterlab.png 400w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/c2d17/jupyterlab.png 800w","sizes":"(min-width: 800px) 800px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/b5535/jupyterlab.webp 200w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/f5c71/jupyterlab.webp 400w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/0d27e/jupyterlab.webp 800w","type":"image/webp","sizes":"(min-width: 800px) 800px, 100vw"}]},"width":800,"height":600}');
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/eedde/jupyterlab.png","srcSet":"/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/b93bb/jupyterlab.png 211w,\\n/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/c11d5/jupyterlab.png 422w,\\n/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/eedde/jupyterlab.png 843w","sizes":"(min-width: 843px) 843px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/cedfc/jupyterlab.webp 211w,\\n/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/4d09c/jupyterlab.webp 422w,\\n/jacdac-docs/static/247252b93ef005df1286eb128bab66d4/b1a83/jupyterlab.webp 843w","type":"image/webp","sizes":"(min-width: 843px) 843px, 100vw"}]},"width":843,"height":655}');
 
 /***/ }),
 
@@ -56346,7 +56346,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "fb69f1b0a89e2870c70184c72607e0c92bf8dd1e";
+  var sha = "37e05178a2376e293bf18f45099009af81969c4a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72398,4 +72398,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c8d1966a488c1ab24772.js.map
+//# sourceMappingURL=app-7afe05883982881fd040.js.map
