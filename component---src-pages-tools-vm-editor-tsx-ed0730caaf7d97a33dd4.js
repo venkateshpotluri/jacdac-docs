@@ -14909,7 +14909,8 @@ function Page() {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(VMRunner/* default */.Z, {
-    program: program
+    program: program,
+    autoStart: true
   })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -14926,4 +14927,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ec7161a23603a1b56cea.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ed0730caaf7d97a33dd4.js.map

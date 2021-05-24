@@ -1125,30 +1125,44 @@ var Context = __webpack_require__(20392);
 
 
 function VMRunner(props) {
+  var program = props.program,
+      autoStartDefault = props.autoStart;
+
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var program = props.program;
-  var factory = (0,react.useCallback)(function (bus) {
-    return program && new IT4ProgramRunner(program, bus);
-  }, [program]);
-  var testRunner = (0,react.useMemo)(function () {
-    return factory(bus);
-  }, [program]);
+  var _useState = (0,react.useState)(),
+      testRunner = _useState[0],
+      setTestRunner = _useState[1];
+
+  var _useState2 = (0,react.useState)(!!autoStartDefault),
+      autoStart = _useState2[0],
+      setAutoStart = _useState2[1];
+
+  (0,react.useEffect)(function () {
+    var runner = program && new IT4ProgramRunner(program, bus);
+    setTestRunner(runner);
+    if (runner && autoStart) runner.start();
+    return function () {
+      return runner === null || runner === void 0 ? void 0 : runner.cancel();
+    };
+  }, [program, autoStart]);
+  var disabled = !testRunner;
   var status = (0,useChange/* default */.Z)(testRunner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
   });
 
   var handleRun = function handleRun() {
-    return testRunner.start();
+    setAutoStart(autoStartDefault);
+    testRunner.start();
   };
 
   var handleCancel = function handleCancel() {
-    return testRunner.cancel();
+    setAutoStart(false);
+    testRunner.cancel();
   };
 
   var running = status === VMStatus.Running;
-  var disabled = !testRunner;
   return /*#__PURE__*/react.createElement(Button/* default */.Z, {
     disabled: disabled,
     variant: "contained",
@@ -1161,4 +1175,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-a9ae7ac99c4cb9db3da6.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-ced34afce5086fe31d06.js.map
