@@ -698,14 +698,15 @@ function SelectEvent(props) {
   var events = props.events,
       eventId = props.eventId,
       onChange = props.onChange,
-      friendlyName = props.friendlyName;
+      friendlyName = props.friendlyName,
+      label = props.label;
 
   var handleChange = function handleChange(ev) {
     onChange(ev.target.value);
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-    helperText: "choose an event",
+    helperText: label || "choose an event",
     value: eventId,
     onChange: handleChange,
     disabled: !(events !== null && events !== void 0 && events.length)
@@ -1502,4 +1503,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-37026a687c1b43246bae.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-e34ab723c9f5fbef43f2.js.map
