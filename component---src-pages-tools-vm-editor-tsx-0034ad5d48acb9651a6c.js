@@ -13717,13 +13717,32 @@ function loadBlocks() {
       template: "event"
     };
   });
-  var registerChangeEventBlocks = registers.map(function (_ref2) {
-    var service = _ref2.service,
-        register = _ref2.register;
+  var registerChangeEventBlocks = registers.filter(function (_ref2) {
+    var service = _ref2.service;
+    return !service.packets.some(function (pkt) {
+      return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
+    });
+  }).map(function (_ref3) {
+    var service = _ref3.service,
+        register = _ref3.register;
     return {
       type: "jacdac_" + service.shortId + "_" + register.name + "_change_event",
-      message0: "when %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change",
-      args0: [fieldVariable(service)],
+      message0: "when %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change by %2",
+      args0: [fieldVariable(service), {
+        type: "input_value",
+        name: "threshold",
+        check: "Number"
+      }].filter(function (v) {
+        return !!v;
+      }),
+      values: {
+        threshold: {
+          type: "math_number",
+          value: 1,
+          min: 0,
+          shadow: true
+        }
+      },
       inputsInline: true,
       nextStatement: "Statement",
       colour: HUE,
@@ -13734,9 +13753,9 @@ function loadBlocks() {
       template: "register_change_event"
     };
   });
-  var registerGetBlocks = registers.map(function (_ref3) {
-    var service = _ref3.service,
-        register = _ref3.register;
+  var registerGetBlocks = registers.map(function (_ref4) {
+    var service = _ref4.service,
+        register = _ref4.register;
     return {
       type: "jacdac_" + service.shortId + "_" + register.name + "_get",
       message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (register.fields.length > 1 ? " %2" : ""),
@@ -13759,12 +13778,12 @@ function loadBlocks() {
       template: "register_get"
     };
   });
-  var registerSetBlocks = registers.filter(function (_ref4) {
-    var register = _ref4.register;
+  var registerSetBlocks = registers.filter(function (_ref5) {
+    var register = _ref5.register;
     return register.kind === "rw";
-  }).map(function (_ref5) {
-    var service = _ref5.service,
-        register = _ref5.register;
+  }).map(function (_ref6) {
+    var service = _ref6.service,
+        register = _ref6.register;
     return {
       type: "jacdac_" + service.shortId + "_" + register.name + "_set",
       message0: "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
@@ -13781,9 +13800,9 @@ function loadBlocks() {
       template: "register_set"
     };
   });
-  var commandBlocks = commands.map(function (_ref6) {
-    var service = _ref6.service,
-        command = _ref6.command;
+  var commandBlocks = commands.map(function (_ref7) {
+    var service = _ref7.service,
+        command = _ref7.command;
     return {
       type: "jacdac_" + service.shortId + "_value_get",
       message0: (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
@@ -13989,9 +14008,9 @@ function useToolbox(blockServices) {
         return block.service === service;
       })
     };
-  }).map(function (_ref7) {
-    var service = _ref7.service,
-        serviceBlocks = _ref7.serviceBlocks;
+  }).map(function (_ref8) {
+    var service = _ref8.service,
+        serviceBlocks = _ref8.serviceBlocks;
     return {
       name: service.name,
       colour: "#5CA699",
@@ -14910,4 +14929,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d35747c623c900ecc900.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0034ad5d48acb9651a6c.js.map
