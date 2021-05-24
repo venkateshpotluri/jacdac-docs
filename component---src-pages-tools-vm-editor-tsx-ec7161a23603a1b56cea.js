@@ -13610,8 +13610,8 @@ function loadBlocks() {
     } : {
       type: "math_number",
       value: field.defaultValue || 0,
-      min: field.absoluteMin,
-      max: field.absoluteMax,
+      min: field.typicalMin || field.absoluteMin,
+      max: field.typicalMax || field.absoluteMax,
       shadow: true
     };
   };
@@ -13634,7 +13634,7 @@ function loadBlocks() {
     return info.fields.map(function (field) {
       return {
         type: "input_value",
-        name: field.name,
+        name: fieldName(info, field),
         check: toBlocklyType(field)
       };
     });
@@ -13759,7 +13759,7 @@ function loadBlocks() {
         type: "field_dropdown",
         name: "field",
         options: register.fields.map(function (field) {
-          return [(0,jdspec/* humanify */.lW)(field.name), field.name];
+          return [(0,jdspec/* humanify */.lW)(field.name), fieldName(register, field)];
         })
       } : undefined].filter(function (v) {
         return !!v;
@@ -14926,4 +14926,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-72fa63c1fe0408f23031.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ec7161a23603a1b56cea.js.map
