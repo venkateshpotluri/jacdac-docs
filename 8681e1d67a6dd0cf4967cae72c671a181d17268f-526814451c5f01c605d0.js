@@ -806,10 +806,10 @@ var vm_expr = __webpack_require__(18108);
 var VMStatus;
 
 (function (VMStatus) {
-  VMStatus[VMStatus["Ready"] = 0] = "Ready";
-  VMStatus[VMStatus["Running"] = 1] = "Running";
-  VMStatus[VMStatus["Completed"] = 2] = "Completed";
-  VMStatus[VMStatus["Stopped"] = 3] = "Stopped";
+  VMStatus["Ready"] = "ready";
+  VMStatus["Running"] = "running";
+  VMStatus["Completed"] = "completed";
+  VMStatus["Stopped"] = "stopped";
 })(VMStatus || (VMStatus = {}));
 
 var IT4CommandEvaluator = /*#__PURE__*/function () {
@@ -1175,4 +1175,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-ced34afce5086fe31d06.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-526814451c5f01c605d0.js.map
