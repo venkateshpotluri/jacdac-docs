@@ -13579,10 +13579,6 @@ function isStringField(field) {
   return field.type === "string";
 }
 
-function isBoolean(pkt) {
-  return pkt.fields.length === 1 && isBooleanField(pkt.fields[0]);
-}
-
 function toBlocklyType(field) {
   return isBooleanField(field) ? "Boolean" : isStringField(field) ? "String" : "Number";
 }
@@ -14930,4 +14926,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b20b7facb9725315541e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-72fa63c1fe0408f23031.js.map
