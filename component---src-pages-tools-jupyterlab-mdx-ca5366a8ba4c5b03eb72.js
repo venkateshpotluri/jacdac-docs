@@ -118,7 +118,7 @@ function MDXContent(_ref) {
     parentName: "li"
   }, "jupyter-jacdac"), " extension and install it.")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "After installation, you will see menu items under ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("inlineCode", {
     parentName: "p"
-  }, "View"), " to collect data\nand deplay models."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+  }, "View"), " to collect data\nand deploy models."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "sources",
     "style": {
       "position": "relative"
@@ -195,4 +195,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-jupyterlab-mdx-78e2885ca36df3346cc4.js.map
+//# sourceMappingURL=component---src-pages-tools-jupyterlab-mdx-ca5366a8ba4c5b03eb72.js.map

@@ -192,6 +192,14 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8"
 
 /***/ }),
 
+/***/ 26210:
+/***/ (function(module) {
+
+"use strict";
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/c2d17/jupyterlab.png","srcSet":"/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/2c67b/jupyterlab.png 200w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/6addd/jupyterlab.png 400w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/c2d17/jupyterlab.png 800w","sizes":"(min-width: 800px) 800px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/b5535/jupyterlab.webp 200w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/f5c71/jupyterlab.webp 400w,\\n/jacdac-docs/static/bebd871229c0a7713c174a3283295a53/0d27e/jupyterlab.webp 800w","type":"image/webp","sizes":"(min-width: 800px) 800px, 100vw"}]},"width":800,"height":600}');
+
+/***/ }),
+
 /***/ 87811:
 /***/ (function(module) {
 
@@ -229,6 +237,14 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808"
 
 "use strict";
 module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/1c9ce/html5.png","srcSet":"/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/fbc98/html5.png 16w,\\n/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/914ee/html5.png 32w,\\n/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/1c9ce/html5.png 64w,\\n/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/bf8e1/html5.png 128w","sizes":"(min-width: 64px) 64px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/e789a/html5.webp 16w,\\n/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/ef6ff/html5.webp 32w,\\n/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/8257c/html5.webp 64w,\\n/jacdac-docs/static/0ec94d29956d4aec50f64cf5adf48d5c/6766a/html5.webp 128w","type":"image/webp","sizes":"(min-width: 64px) 64px, 100vw"}]},"width":64,"height":64}');
+
+/***/ }),
+
+/***/ 47718:
+/***/ (function(module) {
+
+"use strict";
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/1e429/recordit.png","srcSet":"/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/c4ae8/recordit.png 186w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/f590b/recordit.png 371w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/1e429/recordit.png 742w","sizes":"(min-width: 742px) 742px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/110d6/recordit.webp 186w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/cb3c1/recordit.webp 371w,\\n/jacdac-docs/static/52776ea5cd92e087bf597dfa61ac1db3/9274c/recordit.webp 742w","type":"image/webp","sizes":"(min-width: 742px) 742px, 100vw"}]},"width":742,"height":395}');
 
 /***/ }),
 
@@ -54998,6 +55014,30 @@ function Tools() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     subtitle2: "Data Science tools.",
     description: "Collect data."
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    right: false,
+    subtitle: "Data collector.",
+    description: "Record any register data into a CSV file.",
+    buttonText: "Collect data",
+    buttonVariant: "link",
+    buttonUrl: "/tools/collector",
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__.S, {
+      src: "./recordit.png",
+      alt: "Data collector user interface",
+      __imageData: __webpack_require__(47718)
+    })
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    right: false,
+    subtitle: "JupyterLab 2.0.",
+    description: "Collect data from your JupyterLab notebooks.",
+    buttonText: "Collect data",
+    buttonVariant: "link",
+    buttonUrl: "/tools/jupyterlab/",
+    image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__.S, {
+      src: "./jupyterlab.png",
+      alt: "Screenshot of Jupyter lab",
+      __imageData: __webpack_require__(26210)
+    })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CenterGrid__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     subtitle2: "Can I build my own tools?",
     description: "Absolutely! You can our JavaScript package to build your own Jacdac tooling.",
@@ -56306,7 +56346,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "75543cfb0be2a9e93c58eb9b357a6b370764e28b";
+  var sha = "fb69f1b0a89e2870c70184c72607e0c92bf8dd1e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72358,4 +72398,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-d122d90460a67f20c67d.js.map
+//# sourceMappingURL=app-c8d1966a488c1ab24772.js.map
