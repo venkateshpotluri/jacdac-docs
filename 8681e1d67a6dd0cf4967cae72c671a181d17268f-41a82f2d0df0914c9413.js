@@ -972,7 +972,8 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   ;
 
   _proto3.step = function step() {
-    if (this.stopped) return;
+    // eight stopped or empty
+    if (this.stopped || !this.handler.commands.length) return;
 
     if (this._commandIndex === undefined) {
       this._commandIndex = 0;
@@ -1051,6 +1052,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   var _proto4 = IT4ProgramRunner.prototype;
 
   _proto4.cancel = function cancel() {
+    if (!this._running) return; // nothing to cancel
+
     this._running = false;
     this._waitQueue = this._handlers.slice(0);
 
@@ -1063,6 +1066,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
 
   _proto4.start = function start() {
     var _this4 = this;
+
+    if (this._running) return; // already running
 
     this.program.roles.forEach(function (role) {
       _this4._rm.addRoleService(role.role, role.serviceShortName);
@@ -1175,4 +1180,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-526814451c5f01c605d0.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-41a82f2d0df0914c9413.js.map
