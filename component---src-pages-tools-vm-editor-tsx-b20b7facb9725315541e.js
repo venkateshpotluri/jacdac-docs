@@ -14811,7 +14811,7 @@ function VmEditor(props) {
       comments: false,
       css: true,
       trashcan: false,
-      sound: false,
+      sounds: false,
       grid: {
         spacing: 25,
         length: 1,
@@ -14930,4 +14930,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-46a3a72c2d49e2d251d4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b20b7facb9725315541e.js.map
