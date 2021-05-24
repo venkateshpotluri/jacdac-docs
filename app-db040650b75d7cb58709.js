@@ -60113,14 +60113,15 @@ var AppProvider = function AppProvider(_ref) {
 
   var setError = function setError(e) {
     if (!e || (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .isCancelError */ .G5)(e)) return;
-    console.error(e);
     var msg = (e === null || e === void 0 ? void 0 : e.message) || e + "";
     var code = (0,_jacdac_ts_src_jdom_error__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP)(e);
     enqueueSnackbar(msg, {
       variant: "error",
-      preventDuplicate: true,
       autoHideDuration: code ? 8000 : 4000,
-      action: code && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_0__.Button, {
+      preventDuplicate: true,
+      action: !!code && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_0__.Button, {
+        variant: "outlined",
+        "aria-label": "Open help page on " + code + " error",
         to: "/errors/" + code
       }, "Help")
     });
@@ -68999,7 +69000,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "f0e4359c16876f6f302411d14ef7b56e52c268e1";
+  var sha = "831309360da8c162573f4977d6ab6b9e41bf4945";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -69739,15 +69740,19 @@ function LayoutWithContext(props) {
       frontmatter = _ref5.frontmatter;
 
   var makeCodeTool = /tools\/makecode-/.test(path);
+  var fullWidthTools = /^\/(tools\/(makecode-|vm-editor)|dashboard)/.test(path);
 
   var _ref6 = frontmatter || {
     hideMainMenu: makeCodeTool,
-    hideUnderConstruction: makeCodeTool
+    hideUnderConstruction: makeCodeTool,
+    hideBreadcrumbs: fullWidthTools
   },
       _ref6$hideMainMenu = _ref6.hideMainMenu,
       hideMainMenu = _ref6$hideMainMenu === void 0 ? false : _ref6$hideMainMenu,
       _ref6$hideUnderConstr = _ref6.hideUnderConstruction,
-      hideUnderConstruction = _ref6$hideUnderConstr === void 0 ? false : _ref6$hideUnderConstr;
+      hideUnderConstruction = _ref6$hideUnderConstr === void 0 ? false : _ref6$hideUnderConstr,
+      _ref6$hideBreadcrumbs = _ref6.hideBreadcrumbs,
+      hideBreadcrumbs = _ref6$hideBreadcrumbs === void 0 ? false : _ref6$hideBreadcrumbs;
 
   var classes = layout_useStyles();
 
@@ -69763,7 +69768,7 @@ function LayoutWithContext(props) {
   var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
       medium = _useMediaQueries.medium;
 
-  var container = !medium && !/^\/(tools\/(makecode-|vm-editor)|dashboard)/.test(path); // && path !== "/"
+  var container = !medium && !fullWidthTools; // && path !== "/"
 
   var mainClasses = (0,clsx_m/* default */.Z)(classes.content, (_clsx2 = {}, _clsx2[classes.container] = container, _clsx2[classes.contentShift] = drawerOpen, _clsx2[classes.toolsContentShift] = toolsMenu, _clsx2));
 
@@ -69771,7 +69776,7 @@ function LayoutWithContext(props) {
     return /*#__PURE__*/react.createElement(react.Fragment, null, !hideUnderConstruction && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
       closeable: true,
       severity: "warning"
-    }, "UNDER CONSTRUCTION - We are still working and changing the Jacdac specification. Do not build devices using Jacdac."), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(WebDiagnostics, null)), container && location && /*#__PURE__*/react.createElement(ui_Breadcrumbs_Breadcrumbs, {
+    }, "UNDER CONSTRUCTION - We are still working and changing the Jacdac specification. Do not build devices using Jacdac."), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(WebDiagnostics, null)), !hideBreadcrumbs && location && /*#__PURE__*/react.createElement(ui_Breadcrumbs_Breadcrumbs, {
       location: location
     }), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
       className: "markdown",
@@ -85087,4 +85092,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-71b3a6cd16533b676a38.js.map
+//# sourceMappingURL=app-db040650b75d7cb58709.js.map
