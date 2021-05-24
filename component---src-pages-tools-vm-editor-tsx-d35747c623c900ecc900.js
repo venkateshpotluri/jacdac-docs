@@ -13567,8 +13567,6 @@ var useServices = __webpack_require__(2928);
 
 
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
-var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
-var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged];
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
@@ -13577,17 +13575,50 @@ function isBooleanField(field) {
   return field.type === "bool";
 }
 
+function isStringField(field) {
+  return field.type === "string";
+}
+
 function isBoolean(pkt) {
   return pkt.fields.length === 1 && isBooleanField(pkt.fields[0]);
 }
 
 function toBlocklyType(field) {
-  return isBooleanField(field) ? "Boolean" : "Number";
+  return isBooleanField(field) ? "Boolean" : isStringField(field) ? "String" : "Number";
 }
 
+var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
+var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged];
+var includedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
 var cachedBlocks;
 function loadBlocks() {
   if (cachedBlocks) return cachedBlocks;
+
+  var fieldName = function fieldName(reg, field) {
+    return field.name === "_" ? reg.name : field.name;
+  };
+
+  var fieldToShadow = function fieldToShadow(field) {
+    return isBooleanField(field) ? {
+      type: "jacdac_on_off",
+      shadow: true
+    } : isStringField(field) ? {
+      type: "text",
+      shadow: true
+    } : field.unit === "°" ? {
+      type: "jacdac_angle",
+      shadow: true
+    } : field.unit === "/" ? {
+      type: "jacdac_percent",
+      shadow: true
+    } : {
+      type: "math_number",
+      value: field.defaultValue || 0,
+      min: field.absoluteMin,
+      max: field.absoluteMax,
+      shadow: true
+    };
+  };
 
   var variableName = function variableName(srv) {
     return (0,jdspec/* humanify */.lW)(srv.camelName).toLowerCase() + " 1";
@@ -13603,40 +13634,44 @@ function loadBlocks() {
     };
   };
 
+  var fieldsToFieldInputs = function fieldsToFieldInputs(info) {
+    return info.fields.map(function (field) {
+      return {
+        type: "input_value",
+        name: field.name,
+        check: toBlocklyType(field)
+      };
+    });
+  };
+
+  var fieldsToValues = function fieldsToValues(info) {
+    return (0,utils/* toMap */.qL)(info.fields, function (field) {
+      return fieldName(info, field);
+    }, function (field) {
+      return fieldToShadow(field);
+    });
+  };
+
+  var fieldsToMessage = function fieldsToMessage(info) {
+    return info.fields.map(function (field, i) {
+      return (0,jdspec/* humanify */.lW)(field.name) + " %" + (2 + i);
+    }).join(" ");
+  };
+
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
     return !/^_/.test(service.shortId);
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
   });
-  var readings = allServices.map(function (service) {
+  var registers = allServices.map(function (service) {
     return {
       service: service,
-      reading: service.packets.find(function (pkt) {
-        return (0,spec/* isRegister */.x5)(pkt) && pkt.identifier === constants/* SystemReg.Reading */.ZJq.Reading && pkt.fields.length == 1 && (0,jdspec/* isNumericType */.FV)(pkt.fields[0]);
+      register: service.packets.find(function (pkt) {
+        return (0,spec/* isRegister */.x5)(pkt) && includedRegisters.indexOf(pkt.identifier) > -1;
       })
     };
   }).filter(function (kv) {
-    return !!kv.reading;
-  });
-  var intensities = allServices.map(function (service) {
-    return {
-      service: service,
-      intensity: service.packets.find(function (pkt) {
-        return (0,spec/* isRegister */.x5)(pkt) && pkt.identifier === constants/* SystemReg.Intensity */.ZJq.Intensity;
-      })
-    };
-  }).filter(function (kv) {
-    return !!kv.intensity;
-  });
-  var values = allServices.map(function (service) {
-    return {
-      service: service,
-      value: service.packets.find(function (pkt) {
-        return (0,spec/* isRegister */.x5)(pkt) && pkt.identifier === constants/* SystemReg.Value */.ZJq.Value;
-      })
-    };
-  }).filter(function (kv) {
-    return !!kv.value;
+    return !!kv.register;
   });
   var events = allServices.map(function (service) {
     return {
@@ -13648,6 +13683,16 @@ function loadBlocks() {
   }).filter(function (kv) {
     return !!kv.events.length;
   });
+  var commands = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
+    return service.packets.filter(function (pkt) {
+      return (0,spec/* isCommand */.ao)(pkt);
+    }).map(function (pkt) {
+      return {
+        service: service,
+        command: pkt
+      };
+    });
+  }));
   var HUE = 230;
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
@@ -13659,7 +13704,7 @@ function loadBlocks() {
         type: "field_dropdown",
         name: "event",
         options: events.map(function (event) {
-          return [event.name, event.name];
+          return [(0,jdspec/* humanify */.lW)(event.name), event.name];
         })
       }],
       colour: HUE,
@@ -13669,15 +13714,15 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       events: events,
-      command: "event"
+      template: "event"
     };
   });
-  var readingChangeBlocks = readings.map(function (_ref2) {
+  var registerChangeEventBlocks = registers.map(function (_ref2) {
     var service = _ref2.service,
-        reading = _ref2.reading;
+        register = _ref2.register;
     return {
-      type: "jacdac_" + service.shortId + "_reading_change",
-      message0: "when %1 " + (0,jdspec/* humanify */.lW)(reading.name) + " change",
+      type: "jacdac_" + service.shortId + "_" + register.name + "_change_event",
+      message0: "when %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change",
       args0: [fieldVariable(service)],
       inputsInline: true,
       nextStatement: "Statement",
@@ -13685,127 +13730,77 @@ function loadBlocks() {
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: reading,
-      command: "reading_change_event"
+      register: register,
+      template: "register_change_event"
     };
   });
-  var readingGetBlocks = readings.map(function (_ref3) {
+  var registerGetBlocks = registers.map(function (_ref3) {
     var service = _ref3.service,
-        reading = _ref3.reading;
+        register = _ref3.register;
     return {
-      type: "jacdac_" + service.shortId + "_reading",
-      message0: "%1 " + (0,jdspec/* humanify */.lW)(reading.name),
-      args0: [fieldVariable(service)],
-      inputsInline: true,
-      output: "Number",
-      colour: HUE,
-      tooltip: "",
-      helpUrl: "",
-      service: service,
-      register: reading,
-      command: "register_get"
-    };
-  });
-  var intensitySetBlocks = intensities.map(function (_ref4) {
-    var service = _ref4.service,
-        intensity = _ref4.intensity;
-    return {
-      type: "jacdac_" + service.shortId + "_intensity_set",
-      message0: isBoolean(intensity) ? "set %1 %2" : "set %1 " + intensity.name + " to " + intensity.fields.map(function (field, i) {
-        return (field.name === "_" ? "" : field.name + " ") + "%" + (i + 2);
-      }).join(" "),
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(intensity.fields.map(function (field) {
-        return {
-          type: "input_value",
-          name: field.name,
-          check: toBlocklyType(field)
-        };
-      }))),
-      values: (0,utils/* toMap */.qL)(intensity.fields, function (field) {
-        return field.name;
-      }, function (field) {
-        return field.type === "bool" ? {
-          type: "jacdac_on_off",
-          shadow: true
-        } : {
-          type: "jacdac_percent",
-          shadow: true
-        };
+      type: "jacdac_" + service.shortId + "_" + register.name + "_get",
+      message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (register.fields.length > 1 ? " %2" : ""),
+      args0: [fieldVariable(service), register.fields.length > 1 ? {
+        type: "field_dropdown",
+        name: "field",
+        options: register.fields.map(function (field) {
+          return [(0,jdspec/* humanify */.lW)(field.name), field.name];
+        })
+      } : undefined].filter(function (v) {
+        return !!v;
       }),
       inputsInline: true,
+      output: toBlocklyType(register.fields[0]),
       colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: intensity,
-      previousStatement: "Statement",
-      nextStatement: "Statement",
-      command: "register_set"
+      register: register,
+      template: "register_get"
     };
   });
-  var valueSetBlocks = values.map(function (_ref5) {
+  var registerSetBlocks = registers.filter(function (_ref4) {
+    var register = _ref4.register;
+    return register.kind === "rw";
+  }).map(function (_ref5) {
     var service = _ref5.service,
-        value = _ref5.value;
+        register = _ref5.register;
     return {
-      type: "jacdac_" + service.shortId + "_value_set",
-      message0: "set %1 " + (0,jdspec/* humanify */.lW)(value.name) + " to " + value.fields.map(function (_, i) {
-        return "%" + (2 + i);
-      }).join(" "),
-      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(value.fields.map(function (field) {
-        return {
-          type: "input_value",
-          name: field.name,
-          check: toBlocklyType(field)
-        };
-      }))),
-      values: (0,utils/* toMap */.qL)(value.fields, function (field) {
-        return field.name;
-      }, function (field) {
-        return field.type === "bool" ? {
-          type: "jacdac_on_off",
-          shadow: true
-        } : field.unit == "°" ? {
-          type: "jacdac_angle",
-          shadow: true
-        } : {
-          type: "math_number",
-          value: field.defaultValue || 0,
-          min: field.absoluteMin,
-          max: field.absoluteMax,
-          shadow: true
-        };
-      }),
+      type: "jacdac_" + service.shortId + "_" + register.name + "_set",
+      message0: "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))),
+      values: fieldsToValues(register),
       inputsInline: true,
       colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: value,
+      register: register,
       previousStatement: "Statement",
       nextStatement: "Statement",
-      command: "register_set"
+      template: "register_set"
     };
   });
-  var valueGetBlocks = values.filter(function (v) {
-    return v.value.fields.length === 1;
-  }).map(function (_ref6) {
+  var commandBlocks = commands.map(function (_ref6) {
     var service = _ref6.service,
-        value = _ref6.value;
+        command = _ref6.command;
     return {
       type: "jacdac_" + service.shortId + "_value_get",
-      message0: "%1 " + (0,jdspec/* humanify */.lW)(value.name),
-      args0: [fieldVariable(service)],
+      message0: (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(command))),
+      values: fieldsToValues(command),
       inputsInline: true,
-      output: value.fields[0].type === "bool" ? "Boolean" : "Number",
       colour: HUE,
       tooltip: "",
       helpUrl: "",
       service: service,
-      register: value,
-      command: "register_get"
+      command: command,
+      previousStatement: "Statement",
+      nextStatement: "Statement",
+      template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(readingChangeBlocks), (0,toConsumableArray/* default */.Z)(readingGetBlocks), (0,toConsumableArray/* default */.Z)(intensitySetBlocks), (0,toConsumableArray/* default */.Z)(valueSetBlocks), (0,toConsumableArray/* default */.Z)(valueGetBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeEventBlocks), (0,toConsumableArray/* default */.Z)(registerGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks));
   var shadowBlocks = [{
     type: "jacdac_on_off",
     message0: "%1",
@@ -13863,7 +13858,7 @@ function loadBlocks() {
     colour: HUE,
     output: "Number"
   }];
-  var commandBlocks = [{
+  var runtimeBlocks = [{
     type: WHILE_CONDITION_BLOCK,
     message0: "while %1",
     args0: [{
@@ -13929,7 +13924,7 @@ function loadBlocks() {
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
   }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), commandBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), runtimeBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
 
   blocks.map(function (block) {
     return (blockly_default()).Blocks[block.type] = {
@@ -14641,9 +14636,9 @@ function workspaceJSONToIT4Program(workspace) {
         return def.type === type;
       });
       (0,utils/* assert */.hu)(!!def);
-      var command = def.command;
+      var template = def.template;
 
-      switch (command) {
+      switch (template) {
         case "event":
           {
             var _ref3 = def,
@@ -14653,7 +14648,7 @@ function workspaceJSONToIT4Program(workspace) {
             break;
           }
 
-        case "reading_change_event":
+        case "register_change_event":
         case "register_set":
         case "register_get":
           {
@@ -14678,8 +14673,8 @@ function workspaceJSONToIT4Program(workspace) {
   return {
     description: "not required?",
     roles: roles,
-    registers: registers,
-    events: events,
+    registers: (0,utils/* unique */.Tw)(registers),
+    events: (0,utils/* unique */.Tw)(events),
     handlers: handlers
   };
 }
@@ -14915,4 +14910,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7efc9571cdc1e76a30a5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d35747c623c900ecc900.js.map
