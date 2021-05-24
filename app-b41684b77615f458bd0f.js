@@ -156,7 +156,7 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#080808"
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/a77a1/nodered.png","srcSet":"/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/9d9b2/nodered.png 58w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/2e653/nodered.png 116w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/a77a1/nodered.png 231w","sizes":"(min-width: 231px) 231px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/9cce1/nodered.webp 58w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/a0338/nodered.webp 116w,\\n/jacdac-docs/static/ca72a0b2c0732c3245bb3b692fb1eb44/1a4a7/nodered.webp 231w","type":"image/webp","sizes":"(min-width: 231px) 231px, 100vw"}]},"width":231,"height":200}');
+module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8","images":{"fallback":{"src":"/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/8a1b9/nodered.png","srcSet":"/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/42742/nodered.png 123w,\\n/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/0a98f/nodered.png 246w,\\n/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/8a1b9/nodered.png 491w","sizes":"(min-width: 491px) 491px, 100vw"},"sources":[{"srcSet":"/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/c13a0/nodered.webp 123w,\\n/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/c5688/nodered.webp 246w,\\n/jacdac-docs/static/38b7cc2cd0001bbbc31c842db89bc146/0c608/nodered.webp 491w","type":"image/webp","sizes":"(min-width: 491px) 491px, 100vw"}]},"width":491,"height":315}');
 
 /***/ }),
 
@@ -69000,7 +69000,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "831309360da8c162573f4977d6ab6b9e41bf4945";
+  var sha = "4f1aac047b878086a70d58434ab7e37563927100";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -85092,4 +85092,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-db040650b75d7cb58709.js.map
+//# sourceMappingURL=app-b41684b77615f458bd0f.js.map
