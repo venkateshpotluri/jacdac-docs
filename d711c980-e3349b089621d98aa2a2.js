@@ -20,13 +20,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
 
   var Blockly = {
-    constants: {},
-    LINE_MODE_MULTIPLIER: 40,
-    PAGE_MODE_MULTIPLIER: 125,
-    DRAG_RADIUS: 5,
-    FLYOUT_DRAG_RADIUS: 10,
-    SNAP_RADIUS: 28
+    connectionTypes: {
+      INPUT_VALUE: 1,
+      OUTPUT_VALUE: 2,
+      NEXT_STATEMENT: 3,
+      PREVIOUS_STATEMENT: 4
+    }
   };
+  Blockly.constants = {};
+  Blockly.LINE_MODE_MULTIPLIER = 40;
+  Blockly.PAGE_MODE_MULTIPLIER = 125;
+  Blockly.DRAG_RADIUS = 5;
+  Blockly.FLYOUT_DRAG_RADIUS = 10;
+  Blockly.SNAP_RADIUS = 28;
   Blockly.CONNECTING_SNAP_RADIUS = Blockly.SNAP_RADIUS;
   Blockly.CURRENT_CONNECTION_PREFERENCE = 8;
   Blockly.BUMP_DELAY = 250;
@@ -42,27 +48,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     height: 124,
     url: "sprites.png"
   };
-  Blockly.INPUT_VALUE = 1;
-  Blockly.OUTPUT_VALUE = 2;
-  Blockly.NEXT_STATEMENT = 3;
-  Blockly.PREVIOUS_STATEMENT = 4;
-  Blockly.DUMMY_INPUT = 5;
-  Blockly.ALIGN_LEFT = -1;
-  Blockly.ALIGN_CENTRE = 0;
-  Blockly.ALIGN_RIGHT = 1;
+  Blockly.constants.ALIGN = {
+    LEFT: -1,
+    CENTRE: 0,
+    RIGHT: 1
+  };
   Blockly.DRAG_NONE = 0;
   Blockly.DRAG_STICKY = 1;
   Blockly.DRAG_BEGIN = 1;
   Blockly.DRAG_FREE = 2;
   Blockly.OPPOSITE_TYPE = [];
-  Blockly.OPPOSITE_TYPE[Blockly.INPUT_VALUE] = Blockly.OUTPUT_VALUE;
-  Blockly.OPPOSITE_TYPE[Blockly.OUTPUT_VALUE] = Blockly.INPUT_VALUE;
-  Blockly.OPPOSITE_TYPE[Blockly.NEXT_STATEMENT] = Blockly.PREVIOUS_STATEMENT;
-  Blockly.OPPOSITE_TYPE[Blockly.PREVIOUS_STATEMENT] = Blockly.NEXT_STATEMENT;
-  Blockly.TOOLBOX_AT_TOP = 0;
-  Blockly.TOOLBOX_AT_BOTTOM = 1;
-  Blockly.TOOLBOX_AT_LEFT = 2;
-  Blockly.TOOLBOX_AT_RIGHT = 3;
+  Blockly.OPPOSITE_TYPE[Blockly.connectionTypes.INPUT_VALUE] = Blockly.connectionTypes.OUTPUT_VALUE;
+  Blockly.OPPOSITE_TYPE[Blockly.connectionTypes.OUTPUT_VALUE] = Blockly.connectionTypes.INPUT_VALUE;
+  Blockly.OPPOSITE_TYPE[Blockly.connectionTypes.NEXT_STATEMENT] = Blockly.connectionTypes.PREVIOUS_STATEMENT;
+  Blockly.OPPOSITE_TYPE[Blockly.connectionTypes.PREVIOUS_STATEMENT] = Blockly.connectionTypes.NEXT_STATEMENT;
   Blockly.DELETE_AREA_NONE = null;
   Blockly.DELETE_AREA_TRASH = 1;
   Blockly.DELETE_AREA_TOOLBOX = 2;
@@ -71,81 +70,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.PROCEDURE_CATEGORY_NAME = "PROCEDURE";
   Blockly.RENAME_VARIABLE_ID = "RENAME_VARIABLE_ID";
   Blockly.DELETE_VARIABLE_ID = "DELETE_VARIABLE_ID";
-  Blockly.registry = {};
-  Blockly.registry.typeMap_ = {};
-  Blockly.registry.DEFAULT = "default";
-
-  Blockly.registry.Type = function (a) {
-    this.name_ = a;
-  };
-
-  Blockly.registry.Type.prototype.toString = function () {
-    return this.name_;
-  };
-
-  Blockly.registry.Type.CONNECTION_CHECKER = new Blockly.registry.Type("connectionChecker");
-  Blockly.registry.Type.EVENT = new Blockly.registry.Type("event");
-  Blockly.registry.Type.FIELD = new Blockly.registry.Type("field");
-  Blockly.registry.Type.RENDERER = new Blockly.registry.Type("renderer");
-  Blockly.registry.Type.TOOLBOX = new Blockly.registry.Type("toolbox");
-  Blockly.registry.Type.THEME = new Blockly.registry.Type("theme");
-  Blockly.registry.Type.TOOLBOX_ITEM = new Blockly.registry.Type("toolboxItem");
-  Blockly.registry.Type.FLYOUTS_VERTICAL_TOOLBOX = new Blockly.registry.Type("flyoutsVerticalToolbox");
-  Blockly.registry.Type.FLYOUTS_HORIZONTAL_TOOLBOX = new Blockly.registry.Type("flyoutsHorizontalToolbox");
-
-  Blockly.registry.register = function (a, b, c, d) {
-    if (!(a instanceof Blockly.registry.Type) && "string" != typeof a || "" == String(a).trim()) throw Error('Invalid type "' + a + '". The type must be a non-empty string or a Blockly.registry.Type.');
-    a = String(a).toLowerCase();
-    if ("string" != typeof b || "" == b.trim()) throw Error('Invalid name "' + b + '". The name must be a non-empty string.');
-    b = b.toLowerCase();
-    if (!c) throw Error("Can not register a null value");
-    var e = Blockly.registry.typeMap_[a];
-    e || (e = Blockly.registry.typeMap_[a] = {});
-    Blockly.registry.validate_(a, c);
-    if (!d && e[b]) throw Error('Name "' + b + '" with type "' + a + '" already registered.');
-    e[b] = c;
-  };
-
-  Blockly.registry.validate_ = function (a, b) {
-    switch (a) {
-      case String(Blockly.registry.Type.FIELD):
-        if ("function" != typeof b.fromJson) throw Error('Type "' + a + '" must have a fromJson function');
-    }
-  };
-
-  Blockly.registry.unregister = function (a, b) {
-    a = String(a).toLowerCase();
-    b = b.toLowerCase();
-    var c = Blockly.registry.typeMap_[a];
-    c ? c[b] ? delete Blockly.registry.typeMap_[a][b] : console.warn('No name "' + b + '" with type "' + a + '" found') : console.warn('No type "' + a + '" found');
-  };
-
-  Blockly.registry.getItem_ = function (a, b) {
-    a = String(a).toLowerCase();
-    b = b.toLowerCase();
-    var c = Blockly.registry.typeMap_[a];
-    return c ? c[b] ? c[b] : (console.warn('No name "' + b + '" with type "' + a + '" found'), null) : (console.warn('No type "' + a + '" found'), null);
-  };
-
-  Blockly.registry.hasItem = function (a, b) {
-    a = String(a).toLowerCase();
-    b = b.toLowerCase();
-    return (a = Blockly.registry.typeMap_[a]) ? !!a[b] : !1;
-  };
-
-  Blockly.registry.getClass = function (a, b) {
-    return Blockly.registry.getItem_(a, b);
-  };
-
-  Blockly.registry.getObject = function (a, b) {
-    return Blockly.registry.getItem_(a, b);
-  };
-
-  Blockly.registry.getClassFromOptions = function (a, b) {
-    b = b.plugins[a.toString()] || Blockly.registry.DEFAULT;
-    return "function" == typeof b ? b : Blockly.registry.getClass(a, b);
-  };
-
+  Blockly.constants.COLLAPSED_INPUT_NAME = "_TEMP_COLLAPSED_INPUT";
+  Blockly.constants.COLLAPSED_FIELD_NAME = "_TEMP_COLLAPSED_FIELD";
   Blockly.utils = {};
 
   Blockly.utils.global = function () {
@@ -308,6 +234,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.utils.Rect.prototype.contains = function (a, b) {
     return a >= this.left && a <= this.right && b >= this.top && b <= this.bottom;
+  };
+
+  Blockly.utils.Rect.prototype.intersects = function (a) {
+    return !(this.left > a.right || this.right < a.left || this.top > a.bottom || this.bottom < a.top);
   };
 
   Blockly.utils.string = {};
@@ -778,6 +708,242 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     throw Error(c);
   };
 
+  Blockly.Touch = {};
+  Blockly.Touch.TOUCH_ENABLED = "ontouchstart" in Blockly.utils.global || !!(Blockly.utils.global.document && document.documentElement && "ontouchstart" in document.documentElement) || !(!Blockly.utils.global.navigator || !Blockly.utils.global.navigator.maxTouchPoints && !Blockly.utils.global.navigator.msMaxTouchPoints);
+  Blockly.Touch.touchIdentifier_ = null;
+  Blockly.Touch.TOUCH_MAP = {};
+  Blockly.utils.global.PointerEvent ? Blockly.Touch.TOUCH_MAP = {
+    mousedown: ["pointerdown"],
+    mouseenter: ["pointerenter"],
+    mouseleave: ["pointerleave"],
+    mousemove: ["pointermove"],
+    mouseout: ["pointerout"],
+    mouseover: ["pointerover"],
+    mouseup: ["pointerup", "pointercancel"],
+    touchend: ["pointerup"],
+    touchcancel: ["pointercancel"]
+  } : Blockly.Touch.TOUCH_ENABLED && (Blockly.Touch.TOUCH_MAP = {
+    mousedown: ["touchstart"],
+    mousemove: ["touchmove"],
+    mouseup: ["touchend", "touchcancel"]
+  });
+  Blockly.longPid_ = 0;
+
+  Blockly.longStart = function (a, b) {
+    Blockly.longStop_();
+    a.changedTouches && 1 != a.changedTouches.length || (Blockly.longPid_ = setTimeout(function () {
+      a.changedTouches && (a.button = 2, a.clientX = a.changedTouches[0].clientX, a.clientY = a.changedTouches[0].clientY);
+      b && b.handleRightClick(a);
+    }, Blockly.LONGPRESS));
+  };
+
+  Blockly.longStop_ = function () {
+    Blockly.longPid_ && (clearTimeout(Blockly.longPid_), Blockly.longPid_ = 0);
+  };
+
+  Blockly.Touch.clearTouchIdentifier = function () {
+    Blockly.Touch.touchIdentifier_ = null;
+  };
+
+  Blockly.Touch.shouldHandleEvent = function (a) {
+    return !Blockly.Touch.isMouseOrTouchEvent(a) || Blockly.Touch.checkTouchIdentifier(a);
+  };
+
+  Blockly.Touch.getTouchIdentifierFromEvent = function (a) {
+    return void 0 != a.pointerId ? a.pointerId : a.changedTouches && a.changedTouches[0] && void 0 !== a.changedTouches[0].identifier && null !== a.changedTouches[0].identifier ? a.changedTouches[0].identifier : "mouse";
+  };
+
+  Blockly.Touch.checkTouchIdentifier = function (a) {
+    var b = Blockly.Touch.getTouchIdentifierFromEvent(a);
+    return void 0 !== Blockly.Touch.touchIdentifier_ && null !== Blockly.Touch.touchIdentifier_ ? Blockly.Touch.touchIdentifier_ == b : "mousedown" == a.type || "touchstart" == a.type || "pointerdown" == a.type ? (Blockly.Touch.touchIdentifier_ = b, !0) : !1;
+  };
+
+  Blockly.Touch.setClientFromTouch = function (a) {
+    if (Blockly.utils.string.startsWith(a.type, "touch")) {
+      var b = a.changedTouches[0];
+      a.clientX = b.clientX;
+      a.clientY = b.clientY;
+    }
+  };
+
+  Blockly.Touch.isMouseOrTouchEvent = function (a) {
+    return Blockly.utils.string.startsWith(a.type, "touch") || Blockly.utils.string.startsWith(a.type, "mouse") || Blockly.utils.string.startsWith(a.type, "pointer");
+  };
+
+  Blockly.Touch.isTouchEvent = function (a) {
+    return Blockly.utils.string.startsWith(a.type, "touch") || Blockly.utils.string.startsWith(a.type, "pointer");
+  };
+
+  Blockly.Touch.splitEventByTouches = function (a) {
+    var b = [];
+    if (a.changedTouches) for (var c = 0; c < a.changedTouches.length; c++) {
+      b[c] = {
+        type: a.type,
+        changedTouches: [a.changedTouches[c]],
+        target: a.target,
+        stopPropagation: function stopPropagation() {
+          a.stopPropagation();
+        },
+        preventDefault: function preventDefault() {
+          a.preventDefault();
+        }
+      };
+    } else b.push(a);
+    return b;
+  };
+
+  Blockly.browserEvents = {};
+
+  Blockly.browserEvents.conditionalBind = function (a, b, c, d, e, f) {
+    var g = !1,
+        h = function h(p) {
+      var q = !e;
+      p = Blockly.Touch.splitEventByTouches(p);
+
+      for (var t = 0, r; r = p[t]; t++) {
+        if (!q || Blockly.Touch.shouldHandleEvent(r)) Blockly.Touch.setClientFromTouch(r), c ? d.call(c, r) : d(r), g = !0;
+      }
+    },
+        k = [];
+
+    if (Blockly.utils.global.PointerEvent && b in Blockly.Touch.TOUCH_MAP) for (var l = 0, m; m = Blockly.Touch.TOUCH_MAP[b][l]; l++) {
+      a.addEventListener(m, h, !1), k.push([a, m, h]);
+    } else if (a.addEventListener(b, h, !1), k.push([a, b, h]), b in Blockly.Touch.TOUCH_MAP) {
+      var n = function n(p) {
+        h(p);
+        var q = !f;
+        g && q && p.preventDefault();
+      };
+
+      for (l = 0; m = Blockly.Touch.TOUCH_MAP[b][l]; l++) {
+        a.addEventListener(m, n, !1), k.push([a, m, n]);
+      }
+    }
+    return k;
+  };
+
+  Blockly.browserEvents.bind = function (a, b, c, d) {
+    var e = function e(l) {
+      c ? d.call(c, l) : d(l);
+    },
+        f = [];
+
+    if (Blockly.utils.global.PointerEvent && b in Blockly.Touch.TOUCH_MAP) for (var g = 0, h; h = Blockly.Touch.TOUCH_MAP[b][g]; g++) {
+      a.addEventListener(h, e, !1), f.push([a, h, e]);
+    } else if (a.addEventListener(b, e, !1), f.push([a, b, e]), b in Blockly.Touch.TOUCH_MAP) {
+      var k = function k(l) {
+        if (l.changedTouches && 1 == l.changedTouches.length) {
+          var m = l.changedTouches[0];
+          l.clientX = m.clientX;
+          l.clientY = m.clientY;
+        }
+
+        e(l);
+        l.preventDefault();
+      };
+
+      for (g = 0; h = Blockly.Touch.TOUCH_MAP[b][g]; g++) {
+        a.addEventListener(h, k, !1), f.push([a, h, k]);
+      }
+    }
+    return f;
+  };
+
+  Blockly.browserEvents.unbind = function (a) {
+    for (; a.length;) {
+      var b = a.pop(),
+          c = b[2];
+      b[0].removeEventListener(b[1], c, !1);
+    }
+
+    return c;
+  };
+
+  Blockly.registry = {};
+  Blockly.registry.typeMap_ = {};
+  Blockly.registry.DEFAULT = "default";
+
+  Blockly.registry.Type = function (a) {
+    this.name_ = a;
+  };
+
+  Blockly.registry.Type.prototype.toString = function () {
+    return this.name_;
+  };
+
+  Blockly.registry.Type.CONNECTION_CHECKER = new Blockly.registry.Type("connectionChecker");
+  Blockly.registry.Type.CURSOR = new Blockly.registry.Type("cursor");
+  Blockly.registry.Type.EVENT = new Blockly.registry.Type("event");
+  Blockly.registry.Type.FIELD = new Blockly.registry.Type("field");
+  Blockly.registry.Type.RENDERER = new Blockly.registry.Type("renderer");
+  Blockly.registry.Type.TOOLBOX = new Blockly.registry.Type("toolbox");
+  Blockly.registry.Type.THEME = new Blockly.registry.Type("theme");
+  Blockly.registry.Type.TOOLBOX_ITEM = new Blockly.registry.Type("toolboxItem");
+  Blockly.registry.Type.FLYOUTS_VERTICAL_TOOLBOX = new Blockly.registry.Type("flyoutsVerticalToolbox");
+  Blockly.registry.Type.FLYOUTS_HORIZONTAL_TOOLBOX = new Blockly.registry.Type("flyoutsHorizontalToolbox");
+  Blockly.registry.Type.METRICS_MANAGER = new Blockly.registry.Type("metricsManager");
+
+  Blockly.registry.register = function (a, b, c, d) {
+    if (!(a instanceof Blockly.registry.Type) && "string" != typeof a || "" == String(a).trim()) throw Error('Invalid type "' + a + '". The type must be a non-empty string or a Blockly.registry.Type.');
+    a = String(a).toLowerCase();
+    if ("string" != typeof b || "" == b.trim()) throw Error('Invalid name "' + b + '". The name must be a non-empty string.');
+    b = b.toLowerCase();
+    if (!c) throw Error("Can not register a null value");
+    var e = Blockly.registry.typeMap_[a];
+    e || (e = Blockly.registry.typeMap_[a] = {});
+    Blockly.registry.validate_(a, c);
+    if (!d && e[b]) throw Error('Name "' + b + '" with type "' + a + '" already registered.');
+    e[b] = c;
+  };
+
+  Blockly.registry.validate_ = function (a, b) {
+    switch (a) {
+      case String(Blockly.registry.Type.FIELD):
+        if ("function" != typeof b.fromJson) throw Error('Type "' + a + '" must have a fromJson function');
+    }
+  };
+
+  Blockly.registry.unregister = function (a, b) {
+    a = String(a).toLowerCase();
+    b = b.toLowerCase();
+    var c = Blockly.registry.typeMap_[a];
+    c && c[b] ? delete Blockly.registry.typeMap_[a][b] : console.warn("Unable to unregister [" + b + "][" + a + "] from the registry.");
+  };
+
+  Blockly.registry.getItem_ = function (a, b, c) {
+    a = String(a).toLowerCase();
+    b = b.toLowerCase();
+    var d = Blockly.registry.typeMap_[a];
+
+    if (!d || !d[b]) {
+      b = "Unable to find [" + b + "][" + a + "] in the registry.";
+      if (c) throw Error(b + " You must require or register a " + a + " plugin.");
+      console.warn(b);
+      return null;
+    }
+
+    return d[b];
+  };
+
+  Blockly.registry.hasItem = function (a, b) {
+    a = String(a).toLowerCase();
+    b = b.toLowerCase();
+    return (a = Blockly.registry.typeMap_[a]) ? !!a[b] : !1;
+  };
+
+  Blockly.registry.getClass = function (a, b, c) {
+    return Blockly.registry.getItem_(a, b, c);
+  };
+
+  Blockly.registry.getObject = function (a, b, c) {
+    return Blockly.registry.getItem_(a, b, c);
+  };
+
+  Blockly.registry.getClassFromOptions = function (a, b, c) {
+    b = b.plugins[a.toString()] || Blockly.registry.DEFAULT;
+    return "function" == typeof b ? b : Blockly.registry.getClass(a, b, c);
+  };
+
   Blockly.Events = {};
   Blockly.Events.group_ = "";
   Blockly.Events.recordUndo = !0;
@@ -794,6 +960,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Events.VAR_DELETE = "var_delete";
   Blockly.Events.VAR_RENAME = "var_rename";
   Blockly.Events.UI = "ui";
+  Blockly.Events.BLOCK_DRAG = "drag";
+  Blockly.Events.SELECTED = "selected";
+  Blockly.Events.CLICK = "click";
+  Blockly.Events.MARKER_MOVE = "marker_move";
+  Blockly.Events.BUBBLE_OPEN = "bubble_open";
+  Blockly.Events.TRASHCAN_OPEN = "trashcan_open";
+  Blockly.Events.TOOLBOX_ITEM_SELECT = "toolbox_item_select";
+  Blockly.Events.THEME_CHANGE = "theme_change";
+  Blockly.Events.VIEWPORT_CHANGE = "viewport_change";
   Blockly.Events.COMMENT_CREATE = "comment_create";
   Blockly.Events.COMMENT_DELETE = "comment_delete";
   Blockly.Events.COMMENT_CHANGE = "comment_change";
@@ -821,15 +996,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     for (var c = [], d = Object.create(null), e = 0, f; f = a[e]; e++) {
       if (!f.isNull()) {
-        var g = [f.type, f.blockId, f.workspaceId].join(" "),
+        var g = [f.isUiEvent ? Blockly.Events.UI : f.type, f.blockId, f.workspaceId].join(" "),
             h = d[g],
             k = h ? h.event : null;
         if (!h) d[g] = {
           event: f,
           index: e
-        }, c.push(f);else if (f.type == Blockly.Events.MOVE && h.index == e - 1) k.newParentId = f.newParentId, k.newInputName = f.newInputName, k.newCoordinate = f.newCoordinate, h.index = e;else if (f.type == Blockly.Events.CHANGE && f.element == k.element && f.name == k.name) k.newValue = f.newValue;else if (f.type != Blockly.Events.UI || "click" != f.element || "commentOpen" != k.element && "mutatorOpen" != k.element && "warningOpen" != k.element) d[g] = {
+        }, c.push(f);else if (f.type == Blockly.Events.MOVE && h.index == e - 1) k.newParentId = f.newParentId, k.newInputName = f.newInputName, k.newCoordinate = f.newCoordinate, h.index = e;else if (f.type == Blockly.Events.CHANGE && f.element == k.element && f.name == k.name) k.newValue = f.newValue;else if (f.type != Blockly.Events.CLICK || k.type != Blockly.Events.BUBBLE_OPEN) d[g] = {
           event: f,
-          index: 1
+          index: e
         }, c.push(f);
       }
     }
@@ -884,7 +1059,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Events.fromJson = function (a, b) {
-    var c = Blockly.registry.getClass(Blockly.registry.Type.EVENT, a.type);
+    var c = Blockly.Events.get(a.type);
     if (!c) throw Error("Unknown event type.");
     c = new c();
     c.fromJson(a);
@@ -892,18 +1067,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return c;
   };
 
+  Blockly.Events.get = function (a) {
+    return Blockly.registry.getClass(Blockly.registry.Type.EVENT, a);
+  };
+
   Blockly.Events.disableOrphans = function (a) {
     if ((a.type == Blockly.Events.MOVE || a.type == Blockly.Events.CREATE) && a.workspaceId) {
-      var b = Blockly.Workspace.getById(a.workspaceId);
+      var b = Blockly.Workspace.getById(a.workspaceId),
+          c = b.getBlockById(a.blockId);
 
-      if (a = b.getBlockById(a.blockId)) {
-        var c = a.getParent();
-        if (c && c.isEnabled()) for (b = a.getDescendants(!1), a = 0; c = b[a]; a++) {
-          c.setEnabled(!0);
-        } else if ((a.outputConnection || a.previousConnection) && !b.isDragging()) {
-          do {
-            a.setEnabled(!1), a = a.getNextBlock();
-          } while (a);
+      if (c) {
+        a = Blockly.Events.recordUndo;
+
+        try {
+          Blockly.Events.recordUndo = !1;
+          var d = c.getParent();
+
+          if (d && d.isEnabled()) {
+            var e = c.getDescendants(!1);
+            b = 0;
+
+            for (var f; f = e[b]; b++) {
+              f.setEnabled(!0);
+            }
+          } else if ((c.outputConnection || c.previousConnection) && !b.isDragging()) {
+            do {
+              c.setEnabled(!1), c = c.getNextBlock();
+            } while (c);
+          }
+        } finally {
+          Blockly.Events.recordUndo = a;
         }
       }
     }
@@ -915,6 +1108,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.group = Blockly.Events.getGroup();
     this.recordUndo = Blockly.Events.recordUndo;
   };
+
+  Blockly.Events.Abstract.prototype.isUiEvent = !1;
 
   Blockly.Events.Abstract.prototype.toJson = function () {
     var a = {
@@ -969,36 +1164,34 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     });
   };
 
-  Blockly.Events.Ui = function (a, b, c, d) {
-    Blockly.Events.Ui.superClass_.constructor.call(this);
-    this.isBlank = "undefined" == typeof a;
-    this.blockId = a ? a.id : null;
-    this.workspaceId = a ? a.workspace.id : void 0;
-    this.element = "undefined" == typeof b ? "" : b;
-    this.oldValue = "undefined" == typeof c ? "" : c;
-    this.newValue = "undefined" == typeof d ? "" : d;
-    this.recordUndo = !1;
+  Blockly.utils.xml = {};
+  Blockly.utils.xml.NAME_SPACE = "https://developers.google.com/blockly/xml";
+
+  Blockly.utils.xml.document = function () {
+    return document;
   };
 
-  Blockly.utils.object.inherits(Blockly.Events.Ui, Blockly.Events.Abstract);
-  Blockly.Events.Ui.prototype.type = Blockly.Events.UI;
-
-  Blockly.Events.Ui.prototype.toJson = function () {
-    var a = Blockly.Events.Ui.superClass_.toJson.call(this);
-    a.element = this.element;
-    void 0 !== this.newValue && (a.newValue = this.newValue);
-    this.blockId && (a.blockId = this.blockId);
-    return a;
+  Blockly.utils.xml.createElement = function (a) {
+    return Blockly.utils.xml.document().createElementNS(Blockly.utils.xml.NAME_SPACE, a);
   };
 
-  Blockly.Events.Ui.prototype.fromJson = function (a) {
-    Blockly.Events.Ui.superClass_.fromJson.call(this, a);
-    this.element = a.element;
-    this.newValue = a.newValue;
-    this.blockId = a.blockId;
+  Blockly.utils.xml.createTextNode = function (a) {
+    return Blockly.utils.xml.document().createTextNode(a);
   };
 
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.UI, Blockly.Events.Ui);
+  Blockly.utils.xml.textToDomDocument = function (a) {
+    return new DOMParser().parseFromString(a, "text/xml");
+  };
+
+  Blockly.utils.xml.domToText = function (a) {
+    return new XMLSerializer().serializeToString(a);
+  };
+
+  Blockly.inputTypes = {
+    VALUE: Blockly.connectionTypes.INPUT_VALUE,
+    STATEMENT: Blockly.connectionTypes.NEXT_STATEMENT,
+    DUMMY: 5
+  };
 
   Blockly.utils.Svg = function (a) {
     this.tagName_ = a;
@@ -1173,6 +1366,910 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return c;
   };
 
+  Blockly.Xml = {};
+
+  Blockly.Xml.workspaceToDom = function (a, b) {
+    var c = Blockly.utils.xml.createElement("xml"),
+        d = Blockly.Xml.variablesToDom(Blockly.Variables.allUsedVarModels(a));
+    d.hasChildNodes() && c.appendChild(d);
+    var e = a.getTopComments(!0);
+    d = 0;
+
+    for (var f; f = e[d]; d++) {
+      c.appendChild(f.toXmlWithXY(b));
+    }
+
+    a = a.getTopBlocks(!0);
+
+    for (d = 0; e = a[d]; d++) {
+      c.appendChild(Blockly.Xml.blockToDomWithXY(e, b));
+    }
+
+    return c;
+  };
+
+  Blockly.Xml.variablesToDom = function (a) {
+    for (var b = Blockly.utils.xml.createElement("variables"), c = 0, d; d = a[c]; c++) {
+      var e = Blockly.utils.xml.createElement("variable");
+      e.appendChild(Blockly.utils.xml.createTextNode(d.name));
+      d.type && e.setAttribute("type", d.type);
+      e.id = d.getId();
+      b.appendChild(e);
+    }
+
+    return b;
+  };
+
+  Blockly.Xml.blockToDomWithXY = function (a, b) {
+    if (a.isInsertionMarker() && (a = a.getChildren(!1)[0], !a)) return new DocumentFragment();
+    var c;
+    a.workspace.RTL && (c = a.workspace.getWidth());
+    b = Blockly.Xml.blockToDom(a, b);
+    var d = a.getRelativeToSurfaceXY();
+    b.setAttribute("x", Math.round(a.workspace.RTL ? c - d.x : d.x));
+    b.setAttribute("y", Math.round(d.y));
+    return b;
+  };
+
+  Blockly.Xml.fieldToDom_ = function (a) {
+    if (a.isSerializable()) {
+      var b = Blockly.utils.xml.createElement("field");
+      b.setAttribute("name", a.name || "");
+      return a.toXml(b);
+    }
+
+    return null;
+  };
+
+  Blockly.Xml.allFieldsToDom_ = function (a, b) {
+    for (var c = 0, d; d = a.inputList[c]; c++) {
+      for (var e = 0, f; f = d.fieldRow[e]; e++) {
+        (f = Blockly.Xml.fieldToDom_(f)) && b.appendChild(f);
+      }
+    }
+  };
+
+  Blockly.Xml.blockToDom = function (a, b) {
+    if (a.isInsertionMarker()) return (a = a.getChildren(!1)[0]) ? Blockly.Xml.blockToDom(a) : new DocumentFragment();
+    var c = Blockly.utils.xml.createElement(a.isShadow() ? "shadow" : "block");
+    c.setAttribute("type", a.type);
+    b || c.setAttribute("id", a.id);
+
+    if (a.mutationToDom) {
+      var d = a.mutationToDom();
+      d && (d.hasChildNodes() || d.hasAttributes()) && c.appendChild(d);
+    }
+
+    Blockly.Xml.allFieldsToDom_(a, c);
+
+    if (d = a.getCommentText()) {
+      var e = a.commentModel.size,
+          f = a.commentModel.pinned,
+          g = Blockly.utils.xml.createElement("comment");
+      g.appendChild(Blockly.utils.xml.createTextNode(d));
+      g.setAttribute("pinned", f);
+      g.setAttribute("h", e.height);
+      g.setAttribute("w", e.width);
+      c.appendChild(g);
+    }
+
+    a.data && (d = Blockly.utils.xml.createElement("data"), d.appendChild(Blockly.utils.xml.createTextNode(a.data)), c.appendChild(d));
+
+    for (d = 0; e = a.inputList[d]; d++) {
+      var h;
+      f = !0;
+
+      if (e.type != Blockly.inputTypes.DUMMY) {
+        var k = e.connection.targetBlock();
+        e.type == Blockly.inputTypes.VALUE ? h = Blockly.utils.xml.createElement("value") : e.type == Blockly.inputTypes.STATEMENT && (h = Blockly.utils.xml.createElement("statement"));
+        g = e.connection.getShadowDom();
+        !g || k && k.isShadow() || h.appendChild(Blockly.Xml.cloneShadow_(g, b));
+        k && (g = Blockly.Xml.blockToDom(k, b), g.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && (h.appendChild(g), f = !1));
+        h.setAttribute("name", e.name);
+        f || c.appendChild(h);
+      }
+    }
+
+    void 0 != a.inputsInline && a.inputsInline != a.inputsInlineDefault && c.setAttribute("inline", a.inputsInline);
+    a.isCollapsed() && c.setAttribute("collapsed", !0);
+    a.isEnabled() || c.setAttribute("disabled", !0);
+    a.isDeletable() || a.isShadow() || c.setAttribute("deletable", !1);
+    a.isMovable() || a.isShadow() || c.setAttribute("movable", !1);
+    a.isEditable() || c.setAttribute("editable", !1);
+    if (d = a.getNextBlock()) g = Blockly.Xml.blockToDom(d, b), g.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && (h = Blockly.utils.xml.createElement("next"), h.appendChild(g), c.appendChild(h));
+    g = a.nextConnection && a.nextConnection.getShadowDom();
+    !g || d && d.isShadow() || h.appendChild(Blockly.Xml.cloneShadow_(g, b));
+    return c;
+  };
+
+  Blockly.Xml.cloneShadow_ = function (a, b) {
+    for (var c = a = a.cloneNode(!0), d; c;) {
+      if (b && "shadow" == c.nodeName && c.removeAttribute("id"), c.firstChild) c = c.firstChild;else {
+        for (; c && !c.nextSibling;) {
+          d = c, c = c.parentNode, d.nodeType == Blockly.utils.dom.NodeType.TEXT_NODE && "" == d.data.trim() && c.firstChild != d && Blockly.utils.dom.removeNode(d);
+        }
+
+        c && (d = c, c = c.nextSibling, d.nodeType == Blockly.utils.dom.NodeType.TEXT_NODE && "" == d.data.trim() && Blockly.utils.dom.removeNode(d));
+      }
+    }
+
+    return a;
+  };
+
+  Blockly.Xml.domToText = function (a) {
+    return Blockly.utils.xml.domToText(a).replace(/<(\w+)([^<]*)\/>/g, "<$1$2></$1>");
+  };
+
+  Blockly.Xml.domToPrettyText = function (a) {
+    a = Blockly.Xml.domToText(a).split("<");
+
+    for (var b = "", c = 1; c < a.length; c++) {
+      var d = a[c];
+      "/" == d[0] && (b = b.substring(2));
+      a[c] = b + "<" + d;
+      "/" != d[0] && "/>" != d.slice(-2) && (b += "  ");
+    }
+
+    a = a.join("\n");
+    a = a.replace(/(<(\w+)\b[^>]*>[^\n]*)\n *<\/\2>/g, "$1</$2>");
+    return a.replace(/^\n/, "");
+  };
+
+  Blockly.Xml.textToDom = function (a) {
+    var b = Blockly.utils.xml.textToDomDocument(a);
+    if (!b || !b.documentElement || b.getElementsByTagName("parsererror").length) throw Error("textToDom was unable to parse: " + a);
+    return b.documentElement;
+  };
+
+  Blockly.Xml.clearWorkspaceAndLoadFromXml = function (a, b) {
+    b.setResizesEnabled(!1);
+    b.clear();
+    a = Blockly.Xml.domToWorkspace(a, b);
+    b.setResizesEnabled(!0);
+    return a;
+  };
+
+  Blockly.Xml.domToWorkspace = function (a, b) {
+    if (a instanceof Blockly.Workspace) {
+      var c = a;
+      a = b;
+      b = c;
+      console.warn("Deprecated call to Blockly.Xml.domToWorkspace, swap the arguments.");
+    }
+
+    var d;
+    b.RTL && (d = b.getWidth());
+    c = [];
+    Blockly.utils.dom.startTextWidthCache();
+    var e = Blockly.Events.getGroup();
+    e || Blockly.Events.setGroup(!0);
+    b.setResizesEnabled && b.setResizesEnabled(!1);
+    var f = !0;
+
+    try {
+      for (var g = 0, h; h = a.childNodes[g]; g++) {
+        var k = h.nodeName.toLowerCase(),
+            l = h;
+
+        if ("block" == k || "shadow" == k && !Blockly.Events.recordUndo) {
+          var m = Blockly.Xml.domToBlock(l, b);
+          c.push(m.id);
+          var n = l.hasAttribute("x") ? parseInt(l.getAttribute("x"), 10) : 10,
+              p = l.hasAttribute("y") ? parseInt(l.getAttribute("y"), 10) : 10;
+          isNaN(n) || isNaN(p) || m.moveBy(b.RTL ? d - n : n, p);
+          f = !1;
+        } else {
+          if ("shadow" == k) throw TypeError("Shadow block cannot be a top-level block.");
+          if ("comment" == k) b.rendered ? Blockly.WorkspaceCommentSvg ? Blockly.WorkspaceCommentSvg.fromXml(l, b, d) : console.warn("Missing require for Blockly.WorkspaceCommentSvg, ignoring workspace comment.") : Blockly.WorkspaceComment ? Blockly.WorkspaceComment.fromXml(l, b) : console.warn("Missing require for Blockly.WorkspaceComment, ignoring workspace comment.");else if ("variables" == k) {
+            if (f) Blockly.Xml.domToVariables(l, b);else throw Error("'variables' tag must exist once before block and shadow tag elements in the workspace XML, but it was found in another location.");
+            f = !1;
+          }
+        }
+      }
+    } finally {
+      e || Blockly.Events.setGroup(!1), Blockly.utils.dom.stopTextWidthCache();
+    }
+
+    b.setResizesEnabled && b.setResizesEnabled(!0);
+    Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.FINISHED_LOADING))(b));
+    return c;
+  };
+
+  Blockly.Xml.appendDomToWorkspace = function (a, b) {
+    var c;
+    Object.prototype.hasOwnProperty.call(b, "scale") && (c = b.getBlocksBoundingBox());
+    a = Blockly.Xml.domToWorkspace(a, b);
+
+    if (c && c.top != c.bottom) {
+      var d = c.bottom;
+      var e = b.RTL ? c.right : c.left;
+      var f = Infinity,
+          g = -Infinity,
+          h = Infinity;
+
+      for (c = 0; c < a.length; c++) {
+        var k = b.getBlockById(a[c]).getRelativeToSurfaceXY();
+        k.y < h && (h = k.y);
+        k.x < f && (f = k.x);
+        k.x > g && (g = k.x);
+      }
+
+      d = d - h + 10;
+      e = b.RTL ? e - g : e - f;
+
+      for (c = 0; c < a.length; c++) {
+        b.getBlockById(a[c]).moveBy(e, d);
+      }
+    }
+
+    return a;
+  };
+
+  Blockly.Xml.domToBlock = function (a, b) {
+    if (a instanceof Blockly.Workspace) {
+      var c = a;
+      a = b;
+      b = c;
+      console.warn("Deprecated call to Blockly.Xml.domToBlock, swap the arguments.");
+    }
+
+    Blockly.Events.disable();
+    c = b.getAllVariables();
+
+    try {
+      var d = Blockly.Xml.domToBlockHeadless_(a, b),
+          e = d.getDescendants(!1);
+
+      if (b.rendered) {
+        d.setConnectionTracking(!1);
+
+        for (var f = e.length - 1; 0 <= f; f--) {
+          e[f].initSvg();
+        }
+
+        for (f = e.length - 1; 0 <= f; f--) {
+          e[f].render(!1);
+        }
+
+        setTimeout(function () {
+          d.disposed || d.setConnectionTracking(!0);
+        }, 1);
+        d.updateDisabled();
+        b.resizeContents();
+      } else for (f = e.length - 1; 0 <= f; f--) {
+        e[f].initModel();
+      }
+    } finally {
+      Blockly.Events.enable();
+    }
+
+    if (Blockly.Events.isEnabled()) {
+      a = Blockly.Variables.getAddedVariables(b, c);
+
+      for (f = 0; f < a.length; f++) {
+        b = a[f], Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.VAR_CREATE))(b));
+      }
+
+      Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.CREATE))(d));
+    }
+
+    return d;
+  };
+
+  Blockly.Xml.domToVariables = function (a, b) {
+    for (var c = 0, d; d = a.childNodes[c]; c++) {
+      if (d.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE) {
+        var e = d.getAttribute("type"),
+            f = d.getAttribute("id");
+        b.createVariable(d.textContent, e, f);
+      }
+    }
+  };
+
+  Blockly.Xml.mapSupportedXmlTags_ = function (a) {
+    for (var b = {
+      mutation: [],
+      comment: [],
+      data: [],
+      field: [],
+      input: [],
+      next: []
+    }, c = 0, d; d = a.childNodes[c]; c++) {
+      if (d.nodeType != Blockly.utils.dom.NodeType.TEXT_NODE) switch (d.nodeName.toLowerCase()) {
+        case "mutation":
+          b.mutation.push(d);
+          break;
+
+        case "comment":
+          if (!Blockly.Comment) {
+            console.warn("Missing require for Blockly.Comment, ignoring block comment.");
+            break;
+          }
+
+          b.comment.push(d);
+          break;
+
+        case "data":
+          b.data.push(d);
+          break;
+
+        case "title":
+        case "field":
+          b.field.push(d);
+          break;
+
+        case "value":
+        case "statement":
+          b.input.push(d);
+          break;
+
+        case "next":
+          b.next.push(d);
+          break;
+
+        default:
+          console.warn("Ignoring unknown tag: " + d.nodeName);
+      }
+    }
+
+    return b;
+  };
+
+  Blockly.Xml.applyMutationTagNodes_ = function (a, b) {
+    for (var c = !1, d = 0, e; e = a[d]; d++) {
+      b.domToMutation && (b.domToMutation(e), b.initSvg && (c = !0));
+    }
+
+    return c;
+  };
+
+  Blockly.Xml.applyCommentTagNodes_ = function (a, b) {
+    for (var c = 0, d; d = a[c]; c++) {
+      var e = d.textContent,
+          f = "true" == d.getAttribute("pinned"),
+          g = parseInt(d.getAttribute("w"), 10);
+      d = parseInt(d.getAttribute("h"), 10);
+      b.setCommentText(e);
+      b.commentModel.pinned = f;
+      isNaN(g) || isNaN(d) || (b.commentModel.size = new Blockly.utils.Size(g, d));
+      f && b.getCommentIcon && !b.isInFlyout && setTimeout(function () {
+        b.getCommentIcon().setVisible(!0);
+      }, 1);
+    }
+  };
+
+  Blockly.Xml.applyDataTagNodes_ = function (a, b) {
+    for (var c = 0, d; d = a[c]; c++) {
+      b.data = d.textContent;
+    }
+  };
+
+  Blockly.Xml.applyFieldTagNodes_ = function (a, b) {
+    for (var c = 0, d; d = a[c]; c++) {
+      var e = d.getAttribute("name");
+      Blockly.Xml.domToField_(b, e, d);
+    }
+  };
+
+  Blockly.Xml.findChildBlocks_ = function (a) {
+    for (var b = {
+      childBlockElement: null,
+      childShadowElement: null
+    }, c = 0, d; d = a.childNodes[c]; c++) {
+      d.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && ("block" == d.nodeName.toLowerCase() ? b.childBlockElement = d : "shadow" == d.nodeName.toLowerCase() && (b.childShadowElement = d));
+    }
+
+    return b;
+  };
+
+  Blockly.Xml.applyInputTagNodes_ = function (a, b, c, d) {
+    for (var e = 0, f; f = a[e]; e++) {
+      var g = f.getAttribute("name"),
+          h = c.getInput(g);
+
+      if (!h) {
+        console.warn("Ignoring non-existent input " + g + " in block " + d);
+        break;
+      }
+
+      f = Blockly.Xml.findChildBlocks_(f);
+
+      if (f.childBlockElement) {
+        if (!h.connection) throw TypeError("Input connection does not exist.");
+        Blockly.Xml.domToBlockHeadless_(f.childBlockElement, b, h.connection, !1);
+      }
+
+      f.childShadowElement && h.connection.setShadowDom(f.childShadowElement);
+    }
+  };
+
+  Blockly.Xml.applyNextTagNodes_ = function (a, b, c) {
+    for (var d = 0, e; e = a[d]; d++) {
+      e = Blockly.Xml.findChildBlocks_(e);
+
+      if (e.childBlockElement) {
+        if (!c.nextConnection) throw TypeError("Next statement does not exist.");
+        if (c.nextConnection.isConnected()) throw TypeError("Next statement is already connected.");
+        Blockly.Xml.domToBlockHeadless_(e.childBlockElement, b, c.nextConnection, !0);
+      }
+
+      e.childShadowElement && c.nextConnection && c.nextConnection.setShadowDom(e.childShadowElement);
+    }
+  };
+
+  Blockly.Xml.domToBlockHeadless_ = function (a, b, c, d) {
+    var e = a.getAttribute("type");
+    if (!e) throw TypeError("Block type unspecified: " + a.outerHTML);
+    var f = a.getAttribute("id");
+    f = b.newBlock(e, f);
+    var g = Blockly.Xml.mapSupportedXmlTags_(a),
+        h = Blockly.Xml.applyMutationTagNodes_(g.mutation, f);
+    Blockly.Xml.applyCommentTagNodes_(g.comment, f);
+    Blockly.Xml.applyDataTagNodes_(g.data, f);
+    if (c) if (d) {
+      if (f.previousConnection) c.connect(f.previousConnection);else throw TypeError("Next block does not have previous statement.");
+    } else if (f.outputConnection) c.connect(f.outputConnection);else if (f.previousConnection) c.connect(f.previousConnection);else throw TypeError("Child block does not have output or previous statement.");
+    Blockly.Xml.applyFieldTagNodes_(g.field, f);
+    Blockly.Xml.applyInputTagNodes_(g.input, b, f, e);
+    Blockly.Xml.applyNextTagNodes_(g.next, b, f);
+    h && f.initSvg();
+    (b = a.getAttribute("inline")) && f.setInputsInline("true" == b);
+    (b = a.getAttribute("disabled")) && f.setEnabled("true" != b && "disabled" != b);
+    (b = a.getAttribute("deletable")) && f.setDeletable("true" == b);
+    (b = a.getAttribute("movable")) && f.setMovable("true" == b);
+    (b = a.getAttribute("editable")) && f.setEditable("true" == b);
+    (b = a.getAttribute("collapsed")) && f.setCollapsed("true" == b);
+
+    if ("shadow" == a.nodeName.toLowerCase()) {
+      a = f.getChildren(!1);
+
+      for (b = 0; c = a[b]; b++) {
+        if (!c.isShadow()) throw TypeError("Shadow block not allowed non-shadow child.");
+      }
+
+      if (f.getVarModels().length) throw TypeError("Shadow blocks cannot have variable references.");
+      f.setShadow(!0);
+    }
+
+    return f;
+  };
+
+  Blockly.Xml.domToField_ = function (a, b, c) {
+    var d = a.getField(b);
+    d ? d.fromXml(c) : console.warn("Ignoring non-existent field " + b + " in block " + a.type);
+  };
+
+  Blockly.Xml.deleteNext = function (a) {
+    for (var b = 0, c; c = a.childNodes[b]; b++) {
+      if ("next" == c.nodeName.toLowerCase()) {
+        a.removeChild(c);
+        break;
+      }
+    }
+  };
+
+  Blockly.Events.BlockBase = function (a) {
+    Blockly.Events.BlockBase.superClass_.constructor.call(this);
+    this.blockId = (this.isBlank = "undefined" == typeof a) ? "" : a.id;
+    this.workspaceId = this.isBlank ? "" : a.workspace.id;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.BlockBase, Blockly.Events.Abstract);
+
+  Blockly.Events.BlockBase.prototype.toJson = function () {
+    var a = Blockly.Events.BlockBase.superClass_.toJson.call(this);
+    a.blockId = this.blockId;
+    return a;
+  };
+
+  Blockly.Events.BlockBase.prototype.fromJson = function (a) {
+    Blockly.Events.BlockBase.superClass_.fromJson.call(this, a);
+    this.blockId = a.blockId;
+  };
+
+  Blockly.Events.Change = function (a, b, c, d, e) {
+    Blockly.Events.Change.superClass_.constructor.call(this, a);
+    a && (this.element = "undefined" == typeof b ? "" : b, this.name = "undefined" == typeof c ? "" : c, this.oldValue = "undefined" == typeof d ? "" : d, this.newValue = "undefined" == typeof e ? "" : e);
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Change, Blockly.Events.BlockBase);
+  Blockly.Events.BlockChange = Blockly.Events.Change;
+  Blockly.Events.Change.prototype.type = Blockly.Events.CHANGE;
+
+  Blockly.Events.Change.prototype.toJson = function () {
+    var a = Blockly.Events.Change.superClass_.toJson.call(this);
+    a.element = this.element;
+    this.name && (a.name = this.name);
+    a.oldValue = this.oldValue;
+    a.newValue = this.newValue;
+    return a;
+  };
+
+  Blockly.Events.Change.prototype.fromJson = function (a) {
+    Blockly.Events.Change.superClass_.fromJson.call(this, a);
+    this.element = a.element;
+    this.name = a.name;
+    this.oldValue = a.oldValue;
+    this.newValue = a.newValue;
+  };
+
+  Blockly.Events.Change.prototype.isNull = function () {
+    return this.oldValue == this.newValue;
+  };
+
+  Blockly.Events.Change.prototype.run = function (a) {
+    var b = this.getEventWorkspace_().getBlockById(this.blockId);
+    if (b) switch (b.mutator && b.mutator.setVisible(!1), a = a ? this.newValue : this.oldValue, this.element) {
+      case "field":
+        (b = b.getField(this.name)) ? b.setValue(a) : console.warn("Can't set non-existent field: " + this.name);
+        break;
+
+      case "comment":
+        b.setCommentText(a || null);
+        break;
+
+      case "collapsed":
+        b.setCollapsed(!!a);
+        break;
+
+      case "disabled":
+        b.setEnabled(!a);
+        break;
+
+      case "inline":
+        b.setInputsInline(!!a);
+        break;
+
+      case "mutation":
+        var c = "";
+        b.mutationToDom && (c = (c = b.mutationToDom()) && Blockly.Xml.domToText(c));
+
+        if (b.domToMutation) {
+          var d = Blockly.Xml.textToDom(a || "<mutation/>");
+          b.domToMutation(d);
+        }
+
+        Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.CHANGE))(b, "mutation", null, c, a));
+        break;
+
+      default:
+        console.warn("Unknown change type: " + this.element);
+    } else console.warn("Can't change non-existent block: " + this.blockId);
+  };
+
+  Blockly.Events.Create = function (a) {
+    Blockly.Events.Create.superClass_.constructor.call(this, a);
+    a && (a.isShadow() && (this.recordUndo = !1), this.xml = a.workspace.rendered ? Blockly.Xml.blockToDomWithXY(a) : Blockly.Xml.blockToDom(a), this.ids = Blockly.Events.getDescendantIds(a));
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Create, Blockly.Events.BlockBase);
+  Blockly.Events.BlockCreate = Blockly.Events.Create;
+  Blockly.Events.Create.prototype.type = Blockly.Events.CREATE;
+
+  Blockly.Events.Create.prototype.toJson = function () {
+    var a = Blockly.Events.Create.superClass_.toJson.call(this);
+    a.xml = Blockly.Xml.domToText(this.xml);
+    a.ids = this.ids;
+    this.recordUndo || (a.recordUndo = this.recordUndo);
+    return a;
+  };
+
+  Blockly.Events.Create.prototype.fromJson = function (a) {
+    Blockly.Events.Create.superClass_.fromJson.call(this, a);
+    this.xml = Blockly.Xml.textToDom(a.xml);
+    this.ids = a.ids;
+    void 0 !== a.recordUndo && (this.recordUndo = a.recordUndo);
+  };
+
+  Blockly.Events.Create.prototype.run = function (a) {
+    var b = this.getEventWorkspace_();
+    if (a) a = Blockly.utils.xml.createElement("xml"), a.appendChild(this.xml), Blockly.Xml.domToWorkspace(a, b);else {
+      a = 0;
+
+      for (var c; c = this.ids[a]; a++) {
+        var d = b.getBlockById(c);
+        d ? d.dispose(!1) : c == this.blockId && console.warn("Can't uncreate non-existent block: " + c);
+      }
+    }
+  };
+
+  Blockly.Events.Delete = function (a) {
+    Blockly.Events.Delete.superClass_.constructor.call(this, a);
+
+    if (a) {
+      if (a.getParent()) throw Error("Connected blocks cannot be deleted.");
+      a.isShadow() && (this.recordUndo = !1);
+      this.oldXml = a.workspace.rendered ? Blockly.Xml.blockToDomWithXY(a) : Blockly.Xml.blockToDom(a);
+      this.ids = Blockly.Events.getDescendantIds(a);
+    }
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Delete, Blockly.Events.BlockBase);
+  Blockly.Events.BlockDelete = Blockly.Events.Delete;
+  Blockly.Events.Delete.prototype.type = Blockly.Events.DELETE;
+
+  Blockly.Events.Delete.prototype.toJson = function () {
+    var a = Blockly.Events.Delete.superClass_.toJson.call(this);
+    a.oldXml = Blockly.Xml.domToText(this.oldXml);
+    a.ids = this.ids;
+    this.recordUndo || (a.recordUndo = this.recordUndo);
+    return a;
+  };
+
+  Blockly.Events.Delete.prototype.fromJson = function (a) {
+    Blockly.Events.Delete.superClass_.fromJson.call(this, a);
+    this.oldXml = Blockly.Xml.textToDom(a.oldXml);
+    this.ids = a.ids;
+    void 0 !== a.recordUndo && (this.recordUndo = a.recordUndo);
+  };
+
+  Blockly.Events.Delete.prototype.run = function (a) {
+    var b = this.getEventWorkspace_();
+
+    if (a) {
+      a = 0;
+
+      for (var c; c = this.ids[a]; a++) {
+        var d = b.getBlockById(c);
+        d ? d.dispose(!1) : c == this.blockId && console.warn("Can't delete non-existent block: " + c);
+      }
+    } else a = Blockly.utils.xml.createElement("xml"), a.appendChild(this.oldXml), Blockly.Xml.domToWorkspace(a, b);
+  };
+
+  Blockly.Events.Move = function (a) {
+    Blockly.Events.Move.superClass_.constructor.call(this, a);
+    a && (a.isShadow() && (this.recordUndo = !1), a = this.currentLocation_(), this.oldParentId = a.parentId, this.oldInputName = a.inputName, this.oldCoordinate = a.coordinate);
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Move, Blockly.Events.BlockBase);
+  Blockly.Events.BlockMove = Blockly.Events.Move;
+  Blockly.Events.Move.prototype.type = Blockly.Events.MOVE;
+
+  Blockly.Events.Move.prototype.toJson = function () {
+    var a = Blockly.Events.Move.superClass_.toJson.call(this);
+    this.newParentId && (a.newParentId = this.newParentId);
+    this.newInputName && (a.newInputName = this.newInputName);
+    this.newCoordinate && (a.newCoordinate = Math.round(this.newCoordinate.x) + "," + Math.round(this.newCoordinate.y));
+    this.recordUndo || (a.recordUndo = this.recordUndo);
+    return a;
+  };
+
+  Blockly.Events.Move.prototype.fromJson = function (a) {
+    Blockly.Events.Move.superClass_.fromJson.call(this, a);
+    this.newParentId = a.newParentId;
+    this.newInputName = a.newInputName;
+
+    if (a.newCoordinate) {
+      var b = a.newCoordinate.split(",");
+      this.newCoordinate = new Blockly.utils.Coordinate(Number(b[0]), Number(b[1]));
+    }
+
+    void 0 !== a.recordUndo && (this.recordUndo = a.recordUndo);
+  };
+
+  Blockly.Events.Move.prototype.recordNew = function () {
+    var a = this.currentLocation_();
+    this.newParentId = a.parentId;
+    this.newInputName = a.inputName;
+    this.newCoordinate = a.coordinate;
+  };
+
+  Blockly.Events.Move.prototype.currentLocation_ = function () {
+    var a = this.getEventWorkspace_().getBlockById(this.blockId),
+        b = {},
+        c = a.getParent();
+
+    if (c) {
+      if (b.parentId = c.id, a = c.getInputWithBlock(a)) b.inputName = a.name;
+    } else b.coordinate = a.getRelativeToSurfaceXY();
+
+    return b;
+  };
+
+  Blockly.Events.Move.prototype.isNull = function () {
+    return this.oldParentId == this.newParentId && this.oldInputName == this.newInputName && Blockly.utils.Coordinate.equals(this.oldCoordinate, this.newCoordinate);
+  };
+
+  Blockly.Events.Move.prototype.run = function (a) {
+    var b = this.getEventWorkspace_(),
+        c = b.getBlockById(this.blockId);
+
+    if (c) {
+      var d = a ? this.newParentId : this.oldParentId,
+          e = a ? this.newInputName : this.oldInputName,
+          f = a ? this.newCoordinate : this.oldCoordinate;
+      a = null;
+
+      if (d && (a = b.getBlockById(d), !a)) {
+        console.warn("Can't connect to non-existent block: " + d);
+        return;
+      }
+
+      c.getParent() && c.unplug();
+      if (f) e = c.getRelativeToSurfaceXY(), c.moveBy(f.x - e.x, f.y - e.y);else {
+        c = c.outputConnection || c.previousConnection;
+        b = c.type;
+
+        if (e) {
+          if (a = a.getInput(e)) var g = a.connection;
+        } else b == Blockly.connectionTypes.PREVIOUS_STATEMENT && (g = a.nextConnection);
+
+        g ? c.connect(g) : console.warn("Can't connect to non-existent input: " + e);
+      }
+    } else console.warn("Can't move non-existent block: " + this.blockId);
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.CREATE, Blockly.Events.Create);
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.DELETE, Blockly.Events.Delete);
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.CHANGE, Blockly.Events.Change);
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.MOVE, Blockly.Events.Move);
+
+  Blockly.Events.FinishedLoading = function (a) {
+    this.isBlank = "undefined" == typeof a;
+    this.workspaceId = a ? a.id : "";
+    this.group = Blockly.Events.getGroup();
+    this.recordUndo = !1;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.FinishedLoading, Blockly.Events.Abstract);
+  Blockly.Events.FinishedLoading.prototype.type = Blockly.Events.FINISHED_LOADING;
+
+  Blockly.Events.FinishedLoading.prototype.toJson = function () {
+    var a = {
+      type: this.type
+    };
+    this.group && (a.group = this.group);
+    this.workspaceId && (a.workspaceId = this.workspaceId);
+    return a;
+  };
+
+  Blockly.Events.FinishedLoading.prototype.fromJson = function (a) {
+    this.isBlank = !1;
+    this.workspaceId = a.workspaceId;
+    this.group = a.group;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.FINISHED_LOADING, Blockly.Events.FinishedLoading);
+
+  Blockly.Events.UiBase = function (a) {
+    Blockly.Events.UiBase.superClass_.constructor.call(this);
+    this.isBlank = "undefined" == typeof a;
+    this.workspaceId = a ? a : "";
+    this.recordUndo = !1;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.UiBase, Blockly.Events.Abstract);
+  Blockly.Events.UiBase.prototype.isUiEvent = !0;
+
+  Blockly.Events.Ui = function (a, b, c, d) {
+    Blockly.Events.Ui.superClass_.constructor.call(this, a ? a.workspace.id : void 0);
+    this.blockId = a ? a.id : null;
+    this.element = "undefined" == typeof b ? "" : b;
+    this.oldValue = "undefined" == typeof c ? "" : c;
+    this.newValue = "undefined" == typeof d ? "" : d;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Ui, Blockly.Events.UiBase);
+  Blockly.Events.Ui.prototype.type = Blockly.Events.UI;
+
+  Blockly.Events.Ui.prototype.toJson = function () {
+    var a = Blockly.Events.Ui.superClass_.toJson.call(this);
+    a.element = this.element;
+    void 0 !== this.newValue && (a.newValue = this.newValue);
+    this.blockId && (a.blockId = this.blockId);
+    return a;
+  };
+
+  Blockly.Events.Ui.prototype.fromJson = function (a) {
+    Blockly.Events.Ui.superClass_.fromJson.call(this, a);
+    this.element = a.element;
+    this.newValue = a.newValue;
+    this.blockId = a.blockId;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.UI, Blockly.Events.Ui);
+
+  Blockly.Events.VarBase = function (a) {
+    Blockly.Events.VarBase.superClass_.constructor.call(this);
+    this.varId = (this.isBlank = "undefined" == typeof a) ? "" : a.getId();
+    this.workspaceId = this.isBlank ? "" : a.workspace.id;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.VarBase, Blockly.Events.Abstract);
+
+  Blockly.Events.VarBase.prototype.toJson = function () {
+    var a = Blockly.Events.VarBase.superClass_.toJson.call(this);
+    a.varId = this.varId;
+    return a;
+  };
+
+  Blockly.Events.VarBase.prototype.fromJson = function (a) {
+    Blockly.Events.VarBase.superClass_.toJson.call(this);
+    this.varId = a.varId;
+  };
+
+  Blockly.Events.VarCreate = function (a) {
+    Blockly.Events.VarCreate.superClass_.constructor.call(this, a);
+    a && (this.varType = a.type, this.varName = a.name);
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.VarCreate, Blockly.Events.VarBase);
+  Blockly.Events.VarCreate.prototype.type = Blockly.Events.VAR_CREATE;
+
+  Blockly.Events.VarCreate.prototype.toJson = function () {
+    var a = Blockly.Events.VarCreate.superClass_.toJson.call(this);
+    a.varType = this.varType;
+    a.varName = this.varName;
+    return a;
+  };
+
+  Blockly.Events.VarCreate.prototype.fromJson = function (a) {
+    Blockly.Events.VarCreate.superClass_.fromJson.call(this, a);
+    this.varType = a.varType;
+    this.varName = a.varName;
+  };
+
+  Blockly.Events.VarCreate.prototype.run = function (a) {
+    var b = this.getEventWorkspace_();
+    a ? b.createVariable(this.varName, this.varType, this.varId) : b.deleteVariableById(this.varId);
+  };
+
+  Blockly.Events.VarDelete = function (a) {
+    Blockly.Events.VarDelete.superClass_.constructor.call(this, a);
+    a && (this.varType = a.type, this.varName = a.name);
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.VarDelete, Blockly.Events.VarBase);
+  Blockly.Events.VarDelete.prototype.type = Blockly.Events.VAR_DELETE;
+
+  Blockly.Events.VarDelete.prototype.toJson = function () {
+    var a = Blockly.Events.VarDelete.superClass_.toJson.call(this);
+    a.varType = this.varType;
+    a.varName = this.varName;
+    return a;
+  };
+
+  Blockly.Events.VarDelete.prototype.fromJson = function (a) {
+    Blockly.Events.VarDelete.superClass_.fromJson.call(this, a);
+    this.varType = a.varType;
+    this.varName = a.varName;
+  };
+
+  Blockly.Events.VarDelete.prototype.run = function (a) {
+    var b = this.getEventWorkspace_();
+    a ? b.deleteVariableById(this.varId) : b.createVariable(this.varName, this.varType, this.varId);
+  };
+
+  Blockly.Events.VarRename = function (a, b) {
+    Blockly.Events.VarRename.superClass_.constructor.call(this, a);
+    a && (this.oldName = a.name, this.newName = "undefined" == typeof b ? "" : b);
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.VarRename, Blockly.Events.VarBase);
+  Blockly.Events.VarRename.prototype.type = Blockly.Events.VAR_RENAME;
+
+  Blockly.Events.VarRename.prototype.toJson = function () {
+    var a = Blockly.Events.VarRename.superClass_.toJson.call(this);
+    a.oldName = this.oldName;
+    a.newName = this.newName;
+    return a;
+  };
+
+  Blockly.Events.VarRename.prototype.fromJson = function (a) {
+    Blockly.Events.VarRename.superClass_.fromJson.call(this, a);
+    this.oldName = a.oldName;
+    this.newName = a.newName;
+  };
+
+  Blockly.Events.VarRename.prototype.run = function (a) {
+    var b = this.getEventWorkspace_();
+    a ? b.renameVariableById(this.varId, this.newName) : b.renameVariableById(this.varId, this.oldName);
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VAR_CREATE, Blockly.Events.VarCreate);
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VAR_DELETE, Blockly.Events.VarDelete);
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VAR_RENAME, Blockly.Events.VarRename);
+
   Blockly.BlockDragSurfaceSvg = function (a) {
     this.container_ = a;
     this.createDom();
@@ -1242,144 +2339,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.surfaceXY_ = null;
   };
 
-  Blockly.utils.IdGenerator = {};
-  Blockly.utils.IdGenerator.nextId_ = 0;
-
-  Blockly.utils.IdGenerator.getNextUniqueId = function () {
-    return "blockly-" + (Blockly.utils.IdGenerator.nextId_++).toString(36);
-  };
-
-  Blockly.Component = function () {
-    this.rightToLeft_ = Blockly.Component.defaultRightToLeft;
-    this.id_ = null;
-    this.inDocument_ = !1;
-    this.parent_ = this.element_ = null;
-    this.children_ = [];
-    this.childIndex_ = {};
-    this.disposed_ = !1;
-  };
-
-  Blockly.Component.defaultRightToLeft = !1;
-  Blockly.Component.Error = {
-    ALREADY_RENDERED: "Component already rendered",
-    PARENT_UNABLE_TO_BE_SET: "Unable to set parent component",
-    CHILD_INDEX_OUT_OF_BOUNDS: "Child component index out of bounds",
-    ABSTRACT_METHOD: "Unimplemented abstract method"
-  };
-
-  Blockly.Component.prototype.getId = function () {
-    return this.id_ || (this.id_ = Blockly.utils.IdGenerator.getNextUniqueId());
-  };
-
-  Blockly.Component.prototype.getElement = function () {
-    return this.element_;
-  };
-
-  Blockly.Component.prototype.setElementInternal = function (a) {
-    this.element_ = a;
-  };
-
-  Blockly.Component.prototype.setParent = function (a) {
-    if (this == a) throw Error(Blockly.Component.Error.PARENT_UNABLE_TO_BE_SET);
-    if (a && this.parent_ && this.id_ && this.parent_.getChild(this.id_) && this.parent_ != a) throw Error(Blockly.Component.Error.PARENT_UNABLE_TO_BE_SET);
-    this.parent_ = a;
-  };
-
-  Blockly.Component.prototype.getParent = function () {
-    return this.parent_;
-  };
-
-  Blockly.Component.prototype.isInDocument = function () {
-    return this.inDocument_;
-  };
-
-  Blockly.Component.prototype.createDom = function () {
-    throw Error(Blockly.Component.Error.ABSTRACT_METHOD);
-  };
-
-  Blockly.Component.prototype.render = function (a) {
-    this.render_(a);
-  };
-
-  Blockly.Component.prototype.render_ = function (a, b) {
-    if (this.inDocument_) throw Error(Blockly.Component.Error.ALREADY_RENDERED);
-    this.element_ || this.createDom();
-    a ? a.insertBefore(this.element_, b || null) : document.body.appendChild(this.element_);
-    this.parent_ && !this.parent_.isInDocument() || this.enterDocument();
-  };
-
-  Blockly.Component.prototype.enterDocument = function () {
-    this.inDocument_ = !0;
-    this.forEachChild(function (a) {
-      !a.isInDocument() && a.getElement() && a.enterDocument();
-    });
-  };
-
-  Blockly.Component.prototype.exitDocument = function () {
-    this.forEachChild(function (a) {
-      a.isInDocument() && a.exitDocument();
-    });
-    this.inDocument_ = !1;
-  };
-
-  Blockly.Component.prototype.dispose = function () {
-    this.disposed_ || (this.disposed_ = !0, this.disposeInternal());
-  };
-
-  Blockly.Component.prototype.disposeInternal = function () {
-    this.inDocument_ && this.exitDocument();
-    this.forEachChild(function (a) {
-      a.dispose();
-    });
-    this.element_ && Blockly.utils.dom.removeNode(this.element_);
-    this.parent_ = this.element_ = this.childIndex_ = this.children_ = null;
-  };
-
-  Blockly.Component.prototype.addChild = function (a, b) {
-    this.addChildAt(a, this.getChildCount(), b);
-  };
-
-  Blockly.Component.prototype.addChildAt = function (a, b, c) {
-    if (a.inDocument_ && (c || !this.inDocument_)) throw Error(Blockly.Component.Error.ALREADY_RENDERED);
-    if (0 > b || b > this.getChildCount()) throw Error(Blockly.Component.Error.CHILD_INDEX_OUT_OF_BOUNDS);
-    this.childIndex_[a.getId()] = a;
-
-    if (a.getParent() == this) {
-      var d = this.children_.indexOf(a);
-      -1 < d && this.children_.splice(d, 1);
-    }
-
-    a.setParent(this);
-    this.children_.splice(b, 0, a);
-    a.inDocument_ && this.inDocument_ && a.getParent() == this ? (c = this.getContentElement(), b = c.childNodes[b] || null, b != a.getElement() && c.insertBefore(a.getElement(), b)) : c ? (this.element_ || this.createDom(), b = this.getChildAt(b + 1), a.render_(this.getContentElement(), b ? b.element_ : null)) : this.inDocument_ && !a.inDocument_ && a.element_ && a.element_.parentNode && a.element_.parentNode.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && a.enterDocument();
-  };
-
-  Blockly.Component.prototype.getContentElement = function () {
-    return this.element_;
-  };
-
-  Blockly.Component.prototype.hasChildren = function () {
-    return 0 != this.children_.length;
-  };
-
-  Blockly.Component.prototype.getChildCount = function () {
-    return this.children_.length;
-  };
-
-  Blockly.Component.prototype.getChild = function (a) {
-    return a ? this.childIndex_[a] || null : null;
-  };
-
-  Blockly.Component.prototype.getChildAt = function (a) {
-    return this.children_[a] || null;
-  };
-
-  Blockly.Component.prototype.forEachChild = function (a, b) {
-    for (var c = 0; c < this.children_.length; c++) {
-      a.call(b, this.children_[c], c);
-    }
-  };
-
   Blockly.Css = {};
   Blockly.Css.injected_ = !1;
 
@@ -1398,7 +2357,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
 
-  Blockly.Css.CONTENT = [".blocklySvg {", "background-color: #fff;", "outline: none;", "overflow: hidden;", "position: absolute;", "display: block;", "}", ".blocklyWidgetDiv {", "display: none;", "position: absolute;", "z-index: 99999;", "}", ".injectionDiv {", "height: 100%;", "position: relative;", "overflow: hidden;", "touch-action: none;", "}", ".blocklyNonSelectable {", "user-select: none;", "-ms-user-select: none;", "-webkit-user-select: none;", "}", ".blocklyWsDragSurface {", "display: none;", "position: absolute;", "top: 0;", "left: 0;", "}", ".blocklyWsDragSurface.blocklyOverflowVisible {", "overflow: visible;", "}", ".blocklyBlockDragSurface {", "display: none;", "position: absolute;", "top: 0;", "left: 0;", "right: 0;", "bottom: 0;", "overflow: visible !important;", "z-index: 50;", "}", ".blocklyBlockCanvas.blocklyCanvasTransitioning,", ".blocklyBubbleCanvas.blocklyCanvasTransitioning {", "transition: transform .5s;", "}", ".blocklyTooltipDiv {", "background-color: #ffffc7;", "border: 1px solid #ddc;", "box-shadow: 4px 4px 20px 1px rgba(0,0,0,.15);", "color: #000;", "display: none;", "font: 9pt sans-serif;", "opacity: .9;", "padding: 2px;", "position: absolute;", "z-index: 100000;", "}", ".blocklyDropDownDiv {", "position: absolute;", "left: 0;", "top: 0;", "z-index: 1000;", "display: none;", "border: 1px solid;", "border-color: #dadce0;", "background-color: #fff;", "border-radius: 2px;", "padding: 4px;", "box-shadow: 0 0 3px 1px rgba(0,0,0,.3);", "}", ".blocklyDropDownDiv.blocklyFocused {", "box-shadow: 0 0 6px 1px rgba(0,0,0,.3);", "}", ".blocklyDropDownContent {", "max-height: 300px;", "overflow: auto;", "overflow-x: hidden;", "position: relative;", "}", ".blocklyDropDownArrow {", "position: absolute;", "left: 0;", "top: 0;", "width: 16px;", "height: 16px;", "z-index: -1;", "background-color: inherit;", "border-color: inherit;", "}", ".blocklyDropDownButton {", "display: inline-block;", "float: left;", "padding: 0;", "margin: 4px;", "border-radius: 4px;", "outline: none;", "border: 1px solid;", "transition: box-shadow .1s;", "cursor: pointer;", "}", ".blocklyArrowTop {", "border-top: 1px solid;", "border-left: 1px solid;", "border-top-left-radius: 4px;", "border-color: inherit;", "}", ".blocklyArrowBottom {", "border-bottom: 1px solid;", "border-right: 1px solid;", "border-bottom-right-radius: 4px;", "border-color: inherit;", "}", ".blocklyResizeSE {", "cursor: se-resize;", "fill: #aaa;", "}", ".blocklyResizeSW {", "cursor: sw-resize;", "fill: #aaa;", "}", ".blocklyResizeLine {", "stroke: #515A5A;", "stroke-width: 1;", "}", ".blocklyHighlightedConnectionPath {", "fill: none;", "stroke: #fc3;", "stroke-width: 4px;", "}", ".blocklyPathLight {", "fill: none;", "stroke-linecap: round;", "stroke-width: 1;", "}", ".blocklySelected>.blocklyPathLight {", "display: none;", "}", ".blocklyDraggable {", 'cursor: url("<<<PATH>>>/handopen.cur"), auto;', "cursor: grab;", "cursor: -webkit-grab;", "}", ".blocklyDragging {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyDraggable:active {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyBlockDragSurface .blocklyDraggable {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyDragging.blocklyDraggingDelete {", 'cursor: url("<<<PATH>>>/handdelete.cur"), auto;', "}", ".blocklyDragging>.blocklyPath,", ".blocklyDragging>.blocklyPathLight {", "fill-opacity: .8;", "stroke-opacity: .8;", "}", ".blocklyDragging>.blocklyPathDark {", "display: none;", "}", ".blocklyDisabled>.blocklyPath {", "fill-opacity: .5;", "stroke-opacity: .5;", "}", ".blocklyDisabled>.blocklyPathLight,", ".blocklyDisabled>.blocklyPathDark {", "display: none;", "}", ".blocklyInsertionMarker>.blocklyPath,", ".blocklyInsertionMarker>.blocklyPathLight,", ".blocklyInsertionMarker>.blocklyPathDark {", "fill-opacity: .2;", "stroke: none;", "}", ".blocklyMultilineText {", "font-family: monospace;", "}", ".blocklyNonEditableText>text {", "pointer-events: none;", "}", ".blocklyFlyout {", "position: absolute;", "z-index: 20;", "}", ".blocklyText text {", "cursor: default;", "}", ".blocklySvg text,", ".blocklyBlockDragSurface text {", "user-select: none;", "-ms-user-select: none;", "-webkit-user-select: none;", "cursor: inherit;", "}", ".blocklyHidden {", "display: none;", "}", ".blocklyFieldDropdown:not(.blocklyHidden) {", "display: block;", "}", ".blocklyIconGroup {", "cursor: default;", "}", ".blocklyIconGroup:not(:hover),", ".blocklyIconGroupReadonly {", "opacity: .6;", "}", ".blocklyIconShape {", "fill: #00f;", "stroke: #fff;", "stroke-width: 1px;", "}", ".blocklyIconSymbol {", "fill: #fff;", "}", ".blocklyMinimalBody {", "margin: 0;", "padding: 0;", "}", ".blocklyHtmlInput {", "border: none;", "border-radius: 4px;", "height: 100%;", "margin: 0;", "outline: none;", "padding: 0;", "width: 100%;", "text-align: center;", "display: block;", "box-sizing: border-box;", "}", ".blocklyHtmlInput::-ms-clear {", "display: none;", "}", ".blocklyMainBackground {", "stroke-width: 1;", "stroke: #c6c6c6;", "}", ".blocklyMutatorBackground {", "fill: #fff;", "stroke: #ddd;", "stroke-width: 1;", "}", ".blocklyFlyoutBackground {", "fill: #ddd;", "fill-opacity: .8;", "}", ".blocklyMainWorkspaceScrollbar {", "z-index: 20;", "}", ".blocklyFlyoutScrollbar {", "z-index: 30;", "}", ".blocklyScrollbarHorizontal,", ".blocklyScrollbarVertical {", "position: absolute;", "outline: none;", "}", ".blocklyScrollbarBackground {", "opacity: 0;", "}", ".blocklyScrollbarHandle {", "fill: #ccc;", "}", ".blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,", ".blocklyScrollbarHandle:hover {", "fill: #bbb;", "}", ".blocklyFlyout .blocklyScrollbarHandle {", "fill: #bbb;", "}", ".blocklyFlyout .blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,", ".blocklyFlyout .blocklyScrollbarHandle:hover {", "fill: #aaa;", "}", ".blocklyInvalidInput {", "background: #faa;", "}", ".blocklyVerticalMarker {", "stroke-width: 3px;", "fill: rgba(255,255,255,.5);", "pointer-events: none;", "}", ".blocklyComputeCanvas {", "position: absolute;", "width: 0;", "height: 0;", "}", ".blocklyNoPointerEvents {", "pointer-events: none;", "}", ".blocklyContextMenu {", "border-radius: 4px;", "max-height: 100%;", "}", ".blocklyDropdownMenu {", "border-radius: 2px;", "padding: 0 !important;", "}", ".blocklyDropdownMenu .blocklyMenuItem {", "padding-left: 28px;", "}", ".blocklyDropdownMenu .blocklyMenuItemRtl {", "padding-left: 5px;", "padding-right: 28px;", "}", ".blocklyWidgetDiv .blocklyMenu {", "background: #fff;", "border: 1px solid transparent;", "box-shadow: 0 0 3px 1px rgba(0,0,0,.3);", "font: normal 13px Arial, sans-serif;", "margin: 0;", "outline: none;", "padding: 4px 0;", "position: absolute;", "overflow-y: auto;", "overflow-x: hidden;", "max-height: 100%;", "z-index: 20000;", "}", ".blocklyWidgetDiv .blocklyMenu.blocklyFocused {", "box-shadow: 0 0 6px 1px rgba(0,0,0,.3);", "}", ".blocklyDropDownDiv .blocklyMenu {", 'font: normal 13px "Helvetica Neue", Helvetica, sans-serif;', "outline: none;", "z-index: 20000;", "}", ".blocklyMenuItem {", "border: none;", "color: #000;", "cursor: pointer;", "list-style: none;", "margin: 0;", "min-width: 7em;", "padding: 6px 15px;", "white-space: nowrap;", "}", ".blocklyMenuItemDisabled {", "color: #ccc;", "cursor: inherit;", "}", ".blocklyMenuItemHighlight {", "background-color: rgba(0,0,0,.1);", "}", ".blocklyMenuItemCheckbox {", "height: 16px;", "position: absolute;", "width: 16px;", "}", ".blocklyMenuItemSelected .blocklyMenuItemCheckbox {", "background: url(<<<PATH>>>/sprites.png) no-repeat -48px -16px;", "float: left;", "margin-left: -24px;", "position: static;", "}", ".blocklyMenuItemRtl .blocklyMenuItemCheckbox {", "float: right;", "margin-right: -24px;", "}"];
+  Blockly.Css.CONTENT = [".blocklySvg {", "background-color: #fff;", "outline: none;", "overflow: hidden;", "position: absolute;", "display: block;", "}", ".blocklyWidgetDiv {", "display: none;", "position: absolute;", "z-index: 99999;", "}", ".injectionDiv {", "height: 100%;", "position: relative;", "overflow: hidden;", "touch-action: none;", "}", ".blocklyNonSelectable {", "user-select: none;", "-ms-user-select: none;", "-webkit-user-select: none;", "}", ".blocklyWsDragSurface {", "display: none;", "position: absolute;", "top: 0;", "left: 0;", "}", ".blocklyWsDragSurface.blocklyOverflowVisible {", "overflow: visible;", "}", ".blocklyBlockDragSurface {", "display: none;", "position: absolute;", "top: 0;", "left: 0;", "right: 0;", "bottom: 0;", "overflow: visible !important;", "z-index: 50;", "}", ".blocklyBlockCanvas.blocklyCanvasTransitioning,", ".blocklyBubbleCanvas.blocklyCanvasTransitioning {", "transition: transform .5s;", "}", ".blocklyTooltipDiv {", "background-color: #ffffc7;", "border: 1px solid #ddc;", "box-shadow: 4px 4px 20px 1px rgba(0,0,0,.15);", "color: #000;", "display: none;", "font: 9pt sans-serif;", "opacity: .9;", "padding: 2px;", "position: absolute;", "z-index: 100000;", "}", ".blocklyDropDownDiv {", "position: absolute;", "left: 0;", "top: 0;", "z-index: 1000;", "display: none;", "border: 1px solid;", "border-color: #dadce0;", "background-color: #fff;", "border-radius: 2px;", "padding: 4px;", "box-shadow: 0 0 3px 1px rgba(0,0,0,.3);", "}", ".blocklyDropDownDiv.blocklyFocused {", "box-shadow: 0 0 6px 1px rgba(0,0,0,.3);", "}", ".blocklyDropDownContent {", "max-height: 300px;", "overflow: auto;", "overflow-x: hidden;", "position: relative;", "}", ".blocklyDropDownArrow {", "position: absolute;", "left: 0;", "top: 0;", "width: 16px;", "height: 16px;", "z-index: -1;", "background-color: inherit;", "border-color: inherit;", "}", ".blocklyDropDownButton {", "display: inline-block;", "float: left;", "padding: 0;", "margin: 4px;", "border-radius: 4px;", "outline: none;", "border: 1px solid;", "transition: box-shadow .1s;", "cursor: pointer;", "}", ".blocklyArrowTop {", "border-top: 1px solid;", "border-left: 1px solid;", "border-top-left-radius: 4px;", "border-color: inherit;", "}", ".blocklyArrowBottom {", "border-bottom: 1px solid;", "border-right: 1px solid;", "border-bottom-right-radius: 4px;", "border-color: inherit;", "}", ".blocklyResizeSE {", "cursor: se-resize;", "fill: #aaa;", "}", ".blocklyResizeSW {", "cursor: sw-resize;", "fill: #aaa;", "}", ".blocklyResizeLine {", "stroke: #515A5A;", "stroke-width: 1;", "}", ".blocklyHighlightedConnectionPath {", "fill: none;", "stroke: #fc3;", "stroke-width: 4px;", "}", ".blocklyPathLight {", "fill: none;", "stroke-linecap: round;", "stroke-width: 1;", "}", ".blocklySelected>.blocklyPathLight {", "display: none;", "}", ".blocklyDraggable {", 'cursor: url("<<<PATH>>>/handopen.cur"), auto;', "cursor: grab;", "cursor: -webkit-grab;", "}", ".blocklyDragging {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyDraggable:active {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyBlockDragSurface .blocklyDraggable {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyDragging.blocklyDraggingDelete {", 'cursor: url("<<<PATH>>>/handdelete.cur"), auto;', "}", ".blocklyDragging>.blocklyPath,", ".blocklyDragging>.blocklyPathLight {", "fill-opacity: .8;", "stroke-opacity: .8;", "}", ".blocklyDragging>.blocklyPathDark {", "display: none;", "}", ".blocklyDisabled>.blocklyPath {", "fill-opacity: .5;", "stroke-opacity: .5;", "}", ".blocklyDisabled>.blocklyPathLight,", ".blocklyDisabled>.blocklyPathDark {", "display: none;", "}", ".blocklyInsertionMarker>.blocklyPath,", ".blocklyInsertionMarker>.blocklyPathLight,", ".blocklyInsertionMarker>.blocklyPathDark {", "fill-opacity: .2;", "stroke: none;", "}", ".blocklyMultilineText {", "font-family: monospace;", "}", ".blocklyNonEditableText>text {", "pointer-events: none;", "}", ".blocklyFlyout {", "position: absolute;", "z-index: 20;", "}", ".blocklyText text {", "cursor: default;", "}", ".blocklySvg text,", ".blocklyBlockDragSurface text {", "user-select: none;", "-ms-user-select: none;", "-webkit-user-select: none;", "cursor: inherit;", "}", ".blocklyHidden {", "display: none;", "}", ".blocklyFieldDropdown:not(.blocklyHidden) {", "display: block;", "}", ".blocklyIconGroup {", "cursor: default;", "}", ".blocklyIconGroup:not(:hover),", ".blocklyIconGroupReadonly {", "opacity: .6;", "}", ".blocklyIconShape {", "fill: #00f;", "stroke: #fff;", "stroke-width: 1px;", "}", ".blocklyIconSymbol {", "fill: #fff;", "}", ".blocklyMinimalBody {", "margin: 0;", "padding: 0;", "}", ".blocklyHtmlInput {", "border: none;", "border-radius: 4px;", "height: 100%;", "margin: 0;", "outline: none;", "padding: 0;", "width: 100%;", "text-align: center;", "display: block;", "box-sizing: border-box;", "}", ".blocklyHtmlInput::-ms-clear {", "display: none;", "}", ".blocklyMainBackground {", "stroke-width: 1;", "stroke: #c6c6c6;", "}", ".blocklyMutatorBackground {", "fill: #fff;", "stroke: #ddd;", "stroke-width: 1;", "}", ".blocklyFlyoutBackground {", "fill: #ddd;", "fill-opacity: .8;", "}", ".blocklyMainWorkspaceScrollbar {", "z-index: 20;", "}", ".blocklyFlyoutScrollbar {", "z-index: 30;", "}", ".blocklyScrollbarHorizontal,", ".blocklyScrollbarVertical {", "position: absolute;", "outline: none;", "}", ".blocklyScrollbarBackground {", "opacity: 0;", "}", ".blocklyScrollbarHandle {", "fill: #ccc;", "}", ".blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,", ".blocklyScrollbarHandle:hover {", "fill: #bbb;", "}", ".blocklyFlyout .blocklyScrollbarHandle {", "fill: #bbb;", "}", ".blocklyFlyout .blocklyScrollbarBackground:hover+.blocklyScrollbarHandle,", ".blocklyFlyout .blocklyScrollbarHandle:hover {", "fill: #aaa;", "}", ".blocklyInvalidInput {", "background: #faa;", "}", ".blocklyVerticalMarker {", "stroke-width: 3px;", "fill: rgba(255,255,255,.5);", "pointer-events: none;", "}", ".blocklyComputeCanvas {", "position: absolute;", "width: 0;", "height: 0;", "}", ".blocklyNoPointerEvents {", "pointer-events: none;", "}", ".blocklyContextMenu {", "border-radius: 4px;", "max-height: 100%;", "}", ".blocklyDropdownMenu {", "border-radius: 2px;", "padding: 0 !important;", "}", ".blocklyDropdownMenu .blocklyMenuItem {", "padding-left: 28px;", "}", ".blocklyDropdownMenu .blocklyMenuItemRtl {", "padding-left: 5px;", "padding-right: 28px;", "}", ".blocklyWidgetDiv .blocklyMenu {", "background: #fff;", "border: 1px solid transparent;", "box-shadow: 0 0 3px 1px rgba(0,0,0,.3);", "font: normal 13px Arial, sans-serif;", "margin: 0;", "outline: none;", "padding: 4px 0;", "position: absolute;", "overflow-y: auto;", "overflow-x: hidden;", "max-height: 100%;", "z-index: 20000;", "}", ".blocklyWidgetDiv .blocklyMenu.blocklyFocused {", "box-shadow: 0 0 6px 1px rgba(0,0,0,.3);", "}", ".blocklyDropDownDiv .blocklyMenu {", "background: inherit;", "border: inherit;", 'font: normal 13px "Helvetica Neue", Helvetica, sans-serif;', "outline: none;", "position: relative;", "z-index: 20000;", "}", ".blocklyMenuItem {", "border: none;", "color: #000;", "cursor: pointer;", "list-style: none;", "margin: 0;", "min-width: 7em;", "padding: 6px 15px;", "white-space: nowrap;", "}", ".blocklyMenuItemDisabled {", "color: #ccc;", "cursor: inherit;", "}", ".blocklyMenuItemHighlight {", "background-color: rgba(0,0,0,.1);", "}", ".blocklyMenuItemCheckbox {", "height: 16px;", "position: absolute;", "width: 16px;", "}", ".blocklyMenuItemSelected .blocklyMenuItemCheckbox {", "background: url(<<<PATH>>>/sprites.png) no-repeat -48px -16px;", "float: left;", "margin-left: -24px;", "position: static;", "}", ".blocklyMenuItemRtl .blocklyMenuItemCheckbox {", "float: right;", "margin-right: -24px;", "}"];
   Blockly.utils.math = {};
 
   Blockly.utils.math.toRadians = function (a) {
@@ -1845,215 +2804,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
   Blockly.Themes.Classic = new Blockly.Theme("classic", Blockly.Themes.Classic.defaultBlockStyles, Blockly.Themes.Classic.categoryStyles);
-  Blockly.utils.KeyCodes = {
-    WIN_KEY_FF_LINUX: 0,
-    MAC_ENTER: 3,
-    BACKSPACE: 8,
-    TAB: 9,
-    NUM_CENTER: 12,
-    ENTER: 13,
-    SHIFT: 16,
-    CTRL: 17,
-    ALT: 18,
-    PAUSE: 19,
-    CAPS_LOCK: 20,
-    ESC: 27,
-    SPACE: 32,
-    PAGE_UP: 33,
-    PAGE_DOWN: 34,
-    END: 35,
-    HOME: 36,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40,
-    PLUS_SIGN: 43,
-    PRINT_SCREEN: 44,
-    INSERT: 45,
-    DELETE: 46,
-    ZERO: 48,
-    ONE: 49,
-    TWO: 50,
-    THREE: 51,
-    FOUR: 52,
-    FIVE: 53,
-    SIX: 54,
-    SEVEN: 55,
-    EIGHT: 56,
-    NINE: 57,
-    FF_SEMICOLON: 59,
-    FF_EQUALS: 61,
-    FF_DASH: 173,
-    FF_HASH: 163,
-    QUESTION_MARK: 63,
-    AT_SIGN: 64,
-    A: 65,
-    B: 66,
-    C: 67,
-    D: 68,
-    E: 69,
-    F: 70,
-    G: 71,
-    H: 72,
-    I: 73,
-    J: 74,
-    K: 75,
-    L: 76,
-    M: 77,
-    N: 78,
-    O: 79,
-    P: 80,
-    Q: 81,
-    R: 82,
-    S: 83,
-    T: 84,
-    U: 85,
-    V: 86,
-    W: 87,
-    X: 88,
-    Y: 89,
-    Z: 90,
-    META: 91,
-    WIN_KEY_RIGHT: 92,
-    CONTEXT_MENU: 93,
-    NUM_ZERO: 96,
-    NUM_ONE: 97,
-    NUM_TWO: 98,
-    NUM_THREE: 99,
-    NUM_FOUR: 100,
-    NUM_FIVE: 101,
-    NUM_SIX: 102,
-    NUM_SEVEN: 103,
-    NUM_EIGHT: 104,
-    NUM_NINE: 105,
-    NUM_MULTIPLY: 106,
-    NUM_PLUS: 107,
-    NUM_MINUS: 109,
-    NUM_PERIOD: 110,
-    NUM_DIVISION: 111,
-    F1: 112,
-    F2: 113,
-    F3: 114,
-    F4: 115,
-    F5: 116,
-    F6: 117,
-    F7: 118,
-    F8: 119,
-    F9: 120,
-    F10: 121,
-    F11: 122,
-    F12: 123,
-    NUMLOCK: 144,
-    SCROLL_LOCK: 145,
-    FIRST_MEDIA_KEY: 166,
-    LAST_MEDIA_KEY: 183,
-    SEMICOLON: 186,
-    DASH: 189,
-    EQUALS: 187,
-    COMMA: 188,
-    PERIOD: 190,
-    SLASH: 191,
-    APOSTROPHE: 192,
-    TILDE: 192,
-    SINGLE_QUOTE: 222,
-    OPEN_SQUARE_BRACKET: 219,
-    BACKSLASH: 220,
-    CLOSE_SQUARE_BRACKET: 221,
-    WIN_KEY: 224,
-    MAC_FF_META: 224,
-    MAC_WK_CMD_LEFT: 91,
-    MAC_WK_CMD_RIGHT: 93,
-    WIN_IME: 229,
-    VK_NONAME: 252,
-    PHANTOM: 255
-  };
-  Blockly.user = {};
-  Blockly.user.keyMap = {};
-  Blockly.user.keyMap.map_ = {};
-  Blockly.user.keyMap.modifierKeys = {
-    SHIFT: "Shift",
-    CONTROL: "Control",
-    ALT: "Alt",
-    META: "Meta"
-  };
+  Blockly.utils.IdGenerator = {};
+  Blockly.utils.IdGenerator.nextId_ = 0;
 
-  Blockly.user.keyMap.setActionForKey = function (a, b) {
-    var c = Blockly.user.keyMap.getKeyByAction(b);
-    c && delete Blockly.user.keyMap.map_[c];
-    Blockly.user.keyMap.map_[a] = b;
-  };
-
-  Blockly.user.keyMap.setKeyMap = function (a) {
-    Blockly.user.keyMap.map_ = a;
-  };
-
-  Blockly.user.keyMap.getKeyMap = function () {
-    var a = {};
-    Blockly.utils.object.mixin(a, Blockly.user.keyMap.map_);
-    return a;
-  };
-
-  Blockly.user.keyMap.getActionByKeyCode = function (a) {
-    return Blockly.user.keyMap.map_[a];
-  };
-
-  Blockly.user.keyMap.getKeyByAction = function (a) {
-    for (var b = Object.keys(Blockly.user.keyMap.map_), c = 0, d; d = b[c]; c++) {
-      if (Blockly.user.keyMap.map_[d].name === a.name) return d;
-    }
-
-    return null;
-  };
-
-  Blockly.user.keyMap.serializeKeyEvent = function (a) {
-    for (var b = Blockly.utils.object.values(Blockly.user.keyMap.modifierKeys), c = "", d = 0, e; e = b[d]; d++) {
-      a.getModifierState(e) && (c += e);
-    }
-
-    return c += a.keyCode;
-  };
-
-  Blockly.user.keyMap.checkModifiers_ = function (a, b) {
-    for (var c = 0, d; d = a[c]; c++) {
-      if (0 > b.indexOf(d)) throw Error(d + " is not a valid modifier key.");
-    }
-  };
-
-  Blockly.user.keyMap.createSerializedKey = function (a, b) {
-    var c = "",
-        d = Blockly.utils.object.values(Blockly.user.keyMap.modifierKeys);
-    Blockly.user.keyMap.checkModifiers_(b, d);
-
-    for (var e = 0, f; f = d[e]; e++) {
-      -1 < b.indexOf(f) && (c += f);
-    }
-
-    return c + a;
-  };
-
-  Blockly.user.keyMap.createDefaultKeyMap = function () {
-    var a = {},
-        b = Blockly.user.keyMap.createSerializedKey(Blockly.utils.KeyCodes.K, [Blockly.user.keyMap.modifierKeys.CONTROL, Blockly.user.keyMap.modifierKeys.SHIFT]),
-        c = Blockly.user.keyMap.createSerializedKey(Blockly.utils.KeyCodes.W, [Blockly.user.keyMap.modifierKeys.SHIFT]),
-        d = Blockly.user.keyMap.createSerializedKey(Blockly.utils.KeyCodes.A, [Blockly.user.keyMap.modifierKeys.SHIFT]),
-        e = Blockly.user.keyMap.createSerializedKey(Blockly.utils.KeyCodes.S, [Blockly.user.keyMap.modifierKeys.SHIFT]),
-        f = Blockly.user.keyMap.createSerializedKey(Blockly.utils.KeyCodes.D, [Blockly.user.keyMap.modifierKeys.SHIFT]);
-    a[Blockly.utils.KeyCodes.W] = Blockly.navigation.ACTION_PREVIOUS;
-    a[Blockly.utils.KeyCodes.A] = Blockly.navigation.ACTION_OUT;
-    a[Blockly.utils.KeyCodes.S] = Blockly.navigation.ACTION_NEXT;
-    a[Blockly.utils.KeyCodes.D] = Blockly.navigation.ACTION_IN;
-    a[Blockly.utils.KeyCodes.I] = Blockly.navigation.ACTION_INSERT;
-    a[Blockly.utils.KeyCodes.ENTER] = Blockly.navigation.ACTION_MARK;
-    a[Blockly.utils.KeyCodes.X] = Blockly.navigation.ACTION_DISCONNECT;
-    a[Blockly.utils.KeyCodes.T] = Blockly.navigation.ACTION_TOOLBOX;
-    a[Blockly.utils.KeyCodes.E] = Blockly.navigation.ACTION_EXIT;
-    a[Blockly.utils.KeyCodes.ESC] = Blockly.navigation.ACTION_EXIT;
-    a[b] = Blockly.navigation.ACTION_TOGGLE_KEYBOARD_NAV;
-    a[c] = Blockly.navigation.ACTION_MOVE_WS_CURSOR_UP;
-    a[d] = Blockly.navigation.ACTION_MOVE_WS_CURSOR_LEFT;
-    a[e] = Blockly.navigation.ACTION_MOVE_WS_CURSOR_DOWN;
-    a[f] = Blockly.navigation.ACTION_MOVE_WS_CURSOR_RIGHT;
-    return a;
+  Blockly.utils.IdGenerator.getNextUniqueId = function () {
+    return "blockly-" + (Blockly.utils.IdGenerator.nextId_++).toString(36);
   };
 
   Blockly.utils.Metrics = function () {};
@@ -2062,10 +2817,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.utils.toolbox.CATEGORY_TOOLBOX_KIND = "categoryToolbox";
   Blockly.utils.toolbox.FLYOUT_TOOLBOX_KIND = "flyoutToolbox";
   Blockly.utils.toolbox.Position = {
-    TOP: Blockly.TOOLBOX_AT_TOP,
-    BOTTOM: Blockly.TOOLBOX_AT_BOTTOM,
-    LEFT: Blockly.TOOLBOX_AT_LEFT,
-    RIGHT: Blockly.TOOLBOX_AT_RIGHT
+    TOP: 0,
+    BOTTOM: 1,
+    LEFT: 2,
+    RIGHT: 3
   };
 
   Blockly.utils.toolbox.convertToolboxDefToJson = function (a) {
@@ -2119,7 +2874,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var e = {},
             f = d.tagName.toUpperCase();
         e.kind = f;
-        "BLOCK" == f ? e.blockxml = d : "CATEGORY" == f && (e.contents = Blockly.utils.toolbox.xmlToJsonArray_(d));
+        "BLOCK" == f ? e.blockxml = d : d.childNodes && 0 < d.childNodes.length && (e.contents = Blockly.utils.toolbox.xmlToJsonArray_(d));
         Blockly.utils.toolbox.addAttributes_(d, e);
         b.push(e);
       }
@@ -2141,814 +2896,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     } else a = null;
 
     return a;
-  };
-
-  Blockly.utils.xml = {};
-  Blockly.utils.xml.NAME_SPACE = "https://developers.google.com/blockly/xml";
-
-  Blockly.utils.xml.document = function () {
-    return document;
-  };
-
-  Blockly.utils.xml.createElement = function (a) {
-    return Blockly.utils.xml.document().createElementNS(Blockly.utils.xml.NAME_SPACE, a);
-  };
-
-  Blockly.utils.xml.createTextNode = function (a) {
-    return Blockly.utils.xml.document().createTextNode(a);
-  };
-
-  Blockly.utils.xml.textToDomDocument = function (a) {
-    return new DOMParser().parseFromString(a, "text/xml");
-  };
-
-  Blockly.utils.xml.domToText = function (a) {
-    return new XMLSerializer().serializeToString(a);
-  };
-
-  Blockly.Events.BlockBase = function (a) {
-    Blockly.Events.BlockBase.superClass_.constructor.call(this);
-    this.blockId = (this.isBlank = "undefined" == typeof a) ? "" : a.id;
-    this.workspaceId = this.isBlank ? "" : a.workspace.id;
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.BlockBase, Blockly.Events.Abstract);
-
-  Blockly.Events.BlockBase.prototype.toJson = function () {
-    var a = Blockly.Events.BlockBase.superClass_.toJson.call(this);
-    a.blockId = this.blockId;
-    return a;
-  };
-
-  Blockly.Events.BlockBase.prototype.fromJson = function (a) {
-    Blockly.Events.BlockBase.superClass_.fromJson.call(this, a);
-    this.blockId = a.blockId;
-  };
-
-  Blockly.Events.Change = function (a, b, c, d, e) {
-    Blockly.Events.Change.superClass_.constructor.call(this, a);
-    a && (this.element = "undefined" == typeof b ? "" : b, this.name = "undefined" == typeof c ? "" : c, this.oldValue = "undefined" == typeof d ? "" : d, this.newValue = "undefined" == typeof e ? "" : e);
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.Change, Blockly.Events.BlockBase);
-  Blockly.Events.BlockChange = Blockly.Events.Change;
-  Blockly.Events.Change.prototype.type = Blockly.Events.CHANGE;
-
-  Blockly.Events.Change.prototype.toJson = function () {
-    var a = Blockly.Events.Change.superClass_.toJson.call(this);
-    a.element = this.element;
-    this.name && (a.name = this.name);
-    a.newValue = this.newValue;
-    return a;
-  };
-
-  Blockly.Events.Change.prototype.fromJson = function (a) {
-    Blockly.Events.Change.superClass_.fromJson.call(this, a);
-    this.element = a.element;
-    this.name = a.name;
-    this.newValue = a.newValue;
-  };
-
-  Blockly.Events.Change.prototype.isNull = function () {
-    return this.oldValue == this.newValue;
-  };
-
-  Blockly.Events.Change.prototype.run = function (a) {
-    var b = this.getEventWorkspace_().getBlockById(this.blockId);
-    if (b) switch (b.mutator && b.mutator.setVisible(!1), a = a ? this.newValue : this.oldValue, this.element) {
-      case "field":
-        (b = b.getField(this.name)) ? b.setValue(a) : console.warn("Can't set non-existent field: " + this.name);
-        break;
-
-      case "comment":
-        b.setCommentText(a || null);
-        break;
-
-      case "collapsed":
-        b.setCollapsed(!!a);
-        break;
-
-      case "disabled":
-        b.setEnabled(!a);
-        break;
-
-      case "inline":
-        b.setInputsInline(!!a);
-        break;
-
-      case "mutation":
-        var c = "";
-        b.mutationToDom && (c = (c = b.mutationToDom()) && Blockly.Xml.domToText(c));
-
-        if (b.domToMutation) {
-          var d = Blockly.Xml.textToDom(a || "<mutation/>");
-          b.domToMutation(d);
-        }
-
-        Blockly.Events.fire(new Blockly.Events.Change(b, "mutation", null, c, a));
-        break;
-
-      default:
-        console.warn("Unknown change type: " + this.element);
-    } else console.warn("Can't change non-existent block: " + this.blockId);
-  };
-
-  Blockly.Events.Create = function (a) {
-    Blockly.Events.Create.superClass_.constructor.call(this, a);
-    a && (a.isShadow() && (this.recordUndo = !1), this.xml = a.workspace.rendered ? Blockly.Xml.blockToDomWithXY(a) : Blockly.Xml.blockToDom(a), this.ids = Blockly.Events.getDescendantIds(a));
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.Create, Blockly.Events.BlockBase);
-  Blockly.Events.BlockCreate = Blockly.Events.Create;
-  Blockly.Events.Create.prototype.type = Blockly.Events.CREATE;
-
-  Blockly.Events.Create.prototype.toJson = function () {
-    var a = Blockly.Events.Create.superClass_.toJson.call(this);
-    a.xml = Blockly.Xml.domToText(this.xml);
-    a.ids = this.ids;
-    return a;
-  };
-
-  Blockly.Events.Create.prototype.fromJson = function (a) {
-    Blockly.Events.Create.superClass_.fromJson.call(this, a);
-    this.xml = Blockly.Xml.textToDom(a.xml);
-    this.ids = a.ids;
-  };
-
-  Blockly.Events.Create.prototype.run = function (a) {
-    var b = this.getEventWorkspace_();
-    if (a) a = Blockly.utils.xml.createElement("xml"), a.appendChild(this.xml), Blockly.Xml.domToWorkspace(a, b);else {
-      a = 0;
-
-      for (var c; c = this.ids[a]; a++) {
-        var d = b.getBlockById(c);
-        d ? d.dispose(!1) : c == this.blockId && console.warn("Can't uncreate non-existent block: " + c);
-      }
-    }
-  };
-
-  Blockly.Events.Delete = function (a) {
-    Blockly.Events.Delete.superClass_.constructor.call(this, a);
-
-    if (a) {
-      if (a.getParent()) throw Error("Connected blocks cannot be deleted.");
-      a.isShadow() && (this.recordUndo = !1);
-      this.oldXml = a.workspace.rendered ? Blockly.Xml.blockToDomWithXY(a) : Blockly.Xml.blockToDom(a);
-      this.ids = Blockly.Events.getDescendantIds(a);
-    }
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.Delete, Blockly.Events.BlockBase);
-  Blockly.Events.BlockDelete = Blockly.Events.Delete;
-  Blockly.Events.Delete.prototype.type = Blockly.Events.DELETE;
-
-  Blockly.Events.Delete.prototype.toJson = function () {
-    var a = Blockly.Events.Delete.superClass_.toJson.call(this);
-    a.ids = this.ids;
-    return a;
-  };
-
-  Blockly.Events.Delete.prototype.fromJson = function (a) {
-    Blockly.Events.Delete.superClass_.fromJson.call(this, a);
-    this.ids = a.ids;
-  };
-
-  Blockly.Events.Delete.prototype.run = function (a) {
-    var b = this.getEventWorkspace_();
-
-    if (a) {
-      a = 0;
-
-      for (var c; c = this.ids[a]; a++) {
-        var d = b.getBlockById(c);
-        d ? d.dispose(!1) : c == this.blockId && console.warn("Can't delete non-existent block: " + c);
-      }
-    } else a = Blockly.utils.xml.createElement("xml"), a.appendChild(this.oldXml), Blockly.Xml.domToWorkspace(a, b);
-  };
-
-  Blockly.Events.Move = function (a) {
-    Blockly.Events.Move.superClass_.constructor.call(this, a);
-    a && (a.isShadow() && (this.recordUndo = !1), a = this.currentLocation_(), this.oldParentId = a.parentId, this.oldInputName = a.inputName, this.oldCoordinate = a.coordinate);
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.Move, Blockly.Events.BlockBase);
-  Blockly.Events.BlockMove = Blockly.Events.Move;
-  Blockly.Events.Move.prototype.type = Blockly.Events.MOVE;
-
-  Blockly.Events.Move.prototype.toJson = function () {
-    var a = Blockly.Events.Move.superClass_.toJson.call(this);
-    this.newParentId && (a.newParentId = this.newParentId);
-    this.newInputName && (a.newInputName = this.newInputName);
-    this.newCoordinate && (a.newCoordinate = Math.round(this.newCoordinate.x) + "," + Math.round(this.newCoordinate.y));
-    return a;
-  };
-
-  Blockly.Events.Move.prototype.fromJson = function (a) {
-    Blockly.Events.Move.superClass_.fromJson.call(this, a);
-    this.newParentId = a.newParentId;
-    this.newInputName = a.newInputName;
-    a.newCoordinate && (a = a.newCoordinate.split(","), this.newCoordinate = new Blockly.utils.Coordinate(Number(a[0]), Number(a[1])));
-  };
-
-  Blockly.Events.Move.prototype.recordNew = function () {
-    var a = this.currentLocation_();
-    this.newParentId = a.parentId;
-    this.newInputName = a.inputName;
-    this.newCoordinate = a.coordinate;
-  };
-
-  Blockly.Events.Move.prototype.currentLocation_ = function () {
-    var a = this.getEventWorkspace_().getBlockById(this.blockId),
-        b = {},
-        c = a.getParent();
-
-    if (c) {
-      if (b.parentId = c.id, a = c.getInputWithBlock(a)) b.inputName = a.name;
-    } else b.coordinate = a.getRelativeToSurfaceXY();
-
-    return b;
-  };
-
-  Blockly.Events.Move.prototype.isNull = function () {
-    return this.oldParentId == this.newParentId && this.oldInputName == this.newInputName && Blockly.utils.Coordinate.equals(this.oldCoordinate, this.newCoordinate);
-  };
-
-  Blockly.Events.Move.prototype.run = function (a) {
-    var b = this.getEventWorkspace_(),
-        c = b.getBlockById(this.blockId);
-
-    if (c) {
-      var d = a ? this.newParentId : this.oldParentId,
-          e = a ? this.newInputName : this.oldInputName;
-      a = a ? this.newCoordinate : this.oldCoordinate;
-      var f = null;
-
-      if (d && (f = b.getBlockById(d), !f)) {
-        console.warn("Can't connect to non-existent block: " + d);
-        return;
-      }
-
-      c.getParent() && c.unplug();
-      if (a) e = c.getRelativeToSurfaceXY(), c.moveBy(a.x - e.x, a.y - e.y);else {
-        c = c.outputConnection || c.previousConnection;
-
-        if (e) {
-          if (b = f.getInput(e)) var g = b.connection;
-        } else c.type == Blockly.PREVIOUS_STATEMENT && (g = f.nextConnection);
-
-        g ? c.connect(g) : console.warn("Can't connect to non-existent input: " + e);
-      }
-    } else console.warn("Can't move non-existent block: " + this.blockId);
-  };
-
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.CREATE, Blockly.Events.Create);
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.DELETE, Blockly.Events.Delete);
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.CHANGE, Blockly.Events.Change);
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.MOVE, Blockly.Events.Move);
-
-  Blockly.Events.FinishedLoading = function (a) {
-    this.isBlank = "undefined" == typeof a;
-    this.workspaceId = a ? a.id : "";
-    this.group = Blockly.Events.getGroup();
-    this.recordUndo = !1;
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.FinishedLoading, Blockly.Events.Ui);
-  Blockly.Events.FinishedLoading.prototype.type = Blockly.Events.FINISHED_LOADING;
-
-  Blockly.Events.FinishedLoading.prototype.toJson = function () {
-    var a = {
-      type: this.type
-    };
-    this.group && (a.group = this.group);
-    this.workspaceId && (a.workspaceId = this.workspaceId);
-    return a;
-  };
-
-  Blockly.Events.FinishedLoading.prototype.fromJson = function (a) {
-    this.isBlank = !1;
-    this.workspaceId = a.workspaceId;
-    this.group = a.group;
-  };
-
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.FINISHED_LOADING, Blockly.Events.FinishedLoading);
-
-  Blockly.Events.VarBase = function (a) {
-    Blockly.Events.VarBase.superClass_.constructor.call(this);
-    this.varId = (this.isBlank = "undefined" == typeof a) ? "" : a.getId();
-    this.workspaceId = this.isBlank ? "" : a.workspace.id;
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.VarBase, Blockly.Events.Abstract);
-
-  Blockly.Events.VarBase.prototype.toJson = function () {
-    var a = Blockly.Events.VarBase.superClass_.toJson.call(this);
-    a.varId = this.varId;
-    return a;
-  };
-
-  Blockly.Events.VarBase.prototype.fromJson = function (a) {
-    Blockly.Events.VarBase.superClass_.toJson.call(this);
-    this.varId = a.varId;
-  };
-
-  Blockly.Events.VarCreate = function (a) {
-    Blockly.Events.VarCreate.superClass_.constructor.call(this, a);
-    a && (this.varType = a.type, this.varName = a.name);
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.VarCreate, Blockly.Events.VarBase);
-  Blockly.Events.VarCreate.prototype.type = Blockly.Events.VAR_CREATE;
-
-  Blockly.Events.VarCreate.prototype.toJson = function () {
-    var a = Blockly.Events.VarCreate.superClass_.toJson.call(this);
-    a.varType = this.varType;
-    a.varName = this.varName;
-    return a;
-  };
-
-  Blockly.Events.VarCreate.prototype.fromJson = function (a) {
-    Blockly.Events.VarCreate.superClass_.fromJson.call(this, a);
-    this.varType = a.varType;
-    this.varName = a.varName;
-  };
-
-  Blockly.Events.VarCreate.prototype.run = function (a) {
-    var b = this.getEventWorkspace_();
-    a ? b.createVariable(this.varName, this.varType, this.varId) : b.deleteVariableById(this.varId);
-  };
-
-  Blockly.Events.VarDelete = function (a) {
-    Blockly.Events.VarDelete.superClass_.constructor.call(this, a);
-    a && (this.varType = a.type, this.varName = a.name);
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.VarDelete, Blockly.Events.VarBase);
-  Blockly.Events.VarDelete.prototype.type = Blockly.Events.VAR_DELETE;
-
-  Blockly.Events.VarDelete.prototype.toJson = function () {
-    var a = Blockly.Events.VarDelete.superClass_.toJson.call(this);
-    a.varType = this.varType;
-    a.varName = this.varName;
-    return a;
-  };
-
-  Blockly.Events.VarDelete.prototype.fromJson = function (a) {
-    Blockly.Events.VarDelete.superClass_.fromJson.call(this, a);
-    this.varType = a.varType;
-    this.varName = a.varName;
-  };
-
-  Blockly.Events.VarDelete.prototype.run = function (a) {
-    var b = this.getEventWorkspace_();
-    a ? b.deleteVariableById(this.varId) : b.createVariable(this.varName, this.varType, this.varId);
-  };
-
-  Blockly.Events.VarRename = function (a, b) {
-    Blockly.Events.VarRename.superClass_.constructor.call(this, a);
-    a && (this.oldName = a.name, this.newName = "undefined" == typeof b ? "" : b);
-  };
-
-  Blockly.utils.object.inherits(Blockly.Events.VarRename, Blockly.Events.VarBase);
-  Blockly.Events.VarRename.prototype.type = Blockly.Events.VAR_RENAME;
-
-  Blockly.Events.VarRename.prototype.toJson = function () {
-    var a = Blockly.Events.VarRename.superClass_.toJson.call(this);
-    a.oldName = this.oldName;
-    a.newName = this.newName;
-    return a;
-  };
-
-  Blockly.Events.VarRename.prototype.fromJson = function (a) {
-    Blockly.Events.VarRename.superClass_.fromJson.call(this, a);
-    this.oldName = a.oldName;
-    this.newName = a.newName;
-  };
-
-  Blockly.Events.VarRename.prototype.run = function (a) {
-    var b = this.getEventWorkspace_();
-    a ? b.renameVariableById(this.varId, this.newName) : b.renameVariableById(this.varId, this.oldName);
-  };
-
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VAR_CREATE, Blockly.Events.VarCreate);
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VAR_DELETE, Blockly.Events.VarDelete);
-  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VAR_RENAME, Blockly.Events.VarRename);
-  Blockly.Xml = {};
-
-  Blockly.Xml.workspaceToDom = function (a, b) {
-    var c = Blockly.utils.xml.createElement("xml"),
-        d = Blockly.Xml.variablesToDom(Blockly.Variables.allUsedVarModels(a));
-    d.hasChildNodes() && c.appendChild(d);
-    var e = a.getTopComments(!0);
-    d = 0;
-
-    for (var f; f = e[d]; d++) {
-      c.appendChild(f.toXmlWithXY(b));
-    }
-
-    a = a.getTopBlocks(!0);
-
-    for (d = 0; e = a[d]; d++) {
-      c.appendChild(Blockly.Xml.blockToDomWithXY(e, b));
-    }
-
-    return c;
-  };
-
-  Blockly.Xml.variablesToDom = function (a) {
-    for (var b = Blockly.utils.xml.createElement("variables"), c = 0, d; d = a[c]; c++) {
-      var e = Blockly.utils.xml.createElement("variable");
-      e.appendChild(Blockly.utils.xml.createTextNode(d.name));
-      d.type && e.setAttribute("type", d.type);
-      e.id = d.getId();
-      b.appendChild(e);
-    }
-
-    return b;
-  };
-
-  Blockly.Xml.blockToDomWithXY = function (a, b) {
-    if (a.isInsertionMarker() && (a = a.getChildren(!1)[0], !a)) return new DocumentFragment();
-    var c;
-    a.workspace.RTL && (c = a.workspace.getWidth());
-    b = Blockly.Xml.blockToDom(a, b);
-    var d = a.getRelativeToSurfaceXY();
-    b.setAttribute("x", Math.round(a.workspace.RTL ? c - d.x : d.x));
-    b.setAttribute("y", Math.round(d.y));
-    return b;
-  };
-
-  Blockly.Xml.fieldToDom_ = function (a) {
-    if (a.isSerializable()) {
-      var b = Blockly.utils.xml.createElement("field");
-      b.setAttribute("name", a.name || "");
-      return a.toXml(b);
-    }
-
-    return null;
-  };
-
-  Blockly.Xml.allFieldsToDom_ = function (a, b) {
-    for (var c = 0, d; d = a.inputList[c]; c++) {
-      for (var e = 0, f; f = d.fieldRow[e]; e++) {
-        (f = Blockly.Xml.fieldToDom_(f)) && b.appendChild(f);
-      }
-    }
-  };
-
-  Blockly.Xml.blockToDom = function (a, b) {
-    if (a.isInsertionMarker()) return (a = a.getChildren(!1)[0]) ? Blockly.Xml.blockToDom(a) : new DocumentFragment();
-    var c = Blockly.utils.xml.createElement(a.isShadow() ? "shadow" : "block");
-    c.setAttribute("type", a.type);
-    b || c.setAttribute("id", a.id);
-
-    if (a.mutationToDom) {
-      var d = a.mutationToDom();
-      d && (d.hasChildNodes() || d.hasAttributes()) && c.appendChild(d);
-    }
-
-    Blockly.Xml.allFieldsToDom_(a, c);
-
-    if (d = a.getCommentText()) {
-      var e = a.commentModel.size,
-          f = a.commentModel.pinned,
-          g = Blockly.utils.xml.createElement("comment");
-      g.appendChild(Blockly.utils.xml.createTextNode(d));
-      g.setAttribute("pinned", f);
-      g.setAttribute("h", e.height);
-      g.setAttribute("w", e.width);
-      c.appendChild(g);
-    }
-
-    a.data && (d = Blockly.utils.xml.createElement("data"), d.appendChild(Blockly.utils.xml.createTextNode(a.data)), c.appendChild(d));
-
-    for (d = 0; e = a.inputList[d]; d++) {
-      var h;
-      f = !0;
-
-      if (e.type != Blockly.DUMMY_INPUT) {
-        var k = e.connection.targetBlock();
-        e.type == Blockly.INPUT_VALUE ? h = Blockly.utils.xml.createElement("value") : e.type == Blockly.NEXT_STATEMENT && (h = Blockly.utils.xml.createElement("statement"));
-        g = e.connection.getShadowDom();
-        !g || k && k.isShadow() || h.appendChild(Blockly.Xml.cloneShadow_(g, b));
-        k && (g = Blockly.Xml.blockToDom(k, b), g.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && (h.appendChild(g), f = !1));
-        h.setAttribute("name", e.name);
-        f || c.appendChild(h);
-      }
-    }
-
-    void 0 != a.inputsInline && a.inputsInline != a.inputsInlineDefault && c.setAttribute("inline", a.inputsInline);
-    a.isCollapsed() && c.setAttribute("collapsed", !0);
-    a.isEnabled() || c.setAttribute("disabled", !0);
-    a.isDeletable() || a.isShadow() || c.setAttribute("deletable", !1);
-    a.isMovable() || a.isShadow() || c.setAttribute("movable", !1);
-    a.isEditable() || c.setAttribute("editable", !1);
-    if (d = a.getNextBlock()) g = Blockly.Xml.blockToDom(d, b), g.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && (h = Blockly.utils.xml.createElement("next"), h.appendChild(g), c.appendChild(h));
-    g = a.nextConnection && a.nextConnection.getShadowDom();
-    !g || d && d.isShadow() || h.appendChild(Blockly.Xml.cloneShadow_(g, b));
-    return c;
-  };
-
-  Blockly.Xml.cloneShadow_ = function (a, b) {
-    for (var c = a = a.cloneNode(!0), d; c;) {
-      if (b && "shadow" == c.nodeName && c.removeAttribute("id"), c.firstChild) c = c.firstChild;else {
-        for (; c && !c.nextSibling;) {
-          d = c, c = c.parentNode, d.nodeType == Blockly.utils.dom.NodeType.TEXT_NODE && "" == d.data.trim() && c.firstChild != d && Blockly.utils.dom.removeNode(d);
-        }
-
-        c && (d = c, c = c.nextSibling, d.nodeType == Blockly.utils.dom.NodeType.TEXT_NODE && "" == d.data.trim() && Blockly.utils.dom.removeNode(d));
-      }
-    }
-
-    return a;
-  };
-
-  Blockly.Xml.domToText = function (a) {
-    return Blockly.utils.xml.domToText(a).replace(/<(\w+)([^<]*)\/>/g, "<$1$2></$1>");
-  };
-
-  Blockly.Xml.domToPrettyText = function (a) {
-    a = Blockly.Xml.domToText(a).split("<");
-
-    for (var b = "", c = 1; c < a.length; c++) {
-      var d = a[c];
-      "/" == d[0] && (b = b.substring(2));
-      a[c] = b + "<" + d;
-      "/" != d[0] && "/>" != d.slice(-2) && (b += "  ");
-    }
-
-    a = a.join("\n");
-    a = a.replace(/(<(\w+)\b[^>]*>[^\n]*)\n *<\/\2>/g, "$1</$2>");
-    return a.replace(/^\n/, "");
-  };
-
-  Blockly.Xml.textToDom = function (a) {
-    var b = Blockly.utils.xml.textToDomDocument(a);
-    if (!b || !b.documentElement || b.getElementsByTagName("parsererror").length) throw Error("textToDom was unable to parse: " + a);
-    return b.documentElement;
-  };
-
-  Blockly.Xml.clearWorkspaceAndLoadFromXml = function (a, b) {
-    b.setResizesEnabled(!1);
-    b.clear();
-    a = Blockly.Xml.domToWorkspace(a, b);
-    b.setResizesEnabled(!0);
-    return a;
-  };
-
-  Blockly.Xml.domToWorkspace = function (a, b) {
-    if (a instanceof Blockly.Workspace) {
-      var c = a;
-      a = b;
-      b = c;
-      console.warn("Deprecated call to Blockly.Xml.domToWorkspace, swap the arguments.");
-    }
-
-    var d;
-    b.RTL && (d = b.getWidth());
-    c = [];
-    Blockly.utils.dom.startTextWidthCache();
-    var e = Blockly.Events.getGroup();
-    e || Blockly.Events.setGroup(!0);
-    b.setResizesEnabled && b.setResizesEnabled(!1);
-    var f = !0;
-
-    try {
-      for (var g = 0, h; h = a.childNodes[g]; g++) {
-        var k = h.nodeName.toLowerCase(),
-            l = h;
-
-        if ("block" == k || "shadow" == k && !Blockly.Events.recordUndo) {
-          var m = Blockly.Xml.domToBlock(l, b);
-          c.push(m.id);
-          var n = l.hasAttribute("x") ? parseInt(l.getAttribute("x"), 10) : 10,
-              p = l.hasAttribute("y") ? parseInt(l.getAttribute("y"), 10) : 10;
-          isNaN(n) || isNaN(p) || m.moveBy(b.RTL ? d - n : n, p);
-          f = !1;
-        } else {
-          if ("shadow" == k) throw TypeError("Shadow block cannot be a top-level block.");
-          if ("comment" == k) b.rendered ? Blockly.WorkspaceCommentSvg ? Blockly.WorkspaceCommentSvg.fromXml(l, b, d) : console.warn("Missing require for Blockly.WorkspaceCommentSvg, ignoring workspace comment.") : Blockly.WorkspaceComment ? Blockly.WorkspaceComment.fromXml(l, b) : console.warn("Missing require for Blockly.WorkspaceComment, ignoring workspace comment.");else if ("variables" == k) {
-            if (f) Blockly.Xml.domToVariables(l, b);else throw Error("'variables' tag must exist once before block and shadow tag elements in the workspace XML, but it was found in another location.");
-            f = !1;
-          }
-        }
-      }
-    } finally {
-      e || Blockly.Events.setGroup(!1), Blockly.utils.dom.stopTextWidthCache();
-    }
-
-    b.setResizesEnabled && b.setResizesEnabled(!0);
-    Blockly.Events.fire(new Blockly.Events.FinishedLoading(b));
-    return c;
-  };
-
-  Blockly.Xml.appendDomToWorkspace = function (a, b) {
-    var c;
-    Object.prototype.hasOwnProperty.call(b, "scale") && (c = b.getBlocksBoundingBox());
-    a = Blockly.Xml.domToWorkspace(a, b);
-
-    if (c && c.top != c.bottom) {
-      var d = c.bottom;
-      var e = b.RTL ? c.right : c.left;
-      var f = Infinity,
-          g = -Infinity,
-          h = Infinity;
-
-      for (c = 0; c < a.length; c++) {
-        var k = b.getBlockById(a[c]).getRelativeToSurfaceXY();
-        k.y < h && (h = k.y);
-        k.x < f && (f = k.x);
-        k.x > g && (g = k.x);
-      }
-
-      d = d - h + 10;
-      e = b.RTL ? e - g : e - f;
-
-      for (c = 0; c < a.length; c++) {
-        b.getBlockById(a[c]).moveBy(e, d);
-      }
-    }
-
-    return a;
-  };
-
-  Blockly.Xml.domToBlock = function (a, b) {
-    if (a instanceof Blockly.Workspace) {
-      var c = a;
-      a = b;
-      b = c;
-      console.warn("Deprecated call to Blockly.Xml.domToBlock, swap the arguments.");
-    }
-
-    Blockly.Events.disable();
-    c = b.getAllVariables();
-
-    try {
-      var d = Blockly.Xml.domToBlockHeadless_(a, b),
-          e = d.getDescendants(!1);
-
-      if (b.rendered) {
-        d.setConnectionTracking(!1);
-
-        for (var f = e.length - 1; 0 <= f; f--) {
-          e[f].initSvg();
-        }
-
-        for (f = e.length - 1; 0 <= f; f--) {
-          e[f].render(!1);
-        }
-
-        setTimeout(function () {
-          d.disposed || d.setConnectionTracking(!0);
-        }, 1);
-        d.updateDisabled();
-        b.resizeContents();
-      } else for (f = e.length - 1; 0 <= f; f--) {
-        e[f].initModel();
-      }
-    } finally {
-      Blockly.Events.enable();
-    }
-
-    if (Blockly.Events.isEnabled()) {
-      a = Blockly.Variables.getAddedVariables(b, c);
-
-      for (f = 0; f < a.length; f++) {
-        Blockly.Events.fire(new Blockly.Events.VarCreate(a[f]));
-      }
-
-      Blockly.Events.fire(new Blockly.Events.BlockCreate(d));
-    }
-
-    return d;
-  };
-
-  Blockly.Xml.domToVariables = function (a, b) {
-    for (var c = 0, d; d = a.childNodes[c]; c++) {
-      if (d.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE) {
-        var e = d.getAttribute("type"),
-            f = d.getAttribute("id");
-        b.createVariable(d.textContent, e, f);
-      }
-    }
-  };
-
-  Blockly.Xml.domToBlockHeadless_ = function (a, b) {
-    var c = null,
-        d = a.getAttribute("type");
-    if (!d) throw TypeError("Block type unspecified: " + a.outerHTML);
-    var e = a.getAttribute("id");
-    c = b.newBlock(d, e);
-    var f = null;
-    e = 0;
-
-    for (var g; g = a.childNodes[e]; e++) {
-      if (g.nodeType != Blockly.utils.dom.NodeType.TEXT_NODE) {
-        for (var h, k = f = null, l = 0; h = g.childNodes[l]; l++) {
-          h.nodeType == Blockly.utils.dom.NodeType.ELEMENT_NODE && ("block" == h.nodeName.toLowerCase() ? f = h : "shadow" == h.nodeName.toLowerCase() && (k = h));
-        }
-
-        l = !1;
-        var m = g.getAttribute("name");
-        h = g;
-
-        switch (g.nodeName.toLowerCase()) {
-          case "mutation":
-            c.domToMutation && (c.domToMutation(h), c.initSvg && (l = !0));
-            break;
-
-          case "comment":
-            if (!Blockly.Comment) {
-              console.warn("Missing require for Blockly.Comment, ignoring block comment.");
-              break;
-            }
-
-            k = h.textContent;
-            f = "true" == h.getAttribute("pinned");
-            g = parseInt(h.getAttribute("w"), 10);
-            h = parseInt(h.getAttribute("h"), 10);
-            c.setCommentText(k);
-            c.commentModel.pinned = f;
-            isNaN(g) || isNaN(h) || (c.commentModel.size = new Blockly.utils.Size(g, h));
-            f && c.getCommentIcon && !c.isInFlyout && setTimeout(function () {
-              c.getCommentIcon().setVisible(!0);
-            }, 1);
-            break;
-
-          case "data":
-            c.data = g.textContent;
-            break;
-
-          case "title":
-          case "field":
-            Blockly.Xml.domToField_(c, m, h);
-            break;
-
-          case "value":
-          case "statement":
-            h = c.getInput(m);
-
-            if (!h) {
-              console.warn("Ignoring non-existent input " + m + " in block " + d);
-              break;
-            }
-
-            if (f) if (f = Blockly.Xml.domToBlockHeadless_(f, b), f.outputConnection) h.connection.connect(f.outputConnection);else if (f.previousConnection) h.connection.connect(f.previousConnection);else throw TypeError("Child block does not have output or previous statement.");
-            k && h.connection.setShadowDom(k);
-            break;
-
-          case "next":
-            if (f) {
-              if (!c.nextConnection) throw TypeError("Next statement does not exist.");
-              if (c.nextConnection.isConnected()) throw TypeError("Next statement is already connected.");
-              f = Blockly.Xml.domToBlockHeadless_(f, b);
-              if (!f.previousConnection) throw TypeError("Next block does not have previous statement.");
-              c.nextConnection.connect(f.previousConnection);
-            }
-
-            k && c.nextConnection && c.nextConnection.setShadowDom(k);
-            break;
-
-          default:
-            console.warn("Ignoring unknown tag: " + g.nodeName);
-        }
-      }
-    }
-
-    l && c.initSvg();
-    (e = a.getAttribute("inline")) && c.setInputsInline("true" == e);
-    (e = a.getAttribute("disabled")) && c.setEnabled("true" != e && "disabled" != e);
-    (e = a.getAttribute("deletable")) && c.setDeletable("true" == e);
-    (e = a.getAttribute("movable")) && c.setMovable("true" == e);
-    (e = a.getAttribute("editable")) && c.setEditable("true" == e);
-    (e = a.getAttribute("collapsed")) && c.setCollapsed("true" == e);
-
-    if ("shadow" == a.nodeName.toLowerCase()) {
-      a = c.getChildren(!1);
-
-      for (e = 0; b = a[e]; e++) {
-        if (!b.isShadow()) throw TypeError("Shadow block not allowed non-shadow child.");
-      }
-
-      if (c.getVarModels().length) throw TypeError("Shadow blocks cannot have variable references.");
-      c.setShadow(!0);
-    }
-
-    return c;
-  };
-
-  Blockly.Xml.domToField_ = function (a, b, c) {
-    var d = a.getField(b);
-    d ? d.fromXml(c) : console.warn("Ignoring non-existent field " + b + " in block " + a.type);
-  };
-
-  Blockly.Xml.deleteNext = function (a) {
-    for (var b = 0, c; c = a.childNodes[b]; b++) {
-      if ("next" == c.nodeName.toLowerCase()) {
-        a.removeChild(c);
-        break;
-      }
-    }
   };
 
   Blockly.Options = function (a) {
@@ -2986,9 +2933,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var t = "https://blockly-demo.appspot.com/static/media/";
     a.media ? t = a.media : a.path && (t = a.path + "media/");
     var r = void 0 === a.oneBasedIndex ? !0 : !!a.oneBasedIndex,
-        u = a.keyMap || Blockly.user.keyMap.createDefaultKeyMap(),
-        v = a.renderer || "geras",
-        w = a.plugins || {};
+        u = a.renderer || "geras",
+        v = a.plugins || {};
     this.RTL = m;
     this.oneBasedIndex = r;
     this.collapse = f;
@@ -3000,7 +2946,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.pathToMedia = t;
     this.hasCategories = d;
     this.moveOptions = Blockly.Options.parseMoveOptions_(a, d);
-    this.hasScrollbars = this.moveOptions.scrollbars;
+    this.hasScrollbars = !!this.moveOptions.scrollbars;
     this.hasTrashcan = e;
     this.maxTrashcanContents = l;
     this.hasSounds = k;
@@ -3011,12 +2957,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.zoomOptions = Blockly.Options.parseZoomOptions_(a);
     this.toolboxPosition = p;
     this.theme = Blockly.Options.parseThemeOptions_(a);
-    this.keyMap = u;
-    this.renderer = v;
+    this.renderer = u;
     this.rendererOverrides = a.rendererOverrides;
     this.gridPattern = null;
     this.parentWorkspace = a.parentWorkspace;
-    this.plugins = w;
+    this.plugins = v;
   };
 
   Blockly.BlocklyOptions = function () {};
@@ -3024,8 +2969,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Options.parseMoveOptions_ = function (a, b) {
     var c = a.move || {},
         d = {};
-    d.scrollbars = void 0 === c.scrollbars && void 0 === a.scrollbars ? b : !!c.scrollbars || !!a.scrollbars;
-    d.wheel = d.scrollbars && void 0 !== c.wheel ? !!c.wheel : !1;
+    void 0 === c.scrollbars && void 0 === a.scrollbars ? d.scrollbars = b : "object" == typeof c.scrollbars ? (d.scrollbars = {}, d.scrollbars.horizontal = !!c.scrollbars.horizontal, d.scrollbars.vertical = !!c.scrollbars.vertical, d.scrollbars.horizontal && d.scrollbars.vertical ? d.scrollbars = !0 : d.scrollbars.horizontal || d.scrollbars.vertical || (d.scrollbars = !1)) : d.scrollbars = !!c.scrollbars || !!a.scrollbars;
+    d.wheel = d.scrollbars && void 0 !== c.wheel ? !!c.wheel : "object" == typeof d.scrollbars;
     d.drag = d.scrollbars ? void 0 === c.drag ? !0 : !!c.drag : !1;
     return d;
   };
@@ -3063,110 +3008,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Blockly.utils.toolbox.parseToolboxTree(a);
   };
 
-  Blockly.Touch = {};
-  Blockly.Touch.TOUCH_ENABLED = "ontouchstart" in Blockly.utils.global || !!(Blockly.utils.global.document && document.documentElement && "ontouchstart" in document.documentElement) || !(!Blockly.utils.global.navigator || !Blockly.utils.global.navigator.maxTouchPoints && !Blockly.utils.global.navigator.msMaxTouchPoints);
-  Blockly.Touch.touchIdentifier_ = null;
-  Blockly.Touch.TOUCH_MAP = {};
-  Blockly.utils.global.PointerEvent ? Blockly.Touch.TOUCH_MAP = {
-    mousedown: ["pointerdown"],
-    mouseenter: ["pointerenter"],
-    mouseleave: ["pointerleave"],
-    mousemove: ["pointermove"],
-    mouseout: ["pointerout"],
-    mouseover: ["pointerover"],
-    mouseup: ["pointerup", "pointercancel"],
-    touchend: ["pointerup"],
-    touchcancel: ["pointercancel"]
-  } : Blockly.Touch.TOUCH_ENABLED && (Blockly.Touch.TOUCH_MAP = {
-    mousedown: ["touchstart"],
-    mousemove: ["touchmove"],
-    mouseup: ["touchend", "touchcancel"]
-  });
-  Blockly.longPid_ = 0;
-
-  Blockly.longStart = function (a, b) {
-    Blockly.longStop_();
-    a.changedTouches && 1 != a.changedTouches.length || (Blockly.longPid_ = setTimeout(function () {
-      a.changedTouches && (a.button = 2, a.clientX = a.changedTouches[0].clientX, a.clientY = a.changedTouches[0].clientY);
-      b && b.handleRightClick(a);
-    }, Blockly.LONGPRESS));
-  };
-
-  Blockly.longStop_ = function () {
-    Blockly.longPid_ && (clearTimeout(Blockly.longPid_), Blockly.longPid_ = 0);
-  };
-
-  Blockly.Touch.clearTouchIdentifier = function () {
-    Blockly.Touch.touchIdentifier_ = null;
-  };
-
-  Blockly.Touch.shouldHandleEvent = function (a) {
-    return !Blockly.Touch.isMouseOrTouchEvent(a) || Blockly.Touch.checkTouchIdentifier(a);
-  };
-
-  Blockly.Touch.getTouchIdentifierFromEvent = function (a) {
-    return void 0 != a.pointerId ? a.pointerId : a.changedTouches && a.changedTouches[0] && void 0 !== a.changedTouches[0].identifier && null !== a.changedTouches[0].identifier ? a.changedTouches[0].identifier : "mouse";
-  };
-
-  Blockly.Touch.checkTouchIdentifier = function (a) {
-    var b = Blockly.Touch.getTouchIdentifierFromEvent(a);
-    return void 0 !== Blockly.Touch.touchIdentifier_ && null !== Blockly.Touch.touchIdentifier_ ? Blockly.Touch.touchIdentifier_ == b : "mousedown" == a.type || "touchstart" == a.type || "pointerdown" == a.type ? (Blockly.Touch.touchIdentifier_ = b, !0) : !1;
-  };
-
-  Blockly.Touch.setClientFromTouch = function (a) {
-    if (Blockly.utils.string.startsWith(a.type, "touch")) {
-      var b = a.changedTouches[0];
-      a.clientX = b.clientX;
-      a.clientY = b.clientY;
-    }
-  };
-
-  Blockly.Touch.isMouseOrTouchEvent = function (a) {
-    return Blockly.utils.string.startsWith(a.type, "touch") || Blockly.utils.string.startsWith(a.type, "mouse") || Blockly.utils.string.startsWith(a.type, "pointer");
-  };
-
-  Blockly.Touch.isTouchEvent = function (a) {
-    return Blockly.utils.string.startsWith(a.type, "touch") || Blockly.utils.string.startsWith(a.type, "pointer");
-  };
-
-  Blockly.Touch.splitEventByTouches = function (a) {
-    var b = [];
-    if (a.changedTouches) for (var c = 0; c < a.changedTouches.length; c++) {
-      b[c] = {
-        type: a.type,
-        changedTouches: [a.changedTouches[c]],
-        target: a.target,
-        stopPropagation: function stopPropagation() {
-          a.stopPropagation();
-        },
-        preventDefault: function preventDefault() {
-          a.preventDefault();
-        }
-      };
-    } else b.push(a);
-    return b;
-  };
-
-  Blockly.ScrollbarPair = function (a) {
+  Blockly.ScrollbarPair = function (a, b, c, d) {
     this.workspace_ = a;
-    this.hScroll = new Blockly.Scrollbar(a, !0, !0, "blocklyMainWorkspaceScrollbar");
-    this.vScroll = new Blockly.Scrollbar(a, !1, !0, "blocklyMainWorkspaceScrollbar");
-    this.corner_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+    b = void 0 === b ? !0 : b;
+    c = void 0 === c ? !0 : c;
+    var e = b && c;
+    b && (this.hScroll = new Blockly.Scrollbar(a, !0, e, d));
+    c && (this.vScroll = new Blockly.Scrollbar(a, !1, e, d));
+    e && (this.corner_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
       height: Blockly.Scrollbar.scrollbarThickness,
       width: Blockly.Scrollbar.scrollbarThickness,
       "class": "blocklyScrollbarBackground"
-    }, null);
-    Blockly.utils.dom.insertAfter(this.corner_, a.getBubbleCanvas());
+    }, null), Blockly.utils.dom.insertAfter(this.corner_, a.getBubbleCanvas()));
     this.oldHostMetrics_ = null;
   };
 
   Blockly.ScrollbarPair.prototype.dispose = function () {
     Blockly.utils.dom.removeNode(this.corner_);
     this.oldHostMetrics_ = this.workspace_ = this.corner_ = null;
-    this.hScroll.dispose();
-    this.hScroll = null;
-    this.vScroll.dispose();
-    this.vScroll = null;
+    this.hScroll && (this.hScroll.dispose(), this.hScroll = null);
+    this.vScroll && (this.vScroll.dispose(), this.vScroll = null);
   };
 
   Blockly.ScrollbarPair.prototype.resize = function () {
@@ -3175,11 +3036,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (a) {
       var b = !1,
           c = !1;
-      this.oldHostMetrics_ && this.oldHostMetrics_.viewWidth == a.viewWidth && this.oldHostMetrics_.viewHeight == a.viewHeight && this.oldHostMetrics_.absoluteTop == a.absoluteTop && this.oldHostMetrics_.absoluteLeft == a.absoluteLeft ? (this.oldHostMetrics_ && this.oldHostMetrics_.contentWidth == a.contentWidth && this.oldHostMetrics_.viewLeft == a.viewLeft && this.oldHostMetrics_.contentLeft == a.contentLeft || (b = !0), this.oldHostMetrics_ && this.oldHostMetrics_.contentHeight == a.contentHeight && this.oldHostMetrics_.viewTop == a.viewTop && this.oldHostMetrics_.contentTop == a.contentTop || (c = !0)) : c = b = !0;
+      this.oldHostMetrics_ && this.oldHostMetrics_.viewWidth == a.viewWidth && this.oldHostMetrics_.viewHeight == a.viewHeight && this.oldHostMetrics_.absoluteTop == a.absoluteTop && this.oldHostMetrics_.absoluteLeft == a.absoluteLeft ? (this.oldHostMetrics_ && this.oldHostMetrics_.scrollWidth == a.scrollWidth && this.oldHostMetrics_.viewLeft == a.viewLeft && this.oldHostMetrics_.scrollLeft == a.scrollLeft || (b = !0), this.oldHostMetrics_ && this.oldHostMetrics_.scrollHeight == a.scrollHeight && this.oldHostMetrics_.viewTop == a.viewTop && this.oldHostMetrics_.scrollTop == a.scrollTop || (c = !0)) : c = b = !0;
 
       if (b || c) {
         try {
-          Blockly.Events.disable(), b && this.hScroll.resize(a), c && this.vScroll.resize(a);
+          Blockly.Events.disable(), this.hScroll && b && this.hScroll.resize(a), this.vScroll && c && this.vScroll.resize(a);
         } finally {
           Blockly.Events.enable();
         }
@@ -3187,27 +3048,58 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         this.workspace_.maybeFireViewportChangeEvent();
       }
 
-      this.oldHostMetrics_ && this.oldHostMetrics_.viewWidth == a.viewWidth && this.oldHostMetrics_.absoluteLeft == a.absoluteLeft || this.corner_.setAttribute("x", this.vScroll.position.x);
-      this.oldHostMetrics_ && this.oldHostMetrics_.viewHeight == a.viewHeight && this.oldHostMetrics_.absoluteTop == a.absoluteTop || this.corner_.setAttribute("y", this.hScroll.position.y);
+      this.hScroll && this.vScroll && (this.oldHostMetrics_ && this.oldHostMetrics_.viewWidth == a.viewWidth && this.oldHostMetrics_.absoluteLeft == a.absoluteLeft || this.corner_.setAttribute("x", this.vScroll.position.x), this.oldHostMetrics_ && this.oldHostMetrics_.viewHeight == a.viewHeight && this.oldHostMetrics_.absoluteTop == a.absoluteTop || this.corner_.setAttribute("y", this.hScroll.position.y));
       this.oldHostMetrics_ = a;
     }
   };
 
-  Blockly.ScrollbarPair.prototype.set = function (a, b) {
-    var c = {};
-    a *= this.hScroll.ratio;
-    b *= this.vScroll.ratio;
-    var d = this.vScroll.scrollViewSize_;
-    c.x = this.getRatio_(a, this.hScroll.scrollViewSize_);
-    c.y = this.getRatio_(b, d);
-    this.workspace_.setMetrics(c);
-    this.hScroll.setHandlePosition(a);
-    this.vScroll.setHandlePosition(b);
+  Blockly.ScrollbarPair.prototype.canScrollHorizontally = function () {
+    return !!this.hScroll;
   };
 
-  Blockly.ScrollbarPair.prototype.getRatio_ = function (a, b) {
-    a /= b;
-    return isNaN(a) ? 0 : a;
+  Blockly.ScrollbarPair.prototype.canScrollVertically = function () {
+    return !!this.vScroll;
+  };
+
+  Blockly.ScrollbarPair.prototype.setOrigin = function (a, b) {
+    this.hScroll && this.hScroll.setOrigin(a, b);
+    this.vScroll && this.vScroll.setOrigin(a, b);
+  };
+
+  Blockly.ScrollbarPair.prototype.set = function (a, b, c) {
+    this.hScroll && this.hScroll.set(a, !1);
+    this.vScroll && this.vScroll.set(b, !1);
+    if (c || void 0 === c) a = {}, this.hScroll && (a.x = this.hScroll.getRatio_()), this.vScroll && (a.y = this.vScroll.getRatio_()), this.workspace_.setMetrics(a);
+  };
+
+  Blockly.ScrollbarPair.prototype.setX = function (a) {
+    this.hScroll && this.hScroll.set(a, !0);
+  };
+
+  Blockly.ScrollbarPair.prototype.setY = function (a) {
+    this.vScroll && this.vScroll.set(a, !0);
+  };
+
+  Blockly.ScrollbarPair.prototype.setContainerVisible = function (a) {
+    this.hScroll && this.hScroll.setContainerVisible(a);
+    this.vScroll && this.vScroll.setContainerVisible(a);
+  };
+
+  Blockly.ScrollbarPair.prototype.isVisible = function () {
+    var a = !1;
+    this.hScroll && (a = this.hScroll.isVisible());
+    this.vScroll && (a = a || this.vScroll.isVisible());
+    return a;
+  };
+
+  Blockly.ScrollbarPair.prototype.resizeContent = function (a) {
+    this.hScroll && this.hScroll.resizeContentHorizontal(a);
+    this.vScroll && this.vScroll.resizeContentVertical(a);
+  };
+
+  Blockly.ScrollbarPair.prototype.resizeView = function (a) {
+    this.hScroll && this.hScroll.resizeViewHorizontal(a);
+    this.vScroll && this.vScroll.resizeViewVertical(a);
   };
 
   Blockly.Scrollbar = function (a, b, c, d) {
@@ -3219,29 +3111,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.position = new Blockly.utils.Coordinate(0, 0);
     a = Blockly.Scrollbar.scrollbarThickness;
     b ? (this.svgBackground_.setAttribute("height", a), this.outerSvg_.setAttribute("height", a), this.svgHandle_.setAttribute("height", a - 5), this.svgHandle_.setAttribute("y", 2.5), this.lengthAttribute_ = "width", this.positionAttribute_ = "x") : (this.svgBackground_.setAttribute("width", a), this.outerSvg_.setAttribute("width", a), this.svgHandle_.setAttribute("width", a - 5), this.svgHandle_.setAttribute("x", 2.5), this.lengthAttribute_ = "height", this.positionAttribute_ = "y");
-    this.onMouseDownBarWrapper_ = Blockly.bindEventWithChecks_(this.svgBackground_, "mousedown", this, this.onMouseDownBar_);
-    this.onMouseDownHandleWrapper_ = Blockly.bindEventWithChecks_(this.svgHandle_, "mousedown", this, this.onMouseDownHandle_);
+    this.onMouseDownBarWrapper_ = Blockly.browserEvents.conditionalBind(this.svgBackground_, "mousedown", this, this.onMouseDownBar_);
+    this.onMouseDownHandleWrapper_ = Blockly.browserEvents.conditionalBind(this.svgHandle_, "mousedown", this, this.onMouseDownHandle_);
   };
 
   Blockly.Scrollbar.prototype.origin_ = new Blockly.utils.Coordinate(0, 0);
   Blockly.Scrollbar.prototype.startDragMouse_ = 0;
-  Blockly.Scrollbar.prototype.scrollViewSize_ = 0;
+  Blockly.Scrollbar.prototype.scrollbarLength_ = 0;
   Blockly.Scrollbar.prototype.handleLength_ = 0;
   Blockly.Scrollbar.prototype.handlePosition_ = 0;
   Blockly.Scrollbar.prototype.isVisible_ = !0;
   Blockly.Scrollbar.prototype.containerVisible_ = !0;
   Blockly.Scrollbar.scrollbarThickness = 15;
   Blockly.Touch.TOUCH_ENABLED && (Blockly.Scrollbar.scrollbarThickness = 25);
+  Blockly.Scrollbar.SCROLLBAR_MARGIN = .5;
 
   Blockly.Scrollbar.metricsAreEquivalent_ = function (a, b) {
-    return a && b && a.viewWidth == b.viewWidth && a.viewHeight == b.viewHeight && a.viewLeft == b.viewLeft && a.viewTop == b.viewTop && a.absoluteTop == b.absoluteTop && a.absoluteLeft == b.absoluteLeft && a.contentWidth == b.contentWidth && a.contentHeight == b.contentHeight && a.contentLeft == b.contentLeft && a.contentTop == b.contentTop ? !0 : !1;
+    return a && b && a.viewWidth == b.viewWidth && a.viewHeight == b.viewHeight && a.viewLeft == b.viewLeft && a.viewTop == b.viewTop && a.absoluteTop == b.absoluteTop && a.absoluteLeft == b.absoluteLeft && a.scrollWidth == b.scrollWidth && a.scrollHeight == b.scrollHeight && a.scrollLeft == b.scrollLeft && a.scrollTop == b.scrollTop ? !0 : !1;
   };
 
   Blockly.Scrollbar.prototype.dispose = function () {
     this.cleanUp_();
-    Blockly.unbindEvent_(this.onMouseDownBarWrapper_);
+    Blockly.browserEvents.unbind(this.onMouseDownBarWrapper_);
     this.onMouseDownBarWrapper_ = null;
-    Blockly.unbindEvent_(this.onMouseDownHandleWrapper_);
+    Blockly.browserEvents.unbind(this.onMouseDownHandleWrapper_);
     this.onMouseDownHandleWrapper_ = null;
     Blockly.utils.dom.removeNode(this.outerSvg_);
     this.svgBackground_ = this.svgGroup_ = this.outerSvg_ = null;
@@ -3249,9 +3142,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.workspace_ = null;
   };
 
+  Blockly.Scrollbar.prototype.constrainHandleLength_ = function (a) {
+    return a = 0 >= a || isNaN(a) ? 0 : Math.min(a, this.scrollbarLength_);
+  };
+
   Blockly.Scrollbar.prototype.setHandleLength_ = function (a) {
     this.handleLength_ = a;
     this.svgHandle_.setAttribute(this.lengthAttribute_, this.handleLength_);
+  };
+
+  Blockly.Scrollbar.prototype.constrainHandlePosition_ = function (a) {
+    return a = 0 >= a || isNaN(a) ? 0 : Math.min(a, this.scrollbarLength_ - this.handleLength_);
   };
 
   Blockly.Scrollbar.prototype.setHandlePosition = function (a) {
@@ -3259,15 +3160,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.svgHandle_.setAttribute(this.positionAttribute_, this.handlePosition_);
   };
 
-  Blockly.Scrollbar.prototype.setScrollViewSize_ = function (a) {
-    this.scrollViewSize_ = a;
-    this.outerSvg_.setAttribute(this.lengthAttribute_, this.scrollViewSize_);
-    this.svgBackground_.setAttribute(this.lengthAttribute_, this.scrollViewSize_);
-  };
-
-  Blockly.ScrollbarPair.prototype.setContainerVisible = function (a) {
-    this.hScroll.setContainerVisible(a);
-    this.vScroll.setContainerVisible(a);
+  Blockly.Scrollbar.prototype.setScrollbarLength_ = function (a) {
+    this.scrollbarLength_ = a;
+    this.outerSvg_.setAttribute(this.lengthAttribute_, this.scrollbarLength_);
+    this.svgBackground_.setAttribute(this.lengthAttribute_, this.scrollbarLength_);
   };
 
   Blockly.Scrollbar.prototype.setPosition = function (a, b) {
@@ -3278,51 +3174,67 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Scrollbar.prototype.resize = function (a) {
     if (!a && (a = this.workspace_.getMetrics(), !a)) return;
-    Blockly.Scrollbar.metricsAreEquivalent_(a, this.oldHostMetrics_) || (this.oldHostMetrics_ = a, this.horizontal_ ? this.resizeHorizontal_(a) : this.resizeVertical_(a), this.onScroll_());
+    Blockly.Scrollbar.metricsAreEquivalent_(a, this.oldHostMetrics_) || (this.horizontal_ ? this.resizeHorizontal_(a) : this.resizeVertical_(a), this.oldHostMetrics_ = a, this.updateMetrics_());
+  };
+
+  Blockly.Scrollbar.prototype.requiresViewResize_ = function (a) {
+    return this.oldHostMetrics_ ? this.oldHostMetrics_.viewWidth !== a.viewWidth || this.oldHostMetrics_.viewHeight !== a.viewHeight || this.oldHostMetrics_.absoluteLeft !== a.absoluteLeft || this.oldHostMetrics_.absoluteTop !== a.absoluteTop : !0;
   };
 
   Blockly.Scrollbar.prototype.resizeHorizontal_ = function (a) {
-    this.resizeViewHorizontal(a);
+    this.requiresViewResize_(a) ? this.resizeViewHorizontal(a) : this.resizeContentHorizontal(a);
   };
 
   Blockly.Scrollbar.prototype.resizeViewHorizontal = function (a) {
-    var b = a.viewWidth - 1;
+    var b = a.viewWidth - 2 * Blockly.Scrollbar.SCROLLBAR_MARGIN;
     this.pair_ && (b -= Blockly.Scrollbar.scrollbarThickness);
-    this.setScrollViewSize_(Math.max(0, b));
-    b = a.absoluteLeft + .5;
+    this.setScrollbarLength_(Math.max(0, b));
+    b = a.absoluteLeft + Blockly.Scrollbar.SCROLLBAR_MARGIN;
     this.pair_ && this.workspace_.RTL && (b += Blockly.Scrollbar.scrollbarThickness);
-    this.setPosition(b, a.absoluteTop + a.viewHeight - Blockly.Scrollbar.scrollbarThickness - .5);
+    this.setPosition(b, a.absoluteTop + a.viewHeight - Blockly.Scrollbar.scrollbarThickness - Blockly.Scrollbar.SCROLLBAR_MARGIN);
     this.resizeContentHorizontal(a);
   };
 
   Blockly.Scrollbar.prototype.resizeContentHorizontal = function (a) {
-    this.pair_ || this.setVisible(this.scrollViewSize_ < a.contentWidth);
-    this.ratio = this.scrollViewSize_ / a.contentWidth;
-    if (-Infinity == this.ratio || Infinity == this.ratio || isNaN(this.ratio)) this.ratio = 0;
-    this.setHandleLength_(Math.max(0, a.viewWidth * this.ratio));
-    this.setHandlePosition(this.constrainHandle_((a.viewLeft - a.contentLeft) * this.ratio));
+    if (a.viewWidth >= a.scrollWidth) this.setHandleLength_(this.scrollbarLength_), this.setHandlePosition(0), this.pair_ || this.setVisible(!1);else {
+      this.pair_ || this.setVisible(!0);
+      var b = this.scrollbarLength_ * a.viewWidth / a.scrollWidth;
+      b = this.constrainHandleLength_(b);
+      this.setHandleLength_(b);
+      b = a.scrollWidth - a.viewWidth;
+      var c = this.scrollbarLength_ - this.handleLength_;
+      a = (a.viewLeft - a.scrollLeft) / b * c;
+      a = this.constrainHandlePosition_(a);
+      this.setHandlePosition(a);
+      this.ratio = c / b;
+    }
   };
 
   Blockly.Scrollbar.prototype.resizeVertical_ = function (a) {
-    this.resizeViewVertical(a);
+    this.requiresViewResize_(a) ? this.resizeViewVertical(a) : this.resizeContentVertical(a);
   };
 
   Blockly.Scrollbar.prototype.resizeViewVertical = function (a) {
-    var b = a.viewHeight - 1;
+    var b = a.viewHeight - 2 * Blockly.Scrollbar.SCROLLBAR_MARGIN;
     this.pair_ && (b -= Blockly.Scrollbar.scrollbarThickness);
-    this.setScrollViewSize_(Math.max(0, b));
-    b = a.absoluteLeft + .5;
-    this.workspace_.RTL || (b += a.viewWidth - Blockly.Scrollbar.scrollbarThickness - 1);
-    this.setPosition(b, a.absoluteTop + .5);
+    this.setScrollbarLength_(Math.max(0, b));
+    this.setPosition(this.workspace_.RTL ? a.absoluteLeft + Blockly.Scrollbar.SCROLLBAR_MARGIN : a.absoluteLeft + a.viewWidth - Blockly.Scrollbar.scrollbarThickness - Blockly.Scrollbar.SCROLLBAR_MARGIN, a.absoluteTop + Blockly.Scrollbar.SCROLLBAR_MARGIN);
     this.resizeContentVertical(a);
   };
 
   Blockly.Scrollbar.prototype.resizeContentVertical = function (a) {
-    this.pair_ || this.setVisible(this.scrollViewSize_ < a.contentHeight);
-    this.ratio = this.scrollViewSize_ / a.contentHeight;
-    if (-Infinity == this.ratio || Infinity == this.ratio || isNaN(this.ratio)) this.ratio = 0;
-    this.setHandleLength_(Math.max(0, a.viewHeight * this.ratio));
-    this.setHandlePosition(this.constrainHandle_((a.viewTop - a.contentTop) * this.ratio));
+    if (a.viewHeight >= a.scrollHeight) this.setHandleLength_(this.scrollbarLength_), this.setHandlePosition(0), this.pair_ || this.setVisible(!1);else {
+      this.pair_ || this.setVisible(!0);
+      var b = this.scrollbarLength_ * a.viewHeight / a.scrollHeight;
+      b = this.constrainHandleLength_(b);
+      this.setHandleLength_(b);
+      b = a.scrollHeight - a.viewHeight;
+      var c = this.scrollbarLength_ - this.handleLength_;
+      a = (a.viewTop - a.scrollTop) / b * c;
+      a = this.constrainHandlePosition_(a);
+      this.setHandlePosition(a);
+      this.ratio = c / b;
+    }
   };
 
   Blockly.Scrollbar.prototype.createDom_ = function (a) {
@@ -3379,8 +3291,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var d = this.handlePosition_,
           e = .95 * this.handleLength_;
       b <= c ? d -= e : b >= c + this.handleLength_ && (d += e);
-      this.setHandlePosition(this.constrainHandle_(d));
-      this.onScroll_();
+      this.setHandlePosition(this.constrainHandlePosition_(d));
+      this.updateMetrics_();
       a.stopPropagation();
       a.preventDefault();
     }
@@ -3389,12 +3301,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Scrollbar.prototype.onMouseDownHandle_ = function (a) {
     this.workspace_.markFocused();
     this.cleanUp_();
-    Blockly.utils.isRightButton(a) ? a.stopPropagation() : (this.startDragHandle = this.handlePosition_, this.workspace_.setupDragSurface(), this.startDragMouse_ = this.horizontal_ ? a.clientX : a.clientY, Blockly.Scrollbar.onMouseUpWrapper_ = Blockly.bindEventWithChecks_(document, "mouseup", this, this.onMouseUpHandle_), Blockly.Scrollbar.onMouseMoveWrapper_ = Blockly.bindEventWithChecks_(document, "mousemove", this, this.onMouseMoveHandle_), a.stopPropagation(), a.preventDefault());
+    Blockly.utils.isRightButton(a) ? a.stopPropagation() : (this.startDragHandle = this.handlePosition_, this.workspace_.setupDragSurface(), this.startDragMouse_ = this.horizontal_ ? a.clientX : a.clientY, Blockly.Scrollbar.onMouseUpWrapper_ = Blockly.browserEvents.conditionalBind(document, "mouseup", this, this.onMouseUpHandle_), Blockly.Scrollbar.onMouseMoveWrapper_ = Blockly.browserEvents.conditionalBind(document, "mousemove", this, this.onMouseMoveHandle_), a.stopPropagation(), a.preventDefault());
   };
 
   Blockly.Scrollbar.prototype.onMouseMoveHandle_ = function (a) {
-    this.setHandlePosition(this.constrainHandle_(this.startDragHandle + ((this.horizontal_ ? a.clientX : a.clientY) - this.startDragMouse_)));
-    this.onScroll_();
+    this.setHandlePosition(this.constrainHandlePosition_(this.startDragHandle + ((this.horizontal_ ? a.clientX : a.clientY) - this.startDragMouse_)));
+    this.updateMetrics_();
   };
 
   Blockly.Scrollbar.prototype.onMouseUpHandle_ = function () {
@@ -3405,25 +3317,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Scrollbar.prototype.cleanUp_ = function () {
     Blockly.hideChaff(!0);
-    Blockly.Scrollbar.onMouseUpWrapper_ && (Blockly.unbindEvent_(Blockly.Scrollbar.onMouseUpWrapper_), Blockly.Scrollbar.onMouseUpWrapper_ = null);
-    Blockly.Scrollbar.onMouseMoveWrapper_ && (Blockly.unbindEvent_(Blockly.Scrollbar.onMouseMoveWrapper_), Blockly.Scrollbar.onMouseMoveWrapper_ = null);
+    Blockly.Scrollbar.onMouseUpWrapper_ && (Blockly.browserEvents.unbind(Blockly.Scrollbar.onMouseUpWrapper_), Blockly.Scrollbar.onMouseUpWrapper_ = null);
+    Blockly.Scrollbar.onMouseMoveWrapper_ && (Blockly.browserEvents.unbind(Blockly.Scrollbar.onMouseMoveWrapper_), Blockly.Scrollbar.onMouseMoveWrapper_ = null);
   };
 
-  Blockly.Scrollbar.prototype.constrainHandle_ = function (a) {
-    return a = 0 >= a || isNaN(a) || this.scrollViewSize_ < this.handleLength_ ? 0 : Math.min(a, this.scrollViewSize_ - this.handleLength_);
-  };
-
-  Blockly.Scrollbar.prototype.onScroll_ = function () {
-    var a = this.handlePosition_ / this.scrollViewSize_;
+  Blockly.Scrollbar.prototype.getRatio_ = function () {
+    var a = this.handlePosition_ / (this.scrollbarLength_ - this.handleLength_);
     isNaN(a) && (a = 0);
-    var b = {};
+    return a;
+  };
+
+  Blockly.Scrollbar.prototype.updateMetrics_ = function () {
+    var a = this.getRatio_(),
+        b = {};
     this.horizontal_ ? b.x = a : b.y = a;
     this.workspace_.setMetrics(b);
   };
 
-  Blockly.Scrollbar.prototype.set = function (a) {
-    this.setHandlePosition(this.constrainHandle_(a * this.ratio));
-    this.onScroll_();
+  Blockly.Scrollbar.prototype.set = function (a, b) {
+    this.setHandlePosition(this.constrainHandlePosition_(a * this.ratio));
+    (b || void 0 === b) && this.updateMetrics_();
   };
 
   Blockly.Scrollbar.prototype.setOrigin = function (a, b) {
@@ -3474,13 +3387,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Tooltip.bindMouseEvents = function (a) {
-    a.mouseOverWrapper_ = Blockly.bindEvent_(a, "mouseover", null, Blockly.Tooltip.onMouseOver_);
-    a.mouseOutWrapper_ = Blockly.bindEvent_(a, "mouseout", null, Blockly.Tooltip.onMouseOut_);
+    a.mouseOverWrapper_ = Blockly.browserEvents.bind(a, "mouseover", null, Blockly.Tooltip.onMouseOver_);
+    a.mouseOutWrapper_ = Blockly.browserEvents.bind(a, "mouseout", null, Blockly.Tooltip.onMouseOut_);
     a.addEventListener("mousemove", Blockly.Tooltip.onMouseMove_, !1);
   };
 
   Blockly.Tooltip.unbindMouseEvents = function (a) {
-    a && (Blockly.unbindEvent_(a.mouseOverWrapper_), Blockly.unbindEvent_(a.mouseOutWrapper_), a.removeEventListener("mousemove", Blockly.Tooltip.onMouseMove_));
+    a && (Blockly.browserEvents.unbind(a.mouseOverWrapper_), Blockly.browserEvents.unbind(a.mouseOutWrapper_), a.removeEventListener("mousemove", Blockly.Tooltip.onMouseMove_));
   };
 
   Blockly.Tooltip.onMouseOver_ = function (a) {
@@ -3552,6 +3465,50 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
 
+  Blockly.utils.aria = {};
+  Blockly.utils.aria.ARIA_PREFIX_ = "aria-";
+  Blockly.utils.aria.ROLE_ATTRIBUTE_ = "role";
+  Blockly.utils.aria.Role = {
+    GRID: "grid",
+    GRIDCELL: "gridcell",
+    GROUP: "group",
+    LISTBOX: "listbox",
+    MENU: "menu",
+    MENUITEM: "menuitem",
+    MENUITEMCHECKBOX: "menuitemcheckbox",
+    OPTION: "option",
+    PRESENTATION: "presentation",
+    ROW: "row",
+    TREE: "tree",
+    TREEITEM: "treeitem"
+  };
+  Blockly.utils.aria.State = {
+    ACTIVEDESCENDANT: "activedescendant",
+    COLCOUNT: "colcount",
+    DISABLED: "disabled",
+    EXPANDED: "expanded",
+    INVALID: "invalid",
+    LABEL: "label",
+    LABELLEDBY: "labelledby",
+    LEVEL: "level",
+    ORIENTATION: "orientation",
+    POSINSET: "posinset",
+    ROWCOUNT: "rowcount",
+    SELECTED: "selected",
+    SETSIZE: "setsize",
+    VALUEMAX: "valuemax",
+    VALUEMIN: "valuemin"
+  };
+
+  Blockly.utils.aria.setRole = function (a, b) {
+    a.setAttribute(Blockly.utils.aria.ROLE_ATTRIBUTE_, b);
+  };
+
+  Blockly.utils.aria.setState = function (a, b, c) {
+    Array.isArray(c) && (c = c.join(" "));
+    a.setAttribute(Blockly.utils.aria.ARIA_PREFIX_ + b, c);
+  };
+
   Blockly.WorkspaceDragSurfaceSvg = function (a) {
     this.container_ = a;
     this.createDom();
@@ -3606,6 +3563,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.SVG_.style.display = "block";
   };
 
+  Blockly.blockRendering = {};
+  Blockly.blockRendering.useDebugger = !1;
+
+  Blockly.blockRendering.register = function (a, b) {
+    Blockly.registry.register(Blockly.registry.Type.RENDERER, a, b);
+  };
+
+  Blockly.blockRendering.unregister = function (a) {
+    Blockly.registry.unregister(Blockly.registry.Type.RENDERER, a);
+  };
+
+  Blockly.blockRendering.startDebugger = function () {
+    Blockly.blockRendering.useDebugger = !0;
+  };
+
+  Blockly.blockRendering.stopDebugger = function () {
+    Blockly.blockRendering.useDebugger = !1;
+  };
+
+  Blockly.blockRendering.init = function (a, b, c) {
+    a = new (Blockly.registry.getClass(Blockly.registry.Type.RENDERER, a))(a);
+    a.init(b, c);
+    return a;
+  };
+
   Blockly.ASTNode = function (a, b, c) {
     if (!b) throw Error("Cannot create a node without a location.");
     this.type_ = a;
@@ -3645,7 +3627,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.ASTNode.createConnectionNode = function (a) {
-    return a ? a.type == Blockly.INPUT_VALUE || a.type == Blockly.NEXT_STATEMENT && a.getParentInput() ? Blockly.ASTNode.createInputNode(a.getParentInput()) : a.type == Blockly.NEXT_STATEMENT ? new Blockly.ASTNode(Blockly.ASTNode.types.NEXT, a) : a.type == Blockly.OUTPUT_VALUE ? new Blockly.ASTNode(Blockly.ASTNode.types.OUTPUT, a) : a.type == Blockly.PREVIOUS_STATEMENT ? new Blockly.ASTNode(Blockly.ASTNode.types.PREVIOUS, a) : null : null;
+    if (!a) return null;
+    var b = a.type;
+    return b == Blockly.connectionTypes.INPUT_VALUE || b == Blockly.connectionTypes.NEXT_STATEMENT && a.getParentInput() ? Blockly.ASTNode.createInputNode(a.getParentInput()) : b == Blockly.connectionTypes.NEXT_STATEMENT ? new Blockly.ASTNode(Blockly.ASTNode.types.NEXT, a) : b == Blockly.connectionTypes.OUTPUT_VALUE ? new Blockly.ASTNode(Blockly.ASTNode.types.OUTPUT, a) : b == Blockly.connectionTypes.PREVIOUS_STATEMENT ? new Blockly.ASTNode(Blockly.ASTNode.types.PREVIOUS, a) : null;
   };
 
   Blockly.ASTNode.createInputNode = function (a) {
@@ -3948,11 +3932,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var e = b.targetBlock(),
           f = b.getShadowDom();
       b.shadowDom_ = null;
-      if (e.isShadow()) f = Blockly.Xml.blockToDom(e), e.dispose(!1), e = null;else if (b.type == Blockly.INPUT_VALUE) {
+      if (e.isShadow()) f = Blockly.Xml.blockToDom(e), e.dispose(!1), e = null;else if (b.type == Blockly.connectionTypes.INPUT_VALUE) {
         if (!e.outputConnection) throw Error("Orphan block does not have an output connection.");
         var g = Blockly.Connection.lastConnectionInRow(d, e);
         g && (e.outputConnection.connect(g), e = null);
-      } else if (b.type == Blockly.NEXT_STATEMENT) {
+      } else if (b.type == Blockly.connectionTypes.NEXT_STATEMENT) {
         if (!e.previousConnection) throw Error("Orphan block does not have a previous connection.");
 
         for (g = d; g.nextConnection;) {
@@ -3979,7 +3963,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     var l;
-    Blockly.Events.isEnabled() && (l = new Blockly.Events.BlockMove(d));
+    Blockly.Events.isEnabled() && (l = new (Blockly.Events.get(Blockly.Events.BLOCK_MOVE))(d));
     Blockly.Connection.connectReciprocally_(b, a);
     d.setParent(c);
     l && (l.recordNew(), Blockly.Events.fire(l));
@@ -4000,7 +3984,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Connection.prototype.isSuperior = function () {
-    return this.type == Blockly.INPUT_VALUE || this.type == Blockly.NEXT_STATEMENT;
+    return this.type == Blockly.connectionTypes.INPUT_VALUE || this.type == Blockly.connectionTypes.NEXT_STATEMENT;
   };
 
   Blockly.Connection.prototype.isConnected = function () {
@@ -4053,7 +4037,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var e = a.inputList[d].connection,
           f = b.getConnectionChecker();
 
-      if (e && e.type == Blockly.INPUT_VALUE && f.canConnect(b, e, !1)) {
+      if (e && e.type == Blockly.connectionTypes.INPUT_VALUE && f.canConnect(b, e, !1)) {
         if (c) return null;
         c = e;
       }
@@ -4090,7 +4074,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Connection.prototype.disconnectInternal_ = function (a, b) {
     var c;
-    Blockly.Events.isEnabled() && (c = new Blockly.Events.BlockMove(b));
+    Blockly.Events.isEnabled() && (c = new (Blockly.Events.get(Blockly.Events.BLOCK_MOVE))(b));
     this.targetConnection = this.targetConnection.targetConnection = null;
     b.setParent(null);
     c && (c.recordNew(), Blockly.Events.fire(c));
@@ -4410,6 +4394,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
 
+  Blockly.Events.BlockDrag = function (a, b, c) {
+    Blockly.Events.BlockDrag.superClass_.constructor.call(this, a ? a.workspace.id : void 0);
+    this.blockId = a ? a.id : null;
+    this.isStart = b;
+    this.blocks = c;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.BlockDrag, Blockly.Events.UiBase);
+  Blockly.Events.BlockDrag.prototype.type = Blockly.Events.BLOCK_DRAG;
+
+  Blockly.Events.BlockDrag.prototype.toJson = function () {
+    var a = Blockly.Events.BlockDrag.superClass_.toJson.call(this);
+    a.isStart = this.isStart;
+    a.blockId = this.blockId;
+    a.blocks = this.blocks;
+    return a;
+  };
+
+  Blockly.Events.BlockDrag.prototype.fromJson = function (a) {
+    Blockly.Events.BlockDrag.superClass_.fromJson.call(this, a);
+    this.isStart = a.isStart;
+    this.blockId = a.blockId;
+    this.blocks = a.blocks;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.BLOCK_DRAG, Blockly.Events.BlockDrag);
+
   Blockly.InsertionMarkerManager = function (a) {
     this.topBlock_ = Blockly.selected = a;
     this.workspace_ = a.workspace;
@@ -4479,7 +4490,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       for (b = 0; b < a.inputList.length; b++) {
         var e = a.inputList[b];
 
-        if (e.name != Blockly.Block.COLLAPSED_INPUT_NAME) {
+        if (e.name != Blockly.constants.COLLAPSED_INPUT_NAME) {
           var f = c.inputList[b];
 
           for (d = 0; d < e.fieldRow.length; d++) {
@@ -4631,8 +4642,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           c = b.nextConnection,
           d = b.previousConnection,
           e = b.outputConnection;
-      e = a.type == Blockly.INPUT_VALUE && !(e && e.targetConnection);
-      !(a != c || d && d.targetConnection) || e ? a.targetBlock().unplug(!1) : a.type == Blockly.NEXT_STATEMENT && a != c ? (c = a.targetConnection, c.getSourceBlock().unplug(!1), d = d ? d.targetConnection : null, b.unplug(!0), d && d.connect(c)) : b.unplug(!0);
+      e = a.type == Blockly.connectionTypes.INPUT_VALUE && !(e && e.targetConnection);
+      !(a != c || d && d.targetConnection) || e ? a.targetBlock().unplug(!1) : a.type == Blockly.connectionTypes.NEXT_STATEMENT && a != c ? (c = a.targetConnection, c.getSourceBlock().unplug(!1), d = d ? d.targetConnection : null, b.unplug(!0), d && d.connect(c)) : b.unplug(!0);
       if (a.targetConnection) throw Error("markerConnection_ still connected at the end of disconnectInsertionMarker");
       this.markerConnection_ = null;
       b.getSvgRoot().setAttribute("visibility", "hidden");
@@ -4715,7 +4726,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.BlockDragger.prototype.fireDragStartEvent_ = function () {
-    var a = new Blockly.Events.Ui(this.draggingBlock_, "dragStart", null, this.draggingBlock_.getDescendants(!1));
+    var a = new (Blockly.Events.get(Blockly.Events.BLOCK_DRAG))(this.draggingBlock_, !0, this.draggingBlock_.getDescendants(!1));
     Blockly.Events.fire(a);
   };
 
@@ -4745,12 +4756,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.BlockDragger.prototype.fireDragEndEvent_ = function () {
-    var a = new Blockly.Events.Ui(this.draggingBlock_, "dragStop", this.draggingBlock_.getDescendants(!1), null);
+    var a = new (Blockly.Events.get(Blockly.Events.BLOCK_DRAG))(this.draggingBlock_, !1, this.draggingBlock_.getDescendants(!1));
     Blockly.Events.fire(a);
   };
 
   Blockly.BlockDragger.prototype.fireMoveEvent_ = function () {
-    var a = new Blockly.Events.BlockMove(this.draggingBlock_);
+    var a = new (Blockly.Events.get(Blockly.Events.BLOCK_MOVE))(this.draggingBlock_);
     a.oldCoordinate = this.startXY_;
     a.recordNew();
     Blockly.Events.fire(a);
@@ -4784,6 +4795,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.BlockDragger.prototype.getInsertionMarkers = function () {
     return this.draggedConnectionManager_ && this.draggedConnectionManager_.getInsertionMarkers ? this.draggedConnectionManager_.getInsertionMarkers() : [];
   };
+
+  Blockly.IConnectionChecker = function () {};
 
   Blockly.ConnectionChecker = function () {};
 
@@ -4847,18 +4860,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (a.distanceFrom(b) > c || b.getSourceBlock().isInsertionMarker()) return !1;
 
     switch (b.type) {
-      case Blockly.PREVIOUS_STATEMENT:
+      case Blockly.connectionTypes.PREVIOUS_STATEMENT:
         return this.canConnectToPrevious_(a, b);
 
-      case Blockly.OUTPUT_VALUE:
+      case Blockly.connectionTypes.OUTPUT_VALUE:
         if (b.isConnected() && !b.targetBlock().isInsertionMarker() || a.isConnected()) return !1;
         break;
 
-      case Blockly.INPUT_VALUE:
+      case Blockly.connectionTypes.INPUT_VALUE:
         if (b.isConnected() && !b.targetBlock().isMovable() && !b.targetBlock().isShadow()) return !1;
         break;
 
-      case Blockly.NEXT_STATEMENT:
+      case Blockly.connectionTypes.NEXT_STATEMENT:
         if (b.isConnected() && !a.getSourceBlock().nextConnection && !b.targetBlock().isShadow() && b.targetBlock().nextConnection) return !1;
         break;
 
@@ -4906,7 +4919,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.VariableMap.prototype.renameVariableAndUses_ = function (a, b, c) {
-    Blockly.Events.fire(new Blockly.Events.VarRename(a, b));
+    Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.VAR_RENAME))(a, b));
     a.name = b;
 
     for (b = 0; b < c.length; b++) {
@@ -4922,7 +4935,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       d[b].renameVarById(a.getId(), c.getId());
     }
 
-    Blockly.Events.fire(new Blockly.Events.VarDelete(a));
+    Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.VAR_DELETE))(a));
     a = this.getVariablesOfType(e).indexOf(a);
     this.variableMap_[e].splice(a, 1);
   };
@@ -4950,7 +4963,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     for (var b = this.variableMap_[a.type], c = 0, d; d = b[c]; c++) {
       if (d.getId() == a.getId()) {
         b.splice(c, 1);
-        Blockly.Events.fire(new Blockly.Events.VarDelete(a));
+        Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.VAR_DELETE))(a));
         break;
       }
     }
@@ -5073,7 +5086,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.RTL = !!this.options.RTL;
     this.horizontalLayout = !!this.options.horizontalLayout;
     this.toolboxPosition = this.options.toolboxPosition;
-    this.connectionChecker = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.CONNECTION_CHECKER, this.options))(this);
+    this.connectionChecker = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.CONNECTION_CHECKER, this.options, !0))(this);
     this.topBlocks_ = [];
     this.topComments_ = [];
     this.commentDB_ = Object.create(null);
@@ -5408,8 +5421,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Bubble.onMouseMoveWrapper_ = null;
 
   Blockly.Bubble.unbindDragEvents_ = function () {
-    Blockly.Bubble.onMouseUpWrapper_ && (Blockly.unbindEvent_(Blockly.Bubble.onMouseUpWrapper_), Blockly.Bubble.onMouseUpWrapper_ = null);
-    Blockly.Bubble.onMouseMoveWrapper_ && (Blockly.unbindEvent_(Blockly.Bubble.onMouseMoveWrapper_), Blockly.Bubble.onMouseMoveWrapper_ = null);
+    Blockly.Bubble.onMouseUpWrapper_ && (Blockly.browserEvents.unbind(Blockly.Bubble.onMouseUpWrapper_), Blockly.Bubble.onMouseUpWrapper_ = null);
+    Blockly.Bubble.onMouseMoveWrapper_ && (Blockly.browserEvents.unbind(Blockly.Bubble.onMouseMoveWrapper_), Blockly.Bubble.onMouseMoveWrapper_ = null);
   };
 
   Blockly.Bubble.bubbleMouseUp_ = function (a) {
@@ -5457,7 +5470,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       x2: b - 1,
       y2: 2 * b / 3
     }, this.resizeGroup_)) : this.resizeGroup_ = null;
-    this.workspace_.options.readOnly || (this.onMouseDownBubbleWrapper_ = Blockly.bindEventWithChecks_(this.bubbleBack_, "mousedown", this, this.bubbleMouseDown_), this.resizeGroup_ && (this.onMouseDownResizeWrapper_ = Blockly.bindEventWithChecks_(this.resizeGroup_, "mousedown", this, this.resizeMouseDown_)));
+    this.workspace_.options.readOnly || (this.onMouseDownBubbleWrapper_ = Blockly.browserEvents.conditionalBind(this.bubbleBack_, "mousedown", this, this.bubbleMouseDown_), this.resizeGroup_ && (this.onMouseDownResizeWrapper_ = Blockly.browserEvents.conditionalBind(this.resizeGroup_, "mousedown", this, this.resizeMouseDown_)));
     this.bubbleGroup_.appendChild(a);
     return this.bubbleGroup_;
   };
@@ -5486,7 +5499,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Bubble.prototype.resizeMouseDown_ = function (a) {
     this.promote();
     Blockly.Bubble.unbindDragEvents_();
-    Blockly.utils.isRightButton(a) || (this.workspace_.startDrag(a, new Blockly.utils.Coordinate(this.workspace_.RTL ? -this.width_ : this.width_, this.height_)), Blockly.Bubble.onMouseUpWrapper_ = Blockly.bindEventWithChecks_(document, "mouseup", this, Blockly.Bubble.bubbleMouseUp_), Blockly.Bubble.onMouseMoveWrapper_ = Blockly.bindEventWithChecks_(document, "mousemove", this, this.resizeMouseMove_), Blockly.hideChaff());
+    Blockly.utils.isRightButton(a) || (this.workspace_.startDrag(a, new Blockly.utils.Coordinate(this.workspace_.RTL ? -this.width_ : this.width_, this.height_)), Blockly.Bubble.onMouseUpWrapper_ = Blockly.browserEvents.conditionalBind(document, "mouseup", this, Blockly.Bubble.bubbleMouseUp_), Blockly.Bubble.onMouseMoveWrapper_ = Blockly.browserEvents.conditionalBind(document, "mousemove", this, this.resizeMouseMove_), Blockly.hideChaff());
     a.stopPropagation();
   };
 
@@ -5516,12 +5529,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Bubble.prototype.layoutBubble_ = function () {
-    var a = this.workspace_.getMetrics();
-    a.viewLeft /= this.workspace_.scale;
-    a.viewWidth /= this.workspace_.scale;
-    a.viewTop /= this.workspace_.scale;
-    a.viewHeight /= this.workspace_.scale;
-    var b = this.getOptimalRelativeLeft_(a),
+    var a = this.workspace_.getMetricsManager().getViewMetrics(!0),
+        b = this.getOptimalRelativeLeft_(a),
         c = this.getOptimalRelativeTop_(a),
         d = this.shape_.getBBox(),
         e = {
@@ -5553,27 +5562,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Bubble.prototype.getOverlap_ = function (a, b) {
     var c = this.workspace_.RTL ? this.anchorXY_.x - a.x - this.width_ : a.x + this.anchorXY_.x;
     a = a.y + this.anchorXY_.y;
-    return Math.max(0, Math.min(1, (Math.min(c + this.width_, b.viewLeft + b.viewWidth) - Math.max(c, b.viewLeft)) * (Math.min(a + this.height_, b.viewTop + b.viewHeight) - Math.max(a, b.viewTop)) / (this.width_ * this.height_)));
+    return Math.max(0, Math.min(1, (Math.min(c + this.width_, b.left + b.width) - Math.max(c, b.left)) * (Math.min(a + this.height_, b.top + b.height) - Math.max(a, b.top)) / (this.width_ * this.height_)));
   };
 
   Blockly.Bubble.prototype.getOptimalRelativeLeft_ = function (a) {
     var b = -this.width_ / 4;
-    if (this.width_ > a.viewWidth) return b;
+    if (this.width_ > a.width) return b;
     if (this.workspace_.RTL) var c = this.anchorXY_.x - b,
         d = c - this.width_,
-        e = a.viewLeft + a.viewWidth,
-        f = a.viewLeft + Blockly.Scrollbar.scrollbarThickness / this.workspace_.scale;else d = b + this.anchorXY_.x, c = d + this.width_, f = a.viewLeft, e = a.viewLeft + a.viewWidth - Blockly.Scrollbar.scrollbarThickness / this.workspace_.scale;
+        e = a.left + a.width,
+        f = a.left + Blockly.Scrollbar.scrollbarThickness / this.workspace_.scale;else d = b + this.anchorXY_.x, c = d + this.width_, f = a.left, e = a.left + a.width - Blockly.Scrollbar.scrollbarThickness / this.workspace_.scale;
     this.workspace_.RTL ? d < f ? b = -(f - this.anchorXY_.x + this.width_) : c > e && (b = -(e - this.anchorXY_.x)) : d < f ? b = f - this.anchorXY_.x : c > e && (b = e - this.anchorXY_.x - this.width_);
     return b;
   };
 
   Blockly.Bubble.prototype.getOptimalRelativeTop_ = function (a) {
     var b = -this.height_ / 4;
-    if (this.height_ > a.viewHeight) return b;
+    if (this.height_ > a.height) return b;
     var c = this.anchorXY_.y + b,
         d = c + this.height_,
-        e = a.viewTop;
-    a = a.viewTop + a.viewHeight - Blockly.Scrollbar.scrollbarThickness / this.workspace_.scale;
+        e = a.top;
+    a = a.top + a.height - Blockly.Scrollbar.scrollbarThickness / this.workspace_.scale;
     var f = this.anchorXY_.y;
     c < e ? b = e - f : d > a && (b = a - f - this.height_);
     return b;
@@ -5657,8 +5666,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Bubble.prototype.dispose = function () {
-    this.onMouseDownBubbleWrapper_ && Blockly.unbindEvent_(this.onMouseDownBubbleWrapper_);
-    this.onMouseDownResizeWrapper_ && Blockly.unbindEvent_(this.onMouseDownResizeWrapper_);
+    this.onMouseDownBubbleWrapper_ && Blockly.browserEvents.unbind(this.onMouseDownBubbleWrapper_);
+    this.onMouseDownResizeWrapper_ && Blockly.browserEvents.unbind(this.onMouseDownResizeWrapper_);
     Blockly.Bubble.unbindDragEvents_();
     Blockly.utils.dom.removeNode(this.bubbleGroup_);
     this.disposed = !0;
@@ -5677,6 +5686,40 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Bubble.prototype.setAutoLayout = function (a) {
     this.autoLayout_ = a;
+  };
+
+  Blockly.Bubble.textToDom = function (a) {
+    var b = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.TEXT, {
+      "class": "blocklyText blocklyBubbleText blocklyNoPointerEvents",
+      y: Blockly.Bubble.BORDER_WIDTH
+    }, null);
+    a = a.split("\n");
+
+    for (var c = 0; c < a.length; c++) {
+      var d = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.TSPAN, {
+        dy: "1em",
+        x: Blockly.Bubble.BORDER_WIDTH
+      }, b),
+          e = document.createTextNode(a[c]);
+      d.appendChild(e);
+    }
+
+    return b;
+  };
+
+  Blockly.Bubble.createNonEditableBubble = function (a, b, c) {
+    c = new Blockly.Bubble(b.workspace, a, b.pathObject.svgPath, c, null, null);
+    c.setSvgId(b.id);
+
+    if (b.RTL) {
+      b = a.getBBox().width;
+
+      for (var d = 0, e; e = a.childNodes[d]; d++) {
+        e.setAttribute("text-anchor", "end"), e.setAttribute("x", b + Blockly.Bubble.BORDER_WIDTH);
+      }
+    }
+
+    return c;
   };
 
   Blockly.Events.CommentBase = function (a) {
@@ -5709,13 +5752,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Events.CommentChange.prototype.toJson = function () {
     var a = Blockly.Events.CommentChange.superClass_.toJson.call(this);
+    a.oldContents = this.oldContents_;
     a.newContents = this.newContents_;
     return a;
   };
 
   Blockly.Events.CommentChange.prototype.fromJson = function (a) {
     Blockly.Events.CommentChange.superClass_.fromJson.call(this, a);
-    this.newContents_ = a.newValue;
+    this.oldContents_ = a.oldContents;
+    this.newContents_ = a.newContents;
   };
 
   Blockly.Events.CommentChange.prototype.isNull = function () {
@@ -5796,13 +5841,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Events.CommentMove.prototype.toJson = function () {
     var a = Blockly.Events.CommentMove.superClass_.toJson.call(this);
+    this.oldCoordinate_ && (a.oldCoordinate = Math.round(this.oldCoordinate_.x) + "," + Math.round(this.oldCoordinate_.y));
     this.newCoordinate_ && (a.newCoordinate = Math.round(this.newCoordinate_.x) + "," + Math.round(this.newCoordinate_.y));
     return a;
   };
 
   Blockly.Events.CommentMove.prototype.fromJson = function (a) {
     Blockly.Events.CommentMove.superClass_.fromJson.call(this, a);
-    a.newCoordinate && (a = a.newCoordinate.split(","), this.newCoordinate_ = new Blockly.utils.Coordinate(Number(a[0]), Number(a[1])));
+
+    if (a.oldCoordinate) {
+      var b = a.oldCoordinate.split(",");
+      this.oldCoordinate_ = new Blockly.utils.Coordinate(Number(b[0]), Number(b[1]));
+    }
+
+    a.newCoordinate && (b = a.newCoordinate.split(","), this.newCoordinate_ = new Blockly.utils.Coordinate(Number(b[0]), Number(b[1])));
   };
 
   Blockly.Events.CommentMove.prototype.isNull = function () {
@@ -5883,7 +5935,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.BubbleDragger.prototype.fireMoveEvent_ = function () {
     if (this.draggingBubble_.isComment) {
-      var a = new Blockly.Events.CommentMove(this.draggingBubble_);
+      var a = new (Blockly.Events.get(Blockly.Events.COMMENT_MOVE))(this.draggingBubble_);
       a.setOldCoordinate(this.startXY_);
       a.recordNew();
       Blockly.Events.fire(a);
@@ -5902,8 +5954,34 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.dragSurface_.setBlocksAndShow(this.draggingBubble_.getSvgRoot());
   };
 
+  Blockly.Events.Click = function (a, b, c) {
+    Blockly.Events.Click.superClass_.constructor.call(this, a ? a.workspace.id : b);
+    this.blockId = a ? a.id : null;
+    this.targetType = c;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Click, Blockly.Events.UiBase);
+  Blockly.Events.Click.prototype.type = Blockly.Events.CLICK;
+
+  Blockly.Events.Click.prototype.toJson = function () {
+    var a = Blockly.Events.Click.superClass_.toJson.call(this);
+    a.targetType = this.targetType;
+    this.blockId && (a.blockId = this.blockId);
+    return a;
+  };
+
+  Blockly.Events.Click.prototype.fromJson = function (a) {
+    Blockly.Events.Click.superClass_.fromJson.call(this, a);
+    this.targetType = a.targetType;
+    this.blockId = a.blockId;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.CLICK, Blockly.Events.Click);
+
   Blockly.WorkspaceDragger = function (a) {
     this.workspace_ = a;
+    this.horizontalScrollEnabled_ = this.workspace_.isMovableHorizontally();
+    this.verticalScrollEnabled_ = this.workspace_.isMovableVertically();
     this.startScrollXY_ = new Blockly.utils.Coordinate(a.scrollX, a.scrollY);
   };
 
@@ -5923,370 +6001,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.WorkspaceDragger.prototype.drag = function (a) {
     a = Blockly.utils.Coordinate.sum(this.startScrollXY_, a);
-    this.workspace_.scroll(a.x, a.y);
+    if (this.horizontalScrollEnabled_ && this.verticalScrollEnabled_) this.workspace_.scroll(a.x, a.y);else if (this.horizontalScrollEnabled_) this.workspace_.scroll(a.x, this.workspace_.scrollY);else if (this.verticalScrollEnabled_) this.workspace_.scroll(this.workspace_.scrollX, a.y);else throw new TypeError("Invalid state.");
   };
-
-  Blockly.FlyoutDragger = function (a) {
-    Blockly.FlyoutDragger.superClass_.constructor.call(this, a.getWorkspace());
-    this.scrollbar_ = a.scrollbar;
-    this.horizontalLayout_ = a.horizontalLayout;
-  };
-
-  Blockly.utils.object.inherits(Blockly.FlyoutDragger, Blockly.WorkspaceDragger);
-
-  Blockly.FlyoutDragger.prototype.drag = function (a) {
-    a = Blockly.utils.Coordinate.sum(this.startScrollXY_, a);
-    this.horizontalLayout_ ? this.scrollbar_.set(-a.x) : this.scrollbar_.set(-a.y);
-  };
-
-  Blockly.Action = function (a, b) {
-    this.name = a;
-    this.desc = b;
-  };
-
-  Blockly.navigation = {};
-  Blockly.navigation.loggingCallback = null;
-  Blockly.navigation.STATE_FLYOUT = 1;
-  Blockly.navigation.STATE_WS = 2;
-  Blockly.navigation.STATE_TOOLBOX = 3;
-  Blockly.navigation.WS_MOVE_DISTANCE = 40;
-  Blockly.navigation.currentState_ = Blockly.navigation.STATE_WS;
-  Blockly.navigation.actionNames = {
-    PREVIOUS: "previous",
-    NEXT: "next",
-    IN: "in",
-    OUT: "out",
-    INSERT: "insert",
-    MARK: "mark",
-    DISCONNECT: "disconnect",
-    TOOLBOX: "toolbox",
-    EXIT: "exit",
-    TOGGLE_KEYBOARD_NAV: "toggle_keyboard_nav",
-    MOVE_WS_CURSOR_UP: "move workspace cursor up",
-    MOVE_WS_CURSOR_DOWN: "move workspace cursor down",
-    MOVE_WS_CURSOR_LEFT: "move workspace cursor left",
-    MOVE_WS_CURSOR_RIGHT: "move workspace cursor right"
-  };
-  Blockly.navigation.MARKER_NAME = "local_marker_1";
-
-  Blockly.navigation.getMarker = function () {
-    return Blockly.navigation.getNavigationWorkspace().getMarker(Blockly.navigation.MARKER_NAME);
-  };
-
-  Blockly.navigation.getNavigationWorkspace = function () {
-    return Blockly.getMainWorkspace();
-  };
-
-  Blockly.navigation.focusToolbox_ = function () {
-    var a = Blockly.navigation.getNavigationWorkspace().getToolbox();
-    a && (Blockly.navigation.currentState_ = Blockly.navigation.STATE_TOOLBOX, Blockly.navigation.resetFlyout_(!1), Blockly.navigation.getMarker().getCurNode() || Blockly.navigation.markAtCursor_(), a.getSelectedItem() || a.selectItemByPosition(0));
-  };
-
-  Blockly.navigation.focusFlyout_ = function () {
-    Blockly.navigation.currentState_ = Blockly.navigation.STATE_FLYOUT;
-    var a = Blockly.navigation.getNavigationWorkspace();
-    var b = a.getToolbox();
-    a = b ? b.getFlyout() : a.getFlyout();
-    Blockly.navigation.getMarker().getCurNode() || Blockly.navigation.markAtCursor_();
-    a && a.getWorkspace() && (a = a.getWorkspace().getTopBlocks(!0), 0 < a.length && (a = a[0], a = Blockly.ASTNode.createStackNode(a), Blockly.navigation.getFlyoutCursor_().setCurNode(a)));
-  };
-
-  Blockly.navigation.focusWorkspace_ = function () {
-    Blockly.hideChaff();
-    var a = Blockly.navigation.getNavigationWorkspace(),
-        b = a.getCursor(),
-        c = !!a.getToolbox(),
-        d = a.getTopBlocks(!0);
-    Blockly.navigation.resetFlyout_(c);
-    Blockly.navigation.currentState_ = Blockly.navigation.STATE_WS;
-    0 < d.length ? b.setCurNode(Blockly.ASTNode.createTopNode(d[0])) : (c = new Blockly.utils.Coordinate(100, 100), a = Blockly.ASTNode.createWorkspaceNode(a, c), b.setCurNode(a));
-  };
-
-  Blockly.navigation.getFlyoutCursor_ = function () {
-    var a = Blockly.navigation.getNavigationWorkspace(),
-        b = null;
-    a.rendered && (b = (a = (b = a.getToolbox()) ? b.getFlyout() : a.getFlyout()) ? a.getWorkspace().getCursor() : null);
-    return b;
-  };
-
-  Blockly.navigation.insertFromFlyout = function () {
-    var a = Blockly.navigation.getNavigationWorkspace(),
-        b = a.getFlyout();
-
-    if (b && b.isVisible()) {
-      var c = Blockly.navigation.getFlyoutCursor_().getCurNode().getLocation();
-      c.isEnabled() ? (b = b.createBlock(c), b.render(), b.setConnectionTracking(!0), a.getCursor().setCurNode(Blockly.ASTNode.createBlockNode(b)), Blockly.navigation.modify_() || Blockly.navigation.warn_("Something went wrong while inserting a block from the flyout."), Blockly.navigation.focusWorkspace_(), a.getCursor().setCurNode(Blockly.ASTNode.createTopNode(b)), Blockly.navigation.removeMark_()) : Blockly.navigation.warn_("Can't insert a disabled block.");
-    } else Blockly.navigation.warn_("Trying to insert from the flyout when the flyout does not  exist or is not visible");
-  };
-
-  Blockly.navigation.resetFlyout_ = function (a) {
-    Blockly.navigation.getFlyoutCursor_() && (Blockly.navigation.getFlyoutCursor_().hide(), a && Blockly.navigation.getNavigationWorkspace().getFlyout().hide());
-  };
-
-  Blockly.navigation.modifyWarn_ = function () {
-    var a = Blockly.navigation.getMarker().getCurNode(),
-        b = Blockly.navigation.getNavigationWorkspace().getCursor().getCurNode();
-    if (!a) return Blockly.navigation.warn_("Cannot insert with no marked node."), !1;
-    if (!b) return Blockly.navigation.warn_("Cannot insert with no cursor node."), !1;
-    a = a.getType();
-    b = b.getType();
-    return a == Blockly.ASTNode.types.FIELD ? (Blockly.navigation.warn_("Should not have been able to mark a field."), !1) : a == Blockly.ASTNode.types.BLOCK ? (Blockly.navigation.warn_("Should not have been able to mark a block."), !1) : a == Blockly.ASTNode.types.STACK ? (Blockly.navigation.warn_("Should not have been able to mark a stack."), !1) : b == Blockly.ASTNode.types.FIELD ? (Blockly.navigation.warn_("Cannot attach a field to anything else."), !1) : b == Blockly.ASTNode.types.WORKSPACE ? (Blockly.navigation.warn_("Cannot attach a workspace to anything else."), !1) : !0;
-  };
-
-  Blockly.navigation.moveBlockToWorkspace_ = function (a, b) {
-    if (!a) return !1;
-    if (a.isShadow()) return Blockly.navigation.warn_("Cannot move a shadow block to the workspace."), !1;
-    a.getParent() && a.unplug(!1);
-    a.moveTo(b.getWsCoordinate());
-    return !0;
-  };
-
-  Blockly.navigation.modify_ = function () {
-    var a = Blockly.navigation.getMarker().getCurNode(),
-        b = Blockly.navigation.getNavigationWorkspace().getCursor().getCurNode();
-    if (!Blockly.navigation.modifyWarn_()) return !1;
-    var c = a.getType(),
-        d = b.getType(),
-        e = b.getLocation(),
-        f = a.getLocation();
-    if (a.isConnection() && b.isConnection()) return Blockly.navigation.connect_(e, f);
-    if (a.isConnection() && (d == Blockly.ASTNode.types.BLOCK || d == Blockly.ASTNode.types.STACK)) return Blockly.navigation.insertBlock(e, f);
-    if (c == Blockly.ASTNode.types.WORKSPACE) return b = b ? b.getSourceBlock() : null, Blockly.navigation.moveBlockToWorkspace_(b, a);
-    Blockly.navigation.warn_("Unexpected state in Blockly.navigation.modify_.");
-    return !1;
-  };
-
-  Blockly.navigation.disconnectChild_ = function (a, b) {
-    var c = a.getSourceBlock(),
-        d = b.getSourceBlock();
-    c.getRootBlock() == d.getRootBlock() && (-1 < c.getDescendants(!1).indexOf(d) ? Blockly.navigation.getInferiorConnection_(b).disconnect() : Blockly.navigation.getInferiorConnection_(a).disconnect());
-  };
-
-  Blockly.navigation.moveAndConnect_ = function (a, b) {
-    if (!a || !b) return !1;
-    var c = a.getSourceBlock();
-    return a.getConnectionChecker().canConnect(a, b, !1) ? (Blockly.navigation.disconnectChild_(a, b), b.isSuperior() || c.getRootBlock().positionNearConnection(a, b), b.connect(a), !0) : !1;
-  };
-
-  Blockly.navigation.getInferiorConnection_ = function (a) {
-    var b = a.getSourceBlock();
-    return a.isSuperior() ? b.previousConnection ? b.previousConnection : b.outputConnection ? b.outputConnection : null : a;
-  };
-
-  Blockly.navigation.getSuperiorConnection_ = function (a) {
-    return a.isSuperior() ? a : a.targetConnection ? a.targetConnection : null;
-  };
-
-  Blockly.navigation.connect_ = function (a, b) {
-    if (!a || !b) return !1;
-    var c = Blockly.navigation.getInferiorConnection_(a),
-        d = Blockly.navigation.getSuperiorConnection_(b),
-        e = Blockly.navigation.getSuperiorConnection_(a),
-        f = Blockly.navigation.getInferiorConnection_(b);
-    if (c && d && Blockly.navigation.moveAndConnect_(c, d) || e && f && Blockly.navigation.moveAndConnect_(e, f) || Blockly.navigation.moveAndConnect_(a, b)) return !0;
-    c = a.getConnectionChecker();
-    d = c.canConnectWithReason(a, b, !1);
-    Blockly.navigation.warn_("Connection failed with error: " + c.getErrorMessage(d, a, b));
-    return !1;
-  };
-
-  Blockly.navigation.insertBlock = function (a, b) {
-    switch (b.type) {
-      case Blockly.PREVIOUS_STATEMENT:
-        if (Blockly.navigation.connect_(a.nextConnection, b)) return !0;
-        break;
-
-      case Blockly.NEXT_STATEMENT:
-        if (Blockly.navigation.connect_(a.previousConnection, b)) return !0;
-        break;
-
-      case Blockly.INPUT_VALUE:
-        if (Blockly.navigation.connect_(a.outputConnection, b)) return !0;
-        break;
-
-      case Blockly.OUTPUT_VALUE:
-        for (var c = 0; c < a.inputList.length; c++) {
-          var d = a.inputList[c].connection;
-          if (d && d.type === Blockly.INPUT_VALUE && Blockly.navigation.connect_(d, b)) return !0;
-        }
-
-        if (a.outputConnection && Blockly.navigation.connect_(a.outputConnection, b)) return !0;
-    }
-
-    Blockly.navigation.warn_("This block can not be inserted at the marked location.");
-    return !1;
-  };
-
-  Blockly.navigation.disconnectBlocks_ = function () {
-    var a = Blockly.navigation.getNavigationWorkspace(),
-        b = a.getCursor().getCurNode();
-
-    if (b.isConnection()) {
-      var c = b.getLocation();
-      c.isConnected() ? (b = c.isSuperior() ? c : c.targetConnection, c = c.isSuperior() ? c.targetConnection : c, c.getSourceBlock().isShadow() ? Blockly.navigation.log_("Cannot disconnect a shadow block") : (b.disconnect(), c.bumpAwayFrom(b), b.getSourceBlock().getRootBlock().bringToFront(), b = Blockly.ASTNode.createConnectionNode(b), a.getCursor().setCurNode(b))) : Blockly.navigation.log_("Cannot disconnect unconnected connection");
-    } else Blockly.navigation.log_("Cannot disconnect blocks when the cursor is not on a connection");
-  };
-
-  Blockly.navigation.markAtCursor_ = function () {
-    Blockly.navigation.getMarker().setCurNode(Blockly.navigation.getNavigationWorkspace().getCursor().getCurNode());
-  };
-
-  Blockly.navigation.removeMark_ = function () {
-    var a = Blockly.navigation.getMarker();
-    a.setCurNode(null);
-    a.hide();
-  };
-
-  Blockly.navigation.setState = function (a) {
-    Blockly.navigation.currentState_ = a;
-  };
-
-  Blockly.navigation.moveCursorOnBlockDelete = function (a) {
-    var b = Blockly.navigation.getNavigationWorkspace();
-
-    if (b && (b = b.getCursor())) {
-      var c = b.getCurNode();
-      c = c ? c.getSourceBlock() : null;
-      c === a ? c.getParent() ? (a = c.previousConnection || c.outputConnection) && b.setCurNode(Blockly.ASTNode.createConnectionNode(a.targetConnection)) : b.setCurNode(Blockly.ASTNode.createWorkspaceNode(c.workspace, c.getRelativeToSurfaceXY())) : c && -1 < a.getChildren(!1).indexOf(c) && b.setCurNode(Blockly.ASTNode.createWorkspaceNode(c.workspace, c.getRelativeToSurfaceXY()));
-    }
-  };
-
-  Blockly.navigation.moveCursorOnBlockMutation = function (a) {
-    var b = Blockly.navigation.getNavigationWorkspace().getCursor();
-
-    if (b) {
-      var c = b.getCurNode();
-      c = c ? c.getSourceBlock() : null;
-      c === a && b.setCurNode(Blockly.ASTNode.createBlockNode(c));
-    }
-  };
-
-  Blockly.navigation.enableKeyboardAccessibility = function () {
-    var a = Blockly.navigation.getNavigationWorkspace();
-    a.keyboardAccessibilityMode || (a.keyboardAccessibilityMode = !0, Blockly.navigation.focusWorkspace_());
-  };
-
-  Blockly.navigation.disableKeyboardAccessibility = function () {
-    var a = Blockly.navigation.getNavigationWorkspace();
-    a.keyboardAccessibilityMode && (a.keyboardAccessibilityMode = !1, a.getCursor().hide(), Blockly.navigation.getMarker().hide(), Blockly.navigation.getFlyoutCursor_() && Blockly.navigation.getFlyoutCursor_().hide());
-  };
-
-  Blockly.navigation.log_ = function (a) {
-    Blockly.navigation.loggingCallback ? Blockly.navigation.loggingCallback("log", a) : console.log(a);
-  };
-
-  Blockly.navigation.warn_ = function (a) {
-    Blockly.navigation.loggingCallback ? Blockly.navigation.loggingCallback("warn", a) : console.warn(a);
-  };
-
-  Blockly.navigation.error_ = function (a) {
-    Blockly.navigation.loggingCallback ? Blockly.navigation.loggingCallback("error", a) : console.error(a);
-  };
-
-  Blockly.navigation.onKeyPress = function (a) {
-    a = Blockly.user.keyMap.serializeKeyEvent(a);
-    return (a = Blockly.user.keyMap.getActionByKeyCode(a)) ? Blockly.navigation.onBlocklyAction(a) : !1;
-  };
-
-  Blockly.navigation.onBlocklyAction = function (a) {
-    var b = Blockly.navigation.getNavigationWorkspace(),
-        c = b.options.readOnly,
-        d = !1;
-    b.keyboardAccessibilityMode ? c ? -1 < Blockly.navigation.READONLY_ACTION_LIST.indexOf(a) && (d = Blockly.navigation.handleActions_(a)) : d = Blockly.navigation.handleActions_(a) : a.name === Blockly.navigation.actionNames.TOGGLE_KEYBOARD_NAV && (Blockly.navigation.enableKeyboardAccessibility(), d = !0);
-    return d;
-  };
-
-  Blockly.navigation.handleActions_ = function (a) {
-    return a.name == Blockly.navigation.actionNames.TOOLBOX || Blockly.navigation.currentState_ == Blockly.navigation.STATE_TOOLBOX ? Blockly.navigation.toolboxOnAction_(a) : a.name == Blockly.navigation.actionNames.TOGGLE_KEYBOARD_NAV ? (Blockly.navigation.disableKeyboardAccessibility(), !0) : Blockly.navigation.currentState_ == Blockly.navigation.STATE_WS ? Blockly.navigation.workspaceOnAction_(a) : Blockly.navigation.currentState_ == Blockly.navigation.STATE_FLYOUT ? Blockly.navigation.flyoutOnAction_(a) : !1;
-  };
-
-  Blockly.navigation.flyoutOnAction_ = function (a) {
-    var b = Blockly.navigation.getNavigationWorkspace(),
-        c = b.getToolbox();
-    if ((b = c ? c.getFlyout() : b.getFlyout()) && b.onBlocklyAction(a)) return !0;
-
-    switch (a.name) {
-      case Blockly.navigation.actionNames.OUT:
-        return Blockly.navigation.focusToolbox_(), !0;
-
-      case Blockly.navigation.actionNames.MARK:
-        return Blockly.navigation.insertFromFlyout(), !0;
-
-      case Blockly.navigation.actionNames.EXIT:
-        return Blockly.navigation.focusWorkspace_(), !0;
-
-      default:
-        return !1;
-    }
-  };
-
-  Blockly.navigation.toolboxOnAction_ = function (a) {
-    var b = Blockly.navigation.getNavigationWorkspace(),
-        c = b.getToolbox();
-    return c && "function" == typeof c.onBlocklyAction && c.onBlocklyAction(a) ? !0 : a.name === Blockly.navigation.actionNames.TOOLBOX ? (b.getToolbox() ? Blockly.navigation.focusToolbox_() : Blockly.navigation.focusFlyout_(), !0) : a.name === Blockly.navigation.actionNames.IN ? (Blockly.navigation.focusFlyout_(), !0) : a.name === Blockly.navigation.actionNames.EXIT ? (Blockly.navigation.focusWorkspace_(), !0) : !1;
-  };
-
-  Blockly.navigation.moveWSCursor_ = function (a, b) {
-    var c = Blockly.navigation.getNavigationWorkspace(),
-        d = c.getCursor(),
-        e = c.getCursor().getCurNode();
-    if (e.getType() !== Blockly.ASTNode.types.WORKSPACE) return !1;
-    e = e.getWsCoordinate();
-    d.setCurNode(Blockly.ASTNode.createWorkspaceNode(c, new Blockly.utils.Coordinate(a * Blockly.navigation.WS_MOVE_DISTANCE + e.x, b * Blockly.navigation.WS_MOVE_DISTANCE + e.y)));
-    return !0;
-  };
-
-  Blockly.navigation.workspaceOnAction_ = function (a) {
-    if (Blockly.navigation.getNavigationWorkspace().getCursor().onBlocklyAction(a)) return !0;
-
-    switch (a.name) {
-      case Blockly.navigation.actionNames.INSERT:
-        return Blockly.navigation.modify_(), !0;
-
-      case Blockly.navigation.actionNames.MARK:
-        return Blockly.navigation.handleEnterForWS_(), !0;
-
-      case Blockly.navigation.actionNames.DISCONNECT:
-        return Blockly.navigation.disconnectBlocks_(), !0;
-
-      case Blockly.navigation.actionNames.MOVE_WS_CURSOR_UP:
-        return Blockly.navigation.moveWSCursor_(0, -1);
-
-      case Blockly.navigation.actionNames.MOVE_WS_CURSOR_DOWN:
-        return Blockly.navigation.moveWSCursor_(0, 1);
-
-      case Blockly.navigation.actionNames.MOVE_WS_CURSOR_LEFT:
-        return Blockly.navigation.moveWSCursor_(-1, 0);
-
-      case Blockly.navigation.actionNames.MOVE_WS_CURSOR_RIGHT:
-        return Blockly.navigation.moveWSCursor_(1, 0);
-
-      default:
-        return !1;
-    }
-  };
-
-  Blockly.navigation.handleEnterForWS_ = function () {
-    var a = Blockly.navigation.getNavigationWorkspace().getCursor().getCurNode(),
-        b = a.getType();
-    b == Blockly.ASTNode.types.FIELD ? a.getLocation().showEditor() : a.isConnection() || b == Blockly.ASTNode.types.WORKSPACE ? Blockly.navigation.markAtCursor_() : b == Blockly.ASTNode.types.BLOCK ? Blockly.navigation.warn_("Cannot mark a block.") : b == Blockly.ASTNode.types.STACK && Blockly.navigation.warn_("Cannot mark a stack.");
-  };
-
-  Blockly.navigation.ACTION_PREVIOUS = new Blockly.Action(Blockly.navigation.actionNames.PREVIOUS, "Go to the previous location.");
-  Blockly.navigation.ACTION_OUT = new Blockly.Action(Blockly.navigation.actionNames.OUT, "Go to the parent of the current location.");
-  Blockly.navigation.ACTION_NEXT = new Blockly.Action(Blockly.navigation.actionNames.NEXT, "Go to the next location.");
-  Blockly.navigation.ACTION_IN = new Blockly.Action(Blockly.navigation.actionNames.IN, "Go to the first child of the current location.");
-  Blockly.navigation.ACTION_INSERT = new Blockly.Action(Blockly.navigation.actionNames.INSERT, "Connect the current location to the marked location.");
-  Blockly.navigation.ACTION_MARK = new Blockly.Action(Blockly.navigation.actionNames.MARK, "Mark the current location.");
-  Blockly.navigation.ACTION_DISCONNECT = new Blockly.Action(Blockly.navigation.actionNames.DISCONNECT, "Disconnect the block at the current location from its parent.");
-  Blockly.navigation.ACTION_TOOLBOX = new Blockly.Action(Blockly.navigation.actionNames.TOOLBOX, "Open the toolbox.");
-  Blockly.navigation.ACTION_EXIT = new Blockly.Action(Blockly.navigation.actionNames.EXIT, "Close the current modal, such as a toolbox or field editor.");
-  Blockly.navigation.ACTION_TOGGLE_KEYBOARD_NAV = new Blockly.Action(Blockly.navigation.actionNames.TOGGLE_KEYBOARD_NAV, "Turns on and off keyboard navigation.");
-  Blockly.navigation.ACTION_MOVE_WS_CURSOR_LEFT = new Blockly.Action(Blockly.navigation.actionNames.MOVE_WS_CURSOR_LEFT, "Move the workspace cursor to the lefts.");
-  Blockly.navigation.ACTION_MOVE_WS_CURSOR_RIGHT = new Blockly.Action(Blockly.navigation.actionNames.MOVE_WS_CURSOR_RIGHT, "Move the workspace cursor to the right.");
-  Blockly.navigation.ACTION_MOVE_WS_CURSOR_UP = new Blockly.Action(Blockly.navigation.actionNames.MOVE_WS_CURSOR_UP, "Move the workspace cursor up.");
-  Blockly.navigation.ACTION_MOVE_WS_CURSOR_DOWN = new Blockly.Action(Blockly.navigation.actionNames.MOVE_WS_CURSOR_DOWN, "Move the workspace cursor down.");
-  Blockly.navigation.READONLY_ACTION_LIST = [Blockly.navigation.ACTION_PREVIOUS, Blockly.navigation.ACTION_OUT, Blockly.navigation.ACTION_IN, Blockly.navigation.ACTION_NEXT, Blockly.navigation.ACTION_TOGGLE_KEYBOARD_NAV];
 
   Blockly.Gesture = function (a, b) {
     this.mouseDownXY_ = null;
@@ -6304,8 +6020,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Blockly.Touch.clearTouchIdentifier();
     Blockly.Tooltip.unblock();
     this.creatorWorkspace_.clearGesture();
-    this.onMoveWrapper_ && Blockly.unbindEvent_(this.onMoveWrapper_);
-    this.onUpWrapper_ && Blockly.unbindEvent_(this.onUpWrapper_);
+    this.onMoveWrapper_ && Blockly.browserEvents.unbind(this.onMoveWrapper_);
+    this.onUpWrapper_ && Blockly.browserEvents.unbind(this.onUpWrapper_);
     this.blockDragger_ && this.blockDragger_.dispose();
     this.workspaceDragger_ && this.workspaceDragger_.dispose();
     this.bubbleDragger_ && this.bubbleDragger_.dispose();
@@ -6340,7 +6056,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Gesture.prototype.updateIsDraggingWorkspace_ = function () {
-    if (this.flyout_ ? this.flyout_.isScrollable() : this.startWorkspace_ && this.startWorkspace_.isDraggable()) this.workspaceDragger_ = this.flyout_ ? new Blockly.FlyoutDragger(this.flyout_) : new Blockly.WorkspaceDragger(this.startWorkspace_), this.isDraggingWorkspace_ = !0, this.workspaceDragger_.startDrag();
+    if (this.flyout_ ? this.flyout_.isScrollable() : this.startWorkspace_ && this.startWorkspace_.isDraggable()) this.workspaceDragger_ = new Blockly.WorkspaceDragger(this.startWorkspace_), this.isDraggingWorkspace_ = !0, this.workspaceDragger_.startDrag();
   };
 
   Blockly.Gesture.prototype.updateIsDragging_ = function () {
@@ -6362,12 +6078,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Gesture.prototype.doStart = function (a) {
-    Blockly.utils.isTargetInput(a) ? this.cancel() : (this.hasStarted_ = !0, Blockly.blockAnimations.disconnectUiStop(), this.startWorkspace_.updateScreenCalculationsIfScrolled(), this.startWorkspace_.isMutator && this.startWorkspace_.resize(), Blockly.hideChaff(!!this.flyout_), this.startWorkspace_.markFocused(), this.mostRecentEvent_ = a, Blockly.Tooltip.block(), this.targetBlock_ && (!this.targetBlock_.isInFlyout && a.shiftKey && this.targetBlock_.workspace.keyboardAccessibilityMode ? this.creatorWorkspace_.getCursor().setCurNode(Blockly.ASTNode.createTopNode(this.targetBlock_)) : this.targetBlock_.select()), Blockly.utils.isRightButton(a) ? this.handleRightClick(a) : ("touchstart" != a.type.toLowerCase() && "pointerdown" != a.type.toLowerCase() || "mouse" == a.pointerType || Blockly.longStart(a, this), this.mouseDownXY_ = new Blockly.utils.Coordinate(a.clientX, a.clientY), this.healStack_ = a.altKey || a.ctrlKey || a.metaKey, this.bindMouseEvents(a)));
+    Blockly.utils.isTargetInput(a) ? this.cancel() : (this.hasStarted_ = !0, Blockly.blockAnimations.disconnectUiStop(), this.startWorkspace_.updateScreenCalculationsIfScrolled(), this.startWorkspace_.isMutator && this.startWorkspace_.resize(), Blockly.hideChaff(!!this.flyout_), this.startWorkspace_.markFocused(), this.mostRecentEvent_ = a, Blockly.Tooltip.block(), this.targetBlock_ && this.targetBlock_.select(), Blockly.utils.isRightButton(a) ? this.handleRightClick(a) : ("touchstart" != a.type.toLowerCase() && "pointerdown" != a.type.toLowerCase() || "mouse" == a.pointerType || Blockly.longStart(a, this), this.mouseDownXY_ = new Blockly.utils.Coordinate(a.clientX, a.clientY), this.healStack_ = a.altKey || a.ctrlKey || a.metaKey, this.bindMouseEvents(a)));
   };
 
   Blockly.Gesture.prototype.bindMouseEvents = function (a) {
-    this.onMoveWrapper_ = Blockly.bindEventWithChecks_(document, "mousemove", null, this.handleMove.bind(this));
-    this.onUpWrapper_ = Blockly.bindEventWithChecks_(document, "mouseup", null, this.handleUp.bind(this));
+    this.onMoveWrapper_ = Blockly.browserEvents.conditionalBind(document, "mousemove", null, this.handleMove.bind(this));
+    this.onUpWrapper_ = Blockly.browserEvents.conditionalBind(document, "mouseup", null, this.handleUp.bind(this));
     a.preventDefault();
     a.stopPropagation();
   };
@@ -6401,13 +6117,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.setStartWorkspace_(b);
     this.mostRecentEvent_ = a;
     this.doStart(a);
-    this.startWorkspace_.keyboardAccessibilityMode && Blockly.navigation.setState(Blockly.navigation.STATE_WS);
   };
 
   Blockly.Gesture.prototype.fireWorkspaceClick_ = function (a) {
-    var b = new Blockly.Events.Ui(null, "click", null, "workspace");
-    b.workspaceId = a.id;
-    Blockly.Events.fire(b);
+    Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.CLICK))(null, a.id, "workspace"));
   };
 
   Blockly.Gesture.prototype.handleFlyoutStart = function (a, b) {
@@ -6439,15 +6152,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Gesture.prototype.doBlockClick_ = function () {
-    this.flyout_ && this.flyout_.autoClose ? this.targetBlock_.isEnabled() && (Blockly.Events.getGroup() || Blockly.Events.setGroup(!0), this.flyout_.createBlock(this.targetBlock_).scheduleSnapAndBump()) : Blockly.Events.fire(new Blockly.Events.Ui(this.startBlock_, "click", void 0, "block"));
+    if (this.flyout_ && this.flyout_.autoClose) this.targetBlock_.isEnabled() && (Blockly.Events.getGroup() || Blockly.Events.setGroup(!0), this.flyout_.createBlock(this.targetBlock_).scheduleSnapAndBump());else {
+      var a = new (Blockly.Events.get(Blockly.Events.CLICK))(this.startBlock_, this.startWorkspace_.id, "block");
+      Blockly.Events.fire(a);
+    }
     this.bringBlockToFront_();
     Blockly.Events.setGroup(!1);
   };
 
   Blockly.Gesture.prototype.doWorkspaceClick_ = function (a) {
-    var b = this.creatorWorkspace_;
-    a.shiftKey && b.keyboardAccessibilityMode ? (a = new Blockly.utils.Coordinate(a.clientX, a.clientY), a = Blockly.utils.screenToWsCoordinates(b, a), a = Blockly.ASTNode.createWorkspaceNode(b, a), b.getCursor().setCurNode(a)) : Blockly.selected && Blockly.selected.unselect();
-    this.fireWorkspaceClick_(this.startWorkspace_ || b);
+    a = this.creatorWorkspace_;
+    Blockly.selected && Blockly.selected.unselect();
+    this.fireWorkspaceClick_(this.startWorkspace_ || a);
   };
 
   Blockly.Gesture.prototype.bringBlockToFront_ = function () {
@@ -6591,7 +6307,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Field.prototype.bindEvents_ = function () {
     Blockly.Tooltip.bindMouseEvents(this.getClickTarget_());
-    this.mouseDownWrapper_ = Blockly.bindEventWithChecks_(this.getClickTarget_(), "mousedown", this, this.onMouseDown_);
+    this.mouseDownWrapper_ = Blockly.browserEvents.conditionalBind(this.getClickTarget_(), "mousedown", this, this.onMouseDown_);
   };
 
   Blockly.Field.prototype.fromXml = function (a) {
@@ -6607,7 +6323,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Blockly.DropDownDiv.hideIfOwner(this);
     Blockly.WidgetDiv.hideIfOwner(this);
     Blockly.Tooltip.unbindMouseEvents(this.getClickTarget_());
-    this.mouseDownWrapper_ && Blockly.unbindEvent_(this.mouseDownWrapper_);
+    this.mouseDownWrapper_ && Blockly.browserEvents.unbind(this.mouseDownWrapper_);
     Blockly.utils.dom.removeNode(this.fieldGroup_);
     this.disposed = !0;
   };
@@ -6651,26 +6367,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.validator_;
   };
 
-  Blockly.Field.prototype.classValidator = function (a) {
-    Blockly.utils.deprecation.warn("Field.prototype.classValidator", "May 2019", "December 2020", "Blockly.Field.prototype.doClassValidation_");
-    return a;
-  };
-
-  Blockly.Field.prototype.callValidator = function (a) {
-    Blockly.utils.deprecation.warn("Field.prototype.callValidator", "May 2019", "December 2020");
-    var b = this.classValidator(a);
-    if (null === b) return null;
-    void 0 !== b && (a = b);
-
-    if (b = this.getValidator()) {
-      b = b.call(this, a);
-      if (null === b) return null;
-      void 0 !== b && (a = b);
-    }
-
-    return a;
-  };
-
   Blockly.Field.prototype.getSvgRoot = function () {
     return this.fieldGroup_;
   };
@@ -6684,11 +6380,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Field.prototype.showEditor = function (a) {
     this.isClickable() && this.showEditor_(a);
-  };
-
-  Blockly.Field.prototype.updateWidth = function () {
-    Blockly.utils.deprecation.warn("Field.prototype.updateWidth", "May 2019", "December 2020", "Blockly.Field.prototype.updateSize_ or Blockly.utils.dom.getTextWidth");
-    this.updateSize_();
   };
 
   Blockly.Field.prototype.updateSize_ = function (a) {
@@ -6756,11 +6447,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return String(this.getValue());
   };
 
-  Blockly.Field.prototype.setText = function (a) {
-    Blockly.utils.deprecation.warn("Field.prototype.setText", "May 2019", "December 2020", "Blockly.Field.prototype.setValue");
-    throw Error("setText method is deprecated");
-  };
-
   Blockly.Field.prototype.markDirty = function () {
     this.isDirty_ = !0;
     this.constants_ = null;
@@ -6782,7 +6468,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         if (!b || !b.disposed) {
           var c = this.getValue();
-          c !== a && (b && Blockly.Events.isEnabled() && Blockly.Events.fire(new Blockly.Events.BlockChange(b, "field", this.name || null, c, a)), this.doValueUpdate_(a), this.isDirty_ && this.forceRerender());
+          c === a ? this.doValueUpdate_(a) : (b && Blockly.Events.isEnabled() && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(b, "field", this.name || null, c, a)), this.doValueUpdate_(a), this.isDirty_ && this.forceRerender());
         }
       }
     }
@@ -6799,7 +6485,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Field.prototype.doClassValidation_ = function (a) {
-    return null === a || void 0 === a ? null : a = this.classValidator(a);
+    return null === a || void 0 === a ? null : a;
   };
 
   Blockly.Field.prototype.doValueUpdate_ = function (a) {
@@ -6859,7 +6545,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return !1;
   };
 
-  Blockly.Field.prototype.onBlocklyAction = function (a) {
+  Blockly.Field.prototype.onShortcut = function (a) {
     return !1;
   };
 
@@ -6874,7 +6560,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Field.prototype.updateMarkers_ = function () {
     var a = this.sourceBlock_.workspace;
     a.keyboardAccessibilityMode && this.cursorSvg_ && a.getCursor().draw();
-    a.keyboardAccessibilityMode && this.markerSvg_ && a.getMarker(Blockly.navigation.MARKER_NAME).draw();
+    a.keyboardAccessibilityMode && this.markerSvg_ && a.getMarker(Blockly.MarkerManager.LOCAL_MARKER).draw();
   };
 
   Blockly.FieldLabel = function (a, b, c) {
@@ -6915,7 +6601,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.fieldRegistry.register("field_label", Blockly.FieldLabel);
 
   Blockly.Input = function (a, b, c, d) {
-    if (a != Blockly.DUMMY_INPUT && !b) throw Error("Value inputs and statement inputs must have non-empty name.");
+    if (a != Blockly.inputTypes.DUMMY && !b) throw Error("Value inputs and statement inputs must have non-empty name.");
     this.type = a;
     this.name = b;
     this.sourceBlock_ = c;
@@ -6923,7 +6609,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.fieldRow = [];
   };
 
-  Blockly.Input.prototype.align = Blockly.ALIGN_LEFT;
+  Blockly.Input.prototype.align = Blockly.constants.ALIGN.LEFT;
   Blockly.Input.prototype.visible_ = !0;
 
   Blockly.Input.prototype.getSourceBlock = function () {
@@ -6938,16 +6624,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Input.prototype.insertFieldAt = function (a, b, c) {
     if (0 > a || a > this.fieldRow.length) throw Error("index " + a + " out of bounds.");
     if (!(b || "" == b && c)) return a;
-    "string" == typeof b && (b = new Blockly.FieldLabel(b));
+    "string" == typeof b && (b = Blockly.fieldRegistry.fromJson({
+      type: "field_label",
+      text: b
+    }));
     b.setSourceBlock(this.sourceBlock_);
     this.sourceBlock_.rendered && (b.init(), b.applyColour());
     b.name = c;
     b.setVisible(this.isVisible());
-    c = b;
-    c.prefixField && (a = this.insertFieldAt(a, c.prefixField));
+    b.prefixField && (a = this.insertFieldAt(a, b.prefixField));
     this.fieldRow.splice(a, 0, b);
     ++a;
-    c.suffixField && (a = this.insertFieldAt(a, c.suffixField));
+    b.suffixField && (a = this.insertFieldAt(a, b.suffixField));
     this.sourceBlock_.rendered && (this.sourceBlock_ = this.sourceBlock_, this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours());
     return a;
   };
@@ -7065,7 +6753,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     b = Blockly.Events.recordUndo;
 
     try {
-      "function" == typeof this.init && (Blockly.Events.recordUndo = !1, this.init(), Blockly.Events.recordUndo = b), Blockly.Events.isEnabled() && Blockly.Events.fire(new Blockly.Events.BlockCreate(this));
+      "function" == typeof this.init && (Blockly.Events.recordUndo = !1, this.init(), Blockly.Events.recordUndo = b), Blockly.Events.isEnabled() && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CREATE))(this));
     } finally {
       a || Blockly.Events.setGroup(!1), Blockly.Events.recordUndo = b;
     }
@@ -7074,8 +6762,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     "function" == typeof this.onchange && this.setOnChange(this.onchange);
   };
 
-  Blockly.Block.COLLAPSED_INPUT_NAME = "_TEMP_COLLAPSED_INPUT";
-  Blockly.Block.COLLAPSED_FIELD_NAME = "_TEMP_COLLAPSED_FIELD";
+  Blockly.Block.COLLAPSED_INPUT_NAME = Blockly.constants.COLLAPSED_INPUT_NAME;
+  Blockly.Block.COLLAPSED_FIELD_NAME = Blockly.constants.COLLAPSED_FIELD_NAME;
   Blockly.Block.prototype.data = null;
   Blockly.Block.prototype.disposed = !1;
   Blockly.Block.prototype.hue_ = null;
@@ -7086,7 +6774,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (this.workspace) {
       this.onchangeWrapper_ && this.workspace.removeChangeListener(this.onchangeWrapper_);
       this.unplug(a);
-      Blockly.Events.isEnabled() && Blockly.Events.fire(new Blockly.Events.BlockDelete(this));
+      Blockly.Events.isEnabled() && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_DELETE))(this));
       Blockly.Events.disable();
 
       try {
@@ -7138,7 +6826,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     for (var a = null, b = 0; b < this.inputList.length; b++) {
       var c = this.inputList[b].connection;
 
-      if (c && c.type == Blockly.INPUT_VALUE && c.targetConnection) {
+      if (c && c.type == Blockly.connectionTypes.INPUT_VALUE && c.targetConnection) {
         if (a) return null;
         a = c;
       }
@@ -7177,9 +6865,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return null;
   };
 
-  Blockly.Block.prototype.bumpNeighbours = function () {
-    console.warn("Not expected to reach Block.bumpNeighbours function. BlockSvg.bumpNeighbours was expected to be called instead.");
-  };
+  Blockly.Block.prototype.bumpNeighbours = function () {};
 
   Blockly.Block.prototype.getParent = function () {
     return this.parentBlock_;
@@ -7215,7 +6901,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Block.prototype.getFirstStatementConnection = function () {
     for (var a = 0, b; b = this.inputList[a]; a++) {
-      if (b.connection && b.connection.type == Blockly.NEXT_STATEMENT) return b.connection;
+      if (b.connection && b.connection.type == Blockly.connectionTypes.NEXT_STATEMENT) return b.connection;
     }
 
     return null;
@@ -7444,7 +7130,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
       if (!this.previousConnection) {
         if (this.outputConnection) throw Error("Remove output connection prior to adding previous connection.");
-        this.previousConnection = this.makeConnection_(Blockly.PREVIOUS_STATEMENT);
+        this.previousConnection = this.makeConnection_(Blockly.connectionTypes.PREVIOUS_STATEMENT);
       }
 
       this.previousConnection.setCheck(b);
@@ -7456,7 +7142,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Block.prototype.setNextStatement = function (a, b) {
-    if (a) void 0 === b && (b = null), this.nextConnection || (this.nextConnection = this.makeConnection_(Blockly.NEXT_STATEMENT)), this.nextConnection.setCheck(b);else if (this.nextConnection) {
+    if (a) void 0 === b && (b = null), this.nextConnection || (this.nextConnection = this.makeConnection_(Blockly.connectionTypes.NEXT_STATEMENT)), this.nextConnection.setCheck(b);else if (this.nextConnection) {
       if (this.nextConnection.isConnected()) throw Error("Must disconnect next statement before removing connection.");
       this.nextConnection.dispose();
       this.nextConnection = null;
@@ -7469,7 +7155,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
       if (!this.outputConnection) {
         if (this.previousConnection) throw Error("Remove previous connection prior to adding output connection.");
-        this.outputConnection = this.makeConnection_(Blockly.OUTPUT_VALUE);
+        this.outputConnection = this.makeConnection_(Blockly.connectionTypes.OUTPUT_VALUE);
       }
 
       this.outputConnection.setCheck(b);
@@ -7481,18 +7167,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Block.prototype.setInputsInline = function (a) {
-    this.inputsInline != a && (Blockly.Events.fire(new Blockly.Events.BlockChange(this, "inline", null, this.inputsInline, a)), this.inputsInline = a);
+    this.inputsInline != a && (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(this, "inline", null, this.inputsInline, a)), this.inputsInline = a);
   };
 
   Blockly.Block.prototype.getInputsInline = function () {
     if (void 0 != this.inputsInline) return this.inputsInline;
 
     for (var a = 1; a < this.inputList.length; a++) {
-      if (this.inputList[a - 1].type == Blockly.DUMMY_INPUT && this.inputList[a].type == Blockly.DUMMY_INPUT) return !1;
+      if (this.inputList[a - 1].type == Blockly.inputTypes.DUMMY && this.inputList[a].type == Blockly.inputTypes.DUMMY) return !1;
     }
 
     for (a = 1; a < this.inputList.length; a++) {
-      if (this.inputList[a - 1].type == Blockly.INPUT_VALUE && this.inputList[a].type == Blockly.DUMMY_INPUT) return !0;
+      if (this.inputList[a - 1].type == Blockly.inputTypes.VALUE && this.inputList[a].type == Blockly.inputTypes.DUMMY) return !0;
     }
 
     return !1;
@@ -7506,17 +7192,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.outputShape_;
   };
 
-  Blockly.Block.prototype.setDisabled = function (a) {
-    Blockly.utils.deprecation.warn("Block.prototype.setDisabled", "May 2019", "May 2020", "Block.prototype.setEnabled");
-    this.setEnabled(!a);
-  };
-
   Blockly.Block.prototype.isEnabled = function () {
     return !this.disabled;
   };
 
   Blockly.Block.prototype.setEnabled = function (a) {
-    this.isEnabled() != a && (Blockly.Events.fire(new Blockly.Events.BlockChange(this, "disabled", null, this.disabled, !a)), this.disabled = !a);
+    this.isEnabled() != a && (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(this, "disabled", null, this.disabled, !a)), this.disabled = !a);
   };
 
   Blockly.Block.prototype.getInheritedDisabled = function () {
@@ -7533,7 +7214,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Block.prototype.setCollapsed = function (a) {
-    this.collapsed_ != a && (Blockly.Events.fire(new Blockly.Events.BlockChange(this, "collapsed", null, this.collapsed_, a)), this.collapsed_ = a);
+    this.collapsed_ != a && (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(this, "collapsed", null, this.collapsed_, a)), this.collapsed_ = a);
   };
 
   Blockly.Block.prototype.toString = function (a, b) {
@@ -7560,7 +7241,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           break;
 
         case Blockly.ASTNode.types.FIELD:
-          k = g.getLocation(), k.name != Blockly.Block.COLLAPSED_FIELD_NAME && e.push(k.getText());
+          k = g.getLocation(), k.name != Blockly.constants.COLLAPSED_FIELD_NAME && e.push(k.getText());
       }
 
       k = g;
@@ -7590,15 +7271,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Block.prototype.appendValueInput = function (a) {
-    return this.appendInput_(Blockly.INPUT_VALUE, a);
+    return this.appendInput_(Blockly.inputTypes.VALUE, a);
   };
 
   Blockly.Block.prototype.appendStatementInput = function (a) {
-    return this.appendInput_(Blockly.NEXT_STATEMENT, a);
+    return this.appendInput_(Blockly.inputTypes.STATEMENT, a);
   };
 
   Blockly.Block.prototype.appendDummyInput = function (a) {
-    return this.appendInput_(Blockly.DUMMY_INPUT, a || "");
+    return this.appendInput_(Blockly.inputTypes.DUMMY, a || "");
   };
 
   Blockly.Block.prototype.jsonInit = function (a) {
@@ -7666,76 +7347,102 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Block.prototype.interpolate_ = function (a, b, c, d) {
-    var e = Blockly.utils.tokenizeInterpolation(a),
-        f = [],
-        g = 0;
-    a = [];
+    a = Blockly.utils.tokenizeInterpolation(a);
+    this.validateTokens_(a, b.length);
+    b = this.interpolateArguments_(a, b, c);
+    c = [];
+    a = 0;
 
-    for (var h = 0; h < e.length; h++) {
-      var k = e[h];
-
-      if ("number" == typeof k) {
-        if (0 >= k || k > b.length) throw Error('Block "' + this.type + '": Message index %' + k + " out of range.");
-        if (f[k]) throw Error('Block "' + this.type + '": Message index %' + k + " duplicated.");
-        f[k] = !0;
-        g++;
-        a.push(b[k - 1]);
-      } else (k = k.trim()) && a.push(k);
-    }
-
-    if (g != b.length) throw Error('Block "' + this.type + '": Message does not reference all ' + b.length + " arg(s).");
-    a.length && ("string" == typeof a[a.length - 1] || Blockly.utils.string.startsWith(a[a.length - 1].type, "field_")) && (h = {
-      type: "input_dummy"
-    }, c && (h.align = c), a.push(h));
-    c = {
-      LEFT: Blockly.ALIGN_LEFT,
-      RIGHT: Blockly.ALIGN_RIGHT,
-      CENTRE: Blockly.ALIGN_CENTRE,
-      CENTER: Blockly.ALIGN_CENTRE
-    };
-    b = [];
-
-    for (h = 0; h < a.length; h++) {
-      if (f = a[h], "string" == typeof f) b.push([f, void 0]);else {
-        e = g = null;
-
-        do {
-          if (k = !1, "string" == typeof f) g = new Blockly.FieldLabel(f);else switch (f.type) {
-            case "input_value":
-              e = this.appendValueInput(f.name);
-              break;
-
-            case "input_statement":
-              e = this.appendStatementInput(f.name);
-              break;
-
-            case "input_dummy":
-              e = this.appendDummyInput(f.name);
-              break;
-
-            default:
-              g = Blockly.fieldRegistry.fromJson(f), !g && f.alt && (f = f.alt, k = !0);
-          }
-        } while (k);
-
-        if (g) b.push([g, f.name]);else if (e) {
-          f.check && e.setCheck(f.check);
-          f.align && (g = c[f.align.toUpperCase()], void 0 === g ? console.warn(d + "Illegal align value: ", f.align) : e.setAlign(g));
-
-          for (f = 0; f < b.length; f++) {
-            e.appendField(b[f][0], b[f][1]);
+    for (var e; e = b[a]; a++) {
+      if (this.isInputKeyword_(e.type)) {
+        if (e = this.inputFromJson_(e, d)) {
+          for (var f = 0, g; g = c[f]; f++) {
+            e.appendField(g[0], g[1]);
           }
 
-          b.length = 0;
+          c.length = 0;
         }
+      } else (f = this.fieldFromJson_(e)) && c.push([f, e.name]);
+    }
+  };
+
+  Blockly.Block.prototype.validateTokens_ = function (a, b) {
+    for (var c = [], d = 0, e = 0; e < a.length; e++) {
+      var f = a[e];
+
+      if ("number" == typeof f) {
+        if (1 > f || f > b) throw Error('Block "' + this.type + '": Message index %' + f + " out of range.");
+        if (c[f]) throw Error('Block "' + this.type + '": Message index %' + f + " duplicated.");
+        c[f] = !0;
+        d++;
       }
     }
+
+    if (d != b) throw Error('Block "' + this.type + '": Message does not reference all ' + b + " arg(s).");
+  };
+
+  Blockly.Block.prototype.interpolateArguments_ = function (a, b, c) {
+    for (var d = [], e = 0; e < a.length; e++) {
+      var f = a[e];
+      "number" == typeof f && (f = b[f - 1]);
+      if ("string" == typeof f && (f = this.stringToFieldJson_(f), !f)) continue;
+      d.push(f);
+    }
+
+    (a = d.length) && !this.isInputKeyword_(d[a - 1].type) && (a = {
+      type: "input_dummy"
+    }, c && (a.align = c), d.push(a));
+    return d;
+  };
+
+  Blockly.Block.prototype.fieldFromJson_ = function (a) {
+    var b = Blockly.fieldRegistry.fromJson(a);
+    return !b && a.alt ? "string" == typeof a.alt ? (a = this.stringToFieldJson_(a.alt)) ? this.fieldFromJson_(a) : null : this.fieldFromJson_(a.alt) : b;
+  };
+
+  Blockly.Block.prototype.inputFromJson_ = function (a, b) {
+    var c = {
+      LEFT: Blockly.constants.ALIGN.LEFT,
+      RIGHT: Blockly.constants.ALIGN.RIGHT,
+      CENTRE: Blockly.constants.ALIGN.CENTRE,
+      CENTER: Blockly.constants.ALIGN.CENTRE
+    },
+        d = null;
+
+    switch (a.type) {
+      case "input_value":
+        d = this.appendValueInput(a.name);
+        break;
+
+      case "input_statement":
+        d = this.appendStatementInput(a.name);
+        break;
+
+      case "input_dummy":
+        d = this.appendDummyInput(a.name);
+    }
+
+    if (!d) return null;
+    a.check && d.setCheck(a.check);
+    a.align && (c = c[a.align.toUpperCase()], void 0 === c ? console.warn(b + "Illegal align value: ", a.align) : d.setAlign(c));
+    return d;
+  };
+
+  Blockly.Block.prototype.isInputKeyword_ = function (a) {
+    return "input_value" == a || "input_statement" == a || "input_dummy" == a;
+  };
+
+  Blockly.Block.prototype.stringToFieldJson_ = function (a) {
+    return (a = a.trim()) ? {
+      type: "field_label",
+      text: a
+    } : null;
   };
 
   Blockly.Block.prototype.appendInput_ = function (a, b) {
     var c = null;
-    if (a == Blockly.INPUT_VALUE || a == Blockly.NEXT_STATEMENT) c = this.makeConnection_(a);
-    a == Blockly.NEXT_STATEMENT && this.statementInputCount++;
+    if (a == Blockly.inputTypes.VALUE || a == Blockly.inputTypes.STATEMENT) c = this.makeConnection_(a);
+    a == Blockly.inputTypes.STATEMENT && this.statementInputCount++;
     a = new Blockly.Input(a, b, this, c);
     this.inputList.push(a);
     return a;
@@ -7767,7 +7474,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Block.prototype.removeInput = function (a, b) {
     for (var c = 0, d; d = this.inputList[c]; c++) {
-      if (d.name == a) return d.type == Blockly.NEXT_STATEMENT && this.statementInputCount--, d.dispose(), this.inputList.splice(c, 1), !0;
+      if (d.name == a) return d.type == Blockly.inputTypes.STATEMENT && this.statementInputCount--, d.dispose(), this.inputList.splice(c, 1), !0;
     }
 
     if (b) return !1;
@@ -7791,7 +7498,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Block.prototype.setCommentText = function (a) {
-    this.commentModel.text != a && (Blockly.Events.fire(new Blockly.Events.BlockChange(this, "comment", null, this.commentModel.text, a)), this.comment = this.commentModel.text = a);
+    this.commentModel.text != a && (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(this, "comment", null, this.commentModel.text, a)), this.comment = this.commentModel.text = a);
   };
 
   Blockly.Block.prototype.setWarningText = function (a, b) {};
@@ -7804,7 +7511,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Block.prototype.moveBy = function (a, b) {
     if (this.parentBlock_) throw Error("Block has parent.");
-    var c = new Blockly.Events.BlockMove(this);
+    var c = new (Blockly.Events.get(Blockly.Events.BLOCK_MOVE))(this);
     this.xy_.translate(a, b);
     c.recordNew();
     Blockly.Events.fire(c);
@@ -7831,52 +7538,129 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return a;
   };
 
-  Blockly.blockRendering = {};
-
   Blockly.blockRendering.IPathObject = function (a, b) {};
 
-  Blockly.utils.aria = {};
-  Blockly.utils.aria.ARIA_PREFIX_ = "aria-";
-  Blockly.utils.aria.ROLE_ATTRIBUTE_ = "role";
-  Blockly.utils.aria.Role = {
-    GRID: "grid",
-    GRIDCELL: "gridcell",
-    GROUP: "group",
-    LISTBOX: "listbox",
-    MENU: "menu",
-    MENUITEM: "menuitem",
-    MENUITEMCHECKBOX: "menuitemcheckbox",
-    OPTION: "option",
-    PRESENTATION: "presentation",
-    ROW: "row",
-    TREE: "tree",
-    TREEITEM: "treeitem"
-  };
-  Blockly.utils.aria.State = {
-    ACTIVEDESCENDANT: "activedescendant",
-    COLCOUNT: "colcount",
-    DISABLED: "disabled",
-    EXPANDED: "expanded",
-    INVALID: "invalid",
-    LABEL: "label",
-    LABELLEDBY: "labelledby",
-    LEVEL: "level",
-    ORIENTATION: "orientation",
-    POSINSET: "posinset",
-    ROWCOUNT: "rowcount",
-    SELECTED: "selected",
-    SETSIZE: "setsize",
-    VALUEMAX: "valuemax",
-    VALUEMIN: "valuemin"
-  };
-
-  Blockly.utils.aria.setRole = function (a, b) {
-    a.setAttribute(Blockly.utils.aria.ROLE_ATTRIBUTE_, b);
-  };
-
-  Blockly.utils.aria.setState = function (a, b, c) {
-    Array.isArray(c) && (c = c.join(" "));
-    a.setAttribute(Blockly.utils.aria.ARIA_PREFIX_ + b, c);
+  Blockly.utils.KeyCodes = {
+    WIN_KEY_FF_LINUX: 0,
+    MAC_ENTER: 3,
+    BACKSPACE: 8,
+    TAB: 9,
+    NUM_CENTER: 12,
+    ENTER: 13,
+    SHIFT: 16,
+    CTRL: 17,
+    ALT: 18,
+    PAUSE: 19,
+    CAPS_LOCK: 20,
+    ESC: 27,
+    SPACE: 32,
+    PAGE_UP: 33,
+    PAGE_DOWN: 34,
+    END: 35,
+    HOME: 36,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+    PLUS_SIGN: 43,
+    PRINT_SCREEN: 44,
+    INSERT: 45,
+    DELETE: 46,
+    ZERO: 48,
+    ONE: 49,
+    TWO: 50,
+    THREE: 51,
+    FOUR: 52,
+    FIVE: 53,
+    SIX: 54,
+    SEVEN: 55,
+    EIGHT: 56,
+    NINE: 57,
+    FF_SEMICOLON: 59,
+    FF_EQUALS: 61,
+    FF_DASH: 173,
+    FF_HASH: 163,
+    QUESTION_MARK: 63,
+    AT_SIGN: 64,
+    A: 65,
+    B: 66,
+    C: 67,
+    D: 68,
+    E: 69,
+    F: 70,
+    G: 71,
+    H: 72,
+    I: 73,
+    J: 74,
+    K: 75,
+    L: 76,
+    M: 77,
+    N: 78,
+    O: 79,
+    P: 80,
+    Q: 81,
+    R: 82,
+    S: 83,
+    T: 84,
+    U: 85,
+    V: 86,
+    W: 87,
+    X: 88,
+    Y: 89,
+    Z: 90,
+    META: 91,
+    WIN_KEY_RIGHT: 92,
+    CONTEXT_MENU: 93,
+    NUM_ZERO: 96,
+    NUM_ONE: 97,
+    NUM_TWO: 98,
+    NUM_THREE: 99,
+    NUM_FOUR: 100,
+    NUM_FIVE: 101,
+    NUM_SIX: 102,
+    NUM_SEVEN: 103,
+    NUM_EIGHT: 104,
+    NUM_NINE: 105,
+    NUM_MULTIPLY: 106,
+    NUM_PLUS: 107,
+    NUM_MINUS: 109,
+    NUM_PERIOD: 110,
+    NUM_DIVISION: 111,
+    F1: 112,
+    F2: 113,
+    F3: 114,
+    F4: 115,
+    F5: 116,
+    F6: 117,
+    F7: 118,
+    F8: 119,
+    F9: 120,
+    F10: 121,
+    F11: 122,
+    F12: 123,
+    NUMLOCK: 144,
+    SCROLL_LOCK: 145,
+    FIRST_MEDIA_KEY: 166,
+    LAST_MEDIA_KEY: 183,
+    SEMICOLON: 186,
+    DASH: 189,
+    EQUALS: 187,
+    COMMA: 188,
+    PERIOD: 190,
+    SLASH: 191,
+    APOSTROPHE: 192,
+    TILDE: 192,
+    SINGLE_QUOTE: 222,
+    OPEN_SQUARE_BRACKET: 219,
+    BACKSLASH: 220,
+    CLOSE_SQUARE_BRACKET: 221,
+    WIN_KEY: 224,
+    MAC_FF_META: 224,
+    MAC_WK_CMD_LEFT: 91,
+    MAC_WK_CMD_RIGHT: 93,
+    WIN_IME: 229,
+    VK_NONAME: 252,
+    PHANTOM: 255
   };
 
   Blockly.Menu = function () {
@@ -7899,11 +7683,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       b.appendChild(d.createDom());
     }
 
-    this.mouseOverHandler_ = Blockly.bindEventWithChecks_(b, "mouseover", this, this.handleMouseOver_, !0);
-    this.clickHandler_ = Blockly.bindEventWithChecks_(b, "click", this, this.handleClick_, !0);
-    this.mouseEnterHandler_ = Blockly.bindEventWithChecks_(b, "mouseenter", this, this.handleMouseEnter_, !0);
-    this.mouseLeaveHandler_ = Blockly.bindEventWithChecks_(b, "mouseleave", this, this.handleMouseLeave_, !0);
-    this.onKeyDownHandler_ = Blockly.bindEventWithChecks_(b, "keydown", this, this.handleKeyEvent_);
+    this.mouseOverHandler_ = Blockly.browserEvents.conditionalBind(b, "mouseover", this, this.handleMouseOver_, !0);
+    this.clickHandler_ = Blockly.browserEvents.conditionalBind(b, "click", this, this.handleClick_, !0);
+    this.mouseEnterHandler_ = Blockly.browserEvents.conditionalBind(b, "mouseenter", this, this.handleMouseEnter_, !0);
+    this.mouseLeaveHandler_ = Blockly.browserEvents.conditionalBind(b, "mouseleave", this, this.handleMouseLeave_, !0);
+    this.onKeyDownHandler_ = Blockly.browserEvents.conditionalBind(b, "keydown", this, this.handleKeyEvent_);
     a.appendChild(b);
   };
 
@@ -7928,11 +7712,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Menu.prototype.dispose = function () {
-    this.mouseOverHandler_ && (Blockly.unbindEvent_(this.mouseOverHandler_), this.mouseOverHandler_ = null);
-    this.clickHandler_ && (Blockly.unbindEvent_(this.clickHandler_), this.clickHandler_ = null);
-    this.mouseEnterHandler_ && (Blockly.unbindEvent_(this.mouseEnterHandler_), this.mouseEnterHandler_ = null);
-    this.mouseLeaveHandler_ && (Blockly.unbindEvent_(this.mouseLeaveHandler_), this.mouseLeaveHandler_ = null);
-    this.onKeyDownHandler_ && (Blockly.unbindEvent_(this.onKeyDownHandler_), this.onKeyDownHandler_ = null);
+    this.mouseOverHandler_ && (Blockly.browserEvents.unbind(this.mouseOverHandler_), this.mouseOverHandler_ = null);
+    this.clickHandler_ && (Blockly.browserEvents.unbind(this.clickHandler_), this.clickHandler_ = null);
+    this.mouseEnterHandler_ && (Blockly.browserEvents.unbind(this.mouseEnterHandler_), this.mouseEnterHandler_ = null);
+    this.mouseLeaveHandler_ && (Blockly.browserEvents.unbind(this.mouseLeaveHandler_), this.mouseLeaveHandler_ = null);
+    this.onKeyDownHandler_ && (Blockly.browserEvents.unbind(this.onKeyDownHandler_), this.onKeyDownHandler_ = null);
 
     for (var a = 0, b; b = this.menuItems_[a]; a++) {
       b.dispose();
@@ -8146,6 +7930,76 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.actionHandler_ = a.bind(b);
   };
 
+  Blockly.WidgetDiv = {};
+  Blockly.WidgetDiv.owner_ = null;
+  Blockly.WidgetDiv.dispose_ = null;
+  Blockly.WidgetDiv.rendererClassName_ = "";
+  Blockly.WidgetDiv.themeClassName_ = "";
+
+  Blockly.WidgetDiv.createDom = function () {
+    Blockly.WidgetDiv.DIV || (Blockly.WidgetDiv.DIV = document.createElement("div"), Blockly.WidgetDiv.DIV.className = "blocklyWidgetDiv", (Blockly.parentContainer || document.body).appendChild(Blockly.WidgetDiv.DIV));
+  };
+
+  Blockly.WidgetDiv.show = function (a, b, c) {
+    Blockly.WidgetDiv.hide();
+    Blockly.WidgetDiv.owner_ = a;
+    Blockly.WidgetDiv.dispose_ = c;
+    a = Blockly.WidgetDiv.DIV;
+    a.style.direction = b ? "rtl" : "ltr";
+    a.style.display = "block";
+    b = Blockly.getMainWorkspace();
+    Blockly.WidgetDiv.rendererClassName_ = b.getRenderer().getClassName();
+    Blockly.WidgetDiv.themeClassName_ = b.getTheme().getClassName();
+    Blockly.utils.dom.addClass(a, Blockly.WidgetDiv.rendererClassName_);
+    Blockly.utils.dom.addClass(a, Blockly.WidgetDiv.themeClassName_);
+  };
+
+  Blockly.WidgetDiv.hide = function () {
+    if (Blockly.WidgetDiv.isVisible()) {
+      Blockly.WidgetDiv.owner_ = null;
+      var a = Blockly.WidgetDiv.DIV;
+      a.style.display = "none";
+      a.style.left = "";
+      a.style.top = "";
+      Blockly.WidgetDiv.dispose_ && Blockly.WidgetDiv.dispose_();
+      Blockly.WidgetDiv.dispose_ = null;
+      a.textContent = "";
+      Blockly.WidgetDiv.rendererClassName_ && (Blockly.utils.dom.removeClass(a, Blockly.WidgetDiv.rendererClassName_), Blockly.WidgetDiv.rendererClassName_ = "");
+      Blockly.WidgetDiv.themeClassName_ && (Blockly.utils.dom.removeClass(a, Blockly.WidgetDiv.themeClassName_), Blockly.WidgetDiv.themeClassName_ = "");
+      Blockly.getMainWorkspace().markFocused();
+    }
+  };
+
+  Blockly.WidgetDiv.isVisible = function () {
+    return !!Blockly.WidgetDiv.owner_;
+  };
+
+  Blockly.WidgetDiv.hideIfOwner = function (a) {
+    Blockly.WidgetDiv.owner_ == a && Blockly.WidgetDiv.hide();
+  };
+
+  Blockly.WidgetDiv.positionInternal_ = function (a, b, c) {
+    Blockly.WidgetDiv.DIV.style.left = a + "px";
+    Blockly.WidgetDiv.DIV.style.top = b + "px";
+    Blockly.WidgetDiv.DIV.style.height = c + "px";
+  };
+
+  Blockly.WidgetDiv.positionWithAnchor = function (a, b, c, d) {
+    var e = Blockly.WidgetDiv.calculateY_(a, b, c);
+    a = Blockly.WidgetDiv.calculateX_(a, b, c, d);
+    0 > e ? Blockly.WidgetDiv.positionInternal_(a, 0, c.height + e) : Blockly.WidgetDiv.positionInternal_(a, e, c.height);
+  };
+
+  Blockly.WidgetDiv.calculateX_ = function (a, b, c, d) {
+    if (d) return b = Math.max(b.right - c.width, a.left), Math.min(b, a.right - c.width);
+    b = Math.min(b.left, a.right - c.width);
+    return Math.max(b, a.left);
+  };
+
+  Blockly.WidgetDiv.calculateY_ = function (a, b, c) {
+    return b.bottom + c.height >= a.bottom ? b.top - c.height : b.bottom;
+  };
+
   Blockly.ContextMenu = {};
   Blockly.ContextMenu.currentBlock = null;
   Blockly.ContextMenu.menu_ = null;
@@ -8197,7 +8051,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     a.render(Blockly.WidgetDiv.DIV);
     var b = a.getElement();
     Blockly.utils.dom.addClass(b, "blocklyContextMenu");
-    Blockly.bindEventWithChecks_(b, "contextmenu", null, Blockly.utils.noEvent);
+    Blockly.browserEvents.conditionalBind(b, "contextmenu", null, Blockly.utils.noEvent);
     a.focus();
   };
 
@@ -8224,7 +8078,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         Blockly.Events.enable();
       }
 
-      Blockly.Events.isEnabled() && !c.isShadow() && Blockly.Events.fire(new Blockly.Events.BlockCreate(c));
+      Blockly.Events.isEnabled() && !c.isShadow() && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CREATE))(c));
       c.select();
     };
   };
@@ -8272,345 +8126,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return c;
   };
 
-  Blockly.ContextMenuItems = {};
-
-  Blockly.ContextMenuItems.registerUndo = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.UNDO;
-      },
-      preconditionFn: function preconditionFn(a) {
-        return 0 < a.workspace.getUndoStack().length ? "enabled" : "disabled";
-      },
-      callback: function callback(a) {
-        a.workspace.undo(!1);
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
-      id: "undoWorkspace",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerRedo = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.REDO;
-      },
-      preconditionFn: function preconditionFn(a) {
-        return 0 < a.workspace.getRedoStack().length ? "enabled" : "disabled";
-      },
-      callback: function callback(a) {
-        a.workspace.undo(!0);
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
-      id: "redoWorkspace",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerCleanup = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.CLEAN_UP;
-      },
-      preconditionFn: function preconditionFn(a) {
-        return a.workspace.isMovable() ? 1 < a.workspace.getTopBlocks(!1).length ? "enabled" : "disabled" : "hidden";
-      },
-      callback: function callback(a) {
-        a.workspace.cleanUp();
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
-      id: "cleanWorkspace",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.toggleOption_ = function (a, b) {
-    for (var c = 0, d = 0; d < b.length; d++) {
-      for (var e = b[d]; e;) {
-        setTimeout(e.setCollapsed.bind(e, a), c), e = e.getNextBlock(), c += 10;
-      }
-    }
-  };
-
-  Blockly.ContextMenuItems.registerCollapse = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.COLLAPSE_ALL;
-      },
-      preconditionFn: function preconditionFn(a) {
-        if (a.workspace.options.collapse) {
-          a = a.workspace.getTopBlocks(!1);
-
-          for (var b = 0; b < a.length; b++) {
-            for (var c = a[b]; c;) {
-              if (!c.isCollapsed()) return "enabled";
-              c = c.getNextBlock();
-            }
-          }
-
-          return "disabled";
-        }
-
-        return "hidden";
-      },
-      callback: function callback(a) {
-        Blockly.ContextMenuItems.toggleOption_(!0, a.workspace.getTopBlocks(!0));
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
-      id: "collapseWorkspace",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerExpand = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.EXPAND_ALL;
-      },
-      preconditionFn: function preconditionFn(a) {
-        if (a.workspace.options.collapse) {
-          a = a.workspace.getTopBlocks(!1);
-
-          for (var b = 0; b < a.length; b++) {
-            for (var c = a[b]; c;) {
-              if (c.isCollapsed()) return "enabled";
-              c = c.getNextBlock();
-            }
-          }
-
-          return "disabled";
-        }
-
-        return "hidden";
-      },
-      callback: function callback(a) {
-        Blockly.ContextMenuItems.toggleOption_(!1, a.workspace.getTopBlocks(!0));
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
-      id: "expandWorkspace",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.addDeletableBlocks_ = function (a, b) {
-    if (a.isDeletable()) Array.prototype.push.apply(b, a.getDescendants(!1));else {
-      a = a.getChildren(!1);
-
-      for (var c = 0; c < a.length; c++) {
-        Blockly.ContextMenuItems.addDeletableBlocks_(a[c], b);
-      }
-    }
-  };
-
-  Blockly.ContextMenuItems.getDeletableBlocks_ = function (a) {
-    var b = [];
-    a = a.getTopBlocks(!0);
-
-    for (var c = 0; c < a.length; c++) {
-      Blockly.ContextMenuItems.addDeletableBlocks_(a[c], b);
-    }
-
-    return b;
-  };
-
-  Blockly.ContextMenuItems.deleteNext_ = function (a, b) {
-    Blockly.Events.setGroup(b);
-    var c = a.shift();
-    c && (c.workspace ? (c.dispose(!1, !0), setTimeout(Blockly.ContextMenuItems.deleteNext_, 10, a, b)) : Blockly.ContextMenuItems.deleteNext_(a, b));
-    Blockly.Events.setGroup(!1);
-  };
-
-  Blockly.ContextMenuItems.registerDeleteAll = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText(a) {
-        if (a.workspace) return a = Blockly.ContextMenuItems.getDeletableBlocks_(a.workspace).length, 1 == a ? Blockly.Msg.DELETE_BLOCK : Blockly.Msg.DELETE_X_BLOCKS.replace("%1", String(a));
-      },
-      preconditionFn: function preconditionFn(a) {
-        if (a.workspace) return 0 < Blockly.ContextMenuItems.getDeletableBlocks_(a.workspace).length ? "enabled" : "disabled";
-      },
-      callback: function callback(a) {
-        if (a.workspace) {
-          a.workspace.cancelCurrentGesture();
-          var b = Blockly.ContextMenuItems.getDeletableBlocks_(a.workspace),
-              c = Blockly.utils.genUid();
-          2 > b.length ? Blockly.ContextMenuItems.deleteNext_(b, c) : Blockly.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace("%1", b.length), function (d) {
-            d && Blockly.ContextMenuItems.deleteNext_(b, c);
-          });
-        }
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
-      id: "workspaceDelete",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerWorkspaceOptions_ = function () {
-    Blockly.ContextMenuItems.registerUndo();
-    Blockly.ContextMenuItems.registerRedo();
-    Blockly.ContextMenuItems.registerCleanup();
-    Blockly.ContextMenuItems.registerCollapse();
-    Blockly.ContextMenuItems.registerExpand();
-    Blockly.ContextMenuItems.registerDeleteAll();
-  };
-
-  Blockly.ContextMenuItems.registerDuplicate = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.DUPLICATE_BLOCK;
-      },
-      preconditionFn: function preconditionFn(a) {
-        a = a.block;
-        return !a.isInFlyout && a.isDeletable() && a.isMovable() ? a.isDuplicatable() ? "enabled" : "disabled" : "hidden";
-      },
-      callback: function callback(a) {
-        a.block && Blockly.duplicate(a.block);
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockDuplicate",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerComment = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText(a) {
-        return a.block.getCommentIcon() ? Blockly.Msg.REMOVE_COMMENT : Blockly.Msg.ADD_COMMENT;
-      },
-      preconditionFn: function preconditionFn(a) {
-        a = a.block;
-        return Blockly.utils.userAgent.IE || a.isInFlyout || !a.workspace.options.comments || a.isCollapsed() || !a.isEditable() ? "hidden" : "enabled";
-      },
-      callback: function callback(a) {
-        a = a.block;
-        a.getCommentIcon() ? a.setCommentText(null) : a.setCommentText("");
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockComment",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerInline = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText(a) {
-        return a.block.getInputsInline() ? Blockly.Msg.EXTERNAL_INPUTS : Blockly.Msg.INLINE_INPUTS;
-      },
-      preconditionFn: function preconditionFn(a) {
-        a = a.block;
-        if (!a.isInFlyout && a.isMovable() && !a.isCollapsed()) for (var b = 1; b < a.inputList.length; b++) {
-          if (a.inputList[b - 1].type != Blockly.NEXT_STATEMENT && a.inputList[b].type != Blockly.NEXT_STATEMENT) return "enabled";
-        }
-        return "hidden";
-      },
-      callback: function callback(a) {
-        a.block.setInputsInline(!a.block.getInputsInline());
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockInline",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerCollapseExpandBlock = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText(a) {
-        return a.block.isCollapsed() ? Blockly.Msg.EXPAND_BLOCK : Blockly.Msg.COLLAPSE_BLOCK;
-      },
-      preconditionFn: function preconditionFn(a) {
-        a = a.block;
-        return !a.isInFlyout && a.isMovable() ? "enabled" : "hidden";
-      },
-      callback: function callback(a) {
-        a.block.setCollapsed(!a.block.isCollapsed());
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockCollapseExpand",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerDisable = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText(a) {
-        return a.block.isEnabled() ? Blockly.Msg.DISABLE_BLOCK : Blockly.Msg.ENABLE_BLOCK;
-      },
-      preconditionFn: function preconditionFn(a) {
-        a = a.block;
-        return !a.isInFlyout && a.workspace.options.disable && a.isEditable() ? a.getInheritedDisabled() ? "disabled" : "enabled" : "hidden";
-      },
-      callback: function callback(a) {
-        a = a.block;
-        var b = Blockly.Events.getGroup();
-        b || Blockly.Events.setGroup(!0);
-        a.setEnabled(!a.isEnabled());
-        b || Blockly.Events.setGroup(!1);
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockDisable",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerDelete = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText(a) {
-        var b = a.block;
-        a = b.getDescendants(!1).length;
-        (b = b.getNextBlock()) && (a -= b.getDescendants(!1).length);
-        return 1 == a ? Blockly.Msg.DELETE_BLOCK : Blockly.Msg.DELETE_X_BLOCKS.replace("%1", String(a));
-      },
-      preconditionFn: function preconditionFn(a) {
-        return !a.block.isInFlyout && a.block.isDeletable() ? "enabled" : "hidden";
-      },
-      callback: function callback(a) {
-        Blockly.Events.setGroup(!0);
-        a.block.dispose(!0, !0);
-        Blockly.Events.setGroup(!1);
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockDelete",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerHelp = function () {
-    Blockly.ContextMenuRegistry.registry.register({
-      displayText: function displayText() {
-        return Blockly.Msg.HELP;
-      },
-      preconditionFn: function preconditionFn(a) {
-        a = a.block;
-        return ("function" == typeof a.helpUrl ? a.helpUrl() : a.helpUrl) ? "enabled" : "hidden";
-      },
-      callback: function callback(a) {
-        a.block.showHelp();
-      },
-      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
-      id: "blockHelp",
-      weight: 0
-    });
-  };
-
-  Blockly.ContextMenuItems.registerBlockOptions_ = function () {
-    Blockly.ContextMenuItems.registerDuplicate();
-    Blockly.ContextMenuItems.registerComment();
-    Blockly.ContextMenuItems.registerInline();
-    Blockly.ContextMenuItems.registerCollapseExpandBlock();
-    Blockly.ContextMenuItems.registerDisable();
-    Blockly.ContextMenuItems.registerDelete();
-    Blockly.ContextMenuItems.registerHelp();
-  };
-
-  Blockly.ContextMenuItems.registerDefaultOptions = function () {
-    Blockly.ContextMenuItems.registerWorkspaceOptions_();
-    Blockly.ContextMenuItems.registerBlockOptions_();
-  };
-
   Blockly.ContextMenuRegistry = function () {
     Blockly.ContextMenuRegistry.registry = this;
     this.registry_ = {};
-    Blockly.ContextMenuItems.registerDefaultOptions();
   };
 
   Blockly.ContextMenuRegistry.ScopeType = {
@@ -8656,6 +8174,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   new Blockly.ContextMenuRegistry();
+
+  Blockly.Events.Selected = function (a, b, c) {
+    Blockly.Events.Selected.superClass_.constructor.call(this, c);
+    this.oldElementId = a;
+    this.newElementId = b;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.Selected, Blockly.Events.UiBase);
+  Blockly.Events.Selected.prototype.type = Blockly.Events.SELECTED;
+
+  Blockly.Events.Selected.prototype.toJson = function () {
+    var a = Blockly.Events.Selected.superClass_.toJson.call(this);
+    a.oldElementId = this.oldElementId;
+    a.newElementId = this.newElementId;
+    return a;
+  };
+
+  Blockly.Events.Selected.prototype.fromJson = function (a) {
+    Blockly.Events.Selected.superClass_.fromJson.call(this, a);
+    this.oldElementId = a.oldElementId;
+    this.newElementId = a.newElementId;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.SELECTED, Blockly.Events.Selected);
 
   Blockly.RenderedConnection = function (a, b) {
     Blockly.RenderedConnection.superClass_.constructor.call(this, a, b);
@@ -8762,7 +8304,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.RenderedConnection.prototype.highlight = function () {
     var a = this.sourceBlock_.workspace.getRenderer().getConstants();
     var b = a.shapeFor(this);
-    this.type == Blockly.INPUT_VALUE || this.type == Blockly.OUTPUT_VALUE ? (a = a.TAB_OFFSET_FROM_TOP, b = Blockly.utils.svgPaths.moveBy(0, -a) + Blockly.utils.svgPaths.lineOnAxis("v", a) + b.pathDown + Blockly.utils.svgPaths.lineOnAxis("v", a)) : (a = a.NOTCH_OFFSET_LEFT - a.CORNER_RADIUS, b = Blockly.utils.svgPaths.moveBy(-a, 0) + Blockly.utils.svgPaths.lineOnAxis("h", a) + b.pathLeft + Blockly.utils.svgPaths.lineOnAxis("h", a));
+    this.type == Blockly.connectionTypes.INPUT_VALUE || this.type == Blockly.connectionTypes.OUTPUT_VALUE ? (a = a.TAB_OFFSET_FROM_TOP, b = Blockly.utils.svgPaths.moveBy(0, -a) + Blockly.utils.svgPaths.lineOnAxis("v", a) + b.pathDown + Blockly.utils.svgPaths.lineOnAxis("v", a)) : (a = a.NOTCH_OFFSET_LEFT - a.CORNER_RADIUS, b = Blockly.utils.svgPaths.moveBy(-a, 0) + Blockly.utils.svgPaths.lineOnAxis("h", a) + b.pathLeft + Blockly.utils.svgPaths.lineOnAxis("h", a));
     a = this.sourceBlock_.getRelativeToSurfaceXY();
     Blockly.Connection.highlightedPath_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.PATH, {
       "class": "blocklyHighlightedConnectionPath",
@@ -8798,7 +8340,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.RenderedConnection.prototype.startTrackingAll = function () {
     this.setTracking(!0);
     var a = [];
-    if (this.type != Blockly.INPUT_VALUE && this.type != Blockly.NEXT_STATEMENT) return a;
+    if (this.type != Blockly.connectionTypes.INPUT_VALUE && this.type != Blockly.connectionTypes.NEXT_STATEMENT) return a;
     var b = this.targetBlock();
 
     if (b) {
@@ -8852,7 +8394,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         d = a.rendered;
     c && b.updateDisabled();
     d && a.updateDisabled();
-    c && d && (this.type == Blockly.NEXT_STATEMENT || this.type == Blockly.PREVIOUS_STATEMENT ? a.render() : b.render());
+    c && d && (this.type == Blockly.connectionTypes.NEXT_STATEMENT || this.type == Blockly.connectionTypes.PREVIOUS_STATEMENT ? a.render() : b.render());
     if (b = b.getInputWithBlock(a)) b = b.isVisible(), a.getSvgRoot().style.display = b ? "block" : "none";
   };
 
@@ -8942,32 +8484,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return a;
   };
 
-  Blockly.Cursor.prototype.onBlocklyAction = function (a) {
-    if (this.getCurNode() && this.getCurNode().getType() === Blockly.ASTNode.types.FIELD && this.getCurNode().getLocation().onBlocklyAction(a)) return !0;
-
-    switch (a.name) {
-      case Blockly.navigation.actionNames.PREVIOUS:
-        return this.prev(), !0;
-
-      case Blockly.navigation.actionNames.OUT:
-        return this.out(), !0;
-
-      case Blockly.navigation.actionNames.NEXT:
-        return this.next(), !0;
-
-      case Blockly.navigation.actionNames.IN:
-        return this.in(), !0;
-
-      default:
-        return !1;
-    }
-  };
+  Blockly.registry.register(Blockly.registry.Type.CURSOR, Blockly.registry.DEFAULT, Blockly.Cursor);
 
   Blockly.BasicCursor = function () {
     Blockly.BasicCursor.superClass_.constructor.call(this);
   };
 
   Blockly.utils.object.inherits(Blockly.BasicCursor, Blockly.Cursor);
+  Blockly.BasicCursor.registrationName = "basicCursor";
 
   Blockly.BasicCursor.prototype.next = function () {
     var a = this.getCurNode();
@@ -9030,6 +8554,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.getRightMostChild_(a);
   };
 
+  Blockly.registry.register(Blockly.registry.Type.CURSOR, Blockly.BasicCursor.registrationName, Blockly.BasicCursor);
+
   Blockly.TabNavigateCursor = function () {
     Blockly.TabNavigateCursor.superClass_.constructor.call(this);
   };
@@ -9056,7 +8582,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     d.tooltip = this;
     Blockly.Tooltip.bindMouseEvents(d);
     Blockly.BlockSvg.superClass_.constructor.call(this, a, b, c);
-    this.svgGroup_.dataset && (this.svgGroup_.dataset.id = this.id);
+    this.svgGroup_.dataset ? this.svgGroup_.dataset.id = this.id : Blockly.utils.userAgent.IE && this.svgGroup_.setAttribute("data-id", this.id);
   };
 
   Blockly.utils.object.inherits(Blockly.BlockSvg, Blockly.Block);
@@ -9082,7 +8608,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.applyColour();
     this.pathObject.updateMovable(this.isMovable());
     a = this.getSvgRoot();
-    this.workspace.options.readOnly || this.eventsInit_ || !a || Blockly.bindEventWithChecks_(a, "mousedown", this, this.onMouseDown_);
+    this.workspace.options.readOnly || this.eventsInit_ || !a || Blockly.browserEvents.conditionalBind(a, "mousedown", this, this.onMouseDown_);
     this.eventsInit_ = !0;
     a.parentNode || this.workspace.getCanvas().appendChild(a);
   };
@@ -9124,8 +8650,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
       }
 
-      a = new Blockly.Events.Ui(null, "selected", a, this.id);
-      a.workspaceId = this.workspace.id;
+      a = new (Blockly.Events.get(Blockly.Events.SELECTED))(a, this.id, this.workspace.id);
       Blockly.Events.fire(a);
       Blockly.selected = this;
       this.addSelect();
@@ -9134,7 +8659,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.BlockSvg.prototype.unselect = function () {
     if (Blockly.selected == this) {
-      var a = new Blockly.Events.Ui(null, "selected", this.id, null);
+      var a = new (Blockly.Events.get(Blockly.Events.SELECTED))(this.id, null, this.workspace.id);
       a.workspaceId = this.workspace.id;
       Blockly.Events.fire(a);
       Blockly.selected = null;
@@ -9194,7 +8719,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.BlockSvg.prototype.moveBy = function (a, b) {
     if (this.parentBlock_) throw Error("Block has parent.");
     var c = Blockly.Events.isEnabled();
-    if (c) var d = new Blockly.Events.BlockMove(this);
+    if (c) var d = new (Blockly.Events.get(Blockly.Events.BLOCK_MOVE))(this);
     var e = this.getRelativeToSurfaceXY();
     this.translate(e.x + a, e.y + b);
     this.moveConnections(a, b);
@@ -9274,7 +8799,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.BlockSvg.prototype.updateCollapsed_ = function () {
-    for (var a = this.isCollapsed(), b = Blockly.Block.COLLAPSED_INPUT_NAME, c = Blockly.Block.COLLAPSED_FIELD_NAME, d = 0, e; e = this.inputList[d]; d++) {
+    for (var a = this.isCollapsed(), b = Blockly.constants.COLLAPSED_INPUT_NAME, c = Blockly.constants.COLLAPSED_FIELD_NAME, d = 0, e; e = this.inputList[d]; d++) {
       e.name != b && e.setVisible(!a);
     }
 
@@ -9287,14 +8812,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
       d = this.toString(Blockly.COLLAPSE_CHARS);
       (e = this.getField(c)) ? e.setValue(d) : (e = this.getInput(b) || this.appendDummyInput(b), e.appendField(new Blockly.FieldLabel(d), c));
-    } else this.removeInput(b);
+    } else this.updateDisabled(), this.removeInput(b);
   };
 
   Blockly.BlockSvg.prototype.tab = function (a, b) {
     var c = new Blockly.TabNavigateCursor();
     c.setCurNode(Blockly.ASTNode.createFieldNode(a));
     a = c.getCurNode();
-    c.onBlocklyAction(b ? Blockly.navigation.ACTION_NEXT : Blockly.navigation.ACTION_PREVIOUS);
+    b ? c.next() : c.prev();
     (b = c.getCurNode()) && b !== a && (b.getLocation().showEditor(), this.workspace.keyboardAccessibilityMode && this.workspace.getCursor().setCurNode(b));
   };
 
@@ -9389,7 +8914,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var c = this.workspace;
       Blockly.selected == this && (this.unselect(), this.workspace.cancelCurrentGesture());
       Blockly.ContextMenu.currentBlock == this && Blockly.ContextMenu.hide();
-      this.workspace.keyboardAccessibilityMode && Blockly.navigation.moveCursorOnBlockDelete(this);
       b && this.rendered && (this.unplug(a), Blockly.blockAnimations.disposeUiEffect(this));
       this.rendered = !1;
 
@@ -9497,11 +9021,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.mutator && this.mutator !== a && this.mutator.dispose();
     a && (a.setBlock(this), this.mutator = a, a.createIcon());
     this.rendered && (this.render(), this.bumpNeighbours());
-  };
-
-  Blockly.BlockSvg.prototype.setDisabled = function (a) {
-    Blockly.utils.deprecation.warn("BlockSvg.prototype.setDisabled", "May 2019", "May 2020", "BlockSvg.prototype.setEnabled");
-    this.setEnabled(!a);
   };
 
   Blockly.BlockSvg.prototype.setEnabled = function (a) {
@@ -9661,7 +9180,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.BlockSvg.prototype.positionNearConnection = function (a, b) {
-    a.type != Blockly.NEXT_STATEMENT && a.type != Blockly.INPUT_VALUE || this.moveBy(b.x - a.x, b.y - a.y);
+    a.type != Blockly.connectionTypes.NEXT_STATEMENT && a.type != Blockly.connectionTypes.INPUT_VALUE || this.moveBy(b.x - a.x, b.y - a.y);
   };
 
   Blockly.BlockSvg.prototype.getParent = function () {
@@ -9698,7 +9217,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.BlockSvg.prototype.updateMarkers_ = function () {
     this.workspace.keyboardAccessibilityMode && this.pathObject.cursorSvg && this.workspace.getCursor().draw();
-    this.workspace.keyboardAccessibilityMode && this.pathObject.markerSvg && this.workspace.getMarker(Blockly.navigation.MARKER_NAME).draw();
+    this.workspace.keyboardAccessibilityMode && this.pathObject.markerSvg && this.workspace.getMarker(Blockly.MarkerManager.LOCAL_MARKER).draw();
   };
 
   Blockly.BlockSvg.prototype.updateConnectionLocations_ = function () {
@@ -9746,30 +9265,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.BlockSvg.prototype.highlightShapeForInput = function (a, b) {
     this.pathObject.updateShapeForInputHighlight(a, b);
-  };
-
-  Blockly.blockRendering.useDebugger = !1;
-
-  Blockly.blockRendering.register = function (a, b) {
-    Blockly.registry.register(Blockly.registry.Type.RENDERER, a, b);
-  };
-
-  Blockly.blockRendering.unregister = function (a) {
-    Blockly.registry.unregister(Blockly.registry.Type.RENDERER, a);
-  };
-
-  Blockly.blockRendering.startDebugger = function () {
-    Blockly.blockRendering.useDebugger = !0;
-  };
-
-  Blockly.blockRendering.stopDebugger = function () {
-    Blockly.blockRendering.useDebugger = !1;
-  };
-
-  Blockly.blockRendering.init = function (a, b, c) {
-    a = new (Blockly.registry.getClass(Blockly.registry.Type.RENDERER, a))(a);
-    a.init(b, c);
-    return a;
   };
 
   Blockly.ConnectionDB = function (a) {
@@ -9888,18 +9383,71 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.ConnectionDB.init = function (a) {
     var b = [];
-    b[Blockly.INPUT_VALUE] = new Blockly.ConnectionDB(a);
-    b[Blockly.OUTPUT_VALUE] = new Blockly.ConnectionDB(a);
-    b[Blockly.NEXT_STATEMENT] = new Blockly.ConnectionDB(a);
-    b[Blockly.PREVIOUS_STATEMENT] = new Blockly.ConnectionDB(a);
+    b[Blockly.connectionTypes.INPUT_VALUE] = new Blockly.ConnectionDB(a);
+    b[Blockly.connectionTypes.OUTPUT_VALUE] = new Blockly.ConnectionDB(a);
+    b[Blockly.connectionTypes.NEXT_STATEMENT] = new Blockly.ConnectionDB(a);
+    b[Blockly.connectionTypes.PREVIOUS_STATEMENT] = new Blockly.ConnectionDB(a);
     return b;
   };
+
+  Blockly.Events.ThemeChange = function (a, b) {
+    Blockly.Events.ThemeChange.superClass_.constructor.call(this, b);
+    this.themeName = a;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.ThemeChange, Blockly.Events.UiBase);
+  Blockly.Events.ThemeChange.prototype.type = Blockly.Events.THEME_CHANGE;
+
+  Blockly.Events.ThemeChange.prototype.toJson = function () {
+    var a = Blockly.Events.ThemeChange.superClass_.toJson.call(this);
+    a.themeName = this.themeName;
+    return a;
+  };
+
+  Blockly.Events.ThemeChange.prototype.fromJson = function (a) {
+    Blockly.Events.ThemeChange.superClass_.fromJson.call(this, a);
+    this.themeName = a.themeName;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.THEME_CHANGE, Blockly.Events.ThemeChange);
+
+  Blockly.Events.ViewportChange = function (a, b, c, d, e) {
+    Blockly.Events.ViewportChange.superClass_.constructor.call(this, d);
+    this.viewTop = a;
+    this.viewLeft = b;
+    this.scale = c;
+    this.oldScale = e;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.ViewportChange, Blockly.Events.UiBase);
+  Blockly.Events.ViewportChange.prototype.type = Blockly.Events.VIEWPORT_CHANGE;
+
+  Blockly.Events.ViewportChange.prototype.toJson = function () {
+    var a = Blockly.Events.ViewportChange.superClass_.toJson.call(this);
+    a.viewTop = this.viewTop;
+    a.viewLeft = this.viewLeft;
+    a.scale = this.scale;
+    a.oldScale = this.oldScale;
+    return a;
+  };
+
+  Blockly.Events.ViewportChange.prototype.fromJson = function (a) {
+    Blockly.Events.ViewportChange.superClass_.fromJson.call(this, a);
+    this.viewTop = a.viewTop;
+    this.viewLeft = a.viewLeft;
+    this.scale = a.scale;
+    this.oldScale = a.oldScale;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.VIEWPORT_CHANGE, Blockly.Events.ViewportChange);
 
   Blockly.MarkerManager = function (a) {
     this.cursorSvg_ = this.cursor_ = null;
     this.markers_ = {};
     this.workspace_ = a;
   };
+
+  Blockly.MarkerManager.LOCAL_MARKER = "local_marker_1";
 
   Blockly.MarkerManager.prototype.registerMarker = function (a, b) {
     this.markers_[a] && this.unregisterMarker(a);
@@ -9946,6 +9494,303 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.markers_ = null;
     this.cursor_ && (this.cursor_.dispose(), this.cursor_ = null);
   };
+
+  Blockly.IMetricsManager = function () {};
+
+  Blockly.MetricsManager = function (a) {
+    this.workspace_ = a;
+  };
+
+  Blockly.MetricsManager.prototype.getDimensionsPx_ = function (a) {
+    var b = 0,
+        c = 0;
+    a && (b = a.getWidth(), c = a.getHeight());
+    return new Blockly.utils.Size(b, c);
+  };
+
+  Blockly.MetricsManager.prototype.getFlyoutMetrics = function (a) {
+    a = this.getDimensionsPx_(this.workspace_.getFlyout(a));
+    return {
+      width: a.width,
+      height: a.height,
+      position: this.workspace_.toolboxPosition
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getToolboxMetrics = function () {
+    var a = this.getDimensionsPx_(this.workspace_.getToolbox());
+    return {
+      width: a.width,
+      height: a.height,
+      position: this.workspace_.toolboxPosition
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getSvgMetrics = function () {
+    return this.workspace_.getCachedParentSvgSize();
+  };
+
+  Blockly.MetricsManager.prototype.getAbsoluteMetrics = function () {
+    var a = 0,
+        b = this.getToolboxMetrics(),
+        c = this.getFlyoutMetrics(!0),
+        d = !!this.workspace_.getToolbox(),
+        e = !!this.workspace_.getFlyout(!0),
+        f = d ? b.position : c.position,
+        g = f == Blockly.utils.toolbox.Position.LEFT;
+    f = f == Blockly.utils.toolbox.Position.TOP;
+    d && g ? a = b.width : e && g && (a = c.width);
+    g = 0;
+    d && f ? g = b.height : e && f && (g = c.height);
+    return {
+      top: g,
+      left: a
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getViewMetrics = function (a) {
+    a = a ? this.workspace_.scale : 1;
+    var b = this.getSvgMetrics(),
+        c = this.getToolboxMetrics(),
+        d = this.getFlyoutMetrics(!0),
+        e = this.workspace_.getToolbox() ? c.position : d.position;
+    if (this.workspace_.getToolbox()) {
+      if (e == Blockly.utils.toolbox.Position.TOP || e == Blockly.utils.toolbox.Position.BOTTOM) b.height -= c.height;else {
+        if (e == Blockly.utils.toolbox.Position.LEFT || e == Blockly.utils.toolbox.Position.RIGHT) b.width -= c.width;
+      }
+    } else if (this.workspace_.getFlyout(!0)) if (e == Blockly.utils.toolbox.Position.TOP || e == Blockly.utils.toolbox.Position.BOTTOM) b.height -= d.height;else if (e == Blockly.utils.toolbox.Position.LEFT || e == Blockly.utils.toolbox.Position.RIGHT) b.width -= d.width;
+    return {
+      height: b.height / a,
+      width: b.width / a,
+      top: -this.workspace_.scrollY / a,
+      left: -this.workspace_.scrollX / a
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getContentMetrics = function (a) {
+    a = a ? 1 : this.workspace_.scale;
+    var b = this.workspace_.getBlocksBoundingBox();
+    return {
+      height: (b.bottom - b.top) * a,
+      width: (b.right - b.left) * a,
+      top: b.top * a,
+      left: b.left * a
+    };
+  };
+
+  Blockly.MetricsManager.prototype.hasFixedEdges = function () {
+    return !this.workspace_.isMovableHorizontally() || !this.workspace_.isMovableVertically();
+  };
+
+  Blockly.MetricsManager.prototype.getComputedFixedEdges_ = function (a) {
+    if (!this.hasFixedEdges()) return {};
+    var b = this.workspace_.isMovableHorizontally(),
+        c = this.workspace_.isMovableVertically();
+    a = a || this.getViewMetrics(!1);
+    var d = {};
+    c || (d.top = a.top, d.bottom = a.top + a.height);
+    b || (d.left = a.left, d.right = a.left + a.width);
+    return d;
+  };
+
+  Blockly.MetricsManager.prototype.getPaddedContent_ = function (a, b) {
+    var c = b.top + b.height,
+        d = b.left + b.width,
+        e = a.width;
+    a = a.height;
+    var f = e / 2,
+        g = a / 2;
+    return {
+      top: Math.min(b.top - g, c - a),
+      bottom: Math.max(c + g, b.top + a),
+      left: Math.min(b.left - f, d - e),
+      right: Math.max(d + f, b.left + e)
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getScrollMetrics = function (a, b, c) {
+    a = a ? this.workspace_.scale : 1;
+    b = b || this.getViewMetrics(!1);
+    var d = c || this.getContentMetrics();
+    c = this.getComputedFixedEdges_(b);
+    b = this.getPaddedContent_(b, d);
+    d = void 0 !== c.top ? c.top : b.top;
+    var e = void 0 !== c.left ? c.left : b.left;
+    return {
+      top: d / a,
+      left: e / a,
+      width: ((void 0 !== c.right ? c.right : b.right) - e) / a,
+      height: ((void 0 !== c.bottom ? c.bottom : b.bottom) - d) / a
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getUiMetrics = function () {
+    return {
+      viewMetrics: this.getViewMetrics(),
+      absoluteMetrics: this.getAbsoluteMetrics(),
+      toolboxMetrics: this.getToolboxMetrics()
+    };
+  };
+
+  Blockly.MetricsManager.prototype.getMetrics = function () {
+    var a = this.getToolboxMetrics(),
+        b = this.getFlyoutMetrics(!0),
+        c = this.getSvgMetrics(),
+        d = this.getAbsoluteMetrics(),
+        e = this.getViewMetrics(),
+        f = this.getContentMetrics(),
+        g = this.getScrollMetrics(!1, e, f);
+    return {
+      contentHeight: f.height,
+      contentWidth: f.width,
+      contentTop: f.top,
+      contentLeft: f.left,
+      scrollHeight: g.height,
+      scrollWidth: g.width,
+      scrollTop: g.top,
+      scrollLeft: g.left,
+      viewHeight: e.height,
+      viewWidth: e.width,
+      viewTop: e.top,
+      viewLeft: e.left,
+      absoluteTop: d.top,
+      absoluteLeft: d.left,
+      svgHeight: c.height,
+      svgWidth: c.width,
+      toolboxWidth: a.width,
+      toolboxHeight: a.height,
+      toolboxPosition: a.position,
+      flyoutWidth: b.width,
+      flyoutHeight: b.height
+    };
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.METRICS_MANAGER, Blockly.registry.DEFAULT, Blockly.MetricsManager);
+
+  Blockly.FlyoutMetricsManager = function (a, b) {
+    this.flyout_ = b;
+    Blockly.FlyoutMetricsManager.superClass_.constructor.call(this, a);
+  };
+
+  Blockly.utils.object.inherits(Blockly.FlyoutMetricsManager, Blockly.MetricsManager);
+
+  Blockly.FlyoutMetricsManager.prototype.getBoundingBox_ = function () {
+    try {
+      var a = this.workspace_.getCanvas().getBBox();
+    } catch (b) {
+      a = {
+        height: 0,
+        y: 0,
+        width: 0,
+        x: 0
+      };
+    }
+
+    return a;
+  };
+
+  Blockly.FlyoutMetricsManager.prototype.getContentMetrics = function (a) {
+    var b = this.getBoundingBox_();
+    a = a ? 1 : this.workspace_.scale;
+    return {
+      height: b.height * a,
+      width: b.width * a,
+      top: b.y * a,
+      left: b.x * a
+    };
+  };
+
+  Blockly.FlyoutMetricsManager.prototype.getScrollMetrics = function (a, b, c) {
+    b = c || this.getContentMetrics();
+    c = this.flyout_.MARGIN * this.workspace_.scale;
+    a = a ? this.workspace_.scale : 1;
+    return {
+      height: (b.height + 2 * c) / a,
+      width: (b.width + b.left + c) / a,
+      top: 0,
+      left: 0
+    };
+  };
+
+  Blockly.FlyoutMetricsManager.prototype.getViewMetrics = function (a) {
+    var b = this.getSvgMetrics();
+    a = a ? this.workspace_.scale : 1;
+
+    if (this.flyout_.horizontalLayout) {
+      var c = b.width - 2 * this.flyout_.SCROLLBAR_PADDING;
+      b = b.height - this.flyout_.SCROLLBAR_PADDING;
+    } else c = b.width - this.flyout_.SCROLLBAR_PADDING, b = b.height - 2 * this.flyout_.SCROLLBAR_PADDING;
+
+    return {
+      height: b / a,
+      width: c / a,
+      top: -this.workspace_.scrollY / a,
+      left: -this.workspace_.scrollX / a
+    };
+  };
+
+  Blockly.FlyoutMetricsManager.prototype.getAbsoluteMetrics = function () {
+    var a = this.flyout_.SCROLLBAR_PADDING;
+    return this.flyout_.horizontalLayout ? {
+      top: 0,
+      left: a
+    } : {
+      top: a,
+      left: 0
+    };
+  };
+
+  Blockly.PluginManager = function () {
+    this.pluginData_ = {};
+    this.typeToPluginIds_ = {};
+  };
+
+  Blockly.PluginManager.prototype.addPlugin = function (a) {
+    this.pluginData_[a.id] = a;
+
+    for (var b = 0, c; c = a.types[b]; b++) {
+      c = String(c).toLowerCase(), void 0 === this.typeToPluginIds_[c] ? this.typeToPluginIds_[c] = [a.id] : this.typeToPluginIds_[c].push(a.id);
+    }
+  };
+
+  Blockly.PluginManager.prototype.getPlugin = function (a) {
+    return this.pluginData_[a] && this.pluginData_[a].plugin;
+  };
+
+  Blockly.PluginManager.prototype.getPlugins = function (a, b) {
+    a = String(a).toLowerCase();
+    a = this.typeToPluginIds_[a];
+    if (!a) return [];
+    var c = [];
+
+    if (b) {
+      var d = [],
+          e = this.pluginData_;
+      a.forEach(function (f) {
+        d.push(e[f]);
+      });
+      d.sort(function (f, g) {
+        return f.weight - g.weight;
+      });
+      d.forEach(function (f) {
+        c.push(f.plugin);
+      });
+    } else e = this.pluginData_, a.forEach(function (f) {
+      c.push(e[f].plugin);
+    });
+
+    return c;
+  };
+
+  Blockly.PluginManager.Type = function (a) {
+    this.name_ = a;
+  };
+
+  Blockly.PluginManager.Type.prototype.toString = function () {
+    return this.name_;
+  };
+
+  Blockly.PluginManager.Type.POSITIONABLE = new Blockly.PluginManager.Type("positionable");
 
   Blockly.ThemeManager = function (a, b) {
     this.workspace_ = a;
@@ -10035,9 +9880,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.TouchGesture.prototype.bindMouseEvents = function (a) {
-    this.onStartWrapper_ = Blockly.bindEventWithChecks_(document, "mousedown", null, this.handleStart.bind(this), !0);
-    this.onMoveWrapper_ = Blockly.bindEventWithChecks_(document, "mousemove", null, this.handleMove.bind(this), !0);
-    this.onUpWrapper_ = Blockly.bindEventWithChecks_(document, "mouseup", null, this.handleUp.bind(this), !0);
+    this.onStartWrapper_ = Blockly.browserEvents.conditionalBind(document, "mousedown", null, this.handleStart.bind(this), !0);
+    this.onMoveWrapper_ = Blockly.browserEvents.conditionalBind(document, "mousemove", null, this.handleMove.bind(this), !0);
+    this.onUpWrapper_ = Blockly.browserEvents.conditionalBind(document, "mouseup", null, this.handleUp.bind(this), !0);
     a.preventDefault();
     a.stopPropagation();
   };
@@ -10061,7 +9906,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.TouchGesture.prototype.dispose = function () {
     Blockly.TouchGesture.superClass_.dispose.call(this);
-    this.onStartWrapper_ && Blockly.unbindEvent_(this.onStartWrapper_);
+    this.onStartWrapper_ && Blockly.browserEvents.unbind(this.onStartWrapper_);
   };
 
   Blockly.TouchGesture.prototype.handleTouchStart = function (a) {
@@ -10154,8 +9999,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.WorkspaceSvg = function (a, b, c) {
     Blockly.WorkspaceSvg.superClass_.constructor.call(this, a);
-    this.getMetrics = a.getMetrics || Blockly.WorkspaceSvg.getTopLevelWorkspaceMetrics_;
+    this.metricsManager_ = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.METRICS_MANAGER, a, !0))(this);
+    this.getMetrics = a.getMetrics || this.metricsManager_.getMetrics.bind(this.metricsManager_);
     this.setMetrics = a.setMetrics || Blockly.WorkspaceSvg.setTopLevelWorkspaceMetrics_;
+    this.pluginManager_ = new Blockly.PluginManager();
     this.connectionDBList = Blockly.ConnectionDB.init(this.connectionChecker);
     b && (this.blockDragSurface_ = b);
     c && (this.workspaceDragSurface_ = c);
@@ -10175,6 +10022,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.cachedParentSvg_ = null;
     this.keyboardAccessibilityMode = !1;
     this.topBoundedElements_ = [];
+    this.cachedParentSvgSize_ = new Blockly.utils.Size(0, 0);
   };
 
   Blockly.utils.object.inherits(Blockly.WorkspaceSvg, Blockly.Workspace);
@@ -10190,6 +10038,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.WorkspaceSvg.prototype.startScrollY = 0;
   Blockly.WorkspaceSvg.prototype.dragDeltaXY_ = null;
   Blockly.WorkspaceSvg.prototype.scale = 1;
+  Blockly.WorkspaceSvg.prototype.oldScale_ = 1;
+  Blockly.WorkspaceSvg.prototype.oldTop_ = 0;
+  Blockly.WorkspaceSvg.prototype.oldLeft_ = 0;
   Blockly.WorkspaceSvg.prototype.trashcan = null;
   Blockly.WorkspaceSvg.prototype.scrollbar = null;
   Blockly.WorkspaceSvg.prototype.flyout_ = null;
@@ -10207,6 +10058,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.WorkspaceSvg.prototype.getMarkerManager = function () {
     return this.markerManager_;
+  };
+
+  Blockly.WorkspaceSvg.prototype.getMetricsManager = function () {
+    return this.metricsManager_;
+  };
+
+  Blockly.WorkspaceSvg.prototype.setMetricsManager = function (a) {
+    this.metricsManager_ = a;
+    this.getMetrics = this.metricsManager_.getMetrics.bind(this.metricsManager_);
+  };
+
+  Blockly.WorkspaceSvg.prototype.getPluginManager = function () {
+    return this.pluginManager_;
   };
 
   Blockly.WorkspaceSvg.prototype.setCursorSvg = function (a) {
@@ -10250,8 +10114,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.refreshToolboxSelection();
     this.toolbox_ && this.toolbox_.refreshTheme();
     this.isVisible() && this.setVisible(!0);
-    var a = new Blockly.Events.Ui(null, "theme", null, null);
-    a.workspaceId = this.id;
+    var a = new (Blockly.Events.get(Blockly.Events.THEME_CHANGE))(this.getTheme().name, this.id);
     Blockly.Events.fire(a);
   };
 
@@ -10296,6 +10159,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return new Blockly.utils.Coordinate(b, c);
   };
 
+  Blockly.WorkspaceSvg.prototype.getCachedParentSvgSize = function () {
+    var a = this.cachedParentSvgSize_;
+    return new Blockly.utils.Size(a.width, a.height);
+  };
+
   Blockly.WorkspaceSvg.prototype.getOriginOffsetInPixels = function () {
     return Blockly.utils.getInjectionDivXY_(this.getCanvas());
   };
@@ -10335,17 +10203,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.svgBubbleCanvas_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.G, {
       "class": "blocklyBubbleCanvas"
     }, this.svgGroup_);
-    this.isFlyout || (Blockly.bindEventWithChecks_(this.svgGroup_, "mousedown", this, this.onMouseDown_, !1, !0), Blockly.bindEventWithChecks_(this.svgGroup_, "wheel", this, this.onMouseWheel_));
-
-    if (this.options.hasCategories) {
-      if (!Blockly.Toolbox) throw Error("Missing require for Blockly.Toolbox");
-      this.toolbox_ = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.TOOLBOX, this.options))(this);
-    }
-
+    this.isFlyout || (Blockly.browserEvents.conditionalBind(this.svgGroup_, "mousedown", this, this.onMouseDown_, !1, !0), Blockly.browserEvents.conditionalBind(this.svgGroup_, "wheel", this, this.onMouseWheel_));
+    this.options.hasCategories && (this.toolbox_ = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.TOOLBOX, this.options, !0))(this));
     this.grid_ && this.grid_.update(this.scale);
     this.recordDeleteAreas();
-    this.markerManager_.setCursor(new Blockly.Cursor());
-    this.markerManager_.registerMarker(Blockly.navigation.MARKER_NAME, new Blockly.Marker());
+    (a = Blockly.registry.getClassFromOptions(Blockly.registry.Type.CURSOR, this.options)) && this.markerManager_.setCursor(new a());
     this.renderer_.createDom(this.svgGroup_, this.getTheme());
     return this.svgGroup_;
   };
@@ -10373,7 +10235,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       a && a.parentNode && Blockly.utils.dom.removeNode(a.parentNode);
     }
 
-    this.resizeHandlerWrapper_ && (Blockly.unbindEvent_(this.resizeHandlerWrapper_), this.resizeHandlerWrapper_ = null);
+    this.resizeHandlerWrapper_ && (Blockly.browserEvents.unbind(this.resizeHandlerWrapper_), this.resizeHandlerWrapper_ = null);
   };
 
   Blockly.WorkspaceSvg.prototype.newBlock = function (a, b) {
@@ -10385,6 +10247,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.trashcan = new Blockly.Trashcan(this);
     var a = this.trashcan.createDom();
     this.svgGroup_.insertBefore(a, this.svgBlockCanvas_);
+    this.pluginManager_.addPlugin({
+      id: "trashcan",
+      plugin: this.trashcan,
+      weight: 1,
+      types: [Blockly.PluginManager.Type.POSITIONABLE]
+    });
   };
 
   Blockly.WorkspaceSvg.prototype.addZoomControls = function () {
@@ -10392,6 +10260,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.zoomControls_ = new Blockly.ZoomControls(this);
     var a = this.zoomControls_.createDom();
     this.svgGroup_.appendChild(a);
+    this.pluginManager_.addPlugin({
+      id: "zoomControls",
+      plugin: this.zoomControls_,
+      weight: 2,
+      types: [Blockly.PluginManager.Type.POSITIONABLE]
+    });
   };
 
   Blockly.WorkspaceSvg.prototype.addFlyout = function (a) {
@@ -10401,18 +10275,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       oneBasedIndex: this.options.oneBasedIndex,
       horizontalLayout: this.horizontalLayout,
       renderer: this.options.renderer,
-      rendererOverrides: this.options.rendererOverrides
+      rendererOverrides: this.options.rendererOverrides,
+      move: {
+        scrollbars: !0
+      }
     });
     b.toolboxPosition = this.options.toolboxPosition;
-
-    if (this.horizontalLayout) {
-      if (!Blockly.HorizontalFlyout) throw Error("Missing require for Blockly.HorizontalFlyout");
-      this.flyout_ = new Blockly.HorizontalFlyout(b);
-    } else {
-      if (!Blockly.VerticalFlyout) throw Error("Missing require for Blockly.VerticalFlyout");
-      this.flyout_ = new Blockly.VerticalFlyout(b);
-    }
-
+    this.flyout_ = this.horizontalLayout ? new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_HORIZONTAL_TOOLBOX, this.options, !0))(b) : new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_VERTICAL_TOOLBOX, this.options, !0))(b);
     this.flyout_.autoClose = !1;
     this.flyout_.getWorkspace().setVisible(!0);
     return this.flyout_.createDom(a);
@@ -10438,8 +10307,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.WorkspaceSvg.prototype.resize = function () {
     this.toolbox_ && this.toolbox_.position();
     this.flyout_ && this.flyout_.position();
-    this.trashcan && this.trashcan.position();
-    this.zoomControls_ && this.zoomControls_.position();
+
+    for (var a = this.pluginManager_.getPlugins(Blockly.PluginManager.Type.POSITIONABLE, !0), b = this.getMetricsManager().getUiMetrics(), c = [], d = 0, e; e = a[d]; d++) {
+      e.position(b, c), c.push(e.getBoundingRectangle());
+    }
+
     this.scrollbar && this.scrollbar.resize();
     this.updateScreenCalculations_();
   };
@@ -10451,6 +10323,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.WorkspaceSvg.prototype.getCanvas = function () {
     return this.svgBlockCanvas_;
+  };
+
+  Blockly.WorkspaceSvg.prototype.setCachedParentSvgSize = function (a, b) {
+    var c = this.getParentSvg();
+    a && (this.cachedParentSvgSize_.width = a, c.cachedWidth_ = a);
+    b && (this.cachedParentSvgSize_.height = b, c.cachedHeight_ = b);
   };
 
   Blockly.WorkspaceSvg.prototype.getBubbleCanvas = function () {
@@ -10469,7 +10347,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.cachedParentSvg_;
   };
 
-  Blockly.WorkspaceSvg.prototype.maybeFireViewportChangeEvent = function () {};
+  Blockly.WorkspaceSvg.prototype.maybeFireViewportChangeEvent = function () {
+    if (Blockly.Events.isEnabled()) {
+      var a = this.scale,
+          b = -this.scrollY,
+          c = -this.scrollX;
+
+      if (!(a == this.oldScale_ && 1 > Math.abs(b - this.oldTop_) && 1 > Math.abs(c - this.oldLeft_))) {
+        var d = new (Blockly.Events.get(Blockly.Events.VIEWPORT_CHANGE))(b, c, a, this.id, this.oldScale_);
+        this.oldScale_ = a;
+        this.oldTop_ = b;
+        this.oldLeft_ = c;
+        Blockly.Events.fire(d);
+      }
+    }
+  };
 
   Blockly.WorkspaceSvg.prototype.translate = function (a, b) {
     if (this.useWorkspaceDragSurface_ && this.isDragSurfaceActive_) this.workspaceDragSurface_.translateSurface(a, b);else {
@@ -10560,56 +10452,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     try {
       var b = Blockly.Xml.domToBlock(a, this),
-          c = this.getMarker(Blockly.navigation.MARKER_NAME).getCurNode();
+          c = parseInt(a.getAttribute("x"), 10),
+          d = parseInt(a.getAttribute("y"), 10);
 
-      if (this.keyboardAccessibilityMode && c && c.isConnection()) {
-        var d = c.getLocation();
-        Blockly.navigation.insertBlock(b, d);
-        return;
-      }
-
-      var e = parseInt(a.getAttribute("x"), 10),
-          f = parseInt(a.getAttribute("y"), 10);
-
-      if (!isNaN(e) && !isNaN(f)) {
-        this.RTL && (e = -e);
+      if (!isNaN(c) && !isNaN(d)) {
+        this.RTL && (c = -c);
 
         do {
           a = !1;
-          var g = this.getAllBlocks(!1);
-          c = 0;
 
-          for (var h; h = g[c]; c++) {
-            var k = h.getRelativeToSurfaceXY();
+          for (var e = this.getAllBlocks(!1), f = 0, g; g = e[f]; f++) {
+            var h = g.getRelativeToSurfaceXY();
 
-            if (1 >= Math.abs(e - k.x) && 1 >= Math.abs(f - k.y)) {
+            if (1 >= Math.abs(c - h.x) && 1 >= Math.abs(d - h.y)) {
               a = !0;
               break;
             }
           }
 
           if (!a) {
-            var l = b.getConnections_(!1);
-            c = 0;
+            var k = b.getConnections_(!1);
+            f = 0;
 
-            for (var m; m = l[c]; c++) {
-              if (m.closest(Blockly.SNAP_RADIUS, new Blockly.utils.Coordinate(e, f)).connection) {
+            for (var l; l = k[f]; f++) {
+              if (l.closest(Blockly.SNAP_RADIUS, new Blockly.utils.Coordinate(c, d)).connection) {
                 a = !0;
                 break;
               }
             }
           }
 
-          a && (e = this.RTL ? e - Blockly.SNAP_RADIUS : e + Blockly.SNAP_RADIUS, f += 2 * Blockly.SNAP_RADIUS);
+          a && (c = this.RTL ? c - Blockly.SNAP_RADIUS : c + Blockly.SNAP_RADIUS, d += 2 * Blockly.SNAP_RADIUS);
         } while (a);
 
-        b.moveBy(e, f);
+        b.moveBy(c, d);
       }
     } finally {
       Blockly.Events.enable();
     }
 
-    Blockly.Events.isEnabled() && !b.isShadow() && Blockly.Events.fire(new Blockly.Events.BlockCreate(b));
+    Blockly.Events.isEnabled() && !b.isShadow() && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CREATE))(b));
     b.select();
   };
 
@@ -10625,7 +10507,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       Blockly.Events.enable();
     }
 
-    Blockly.Events.isEnabled();
+    Blockly.Events.isEnabled() && Blockly.WorkspaceComment.fireCreateEvent(b);
     b.select();
   };
 
@@ -10686,12 +10568,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.options.moveOptions && this.options.moveOptions.drag;
   };
 
-  Blockly.WorkspaceSvg.prototype.isContentBounded = function () {
-    return this.options.moveOptions && this.options.moveOptions.scrollbars || this.options.moveOptions && this.options.moveOptions.wheel || this.options.moveOptions && this.options.moveOptions.drag || this.options.zoomOptions && this.options.zoomOptions.controls || this.options.zoomOptions && this.options.zoomOptions.wheel || this.options.zoomOptions && this.options.zoomOptions.pinch;
+  Blockly.WorkspaceSvg.prototype.isMovable = function () {
+    return this.options.moveOptions && !!this.options.moveOptions.scrollbars || this.options.moveOptions && this.options.moveOptions.wheel || this.options.moveOptions && this.options.moveOptions.drag || this.options.zoomOptions && this.options.zoomOptions.wheel || this.options.zoomOptions && this.options.zoomOptions.pinch;
   };
 
-  Blockly.WorkspaceSvg.prototype.isMovable = function () {
-    return this.options.moveOptions && this.options.moveOptions.scrollbars || this.options.moveOptions && this.options.moveOptions.wheel || this.options.moveOptions && this.options.moveOptions.drag || this.options.zoomOptions && this.options.zoomOptions.wheel || this.options.zoomOptions && this.options.zoomOptions.pinch;
+  Blockly.WorkspaceSvg.prototype.isMovableHorizontally = function () {
+    var a = !!this.scrollbar;
+    return this.isMovable() && (!a || a && this.scrollbar.canScrollHorizontally());
+  };
+
+  Blockly.WorkspaceSvg.prototype.isMovableVertically = function () {
+    var a = !!this.scrollbar;
+    return this.isMovable() && (!a || a && this.scrollbar.canScrollVertically());
   };
 
   Blockly.WorkspaceSvg.prototype.onMouseWheel_ = function (a) {
@@ -10712,11 +10600,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!a.length) return new Blockly.utils.Rect(0, 0, 0, 0);
 
     for (var b = a[0].getBoundingRectangle(), c = 1; c < a.length; c++) {
-      var d = a[c].getBoundingRectangle();
-      d.top < b.top && (b.top = d.top);
-      d.bottom > b.bottom && (b.bottom = d.bottom);
-      d.left < b.left && (b.left = d.left);
-      d.right > b.right && (b.right = d.right);
+      var d = a[c];
+      d.isInsertionMarker && d.isInsertionMarker() || (d = d.getBoundingRectangle(), d.top < b.top && (b.top = d.top), d.bottom > b.bottom && (b.bottom = d.bottom), d.left < b.left && (b.left = d.left), d.right > b.right && (b.right = d.right));
     }
 
     return b;
@@ -10770,7 +10655,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.WorkspaceSvg.prototype.setBrowserFocus = function () {
-    document.activeElement && document.activeElement.blur();
+    document.activeElement && document.activeElement.blur && document.activeElement.blur();
 
     try {
       this.getParentSvg().focus({
@@ -10857,10 +10742,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.WorkspaceSvg.prototype.scrollCenter = function () {
     if (this.isMovable()) {
       var a = this.getMetrics(),
-          b = (a.contentWidth - a.viewWidth) / 2,
-          c = (a.contentHeight - a.viewHeight) / 2;
-      b = -b - a.contentLeft;
-      c = -c - a.contentTop;
+          b = (a.scrollWidth - a.viewWidth) / 2,
+          c = (a.scrollHeight - a.viewHeight) / 2;
+      b = -b - a.scrollLeft;
+      c = -c - a.scrollTop;
       this.scroll(b, c);
     } else console.warn("Tried to move a non-movable workspace. This could result in blocks becoming inaccessible.");
   };
@@ -10891,7 +10776,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     a.viewLeft += a.absoluteLeft;
     a.viewTop += a.absoluteTop;
     this.scroll(this.scrollX, this.scrollY);
-    this.scrollbar && (this.flyout_ ? (this.scrollbar.hScroll.resizeViewHorizontal(a), this.scrollbar.vScroll.resizeViewVertical(a)) : (this.scrollbar.hScroll.resizeContentHorizontal(a), this.scrollbar.vScroll.resizeContentVertical(a)));
+    this.scrollbar && (this.flyout_ ? this.scrollbar.resizeView(a) : this.scrollbar.resizeContent(a));
   };
 
   Blockly.WorkspaceSvg.prototype.getScale = function () {
@@ -10900,108 +10785,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.WorkspaceSvg.prototype.scroll = function (a, b) {
     Blockly.hideChaff(!0);
-    var c = this.getMetrics(),
-        d = c.contentWidth + c.contentLeft - c.viewWidth,
-        e = c.contentHeight + c.contentTop - c.viewHeight;
-    a = Math.min(a, -c.contentLeft);
-    b = Math.min(b, -c.contentTop);
-    a = Math.max(a, -d);
-    b = Math.max(b, -e);
+    var c = this.getMetrics();
+    a = Math.min(a, -c.scrollLeft);
+    b = Math.min(b, -c.scrollTop);
+    var d = c.scrollTop + Math.max(0, c.scrollHeight - c.viewHeight);
+    a = Math.max(a, -(c.scrollLeft + Math.max(0, c.scrollWidth - c.viewWidth)));
+    b = Math.max(b, -d);
     this.scrollX = a;
     this.scrollY = b;
-    this.scrollbar && (this.scrollbar.hScroll.setHandlePosition(-(a + c.contentLeft) * this.scrollbar.hScroll.ratio), this.scrollbar.vScroll.setHandlePosition(-(b + c.contentTop) * this.scrollbar.vScroll.ratio));
+    this.scrollbar && this.scrollbar.set(-(a + c.scrollLeft), -(b + c.scrollTop), !1);
     a += c.absoluteLeft;
     b += c.absoluteTop;
     this.translate(a, b);
   };
 
-  Blockly.WorkspaceSvg.getDimensionsPx_ = function (a) {
-    var b = 0,
-        c = 0;
-    a && (b = a.getWidth(), c = a.getHeight());
-    return new Blockly.utils.Size(b, c);
-  };
-
-  Blockly.WorkspaceSvg.getContentDimensions_ = function (a, b) {
-    return a.isContentBounded() ? Blockly.WorkspaceSvg.getContentDimensionsBounded_(a, b) : Blockly.WorkspaceSvg.getContentDimensionsExact_(a);
-  };
-
-  Blockly.WorkspaceSvg.getContentDimensionsExact_ = function (a) {
-    var b = a.getBlocksBoundingBox(),
-        c = a.scale;
-    a = b.top * c;
-    var d = b.bottom * c,
-        e = b.left * c;
-    b = b.right * c;
-    return {
-      top: a,
-      bottom: d,
-      left: e,
-      right: b,
-      width: b - e,
-      height: d - a
-    };
-  };
-
-  Blockly.WorkspaceSvg.getContentDimensionsBounded_ = function (a, b) {
-    a = Blockly.WorkspaceSvg.getContentDimensionsExact_(a);
-    var c = b.width;
-    b = b.height;
-    var d = c / 2,
-        e = b / 2,
-        f = Math.min(a.left - d, a.right - c),
-        g = Math.min(a.top - e, a.bottom - b);
-    return {
-      left: f,
-      top: g,
-      height: Math.max(a.bottom + e, a.top + b) - g,
-      width: Math.max(a.right + d, a.left + c) - f
-    };
-  };
-
-  Blockly.WorkspaceSvg.getTopLevelWorkspaceMetrics_ = function () {
-    var a = Blockly.WorkspaceSvg.getDimensionsPx_(this.toolbox_),
-        b = Blockly.WorkspaceSvg.getDimensionsPx_(this.flyout_),
-        c = Blockly.svgSize(this.getParentSvg()),
-        d = {
-      height: c.height,
-      width: c.width
-    };
-    if (this.toolbox_) {
-      if (this.toolboxPosition == Blockly.TOOLBOX_AT_TOP || this.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM) d.height -= a.height;else {
-        if (this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT || this.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT) d.width -= a.width;
-      }
-    } else if (this.flyout_) if (this.toolboxPosition == Blockly.TOOLBOX_AT_TOP || this.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM) d.height -= b.height;else if (this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT || this.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT) d.width -= b.width;
-    var e = Blockly.WorkspaceSvg.getContentDimensions_(this, d),
-        f = 0;
-    this.toolbox_ && this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT ? f = a.width : this.flyout_ && this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT && (f = b.width);
-    var g = 0;
-    this.toolbox_ && this.toolboxPosition == Blockly.TOOLBOX_AT_TOP ? g = a.height : this.flyout_ && this.toolboxPosition == Blockly.TOOLBOX_AT_TOP && (g = b.height);
-    return {
-      contentHeight: e.height,
-      contentWidth: e.width,
-      contentTop: e.top,
-      contentLeft: e.left,
-      viewHeight: d.height,
-      viewWidth: d.width,
-      viewTop: -this.scrollY,
-      viewLeft: -this.scrollX,
-      absoluteTop: g,
-      absoluteLeft: f,
-      svgHeight: c.height,
-      svgWidth: c.width,
-      toolboxWidth: a.width,
-      toolboxHeight: a.height,
-      toolboxPosition: this.toolboxPosition,
-      flyoutWidth: b.width,
-      flyoutHeight: b.height
-    };
-  };
-
   Blockly.WorkspaceSvg.setTopLevelWorkspaceMetrics_ = function (a) {
     var b = this.getMetrics();
-    "number" == typeof a.x && (this.scrollX = -b.contentWidth * a.x - b.contentLeft);
-    "number" == typeof a.y && (this.scrollY = -b.contentHeight * a.y - b.contentTop);
+    "number" == typeof a.x && (this.scrollX = -(b.scrollLeft + (b.scrollWidth - b.viewWidth) * a.x));
+    "number" == typeof a.y && (this.scrollY = -(b.scrollTop + (b.scrollHeight - b.viewHeight) * a.y));
     this.translate(this.scrollX + b.absoluteLeft, this.scrollY + b.absoluteTop);
   };
 
@@ -11120,7 +10921,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var d = new Blockly.BlockDragSurfaceSvg(c),
         e = new Blockly.WorkspaceDragSurfaceSvg(c),
         f = Blockly.createMainWorkspace_(a, b, d, e);
-    Blockly.user.keyMap.setKeyMap(b.keyMap);
     Blockly.init_(f);
     Blockly.mainWorkspace = f;
     Blockly.svgResize(f);
@@ -11132,7 +10932,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.createDom_ = function (a, b) {
     a.setAttribute("dir", "LTR");
-    Blockly.Component.defaultRightToLeft = b.RTL;
     Blockly.Css.inject(b.hasCss, b.pathToMedia);
     a = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.SVG, {
       xmlns: Blockly.utils.dom.SVG_NS,
@@ -11150,80 +10949,91 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.createMainWorkspace_ = function (a, b, c, d) {
     b.parentWorkspace = null;
-    var e = new Blockly.WorkspaceSvg(b, c, d);
-    b = e.options;
-    e.scale = b.zoomOptions.startScale;
-    a.appendChild(e.createDom("blocklyMainBackground"));
-    Blockly.utils.dom.addClass(e.getInjectionDiv(), e.getRenderer().getClassName());
-    Blockly.utils.dom.addClass(e.getInjectionDiv(), e.getTheme().getClassName());
-    !b.hasCategories && b.languageTree && (c = e.addFlyout(Blockly.utils.Svg.SVG), Blockly.utils.dom.insertAfter(c, a));
-    b.hasTrashcan && e.addTrashcan();
-    b.zoomOptions && b.zoomOptions.controls && e.addZoomControls();
-    e.getThemeManager().subscribe(a, "workspaceBackgroundColour", "background-color");
-    e.translate(0, 0);
-    b.readOnly || e.isMovable() || e.addChangeListener(function (f) {
-      if (!e.isDragging() && !e.isMovable() && -1 != Blockly.Events.BUMP_EVENTS.indexOf(f.type)) {
-        var g = Object.create(null),
-            h = e.getMetrics(),
-            k = e.scale;
-        g.RTL = e.RTL;
-        g.viewLeft = h.viewLeft / k;
-        g.viewTop = h.viewTop / k;
-        g.viewRight = (h.viewLeft + h.viewWidth) / k;
-        g.viewBottom = (h.viewTop + h.viewHeight) / k;
-        e.isContentBounded() ? (h = e.getBlocksBoundingBox(), g.contentLeft = h.left, g.contentTop = h.top, g.contentRight = h.right, g.contentBottom = h.bottom) : (g.contentLeft = h.contentLeft / k, g.contentTop = h.contentTop / k, g.contentRight = (h.contentLeft + h.contentWidth) / k, g.contentBottom = (h.contentTop + h.contentHeight) / k);
-
-        if (g.contentTop < g.viewTop || g.contentBottom > g.viewBottom || g.contentLeft < g.viewLeft || g.contentRight > g.viewRight) {
-          h = null;
-          f && (h = Blockly.Events.getGroup(), Blockly.Events.setGroup(f.group));
-
-          switch (f.type) {
-            case Blockly.Events.BLOCK_CREATE:
-            case Blockly.Events.BLOCK_MOVE:
-              var l = e.getBlockById(f.blockId);
-              l && (l = l.getRootBlock());
-              break;
-
-            case Blockly.Events.COMMENT_CREATE:
-            case Blockly.Events.COMMENT_MOVE:
-              l = e.getCommentById(f.commentId);
-          }
-
-          if (l) {
-            k = l.getBoundingRectangle();
-            k.height = k.bottom - k.top;
-            k.width = k.right - k.left;
-            var m = g.viewTop,
-                n = g.viewBottom - k.height;
-            n = Math.max(m, n);
-            m = Blockly.utils.math.clamp(m, k.top, n) - k.top;
-            n = g.viewLeft;
-            var p = g.viewRight - k.width;
-            g.RTL ? n = Math.min(p, n) : p = Math.max(n, p);
-            g = Blockly.utils.math.clamp(n, k.left, p) - k.left;
-            l.moveBy(g, m);
-          }
-
-          f && (!f.group && l && console.warn("Moved object in bounds but there was no event group. This may break undo."), null !== h && Blockly.Events.setGroup(h));
-        }
-      }
-    });
-    Blockly.svgResize(e);
+    b = new Blockly.WorkspaceSvg(b, c, d);
+    c = b.options;
+    b.scale = c.zoomOptions.startScale;
+    a.appendChild(b.createDom("blocklyMainBackground"));
+    Blockly.utils.dom.addClass(b.getInjectionDiv(), b.getRenderer().getClassName());
+    Blockly.utils.dom.addClass(b.getInjectionDiv(), b.getTheme().getClassName());
+    !c.hasCategories && c.languageTree && (d = b.addFlyout(Blockly.utils.Svg.SVG), Blockly.utils.dom.insertAfter(d, a));
+    c.hasTrashcan && b.addTrashcan();
+    c.zoomOptions && c.zoomOptions.controls && b.addZoomControls();
+    b.getThemeManager().subscribe(a, "workspaceBackgroundColour", "background-color");
+    b.translate(0, 0);
+    b.addChangeListener(Blockly.bumpIntoBoundsHandler_(b));
+    Blockly.svgResize(b);
     Blockly.WidgetDiv.createDom();
     Blockly.DropDownDiv.createDom();
     Blockly.Tooltip.createDom();
-    return e;
+    return b;
+  };
+
+  Blockly.extractObjectFromEvent_ = function (a, b) {
+    var c = null;
+
+    switch (b.type) {
+      case Blockly.Events.BLOCK_CREATE:
+      case Blockly.Events.BLOCK_MOVE:
+        (c = a.getBlockById(b.blockId)) && (c = c.getRootBlock());
+        break;
+
+      case Blockly.Events.COMMENT_CREATE:
+      case Blockly.Events.COMMENT_MOVE:
+        c = a.getCommentById(b.commentId);
+    }
+
+    return c;
+  };
+
+  Blockly.bumpTopObjectsIntoBounds_ = function (a) {
+    var b = a.getMetricsManager();
+
+    if (b.hasFixedEdges() && !a.isDragging()) {
+      b = b.getScrollMetrics(!0);
+
+      for (var c = a.getTopBoundedElements(), d = 0, e; e = c[d]; d++) {
+        Blockly.bumpObjectIntoBounds_(a, b, e);
+      }
+    }
+  };
+
+  Blockly.bumpIntoBoundsHandler_ = function (a) {
+    return function (b) {
+      var c = a.getMetricsManager();
+      if (c.hasFixedEdges && !a.isDragging()) if (-1 !== Blockly.Events.BUMP_EVENTS.indexOf(b.type)) {
+        c = c.getScrollMetrics(!0);
+        var d = Blockly.extractObjectFromEvent_(a, b);
+
+        if (d) {
+          var e = Blockly.Events.getGroup();
+          Blockly.Events.setGroup(b.group);
+          Blockly.bumpObjectIntoBounds_(a, c, d) && !b.group && console.warn("Moved object in bounds but there was no event group. This may break undo.");
+          null !== e && Blockly.Events.setGroup(e);
+        }
+      } else b.type === Blockly.Events.VIEWPORT_CHANGE && b.scale > b.oldScale && Blockly.bumpTopObjectsIntoBounds_(a);
+    };
+  };
+
+  Blockly.bumpObjectIntoBounds_ = function (a, b, c) {
+    var d = c.getBoundingRectangle(),
+        e = d.right - d.left,
+        f = Blockly.utils.math.clamp(b.top, d.top, b.top + b.height - (d.bottom - d.top)) - d.top,
+        g = b.left;
+    b = b.left + b.width - e;
+    a.RTL ? g = Math.min(b, g) : b = Math.max(g, b);
+    return (a = Blockly.utils.math.clamp(g, d.left, b) - d.left) || f ? (c.moveBy(a, f), !0) : !1;
   };
 
   Blockly.init_ = function (a) {
     var b = a.options,
         c = a.getParentSvg();
-    Blockly.bindEventWithChecks_(c.parentNode, "contextmenu", null, function (e) {
+    Blockly.browserEvents.conditionalBind(c.parentNode, "contextmenu", null, function (e) {
       Blockly.utils.isTargetInput(e) || e.preventDefault();
     });
-    c = Blockly.bindEventWithChecks_(window, "resize", null, function () {
+    c = Blockly.browserEvents.conditionalBind(window, "resize", null, function () {
       Blockly.hideChaff(!0);
       Blockly.svgResize(a);
+      Blockly.bumpTopObjectsIntoBounds_(a);
     });
     a.setResizeHandlerWrapper(c);
     Blockly.inject.bindDocumentEvents_();
@@ -11237,7 +11047,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     c = Blockly.Scrollbar.scrollbarThickness;
     b.hasTrashcan && (c = a.trashcan.init(c));
     b.zoomOptions && b.zoomOptions.controls && a.zoomControls_.init(c);
-    b.moveOptions && b.moveOptions.scrollbars ? (a.scrollbar = new Blockly.ScrollbarPair(a), a.scrollbar.resize()) : a.setMetrics({
+    b.moveOptions && b.moveOptions.scrollbars ? (a.scrollbar = new Blockly.ScrollbarPair(a, !0 === b.moveOptions.scrollbars || !!b.moveOptions.scrollbars.horizontal, !0 === b.moveOptions.scrollbars || !!b.moveOptions.scrollbars.vertical, "blocklyMainWorkspaceScrollbar"), a.scrollbar.resize()) : a.setMetrics({
       x: .5,
       y: .5
     });
@@ -11245,11 +11055,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.inject.bindDocumentEvents_ = function () {
-    Blockly.documentEventsBound_ || (Blockly.bindEventWithChecks_(document, "scroll", null, function () {
+    Blockly.documentEventsBound_ || (Blockly.browserEvents.conditionalBind(document, "scroll", null, function () {
       for (var a = Blockly.Workspace.getAll(), b = 0, c; c = a[b]; b++) {
         c.updateInverseScreenCTM && c.updateInverseScreenCTM();
       }
-    }), Blockly.bindEventWithChecks_(document, "keydown", null, Blockly.onKeyDown), Blockly.bindEvent_(document, "touchend", null, Blockly.longStop_), Blockly.bindEvent_(document, "touchcancel", null, Blockly.longStop_), Blockly.utils.userAgent.IPAD && Blockly.bindEventWithChecks_(window, "orientationchange", document, function () {
+    }), Blockly.browserEvents.conditionalBind(document, "keydown", null, Blockly.onKeyDown), Blockly.browserEvents.bind(document, "touchend", null, Blockly.longStop_), Blockly.browserEvents.bind(document, "touchcancel", null, Blockly.longStop_), Blockly.utils.userAgent.IPAD && Blockly.browserEvents.conditionalBind(window, "orientationchange", document, function () {
       Blockly.svgResize(Blockly.getMainWorkspace());
     }));
     Blockly.documentEventsBound_ = !0;
@@ -11264,14 +11074,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
     a = function a() {
       for (; d.length;) {
-        Blockly.unbindEvent_(d.pop());
+        Blockly.browserEvents.unbind(d.pop());
       }
 
       c.preload();
     };
 
-    d.push(Blockly.bindEventWithChecks_(document, "mousemove", null, a, !0));
-    d.push(Blockly.bindEventWithChecks_(document, "touchstart", null, a, !0));
+    d.push(Blockly.browserEvents.conditionalBind(document, "mousemove", null, a, !0));
+    d.push(Blockly.browserEvents.conditionalBind(document, "touchstart", null, a, !0));
   };
 
   Blockly.Names = function (a, b) {
@@ -11461,7 +11271,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Procedures.mutatorOpenListener = function (a) {
-    if (a.type == Blockly.Events.UI && "mutatorOpen" == a.element && a.newValue) {
+    if (a.type == Blockly.Events.BUBBLE_OPEN && "mutator" === a.bubbleType && a.isOpen) {
       a = Blockly.Workspace.getById(a.workspaceId).getBlockById(a.blockId);
       var b = a.type;
       if ("procedures_defnoreturn" == b || "procedures_defreturn" == b) a = a.mutator.getWorkspace(), Blockly.Procedures.updateMutatorFlyout_(a), a.addChangeListener(Blockly.Procedures.mutatorChangeListener_);
@@ -11499,7 +11309,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       e.domToMutation(d);
       var g = e.mutationToDom();
       g = g && Blockly.Xml.domToText(g);
-      f != g && (Blockly.Events.recordUndo = !1, Blockly.Events.fire(new Blockly.Events.BlockChange(e, "mutation", null, f, g)), Blockly.Events.recordUndo = b);
+      f != g && (Blockly.Events.recordUndo = !1, Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(e, "mutation", null, f, g)), Blockly.Events.recordUndo = b);
     }
   };
 
@@ -11516,12 +11326,133 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return null;
   };
 
+  Blockly.ShortcutRegistry = function () {
+    Blockly.ShortcutRegistry.registry = this;
+    this.registry_ = Object.create(null);
+    this.keyMap_ = Object.create(null);
+  };
+
+  Blockly.ShortcutRegistry.modifierKeys = {
+    Shift: Blockly.utils.KeyCodes.SHIFT,
+    Control: Blockly.utils.KeyCodes.CTRL,
+    Alt: Blockly.utils.KeyCodes.ALT,
+    Meta: Blockly.utils.KeyCodes.META
+  };
+
+  Blockly.ShortcutRegistry.prototype.register = function (a, b) {
+    if (this.registry_[a.name] && !b) throw Error('Shortcut with name "' + a.name + '" already exists.');
+    this.registry_[a.name] = a;
+  };
+
+  Blockly.ShortcutRegistry.prototype.unregister = function (a) {
+    if (!this.registry_[a]) return console.warn('Keyboard shortcut with name "' + a + '" not found.'), !1;
+    this.removeAllKeyMappings(a);
+    delete this.registry_[a];
+    return !0;
+  };
+
+  Blockly.ShortcutRegistry.prototype.addKeyMapping = function (a, b, c) {
+    a = String(a);
+    var d = this.keyMap_[a];
+    if (d && !c) throw Error('Shortcut with name "' + b + '" collides with shortcuts ' + d.toString());
+    d && c ? d.unshift(b) : this.keyMap_[a] = [b];
+  };
+
+  Blockly.ShortcutRegistry.prototype.removeKeyMapping = function (a, b, c) {
+    var d = this.keyMap_[a];
+    if (!d && !c) return console.warn('No keyboard shortcut with name "' + b + '" registered with key code "' + a + '"'), !1;
+    var e = d.indexOf(b);
+    if (-1 < e) return d.splice(e, 1), 0 == d.length && delete this.keyMap_[a], !0;
+    c || console.warn('No keyboard shortcut with name "' + b + '" registered with key code "' + a + '"');
+    return !1;
+  };
+
+  Blockly.ShortcutRegistry.prototype.removeAllKeyMappings = function (a) {
+    for (var b in this.keyMap_) {
+      this.removeKeyMapping(b, a, !0);
+    }
+  };
+
+  Blockly.ShortcutRegistry.prototype.setKeyMap = function (a) {
+    this.keyMap_ = a;
+  };
+
+  Blockly.ShortcutRegistry.prototype.getKeyMap = function () {
+    return Blockly.utils.object.deepMerge(Object.create(null), this.keyMap_);
+  };
+
+  Blockly.ShortcutRegistry.prototype.getRegistry = function () {
+    return Blockly.utils.object.deepMerge(Object.create(null), this.registry_);
+  };
+
+  Blockly.ShortcutRegistry.prototype.onKeyDown = function (a, b) {
+    var c = this.serializeKeyEvent_(b);
+    c = this.getShortcutNamesByKeyCode(c);
+    if (!c) return !1;
+
+    for (var d = 0, e; e = c[d]; d++) {
+      if (e = this.registry_[e], (!e.preconditionFn || e.preconditionFn(a)) && e.callback && e.callback(a, b, e)) return !0;
+    }
+
+    return !1;
+  };
+
+  Blockly.ShortcutRegistry.prototype.getShortcutNamesByKeyCode = function (a) {
+    return this.keyMap_[a] || [];
+  };
+
+  Blockly.ShortcutRegistry.prototype.getKeyCodesByShortcutName = function (a) {
+    var b = [],
+        c;
+
+    for (c in this.keyMap_) {
+      -1 < this.keyMap_[c].indexOf(a) && b.push(c);
+    }
+
+    return b;
+  };
+
+  Blockly.ShortcutRegistry.prototype.serializeKeyEvent_ = function (a) {
+    var b = "",
+        c;
+
+    for (c in Blockly.ShortcutRegistry.modifierKeys) {
+      a.getModifierState(c) && ("" != b && (b += "+"), b += c);
+    }
+
+    "" != b && a.keyCode ? b = b + "+" + a.keyCode : a.keyCode && (b = a.keyCode.toString());
+    return b;
+  };
+
+  Blockly.ShortcutRegistry.prototype.checkModifiers_ = function (a) {
+    for (var b = Blockly.utils.object.values(Blockly.ShortcutRegistry.modifierKeys), c = 0, d; d = a[c]; c++) {
+      if (0 > b.indexOf(d)) throw Error(d + " is not a valid modifier key.");
+    }
+  };
+
+  Blockly.ShortcutRegistry.prototype.createSerializedKey = function (a, b) {
+    var c = "";
+
+    if (b) {
+      this.checkModifiers_(b);
+
+      for (var d in Blockly.ShortcutRegistry.modifierKeys) {
+        -1 < b.indexOf(Blockly.ShortcutRegistry.modifierKeys[d]) && ("" != c && (c += "+"), c += d);
+      }
+    }
+
+    "" != c && a ? c = c + "+" + a : a && (c = a.toString());
+    return c;
+  };
+
+  new Blockly.ShortcutRegistry();
+
   Blockly.VariableModel = function (a, b, c, d) {
     this.workspace = a;
     this.name = b;
     this.type = c || "";
     this.id_ = d || Blockly.utils.genUid();
-    Blockly.Events.fire(new Blockly.Events.VarCreate(this));
+    Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.VAR_CREATE))(this));
   };
 
   Blockly.VariableModel.prototype.getId = function () {
@@ -11755,77 +11686,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return c;
   };
 
-  Blockly.WidgetDiv = {};
-  Blockly.WidgetDiv.owner_ = null;
-  Blockly.WidgetDiv.dispose_ = null;
-  Blockly.WidgetDiv.rendererClassName_ = "";
-  Blockly.WidgetDiv.themeClassName_ = "";
-
-  Blockly.WidgetDiv.createDom = function () {
-    Blockly.WidgetDiv.DIV || (Blockly.WidgetDiv.DIV = document.createElement("div"), Blockly.WidgetDiv.DIV.className = "blocklyWidgetDiv", (Blockly.parentContainer || document.body).appendChild(Blockly.WidgetDiv.DIV));
-  };
-
-  Blockly.WidgetDiv.show = function (a, b, c) {
-    Blockly.WidgetDiv.hide();
-    Blockly.WidgetDiv.owner_ = a;
-    Blockly.WidgetDiv.dispose_ = c;
-    a = Blockly.WidgetDiv.DIV;
-    a.style.direction = b ? "rtl" : "ltr";
-    a.style.display = "block";
-    b = Blockly.getMainWorkspace();
-    Blockly.WidgetDiv.rendererClassName_ = b.getRenderer().getClassName();
-    Blockly.WidgetDiv.themeClassName_ = b.getTheme().getClassName();
-    Blockly.utils.dom.addClass(a, Blockly.WidgetDiv.rendererClassName_);
-    Blockly.utils.dom.addClass(a, Blockly.WidgetDiv.themeClassName_);
-  };
-
-  Blockly.WidgetDiv.hide = function () {
-    if (Blockly.WidgetDiv.isVisible()) {
-      Blockly.WidgetDiv.owner_ = null;
-      var a = Blockly.WidgetDiv.DIV;
-      a.style.display = "none";
-      a.style.left = "";
-      a.style.top = "";
-      Blockly.WidgetDiv.dispose_ && Blockly.WidgetDiv.dispose_();
-      Blockly.WidgetDiv.dispose_ = null;
-      a.textContent = "";
-      Blockly.WidgetDiv.rendererClassName_ && (Blockly.utils.dom.removeClass(a, Blockly.WidgetDiv.rendererClassName_), Blockly.WidgetDiv.rendererClassName_ = "");
-      Blockly.WidgetDiv.themeClassName_ && (Blockly.utils.dom.removeClass(a, Blockly.WidgetDiv.themeClassName_), Blockly.WidgetDiv.themeClassName_ = "");
-      Blockly.getMainWorkspace().markFocused();
-    }
-  };
-
-  Blockly.WidgetDiv.isVisible = function () {
-    return !!Blockly.WidgetDiv.owner_;
-  };
-
-  Blockly.WidgetDiv.hideIfOwner = function (a) {
-    Blockly.WidgetDiv.owner_ == a && Blockly.WidgetDiv.hide();
-  };
-
-  Blockly.WidgetDiv.positionInternal_ = function (a, b, c) {
-    Blockly.WidgetDiv.DIV.style.left = a + "px";
-    Blockly.WidgetDiv.DIV.style.top = b + "px";
-    Blockly.WidgetDiv.DIV.style.height = c + "px";
-  };
-
-  Blockly.WidgetDiv.positionWithAnchor = function (a, b, c, d) {
-    var e = Blockly.WidgetDiv.calculateY_(a, b, c);
-    a = Blockly.WidgetDiv.calculateX_(a, b, c, d);
-    0 > e ? Blockly.WidgetDiv.positionInternal_(a, 0, c.height + e) : Blockly.WidgetDiv.positionInternal_(a, e, c.height);
-  };
-
-  Blockly.WidgetDiv.calculateX_ = function (a, b, c, d) {
-    if (d) return b = Math.max(b.right - c.width, a.left), Math.min(b, a.right - c.width);
-    b = Math.min(b.left, a.right - c.width);
-    return Math.max(b, a.left);
-  };
-
-  Blockly.WidgetDiv.calculateY_ = function (a, b, c) {
-    return b.bottom + c.height >= a.bottom ? b.top - c.height : b.bottom;
-  };
-
-  Blockly.VERSION = "3.20200924.4";
+  Blockly.VERSION = "5.20210325.1";
   Blockly.mainWorkspace = null;
   Blockly.selected = null;
   Blockly.draggingConnections = [];
@@ -11836,6 +11697,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.parentContainer = null;
 
   Blockly.svgSize = function (a) {
+    Blockly.utils.deprecation.warn("Blockly.svgSize", "March 2021", "March 2022", "workspace.getCachedParentSvgSize");
     return new Blockly.utils.Size(a.cachedWidth_, a.cachedHeight_);
   };
 
@@ -11849,46 +11711,42 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     var b = a.getParentSvg(),
-        c = b.parentNode;
+        c = a.getCachedParentSvgSize(),
+        d = b.parentNode;
 
-    if (c) {
-      var d = c.offsetWidth;
-      c = c.offsetHeight;
-      b.cachedWidth_ != d && (b.setAttribute("width", d + "px"), b.cachedWidth_ = d);
-      b.cachedHeight_ != c && (b.setAttribute("height", c + "px"), b.cachedHeight_ = c);
+    if (d) {
+      var e = d.offsetWidth;
+      d = d.offsetHeight;
+      c.width != e && (b.setAttribute("width", e + "px"), a.setCachedParentSvgSize(e, null));
+      c.height != d && (b.setAttribute("height", d + "px"), a.setCachedParentSvgSize(null, d));
       a.resize();
     }
   };
 
   Blockly.onKeyDown = function (a) {
     var b = Blockly.mainWorkspace;
-    if (b && !(Blockly.utils.isTargetInput(a) || b.rendered && !b.isVisible())) if (b.options.readOnly) Blockly.navigation.onKeyPress(a);else {
-      var c = !1;
-      if (a.keyCode == Blockly.utils.KeyCodes.ESC) Blockly.hideChaff(), Blockly.navigation.onBlocklyAction(Blockly.navigation.ACTION_EXIT);else {
-        if (!Blockly.Gesture.inProgress() && Blockly.navigation.onKeyPress(a)) return;
-
-        if (a.keyCode == Blockly.utils.KeyCodes.BACKSPACE || a.keyCode == Blockly.utils.KeyCodes.DELETE) {
-          a.preventDefault();
-          if (Blockly.Gesture.inProgress()) return;
-          Blockly.selected && Blockly.selected.isDeletable() && (c = !0);
-        } else if (a.altKey || a.ctrlKey || a.metaKey) {
-          if (Blockly.Gesture.inProgress()) return;
-          Blockly.selected && Blockly.selected.isDeletable() && Blockly.selected.isMovable() && (a.keyCode == Blockly.utils.KeyCodes.C ? (Blockly.hideChaff(), Blockly.copy_(Blockly.selected)) : a.keyCode != Blockly.utils.KeyCodes.X || Blockly.selected.workspace.isFlyout || (Blockly.copy_(Blockly.selected), c = !0));
-          a.keyCode == Blockly.utils.KeyCodes.V ? Blockly.clipboardXml_ && (a = Blockly.clipboardSource_, a.isFlyout && (a = a.targetWorkspace), Blockly.clipboardTypeCounts_ && a.isCapacityAvailable(Blockly.clipboardTypeCounts_) && (Blockly.Events.setGroup(!0), a.paste(Blockly.clipboardXml_), Blockly.Events.setGroup(!1))) : a.keyCode == Blockly.utils.KeyCodes.Z ? (Blockly.hideChaff(), b.undo(a.shiftKey)) : a.ctrlKey && a.keyCode == Blockly.utils.KeyCodes.Y && (Blockly.hideChaff(), b.undo(!0));
-        }
-      }
-      c && !Blockly.selected.workspace.isFlyout && (Blockly.Events.setGroup(!0), Blockly.hideChaff(), Blockly.selected.dispose(!0, !0), Blockly.Events.setGroup(!1));
-    }
+    if (b && !(Blockly.utils.isTargetInput(a) || b.rendered && !b.isVisible())) Blockly.ShortcutRegistry.registry.onKeyDown(b, a);
   };
 
-  Blockly.copy_ = function (a) {
+  Blockly.deleteBlock = function (a) {
+    a.workspace.isFlyout || (Blockly.Events.setGroup(!0), Blockly.hideChaff(), a.dispose(!0, !0), Blockly.Events.setGroup(!1));
+  };
+
+  Blockly.copy = function (a) {
     if (a = a.toCopyData()) Blockly.clipboardXml_ = a.xml, Blockly.clipboardSource_ = a.source, Blockly.clipboardTypeCounts_ = a.typeCounts;
+  };
+
+  Blockly.paste = function () {
+    if (!Blockly.clipboardXml_) return !1;
+    var a = Blockly.clipboardSource_;
+    a.isFlyout && (a = a.targetWorkspace);
+    return Blockly.clipboardTypeCounts_ && a.isCapacityAvailable(Blockly.clipboardTypeCounts_) ? (Blockly.Events.setGroup(!0), a.paste(Blockly.clipboardXml_), Blockly.Events.setGroup(!1), !0) : !1;
   };
 
   Blockly.duplicate = function (a) {
     var b = Blockly.clipboardXml_,
         c = Blockly.clipboardSource_;
-    Blockly.copy_(a);
+    Blockly.copy(a);
     a.workspace.paste(Blockly.clipboardXml_);
     Blockly.clipboardXml_ = b;
     Blockly.clipboardSource_ = c;
@@ -11941,71 +11799,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
 
-  Blockly.bindEventWithChecks_ = function (a, b, c, d, e, f) {
-    var g = !1,
-        h = function h(p) {
-      var q = !e;
-      p = Blockly.Touch.splitEventByTouches(p);
-
-      for (var t = 0, r; r = p[t]; t++) {
-        if (!q || Blockly.Touch.shouldHandleEvent(r)) Blockly.Touch.setClientFromTouch(r), c ? d.call(c, r) : d(r), g = !0;
-      }
-    },
-        k = [];
-
-    if (Blockly.utils.global.PointerEvent && b in Blockly.Touch.TOUCH_MAP) for (var l = 0, m; m = Blockly.Touch.TOUCH_MAP[b][l]; l++) {
-      a.addEventListener(m, h, !1), k.push([a, m, h]);
-    } else if (a.addEventListener(b, h, !1), k.push([a, b, h]), b in Blockly.Touch.TOUCH_MAP) {
-      var n = function n(p) {
-        h(p);
-        var q = !f;
-        g && q && p.preventDefault();
-      };
-
-      for (l = 0; m = Blockly.Touch.TOUCH_MAP[b][l]; l++) {
-        a.addEventListener(m, n, !1), k.push([a, m, n]);
-      }
-    }
-    return k;
-  };
-
-  Blockly.bindEvent_ = function (a, b, c, d) {
-    var e = function e(l) {
-      c ? d.call(c, l) : d(l);
-    },
-        f = [];
-
-    if (Blockly.utils.global.PointerEvent && b in Blockly.Touch.TOUCH_MAP) for (var g = 0, h; h = Blockly.Touch.TOUCH_MAP[b][g]; g++) {
-      a.addEventListener(h, e, !1), f.push([a, h, e]);
-    } else if (a.addEventListener(b, e, !1), f.push([a, b, e]), b in Blockly.Touch.TOUCH_MAP) {
-      var k = function k(l) {
-        if (l.changedTouches && 1 == l.changedTouches.length) {
-          var m = l.changedTouches[0];
-          l.clientX = m.clientX;
-          l.clientY = m.clientY;
-        }
-
-        e(l);
-        l.preventDefault();
-      };
-
-      for (g = 0; h = Blockly.Touch.TOUCH_MAP[b][g]; g++) {
-        a.addEventListener(h, k, !1), f.push([a, h, k]);
-      }
-    }
-    return f;
-  };
-
-  Blockly.unbindEvent_ = function (a) {
-    for (; a.length;) {
-      var b = a.pop(),
-          c = b[2];
-      b[0].removeEventListener(b[1], c, !1);
-    }
-
-    return c;
-  };
-
   Blockly.isNumber = function (a) {
     return /^\s*-?\d+(\.\d+)?\s*$/.test(a);
   };
@@ -12045,6 +11838,49 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Blockly.parentContainer = a;
   };
 
+  Blockly.bindEvent_ = Blockly.browserEvents.bind;
+  Blockly.unbindEvent_ = Blockly.browserEvents.unbind;
+  Blockly.bindEventWithChecks_ = Blockly.browserEvents.conditionalBind;
+  Blockly.ALIGN_LEFT = Blockly.constants.ALIGN.LEFT;
+  Blockly.ALIGN_CENTRE = Blockly.constants.ALIGN.CENTRE;
+  Blockly.ALIGN_RIGHT = Blockly.constants.ALIGN.RIGHT;
+  Blockly.INPUT_VALUE = Blockly.connectionTypes.INPUT_VALUE;
+  Blockly.OUTPUT_VALUE = Blockly.connectionTypes.OUTPUT_VALUE;
+  Blockly.NEXT_STATEMENT = Blockly.connectionTypes.NEXT_STATEMENT;
+  Blockly.PREVIOUS_STATEMENT = Blockly.connectionTypes.PREVIOUS_STATEMENT;
+  Blockly.DUMMY_INPUT = Blockly.inputTypes.DUMMY;
+  Blockly.TOOLBOX_AT_TOP = Blockly.utils.toolbox.Position.TOP;
+  Blockly.TOOLBOX_AT_BOTTOM = Blockly.utils.toolbox.Position.BOTTOM;
+  Blockly.TOOLBOX_AT_LEFT = Blockly.utils.toolbox.Position.LEFT;
+  Blockly.TOOLBOX_AT_RIGHT = Blockly.utils.toolbox.Position.RIGHT;
+
+  Blockly.Events.BubbleOpen = function (a, b, c) {
+    Blockly.Events.BubbleOpen.superClass_.constructor.call(this, a ? a.workspace.id : void 0);
+    this.blockId = a ? a.id : null;
+    this.isOpen = b;
+    this.bubbleType = c;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.BubbleOpen, Blockly.Events.UiBase);
+  Blockly.Events.BubbleOpen.prototype.type = Blockly.Events.BUBBLE_OPEN;
+
+  Blockly.Events.BubbleOpen.prototype.toJson = function () {
+    var a = Blockly.Events.BubbleOpen.superClass_.toJson.call(this);
+    a.isOpen = this.isOpen;
+    a.bubbleType = this.bubbleType;
+    a.blockId = this.blockId;
+    return a;
+  };
+
+  Blockly.Events.BubbleOpen.prototype.fromJson = function (a) {
+    Blockly.Events.BubbleOpen.superClass_.fromJson.call(this, a);
+    this.isOpen = a.isOpen;
+    this.bubbleType = a.bubbleType;
+    this.blockId = a.blockId;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.BUBBLE_OPEN, Blockly.Events.BubbleOpen);
+
   Blockly.Icon = function (a) {
     this.block_ = a;
     this.iconGroup_ = null;
@@ -12058,7 +11894,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Icon.prototype.createIcon = function () {
     this.iconGroup_ || (this.iconGroup_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.G, {
       "class": "blocklyIconGroup"
-    }, null), this.block_.isInFlyout && Blockly.utils.dom.addClass(this.iconGroup_, "blocklyIconGroupReadonly"), this.drawIcon_(this.iconGroup_), this.block_.getSvgRoot().appendChild(this.iconGroup_), Blockly.bindEventWithChecks_(this.iconGroup_, "mouseup", this, this.iconClick_), this.updateEditable());
+    }, null), this.block_.isInFlyout && Blockly.utils.dom.addClass(this.iconGroup_, "blocklyIconGroupReadonly"), this.drawIcon_(this.iconGroup_), this.block_.getSvgRoot().appendChild(this.iconGroup_), Blockly.browserEvents.conditionalBind(this.iconGroup_, "mouseup", this, this.iconClick_), this.updateEditable());
   };
 
   Blockly.Icon.prototype.dispose = function () {
@@ -12129,42 +11965,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }, a);
   };
 
-  Blockly.Warning.textToDom_ = function (a) {
-    var b = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.TEXT, {
-      "class": "blocklyText blocklyBubbleText blocklyNoPointerEvents",
-      y: Blockly.Bubble.BORDER_WIDTH
-    }, null);
-    a = a.split("\n");
-
-    for (var c = 0; c < a.length; c++) {
-      var d = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.TSPAN, {
-        dy: "1em",
-        x: Blockly.Bubble.BORDER_WIDTH
-      }, b),
-          e = document.createTextNode(a[c]);
-      d.appendChild(e);
-    }
-
-    return b;
-  };
-
   Blockly.Warning.prototype.setVisible = function (a) {
-    a != this.isVisible() && (Blockly.Events.fire(new Blockly.Events.Ui(this.block_, "warningOpen", !a, a)), a ? this.createBubble() : this.disposeBubble());
+    a != this.isVisible() && (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BUBBLE_OPEN))(this.block_, a, "warning")), a ? this.createBubble_() : this.disposeBubble_());
   };
 
-  Blockly.Warning.prototype.createBubble = function () {
-    this.paragraphElement_ = Blockly.Warning.textToDom_(this.getText());
-    this.bubble_ = new Blockly.Bubble(this.block_.workspace, this.paragraphElement_, this.block_.pathObject.svgPath, this.iconXY_, null, null);
-    this.bubble_.setSvgId(this.block_.id);
-    if (this.block_.RTL) for (var a = this.paragraphElement_.getBBox().width, b = 0, c; c = this.paragraphElement_.childNodes[b]; b++) {
-      c.setAttribute("text-anchor", "end"), c.setAttribute("x", a + Blockly.Bubble.BORDER_WIDTH);
-    }
+  Blockly.Warning.prototype.createBubble_ = function () {
+    this.paragraphElement_ = Blockly.Bubble.textToDom(this.getText());
+    this.bubble_ = Blockly.Bubble.createNonEditableBubble(this.paragraphElement_, this.block_, this.iconXY_);
     this.applyColour();
   };
 
-  Blockly.Warning.prototype.disposeBubble = function () {
+  Blockly.Warning.prototype.disposeBubble_ = function () {
     this.bubble_.dispose();
-    this.paragraphElement_ = this.body_ = this.bubble_ = null;
+    this.paragraphElement_ = this.bubble_ = null;
   };
 
   Blockly.Warning.prototype.setText = function (a, b) {
@@ -12233,14 +12046,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.resizeTextarea_();
     a.appendChild(b);
     this.foreignObject_.appendChild(a);
-    this.onMouseUpWrapper_ = Blockly.bindEventWithChecks_(b, "mouseup", this, this.startEdit_, !0, !0);
-    this.onWheelWrapper_ = Blockly.bindEventWithChecks_(b, "wheel", this, function (c) {
+    this.onMouseUpWrapper_ = Blockly.browserEvents.conditionalBind(b, "mouseup", this, this.startEdit_, !0, !0);
+    this.onWheelWrapper_ = Blockly.browserEvents.conditionalBind(b, "wheel", this, function (c) {
       c.stopPropagation();
     });
-    this.onChangeWrapper_ = Blockly.bindEventWithChecks_(b, "change", this, function (c) {
-      this.cachedText_ != this.model_.text && Blockly.Events.fire(new Blockly.Events.BlockChange(this.block_, "comment", null, this.cachedText_, this.model_.text));
+    this.onChangeWrapper_ = Blockly.browserEvents.conditionalBind(b, "change", this, function (c) {
+      this.cachedText_ != this.model_.text && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(this.block_, "comment", null, this.cachedText_, this.model_.text));
     });
-    this.onInputWrapper_ = Blockly.bindEventWithChecks_(b, "input", this, function (c) {
+    this.onInputWrapper_ = Blockly.browserEvents.conditionalBind(b, "input", this, function (c) {
       this.model_.text = b.value;
     });
     setTimeout(b.focus.bind(b), 0);
@@ -12268,7 +12081,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Comment.prototype.setVisible = function (a) {
-    a != this.isVisible() && (Blockly.Events.fire(new Blockly.Events.Ui(this.block_, "commentOpen", !a, a)), (this.model_.pinned = a) ? this.createBubble_() : this.disposeBubble_());
+    a != this.isVisible() && (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BUBBLE_OPEN))(this.block_, a, "comment")), (this.model_.pinned = a) ? this.createBubble_() : this.disposeBubble_());
   };
 
   Blockly.Comment.prototype.createBubble_ = function () {
@@ -12283,11 +12096,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Comment.prototype.createNonEditableBubble_ = function () {
-    Blockly.Warning.prototype.createBubble.call(this);
+    this.paragraphElement_ = Blockly.Bubble.textToDom(this.block_.getCommentText());
+    this.bubble_ = Blockly.Bubble.createNonEditableBubble(this.paragraphElement_, this.block_, this.iconXY_);
+    this.applyColour();
   };
 
   Blockly.Comment.prototype.disposeBubble_ = function () {
-    this.paragraphElement_ ? Blockly.Warning.prototype.disposeBubble.call(this) : (this.onMouseUpWrapper_ && (Blockly.unbindEvent_(this.onMouseUpWrapper_), this.onMouseUpWrapper_ = null), this.onWheelWrapper_ && (Blockly.unbindEvent_(this.onWheelWrapper_), this.onWheelWrapper_ = null), this.onChangeWrapper_ && (Blockly.unbindEvent_(this.onChangeWrapper_), this.onChangeWrapper_ = null), this.onInputWrapper_ && (Blockly.unbindEvent_(this.onInputWrapper_), this.onInputWrapper_ = null), this.bubble_.dispose(), this.foreignObject_ = this.textarea_ = this.bubble_ = null);
+    this.onMouseUpWrapper_ && (Blockly.browserEvents.unbind(this.onMouseUpWrapper_), this.onMouseUpWrapper_ = null);
+    this.onWheelWrapper_ && (Blockly.browserEvents.unbind(this.onWheelWrapper_), this.onWheelWrapper_ = null);
+    this.onChangeWrapper_ && (Blockly.browserEvents.unbind(this.onChangeWrapper_), this.onChangeWrapper_ = null);
+    this.onInputWrapper_ && (Blockly.browserEvents.unbind(this.onInputWrapper_), this.onInputWrapper_ = null);
+    this.bubble_.dispose();
+    this.paragraphElement_ = this.foreignObject_ = this.textarea_ = this.bubble_ = null;
   };
 
   Blockly.Comment.prototype.startEdit_ = function (a) {
@@ -12303,16 +12123,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.bubble_ ? this.bubble_.setBubbleSize(a, b) : (this.model_.size.width = a, this.model_.size.height = b);
   };
 
-  Blockly.Comment.prototype.getText = function () {
-    Blockly.utils.deprecation.warn("Comment.prototype.getText", "August 2019", "December 2020", "block.getCommentText");
-    return this.model_.text || "";
-  };
-
-  Blockly.Comment.prototype.setText = function (a) {
-    Blockly.utils.deprecation.warn("Comment.prototype.setText", "August 2019", "December 2020", "block.setCommentText");
-    this.model_.text != a && (this.model_.text = a, this.updateText());
-  };
-
   Blockly.Comment.prototype.updateText = function () {
     this.textarea_ ? this.textarea_.value = this.model_.text : this.paragraphElement_ && (this.paragraphElement_.firstChild.textContent = this.model_.text);
   };
@@ -12322,53 +12132,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Blockly.Icon.prototype.dispose.call(this);
   };
 
-  Blockly.Css.register(".blocklyCommentTextarea {,background-color: #fef49c;,border: 0;,outline: 0;,margin: 0;,padding: 3px;,resize: none;,display: block;,overflow: hidden;,}".split(","));
-
-  Blockly.FlyoutCursor = function () {
-    Blockly.FlyoutCursor.superClass_.constructor.call(this);
-  };
-
-  Blockly.utils.object.inherits(Blockly.FlyoutCursor, Blockly.Cursor);
-
-  Blockly.FlyoutCursor.prototype.onBlocklyAction = function (a) {
-    switch (a.name) {
-      case Blockly.navigation.actionNames.PREVIOUS:
-        return this.prev(), !0;
-
-      case Blockly.navigation.actionNames.NEXT:
-        return this.next(), !0;
-
-      default:
-        return !1;
-    }
-  };
-
-  Blockly.FlyoutCursor.prototype.next = function () {
-    var a = this.getCurNode();
-    if (!a) return null;
-    (a = a.next()) && this.setCurNode(a);
-    return a;
-  };
-
-  Blockly.FlyoutCursor.prototype.in = function () {
-    return null;
-  };
-
-  Blockly.FlyoutCursor.prototype.prev = function () {
-    var a = this.getCurNode();
-    if (!a) return null;
-    (a = a.prev()) && this.setCurNode(a);
-    return a;
-  };
-
-  Blockly.FlyoutCursor.prototype.out = function () {
-    return null;
-  };
+  Blockly.Css.register(".blocklyCommentTextarea {,background-color: #fef49c;,border: 0;,outline: 0;,margin: 0;,padding: 3px;,resize: none;,display: block;,text-overflow: hidden;,}".split(","));
 
   Blockly.Flyout = function (a) {
-    a.getMetrics = this.getMetrics_.bind(this);
     a.setMetrics = this.setMetrics_.bind(this);
     this.workspace_ = new Blockly.WorkspaceSvg(a);
+    this.workspace_.setMetricsManager(new Blockly.FlyoutMetricsManager(this.workspace_, this));
     this.workspace_.isFlyout = !0;
     this.workspace_.setVisible(this.isVisible_);
     this.RTL = !!a.RTL;
@@ -12406,18 +12175,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.svgGroup_.appendChild(this.workspace_.createDom());
     this.workspace_.getThemeManager().subscribe(this.svgBackground_, "flyoutBackgroundColour", "fill");
     this.workspace_.getThemeManager().subscribe(this.svgBackground_, "flyoutOpacity", "fill-opacity");
-    this.workspace_.getMarkerManager().setCursor(new Blockly.FlyoutCursor());
     return this.svgGroup_;
   };
 
   Blockly.Flyout.prototype.init = function (a) {
     this.targetWorkspace = a;
     this.workspace_.targetWorkspace = a;
-    this.scrollbar = new Blockly.Scrollbar(this.workspace_, this.horizontalLayout, !1, "blocklyFlyoutScrollbar");
+    this.workspace_.scrollbar = new Blockly.ScrollbarPair(this.workspace_, this.horizontalLayout, !this.horizontalLayout, "blocklyFlyoutScrollbar");
     this.hide();
-    Array.prototype.push.apply(this.eventWrappers_, Blockly.bindEventWithChecks_(this.svgGroup_, "wheel", this, this.wheel_));
+    Array.prototype.push.apply(this.eventWrappers_, Blockly.browserEvents.conditionalBind(this.svgGroup_, "wheel", this, this.wheel_));
     this.autoClose || (this.filterWrapper_ = this.filterForCapacity_.bind(this), this.targetWorkspace.addChangeListener(this.filterWrapper_));
-    Array.prototype.push.apply(this.eventWrappers_, Blockly.bindEventWithChecks_(this.svgBackground_, "mousedown", this, this.onMouseDown_));
+    Array.prototype.push.apply(this.eventWrappers_, Blockly.browserEvents.conditionalBind(this.svgBackground_, "mousedown", this, this.onMouseDown_));
     this.workspace_.getGesture = this.targetWorkspace.getGesture.bind(this.targetWorkspace);
     this.workspace_.setVariableMap(this.targetWorkspace.getVariableMap());
     this.workspace_.createPotentialVariableMap();
@@ -12425,9 +12193,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Flyout.prototype.dispose = function () {
     this.hide();
-    Blockly.unbindEvent_(this.eventWrappers_);
+    Blockly.browserEvents.unbind(this.eventWrappers_);
     this.filterWrapper_ && (this.targetWorkspace.removeChangeListener(this.filterWrapper_), this.filterWrapper_ = null);
-    this.scrollbar && (this.scrollbar.dispose(), this.scrollbar = null);
     this.workspace_ && (this.workspace_.getThemeManager().unsubscribe(this.svgBackground_), this.workspace_.targetWorkspace = null, this.workspace_.dispose(), this.workspace_ = null);
     this.svgGroup_ && (Blockly.utils.dom.removeNode(this.svgGroup_), this.svgGroup_ = null);
     this.targetWorkspace = this.svgBackground_ = null;
@@ -12439,6 +12206,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.Flyout.prototype.getHeight = function () {
     return this.height_;
+  };
+
+  Blockly.Flyout.prototype.getFlyoutScale = function () {
+    return this.targetWorkspace.scale;
   };
 
   Blockly.Flyout.prototype.getWorkspace = function () {
@@ -12464,14 +12235,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Flyout.prototype.updateDisplay_ = function () {
     var a = this.containerVisible_ ? this.isVisible() : !1;
     this.svgGroup_.style.display = a ? "block" : "none";
-    this.scrollbar.setContainerVisible(a);
+    this.workspace_.scrollbar.setContainerVisible(a);
   };
 
   Blockly.Flyout.prototype.positionAt_ = function (a, b, c, d) {
     this.svgGroup_.setAttribute("width", a);
     this.svgGroup_.setAttribute("height", b);
+    this.workspace_.setCachedParentSvgSize(a, b);
     "svg" == this.svgGroup_.tagName ? Blockly.utils.dom.setCssTransform(this.svgGroup_, "translate(" + c + "px," + d + "px)") : this.svgGroup_.setAttribute("transform", "translate(" + c + "," + d + ")");
-    this.scrollbar && (this.scrollbar.setOrigin(c, d), this.scrollbar.resize(), this.scrollbar.setPosition(this.scrollbar.position.x, this.scrollbar.position.y));
+    if (a = this.workspace_.scrollbar) a.setOrigin(c, d), a.resize(), a.hScroll && a.hScroll.setPosition(a.hScroll.position.x, a.hScroll.position.y), a.vScroll && a.vScroll.setPosition(a.vScroll.position.x, a.vScroll.position.y);
   };
 
   Blockly.Flyout.prototype.hide = function () {
@@ -12479,7 +12251,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       this.setVisible(!1);
 
       for (var a = 0, b; b = this.listeners_[a]; a++) {
-        Blockly.unbindEvent_(b);
+        Blockly.browserEvents.unbind(b);
       }
 
       this.listeners_.length = 0;
@@ -12496,7 +12268,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     a = Blockly.utils.toolbox.convertFlyoutDefToJsonArray(a);
     a = this.createFlyoutInfo_(a);
     this.layout_(a.contents, a.gaps);
-    this.listeners_.push(Blockly.bindEventWithChecks_(this.svgBackground_, "mouseover", this, function () {
+    this.listeners_.push(Blockly.browserEvents.conditionalBind(this.svgBackground_, "mouseover", this, function () {
       for (var b = this.workspace_.getTopBlocks(!1), c = 0, d; d = b[c]; c++) {
         d.removeSelect();
       }
@@ -12606,12 +12378,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Flyout.prototype.addBlockListeners_ = function (a, b, c) {
-    this.listeners_.push(Blockly.bindEventWithChecks_(a, "mousedown", null, this.blockMouseDown_(b)));
-    this.listeners_.push(Blockly.bindEventWithChecks_(c, "mousedown", null, this.blockMouseDown_(b)));
-    this.listeners_.push(Blockly.bindEvent_(a, "mouseenter", b, b.addSelect));
-    this.listeners_.push(Blockly.bindEvent_(a, "mouseleave", b, b.removeSelect));
-    this.listeners_.push(Blockly.bindEvent_(c, "mouseenter", b, b.addSelect));
-    this.listeners_.push(Blockly.bindEvent_(c, "mouseleave", b, b.removeSelect));
+    this.listeners_.push(Blockly.browserEvents.conditionalBind(a, "mousedown", null, this.blockMouseDown_(b)));
+    this.listeners_.push(Blockly.browserEvents.conditionalBind(c, "mousedown", null, this.blockMouseDown_(b)));
+    this.listeners_.push(Blockly.browserEvents.bind(a, "mouseenter", b, b.addSelect));
+    this.listeners_.push(Blockly.browserEvents.bind(a, "mouseleave", b, b.removeSelect));
+    this.listeners_.push(Blockly.browserEvents.bind(c, "mouseenter", b, b.addSelect));
+    this.listeners_.push(Blockly.browserEvents.bind(c, "mouseleave", b, b.removeSelect));
   };
 
   Blockly.Flyout.prototype.blockMouseDown_ = function (a) {
@@ -12650,10 +12422,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       Blockly.Events.setGroup(!0);
 
       for (c = 0; c < a.length; c++) {
-        Blockly.Events.fire(new Blockly.Events.VarCreate(a[c]));
+        var d = a[c];
+        Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.VAR_CREATE))(d));
       }
 
-      Blockly.Events.fire(new Blockly.Events.Create(b));
+      Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CREATE))(b));
     }
 
     this.autoClose ? this.hide() : this.filterForCapacity_();
@@ -12664,7 +12437,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var d = a.createDom();
     a.moveTo(b, c);
     a.show();
-    this.listeners_.push(Blockly.bindEventWithChecks_(d, "mousedown", this, this.onMouseDown_));
+    this.listeners_.push(Blockly.browserEvents.conditionalBind(d, "mousedown", this, this.onMouseDown_));
     this.buttons_.push(a);
   };
 
@@ -12707,7 +12480,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Flyout.prototype.isScrollable = function () {
-    return this.scrollbar ? this.scrollbar.isVisible() : !1;
+    return this.workspace_.scrollbar ? this.workspace_.scrollbar.isVisible() : !1;
   };
 
   Blockly.Flyout.prototype.placeNewBlock_ = function (a) {
@@ -12728,10 +12501,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return c;
   };
 
-  Blockly.Flyout.prototype.onBlocklyAction = function (a) {
-    return this.workspace_.getCursor().onBlocklyAction(a);
-  };
-
   Blockly.HorizontalFlyout = function (a) {
     Blockly.HorizontalFlyout.superClass_.constructor.call(this, a);
     this.horizontalLayout = !0;
@@ -12739,53 +12508,44 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.utils.object.inherits(Blockly.HorizontalFlyout, Blockly.Flyout);
 
-  Blockly.HorizontalFlyout.prototype.getMetrics_ = function () {
-    if (!this.isVisible()) return null;
-
-    try {
-      var a = this.workspace_.getCanvas().getBBox();
-    } catch (e) {
-      a = {
-        height: 0,
-        y: 0,
-        width: 0,
-        x: 0
-      };
+  Blockly.HorizontalFlyout.prototype.setMetrics_ = function (a) {
+    if (this.isVisible()) {
+      var b = this.workspace_.getMetricsManager(),
+          c = b.getScrollMetrics(),
+          d = b.getViewMetrics();
+      b = b.getAbsoluteMetrics();
+      "number" == typeof a.x && (this.workspace_.scrollX = -(c.left + (c.width - d.width) * a.x));
+      this.workspace_.translate(this.workspace_.scrollX + b.left, this.workspace_.scrollY + b.top);
     }
-
-    var b = this.SCROLLBAR_PADDING,
-        c = this.SCROLLBAR_PADDING;
-    this.toolboxPosition_ == Blockly.TOOLBOX_AT_BOTTOM && (b = 0);
-    var d = this.height_;
-    this.toolboxPosition_ == Blockly.TOOLBOX_AT_TOP && (d -= this.SCROLLBAR_PADDING);
-    return {
-      contentHeight: (a.height + 2 * this.MARGIN) * this.workspace_.scale,
-      contentWidth: (a.width + 2 * this.MARGIN) * this.workspace_.scale,
-      contentTop: 0,
-      contentLeft: 0,
-      viewHeight: d,
-      viewWidth: this.width_ - 2 * this.SCROLLBAR_PADDING,
-      viewTop: -this.workspace_.scrollY,
-      viewLeft: -this.workspace_.scrollX,
-      absoluteTop: b,
-      absoluteLeft: c
-    };
   };
 
-  Blockly.HorizontalFlyout.prototype.setMetrics_ = function (a) {
-    var b = this.getMetrics_();
-    b && ("number" == typeof a.x && (this.workspace_.scrollX = -b.contentWidth * a.x), this.workspace_.translate(this.workspace_.scrollX + b.absoluteLeft, this.workspace_.scrollY + b.absoluteTop));
+  Blockly.HorizontalFlyout.prototype.getX = function () {
+    return 0;
+  };
+
+  Blockly.HorizontalFlyout.prototype.getY = function () {
+    if (!this.isVisible()) return 0;
+    var a = this.targetWorkspace.getMetricsManager(),
+        b = a.getAbsoluteMetrics(),
+        c = a.getViewMetrics();
+    a = a.getToolboxMetrics();
+    var d = this.toolboxPosition_ == Blockly.utils.toolbox.Position.TOP;
+    return this.targetWorkspace.toolboxPosition == this.toolboxPosition_ ? this.targetWorkspace.getToolbox() ? d ? a.height : c.height - this.height_ : d ? 0 : c.height : d ? 0 : c.height + b.top - this.height_;
   };
 
   Blockly.HorizontalFlyout.prototype.position = function () {
-    if (this.isVisible()) {
-      var a = this.targetWorkspace.getMetrics();
-      a && (this.width_ = a.viewWidth, this.setBackgroundPath_(a.viewWidth - 2 * this.CORNER_RADIUS, this.height_ - this.CORNER_RADIUS), this.positionAt_(this.width_, this.height_, 0, this.targetWorkspace.toolboxPosition == this.toolboxPosition_ ? a.toolboxHeight ? this.toolboxPosition_ == Blockly.TOOLBOX_AT_TOP ? a.toolboxHeight : a.viewHeight - this.height_ : this.toolboxPosition_ == Blockly.TOOLBOX_AT_TOP ? 0 : a.viewHeight : this.toolboxPosition_ == Blockly.TOOLBOX_AT_TOP ? 0 : a.viewHeight + a.absoluteTop - this.height_));
+    if (this.isVisible() && this.targetWorkspace.isVisible()) {
+      var a = this.targetWorkspace.getMetricsManager().getViewMetrics();
+      this.width_ = a.width;
+      this.setBackgroundPath_(a.width - 2 * this.CORNER_RADIUS, this.height_ - this.CORNER_RADIUS);
+      a = this.getX();
+      var b = this.getY();
+      this.positionAt_(this.width_, this.height_, a, b);
     }
   };
 
   Blockly.HorizontalFlyout.prototype.setBackgroundPath_ = function (a, b) {
-    var c = this.toolboxPosition_ == Blockly.TOOLBOX_AT_TOP,
+    var c = this.toolboxPosition_ == Blockly.utils.toolbox.Position.TOP,
         d = ["M 0," + (c ? 0 : this.CORNER_RADIUS)];
     c ? (d.push("h", a + 2 * this.CORNER_RADIUS), d.push("v", b), d.push("a", this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0, 1, -this.CORNER_RADIUS, this.CORNER_RADIUS), d.push("h", -a), d.push("a", this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0, 1, -this.CORNER_RADIUS, -this.CORNER_RADIUS)) : (d.push("a", this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0, 1, this.CORNER_RADIUS, -this.CORNER_RADIUS), d.push("h", a), d.push("a", this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0, 1, this.CORNER_RADIUS, this.CORNER_RADIUS), d.push("v", b), d.push("h", -a - 2 * this.CORNER_RADIUS));
     d.push("z");
@@ -12793,13 +12553,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.HorizontalFlyout.prototype.scrollToStart = function () {
-    this.scrollbar.set(this.RTL ? Infinity : 0);
+    this.workspace_.scrollbar.setX(this.RTL ? Infinity : 0);
   };
 
   Blockly.HorizontalFlyout.prototype.wheel_ = function (a) {
-    var b = Blockly.utils.getScrollDeltaPixels(a),
-        c = b.x || b.y;
-    c && (b = this.getMetrics_(), c = b.viewLeft + c, c = Math.min(c, b.contentWidth - b.viewWidth), c = Math.max(c, 0), this.scrollbar.set(c), Blockly.WidgetDiv.hide(), Blockly.DropDownDiv.hideWithoutAnimation());
+    var b = Blockly.utils.getScrollDeltaPixels(a);
+
+    if (b = b.x || b.y) {
+      var c = this.workspace_.getMetricsManager(),
+          d = c.getScrollMetrics();
+      b = c.getViewMetrics().left - d.left + b;
+      this.workspace_.scrollbar.setX(b);
+      Blockly.WidgetDiv.hide();
+      Blockly.DropDownDiv.hideWithoutAnimation();
+    }
+
     a.preventDefault();
     a.stopPropagation();
   };
@@ -12841,11 +12609,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!this.svgGroup_) return null;
     var a = this.svgGroup_.getBoundingClientRect(),
         b = a.top;
-    return this.toolboxPosition_ == Blockly.TOOLBOX_AT_TOP ? new Blockly.utils.Rect(-1E9, b + a.height, -1E9, 1E9) : new Blockly.utils.Rect(b, 1E9, -1E9, 1E9);
+    return this.toolboxPosition_ == Blockly.utils.toolbox.Position.TOP ? new Blockly.utils.Rect(-1E9, b + a.height, -1E9, 1E9) : new Blockly.utils.Rect(b, 1E9, -1E9, 1E9);
   };
 
   Blockly.HorizontalFlyout.prototype.reflowInternal_ = function () {
-    this.workspace_.scale = this.targetWorkspace.scale;
+    this.workspace_.scale = this.getFlyoutScale();
 
     for (var a = 0, b = this.workspace_.getTopBlocks(!1), c = 0, d; d = b[c]; c++) {
       a = Math.max(a, d.getHeightWidth().height);
@@ -12860,7 +12628,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         d.flyoutRect_ && this.moveRectToBlock_(d.flyoutRect_, d);
       }
 
-      this.targetWorkspace.toolboxPosition != this.toolboxPosition_ || this.toolboxPosition_ != Blockly.TOOLBOX_AT_TOP || this.targetWorkspace.getToolbox() || this.targetWorkspace.translate(this.targetWorkspace.scrollX, this.targetWorkspace.scrollY + a);
+      this.targetWorkspace.toolboxPosition != this.toolboxPosition_ || this.toolboxPosition_ != Blockly.utils.toolbox.Position.TOP || this.targetWorkspace.getToolbox() || this.targetWorkspace.translate(this.targetWorkspace.scrollX, this.targetWorkspace.scrollY + a);
       this.height_ = a;
       this.position();
     }
@@ -12875,52 +12643,43 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.utils.object.inherits(Blockly.VerticalFlyout, Blockly.Flyout);
   Blockly.VerticalFlyout.registryName = "verticalFlyout";
 
-  Blockly.VerticalFlyout.prototype.getMetrics_ = function () {
-    if (!this.isVisible()) return null;
-
-    try {
-      var a = this.workspace_.getCanvas().getBBox();
-    } catch (e) {
-      a = {
-        height: 0,
-        y: 0,
-        width: 0,
-        x: 0
-      };
+  Blockly.VerticalFlyout.prototype.setMetrics_ = function (a) {
+    if (this.isVisible()) {
+      var b = this.workspace_.getMetricsManager(),
+          c = b.getScrollMetrics(),
+          d = b.getViewMetrics();
+      b = b.getAbsoluteMetrics();
+      "number" == typeof a.y && (this.workspace_.scrollY = -(c.top + (c.height - d.height) * a.y));
+      this.workspace_.translate(this.workspace_.scrollX + b.left, this.workspace_.scrollY + b.top);
     }
-
-    var b = this.SCROLLBAR_PADDING,
-        c = this.height_ - 2 * this.SCROLLBAR_PADDING,
-        d = this.width_;
-    this.RTL || (d -= this.SCROLLBAR_PADDING);
-    return {
-      contentHeight: a.height * this.workspace_.scale + 2 * this.MARGIN,
-      contentWidth: a.width * this.workspace_.scale + 2 * this.MARGIN,
-      contentTop: a.y,
-      contentLeft: a.x,
-      viewHeight: c,
-      viewWidth: d,
-      viewTop: -this.workspace_.scrollY + a.y,
-      viewLeft: -this.workspace_.scrollX,
-      absoluteTop: b,
-      absoluteLeft: 0
-    };
   };
 
-  Blockly.VerticalFlyout.prototype.setMetrics_ = function (a) {
-    var b = this.getMetrics_();
-    b && ("number" == typeof a.y && (this.workspace_.scrollY = -b.contentHeight * a.y), this.workspace_.translate(this.workspace_.scrollX + b.absoluteLeft, this.workspace_.scrollY + b.absoluteTop));
+  Blockly.VerticalFlyout.prototype.getX = function () {
+    if (!this.isVisible()) return 0;
+    var a = this.targetWorkspace.getMetricsManager(),
+        b = a.getAbsoluteMetrics(),
+        c = a.getViewMetrics();
+    a = a.getToolboxMetrics();
+    return this.targetWorkspace.toolboxPosition == this.toolboxPosition_ ? this.targetWorkspace.getToolbox() ? this.toolboxPosition_ == Blockly.utils.toolbox.Position.LEFT ? a.width : c.width - this.width_ : this.toolboxPosition_ == Blockly.utils.toolbox.Position.LEFT ? 0 : c.width : this.toolboxPosition_ == Blockly.utils.toolbox.Position.LEFT ? 0 : c.width + b.left - this.width_;
+  };
+
+  Blockly.VerticalFlyout.prototype.getY = function () {
+    return 0;
   };
 
   Blockly.VerticalFlyout.prototype.position = function () {
-    if (this.isVisible()) {
-      var a = this.targetWorkspace.getMetrics();
-      a && (this.height_ = a.viewHeight, this.setBackgroundPath_(this.width_ - this.CORNER_RADIUS, a.viewHeight - 2 * this.CORNER_RADIUS), this.positionAt_(this.width_, this.height_, this.targetWorkspace.toolboxPosition == this.toolboxPosition_ ? a.toolboxWidth ? this.toolboxPosition_ == Blockly.TOOLBOX_AT_LEFT ? a.toolboxWidth : a.viewWidth - this.width_ : this.toolboxPosition_ == Blockly.TOOLBOX_AT_LEFT ? 0 : a.viewWidth : this.toolboxPosition_ == Blockly.TOOLBOX_AT_LEFT ? 0 : a.viewWidth + a.absoluteLeft - this.width_, 0));
+    if (this.isVisible() && this.targetWorkspace.isVisible()) {
+      var a = this.targetWorkspace.getMetricsManager().getViewMetrics();
+      this.height_ = a.height;
+      this.setBackgroundPath_(this.width_ - this.CORNER_RADIUS, a.height - 2 * this.CORNER_RADIUS);
+      a = this.getX();
+      var b = this.getY();
+      this.positionAt_(this.width_, this.height_, a, b);
     }
   };
 
   Blockly.VerticalFlyout.prototype.setBackgroundPath_ = function (a, b) {
-    var c = this.toolboxPosition_ == Blockly.TOOLBOX_AT_RIGHT,
+    var c = this.toolboxPosition_ == Blockly.utils.toolbox.Position.RIGHT,
         d = a + this.CORNER_RADIUS;
     d = ["M " + (c ? d : 0) + ",0"];
     d.push("h", c ? -a : a);
@@ -12933,18 +12692,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.VerticalFlyout.prototype.scrollToStart = function () {
-    this.scrollbar.set(0);
+    this.workspace_.scrollbar.setY(0);
   };
 
   Blockly.VerticalFlyout.prototype.wheel_ = function (a) {
     var b = Blockly.utils.getScrollDeltaPixels(a);
 
     if (b.y) {
-      var c = this.getMetrics_();
-      b = c.viewTop - c.contentTop + b.y;
-      b = Math.min(b, c.contentHeight - c.viewHeight);
-      b = Math.max(b, 0);
-      this.scrollbar.set(b);
+      var c = this.workspace_.getMetricsManager(),
+          d = c.getScrollMetrics();
+      b = c.getViewMetrics().top - d.top + b.y;
+      this.workspace_.scrollbar.setY(b);
       Blockly.WidgetDiv.hide();
       Blockly.DropDownDiv.hideWithoutAnimation();
     }
@@ -12986,11 +12744,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!this.svgGroup_) return null;
     var a = this.svgGroup_.getBoundingClientRect(),
         b = a.left;
-    return this.toolboxPosition_ == Blockly.TOOLBOX_AT_LEFT ? new Blockly.utils.Rect(-1E9, 1E9, -1E9, b + a.width) : new Blockly.utils.Rect(-1E9, 1E9, b, 1E9);
+    return this.toolboxPosition_ == Blockly.utils.toolbox.Position.LEFT ? new Blockly.utils.Rect(-1E9, 1E9, -1E9, b + a.width) : new Blockly.utils.Rect(-1E9, 1E9, b, 1E9);
   };
 
   Blockly.VerticalFlyout.prototype.reflowInternal_ = function () {
-    this.workspace_.scale = this.targetWorkspace.scale;
+    this.workspace_.scale = this.getFlyoutScale();
 
     for (var a = 0, b = this.workspace_.getTopBlocks(!1), c = 0, d; d = b[c]; c++) {
       var e = d.getHeightWidth().width;
@@ -13021,7 +12779,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (this.RTL) for (c = 0; d = this.buttons_[c]; c++) {
         b = d.getPosition().y, d.moveTo(a / this.workspace_.scale - d.width - this.MARGIN - this.tabWidth_, b);
       }
-      this.targetWorkspace.toolboxPosition != this.toolboxPosition_ || this.toolboxPosition_ != Blockly.TOOLBOX_AT_LEFT || this.targetWorkspace.getToolbox() || this.targetWorkspace.translate(this.targetWorkspace.scrollX + a, this.targetWorkspace.scrollY);
+      this.targetWorkspace.toolboxPosition != this.toolboxPosition_ || this.toolboxPosition_ != Blockly.utils.toolbox.Position.LEFT || this.targetWorkspace.getToolbox() || this.targetWorkspace.translate(this.targetWorkspace.scrollX + a, this.targetWorkspace.scrollY);
       this.width_ = a;
       this.position();
     }
@@ -13086,7 +12844,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     c.setAttribute("x", this.width / 2);
     c.setAttribute("y", this.height / 2 - d.height / 2 + d.baseline);
     this.updateTransform_();
-    this.onMouseUpWrapper_ = Blockly.bindEventWithChecks_(this.svgGroup_, "mouseup", this, this.onMouseUp_);
+    this.onMouseUpWrapper_ = Blockly.browserEvents.conditionalBind(this.svgGroup_, "mouseup", this, this.onMouseUp_);
     return this.svgGroup_;
   };
 
@@ -13122,7 +12880,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.FlyoutButton.prototype.dispose = function () {
-    this.onMouseUpWrapper_ && Blockly.unbindEvent_(this.onMouseUpWrapper_);
+    this.onMouseUpWrapper_ && Blockly.browserEvents.unbind(this.onMouseUpWrapper_);
     this.svgGroup_ && Blockly.utils.dom.removeNode(this.svgGroup_);
     this.svgText_ && this.workspace_.getThemeManager().unsubscribe(this.svgText_);
   };
@@ -13146,6 +12904,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Generator.prototype.INDENT = "  ";
   Blockly.Generator.prototype.COMMENT_WRAP = 60;
   Blockly.Generator.prototype.ORDER_OVERRIDES = [];
+  Blockly.Generator.prototype.isInitialized = null;
 
   Blockly.Generator.prototype.workspaceToCode = function (a) {
     a || (console.warn("No workspace specified in workspaceToCode call.  Guessing."), a = Blockly.getMainWorkspace());
@@ -13184,6 +12943,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Generator.prototype.blockToCode = function (a, b) {
+    !1 === this.isInitialized && console.warn("Generator init was not called before blockToCode was called.");
     if (!a) return "";
     if (!a.isEnabled()) return b ? "" : this.blockToCode(a.getNextBlock());
     if (a.isInsertionMarker()) return b ? "" : this.blockToCode(a.getChildren(!1)[0]);
@@ -13324,7 +13084,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Blockly.ToolboxCategory.superClass_.constructor.call(this, a, b, c);
     this.name_ = Blockly.utils.replaceMessageReferences(a.name);
     this.colour_ = this.getColour_(a);
-    this.iconDom_ = this.rowContents_ = this.rowDiv_ = this.htmlDiv_ = null;
+    this.labelDom_ = this.iconDom_ = this.rowContents_ = this.rowDiv_ = this.htmlDiv_ = null;
     this.cssConfig_ = this.makeDefaultCssConfig_();
     Blockly.utils.object.mixin(this.cssConfig_, a.cssconfig || a.cssConfig);
     this.isDisabled_ = this.isHidden_ = !1;
@@ -13374,7 +13134,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Blockly.utils.aria.setState(this.htmlDiv_, Blockly.utils.aria.State.SELECTED, !1);
     Blockly.utils.aria.setState(this.htmlDiv_, Blockly.utils.aria.State.LEVEL, this.level_);
     this.rowDiv_ = this.createRowContainer_();
-    this.rowDiv_.setAttribute("id", this.id_);
     this.rowDiv_.style.pointerEvents = "auto";
     this.htmlDiv_.appendChild(this.rowDiv_);
     this.rowContents_ = this.createRowContentsContainer_();
@@ -13383,9 +13142,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.iconDom_ = this.createIconDom_();
     Blockly.utils.aria.setRole(this.iconDom_, Blockly.utils.aria.Role.PRESENTATION);
     this.rowContents_.appendChild(this.iconDom_);
-    var a = this.createLabelDom_(this.name_);
-    this.rowContents_.appendChild(a);
-    Blockly.utils.aria.setState(this.htmlDiv_, Blockly.utils.aria.State.LABELLEDBY, a.getAttribute("id"));
+    this.labelDom_ = this.createLabelDom_(this.name_);
+    this.rowContents_.appendChild(this.labelDom_);
+    Blockly.utils.aria.setState(this.htmlDiv_, Blockly.utils.aria.State.LABELLEDBY, this.labelDom_.getAttribute("id"));
     this.addColourBorder_(this.colour_);
     return this.htmlDiv_;
   };
@@ -13450,6 +13209,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     return "";
+  };
+
+  Blockly.ToolboxCategory.prototype.getClickTarget = function () {
+    return this.rowDiv_;
   };
 
   Blockly.ToolboxCategory.prototype.parseColour_ = function (a) {
@@ -13646,8 +13409,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     for (var c = 0; c < a.length; c++) {
       var d = a[c];
       d.init();
-      d = d.getDiv();
-      b.appendChild(d);
+      var e = d.getDiv();
+      b.appendChild(e);
+      d.getClickTarget && d.getClickTarget().setAttribute("id", d.getId());
     }
 
     return b;
@@ -13694,6 +13458,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.registry.register(Blockly.registry.Type.TOOLBOX_ITEM, Blockly.CollapsibleToolboxCategory.registrationName, Blockly.CollapsibleToolboxCategory);
 
+  Blockly.Events.ToolboxItemSelect = function (a, b, c) {
+    Blockly.Events.ToolboxItemSelect.superClass_.constructor.call(this, c);
+    this.oldItem = a;
+    this.newItem = b;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.ToolboxItemSelect, Blockly.Events.UiBase);
+  Blockly.Events.ToolboxItemSelect.prototype.type = Blockly.Events.TOOLBOX_ITEM_SELECT;
+
+  Blockly.Events.ToolboxItemSelect.prototype.toJson = function () {
+    var a = Blockly.Events.ToolboxItemSelect.superClass_.toJson.call(this);
+    a.oldItem = this.oldItem;
+    a.newItem = this.newItem;
+    return a;
+  };
+
+  Blockly.Events.ToolboxItemSelect.prototype.fromJson = function (a) {
+    Blockly.Events.ToolboxItemSelect.superClass_.fromJson.call(this, a);
+    this.oldItem = a.oldItem;
+    this.newItem = a.newItem;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.TOOLBOX_ITEM_SELECT, Blockly.Events.ToolboxItemSelect);
+
   Blockly.Toolbox = function (a) {
     this.workspace_ = a;
     this.toolboxDef_ = a.options.languageTree || {
@@ -13709,6 +13497,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.toolboxPosition = a.options.toolboxPosition;
     this.previouslySelectedItem_ = this.selectedItem_ = null;
     this.boundEvents_ = [];
+  };
+
+  Blockly.Toolbox.prototype.onShortcut = function (a) {
+    return !1;
   };
 
   Blockly.Toolbox.prototype.init = function () {
@@ -13753,15 +13545,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Toolbox.prototype.attachEvents_ = function (a, b) {
-    a = Blockly.bindEventWithChecks_(a, "mousedown", this, this.onClick_, !1, !0);
+    a = Blockly.browserEvents.conditionalBind(a, "click", this, this.onClick_, !1, !0);
     this.boundEvents_.push(a);
-    b = Blockly.bindEventWithChecks_(b, "keydown", this, this.onKeyDown_, !1, !0);
+    b = Blockly.browserEvents.conditionalBind(b, "keydown", this, this.onKeyDown_, !1, !0);
     this.boundEvents_.push(b);
   };
 
   Blockly.Toolbox.prototype.onClick_ = function (a) {
     if (Blockly.utils.isRightButton(a) || a.target == this.HtmlDiv) Blockly.hideChaff(!1);else {
-      var b = a.srcElement.getAttribute("id");
+      var b = a.target.getAttribute("id");
       b && (b = this.getToolboxItemById(b), b.isSelectable() && (this.setSelectedItem(b), b.onClick(a)));
       Blockly.hideChaff(!0);
     }
@@ -13797,6 +13589,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         b = !1;
     }
 
+    !b && this.selectedItem_ && this.selectedItem_.onKeyDown && (b = this.selectedItem_.onKeyDown(a));
     b && a.preventDefault();
   };
 
@@ -13808,12 +13601,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       oneBasedIndex: a.options.oneBasedIndex,
       horizontalLayout: a.horizontalLayout,
       renderer: a.options.renderer,
-      rendererOverrides: a.options.rendererOverrides
+      rendererOverrides: a.options.rendererOverrides,
+      move: {
+        scrollbars: !0
+      }
     });
     b.toolboxPosition = a.options.toolboxPosition;
-    a = a.horizontalLayout ? Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_HORIZONTAL_TOOLBOX, a.options) : Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_VERTICAL_TOOLBOX, a.options);
-    if (!a) throw Error("Blockly.VerticalFlyout, Blockly.HorizontalFlyout or your own custom flyout must be required.");
-    return new a(b);
+    return new (a.horizontalLayout ? Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_HORIZONTAL_TOOLBOX, a.options, !0) : Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_VERTICAL_TOOLBOX, a.options, !0))(b);
   };
 
   Blockly.Toolbox.prototype.render = function (a) {
@@ -13841,7 +13635,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Toolbox.prototype.createToolboxItem_ = function (a, b) {
     var c = a.kind;
     "CATEGORY" == c.toUpperCase() && Blockly.utils.toolbox.isCategoryCollapsible(a) && (c = Blockly.CollapsibleToolboxCategory.registrationName);
-    if (c = Blockly.registry.getClass(Blockly.registry.Type.TOOLBOX_ITEM, c.toLowerCase())) a = new c(a, this), this.addToolboxItem_(a), a.init(), (a = a.getDiv()) && b.appendChild(a);
+    if (c = Blockly.registry.getClass(Blockly.registry.Type.TOOLBOX_ITEM, c.toLowerCase())) a = new c(a, this), this.addToolboxItem_(a), a.init(), (c = a.getDiv()) && b.appendChild(c), a.getClickTarget && a.getClickTarget().setAttribute("id", a.getId());
   };
 
   Blockly.Toolbox.prototype.addToolboxItem_ = function (a) {
@@ -13907,14 +13701,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Toolbox.prototype.position = function () {
-    var a = this.HtmlDiv;
-    a && (this.horizontalLayout_ ? (a.style.left = "0", a.style.height = "auto", a.style.width = "100%", this.height_ = a.offsetHeight, this.toolboxPosition == Blockly.TOOLBOX_AT_TOP ? a.style.top = "0" : a.style.bottom = "0") : (this.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT ? a.style.right = "0" : a.style.left = "0", a.style.height = "100%", this.width_ = a.offsetWidth), this.flyout_.position());
+    var a = this.workspace_.getMetrics(),
+        b = this.HtmlDiv;
+    b && (this.horizontalLayout_ ? (b.style.left = "0", b.style.height = "auto", b.style.width = "100%", this.height_ = b.offsetHeight, this.width_ = a.viewWidth, this.toolboxPosition == Blockly.utils.toolbox.Position.TOP ? b.style.top = "0" : b.style.bottom = "0") : (this.toolboxPosition == Blockly.utils.toolbox.Position.RIGHT ? b.style.right = "0" : b.style.left = "0", b.style.height = "100%", this.width_ = b.offsetWidth, this.height_ = a.viewHeight), this.flyout_.position());
   };
 
   Blockly.Toolbox.prototype.handleToolboxItemResize = function () {
     var a = this.workspace_,
         b = this.HtmlDiv.getBoundingClientRect();
-    a.translate(this.toolboxPosition == Blockly.TOOLBOX_AT_LEFT ? a.scrollX + b.width : a.scrollX, this.toolboxPosition == Blockly.TOOLBOX_AT_TOP ? a.scrollY + b.height : a.scrollY);
+    a.translate(this.toolboxPosition == Blockly.utils.toolbox.Position.LEFT ? a.scrollX + b.width : a.scrollX, this.toolboxPosition == Blockly.utils.toolbox.Position.TOP ? a.scrollY + b.height : a.scrollY);
     Blockly.svgResize(a);
   };
 
@@ -13976,30 +13771,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var c = a && a.getName(),
         d = b && b.getName();
     a == b && (d = null);
-    a = new Blockly.Events.Ui(null, "category", c, d);
-    a.workspaceId = this.workspace_.id;
+    a = new (Blockly.Events.get(Blockly.Events.TOOLBOX_ITEM_SELECT))(c, d, this.workspace_.id);
     Blockly.Events.fire(a);
-  };
-
-  Blockly.Toolbox.prototype.onBlocklyAction = function (a) {
-    if (!this.selectedItem_) return !1;
-
-    switch (a.name) {
-      case Blockly.navigation.actionNames.PREVIOUS:
-        return this.selectPrevious_();
-
-      case Blockly.navigation.actionNames.OUT:
-        return this.selectParent_();
-
-      case Blockly.navigation.actionNames.NEXT:
-        return this.selectNext_();
-
-      case Blockly.navigation.actionNames.IN:
-        return this.selectChild_();
-
-      default:
-        return !1;
-    }
   };
 
   Blockly.Toolbox.prototype.selectParent_ = function () {
@@ -14051,7 +13824,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
 
     for (a = 0; a < this.boundEvents_.length; a++) {
-      Blockly.unbindEvent_(this.boundEvents_[a]);
+      Blockly.browserEvents.unbind(this.boundEvents_[a]);
     }
 
     this.boundEvents_ = [];
@@ -14063,33 +13836,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.Css.register([".blocklyToolboxDelete {", 'cursor: url("<<<PATH>>>/handdelete.cur"), auto;', "}", ".blocklyToolboxGrab {", 'cursor: url("<<<PATH>>>/handclosed.cur"), auto;', "cursor: grabbing;", "cursor: -webkit-grabbing;", "}", ".blocklyToolboxDiv {", "background-color: #ddd;", "overflow-x: visible;", "overflow-y: auto;", "padding: 4px 0 4px 0;", "position: absolute;", "z-index: 70;", "-webkit-tap-highlight-color: transparent;", "}", ".blocklyToolboxContents {", "display: flex;", "flex-wrap: wrap;", "flex-direction: column;", "}", ".blocklyToolboxContents:focus {", "outline: none;", "}"]);
   Blockly.registry.register(Blockly.registry.Type.TOOLBOX, Blockly.registry.DEFAULT, Blockly.Toolbox);
 
+  Blockly.Events.TrashcanOpen = function (a, b) {
+    Blockly.Events.TrashcanOpen.superClass_.constructor.call(this, b);
+    this.isOpen = a;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.TrashcanOpen, Blockly.Events.UiBase);
+  Blockly.Events.TrashcanOpen.prototype.type = Blockly.Events.TRASHCAN_OPEN;
+
+  Blockly.Events.TrashcanOpen.prototype.toJson = function () {
+    var a = Blockly.Events.TrashcanOpen.superClass_.toJson.call(this);
+    a.isOpen = this.isOpen;
+    return a;
+  };
+
+  Blockly.Events.TrashcanOpen.prototype.fromJson = function (a) {
+    Blockly.Events.TrashcanOpen.superClass_.fromJson.call(this, a);
+    this.isOpen = a.isOpen;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.TRASHCAN_OPEN, Blockly.Events.TrashcanOpen);
+
+  Blockly.IPlugin = function () {};
+
+  Blockly.IPositionable = function () {};
+
   Blockly.Trashcan = function (a) {
     this.workspace_ = a;
     this.contents_ = [];
     this.flyout = null;
-
-    if (!(0 >= this.workspace_.options.maxTrashcanContents)) {
-      a = new Blockly.Options({
-        scrollbars: !0,
-        parentWorkspace: this.workspace_,
-        rtl: this.workspace_.RTL,
-        oneBasedIndex: this.workspace_.options.oneBasedIndex,
-        renderer: this.workspace_.options.renderer,
-        rendererOverrides: this.workspace_.options.rendererOverrides
-      });
-
-      if (this.workspace_.horizontalLayout) {
-        a.toolboxPosition = this.workspace_.toolboxPosition == Blockly.utils.toolbox.Position.TOP ? Blockly.utils.toolbox.Position.BOTTOM : Blockly.utils.toolbox.Position.TOP;
-        if (!Blockly.HorizontalFlyout) throw Error("Missing require for Blockly.HorizontalFlyout");
-        this.flyout = new Blockly.HorizontalFlyout(a);
-      } else {
-        a.toolboxPosition = this.workspace_.toolboxPosition == Blockly.utils.toolbox.Position.RIGHT ? Blockly.utils.toolbox.Position.LEFT : Blockly.utils.toolbox.Position.RIGHT;
-        if (!Blockly.VerticalFlyout) throw Error("Missing require for Blockly.VerticalFlyout");
-        this.flyout = new Blockly.VerticalFlyout(a);
+    0 >= this.workspace_.options.maxTrashcanContents || (a = new Blockly.Options({
+      scrollbars: !0,
+      parentWorkspace: this.workspace_,
+      rtl: this.workspace_.RTL,
+      oneBasedIndex: this.workspace_.options.oneBasedIndex,
+      renderer: this.workspace_.options.renderer,
+      rendererOverrides: this.workspace_.options.rendererOverrides,
+      move: {
+        scrollbars: !0
       }
-
-      this.workspace_.addChangeListener(this.onDelete_.bind(this));
-    }
+    }), this.workspace_.horizontalLayout ? (a.toolboxPosition = this.workspace_.toolboxPosition == Blockly.utils.toolbox.Position.TOP ? Blockly.utils.toolbox.Position.BOTTOM : Blockly.utils.toolbox.Position.TOP, this.flyout = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_HORIZONTAL_TOOLBOX, this.workspace_.options, !0))(a)) : (a.toolboxPosition = this.workspace_.toolboxPosition == Blockly.utils.toolbox.Position.RIGHT ? Blockly.utils.toolbox.Position.LEFT : Blockly.utils.toolbox.Position.RIGHT, this.flyout = new (Blockly.registry.getClassFromOptions(Blockly.registry.Type.FLYOUTS_VERTICAL_TOOLBOX, this.workspace_.options, !0))(a)), this.workspace_.addChangeListener(this.onDelete_.bind(this)));
   };
 
   Blockly.Trashcan.prototype.WIDTH_ = 47;
@@ -14151,9 +13937,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       "clip-path": "url(#blocklyTrashLidClipPath" + a + ")"
     }, this.svgGroup_);
     this.svgLid_.setAttributeNS(Blockly.utils.dom.XLINK_NS, "xlink:href", this.workspace_.options.pathToMedia + Blockly.SPRITE.url);
-    Blockly.bindEventWithChecks_(this.svgGroup_, "mouseup", this, this.click);
-    Blockly.bindEvent_(c, "mouseover", this, this.mouseOver_);
-    Blockly.bindEvent_(c, "mouseout", this, this.mouseOut_);
+    Blockly.browserEvents.bind(this.svgGroup_, "mousedown", this, this.blockMouseDownWhenOpenable_);
+    Blockly.browserEvents.bind(this.svgGroup_, "mouseup", this, this.click);
+    Blockly.browserEvents.bind(c, "mouseover", this, this.mouseOver_);
+    Blockly.browserEvents.bind(c, "mouseout", this, this.mouseOut_);
     this.animateLid_();
     return this.svgGroup_;
   };
@@ -14198,11 +13985,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.hasContents_() && (this.contents_.length = 0, this.setMinOpenness_(0), this.closeFlyout());
   };
 
-  Blockly.Trashcan.prototype.position = function () {
+  Blockly.Trashcan.prototype.position = function (a, b) {
     if (this.verticalSpacing_) {
-      var a = this.workspace_.getMetrics();
-      a && (this.left_ = a.toolboxPosition == Blockly.TOOLBOX_AT_LEFT || this.workspace_.horizontalLayout && !this.workspace_.RTL ? a.viewWidth + a.absoluteLeft - this.WIDTH_ - this.MARGIN_SIDE_ - Blockly.Scrollbar.scrollbarThickness : this.MARGIN_SIDE_ + Blockly.Scrollbar.scrollbarThickness, this.top_ = a.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM ? this.verticalSpacing_ : a.viewHeight + a.absoluteTop - (this.BODY_HEIGHT_ + this.LID_HEIGHT_) - this.verticalSpacing_, this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ")"));
+      this.left_ = a.toolboxMetrics.position == Blockly.utils.toolbox.Position.LEFT || this.workspace_.horizontalLayout && !this.workspace_.RTL ? a.viewMetrics.width + a.absoluteMetrics.left - this.WIDTH_ - this.MARGIN_SIDE_ - Blockly.Scrollbar.scrollbarThickness : this.MARGIN_SIDE_ + Blockly.Scrollbar.scrollbarThickness;
+      var c = this.BODY_HEIGHT_ + this.LID_HEIGHT_,
+          d = this.top_ = a.absoluteMetrics.top + this.verticalSpacing_,
+          e = a.absoluteMetrics.top + a.viewMetrics.height - c - this.verticalSpacing_;
+      this.top_ = (a = a.toolboxMetrics.position !== Blockly.utils.toolbox.Position.BOTTOM) ? e : d;
+
+      for (var f = this.getBoundingRectangle(), g = 0, h; h = b[g]; g++) {
+        f.intersects(h) && (this.top_ = a ? h.top - c - this.MARGIN_BOTTOM_ : h.bottom + this.MARGIN_BOTTOM_, f = this.getBoundingRectangle(), g = -1);
+      }
+
+      this.top_ = Blockly.utils.math.clamp(d, this.top_, e);
+      this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ")");
     }
+  };
+
+  Blockly.Trashcan.prototype.getBoundingRectangle = function () {
+    return new Blockly.utils.Rect(this.top_, this.top_ + this.BODY_HEIGHT_ + this.LID_HEIGHT_, this.left_, this.left_ + this.WIDTH_);
   };
 
   Blockly.Trashcan.prototype.getClientRect = function () {
@@ -14229,7 +14030,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Trashcan.prototype.setLidAngle_ = function (a) {
-    var b = this.workspace_.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT || this.workspace_.horizontalLayout && this.workspace_.RTL;
+    var b = this.workspace_.toolboxPosition == Blockly.utils.toolbox.Position.RIGHT || this.workspace_.horizontalLayout && this.workspace_.RTL;
     this.svgLid_.setAttribute("transform", "rotate(" + (b ? -a : a) + "," + (b ? 4 : this.WIDTH_ - 4) + "," + (this.LID_HEIGHT_ - 2) + ")");
   };
 
@@ -14247,9 +14048,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Trashcan.prototype.fireUiEvent_ = function (a) {
-    a = new Blockly.Events.Ui(null, "trashcanOpen", null, a);
-    a.workspaceId = this.workspace_.id;
+    a = new (Blockly.Events.get(Blockly.Events.TRASHCAN_OPEN))(a, this.workspace_.id);
     Blockly.Events.fire(a);
+  };
+
+  Blockly.Trashcan.prototype.blockMouseDownWhenOpenable_ = function (a) {
+    !this.contentsIsOpen() && this.hasContents_() && a.stopPropagation();
   };
 
   Blockly.Trashcan.prototype.mouseOver_ = function () {
@@ -14379,15 +14183,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.ZoomControls.prototype.dispose = function () {
     this.svgGroup_ && Blockly.utils.dom.removeNode(this.svgGroup_);
-    this.onZoomResetWrapper_ && Blockly.unbindEvent_(this.onZoomResetWrapper_);
-    this.onZoomInWrapper_ && Blockly.unbindEvent_(this.onZoomInWrapper_);
-    this.onZoomOutWrapper_ && Blockly.unbindEvent_(this.onZoomOutWrapper_);
+    this.onZoomResetWrapper_ && Blockly.browserEvents.unbind(this.onZoomResetWrapper_);
+    this.onZoomInWrapper_ && Blockly.browserEvents.unbind(this.onZoomInWrapper_);
+    this.onZoomOutWrapper_ && Blockly.browserEvents.unbind(this.onZoomOutWrapper_);
   };
 
-  Blockly.ZoomControls.prototype.position = function () {
+  Blockly.ZoomControls.prototype.getBoundingRectangle = function () {
+    return new Blockly.utils.Rect(this.top_, this.top_ + this.HEIGHT_, this.left_, this.left_ + this.WIDTH_);
+  };
+
+  Blockly.ZoomControls.prototype.position = function (a, b) {
     if (this.verticalSpacing_) {
-      var a = this.workspace_.getMetrics();
-      a && (this.left_ = a.toolboxPosition == Blockly.TOOLBOX_AT_LEFT || this.workspace_.horizontalLayout && !this.workspace_.RTL ? a.viewWidth + a.absoluteLeft - this.WIDTH_ - this.MARGIN_SIDE_ - Blockly.Scrollbar.scrollbarThickness : this.MARGIN_SIDE_ + Blockly.Scrollbar.scrollbarThickness, a.toolboxPosition == Blockly.TOOLBOX_AT_BOTTOM ? (this.top_ = this.verticalSpacing_, this.zoomInGroup_.setAttribute("transform", "translate(0, 34)"), this.zoomResetGroup_ && this.zoomResetGroup_.setAttribute("transform", "translate(0, 77)")) : (this.top_ = a.viewHeight + a.absoluteTop - this.HEIGHT_ - this.verticalSpacing_, this.zoomInGroup_.setAttribute("transform", "translate(0, 43)"), this.zoomOutGroup_.setAttribute("transform", "translate(0, 77)")), this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ")"));
+      this.left_ = a.toolboxMetrics.position == Blockly.utils.toolbox.Position.LEFT || this.workspace_.horizontalLayout && !this.workspace_.RTL ? a.viewMetrics.width + a.absoluteMetrics.left - this.WIDTH_ - this.MARGIN_SIDE_ - Blockly.Scrollbar.scrollbarThickness : this.MARGIN_SIDE_ + Blockly.Scrollbar.scrollbarThickness;
+      var c = this.top_ = a.absoluteMetrics.top + this.verticalSpacing_,
+          d = a.absoluteMetrics.top + a.viewMetrics.height - this.HEIGHT_ - this.verticalSpacing_;
+      this.top_ = (a = a.toolboxMetrics.position !== Blockly.utils.toolbox.Position.BOTTOM) ? d : c;
+      a ? (this.zoomInGroup_.setAttribute("transform", "translate(0, 43)"), this.zoomOutGroup_.setAttribute("transform", "translate(0, 77)")) : (this.zoomInGroup_.setAttribute("transform", "translate(0, 34)"), this.zoomResetGroup_ && this.zoomResetGroup_.setAttribute("transform", "translate(0, 77)"));
+
+      for (var e = this.getBoundingRectangle(), f = 0, g; g = b[f]; f++) {
+        e.intersects(g) && (this.top_ = a ? g.top - this.HEIGHT_ - this.MARGIN_BOTTOM_ : g.bottom + this.MARGIN_BOTTOM_, e = this.getBoundingRectangle(), f = -1);
+      }
+
+      this.top_ = Blockly.utils.math.clamp(c, this.top_, d);
+      this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ")");
     }
   };
 
@@ -14409,7 +14227,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       y: -92,
       "clip-path": "url(#blocklyZoomoutClipPath" + a + ")"
     }, this.zoomOutGroup_).setAttributeNS(Blockly.utils.dom.XLINK_NS, "xlink:href", this.workspace_.options.pathToMedia + Blockly.SPRITE.url);
-    this.onZoomOutWrapper_ = Blockly.bindEventWithChecks_(this.zoomOutGroup_, "mousedown", null, this.zoom_.bind(this, -1));
+    this.onZoomOutWrapper_ = Blockly.browserEvents.conditionalBind(this.zoomOutGroup_, "mousedown", null, this.zoom_.bind(this, -1));
   };
 
   Blockly.ZoomControls.prototype.createZoomInSvg_ = function (a) {
@@ -14430,14 +14248,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       y: -92,
       "clip-path": "url(#blocklyZoominClipPath" + a + ")"
     }, this.zoomInGroup_).setAttributeNS(Blockly.utils.dom.XLINK_NS, "xlink:href", this.workspace_.options.pathToMedia + Blockly.SPRITE.url);
-    this.onZoomInWrapper_ = Blockly.bindEventWithChecks_(this.zoomInGroup_, "mousedown", null, this.zoom_.bind(this, 1));
+    this.onZoomInWrapper_ = Blockly.browserEvents.conditionalBind(this.zoomInGroup_, "mousedown", null, this.zoom_.bind(this, 1));
   };
 
   Blockly.ZoomControls.prototype.zoom_ = function (a, b) {
     this.workspace_.markFocused();
-    var c = this.workspace_.scale;
     this.workspace_.zoomCenter(a);
-    this.fireZoomEvent_(c);
+    this.fireZoomEvent_();
     Blockly.Touch.clearTouchIdentifier();
     b.stopPropagation();
     b.preventDefault();
@@ -14460,29 +14277,524 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       y: -92,
       "clip-path": "url(#blocklyZoomresetClipPath" + a + ")"
     }, this.zoomResetGroup_).setAttributeNS(Blockly.utils.dom.XLINK_NS, "xlink:href", this.workspace_.options.pathToMedia + Blockly.SPRITE.url);
-    this.onZoomResetWrapper_ = Blockly.bindEventWithChecks_(this.zoomResetGroup_, "mousedown", null, this.resetZoom_.bind(this));
+    this.onZoomResetWrapper_ = Blockly.browserEvents.conditionalBind(this.zoomResetGroup_, "mousedown", null, this.resetZoom_.bind(this));
   };
 
   Blockly.ZoomControls.prototype.resetZoom_ = function (a) {
     this.workspace_.markFocused();
-    var b = this.workspace_.scale;
-    this.workspace_.setScale(this.workspace_.options.zoomOptions.startScale);
+    var b = Math.log(this.workspace_.options.zoomOptions.startScale / this.workspace_.scale) / Math.log(this.workspace_.options.zoomOptions.scaleSpeed);
     this.workspace_.beginCanvasTransition();
+    this.workspace_.zoomCenter(b);
     this.workspace_.scrollCenter();
     setTimeout(this.workspace_.endCanvasTransition.bind(this.workspace_), 500);
-    this.fireZoomEvent_(b);
+    this.fireZoomEvent_();
     Blockly.Touch.clearTouchIdentifier();
     a.stopPropagation();
     a.preventDefault();
   };
 
-  Blockly.ZoomControls.prototype.fireZoomEvent_ = function (a) {
-    a = new Blockly.Events.Ui(null, "zoom", a, this.workspace_.scale);
-    a.workspaceId = this.workspace_.id;
+  Blockly.ZoomControls.prototype.fireZoomEvent_ = function () {
+    var a = new (Blockly.Events.get(Blockly.Events.CLICK))(null, this.workspace_.id, "zoom_controls");
     Blockly.Events.fire(a);
   };
 
   Blockly.Css.register([".blocklyZoom>image, .blocklyZoom>svg>image {", "opacity: .4;", "}", ".blocklyZoom>image:hover, .blocklyZoom>svg>image:hover {", "opacity: .6;", "}", ".blocklyZoom>image:active, .blocklyZoom>svg>image:active {", "opacity: .8;", "}"]);
+  Blockly.ShortcutItems = {};
+  Blockly.ShortcutItems.names = {
+    ESCAPE: "escape",
+    DELETE: "delete",
+    COPY: "copy",
+    CUT: "cut",
+    PASTE: "paste",
+    UNDO: "undo",
+    REDO: "redo"
+  };
+
+  Blockly.ShortcutItems.registerEscape = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.ESCAPE,
+      preconditionFn: function preconditionFn(b) {
+        return !b.options.readOnly;
+      },
+      callback: function callback() {
+        Blockly.hideChaff();
+        return !0;
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(Blockly.utils.KeyCodes.ESC, a.name);
+  };
+
+  Blockly.ShortcutItems.registerDelete = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.DELETE,
+      preconditionFn: function preconditionFn(b) {
+        return !b.options.readOnly && Blockly.selected && Blockly.selected.isDeletable();
+      },
+      callback: function callback(b, c) {
+        c.preventDefault();
+        if (Blockly.Gesture.inProgress()) return !1;
+        Blockly.deleteBlock(Blockly.selected);
+        return !0;
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(Blockly.utils.KeyCodes.DELETE, a.name);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(Blockly.utils.KeyCodes.BACKSPACE, a.name);
+  };
+
+  Blockly.ShortcutItems.registerCopy = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.COPY,
+      preconditionFn: function preconditionFn(c) {
+        return !c.options.readOnly && !Blockly.Gesture.inProgress() && Blockly.selected && Blockly.selected.isDeletable() && Blockly.selected.isMovable();
+      },
+      callback: function callback() {
+        Blockly.hideChaff();
+        Blockly.copy(Blockly.selected);
+        return !0;
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    var b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.C, [Blockly.utils.KeyCodes.CTRL]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.C, [Blockly.utils.KeyCodes.ALT]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.C, [Blockly.utils.KeyCodes.META]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+  };
+
+  Blockly.ShortcutItems.registerCut = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.CUT,
+      preconditionFn: function preconditionFn(c) {
+        return !c.options.readOnly && !Blockly.Gesture.inProgress() && Blockly.selected && Blockly.selected.isDeletable() && Blockly.selected.isMovable() && !Blockly.selected.workspace.isFlyout;
+      },
+      callback: function callback() {
+        Blockly.copy(Blockly.selected);
+        Blockly.deleteBlock(Blockly.selected);
+        return !0;
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    var b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.X, [Blockly.utils.KeyCodes.CTRL]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.X, [Blockly.utils.KeyCodes.ALT]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.X, [Blockly.utils.KeyCodes.META]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+  };
+
+  Blockly.ShortcutItems.registerPaste = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.PASTE,
+      preconditionFn: function preconditionFn(c) {
+        return !c.options.readOnly && !Blockly.Gesture.inProgress();
+      },
+      callback: function callback() {
+        return Blockly.paste();
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    var b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.V, [Blockly.utils.KeyCodes.CTRL]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.V, [Blockly.utils.KeyCodes.ALT]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.V, [Blockly.utils.KeyCodes.META]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+  };
+
+  Blockly.ShortcutItems.registerUndo = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.UNDO,
+      preconditionFn: function preconditionFn(c) {
+        return !c.options.readOnly && !Blockly.Gesture.inProgress();
+      },
+      callback: function callback(c) {
+        Blockly.hideChaff();
+        c.undo(!1);
+        return !0;
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    var b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Z, [Blockly.utils.KeyCodes.CTRL]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Z, [Blockly.utils.KeyCodes.ALT]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Z, [Blockly.utils.KeyCodes.META]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+  };
+
+  Blockly.ShortcutItems.registerRedo = function () {
+    var a = {
+      name: Blockly.ShortcutItems.names.REDO,
+      preconditionFn: function preconditionFn(c) {
+        return !Blockly.Gesture.inProgress() && !c.options.readOnly;
+      },
+      callback: function callback(c) {
+        Blockly.hideChaff();
+        c.undo(!0);
+        return !0;
+      }
+    };
+    Blockly.ShortcutRegistry.registry.register(a);
+    var b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Z, [Blockly.utils.KeyCodes.SHIFT, Blockly.utils.KeyCodes.CTRL]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Z, [Blockly.utils.KeyCodes.SHIFT, Blockly.utils.KeyCodes.ALT]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Z, [Blockly.utils.KeyCodes.SHIFT, Blockly.utils.KeyCodes.META]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+    b = Blockly.ShortcutRegistry.registry.createSerializedKey(Blockly.utils.KeyCodes.Y, [Blockly.utils.KeyCodes.CTRL]);
+    Blockly.ShortcutRegistry.registry.addKeyMapping(b, a.name);
+  };
+
+  Blockly.ShortcutItems.registerDefaultShortcuts = function () {
+    Blockly.ShortcutItems.registerEscape();
+    Blockly.ShortcutItems.registerDelete();
+    Blockly.ShortcutItems.registerCopy();
+    Blockly.ShortcutItems.registerCut();
+    Blockly.ShortcutItems.registerPaste();
+    Blockly.ShortcutItems.registerUndo();
+    Blockly.ShortcutItems.registerRedo();
+  };
+
+  Blockly.ShortcutItems.registerDefaultShortcuts();
+  Blockly.ContextMenuItems = {};
+
+  Blockly.ContextMenuItems.registerUndo = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.UNDO;
+      },
+      preconditionFn: function preconditionFn(a) {
+        return 0 < a.workspace.getUndoStack().length ? "enabled" : "disabled";
+      },
+      callback: function callback(a) {
+        a.workspace.undo(!1);
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+      id: "undoWorkspace",
+      weight: 1
+    });
+  };
+
+  Blockly.ContextMenuItems.registerRedo = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.REDO;
+      },
+      preconditionFn: function preconditionFn(a) {
+        return 0 < a.workspace.getRedoStack().length ? "enabled" : "disabled";
+      },
+      callback: function callback(a) {
+        a.workspace.undo(!0);
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+      id: "redoWorkspace",
+      weight: 2
+    });
+  };
+
+  Blockly.ContextMenuItems.registerCleanup = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.CLEAN_UP;
+      },
+      preconditionFn: function preconditionFn(a) {
+        return a.workspace.isMovable() ? 1 < a.workspace.getTopBlocks(!1).length ? "enabled" : "disabled" : "hidden";
+      },
+      callback: function callback(a) {
+        a.workspace.cleanUp();
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+      id: "cleanWorkspace",
+      weight: 3
+    });
+  };
+
+  Blockly.ContextMenuItems.toggleOption_ = function (a, b) {
+    for (var c = 0, d = 0; d < b.length; d++) {
+      for (var e = b[d]; e;) {
+        setTimeout(e.setCollapsed.bind(e, a), c), e = e.getNextBlock(), c += 10;
+      }
+    }
+  };
+
+  Blockly.ContextMenuItems.registerCollapse = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.COLLAPSE_ALL;
+      },
+      preconditionFn: function preconditionFn(a) {
+        if (a.workspace.options.collapse) {
+          a = a.workspace.getTopBlocks(!1);
+
+          for (var b = 0; b < a.length; b++) {
+            for (var c = a[b]; c;) {
+              if (!c.isCollapsed()) return "enabled";
+              c = c.getNextBlock();
+            }
+          }
+
+          return "disabled";
+        }
+
+        return "hidden";
+      },
+      callback: function callback(a) {
+        Blockly.ContextMenuItems.toggleOption_(!0, a.workspace.getTopBlocks(!0));
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+      id: "collapseWorkspace",
+      weight: 4
+    });
+  };
+
+  Blockly.ContextMenuItems.registerExpand = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.EXPAND_ALL;
+      },
+      preconditionFn: function preconditionFn(a) {
+        if (a.workspace.options.collapse) {
+          a = a.workspace.getTopBlocks(!1);
+
+          for (var b = 0; b < a.length; b++) {
+            for (var c = a[b]; c;) {
+              if (c.isCollapsed()) return "enabled";
+              c = c.getNextBlock();
+            }
+          }
+
+          return "disabled";
+        }
+
+        return "hidden";
+      },
+      callback: function callback(a) {
+        Blockly.ContextMenuItems.toggleOption_(!1, a.workspace.getTopBlocks(!0));
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+      id: "expandWorkspace",
+      weight: 5
+    });
+  };
+
+  Blockly.ContextMenuItems.addDeletableBlocks_ = function (a, b) {
+    if (a.isDeletable()) Array.prototype.push.apply(b, a.getDescendants(!1));else {
+      a = a.getChildren(!1);
+
+      for (var c = 0; c < a.length; c++) {
+        Blockly.ContextMenuItems.addDeletableBlocks_(a[c], b);
+      }
+    }
+  };
+
+  Blockly.ContextMenuItems.getDeletableBlocks_ = function (a) {
+    var b = [];
+    a = a.getTopBlocks(!0);
+
+    for (var c = 0; c < a.length; c++) {
+      Blockly.ContextMenuItems.addDeletableBlocks_(a[c], b);
+    }
+
+    return b;
+  };
+
+  Blockly.ContextMenuItems.deleteNext_ = function (a, b) {
+    Blockly.Events.setGroup(b);
+    var c = a.shift();
+    c && (c.workspace ? (c.dispose(!1, !0), setTimeout(Blockly.ContextMenuItems.deleteNext_, 10, a, b)) : Blockly.ContextMenuItems.deleteNext_(a, b));
+    Blockly.Events.setGroup(!1);
+  };
+
+  Blockly.ContextMenuItems.registerDeleteAll = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText(a) {
+        if (a.workspace) return a = Blockly.ContextMenuItems.getDeletableBlocks_(a.workspace).length, 1 == a ? Blockly.Msg.DELETE_BLOCK : Blockly.Msg.DELETE_X_BLOCKS.replace("%1", String(a));
+      },
+      preconditionFn: function preconditionFn(a) {
+        if (a.workspace) return 0 < Blockly.ContextMenuItems.getDeletableBlocks_(a.workspace).length ? "enabled" : "disabled";
+      },
+      callback: function callback(a) {
+        if (a.workspace) {
+          a.workspace.cancelCurrentGesture();
+          var b = Blockly.ContextMenuItems.getDeletableBlocks_(a.workspace),
+              c = Blockly.utils.genUid();
+          2 > b.length ? Blockly.ContextMenuItems.deleteNext_(b, c) : Blockly.confirm(Blockly.Msg.DELETE_ALL_BLOCKS.replace("%1", b.length), function (d) {
+            d && Blockly.ContextMenuItems.deleteNext_(b, c);
+          });
+        }
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.WORKSPACE,
+      id: "workspaceDelete",
+      weight: 6
+    });
+  };
+
+  Blockly.ContextMenuItems.registerWorkspaceOptions_ = function () {
+    Blockly.ContextMenuItems.registerUndo();
+    Blockly.ContextMenuItems.registerRedo();
+    Blockly.ContextMenuItems.registerCleanup();
+    Blockly.ContextMenuItems.registerCollapse();
+    Blockly.ContextMenuItems.registerExpand();
+    Blockly.ContextMenuItems.registerDeleteAll();
+  };
+
+  Blockly.ContextMenuItems.registerDuplicate = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.DUPLICATE_BLOCK;
+      },
+      preconditionFn: function preconditionFn(a) {
+        a = a.block;
+        return !a.isInFlyout && a.isDeletable() && a.isMovable() ? a.isDuplicatable() ? "enabled" : "disabled" : "hidden";
+      },
+      callback: function callback(a) {
+        a.block && Blockly.duplicate(a.block);
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockDuplicate",
+      weight: 1
+    });
+  };
+
+  Blockly.ContextMenuItems.registerComment = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText(a) {
+        return a.block.getCommentIcon() ? Blockly.Msg.REMOVE_COMMENT : Blockly.Msg.ADD_COMMENT;
+      },
+      preconditionFn: function preconditionFn(a) {
+        a = a.block;
+        return Blockly.utils.userAgent.IE || a.isInFlyout || !a.workspace.options.comments || a.isCollapsed() || !a.isEditable() ? "hidden" : "enabled";
+      },
+      callback: function callback(a) {
+        a = a.block;
+        a.getCommentIcon() ? a.setCommentText(null) : a.setCommentText("");
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockComment",
+      weight: 2
+    });
+  };
+
+  Blockly.ContextMenuItems.registerInline = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText(a) {
+        return a.block.getInputsInline() ? Blockly.Msg.EXTERNAL_INPUTS : Blockly.Msg.INLINE_INPUTS;
+      },
+      preconditionFn: function preconditionFn(a) {
+        a = a.block;
+        if (!a.isInFlyout && a.isMovable() && !a.isCollapsed()) for (var b = 1; b < a.inputList.length; b++) {
+          if (a.inputList[b - 1].type != Blockly.inputTypes.STATEMENT && a.inputList[b].type != Blockly.inputTypes.STATEMENT) return "enabled";
+        }
+        return "hidden";
+      },
+      callback: function callback(a) {
+        a.block.setInputsInline(!a.block.getInputsInline());
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockInline",
+      weight: 3
+    });
+  };
+
+  Blockly.ContextMenuItems.registerCollapseExpandBlock = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText(a) {
+        return a.block.isCollapsed() ? Blockly.Msg.EXPAND_BLOCK : Blockly.Msg.COLLAPSE_BLOCK;
+      },
+      preconditionFn: function preconditionFn(a) {
+        a = a.block;
+        return !a.isInFlyout && a.isMovable() ? "enabled" : "hidden";
+      },
+      callback: function callback(a) {
+        a.block.setCollapsed(!a.block.isCollapsed());
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockCollapseExpand",
+      weight: 4
+    });
+  };
+
+  Blockly.ContextMenuItems.registerDisable = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText(a) {
+        return a.block.isEnabled() ? Blockly.Msg.DISABLE_BLOCK : Blockly.Msg.ENABLE_BLOCK;
+      },
+      preconditionFn: function preconditionFn(a) {
+        a = a.block;
+        return !a.isInFlyout && a.workspace.options.disable && a.isEditable() ? a.getInheritedDisabled() ? "disabled" : "enabled" : "hidden";
+      },
+      callback: function callback(a) {
+        a = a.block;
+        var b = Blockly.Events.getGroup();
+        b || Blockly.Events.setGroup(!0);
+        a.setEnabled(!a.isEnabled());
+        b || Blockly.Events.setGroup(!1);
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockDisable",
+      weight: 5
+    });
+  };
+
+  Blockly.ContextMenuItems.registerDelete = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText(a) {
+        var b = a.block;
+        a = b.getDescendants(!1).length;
+        (b = b.getNextBlock()) && (a -= b.getDescendants(!1).length);
+        return 1 == a ? Blockly.Msg.DELETE_BLOCK : Blockly.Msg.DELETE_X_BLOCKS.replace("%1", String(a));
+      },
+      preconditionFn: function preconditionFn(a) {
+        return !a.block.isInFlyout && a.block.isDeletable() ? "enabled" : "hidden";
+      },
+      callback: function callback(a) {
+        Blockly.Events.setGroup(!0);
+        a.block.dispose(!0, !0);
+        Blockly.Events.setGroup(!1);
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockDelete",
+      weight: 6
+    });
+  };
+
+  Blockly.ContextMenuItems.registerHelp = function () {
+    Blockly.ContextMenuRegistry.registry.register({
+      displayText: function displayText() {
+        return Blockly.Msg.HELP;
+      },
+      preconditionFn: function preconditionFn(a) {
+        a = a.block;
+        return ("function" == typeof a.helpUrl ? a.helpUrl() : a.helpUrl) ? "enabled" : "hidden";
+      },
+      callback: function callback(a) {
+        a.block.showHelp();
+      },
+      scopeType: Blockly.ContextMenuRegistry.ScopeType.BLOCK,
+      id: "blockHelp",
+      weight: 7
+    });
+  };
+
+  Blockly.ContextMenuItems.registerBlockOptions_ = function () {
+    Blockly.ContextMenuItems.registerDuplicate();
+    Blockly.ContextMenuItems.registerComment();
+    Blockly.ContextMenuItems.registerInline();
+    Blockly.ContextMenuItems.registerCollapseExpandBlock();
+    Blockly.ContextMenuItems.registerDisable();
+    Blockly.ContextMenuItems.registerDelete();
+    Blockly.ContextMenuItems.registerHelp();
+  };
+
+  Blockly.ContextMenuItems.registerDefaultOptions = function () {
+    Blockly.ContextMenuItems.registerWorkspaceOptions_();
+    Blockly.ContextMenuItems.registerBlockOptions_();
+  };
+
+  Blockly.ContextMenuItems.registerDefaultOptions();
 
   Blockly.Mutator = function (a) {
     Blockly.Mutator.superClass_.constructor.call(this, null);
@@ -14545,7 +14857,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       rendererOverrides: this.block_.workspace.options.rendererOverrides
     });
     b.toolboxPosition = this.block_.RTL ? Blockly.utils.toolbox.Position.RIGHT : Blockly.utils.toolbox.Position.LEFT;
-    if (c = !!a) b.languageTree = Blockly.utils.toolbox.convertToolboxDefToJson(a), b.getMetrics = this.getFlyoutMetrics_.bind(this);
+    if (c = !!a) b.languageTree = Blockly.utils.toolbox.convertToolboxDefToJson(a);
     this.workspace_ = new Blockly.WorkspaceSvg(b);
     this.workspace_.isMutator = !0;
     this.workspace_.addChangeListener(Blockly.Events.disableOrphans);
@@ -14569,14 +14881,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         e = this.workspace_.getFlyout();
 
     if (e) {
-      var f = e.getMetrics_();
-      d = Math.max(d, f.contentHeight + 20);
+      var f = e.getWorkspace().getMetricsManager().getScrollMetrics();
+      d = Math.max(d, f.height + 20);
       c += e.getWidth();
     }
 
     this.block_.RTL && (c = -b.x);
     c += 3 * a;
-    if (Math.abs(this.workspaceWidth_ - c) > a || Math.abs(this.workspaceHeight_ - d) > a) this.workspaceWidth_ = c, this.workspaceHeight_ = d, this.bubble_.setBubbleSize(c + a, d + a), this.svgDialog_.setAttribute("width", this.workspaceWidth_), this.svgDialog_.setAttribute("height", this.workspaceHeight_);
+    if (Math.abs(this.workspaceWidth_ - c) > a || Math.abs(this.workspaceHeight_ - d) > a) this.workspaceWidth_ = c, this.workspaceHeight_ = d, this.bubble_.setBubbleSize(c + a, d + a), this.svgDialog_.setAttribute("width", this.workspaceWidth_), this.svgDialog_.setAttribute("height", this.workspaceHeight_), this.workspace_.setCachedParentSvgSize(this.workspaceWidth_, this.workspaceHeight_);
     this.block_.RTL && (a = "translate(" + this.workspaceWidth_ + ",0)", this.workspace_.getCanvas().setAttribute("transform", a));
     this.workspace_.resize();
   };
@@ -14586,7 +14898,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Mutator.prototype.setVisible = function (a) {
-    if (a != this.isVisible()) if (Blockly.Events.fire(new Blockly.Events.Ui(this.block_, "mutatorOpen", !a, a)), a) {
+    if (a != this.isVisible()) if (Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BUBBLE_OPEN))(this.block_, a, "mutator")), a) {
       this.bubble_ = new Blockly.Bubble(this.block_.workspace, this.createEditor_(), this.block_.pathObject.svgPath, this.iconXY_, null, null);
       this.bubble_.setSvgId(this.block_.id);
       this.bubble_.registerMoveEvent(this.onBubbleMove_.bind(this));
@@ -14625,37 +14937,49 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.Mutator.prototype.workspaceChanged_ = function (a) {
-    if (a.type != Blockly.Events.UI && (a.type != Blockly.Events.CHANGE || "disabled" != a.element)) {
-      if (!this.workspace_.isDragging()) for (var b = this.workspace_.getTopBlocks(!1), c = 0; a = b[c]; c++) {
-        var d = a.getRelativeToSurfaceXY();
-        20 > d.y && a.moveBy(0, 20 - d.y);
+    if (!(a.isUiEvent || a.type == Blockly.Events.CHANGE && "disabled" == a.element)) {
+      if (!this.workspace_.isDragging()) {
+        a = this.workspace_.getTopBlocks(!1);
 
-        if (a.RTL) {
-          var e = -20,
-              f = this.workspace_.getFlyout();
-          f && (e -= f.getWidth());
-          d.x > e && a.moveBy(e - d.x, 0);
-        } else 20 > d.x && a.moveBy(20 - d.x, 0);
+        for (var b = 0, c; c = a[b]; b++) {
+          var d = c.getRelativeToSurfaceXY();
+          20 > d.y && c.moveBy(0, 20 - d.y);
+
+          if (c.RTL) {
+            var e = -20,
+                f = this.workspace_.getFlyout();
+            f && (e -= f.getWidth());
+            d.x > e && c.moveBy(e - d.x, 0);
+          } else 20 > d.x && c.moveBy(20 - d.x, 0);
+        }
       }
-      this.rootBlock_.workspace == this.workspace_ && (Blockly.Events.setGroup(!0), a = this.block_, b = (b = a.mutationToDom()) && Blockly.Xml.domToText(b), c = a.rendered, a.rendered = !1, a.compose(this.rootBlock_), a.rendered = c, a.initSvg(), Blockly.getMainWorkspace().keyboardAccessibilityMode && Blockly.navigation.moveCursorOnBlockMutation(a), a.rendered && a.render(), c = (c = a.mutationToDom()) && Blockly.Xml.domToText(c), b != c && Blockly.Events.fire(new Blockly.Events.BlockChange(a, "mutation", null, b, c)), this.workspace_.isDragging() || this.resizeBubble_(), Blockly.Events.setGroup(!1));
-    }
-  };
 
-  Blockly.Mutator.prototype.getFlyoutMetrics_ = function () {
-    var a = this.workspace_.getFlyout();
-    a = a ? a.getWidth() : 0;
-    return {
-      contentHeight: 0,
-      contentWidth: 0,
-      contentTop: 0,
-      contentLeft: 0,
-      viewHeight: this.workspaceHeight_,
-      viewWidth: this.workspaceWidth_ - a,
-      viewTop: 0,
-      viewLeft: 0,
-      absoluteTop: 0,
-      absoluteLeft: this.workspace_.RTL ? 0 : a
-    };
+      if (this.rootBlock_.workspace == this.workspace_) {
+        Blockly.Events.setGroup(!0);
+        c = this.block_;
+        a = (a = c.mutationToDom()) && Blockly.Xml.domToText(a);
+        b = c.rendered;
+        c.rendered = !1;
+        c.compose(this.rootBlock_);
+        c.rendered = b;
+        c.initSvg();
+        c.rendered && c.render();
+        b = (b = c.mutationToDom()) && Blockly.Xml.domToText(b);
+
+        if (a != b) {
+          Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(c, "mutation", null, a, b));
+          var g = Blockly.Events.getGroup();
+          setTimeout(function () {
+            Blockly.Events.setGroup(g);
+            c.bumpNeighbours();
+            Blockly.Events.setGroup(!1);
+          }, Blockly.BUMP_DELAY);
+        }
+
+        this.workspace_.isDragging() || this.resizeBubble_();
+        Blockly.Events.setGroup(!1);
+      }
+    }
   };
 
   Blockly.Mutator.prototype.dispose = function () {
@@ -14743,7 +15067,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.FieldTextInput.prototype.doValueInvalid_ = function (a) {
-    this.isBeingEdited_ && (this.isTextValid_ = !1, a = this.value_, this.value_ = this.htmlInput_.untypedDefaultValue_, this.sourceBlock_ && Blockly.Events.isEnabled() && Blockly.Events.fire(new Blockly.Events.BlockChange(this.sourceBlock_, "field", this.name || null, a, this.value_)));
+    this.isBeingEdited_ && (this.isTextValid_ = !1, a = this.value_, this.value_ = this.htmlInput_.untypedDefaultValue_, this.sourceBlock_ && Blockly.Events.isEnabled() && Blockly.Events.fire(new (Blockly.Events.get(Blockly.Events.BLOCK_CHANGE))(this.sourceBlock_, "field", this.name || null, a, this.value_)));
   };
 
   Blockly.FieldTextInput.prototype.doValueUpdate_ = function (a) {
@@ -14777,10 +15101,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.FieldTextInput.prototype.showPromptEditor_ = function () {
-    var a = this;
-    Blockly.prompt(Blockly.Msg.CHANGE_VALUE_TITLE, this.getText(), function (b) {
-      a.setValue(b);
-    });
+    Blockly.prompt(Blockly.Msg.CHANGE_VALUE_TITLE, this.getText(), function (a) {
+      this.setValue(this.getValueFromEditorText_(a));
+    }.bind(this));
   };
 
   Blockly.FieldTextInput.prototype.showInlineEditor_ = function (a) {
@@ -14841,13 +15164,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.FieldTextInput.prototype.bindInputEvents_ = function (a) {
-    this.onKeyDownWrapper_ = Blockly.bindEventWithChecks_(a, "keydown", this, this.onHtmlInputKeyDown_);
-    this.onKeyInputWrapper_ = Blockly.bindEventWithChecks_(a, "input", this, this.onHtmlInputChange_);
+    this.onKeyDownWrapper_ = Blockly.browserEvents.conditionalBind(a, "keydown", this, this.onHtmlInputKeyDown_);
+    this.onKeyInputWrapper_ = Blockly.browserEvents.conditionalBind(a, "input", this, this.onHtmlInputChange_);
   };
 
   Blockly.FieldTextInput.prototype.unbindInputEvents_ = function () {
-    this.onKeyDownWrapper_ && (Blockly.unbindEvent_(this.onKeyDownWrapper_), this.onKeyDownWrapper_ = null);
-    this.onKeyInputWrapper_ && (Blockly.unbindEvent_(this.onKeyInputWrapper_), this.onKeyInputWrapper_ = null);
+    this.onKeyDownWrapper_ && (Blockly.browserEvents.unbind(this.onKeyDownWrapper_), this.onKeyDownWrapper_ = null);
+    this.onKeyInputWrapper_ && (Blockly.browserEvents.unbind(this.onKeyInputWrapper_), this.onKeyInputWrapper_ = null);
   };
 
   Blockly.FieldTextInput.prototype.onHtmlInputKeyDown_ = function (a) {
@@ -14873,21 +15196,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     b = new Blockly.utils.Coordinate(this.sourceBlock_.RTL ? b.right - a.offsetWidth : b.left, b.top);
     a.style.left = b.x + "px";
     a.style.top = b.y + "px";
-  };
-
-  Blockly.FieldTextInput.numberValidator = function (a) {
-    console.warn("Blockly.FieldTextInput.numberValidator is deprecated. Use Blockly.FieldNumber instead.");
-    if (null === a) return null;
-    a = String(a);
-    a = a.replace(/O/ig, "0");
-    a = a.replace(/,/g, "");
-    a = Number(a || 0);
-    return isNaN(a) ? null : String(a);
-  };
-
-  Blockly.FieldTextInput.nonnegativeIntegerValidator = function (a) {
-    (a = Blockly.FieldTextInput.numberValidator(a)) && (a = String(Math.max(0, Math.floor(a))));
-    return a;
   };
 
   Blockly.FieldTextInput.prototype.isTabNavigable = function () {
@@ -15012,16 +15320,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }, a);
     }
 
-    this.clickWrapper_ = Blockly.bindEventWithChecks_(a, "click", this, this.hide_);
-    this.clickSurfaceWrapper_ = Blockly.bindEventWithChecks_(b, "click", this, this.onMouseMove_, !0, !0);
-    this.moveSurfaceWrapper_ = Blockly.bindEventWithChecks_(b, "mousemove", this, this.onMouseMove_, !0, !0);
+    this.clickWrapper_ = Blockly.browserEvents.conditionalBind(a, "click", this, this.hide_);
+    this.clickSurfaceWrapper_ = Blockly.browserEvents.conditionalBind(b, "click", this, this.onMouseMove_, !0, !0);
+    this.moveSurfaceWrapper_ = Blockly.browserEvents.conditionalBind(b, "mousemove", this, this.onMouseMove_, !0, !0);
     return a;
   };
 
   Blockly.FieldAngle.prototype.dropdownDispose_ = function () {
-    this.clickWrapper_ && (Blockly.unbindEvent_(this.clickWrapper_), this.clickWrapper_ = null);
-    this.clickSurfaceWrapper_ && (Blockly.unbindEvent_(this.clickSurfaceWrapper_), this.clickSurfaceWrapper_ = null);
-    this.moveSurfaceWrapper_ && (Blockly.unbindEvent_(this.moveSurfaceWrapper_), this.moveSurfaceWrapper_ = null);
+    this.clickWrapper_ && (Blockly.browserEvents.unbind(this.clickWrapper_), this.clickWrapper_ = null);
+    this.clickSurfaceWrapper_ && (Blockly.browserEvents.unbind(this.clickSurfaceWrapper_), this.clickSurfaceWrapper_ = null);
+    this.moveSurfaceWrapper_ && (Blockly.browserEvents.unbind(this.moveSurfaceWrapper_), this.moveSurfaceWrapper_ = null);
     this.line_ = this.gauge_ = null;
   };
 
@@ -15259,17 +15567,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     b && a.stopPropagation();
   };
 
-  Blockly.FieldColour.prototype.onBlocklyAction = function (a) {
-    if (this.picker_) {
-      if (a === Blockly.navigation.ACTION_PREVIOUS) return this.moveHighlightBy_(0, -1), !0;
-      if (a === Blockly.navigation.ACTION_NEXT) return this.moveHighlightBy_(0, 1), !0;
-      if (a === Blockly.navigation.ACTION_OUT) return this.moveHighlightBy_(-1, 0), !0;
-      if (a === Blockly.navigation.ACTION_IN) return this.moveHighlightBy_(1, 0), !0;
-    }
-
-    return Blockly.FieldColour.superClass_.onBlocklyAction.call(this, a);
-  };
-
   Blockly.FieldColour.prototype.moveHighlightBy_ = function (a, b) {
     var c = this.colours_ || Blockly.FieldColour.COLOURS,
         d = this.columns_ || Blockly.FieldColour.COLUMNS,
@@ -15341,20 +15638,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       b[g] == d && (h.className = "blocklyColourSelected", this.highlightedIndex_ = g);
     }
 
-    this.onClickWrapper_ = Blockly.bindEventWithChecks_(e, "click", this, this.onClick_, !0);
-    this.onMouseMoveWrapper_ = Blockly.bindEventWithChecks_(e, "mousemove", this, this.onMouseMove_, !0);
-    this.onMouseEnterWrapper_ = Blockly.bindEventWithChecks_(e, "mouseenter", this, this.onMouseEnter_, !0);
-    this.onMouseLeaveWrapper_ = Blockly.bindEventWithChecks_(e, "mouseleave", this, this.onMouseLeave_, !0);
-    this.onKeyDownWrapper_ = Blockly.bindEventWithChecks_(e, "keydown", this, this.onKeyDown_);
+    this.onClickWrapper_ = Blockly.browserEvents.conditionalBind(e, "click", this, this.onClick_, !0);
+    this.onMouseMoveWrapper_ = Blockly.browserEvents.conditionalBind(e, "mousemove", this, this.onMouseMove_, !0);
+    this.onMouseEnterWrapper_ = Blockly.browserEvents.conditionalBind(e, "mouseenter", this, this.onMouseEnter_, !0);
+    this.onMouseLeaveWrapper_ = Blockly.browserEvents.conditionalBind(e, "mouseleave", this, this.onMouseLeave_, !0);
+    this.onKeyDownWrapper_ = Blockly.browserEvents.conditionalBind(e, "keydown", this, this.onKeyDown_);
     return e;
   };
 
   Blockly.FieldColour.prototype.dropdownDispose_ = function () {
-    this.onClickWrapper_ && (Blockly.unbindEvent_(this.onClickWrapper_), this.onClickWrapper_ = null);
-    this.onMouseMoveWrapper_ && (Blockly.unbindEvent_(this.onMouseMoveWrapper_), this.onMouseMoveWrapper_ = null);
-    this.onMouseEnterWrapper_ && (Blockly.unbindEvent_(this.onMouseEnterWrapper_), this.onMouseEnterWrapper_ = null);
-    this.onMouseLeaveWrapper_ && (Blockly.unbindEvent_(this.onMouseLeaveWrapper_), this.onMouseLeaveWrapper_ = null);
-    this.onKeyDownWrapper_ && (Blockly.unbindEvent_(this.onKeyDownWrapper_), this.onKeyDownWrapper_ = null);
+    this.onClickWrapper_ && (Blockly.browserEvents.unbind(this.onClickWrapper_), this.onClickWrapper_ = null);
+    this.onMouseMoveWrapper_ && (Blockly.browserEvents.unbind(this.onMouseMoveWrapper_), this.onMouseMoveWrapper_ = null);
+    this.onMouseEnterWrapper_ && (Blockly.browserEvents.unbind(this.onMouseEnterWrapper_), this.onMouseEnterWrapper_ = null);
+    this.onMouseLeaveWrapper_ && (Blockly.browserEvents.unbind(this.onMouseLeaveWrapper_), this.onMouseLeaveWrapper_ = null);
+    this.onKeyDownWrapper_ && (Blockly.browserEvents.unbind(this.onKeyDownWrapper_), this.onKeyDownWrapper_ = null);
     this.highlightedIndex_ = this.picker_ = null;
   };
 
@@ -15375,6 +15672,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.FieldDropdown.fromJson = function (a) {
     return new Blockly.FieldDropdown(a.options, void 0, a);
+  };
+
+  Blockly.FieldDropdown.prototype.fromXml = function (a) {
+    this.isOptionListDynamic() && this.getOptions(!1);
+    this.setValue(a.textContent);
   };
 
   Blockly.FieldDropdown.prototype.SERIALIZABLE = !0;
@@ -15612,15 +15914,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (b) throw TypeError("Found invalid FieldDropdown options.");
   };
 
-  Blockly.FieldDropdown.prototype.onBlocklyAction = function (a) {
-    if (this.menu_) {
-      if (a === Blockly.navigation.ACTION_PREVIOUS) return this.menu_.highlightPrevious(), !0;
-      if (a === Blockly.navigation.ACTION_NEXT) return this.menu_.highlightNext(), !0;
-    }
-
-    return Blockly.FieldDropdown.superClass_.onBlocklyAction.call(this, a);
-  };
-
   Blockly.fieldRegistry.register("field_dropdown", Blockly.FieldDropdown);
 
   Blockly.FieldLabelSerializable = function (a, b, c) {
@@ -15719,9 +16012,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Blockly.FieldMultilineInput = function (a, b, c) {
     Blockly.FieldMultilineInput.superClass_.constructor.call(this, a, b, c);
     this.textGroup_ = null;
+    this.maxLines_ = Infinity;
+    this.isOverflowedY_ = !1;
   };
 
   Blockly.utils.object.inherits(Blockly.FieldMultilineInput, Blockly.FieldTextInput);
+
+  Blockly.FieldMultilineInput.prototype.configure_ = function (a) {
+    Blockly.FieldMultilineInput.superClass_.configure_.call(this, a);
+    a.maxLines && this.setMaxLines(a.maxLines);
+  };
 
   Blockly.FieldMultilineInput.fromJson = function (a) {
     var b = Blockly.utils.replaceMessageReferences(a.text);
@@ -15745,21 +16045,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.FieldMultilineInput.prototype.getDisplayText_ = function () {
-    var a = this.value_;
+    var a = this.getText();
     if (!a) return Blockly.Field.NBSP;
     var b = a.split("\n");
     a = "";
 
-    for (var c = 0; c < b.length; c++) {
-      var d = b[c];
-      d.length > this.maxDisplayLength && (d = d.substring(0, this.maxDisplayLength - 4) + "...");
-      d = d.replace(/\s/g, Blockly.Field.NBSP);
-      a += d;
-      c !== b.length - 1 && (a += "\n");
+    for (var c = this.isOverflowedY_ ? this.maxLines_ : b.length, d = 0; d < c; d++) {
+      var e = b[d];
+      e.length > this.maxDisplayLength ? e = e.substring(0, this.maxDisplayLength - 4) + "..." : this.isOverflowedY_ && d === c - 1 && (e = e.substring(0, e.length - 3) + "...");
+      e = e.replace(/\s/g, Blockly.Field.NBSP);
+      a += e;
+      d !== c - 1 && (a += "\n");
     }
 
     this.sourceBlock_.RTL && (a += "\u200F");
     return a;
+  };
+
+  Blockly.FieldMultilineInput.prototype.doValueUpdate_ = function (a) {
+    Blockly.FieldMultilineInput.superClass_.doValueUpdate_.call(this, a);
+    this.isOverflowedY_ = this.value_.split("\n").length > this.maxLines_;
   };
 
   Blockly.FieldMultilineInput.prototype.render_ = function () {
@@ -15780,6 +16085,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       b += d;
     }
 
+    this.isBeingEdited_ && (a = this.htmlInput_, this.isOverflowedY_ ? Blockly.utils.dom.addClass(a, "blocklyHtmlTextAreaInputOverflowedY") : Blockly.utils.dom.removeClass(a, "blocklyHtmlTextAreaInputOverflowedY"));
     this.updateSize_();
     this.isBeingEdited_ && (this.sourceBlock_.RTL ? setTimeout(this.resizeEditor_.bind(this), 0) : this.resizeEditor_(), a = this.htmlInput_, this.isTextValid_ ? (Blockly.utils.dom.removeClass(a, "blocklyInvalidInput"), Blockly.utils.aria.setState(a, Blockly.utils.aria.State.INVALID, !1)) : (Blockly.utils.dom.addClass(a, "blocklyInvalidInput"), Blockly.utils.aria.setState(a, Blockly.utils.aria.State.INVALID, !0)));
   };
@@ -15791,10 +16097,34 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       c += this.getConstants().FIELD_TEXT_HEIGHT + (0 < d ? this.getConstants().FIELD_BORDER_RECT_Y_PADDING : 0);
     }
 
+    if (this.isBeingEdited_) {
+      a = this.value_.split("\n");
+      e = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.TEXT, {
+        "class": "blocklyText blocklyMultilineText"
+      });
+      var f = this.getConstants().FIELD_TEXT_FONTSIZE,
+          g = this.getConstants().FIELD_TEXT_FONTWEIGHT,
+          h = this.getConstants().FIELD_TEXT_FONTFAMILY;
+
+      for (d = 0; d < a.length; d++) {
+        a[d].length > this.maxDisplayLength && (a[d] = a[d].substring(0, this.maxDisplayLength));
+        e.textContent = a[d];
+        var k = Blockly.utils.dom.getFastTextWidth(e, f, g, h);
+        k > b && (b = k);
+      }
+
+      b += this.htmlInput_.offsetWidth - this.htmlInput_.clientWidth;
+    }
+
     this.borderRect_ && (c += 2 * this.getConstants().FIELD_BORDER_RECT_Y_PADDING, b += 2 * this.getConstants().FIELD_BORDER_RECT_X_PADDING, this.borderRect_.setAttribute("width", b), this.borderRect_.setAttribute("height", c));
     this.size_.width = b;
     this.size_.height = c;
     this.positionBorderRect_();
+  };
+
+  Blockly.FieldMultilineInput.prototype.showEditor_ = function (a, b) {
+    Blockly.FieldMultilineInput.superClass_.showEditor_.call(this, a, b);
+    this.forceRerender();
   };
 
   Blockly.FieldMultilineInput.prototype.widgetCreate_ = function () {
@@ -15821,11 +16151,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return c;
   };
 
+  Blockly.FieldMultilineInput.prototype.setMaxLines = function (a) {
+    "number" === typeof a && 0 < a && a !== this.maxLines_ && (this.maxLines_ = a, this.forceRerender());
+  };
+
+  Blockly.FieldMultilineInput.prototype.getMaxLines = function () {
+    return this.maxLines_;
+  };
+
   Blockly.FieldMultilineInput.prototype.onHtmlInputKeyDown_ = function (a) {
     a.keyCode !== Blockly.utils.KeyCodes.ENTER && Blockly.FieldMultilineInput.superClass_.onHtmlInputKeyDown_.call(this, a);
   };
 
-  Blockly.Css.register(".blocklyHtmlTextAreaInput {,font-family: monospace;,resize: none;,overflow: hidden;,height: 100%;,text-align: left;,}".split(","));
+  Blockly.Css.register(".blocklyHtmlTextAreaInput {,font-family: monospace;,resize: none;,overflow: hidden;,height: 100%;,text-align: left;,},.blocklyHtmlTextAreaInputOverflowedY {,overflow-y: scroll;,}".split(","));
   Blockly.fieldRegistry.register("field_multilinetext", Blockly.FieldMultilineInput);
 
   Blockly.FieldNumber = function (a, b, c, d, e, f) {
@@ -15929,7 +16267,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.FieldVariable = function (a, b, c, d, e) {
     this.menuGenerator_ = Blockly.FieldVariable.dropdownCreate;
-    this.defaultVariableName = a || "";
+    this.defaultVariableName = "string" === typeof a ? a : "";
     this.size_ = new Blockly.utils.Size(0, 0);
     e && this.configure_(e);
     b && this.setValidator(b);
@@ -16387,12 +16725,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.blockRendering.ConstantProvider.prototype.shapeFor = function (a) {
     switch (a.type) {
-      case Blockly.INPUT_VALUE:
-      case Blockly.OUTPUT_VALUE:
+      case Blockly.connectionTypes.INPUT_VALUE:
+      case Blockly.connectionTypes.OUTPUT_VALUE:
         return this.PUZZLE_TAB;
 
-      case Blockly.PREVIOUS_STATEMENT:
-      case Blockly.NEXT_STATEMENT:
+      case Blockly.connectionTypes.PREVIOUS_STATEMENT:
+      case Blockly.connectionTypes.NEXT_STATEMENT:
         return this.NOTCH;
 
       default:
@@ -16491,274 +16829,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.blockRendering.ConstantProvider.prototype.getCSS_ = function (a) {
     return [a + " .blocklyText, ", a + " .blocklyFlyoutLabelText {", "font: " + this.FIELD_TEXT_FONTWEIGHT + " " + this.FIELD_TEXT_FONTSIZE + "pt " + this.FIELD_TEXT_FONTFAMILY + ";", "}", a + " .blocklyText {", "fill: #fff;", "}", a + " .blocklyNonEditableText>rect,", a + " .blocklyEditableText>rect {", "fill: " + this.FIELD_BORDER_RECT_COLOUR + ";", "fill-opacity: .6;", "stroke: none;", "}", a + " .blocklyNonEditableText>text,", a + " .blocklyEditableText>text {", "fill: #000;", "}", a + " .blocklyFlyoutLabelText {", "fill: #000;", "}", a + " .blocklyText.blocklyBubbleText {", "fill: #000;", "}", a + " .blocklyEditableText:not(.editing):hover>rect {", "stroke: #fff;", "stroke-width: 2;", "}", a + " .blocklyHtmlInput {", "font-family: " + this.FIELD_TEXT_FONTFAMILY + ";", "font-weight: " + this.FIELD_TEXT_FONTWEIGHT + ";", "}", a + " .blocklySelected>.blocklyPath {", "stroke: #fc3;", "stroke-width: 3px;", "}", a + " .blocklyHighlightedConnectionPath {", "stroke: #fc3;", "}", a + " .blocklyReplaceable .blocklyPath {", "fill-opacity: .5;", "}", a + " .blocklyReplaceable .blocklyPathLight,", a + " .blocklyReplaceable .blocklyPathDark {", "display: none;", "}", a + " .blocklyInsertionMarker>.blocklyPath {", "fill-opacity: " + this.INSERTION_MARKER_OPACITY + ";", "stroke: none;", "}"];
-  };
-
-  Blockly.blockRendering.MarkerSvg = function (a, b, c) {
-    this.workspace_ = a;
-    this.marker_ = c;
-    this.parent_ = null;
-    this.constants_ = b;
-    this.currentMarkerSvg = null;
-    a = this.isCursor() ? this.constants_.CURSOR_COLOUR : this.constants_.MARKER_COLOUR;
-    this.colour_ = c.colour || a;
-  };
-
-  Blockly.blockRendering.MarkerSvg.CURSOR_CLASS = "blocklyCursor";
-  Blockly.blockRendering.MarkerSvg.MARKER_CLASS = "blocklyMarker";
-  Blockly.blockRendering.MarkerSvg.HEIGHT_MULTIPLIER = .75;
-
-  Blockly.blockRendering.MarkerSvg.prototype.getSvgRoot = function () {
-    return this.svgGroup_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.getMarker = function () {
-    return this.marker_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.isCursor = function () {
-    return "cursor" == this.marker_.type;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.createDom = function () {
-    var a = this.isCursor() ? Blockly.blockRendering.MarkerSvg.CURSOR_CLASS : Blockly.blockRendering.MarkerSvg.MARKER_CLASS;
-    this.svgGroup_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.G, {
-      "class": a
-    }, null);
-    this.createDomInternal_();
-    return this.svgGroup_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.setParent_ = function (a) {
-    this.isCursor() ? (this.parent_ && this.parent_.setCursorSvg(null), a.setCursorSvg(this.getSvgRoot())) : (this.parent_ && this.parent_.setMarkerSvg(null), a.setMarkerSvg(this.getSvgRoot()));
-    this.parent_ = a;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.draw = function (a, b) {
-    if (b) {
-      this.constants_ = this.workspace_.getRenderer().getConstants();
-      var c = this.isCursor() ? this.constants_.CURSOR_COLOUR : this.constants_.MARKER_COLOUR;
-      this.colour_ = this.marker_.colour || c;
-      this.applyColour_(b);
-      this.showAtLocation_(b);
-      this.fireMarkerEvent_(a, b);
-      a = this.currentMarkerSvg.childNodes[0];
-      void 0 !== a && a.beginElement && a.beginElement();
-    } else this.hide();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showAtLocation_ = function (a) {
-    var b = a.getLocation();
-    a.getType() == Blockly.ASTNode.types.BLOCK ? this.showWithBlock_(a) : a.getType() == Blockly.ASTNode.types.OUTPUT ? this.showWithOutput_(a) : b.type == Blockly.INPUT_VALUE ? this.showWithInput_(a) : b.type == Blockly.NEXT_STATEMENT ? this.showWithNext_(a) : a.getType() == Blockly.ASTNode.types.PREVIOUS ? this.showWithPrevious_(a) : a.getType() == Blockly.ASTNode.types.FIELD ? this.showWithField_(a) : a.getType() == Blockly.ASTNode.types.WORKSPACE ? this.showWithCoordinates_(a) : a.getType() == Blockly.ASTNode.types.STACK && this.showWithStack_(a);
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithBlockPrevOutput_ = function (a) {
-    a = a.getSourceBlock();
-    var b = a.width,
-        c = a.height,
-        d = c * Blockly.blockRendering.MarkerSvg.HEIGHT_MULTIPLIER,
-        e = this.constants_.CURSOR_BLOCK_PADDING;
-
-    if (a.previousConnection) {
-      var f = this.constants_.shapeFor(a.previousConnection);
-      this.positionPrevious_(b, e, d, f);
-    } else a.outputConnection ? (f = this.constants_.shapeFor(a.outputConnection), this.positionOutput_(b, c, f)) : this.positionBlock_(b, e, d);
-
-    this.setParent_(a);
-    this.showCurrent_();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithBlock_ = function (a) {
-    this.showWithBlockPrevOutput_(a);
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithPrevious_ = function (a) {
-    this.showWithBlockPrevOutput_(a);
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithOutput_ = function (a) {
-    this.showWithBlockPrevOutput_(a);
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithCoordinates_ = function (a) {
-    var b = a.getWsCoordinate();
-    a = b.x;
-    b = b.y;
-    this.workspace_.RTL && (a -= this.constants_.CURSOR_WS_WIDTH);
-    this.positionLine_(a, b, this.constants_.CURSOR_WS_WIDTH);
-    this.setParent_(this.workspace_);
-    this.showCurrent_();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithField_ = function (a) {
-    a = a.getLocation();
-    var b = a.getSize().width,
-        c = a.getSize().height;
-    this.positionRect_(0, 0, b, c);
-    this.setParent_(a);
-    this.showCurrent_();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithInput_ = function (a) {
-    a = a.getLocation();
-    var b = a.getSourceBlock();
-    this.positionInput_(a);
-    this.setParent_(b);
-    this.showCurrent_();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithNext_ = function (a) {
-    var b = a.getLocation();
-    a = b.getSourceBlock();
-    var c = 0;
-    b = b.getOffsetInBlock().y;
-    var d = a.getHeightWidth().width;
-    this.workspace_.RTL && (c = -d);
-    this.positionLine_(c, b, d);
-    this.setParent_(a);
-    this.showCurrent_();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showWithStack_ = function (a) {
-    a = a.getLocation();
-    var b = a.getHeightWidth(),
-        c = b.width + this.constants_.CURSOR_STACK_PADDING;
-    b = b.height + this.constants_.CURSOR_STACK_PADDING;
-    var d = -this.constants_.CURSOR_STACK_PADDING / 2,
-        e = -this.constants_.CURSOR_STACK_PADDING / 2,
-        f = d;
-    this.workspace_.RTL && (f = -(c + d));
-    this.positionRect_(f, e, c, b);
-    this.setParent_(a);
-    this.showCurrent_();
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.showCurrent_ = function () {
-    this.hide();
-    this.currentMarkerSvg.style.display = "";
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.positionBlock_ = function (a, b, c) {
-    a = Blockly.utils.svgPaths.moveBy(-b, c) + Blockly.utils.svgPaths.lineOnAxis("V", -b) + Blockly.utils.svgPaths.lineOnAxis("H", a + 2 * b) + Blockly.utils.svgPaths.lineOnAxis("V", c);
-    this.markerBlock_.setAttribute("d", a);
-    this.workspace_.RTL && this.flipRtl_(this.markerBlock_);
-    this.currentMarkerSvg = this.markerBlock_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.positionInput_ = function (a) {
-    var b = a.getOffsetInBlock().x,
-        c = a.getOffsetInBlock().y;
-    a = Blockly.utils.svgPaths.moveTo(0, 0) + this.constants_.shapeFor(a).pathDown;
-    this.markerInput_.setAttribute("d", a);
-    this.markerInput_.setAttribute("transform", "translate(" + b + "," + c + ")" + (this.workspace_.RTL ? " scale(-1 1)" : ""));
-    this.currentMarkerSvg = this.markerInput_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.positionLine_ = function (a, b, c) {
-    this.markerSvgLine_.setAttribute("x", a);
-    this.markerSvgLine_.setAttribute("y", b);
-    this.markerSvgLine_.setAttribute("width", c);
-    this.currentMarkerSvg = this.markerSvgLine_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.positionOutput_ = function (a, b, c) {
-    a = Blockly.utils.svgPaths.moveBy(a, 0) + Blockly.utils.svgPaths.lineOnAxis("h", -(a - c.width)) + Blockly.utils.svgPaths.lineOnAxis("v", this.constants_.TAB_OFFSET_FROM_TOP) + c.pathDown + Blockly.utils.svgPaths.lineOnAxis("V", b) + Blockly.utils.svgPaths.lineOnAxis("H", a);
-    this.markerBlock_.setAttribute("d", a);
-    this.workspace_.RTL && this.flipRtl_(this.markerBlock_);
-    this.currentMarkerSvg = this.markerBlock_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.positionPrevious_ = function (a, b, c, d) {
-    a = Blockly.utils.svgPaths.moveBy(-b, c) + Blockly.utils.svgPaths.lineOnAxis("V", -b) + Blockly.utils.svgPaths.lineOnAxis("H", this.constants_.NOTCH_OFFSET_LEFT) + d.pathLeft + Blockly.utils.svgPaths.lineOnAxis("H", a + 2 * b) + Blockly.utils.svgPaths.lineOnAxis("V", c);
-    this.markerBlock_.setAttribute("d", a);
-    this.workspace_.RTL && this.flipRtl_(this.markerBlock_);
-    this.currentMarkerSvg = this.markerBlock_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.positionRect_ = function (a, b, c, d) {
-    this.markerSvgRect_.setAttribute("x", a);
-    this.markerSvgRect_.setAttribute("y", b);
-    this.markerSvgRect_.setAttribute("width", c);
-    this.markerSvgRect_.setAttribute("height", d);
-    this.currentMarkerSvg = this.markerSvgRect_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.flipRtl_ = function (a) {
-    a.setAttribute("transform", "scale(-1 1)");
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.hide = function () {
-    this.markerSvgLine_.style.display = "none";
-    this.markerSvgRect_.style.display = "none";
-    this.markerInput_.style.display = "none";
-    this.markerBlock_.style.display = "none";
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.fireMarkerEvent_ = function (a, b) {
-    var c = b.getSourceBlock(),
-        d = this.isCursor() ? "cursorMove" : "markerMove";
-    a = new Blockly.Events.Ui(c, d, a, b);
-    b.getType() == Blockly.ASTNode.types.WORKSPACE && (a.workspaceId = b.getLocation().id);
-    Blockly.Events.fire(a);
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.getBlinkProperties_ = function () {
-    return {
-      attributeType: "XML",
-      attributeName: "fill",
-      dur: "1s",
-      values: this.colour_ + ";transparent;transparent;",
-      repeatCount: "indefinite"
-    };
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.createDomInternal_ = function () {
-    this.markerSvg_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.G, {
-      width: this.constants_.CURSOR_WS_WIDTH,
-      height: this.constants_.WS_CURSOR_HEIGHT
-    }, this.svgGroup_);
-    this.markerSvgLine_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
-      width: this.constants_.CURSOR_WS_WIDTH,
-      height: this.constants_.WS_CURSOR_HEIGHT,
-      style: "display: none"
-    }, this.markerSvg_);
-    this.markerSvgRect_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
-      "class": "blocklyVerticalMarker",
-      rx: 10,
-      ry: 10,
-      style: "display: none"
-    }, this.markerSvg_);
-    this.markerInput_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.PATH, {
-      transform: "",
-      style: "display: none"
-    }, this.markerSvg_);
-    this.markerBlock_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.PATH, {
-      transform: "",
-      style: "display: none",
-      fill: "none",
-      "stroke-width": this.constants_.CURSOR_STROKE_WIDTH
-    }, this.markerSvg_);
-
-    if (this.isCursor()) {
-      var a = this.getBlinkProperties_();
-      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerSvgLine_);
-      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerInput_);
-      a.attributeName = "stroke";
-      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerBlock_);
-    }
-
-    return this.markerSvg_;
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.applyColour_ = function (a) {
-    this.markerSvgLine_.setAttribute("fill", this.colour_);
-    this.markerSvgRect_.setAttribute("stroke", this.colour_);
-    this.markerInput_.setAttribute("fill", this.colour_);
-    this.markerBlock_.setAttribute("stroke", this.colour_);
-    this.isCursor() && (a = this.colour_ + ";transparent;transparent;", this.markerSvgLine_.firstChild.setAttribute("values", a), this.markerInput_.firstChild.setAttribute("values", a), this.markerBlock_.firstChild.setAttribute("values", a));
-  };
-
-  Blockly.blockRendering.MarkerSvg.prototype.dispose = function () {
-    this.svgGroup_ && Blockly.utils.dom.removeNode(this.svgGroup_);
   };
 
   Blockly.blockRendering.Types = {
@@ -17283,25 +17353,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         b = (this.block_.hat ? "cap" === this.block_.hat : this.constants_.ADD_START_HATS) && !this.outputConnection && !a;
     this.topRow.hasLeftSquareCorner(this.block_) ? this.topRow.elements.push(new Blockly.blockRendering.SquareCorner(this.constants_)) : this.topRow.elements.push(new Blockly.blockRendering.RoundCorner(this.constants_));
     b ? (a = new Blockly.blockRendering.Hat(this.constants_), this.topRow.elements.push(a), this.topRow.capline = a.ascenderHeight) : a && (this.topRow.hasPreviousConnection = !0, this.topRow.connection = new Blockly.blockRendering.PreviousConnection(this.constants_, this.block_.previousConnection), this.topRow.elements.push(this.topRow.connection));
-    this.block_.inputList.length && this.block_.inputList[0].type == Blockly.NEXT_STATEMENT && !this.block_.isCollapsed() ? this.topRow.minHeight = this.constants_.TOP_ROW_PRECEDES_STATEMENT_MIN_HEIGHT : this.topRow.minHeight = this.constants_.TOP_ROW_MIN_HEIGHT;
+    this.block_.inputList.length && this.block_.inputList[0].type == Blockly.inputTypes.STATEMENT && !this.block_.isCollapsed() ? this.topRow.minHeight = this.constants_.TOP_ROW_PRECEDES_STATEMENT_MIN_HEIGHT : this.topRow.minHeight = this.constants_.TOP_ROW_MIN_HEIGHT;
     this.topRow.hasRightSquareCorner(this.block_) ? this.topRow.elements.push(new Blockly.blockRendering.SquareCorner(this.constants_, "right")) : this.topRow.elements.push(new Blockly.blockRendering.RoundCorner(this.constants_, "right"));
   };
 
   Blockly.blockRendering.RenderInfo.prototype.populateBottomRow_ = function () {
     this.bottomRow.hasNextConnection = !!this.block_.nextConnection;
-    this.bottomRow.minHeight = this.block_.inputList.length && this.block_.inputList[this.block_.inputList.length - 1].type == Blockly.NEXT_STATEMENT ? this.constants_.BOTTOM_ROW_AFTER_STATEMENT_MIN_HEIGHT : this.constants_.BOTTOM_ROW_MIN_HEIGHT;
+    this.bottomRow.minHeight = this.block_.inputList.length && this.block_.inputList[this.block_.inputList.length - 1].type == Blockly.inputTypes.STATEMENT ? this.constants_.BOTTOM_ROW_AFTER_STATEMENT_MIN_HEIGHT : this.constants_.BOTTOM_ROW_MIN_HEIGHT;
     this.bottomRow.hasLeftSquareCorner(this.block_) ? this.bottomRow.elements.push(new Blockly.blockRendering.SquareCorner(this.constants_)) : this.bottomRow.elements.push(new Blockly.blockRendering.RoundCorner(this.constants_));
     this.bottomRow.hasNextConnection && (this.bottomRow.connection = new Blockly.blockRendering.NextConnection(this.constants_, this.block_.nextConnection), this.bottomRow.elements.push(this.bottomRow.connection));
     this.bottomRow.hasRightSquareCorner(this.block_) ? this.bottomRow.elements.push(new Blockly.blockRendering.SquareCorner(this.constants_, "right")) : this.bottomRow.elements.push(new Blockly.blockRendering.RoundCorner(this.constants_, "right"));
   };
 
   Blockly.blockRendering.RenderInfo.prototype.addInput_ = function (a, b) {
-    this.isInline && a.type == Blockly.INPUT_VALUE ? (b.elements.push(new Blockly.blockRendering.InlineInput(this.constants_, a)), b.hasInlineInput = !0) : a.type == Blockly.NEXT_STATEMENT ? (b.elements.push(new Blockly.blockRendering.StatementInput(this.constants_, a)), b.hasStatement = !0) : a.type == Blockly.INPUT_VALUE ? (b.elements.push(new Blockly.blockRendering.ExternalValueInput(this.constants_, a)), b.hasExternalInput = !0) : a.type == Blockly.DUMMY_INPUT && (b.minHeight = Math.max(b.minHeight, a.getSourceBlock() && a.getSourceBlock().isShadow() ? this.constants_.DUMMY_INPUT_SHADOW_MIN_HEIGHT : this.constants_.DUMMY_INPUT_MIN_HEIGHT), b.hasDummyInput = !0);
+    this.isInline && a.type == Blockly.inputTypes.VALUE ? (b.elements.push(new Blockly.blockRendering.InlineInput(this.constants_, a)), b.hasInlineInput = !0) : a.type == Blockly.inputTypes.STATEMENT ? (b.elements.push(new Blockly.blockRendering.StatementInput(this.constants_, a)), b.hasStatement = !0) : a.type == Blockly.inputTypes.VALUE ? (b.elements.push(new Blockly.blockRendering.ExternalValueInput(this.constants_, a)), b.hasExternalInput = !0) : a.type == Blockly.inputTypes.DUMMY && (b.minHeight = Math.max(b.minHeight, a.getSourceBlock() && a.getSourceBlock().isShadow() ? this.constants_.DUMMY_INPUT_SHADOW_MIN_HEIGHT : this.constants_.DUMMY_INPUT_MIN_HEIGHT), b.hasDummyInput = !0);
     null == b.align && (b.align = a.align);
   };
 
   Blockly.blockRendering.RenderInfo.prototype.shouldStartNewRow_ = function (a, b) {
-    return b ? a.type == Blockly.NEXT_STATEMENT || b.type == Blockly.NEXT_STATEMENT ? !0 : a.type == Blockly.INPUT_VALUE || a.type == Blockly.DUMMY_INPUT ? !this.isInline : !1 : !1;
+    return b ? a.type == Blockly.inputTypes.STATEMENT || b.type == Blockly.inputTypes.STATEMENT ? !0 : a.type == Blockly.inputTypes.VALUE || a.type == Blockly.inputTypes.DUMMY ? !this.isInline : !1 : !1;
   };
 
   Blockly.blockRendering.RenderInfo.prototype.addElemSpacing_ = function () {
@@ -17378,7 +17448,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var c = a.getFirstSpacer(),
         d = a.getLastSpacer();
     if (a.hasExternalInput || a.hasStatement) a.widthWithConnectedBlocks += b;
-    a.align == Blockly.ALIGN_LEFT ? d.width += b : a.align == Blockly.ALIGN_CENTRE ? (c.width += b / 2, d.width += b / 2) : a.align == Blockly.ALIGN_RIGHT ? c.width += b : d.width += b;
+    a.align == Blockly.constants.ALIGN.LEFT ? d.width += b : a.align == Blockly.constants.ALIGN.CENTRE ? (c.width += b / 2, d.width += b / 2) : a.align == Blockly.constants.ALIGN.RIGHT ? c.width += b : d.width += b;
     a.width += b;
   };
 
@@ -17442,6 +17512,202 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.height = b;
     this.startY = this.topRow.capline;
     this.bottomRow.baseline = b - this.bottomRow.descenderHeight;
+  };
+
+  Blockly.blockRendering.Debug = function (a) {
+    this.debugElements_ = [];
+    this.svgRoot_ = null;
+    this.constants_ = a;
+  };
+
+  Blockly.blockRendering.Debug.config = {
+    rowSpacers: !0,
+    elemSpacers: !0,
+    rows: !0,
+    elems: !0,
+    connections: !0,
+    blockBounds: !0,
+    connectedBlockBounds: !0,
+    render: !0
+  };
+
+  Blockly.blockRendering.Debug.prototype.clearElems = function () {
+    for (var a = 0, b; b = this.debugElements_[a]; a++) {
+      Blockly.utils.dom.removeNode(b);
+    }
+
+    this.debugElements_ = [];
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawSpacerRow = function (a, b, c) {
+    if (Blockly.blockRendering.Debug.config.rowSpacers) {
+      var d = Math.abs(a.height),
+          e = 0 > a.height;
+      e && (b -= d);
+      this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+        "class": "rowSpacerRect blockRenderDebug",
+        x: c ? -(a.xPos + a.width) : a.xPos,
+        y: b,
+        width: a.width,
+        height: d,
+        stroke: e ? "black" : "blue",
+        fill: "blue",
+        "fill-opacity": "0.5",
+        "stroke-width": "1px"
+      }, this.svgRoot_));
+    }
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawSpacerElem = function (a, b, c) {
+    if (Blockly.blockRendering.Debug.config.elemSpacers) {
+      b = Math.abs(a.width);
+      var d = 0 > a.width,
+          e = d ? a.xPos - b : a.xPos;
+      c && (e = -(e + b));
+      this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+        "class": "elemSpacerRect blockRenderDebug",
+        x: e,
+        y: a.centerline - a.height / 2,
+        width: b,
+        height: a.height,
+        stroke: "pink",
+        fill: d ? "black" : "pink",
+        "fill-opacity": "0.5",
+        "stroke-width": "1px"
+      }, this.svgRoot_));
+    }
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawRenderedElem = function (a, b) {
+    if (Blockly.blockRendering.Debug.config.elems) {
+      var c = a.xPos;
+      b && (c = -(c + a.width));
+      b = a.centerline - a.height / 2;
+      this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+        "class": "rowRenderingRect blockRenderDebug",
+        x: c,
+        y: b,
+        width: a.width,
+        height: a.height,
+        stroke: "black",
+        fill: "none",
+        "stroke-width": "1px"
+      }, this.svgRoot_));
+      Blockly.blockRendering.Types.isField(a) && a.field instanceof Blockly.FieldLabel && this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+        "class": "rowRenderingRect blockRenderDebug",
+        x: c,
+        y: b + this.constants_.FIELD_TEXT_BASELINE,
+        width: a.width,
+        height: "0.1px",
+        stroke: "red",
+        fill: "none",
+        "stroke-width": "0.5px"
+      }, this.svgRoot_));
+    }
+
+    Blockly.blockRendering.Types.isInput(a) && Blockly.blockRendering.Debug.config.connections && this.drawConnection(a.connectionModel);
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawConnection = function (a) {
+    if (Blockly.blockRendering.Debug.config.connections) {
+      if (a.type == Blockly.connectionTypes.INPUT_VALUE) {
+        var b = 4;
+        var c = "magenta";
+        var d = "none";
+      } else a.type == Blockly.connectionTypes.OUTPUT_VALUE ? (b = 2, d = c = "magenta") : a.type == Blockly.connectionTypes.NEXT_STATEMENT ? (b = 4, c = "goldenrod", d = "none") : a.type == Blockly.connectionTypes.PREVIOUS_STATEMENT && (b = 2, d = c = "goldenrod");
+
+      this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.CIRCLE, {
+        "class": "blockRenderDebug",
+        cx: a.offsetInBlock_.x,
+        cy: a.offsetInBlock_.y,
+        r: b,
+        fill: d,
+        stroke: c
+      }, this.svgRoot_));
+    }
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawRenderedRow = function (a, b, c) {
+    Blockly.blockRendering.Debug.config.rows && (this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+      "class": "elemRenderingRect blockRenderDebug",
+      x: c ? -(a.xPos + a.width) : a.xPos,
+      y: a.yPos,
+      width: a.width,
+      height: a.height,
+      stroke: "red",
+      fill: "none",
+      "stroke-width": "1px"
+    }, this.svgRoot_)), Blockly.blockRendering.Types.isTopOrBottomRow(a) || Blockly.blockRendering.Debug.config.connectedBlockBounds && this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+      "class": "connectedBlockWidth blockRenderDebug",
+      x: c ? -(a.xPos + a.widthWithConnectedBlocks) : a.xPos,
+      y: a.yPos,
+      width: a.widthWithConnectedBlocks,
+      height: a.height,
+      stroke: this.randomColour_,
+      fill: "none",
+      "stroke-width": "1px",
+      "stroke-dasharray": "3,3"
+    }, this.svgRoot_)));
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawRowWithElements = function (a, b, c) {
+    for (var d = 0, e = a.elements.length; d < e; d++) {
+      var f = a.elements[d];
+      f ? Blockly.blockRendering.Types.isSpacer(f) ? this.drawSpacerElem(f, a.height, c) : this.drawRenderedElem(f, c) : console.warn("A row has an undefined or null element.", a, f);
+    }
+
+    this.drawRenderedRow(a, b, c);
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawBoundingBox = function (a) {
+    if (Blockly.blockRendering.Debug.config.blockBounds) {
+      var b = a.RTL ? -a.width : 0;
+      this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+        "class": "blockBoundingBox blockRenderDebug",
+        x: b,
+        y: 0,
+        width: a.width,
+        height: a.height,
+        stroke: "black",
+        fill: "none",
+        "stroke-width": "1px",
+        "stroke-dasharray": "5,5"
+      }, this.svgRoot_));
+      Blockly.blockRendering.Debug.config.connectedBlockBounds && (b = a.RTL ? -a.widthWithChildren : 0, this.debugElements_.push(Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+        "class": "blockRenderDebug",
+        x: b,
+        y: 0,
+        width: a.widthWithChildren,
+        height: a.height,
+        stroke: "#DF57BC",
+        fill: "none",
+        "stroke-width": "1px",
+        "stroke-dasharray": "3,3"
+      }, this.svgRoot_)));
+    }
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawDebug = function (a, b) {
+    this.clearElems();
+    this.svgRoot_ = a.getSvgRoot();
+    this.randomColour_ = "#" + Math.floor(16777215 * Math.random()).toString(16);
+
+    for (var c = 0, d = 0, e; e = b.rows[d]; d++) {
+      Blockly.blockRendering.Types.isBetweenRowSpacer(e) ? this.drawSpacerRow(e, c, b.RTL) : this.drawRowWithElements(e, c, b.RTL), c += e.height;
+    }
+
+    a.previousConnection && this.drawConnection(a.previousConnection);
+    a.nextConnection && this.drawConnection(a.nextConnection);
+    a.outputConnection && this.drawConnection(a.outputConnection);
+    b.rightSide && this.drawRenderedElem(b.rightSide, b.RTL);
+    this.drawBoundingBox(b);
+    this.drawRender(a.pathObject.svgPath);
+  };
+
+  Blockly.blockRendering.Debug.prototype.drawRender = function (a) {
+    Blockly.blockRendering.Debug.config.render && (a.setAttribute("filter", "url(#" + this.constants_.debugFilterId + ")"), setTimeout(function () {
+      a.setAttribute("filter", "");
+    }, 100));
   };
 
   Blockly.blockRendering.Drawer = function (a, b) {
@@ -17631,6 +17897,304 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
 
+  Blockly.Events.MarkerMove = function (a, b, c, d) {
+    var e = a ? a.workspace.id : void 0;
+    d && d.getType() == Blockly.ASTNode.types.WORKSPACE && (e = d.getLocation().id);
+    Blockly.Events.MarkerMove.superClass_.constructor.call(this, e);
+    this.blockId = a ? a.id : null;
+    this.oldNode = c;
+    this.newNode = d;
+    this.isCursor = b;
+  };
+
+  Blockly.utils.object.inherits(Blockly.Events.MarkerMove, Blockly.Events.UiBase);
+  Blockly.Events.MarkerMove.prototype.type = Blockly.Events.MARKER_MOVE;
+
+  Blockly.Events.MarkerMove.prototype.toJson = function () {
+    var a = Blockly.Events.MarkerMove.superClass_.toJson.call(this);
+    a.isCursor = this.isCursor;
+    a.blockId = this.blockId;
+    a.oldNode = this.oldNode;
+    a.newNode = this.newNode;
+    return a;
+  };
+
+  Blockly.Events.MarkerMove.prototype.fromJson = function (a) {
+    Blockly.Events.MarkerMove.superClass_.fromJson.call(this, a);
+    this.isCursor = a.isCursor;
+    this.blockId = a.blockId;
+    this.oldNode = a.oldNode;
+    this.newNode = a.newNode;
+  };
+
+  Blockly.registry.register(Blockly.registry.Type.EVENT, Blockly.Events.MARKER_MOVE, Blockly.Events.MarkerMove);
+
+  Blockly.blockRendering.MarkerSvg = function (a, b, c) {
+    this.workspace_ = a;
+    this.marker_ = c;
+    this.parent_ = null;
+    this.constants_ = b;
+    this.currentMarkerSvg = null;
+    a = this.isCursor() ? this.constants_.CURSOR_COLOUR : this.constants_.MARKER_COLOUR;
+    this.colour_ = c.colour || a;
+  };
+
+  Blockly.blockRendering.MarkerSvg.CURSOR_CLASS = "blocklyCursor";
+  Blockly.blockRendering.MarkerSvg.MARKER_CLASS = "blocklyMarker";
+  Blockly.blockRendering.MarkerSvg.HEIGHT_MULTIPLIER = .75;
+
+  Blockly.blockRendering.MarkerSvg.prototype.getSvgRoot = function () {
+    return this.svgGroup_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.getMarker = function () {
+    return this.marker_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.isCursor = function () {
+    return "cursor" == this.marker_.type;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.createDom = function () {
+    var a = this.isCursor() ? Blockly.blockRendering.MarkerSvg.CURSOR_CLASS : Blockly.blockRendering.MarkerSvg.MARKER_CLASS;
+    this.svgGroup_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.G, {
+      "class": a
+    }, null);
+    this.createDomInternal_();
+    return this.svgGroup_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.setParent_ = function (a) {
+    this.isCursor() ? (this.parent_ && this.parent_.setCursorSvg(null), a.setCursorSvg(this.getSvgRoot())) : (this.parent_ && this.parent_.setMarkerSvg(null), a.setMarkerSvg(this.getSvgRoot()));
+    this.parent_ = a;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.draw = function (a, b) {
+    if (b) {
+      this.constants_ = this.workspace_.getRenderer().getConstants();
+      var c = this.isCursor() ? this.constants_.CURSOR_COLOUR : this.constants_.MARKER_COLOUR;
+      this.colour_ = this.marker_.colour || c;
+      this.applyColour_(b);
+      this.showAtLocation_(b);
+      this.fireMarkerEvent_(a, b);
+      a = this.currentMarkerSvg.childNodes[0];
+      void 0 !== a && a.beginElement && a.beginElement();
+    } else this.hide();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showAtLocation_ = function (a) {
+    var b = a.getLocation().type;
+    a.getType() == Blockly.ASTNode.types.BLOCK ? this.showWithBlock_(a) : a.getType() == Blockly.ASTNode.types.OUTPUT ? this.showWithOutput_(a) : b == Blockly.connectionTypes.INPUT_VALUE ? this.showWithInput_(a) : b == Blockly.connectionTypes.NEXT_STATEMENT ? this.showWithNext_(a) : a.getType() == Blockly.ASTNode.types.PREVIOUS ? this.showWithPrevious_(a) : a.getType() == Blockly.ASTNode.types.FIELD ? this.showWithField_(a) : a.getType() == Blockly.ASTNode.types.WORKSPACE ? this.showWithCoordinates_(a) : a.getType() == Blockly.ASTNode.types.STACK && this.showWithStack_(a);
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithBlockPrevOutput_ = function (a) {
+    a = a.getSourceBlock();
+    var b = a.width,
+        c = a.height,
+        d = c * Blockly.blockRendering.MarkerSvg.HEIGHT_MULTIPLIER,
+        e = this.constants_.CURSOR_BLOCK_PADDING;
+
+    if (a.previousConnection) {
+      var f = this.constants_.shapeFor(a.previousConnection);
+      this.positionPrevious_(b, e, d, f);
+    } else a.outputConnection ? (f = this.constants_.shapeFor(a.outputConnection), this.positionOutput_(b, c, f)) : this.positionBlock_(b, e, d);
+
+    this.setParent_(a);
+    this.showCurrent_();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithBlock_ = function (a) {
+    this.showWithBlockPrevOutput_(a);
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithPrevious_ = function (a) {
+    this.showWithBlockPrevOutput_(a);
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithOutput_ = function (a) {
+    this.showWithBlockPrevOutput_(a);
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithCoordinates_ = function (a) {
+    var b = a.getWsCoordinate();
+    a = b.x;
+    b = b.y;
+    this.workspace_.RTL && (a -= this.constants_.CURSOR_WS_WIDTH);
+    this.positionLine_(a, b, this.constants_.CURSOR_WS_WIDTH);
+    this.setParent_(this.workspace_);
+    this.showCurrent_();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithField_ = function (a) {
+    a = a.getLocation();
+    var b = a.getSize().width,
+        c = a.getSize().height;
+    this.positionRect_(0, 0, b, c);
+    this.setParent_(a);
+    this.showCurrent_();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithInput_ = function (a) {
+    a = a.getLocation();
+    var b = a.getSourceBlock();
+    this.positionInput_(a);
+    this.setParent_(b);
+    this.showCurrent_();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithNext_ = function (a) {
+    var b = a.getLocation();
+    a = b.getSourceBlock();
+    var c = 0;
+    b = b.getOffsetInBlock().y;
+    var d = a.getHeightWidth().width;
+    this.workspace_.RTL && (c = -d);
+    this.positionLine_(c, b, d);
+    this.setParent_(a);
+    this.showCurrent_();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showWithStack_ = function (a) {
+    a = a.getLocation();
+    var b = a.getHeightWidth(),
+        c = b.width + this.constants_.CURSOR_STACK_PADDING;
+    b = b.height + this.constants_.CURSOR_STACK_PADDING;
+    var d = -this.constants_.CURSOR_STACK_PADDING / 2,
+        e = -this.constants_.CURSOR_STACK_PADDING / 2,
+        f = d;
+    this.workspace_.RTL && (f = -(c + d));
+    this.positionRect_(f, e, c, b);
+    this.setParent_(a);
+    this.showCurrent_();
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.showCurrent_ = function () {
+    this.hide();
+    this.currentMarkerSvg.style.display = "";
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.positionBlock_ = function (a, b, c) {
+    a = Blockly.utils.svgPaths.moveBy(-b, c) + Blockly.utils.svgPaths.lineOnAxis("V", -b) + Blockly.utils.svgPaths.lineOnAxis("H", a + 2 * b) + Blockly.utils.svgPaths.lineOnAxis("V", c);
+    this.markerBlock_.setAttribute("d", a);
+    this.workspace_.RTL && this.flipRtl_(this.markerBlock_);
+    this.currentMarkerSvg = this.markerBlock_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.positionInput_ = function (a) {
+    var b = a.getOffsetInBlock().x,
+        c = a.getOffsetInBlock().y;
+    a = Blockly.utils.svgPaths.moveTo(0, 0) + this.constants_.shapeFor(a).pathDown;
+    this.markerInput_.setAttribute("d", a);
+    this.markerInput_.setAttribute("transform", "translate(" + b + "," + c + ")" + (this.workspace_.RTL ? " scale(-1 1)" : ""));
+    this.currentMarkerSvg = this.markerInput_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.positionLine_ = function (a, b, c) {
+    this.markerSvgLine_.setAttribute("x", a);
+    this.markerSvgLine_.setAttribute("y", b);
+    this.markerSvgLine_.setAttribute("width", c);
+    this.currentMarkerSvg = this.markerSvgLine_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.positionOutput_ = function (a, b, c) {
+    a = Blockly.utils.svgPaths.moveBy(a, 0) + Blockly.utils.svgPaths.lineOnAxis("h", -(a - c.width)) + Blockly.utils.svgPaths.lineOnAxis("v", this.constants_.TAB_OFFSET_FROM_TOP) + c.pathDown + Blockly.utils.svgPaths.lineOnAxis("V", b) + Blockly.utils.svgPaths.lineOnAxis("H", a);
+    this.markerBlock_.setAttribute("d", a);
+    this.workspace_.RTL && this.flipRtl_(this.markerBlock_);
+    this.currentMarkerSvg = this.markerBlock_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.positionPrevious_ = function (a, b, c, d) {
+    a = Blockly.utils.svgPaths.moveBy(-b, c) + Blockly.utils.svgPaths.lineOnAxis("V", -b) + Blockly.utils.svgPaths.lineOnAxis("H", this.constants_.NOTCH_OFFSET_LEFT) + d.pathLeft + Blockly.utils.svgPaths.lineOnAxis("H", a + 2 * b) + Blockly.utils.svgPaths.lineOnAxis("V", c);
+    this.markerBlock_.setAttribute("d", a);
+    this.workspace_.RTL && this.flipRtl_(this.markerBlock_);
+    this.currentMarkerSvg = this.markerBlock_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.positionRect_ = function (a, b, c, d) {
+    this.markerSvgRect_.setAttribute("x", a);
+    this.markerSvgRect_.setAttribute("y", b);
+    this.markerSvgRect_.setAttribute("width", c);
+    this.markerSvgRect_.setAttribute("height", d);
+    this.currentMarkerSvg = this.markerSvgRect_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.flipRtl_ = function (a) {
+    a.setAttribute("transform", "scale(-1 1)");
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.hide = function () {
+    this.markerSvgLine_.style.display = "none";
+    this.markerSvgRect_.style.display = "none";
+    this.markerInput_.style.display = "none";
+    this.markerBlock_.style.display = "none";
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.fireMarkerEvent_ = function (a, b) {
+    var c = b.getSourceBlock();
+    a = new (Blockly.Events.get(Blockly.Events.MARKER_MOVE))(c, this.isCursor(), a, b);
+    Blockly.Events.fire(a);
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.getBlinkProperties_ = function () {
+    return {
+      attributeType: "XML",
+      attributeName: "fill",
+      dur: "1s",
+      values: this.colour_ + ";transparent;transparent;",
+      repeatCount: "indefinite"
+    };
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.createDomInternal_ = function () {
+    this.markerSvg_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.G, {
+      width: this.constants_.CURSOR_WS_WIDTH,
+      height: this.constants_.WS_CURSOR_HEIGHT
+    }, this.svgGroup_);
+    this.markerSvgLine_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+      width: this.constants_.CURSOR_WS_WIDTH,
+      height: this.constants_.WS_CURSOR_HEIGHT,
+      style: "display: none"
+    }, this.markerSvg_);
+    this.markerSvgRect_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.RECT, {
+      "class": "blocklyVerticalMarker",
+      rx: 10,
+      ry: 10,
+      style: "display: none"
+    }, this.markerSvg_);
+    this.markerInput_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.PATH, {
+      transform: "",
+      style: "display: none"
+    }, this.markerSvg_);
+    this.markerBlock_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.PATH, {
+      transform: "",
+      style: "display: none",
+      fill: "none",
+      "stroke-width": this.constants_.CURSOR_STROKE_WIDTH
+    }, this.markerSvg_);
+
+    if (this.isCursor()) {
+      var a = this.getBlinkProperties_();
+      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerSvgLine_);
+      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerInput_);
+      a.attributeName = "stroke";
+      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerBlock_);
+    }
+
+    return this.markerSvg_;
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.applyColour_ = function (a) {
+    this.markerSvgLine_.setAttribute("fill", this.colour_);
+    this.markerSvgRect_.setAttribute("stroke", this.colour_);
+    this.markerInput_.setAttribute("fill", this.colour_);
+    this.markerBlock_.setAttribute("stroke", this.colour_);
+    this.isCursor() && (a = this.colour_ + ";transparent;transparent;", this.markerSvgLine_.firstChild.setAttribute("values", a), this.markerInput_.firstChild.setAttribute("values", a), this.markerBlock_.firstChild.setAttribute("values", a));
+  };
+
+  Blockly.blockRendering.MarkerSvg.prototype.dispose = function () {
+    this.svgGroup_ && Blockly.utils.dom.removeNode(this.svgGroup_);
+  };
+
   Blockly.blockRendering.PathObject = function (a, b, c) {
     this.constants = c;
     this.svgRoot = a;
@@ -17707,6 +18271,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.blockRendering.PathObject.prototype.updateShapeForInputHighlight = function (a, b) {};
 
+  Blockly.IRegistrable = function () {};
+
   Blockly.blockRendering.Renderer = function (a) {
     this.name = a;
     this.overrides = this.constants_ = null;
@@ -17776,12 +18342,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.blockRendering.Renderer.prototype.orphanCanConnectAtEnd = function (a, b, c) {
-    c == Blockly.OUTPUT_VALUE ? (c = b.outputConnection, a = Blockly.Connection.lastConnectionInRow(a, b)) : (c = b.previousConnection, a = a.lastConnectionInStack());
+    c == Blockly.connectionTypes.OUTPUT_VALUE ? (c = b.outputConnection, a = Blockly.Connection.lastConnectionInRow(a, b)) : (c = b.previousConnection, a = a.lastConnectionInStack());
     return a ? c.getConnectionChecker().canConnect(a, c, !1) : !1;
   };
 
   Blockly.blockRendering.Renderer.prototype.getConnectionPreviewMethod = function (a, b, c) {
-    return b.type == Blockly.OUTPUT_VALUE || b.type == Blockly.PREVIOUS_STATEMENT ? !a.isConnected() || this.orphanCanConnectAtEnd(c, a.targetBlock(), b.type) ? Blockly.InsertionMarkerManager.PREVIEW_TYPE.INSERTION_MARKER : Blockly.InsertionMarkerManager.PREVIEW_TYPE.REPLACEMENT_FADE : Blockly.InsertionMarkerManager.PREVIEW_TYPE.INSERTION_MARKER;
+    return b.type == Blockly.connectionTypes.OUTPUT_VALUE || b.type == Blockly.connectionTypes.PREVIOUS_STATEMENT ? !a.isConnected() || this.orphanCanConnectAtEnd(c, a.targetBlock(), b.type) ? Blockly.InsertionMarkerManager.PREVIEW_TYPE.INSERTION_MARKER : Blockly.InsertionMarkerManager.PREVIEW_TYPE.REPLACEMENT_FADE : Blockly.InsertionMarkerManager.PREVIEW_TYPE.INSERTION_MARKER;
   };
 
   Blockly.blockRendering.Renderer.prototype.render = function (a) {
@@ -17798,6 +18364,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.FIELD_TEXT_BASELINE_CENTER = !1;
     this.DARK_PATH_OFFSET = 1;
     this.MAX_BOTTOM_WIDTH = 30;
+    this.STATEMENT_BOTTOM_SPACER = -this.NOTCH_HEIGHT / 2;
   };
 
   Blockly.utils.object.inherits(Blockly.geras.ConstantProvider, Blockly.blockRendering.ConstantProvider);
@@ -17912,11 +18479,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.geras.RenderInfo.prototype.populateBottomRow_ = function () {
     Blockly.geras.RenderInfo.superClass_.populateBottomRow_.call(this);
-    this.block_.inputList.length && this.block_.inputList[this.block_.inputList.length - 1].type == Blockly.NEXT_STATEMENT || (this.bottomRow.minHeight = this.constants_.MEDIUM_PADDING - this.constants_.DARK_PATH_OFFSET);
+    this.block_.inputList.length && this.block_.inputList[this.block_.inputList.length - 1].type == Blockly.inputTypes.STATEMENT || (this.bottomRow.minHeight = this.constants_.MEDIUM_PADDING - this.constants_.DARK_PATH_OFFSET);
   };
 
   Blockly.geras.RenderInfo.prototype.addInput_ = function (a, b) {
-    this.isInline && a.type == Blockly.INPUT_VALUE ? (b.elements.push(new Blockly.geras.InlineInput(this.constants_, a)), b.hasInlineInput = !0) : a.type == Blockly.NEXT_STATEMENT ? (b.elements.push(new Blockly.geras.StatementInput(this.constants_, a)), b.hasStatement = !0) : a.type == Blockly.INPUT_VALUE ? (b.elements.push(new Blockly.blockRendering.ExternalValueInput(this.constants_, a)), b.hasExternalInput = !0) : a.type == Blockly.DUMMY_INPUT && (b.minHeight = Math.max(b.minHeight, this.constants_.DUMMY_INPUT_MIN_HEIGHT), b.hasDummyInput = !0);
+    this.isInline && a.type == Blockly.inputTypes.VALUE ? (b.elements.push(new Blockly.geras.InlineInput(this.constants_, a)), b.hasInlineInput = !0) : a.type == Blockly.inputTypes.STATEMENT ? (b.elements.push(new Blockly.geras.StatementInput(this.constants_, a)), b.hasStatement = !0) : a.type == Blockly.inputTypes.VALUE ? (b.elements.push(new Blockly.blockRendering.ExternalValueInput(this.constants_, a)), b.hasExternalInput = !0) : a.type == Blockly.inputTypes.DUMMY && (b.minHeight = Math.max(b.minHeight, this.constants_.DUMMY_INPUT_MIN_HEIGHT), b.hasDummyInput = !0);
     this.isInline || null != b.align || (b.align = a.align);
   };
 
@@ -18686,8 +19253,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     !b && a.targetConnection && (b = a.targetConnection.getCheck());
 
     switch (a.type) {
-      case Blockly.INPUT_VALUE:
-      case Blockly.OUTPUT_VALUE:
+      case Blockly.connectionTypes.INPUT_VALUE:
+      case Blockly.connectionTypes.OUTPUT_VALUE:
         a = a.getSourceBlock().getOutputShape();
         if (null != a) switch (a) {
           case this.SHAPES.HEXAGONAL:
@@ -18704,8 +19271,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         b && b.indexOf("String");
         return this.ROUNDED;
 
-      case Blockly.PREVIOUS_STATEMENT:
-      case Blockly.NEXT_STATEMENT:
+      case Blockly.connectionTypes.PREVIOUS_STATEMENT:
+      case Blockly.connectionTypes.NEXT_STATEMENT:
         return this.NOTCH;
 
       default:
@@ -18882,20 +19449,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
   Blockly.utils.object.inherits(Blockly.zelos.RightConnectionShape, Blockly.blockRendering.Measurable);
 
-  Blockly.zelos.StatementInput = function (a, b) {
-    Blockly.zelos.StatementInput.superClass_.constructor.call(this, a, b);
-
-    if (this.connectedBlock) {
-      for (a = this.connectedBlock; a.getNextBlock();) {
-        a = a.getNextBlock();
-      }
-
-      a.nextConnection || (this.height = this.connectedBlockHeight, this.connectedBottomNextConnection = !0);
-    }
-  };
-
-  Blockly.utils.object.inherits(Blockly.zelos.StatementInput, Blockly.blockRendering.StatementInput);
-
   Blockly.zelos.RenderInfo = function (a, b) {
     Blockly.zelos.RenderInfo.superClass_.constructor.call(this, a, b);
     this.topRow = new Blockly.zelos.TopRow(this.constants_);
@@ -18923,7 +19476,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.zelos.RenderInfo.prototype.shouldStartNewRow_ = function (a, b) {
-    return b ? a.type == Blockly.NEXT_STATEMENT || b.type == Blockly.NEXT_STATEMENT ? !0 : a.type == Blockly.INPUT_VALUE || a.type == Blockly.DUMMY_INPUT ? !this.isInline || this.isMultiRow : !1 : !1;
+    return b ? a.type == Blockly.inputTypes.STATEMENT || b.type == Blockly.inputTypes.STATEMENT ? !0 : a.type == Blockly.inputTypes.VALUE || a.type == Blockly.inputTypes.DUMMY ? !this.isInline || this.isMultiRow : !1 : !1;
   };
 
   Blockly.zelos.RenderInfo.prototype.getDesiredRowWidth_ = function (a) {
@@ -18958,7 +19511,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.zelos.RenderInfo.prototype.addInput_ = function (a, b) {
-    a.type == Blockly.DUMMY_INPUT && b.hasDummyInput && b.align == Blockly.ALIGN_LEFT && a.align == Blockly.ALIGN_RIGHT && (b.rightAlignedDummyInput = a);
+    a.type == Blockly.inputTypes.DUMMY && b.hasDummyInput && b.align == Blockly.constants.ALIGN.LEFT && a.align == Blockly.constants.ALIGN.RIGHT && (b.rightAlignedDummyInput = a);
     Blockly.zelos.RenderInfo.superClass_.addInput_.call(this, a, b);
   };
 
@@ -19177,6 +19730,70 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.positionStatementInputConnection_(a);
   };
 
+  Blockly.zelos.MarkerSvg = function (a, b, c) {
+    Blockly.zelos.MarkerSvg.superClass_.constructor.call(this, a, b, c);
+  };
+
+  Blockly.utils.object.inherits(Blockly.zelos.MarkerSvg, Blockly.blockRendering.MarkerSvg);
+
+  Blockly.zelos.MarkerSvg.prototype.showWithInputOutput_ = function (a) {
+    var b = a.getSourceBlock();
+    a = a.getLocation().getOffsetInBlock();
+    this.positionCircle_(a.x, a.y);
+    this.setParent_(b);
+    this.showCurrent_();
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.showWithOutput_ = function (a) {
+    this.showWithInputOutput_(a);
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.showWithInput_ = function (a) {
+    this.showWithInputOutput_(a);
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.showWithBlock_ = function (a) {
+    a = a.getLocation();
+    var b = a.getHeightWidth();
+    this.positionRect_(0, 0, b.width, b.height);
+    this.setParent_(a);
+    this.showCurrent_();
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.positionCircle_ = function (a, b) {
+    this.markerCircle_.setAttribute("cx", a);
+    this.markerCircle_.setAttribute("cy", b);
+    this.currentMarkerSvg = this.markerCircle_;
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.hide = function () {
+    Blockly.zelos.MarkerSvg.superClass_.hide.call(this);
+    this.markerCircle_.style.display = "none";
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.createDomInternal_ = function () {
+    Blockly.zelos.MarkerSvg.superClass_.createDomInternal_.call(this);
+    this.markerCircle_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.CIRCLE, {
+      r: this.constants_.CURSOR_RADIUS,
+      style: "display: none",
+      "stroke-width": this.constants_.CURSOR_STROKE_WIDTH
+    }, this.markerSvg_);
+
+    if (this.isCursor()) {
+      var a = this.getBlinkProperties_();
+      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerCircle_);
+    }
+
+    return this.markerSvg_;
+  };
+
+  Blockly.zelos.MarkerSvg.prototype.applyColour_ = function (a) {
+    Blockly.zelos.MarkerSvg.superClass_.applyColour_.call(this, a);
+    this.markerCircle_.setAttribute("fill", this.colour_);
+    this.markerCircle_.setAttribute("stroke", this.colour_);
+    this.isCursor() && this.markerCircle_.firstChild.setAttribute("values", this.colour_ + ";transparent;transparent;");
+  };
+
   Blockly.zelos.PathObject = function (a, b, c) {
     Blockly.zelos.PathObject.superClass_.constructor.call(this, a, b, c);
     this.constants = c;
@@ -19260,70 +19877,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     delete this.outlines_[a];
   };
 
-  Blockly.zelos.MarkerSvg = function (a, b, c) {
-    Blockly.zelos.MarkerSvg.superClass_.constructor.call(this, a, b, c);
-  };
-
-  Blockly.utils.object.inherits(Blockly.zelos.MarkerSvg, Blockly.blockRendering.MarkerSvg);
-
-  Blockly.zelos.MarkerSvg.prototype.showWithInputOutput_ = function (a) {
-    var b = a.getSourceBlock();
-    a = a.getLocation().getOffsetInBlock();
-    this.positionCircle_(a.x, a.y);
-    this.setParent_(b);
-    this.showCurrent_();
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.showWithOutput_ = function (a) {
-    this.showWithInputOutput_(a);
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.showWithInput_ = function (a) {
-    this.showWithInputOutput_(a);
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.showWithBlock_ = function (a) {
-    a = a.getLocation();
-    var b = a.getHeightWidth();
-    this.positionRect_(0, 0, b.width, b.height);
-    this.setParent_(a);
-    this.showCurrent_();
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.positionCircle_ = function (a, b) {
-    this.markerCircle_.setAttribute("cx", a);
-    this.markerCircle_.setAttribute("cy", b);
-    this.currentMarkerSvg = this.markerCircle_;
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.hide = function () {
-    Blockly.zelos.MarkerSvg.superClass_.hide.call(this);
-    this.markerCircle_.style.display = "none";
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.createDomInternal_ = function () {
-    Blockly.zelos.MarkerSvg.superClass_.createDomInternal_.call(this);
-    this.markerCircle_ = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.CIRCLE, {
-      r: this.constants_.CURSOR_RADIUS,
-      style: "display: none",
-      "stroke-width": this.constants_.CURSOR_STROKE_WIDTH
-    }, this.markerSvg_);
-
-    if (this.isCursor()) {
-      var a = this.getBlinkProperties_();
-      Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.ANIMATE, a, this.markerCircle_);
-    }
-
-    return this.markerSvg_;
-  };
-
-  Blockly.zelos.MarkerSvg.prototype.applyColour_ = function (a) {
-    Blockly.zelos.MarkerSvg.superClass_.applyColour_.call(this, a);
-    this.markerCircle_.setAttribute("fill", this.colour_);
-    this.markerCircle_.setAttribute("stroke", this.colour_);
-    this.isCursor() && this.markerCircle_.firstChild.setAttribute("values", this.colour_ + ";transparent;transparent;");
-  };
-
   Blockly.zelos.Renderer = function (a) {
     Blockly.zelos.Renderer.superClass_.constructor.call(this, a);
   };
@@ -19351,11 +19904,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
 
   Blockly.zelos.Renderer.prototype.shouldHighlightConnection = function (a) {
-    return a.type != Blockly.INPUT_VALUE && a.type !== Blockly.OUTPUT_VALUE;
+    return a.type != Blockly.connectionTypes.INPUT_VALUE && a.type !== Blockly.connectionTypes.OUTPUT_VALUE;
   };
 
   Blockly.zelos.Renderer.prototype.getConnectionPreviewMethod = function (a, b, c) {
-    return b.type == Blockly.OUTPUT_VALUE ? a.isConnected() ? Blockly.InsertionMarkerManager.PREVIEW_TYPE.REPLACEMENT_FADE : Blockly.InsertionMarkerManager.PREVIEW_TYPE.INPUT_OUTLINE : Blockly.zelos.Renderer.superClass_.getConnectionPreviewMethod(a, b, c);
+    return b.type == Blockly.connectionTypes.OUTPUT_VALUE ? a.isConnected() ? Blockly.InsertionMarkerManager.PREVIEW_TYPE.REPLACEMENT_FADE : Blockly.InsertionMarkerManager.PREVIEW_TYPE.INPUT_OUTLINE : Blockly.zelos.Renderer.superClass_.getConnectionPreviewMethod(a, b, c);
   };
 
   Blockly.blockRendering.register("zelos", Blockly.zelos.Renderer);
@@ -19631,4 +20184,4 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ })
 
 }]);
-//# sourceMappingURL=d711c980-af153f861e40bdcd0c38.js.map
+//# sourceMappingURL=d711c980-e3349b089621d98aa2a2.js.map

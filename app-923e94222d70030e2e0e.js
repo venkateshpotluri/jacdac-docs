@@ -55382,6 +55382,7 @@ function bufferConcatMany(bufs) {
   return r;
 }
 function arrayConcatMany(arrs) {
+  if (!arrs) return undefined;
   var sz = 0;
 
   for (var _iterator4 = _createForOfIteratorHelperLoose(arrs), _step4; !(_step4 = _iterator4()).done;) {
@@ -69001,7 +69002,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "bd88be6da3d6e1545342e77151bf0a1447310d03";
+  var sha = "ff0a2ad0b2fee956c34248c52334eedb82a17342";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -77843,7 +77844,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.36"};
+var package_namespaceObject = {"i8":"1.13.37"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -85093,4 +85094,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-5611b641d803b1f59bca.js.map
+//# sourceMappingURL=app-923e94222d70030e2e0e.js.map

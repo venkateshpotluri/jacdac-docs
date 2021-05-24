@@ -31050,15 +31050,13 @@ function createEvents(store) {
               camera: camera,
               // Hijack stopPropagation, which just sets a flag
               stopPropagation: function stopPropagation() {
-                var _internal$capturedMap3; // https://github.com/pmndrs/react-three-fiber/issues/596
+                // https://github.com/pmndrs/react-three-fiber/issues/596
                 // Events are not allowed to stop propagation if the pointer has been captured
-                // We only authorize stopPropagation...
+                var capturesForPointer = 'pointerId' in event && internal.capturedMap.get(event.pointerId); // We only authorize stopPropagation...
 
-
-                if ( // ...if the event doesn't have a pointerId (hence it can't
-                // have been captured)...
-                !('pointerId' in event) || // ... or if the hit object is capturing the event
-                (_internal$capturedMap3 = internal.capturedMap.get(event.pointerId)) != null && _internal$capturedMap3.has(hit.eventObject)) {
+                if ( // ...if this pointer hasn't been captured
+                !capturesForPointer || // ... or if the hit object is capturing the pointer
+                capturesForPointer.has(hit.eventObject)) {
                   raycastEvent.stopped = localState.stopped = true; // Propagation is stopped, remove all other hover records
                   // An event handler is only allowed to flush other handlers if it is hovered itself
 
@@ -40116,4 +40114,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-14bb649874b29d45956c.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-42e744a6bf2c479eae7c.js.map
