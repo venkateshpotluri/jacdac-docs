@@ -1463,6 +1463,25 @@ var ControlReg;
      */
     ControlReg[ControlReg["FirmwareUrl"] = 392] = "FirmwareUrl";
 })(ControlReg || (ControlReg = {}));
+var DependableSensorReg;
+(function (DependableSensorReg) {
+    /**
+     * Read-only bytes. Reads the computed fingerprint of the sensor. When the module computes a new value for the fingerprint, it may also send a packet with the updated value.
+     *
+     * ```
+     * const [fingerprint] = jdunpack<[Uint8Array]>(buf, "b")
+     * ```
+     */
+    DependableSensorReg[DependableSensorReg["Fingerprint"] = 384] = "Fingerprint";
+    /**
+     * Read-write ms uint32_t. Specifies the interval between computing the fingerprint information.
+     *
+     * ```
+     * const [fingerprintInterval] = jdunpack<[number]>(buf, "u32")
+     * ```
+     */
+    DependableSensorReg[DependableSensorReg["FingerprintInterval"] = 128] = "FingerprintInterval";
+})(DependableSensorReg || (DependableSensorReg = {}));
 var DistanceVariant;
 (function (DistanceVariant) {
     DistanceVariant[DistanceVariant["Ultrasonic"] = 1] = "Ultrasonic";
