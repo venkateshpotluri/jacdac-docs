@@ -37,14 +37,16 @@ exports.Z = _default;
 /* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
 /* unused harmony export refresh_env */
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41788);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
 /* harmony import */ var _jdom_serviceclient__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(56763);
 /* harmony import */ var _jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71815);
+/* harmony import */ var _jdom_pack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(91635);
+
 
 
 
@@ -57,7 +59,7 @@ function refresh_env(_x) {
 } // TODO: you want [ev] to be PackedValues and handle the arrays yourself.
 
 function _refresh_env() {
-  _refresh_env = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(registers) {
+  _refresh_env = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(registers) {
     var k, register, retry, val, _register$unpackedVal;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -109,7 +111,7 @@ function writeReg(_x2, _x3, _x4) {
 }
 
 function _writeReg() {
-  _writeReg = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(reg, fmt, ev) {
+  _writeReg = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(reg, fmt, ev) {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -127,8 +129,31 @@ function _writeReg() {
   return _writeReg.apply(this, arguments);
 }
 
+function _sendCommand2(_x5, _x6, _x7) {
+  return _sendCommand.apply(this, arguments);
+}
+
+function _sendCommand() {
+  _sendCommand = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(service, pkt, values) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return service.sendCmdAsync(pkt.identifier, (0,_jdom_pack__WEBPACK_IMPORTED_MODULE_5__/* .jdpack */ .AV)(pkt.packFormat, values), true);
+
+          case 2:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _sendCommand.apply(this, arguments);
+}
+
 var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
 
   function VMServiceEnvironment(service) {
     var _this;
@@ -167,6 +192,14 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
         this.mount(event.subscribe(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .EVENT */ .Ks0, handler));
       }
     }
+  };
+
+  _proto.sendCommand = function sendCommand(command, values) {
+    var commandName = command === null || command === void 0 ? void 0 : command.name;
+    var pkt = this.service.specification.packets.find(function (p) {
+      return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isCommand */ .ao)(p) && p.name === commandName;
+    });
+    if (pkt) _sendCommand2(this.service, pkt, values);
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
@@ -218,7 +251,7 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   return VMServiceEnvironment;
 }(_jdom_serviceclient__WEBPACK_IMPORTED_MODULE_2__/* .JDServiceClient */ .P);
 var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMEnvironment, _JDEventSource);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMEnvironment, _JDEventSource);
 
   function VMEnvironment(notifyOnChange) {
     var _this2;
@@ -284,6 +317,16 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     Object.values(this._envs).forEach(function (s) {
       return s === null || s === void 0 ? void 0 : s.refreshEnvironment();
     });
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  _proto2.sendCommand = function sendCommand(e, values) {
+    var serviceEnv = this.getService(e);
+    console.log(serviceEnv);
+
+    if (serviceEnv) {
+      serviceEnv.sendCommand(e.property, values);
+    }
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
@@ -832,9 +875,23 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
   _proto.evaluate = function evaluate() {
     var _this2 = this;
 
-    // console.log(unparse(this.gc.command))
     this._status = VMStatus.Running;
     var args = this.gc.command.arguments;
+
+    if (this.gc.command.callee.type === "MemberExpression") {
+      // interpret as a service command (role.comand)
+      var expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
+        return _this2.env.lookup(e);
+      }, undefined);
+
+      var _values = this.gc.command.arguments.map(function (a) {
+        return expr.eval(a);
+      });
+
+      this.env.sendCommand(this.gc.command.callee, _values);
+      this._status = VMStatus.Completed;
+      return;
+    }
 
     switch (this.inst) {
       case "awaitEvent":
@@ -857,10 +914,12 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
       case "writeRegister":
       case "writeLocal":
         {
-          var expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
+          var _expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
             return _this2.env.lookup(e);
           }, undefined);
-          var ev = expr.eval(args[1]);
+
+          var ev = _expr.eval(args[1]);
+
           var reg = args[0];
 
           if (this.inst === "writeRegister" && this.env.writeRegister(reg, ev) || this.inst === "writeLocal" && this.env.writeLocal(reg, ev)) {
@@ -887,7 +946,9 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
   }, {
     key: "inst",
     get: function get() {
-      return this.gc.command.callee.name;
+      var _this$gc$command$call;
+
+      return (_this$gc$command$call = this.gc.command.callee) === null || _this$gc$command$call === void 0 ? void 0 : _this$gc$command$call.name;
     }
   }]);
 
@@ -1078,27 +1139,31 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto4.run = function run() {
-    if (!this._running) return;
+    try {
+      if (!this._running) return;
 
-    this._env.refreshEnvironment();
+      this._env.refreshEnvironment();
 
-    if (this._waitQueue.length > 0) {
-      var nextTime = [];
+      if (this._waitQueue.length > 0) {
+        var nextTime = [];
 
-      this._waitQueue.forEach(function (h) {
-        h.step();
+        this._waitQueue.forEach(function (h) {
+          h.step();
 
-        if (h.status !== VMStatus.Stopped) {
-          if (h.status === VMStatus.Completed) h.reset();
-          nextTime.push(h);
-        }
-      });
+          if (h.status !== VMStatus.Stopped) {
+            if (h.status === VMStatus.Completed) h.reset();
+            nextTime.push(h);
+          }
+        });
 
-      this._waitQueue = nextTime;
+        this._waitQueue = nextTime;
 
-      this._env.consumeEvent();
-    } else {
-      this.emit(constants/* CHANGE */.Ver);
+        this._env.consumeEvent();
+      } else {
+        this.emit(constants/* CHANGE */.Ver);
+      }
+    } catch (e) {
+      this.emit(constants/* ERROR */.pnR, e);
     }
   };
 
@@ -1180,4 +1245,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-41a82f2d0df0914c9413.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-9e110bcbad2cd12c8b60.js.map

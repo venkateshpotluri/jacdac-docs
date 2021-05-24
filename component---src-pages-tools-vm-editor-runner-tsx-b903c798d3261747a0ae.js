@@ -102,7 +102,10 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
 
       return service;
     }
-  }, supportedExpressions, (jsep_default()), function (e) {
+  }, function (e) {
+    return error(e);
+  });
+  var parser = new jdutils/* SpecAwareMarkDownParser */.F2(symbolResolver, supportedExpressions, (jsep_default()), function (e) {
     return error(e);
   });
 
@@ -169,14 +172,14 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
       handlerHeading = "";
     }
 
-    var ret = symbolResolver.processLine(expanded, IT4Functions);
+    var ret = parser.processLine(expanded, IT4Functions);
 
     if (ret) {
       var command = ret[0],
           root = ret[1];
 
       if (currentHandler.commands.length === 0) {
-        if (command.id === "role") {
+        if ((command === null || command === void 0 ? void 0 : command.id) === "role") {
           // TODO: check
           var role = root.arguments[0].name;
           var serviceShortName = root.arguments[1].name;
@@ -188,12 +191,12 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
             serviceShortName: serviceShortName
           });
           return;
-        } else if (command.id !== "awaitEvent" && command.id !== "awaitCondition") {
+        } else if (!command || command.id !== "awaitEvent" && command.id !== "awaitCondition") {
           error("An ITTT handler must begin with call to an await function (awaitEvent | awaitCondition)");
           return;
         }
       } else {
-        if (command.id === "role") {
+        if ((command === null || command === void 0 ? void 0 : command.id) === "role") {
           error("roles must be declared at beginning of handler");
         }
       }
@@ -292,4 +295,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-1fa05059ad68218940ad.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-b903c798d3261747a0ae.js.map
