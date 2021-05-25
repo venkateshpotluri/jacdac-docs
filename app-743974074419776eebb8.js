@@ -58340,7 +58340,10 @@ var LEDServer = /*#__PURE__*/function (_JDServiceServer) {
     if (waveLength !== undefined) _this.waveLength = _this.addRegister(constants/* LedReg.WaveLength */.Abo.WaveLength, [waveLength]);
     _this.variant = _this.addRegister(constants/* LedReg.Variant */.Abo.Variant, [variant]);
 
-    _this.addCommand(constants/* LedCmd.Animate */.tVE.Animate, _this.handleAnimate.bind((0,assertThisInitialized/* default */.Z)(_this)));
+    _this.addCommand(constants/* LedCmd.Animate */.tVE.Animate, _this.handleAnimate.bind((0,assertThisInitialized/* default */.Z)(_this))); // animation
+
+
+    _this.on(constants/* REFRESH */.RGM, _this.updateColor.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
     return _this;
   }
@@ -58368,10 +58371,10 @@ var LEDServer = /*#__PURE__*/function (_JDServiceServer) {
 
     var alpha = Math.min(1, progress);
     var oneAlpha = 1 - alpha;
-    var newRed = red * alpha + oneAlpha * toRed | 0;
-    var newGreen = green * alpha + oneAlpha * toGreen | 0;
-    var newBlue = blue * alpha + oneAlpha * toBlue | 0;
-    this.color.setValues([newRed, newGreen, newBlue], true); // clear animation when done
+    var newRed = red * oneAlpha + alpha * toRed | 0;
+    var newGreen = green * oneAlpha + alpha * toGreen | 0;
+    var newBlue = blue * oneAlpha + alpha * toBlue | 0;
+    this.color.setValues([newRed, newGreen, newBlue]); // clear animation when done
 
     if (progress > 1) this._animation = undefined;
   };
@@ -69078,7 +69081,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c5a26ff45dc04b7fec7d1c5a290ab7e4f8553708";
+  var sha = "b8594ba20b1dd91ee6e21e658c83ddb4c9c32d12";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -77922,7 +77925,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.38"};
+var package_namespaceObject = {"i8":"1.13.39"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -85172,4 +85175,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-cdc6905b2141c7d6fe2f.js.map
+//# sourceMappingURL=app-743974074419776eebb8.js.map
