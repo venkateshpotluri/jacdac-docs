@@ -6591,6 +6591,9 @@ function loadBlocks() {
     } : field.unit === "/" ? {
       kind: "block",
       type: "jacdac_percent"
+    } : field.type === "u8" ? {
+      kind: "block",
+      type: "jacdac_byte"
     } : {
       kind: "block",
       type: "math_number",
@@ -6740,9 +6743,12 @@ function loadBlocks() {
       registerSimples = _splitFilter[0],
       registerComposites = _splitFilter[1];
 
-  var registerSimplesGetBlocks = registerSimples.map(function (_ref5) {
-    var service = _ref5.service,
-        register = _ref5.register;
+  var registerSimplesGetBlocks = registerSimples.filter(function (_ref5) {
+    var register = _ref5.register;
+    return fieldsSupported(register);
+  }).map(function (_ref6) {
+    var service = _ref6.service,
+        register = _ref6.register;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_" + register.name + "_get",
@@ -6762,9 +6768,9 @@ function loadBlocks() {
   });
   var registerNumericsGetBlocks = registerComposites.filter(function (re) {
     return re.register.fields.some(jdspec/* isNumericType */.FV);
-  }).map(function (_ref6) {
-    var service = _ref6.service,
-        register = _ref6.register;
+  }).map(function (_ref7) {
+    var service = _ref7.service,
+        register = _ref7.register;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_" + register.name + "_get",
@@ -6790,12 +6796,15 @@ function loadBlocks() {
       template: "register_get"
     };
   });
-  var registerSetBlocks = registers.filter(function (_ref7) {
-    var register = _ref7.register;
+  var registerSetBlocks = registers.filter(function (_ref8) {
+    var register = _ref8.register;
     return register.kind === "rw";
-  }).map(function (_ref8) {
-    var service = _ref8.service,
-        register = _ref8.register;
+  }).filter(function (_ref9) {
+    var register = _ref9.register;
+    return fieldsSupported(register);
+  }).map(function (_ref10) {
+    var service = _ref10.service,
+        register = _ref10.register;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_" + register.name + "_set",
@@ -6813,9 +6822,9 @@ function loadBlocks() {
       template: "register_set"
     };
   });
-  var commandBlocks = commands.map(function (_ref9) {
-    var service = _ref9.service,
-        command = _ref9.command;
+  var commandBlocks = commands.map(function (_ref11) {
+    var service = _ref11.service,
+        command = _ref11.command;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_value_get",
@@ -6878,6 +6887,19 @@ function loadBlocks() {
       name: "value",
       min: 0,
       max: 100,
+      precision: 1
+    }],
+    colour: HUE,
+    output: "Number"
+  }, {
+    kind: "block",
+    type: "jacdac_byte",
+    message0: "%1",
+    args0: [{
+      type: "field_slider",
+      name: "value",
+      min: 0,
+      max: 255,
       precision: 1
     }],
     colour: HUE,
@@ -7060,9 +7082,9 @@ function useToolbox(blockServices) {
         return block.service === service;
       })
     };
-  }).map(function (_ref10) {
-    var service = _ref10.service,
-        serviceBlocks = _ref10.serviceBlocks;
+  }).map(function (_ref12) {
+    var service = _ref12.service,
+        serviceBlocks = _ref12.serviceBlocks;
     return {
       kind: "category",
       name: service.name,
@@ -8019,4 +8041,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-16abc11b9b7c701d7ecf.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-30a970efd441deeef309.js.map
