@@ -6641,6 +6641,10 @@ function loadBlocks() {
     }).join(" ");
   };
 
+  var isEnabledRegister = function isEnabledRegister(info) {
+    return info.fields.length === 1 && info.fields[0].type === "bool" && info.fields[0].name === "enabled";
+  };
+
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
     return !/^_/.test(service.shortId);
   }).filter(function (service) {
@@ -6808,7 +6812,7 @@ function loadBlocks() {
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_" + register.name + "_set",
-      message0: "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
+      message0: isEnabledRegister ? "set %1 %2" : "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))),
       values: fieldsToValues(register),
       inputsInline: true,
@@ -7010,6 +7014,18 @@ function loadBlocks() {
     serviceBlocks: serviceBlocks,
     services: services
   };
+  console.log({
+    cachedBlocks: cachedBlocks,
+    registers: registers,
+    events: events,
+    commands: commands,
+    eventBlocks: eventBlocks,
+    registerChangeByEventBlocks: registerChangeByEventBlocks,
+    registerSimplesGetBlocks: registerSimplesGetBlocks,
+    registerNumericsGetBlocks: registerNumericsGetBlocks,
+    registerSetBlocks: registerSetBlocks,
+    commandBlocks: commandBlocks
+  });
   return cachedBlocks;
 }
 var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
@@ -8041,4 +8057,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-30a970efd441deeef309.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-800bf4907c68bf95e62d.js.map
