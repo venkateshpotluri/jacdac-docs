@@ -61712,7 +61712,7 @@ function DeviceSpecificationList(props) {
 /* harmony import */ var _material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92516);
 /* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(89615);
 /* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79885);
-/* harmony import */ var _jacdac_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(68337);
+/* harmony import */ var _buttons_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45608);
 /* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69882);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(28142);
 
@@ -61776,7 +61776,7 @@ function DrawerToolsButtonGroup(props) {
       color: "error",
       variant: "dot"
     }, drawer.icon) : drawer.icon);
-  }), showConnect && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+  }), showConnect && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_buttons_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     transparent: true,
     full: false
   }));
@@ -64030,6 +64030,111 @@ function Trend(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(UnitTrend, Object.assign({
       key: "graph" + unit,
       unit: unit
+    }, props));
+  }));
+}
+
+/***/ }),
+
+/***/ 84125:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ConnectButton; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36176);
+/* harmony import */ var _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27591);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(28142);
+/* harmony import */ var _ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16845);
+/* harmony import */ var _icons_TransportIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48245);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54774);
+/* harmony import */ var _hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20509);
+
+
+
+
+
+
+
+
+function ConnectButton(props) {
+  var full = props.full,
+      className = props.className,
+      transparent = props.transparent,
+      transport = props.transport;
+  var type = transport.type;
+  var connectionState = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(transport, function (t) {
+    return t.connectionState;
+  });
+  var showDisconnect = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
+  var inProgress = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connecting */ .e.Connecting || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
+
+  var _useMediaQueries = (0,_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(),
+      mobile = _useMediaQueries.mobile;
+
+  var small = full !== true && (!full || mobile);
+  var disabled = connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected && connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnected */ .e.Disconnected;
+  var onClick = showDisconnect ? function () {
+    return transport.disconnect();
+  } : function () {
+    return transport.connect();
+  };
+  var icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    color: "primary",
+    variant: "dot",
+    invisible: !showDisconnect
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+    type: transport.type
+  }));
+  var label = showDisconnect ? "disconnect from " + type : "connect to a Jacdac device with " + type;
+  var title = showDisconnect ? "disconnect " + type : "connect " + type;
+  if (small) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    "aria-label": label,
+    title: title,
+    color: transparent ? "inherit" : "primary",
+    className: className,
+    disabled: disabled,
+    indeterminate: inProgress,
+    onClick: onClick
+  }, icon));else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    "aria-label": label,
+    title: title,
+    size: "small",
+    variant: transparent ? "outlined" : "contained",
+    color: transparent ? "inherit" : "primary",
+    className: className,
+    startIcon: icon,
+    disabled: disabled,
+    onClick: onClick
+  }, title);
+}
+
+/***/ }),
+
+/***/ 45608:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ConnectButtons; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _ConnectButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84125);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
+
+
+
+function ConnectButtons(props) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var transports = bus.transports;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, transports.map(function (transport) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ConnectButton__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, Object.assign({
+      key: transport.type,
+      transport: transport
     }, props));
   }));
 }
@@ -69081,7 +69186,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "e253c054566db424bdb65267dda118ae0a12e481";
+  var sha = "3b20f884d3cc2a9c903cabac40702ebc1c5b6a14";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71109,111 +71214,6 @@ function useWidgetTheme(color) {
     textPrimary: textPrimary,
     textProps: textProps
   };
-}
-
-/***/ }),
-
-/***/ 48432:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ ConnectButton; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36176);
-/* harmony import */ var _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27591);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(28142);
-/* harmony import */ var _components_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16845);
-/* harmony import */ var _components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48245);
-/* harmony import */ var _useChange__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54774);
-/* harmony import */ var _components_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20509);
-
-
-
-
-
-
-
-
-function ConnectButton(props) {
-  var full = props.full,
-      className = props.className,
-      transparent = props.transparent,
-      transport = props.transport;
-  var type = transport.type;
-  var connectionState = (0,_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(transport, function (t) {
-    return t.connectionState;
-  });
-  var showDisconnect = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
-  var inProgress = connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connecting */ .e.Connecting || connectionState == _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnecting */ .e.Disconnecting;
-
-  var _useMediaQueries = (0,_components_hooks_useMediaQueries__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(),
-      mobile = _useMediaQueries.mobile;
-
-  var small = full !== true && (!full || mobile);
-  var disabled = connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Connected */ .e.Connected && connectionState != _jacdac_ts_src_jdom_transport_transport__WEBPACK_IMPORTED_MODULE_2__/* .ConnectionState.Disconnected */ .e.Disconnected;
-  var onClick = showDisconnect ? function () {
-    return transport.disconnect();
-  } : function () {
-    return transport.connect();
-  };
-  var icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
-    color: "primary",
-    variant: "dot",
-    invisible: !showDisconnect
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_icons_TransportIcon__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    type: transport.type
-  }));
-  var label = showDisconnect ? "disconnect from " + type : "connect to a Jacdac device with " + type;
-  var title = showDisconnect ? "disconnect " + type : "connect " + type;
-  if (small) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
-    "aria-label": label,
-    title: title,
-    color: transparent ? "inherit" : "primary",
-    className: className,
-    disabled: disabled,
-    indeterminate: inProgress,
-    onClick: onClick
-  }, icon));else return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    "aria-label": label,
-    title: title,
-    size: "small",
-    variant: transparent ? "outlined" : "contained",
-    color: transparent ? "inherit" : "primary",
-    className: className,
-    startIcon: icon,
-    disabled: disabled,
-    onClick: onClick
-  }, title);
-}
-
-/***/ }),
-
-/***/ 68337:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ ConnectButtons; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _ConnectButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(48432);
-/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
-
-
-
-function ConnectButtons(props) {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
-      bus = _useContext.bus;
-
-  var transports = bus.transports;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, transports.map(function (transport) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ConnectButton__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, Object.assign({
-      key: transport.type,
-      transport: transport
-    }, props));
-  }));
 }
 
 /***/ }),
@@ -78008,8 +78008,8 @@ var bus = cachedBus() || createBus();
 /* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85061);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67294);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
 /* harmony import */ var _components_useEffectAsync__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7751);
 
 
@@ -78019,13 +78019,13 @@ var bus = cachedBus() || createBus();
 
 function useChange(node, query, deps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)((node === null || node === void 0 ? void 0 : node.changeId) || 0),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)((node === null || node === void 0 ? void 0 : node.changeId) || 0),
       version = _useState[0],
       setVersion = _useState[1];
 
   var value = query ? query(node) : undefined;
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    return node === null || node === void 0 ? void 0 : node.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver, function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    return node === null || node === void 0 ? void 0 : node.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
       //console.log(`change ${node} ${version}->${node.changeId}`)
       setVersion(node.changeId);
     });
@@ -78033,16 +78033,16 @@ function useChange(node, query, deps) {
   return value;
 }
 function useChangeAsync(node, query, deps) {
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)((node === null || node === void 0 ? void 0 : node.changeId) || 0),
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)((node === null || node === void 0 ? void 0 : node.changeId) || 0),
       version = _useState2[0],
       setVersion = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(undefined),
       value = _useState3[0],
       setValue = _useState3[1];
 
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    return node === null || node === void 0 ? void 0 : node.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver, function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    return node === null || node === void 0 ? void 0 : node.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
       setVersion(node.changeId);
     });
   }, [node]);
@@ -85175,4 +85175,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-d1de433742ee1d67c5c9.js.map
+//# sourceMappingURL=app-dbaa687245ca804ce6e9.js.map

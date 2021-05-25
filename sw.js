@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-cf76bab8c4d71cb6ad43.js"
+    "url": "webpack-runtime-e070b3e286732813a380.js"
   },
   {
     "url": "framework-3e5fdc5ba728e15d7465.js"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "259bcf298cedad4506c622c270787dc3"
+    "revision": "64f77405c4987de5331970f8314ac095"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "35e1c377a61a765940e37d5786f80c3c"
+    "revision": "6b48353a101746f7350597e0d0f603b1"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "d873e270f794837aed66abaee5bf2c04"
+    "revision": "17fcf3b545f929ec0b33ac549dae1c8f"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "d458823caa0924c344b791a2b99c4b57"
+    "revision": "7a4b9efdd4e97c76c9036f8acda2d713"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "aa4c8f7e313d1aba1ce7a2655cc65e2c"
+    "revision": "614b721186a047336e66d81333a009f9"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -101,7 +101,7 @@ self.__precacheManifest = [
     "revision": "9be0850a21e1c0fbd7afa699649413b0"
   },
   {
-    "url": "4679832c2316e1a2e8284850d615b05b4b11f89d-86401c686a04bcc3c60b.js"
+    "url": "4679832c2316e1a2e8284850d615b05b4b11f89d-7a164136ee5075c89c95.js"
   },
   {
     "url": "component---src-pages-dashboard-tsx-d5d0d7111be563981602.js"
@@ -1306,7 +1306,7 @@ self.__precacheManifest = [
     "revision": "1139da1a73c88b45468e9dd8a5cfcf68"
   },
   {
-    "url": "a77c613bd0faa103b953c0d40475a17f2d569635-b85035a9f8210aeb5011.js"
+    "url": "a77c613bd0faa103b953c0d40475a17f2d569635-448c9bef4e770e9e3c87.js"
   },
   {
     "url": "component---src-pages-tools-edge-impulse-tsx-ff1072d72f159fee26a5.js"
@@ -1316,7 +1316,7 @@ self.__precacheManifest = [
     "revision": "d1a7319607b73105408a9de918fd6823"
   },
   {
-    "url": "component---src-pages-tools-flood-test-tsx-c2bf8b625c89e0031eaf.js"
+    "url": "component---src-pages-tools-flood-test-tsx-082da2824022de5309a7.js"
   },
   {
     "url": "page-data/tools/flood-test/page-data.json",
@@ -1376,7 +1376,7 @@ self.__precacheManifest = [
     "revision": "1e0c394909775532a4d1fd14a1edd2ba"
   },
   {
-    "url": "component---src-pages-tools-prototest-tsx-a65bf669546190a7d5d9.js"
+    "url": "component---src-pages-tools-prototest-tsx-9ba4e9ba0761cec7714a.js"
   },
   {
     "url": "page-data/tools/prototest/page-data.json",
@@ -1397,7 +1397,7 @@ self.__precacheManifest = [
     "revision": "58c2a3b5b848d813db14254bff224a2a"
   },
   {
-    "url": "component---src-pages-tools-service-test-tsx-210d79a979db03744048.js"
+    "url": "component---src-pages-tools-service-test-tsx-026696079f61943206a4.js"
   },
   {
     "url": "page-data/tools/service-test/page-data.json",
@@ -1414,14 +1414,14 @@ self.__precacheManifest = [
     "revision": "def730d1d1cf2aa826b51909094a80cb"
   },
   {
-    "url": "component---src-pages-tools-settings-tsx-5f0c795ea8e5c209f1c7.js"
+    "url": "component---src-pages-tools-settings-tsx-68c141f18c4dfd0e02cb.js"
   },
   {
     "url": "page-data/tools/settings/page-data.json",
     "revision": "d3f9d166bda2362b1903214ab87cf158"
   },
   {
-    "url": "component---src-pages-tools-updater-tsx-ff3188257d20bdb3a06b.js"
+    "url": "component---src-pages-tools-updater-tsx-c7893e54d58c0d46e669.js"
   },
   {
     "url": "page-data/tools/updater/page-data.json",
@@ -1541,7 +1541,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-d1de433742ee1d67c5c9.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-dbaa687245ca804ce6e9.js`))) {
     return await fetch(event.request)
   }
 
