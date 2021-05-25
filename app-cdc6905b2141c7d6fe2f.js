@@ -59400,12 +59400,12 @@ var _providerDefinitions = [{
     })];
   }
 }, {
-  name: "LED (RGB through hole)",
+  name: "Red LED (RGB through hole)",
   serviceClasses: [constants/* SRV_LED */.i04],
   services: function services() {
     return [new LEDServer({
       variant: constants/* LedVariant.ThroughHole */.FRS.ThroughHole,
-      ledCount: 1,
+      ledCount: 2,
       color: [255, 0, 0]
     })];
   }
@@ -59415,8 +59415,8 @@ var _providerDefinitions = [{
   services: function services() {
     return [new LEDServer({
       variant: constants/* LedVariant.ThroughHole */.FRS.ThroughHole,
-      waveLength: 624,
-      ledCount: 3,
+      waveLength: 450,
+      ledCount: 5,
       color: [0, 0, 255]
     })];
   }
@@ -69078,7 +69078,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "da074d70e4098e969c36ad171b3db066eefe2ecf";
+  var sha = "c5a26ff45dc04b7fec7d1c5a290ab7e4f8553708";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -85172,4 +85172,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-80d125f8e321084e0db5.js.map
+//# sourceMappingURL=app-cdc6905b2141c7d6fe2f.js.map
