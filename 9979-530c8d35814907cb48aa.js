@@ -13,8 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89196);
 /* harmony import */ var _widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48059);
 /* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(60650);
-/* harmony import */ var _hooks_useFireKey__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8966);
-/* harmony import */ var _hooks_useKeyboardNavigationProps__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(68786);
+/* harmony import */ var _hooks_useFireKey__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(8966);
+/* harmony import */ var _hooks_useKeyboardNavigationProps__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(68786);
 /* harmony import */ var _jacdac_ts_src_servers_ledmatrixserver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41441);
 /* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2285);
 /* harmony import */ var _hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(49013);
@@ -54,8 +54,11 @@ function DashboardLEDMatrixDisplay(props) {
   var _useWidgetTheme = (0,_widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(color),
       background = _useWidgetTheme.background,
       controlBackground = _useWidgetTheme.controlBackground,
-      active = _useWidgetTheme.active; // no data about layout
+      active = _useWidgetTheme.active; // render immediately if the server rendered again
 
+
+  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(server);
+  var navProps = (0,_hooks_useKeyboardNavigationProps__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(widgetRef.current); // no data about layout
 
   if (rows === undefined || columns === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null); // compute size
 
@@ -76,10 +79,8 @@ function DashboardLEDMatrixDisplay(props) {
       (0,_jacdac_ts_src_servers_ledmatrixserver__WEBPACK_IMPORTED_MODULE_5__/* .toggle */ .w)(newLeds, bitindex);
       ledsRegister.sendSetAsync(newLeds, true);
     };
-  }; // render immediately if the server rendered again
+  }; // add leds
 
-
-  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(server); // add leds
 
   var render = function render() {
     var boxEls = [];
@@ -115,7 +116,7 @@ function DashboardLEDMatrixDisplay(props) {
         var bit = bitindex % 8;
         var on = 1 === (byte >> bit & 1);
         var handleClick = handleLedClick(bitindex);
-        var fireClick = (0,_hooks_useFireKey__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(handleClick);
+        var fireClick = (0,_hooks_useFireKey__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(handleClick);
         ledEls.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("rect", Object.assign({
           key: "l" + row + "-" + col,
           x: x,
@@ -149,7 +150,6 @@ function DashboardLEDMatrixDisplay(props) {
       boxEls = _render.boxEls,
       ledEls = _render.ledEls;
 
-  var navProps = (0,_hooks_useKeyboardNavigationProps__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(widgetRef.current);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     width: w,
     height: h
@@ -250,4 +250,4 @@ function useKeyboardNavigationProps(parentRef, vertical) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9979-5e74cecb488bcbe2501a.js.map
+//# sourceMappingURL=9979-530c8d35814907cb48aa.js.map
