@@ -6642,7 +6642,7 @@ function loadBlocks() {
   };
 
   var isEnabledRegister = function isEnabledRegister(info) {
-    return info.fields.length === 1 && info.fields[0].type === "bool" && info.fields[0].name === "enabled";
+    return info.fields.length === 1 && info.fields[0].type === "bool" && info.name === "enabled";
   };
 
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
@@ -6686,7 +6686,7 @@ function loadBlocks() {
         events = _ref.events;
     return {
       kind: "block",
-      type: "jacdac_" + service.shortId + "_events",
+      type: "jacdac__events_" + service.shortId,
       message0: "when %1 %2",
       args0: [fieldVariable(service), {
         type: "field_dropdown",
@@ -6712,13 +6712,13 @@ function loadBlocks() {
     });
   }).filter(function (_ref3) {
     var register = _ref3.register;
-    return register.fields.length === 1 && (0,jdspec/* isNumericType */.FV)(register.fields[0]);
+    return register.fields.length === 1 && (0,jdspec/* isNumericType */.FV)(register.fields[0]) && register.identifier !== constants/* SystemReg.Intensity */.ZJq.Intensity;
   }).map(function (_ref4) {
     var service = _ref4.service,
         register = _ref4.register;
     return {
       kind: "block",
-      type: "jacdac_" + service.shortId + "_" + register.name + "_change_by_event",
+      type: "jacdac_change_by_events_" + service.shortId + "_" + register.name,
       message0: "when %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change by %2",
       args0: [fieldVariable(service), {
         type: "input_value",
@@ -6755,7 +6755,7 @@ function loadBlocks() {
         register = _ref6.register;
     return {
       kind: "block",
-      type: "jacdac_" + service.shortId + "_" + register.name + "_get",
+      type: "jacdac_get_simple_" + service.shortId + "_" + register.name,
       message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name),
       args0: [fieldVariable(service)].filter(function (v) {
         return !!v;
@@ -6777,7 +6777,7 @@ function loadBlocks() {
         register = _ref7.register;
     return {
       kind: "block",
-      type: "jacdac_" + service.shortId + "_" + register.name + "_get",
+      type: "jacdac_get_numerics_" + service.shortId + "_" + register.name,
       message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (register.fields.length > 1 ? " %2" : ""),
       args0: [fieldVariable(service), register.fields.length > 1 ? {
         type: "field_dropdown",
@@ -6811,8 +6811,8 @@ function loadBlocks() {
         register = _ref10.register;
     return {
       kind: "block",
-      type: "jacdac_" + service.shortId + "_" + register.name + "_set",
-      message0: isEnabledRegister ? "set %1 %2" : "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
+      type: "jacdac_set_" + service.shortId + "_" + register.name,
+      message0: isEnabledRegister(register) ? "set %1 %2" : "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))),
       values: fieldsToValues(register),
       inputsInline: true,
@@ -6831,7 +6831,7 @@ function loadBlocks() {
         command = _ref11.command;
     return {
       kind: "block",
-      type: "jacdac_" + service.shortId + "_value_get",
+      type: "jacdac_command_" + service.shortId + "_" + command.name,
       message0: (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(command))),
       values: fieldsToValues(command),
@@ -8057,4 +8057,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-800bf4907c68bf95e62d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2ef313d55aa159cd6cad.js.map
