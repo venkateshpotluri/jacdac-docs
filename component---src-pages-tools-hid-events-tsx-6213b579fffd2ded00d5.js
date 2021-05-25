@@ -729,11 +729,13 @@ function SelectEvent(props) {
 /* harmony export */   "Z": function() { return /* binding */ KeyboardKeyInput; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10920);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70274);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70274);
 /* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
 /* harmony import */ var react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81751);
 /* harmony import */ var react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91350);
+
 
 
 
@@ -900,8 +902,8 @@ var modifierCodes = {
   shiftright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightShift */ .Q2Q.RightShift,
   metaright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightGUI */ .Q2Q.RightGUI
 };
-var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(function (theme) {
-  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)({
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)({
     capture: {
       cursor: "pointer",
       "&:hover": {
@@ -911,9 +913,24 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ 
         borderColor: theme.palette.action.active
       }
     },
-    buttonSelected: {
-      background: theme.palette.primary.dark + " !important",
-      color: "white !important"
+    darkKeyboard: {
+      backgroundColor: "#333 !important",
+      borderColor: "#777 !important",
+      color: "white !important",
+      "& .hg-button": {
+        background: "rgba(0, 0, 0, 0.5) !important",
+        color: "white"
+      },
+      "& .hg-button.buttonSelected": {
+        background: theme.palette.primary.dark + " !important",
+        color: "white !important"
+      }
+    },
+    keyboard: {
+      "& .buttonSelected": {
+        background: theme.palette.primary.dark + " !important",
+        color: "white !important"
+      }
     }
   });
 });
@@ -939,7 +956,12 @@ function KeyboardKeyInput(props) {
   var selector = props.selector,
       modifiers = props.modifiers,
       onChange = props.onChange;
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_DarkModeContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
+      darkMode = _useContext.darkMode;
+
   var classes = useStyles();
+  var theme = "hg-theme-default hg-layout-default " + (darkMode === "dark" ? classes.darkKeyboard : classes.keyboard);
   var layout = {
     default: ["{escape} {f1} {f2} {f3} {f4} {f5} {f6} {f7} {f8} {f9} {f10} {f11} {f12}", "` 1 2 3 4 5 6 7 8 9 0 - = {backspace}", "{tab} q w e r t y u i o p [ ] \\", "{capslock} a s d f g h j k l ; ' {enter}", "{shiftleft} z x c v b n m , . / {shiftright}", "{controlleft} {altleft} {metaleft} {space} {metaright} {altright}"]
   };
@@ -982,11 +1004,11 @@ function KeyboardKeyInput(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var _keyboardRef$current;
 
-    (_keyboardRef$current = _keyboardRef.current) === null || _keyboardRef$current === void 0 ? void 0 : _keyboardRef$current.addButtonTheme(value, classes.buttonSelected);
+    (_keyboardRef$current = _keyboardRef.current) === null || _keyboardRef$current === void 0 ? void 0 : _keyboardRef$current.addButtonTheme(value, "buttonSelected");
     return function () {
       var _keyboardRef$current2;
 
-      return (_keyboardRef$current2 = _keyboardRef.current) === null || _keyboardRef$current2 === void 0 ? void 0 : _keyboardRef$current2.removeButtonTheme(value, classes.buttonSelected);
+      return (_keyboardRef$current2 = _keyboardRef.current) === null || _keyboardRef$current2 === void 0 ? void 0 : _keyboardRef$current2.removeButtonTheme(value, "buttonSelected");
     };
   }, [value]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2___default()), {
@@ -995,6 +1017,7 @@ function KeyboardKeyInput(props) {
     },
     onKeyPress: handleKeyboardKeyPress,
     layout: layout,
+    theme: theme,
     display: display,
     mergeDisplay: true
   });
@@ -1541,4 +1564,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-db585711ef53806e0b5a.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-6213b579fffd2ded00d5.js.map
