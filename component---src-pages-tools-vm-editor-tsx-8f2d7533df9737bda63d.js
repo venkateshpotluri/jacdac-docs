@@ -6546,6 +6546,7 @@ var useServices = __webpack_require__(2928);
 
 
 
+
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
@@ -7153,18 +7154,20 @@ function useToolbox(blockServices) {
   var liveServices = (0,useServices/* default */.Z)({
     specification: true
   });
-  var toolboxServices = (0,utils/* unique */.Tw)([].concat((0,toConsumableArray/* default */.Z)(blockServices), (0,toConsumableArray/* default */.Z)(liveServices.filter(function (srv) {
-    return ignoredServices.indexOf(srv.serviceClass) < 0;
-  }).map(function (service) {
-    var _service$specificatio;
-
-    return (_service$specificatio = service.specification) === null || _service$specificatio === void 0 ? void 0 : _service$specificatio.shortId;
-  })))).map(function (serviceShortId) {
+  var toolboxServices = (0,utils/* uniqueMap */.EM)(flags/* default.diagnostics */.Z.diagnostics ? services : [].concat((0,toConsumableArray/* default */.Z)(blockServices.map(function (srvid) {
     return services.find(function (service) {
-      return service.shortId === serviceShortId;
+      return service.shortId === srvid;
     });
   }).filter(function (srv) {
     return !!srv;
+  })), (0,toConsumableArray/* default */.Z)(liveServices.map(function (srv) {
+    return srv.specification;
+  }))), function (srv) {
+    return srv.shortId;
+  }, function (srv) {
+    return srv;
+  }).filter(function (srv) {
+    return srv && ignoredServices.indexOf(srv.classIdentifier) < 0;
   }).sort(function (l, r) {
     return l.name.localeCompare(r.name);
   });
@@ -8134,4 +8137,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ca49582124103cd2758f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8f2d7533df9737bda63d.js.map
