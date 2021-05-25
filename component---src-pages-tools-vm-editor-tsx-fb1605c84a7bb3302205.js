@@ -6590,6 +6590,9 @@ function loadBlocks() {
       type: "jacdac_angle"
     } : field.unit === "/" ? {
       kind: "block",
+      type: "jacdac_ratio"
+    } : /^%/.test(field.unit) ? {
+      kind: "block",
       type: "jacdac_percent"
     } : field.type === "u8" ? {
       kind: "block",
@@ -6720,16 +6723,10 @@ function loadBlocks() {
       kind: "block",
       type: "jacdac_change_by_events_" + service.shortId + "_" + register.name,
       message0: "when %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change by %2",
-      args0: [fieldVariable(service), {
-        type: "input_value",
-        name: "threshold",
-        check: "Number"
-      }].filter(function (v) {
+      args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))).filter(function (v) {
         return !!v;
       }),
-      values: {
-        threshold: fieldToShadow(register.fields[0])
-      },
+      values: fieldsToValues(register),
       inputsInline: true,
       nextStatement: null,
       colour: HUE,
@@ -6885,7 +6882,7 @@ function loadBlocks() {
   }, {
     kind: "block",
     type: "jacdac_percent",
-    message0: "%1 %",
+    message0: "%1",
     args0: [{
       type: "field_slider",
       name: "value",
@@ -8057,4 +8054,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2ef313d55aa159cd6cad.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fb1605c84a7bb3302205.js.map
