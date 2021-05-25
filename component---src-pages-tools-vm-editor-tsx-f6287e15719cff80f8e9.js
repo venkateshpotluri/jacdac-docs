@@ -7851,11 +7851,10 @@ function VmEditor(props) {
   }, [workspace, xml]); // track workspace changes and update callbacks
 
   (0,react.useEffect)(function () {
-    var _toolboxConfiguration;
-
     if (!workspace) return; // collect buttons
 
-    var buttons = toolboxConfiguration === null || toolboxConfiguration === void 0 ? void 0 : (_toolboxConfiguration = toolboxConfiguration.contents) === null || _toolboxConfiguration === void 0 ? void 0 : _toolboxConfiguration.map(function (cat) {
+    var buttons = toolboxConfiguration === null || toolboxConfiguration === void 0 ? void 0 : toolboxConfiguration.contents // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map(function (cat) {
       return cat.button;
     }).filter(function (btn) {
       return !!btn;
@@ -7891,10 +7890,17 @@ var VMRunner = __webpack_require__(88523);
 
 
 
-var useStyles = (0,makeStyles/* default */.Z)(function () {
+var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     editor: {
-      height: "calc(50vh)"
+      height: "calc(50vh)",
+      "& .blocklyTreeLabel": {
+        fontFamily: theme.typography.fontFamily
+      },
+      "& .blocklyText": {
+        fontWeight: "normal !important",
+        fontFamily: theme.typography.fontFamily + " !important"
+      }
     }
   });
 });
@@ -7969,4 +7975,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4d384f568efa99b9e94d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f6287e15719cff80f8e9.js.map
