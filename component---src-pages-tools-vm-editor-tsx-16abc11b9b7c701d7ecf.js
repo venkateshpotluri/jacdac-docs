@@ -6560,7 +6560,7 @@ function isStringField(field) {
 }
 
 function toBlocklyType(field) {
-  return isBooleanField(field) ? "Boolean" : isStringField(field) ? "String" : "Number";
+  return isBooleanField(field) ? "Boolean" : isStringField(field) ? "String" : (0,jdspec/* isNumericType */.FV)(field) ? "Number" : undefined;
 }
 
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
@@ -6569,6 +6569,10 @@ var includedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants
 var cachedBlocks;
 function loadBlocks() {
   if (cachedBlocks) return cachedBlocks;
+
+  var fieldsSupported = function fieldsSupported(pkt) {
+    return pkt.fields.every(toBlocklyType);
+  };
 
   var fieldName = function fieldName(reg, field) {
     return field.name === "_" ? reg.name : field.name;
@@ -6661,7 +6665,7 @@ function loadBlocks() {
   });
   var commands = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,spec/* isCommand */.ao)(pkt);
+      return (0,spec/* isCommand */.ao)(pkt) && fieldsSupported(pkt);
     }).map(function (pkt) {
       return {
         service: service,
@@ -6720,18 +6724,47 @@ function loadBlocks() {
         threshold: fieldToShadow(register.fields[0])
       },
       inputsInline: true,
-      nextStatement: "Statement",
+      nextStatement: null,
       colour: HUE,
-      tooltip: "",
+      tooltip: "Event raised when " + register.name + " changes",
       helpUrl: "",
       service: service,
       register: register,
       template: "register_change_event"
     };
   });
-  var registerGetBlocks = registers.map(function (_ref5) {
+
+  var _splitFilter = (0,utils/* splitFilter */.ap)(registers, function (reg) {
+    return reg.register.fields.length == 1;
+  }),
+      registerSimples = _splitFilter[0],
+      registerComposites = _splitFilter[1];
+
+  var registerSimplesGetBlocks = registerSimples.map(function (_ref5) {
     var service = _ref5.service,
         register = _ref5.register;
+    return {
+      kind: "block",
+      type: "jacdac_" + service.shortId + "_" + register.name + "_get",
+      message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name),
+      args0: [fieldVariable(service)].filter(function (v) {
+        return !!v;
+      }),
+      inputsInline: true,
+      output: toBlocklyType(register.fields[0]),
+      colour: HUE,
+      tooltip: register.description,
+      helpUrl: "",
+      service: service,
+      register: register,
+      template: "register_get"
+    };
+  });
+  var registerNumericsGetBlocks = registerComposites.filter(function (re) {
+    return re.register.fields.some(jdspec/* isNumericType */.FV);
+  }).map(function (_ref6) {
+    var service = _ref6.service,
+        register = _ref6.register;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_" + register.name + "_get",
@@ -6739,28 +6772,30 @@ function loadBlocks() {
       args0: [fieldVariable(service), register.fields.length > 1 ? {
         type: "field_dropdown",
         name: "field",
-        options: register.fields.map(function (field) {
+        options: register.fields.filter(function (f) {
+          return (0,jdspec/* isNumericType */.FV)(f);
+        }).map(function (field) {
           return [(0,jdspec/* humanify */.lW)(field.name), fieldName(register, field)];
         })
       } : undefined].filter(function (v) {
         return !!v;
       }),
       inputsInline: true,
-      output: toBlocklyType(register.fields[0]),
+      output: "Number",
       colour: HUE,
-      tooltip: "",
+      tooltip: register.description,
       helpUrl: "",
       service: service,
       register: register,
       template: "register_get"
     };
   });
-  var registerSetBlocks = registers.filter(function (_ref6) {
-    var register = _ref6.register;
+  var registerSetBlocks = registers.filter(function (_ref7) {
+    var register = _ref7.register;
     return register.kind === "rw";
-  }).map(function (_ref7) {
-    var service = _ref7.service,
-        register = _ref7.register;
+  }).map(function (_ref8) {
+    var service = _ref8.service,
+        register = _ref8.register;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_" + register.name + "_set",
@@ -6773,14 +6808,14 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       register: register,
-      previousStatement: "Statement",
-      nextStatement: "Statement",
+      previousStatement: null,
+      nextStatement: null,
       template: "register_set"
     };
   });
-  var commandBlocks = commands.map(function (_ref8) {
-    var service = _ref8.service,
-        command = _ref8.command;
+  var commandBlocks = commands.map(function (_ref9) {
+    var service = _ref9.service,
+        command = _ref9.command;
     return {
       kind: "block",
       type: "jacdac_" + service.shortId + "_value_get",
@@ -6793,12 +6828,12 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       command: command,
-      previousStatement: "Statement",
-      nextStatement: "Statement",
+      previousStatement: null,
+      nextStatement: null,
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks));
   var shadowBlocks = [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7025,9 +7060,9 @@ function useToolbox(blockServices) {
         return block.service === service;
       })
     };
-  }).map(function (_ref9) {
-    var service = _ref9.service,
-        serviceBlocks = _ref9.serviceBlocks;
+  }).map(function (_ref10) {
+    var service = _ref10.service,
+        serviceBlocks = _ref10.serviceBlocks;
     return {
       kind: "category",
       name: service.name,
@@ -7984,4 +8019,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-68aadd71eb0ab3d26ff2.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-16abc11b9b7c701d7ecf.js.map
