@@ -7803,6 +7803,15 @@ function VmEditor(props) {
           vertical: false,
           horizontal: true
         }
+      },
+      zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 3,
+        minScale: 0.3,
+        scaleSpeed: 1.2,
+        pinch: true
       }
     },
     initialXml: initialXml || newProjectXml,
@@ -7975,4 +7984,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f6287e15719cff80f8e9.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-68aadd71eb0ab3d26ff2.js.map
