@@ -6573,6 +6573,12 @@ function enumInfo(srv, field) {
 var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_SETTINGS */.B9b, constants/* SRV_BOOTLOADER */.PWm];
 var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged];
 var includedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
+var customMessages = [{
+  service: constants/* SRV_JOYSTICK */.vRO,
+  register: constants/* JoystickReg.Direction */.ztd.Direction,
+  field: "buttons",
+  get: "is %1 %2 pressed"
+}];
 var cachedBlocks;
 function loadBlocks() {
   if (cachedBlocks) return cachedBlocks;
@@ -6653,6 +6659,12 @@ function loadBlocks() {
 
   var isEnabledRegister = function isEnabledRegister(info) {
     return info.fields.length === 1 && info.fields[0].type === "bool" && info.name === "enabled";
+  };
+
+  var customMessage = function customMessage(srv, reg, field) {
+    return customMessages.find(function (m) {
+      return m.service === srv.classIdentifier && m.register === reg.identifier && m.field === field.name;
+    });
   };
 
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
@@ -6759,12 +6771,14 @@ function loadBlocks() {
       registerSimpleOthers = _splitFilter2[1];
 
   var registerSimplesGetBlocks = registerSimpleTypes.map(function (_ref6) {
+    var _customMessage;
+
     var service = _ref6.service,
         register = _ref6.register;
     return {
       kind: "block",
       type: "jacdac_get_simple_" + service.shortId + "_" + register.name,
-      message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name),
+      message0: ((_customMessage = customMessage(service, register, register.fields[0])) === null || _customMessage === void 0 ? void 0 : _customMessage.get) || "%1 " + (0,jdspec/* humanify */.lW)(register.name),
       args0: [fieldVariable(service)],
       inputsInline: true,
       output: toBlocklyType(register.fields[0]),
@@ -6806,6 +6820,8 @@ function loadBlocks() {
     });
   }));
   var registerEnumGetBlocks = [].concat((0,toConsumableArray/* default */.Z)(registerSimpleEnumTypes), (0,toConsumableArray/* default */.Z)(registerCompositeEnumTypes)).map(function (_ref11) {
+    var _customMessage2;
+
     var service = _ref11.service,
         register = _ref11.register,
         field = _ref11.field,
@@ -6813,7 +6829,7 @@ function loadBlocks() {
     return {
       kind: "block",
       type: "jacdac_get_enum_" + service.shortId + "_" + register.name + "_" + field.name,
-      message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (field.name === "_" ? "" : " " + field.name) + " %2",
+      message0: ((_customMessage2 = customMessage(service, register, field)) === null || _customMessage2 === void 0 ? void 0 : _customMessage2.get) || "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (field.name === "_" ? "" : " " + field.name) + " %2",
       args0: [fieldVariable(service), {
         type: "field_dropdown",
         name: field.name,
@@ -8118,4 +8134,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-85e123f2f2b95a3c038d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ca49582124103cd2758f.js.map
