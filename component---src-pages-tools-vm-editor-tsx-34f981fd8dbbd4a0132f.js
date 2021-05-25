@@ -6669,7 +6669,7 @@ function loadBlocks() {
   };
 
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
-    return !/^_/.test(service.shortId);
+    return !/^_/.test(service.shortId) && service.status !== "deprecated";
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
   });
@@ -6910,7 +6910,7 @@ function loadBlocks() {
     return {
       kind: "block",
       type: "jacdac_command_" + service.shortId + "_" + command.name,
-      message0: (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
+      message0: !command.fields.length ? (0,jdspec/* humanify */.lW)(command.name) + " %1" : (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(command))),
       values: fieldsToValues(command),
       inputsInline: true,
@@ -8137,4 +8137,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8f2d7533df9737bda63d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-34f981fd8dbbd4a0132f.js.map
