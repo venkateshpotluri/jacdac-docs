@@ -65152,7 +65152,7 @@ var DashboardBitRadio = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(4382), __webpack_require__.e(6691), __webpack_require__.e(8743)]).then(__webpack_require__.bind(__webpack_require__, 58743));
 });
 var DashboardHIDKeyboard = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 5969).then(__webpack_require__.bind(__webpack_require__, 25969));
+  return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(5969)]).then(__webpack_require__.bind(__webpack_require__, 25969));
 });
 var DashboardHIDMouse = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5233).then(__webpack_require__.bind(__webpack_require__, 45233));
@@ -65272,7 +65272,7 @@ var serviceViews = (_serviceViews = {}, _serviceViews[constants/* SRV_ROLE_MANAG
 }, _serviceViews[constants/* SRV_HID_KEYBOARD */.Hg9] = {
   component: DashboardHIDKeyboard,
   weight: function weight() {
-    return 3;
+    return 12;
   }
 }, _serviceViews[constants/* SRV_HID_MOUSE */.Eef] = {
   component: DashboardHIDMouse,
@@ -69186,7 +69186,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "d40f5ce43a3bf4a4df7125ce6b84b4cf203ee891";
+  var sha = "8a7ecd86ec0f7d857a63777b40a975d74c415686";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -80303,7 +80303,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-flood-test-tsx */[__webpack_require__.e(4741), __webpack_require__.e(5356)]).then(__webpack_require__.bind(__webpack_require__, 79410));
   },
   "component---src-pages-tools-hid-events-tsx": function componentSrcPagesToolsHidEventsTsx() {
-    return __webpack_require__.e(/* import() | component---src-pages-tools-hid-events-tsx */ 5444).then(__webpack_require__.bind(__webpack_require__, 60997));
+    return Promise.all(/* import() | component---src-pages-tools-hid-events-tsx */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(5444)]).then(__webpack_require__.bind(__webpack_require__, 60997));
   },
   "component---src-pages-tools-jupyterlab-mdx": function componentSrcPagesToolsJupyterlabMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-jupyterlab-mdx */ 6394).then(__webpack_require__.bind(__webpack_require__, 95844));
@@ -85171,8 +85171,8 @@ try {
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
-/******/ __webpack_require__.O(0, [9774,532], function() { return __webpack_exec__(19009); });
+/******/ __webpack_require__.O(0, [532,9774], function() { return __webpack_exec__(19009); });
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-96e1ea8c2d6913a326a6.js.map
+//# sourceMappingURL=app-424226a735c3ac8a60ad.js.map
