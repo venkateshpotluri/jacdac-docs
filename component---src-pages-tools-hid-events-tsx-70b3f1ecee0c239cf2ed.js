@@ -186,34 +186,6 @@ var TableCell = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(funct
 
 /***/ }),
 
-/***/ 88880:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-}), 'Add');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 94500:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1219,8 +1191,6 @@ var constants = __webpack_require__(71815);
 var KeyboardKeyInput = __webpack_require__(82860);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Delete.js
 var Delete = __webpack_require__(94500);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/settingsclient.ts
@@ -1235,6 +1205,8 @@ var pack = __webpack_require__(91635);
 var random = __webpack_require__(80303);
 // EXTERNAL MODULE: ./src/components/hooks/useServices.ts
 var useServices = __webpack_require__(2928);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
 ;// CONCATENATED MODULE: ./src/pages/tools/hid-events.tsx
 
 
@@ -1408,19 +1380,19 @@ function SelectHIDEvent(props) {
     eventId: eventId,
     onChange: handleEventChange
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "outlined",
+    disabled: disabled,
+    onClick: handleAdd
+  }, "Add")), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
-    xs: true
+    xs: 12
   }, /*#__PURE__*/react.createElement(KeyboardKeyInput/* default */.Z, {
     selector: selector,
     modifiers: modifiers,
     onChange: handleKeyChange
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "Add binding",
-    disabled: disabled,
-    onClick: handleAdd
-  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null))));
+  })));
 }
 
 function HIDEvents() {
@@ -1564,4 +1536,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-6213b579fffd2ded00d5.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-70b3f1ecee0c239cf2ed.js.map
