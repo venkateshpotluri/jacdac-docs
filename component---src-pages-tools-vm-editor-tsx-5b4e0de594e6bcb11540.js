@@ -6669,7 +6669,7 @@ function loadBlocks() {
   };
 
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
-    return !/^_/.test(service.shortId);
+    return !/^_/.test(service.shortId) && service.status !== "deprecated";
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
   });
@@ -6788,6 +6788,7 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       register: register,
+      field: register.fields[0],
       template: "register_get"
     };
   });
@@ -6845,6 +6846,7 @@ function loadBlocks() {
       helpUrl: "",
       service: service,
       register: register,
+      field: field,
       template: "register_get"
     };
   });
@@ -7673,117 +7675,6 @@ var ops = {
   MUL: "*",
   DIV: "/"
 };
-
-function blockToExpression(block) {
-  if (!block) return undefined;
-  var type = block.type,
-      value = block.value,
-      inputs = block.inputs;
-  if (value !== undefined) // literal
-    return {
-      type: "Literal",
-      value: value,
-      raw: value + ""
-    };
-  console.log("block", block);
-
-  switch (type) {
-    case "jacdac_math_single":
-      {
-        var argument = blockToExpression(inputs[0].child);
-        var op = inputs[0].fields["op"].value;
-        return {
-          type: "UnaryExpression",
-          operator: ops[op] || op,
-          argument: argument,
-          prefix: false // TODO:?
-
-        };
-      }
-
-    case "jacdac_math_arithmetic":
-      {
-        var left = blockToExpression(inputs[0].child);
-        var right = blockToExpression(inputs[1].child);
-        var _op = inputs[1].fields["op"].value;
-        return {
-          type: "BinaryExpression",
-          operator: ops[_op] || _op,
-          left: left,
-          right: right
-        };
-      }
-
-    case "logic_operation":
-      {
-        var _left = blockToExpression(inputs[0].child);
-
-        var _right = blockToExpression(inputs[1].child);
-
-        var _op2 = inputs[1].fields["op"].value;
-        return {
-          type: "LogicalExpression",
-          operator: ops[_op2] || _op2,
-          left: _left,
-          right: _right
-        };
-      }
-
-    case "logic_negate":
-      {
-        var _argument = blockToExpression(inputs[0].child);
-
-        return {
-          type: "UnaryExpression",
-          operator: "!",
-          argument: _argument,
-          prefix: false // TODO:?
-
-        };
-      }
-
-    case "logic_compare":
-      {
-        var _left2 = blockToExpression(inputs[0].child);
-
-        var _right2 = blockToExpression(inputs[1].child);
-
-        var _op3 = inputs[1].fields["op"].value;
-        return {
-          type: "BinaryExpression",
-          operator: ops[_op3] || _op3,
-          left: _left2,
-          right: _right2
-        };
-      }
-  }
-
-  return undefined;
-}
-
-function blockToCommand(block) {
-  var command;
-  var type = block.type,
-      inputs = block.inputs;
-
-  switch (type) {
-    case WAIT_BLOCK:
-      {
-        var time = blockToExpression(inputs[0].child);
-        command = {
-          type: "CallExpression",
-          arguments: [time],
-          callee: undefined // TODO
-
-        };
-      }
-  }
-
-  return {
-    command: command
-  };
-}
-
 function workspaceJSONToIT4Program(workspace) {
   console.debug("compile it4", {
     workspace: workspace
@@ -7799,7 +7690,178 @@ function workspaceJSONToIT4Program(workspace) {
       role: v.name,
       serviceShortName: v.type
     };
-  }); // visit all the nodes in the blockly tree
+  });
+
+  var blockToExpression = function blockToExpression(block) {
+    if (!block) return undefined;
+    var type = block.type,
+        value = block.value,
+        inputs = block.inputs;
+    if (value !== undefined) // literal
+      return {
+        type: "Literal",
+        value: value,
+        raw: value + ""
+      };
+    console.log("block", block);
+
+    switch (type) {
+      case "jacdac_math_single":
+        {
+          var argument = blockToExpression(inputs[0].child);
+          var op = inputs[0].fields["op"].value;
+          return {
+            type: "UnaryExpression",
+            operator: ops[op] || op,
+            argument: argument,
+            prefix: false // TODO:?
+
+          };
+        }
+
+      case "jacdac_math_arithmetic":
+        {
+          var left = blockToExpression(inputs[0].child);
+          var right = blockToExpression(inputs[1].child);
+          var _op = inputs[1].fields["op"].value;
+          return {
+            type: "BinaryExpression",
+            operator: ops[_op] || _op,
+            left: left,
+            right: right
+          };
+        }
+
+      case "logic_operation":
+        {
+          var _left = blockToExpression(inputs[0].child);
+
+          var _right = blockToExpression(inputs[1].child);
+
+          var _op2 = inputs[1].fields["op"].value;
+          return {
+            type: "LogicalExpression",
+            operator: ops[_op2] || _op2,
+            left: _left,
+            right: _right
+          };
+        }
+
+      case "logic_negate":
+        {
+          var _argument = blockToExpression(inputs[0].child);
+
+          return {
+            type: "UnaryExpression",
+            operator: "!",
+            argument: _argument,
+            prefix: false // TODO:?
+
+          };
+        }
+
+      case "logic_compare":
+        {
+          var _left2 = blockToExpression(inputs[0].child);
+
+          var _right2 = blockToExpression(inputs[1].child);
+
+          var _op3 = inputs[1].fields["op"].value;
+          return {
+            type: "BinaryExpression",
+            operator: ops[_op3] || _op3,
+            left: _left2,
+            right: _right2
+          };
+        }
+
+      default:
+        {
+          var def = serviceBlocks.find(function (def) {
+            return def.type === type;
+          });
+
+          if (def) {
+            var template = def.template;
+
+            switch (template) {
+              case "register_get":
+                {
+                  var _ref = def,
+                      service = _ref.service,
+                      register = _ref.register;
+                  console.log("register_get", {
+                    service: service,
+                    register: register
+                  });
+                  break;
+                }
+            }
+
+            break;
+          }
+        }
+    }
+
+    return undefined;
+  };
+
+  var blockToCommand = function blockToCommand(block) {
+    var command;
+    var type = block.type,
+        inputs = block.inputs;
+
+    switch (type) {
+      case WAIT_BLOCK:
+        {
+          var time = blockToExpression(inputs[0].child);
+          command = {
+            type: "CallExpression",
+            arguments: [time],
+            callee: undefined // TODO
+
+          };
+          break;
+        }
+      // more builts
+
+      default:
+        {
+          var def = serviceBlocks.find(function (def) {
+            return def.type === type;
+          });
+
+          if (def) {
+            var template = def.template;
+
+            switch (template) {
+              case "register_set":
+                {
+                  var _ref2 = def,
+                      service = _ref2.service,
+                      register = _ref2.register; // TODO
+
+                  break;
+                }
+
+              case "command":
+                {
+                  var _ref3 = def,
+                      _service = _ref3.service,
+                      _command = _ref3.command; // TODO
+
+                  break;
+                }
+            }
+          }
+        }
+    }
+
+    return {
+      command: command
+    };
+  }; // visit all the nodes in the blockly tree
+
 
   var registers = [];
   var events = []; // collect registers and events
@@ -7811,10 +7873,10 @@ function workspaceJSONToIT4Program(workspace) {
       });
       if (!def) return;
       var service = def.service;
-      var _ref = def,
-          register = _ref.register;
-      var _ref2 = def,
-          defEvents = _ref2.events;
+      var _ref4 = def,
+          register = _ref4.register;
+      var _ref5 = def,
+          defEvents = _ref5.events;
       if (register) registers.push(service.shortId + "." + register.name);
 
       if (defEvents) {
@@ -7853,20 +7915,18 @@ function workspaceJSONToIT4Program(workspace) {
       switch (template) {
         case "event":
           {
-            var _ref3 = def,
-                service = _ref3.service,
-                _events = _ref3.events; // TODO
+            var _ref6 = def,
+                service = _ref6.service,
+                _events = _ref6.events; // TODO
 
             break;
           }
 
         case "register_change_event":
-        case "register_set":
-        case "register_get":
           {
-            var _ref4 = def,
-                _service = _ref4.service,
-                register = _ref4.register; // TODO
+            var _ref7 = def,
+                _service2 = _ref7.service,
+                register = _ref7.register; // TODO
 
             break;
           }
@@ -8137,4 +8197,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1c012ecfe1c322d6adc4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5b4e0de594e6bcb11540.js.map
