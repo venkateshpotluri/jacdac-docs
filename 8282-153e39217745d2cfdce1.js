@@ -12,10 +12,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49013);
 /* harmony import */ var _widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48059);
 /* harmony import */ var _jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(89196);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20392);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(80838);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(71815);
-/* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2285);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(80838);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71815);
+/* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2285);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(54774);
+/* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(60650);
+
 
 
 
@@ -25,34 +27,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function DashboardLED(props) {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z),
-      bus = _useContext.bus;
-
   var service = props.service;
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
 
-  var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .LedReg.Color */ .Abo.Color), props),
+  var _useWidgetTheme = (0,_widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(color),
+      active = _useWidgetTheme.active;
+
+  var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.Color */ .Abo.Color), props),
       r = _useRegisterUnpackedV[0],
       g = _useRegisterUnpackedV[1],
       b = _useRegisterUnpackedV[2];
 
-  var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_5__/* .LedReg.LedCount */ .Abo.LedCount), props),
-      ledCount = _useRegisterUnpackedV2[0];
-  /*
-  const animation = useMemo(() => new LedAnimation(animationData), [
-      animationData,
-  ])
-  useAnimationFrame(() => {
-      animation.update(bus.timestamp)
-      return true
-  }, [animation])
-   const hsv = useChange(animation, a => a?.hsv)
-  */
-  // nothing to see
+  var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.LedCount */ .Abo.LedCount), props),
+      ledCount = _useRegisterUnpackedV2[0]; // render immediately changes in the simulator
 
 
-  if (r === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null);
+  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(server === null || server === void 0 ? void 0 : server.color); // nothing to see
+
+  if (r === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null);
   var opacity = 1;
   var fill = "rgb(" + r + ", " + g + ", " + b + ")";
   var ln = Math.min(ledCount || 1, 5);
@@ -60,10 +53,10 @@ function DashboardLED(props) {
   var m = 1;
   var w = (lw + m) * ln;
   var h = 42;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
     container: true,
     spacing: 1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
@@ -79,8 +72,10 @@ function DashboardLED(props) {
       d: "M14.2 13V7.1C14.2 3.2 11 0 7.1 0 3.2 0 0 3.2 0 7.1v13.7c1.9 1.9 4.4 2.9 7.1 2.8 4.6 0 8.4-2.6 8.4-5.9v-1.5c0-1.2-.5-2.3-1.3-3.2z",
       opacity: ".65"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
-      fill: "#8c8c8c",
-      d: "M2.8 17.5l-1.2-1.4h1L5 17.5v18.6c0 .3-.5.5-1.1.5-.6 0-1.1-.2-1.1-.5zm10.1 6.7c0-.7-1.1-1.3-2.1-1.8-.4-.2-1.2-.6-1.2-.9v-3.4l2.5-2h-.9l-3.7 2v3.5c0 .7.9 1.2 1.9 1.7.4.2 1.3.8 1.3 1.1v16.9c0 .4.5.7 1.1.7.6 0 1.1-.3 1.1-.7z"
+      fill: active,
+      d: "M2.8 17.5l-1.2-1.4h1L5 17.5v18.6c0 .3-.5.5-1.1.5-.6 0-1.1-.2-1.1-.5zm10.1 6.7c0-.7-1.1-1.3-2.1-1.8-.4-.2-1.2-.6-1.2-.9v-3.4l2.5-2h-.9l-3.7 2v3.5c0 .7.9 1.2 1.9 1.7.4.2 1.3.8 1.3 1.1v16.9c0 .4.5.7 1.1.7.6 0 1.1-.3 1.1-.7z",
+      stroke: "#8c8c8c",
+      strokeWidth: "1px"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
       opacity: opacity,
       fill: fill,
@@ -128,4 +123,4 @@ function DashboardLED(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8282-ebe3f9c8bac7df187ce6.js.map
+//# sourceMappingURL=8282-153e39217745d2cfdce1.js.map
