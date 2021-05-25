@@ -6669,7 +6669,7 @@ function loadBlocks() {
   };
 
   var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
-    return !/^_/.test(service.shortId) && service.status !== "deprecated";
+    return !/^_/.test(service.shortId);
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
   });
@@ -8137,4 +8137,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-34f981fd8dbbd4a0132f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1c012ecfe1c322d6adc4.js.map
