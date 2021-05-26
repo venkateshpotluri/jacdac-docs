@@ -6547,7 +6547,7 @@ var useServices = __webpack_require__(2928);
 
 
 
-var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"><block type="jacdac_configuration"></block></xml>';
+var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
@@ -8197,4 +8197,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5b4e0de594e6bcb11540.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3b026698e5e1dd42a286.js.map
