@@ -7070,11 +7070,11 @@ function loadBlocks(serviceColor, commandColor) {
     args0: [{
       type: "field_variable",
       name: "role",
-      variable: "client",
-      variableTypes: allServices.map(function (service) {
+      variable: "all",
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
         return service.shortId;
-      }),
-      defaultType: allServices === null || allServices === void 0 ? void 0 : allServices[0].shortId
+      }))),
+      defaultType: "client"
     }, {
       type: "input_value",
       name: "color",
@@ -7222,6 +7222,10 @@ function useToolbox(blockServices) {
   }).sort(function (l, r) {
     return l.name.localeCompare(r.name);
   });
+  console.log({
+    blockServices: blockServices,
+    toolboxServices: toolboxServices
+  });
   var servicesCategories = toolboxServices.map(function (service) {
     return {
       service: service,
@@ -7271,7 +7275,7 @@ function useToolbox(blockServices) {
           type: "jacdac_time_picker"
         }
       }
-    }, {
+    }, !!toolboxServices.length && {
       kind: "block",
       type: SET_STATUS_LIGHT_BLOCK,
       values: {
@@ -7280,7 +7284,9 @@ function useToolbox(blockServices) {
           type: "jacdac_color"
         }
       }
-    }]
+    }].filter(function (b) {
+      return !!b;
+    })
   };
   var logicCategory = {
     kind: "category",
@@ -8250,4 +8256,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5c7780827161bb3e7162.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c9596467ff63012bc3c8.js.map
