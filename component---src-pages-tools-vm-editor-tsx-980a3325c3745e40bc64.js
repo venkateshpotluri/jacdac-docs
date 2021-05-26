@@ -7269,12 +7269,11 @@ function loadBlocks(serviceColor, commandColor) {
   var customBlockDefinitions = (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
     return {
       kind: "block",
-      type: "",
-      // filled up later
+      type: "key",
       message0: "send %1 key %2",
       args0: [fieldVariable(service), {
         type: KeyboardKeyField.KEY,
-        name: "key"
+        name: "combo"
       }],
       colour: serviceColor(service),
       inputsInline: true,
@@ -7283,11 +7282,12 @@ function loadBlocks(serviceColor, commandColor) {
       tooltip: "Send a keyboard key combo",
       helpUrl: serviceHelp(service),
       service: service,
-      command: "send_key",
+      expression: "role.key(combo.selectors, combo.modifiers)",
+      //expression: `play_tone(frequency, duration) => role.send_pulse(frequency / 10000, duration)`,
       template: "custom"
     };
   })).map(function (def) {
-    def.type = "jacdac_custom_" + def.service.shortId + "_" + def.command;
+    def.type = "jacdac_custom_" + def.service.shortId + "_" + def.type;
     return def;
   });
 
@@ -8826,4 +8826,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-751e49b8f96499eba95f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-980a3325c3745e40bc64.js.map
