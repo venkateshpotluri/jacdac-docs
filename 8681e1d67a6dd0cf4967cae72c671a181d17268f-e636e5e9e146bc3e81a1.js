@@ -1058,7 +1058,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
         {
           var regValue = this.evalExpression(args[0]);
 
-          if (this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (regValue >= this._regSaved + this._changeSaved || regValue <= this._regSaved - this._changeSaved)) {
+          if (this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (this._changeSaved === 0 && regValue !== this._regSaved || this._changeSaved < 0 && regValue <= this._regSaved + this._changeSaved || this._changeSaved > 0 && regValue >= this._regSaved + this._changeSaved)) {
             this._status = VMStatus.Completed;
           }
 
@@ -1413,4 +1413,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-4e97ef72969a7a1ac149.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-e636e5e9e146bc3e81a1.js.map
