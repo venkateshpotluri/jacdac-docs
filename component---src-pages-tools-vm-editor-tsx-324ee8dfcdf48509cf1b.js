@@ -6554,7 +6554,6 @@ var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
-var COMMANDS_COLOUR = "%{BKY_LISTS_HUE}";
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -6586,19 +6585,23 @@ var customMessages = [{
 }];
 
 function createBlockTheme(theme) {
-  var sensorColor = theme.palette.primary.dark;
-  var otherColor = theme.palette.secondary.dark;
+  var sensorColor = theme.palette.success.main;
+  var otherColor = theme.palette.info.main;
+  var commandColor = theme.palette.warning.main;
 
   var serviceColor = function serviceColor(srv) {
     return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
   };
 
   return {
-    serviceColor: serviceColor
+    serviceColor: serviceColor,
+    sensorColor: sensorColor,
+    commandColor: commandColor,
+    otherColor: otherColor
   };
 }
 
-function loadBlocks(serviceColor) {
+function loadBlocks(serviceColor, commandColor) {
   var fieldsSupported = function fieldsSupported(pkt) {
     return pkt.fields.every(toBlocklyType);
   };
@@ -7026,7 +7029,7 @@ function loadBlocks(serviceColor) {
       name: WHILE_CONDITION_BLOCK_CONDITION,
       check: "Boolean"
     }],
-    colour: COMMANDS_COLOUR,
+    colour: commandColor,
     inputsInline: true,
     nextStatement: "Statement",
     tooltip: "",
@@ -7043,7 +7046,7 @@ function loadBlocks(serviceColor) {
     inputsInline: true,
     previousStatement: "Statement",
     nextStatement: "Statement",
-    colour: COMMANDS_COLOUR,
+    colour: commandColor,
     tooltip: "",
     helpUrl: ""
   }];
@@ -7153,10 +7156,11 @@ function useToolbox(blockServices) {
   var theme = (0,useTheme/* default */.Z)();
 
   var _createBlockTheme = createBlockTheme(theme),
-      serviceColor = _createBlockTheme.serviceColor;
+      serviceColor = _createBlockTheme.serviceColor,
+      commandColor = _createBlockTheme.commandColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks(serviceColor);
+    return loadBlocks(serviceColor, commandColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       services = _useMemo.services;
@@ -7217,7 +7221,7 @@ function useToolbox(blockServices) {
   var commandsCategory = {
     kind: "category",
     name: "Commands",
-    colour: COMMANDS_COLOUR,
+    colour: commandColor,
     contents: [{
       kind: "block",
       type: WHILE_CONDITION_BLOCK
@@ -7318,9 +7322,13 @@ function useToolbox(blockServices) {
   };
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
+    contents: [commandsCategory, (servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
       kind: "sep"
-    }, commandsCategory, logicCategory, mathCategory, variablesCategory]).map(function (node) {
+    }].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
+      kind: "sep"
+    }, logicCategory, mathCategory, variablesCategory]).filter(function (cat) {
+      return !!cat;
+    }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
     })
   };
@@ -8196,4 +8204,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6c56baf0a8f04003d772.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-324ee8dfcdf48509cf1b.js.map
