@@ -7066,7 +7066,7 @@ function loadBlocks(serviceColor, commandColor) {
   }, {
     kind: "block",
     type: SET_STATUS_LIGHT_BLOCK,
-    message0: "set %1 status %2",
+    message0: "set %1 status to %2",
     args0: [{
       type: "field_variable",
       name: "role",
@@ -7221,10 +7221,6 @@ function useToolbox(blockServices) {
     return srv && ignoredServices.indexOf(srv.classIdentifier) < 0;
   }).sort(function (l, r) {
     return l.name.localeCompare(r.name);
-  });
-  console.log({
-    blockServices: blockServices,
-    toolboxServices: toolboxServices
   });
   var servicesCategories = toolboxServices.map(function (service) {
     return {
@@ -8053,7 +8049,7 @@ function VmEditor(props) {
 
   var blocklyRef = (0,react.useRef)(null);
 
-  var _useBlocklyWorkspace = (0,dist/* useBlocklyWorkspace */.JP)({
+  var _ref = (0,dist/* useBlocklyWorkspace */.JP)({
     ref: blocklyRef,
     toolboxConfiguration: toolboxConfiguration,
     workspaceConfiguration: {
@@ -8091,8 +8087,8 @@ function VmEditor(props) {
       return setError("Error loading blocks...");
     }
   }),
-      workspace = _useBlocklyWorkspace.workspace,
-      xml = _useBlocklyWorkspace.xml;
+      workspace = _ref.workspace,
+      xml = _ref.xml;
 
   (0,react.useEffect)(function () {
     if (!workspace) return; // Add the disableOrphans event handler. This is not done automatically by
@@ -8256,4 +8252,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c9596467ff63012bc3c8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a6b107924b84db0888b4.js.map
