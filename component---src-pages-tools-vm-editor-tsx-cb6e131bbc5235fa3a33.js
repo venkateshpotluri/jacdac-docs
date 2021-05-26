@@ -6950,13 +6950,19 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   };
 
   _proto.showEditor_ = function showEditor_() {
-    this.div_ = core_browser_default().DropDownDiv.getContentDiv();
-    react_dom.render(this.render(), this.div_); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var _this2 = this;
 
-    var border = this.sourceBlock_.getColourBorder();
-    var borderColour = border.colourBorder || border.colourLight;
-    core_browser_default().DropDownDiv.setColour(this.sourceBlock_.getColour(), borderColour);
-    core_browser_default().DropDownDiv.showPositionedByField(this, this.dropdownDispose_.bind(this));
+    this.div_ = core_browser_default().DropDownDiv.getContentDiv();
+    react_dom.render(this.render(), this.div_); // the div_ size has not been computed yet, so let the browse handle this
+
+    setTimeout(function () {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      var border = _this2.sourceBlock_.getColourBorder();
+
+      var borderColour = border.colourBorder || border.colourLight;
+      core_browser_default().DropDownDiv.setColour(_this2.sourceBlock_.getColour(), borderColour);
+      core_browser_default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
+    }, 1);
   };
 
   _proto.hide = function hide() {
@@ -8820,4 +8826,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e124a5696cd01776b7e4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-cb6e131bbc5235fa3a33.js.map
