@@ -7542,7 +7542,7 @@ function loadBlocks(serviceColor, commandColor) {
     args0: [{
       type: "field_dropdown",
       name: "value",
-      options: [["on", "on"], ["off", "off"]]
+      options: [["enabled", "on"], ["disabled", "off"]]
     }],
     style: "logic_blocks",
     output: "Boolean"
@@ -8862,4 +8862,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-058b0d8020dd0dae15aa.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0836f2ae3f1256ae80a1.js.map
