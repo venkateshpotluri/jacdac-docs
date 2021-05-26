@@ -50696,6 +50696,20 @@ var JDNode = /*#__PURE__*/function (_JDEventSource) {
 
   var _proto = JDNode.prototype;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _proto.emitPropagated = function emitPropagated(event) {
+    var current = this;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    while (current) {
+      current.emit(event, args);
+      current = current.parent;
+    }
+  };
+
   _proto.toString = function toString() {
     return this.friendlyName;
   };
@@ -69129,7 +69143,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "af216ddd117c7f7b42ca00f29b49923583ed9a08";
+  var sha = "42d98910d70079bbb9a79419ba849e13000812c4";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71547,7 +71561,7 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
     this.emit(constants/* REPORT_RECEIVE */.Gb8, this);
 
     if (updated) {
-      this.emit(constants/* REPORT_UPDATE */.rGZ, this);
+      this.emitPropagated(constants/* REPORT_UPDATE */.rGZ, this);
       this.emit(constants/* CHANGE */.Ver);
     }
   };
@@ -71717,8 +71731,7 @@ var JDEvent = /*#__PURE__*/function (_JDServiceMemberNode) {
     if (isahead && (old || missed5)) return;
     this._lastReportPkt = pkt;
     this._count++;
-    this.emit(constants/* EVENT */.Ks0, this);
-    this.service.emit(constants/* EVENT */.Ks0, this);
+    this.emitPropagated(constants/* EVENT */.Ks0, this);
     this.emit(constants/* CHANGE */.Ver); // update device counter
 
     device.eventCounter = pkt.eventCounter;
@@ -77929,7 +77942,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.39"};
+var package_namespaceObject = {"i8":"1.13.40"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -85179,4 +85192,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9e6d0fa19a6e11e7e59e.js.map
+//# sourceMappingURL=app-c32b5cfaee7ceba486fc.js.map

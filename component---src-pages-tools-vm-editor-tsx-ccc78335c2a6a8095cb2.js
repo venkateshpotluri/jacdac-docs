@@ -6897,6 +6897,7 @@ var DarkModeProvider = __webpack_require__(7796);
 
 
 
+
 /**
  * A base class for react-based field
  * TODO:
@@ -6920,7 +6921,6 @@ var DarkModeProvider = __webpack_require__(7796);
   }
 ```
 */
-
 var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
 
@@ -6952,21 +6952,19 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   _proto.showEditor_ = function showEditor_() {
     var _this2 = this;
 
-    this.div_ = core_browser_default().DropDownDiv.getContentDiv();
+    this.div_ = blockly_default().DropDownDiv.getContentDiv();
     react_dom.render(this.render(), this.div_); // the div_ size has not been computed yet, so let the browse handle this
 
     setTimeout(function () {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      var border = _this2.sourceBlock_.getColourBorder();
+      var border = _this2.sourceBlock_.getColourTertiary();
 
-      var borderColour = border.colourBorder || border.colourLight;
-      core_browser_default().DropDownDiv.setColour(_this2.sourceBlock_.getColour(), borderColour);
-      core_browser_default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
+      blockly_default().DropDownDiv.setColour(_this2.sourceBlock_.getColour(), border);
+      blockly_default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
     }, 1);
   };
 
   _proto.hide = function hide() {
-    core_browser_default().DropDownDiv.hideIfOwner(this, true);
+    blockly_default().DropDownDiv.hideIfOwner(this, true);
   };
 
   _proto.dropdownDispose_ = function dropdownDispose_() {
@@ -7003,7 +7001,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   }]);
 
   return ReactField;
-}((core_browser_default()).Field);
+}((blockly_default()).Field);
 // EXTERNAL MODULE: ./src/components/ui/KeyboardKeyInput.tsx
 var KeyboardKeyInput = __webpack_require__(82860);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/KeyboardKeyField.tsx
@@ -8826,4 +8824,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-980a3325c3745e40bc64.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ccc78335c2a6a8095cb2.js.map
