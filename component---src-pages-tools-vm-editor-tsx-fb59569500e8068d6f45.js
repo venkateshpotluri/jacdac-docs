@@ -7775,7 +7775,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     var type = block.type,
         value = block.value,
         inputs = block.inputs;
-    console.log("block", type, value, inputs);
+    console.debug("block", type, value, inputs);
     if (value !== undefined) // literal
       return {
         type: "Literal",
@@ -8264,4 +8264,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-94a143259d944026f6f0.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fb59569500e8068d6f45.js.map
