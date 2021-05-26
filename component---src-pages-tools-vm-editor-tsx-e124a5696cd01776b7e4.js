@@ -5429,7 +5429,344 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 35545:
+/***/ 82860:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "O": function() { return /* binding */ renderKeyboardKey; },
+/* harmony export */   "Z": function() { return /* binding */ KeyboardKeyInput; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(70274);
+/* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
+/* harmony import */ var react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81751);
+/* harmony import */ var react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91350);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
+
+
+
+
+
+
+
+var selectors = {
+  a: 0x04,
+  b: 0x05,
+  c: 0x06,
+  d: 0x07,
+  e: 0x08,
+  f: 0x09,
+  g: 0x0a,
+  h: 0x0b,
+  i: 0x0c,
+  j: 0x0d,
+  k: 0x0e,
+  l: 0x0f,
+  m: 0x10,
+  n: 0x11,
+  o: 0x12,
+  p: 0x13,
+  q: 0x14,
+  r: 0x15,
+  s: 0x16,
+  t: 0x17,
+  u: 0x18,
+  v: 0x19,
+  w: 0x1a,
+  x: 0x1b,
+  y: 0x1c,
+  z: 0x1d,
+  "1": 0x1e,
+  "2": 0x1f,
+  "3": 0x20,
+  "4": 0x21,
+  "5": 0x22,
+  "6": 0x23,
+  "7": 0x24,
+  "8": 0x25,
+  "9": 0x26,
+  "0": 0x27,
+  "!": 0x1e,
+  "@": 0x1f,
+  "#": 0x20,
+  $: 0x21,
+  "%": 0x22,
+  "^": 0x23,
+  "&": 0x24,
+  "*": 0x25,
+  "(": 0x26,
+  ")": 0x27,
+  enter: 0x28,
+  escape: 0x29,
+  backspace: 0x2a,
+  tab: 0x2b,
+  " ": 0x2c,
+  "-": 0x2d,
+  _: 0x2d,
+  "=": 0x2e,
+  "+": 0x2e,
+  "[": 0x2f,
+  "{": 0x2f,
+  "]": 0x30,
+  "}": 0x30,
+  "\\": 0x31,
+  "|": 0x31,
+  // non-US #
+  "~": 0x32,
+  ";": 0x33,
+  ":": 0x33,
+  "'": 0x34,
+  '"': 0x34,
+  // grave accent tilde
+  ",": 0x36,
+  "<": 0x37,
+  ".": 0x37,
+  ">": 0x37,
+  "/": 0x38,
+  "?": 0x38,
+  capslock: 0x39,
+  f1: 0x3a,
+  f2: 0x3b,
+  f3: 0x3c,
+  f4: 0x3d,
+  f5: 0x3e,
+  f6: 0x3f,
+  f7: 0x40,
+  f8: 0x41,
+  f9: 0x42,
+  f10: 0x43,
+  f11: 0x44,
+  f12: 0x45,
+  printscreen: 0x46,
+  scrolllock: 0x47,
+  pause: 0x48,
+  insert: 0x49,
+  home: 0x4a,
+  pageup: 0x4b,
+  delete: 0x4c,
+  end: 0x4d,
+  pagedown: 0x4e,
+  arrowright: 0x4f,
+  arrowleft: 0x50,
+  arrowdown: 0x51,
+  arrowup: 0x52,
+  numlock: 0x53,
+  numpaddivide: 0x54,
+  numpadmultiply: 0x55,
+  numpadsubstract: 0x56,
+  numpadadd: 0x57,
+  numpadenter: 0x58,
+  numpad1: 0x59,
+  numpad2: 0x5a,
+  numpad3: 0x5b,
+  numpad4: 0x5c,
+  numpad5: 0x5d,
+  numpad6: 0x5e,
+  numpad7: 0x5f,
+  numpad8: 0x60,
+  numpad9: 0x61,
+  numpad0: 0x62,
+  numpaddecimal: 0x63,
+  numpadequal: 0x67,
+  f13: 0x68,
+  f14: 0x69,
+  f15: 0x6a,
+  f16: 0x6b,
+  f17: 0x6c,
+  f18: 0x6d,
+  f19: 0x6e,
+  f20: 0x6f,
+  f21: 0x70,
+  f22: 0x71,
+  f23: 0x72,
+  f24: 0x73,
+  execute: 0x74,
+  help: 0x75,
+  contextmenu: 0x76,
+  select: 0x77,
+  stop: 0x78,
+  again: 0x79,
+  undo: 0x7a,
+  cut: 0x7b,
+  copy: 0x7c,
+  paste: 0x7d,
+  find: 0x7e,
+  mute: 0x7f,
+  volumeup: 0x80,
+  volumedown: 0x81,
+  numpadcomma: 0x85
+};
+var reverseSelectors = Object.keys(selectors).reduce(function (r, key) {
+  if (!r[selectors[key]]) r[selectors[key]] = key;
+  return r;
+}, {});
+var modifierCodes = {
+  controlleft: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.LeftControl */ .Q2Q.LeftControl,
+  altleft: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.LeftAlt */ .Q2Q.LeftAlt,
+  shiftleft: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.LeftShift */ .Q2Q.LeftShift,
+  metaleft: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.LeftGUI */ .Q2Q.LeftGUI,
+  controlright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightControl */ .Q2Q.RightControl,
+  altright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightAlt */ .Q2Q.RightAlt,
+  shiftright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightShift */ .Q2Q.RightShift,
+  metaright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightGUI */ .Q2Q.RightGUI
+};
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)({
+    capture: {
+      cursor: "pointer",
+      "&:hover": {
+        borderColor: theme.palette.primary.main
+      },
+      "&:focus": {
+        borderColor: theme.palette.action.active
+      }
+    },
+    darkKeyboard: {
+      backgroundColor: "#333 !important",
+      borderColor: "#777 !important",
+      color: "white !important",
+      "& .hg-button": {
+        background: "rgba(0, 0, 0, 0.5) !important",
+        color: "white"
+      },
+      "& .hg-button.buttonSelected": {
+        background: theme.palette.primary.dark + " !important",
+        color: "white !important"
+      }
+    },
+    keyboard: {
+      "& .buttonSelected": {
+        background: theme.palette.primary.dark + " !important",
+        color: "white !important"
+      }
+    }
+  });
+});
+function renderKeyboardKey(selector, modifiers, pretty) {
+  var flags = pretty ? ["Ctrl", "Shift", "Alt", "Cmd", "Ctrl Right", "Shift Right", "AltRight", "Cmd Right"] : ["{controlleft}", "{shiftleft}", "{altleft}", "{metaleft}", "{controlright}", "{shiftright}", "{altright}", "{metaright}"];
+  var sep = pretty ? " + " : " ";
+  var values = [];
+  flags.forEach(function (flag, i) {
+    if (modifiers & 1 << i) {
+      values.push(flag);
+    }
+  });
+  var sel = reverseSelectors[selector];
+  if (sel !== undefined) values.push(pretty ? sel.toUpperCase() : !pretty && sel.length > 1 ? "{" + sel + "}" : sel);
+  var value = values.filter(function (v) {
+    return !!v;
+  }).join(sep);
+  return value;
+}
+function KeyboardKeyInput(props) {
+  var initialSelector = props.initialSelector,
+      initialModifiers = props.initialModifiers,
+      selector = props.selector,
+      modifiers = props.modifiers,
+      onChange = props.onChange;
+  var uncontrolled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return selector === undefined || modifiers === undefined;
+  }, []);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialSelector || 0),
+      selector_ = _useState[0],
+      setSelector_ = _useState[1];
+
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialModifiers || _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.None */ .Q2Q.None),
+      modifiers_ = _useState2[0],
+      setModifiters_ = _useState2[1];
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_DarkModeContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
+      darkMode = _useContext.darkMode; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _keyboardRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+
+  var classes = useStyles();
+  var theme = "hg-theme-default hg-layout-default " + (darkMode === "dark" ? classes.darkKeyboard : classes.keyboard);
+  var keyboardId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .useId */ .Me)();
+  var layout = {
+    default: ["{escape} {f1} {f2} {f3} {f4} {f5} {f6} {f7} {f8} {f9} {f10} {f11} {f12}", "` 1 2 3 4 5 6 7 8 9 0 - = {backspace}", "{tab} q w e r t y u i o p [ ] \\", "{capslock} a s d f g h j k l ; ' {enter}", "{shiftleft} z x c v b n m , . / {shiftright}", "{controlleft} {altleft} {metaleft} {space} {metaright} {altright}"]
+  };
+  var display = {
+    "{escape}": "esc ⎋",
+    "{tab}": "tab ⇥",
+    "{backspace}": "backspace ⌫",
+    "{enter}": "enter ↵",
+    "{capslock}": "caps lock ⇪",
+    "{shiftleft}": "shift ⇧",
+    "{shiftright}": "shift ⇧",
+    "{controlleft}": "ctrl ⌃",
+    "{controlright}": "ctrl ⌃",
+    "{altleft}": "alt ⌥",
+    "{altright}": "alt ⌥",
+    "{metaleft}": "cmd ⌘",
+    "{metaright}": "cmd ⌘"
+  };
+
+  var handleKeyboardKeyPress = function handleKeyboardKeyPress(code) {
+    code = code.toLowerCase().replace(/[{}]/g, "");
+    var newSelector = selector_;
+    var newModifiers = modifiers_;
+    var msel = selectors[code];
+    var mcode = modifierCodes[code];
+
+    if (msel) {
+      if (msel === selector) newSelector = undefined;else newSelector = msel;
+    } else {
+      if (mcode) {
+        if (newModifiers & mcode) newModifiers &= ~mcode;else newModifiers |= mcode;
+      }
+    }
+
+    setSelector_(newSelector);
+    setModifiters_(newModifiers);
+    onChange(newSelector, newModifiers);
+  }; // update external values
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (selector !== undefined) {
+      if (uncontrolled) console.warn("trying to set an uncontrolled selector");
+      setSelector_(selector);
+    }
+  }, [selector]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (modifiers !== undefined) {
+      if (uncontrolled) console.warn("trying to set an uncontrolled modifier");
+      setModifiters_(modifiers);
+    }
+  }, [modifiers]);
+  var value = renderKeyboardKey(selector_, modifiers_, false);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _keyboardRef$current;
+
+    (_keyboardRef$current = _keyboardRef.current) === null || _keyboardRef$current === void 0 ? void 0 : _keyboardRef$current.addButtonTheme(value, "buttonSelected");
+    return function () {
+      var _keyboardRef$current2;
+
+      return (_keyboardRef$current2 = _keyboardRef.current) === null || _keyboardRef$current2 === void 0 ? void 0 : _keyboardRef$current2.removeButtonTheme(value, "buttonSelected");
+    };
+  }, [value]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2___default()), {
+    baseClass: keyboardId,
+    keyboardRef: function keyboardRef(r) {
+      return _keyboardRef.current = r;
+    },
+    onKeyPress: handleKeyboardKeyPress,
+    layout: layout,
+    theme: theme,
+    display: display,
+    mergeDisplay: true
+  });
+}
+
+/***/ }),
+
+/***/ 27093:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6541,7 +6878,193 @@ var useServices = __webpack_require__(2928);
 var useTheme = __webpack_require__(59355);
 // EXTERNAL MODULE: ./node_modules/gatsby-link/index.js
 var gatsby_link = __webpack_require__(38037);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(41788);
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(73935);
+// EXTERNAL MODULE: ./src/jacdac/Provider.tsx
+var Provider = __webpack_require__(727);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./src/components/ui/DarkModeProvider.tsx
+var DarkModeProvider = __webpack_require__(7796);
+;// CONCATENATED MODULE: ./src/components/vm/fields/ReactField.tsx
+
+
+
+
+
+
+
+
+/**
+ * A base class for react-based field
+ * TODO:
+ 
+```
+  static fromJson(options) {
+    return new ReactDateField(new Date(options['date']));
+  }
+  
+  onDateSelected_ = (date) => {
+    this.setValue(new Date(date));
+    Blockly.DropDownDiv.hideIfOwner(this, true);
+  }
+
+  getText_() {
+    return this.value_.toLocaleDateString();
+  };
+
+  fromXml(fieldElement) {
+    this.setValue(new Date(fieldElement.textContent));
+  }
+```
+*/
+
+var ReactField = /*#__PURE__*/function (_Blockly$Field) {
+  (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
+
+  function ReactField(value, validator, options) {
+    var _this;
+
+    _this = _Blockly$Field.call(this, value, validator, options) || this;
+    _this.SERIALIZABLE = true;
+    return _this;
+  }
+
+  var _proto = ReactField.prototype;
+
+  _proto.getText_ = function getText_() {
+    return JSON.stringify(this.value);
+  };
+
+  _proto.fromXml = function fromXml(fieldElement) {
+    try {
+      console.log(fieldElement);
+      var v = JSON.parse(fieldElement.textContent);
+      this.value = v;
+    } catch (e) {
+      console.warn(e);
+      this.value = undefined;
+    }
+  };
+
+  _proto.showEditor_ = function showEditor_() {
+    this.div_ = core_browser_default().DropDownDiv.getContentDiv();
+    react_dom.render(this.render(), this.div_); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    var border = this.sourceBlock_.getColourBorder();
+    var borderColour = border.colourBorder || border.colourLight;
+    core_browser_default().DropDownDiv.setColour(this.sourceBlock_.getColour(), borderColour);
+    core_browser_default().DropDownDiv.showPositionedByField(this, this.dropdownDispose_.bind(this));
+  };
+
+  _proto.hide = function hide() {
+    core_browser_default().DropDownDiv.hideIfOwner(this, true);
+  };
+
+  _proto.dropdownDispose_ = function dropdownDispose_() {
+    // this blows on hot reloads
+    try {
+      react_dom.unmountComponentAtNode(this.div_);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  _proto.render = function render() {
+    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, this.renderField())));
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react.createElement("span", null, "not implemented");
+  };
+
+  (0,createClass/* default */.Z)(ReactField, [{
+    key: "value",
+    get: function get() {
+      try {
+        var v = JSON.parse(this.getValue());
+        return v || {};
+      } catch (e) {
+        console.warn(e);
+        return {};
+      }
+    },
+    set: function set(v) {
+      this.setValue(JSON.stringify(v));
+    }
+  }]);
+
+  return ReactField;
+}((core_browser_default()).Field);
+// EXTERNAL MODULE: ./src/components/ui/KeyboardKeyInput.tsx
+var KeyboardKeyInput = __webpack_require__(82860);
+;// CONCATENATED MODULE: ./src/components/vm/fields/KeyboardKeyField.tsx
+
+
+
+
+
+var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(KeyboardKeyField, _ReactField);
+
+  function KeyboardKeyField() {
+    return _ReactField.apply(this, arguments) || this;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  KeyboardKeyField.fromJson = function fromJson(options) {
+    return new KeyboardKeyField(options);
+  };
+
+  var _proto = KeyboardKeyField.prototype;
+
+  _proto.getText_ = function getText_() {
+    var _this$value = this.value,
+        selector = _this$value.selector,
+        modifiers = _this$value.modifiers;
+    return (0,KeyboardKeyInput/* renderKeyboardKey */.O)(selector, modifiers, true);
+  };
+
+  _proto.renderField = function renderField() {
+    var _this = this;
+
+    var _this$value2 = this.value,
+        selector = _this$value2.selector,
+        modifiers = _this$value2.modifiers;
+
+    var handleChange = function handleChange(newSelector, newModifiers) {
+      _this.value = {
+        selector: newSelector,
+        modifiers: newModifiers
+      };
+    };
+
+    return /*#__PURE__*/react.createElement(KeyboardKeyInput/* default */.Z, {
+      initialSelector: selector,
+      initialModifiers: modifiers,
+      onChange: handleChange
+    });
+  };
+
+  return KeyboardKeyField;
+}(ReactField);
+
+KeyboardKeyField.KEY = "jacdac_field_keyboard_key";
+
+;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
+
+
+var registered = false;
+function registerFields() {
+  if (registered) return;
+  registered = true;
+  blockly_default().fieldRegistry.register(KeyboardKeyField.KEY, KeyboardKeyField);
+}
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
+
 
 
 
@@ -6699,6 +7222,13 @@ function loadBlocks(serviceColor, commandColor) {
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
   });
+
+  var resolveService = function resolveService(cls) {
+    return allServices.filter(function (srv) {
+      return srv.classIdentifier === cls;
+    });
+  };
+
   var registers = allServices.map(function (service) {
     return {
       service: service,
@@ -6729,7 +7259,32 @@ function loadBlocks(serviceColor, commandColor) {
       };
     });
   }));
-  var HUE = 230;
+
+  var customBlockDefinitions = (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
+    return {
+      kind: "block",
+      type: "",
+      // filled up later
+      message0: "send %1 key %2",
+      args0: [fieldVariable(service), {
+        type: KeyboardKeyField.KEY,
+        name: "key"
+      }],
+      colour: serviceColor(service),
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Send a keyboard key combo",
+      helpUrl: serviceHelp(service),
+      service: service,
+      command: "send_key",
+      template: "custom"
+    };
+  })).map(function (def) {
+    def.type = "jacdac_custom_" + def.service.shortId + "_" + def.command;
+    return def;
+  });
+
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -6952,7 +7507,7 @@ function loadBlocks(serviceColor, commandColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions));
   var shadowBlocks = [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7012,7 +7567,7 @@ function loadBlocks(serviceColor, commandColor) {
       max: 255,
       precision: 1
     }],
-    colour: HUE,
+    style: "math_blocks",
     output: "Number"
   }, {
     kind: "block",
@@ -7134,7 +7689,9 @@ function loadBlocks(serviceColor, commandColor) {
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
   }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), runtimeBlocks, shadowBlocks, mathBlocks); // register blocks with Blockly, happens once
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), runtimeBlocks, shadowBlocks, mathBlocks); // register field editors
+
+  registerFields(); // re-register blocks with blocklys
 
   blocks.map(function (block) {
     return (blockly_default()).Blocks[block.type] = {
@@ -7142,7 +7699,8 @@ function loadBlocks(serviceColor, commandColor) {
         this.jsonInit(block);
       }
     };
-  });
+  }); // final mapping
+
   var jdBlocks = serviceBlocks.filter(function (block) {
     return !!block.service;
   });
@@ -7405,8 +7963,6 @@ var TextField = __webpack_require__(1059);
 var DialogActions = __webpack_require__(89952);
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
-var react_use_id_hook_esm = __webpack_require__(19640);
 ;// CONCATENATED MODULE: ./src/components/vm/BlocklyModalDialogs.tsx
 
 
@@ -8264,4 +8820,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fb59569500e8068d6f45.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e124a5696cd01776b7e4.js.map

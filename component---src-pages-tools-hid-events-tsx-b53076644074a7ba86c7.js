@@ -697,16 +697,18 @@ function SelectEvent(props) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "w": function() { return /* binding */ renderKey; },
+/* harmony export */   "O": function() { return /* binding */ renderKeyboardKey; },
 /* harmony export */   "Z": function() { return /* binding */ KeyboardKeyInput; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10920);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70274);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(70274);
 /* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
 /* harmony import */ var react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81751);
 /* harmony import */ var react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91350);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
+
 
 
 
@@ -874,8 +876,8 @@ var modifierCodes = {
   shiftright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightShift */ .Q2Q.RightShift,
   metaright: _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.RightGUI */ .Q2Q.RightGUI
 };
-var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(function (theme) {
-  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)({
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)({
     capture: {
       cursor: "pointer",
       "&:hover": {
@@ -906,34 +908,49 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ 
     }
   });
 });
-function renderKey(selector, modifiers) {
-  var flags = ["controlleft", "shiftleft", "altleft", "metaleft", "controlright", "shiftright", "altright", "metaright"];
+function renderKeyboardKey(selector, modifiers, pretty) {
+  var flags = pretty ? ["Ctrl", "Shift", "Alt", "Cmd", "Ctrl Right", "Shift Right", "AltRight", "Cmd Right"] : ["{controlleft}", "{shiftleft}", "{altleft}", "{metaleft}", "{controlright}", "{shiftright}", "{altright}", "{metaright}"];
+  var sep = pretty ? " + " : " ";
   var values = [];
   flags.forEach(function (flag, i) {
     if (modifiers & 1 << i) {
-      values.push("{" + flag + "}");
+      values.push(flag);
     }
   });
   var sel = reverseSelectors[selector];
-  if (sel !== undefined) values.push(sel.length > 1 ? "{" + sel + "}" : sel);
+  if (sel !== undefined) values.push(pretty ? sel.toUpperCase() : !pretty && sel.length > 1 ? "{" + sel + "}" : sel);
   var value = values.filter(function (v) {
     return !!v;
-  }).join(" ");
+  }).join(sep);
   return value;
 }
 function KeyboardKeyInput(props) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  var _keyboardRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-
-  var selector = props.selector,
+  var initialSelector = props.initialSelector,
+      initialModifiers = props.initialModifiers,
+      selector = props.selector,
       modifiers = props.modifiers,
       onChange = props.onChange;
+  var uncontrolled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return selector === undefined || modifiers === undefined;
+  }, []);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialSelector || 0),
+      selector_ = _useState[0],
+      setSelector_ = _useState[1];
+
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialModifiers || _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .HidKeyboardModifiers.None */ .Q2Q.None),
+      modifiers_ = _useState2[0],
+      setModifiters_ = _useState2[1];
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_DarkModeContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
-      darkMode = _useContext.darkMode;
+      darkMode = _useContext.darkMode; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _keyboardRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
 
   var classes = useStyles();
   var theme = "hg-theme-default hg-layout-default " + (darkMode === "dark" ? classes.darkKeyboard : classes.keyboard);
+  var keyboardId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .useId */ .Me)();
   var layout = {
     default: ["{escape} {f1} {f2} {f3} {f4} {f5} {f6} {f7} {f8} {f9} {f10} {f11} {f12}", "` 1 2 3 4 5 6 7 8 9 0 - = {backspace}", "{tab} q w e r t y u i o p [ ] \\", "{capslock} a s d f g h j k l ; ' {enter}", "{shiftleft} z x c v b n m , . / {shiftright}", "{controlleft} {altleft} {metaleft} {space} {metaright} {altright}"]
   };
@@ -955,8 +972,8 @@ function KeyboardKeyInput(props) {
 
   var handleKeyboardKeyPress = function handleKeyboardKeyPress(code) {
     code = code.toLowerCase().replace(/[{}]/g, "");
-    var newSelector = selector;
-    var newModifiers = modifiers;
+    var newSelector = selector_;
+    var newModifiers = modifiers_;
     var msel = selectors[code];
     var mcode = modifierCodes[code];
 
@@ -968,11 +985,25 @@ function KeyboardKeyInput(props) {
       }
     }
 
+    setSelector_(newSelector);
+    setModifiters_(newModifiers);
     onChange(newSelector, newModifiers);
-  }; // todo: render value to simple-keyboard selectors
+  }; // update external values
 
 
-  var value = renderKey(selector, modifiers);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (selector !== undefined) {
+      if (uncontrolled) console.warn("trying to set an uncontrolled selector");
+      setSelector_(selector);
+    }
+  }, [selector]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (modifiers !== undefined) {
+      if (uncontrolled) console.warn("trying to set an uncontrolled modifier");
+      setModifiters_(modifiers);
+    }
+  }, [modifiers]);
+  var value = renderKeyboardKey(selector_, modifiers_, false);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var _keyboardRef$current;
 
@@ -984,6 +1015,7 @@ function KeyboardKeyInput(props) {
     };
   }, [value]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_simple_keyboard__WEBPACK_IMPORTED_MODULE_2___default()), {
+    baseClass: keyboardId,
     keyboardRef: function keyboardRef(r) {
       return _keyboardRef.current = r;
     },
@@ -1526,7 +1558,7 @@ function HIDEvents() {
     var event = bus.node(eventId);
     return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
       key: index
-    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, event.service.device.friendlyName), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, event.service.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, event.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, (0,KeyboardKeyInput/* renderKey */.w)(selector, modifiers))), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, event.service.device.friendlyName), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, event.service.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, event.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, (0,KeyboardKeyInput/* renderKeyboardKey */.O)(selector, modifiers, true))), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
       title: "Remove binding",
       onClick: handleRemoveBinding(index)
     }, /*#__PURE__*/react.createElement(Delete/* default */.Z, null))));
@@ -1536,4 +1568,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-70b3f1ecee0c239cf2ed.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-b53076644074a7ba86c7.js.map

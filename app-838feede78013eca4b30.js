@@ -67990,7 +67990,7 @@ function useFireKey(handler) {
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59355);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8129);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55344);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37404);
 
 
 function useMediaQueries() {
@@ -68294,7 +68294,7 @@ function TransportIcon(props) {
 
 /***/ }),
 
-/***/ 55344:
+/***/ 37404:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69068,64 +69068,10 @@ var createMuiTheme = __webpack_require__(81864);
 var responsiveFontSizes = __webpack_require__(23581);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
+// EXTERNAL MODULE: ./src/components/ui/DarkModeProvider.tsx
+var DarkModeProvider = __webpack_require__(7796);
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
-;// CONCATENATED MODULE: ./src/components/ui/DarkModeProvider.tsx
-
-
-function DarkModeProvider(props) {
-  var children = props.children;
-  var KEY = "darkMode";
-
-  var _useState = (0,react.useState)("light"),
-      darkMode = _useState[0],
-      setDarkMode = _useState[1];
-
-  var _useState2 = (0,react.useState)(false),
-      darkModeMounted = _useState2[0],
-      setMounted = _useState2[1];
-
-  var setMode = function setMode(mode) {
-    if (mode === darkMode) return; // nothing to do
-
-    console.debug("dark mode: set " + mode);
-    if (typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
-    setDarkMode(mode);
-  };
-
-  var toggleDarkMode = function toggleDarkMode(mode) {
-    mode = mode || (darkMode === "light" ? "dark" : "light");
-
-    if (mode === "dark") {
-      setMode("dark");
-    } else {
-      setMode("light");
-    }
-  };
-
-  (0,react.useEffect)(function () {
-    var _window;
-
-    var localTheme = typeof window !== "undefined" && window.localStorage.getItem(KEY);
-
-    if (localTheme) {
-      setDarkMode(localTheme || "light");
-    } else if (typeof window !== "undefined" && (_window = window) !== null && _window !== void 0 && _window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setDarkMode("dark");
-    } else {
-      setDarkMode("light");
-    }
-
-    setMounted(true);
-  }, [darkMode]);
-  return /*#__PURE__*/react.createElement(DarkModeContext/* default.Provider */.Z.Provider, {
-    value: {
-      darkMode: darkMode,
-      toggleDarkMode: toggleDarkMode,
-      darkModeMounted: darkModeMounted
-    }
-  }, children);
-}
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/GitHub.js
@@ -69183,7 +69129,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b6a8b2b7a1becbb07db76fb9ae3b118c908ebdf8";
+  var sha = "fbebc1118445f3aff0ee0f5833024f59918bda49";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -69381,8 +69327,8 @@ function useMdxComponents() {
   }, []);
   return mdxComponents;
 }
-// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx + 1 modules
-var ThemedLayout = __webpack_require__(25463);
+// EXTERNAL MODULE: ./src/components/ui/ThemedLayout.tsx
+var ThemedLayout = __webpack_require__(56251);
 ;// CONCATENATED MODULE: ./src/components/ui/ThemedMdxLayout.tsx
 
 
@@ -69787,7 +69733,7 @@ var layout_useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   });
 });
 function Layout(props) {
-  return /*#__PURE__*/react.createElement(DarkModeProvider, null, /*#__PURE__*/react.createElement(LayoutWithDarkMode, props));
+  return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(LayoutWithDarkMode, props));
 }
 
 function LayoutWithDarkMode(props) {
@@ -70147,6 +70093,73 @@ var DarkModeContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createC
 });
 DarkModeContext.displayName = "DarkMode";
 /* harmony default export */ __webpack_exports__["Z"] = (DarkModeContext);
+
+/***/ }),
+
+/***/ 7796:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ DarkModeProvider; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91350);
+
+
+function DarkModeProvider(props) {
+  var children = props.children;
+  var KEY = "darkMode";
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("light"),
+      darkMode = _useState[0],
+      setDarkMode = _useState[1];
+
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      darkModeMounted = _useState2[0],
+      setMounted = _useState2[1];
+
+  var setMode = function setMode(mode) {
+    if (mode === darkMode) return; // nothing to do
+
+    console.debug("dark mode: set " + mode);
+    if (typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
+    setDarkMode(mode);
+  };
+
+  var toggleDarkMode = function toggleDarkMode(mode) {
+    mode = mode || (darkMode === "light" ? "dark" : "light");
+
+    if (mode === "dark") {
+      setMode("dark");
+    } else {
+      setMode("light");
+    }
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _window;
+
+    var localTheme = typeof window !== "undefined" && window.localStorage.getItem(KEY);
+
+    if (localTheme) {
+      setDarkMode(localTheme || "light");
+    } else if (typeof window !== "undefined" && (_window = window) !== null && _window !== void 0 && _window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setDarkMode("dark");
+    } else {
+      setDarkMode("light");
+    }
+
+    setMounted(true);
+  }, [darkMode]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default.Provider */ .Z.Provider, {
+    value: {
+      darkMode: darkMode,
+      toggleDarkMode: toggleDarkMode,
+      darkModeMounted: darkModeMounted
+    }
+  }, children);
+}
 
 /***/ }),
 
@@ -70517,70 +70530,25 @@ function Suspense(props) {
 
 /***/ }),
 
-/***/ 25463:
+/***/ 56251:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ ThemedLayout; }
-});
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/styles/esm/ThemeProvider/ThemeProvider.js
-var ThemeProvider = __webpack_require__(87761);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CssBaseline/CssBaseline.js
-var CssBaseline = __webpack_require__(28526);
-// EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
-var notistack_esm = __webpack_require__(70076);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
-var react_use_id_hook_esm = __webpack_require__(19640);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
-// EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 21 modules
-var providerbus = __webpack_require__(1721);
-;// CONCATENATED MODULE: ./src/jacdac/Provider.tsx
-
-
-
-function JacdacProvider(props) {
-  var children = props.children;
-
-  var _useState = (0,react.useState)(false),
-      firstConnect = _useState[0],
-      setFirstConnect = _useState[1]; // connect in background on first load.
-
-
-  (0,react.useEffect)(function () {
-    // bus live accross hot-reloads
-    if (!firstConnect) {
-      setFirstConnect(true);
-      providerbus/* default.connect */.Z.connect(true);
-    }
-
-    return function () {};
-  }, []);
-  return /*#__PURE__*/react.createElement(Context/* default.Provider */.Z.Provider, {
-    value: {
-      bus: providerbus/* default */.Z
-    }
-  }, children);
-}
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./src/components/DbContext.tsx
-var DbContext = __webpack_require__(94904);
-// EXTERNAL MODULE: ./src/components/PacketsContext.tsx + 3 modules
-var PacketsContext = __webpack_require__(69882);
-// EXTERNAL MODULE: ./src/components/ServiceManagerContext.tsx + 3 modules
-var ServiceManagerContext = __webpack_require__(99808);
-// EXTERNAL MODULE: ./node_modules/react-helmet/es/Helmet.js
-var Helmet = __webpack_require__(35414);
-// EXTERNAL MODULE: ./src/components/makecode/MakeCodeSnippetContext.tsx
-var MakeCodeSnippetContext = __webpack_require__(54888);
-;// CONCATENATED MODULE: ./src/components/ui/ThemedLayout.tsx
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ThemedLayout; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(87761);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(28526);
+/* harmony import */ var notistack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70076);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19640);
+/* harmony import */ var _jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(727);
+/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
+/* harmony import */ var _DbContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(94904);
+/* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69882);
+/* harmony import */ var _ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(99808);
+/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(35414);
+/* harmony import */ var _makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(54888);
 
 
 
@@ -70596,20 +70564,20 @@ function ThemedLayout(props) {
   var theme = props.theme,
       maxSnack = props.maxSnack,
       children = props.children;
-  return /*#__PURE__*/react.createElement(ThemeProvider/* default */.Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
     theme: theme
-  }, /*#__PURE__*/react.createElement(notistack_esm/* SnackbarProvider */.wT, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(notistack__WEBPACK_IMPORTED_MODULE_0__/* .SnackbarProvider */ .wT, {
     maxSnack: maxSnack || 1,
     dense: true
-  }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(DbContext/* DbProvider */.WQ, null, /*#__PURE__*/react.createElement(JacdacProvider, null, /*#__PURE__*/react.createElement(ServiceManagerContext/* ServiceManagerProvider */.Aq, null, /*#__PURE__*/react.createElement(PacketsContext/* PacketsProvider */.l, null, /*#__PURE__*/react.createElement(AppContext/* AppProvider */.wI, null, /*#__PURE__*/react.createElement(MakeCodeSnippetContext/* MakeCodeSnippetProvider */.u, null, /*#__PURE__*/react.createElement(CssBaseline/* default */.ZP, null), /*#__PURE__*/react.createElement(Helmet/* default */.Z, null, /*#__PURE__*/react.createElement("link", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_DbContext__WEBPACK_IMPORTED_MODULE_5__/* .DbProvider */ .WQ, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__/* .ServiceManagerProvider */ .Aq, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_PacketsContext__WEBPACK_IMPORTED_MODULE_6__/* .PacketsProvider */ .l, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .AppProvider */ .wI, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__/* .MakeCodeSnippetProvider */ .u, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .ZP, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_helmet__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("link", {
     rel: "preconnect",
     href: "https://fonts.googleapis.com",
     crossOrigin: "anonymous"
-  }), /*#__PURE__*/react.createElement("link", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("link", {
     rel: "preconnect",
     href: "https://raw.githubusercontent.com",
     crossOrigin: "anonymous"
-  }), /*#__PURE__*/react.createElement("meta", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("meta", {
     name: "viewport",
     content: "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
   })), children)))))))));
@@ -71226,6 +71194,45 @@ var JacdacContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createCon
 });
 JacdacContext.displayName = "Jacdac";
 /* harmony default export */ __webpack_exports__["Z"] = (JacdacContext);
+
+/***/ }),
+
+/***/ 727:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ JacdacProvider; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20392);
+/* harmony import */ var _providerbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1721);
+
+
+
+function JacdacProvider(props) {
+  var children = props.children;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      firstConnect = _useState[0],
+      setFirstConnect = _useState[1]; // connect in background on first load.
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // bus live accross hot-reloads
+    if (!firstConnect) {
+      setFirstConnect(true);
+      _providerbus__WEBPACK_IMPORTED_MODULE_2__/* .default.connect */ .Z.connect(true);
+    }
+
+    return function () {};
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Context__WEBPACK_IMPORTED_MODULE_1__/* .default.Provider */ .Z.Provider, {
+    value: {
+      bus: _providerbus__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z
+    }
+  }, children);
+}
 
 /***/ }),
 
@@ -80351,7 +80358,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(4382), __webpack_require__.e(8394), __webpack_require__.e(115), __webpack_require__.e(4131), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 81512));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(8394), __webpack_require__.e(4131), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 35545));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(9978), __webpack_require__.e(8394), __webpack_require__.e(4131), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 27093));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -82722,7 +82729,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "onServiceWorkerUpdateReady": function() { return /* binding */ onServiceWorkerUpdateReady; },
 /* harmony export */   "wrapPageElement": function() { return /* binding */ wrapPageElement; }
 /* harmony export */ });
-/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55344);
+/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37404);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
 
@@ -85172,4 +85179,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-be3f47e8ce7a8ad07e54.js.map
+//# sourceMappingURL=app-838feede78013eca4b30.js.map
