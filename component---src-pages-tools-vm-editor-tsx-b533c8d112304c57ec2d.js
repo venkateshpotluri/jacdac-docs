@@ -6940,7 +6940,6 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
 
   _proto.fromXml = function fromXml(fieldElement) {
     try {
-      console.log(fieldElement);
       var v = JSON.parse(fieldElement.textContent);
       this.value = v;
     } catch (e) {
@@ -8088,6 +8087,7 @@ function jsongenerator_arrayLikeToArray(arr, len) { if (len == null || len > arr
 
 
 
+
 function domToJSON(workspace) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   var clean = function clean(o) {
@@ -8169,9 +8169,18 @@ function domToJSON(workspace) {
 
   var fieldToJSON = function fieldToJSON(field) {
     if (field.isSerializable()) {
-      var container = blockly_default().utils.xml.createElement("field");
-      var fieldXml = field.toXml(container);
-      return xmlToJSON(fieldXml);
+      // custom field can just return the value
+      if (field instanceof ReactField) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        var value = field.value;
+        return {
+          value: value
+        };
+      } else {
+        var container = blockly_default().utils.xml.createElement("field");
+        var fieldXml = field.toXml(container);
+        return xmlToJSON(fieldXml);
+      }
     }
 
     return undefined;
@@ -8824,4 +8833,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ccc78335c2a6a8095cb2.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b533c8d112304c57ec2d.js.map
