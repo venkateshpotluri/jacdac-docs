@@ -8173,7 +8173,7 @@ function Page() {
     xs: 12
   }, /*#__PURE__*/react.createElement(VMRunner/* default */.Z, {
     program: program,
-    autoStart: false
+    autoStart: true
   })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -8190,4 +8190,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-75cb387c76ea1fe04cc9.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-be40d4e566953615a74c.js.map
