@@ -6598,7 +6598,7 @@ function createBlockTheme(theme) {
   };
 }
 
-function useToolbox_loadBlocks(serviceColor) {
+function loadBlocks(serviceColor) {
   var fieldsSupported = function fieldsSupported(pkt) {
     return pkt.fields.every(toBlocklyType);
   };
@@ -7156,7 +7156,7 @@ function useToolbox(blockServices) {
       serviceColor = _createBlockTheme.serviceColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return useToolbox_loadBlocks(serviceColor);
+    return loadBlocks(serviceColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       services = _useMemo.services;
@@ -7325,6 +7325,7 @@ function useToolbox(blockServices) {
     })
   };
   return {
+    serviceBlocks: serviceBlocks,
     toolboxConfiguration: toolboxConfiguration,
     newProjectXml: NEW_PROJET_XML
   };
@@ -7693,14 +7694,10 @@ function toMemberExpression(root, field) {
   };
 }
 
-function workspaceJSONToIT4Program(workspace) {
+function workspaceJSONToIT4Program(serviceBlocks, workspace) {
   console.debug("compile it4", {
     workspace: workspace
   });
-
-  var _loadBlocks = loadBlocks(),
-      serviceBlocks = _loadBlocks.serviceBlocks;
-
   var roles = workspace.variables.filter(function (v) {
     return BUILTIN_TYPES.indexOf(v.type) < 0;
   }).map(function (v) {
@@ -7987,7 +7984,8 @@ function VmEditor(props) {
 
   var _useToolbox = useToolbox(services),
       toolboxConfiguration = _useToolbox.toolboxConfiguration,
-      newProjectXml = _useToolbox.newProjectXml;
+      newProjectXml = _useToolbox.newProjectXml,
+      serviceBlocks = _useToolbox.serviceBlocks;
 
   var theme = darkMode === "dark" ? theme_dark_src : src;
   var gridColor = darkMode === "dark" ? "#555" : "#ccc"; // ReactBlockly
@@ -8058,7 +8056,7 @@ function VmEditor(props) {
 
       if (onIT4ProgramChange) {
         try {
-          var _program = workspaceJSONToIT4Program(_json);
+          var _program = workspaceJSONToIT4Program(serviceBlocks, _json);
 
           onIT4ProgramChange(_program);
         } catch (e) {
@@ -8198,4 +8196,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-cbec480e1cb2728dfacc.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6c56baf0a8f04003d772.js.map
