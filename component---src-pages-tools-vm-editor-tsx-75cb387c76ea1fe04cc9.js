@@ -7652,13 +7652,6 @@ function visitWorkspace(workspace, visitor) {
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
 ;// CONCATENATED MODULE: ./src/components/vm/it4generator.ts
-function it4generator_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = it4generator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
-
-function it4generator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return it4generator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return it4generator_arrayLikeToArray(o, minLen); }
-
-function it4generator_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
 
 
 var ops = {
@@ -7675,6 +7668,23 @@ var ops = {
   MUL: "*",
   DIV: "/"
 };
+
+function toIdentifier(id) {
+  return {
+    type: "Identifier",
+    name: id
+  };
+}
+
+function toMemberExpression(root, field) {
+  return {
+    type: "MemberExpression",
+    object: toIdentifier(root),
+    property: typeof field === "string" ? toIdentifier(field) : field,
+    computed: false
+  };
+}
+
 function workspaceJSONToIT4Program(workspace) {
   console.debug("compile it4", {
     workspace: workspace
@@ -7697,13 +7707,13 @@ function workspaceJSONToIT4Program(workspace) {
     var type = block.type,
         value = block.value,
         inputs = block.inputs;
+    console.log("block", type, value, inputs);
     if (value !== undefined) // literal
       return {
         type: "Literal",
         value: value,
         raw: value + ""
       };
-    console.log("block", block);
 
     switch (type) {
       case "jacdac_math_single":
@@ -7788,13 +7798,10 @@ function workspaceJSONToIT4Program(workspace) {
               case "register_get":
                 {
                   var _ref = def,
-                      service = _ref.service,
                       register = _ref.register;
-                  console.log("register_get", {
-                    service: service,
-                    register: register
-                  });
-                  break;
+                  var role = inputs[0].fields["role"].value;
+                  var field = inputs[0].fields["field"];
+                  return toMemberExpression(role, field ? toMemberExpression(register.name, field.value) : register.name);
                 }
             }
 
@@ -7818,8 +7825,7 @@ function workspaceJSONToIT4Program(workspace) {
           command = {
             type: "CallExpression",
             arguments: [time],
-            callee: undefined // TODO
-
+            callee: toIdentifier("wait")
           };
           break;
         }
@@ -7838,18 +7844,29 @@ function workspaceJSONToIT4Program(workspace) {
               case "register_set":
                 {
                   var _ref2 = def,
-                      service = _ref2.service,
-                      register = _ref2.register; // TODO
-
+                      register = _ref2.register;
+                  var val = blockToExpression(inputs[0].child);
+                  var role = inputs[0].fields.role.value;
+                  command = {
+                    type: "CallExpression",
+                    arguments: [toMemberExpression(role, register.name), val],
+                    callee: toIdentifier("writeRegister")
+                  };
                   break;
                 }
 
               case "command":
                 {
                   var _ref3 = def,
-                      _service = _ref3.service,
-                      _command = _ref3.command; // TODO
-
+                      serviceCommand = _ref3.command;
+                  var _role = inputs[0].fields.role.value;
+                  command = {
+                    type: "CallExpression",
+                    arguments: inputs.map(function (a) {
+                      return blockToExpression(a.child);
+                    }),
+                    callee: toMemberExpression(_role, serviceCommand.name)
+                  };
                   break;
                 }
             }
@@ -7860,33 +7877,8 @@ function workspaceJSONToIT4Program(workspace) {
     return {
       command: command
     };
-  }; // visit all the nodes in the blockly tree
+  };
 
-
-  var registers = [];
-  var events = []; // collect registers and events
-
-  visitWorkspace(workspace, {
-    visitBlock: function visitBlock(b) {
-      var def = /^jacdac_/.test(b.type) && serviceBlocks.find(function (d) {
-        return d.type === b.type;
-      });
-      if (!def) return;
-      var service = def.service;
-      var _ref4 = def,
-          register = _ref4.register;
-      var _ref5 = def,
-          defEvents = _ref5.events;
-      if (register) registers.push(service.shortId + "." + register.name);
-
-      if (defEvents) {
-        for (var _iterator = it4generator_createForOfIteratorHelperLoose(defEvents), _step; !(_step = _iterator()).done;) {
-          var event = _step.value;
-          events.push(service.shortId + "." + event.name);
-        }
-      }
-    }
-  });
   var handlers = workspace.blocks.map(function (top) {
     var _top$children;
 
@@ -7901,8 +7893,7 @@ function workspaceJSONToIT4Program(workspace) {
         command: {
           type: "CallExpression",
           arguments: [blockToExpression(condition)],
-          callee: undefined // TODO
-
+          callee: toIdentifier("awaitCondition")
         }
       });
     } else {
@@ -7915,18 +7906,24 @@ function workspaceJSONToIT4Program(workspace) {
       switch (template) {
         case "event":
           {
-            var _ref6 = def,
-                service = _ref6.service,
-                _events = _ref6.events; // TODO
+            var role = inputs[0].fields["role"].value;
+            var eventName = inputs[0].fields["event"].value;
+            commands.push({
+              command: {
+                type: "CallExpression",
+                arguments: [toMemberExpression(role.toString(), eventName.toString())],
+                callee: toIdentifier("awaitEvent")
+              }
+            }); // TODO
 
             break;
           }
 
         case "register_change_event":
           {
-            var _ref7 = def,
-                _service2 = _ref7.service,
-                register = _ref7.register; // TODO
+            var _ref4 = def,
+                service = _ref4.service,
+                register = _ref4.register; // TODO
 
             break;
           }
@@ -7938,15 +7935,11 @@ function workspaceJSONToIT4Program(workspace) {
       return commands.push(blockToCommand(child));
     });
     return {
-      description: type,
       commands: commands
     };
   });
   return {
-    description: "not required?",
     roles: roles,
-    registers: (0,utils/* unique */.Tw)(registers),
-    events: (0,utils/* unique */.Tw)(events),
     handlers: handlers
   };
 }
@@ -8197,4 +8190,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3b026698e5e1dd42a286.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-75cb387c76ea1fe04cc9.js.map

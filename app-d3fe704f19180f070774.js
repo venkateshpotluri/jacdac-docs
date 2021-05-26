@@ -47753,7 +47753,7 @@ function isNumericType(field) {
 /* harmony export */   "Qv": function() { return /* binding */ parseIntFloat; },
 /* harmony export */   "ao": function() { return /* binding */ exprVisitor; },
 /* harmony export */   "ll": function() { return /* binding */ SpecSymbolResolver; },
-/* harmony export */   "F2": function() { return /* binding */ SpecAwareMarkDownParser; }
+/* harmony export */   "qg": function() { return /* binding */ CheckExpression; }
 /* harmony export */ });
 /* unused harmony export packetsToRegisters */
 function isMixinService(serviceClass) {
@@ -47983,30 +47983,27 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
 
   return SpecSymbolResolver;
 }();
-var SpecAwareMarkDownParser = /*#__PURE__*/function () {
-  function SpecAwareMarkDownParser(resolver, supportedExpressions, parser, error) {
+var CheckExpression = /*#__PURE__*/function () {
+  function CheckExpression(resolver, supportedExpression, error) {
     this.resolver = resolver;
-    this.supportedExpressions = supportedExpressions;
-    this.parser = parser;
+    this.supportedExpression = supportedExpression;
     this.error = error;
   }
 
-  var _proto2 = SpecAwareMarkDownParser.prototype;
+  var _proto2 = CheckExpression.prototype;
 
-  _proto2.processLine = function processLine(line, funs) {
+  _proto2.check = function check(root, funs) {
     var _this = this,
         _root$callee;
 
-    var root = this.parser(line);
-
     if (!root || !root.type || root.type != "CallExpression") {
       this.error("a command must be a call expression in JavaScript syntax");
-      return undefined;
+      return;
     } // check for unsupported expression types
 
 
     exprVisitor(null, root, function (p, c) {
-      if (_this.supportedExpressions.indexOf(c.type) < 0) _this.error("Expression of type " + c.type + " not currently supported");
+      if (!_this.supportedExpression(c.type)) _this.error("Expression of type " + c.type + " not currently supported");
     }); // first lookup in known functions
 
     var callee = (_root$callee = root.callee) === null || _root$callee === void 0 ? void 0 : _root$callee.name;
@@ -48180,7 +48177,7 @@ var SpecAwareMarkDownParser = /*#__PURE__*/function () {
     });
   };
 
-  return SpecAwareMarkDownParser;
+  return CheckExpression;
 }(); // private stuff
 
 function isBoolOrNumericFormat(fmt) {
@@ -69186,7 +69183,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "eea032072aed9f0e8b86d13f8515fe86739c9891";
+  var sha = "c27bc63f91737ea4170f1ba753057ad60d5811fd";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -80351,7 +80348,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(4741), __webpack_require__.e(6691), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 27617));
   },
   "component---src-pages-tools-vm-editor-runner-tsx": function componentSrcPagesToolsVmEditorRunnerTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(4382), __webpack_require__.e(8394), __webpack_require__.e(115), __webpack_require__.e(4131), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 86795));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(4382), __webpack_require__.e(8394), __webpack_require__.e(115), __webpack_require__.e(4131), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 81512));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(8394), __webpack_require__.e(4131), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 35545));
@@ -85175,4 +85172,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ea596200dbe2a3ba0678.js.map
+//# sourceMappingURL=app-d3fe704f19180f070774.js.map

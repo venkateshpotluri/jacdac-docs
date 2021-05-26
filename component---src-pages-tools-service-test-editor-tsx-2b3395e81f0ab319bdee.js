@@ -890,7 +890,9 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
   var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(spec, undefined, function (e) {
     return error(e);
   });
-  var parser = new jdutils/* SpecAwareMarkDownParser */.F2(symbolResolver, supportedExpressions, (jsep_default()), function (e) {
+  var checkExpression = new jdutils/* CheckExpression */.qg(symbolResolver, function (t) {
+    return supportedExpressions.indexOf(t) >= 0;
+  }, function (e) {
     return error(e);
   });
 
@@ -967,16 +969,17 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
       testPrompt = "";
     }
 
-    var ret = parser.processLine(expanded, (0,jdtestfuns/* getTestCommandFunctions */.f)());
+    var root = jsep_default()(expanded);
+    var ret = checkExpression.check(root, (0,jdtestfuns/* getTestCommandFunctions */.f)());
 
     if (ret) {
       var command = ret[0],
-          root = ret[1]; // check all calls in subexpressions
+          _root = ret[1]; // check all calls in subexpressions
 
-      processCalls(command, root);
+      processCalls(command, _root);
       currentTest.testCommands.push({
         prompt: testPrompt,
-        call: root
+        call: _root
       });
       testPrompt = "";
     } // this checking is specific to test functions (for now)
@@ -1216,4 +1219,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-eaeaf39c4aeb87e0130a.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-2b3395e81f0ab319bdee.js.map

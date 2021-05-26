@@ -1,6 +1,6 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1297],{
 
-/***/ 86795:
+/***/ 81512:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19,38 +19,8 @@ var jsep = __webpack_require__(25297);
 var jsep_default = /*#__PURE__*/__webpack_require__.n(jsep);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
 var jdutils = __webpack_require__(30055);
-;// CONCATENATED MODULE: ./jacdac-ts/src/vm/ir.ts
-var IT4Functions = [{
-  id: "role",
-  args: ["Identifier", "Identifier"],
-  prompt: "role variable {1} of service type {2}",
-  context: "command"
-}, {
-  id: "awaitEvent",
-  args: ["event", ["boolean", true]],
-  prompt: "wait for event {1} and then check {2} (other events ignored)",
-  context: "command"
-}, {
-  id: "awaitCondition",
-  args: ["boolean"],
-  prompt: "wait for condition {1}",
-  context: "command"
-}, {
-  id: "writeRegister",
-  args: ["register", "number"],
-  prompt: "write value {2:val} to {1}",
-  context: "command"
-}, {
-  id: "writeLocal",
-  args: ["register", "number"],
-  prompt: "write value {2:val} to {1}",
-  context: "command"
-}, {
-  id: "halt",
-  args: [],
-  prompt: "terminates the current handler",
-  context: "command"
-}];
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
+var ir = __webpack_require__(68290);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/markdown.ts
@@ -74,8 +44,6 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
   var info = {
     description: "",
     roles: [],
-    registers: [],
-    events: [],
     handlers: []
   };
   var backticksType = "";
@@ -83,29 +51,12 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
   var lineNo = 0;
   var currentHandler = null;
   var handlerHeading = "";
-  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(undefined, function (role) {
-    // lookup in roles first
-    var shortId = info.roles.find(function (pair) {
-      return pair.role === role;
-    });
-
-    if (shortId) {
-      // must succeed
-      return (0,spec/* serviceSpecificationFromName */.kB)(shortId.serviceShortName);
-    } else {
-      var service = (0,spec/* serviceSpecificationFromName */.kB)(role);
-
-      if (!service) {
-        error("can't find service with shortId=" + role);
-        return undefined;
-      }
-
-      return service;
-    }
-  }, function (e) {
+  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(undefined, (0,ir/* getServiceFromRole */.lv)(info), function (e) {
     return error(e);
   });
-  var parser = new jdutils/* SpecAwareMarkDownParser */.F2(symbolResolver, supportedExpressions, (jsep_default()), function (e) {
+  var checkExpression = new jdutils/* CheckExpression */.qg(symbolResolver, function (t) {
+    return supportedExpressions.indexOf(t) >= 0;
+  }, function (e) {
     return error(e);
   });
 
@@ -172,17 +123,18 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
       handlerHeading = "";
     }
 
-    var ret = parser.processLine(expanded, IT4Functions);
+    var root = jsep_default()(expanded);
+    var ret = checkExpression.check(root, ir/* IT4Functions */.uB);
 
     if (ret) {
       var command = ret[0],
-          root = ret[1];
+          _root = ret[1];
 
       if (currentHandler.commands.length === 0) {
         if ((command === null || command === void 0 ? void 0 : command.id) === "role") {
           // TODO: check
-          var role = root.arguments[0].name;
-          var serviceShortName = root.arguments[1].name;
+          var role = _root.arguments[0].name;
+          var serviceShortName = _root.arguments[1].name;
           var service = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortName);
           if (!service) error("can't find service with shortId=" + serviceShortName);else if (info.roles.find(function (pair) {
             return pair.role === role;
@@ -203,20 +155,13 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
 
       currentHandler.commands.push({
         guard: undefined,
-        command: root
+        command: _root
       });
     }
   }
 
   function finishHandler(sym) {
     if (currentHandler.commands.length > 0) info.handlers.push(currentHandler);
-    sym.registers.forEach(function (r) {
-      if (info.registers.indexOf(r) < 0) info.registers.push(r);
-    });
-    sym.events.forEach(function (e) {
-      if (info.events.indexOf(e) < 0) info.events.push(e);
-    });
-    sym.reset();
     currentHandler = null;
   }
 
@@ -295,4 +240,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-b903c798d3261747a0ae.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-c369fe90f5b3461b14c7.js.map
