@@ -1031,6 +1031,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
+          if (val === undefined) throw "undefined-register";
           this.exprStack.push(val);
           return;
         }
@@ -1038,7 +1039,11 @@ var JDExprEvaluator = /*#__PURE__*/function () {
       case "Identifier":
         {
           var id = e;
-          this.exprStack.push(this.env(id.name));
+
+          var _val = this.env(id.name);
+
+          if (_val === undefined) throw "undefined-register";
+          this.exprStack.push(_val);
           return;
         }
 
@@ -1599,7 +1604,7 @@ var JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
       message: "",
       progress: ""
     };
-    _this4._commmandEvaluator = null;
+    _this4._commandEvaluator = null;
     _this4.testRunner = testRunner;
     _this4.command = command;
     return _this4;
@@ -1613,28 +1618,41 @@ var JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
       message: "",
       progress: ""
     };
-    this._commmandEvaluator = null;
+    this._commandEvaluator = null;
   };
 
   _proto2.start = function start() {
     this.status = JDTestCommandStatus.Active;
-    this._commmandEvaluator = new JDCommandEvaluator(this.testRunner, this.command);
-
-    this._commmandEvaluator.start();
-
+    this._commandEvaluator = undefined;
     this.envChange();
   };
 
   _proto2.envChange = function envChange() {
     if (this.isActive) {
-      this._commmandEvaluator.evaluate();
+      if (!this._commandEvaluator) {
+        this._commandEvaluator = new JDCommandEvaluator(this.testRunner, this.command);
 
-      var newOutput = {
-        message: this._commmandEvaluator.prompt,
-        progress: this._commmandEvaluator.progress
-      };
-      this.output = newOutput;
-      if (this._commmandEvaluator.status === JDTestCommandStatus.RequiresUserInput) this.status = JDTestCommandStatus.RequiresUserInput;else this.finish(this._commmandEvaluator.status);
+        try {
+          this._commandEvaluator.start();
+        } catch (e) {
+          // we will try again on next environment change
+          this._commandEvaluator = undefined;
+        }
+      }
+
+      if (this._commandEvaluator) {
+        try {
+          this._commandEvaluator.evaluate();
+
+          var newOutput = {
+            message: this._commandEvaluator.prompt,
+            progress: this._commandEvaluator.progress
+          };
+          this.output = newOutput;
+          if (this._commandEvaluator.status === JDTestCommandStatus.RequiresUserInput) this.status = JDTestCommandStatus.RequiresUserInput;else this.finish(this._commandEvaluator.status);
+        } catch (e) {// show still be in the active state
+        }
+      }
     }
   };
 
@@ -2308,4 +2326,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-1e5c8330634c9fa846ee.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-de14ea4a15b51f76aa83.js.map

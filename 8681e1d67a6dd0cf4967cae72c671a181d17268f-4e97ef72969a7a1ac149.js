@@ -663,6 +663,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
+          if (val === undefined) throw "undefined-register";
           this.exprStack.push(val);
           return;
         }
@@ -670,7 +671,11 @@ var JDExprEvaluator = /*#__PURE__*/function () {
       case "Identifier":
         {
           var id = e;
-          this.exprStack.push(this.env(id.name));
+
+          var _val = this.env(id.name);
+
+          if (_val === undefined) throw "undefined-register";
+          this.exprStack.push(_val);
           return;
         }
 
@@ -762,7 +767,12 @@ function checkProgram(prog) {
 var IT4Functions = [{
   id: "awaitRegister",
   args: ["register"],
-  prompt: "wait on register {1} to change",
+  prompt: "wait on register {1} to change value",
+  context: "command"
+}, {
+  id: "awaitChange",
+  args: ["register", "number"],
+  prompt: "wait for register {1} to change by {2}",
   context: "command"
 }, {
   id: "wait",
@@ -966,25 +976,48 @@ var VMStatus;
 
 var IT4CommandEvaluator = /*#__PURE__*/function () {
   function IT4CommandEvaluator(env, gc) {
+    this._regSaved = undefined;
+    this._changeSaved = undefined;
+    this._started = false;
     this.env = env;
     this.gc = gc;
   }
 
   var _proto = IT4CommandEvaluator.prototype;
 
-  _proto.checkExpression = function checkExpression(e) {
+  _proto.evalExpression = function evalExpression(e) {
     var _this = this;
 
     var expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
       return _this.env.lookup(e);
     }, undefined);
-    return expr.eval(e) ? true : false;
+    return expr.eval(e);
+  };
+
+  _proto.checkExpression = function checkExpression(e) {
+    return this.evalExpression(e) ? true : false;
+  };
+
+  _proto.start = function start() {
+    if (this.gc.command.callee.type !== "MemberExpression" && (this.inst === "awaitRegister" || this.inst === "awaitChange")) {
+      // need to capture register value for awaitChange/awaitRegister
+      var args = this.gc.command.arguments;
+      this._regSaved = this.evalExpression(args[0]);
+      if (this.inst === "awaitChange") this._changeSaved = this.evalExpression(args[1]);
+    }
   };
 
   _proto.evaluate = function evaluate() {
     var _this2 = this;
 
     this._status = VMStatus.Running;
+
+    if (!this._started) {
+      this.start();
+      this._started = true;
+      return;
+    }
+
     var args = this.gc.command.arguments;
 
     if (this.gc.command.callee.type === "MemberExpression") {
@@ -1017,6 +1050,18 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
       case "awaitCondition":
         {
           this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Running;
+          break;
+        }
+
+      case "awaitChange":
+      case "awaitRegister":
+        {
+          var regValue = this.evalExpression(args[0]);
+
+          if (this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (regValue >= this._regSaved + this._changeSaved || regValue <= this._regSaved - this._changeSaved)) {
+            this._status = VMStatus.Completed;
+          }
+
           break;
         }
 
@@ -1072,15 +1117,14 @@ var IT4CommandRunner = /*#__PURE__*/function () {
 
   var _proto2 = IT4CommandRunner.prototype;
 
-  _proto2.reset = function reset() {
-    this.status = VMStatus.Running;
-  };
-
   _proto2.step = function step() {
     if (this.isWaiting) {
-      this._eval.evaluate();
+      try {
+        this._eval.evaluate();
 
-      this.finish(this._eval.status);
+        this.finish(this._eval.status);
+      } catch (e) {// we will try again
+      }
     }
   };
 
@@ -1142,7 +1186,7 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   ;
 
   _proto3.step = function step() {
-    // eight stopped or empty
+    // handler stopped or empty
     if (this.stopped || !this.handler.commands.length) return;
 
     if (this._commandIndex === undefined) {
@@ -1185,39 +1229,48 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
     _this3._running = false;
     _this3.program = program;
 
-    var _checkProgram = (0,ir/* checkProgram */.i_)(program),
-        regs = _checkProgram[0],
-        events = _checkProgram[1];
+    try {
+      var _checkProgram = (0,ir/* checkProgram */.i_)(program),
+          regs = _checkProgram[0],
+          events = _checkProgram[1];
 
-    if (program.errors.length > 0) {
-      console.debug(program.errors);
+      if (program.errors.length > 0) {
+        console.debug(program.errors);
+      }
+
+      _this3._rm = new MyRoleManager(bus, function (role, service, added) {
+        try {
+          _this3._env.serviceChanged(role, service, added);
+
+          if (added) {
+            _this3.program.handlers.forEach(function (h) {
+              regs.forEach(function (r) {
+                if (r.role === role) {
+                  _this3._env.registerRegister(role, r.register);
+                }
+              });
+              events.forEach(function (e) {
+                if (e.role === role) {
+                  _this3._env.registerEvent(role, e.event);
+                }
+              });
+            });
+          }
+        } catch (e) {
+          _this3.emit(constants/* ERROR */.pnR, e);
+        }
+      });
+      _this3._env = new environment/* VMEnvironment */.uH(function () {
+        _this3.run();
+      });
+      _this3._handlers = program.handlers.map(function (h, index) {
+        return new IT4HandlerRunner(index, _this3._env, h);
+      });
+      _this3._waitQueue = _this3._handlers.slice(0);
+    } catch (e) {
+      _this3.emit(constants/* ERROR */.pnR, e);
     }
 
-    _this3._rm = new MyRoleManager(bus, function (role, service, added) {
-      _this3._env.serviceChanged(role, service, added);
-
-      if (added) {
-        _this3.program.handlers.forEach(function (h) {
-          regs.forEach(function (r) {
-            if (r.role === role) {
-              _this3._env.registerRegister(role, r.register);
-            }
-          });
-          events.forEach(function (e) {
-            if (e.role === role) {
-              _this3._env.registerEvent(role, e.event);
-            }
-          });
-        });
-      }
-    });
-    _this3._env = new environment/* VMEnvironment */.uH(function () {
-      _this3.run();
-    });
-    _this3._handlers = program.handlers.map(function (h, index) {
-      return new IT4HandlerRunner(index, _this3._env, h);
-    });
-    _this3._waitQueue = _this3._handlers.slice(0);
     return _this3;
   }
 
@@ -1241,18 +1294,22 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
 
     if (this._running) return; // already running
 
-    this.program.roles.forEach(function (role) {
-      _this4._rm.addRoleService(role.role, role.serviceShortName);
-    });
-    this._running = true;
-    this.emit(constants/* CHANGE */.Ver);
-    this.run();
+    try {
+      this.program.roles.forEach(function (role) {
+        _this4._rm.addRoleService(role.role, role.serviceShortName);
+      });
+      this._running = true;
+      this.emit(constants/* CHANGE */.Ver);
+      this.run();
+    } catch (e) {
+      this.emit(constants/* ERROR */.pnR, e);
+    }
   };
 
   _proto4.run = function run() {
-    try {
-      if (!this._running) return;
+    if (!this._running) return;
 
+    try {
       this._env.refreshEnvironment();
 
       if (this._waitQueue.length > 0) {
@@ -1356,4 +1413,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-18ad9cb78ec0219bfe52.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-4e97ef72969a7a1ac149.js.map

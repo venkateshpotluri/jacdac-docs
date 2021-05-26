@@ -7970,11 +7970,11 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
       });
       (0,utils/* assert */.hu)(!!def);
       var template = def.template;
+      var role = inputs[0].fields["role"].value;
 
       switch (template) {
         case "event":
           {
-            var role = inputs[0].fields["role"].value;
             var eventName = inputs[0].fields["event"].value;
             commands.push({
               command: {
@@ -7982,17 +7982,22 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
                 arguments: [toMemberExpression(role.toString(), eventName.toString())],
                 callee: toIdentifier("awaitEvent")
               }
-            }); // TODO
-
+            });
             break;
           }
 
         case "register_change_event":
           {
             var _ref4 = def,
-                service = _ref4.service,
-                register = _ref4.register; // TODO
-
+                register = _ref4.register;
+            var argument = blockToExpression(inputs[0].child);
+            commands.push({
+              command: {
+                type: "CallExpression",
+                arguments: [toMemberExpression(role.toString(), register.name), argument],
+                callee: toIdentifier("awaitChange")
+              }
+            });
             break;
           }
       }
@@ -8259,4 +8264,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-56b7aa7e67194cc5e9ae.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-94a143259d944026f6f0.js.map
