@@ -6537,7 +6537,10 @@ var spec = __webpack_require__(13173);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/hooks/useServices.ts
 var useServices = __webpack_require__(2928);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__(59355);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -6551,6 +6554,7 @@ var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
+var COMMANDS_COLOUR = "%{BKY_LISTS_HUE}";
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -6580,10 +6584,21 @@ var customMessages = [{
   field: "buttons",
   get: "is %1 %2 pressed"
 }];
-var cachedBlocks;
-function loadBlocks() {
-  if (cachedBlocks) return cachedBlocks;
 
+function createBlockTheme(theme) {
+  var sensorColor = theme.palette.primary.dark;
+  var otherColor = theme.palette.secondary.dark;
+
+  var serviceColor = function serviceColor(srv) {
+    return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
+  };
+
+  return {
+    serviceColor: serviceColor
+  };
+}
+
+function useToolbox_loadBlocks(serviceColor) {
   var fieldsSupported = function fieldsSupported(pkt) {
     return pkt.fields.every(toBlocklyType);
   };
@@ -6718,7 +6733,7 @@ function loadBlocks() {
           return [(0,jdspec/* humanify */.lW)(event.name), event.name];
         })
       }],
-      colour: HUE,
+      colour: serviceColor(service),
       inputsInline: true,
       nextStatement: null,
       tooltip: "",
@@ -6749,7 +6764,7 @@ function loadBlocks() {
       values: fieldsToValues(register),
       inputsInline: true,
       nextStatement: null,
-      colour: HUE,
+      colour: serviceColor(service),
       tooltip: "Event raised when " + register.name + " changes",
       helpUrl: "",
       service: service,
@@ -6783,7 +6798,7 @@ function loadBlocks() {
       args0: [fieldVariable(service)],
       inputsInline: true,
       output: toBlocklyType(register.fields[0]),
-      colour: HUE,
+      colour: serviceColor(service),
       tooltip: register.description,
       helpUrl: "",
       service: service,
@@ -6841,7 +6856,7 @@ function loadBlocks() {
       }],
       inputsInline: true,
       output: "Boolean",
-      colour: HUE,
+      colour: serviceColor(service),
       tooltip: register.description,
       helpUrl: "",
       service: service,
@@ -6872,7 +6887,7 @@ function loadBlocks() {
       }),
       inputsInline: true,
       output: "Number",
-      colour: HUE,
+      colour: serviceColor(service),
       tooltip: register.description,
       helpUrl: "",
       service: service,
@@ -6896,7 +6911,7 @@ function loadBlocks() {
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))),
       values: fieldsToValues(register),
       inputsInline: true,
-      colour: HUE,
+      colour: serviceColor(service),
       tooltip: "",
       helpUrl: "",
       service: service,
@@ -6916,7 +6931,7 @@ function loadBlocks() {
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(command))),
       values: fieldsToValues(command),
       inputsInline: true,
-      colour: HUE,
+      colour: serviceColor(service),
       tooltip: "",
       helpUrl: "",
       service: service,
@@ -6936,7 +6951,7 @@ function loadBlocks() {
       name: "value",
       options: [["on", "on"], ["off", "off"]]
     }],
-    colour: HUE,
+    style: "logic_blocks",
     output: "Boolean"
   }, {
     kind: "block",
@@ -6947,7 +6962,7 @@ function loadBlocks() {
       name: "value",
       options: [["0.1", "0.1"], ["1", "1"], ["5", "5"], ["30", "30"], ["60", "60"]]
     }],
-    colour: HUE,
+    style: "math_blocks",
     output: "Number"
   }, {
     kind: "block",
@@ -6960,7 +6975,7 @@ function loadBlocks() {
       max: 360,
       precision: 10
     }],
-    colour: HUE,
+    style: "math_blocks",
     output: "Number"
   }, {
     kind: "block",
@@ -6973,7 +6988,7 @@ function loadBlocks() {
       max: 100,
       precision: 1
     }],
-    colour: HUE,
+    style: "math_blocks",
     output: "Number"
   }, {
     kind: "block",
@@ -6999,7 +7014,7 @@ function loadBlocks() {
       max: 1,
       precision: 0.1
     }],
-    colour: HUE,
+    style: "math_blocks",
     output: "Number"
   }];
   var runtimeBlocks = [{
@@ -7011,7 +7026,7 @@ function loadBlocks() {
       name: WHILE_CONDITION_BLOCK_CONDITION,
       check: "Boolean"
     }],
-    style: "logic_blocks",
+    colour: COMMANDS_COLOUR,
     inputsInline: true,
     nextStatement: "Statement",
     tooltip: "",
@@ -7028,7 +7043,7 @@ function loadBlocks() {
     inputsInline: true,
     previousStatement: "Statement",
     nextStatement: "Statement",
-    colour: 230,
+    colour: COMMANDS_COLOUR,
     tooltip: "",
     helpUrl: ""
   }];
@@ -7089,25 +7104,13 @@ function loadBlocks() {
   }, function (block) {
     return block.service;
   });
-  cachedBlocks = {
+  return {
     blocks: blocks,
     serviceBlocks: serviceBlocks,
     services: services
   };
-  console.log({
-    cachedBlocks: cachedBlocks,
-    registers: registers,
-    events: events,
-    commands: commands,
-    eventBlocks: eventBlocks,
-    registerChangeByEventBlocks: registerChangeByEventBlocks,
-    registerSimplesGetBlocks: registerSimplesGetBlocks,
-    registerNumericsGetBlocks: registerNumericsGetBlocks,
-    registerSetBlocks: registerSetBlocks,
-    commandBlocks: commandBlocks
-  });
-  return cachedBlocks;
 }
+
 var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
 function scanServices(workspace) {
   var variables = blockly_default().Variables.allUsedVarModels(workspace).filter(function (v) {
@@ -7147,9 +7150,14 @@ function patchCategoryJSONtoXML(cat) {
 }
 
 function useToolbox(blockServices) {
+  var theme = (0,useTheme/* default */.Z)();
+
+  var _createBlockTheme = createBlockTheme(theme),
+      serviceColor = _createBlockTheme.serviceColor;
+
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks();
-  }, []),
+    return useToolbox_loadBlocks(serviceColor);
+  }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       services = _useMemo.services;
 
@@ -7186,7 +7194,7 @@ function useToolbox(blockServices) {
     return {
       kind: "category",
       name: service.name,
-      colour: "#5CA699",
+      colour: serviceColor(service),
       contents: serviceBlocks.map(function (block) {
         return {
           kind: "block",
@@ -7209,13 +7217,13 @@ function useToolbox(blockServices) {
   var commandsCategory = {
     kind: "category",
     name: "Commands",
-    colour: "%{BKY_LISTS_HUE}",
+    colour: COMMANDS_COLOUR,
     contents: [{
       kind: "block",
       type: WHILE_CONDITION_BLOCK
     }, {
       kind: "block",
-      type: "jacdac_wait",
+      type: WAIT_BLOCK,
       values: {
         TIME: {
           kind: "block",
@@ -8190,4 +8198,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-be40d4e566953615a74c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-cbec480e1cb2728dfacc.js.map
