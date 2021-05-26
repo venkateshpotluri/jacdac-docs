@@ -7232,16 +7232,16 @@ function loadBlocks(serviceColor, commandColor) {
     });
   };
 
-  var registers = allServices.map(function (service) {
-    return {
-      service: service,
-      register: service.packets.find(function (pkt) {
-        return (0,spec/* isRegister */.x5)(pkt) && includedRegisters.indexOf(pkt.identifier) > -1;
-      })
-    };
-  }).filter(function (kv) {
-    return !!kv.register;
-  });
+  var registers = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
+    return service.packets.filter(function (pkt) {
+      return (0,spec/* isRegister */.x5)(pkt) && includedRegisters.indexOf(pkt.identifier) > -1;
+    }).map(function (register) {
+      return {
+        service: service,
+        register: register
+      };
+    });
+  }));
   var events = allServices.map(function (service) {
     return {
       service: service,
@@ -7735,6 +7735,11 @@ function loadBlocks(serviceColor, commandColor) {
     return block.service.shortId;
   }, function (block) {
     return block.service;
+  });
+  console.debug("vmblocks", {
+    blocks: blocks,
+    serviceBlocks: serviceBlocks,
+    services: services
   });
   return {
     blocks: blocks,
@@ -8857,4 +8862,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0be7d1e206b5932a5f9e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-058b0d8020dd0dae15aa.js.map
