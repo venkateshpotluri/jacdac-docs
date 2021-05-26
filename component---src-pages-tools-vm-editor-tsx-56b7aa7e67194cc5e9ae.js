@@ -6539,7 +6539,10 @@ var utils = __webpack_require__(81794);
 var useServices = __webpack_require__(2928);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
 var useTheme = __webpack_require__(59355);
+// EXTERNAL MODULE: ./node_modules/gatsby-link/index.js
+var gatsby_link = __webpack_require__(38037);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -6603,6 +6606,10 @@ function createBlockTheme(theme) {
 }
 
 function loadBlocks(serviceColor, commandColor) {
+  var serviceHelp = function serviceHelp(service) {
+    return (0,gatsby_link/* withPrefix */.dq)("/services/" + service.shortId);
+  };
+
   var fieldsSupported = function fieldsSupported(pkt) {
     return pkt.fields.every(toBlocklyType);
   };
@@ -6728,7 +6735,7 @@ function loadBlocks(serviceColor, commandColor) {
         events = _ref.events;
     return {
       kind: "block",
-      type: "jacdac__events_" + service.shortId,
+      type: "jacdac_events_" + service.shortId,
       message0: "when %1 %2",
       args0: [fieldVariable(service), {
         type: "field_dropdown",
@@ -6740,8 +6747,8 @@ function loadBlocks(serviceColor, commandColor) {
       colour: serviceColor(service),
       inputsInline: true,
       nextStatement: null,
-      tooltip: "",
-      helpUrl: "",
+      tooltip: "Events for the " + service.name + " service",
+      helpUrl: serviceHelp(service),
       service: service,
       events: events,
       template: "event"
@@ -6770,7 +6777,7 @@ function loadBlocks(serviceColor, commandColor) {
       nextStatement: null,
       colour: serviceColor(service),
       tooltip: "Event raised when " + register.name + " changes",
-      helpUrl: "",
+      helpUrl: serviceHelp(service),
       service: service,
       register: register,
       template: "register_change_event"
@@ -6804,7 +6811,7 @@ function loadBlocks(serviceColor, commandColor) {
       output: toBlocklyType(register.fields[0]),
       colour: serviceColor(service),
       tooltip: register.description,
-      helpUrl: "",
+      helpUrl: serviceHelp(service),
       service: service,
       register: register,
       field: register.fields[0],
@@ -6862,7 +6869,7 @@ function loadBlocks(serviceColor, commandColor) {
       output: "Boolean",
       colour: serviceColor(service),
       tooltip: register.description,
-      helpUrl: "",
+      helpUrl: serviceHelp(service),
       service: service,
       register: register,
       field: field,
@@ -6893,7 +6900,7 @@ function loadBlocks(serviceColor, commandColor) {
       output: "Number",
       colour: serviceColor(service),
       tooltip: register.description,
-      helpUrl: "",
+      helpUrl: serviceHelp(service),
       service: service,
       register: register,
       template: "register_get"
@@ -6916,8 +6923,8 @@ function loadBlocks(serviceColor, commandColor) {
       values: fieldsToValues(register),
       inputsInline: true,
       colour: serviceColor(service),
-      tooltip: "",
-      helpUrl: "",
+      tooltip: register.description,
+      helpUrl: serviceHelp(service),
       service: service,
       register: register,
       previousStatement: null,
@@ -6936,8 +6943,8 @@ function loadBlocks(serviceColor, commandColor) {
       values: fieldsToValues(command),
       inputsInline: true,
       colour: serviceColor(service),
-      tooltip: "",
-      helpUrl: "",
+      tooltip: command.description,
+      helpUrl: serviceHelp(service),
       service: service,
       command: command,
       previousStatement: null,
@@ -8252,4 +8259,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a6b107924b84db0888b4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-56b7aa7e67194cc5e9ae.js.map
