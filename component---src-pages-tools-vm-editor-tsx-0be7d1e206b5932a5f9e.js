@@ -7262,8 +7262,7 @@ function loadBlocks(serviceColor, commandColor) {
       };
     });
   }));
-
-  var customBlockDefinitions = (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
+  var customBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
     return {
       kind: "block",
       type: "key",
@@ -7283,11 +7282,36 @@ function loadBlocks(serviceColor, commandColor) {
       //expression: `play_tone(frequency, duration) => role.send_pulse(frequency / 10000, duration)`,
       template: "custom"
     };
-  })).map(function (def) {
+  })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_SEVEN_SEGMENT_DISPLAY */.hvg).map(function (service) {
+    return {
+      kind: "block",
+      type: "set_digits",
+      message0: "set %1 digits to %2",
+      args0: [fieldVariable(service), {
+        type: "input_value",
+        name: "digits",
+        check: "Number"
+      }],
+      values: {
+        digits: {
+          kind: "block",
+          type: "math_number"
+        }
+      },
+      colour: serviceColor(service),
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Display a number of the screen",
+      helpUrl: serviceHelp(service),
+      service: service,
+      // encode digits
+      template: "custom"
+    };
+  }))).map(function (def) {
     def.type = "jacdac_custom_" + def.service.shortId + "_" + def.type;
     return def;
   });
-
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -8833,4 +8857,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b533c8d112304c57ec2d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0be7d1e206b5932a5f9e.js.map
