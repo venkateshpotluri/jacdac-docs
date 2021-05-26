@@ -6554,6 +6554,7 @@ var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
+var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -7019,6 +7020,19 @@ function loadBlocks(serviceColor, commandColor) {
     }],
     style: "math_blocks",
     output: "Number"
+  }, {
+    kind: "block",
+    type: "jacdac_color",
+    message0: "%1",
+    args0: [{
+      type: "field_colour",
+      name: "col",
+      colour: "#ff0000",
+      colourOptions: ["#ff0000", "#ff8000", "#ffff00", "#ff9da5", "#00ff00", "#b09eff", "#00ffff", "#007fff", "#65471f", "#0000ff", "#7f00ff", "#ff0080", "#ff00ff", "#ffffff", "#999999", "#000000"],
+      columns: 4
+    }],
+    style: "math_blocks",
+    output: "Color"
   }];
   var runtimeBlocks = [{
     kind: "block",
@@ -7040,14 +7054,37 @@ function loadBlocks(serviceColor, commandColor) {
     message0: "wait %1 s",
     args0: [{
       type: "input_value",
-      name: "TIME",
+      name: "time",
       check: "Number"
     }],
     inputsInline: true,
     previousStatement: "Statement",
     nextStatement: "Statement",
     colour: commandColor,
-    tooltip: "",
+    tooltip: "Wait the desired time",
+    helpUrl: ""
+  }, {
+    kind: "block",
+    type: SET_STATUS_LIGHT_BLOCK,
+    message0: "set %1 status %2",
+    args0: [{
+      type: "field_variable",
+      name: "role",
+      variable: "client",
+      variableTypes: allServices.map(function (service) {
+        return service.shortId;
+      }),
+      defaultType: allServices === null || allServices === void 0 ? void 0 : allServices[0].shortId
+    }, {
+      type: "input_value",
+      name: "color",
+      check: "Color"
+    }],
+    inputsInline: true,
+    previousStatement: "Statement",
+    nextStatement: "Statement",
+    colour: commandColor,
+    tooltip: "Sets the color on the status light",
     helpUrl: ""
   }];
   var mathBlocks = [{
@@ -7229,9 +7266,18 @@ function useToolbox(blockServices) {
       kind: "block",
       type: WAIT_BLOCK,
       values: {
-        TIME: {
+        time: {
           kind: "block",
           type: "jacdac_time_picker"
+        }
+      }
+    }, {
+      kind: "block",
+      type: SET_STATUS_LIGHT_BLOCK,
+      values: {
+        color: {
+          kind: "block",
+          type: "jacdac_color"
         }
       }
     }]
@@ -8204,4 +8250,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-324ee8dfcdf48509cf1b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5c7780827161bb3e7162.js.map
