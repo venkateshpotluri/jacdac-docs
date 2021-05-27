@@ -33,12 +33,11 @@ exports.Z = _default;
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
-/* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
+/* harmony export */   "K": function() { return /* binding */ VMServiceEnvironment; },
+/* harmony export */   "u": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
-/* unused harmony export refresh_env */
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(41788);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
@@ -46,6 +45,7 @@ exports.Z = _default;
 /* harmony import */ var _jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71815);
 /* harmony import */ var _jdom_pack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(91635);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(94624);
 
 
 
@@ -54,103 +54,6 @@ exports.Z = _default;
 
 
 
-function refresh_env(_x) {
-  return _refresh_env.apply(this, arguments);
-} // TODO: you want [ev] to be PackedValues and handle the arrays yourself.
-
-function _refresh_env() {
-  _refresh_env = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(registers) {
-    var k, register, retry, val, _register$unpackedVal;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(registers);
-
-          case 1:
-            if ((_context.t1 = _context.t0()).done) {
-              _context.next = 12;
-              break;
-            }
-
-            k = _context.t1.value;
-            register = registers[k];
-            retry = 0;
-            val = undefined;
-
-          case 6:
-            _context.next = 8;
-            return register.refresh();
-
-          case 8:
-            val = (_register$unpackedVal = register.unpackedValue) === null || _register$unpackedVal === void 0 ? void 0 : _register$unpackedVal[0];
-
-          case 9:
-            if (val === undefined && retry++ < 2) {
-              _context.next = 6;
-              break;
-            }
-
-          case 10:
-            _context.next = 1;
-            break;
-
-          case 12:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _refresh_env.apply(this, arguments);
-}
-
-function writeReg(_x2, _x3, _x4) {
-  return _writeReg.apply(this, arguments);
-}
-
-function _writeReg() {
-  _writeReg = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(reg, fmt, ev) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return reg.sendSetPackedAsync(fmt, [ev], true);
-
-          case 2:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _writeReg.apply(this, arguments);
-}
-
-function _sendCommand2(_x5, _x6, _x7) {
-  return _sendCommand.apply(this, arguments);
-}
-
-function _sendCommand() {
-  _sendCommand = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(service, pkt, values) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return service.sendCmdAsync(pkt.identifier, (0,_jdom_pack__WEBPACK_IMPORTED_MODULE_5__/* .jdpack */ .AV)(pkt.packFormat, values), true);
-
-          case 2:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _sendCommand.apply(this, arguments);
-}
 
 var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
@@ -194,27 +97,75 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     }
   };
 
-  _proto.sendCommand = function sendCommand(command, values) {
-    var commandName = command === null || command === void 0 ? void 0 : command.name;
-    var pkt = this.service.specification.packets.find(function (p) {
-      return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isCommand */ .ao)(p) && p.name === commandName;
-    });
-    if (pkt) _sendCommand2(this.service, pkt, values);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
+  _proto.sendCommandAsync = /*#__PURE__*/function () {
+    var _sendCommandAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(command, values) {
+      var commandName, pkt, _this$service;
 
-  _proto.writeRegister = function writeRegister(regName, ev) {
-    var jdreg = this._registers[regName];
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commandName = command === null || command === void 0 ? void 0 : command.name;
+              pkt = this.service.specification.packets.find(function (p) {
+                return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isCommand */ .ao)(p) && p.name === commandName;
+              });
 
-    if (jdreg) {
-      var _jdreg$specification;
+              if (!pkt) {
+                _context.next = 6;
+                break;
+              }
 
-      writeReg(jdreg, (_jdreg$specification = jdreg.specification) === null || _jdreg$specification === void 0 ? void 0 : _jdreg$specification.packFormat, ev);
-      return true;
+              _context.next = 5;
+              return this.service.sendCmdAsync(pkt.identifier, (0,_jdom_pack__WEBPACK_IMPORTED_MODULE_5__/* .jdpack */ .AV)(pkt.packFormat, values), true);
+
+            case 5:
+              console.log((_this$service = this.service) === null || _this$service === void 0 ? void 0 : _this$service.specification.shortName, command.name, values);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendCommandAsync(_x, _x2) {
+      return _sendCommandAsync.apply(this, arguments);
     }
 
-    return false;
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return sendCommandAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  _proto.writeRegisterAsync =
+  /*#__PURE__*/
+  function () {
+    var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, ev) {
+      var _jdreg$specification;
+
+      var jdreg;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              jdreg = this._registers[regName];
+              _context2.next = 3;
+              return jdreg === null || jdreg === void 0 ? void 0 : jdreg.sendSetPackedAsync((_jdreg$specification = jdreg.specification) === null || _jdreg$specification === void 0 ? void 0 : _jdreg$specification.packFormat, [ev], true);
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function writeRegisterAsync(_x3, _x4) {
+      return _writeRegisterAsync.apply(this, arguments);
+    }
+
+    return writeRegisterAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
   _proto.lookup = function lookup(e) {
@@ -244,23 +195,57 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     return undefined;
   };
 
-  _proto.refreshEnvironment = function refreshEnvironment() {
-    refresh_env(this._registers);
-  };
+  _proto.refreshRegistersAsync = /*#__PURE__*/function () {
+    var _refreshRegistersAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var k, register;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(this._registers);
+
+            case 1:
+              if ((_context3.t1 = _context3.t0()).done) {
+                _context3.next = 8;
+                break;
+              }
+
+              k = _context3.t1.value;
+              register = this._registers[k];
+              _context3.next = 6;
+              return register.refresh();
+
+            case 6:
+              _context3.next = 1;
+              break;
+
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function refreshRegistersAsync() {
+      return _refreshRegistersAsync.apply(this, arguments);
+    }
+
+    return refreshRegistersAsync;
+  }();
 
   return VMServiceEnvironment;
 }(_jdom_serviceclient__WEBPACK_IMPORTED_MODULE_2__/* .JDServiceClient */ .P);
 var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMEnvironment, _JDEventSource);
 
-  function VMEnvironment(notifyOnChange) {
+  function VMEnvironment() {
     var _this2;
 
     _this2 = _JDEventSource.call(this) || this;
     _this2._currentEvent = undefined;
     _this2._envs = {};
     _this2._locals = {};
-    _this2.notifyOnChange = notifyOnChange;
     return _this2;
   }
 
@@ -279,23 +264,27 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto2.registerRegister = function registerRegister(role, reg) {
-    var serviceEnv = this.getService(role);
-
-    if (serviceEnv) {
-      serviceEnv.registerRegister(reg, this.notifyOnChange);
-    }
-  };
-
-  _proto2.registerEvent = function registerEvent(role, ev) {
     var _this3 = this;
 
     var serviceEnv = this.getService(role);
 
     if (serviceEnv) {
-      serviceEnv.registerEvent(ev, function () {
-        _this3._currentEvent = role + "." + ev;
+      serviceEnv.registerRegister(reg, function () {
+        _this3.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+      });
+    }
+  };
 
-        _this3.notifyOnChange();
+  _proto2.registerEvent = function registerEvent(role, ev) {
+    var _this4 = this;
+
+    var serviceEnv = this.getService(role);
+
+    if (serviceEnv) {
+      serviceEnv.registerEvent(ev, function () {
+        _this4._currentEvent = role + "." + ev;
+
+        _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     }
   };
@@ -310,23 +299,83 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   _proto2.getService = function getService(e) {
     var root = this.getRootName(e);
     if (!root) return undefined;
-    return this._envs[root];
+    var s = this._envs[root];
+
+    if (!s) {
+      this.emit(_utils__WEBPACK_IMPORTED_MODULE_6__/* .JACDAC_ROLE_HAS_NO_SERVICE */ .Ex, root);
+    }
+
+    return s;
   };
 
-  _proto2.refreshEnvironment = function refreshEnvironment() {
-    Object.values(this._envs).forEach(function (s) {
-      return s === null || s === void 0 ? void 0 : s.refreshEnvironment();
-    });
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _proto2.refreshRegistersAsync = /*#__PURE__*/function () {
+    var _refreshRegistersAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var _i, _Object$values, s;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _i = 0, _Object$values = Object.values(this._envs);
+
+            case 1:
+              if (!(_i < _Object$values.length)) {
+                _context4.next = 8;
+                break;
+              }
+
+              s = _Object$values[_i];
+              _context4.next = 5;
+              return s === null || s === void 0 ? void 0 : s.refreshRegistersAsync();
+
+            case 5:
+              _i++;
+              _context4.next = 1;
+              break;
+
+            case 8:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function refreshRegistersAsync() {
+      return _refreshRegistersAsync2.apply(this, arguments);
+    }
+
+    return refreshRegistersAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
-  _proto2.sendCommand = function sendCommand(e, values) {
-    var serviceEnv = this.getService(e);
+  _proto2.sendCommandAsync =
+  /*#__PURE__*/
+  function () {
+    var _sendCommandAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e, values) {
+      var serviceEnv;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              serviceEnv = this.getService(e);
+              _context5.next = 3;
+              return serviceEnv === null || serviceEnv === void 0 ? void 0 : serviceEnv.sendCommandAsync(e.property, values);
 
-    if (serviceEnv) {
-      serviceEnv.sendCommand(e.property, values);
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function sendCommandAsync(_x5, _x6) {
+      return _sendCommandAsync2.apply(this, arguments);
     }
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    return sendCommandAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
   _proto2.lookup = function lookup(e) {
@@ -344,7 +393,11 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     var serviceEnv = this.getService(e);
-    if (!serviceEnv) return undefined;
+
+    if (!serviceEnv) {
+      return undefined;
+    }
+
     var me = e;
 
     if (serviceEnv && me.property.type === "Identifier") {
@@ -355,17 +408,39 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     return undefined;
   };
 
-  _proto2.writeRegister = function writeRegister(e, ev) {
-    var serviceEnv = this.getService(e);
-    var me = e;
+  _proto2.writeRegisterAsync = /*#__PURE__*/function () {
+    var _writeRegisterAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e, ev) {
+      var serviceEnv, me, reg;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              serviceEnv = this.getService(e);
+              me = e;
 
-    if (serviceEnv && me.property.type === "Identifier") {
-      var reg = me.property.name;
-      return serviceEnv.writeRegister(reg, ev);
+              if (!(serviceEnv && me.property.type === "Identifier")) {
+                _context6.next = 6;
+                break;
+              }
+
+              reg = me.property.name;
+              _context6.next = 6;
+              return serviceEnv.writeRegisterAsync(reg, ev);
+
+            case 6:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, this);
+    }));
+
+    function writeRegisterAsync(_x7, _x8) {
+      return _writeRegisterAsync2.apply(this, arguments);
     }
 
-    return false;
-  };
+    return writeRegisterAsync;
+  }();
 
   _proto2.writeLocal = function writeLocal(e, ev) {
     var roleName = this.getRootName(e);
@@ -400,9 +475,10 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto2.unsubscribe = function unsubscribe() {
-    Object.values(this._envs).forEach(function (vs) {
-      return vs.unmount();
-    });
+    for (var _i2 = 0, _Object$values2 = Object.values(this._envs); _i2 < _Object$values2.length; _i2++) {
+      var vs = _Object$values2[_i2];
+      vs.unmount();
+    }
   };
 
   return VMEnvironment;
@@ -418,20 +494,8 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Z": function() { return /* binding */ unparse; },
 /* harmony export */   "f": function() { return /* binding */ JDExprEvaluator; }
 /* harmony export */ });
-/*
-The JD-VM runs a program, which is a set of handlers. Each handler is of the form
-•	wait on event/condition, followed by a
-•	sequence of guarded commands – the sequence is executed atomically (though may suspend if it contains a wait)
-After a handler finishes executing, it restarts (there is an implicit event loop around all the handlers, as usual). 
- 
-We will have a small key-value store to keep program state (perhaps we will have the ability to store lists of values as well as basic values) across the handler executions.
- 
-Commands can talk to JD services (probably via roles), as well as read/write program state, and wait on events/expressions. Any command can be guarded by an expression, for conditional execution.
- 
-Expressions can be against service registers (as in the test case) and program state.
- 
-*/
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94624);
+
 function unparse(e) {
   switch (e.type) {
     case "ArrayExpression":
@@ -663,7 +727,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
-          if (val === undefined) throw "undefined-register";
+          if (val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + unparse(e) + " failed");
           this.exprStack.push(val);
           return;
         }
@@ -674,7 +738,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
           var _val = this.env(id.name);
 
-          if (_val === undefined) throw "undefined-register";
+          if (_val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + id.name + " failed");
           this.exprStack.push(_val);
           return;
         }
@@ -813,6 +877,45 @@ var IT4Functions = [{
 
 /***/ }),
 
+/***/ 94624:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PY": function() { return /* binding */ JACDAC_ROLE_SERVICE_BOUND; },
+/* harmony export */   "AH": function() { return /* binding */ JACDAC_ROLE_SERVICE_UNBOUND; },
+/* harmony export */   "Ex": function() { return /* binding */ JACDAC_ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "D1": function() { return /* binding */ JDVMError; }
+/* harmony export */ });
+/* unused harmony exports JACDAC_VM_ERROR, default */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var JACDAC_VM_ERROR = "JacdacVMError";
+var JACDAC_ROLE_SERVICE_BOUND = "JacdacVMRoleServiceBound";
+var JACDAC_ROLE_SERVICE_UNBOUND = "JacdacVMRoleServiceUnbound";
+var JACDAC_ROLE_HAS_NO_SERVICE = "JacdacVMRoleHasNoService";
+var JDVMError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
+
+  function JDVMError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = JACDAC_VM_ERROR;
+    return _this;
+  }
+
+  return JDVMError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
+}
+
+/***/ }),
+
 /***/ 88523:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -829,8 +932,13 @@ var react = __webpack_require__(67294);
 var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(92137);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(5991);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(87757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
@@ -956,7 +1064,20 @@ var environment = __webpack_require__(96699);
 var vm_expr = __webpack_require__(18108);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
 var ir = __webpack_require__(68290);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
+var utils = __webpack_require__(94624);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/vmrunner.ts
+
+
+
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 
@@ -1004,93 +1125,134 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
       var args = this.gc.command.arguments;
       this._regSaved = this.evalExpression(args[0]);
       if (this.inst === "awaitChange") this._changeSaved = this.evalExpression(args[1]);
+      return true;
     }
+
+    return false;
   };
 
-  _proto.evaluate = function evaluate() {
-    var _this2 = this;
+  _proto.evaluate = /*#__PURE__*/function () {
+    var _evaluate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var _this2 = this;
 
-    this._status = VMStatus.Running;
+      var neededStart, args, expr, _values, event, regValue, _expr, ev, reg;
 
-    if (!this._started) {
-      this.start();
-      this._started = true;
-      return;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              this._status = VMStatus.Running;
+
+              if (this._started) {
+                _context.next = 6;
+                break;
+              }
+
+              neededStart = this.start();
+              this._started = true;
+
+              if (!neededStart) {
+                _context.next = 6;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 6:
+              args = this.gc.command.arguments;
+
+              if (!(this.gc.command.callee.type === "MemberExpression")) {
+                _context.next = 14;
+                break;
+              }
+
+              // interpret as a service command (role.comand)
+              expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
+                return _this2.env.lookup(e);
+              }, undefined);
+              _values = this.gc.command.arguments.map(function (a) {
+                return expr.eval(a);
+              });
+              _context.next = 12;
+              return this.env.sendCommandAsync(this.gc.command.callee, _values);
+
+            case 12:
+              this._status = VMStatus.Completed;
+              return _context.abrupt("return");
+
+            case 14:
+              _context.t0 = this.inst;
+              _context.next = _context.t0 === "awaitEvent" ? 17 : _context.t0 === "awaitCondition" ? 20 : _context.t0 === "awaitChange" ? 22 : _context.t0 === "awaitRegister" ? 22 : _context.t0 === "writeRegister" ? 25 : _context.t0 === "writeLocal" ? 25 : _context.t0 === "halt" ? 38 : 40;
+              break;
+
+            case 17:
+              event = args[0];
+
+              if (this.env.hasEvent(event)) {
+                this._status = this.checkExpression(args[1]) ? VMStatus.Completed : VMStatus.Running;
+              }
+
+              return _context.abrupt("break", 40);
+
+            case 20:
+              this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Running;
+              return _context.abrupt("break", 40);
+
+            case 22:
+              regValue = this.evalExpression(args[0]);
+
+              if (this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (this._changeSaved === 0 && regValue !== this._regSaved || this._changeSaved < 0 && regValue <= this._regSaved + this._changeSaved || this._changeSaved > 0 && regValue >= this._regSaved + this._changeSaved)) {
+                this._status = VMStatus.Completed;
+              }
+
+              return _context.abrupt("break", 40);
+
+            case 25:
+              _expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
+                return _this2.env.lookup(e);
+              }, undefined);
+              ev = _expr.eval(args[1]);
+              console.log("eval-end", (0,vm_expr/* unparse */.Z)(args[1]));
+              reg = args[0];
+
+              if (!(this.inst === "writeRegister")) {
+                _context.next = 35;
+                break;
+              }
+
+              _context.next = 32;
+              return this.env.writeRegisterAsync(reg, ev);
+
+            case 32:
+              console.log("write-after-wait", (0,vm_expr/* unparse */.Z)(reg), ev);
+              _context.next = 36;
+              break;
+
+            case 35:
+              this.env.writeLocal(reg, ev);
+
+            case 36:
+              this._status = VMStatus.Completed;
+              return _context.abrupt("break", 40);
+
+            case 38:
+              this._status = VMStatus.Stopped;
+              return _context.abrupt("break", 40);
+
+            case 40:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function evaluate() {
+      return _evaluate.apply(this, arguments);
     }
 
-    var args = this.gc.command.arguments;
-
-    if (this.gc.command.callee.type === "MemberExpression") {
-      // interpret as a service command (role.comand)
-      var expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
-        return _this2.env.lookup(e);
-      }, undefined);
-
-      var _values = this.gc.command.arguments.map(function (a) {
-        return expr.eval(a);
-      });
-
-      this.env.sendCommand(this.gc.command.callee, _values);
-      this._status = VMStatus.Completed;
-      return;
-    }
-
-    switch (this.inst) {
-      case "awaitEvent":
-        {
-          var event = args[0];
-
-          if (this.env.hasEvent(event)) {
-            this._status = this.checkExpression(args[1]) ? VMStatus.Completed : VMStatus.Running;
-          }
-
-          break;
-        }
-
-      case "awaitCondition":
-        {
-          this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Running;
-          break;
-        }
-
-      case "awaitChange":
-      case "awaitRegister":
-        {
-          var regValue = this.evalExpression(args[0]);
-
-          if (this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (this._changeSaved === 0 && regValue !== this._regSaved || this._changeSaved < 0 && regValue <= this._regSaved + this._changeSaved || this._changeSaved > 0 && regValue >= this._regSaved + this._changeSaved)) {
-            this._status = VMStatus.Completed;
-          }
-
-          break;
-        }
-
-      case "writeRegister":
-      case "writeLocal":
-        {
-          var _expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
-            return _this2.env.lookup(e);
-          }, undefined);
-
-          var ev = _expr.eval(args[1]);
-
-          var reg = args[0];
-
-          if (this.inst === "writeRegister" && this.env.writeRegister(reg, ev) || this.inst === "writeLocal" && this.env.writeLocal(reg, ev)) {
-            this._status = VMStatus.Completed;
-          }
-
-          this._status = VMStatus.Completed;
-          break;
-        }
-
-      case "halt":
-        {
-          this._status = VMStatus.Stopped;
-          break;
-        }
-    }
-  };
+    return evaluate;
+  }();
 
   (0,createClass/* default */.Z)(IT4CommandEvaluator, [{
     key: "status",
@@ -1110,29 +1272,63 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
 }();
 
 var IT4CommandRunner = /*#__PURE__*/function () {
-  function IT4CommandRunner(env, gc) {
+  function IT4CommandRunner(handlerId, env, gc) {
     this._status = VMStatus.Running;
+    this.handlerId = handlerId;
+    this.gc = gc;
     this._eval = new IT4CommandEvaluator(env, gc);
   }
 
   var _proto2 = IT4CommandRunner.prototype;
 
-  _proto2.step = function step() {
-    if (this.isWaiting) {
-      try {
-        this._eval.evaluate();
+  _proto2.step = /*#__PURE__*/function () {
+    var _step = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!this.isWaiting) {
+                _context2.next = 11;
+                break;
+              }
 
-        this.finish(this._eval.status);
-      } catch (e) {// we will try again
-      }
+              _context2.prev = 1;
+              console.log(this.handlerId, (0,vm_expr/* unparse */.Z)(this.gc.command));
+              _context2.next = 5;
+              return this._eval.evaluate();
+
+            case 5:
+              this.finish(this._eval.status);
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              console.log(_context2.t0);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this, [[1, 8]]);
+    }));
+
+    function step() {
+      return _step.apply(this, arguments);
     }
-  };
+
+    return step;
+  }();
 
   _proto2.cancel = function cancel() {
     this.finish(VMStatus.Stopped);
   };
 
   _proto2.finish = function finish(s) {
+    console.log(this.handlerId, s);
+
     if (this.isWaiting && s === VMStatus.Completed || s === VMStatus.Stopped) {
       this.status = s;
     }
@@ -1145,7 +1341,7 @@ var IT4CommandRunner = /*#__PURE__*/function () {
     },
     set: function set(s) {
       if (s != this._status) {
-        this._status = s;
+        this._status = s; // TODO: emit event
       }
     }
   }, {
@@ -1185,28 +1381,89 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   } // run-to-completion semantics
   ;
 
-  _proto3.step = function step() {
-    // handler stopped or empty
-    if (this.stopped || !this.handler.commands.length) return;
+  _proto3.step =
+  /*#__PURE__*/
+  function () {
+    var _step2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(this.stopped || !this.handler.commands.length)) {
+                _context3.next = 2;
+                break;
+              }
 
-    if (this._commandIndex === undefined) {
-      this._commandIndex = 0;
-      this._currentCommand = new IT4CommandRunner(this.env, this.handler.commands[this._commandIndex]);
+              return _context3.abrupt("return");
+
+            case 2:
+              // if (this._currentCommand?.status === VMStatus.Completed) return
+              console.log(this.id, "handler-step-begin");
+
+              if (this._commandIndex === undefined) {
+                this._commandIndex = 0;
+                this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
+              }
+
+              _context3.prev = 4;
+              _context3.next = 7;
+              return this._currentCommand.step();
+
+            case 7:
+              _context3.next = 12;
+              break;
+
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](4);
+              console.log(_context3.t0);
+
+            case 12:
+              this.post_process();
+
+            case 13:
+              if (!(this._currentCommand.status === VMStatus.Completed && this._commandIndex < this.handler.commands.length - 1)) {
+                _context3.next = 27;
+                break;
+              }
+
+              this._commandIndex++;
+              this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
+              _context3.prev = 16;
+              _context3.next = 19;
+              return this._currentCommand.step();
+
+            case 19:
+              _context3.next = 24;
+              break;
+
+            case 21:
+              _context3.prev = 21;
+              _context3.t1 = _context3["catch"](16);
+              console.log(_context3.t1);
+
+            case 24:
+              this.post_process();
+              _context3.next = 13;
+              break;
+
+            case 27:
+              console.log(this.id, "handler-step-end");
+
+            case 28:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this, [[4, 9], [16, 21]]);
+    }));
+
+    function step() {
+      return _step2.apply(this, arguments);
     }
 
-    this._currentCommand.step();
-
-    this.post_process();
-
-    while (this._currentCommand.status === VMStatus.Completed && this._commandIndex < this.handler.commands.length - 1) {
-      this._commandIndex++;
-      this._currentCommand = new IT4CommandRunner(this.env, this.handler.commands[this._commandIndex]);
-
-      this._currentCommand.step();
-
-      this.post_process();
-    }
-  };
+    return step;
+  }();
 
   (0,createClass/* default */.Z)(IT4HandlerRunner, [{
     key: "status",
@@ -1227,6 +1484,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
     _this3 = _JDEventSource.call(this) || this;
     _this3._waitQueue = [];
     _this3._running = false;
+    _this3._in_run = false;
     _this3.program = program;
 
     try {
@@ -1243,6 +1501,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
           _this3._env.serviceChanged(role, service, added);
 
           if (added) {
+            _this3.emit(utils/* JACDAC_ROLE_SERVICE_BOUND */.PY, service);
+
             _this3.program.handlers.forEach(function (h) {
               regs.forEach(function (r) {
                 if (r.role === role) {
@@ -1255,19 +1515,34 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
                 }
               });
             });
+          } else {
+            _this3.emit(utils/* JACDAC_ROLE_SERVICE_UNBOUND */.AH, service);
           }
         } catch (e) {
+          console.debug(e);
+
           _this3.emit(constants/* ERROR */.pnR, e);
         }
       });
-      _this3._env = new environment/* VMEnvironment */.uH(function () {
-        _this3.run();
+      _this3._env = new environment/* VMEnvironment */.u();
+
+      _this3._env.subscribe(constants/* CHANGE */.Ver, function () {
+        try {
+          _this3.run();
+        } catch (e) {
+          console.debug(e);
+
+          _this3.emit(constants/* ERROR */.pnR, e);
+        }
       });
+
       _this3._handlers = program.handlers.map(function (h, index) {
         return new IT4HandlerRunner(index, _this3._env, h);
       });
       _this3._waitQueue = _this3._handlers.slice(0);
     } catch (e) {
+      console.debug(e);
+
       _this3.emit(constants/* ERROR */.pnR, e);
     }
 
@@ -1299,41 +1574,112 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
         _this4._rm.addRoleService(role.role, role.serviceShortName);
       });
       this._running = true;
-      this.emit(constants/* CHANGE */.Ver);
+      this._in_run = false;
       this.run();
     } catch (e) {
+      console.debug(e);
       this.emit(constants/* ERROR */.pnR, e);
     }
   };
 
-  _proto4.run = function run() {
-    if (!this._running) return;
+  _proto4.run = /*#__PURE__*/function () {
+    var _run = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      var nextTime, _iterator, _step3, h;
 
-    try {
-      this._env.refreshEnvironment();
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (this._running) {
+                _context4.next = 2;
+                break;
+              }
 
-      if (this._waitQueue.length > 0) {
-        var nextTime = [];
+              return _context4.abrupt("return");
 
-        this._waitQueue.forEach(function (h) {
-          h.step();
+            case 2:
+              if (!this._in_run) {
+                _context4.next = 4;
+                break;
+              }
 
-          if (h.status !== VMStatus.Stopped) {
-            if (h.status === VMStatus.Completed) h.reset();
-            nextTime.push(h);
+              return _context4.abrupt("return");
+
+            case 4:
+              this._in_run = true;
+              console.log("run-BEGIN");
+              _context4.prev = 6;
+              _context4.next = 9;
+              return this._env.refreshRegistersAsync();
+
+            case 9:
+              if (!(this._waitQueue.length > 0)) {
+                _context4.next = 23;
+                break;
+              }
+
+              nextTime = [];
+              _iterator = _createForOfIteratorHelperLoose(this._waitQueue);
+
+            case 12:
+              if ((_step3 = _iterator()).done) {
+                _context4.next = 19;
+                break;
+              }
+
+              h = _step3.value;
+              _context4.next = 16;
+              return h.step();
+
+            case 16:
+              if (h.status !== VMStatus.Stopped) {
+                if (h.status === VMStatus.Completed) h.reset();
+                nextTime.push(h);
+              }
+
+            case 17:
+              _context4.next = 12;
+              break;
+
+            case 19:
+              this._waitQueue = nextTime;
+
+              this._env.consumeEvent();
+
+              _context4.next = 24;
+              break;
+
+            case 23:
+              this.emit(constants/* CHANGE */.Ver);
+
+            case 24:
+              _context4.next = 30;
+              break;
+
+            case 26:
+              _context4.prev = 26;
+              _context4.t0 = _context4["catch"](6);
+              console.debug(_context4.t0);
+              this.emit(constants/* ERROR */.pnR, _context4.t0);
+
+            case 30:
+              this._in_run = false;
+              console.log("run-END");
+
+            case 32:
+            case "end":
+              return _context4.stop();
           }
-        });
+        }
+      }, _callee4, this, [[6, 26]]);
+    }));
 
-        this._waitQueue = nextTime;
-
-        this._env.consumeEvent();
-      } else {
-        this.emit(constants/* CHANGE */.Ver);
-      }
-    } catch (e) {
-      this.emit(constants/* ERROR */.pnR, e);
+    function run() {
+      return _run.apply(this, arguments);
     }
-  };
+
+    return run;
+  }();
 
   (0,createClass/* default */.Z)(IT4ProgramRunner, [{
     key: "status",
@@ -1418,4 +1764,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-f4fcae9c8d878a8ca9ce.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-4de12e940becbb8a4fa3.js.map

@@ -7714,7 +7714,8 @@ var ops = {
   NEG: "-",
   ADD: "+",
   MUL: "*",
-  DIV: "/"
+  DIV: "/",
+  MINUS: "-"
 };
 
 function toIdentifier(id) {
@@ -8166,4 +8167,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-aae35e45bfb513385115.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d7d78401abddcc608fa1.js.map

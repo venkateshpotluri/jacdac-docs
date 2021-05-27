@@ -401,12 +401,11 @@ var testFunctions = [{
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
-/* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
+/* harmony export */   "K": function() { return /* binding */ VMServiceEnvironment; },
+/* harmony export */   "u": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
-/* unused harmony export refresh_env */
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(41788);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
@@ -414,6 +413,7 @@ var testFunctions = [{
 /* harmony import */ var _jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71815);
 /* harmony import */ var _jdom_pack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(91635);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(94624);
 
 
 
@@ -422,103 +422,6 @@ var testFunctions = [{
 
 
 
-function refresh_env(_x) {
-  return _refresh_env.apply(this, arguments);
-} // TODO: you want [ev] to be PackedValues and handle the arrays yourself.
-
-function _refresh_env() {
-  _refresh_env = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(registers) {
-    var k, register, retry, val, _register$unpackedVal;
-
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(registers);
-
-          case 1:
-            if ((_context.t1 = _context.t0()).done) {
-              _context.next = 12;
-              break;
-            }
-
-            k = _context.t1.value;
-            register = registers[k];
-            retry = 0;
-            val = undefined;
-
-          case 6:
-            _context.next = 8;
-            return register.refresh();
-
-          case 8:
-            val = (_register$unpackedVal = register.unpackedValue) === null || _register$unpackedVal === void 0 ? void 0 : _register$unpackedVal[0];
-
-          case 9:
-            if (val === undefined && retry++ < 2) {
-              _context.next = 6;
-              break;
-            }
-
-          case 10:
-            _context.next = 1;
-            break;
-
-          case 12:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _refresh_env.apply(this, arguments);
-}
-
-function writeReg(_x2, _x3, _x4) {
-  return _writeReg.apply(this, arguments);
-}
-
-function _writeReg() {
-  _writeReg = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(reg, fmt, ev) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return reg.sendSetPackedAsync(fmt, [ev], true);
-
-          case 2:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _writeReg.apply(this, arguments);
-}
-
-function _sendCommand2(_x5, _x6, _x7) {
-  return _sendCommand.apply(this, arguments);
-}
-
-function _sendCommand() {
-  _sendCommand = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(service, pkt, values) {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return service.sendCmdAsync(pkt.identifier, (0,_jdom_pack__WEBPACK_IMPORTED_MODULE_5__/* .jdpack */ .AV)(pkt.packFormat, values), true);
-
-          case 2:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _sendCommand.apply(this, arguments);
-}
 
 var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
@@ -562,27 +465,75 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     }
   };
 
-  _proto.sendCommand = function sendCommand(command, values) {
-    var commandName = command === null || command === void 0 ? void 0 : command.name;
-    var pkt = this.service.specification.packets.find(function (p) {
-      return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isCommand */ .ao)(p) && p.name === commandName;
-    });
-    if (pkt) _sendCommand2(this.service, pkt, values);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
+  _proto.sendCommandAsync = /*#__PURE__*/function () {
+    var _sendCommandAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(command, values) {
+      var commandName, pkt, _this$service;
 
-  _proto.writeRegister = function writeRegister(regName, ev) {
-    var jdreg = this._registers[regName];
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commandName = command === null || command === void 0 ? void 0 : command.name;
+              pkt = this.service.specification.packets.find(function (p) {
+                return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isCommand */ .ao)(p) && p.name === commandName;
+              });
 
-    if (jdreg) {
-      var _jdreg$specification;
+              if (!pkt) {
+                _context.next = 6;
+                break;
+              }
 
-      writeReg(jdreg, (_jdreg$specification = jdreg.specification) === null || _jdreg$specification === void 0 ? void 0 : _jdreg$specification.packFormat, ev);
-      return true;
+              _context.next = 5;
+              return this.service.sendCmdAsync(pkt.identifier, (0,_jdom_pack__WEBPACK_IMPORTED_MODULE_5__/* .jdpack */ .AV)(pkt.packFormat, values), true);
+
+            case 5:
+              console.log((_this$service = this.service) === null || _this$service === void 0 ? void 0 : _this$service.specification.shortName, command.name, values);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendCommandAsync(_x, _x2) {
+      return _sendCommandAsync.apply(this, arguments);
     }
 
-    return false;
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return sendCommandAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  _proto.writeRegisterAsync =
+  /*#__PURE__*/
+  function () {
+    var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, ev) {
+      var _jdreg$specification;
+
+      var jdreg;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              jdreg = this._registers[regName];
+              _context2.next = 3;
+              return jdreg === null || jdreg === void 0 ? void 0 : jdreg.sendSetPackedAsync((_jdreg$specification = jdreg.specification) === null || _jdreg$specification === void 0 ? void 0 : _jdreg$specification.packFormat, [ev], true);
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function writeRegisterAsync(_x3, _x4) {
+      return _writeRegisterAsync.apply(this, arguments);
+    }
+
+    return writeRegisterAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
   _proto.lookup = function lookup(e) {
@@ -612,23 +563,57 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     return undefined;
   };
 
-  _proto.refreshEnvironment = function refreshEnvironment() {
-    refresh_env(this._registers);
-  };
+  _proto.refreshRegistersAsync = /*#__PURE__*/function () {
+    var _refreshRegistersAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var k, register;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(this._registers);
+
+            case 1:
+              if ((_context3.t1 = _context3.t0()).done) {
+                _context3.next = 8;
+                break;
+              }
+
+              k = _context3.t1.value;
+              register = this._registers[k];
+              _context3.next = 6;
+              return register.refresh();
+
+            case 6:
+              _context3.next = 1;
+              break;
+
+            case 8:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function refreshRegistersAsync() {
+      return _refreshRegistersAsync.apply(this, arguments);
+    }
+
+    return refreshRegistersAsync;
+  }();
 
   return VMServiceEnvironment;
 }(_jdom_serviceclient__WEBPACK_IMPORTED_MODULE_2__/* .JDServiceClient */ .P);
 var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMEnvironment, _JDEventSource);
 
-  function VMEnvironment(notifyOnChange) {
+  function VMEnvironment() {
     var _this2;
 
     _this2 = _JDEventSource.call(this) || this;
     _this2._currentEvent = undefined;
     _this2._envs = {};
     _this2._locals = {};
-    _this2.notifyOnChange = notifyOnChange;
     return _this2;
   }
 
@@ -647,23 +632,27 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto2.registerRegister = function registerRegister(role, reg) {
-    var serviceEnv = this.getService(role);
-
-    if (serviceEnv) {
-      serviceEnv.registerRegister(reg, this.notifyOnChange);
-    }
-  };
-
-  _proto2.registerEvent = function registerEvent(role, ev) {
     var _this3 = this;
 
     var serviceEnv = this.getService(role);
 
     if (serviceEnv) {
-      serviceEnv.registerEvent(ev, function () {
-        _this3._currentEvent = role + "." + ev;
+      serviceEnv.registerRegister(reg, function () {
+        _this3.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+      });
+    }
+  };
 
-        _this3.notifyOnChange();
+  _proto2.registerEvent = function registerEvent(role, ev) {
+    var _this4 = this;
+
+    var serviceEnv = this.getService(role);
+
+    if (serviceEnv) {
+      serviceEnv.registerEvent(ev, function () {
+        _this4._currentEvent = role + "." + ev;
+
+        _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     }
   };
@@ -678,23 +667,83 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   _proto2.getService = function getService(e) {
     var root = this.getRootName(e);
     if (!root) return undefined;
-    return this._envs[root];
+    var s = this._envs[root];
+
+    if (!s) {
+      this.emit(_utils__WEBPACK_IMPORTED_MODULE_6__/* .JACDAC_ROLE_HAS_NO_SERVICE */ .Ex, root);
+    }
+
+    return s;
   };
 
-  _proto2.refreshEnvironment = function refreshEnvironment() {
-    Object.values(this._envs).forEach(function (s) {
-      return s === null || s === void 0 ? void 0 : s.refreshEnvironment();
-    });
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _proto2.refreshRegistersAsync = /*#__PURE__*/function () {
+    var _refreshRegistersAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var _i, _Object$values, s;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _i = 0, _Object$values = Object.values(this._envs);
+
+            case 1:
+              if (!(_i < _Object$values.length)) {
+                _context4.next = 8;
+                break;
+              }
+
+              s = _Object$values[_i];
+              _context4.next = 5;
+              return s === null || s === void 0 ? void 0 : s.refreshRegistersAsync();
+
+            case 5:
+              _i++;
+              _context4.next = 1;
+              break;
+
+            case 8:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function refreshRegistersAsync() {
+      return _refreshRegistersAsync2.apply(this, arguments);
+    }
+
+    return refreshRegistersAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
-  _proto2.sendCommand = function sendCommand(e, values) {
-    var serviceEnv = this.getService(e);
+  _proto2.sendCommandAsync =
+  /*#__PURE__*/
+  function () {
+    var _sendCommandAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e, values) {
+      var serviceEnv;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              serviceEnv = this.getService(e);
+              _context5.next = 3;
+              return serviceEnv === null || serviceEnv === void 0 ? void 0 : serviceEnv.sendCommandAsync(e.property, values);
 
-    if (serviceEnv) {
-      serviceEnv.sendCommand(e.property, values);
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function sendCommandAsync(_x5, _x6) {
+      return _sendCommandAsync2.apply(this, arguments);
     }
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    return sendCommandAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
   _proto2.lookup = function lookup(e) {
@@ -712,7 +761,11 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     var serviceEnv = this.getService(e);
-    if (!serviceEnv) return undefined;
+
+    if (!serviceEnv) {
+      return undefined;
+    }
+
     var me = e;
 
     if (serviceEnv && me.property.type === "Identifier") {
@@ -723,17 +776,39 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     return undefined;
   };
 
-  _proto2.writeRegister = function writeRegister(e, ev) {
-    var serviceEnv = this.getService(e);
-    var me = e;
+  _proto2.writeRegisterAsync = /*#__PURE__*/function () {
+    var _writeRegisterAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e, ev) {
+      var serviceEnv, me, reg;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              serviceEnv = this.getService(e);
+              me = e;
 
-    if (serviceEnv && me.property.type === "Identifier") {
-      var reg = me.property.name;
-      return serviceEnv.writeRegister(reg, ev);
+              if (!(serviceEnv && me.property.type === "Identifier")) {
+                _context6.next = 6;
+                break;
+              }
+
+              reg = me.property.name;
+              _context6.next = 6;
+              return serviceEnv.writeRegisterAsync(reg, ev);
+
+            case 6:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, this);
+    }));
+
+    function writeRegisterAsync(_x7, _x8) {
+      return _writeRegisterAsync2.apply(this, arguments);
     }
 
-    return false;
-  };
+    return writeRegisterAsync;
+  }();
 
   _proto2.writeLocal = function writeLocal(e, ev) {
     var roleName = this.getRootName(e);
@@ -768,9 +843,10 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto2.unsubscribe = function unsubscribe() {
-    Object.values(this._envs).forEach(function (vs) {
-      return vs.unmount();
-    });
+    for (var _i2 = 0, _Object$values2 = Object.values(this._envs); _i2 < _Object$values2.length; _i2++) {
+      var vs = _Object$values2[_i2];
+      vs.unmount();
+    }
   };
 
   return VMEnvironment;
@@ -786,20 +862,8 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Z": function() { return /* binding */ unparse; },
 /* harmony export */   "f": function() { return /* binding */ JDExprEvaluator; }
 /* harmony export */ });
-/*
-The JD-VM runs a program, which is a set of handlers. Each handler is of the form
-•	wait on event/condition, followed by a
-•	sequence of guarded commands – the sequence is executed atomically (though may suspend if it contains a wait)
-After a handler finishes executing, it restarts (there is an implicit event loop around all the handlers, as usual). 
- 
-We will have a small key-value store to keep program state (perhaps we will have the ability to store lists of values as well as basic values) across the handler executions.
- 
-Commands can talk to JD services (probably via roles), as well as read/write program state, and wait on events/expressions. Any command can be guarded by an expression, for conditional execution.
- 
-Expressions can be against service registers (as in the test case) and program state.
- 
-*/
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94624);
+
 function unparse(e) {
   switch (e.type) {
     case "ArrayExpression":
@@ -1031,7 +1095,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
-          if (val === undefined) throw "undefined-register";
+          if (val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + unparse(e) + " failed");
           this.exprStack.push(val);
           return;
         }
@@ -1042,7 +1106,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
           var _val = this.env(id.name);
 
-          if (_val === undefined) throw "undefined-register";
+          if (_val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + id.name + " failed");
           this.exprStack.push(_val);
           return;
         }
@@ -1060,6 +1124,45 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
   return JDExprEvaluator;
 }();
+
+/***/ }),
+
+/***/ 94624:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PY": function() { return /* binding */ JACDAC_ROLE_SERVICE_BOUND; },
+/* harmony export */   "AH": function() { return /* binding */ JACDAC_ROLE_SERVICE_UNBOUND; },
+/* harmony export */   "Ex": function() { return /* binding */ JACDAC_ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "D1": function() { return /* binding */ JDVMError; }
+/* harmony export */ });
+/* unused harmony exports JACDAC_VM_ERROR, default */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var JACDAC_VM_ERROR = "JacdacVMError";
+var JACDAC_ROLE_SERVICE_BOUND = "JacdacVMRoleServiceBound";
+var JACDAC_ROLE_SERVICE_UNBOUND = "JacdacVMRoleServiceUnbound";
+var JACDAC_ROLE_HAS_NO_SERVICE = "JacdacVMRoleHasNoService";
+var JDVMError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
+
+  function JDVMError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = JACDAC_VM_ERROR;
+    return _this;
+  }
+
+  return JDVMError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
+}
 
 /***/ }),
 
@@ -1149,8 +1252,13 @@ var Alert = __webpack_require__(95453);
 var assertThisInitialized = __webpack_require__(63349);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(92137);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(5991);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(87757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdtestfuns.ts
 var jdtestfuns = __webpack_require__(92671);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
@@ -1172,11 +1280,13 @@ var environment = __webpack_require__(96699);
 
 
 
+
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -1395,173 +1505,166 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
     });
   };
 
-  _proto.evaluate = function evaluate() {
-    var testFun = cmdToTestFunction(this.command);
-    var args = this.command.call.arguments;
-    this._status = JDTestCommandStatus.Active;
-    this._progress = "";
+  _proto.evaluateAsync = /*#__PURE__*/function () {
+    var _evaluateAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var testFun, args, goal, error, expr, ev, regSaved, regValue, status, _regSaved, amtSaved, _regValue, _regValue2, beginSaved, endSaved, _ev, event, _ev2, _expr, _ev3, reg, pretify;
 
-    switch (testFun.id) {
-      case "ask":
-        {
-          this._status = JDTestCommandStatus.RequiresUserInput;
-          break;
-        }
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              pretify = function _pretify(v) {
+                return (0,utils/* roundWithPrecision */.JI)(v, 3);
+              };
 
-      case "check":
-        {
-          this._status = this.checkExpression(args[0]);
-          break;
-        }
+              testFun = cmdToTestFunction(this.command);
+              args = this.command.call.arguments;
+              this._status = JDTestCommandStatus.Active;
+              this._progress = "";
+              _context.t0 = testFun.id;
+              _context.next = _context.t0 === "ask" ? 8 : _context.t0 === "check" ? 10 : _context.t0 === "closeTo" ? 12 : _context.t0 === "changes" ? 19 : _context.t0 === "increases" ? 19 : _context.t0 === "decreases" ? 19 : _context.t0 === "increasesBy" ? 25 : _context.t0 === "decreasesBy" ? 25 : _context.t0 === "stepsUpTo" ? 30 : _context.t0 === "stepsDownTo" ? 30 : _context.t0 === "events" ? 37 : _context.t0 === "awaitEvent" ? 39 : _context.t0 === "nextEvent" ? 39 : _context.t0 === "assign" ? 43 : 50;
+              break;
 
-      case "closeTo":
-        {
-          var goal = this.getStart(args[1]);
-          var error = this.getStart(args[2]);
-          var expr = new vm_expr/* JDExprEvaluator */.f(this.env, this.callEval(this._startExpressions));
-          var ev = expr.eval(args[0]);
-          if (Math.abs(ev - goal.v) <= error.v) this._status = JDTestCommandStatus.Passed;
-          this._progress = "current: " + pretify(ev) + "; goal: " + pretify(goal.v) + "; error: " + pretify(error.v);
-          break;
-        }
+            case 8:
+              this._status = JDTestCommandStatus.RequiresUserInput;
+              return _context.abrupt("break", 50);
 
-      case "changes":
-      case "increases":
-      case "decreases":
-        {
-          var regSaved = this._startExpressions.find(function (r) {
-            return r.e === args[0];
-          });
+            case 10:
+              this._status = this.checkExpression(args[0]);
+              return _context.abrupt("break", 50);
 
-          var regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
-          var status = regValue && regSaved.v && (testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
-          this._status = status;
-          regSaved.v = regValue;
-          break;
-        }
+            case 12:
+              goal = this.getStart(args[1]);
+              error = this.getStart(args[2]);
+              expr = new vm_expr/* JDExprEvaluator */.f(this.env, this.callEval(this._startExpressions));
+              ev = expr.eval(args[0]);
+              if (Math.abs(ev - goal.v) <= error.v) this._status = JDTestCommandStatus.Passed;
+              this._progress = "current: " + pretify(ev) + "; goal: " + pretify(goal.v) + "; error: " + pretify(error.v);
+              return _context.abrupt("break", 50);
 
-      case "increasesBy":
-      case "decreasesBy":
-        {
-          var _regSaved = this.getStart(args[0]);
+            case 19:
+              regSaved = this._startExpressions.find(function (r) {
+                return r.e === args[0];
+              });
+              regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
+              status = regValue && regSaved.v && (testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
+              this._status = status;
+              regSaved.v = regValue;
+              return _context.abrupt("break", 50);
 
-          var amtSaved = this.getStart(args[1]);
+            case 25:
+              _regSaved = this.getStart(args[0]);
+              amtSaved = this.getStart(args[1]);
+              _regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
 
-          var _regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
+              if (testFun.id === "increasesBy") {
+                if (_regValue >= _regSaved.v + amtSaved.v) {
+                  this._status = JDTestCommandStatus.Passed;
+                } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v + amtSaved.v) {
+                  this._status = JDTestCommandStatus.Active;
+                  this._progress = "current: " + pretify(_regValue) + ", goal: " + pretify(_regSaved.v + amtSaved.v);
+                } else {
+                  this._status = JDTestCommandStatus.Active;
+                }
+              } else {
+                if (_regValue <= _regSaved.v - amtSaved.v) {
+                  this._status = JDTestCommandStatus.Passed;
+                  this._progress = "completed";
+                } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v - amtSaved.v) {
+                  this._status = JDTestCommandStatus.Active;
+                  this._progress = "current: " + pretify(_regValue) + " goal: " + pretify(_regSaved.v - amtSaved.v);
+                } else {
+                  this._status = JDTestCommandStatus.Active;
+                }
+              }
 
-          if (testFun.id === "increasesBy") {
-            if (_regValue >= _regSaved.v + amtSaved.v) {
+              return _context.abrupt("break", 50);
+
+            case 30:
+              this._status = JDTestCommandStatus.Active;
+              _regValue2 = this.env((0,vm_expr/* unparse */.Z)(args[0]));
+              beginSaved = this.getStart(args[0]);
+              endSaved = this.getStart(args[1]);
+
+              if (this._rangeComplete === undefined) {
+                this._rangeComplete = _regValue2;
+              } else {
+                if (_regValue2 === this._rangeComplete + (testFun.id == "stepsUpTo" ? 1 : -1)) this._rangeComplete = _regValue2;
+
+                if (this._rangeComplete === endSaved.v) {
+                  this._status = JDTestCommandStatus.Passed;
+                }
+              }
+
+              if (this._rangeComplete != undefined) {
+                this._progress = testFun.id == "stepsUpTo" ? "from " + pretify(beginSaved.v) + " up to " + pretify(this._rangeComplete) : "from " + pretify(beginSaved.v) + " down to " + pretify(this._rangeComplete);
+              }
+
+              return _context.abrupt("break", 50);
+
+            case 37:
+              if (this.testRunner.hasEvent) {
+                _ev = this.testRunner.consumeEvent();
+
+                if (_ev === this._eventsComplete[0]) {
+                  this._eventsComplete.shift();
+
+                  if (this._eventsComplete.length === 0) this._status = JDTestCommandStatus.Passed;
+                } else {
+                  this._status = JDTestCommandStatus.Failed;
+                }
+
+                this._progress = "got event " + _ev + "; remaining = [" + this._eventsComplete + "]";
+              } else {
+                this._progress = "no events received; remaining = [" + this._eventsComplete + "]";
+              }
+
+              return _context.abrupt("break", 50);
+
+            case 39:
+              event = args[0];
+              this._progress = "waiting for event " + event.name;
+
+              if (this.testRunner.hasEvent) {
+                _ev2 = this.testRunner.consumeEvent();
+
+                if (_ev2 !== event.name) {
+                  if (testFun.id === "nextEvent") this._status = JDTestCommandStatus.Failed;
+                } else {
+                  // this._status = JDTestCommandStatus.Passed
+                  this._status = this.checkExpression(this.command.call.arguments[1]);
+                }
+              } else {
+                this._progress = "no events received; " + this._progress;
+              }
+
+              return _context.abrupt("break", 50);
+
+            case 43:
+              _expr = new vm_expr/* JDExprEvaluator */.f(this.env, this.callEval(this._startExpressions));
+              _ev3 = _expr.eval(args[1]);
+              reg = args[0];
+              _context.next = 48;
+              return this.testRunner.serviceTestRunner.writeRegisterAsync(reg.name, _ev3);
+
+            case 48:
               this._status = JDTestCommandStatus.Passed;
-            } else if (_regValue >= _regSaved.v && _regValue < _regSaved.v + amtSaved.v) {
-              this._status = JDTestCommandStatus.Active;
-              this._progress = "current: " + pretify(_regValue) + ", goal: " + pretify(_regSaved.v + amtSaved.v);
-            } else {
-              this._status = JDTestCommandStatus.Active;
-            }
-          } else {
-            if (_regValue <= _regSaved.v - amtSaved.v) {
-              this._status = JDTestCommandStatus.Passed;
-              this._progress = "completed";
-            } else if (_regValue <= _regSaved.v && _regValue > _regSaved.v - amtSaved.v) {
-              this._status = JDTestCommandStatus.Active;
-              this._progress = "current: " + pretify(_regValue) + " goal: " + pretify(_regSaved.v - amtSaved.v);
-            } else {
-              this._status = JDTestCommandStatus.Active;
-            }
-          }
+              this._progress = "wrote " + _ev3 + " to register " + reg.name;
 
-          break;
-        }
-
-      case "stepsUpTo":
-      case "stepsDownTo":
-        {
-          this._status = JDTestCommandStatus.Active;
-
-          var _regValue2 = this.env((0,vm_expr/* unparse */.Z)(args[0]));
-
-          var beginSaved = this.getStart(args[0]);
-          var endSaved = this.getStart(args[1]);
-
-          if (this._rangeComplete === undefined) {
-            this._rangeComplete = _regValue2;
-          } else {
-            if (_regValue2 === this._rangeComplete + (testFun.id == "stepsUpTo" ? 1 : -1)) this._rangeComplete = _regValue2;
-
-            if (this._rangeComplete === endSaved.v) {
-              this._status = JDTestCommandStatus.Passed;
-            }
-          }
-
-          if (this._rangeComplete != undefined) {
-            this._progress = testFun.id == "stepsUpTo" ? "from " + pretify(beginSaved.v) + " up to " + pretify(this._rangeComplete) : "from " + pretify(beginSaved.v) + " down to " + pretify(this._rangeComplete);
-          }
-
-          break;
-        }
-
-      case "events":
-        {
-          if (this.testRunner.hasEvent) {
-            var _ev = this.testRunner.consumeEvent();
-
-            if (_ev === this._eventsComplete[0]) {
-              this._eventsComplete.shift();
-
-              if (this._eventsComplete.length === 0) this._status = JDTestCommandStatus.Passed;
-            } else {
-              this._status = JDTestCommandStatus.Failed;
-            }
-
-            this._progress = "got event " + _ev + "; remaining = [" + this._eventsComplete + "]";
-          } else {
-            this._progress = "no events received; remaining = [" + this._eventsComplete + "]";
-          }
-
-          break;
-        }
-
-      case "awaitEvent":
-      case "nextEvent":
-        {
-          var event = args[0];
-          this._progress = "waiting for event " + event.name;
-
-          if (this.testRunner.hasEvent) {
-            var _ev2 = this.testRunner.consumeEvent();
-
-            if (_ev2 !== event.name) {
-              if (testFun.id === "nextEvent") this._status = JDTestCommandStatus.Failed;
-            } else {
-              // this._status = JDTestCommandStatus.Passed
-              this._status = this.checkExpression(this.command.call.arguments[1]);
-            }
-          } else {
-            this._progress = "no events received; " + this._progress;
-          }
-
-          break;
-        }
-
-      case "assign":
-        {
-          var _expr = new vm_expr/* JDExprEvaluator */.f(this.env, this.callEval(this._startExpressions));
-
-          var _ev3 = _expr.eval(args[1]);
-
-          var reg = args[0];
-
-          if (this.testRunner.serviceTestRunner.writeRegister(reg.name, _ev3)) {
-            this._status = JDTestCommandStatus.Passed;
-            this._progress = "wrote " + _ev3 + " to register " + reg.name;
+            case 50:
+            case "end":
+              return _context.stop();
           }
         }
+      }, _callee, this);
+    }));
+
+    function evaluateAsync() {
+      return _evaluateAsync.apply(this, arguments);
     }
 
-    function pretify(v) {
-      return (0,utils/* roundWithPrecision */.JI)(v, 3);
-    }
-  };
+    return evaluateAsync;
+  }();
 
   (0,createClass/* default */.Z)(JDCommandEvaluator, [{
     key: "prompt",
@@ -1621,51 +1724,160 @@ var JDTestCommandRunner = /*#__PURE__*/function (_JDEventSource) {
     this._commandEvaluator = null;
   };
 
-  _proto2.start = function start() {
-    this.status = JDTestCommandStatus.Active;
-    this._commandEvaluator = undefined;
-    this.envChange();
-  };
+  _proto2.startAsync = /*#__PURE__*/function () {
+    var _startAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              this.status = JDTestCommandStatus.Active;
+              this._commandEvaluator = undefined;
+              _context2.next = 4;
+              return this.envChangeAsync();
 
-  _proto2.envChange = function envChange() {
-    if (this.isActive) {
-      if (!this._commandEvaluator) {
-        this._commandEvaluator = new JDCommandEvaluator(this.testRunner, this.command);
-
-        try {
-          this._commandEvaluator.start();
-        } catch (e) {
-          // we will try again on next environment change
-          this._commandEvaluator = undefined;
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
         }
-      }
+      }, _callee2, this);
+    }));
 
-      if (this._commandEvaluator) {
-        try {
-          this._commandEvaluator.evaluate();
+    function startAsync() {
+      return _startAsync.apply(this, arguments);
+    }
 
-          var newOutput = {
-            message: this._commandEvaluator.prompt,
-            progress: this._commandEvaluator.progress
-          };
-          this.output = newOutput;
-          if (this._commandEvaluator.status === JDTestCommandStatus.RequiresUserInput) this.status = JDTestCommandStatus.RequiresUserInput;else this.finish(this._commandEvaluator.status);
-        } catch (e) {// show still be in the active state
+    return startAsync;
+  }();
+
+  _proto2.envChangeAsync = /*#__PURE__*/function () {
+    var _envChangeAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      var newOutput;
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!this.isActive) {
+                _context3.next = 18;
+                break;
+              }
+
+              if (!this._commandEvaluator) {
+                this._commandEvaluator = new JDCommandEvaluator(this.testRunner, this.command);
+
+                try {
+                  this._commandEvaluator.start();
+                } catch (e) {
+                  // we will try again on next environment change
+                  this._commandEvaluator = undefined;
+                }
+              }
+
+              if (!this._commandEvaluator) {
+                _context3.next = 18;
+                break;
+              }
+
+              _context3.prev = 3;
+              _context3.next = 6;
+              return this._commandEvaluator.evaluateAsync();
+
+            case 6:
+              newOutput = {
+                message: this._commandEvaluator.prompt,
+                progress: this._commandEvaluator.progress
+              };
+              this.output = newOutput;
+
+              if (!(this._commandEvaluator.status === JDTestCommandStatus.RequiresUserInput)) {
+                _context3.next = 12;
+                break;
+              }
+
+              this.status = JDTestCommandStatus.RequiresUserInput;
+              _context3.next = 14;
+              break;
+
+            case 12:
+              _context3.next = 14;
+              return this.finishAsync(this._commandEvaluator.status);
+
+            case 14:
+              _context3.next = 18;
+              break;
+
+            case 16:
+              _context3.prev = 16;
+              _context3.t0 = _context3["catch"](3);
+
+            case 18:
+            case "end":
+              return _context3.stop();
+          }
         }
-      }
-    }
-  };
+      }, _callee3, this, [[3, 16]]);
+    }));
 
-  _proto2.cancel = function cancel() {
-    this.finish(JDTestCommandStatus.Failed);
-  };
-
-  _proto2.finish = function finish(s) {
-    if (this.isActive && (s === JDTestCommandStatus.Failed || s === JDTestCommandStatus.Passed)) {
-      this.status = s;
-      this.testRunner.finishCommand();
+    function envChangeAsync() {
+      return _envChangeAsync.apply(this, arguments);
     }
-  };
+
+    return envChangeAsync;
+  }();
+
+  _proto2.cancelAsync = /*#__PURE__*/function () {
+    var _cancelAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return this.finishAsync(JDTestCommandStatus.Failed);
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function cancelAsync() {
+      return _cancelAsync.apply(this, arguments);
+    }
+
+    return cancelAsync;
+  }();
+
+  _proto2.finishAsync = /*#__PURE__*/function () {
+    var _finishAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5(s) {
+      return regenerator_default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!(this.isActive && (s === JDTestCommandStatus.Failed || s === JDTestCommandStatus.Passed))) {
+                _context5.next = 4;
+                break;
+              }
+
+              this.status = s;
+              _context5.next = 4;
+              return this.testRunner.finishCommandAsync();
+
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function finishAsync(_x) {
+      return _finishAsync.apply(this, arguments);
+    }
+
+    return finishAsync;
+  }();
 
   (0,createClass/* default */.Z)(JDTestCommandRunner, [{
     key: "status",
@@ -1733,12 +1945,32 @@ var JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     }
   };
 
-  _proto3.start = function start() {
-    this.reset();
-    this.status = JDTestStatus.Active;
-    this.commandIndex = 0;
-    this.serviceTestRunner.refreshEnvironment();
-  };
+  _proto3.startAsync = /*#__PURE__*/function () {
+    var _startAsync2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee6() {
+      return regenerator_default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              this.reset();
+              this.status = JDTestStatus.Active;
+              this._commandIndex = 0;
+              _context6.next = 5;
+              return this.serviceTestRunner.refreshEnvironmentAsync();
+
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, this);
+    }));
+
+    function startAsync() {
+      return _startAsync2.apply(this, arguments);
+    }
+
+    return startAsync;
+  }();
 
   _proto3.next = function next() {
     this.serviceTestRunner.next();
@@ -1754,20 +1986,105 @@ var JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     }
   };
 
-  _proto3.envChange = function envChange() {
-    if (this.status === JDTestStatus.Active) {
+  _proto3.getCommandIndex = function getCommandIndex() {
+    return this._commandIndex;
+  };
+
+  _proto3.setCommandIndex = /*#__PURE__*/function () {
+    var _setCommandIndex = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee7(index) {
       var _this$currentCommand;
 
-      (_this$currentCommand = this.currentCommand) === null || _this$currentCommand === void 0 ? void 0 : _this$currentCommand.envChange();
-    }
-  };
+      return regenerator_default().wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              if (!(this._commandIndex !== index)) {
+                _context7.next = 5;
+                break;
+              }
 
-  _proto3.eventChange = function eventChange(event) {
-    if (this.status === JDTestStatus.Active) {
-      this._currentEvent = event;
-      this.envChange();
+              this._commandIndex = index;
+              _context7.next = 4;
+              return (_this$currentCommand = this.currentCommand) === null || _this$currentCommand === void 0 ? void 0 : _this$currentCommand.startAsync();
+
+            case 4:
+              this.emit(constants/* CHANGE */.Ver);
+
+            case 5:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, this);
+    }));
+
+    function setCommandIndex(_x2) {
+      return _setCommandIndex.apply(this, arguments);
     }
-  };
+
+    return setCommandIndex;
+  }();
+
+  _proto3.envChangeAsync = /*#__PURE__*/function () {
+    var _envChangeAsync2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee8() {
+      var _this$currentCommand2;
+
+      return regenerator_default().wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              if (!(this.status === JDTestStatus.Active)) {
+                _context8.next = 3;
+                break;
+              }
+
+              _context8.next = 3;
+              return (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.envChangeAsync();
+
+            case 3:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, this);
+    }));
+
+    function envChangeAsync() {
+      return _envChangeAsync2.apply(this, arguments);
+    }
+
+    return envChangeAsync;
+  }();
+
+  _proto3.eventChangeAsync = /*#__PURE__*/function () {
+    var _eventChangeAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee9(event) {
+      return regenerator_default().wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              if (!(this.status === JDTestStatus.Active)) {
+                _context9.next = 4;
+                break;
+              }
+
+              this._currentEvent = event;
+              _context9.next = 4;
+              return this.envChangeAsync();
+
+            case 4:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, this);
+    }));
+
+    function eventChangeAsync(_x3) {
+      return _eventChangeAsync.apply(this, arguments);
+    }
+
+    return eventChangeAsync;
+  }();
 
   _proto3.consumeEvent = function consumeEvent() {
     var ret = this._currentEvent;
@@ -1775,9 +2092,39 @@ var JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
     return ret;
   };
 
-  _proto3.finishCommand = function finishCommand() {
-    if (this.commandIndex === this.commands.length - 1) this.finish(commandStatusToTestStatus(this.currentCommand.status));else this.commandIndex++;
-  };
+  _proto3.finishCommandAsync = /*#__PURE__*/function () {
+    var _finishCommandAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee10() {
+      return regenerator_default().wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              if (!(this.getCommandIndex() === this.commands.length - 1)) {
+                _context10.next = 4;
+                break;
+              }
+
+              this.finish(commandStatusToTestStatus(this.currentCommand.status));
+              _context10.next = 6;
+              break;
+
+            case 4:
+              _context10.next = 6;
+              return this.setCommandIndex(this.getCommandIndex() + 1);
+
+            case 6:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10, this);
+    }));
+
+    function finishCommandAsync() {
+      return _finishCommandAsync.apply(this, arguments);
+    }
+
+    return finishCommandAsync;
+  }();
 
   (0,createClass/* default */.Z)(JDTestRunner, [{
     key: "status",
@@ -1806,20 +2153,6 @@ var JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
       return this.testSpec.prompt;
     }
   }, {
-    key: "commandIndex",
-    get: function get() {
-      return this._commandIndex;
-    },
-    set: function set(index) {
-      if (this._commandIndex !== index) {
-        var _this$currentCommand2;
-
-        this._commandIndex = index;
-        (_this$currentCommand2 = this.currentCommand) === null || _this$currentCommand2 === void 0 ? void 0 : _this$currentCommand2.start();
-        this.emit(constants/* CHANGE */.Ver);
-      }
-    }
-  }, {
     key: "hasEvent",
     get: function get() {
       return this._currentEvent != undefined;
@@ -1842,7 +2175,7 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     _this6 = _JDServiceClient.call(this, service) || this;
     _this6._testIndex = -1;
     _this6.testSpec = testSpec;
-    _this6._env = new environment/* VMServiceEnvironment */.Kx(service);
+    _this6._env = new environment/* VMServiceEnvironment */.K(service);
     _this6.tests = _this6.testSpec.tests.map(function (t) {
       return new JDTestRunner((0,assertThisInitialized/* default */.Z)(_this6), t);
     });
@@ -1851,20 +2184,62 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
       t.events.forEach(function (s) {
         var eventName = s.substr(s.indexOf(".") + 1);
 
-        _this6._env.registerEvent(eventName, function () {
+        _this6._env.registerEvent(eventName, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee11() {
           var _this6$currentTest;
 
-          (_this6$currentTest = _this6.currentTest) === null || _this6$currentTest === void 0 ? void 0 : _this6$currentTest.eventChange(eventName);
-        });
+          return regenerator_default().wrap(function _callee11$(_context11) {
+            while (1) {
+              switch (_context11.prev = _context11.next) {
+                case 0:
+                  _context11.prev = 0;
+                  _context11.next = 3;
+                  return (_this6$currentTest = _this6.currentTest) === null || _this6$currentTest === void 0 ? void 0 : _this6$currentTest.eventChangeAsync(eventName);
+
+                case 3:
+                  _context11.next = 7;
+                  break;
+
+                case 5:
+                  _context11.prev = 5;
+                  _context11.t0 = _context11["catch"](0);
+
+                case 7:
+                case "end":
+                  return _context11.stop();
+              }
+            }
+          }, _callee11, null, [[0, 5]]);
+        })));
       });
       t.registers.forEach(function (s) {
         var regName = s.substr(s.indexOf(".") + 1);
 
-        _this6._env.registerRegister(regName, function () {
+        _this6._env.registerRegister(regName, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee12() {
           var _this6$currentTest2;
 
-          (_this6$currentTest2 = _this6.currentTest) === null || _this6$currentTest2 === void 0 ? void 0 : _this6$currentTest2.envChange();
-        });
+          return regenerator_default().wrap(function _callee12$(_context12) {
+            while (1) {
+              switch (_context12.prev = _context12.next) {
+                case 0:
+                  _context12.prev = 0;
+                  _context12.next = 3;
+                  return (_this6$currentTest2 = _this6.currentTest) === null || _this6$currentTest2 === void 0 ? void 0 : _this6$currentTest2.envChangeAsync();
+
+                case 3:
+                  _context12.next = 7;
+                  break;
+
+                case 5:
+                  _context12.prev = 5;
+                  _context12.t0 = _context12["catch"](0);
+
+                case 7:
+                case "end":
+                  return _context12.stop();
+              }
+            }
+          }, _callee12, null, [[0, 5]]);
+        })));
       });
     });
 
@@ -1875,9 +2250,29 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
 
   var _proto4 = JDServiceTestRunner.prototype;
 
-  _proto4.refreshEnvironment = function refreshEnvironment() {
-    this._env.refreshEnvironment();
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _proto4.refreshEnvironmentAsync = /*#__PURE__*/function () {
+    var _refreshEnvironmentAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee13() {
+      return regenerator_default().wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.next = 2;
+              return this._env.refreshRegistersAsync();
+
+            case 2:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13, this);
+    }));
+
+    function refreshEnvironmentAsync() {
+      return _refreshEnvironmentAsync.apply(this, arguments);
+    }
+
+    return refreshEnvironmentAsync;
+  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
   _proto4.lookup = function lookup(e) {
@@ -1885,9 +2280,31 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
-  _proto4.writeRegister = function writeRegister(regName, val) {
-    return this._env.writeRegister(regName, val);
-  };
+  _proto4.writeRegisterAsync =
+  /*#__PURE__*/
+  function () {
+    var _writeRegisterAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee14(regName, val) {
+      return regenerator_default().wrap(function _callee14$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+              _context14.next = 2;
+              return this._env.writeRegisterAsync(regName, val);
+
+            case 2:
+            case "end":
+              return _context14.stop();
+          }
+        }
+      }, _callee14, this);
+    }));
+
+    function writeRegisterAsync(_x4, _x5) {
+      return _writeRegisterAsync.apply(this, arguments);
+    }
+
+    return writeRegisterAsync;
+  }();
 
   _proto4.stats = function stats() {
     var r = {
@@ -2326,4 +2743,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-de14ea4a15b51f76aa83.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-311d96f7a8b34b704fe6.js.map

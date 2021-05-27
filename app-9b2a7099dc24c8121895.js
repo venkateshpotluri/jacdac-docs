@@ -70096,7 +70096,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "90beaf7863b72d03e17533f448fff8e6facbe7bd";
+  var sha = "ab1f797571c7c83df9d4c46aad4fb1aa9a3ff695";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81321,7 +81321,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-runner-tsx": function componentSrcPagesToolsVmEditorRunnerTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(9922), __webpack_require__.e(8394), __webpack_require__.e(115), __webpack_require__.e(4131), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 81512));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-runner-tsx */[__webpack_require__.e(9922), __webpack_require__.e(8394), __webpack_require__.e(4131), __webpack_require__.e(115), __webpack_require__.e(1297)]).then(__webpack_require__.bind(__webpack_require__, 81512));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(9922), __webpack_require__.e(9142), __webpack_require__.e(8394), __webpack_require__.e(4841), __webpack_require__.e(4131), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 83360));
@@ -86159,4 +86159,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-664c29ec825c1ee68310.js.map
+//# sourceMappingURL=app-9b2a7099dc24c8121895.js.map
