@@ -273,75 +273,6 @@ function DeviceLostAlert(props) {
 
 /***/ }),
 
-/***/ 51001:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ SelectDevice; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(92137);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(65541);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
-/* harmony import */ var _ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15789);
-
-
-
-
-
-
-function SelectDevice(props) {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
-      bus = _useContext.bus;
-
-  var devices = props.devices,
-      deviceId = props.deviceId,
-      onChange = props.onChange;
-
-  var handleDeviceChange = /*#__PURE__*/function () {
-    var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(ev) {
-      var id, device;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              id = ev.target.value;
-              onChange(id);
-              device = bus.node(id);
-              _context.next = 5;
-              return device === null || device === void 0 ? void 0 : device.identify();
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function handleDeviceChange(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
-    helperText: "choose a device",
-    value: deviceId,
-    onChange: handleDeviceChange,
-    disabled: !(devices !== null && devices !== void 0 && devices.length)
-  }, devices === null || devices === void 0 ? void 0 : devices.map(function (dev) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-      key: dev.id,
-      value: dev.id
-    }, dev.describe());
-  }));
-}
-
-/***/ }),
-
 /***/ 29177:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -404,7 +335,7 @@ function useEventRaised(eventName, node, query) {
 
 /***/ }),
 
-/***/ 27617:
+/***/ 5179:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1153,8 +1084,59 @@ function SafeBootAlert() {
 var MenuItem = __webpack_require__(65541);
 // EXTERNAL MODULE: ./src/components/ui/SelectWithLabel.tsx
 var SelectWithLabel = __webpack_require__(15789);
-// EXTERNAL MODULE: ./src/components/select/SelectDevice.tsx
-var SelectDevice = __webpack_require__(51001);
+;// CONCATENATED MODULE: ./src/components/select/SelectDevice.tsx
+
+
+
+
+
+
+function SelectDevice(props) {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var devices = props.devices,
+      deviceId = props.deviceId,
+      onChange = props.onChange;
+
+  var handleDeviceChange = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev) {
+      var id, device;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              id = ev.target.value;
+              onChange(id);
+              device = bus.node(id);
+              _context.next = 5;
+              return device === null || device === void 0 ? void 0 : device.identify();
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleDeviceChange(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react.createElement(SelectWithLabel/* default */.Z, {
+    helperText: "choose a device",
+    value: deviceId,
+    onChange: handleDeviceChange,
+    disabled: !(devices !== null && devices !== void 0 && devices.length)
+  }, devices === null || devices === void 0 ? void 0 : devices.map(function (dev) {
+    return /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
+      key: dev.id,
+      value: dev.id
+    }, dev.describe());
+  }));
+}
 ;// CONCATENATED MODULE: ./src/components/firmware/ManualFirmwareAlert.tsx
 
 
@@ -1226,7 +1208,7 @@ function ManualFirmware() {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(SelectDevice/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(SelectDevice, {
     devices: devices,
     deviceId: deviceId,
     onChange: handleDeviceChange
@@ -1365,4 +1347,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-updater-tsx-c7893e54d58c0d46e669.js.map
+//# sourceMappingURL=component---src-pages-tools-updater-tsx-50bc740561e676f0a287.js.map

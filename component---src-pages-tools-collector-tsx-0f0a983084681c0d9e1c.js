@@ -656,45 +656,6 @@ function useServices(options) {
 
 /***/ }),
 
-/***/ 16354:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ SelectEvent; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65541);
-/* harmony import */ var _ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15789);
-
-
-
-function SelectEvent(props) {
-  var events = props.events,
-      eventId = props.eventId,
-      onChange = props.onChange,
-      friendlyName = props.friendlyName,
-      label = props.label;
-
-  var handleChange = function handleChange(ev) {
-    onChange(ev.target.value);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_SelectWithLabel__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-    helperText: label || "choose an event",
-    value: eventId,
-    onChange: handleChange,
-    disabled: !(events !== null && events !== void 0 && events.length)
-  }, events === null || events === void 0 ? void 0 : events.map(function (ev) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
-      key: ev.id,
-      value: ev.id
-    }, friendlyName ? ev.friendlyName : ev.name);
-  }));
-}
-
-/***/ }),
-
 /***/ 15789:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -812,7 +773,7 @@ function useGridBreakpoints(itemCount) {
 
 /***/ }),
 
-/***/ 85010:
+/***/ 21586:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -867,8 +828,37 @@ var FieldDataSet = __webpack_require__(64616);
 var Trend = __webpack_require__(25090);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
-// EXTERNAL MODULE: ./src/components/select/SelectEvent.tsx
-var SelectEvent = __webpack_require__(16354);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/MenuItem/MenuItem.js
+var MenuItem = __webpack_require__(65541);
+// EXTERNAL MODULE: ./src/components/ui/SelectWithLabel.tsx
+var SelectWithLabel = __webpack_require__(15789);
+;// CONCATENATED MODULE: ./src/components/select/SelectEvent.tsx
+
+
+
+function SelectEvent(props) {
+  var events = props.events,
+      eventId = props.eventId,
+      onChange = props.onChange,
+      friendlyName = props.friendlyName,
+      label = props.label;
+
+  var handleChange = function handleChange(ev) {
+    onChange(ev.target.value);
+  };
+
+  return /*#__PURE__*/react.createElement(SelectWithLabel/* default */.Z, {
+    helperText: label || "choose an event",
+    value: eventId,
+    onChange: handleChange,
+    disabled: !(events !== null && events !== void 0 && events.length)
+  }, events === null || events === void 0 ? void 0 : events.map(function (ev) {
+    return /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
+      key: ev.id,
+      value: ev.id
+    }, friendlyName ? ev.friendlyName : ev.name);
+  }));
+}
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
@@ -1410,7 +1400,7 @@ function Collector() {
     value: prefix,
     variant: "outlined",
     onChange: handlePrefixChange
-  }), /*#__PURE__*/react.createElement(SelectEvent/* default */.Z, {
+  }), /*#__PURE__*/react.createElement(SelectEvent, {
     events: events,
     eventId: triggerEventId,
     onChange: handleTriggerChange,
@@ -1433,4 +1423,4 @@ function Collector() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-collector-tsx-fde3faaf1f9049911b86.js.map
+//# sourceMappingURL=component---src-pages-tools-collector-tsx-0f0a983084681c0d9e1c.js.map
