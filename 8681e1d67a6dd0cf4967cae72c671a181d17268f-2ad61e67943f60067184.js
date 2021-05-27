@@ -885,6 +885,8 @@ var IT4Functions = [{
 /* harmony export */   "PY": function() { return /* binding */ JACDAC_ROLE_SERVICE_BOUND; },
 /* harmony export */   "AH": function() { return /* binding */ JACDAC_ROLE_SERVICE_UNBOUND; },
 /* harmony export */   "Ex": function() { return /* binding */ JACDAC_ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "kX": function() { return /* binding */ JACDAC_VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "IB": function() { return /* binding */ JACDAC_VM_COMMAND_COMPLETED; },
 /* harmony export */   "D1": function() { return /* binding */ JDVMError; }
 /* harmony export */ });
 /* unused harmony exports JACDAC_VM_ERROR, default */
@@ -896,6 +898,8 @@ var JACDAC_VM_ERROR = "JacdacVMError";
 var JACDAC_ROLE_SERVICE_BOUND = "JacdacVMRoleServiceBound";
 var JACDAC_ROLE_SERVICE_UNBOUND = "JacdacVMRoleServiceUnbound";
 var JACDAC_ROLE_HAS_NO_SERVICE = "JacdacVMRoleHasNoService";
+var JACDAC_VM_COMMAND_ATTEMPTED = "JacdacVMCommandAttempted";
+var JACDAC_VM_COMMAND_COMPLETED = "JacdacVMCommandCompleted";
 var JDVMError = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
 
@@ -1354,13 +1358,21 @@ var IT4CommandRunner = /*#__PURE__*/function () {
   return IT4CommandRunner;
 }();
 
-var IT4HandlerRunner = /*#__PURE__*/function () {
+var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(IT4HandlerRunner, _JDEventSource);
+
   function IT4HandlerRunner(id, env, handler) {
-    this.stopped = false;
-    this.id = id;
-    this.env = env;
-    this.handler = handler;
-    this.reset();
+    var _this3;
+
+    _this3 = _JDEventSource.call(this) || this;
+    _this3.stopped = false;
+    _this3.id = id;
+    _this3.env = env;
+    _this3.handler = handler;
+
+    _this3.reset();
+
+    return _this3;
   }
 
   var _proto3 = IT4HandlerRunner.prototype;
@@ -1377,6 +1389,7 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   };
 
   _proto3.post_process = function post_process() {
+    if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* JACDAC_VM_COMMAND_COMPLETED */.IB, this._currentCommand.blocklyID);
     if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
   } // run-to-completion semantics
   ;
@@ -1405,57 +1418,39 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
                 this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
               }
 
-              _context3.prev = 4;
+              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.blocklyID);
               _context3.next = 7;
               return this._currentCommand.step();
 
             case 7:
-              _context3.next = 12;
-              break;
-
-            case 9:
-              _context3.prev = 9;
-              _context3.t0 = _context3["catch"](4);
-              console.log(_context3.t0);
-
-            case 12:
               this.post_process();
 
-            case 13:
+            case 8:
               if (!(this._currentCommand.status === VMStatus.Completed && this._commandIndex < this.handler.commands.length - 1)) {
-                _context3.next = 27;
+                _context3.next = 17;
                 break;
               }
 
               this._commandIndex++;
               this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
-              _context3.prev = 16;
-              _context3.next = 19;
+              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.blocklyID);
+              _context3.next = 14;
               return this._currentCommand.step();
 
-            case 19:
-              _context3.next = 24;
-              break;
-
-            case 21:
-              _context3.prev = 21;
-              _context3.t1 = _context3["catch"](16);
-              console.log(_context3.t1);
-
-            case 24:
+            case 14:
               this.post_process();
-              _context3.next = 13;
+              _context3.next = 8;
               break;
 
-            case 27:
+            case 17:
               console.log(this.id, "handler-step-end");
 
-            case 28:
+            case 18:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[4, 9], [16, 21]]);
+      }, _callee3, this);
     }));
 
     function step() {
@@ -1473,19 +1468,19 @@ var IT4HandlerRunner = /*#__PURE__*/function () {
   }]);
 
   return IT4HandlerRunner;
-}();
+}(eventsource/* JDEventSource */.a);
 
-var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
-  (0,inheritsLoose/* default */.Z)(IT4ProgramRunner, _JDEventSource);
+var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
+  (0,inheritsLoose/* default */.Z)(IT4ProgramRunner, _JDEventSource2);
 
   function IT4ProgramRunner(program, bus) {
-    var _this3;
+    var _this4;
 
-    _this3 = _JDEventSource.call(this) || this;
-    _this3._waitQueue = [];
-    _this3._running = false;
-    _this3._in_run = false;
-    _this3.program = program;
+    _this4 = _JDEventSource2.call(this) || this;
+    _this4._waitQueue = [];
+    _this4._running = false;
+    _this4._in_run = false;
+    _this4.program = program;
 
     try {
       var _checkProgram = (0,ir/* checkProgram */.i_)(program),
@@ -1496,57 +1491,57 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
         console.debug(program.errors);
       }
 
-      _this3._rm = new MyRoleManager(bus, function (role, service, added) {
+      _this4._rm = new MyRoleManager(bus, function (role, service, added) {
         try {
-          _this3._env.serviceChanged(role, service, added);
+          _this4._env.serviceChanged(role, service, added);
 
           if (added) {
-            _this3.emit(utils/* JACDAC_ROLE_SERVICE_BOUND */.PY, service);
+            _this4.emit(utils/* JACDAC_ROLE_SERVICE_BOUND */.PY, service);
 
-            _this3.program.handlers.forEach(function (h) {
+            _this4.program.handlers.forEach(function (h) {
               regs.forEach(function (r) {
                 if (r.role === role) {
-                  _this3._env.registerRegister(role, r.register);
+                  _this4._env.registerRegister(role, r.register);
                 }
               });
               events.forEach(function (e) {
                 if (e.role === role) {
-                  _this3._env.registerEvent(role, e.event);
+                  _this4._env.registerEvent(role, e.event);
                 }
               });
             });
           } else {
-            _this3.emit(utils/* JACDAC_ROLE_SERVICE_UNBOUND */.AH, service);
+            _this4.emit(utils/* JACDAC_ROLE_SERVICE_UNBOUND */.AH, service);
           }
         } catch (e) {
           console.debug(e);
 
-          _this3.emit(constants/* ERROR */.pnR, e);
+          _this4.emit(constants/* ERROR */.pnR, e);
         }
       });
-      _this3._env = new environment/* VMEnvironment */.u();
+      _this4._env = new environment/* VMEnvironment */.u();
 
-      _this3._env.subscribe(constants/* CHANGE */.Ver, function () {
+      _this4._env.subscribe(constants/* CHANGE */.Ver, function () {
         try {
-          _this3.run();
+          _this4.run();
         } catch (e) {
           console.debug(e);
 
-          _this3.emit(constants/* ERROR */.pnR, e);
+          _this4.emit(constants/* ERROR */.pnR, e);
         }
       });
 
-      _this3._handlers = program.handlers.map(function (h, index) {
-        return new IT4HandlerRunner(index, _this3._env, h);
+      _this4._handlers = program.handlers.map(function (h, index) {
+        return new IT4HandlerRunner(index, _this4._env, h);
       });
-      _this3._waitQueue = _this3._handlers.slice(0);
+      _this4._waitQueue = _this4._handlers.slice(0);
     } catch (e) {
       console.debug(e);
 
-      _this3.emit(constants/* ERROR */.pnR, e);
+      _this4.emit(constants/* ERROR */.pnR, e);
     }
 
-    return _this3;
+    return _this4;
   }
 
   var _proto4 = IT4ProgramRunner.prototype;
@@ -1565,13 +1560,13 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto4.start = function start() {
-    var _this4 = this;
+    var _this5 = this;
 
     if (this._running) return; // already running
 
     try {
       this.program.roles.forEach(function (role) {
-        _this4._rm.addRoleService(role.role, role.serviceShortName);
+        _this5._rm.addRoleService(role.role, role.serviceShortName);
       });
       this._running = true;
       this._in_run = false;
@@ -1764,4 +1759,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-4de12e940becbb8a4fa3.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-2ad61e67943f60067184.js.map

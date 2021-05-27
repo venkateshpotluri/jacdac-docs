@@ -7917,8 +7917,10 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
             }
           }
         }
-    }
+    } // for linking back 
 
+
+    command.blocklyID = block.id;
     return {
       command: command
     };
@@ -8167,4 +8169,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d7d78401abddcc608fa1.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-14c0ebec981623408f33.js.map

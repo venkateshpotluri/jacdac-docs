@@ -1135,6 +1135,8 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 /* harmony export */   "PY": function() { return /* binding */ JACDAC_ROLE_SERVICE_BOUND; },
 /* harmony export */   "AH": function() { return /* binding */ JACDAC_ROLE_SERVICE_UNBOUND; },
 /* harmony export */   "Ex": function() { return /* binding */ JACDAC_ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "kX": function() { return /* binding */ JACDAC_VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "IB": function() { return /* binding */ JACDAC_VM_COMMAND_COMPLETED; },
 /* harmony export */   "D1": function() { return /* binding */ JDVMError; }
 /* harmony export */ });
 /* unused harmony exports JACDAC_VM_ERROR, default */
@@ -1146,6 +1148,8 @@ var JACDAC_VM_ERROR = "JacdacVMError";
 var JACDAC_ROLE_SERVICE_BOUND = "JacdacVMRoleServiceBound";
 var JACDAC_ROLE_SERVICE_UNBOUND = "JacdacVMRoleServiceUnbound";
 var JACDAC_ROLE_HAS_NO_SERVICE = "JacdacVMRoleHasNoService";
+var JACDAC_VM_COMMAND_ATTEMPTED = "JacdacVMCommandAttempted";
+var JACDAC_VM_COMMAND_COMPLETED = "JacdacVMCommandCompleted";
 var JDVMError = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
 
@@ -2743,4 +2747,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-311d96f7a8b34b704fe6.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-4575a4cf5e83158c91d2.js.map
