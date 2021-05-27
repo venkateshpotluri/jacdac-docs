@@ -1393,7 +1393,7 @@ function HIDEvents() {
     };
   }();
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "Accesibility Adapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_23__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "Accessibility Adapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_23__/* .default */ .Z, {
     container: true,
     spacing: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_ui_GridHeader__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
@@ -1494,4 +1494,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-7dc14ffe845609e6f364.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-b2ebbd0b266a3a2af1c9.js.map
