@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-63ce43ee8d7de20291a2.js"
+    "url": "webpack-runtime-eb08b31fc0d9eb7f484f.js"
   },
   {
     "url": "styles.25d43c8191c555f08e52.css"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "c948aa200cf5d93fb27fa0b989df0d8d"
+    "revision": "876a31586b0316cd7d2f2ac0a6a4807b"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "850dd19bd53b4f48224166745ce11536"
+    "revision": "c6575117bfb1254d4be07c44edcc30eb"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "618cb59db7a9bc02632aea161dc8bf19"
+    "revision": "38ac8cedbe4c6f1a5c7fa17d32f18e47"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "fbe0555f6090fdbc916b5ea6ac448627"
+    "revision": "c32e3d40b4679e53145732b37f18e97b"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "1984526cdfd9b55d38470b0c44a582f8"
+    "revision": "4368f6875151662972bc1f11615e4290"
   },
   {
     "url": "polyfill-9516ed41eb423968d48c.js"
@@ -235,7 +235,7 @@ self.__precacheManifest = [
     "url": "7aa4828511caffb203d13996631939214319596f-ce1bd8889de5a7f435f5.js"
   },
   {
-    "url": "f46badf6a1e485aca95f38418db0645a3911806b-2ab8d8cc11fc728a4732.js"
+    "url": "f46badf6a1e485aca95f38418db0645a3911806b-bb8583788a23b646b6a1.js"
   },
   {
     "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-0a8a667cc1add4142465.js"
@@ -1547,7 +1547,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-502a51c4c476d6f8e214.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-8382bbdaaff5d674d872.js`))) {
     return await fetch(event.request)
   }
 

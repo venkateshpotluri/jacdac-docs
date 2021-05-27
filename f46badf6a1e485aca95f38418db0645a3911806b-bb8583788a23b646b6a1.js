@@ -6122,16 +6122,15 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     var _this2 = this;
 
     this.div_ = blockly_default().DropDownDiv.getContentDiv();
-    react_dom.render(this.render(), this.div_); // the div_ size has not been computed yet, so let the browse handle this
+    react_dom.render(this.render(), this.div_);
+    var border = this.sourceBlock_.getColourTertiary();
+    blockly_default().DropDownDiv.setColour(this.sourceBlock_.getColour(), border); // the div_ size has not been computed yet, so let the browse handle this
 
     setTimeout(function () {
-      var border = _this2.sourceBlock_.getColourTertiary();
-
-      blockly_default().DropDownDiv.setColour(_this2.sourceBlock_.getColour(), border);
       blockly_default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
 
       _this2.onMount();
-    }, 1);
+    }, 200);
   };
 
   _proto.hide = function hide() {
@@ -6157,14 +6156,19 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   };
 
   (0,createClass/* default */.Z)(ReactField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {};
+    }
+  }, {
     key: "value",
     get: function get() {
       try {
         var v = JSON.parse(this.getValue());
-        return v || {};
+        return v || this.defaultValue;
       } catch (e) {
         console.warn(e);
-        return {};
+        return this.defaultValue;
       }
     },
     set: function set(v) {
@@ -6175,6 +6179,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   return ReactField;
 }((blockly_default()).Field);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/NoteField.tsx
+
 
 
 
@@ -6247,6 +6252,15 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
     }));
   };
 
+  (0,createClass/* default */.Z)(NoteField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {
+        frequency: 440
+      };
+    }
+  }]);
+
   return NoteField;
 }(ReactField);
 
@@ -6255,6 +6269,7 @@ NoteField.KEY = "jacdac_field_note";
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/hidkeyboardserver.ts
 var hidkeyboardserver = __webpack_require__(41577);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/KeyboardKeyField.tsx
+
 
 
 
@@ -6305,6 +6320,16 @@ var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
       onChange: handleChange
     }));
   };
+
+  (0,createClass/* default */.Z)(KeyboardKeyField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {
+        selector: 4,
+        modifiers: 0
+      };
+    }
+  }]);
 
   return KeyboardKeyField;
 }(ReactField);
@@ -8133,4 +8158,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2ab8d8cc11fc728a4732.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bb8583788a23b646b6a1.js.map
