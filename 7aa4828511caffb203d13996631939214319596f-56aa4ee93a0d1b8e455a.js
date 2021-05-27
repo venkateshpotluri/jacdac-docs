@@ -739,7 +739,8 @@ function DeviceCardHeader(props) {
     action: /*#__PURE__*/react.createElement(DeviceActions/* default */.Z, {
       device: device,
       showReset: showReset,
-      showSettings: showSettings
+      showSettings: showSettings,
+      hideIdentity: showAvatar
     }),
     title: /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
       color: "textPrimary",
@@ -763,4 +764,4 @@ function DeviceCardHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7aa4828511caffb203d13996631939214319596f-0e5bc0aa288f821b4dbb.js.map
+//# sourceMappingURL=7aa4828511caffb203d13996631939214319596f-56aa4ee93a0d1b8e455a.js.map

@@ -1876,7 +1876,10 @@ function SelectHIDEvent(props) {
   }).map(function (ev) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z, {
       item: true,
-      xs: true,
+      xs: 12,
+      sm: 6,
+      lg: 4,
+      xl: 3,
       key: ev.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_components_DeviceCardHeader__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, {
       device: ev.service.device,
@@ -2085,6 +2088,7 @@ function HIDEvents() {
   }, "Add binding")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_31__/* .default */ .Z, {
     open: open,
     onClose: handleCloseAdd,
+    maxWidth: "lg",
     fullWidth: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_32__/* .default */ .Z, null, "Add binding"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_33__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(SelectHIDEvent, {
     onAdd: handleAdd
@@ -2094,4 +2098,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-e752b81c4df16634b9ec.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-1bed7a3dd91c85324b40.js.map
