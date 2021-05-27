@@ -7335,18 +7335,54 @@ function loadBlocks(serviceColor, commandColor) {
       events: events,
       template: "event"
     };
-  });
-  var registerChangeByEventBlocks = registers.filter(function (_ref2) {
-    var service = _ref2.service;
+  }); // generate accessor blocks for event data with numbers
+
+  var eventFieldBlocks = (0,utils/* arrayConcatMany */.ue)(events.map(function (_ref2) {
+    var service = _ref2.service,
+        events = _ref2.events;
+    return events.filter(function (event) {
+      return event.fields.filter(jdspec/* isNumericType */.FV).length > 0;
+    }).map(function (event) {
+      return {
+        service: service,
+        event: event
+      };
+    }).map(function (_ref3) {
+      var service = _ref3.service,
+          event = _ref3.event;
+      return {
+        kind: "block",
+        type: "jacdac_event_field_" + service.shortId + "_" + event.name,
+        message0: event.name + " %1",
+        args0: [{
+          type: "field_dropdown",
+          name: "field",
+          options: event.fields.map(function (field) {
+            return [(0,jdspec/* humanify */.lW)(field.name), field.name];
+          })
+        }],
+        colour: serviceColor(service),
+        inputsInline: true,
+        tooltip: "Data fields of the " + event.name + " event",
+        helpUrl: serviceHelp(service),
+        service: service,
+        event: event,
+        output: "Number",
+        template: "event_field"
+      };
+    });
+  }));
+  var registerChangeByEventBlocks = registers.filter(function (_ref4) {
+    var service = _ref4.service;
     return !service.packets.some(function (pkt) {
       return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
     });
-  }).filter(function (_ref3) {
-    var register = _ref3.register;
+  }).filter(function (_ref5) {
+    var register = _ref5.register;
     return register.fields.length === 1 && (0,jdspec/* isNumericType */.FV)(register.fields[0]) && register.identifier !== constants/* SystemReg.Intensity */.ZJq.Intensity;
-  }).map(function (_ref4) {
-    var service = _ref4.service,
-        register = _ref4.register;
+  }).map(function (_ref6) {
+    var service = _ref6.service,
+        register = _ref6.register;
     return {
       kind: "block",
       type: "jacdac_change_by_events_" + service.shortId + "_" + register.name,
@@ -7372,18 +7408,18 @@ function loadBlocks(serviceColor, commandColor) {
       registerSimples = _splitFilter[0],
       registerComposites = _splitFilter[1];
 
-  var _splitFilter2 = (0,utils/* splitFilter */.ap)(registerSimples, function (_ref5) {
-    var register = _ref5.register;
+  var _splitFilter2 = (0,utils/* splitFilter */.ap)(registerSimples, function (_ref7) {
+    var register = _ref7.register;
     return !!toBlocklyType(register.fields[0]);
   }),
       registerSimpleTypes = _splitFilter2[0],
       registerSimpleOthers = _splitFilter2[1];
 
-  var registerSimplesGetBlocks = registerSimpleTypes.map(function (_ref6) {
+  var registerSimplesGetBlocks = registerSimpleTypes.map(function (_ref8) {
     var _customMessage;
 
-    var service = _ref6.service,
-        register = _ref6.register;
+    var service = _ref8.service,
+        register = _ref8.register;
     return {
       kind: "block",
       type: "jacdac_get_simple_" + service.shortId + "_" + register.name,
@@ -7400,13 +7436,13 @@ function loadBlocks(serviceColor, commandColor) {
       template: "register_get"
     };
   });
-  var registerSimpleEnumTypes = registerSimpleOthers.filter(function (_ref7) {
-    var service = _ref7.service,
-        register = _ref7.register;
+  var registerSimpleEnumTypes = registerSimpleOthers.filter(function (_ref9) {
+    var service = _ref9.service,
+        register = _ref9.register;
     return !!enumInfo(service, register.fields[0]);
-  }).map(function (_ref8) {
-    var service = _ref8.service,
-        register = _ref8.register;
+  }).map(function (_ref10) {
+    var service = _ref10.service,
+        register = _ref10.register;
     return {
       service: service,
       register: register,
@@ -7414,9 +7450,9 @@ function loadBlocks(serviceColor, commandColor) {
       einfo: enumInfo(service, register.fields[0])
     };
   });
-  var registerCompositeEnumTypes = (0,utils/* arrayConcatMany */.ue)(registerComposites.map(function (_ref9) {
-    var service = _ref9.service,
-        register = _ref9.register;
+  var registerCompositeEnumTypes = (0,utils/* arrayConcatMany */.ue)(registerComposites.map(function (_ref11) {
+    var service = _ref11.service,
+        register = _ref11.register;
     return register.fields.map(function (field) {
       return {
         service: service,
@@ -7424,18 +7460,18 @@ function loadBlocks(serviceColor, commandColor) {
         field: field,
         einfo: enumInfo(service, field)
       };
-    }).filter(function (_ref10) {
-      var einfo = _ref10.einfo;
+    }).filter(function (_ref12) {
+      var einfo = _ref12.einfo;
       return !!einfo;
     });
   }));
-  var registerEnumGetBlocks = [].concat((0,toConsumableArray/* default */.Z)(registerSimpleEnumTypes), (0,toConsumableArray/* default */.Z)(registerCompositeEnumTypes)).map(function (_ref11) {
+  var registerEnumGetBlocks = [].concat((0,toConsumableArray/* default */.Z)(registerSimpleEnumTypes), (0,toConsumableArray/* default */.Z)(registerCompositeEnumTypes)).map(function (_ref13) {
     var _customMessage2;
 
-    var service = _ref11.service,
-        register = _ref11.register,
-        field = _ref11.field,
-        einfo = _ref11.einfo;
+    var service = _ref13.service,
+        register = _ref13.register,
+        field = _ref13.field,
+        einfo = _ref13.einfo;
     return {
       kind: "block",
       type: "jacdac_get_enum_" + service.shortId + "_" + register.name + "_" + field.name,
@@ -7460,9 +7496,9 @@ function loadBlocks(serviceColor, commandColor) {
   });
   var registerNumericsGetBlocks = registerComposites.filter(function (re) {
     return re.register.fields.some(jdspec/* isNumericType */.FV);
-  }).map(function (_ref12) {
-    var service = _ref12.service,
-        register = _ref12.register;
+  }).map(function (_ref14) {
+    var service = _ref14.service,
+        register = _ref14.register;
     return {
       kind: "block",
       type: "jacdac_get_numerics_" + service.shortId + "_" + register.name,
@@ -7488,15 +7524,15 @@ function loadBlocks(serviceColor, commandColor) {
       template: "register_get"
     };
   });
-  var registerSetBlocks = registers.filter(function (_ref13) {
-    var register = _ref13.register;
+  var registerSetBlocks = registers.filter(function (_ref15) {
+    var register = _ref15.register;
     return register.kind === "rw";
-  }).filter(function (_ref14) {
-    var register = _ref14.register;
+  }).filter(function (_ref16) {
+    var register = _ref16.register;
     return fieldsSupported(register);
-  }).map(function (_ref15) {
-    var service = _ref15.service,
-        register = _ref15.register;
+  }).map(function (_ref17) {
+    var service = _ref17.service,
+        register = _ref17.register;
     return {
       kind: "block",
       type: "jacdac_set_" + service.shortId + "_" + register.name,
@@ -7514,9 +7550,9 @@ function loadBlocks(serviceColor, commandColor) {
       template: "register_set"
     };
   });
-  var commandBlocks = commands.map(function (_ref16) {
-    var service = _ref16.service,
-        command = _ref16.command;
+  var commandBlocks = commands.map(function (_ref18) {
+    var service = _ref18.service,
+        command = _ref18.command;
     return {
       kind: "block",
       type: "jacdac_command_" + service.shortId + "_" + command.name,
@@ -7534,7 +7570,7 @@ function loadBlocks(serviceColor, commandColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
   var shadowBlocks = [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7826,9 +7862,9 @@ function useToolbox(blockServices) {
         return block.service === service;
       })
     };
-  }).map(function (_ref17) {
-    var service = _ref17.service,
-        serviceBlocks = _ref17.serviceBlocks;
+  }).map(function (_ref19) {
+    var service = _ref19.service,
+        serviceBlocks = _ref19.serviceBlocks;
     return {
       kind: "category",
       name: service.name,
@@ -8862,4 +8898,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0836f2ae3f1256ae80a1.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-109b15c66f323aaf570f.js.map
