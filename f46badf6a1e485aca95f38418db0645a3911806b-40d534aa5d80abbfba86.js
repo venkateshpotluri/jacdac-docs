@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 56624:
+/***/ 33786:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6053,7 +6053,43 @@ var Provider = __webpack_require__(727);
 var react_use_id_hook_esm = __webpack_require__(19640);
 // EXTERNAL MODULE: ./src/components/ui/DarkModeProvider.tsx
 var DarkModeProvider = __webpack_require__(7796);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createMuiTheme.js + 14 modules
+var createMuiTheme = __webpack_require__(81864);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/responsiveFontSizes.js + 1 modules
+var responsiveFontSizes = __webpack_require__(23581);
+// EXTERNAL MODULE: ./node_modules/@material-ui/styles/esm/ThemeProvider/ThemeProvider.js
+var ThemeProvider = __webpack_require__(87761);
+// EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
+var DarkModeContext = __webpack_require__(91350);
+;// CONCATENATED MODULE: ./src/components/ui/AppTheme.tsx
+
+
+
+function AppTheme(props) {
+  var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
+      darkMode = _useContext.darkMode;
+
+  var isDark = darkMode === "dark";
+  var themeDef = {
+    palette: {
+      primary: {
+        main: isDark ? "#56d364" : "#2e7d32"
+      },
+      secondary: {
+        main: "#ffc400"
+      },
+      contrastThreshold: isDark ? 5.1 : 3.1,
+      type: darkMode
+    }
+  };
+  var rawTheme = (0,createMuiTheme/* default */.Z)(themeDef);
+  var theme = (0,responsiveFontSizes/* default */.Z)(rawTheme);
+  return /*#__PURE__*/react.createElement(ThemeProvider/* default */.Z, Object.assign({
+    theme: theme
+  }, props));
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactField.tsx
+
 
 
 
@@ -6156,7 +6192,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   };
 
   _proto.render = function render() {
-    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, this.renderField())));
+    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, this.renderField()))));
   };
 
   _proto.renderField = function renderField() {
@@ -6424,15 +6460,15 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
     var columnspadded = columns + (8 - columns % 8);
     var ledsBytes = (0,utils/* fromHex */.H_)(leds);
     var cvs = document.createElement("canvas");
-    var b = 1;
-    var pw = 4;
-    var ph = 4;
-    var w = rows * pw;
-    var h = columns * ph;
+    var b = 3;
+    var pw = 8;
+    var ph = 8;
+    var w = rows * pw + (rows - 1) * b;
+    var h = columns * ph + (columns - 1) * b;
     cvs.width = w + 2 * b;
     cvs.height = h + 2 * b;
     var ctx = cvs.getContext("2d");
-    ctx.fillStyle = "grey";
+    ctx.fillStyle = "#444";
     ctx.fillRect(b, b, w, h);
     ctx.fillStyle = "blue";
 
@@ -6442,7 +6478,8 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
         var byte = ledsBytes[bitindex >> 3];
         var bit = bitindex % 8;
         var on = 1 === (byte >> bit & 1);
-        if (on) ctx.fillRect(x * pw + b, y * ph + b, pw, ph);
+        ctx.fillStyle = on ? "#ffc400" : "#000";
+        ctx.fillRect(x * (pw + b) + b, y * (ph + b) + b, pw, ph);
       }
     }
 
@@ -6488,6 +6525,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
     };
 
     return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(LEDMatrixWidget, {
+      color: "secondary",
       brightness: 1,
       leds: ledsBytes,
       rows: rows,
@@ -7896,8 +7934,6 @@ function visitWorkspace(workspace, visitor) {
     return visitBlock(block, visitor);
   });
 }
-// EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
-var DarkModeContext = __webpack_require__(91350);
 ;// CONCATENATED MODULE: ./src/components/vm/it4generator.ts
 
 
@@ -8368,4 +8404,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d0e296e057aa2ae1155e.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-40d534aa5d80abbfba86.js.map

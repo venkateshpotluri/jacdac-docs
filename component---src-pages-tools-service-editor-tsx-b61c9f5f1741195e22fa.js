@@ -285,8 +285,8 @@ var Context = __webpack_require__(20392);
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
 var DashboardDeviceItem = __webpack_require__(24301);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 20 modules
-var VMBlockEditor = __webpack_require__(56624);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 21 modules
+var VMBlockEditor = __webpack_require__(33786);
 // EXTERNAL MODULE: ./src/components/ui/PaperBox.tsx
 var PaperBox = __webpack_require__(79739);
 ;// CONCATENATED MODULE: ./src/components/ServiceSpecification.tsx
@@ -1089,4 +1089,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-52b27a6a7a870718c878.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-b61c9f5f1741195e22fa.js.map
