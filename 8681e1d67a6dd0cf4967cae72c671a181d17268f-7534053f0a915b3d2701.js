@@ -1392,7 +1392,11 @@ function VMRunner(props) {
 
   var handleRun = function handleRun() {
     setAutoStart(autoStartDefault);
-    testRunner.start();
+
+    try {
+      testRunner.start();
+    } catch (e) {// TODO expose error here
+    }
   };
 
   var handleCancel = function handleCancel() {
@@ -1413,4 +1417,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-e636e5e9e146bc3e81a1.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-7534053f0a915b3d2701.js.map
