@@ -1012,16 +1012,19 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
     var _this2 = this;
 
     dev.services().forEach(function (s) {
-      var role = Object.keys(_this2._roles).find(function (k) {
-        return _this2.nameMatch(_this2._roles[k][0], s.specification.shortName);
+      var roleNeedingService = Object.keys(_this2._roles).find(function (k) {
+        return !_this2._roles[k].service && _this2.nameMatch(_this2._roles[k].shortName, s.specification.shortName);
       });
 
-      if (role && _this2._devices.indexOf(dev) === -1) {
-        _this2._roles[role] = [role, s];
+      if (roleNeedingService && _this2._devices.indexOf(dev) === -1) {
+        _this2._roles[roleNeedingService] = {
+          shortName: s.specification.shortName,
+          service: s
+        };
 
         _this2._devices.push(dev);
 
-        if (_this2.notify) _this2.notify(role, s, true);
+        if (_this2.notify) _this2.notify(roleNeedingService, s, true);
       }
     });
   };
@@ -1033,21 +1036,25 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
       this._devices = this._devices.filter(function (d) {
         return d !== dev;
       });
-
-      var _role = Object.keys(this._roles).find(function (k) {
-        return dev.services().indexOf(_this3._roles[k][1]) >= 0;
+      var rolesToUnmap = Object.keys(this._roles).filter(function (k) {
+        return dev.services().indexOf(_this3._roles[k].service) >= 0;
       });
 
-      if (_role) {
-        var _service = this._roles[_role][1];
-        this._roles[_role] = [_service.specification.shortName, undefined];
-        if (this.notify) this.notify(_role, _service, false);
+      if (rolesToUnmap.length > 0) {
+        rolesToUnmap.forEach(function (role) {
+          var service = _this3._roles[role].service;
+          _this3._roles[role] = {
+            shortName: service.specification.shortName,
+            service: undefined
+          };
+          if (_this3.notify) _this3.notify(role, service, false);
+        });
       }
     }
   };
 
   _proto.getService = function getService(role) {
-    return this._roles[role][1];
+    return this._roles[role].service;
   };
 
   _proto.nameMatch = function nameMatch(n1, n2) {
@@ -1064,31 +1071,27 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
     });
   };
 
-  _proto.addRoleService = function addRoleService(role, serviceShortName) {
-    if (role in this._roles && this._roles[role][1]) return;
-    this._roles[role] = [serviceShortName, undefined];
+  _proto.addRoleService = function addRoleService(role, shortName) {
+    if (role in this._roles && this._roles[role].service) return;
+    this._roles[role] = {
+      shortName: shortName,
+      service: undefined
+    };
     var existingServices = Object.values(this._roles).filter(function (p) {
-      return p[1];
+      return p.service;
     }).map(function (p) {
-      return p[1];
+      return p.service;
     });
-    var ret = this.getServicesFromName(serviceShortName).filter(function (s) {
+    var ret = this.getServicesFromName(shortName).filter(function (s) {
       return existingServices.indexOf(s) === -1;
     });
 
     if (ret.length > 0) {
-      this._roles[role][1] = ret[0];
+      this._roles[role].service = ret[0];
+
+      this._devices.push(ret[0].device);
+
       this.notify(role, ret[0], true);
-    } else {// spin up a new simulator
-      // let service = serviceSpecificationFromName(serviceShortName)
-      // if (service) {
-      //     let provider = serviceProviderDefinitionFromServiceClass(
-      //         service?.classIdentifier
-      //     )
-      //     if (provider) {
-      //         let serviceProvider = addServiceProvider(this.bus, provider)
-      //     }
-      // }
     }
   };
 
@@ -1800,4 +1803,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-0bbc014c9419b3948c52.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-f59bef70c03e9c5052f6.js.map
