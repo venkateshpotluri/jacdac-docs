@@ -5270,40 +5270,6 @@ var DialogContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(f
 
 /***/ }),
 
-/***/ 32253:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export styles */
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22122);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34621);
-/* harmony import */ var _Typography__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(80453);
-
-
-
-
-var styles = {
-  /* Styles applied to the root element. */
-  root: {
-    marginBottom: 12
-  }
-};
-var DialogContentText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(function DialogContentText(props, ref) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Typography__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)({
-    component: "p",
-    variant: "body1",
-    color: "textSecondary",
-    ref: ref
-  }, props));
-});
- false ? 0 : void 0;
-/* harmony default export */ __webpack_exports__["Z"] = ((0,_styles_withStyles__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(styles, {
-  name: 'MuiDialogContentText'
-})(DialogContentText));
-
-/***/ }),
-
 /***/ 96422:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -66319,8 +66285,8 @@ var Dialog = __webpack_require__(52468);
 var DialogTitle = __webpack_require__(96422);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
 var DialogContent = __webpack_require__(65733);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
-var DialogContentText = __webpack_require__(32253);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
 var DialogActions = __webpack_require__(89952);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
@@ -66378,17 +66344,50 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
     }
   });
 });
+
+function LazyDeviceImage(props) {
+  var device = props.device;
+  var specification = (0,useDeviceSpecification/* default */.Z)(device);
+  var imageUrl = (0,useDeviceImage/* default */.Z)(specification, "lazy");
+  var largeImageUrl = (0,useDeviceImage/* default */.Z)(specification);
+
+  var _useState = (0,react.useState)(false),
+      showLarge = _useState[0],
+      setShowLarge = _useState[1];
+
+  if (!imageUrl) return null;
+
+  var handleLargeLoaded = function handleLargeLoaded() {
+    return setShowLarge(true);
+  };
+
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("img", {
+    style: {
+      width: "100%",
+      display: showLarge ? undefined : "none"
+    },
+    src: largeImageUrl,
+    onLoad: handleLargeLoaded
+  }), !showLarge && /*#__PURE__*/react.createElement("img", {
+    style: {
+      minHeight: "18rem",
+      width: "100%",
+      filter: "blur"
+    },
+    src: imageUrl
+  }));
+}
+
 function DeviceAvatar(props) {
   var device = props.device,
       size = props.size;
 
-  var _useState = (0,react.useState)(false),
-      identifyDialog = _useState[0],
-      setIdentifyDialog = _useState[1];
+  var _useState2 = (0,react.useState)(false),
+      identifyDialog = _useState2[0],
+      setIdentifyDialog = _useState2[1];
 
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
   var imageUrl = (0,useDeviceImage/* default */.Z)(specification, "avatar");
-  var largeImageUrl = (0,useDeviceImage/* default */.Z)(specification);
   var name = (0,useDeviceName/* default */.Z)(device);
   var classes = useStyles();
   var sizeClassName = size === "small" ? classes.small : size === "large" ? classes.large : undefined;
@@ -66488,12 +66487,21 @@ function DeviceAvatar(props) {
   }), imageUrl && /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
     open: identifyDialog,
     onClose: handleCloseIdentify
-  }, /*#__PURE__*/react.createElement(DialogTitle/* default */.Z, null, "Identifying ", device.friendlyName, "..."), /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, /*#__PURE__*/react.createElement("img", {
-    alt: "image of " + device.friendlyName,
-    src: largeImageUrl
-  }), /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(DialogTitle/* default */.Z, null, "Identifying ", device.friendlyName, "..."), /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    alignItems: "center",
+    alignContent: "center"
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(LazyDeviceImage, {
+    device: device
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
-  }, "Look for four blinks in around 2 seconds with the blue LED."))), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
+  }, "Look for four blinks in around 2 seconds with the blue LED.")))), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
     variant: "outlined",
     onClick: handleCloseIdentify
   }, "Dismiss"))));
@@ -69891,7 +69899,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "fab2860261fc713342d12d31b86def6728e4d9b5";
+  var sha = "b36ee308c69bf5d46582b9fd537130d596184edf";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -85954,4 +85962,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c8d2a75ec9e8c24fca7a.js.map
+//# sourceMappingURL=app-113dd2fc652a3c727394.js.map
