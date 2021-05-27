@@ -65941,7 +65941,7 @@ var DashboardRainGauge = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6214).then(__webpack_require__.bind(__webpack_require__, 46214));
 });
 var DashboardLEDMatrix = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(7542), __webpack_require__.e(9979)]).then(__webpack_require__.bind(__webpack_require__, 79979));
+  return Promise.all(/* import() */[__webpack_require__.e(7542), __webpack_require__.e(7978)]).then(__webpack_require__.bind(__webpack_require__, 77978));
 });
 var DashboardWindDirection = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6902).then(__webpack_require__.bind(__webpack_require__, 26902));
@@ -70096,7 +70096,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c0822c65aeb640e8fecf73daeed1b729c5ad939b";
+  var sha = "90beaf7863b72d03e17533f448fff8e6facbe7bd";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86159,4 +86159,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ed969c3c9a43faf1a3c8.js.map
+//# sourceMappingURL=app-664c29ec825c1ee68310.js.map

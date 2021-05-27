@@ -6114,6 +6114,14 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     }
   };
 
+  _proto.setSourceBlock = function setSourceBlock(block) {
+    _Blockly$Field.prototype.setSourceBlock.call(this, block);
+
+    this.onSourceBlockChanged();
+  };
+
+  _proto.onSourceBlockChanged = function onSourceBlockChanged() {};
+
   _proto.onMount = function onMount() {};
 
   _proto.onUnmount = function onUnmount() {};
@@ -6274,6 +6282,7 @@ var hidkeyboardserver = __webpack_require__(41577);
 
 
 
+
 var KeyboardKeyInput = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(2860)]).then(__webpack_require__.bind(__webpack_require__, 82860));
 });
@@ -6319,6 +6328,16 @@ var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
       onChange: handleChange
     }));
   };
+
+  (0,createClass/* default */.Z)(KeyboardKeyField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {
+        selector: 4,
+        modifiers: 0
+      };
+    }
+  }]);
 
   return KeyboardKeyField;
 }(ReactField);
@@ -8147,4 +8166,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a4f57726b9e817cbdd38.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-aae35e45bfb513385115.js.map
