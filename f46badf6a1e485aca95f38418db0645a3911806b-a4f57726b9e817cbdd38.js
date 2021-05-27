@@ -6274,7 +6274,6 @@ var hidkeyboardserver = __webpack_require__(41577);
 
 
 
-
 var KeyboardKeyInput = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(2860)]).then(__webpack_require__.bind(__webpack_require__, 82860));
 });
@@ -6320,16 +6319,6 @@ var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
       onChange: handleChange
     }));
   };
-
-  (0,createClass/* default */.Z)(KeyboardKeyField, [{
-    key: "defaultValue",
-    get: function get() {
-      return {
-        selector: 4,
-        modifiers: 0
-      };
-    }
-  }]);
 
   return KeyboardKeyField;
 }(ReactField);
@@ -8158,4 +8147,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bb8583788a23b646b6a1.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a4f57726b9e817cbdd38.js.map
