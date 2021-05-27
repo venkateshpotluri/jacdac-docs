@@ -1395,7 +1395,8 @@ function VMRunner(props) {
 
     try {
       testRunner.start();
-    } catch (e) {// TODO expose error here
+    } catch (e) {
+      console.debug(e);
     }
   };
 
@@ -1417,4 +1418,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-7534053f0a915b3d2701.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-f4fcae9c8d878a8ca9ce.js.map
