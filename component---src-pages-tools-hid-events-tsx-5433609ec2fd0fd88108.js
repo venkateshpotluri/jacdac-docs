@@ -1205,6 +1205,7 @@ function HIDEvents() {
       setOpen = _useState6[1];
 
   var gridBreakpoints = (0,_components_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z)();
+  var exportRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
 
   var handleOpenAdd = function handleOpenAdd() {
     return setOpen(true);
@@ -1306,6 +1307,13 @@ function HIDEvents() {
     };
   };
 
+  var exportUri = hidEvents && "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_9__/* .clone */ .d9)(hidEvents).map(function (h) {
+    delete h.key;
+    return h;
+  })));
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (exportRef.current) exportRef.current.download = "bindings.json";
+  }, [exportRef.current]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h1", null, "Accesibility Adapter"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, {
     container: true,
     spacing: 1
@@ -1368,11 +1376,22 @@ function HIDEvents() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, {
     item: true,
     xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, {
+    container: true,
+    spacing: 1
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, {
+    item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_13__.Button, {
     variant: "contained",
     color: "primary",
     onClick: handleOpenAdd
-  }, "Add binding")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_27__/* .default */ .Z, {
+  }, "Add binding")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_13__.Button, {
+    ref: exportRef,
+    variant: "outlined",
+    href: exportUri
+  }, "Export")))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_27__/* .default */ .Z, {
     open: open,
     onClose: handleCloseAdd,
     maxWidth: "lg",
@@ -1385,4 +1404,4 @@ function HIDEvents() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-44cf1979079af369956a.js.map
+//# sourceMappingURL=component---src-pages-tools-hid-events-tsx-5433609ec2fd0fd88108.js.map
