@@ -6244,7 +6244,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   NoteField.fromJson = function fromJson(options) {
-    return new NoteField(options);
+    return new NoteField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
   };
 
   var _proto = NoteField.prototype;
@@ -6332,7 +6332,7 @@ var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   KeyboardKeyField.fromJson = function fromJson(options) {
-    return new KeyboardKeyField(options);
+    return new KeyboardKeyField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
   };
 
   var _proto = KeyboardKeyField.prototype;
@@ -6436,7 +6436,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
 
 
   LEDMatrixField.fromJson = function fromJson(options) {
-    return new LEDMatrixField(options);
+    return new LEDMatrixField(options === null || options === void 0 ? void 0 : options.value);
   };
 
   var _proto = LEDMatrixField.prototype;
@@ -8404,4 +8404,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-40d534aa5d80abbfba86.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a826e0ff3afb16dd8202.js.map
