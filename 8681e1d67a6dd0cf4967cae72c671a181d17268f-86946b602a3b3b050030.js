@@ -976,16 +976,20 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
 
   var _proto = MyRoleManager.prototype;
 
+  _proto.roles = function roles() {
+    return this._roles;
+  };
+
   _proto.addServices = function addServices(dev) {
     var _this2 = this;
 
     dev.services().forEach(function (s) {
       var role = Object.keys(_this2._roles).find(function (k) {
-        return typeof _this2._roles[k] === "string" && _this2.nameMatch(_this2._roles[k], s.specification.shortName);
+        return _this2.nameMatch(_this2._roles[k][0], s.specification.shortName);
       });
 
       if (role && _this2._devices.indexOf(dev) === -1) {
-        _this2._roles[role] = s;
+        _this2._roles[role] = [role, s];
 
         _this2._devices.push(dev);
 
@@ -1003,20 +1007,19 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
       });
 
       var _role = Object.keys(this._roles).find(function (k) {
-        return typeof _this3._roles[k] !== "string" && dev.services().indexOf(_this3._roles[k]) >= 0;
+        return dev.services().indexOf(_this3._roles[k][1]) >= 0;
       });
 
       if (_role) {
-        var _service = this._roles[_role];
-        this._roles[_role] = this._roles[_role].specification.shortName;
+        var _service = this._roles[_role][1];
+        this._roles[_role] = [_service.specification.shortName, undefined];
         if (this.notify) this.notify(_role, _service, false);
       }
     }
   };
 
   _proto.getService = function getService(role) {
-    var s = this._roles[role];
-    return !s || typeof s === "string" ? undefined : s;
+    return this._roles[role][1];
   };
 
   _proto.nameMatch = function nameMatch(n1, n2) {
@@ -1034,18 +1037,19 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.addRoleService = function addRoleService(role, serviceShortName) {
-    var s = this._roles[role];
-    if (s && typeof s !== "string") return;
-    this._roles[role] = serviceShortName;
-    var existingServices = Object.values(this._roles).filter(function (s) {
-      return typeof s !== "string";
+    if (role in this._roles && this._roles[role][1]) return;
+    this._roles[role] = [serviceShortName, undefined];
+    var existingServices = Object.values(this._roles).filter(function (p) {
+      return p[1];
+    }).map(function (p) {
+      return p[1];
     });
     var ret = this.getServicesFromName(serviceShortName).filter(function (s) {
       return existingServices.indexOf(s) === -1;
     });
 
     if (ret.length > 0) {
-      this._roles[role] = ret[0];
+      this._roles[role][1] = ret[0];
       this.notify(role, ret[0], true);
     } else {// spin up a new simulator
       // let service = serviceSpecificationFromName(serviceShortName)
@@ -1389,7 +1393,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto3.post_process = function post_process() {
-    if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* JACDAC_VM_COMMAND_COMPLETED */.IB, this._currentCommand.blocklyID);
+    if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* JACDAC_VM_COMMAND_COMPLETED */.IB, this._currentCommand.gc.blocklyId);
     if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
   } // run-to-completion semantics
   ;
@@ -1418,7 +1422,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
                 this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
               }
 
-              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.blocklyID);
+              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.gc.blocklyId);
               _context3.next = 7;
               return this._currentCommand.step();
 
@@ -1433,7 +1437,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 
               this._commandIndex++;
               this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
-              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.blocklyID);
+              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.gc.blocklyId);
               _context3.next = 14;
               return this._currentCommand.step();
 
@@ -1498,6 +1502,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
           if (added) {
             _this4.emit(utils/* JACDAC_ROLE_SERVICE_BOUND */.PY, service);
 
+            _this4.emit(constants/* CHANGE */.Ver);
+
             _this4.program.handlers.forEach(function (h) {
               regs.forEach(function (r) {
                 if (r.role === role) {
@@ -1512,6 +1518,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
             });
           } else {
             _this4.emit(utils/* JACDAC_ROLE_SERVICE_UNBOUND */.AH, service);
+
+            _this4.emit(constants/* CHANGE */.Ver);
           }
         } catch (e) {
           console.debug(e);
@@ -1682,6 +1690,11 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
       var ret = this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
       return ret;
     }
+  }, {
+    key: "roles",
+    get: function get() {
+      return this._rm.roles();
+    }
   }]);
 
   return IT4ProgramRunner;
@@ -1759,4 +1772,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-2ad61e67943f60067184.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-86946b602a3b3b050030.js.map
