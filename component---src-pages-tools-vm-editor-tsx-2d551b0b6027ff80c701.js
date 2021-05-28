@@ -672,6 +672,7 @@ function VMEditor(props) {
 
   var storageKey = props.storageKey,
       showDashboard = props.showDashboard;
+  var runnerRef = (0,react.useRef)();
 
   var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey || VM_SOURCE_STORAGE_KEY, ""),
       xml = _useLocalStorage[0],
@@ -716,13 +717,15 @@ function VMEditor(props) {
     initialXml: xml,
     onXmlChange: handleXml,
     onJSONChange: handleJSON,
-    onIT4ProgramChange: handleI4Program
+    onIT4ProgramChange: handleI4Program,
+    runner: runnerRef.current
   }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(VMRunner/* default */.Z, {
     program: program,
-    autoStart: true
+    autoStart: true,
+    runnerRef: runnerRef
   })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Diagnostics, {
     program: program,
     source: source,
@@ -748,4 +751,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e872cc8dc434d693e9ae.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2d551b0b6027ff80c701.js.map

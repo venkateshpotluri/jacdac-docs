@@ -8275,7 +8275,8 @@ function VMBlockEditor(props) {
       onJSONChange = props.onJSONChange,
       onIT4ProgramChange = props.onIT4ProgramChange,
       initialXml = props.initialXml,
-      serviceClass = props.serviceClass;
+      serviceClass = props.serviceClass,
+      runner = props.runner;
   var classes = useStyles();
 
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
@@ -8404,4 +8405,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a826e0ff3afb16dd8202.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3948aaa4f2f684fe2d86.js.map

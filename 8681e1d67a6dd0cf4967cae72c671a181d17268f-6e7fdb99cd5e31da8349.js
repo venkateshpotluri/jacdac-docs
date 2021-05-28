@@ -1749,7 +1749,8 @@ var Stop = __webpack_require__(34257);
 
 function VMRunner(props) {
   var program = props.program,
-      autoStartDefault = props.autoStart;
+      autoStartDefault = props.autoStart,
+      runnerRef = props.runnerRef;
 
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
@@ -1765,9 +1766,11 @@ function VMRunner(props) {
   (0,react.useEffect)(function () {
     var runner = program && new IT4ProgramRunner(program, bus);
     setTestRunner(runner);
+    if (runner && runnerRef) runnerRef.current = runner;
     if (runner && autoStart) runner.start();
     return function () {
-      return runner === null || runner === void 0 ? void 0 : runner.cancel();
+      runner === null || runner === void 0 ? void 0 : runner.cancel();
+      runnerRef.current = undefined;
     };
   }, [program, autoStart]);
   var disabled = !testRunner;
@@ -1803,4 +1806,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-f59bef70c03e9c5052f6.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-6e7fdb99cd5e31da8349.js.map
