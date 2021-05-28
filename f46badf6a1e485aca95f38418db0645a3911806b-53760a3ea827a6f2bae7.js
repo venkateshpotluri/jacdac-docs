@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 33786:
+/***/ 9426:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6410,9 +6410,85 @@ function child(parent, name, props) {
   parent.appendChild(el);
   return el;
 }
+;// CONCATENATED MODULE: ./src/components/vm/fields/ReactImageField.tsx
+
+
+
+
+
+var ReactImageField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(ReactImageField, _ReactField);
+
+  function ReactImageField(value, width, height) {
+    var _this;
+
+    if (width === void 0) {
+      width = 32;
+    }
+
+    if (height === void 0) {
+      height = 32;
+    }
+
+    _this = _ReactField.call(this, value) || this;
+    _this.size_ = new (blockly_default()).utils.Size(width, height);
+    return _this;
+  }
+
+  var _proto = ReactImageField.prototype;
+
+  _proto.setSize = function setSize(width, height) {
+    this.size_ = new (blockly_default()).utils.Size(width, height);
+
+    if (this.img) {
+      this.img.setAttribute("width", width + "");
+      this.img.setAttribute("height", height + "");
+    }
+  };
+
+  _proto.updateImage = function updateImage() {
+    var imgUri = this.renderValue();
+
+    if (imgUri) {
+      var _this$img, _this$img2;
+
+      (_this$img = this.img) === null || _this$img === void 0 ? void 0 : _this$img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", imgUri);
+      (_this$img2 = this.img) === null || _this$img2 === void 0 ? void 0 : _this$img2.setAttribute("alt", this.getText());
+    }
+  }
+  /**
+   * Renders the value to a data uri string
+   */
+  ;
+
+  _proto.renderValue = function renderValue() {
+    return undefined;
+  };
+
+  _proto.initView = function initView() {
+    var _this$size_ = this.size_,
+        width = _this$size_.width,
+        height = _this$size_.height;
+    this.img = child(this.fieldGroup_, "image", {
+      height: height,
+      width: width,
+      alt: this.getText()
+    });
+    this.updateImage();
+  };
+
+  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    this.value_ = newValue;
+    this.updateImage();
+  };
+
+  _proto.updateSize_ = function updateSize_() {};
+
+  return ReactImageField;
+}(ReactField);
+
+
 ;// CONCATENATED MODULE: ./src/components/vm/fields/LEDMatrixField.tsx
-
-
 
 
 
@@ -6423,15 +6499,11 @@ var LEDMatrixWidget = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 71598));
 });
 
-var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
-  (0,inheritsLoose/* default */.Z)(LEDMatrixField, _ReactField);
+var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
+  (0,inheritsLoose/* default */.Z)(LEDMatrixField, _ReactImageField);
 
   function LEDMatrixField(value) {
-    var _this;
-
-    _this = _ReactField.call(this, value) || this;
-    _this.size_ = new (blockly_default()).utils.Size(32, 32);
-    return _this;
+    return _ReactImageField.call(this, value) || this;
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -6449,13 +6521,20 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
     return leds + " (" + rows + "x" + columns + ")";
   };
 
-  _proto.renderValue = function renderValue() {
-    var _this$img;
+  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    _ReactImageField.prototype.doValueUpdate_.call(this, newValue);
 
     var _this$value2 = this.value,
-        leds = _this$value2.leds,
         rows = _this$value2.rows,
-        columns = _this$value2.columns; // render current state to LEDmatrix field
+        columns = _this$value2.columns;
+    this.setSize(32, 32 / columns * rows);
+  };
+
+  _proto.renderValue = function renderValue() {
+    var _this$value3 = this.value,
+        leds = _this$value3.leds,
+        rows = _this$value3.rows,
+        columns = _this$value3.columns; // render current state to LEDmatrix field
 
     var columnspadded = columns + (8 - columns % 8);
     var ledsBytes = (0,utils/* fromHex */.H_)(leds);
@@ -6484,31 +6563,11 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
     }
 
     var dataUri = cvs.toDataURL("image/png");
-    (_this$img = this.img) === null || _this$img === void 0 ? void 0 : _this$img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", dataUri);
+    return dataUri;
   };
-
-  _proto.initView = function initView() {
-    var _this$value3 = this.value,
-        rows = _this$value3.rows,
-        columns = _this$value3.columns;
-    var w = this.size_.width;
-    this.img = child(this.fieldGroup_, "image", {
-      height: w / columns * rows | 0,
-      width: w,
-      alt: "LED matrix"
-    });
-    this.renderValue();
-  };
-
-  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
-    this.value_ = newValue;
-    this.renderValue();
-  };
-
-  _proto.updateSize_ = function updateSize_() {};
 
   _proto.renderField = function renderField() {
-    var _this2 = this;
+    var _this = this;
 
     var _this$value4 = this.value,
         leds = _this$value4.leds,
@@ -6517,7 +6576,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
     var ledsBytes = (0,utils/* fromHex */.H_)(leds);
 
     var onChange = function onChange(newLeds) {
-      return _this2.value = {
+      return _this.value = {
         leds: (0,utils/* toHex */.NC)(newLeds),
         rows: rows,
         columns: columns
@@ -6546,7 +6605,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactField) {
   }]);
 
   return LEDMatrixField;
-}(ReactField);
+}(ReactImageField);
 
 LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
@@ -8405,4 +8464,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3948aaa4f2f684fe2d86.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-53760a3ea827a6f2bae7.js.map
