@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 24715:
+/***/ 93316:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6094,6 +6094,7 @@ var Box = __webpack_require__(8266);
 
 
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 
@@ -6102,29 +6103,32 @@ var Box = __webpack_require__(8266);
 
 
 
-/**
- * A base class for react-based field
- * TODO:
- 
-```
-  static fromJson(options) {
-    return new ReactDateField(new Date(options['date']));
-  }
-  
-  onDateSelected_ = (date) => {
-    this.setValue(new Date(date));
-    Blockly.DropDownDiv.hideIfOwner(this, true);
-  }
+var ReactFieldContext = /*#__PURE__*/(0,react.createContext)({
+  value: undefined,
+  onValueChange: undefined
+});
+ReactFieldContext.displayName = "ReactField";
+function ReactFieldProvider(props) {
+  var children = props.children,
+      initialValue = props.value,
+      onFieldValueChange = props.onValueChange;
 
-  getText_() {
-    return this.value_.toLocaleDateString();
+  var _useState = (0,react.useState)(initialValue),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  var onValueChange = function onValueChange(newValue) {
+    setValue(newValue);
+    onFieldValueChange(newValue);
   };
 
-  fromXml(fieldElement) {
-    this.setValue(new Date(fieldElement.textContent));
-  }
-```
-*/
+  return /*#__PURE__*/react.createElement(ReactFieldContext.Provider, {
+    value: {
+      value: value,
+      onValueChange: onValueChange
+    }
+  }, children);
+}
 var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
 
@@ -6195,9 +6199,18 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   };
 
   _proto.render = function render() {
-    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    var _this3 = this;
+
+    var onValueChange = function onValueChange(newValue) {
+      return _this3.value = newValue;
+    };
+
+    return /*#__PURE__*/react.createElement(ReactFieldProvider, {
+      value: this.value,
+      onValueChange: onValueChange
+    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(Box/* default */.Z, {
       m: 1
-    }, this.renderField())))));
+    }, this.renderField()))))));
   };
 
   _proto.renderField = function renderField() {
@@ -6618,9 +6631,7 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slider/Slider.js + 1 modules
 var Slider = __webpack_require__(50514);
-// EXTERNAL MODULE: ./src/components/widgets/ServoWidget.tsx
-var ServoWidget = __webpack_require__(9422);
-;// CONCATENATED MODULE: ./src/components/vm/fields/ServoAngleField.tsx
+;// CONCATENATED MODULE: ./src/components/vm/fields/SliderField.tsx
 
 
 
@@ -6629,28 +6640,24 @@ var ServoWidget = __webpack_require__(9422);
 
 
 
+function FieldWithSlider(props) {
+  var children = props.children;
 
-function ServoFieldWithSlider(props) {
-  var _props$initialAngle = props.initialAngle,
-      initialAngle = _props$initialAngle === void 0 ? 0 : _props$initialAngle,
-      onChange = props.onChange;
-
-  var _useState = (0,react.useState)(initialAngle),
-      angle = _useState[0],
-      setAngle = _useState[1];
+  var _useContext = (0,react.useContext)(ReactFieldContext),
+      value = _useContext.value,
+      onValueChange = _useContext.onValueChange;
 
   var handleChange = /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev, newValue) {
-      var newAngle;
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev, nv) {
+      var newValue;
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              newAngle = newValue;
-              setAngle(newAngle);
-              onChange(newAngle);
+              newValue = nv;
+              onValueChange(newValue);
 
-            case 3:
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -6669,75 +6676,97 @@ function ServoFieldWithSlider(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(ServoWidget/* default */.Z, {
-    angle: angle,
-    offset: 0,
-    color: "secondary",
-    enabled: true
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, children), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Slider/* default */.Z, {
     color: "secondary",
     valueLabelDisplay: "auto",
-    valueLabelFormat: Math.round(angle) + "\xB0",
+    valueLabelFormat: Math.round(value) + "\xB0",
     min: -90,
     max: 90,
     step: 5,
-    value: angle,
+    value: value,
     onChange: handleChange,
     "aria-label": "angle"
   })));
 }
 
-var ServoAngleField = /*#__PURE__*/function (_ReactField) {
-  (0,inheritsLoose/* default */.Z)(ServoAngleField, _ReactField);
+var SliderField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(SliderField, _ReactField);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function SliderField(value, options) {
+    return _ReactField.call(this, value, undefined, options) || this;
+  }
+
+  var _proto = SliderField.prototype;
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react.createElement(FieldWithSlider, null, this.renderWidget());
+  };
+
+  _proto.renderWidget = function renderWidget() {
+    return null;
+  };
+
+  (0,createClass/* default */.Z)(SliderField, [{
+    key: "defaultValue",
+    get: function get() {
+      return 0;
+    }
+  }]);
+
+  return SliderField;
+}(ReactField);
+
+
+;// CONCATENATED MODULE: ./src/components/vm/fields/ServoAngleField.tsx
+
+
+
+
+
+var ServoWidget = /*#__PURE__*/(0,react.lazy)(function () {
+  return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 9422));
+});
+
+function ServiceFieldWidget() {
+  var _useContext = (0,react.useContext)(ReactFieldContext),
+      value = _useContext.value;
+
+  return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ServoWidget, {
+    angle: value,
+    offset: 0,
+    color: "secondary",
+    enabled: true
+  }));
+}
+
+var ServoAngleField = /*#__PURE__*/function (_SliderField) {
+  (0,inheritsLoose/* default */.Z)(ServoAngleField, _SliderField);
 
   function ServoAngleField() {
-    return _ReactField.apply(this, arguments) || this;
+    return _SliderField.apply(this, arguments) || this;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ServoAngleField.fromJson = function fromJson(options) {
-    return new ServoAngleField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
+    return new ServoAngleField(options === null || options === void 0 ? void 0 : options.value, options);
   };
 
   var _proto = ServoAngleField.prototype;
 
   _proto.getText_ = function getText_() {
-    var angle = this.value.angle;
-    return (angle || 0) + "°";
+    return (this.value || 0) + "°";
   };
 
-  _proto.renderField = function renderField() {
-    var _this = this;
-
-    var _this$value$angle = this.value.angle,
-        angle = _this$value$angle === void 0 ? 0 : _this$value$angle;
-
-    var handleChange = function handleChange(newAngle) {
-      _this.value = {
-        angle: newAngle
-      };
-    };
-
-    return /*#__PURE__*/react.createElement(ServoFieldWithSlider, {
-      initialAngle: angle,
-      onChange: handleChange
-    });
+  _proto.renderWidget = function renderWidget() {
+    return /*#__PURE__*/react.createElement(ServiceFieldWidget, null);
   };
-
-  (0,createClass/* default */.Z)(ServoAngleField, [{
-    key: "defaultValue",
-    get: function get() {
-      return {
-        angle: 0
-      };
-    }
-  }]);
 
   return ServoAngleField;
-}(ReactField);
+}(SliderField);
 
 ServoAngleField.KEY = "jacdac_field_servo_angle";
 
@@ -8627,4 +8656,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-fd87afc8c5eddeba87ca.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4999600e0807a724c9a1.js.map

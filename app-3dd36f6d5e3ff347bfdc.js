@@ -65726,7 +65726,7 @@ function DashboardServo(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(ServoWidget/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(ServoWidget.default, {
     angle: angle,
     offset: offset,
     color: color,
@@ -70148,7 +70148,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b25b25905fd4bba55be41f3b3b6b9695b7ed1e25";
+  var sha = "f398c9738ec14f78b44285eee8e4d4a7e15f9769";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72013,8 +72013,9 @@ function PowerButton(props) {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ ServoWidget; }
+/* harmony export */   "default": function() { return /* binding */ ServoWidget; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(48059);
@@ -86282,4 +86283,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3e86483f4d024454d9f9.js.map
+//# sourceMappingURL=app-3dd36f6d5e3ff347bfdc.js.map
