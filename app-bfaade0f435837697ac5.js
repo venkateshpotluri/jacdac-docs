@@ -66583,7 +66583,7 @@ function IdentifyDialog(props) {
   }();
 
   var handleCloseIdentify = function handleCloseIdentify() {
-    return onClose;
+    return onClose();
   };
 
   (0,react.useEffect)(function () {
@@ -70144,7 +70144,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "cf0bf9ab972c374bc8ee01e64d7f1703800e6184";
+  var sha = "35f0995dfe912da0bd5dfc2c1f2a98823930ad9d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86207,4 +86207,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-5af7638998b47927373c.js.map
+//# sourceMappingURL=app-bfaade0f435837697ac5.js.map

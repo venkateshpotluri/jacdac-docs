@@ -964,6 +964,8 @@ var react = __webpack_require__(67294);
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
+var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
 var Chip = __webpack_require__(4998);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
@@ -1748,9 +1750,12 @@ var DeviceAvatar = __webpack_require__(4726);
 var spec = __webpack_require__(13173);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
 var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunner.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -1844,18 +1849,20 @@ function VMRunner(props) {
     return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
       item: true,
       key: role
+    }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+      title: service ? "bound to " + service.device.friendlyName : "start " + specification.name + " simulator"
     }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
       label: role,
       variant: service ? "default" : "outlined",
-      avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+      avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
         device: service.device
-      }),
+      }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
       onClick: handleRoleClick(role, service, specification)
-    }));
+    })));
   }));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-995082e943b0ff8b38a3.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-6b2950e317f93d20df17.js.map
