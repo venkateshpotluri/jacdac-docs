@@ -8226,17 +8226,16 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     var type = top.type,
         inputs = top.inputs;
     var commands = [];
+    var command = undefined;
 
     if (type === WHILE_CONDITION_BLOCK) {
       // this is while (...)
       var condition = inputs[0].child;
-      commands.push({
-        command: {
-          type: "CallExpression",
-          arguments: [blockToExpression(condition)],
-          callee: toIdentifier("awaitCondition")
-        }
-      });
+      command = {
+        type: "CallExpression",
+        arguments: [blockToExpression(condition)],
+        callee: toIdentifier("awaitCondition")
+      };
     } else {
       var def = serviceBlocks.find(function (def) {
         return def.type === type;
@@ -8249,13 +8248,11 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
         case "event":
           {
             var eventName = inputs[0].fields["event"].value;
-            commands.push({
-              command: {
-                type: "CallExpression",
-                arguments: [toMemberExpression(role.toString(), eventName.toString())],
-                callee: toIdentifier("awaitEvent")
-              }
-            });
+            command = {
+              type: "CallExpression",
+              arguments: [toMemberExpression(role.toString(), eventName.toString())],
+              callee: toIdentifier("awaitEvent")
+            };
             break;
           }
 
@@ -8264,18 +8261,20 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
             var _ref4 = def,
                 register = _ref4.register;
             var argument = blockToExpression(inputs[0].child);
-            commands.push({
-              command: {
-                type: "CallExpression",
-                arguments: [toMemberExpression(role.toString(), register.name), argument],
-                callee: toIdentifier("awaitChange")
-              }
-            });
+            command = {
+              type: "CallExpression",
+              arguments: [toMemberExpression(role.toString(), register.name), argument],
+              callee: toIdentifier("awaitChange")
+            };
             break;
           }
       }
-    } // process children
+    }
 
+    commands.push({
+      sourceId: top.id,
+      command: command
+    }); // process children
 
     (_top$children = top.children) === null || _top$children === void 0 ? void 0 : _top$children.forEach(function (child) {
       return commands.push(blockToCommand(child));
@@ -8464,4 +8463,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-79ad80e002da7ef4337c.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-93fae5463bd475b6353f.js.map
