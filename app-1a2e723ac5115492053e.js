@@ -65963,7 +65963,7 @@ var DashboardSpeechSynthesis = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 3887).then(__webpack_require__.bind(__webpack_require__, 83887));
 });
 var DashboardSoilMoisture = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 457).then(__webpack_require__.bind(__webpack_require__, 40457));
+  return __webpack_require__.e(/* import() */ 2459).then(__webpack_require__.bind(__webpack_require__, 72459));
 });
 var DashboardRealTimeClock = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 360).then(__webpack_require__.bind(__webpack_require__, 80360));
@@ -70148,7 +70148,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a22359f4c776aafe70628bf6d1d4d2590c7d1e1d";
+  var sha = "386b4f7cd9857dc90e08489fb470880e9a950a14";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86283,4 +86283,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-91eefa98f3ffe3035029.js.map
+//# sourceMappingURL=app-1a2e723ac5115492053e.js.map

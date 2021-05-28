@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 93316:
+/***/ 71248:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4940,6 +4940,15 @@ function PaperBox(props) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ VMBlockEditor; }
+});
+
+// NAMESPACE OBJECT: ./src/components/vm/useToolbox.ts
+var useToolbox_namespaceObject = {};
+__webpack_require__.r(useToolbox_namespaceObject);
+__webpack_require__.d(useToolbox_namespaceObject, {
+  "Nd": function() { return BUILTIN_TYPES; },
+  "ZP": function() { return useToolbox; },
+  "of": function() { return scanServices; }
 });
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
@@ -6103,6 +6112,7 @@ var Box = __webpack_require__(8266);
 
 
 
+
 var ReactFieldContext = /*#__PURE__*/(0,react.createContext)({
   value: undefined,
   onValueChange: undefined
@@ -6239,7 +6249,24 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   }]);
 
   return ReactField;
-}((blockly_default()).Field);
+}((blockly_default()).Field); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+function toShadowDefinition(fieldType) {
+  (0,utils/* assert */.hu)(!!fieldType.KEY);
+  var type = fieldType.KEY + "_shadow";
+  return {
+    kind: "block",
+    type: type,
+    message0: "%1",
+    args0: [{
+      type: fieldType.KEY,
+      name: "value"
+    }],
+    style: "math_blocks",
+    output: "Number",
+    template: "shadow"
+  };
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/NoteField.tsx
 
 
@@ -6260,7 +6287,6 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
     return _ReactField.apply(this, arguments) || this;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   NoteField.fromJson = function fromJson(options) {
     return new NoteField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
   };
@@ -6327,6 +6353,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
 }(ReactField);
 
 NoteField.KEY = "jacdac_field_note";
+NoteField.SHADOW = toShadowDefinition(NoteField);
 
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/hidkeyboardserver.ts
 var hidkeyboardserver = __webpack_require__(41577);
@@ -6348,7 +6375,6 @@ var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
     return _ReactField.apply(this, arguments) || this;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   KeyboardKeyField.fromJson = function fromJson(options) {
     return new KeyboardKeyField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
   };
@@ -6522,8 +6548,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
 
   function LEDMatrixField(value) {
     return _ReactImageField.call(this, value) || this;
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
+  }
 
   LEDMatrixField.fromJson = function fromJson(options) {
     return new LEDMatrixField(options === null || options === void 0 ? void 0 : options.value);
@@ -6750,7 +6775,6 @@ var ServoAngleField = /*#__PURE__*/function (_SliderField) {
     return _SliderField.apply(this, arguments) || this;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ServoAngleField.fromJson = function fromJson(options) {
     return new ServoAngleField(options === null || options === void 0 ? void 0 : options.value, options);
   };
@@ -6769,6 +6793,7 @@ var ServoAngleField = /*#__PURE__*/function (_SliderField) {
 }(SliderField);
 
 ServoAngleField.KEY = "jacdac_field_servo_angle";
+ServoAngleField.SHADOW = toShadowDefinition(ServoAngleField);
 
 ;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
 
@@ -6776,15 +6801,32 @@ ServoAngleField.KEY = "jacdac_field_servo_angle";
 
 
 
-var registered = false;
+
+var reactFieldShadows;
 function registerFields() {
-  if (registered) return;
-  registered = true;
-  blockly_default().fieldRegistry.register(KeyboardKeyField.KEY, KeyboardKeyField);
-  blockly_default().fieldRegistry.register(NoteField.KEY, NoteField);
-  blockly_default().fieldRegistry.register(LEDMatrixField.KEY, LEDMatrixField);
-  blockly_default().fieldRegistry.register(ServoAngleField.KEY, ServoAngleField);
+  if (reactFieldShadows) return;
+  reactFieldShadows = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var registerType = function registerType(fieldType) {
+    var key = fieldType.KEY;
+    (0,utils/* assert */.hu)(!!key);
+    blockly_default().fieldRegistry.register(key, fieldType);
+    if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
+  };
+
+  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField];
+  fieldTypes.forEach(registerType);
 }
+function fieldShadows() {
+  registerFields();
+  return reactFieldShadows.slice(0);
+}
+;// CONCATENATED MODULE: ./src/components/vm/toolbox.ts
+var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+var WHILE_CONDITION_BLOCK = "jacdac_while_event";
+var WHILE_CONDITION_BLOCK_CONDITION = "condition";
+var WAIT_BLOCK = "jacdac_wait";
+var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -6802,11 +6844,7 @@ function registerFields() {
 
 
 
-var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
-var WHILE_CONDITION_BLOCK = "jacdac_while_event";
-var WHILE_CONDITION_BLOCK_CONDITION = "condition";
-var WAIT_BLOCK = "jacdac_wait";
-var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -6862,7 +6900,7 @@ function loadBlocks(serviceColor, commandColor) {
     field: "_",
     shadow: {
       kind: "block",
-      type: "jacdac_servo_angle"
+      type: ServoAngleField.SHADOW.type
     }
   }];
 
@@ -7045,7 +7083,7 @@ function loadBlocks(serviceColor, commandColor) {
       values: {
         frequency: {
           kind: "block",
-          type: "jacdac_note",
+          type: NoteField.SHADOW.type,
           shadow: true
         },
         duration: {
@@ -7378,27 +7416,7 @@ function loadBlocks(serviceColor, commandColor) {
     };
   });
   var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
-  var shadowBlocks = [{
-    kind: "block",
-    type: "jacdac_note",
-    message0: "%1",
-    args0: [{
-      type: NoteField.KEY,
-      name: "note"
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
-    kind: "block",
-    type: "jacdac_servo_angle",
-    message0: "%1",
-    args0: [{
-      type: ServoAngleField.KEY,
-      name: "angle"
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
+  var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
     message0: "%1",
@@ -7485,7 +7503,7 @@ function loadBlocks(serviceColor, commandColor) {
     }],
     style: "math_blocks",
     output: "Color"
-  }];
+  }]);
   var runtimeBlocks = [{
     kind: "block",
     type: WHILE_CONDITION_BLOCK,
@@ -7579,7 +7597,7 @@ function loadBlocks(serviceColor, commandColor) {
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
   }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), runtimeBlocks, shadowBlocks, mathBlocks); // register field editors
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks); // register field editors
 
   registerFields(); // re-register blocks with blocklys
 
@@ -8351,7 +8369,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
         inputs = block.inputs;
 
     switch (type) {
-      case WAIT_BLOCK:
+      case useToolbox_namespaceObject.WAIT_BLOCK:
         {
           var time = blockToExpression(inputs[0].child);
           command = {
@@ -8421,7 +8439,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     var commands = [];
     var command = undefined;
 
-    if (type === WHILE_CONDITION_BLOCK) {
+    if (type === useToolbox_namespaceObject.WHILE_CONDITION_BLOCK) {
       // this is while (...)
       var condition = inputs[0].child;
       command = {
@@ -8656,4 +8674,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4999600e0807a724c9a1.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a8958b152c598dd8f6f9.js.map
