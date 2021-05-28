@@ -49312,6 +49312,8 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "F5$": function() { return /* binding */ PACKET_EVENT; },
 /* harmony export */   "deN": function() { return /* binding */ PACKET_REPORT; },
 /* harmony export */   "T9O": function() { return /* binding */ PACKET_ANNOUNCE; },
+/* harmony export */   "bBc": function() { return /* binding */ PACKET_INVALID_DATA; },
+/* harmony export */   "fjv": function() { return /* binding */ PACKET_DATA_NORMALIZE; },
 /* harmony export */   "Gb8": function() { return /* binding */ REPORT_RECEIVE; },
 /* harmony export */   "rGZ": function() { return /* binding */ REPORT_UPDATE; },
 /* harmony export */   "pnR": function() { return /* binding */ ERROR; },
@@ -49626,6 +49628,8 @@ var PACKET_EVENT = "packetEvent";
 var PACKET_REPORT = "packetReport";
 var PACKET_ANNOUNCE = "packetAnnounce";
 var PACKET_INVALID_CRC = "packetInvalidCrc";
+var PACKET_INVALID_DATA = "packetInvalidData";
+var PACKET_DATA_NORMALIZE = "packetDataNormalize";
 var REPORT_RECEIVE = "reportReceive";
 var REPORT_UPDATE = "reportUpdate";
 var ERROR = "error";
@@ -54117,9 +54121,8 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
     return (0,pack/* jdunpack */.TE)(this.data, this.packFormat);
   };
 
-  _proto.setValues = function setValues(values, skipChangeEvent) {
-    if (this.readOnly) return; // enforce boundaries
-
+  _proto.normalize = function normalize(values) {
+    // enforce boundaries from spec
     if (!this.skipBoundaryCheck) {
       var _this$specification2;
 
@@ -54135,8 +54138,19 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
           values[fieldi] = value;
         }
       });
-    }
+    } // enforce other boundaries
 
+
+    this.emit(constants/* PACKET_DATA_NORMALIZE */.fjv, values);
+  };
+
+  _proto.shouldNormalize = function shouldNormalize() {
+    return !this.skipBoundaryCheck || this.listenerCount(constants/* PACKET_DATA_NORMALIZE */.fjv);
+  };
+
+  _proto.setValues = function setValues(values, skipChangeEvent) {
+    if (this.readOnly) return;
+    if (this.shouldNormalize()) this.normalize(values);
     var d = (0,pack/* jdpack */.AV)(this.packFormat, values);
 
     if (!(0,utils/* bufferEq */.zo)(this.data, d)) {
@@ -54210,7 +54224,20 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
     } else if (this.identifier >> 8 !== 0x1) {
       // set, non-const
       var changed = false;
-      var d = pkt.data;
+      var d = pkt.data; // unpack and check boundaries
+
+      if (this.shouldNormalize()) {
+        try {
+          // unpack, apply boundaries, repack
+          var values = (0,pack/* jdunpack */.TE)(d, this.packFormat);
+          this.normalize(values);
+          d = (0,pack/* jdpack */.AV)(this.packFormat, values);
+        } catch (e) {
+          // invalid format, refuse
+          this.emit(constants/* PACKET_INVALID_DATA */.bBc, pkt);
+        }
+      } // test if anything changed
+
 
       if (!(0,utils/* bufferEq */.zo)(this.data, d)) {
         this.data = d;
@@ -58668,8 +58695,10 @@ var ServoServer = /*#__PURE__*/function (_JDServiceServer) {
     _this = _JDServiceServer.call(this, constants/* SRV_SERVO */.$X_, options) || this;
 
     var _ref = options || {},
-        minAngle = _ref.minAngle,
-        maxAngle = _ref.maxAngle,
+        _ref$minAngle = _ref.minAngle,
+        minAngle = _ref$minAngle === void 0 ? -90 : _ref$minAngle,
+        _ref$maxAngle = _ref.maxAngle,
+        maxAngle = _ref$maxAngle === void 0 ? 90 : _ref$maxAngle,
         responseSpeed = _ref.responseSpeed,
         stallTorque = _ref.stallTorque;
 
@@ -58680,6 +58709,21 @@ var ServoServer = /*#__PURE__*/function (_JDServiceServer) {
     _this.offset = _this.addRegister(constants/* ServoReg.Offset */.pmu.Offset, [0]);
     _this.responseSpeed = _this.addRegister(constants/* ServoReg.ResponseSpeed */.pmu.ResponseSpeed, responseSpeed !== undefined ? [responseSpeed] : undefined);
     _this.stallTorque = _this.addRegister(constants/* ServoReg.StallTorque */.pmu.StallTorque, stallTorque !== undefined ? [stallTorque] : undefined);
+
+    _this.angle.on(constants/* PACKET_DATA_NORMALIZE */.fjv, function (values) {
+      var angle = values[0];
+
+      var _this$minAngle$values = _this.minAngle.values(),
+          minAngle = _this$minAngle$values[0];
+
+      var _this$maxAngle$values = _this.maxAngle.values(),
+          maxAngle = _this$maxAngle$values[0];
+
+      if (minAngle !== undefined) angle = Math.max(minAngle, angle);
+      if (maxAngle !== undefined) angle = Math.min(maxAngle, angle);
+      values[0] = angle;
+    });
+
     return _this;
   }
 
@@ -65039,8 +65083,8 @@ var ExpandLess = __webpack_require__(16993);
 var useDeviceSpecification = __webpack_require__(77423);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
-var DashboardServiceWidget = __webpack_require__(73205);
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
+var DashboardServiceWidget = __webpack_require__(23756);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -65387,7 +65431,7 @@ function DashboardDevice(props) {
 
 /***/ }),
 
-/***/ 73205:
+/***/ 23756:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65630,9 +65674,65 @@ var servers = __webpack_require__(37801);
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
 var PowerButton = __webpack_require__(2250);
+;// CONCATENATED MODULE: ./src/components/widgets/ServoWidget.tsx
+
+
+
+
+function ServoWidget(props) {
+  var toggleOff = props.toggleOff,
+      angle = props.angle,
+      offset = props.offset,
+      color = props.color,
+      enabled = props.enabled;
+
+  var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
+      background = _useWidgetTheme.background,
+      controlBackground = _useWidgetTheme.controlBackground,
+      active = _useWidgetTheme.active,
+      textPrimary = _useWidgetTheme.textPrimary;
+
+  var cx = 78;
+  var cy = 55;
+  var a = enabled ? angle + (offset || 0) : 0;
+  var transform = "rotate(" + -a + ", " + cx + ", " + cy + ")";
+  var h = 111.406;
+  var w = 158.50195;
+  var pr = 14;
+  var pri = 6;
+  var text = enabled ? Math.round(a) + "\xB0" : "off";
+  return /*#__PURE__*/react.createElement(SvgWidget/* default */.Z, {
+    title: "servo at angle " + angle,
+    width: w,
+    height: h
+  }, /*#__PURE__*/react.createElement("path", {
+    fill: background,
+    d: "M158.502 10.687H0v89.75h158.502z"
+  }), /*#__PURE__*/react.createElement("path", {
+    fill: controlBackground,
+    d: "M125.545 55.641c0-24.994-20.26-45.256-45.254-45.256-17.882.016-34.077 9.446-41.328 25.79-2.655.024-4.192.076-6.35.07-11.158 0-20.204 9.046-20.204 20.204 0 11.158 9.046 20.203 20.203 20.203 2.389-.005 4.354-.332 6.997-.256 7.56 15.59 23.356 24.485 40.682 24.5 24.992 0 45.254-20.264 45.254-45.256z"
+  }), /*#__PURE__*/react.createElement("path", {
+    fill: enabled ? active : background,
+    stroke: active,
+    transform: transform,
+    d: "M93.782 55.623c-.032-3.809-.19-6.403-.352-7.023h-.002c-.93-3.558-6.621-6.73-14.793-6.73-8.17 0-14.649 3.016-14.795 6.73-.25 6.419-4.049 62.795 13.561 62.806 14.308.008 16.52-39.277 16.38-55.783zm-8.05.08a7.178 7.178 0 010 .012 7.178 7.178 0 01-7.179 7.176 7.178 7.178 0 01-7.177-7.176 7.178 7.178 0 017.177-7.178 7.178 7.178 0 017.178 7.166z"
+  }), /*#__PURE__*/react.createElement("text", {
+    x: w / 2,
+    y: 30,
+    textAnchor: "middle",
+    fill: textPrimary
+  }, text), toggleOff && /*#__PURE__*/react.createElement(PowerButton/* default */.Z, {
+    r: pr,
+    ri: pri,
+    cx: w - pr - 4,
+    cy: pr + 14,
+    color: color,
+    strokeWidth: 1.5,
+    off: !enabled,
+    onClick: toggleOff
+  }));
+}
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardServo.tsx
-
-
 
 
 
@@ -65665,7 +65765,6 @@ function DashboardServo(props) {
       visible = props.visible;
   var enabledRegister = service.register(constants/* ServoReg.Enabled */.pmu.Enabled);
   var enabled = (0,useRegisterValue/* useRegisterBoolValue */.I8)(enabledRegister, props);
-  var off = !enabled;
   var angleRegister = service.register(constants/* ServoReg.Angle */.pmu.Angle);
   var angle = useActualAngle(service, visible);
 
@@ -65674,22 +65773,6 @@ function DashboardServo(props) {
 
   var server = (0,useServiceServer/* default */.Z)(service);
   var color = server ? "secondary" : "primary";
-
-  var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
-      background = _useWidgetTheme.background,
-      controlBackground = _useWidgetTheme.controlBackground,
-      active = _useWidgetTheme.active,
-      textPrimary = _useWidgetTheme.textPrimary;
-
-  var cx = 78;
-  var cy = 55;
-  var a = enabled ? angle + (offset || 0) : 0;
-  var transform = "rotate(" + -a + ", " + cx + ", " + cy + ")";
-  var h = 111.406;
-  var w = 158.50195;
-  var pr = 14;
-  var pri = 6;
-  var text = enabled ? Math.round(a) + "\xB0" : "off";
 
   var toggleOff = function toggleOff() {
     return enabledRegister.sendSetBoolAsync(!enabled, true);
@@ -65701,37 +65784,13 @@ function DashboardServo(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(SvgWidget/* default */.Z, {
-    tabIndex: 0,
-    title: "servo at angle " + angle,
-    width: w,
-    height: h
-  }, /*#__PURE__*/react.createElement("path", {
-    fill: background,
-    d: "M158.502 10.687H0v89.75h158.502z"
-  }), /*#__PURE__*/react.createElement("path", {
-    fill: controlBackground,
-    d: "M125.545 55.641c0-24.994-20.26-45.256-45.254-45.256-17.882.016-34.077 9.446-41.328 25.79-2.655.024-4.192.076-6.35.07-11.158 0-20.204 9.046-20.204 20.204 0 11.158 9.046 20.203 20.203 20.203 2.389-.005 4.354-.332 6.997-.256 7.56 15.59 23.356 24.485 40.682 24.5 24.992 0 45.254-20.264 45.254-45.256z"
-  }), /*#__PURE__*/react.createElement("path", {
-    fill: enabled ? active : background,
-    stroke: active,
-    transform: transform,
-    d: "M93.782 55.623c-.032-3.809-.19-6.403-.352-7.023h-.002c-.93-3.558-6.621-6.73-14.793-6.73-8.17 0-14.649 3.016-14.795 6.73-.25 6.419-4.049 62.795 13.561 62.806 14.308.008 16.52-39.277 16.38-55.783zm-8.05.08a7.178 7.178 0 010 .012 7.178 7.178 0 01-7.179 7.176 7.178 7.178 0 01-7.177-7.176 7.178 7.178 0 017.177-7.178 7.178 7.178 0 017.178 7.166z"
-  }), /*#__PURE__*/react.createElement("text", {
-    x: w / 2,
-    y: 30,
-    textAnchor: "middle",
-    fill: textPrimary
-  }, text), /*#__PURE__*/react.createElement(PowerButton/* default */.Z, {
-    r: pr,
-    ri: pri,
-    cx: w - pr - 4,
-    cy: pr + 14,
+  }, /*#__PURE__*/react.createElement(ServoWidget, {
+    angle: angle,
+    offset: offset,
     color: color,
-    strokeWidth: 1.5,
-    off: off,
-    onClick: toggleOff
-  }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    enabled: enabled,
+    toggleOff: toggleOff
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(RegisterInput/* default */.Z, {
@@ -70147,7 +70206,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "620b1099788875fabfcb6809fa9bc407ed68aa4f";
+  var sha = "9283470ac4a8110c0e3211fd44c7f5e3b510c3fa";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -78946,7 +79005,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.42"};
+var package_namespaceObject = {"i8":"1.13.43"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -86210,4 +86269,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-8772cfa64f5e7c6d1098.js.map
+//# sourceMappingURL=app-ff7a1389cb5b051a56b9.js.map

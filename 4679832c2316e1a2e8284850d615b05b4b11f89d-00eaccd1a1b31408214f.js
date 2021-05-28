@@ -952,7 +952,7 @@ function Dashboard(props) {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _DashboardDevice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54886);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
-/* harmony import */ var _DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73205);
+/* harmony import */ var _DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23756);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
 
 
@@ -1088,4 +1088,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4679832c2316e1a2e8284850d615b05b4b11f89d-d0648646dd21ecb1f70d.js.map
+//# sourceMappingURL=4679832c2316e1a2e8284850d615b05b4b11f89d-00eaccd1a1b31408214f.js.map
