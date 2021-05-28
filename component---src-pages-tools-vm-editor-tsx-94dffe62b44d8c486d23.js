@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[274],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1762],{
 
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -446,10 +446,6 @@ function MakeCodeSnippet(props) {
     snippet: snippet
   })));
 }
-// EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
-var Markdown = __webpack_require__(98784);
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
-var Alert = __webpack_require__(6809);
 // EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
 var Suspense = __webpack_require__(69672);
 ;// CONCATENATED MODULE: ./src/components/CodeBlock.tsx
@@ -469,8 +465,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
-
 
 
 
@@ -566,16 +560,6 @@ function CodeBlock(props) {
         renderedSource: children
       });
 
-    case "info":
-    case "error":
-    case "warning":
-    case "success":
-      return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-        severity: language
-      }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
-        source: children.trim()
-      }));
-
     case "vanilla":
       return /*#__PURE__*/react.createElement(HighlightedCode, Object.assign({}, props, {
         className: "javascript",
@@ -589,41 +573,299 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 79739:
+/***/ 91339:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ PaperBox; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19756);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(59355);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8266);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(58063);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ Page; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
+var NoSsr = __webpack_require__(42862);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
+var flags = __webpack_require__(21258);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 24 modules
+var VMBlockEditor = __webpack_require__(93316);
+// EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 3 modules
+var Dashboard = __webpack_require__(65063);
+// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
+var Alert = __webpack_require__(95453);
+// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/vm/VMRunner.tsx
+var VMRunner = __webpack_require__(35099);
+// EXTERNAL MODULE: ./src/components/CodeBlock.tsx + 4 modules
+var CodeBlock = __webpack_require__(50274);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/vmrunner.ts + 1 modules
+var vmrunner = __webpack_require__(37994);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
+;// CONCATENATED MODULE: ./src/components/vm/useVMRunner.ts
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
 
 
-function PaperBox(props) {
-  var children = props.children,
-      padding = props.padding,
-      elevation = props.elevation,
-      bgcolor = props.bgcolor,
-      others = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(props, ["children", "padding", "elevation", "bgcolor"]);
 
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, Object.assign({}, others, {
-    bgcolor: bgcolor,
-    mb: theme.spacing(0.25)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    square: true,
-    elevation: elevation
-  }, padding !== 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
-    p: theme.spacing(padding || 0.25)
-  }, children), padding === 0 && children));
+
+function useVMRunner(program) {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext2.setError;
+
+  var _useState = (0,react.useState)(),
+      testRunner = _useState[0],
+      setTestRunner = _useState[1]; // create runner
+
+
+  (0,react.useEffect)(function () {
+    var runner = program && new vmrunner/* IT4ProgramRunner */.e(program, bus);
+    setTestRunner(runner);
+  }, [program]); // errors
+
+  (0,react.useEffect)(function () {
+    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* ERROR */.pnR, function (e) {
+      return setError(e);
+    });
+  }); // traces
+
+  var handleTrace = function handleTrace(value) {
+    var message = value.message,
+        context = value.context;
+    console.debug("vm> " + message, context);
+  };
+
+  (0,react.useEffect)(function () {
+    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* TRACE */.jes, handleTrace);
+  });
+  return {
+    runner: testRunner
+  };
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
+var Tooltip = __webpack_require__(14685);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
+var Chip = __webpack_require__(4998);
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
+var DeviceAvatar = __webpack_require__(4726);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
+var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
+;// CONCATENATED MODULE: ./src/components/vm/VMRoles.tsx
+
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
+
+
+
+
+function VMRoles(props) {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var runner = props.runner;
+  var roles = (0,useChange/* default */.Z)(runner, function (_) {
+    var r = _ === null || _ === void 0 ? void 0 : _.roles;
+    if (r) console.debug("vm roles", {
+      roles: r
+    });
+    return r;
+  });
+
+  var handleRoleClick = function handleRoleClick(role, service, specification) {
+    return function () {
+      if (!service && specification) {
+        (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+      } else {// do nothing
+      }
+    };
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1
+  }, roles && Object.keys(roles).map(function (role) {
+    return {
+      role: role,
+      service: roles[role].service,
+      specification: (0,spec/* serviceSpecificationFromName */.kB)(roles[role].shortName)
+    };
+  }).map(function (_ref) {
+    var role = _ref.role,
+        service = _ref.service,
+        specification = _ref.specification;
+    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+      item: true,
+      key: role
+    }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+      title: service ? "bound to " + service.device.friendlyName : "start " + specification.name + " simulator"
+    }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+      label: role,
+      variant: service ? "default" : "outlined",
+      avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+        device: service.device
+      }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
+      onClick: handleRoleClick(role, service, specification)
+    })));
+  }));
+}
+;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+function Diagnostics(props) {
+  var program = props.program,
+      source = props.source,
+      xml = props.xml;
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "subtitle1"
+  }, "IT4"), /*#__PURE__*/react.createElement(CodeBlock.default, {
+    className: "json",
+    downloadName: "test.json.it4",
+    downloadText: JSON.stringify(program, null, 2)
+  }, JSON.stringify(program, null, 2))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "subtitle1"
+  }, "Blockly JSON"), /*#__PURE__*/react.createElement(CodeBlock.default, {
+    className: "json",
+    downloadName: "test.json",
+    downloadText: JSON.stringify(source, null, 2)
+  }, JSON.stringify(source, null, 2))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "subtitle1"
+  }, "Blockly XML"), /*#__PURE__*/react.createElement(CodeBlock.default, {
+    className: "xml"
+  }, xml)));
+}
+
+var VM_SOURCE_STORAGE_KEY = "jacdac:tools:vmeditor";
+function VMEditor(props) {
+  var _source$blocks;
+
+  var storageKey = props.storageKey,
+      showDashboard = props.showDashboard;
+
+  var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey || VM_SOURCE_STORAGE_KEY, ""),
+      xml = _useLocalStorage[0],
+      setXml = _useLocalStorage[1];
+
+  var _useState = (0,react.useState)(),
+      source = _useState[0],
+      setSource = _useState[1];
+
+  var _useState2 = (0,react.useState)(),
+      program = _useState2[0],
+      setProgram = _useState2[1];
+
+  var _useVMRunner = useVMRunner(program),
+      runner = _useVMRunner.runner;
+
+  var handleXml = function handleXml(xml) {
+    setXml(xml);
+  };
+
+  var handleJSON = function handleJSON(json) {
+    var newSource = JSON.stringify(json);
+    if (JSON.stringify(source) !== newSource) setSource(json);
+  };
+
+  var handleI4Program = function handleI4Program(json) {
+    var newProgram = JSON.stringify(json);
+    if (JSON.stringify(program) !== newProgram) setProgram(json);
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    direction: "column",
+    spacing: 1
+  }, !(source !== null && source !== void 0 && (_source$blocks = source.blocks) !== null && _source$blocks !== void 0 && _source$blocks.length) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "info",
+    closeable: true
+  }, "Start a simulator or connect a device to load the blocks automatically.")), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(VMBlockEditor/* default */.Z, {
+    initialXml: xml,
+    onXmlChange: handleXml,
+    onJSONChange: handleJSON,
+    onIT4ProgramChange: handleI4Program,
+    runner: runner
+  }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(VMRunner/* default */.Z, {
+    autoStart: true,
+    runner: runner
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(VMRoles, {
+    runner: runner
+  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Diagnostics, {
+    program: program,
+    source: source,
+    xml: xml
+  }), showDashboard && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Dashboard/* default */.Z, {
+    showStartSimulators: true,
+    showHeader: true,
+    showAvatar: true
+  })));
+}
+;// CONCATENATED MODULE: ./src/pages/tools/vm-editor.tsx
+
+
+function Page() {
+  return /*#__PURE__*/react.createElement(VMEditor, {
+    showDashboard: true
+  });
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=274-ac0e67dbfa5845e03b3a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-94dffe62b44d8c486d23.js.map

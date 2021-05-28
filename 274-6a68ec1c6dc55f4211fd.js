@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[8743,274],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[274],{
 
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -446,10 +446,6 @@ function MakeCodeSnippet(props) {
     snippet: snippet
   })));
 }
-// EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
-var Markdown = __webpack_require__(98784);
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
-var Alert = __webpack_require__(6809);
 // EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
 var Suspense = __webpack_require__(69672);
 ;// CONCATENATED MODULE: ./src/components/CodeBlock.tsx
@@ -469,8 +465,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
-
 
 
 
@@ -566,16 +560,6 @@ function CodeBlock(props) {
         renderedSource: children
       });
 
-    case "info":
-    case "error":
-    case "warning":
-    case "success":
-      return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-        severity: language
-      }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
-        source: children.trim()
-      }));
-
     case "vanilla":
       return /*#__PURE__*/react.createElement(HighlightedCode, Object.assign({}, props, {
         className: "javascript",
@@ -585,93 +569,6 @@ function CodeBlock(props) {
     default:
       return /*#__PURE__*/react.createElement(HighlightedCode, props);
   }
-}
-
-/***/ }),
-
-/***/ 58743:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ DashboardBitRadio; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(91635);
-/* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50274);
-
-
-
-
-
-var HORIZON = 10;
-function DashboardBitRadio(props) {
-  var service = props.service;
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      lastEvents = _useState[0],
-      setLastEvents = _useState[1];
-
-  var appendMessage = function appendMessage(data) {
-    if (!data) return;
-    var time = data[0],
-        deviceSerial = data[1],
-        rssi = data[2],
-        payload = data.slice(3);
-    var evs = lastEvents.slice(0);
-    var msg = {
-      time: time,
-      deviceSerial: deviceSerial,
-      rssi: rssi,
-      payload: payload
-    };
-    evs.push(msg);
-
-    while (evs.length > HORIZON) {
-      evs.shift();
-    }
-
-    setLastEvents(evs);
-  };
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return service.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .REPORT_RECEIVE */ .Gb8, function (pkt) {
-      var values;
-      var data = pkt.data,
-          serviceCommand = pkt.serviceCommand;
-
-      switch (serviceCommand) {
-        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.NumberReceived */ .GZs.NumberReceived:
-          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[3] f64 s");
-          break;
-
-        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.StringReceived */ .GZs.StringReceived:
-          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[1] s");
-          break;
-
-        case _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BitRadioCmd.BufferReceived */ .GZs.BufferReceived:
-          values = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_3__/* .jdunpack */ .TE)(data, "u32 u32 i8 x[1] b");
-          break;
-      }
-
-      if (values) appendMessage(values.filter(function (v) {
-        return v !== undefined && v !== "";
-      }));
-    });
-  }, [service, lastEvents]);
-  var text = lastEvents.map(function (ev) {
-    var _ev$payload;
-
-    return (_ev$payload = ev.payload) === null || _ev$payload === void 0 ? void 0 : _ev$payload.filter(function (v) {
-      return v !== undefined && v !== "";
-    }).join(",");
-  }).filter(function (el) {
-    return !!el;
-  }).join("\n");
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_4__.default, null, text);
 }
 
 /***/ }),
@@ -713,4 +610,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8743-a0c3c1c27f514a1ae3e3.js.map
+//# sourceMappingURL=274-6a68ec1c6dc55f4211fd.js.map

@@ -997,10 +997,6 @@ function MakeCodeSnippet(props) {
     snippet: snippet
   })));
 }
-// EXTERNAL MODULE: ./src/components/ui/Markdown.tsx
-var Markdown = __webpack_require__(98784);
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
-var Alert = __webpack_require__(6809);
 // EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
 var Suspense = __webpack_require__(69672);
 ;// CONCATENATED MODULE: ./src/components/CodeBlock.tsx
@@ -1020,8 +1016,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
-
 
 
 
@@ -1116,16 +1110,6 @@ function CodeBlock(props) {
       return /*#__PURE__*/react.createElement(MakeCodeSnippet, {
         renderedSource: children
       });
-
-    case "info":
-    case "error":
-    case "warning":
-    case "success":
-      return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-        severity: language
-      }, /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
-        source: children.trim()
-      }));
 
     case "vanilla":
       return /*#__PURE__*/react.createElement(HighlightedCode, Object.assign({}, props, {
@@ -1477,4 +1461,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-38ed60d4e4fb193230fd.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-7c5c36b5fc37cbe964ed.js.map
