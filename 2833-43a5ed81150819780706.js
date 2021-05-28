@@ -145,12 +145,6 @@ function genFirmwareId() {
   return n[0] & 0xfffffff | 0x30000000;
 }
 
-function toFullHex(n) {
-  return "0x" + n.map(function (id) {
-    return ("000000000" + id.toString(16)).slice(-8);
-  }).join("");
-}
-
 function uniqueServiceId() {
   var id = genServId();
 
@@ -273,4 +267,4 @@ function RandomGenerator(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2833-f877361ff6b76f7fef71.js.map
+//# sourceMappingURL=2833-43a5ed81150819780706.js.map

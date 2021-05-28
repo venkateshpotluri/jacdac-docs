@@ -55774,7 +55774,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "ei": function() { return /* binding */ pick; },
 /* harmony export */   "ap": function() { return /* binding */ splitFilter; }
 /* harmony export */ });
-/* unused harmony exports isAckError, fnv1, decodeU32LE, jsonCopyFrom, flatClone, range */
+/* unused harmony exports isAckError, fnv1, toFullHex, decodeU32LE, jsonCopyFrom, flatClone, range */
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -56034,6 +56034,11 @@ var PromiseQueue = /*#__PURE__*/function () {
 }();
 function rgbToHtmlColor(rgb) {
   return "#" + ("000000" + rgb.toString(16)).slice(-6);
+}
+function toFullHex(n) {
+  return "0x" + n.map(function (id) {
+    return ("000000000" + id.toString(16)).slice(-8);
+  }).join("");
 }
 function toHex(bytes) {
   if (!bytes) return undefined;
@@ -65969,7 +65974,7 @@ var DashboardRealTimeClock = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 360).then(__webpack_require__.bind(__webpack_require__, 80360));
 });
 var DashboardLED = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 8282).then(__webpack_require__.bind(__webpack_require__, 68282));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8282)]).then(__webpack_require__.bind(__webpack_require__, 68282));
 });
 var DashboardJoystick = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 7809).then(__webpack_require__.bind(__webpack_require__, 77809));
@@ -70148,7 +70153,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "386b4f7cd9857dc90e08489fb470880e9a950a14";
+  var sha = "acdf6ec6bf8a13e3190ca3fe24c5d4d9221ec02a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86283,4 +86288,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-1a2e723ac5115492053e.js.map
+//# sourceMappingURL=app-9b338cfed987dfea76a8.js.map

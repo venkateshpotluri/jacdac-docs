@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 71248:
+/***/ 85540:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4940,6 +4940,15 @@ function PaperBox(props) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ VMBlockEditor; }
+});
+
+// NAMESPACE OBJECT: ./src/components/vm/fields/ReactField.tsx
+var ReactField_namespaceObject = {};
+__webpack_require__.r(ReactField_namespaceObject);
+__webpack_require__.d(ReactField_namespaceObject, {
+  "CI": function() { return ReactFieldContext; },
+  "ZP": function() { return ReactField; },
+  "_t": function() { return toShadowDefinition; }
 });
 
 // NAMESPACE OBJECT: ./src/components/vm/useToolbox.ts
@@ -6139,6 +6148,7 @@ function ReactFieldProvider(props) {
     }
   }, children);
 }
+
 var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
 
@@ -6219,7 +6229,9 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
       value: this.value,
       onValueChange: onValueChange
     }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(Box/* default */.Z, {
-      m: 1
+      m: 0.5,
+      borderRadius: "0.25rem",
+      bgcolor: "background.paper"
     }, this.renderField()))))));
   };
 
@@ -6250,6 +6262,8 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
 
   return ReactField;
 }((blockly_default()).Field); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
 
 function toShadowDefinition(fieldType) {
   (0,utils/* assert */.hu)(!!fieldType.KEY);
@@ -6293,11 +6307,6 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
 
   var _proto = NoteField.prototype;
 
-  _proto.getText_ = function getText_() {
-    var frequency = this.value.frequency;
-    return (frequency | 0) + "";
-  };
-
   _proto.onUnmount = function onUnmount() {
     var _this$toneContext;
 
@@ -6316,9 +6325,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.value = {
-                  frequency: newFrequency
-                };
+                _this.value = newFrequency;
                 if (!_this.toneContext) _this.toneContext = (0,toneContext/* createToneContext */.W)();
                 (_this$toneContext2 = _this.toneContext) === null || _this$toneContext2 === void 0 ? void 0 : _this$toneContext2.playTone(newFrequency, 400);
 
@@ -6343,9 +6350,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
   (0,createClass/* default */.Z)(NoteField, [{
     key: "defaultValue",
     get: function get() {
-      return {
-        frequency: 440
-      };
+      return 440;
     }
   }]);
 
@@ -6795,7 +6800,94 @@ var ServoAngleField = /*#__PURE__*/function (_SliderField) {
 ServoAngleField.KEY = "jacdac_field_servo_angle";
 ServoAngleField.SHADOW = toShadowDefinition(ServoAngleField);
 
+;// CONCATENATED MODULE: ./src/components/vm/fields/LEDColorField.tsx
+
+
+
+
+
+
+
+var LEDWidget = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 56931));
+});
+
+function LEDColorFieldWidget() {
+  var _useContext = (0,react.useContext)(ReactFieldContext),
+      value = _useContext.value,
+      onValueChange = _useContext.onValueChange;
+
+  return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(LEDWidget, {
+    value: value,
+    onChange: onValueChange,
+    ledCount: 3,
+    color: "secondary"
+  }));
+}
+
+var LEDColorField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(LEDColorField, _ReactField);
+
+  LEDColorField.fromJson = function fromJson(options) {
+    return new LEDColorField(options);
+  };
+
+  function LEDColorField(options) {
+    var _this;
+
+    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
+    _this.size_ = new (blockly_default()).utils.Size(28, 28);
+    return _this;
+  }
+
+  var _proto = LEDColorField.prototype;
+
+  _proto.updateSize_ = function updateSize_() {};
+
+  _proto.initView = function initView() {
+    var width = this.size_.width;
+    var r = width >> 1;
+    this.circle = child(this.fieldGroup_, "circle", {
+      r: width >> 1,
+      cx: r,
+      cy: r,
+      strokeWidth: 2,
+      stroke: "#777"
+    });
+    this.updateView();
+  };
+
+  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    this.value_ = newValue;
+    this.updateView();
+  };
+
+  _proto.updateView = function updateView() {
+    var c = (0,utils/* rgbToHtmlColor */.b)(this.value);
+
+    if (c) {
+      var _this$circle;
+
+      (_this$circle = this.circle) === null || _this$circle === void 0 ? void 0 : _this$circle.setAttribute("fill", c);
+    }
+  };
+
+  _proto.getText_ = function getText_() {
+    return (0,utils/* rgbToHtmlColor */.b)(this.value);
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react.createElement(LEDColorFieldWidget, null);
+  };
+
+  return LEDColorField;
+}(ReactField);
+
+LEDColorField.KEY = "jacdac_field_led_color";
+LEDColorField.SHADOW = toShadowDefinition(LEDColorField);
+
 ;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
+
 
 
 
@@ -6810,11 +6902,13 @@ function registerFields() {
   var registerType = function registerType(fieldType) {
     var key = fieldType.KEY;
     (0,utils/* assert */.hu)(!!key);
+    blockly_default().fieldRegistry.unregister(key); // hot reload issues
+
     blockly_default().fieldRegistry.register(key, fieldType);
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField];
+  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -6828,6 +6922,7 @@ var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -7060,6 +7155,36 @@ function loadBlocks(serviceColor, commandColor) {
       service: service,
       expression: "role.key(combo.selectors, combo.modifiers)",
       //expression: `play_tone(frequency, duration) => role.send_pulse(frequency / 10000, duration)`,
+      template: "custom"
+    };
+  })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_LED */.i04).map(function (service) {
+    return {
+      kind: "block",
+      type: "fade",
+      message0: "fade %1 to %2 at speed %3",
+      args0: [fieldVariable(service), {
+        type: LEDColorField.KEY,
+        name: "color"
+      }, {
+        type: "input_value",
+        name: "speed",
+        check: "Number"
+      }],
+      values: {
+        speed: {
+          kind: "block",
+          type: "jacdac_ratio",
+          shadow: true
+        }
+      },
+      colour: serviceColor(service),
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Fade LED color",
+      helpUrl: serviceHelp(service),
+      service: service,
+      expression: "role.animate((color >> 16) & 0xff, (color >> 8) & 0xff, (color >> 0) & 0xff, speed * 0xff)",
       template: "custom"
     };
   })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_BUZZER */.J1$).map(function (service) {
@@ -8084,7 +8209,7 @@ function domToJSON(workspace) {
   var fieldToJSON = function fieldToJSON(field) {
     if (field.isSerializable()) {
       // custom field can just return the value
-      if (field instanceof ReactField) {
+      if (field instanceof ReactField_namespaceObject.ReactField) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         var value = field.value;
         return {
@@ -8674,4 +8799,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a8958b152c598dd8f6f9.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2d9341d6afed6ddce086.js.map

@@ -96,12 +96,6 @@ function genFirmwareId() {
   return n[0] & 0xfffffff | 0x30000000;
 }
 
-function toFullHex(n) {
-  return "0x" + n.map(function (id) {
-    return ("000000000" + id.toString(16)).slice(-8);
-  }).join("");
-}
-
 function uniqueServiceId() {
   var id = genServId();
 
@@ -285,8 +279,8 @@ var Context = __webpack_require__(20392);
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
 var DashboardDeviceItem = __webpack_require__(24301);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 25 modules
-var VMBlockEditor = __webpack_require__(71248);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 26 modules
+var VMBlockEditor = __webpack_require__(85540);
 // EXTERNAL MODULE: ./src/components/ui/PaperBox.tsx
 var PaperBox = __webpack_require__(79739);
 ;// CONCATENATED MODULE: ./src/components/ServiceSpecification.tsx
@@ -1089,4 +1083,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-3cee24edef0d4c0c74de.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-544897a10c9a1770553e.js.map

@@ -294,12 +294,6 @@ function genFirmwareId() {
   return n[0] & 0xfffffff | 0x30000000;
 }
 
-function toFullHex(n) {
-  return "0x" + n.map(function (id) {
-    return ("000000000" + id.toString(16)).slice(-8);
-  }).join("");
-}
-
 function uniqueServiceId() {
   var id = genServId();
 
@@ -2942,4 +2936,4 @@ function DeviceRegistration() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-e9f48a321e0526fcb47f.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-892be6f4027be98aa1bc.js.map

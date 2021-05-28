@@ -595,8 +595,8 @@ var Typography = __webpack_require__(80453);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 25 modules
-var VMBlockEditor = __webpack_require__(71248);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 26 modules
+var VMBlockEditor = __webpack_require__(85540);
 // EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 3 modules
 var Dashboard = __webpack_require__(65063);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
@@ -868,4 +868,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-24131573dc645a1d5785.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-26be64e834d5594316b5.js.map
