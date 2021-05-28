@@ -65083,8 +65083,8 @@ var ExpandLess = __webpack_require__(16993);
 var useDeviceSpecification = __webpack_require__(77423);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
-var DashboardServiceWidget = __webpack_require__(23756);
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
+var DashboardServiceWidget = __webpack_require__(73205);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -65431,7 +65431,7 @@ function DashboardDevice(props) {
 
 /***/ }),
 
-/***/ 23756:
+/***/ 73205:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65672,66 +65672,8 @@ var useThrottledValue = __webpack_require__(72901);
 var servers = __webpack_require__(37801);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
-var PowerButton = __webpack_require__(2250);
-;// CONCATENATED MODULE: ./src/components/widgets/ServoWidget.tsx
-
-
-
-
-function ServoWidget(props) {
-  var toggleOff = props.toggleOff,
-      angle = props.angle,
-      offset = props.offset,
-      color = props.color,
-      enabled = props.enabled;
-
-  var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
-      background = _useWidgetTheme.background,
-      controlBackground = _useWidgetTheme.controlBackground,
-      active = _useWidgetTheme.active,
-      textPrimary = _useWidgetTheme.textPrimary;
-
-  var cx = 78;
-  var cy = 55;
-  var a = enabled ? angle + (offset || 0) : 0;
-  var transform = "rotate(" + -a + ", " + cx + ", " + cy + ")";
-  var h = 111.406;
-  var w = 158.50195;
-  var pr = 14;
-  var pri = 6;
-  var text = enabled ? Math.round(a) + "\xB0" : "off";
-  return /*#__PURE__*/react.createElement(SvgWidget/* default */.Z, {
-    title: "servo at angle " + angle,
-    width: w,
-    height: h
-  }, /*#__PURE__*/react.createElement("path", {
-    fill: background,
-    d: "M158.502 10.687H0v89.75h158.502z"
-  }), /*#__PURE__*/react.createElement("path", {
-    fill: controlBackground,
-    d: "M125.545 55.641c0-24.994-20.26-45.256-45.254-45.256-17.882.016-34.077 9.446-41.328 25.79-2.655.024-4.192.076-6.35.07-11.158 0-20.204 9.046-20.204 20.204 0 11.158 9.046 20.203 20.203 20.203 2.389-.005 4.354-.332 6.997-.256 7.56 15.59 23.356 24.485 40.682 24.5 24.992 0 45.254-20.264 45.254-45.256z"
-  }), /*#__PURE__*/react.createElement("path", {
-    fill: enabled ? active : background,
-    stroke: active,
-    transform: transform,
-    d: "M93.782 55.623c-.032-3.809-.19-6.403-.352-7.023h-.002c-.93-3.558-6.621-6.73-14.793-6.73-8.17 0-14.649 3.016-14.795 6.73-.25 6.419-4.049 62.795 13.561 62.806 14.308.008 16.52-39.277 16.38-55.783zm-8.05.08a7.178 7.178 0 010 .012 7.178 7.178 0 01-7.179 7.176 7.178 7.178 0 01-7.177-7.176 7.178 7.178 0 017.177-7.178 7.178 7.178 0 017.178 7.166z"
-  }), /*#__PURE__*/react.createElement("text", {
-    x: w / 2,
-    y: 30,
-    textAnchor: "middle",
-    fill: textPrimary
-  }, text), toggleOff && /*#__PURE__*/react.createElement(PowerButton/* default */.Z, {
-    r: pr,
-    ri: pri,
-    cx: w - pr - 4,
-    cy: pr + 14,
-    color: color,
-    strokeWidth: 1.5,
-    off: !enabled,
-    onClick: toggleOff
-  }));
-}
+// EXTERNAL MODULE: ./src/components/widgets/ServoWidget.tsx
+var ServoWidget = __webpack_require__(9422);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardServo.tsx
 
 
@@ -65784,7 +65726,7 @@ function DashboardServo(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(ServoWidget, {
+  }, /*#__PURE__*/react.createElement(ServoWidget/* default */.Z, {
     angle: angle,
     offset: offset,
     color: color,
@@ -70206,7 +70148,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "9283470ac4a8110c0e3211fd44c7f5e3b510c3fa";
+  var sha = "c6b66c4fedba5bd6c43fb5b9be73032cd8d1ebfe";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72063,6 +72005,77 @@ function PowerButton(props) {
     x: cx,
     y: cy
   }, textProps), label));
+}
+
+/***/ }),
+
+/***/ 9422:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ServoWidget; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(48059);
+/* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(60650);
+/* harmony import */ var _PowerButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2250);
+
+
+
+
+function ServoWidget(props) {
+  var toggleOff = props.toggleOff,
+      angle = props.angle,
+      offset = props.offset,
+      color = props.color,
+      enabled = props.enabled;
+
+  var _useWidgetTheme = (0,_widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(color),
+      background = _useWidgetTheme.background,
+      controlBackground = _useWidgetTheme.controlBackground,
+      active = _useWidgetTheme.active,
+      textPrimary = _useWidgetTheme.textPrimary;
+
+  var cx = 78;
+  var cy = 55;
+  var a = enabled ? angle + (offset || 0) : 0;
+  var transform = "rotate(" + -a + ", " + cx + ", " + cy + ")";
+  var h = 111.406;
+  var w = 158.50195;
+  var pr = 14;
+  var pri = 6;
+  var text = enabled ? Math.round(a) + "\xB0" : "off";
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
+    title: "servo at angle " + angle,
+    width: w,
+    height: h
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: background,
+    d: "M158.502 10.687H0v89.75h158.502z"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: controlBackground,
+    d: "M125.545 55.641c0-24.994-20.26-45.256-45.254-45.256-17.882.016-34.077 9.446-41.328 25.79-2.655.024-4.192.076-6.35.07-11.158 0-20.204 9.046-20.204 20.204 0 11.158 9.046 20.203 20.203 20.203 2.389-.005 4.354-.332 6.997-.256 7.56 15.59 23.356 24.485 40.682 24.5 24.992 0 45.254-20.264 45.254-45.256z"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    fill: enabled ? active : background,
+    stroke: active,
+    transform: transform,
+    d: "M93.782 55.623c-.032-3.809-.19-6.403-.352-7.023h-.002c-.93-3.558-6.621-6.73-14.793-6.73-8.17 0-14.649 3.016-14.795 6.73-.25 6.419-4.049 62.795 13.561 62.806 14.308.008 16.52-39.277 16.38-55.783zm-8.05.08a7.178 7.178 0 010 .012 7.178 7.178 0 01-7.179 7.176 7.178 7.178 0 01-7.177-7.176 7.178 7.178 0 017.177-7.178 7.178 7.178 0 017.178 7.166z"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", {
+    x: w / 2,
+    y: 30,
+    textAnchor: "middle",
+    fill: textPrimary
+  }, text), toggleOff && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PowerButton__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    r: pr,
+    ri: pri,
+    cx: w - pr - 4,
+    cy: pr + 14,
+    color: color,
+    strokeWidth: 1.5,
+    off: !enabled,
+    onClick: toggleOff
+  }));
 }
 
 /***/ }),
@@ -86269,4 +86282,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-ff7a1389cb5b051a56b9.js.map
+//# sourceMappingURL=app-8710f9186538fb6c1a8a.js.map

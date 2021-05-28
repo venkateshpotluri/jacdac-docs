@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 9426:
+/***/ 24715:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6088,7 +6088,10 @@ function AppTheme(props) {
     theme: theme
   }, props));
 }
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
+var Box = __webpack_require__(8266);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactField.tsx
+
 
 
 
@@ -6192,7 +6195,9 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   };
 
   _proto.render = function render() {
-    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, this.renderField()))));
+    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(Box/* default */.Z, {
+      m: 1
+    }, this.renderField())))));
   };
 
   _proto.renderField = function renderField() {
@@ -6609,7 +6614,135 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
 
 LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slider/Slider.js + 1 modules
+var Slider = __webpack_require__(50514);
+// EXTERNAL MODULE: ./src/components/widgets/ServoWidget.tsx
+var ServoWidget = __webpack_require__(9422);
+;// CONCATENATED MODULE: ./src/components/vm/fields/ServoAngleField.tsx
+
+
+
+
+
+
+
+
+
+function ServoFieldWithSlider(props) {
+  var _props$initialAngle = props.initialAngle,
+      initialAngle = _props$initialAngle === void 0 ? 0 : _props$initialAngle,
+      onChange = props.onChange;
+
+  var _useState = (0,react.useState)(initialAngle),
+      angle = _useState[0],
+      setAngle = _useState[1];
+
+  var handleChange = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev, newValue) {
+      var newAngle;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              newAngle = newValue;
+              setAngle(newAngle);
+              onChange(newAngle);
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleChange(_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(ServoWidget/* default */.Z, {
+    angle: angle,
+    offset: 0,
+    color: "secondary",
+    enabled: true
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Slider/* default */.Z, {
+    color: "secondary",
+    valueLabelDisplay: "auto",
+    valueLabelFormat: Math.round(angle) + "\xB0",
+    min: -90,
+    max: 90,
+    step: 5,
+    value: angle,
+    onChange: handleChange,
+    "aria-label": "angle"
+  })));
+}
+
+var ServoAngleField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(ServoAngleField, _ReactField);
+
+  function ServoAngleField() {
+    return _ReactField.apply(this, arguments) || this;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ServoAngleField.fromJson = function fromJson(options) {
+    return new ServoAngleField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
+  };
+
+  var _proto = ServoAngleField.prototype;
+
+  _proto.getText_ = function getText_() {
+    var angle = this.value.angle;
+    return (angle || 0) + "°";
+  };
+
+  _proto.renderField = function renderField() {
+    var _this = this;
+
+    var _this$value$angle = this.value.angle,
+        angle = _this$value$angle === void 0 ? 0 : _this$value$angle;
+
+    var handleChange = function handleChange(newAngle) {
+      _this.value = {
+        angle: newAngle
+      };
+    };
+
+    return /*#__PURE__*/react.createElement(ServoFieldWithSlider, {
+      initialAngle: angle,
+      onChange: handleChange
+    });
+  };
+
+  (0,createClass/* default */.Z)(ServoAngleField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {
+        angle: 0
+      };
+    }
+  }]);
+
+  return ServoAngleField;
+}(ReactField);
+
+ServoAngleField.KEY = "jacdac_field_servo_angle";
+
 ;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
+
 
 
 
@@ -6621,8 +6754,10 @@ function registerFields() {
   blockly_default().fieldRegistry.register(KeyboardKeyField.KEY, KeyboardKeyField);
   blockly_default().fieldRegistry.register(NoteField.KEY, NoteField);
   blockly_default().fieldRegistry.register(LEDMatrixField.KEY, LEDMatrixField);
+  blockly_default().fieldRegistry.register(ServoAngleField.KEY, ServoAngleField);
 }
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -6691,6 +6826,25 @@ function createBlockTheme(theme) {
 }
 
 function loadBlocks(serviceColor, commandColor) {
+  var customShadows = [{
+    serviceClass: constants/* SRV_SERVO */.$X_,
+    kind: "rw",
+    identifier: constants/* ServoReg.Angle */.pmu.Angle,
+    field: "_",
+    shadow: {
+      kind: "block",
+      type: "jacdac_servo_angle"
+    }
+  }];
+
+  var lookupCustomShadow = function lookupCustomShadow(service, info, field) {
+    var _customShadows$find;
+
+    return (_customShadows$find = customShadows.find(function (cs) {
+      return cs.serviceClass === service.classIdentifier && cs.kind == info.kind && cs.identifier === info.identifier && cs.field == field.name;
+    })) === null || _customShadows$find === void 0 ? void 0 : _customShadows$find.shadow;
+  };
+
   var serviceHelp = function serviceHelp(service) {
     return (0,gatsby_link/* withPrefix */.dq)("/services/" + service.shortId);
   };
@@ -6703,8 +6857,8 @@ function loadBlocks(serviceColor, commandColor) {
     return field.name === "_" ? reg.name : field.name;
   };
 
-  var fieldToShadow = function fieldToShadow(field) {
-    return isBooleanField(field) ? {
+  var fieldToShadow = function fieldToShadow(service, info, field) {
+    return lookupCustomShadow(service, info, field) || (isBooleanField(field) ? {
       kind: "block",
       type: "jacdac_on_off"
     } : isStringField(field) ? {
@@ -6728,7 +6882,7 @@ function loadBlocks(serviceColor, commandColor) {
       value: field.defaultValue || 0,
       min: field.typicalMin || field.absoluteMin,
       max: field.typicalMax || field.absoluteMax
-    };
+    });
   };
 
   var variableName = function variableName(srv) {
@@ -6755,11 +6909,11 @@ function loadBlocks(serviceColor, commandColor) {
     });
   };
 
-  var fieldsToValues = function fieldsToValues(info) {
+  var fieldsToValues = function fieldsToValues(service, info) {
     return (0,utils/* toMap */.qL)(info.fields, function (field) {
       return fieldName(info, field);
     }, function (field) {
-      return fieldToShadow(field);
+      return fieldToShadow(service, info, field);
     });
   };
 
@@ -7014,7 +7168,7 @@ function loadBlocks(serviceColor, commandColor) {
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))).filter(function (v) {
         return !!v;
       }),
-      values: fieldsToValues(register),
+      values: fieldsToValues(service, register),
       inputsInline: true,
       nextStatement: null,
       colour: serviceColor(service),
@@ -7162,7 +7316,7 @@ function loadBlocks(serviceColor, commandColor) {
       type: "jacdac_set_" + service.shortId + "_" + register.name,
       message0: isEnabledRegister(register) ? "set %1 %2" : "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))),
-      values: fieldsToValues(register),
+      values: fieldsToValues(service, register),
       inputsInline: true,
       colour: serviceColor(service),
       tooltip: register.description,
@@ -7182,7 +7336,7 @@ function loadBlocks(serviceColor, commandColor) {
       type: "jacdac_command_" + service.shortId + "_" + command.name,
       message0: !command.fields.length ? (0,jdspec/* humanify */.lW)(command.name) + " %1" : (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
       args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(command))),
-      values: fieldsToValues(command),
+      values: fieldsToValues(service, command),
       inputsInline: true,
       colour: serviceColor(service),
       tooltip: command.description,
@@ -7202,6 +7356,16 @@ function loadBlocks(serviceColor, commandColor) {
     args0: [{
       type: NoteField.KEY,
       name: "note"
+    }],
+    style: "math_blocks",
+    output: "Number"
+  }, {
+    kind: "block",
+    type: "jacdac_servo_angle",
+    message0: "%1",
+    args0: [{
+      type: ServoAngleField.KEY,
+      name: "angle"
     }],
     style: "math_blocks",
     output: "Number"
@@ -8463,4 +8627,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-93fae5463bd475b6353f.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-fd87afc8c5eddeba87ca.js.map
