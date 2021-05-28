@@ -2632,6 +2632,7 @@ function PianoWidget(props) {
     mb: 1,
     mt: 1
   }, /*#__PURE__*/react.createElement(Piano, {
+    width: 400,
     noteRange: {
       first: firstNote,
       last: lastNote
@@ -2649,4 +2650,4 @@ function PianoWidget(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8937-85e6d5f71ca2dc65e39a.js.map
+//# sourceMappingURL=8937-453f785a297aa65a92dd.js.map

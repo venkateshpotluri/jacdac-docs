@@ -6153,15 +6153,30 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function ReactField(value, validator, options) {
+  function ReactField(value, validator, options, size) {
     var _this;
 
     _this = _Blockly$Field.call(this, value, validator, options) || this;
     _this.SERIALIZABLE = true;
+    if (size) _this.size_ = new (blockly_default()).utils.Size(size.width, size.height);
     return _this;
   }
 
   var _proto = ReactField.prototype;
+
+  // override to listen for mounting events
+  _proto.onMount = function onMount() {} // override to listen for unmounting
+  ;
+
+  _proto.onUnmount = function onUnmount() {} // override to support custom view
+  ;
+
+  _proto.initCustomView = function initCustomView() {
+    return null;
+  } // override to update view
+  ;
+
+  _proto.updateView = function updateView() {};
 
   _proto.getText_ = function getText_() {
     return JSON.stringify(this.value);
@@ -6185,9 +6200,21 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
 
   _proto.onSourceBlockChanged = function onSourceBlockChanged() {};
 
-  _proto.onMount = function onMount() {};
+  _proto.initView = function initView() {
+    this.view = this.initCustomView();
+    if (this.view) this.updateView();else _Blockly$Field.prototype.initView.call(this);
+  };
 
-  _proto.onUnmount = function onUnmount() {};
+  _proto.updateSize_ = function updateSize_() {
+    if (!this.view) _Blockly$Field.prototype.updateSize_.call(this);
+  };
+
+  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    if (this.view) {
+      this.value_ = newValue;
+      this.updateView();
+    } else _Blockly$Field.prototype.doValueUpdate_.call(this, newValue);
+  };
 
   _proto.showEditor_ = function showEditor_() {
     var _this2 = this;
@@ -6306,6 +6333,10 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
   };
 
   var _proto = NoteField.prototype;
+
+  _proto.getText_ = function getText_() {
+    return (this.value | 0) + "";
+  };
 
   _proto.onUnmount = function onUnmount() {
     var _this$toneContext;
@@ -6469,8 +6500,6 @@ var ReactImageField = /*#__PURE__*/function (_ReactField) {
   (0,inheritsLoose/* default */.Z)(ReactImageField, _ReactField);
 
   function ReactImageField(value, width, height) {
-    var _this;
-
     if (width === void 0) {
       width = 32;
     }
@@ -6479,30 +6508,31 @@ var ReactImageField = /*#__PURE__*/function (_ReactField) {
       height = 32;
     }
 
-    _this = _ReactField.call(this, value) || this;
-    _this.size_ = new (blockly_default()).utils.Size(width, height);
-    return _this;
+    return _ReactField.call(this, value, undefined, undefined, {
+      width: width,
+      height: height
+    }) || this;
   }
 
   var _proto = ReactImageField.prototype;
 
   _proto.setSize = function setSize(width, height) {
     this.size_ = new (blockly_default()).utils.Size(width, height);
+    var img = this.view;
 
-    if (this.img) {
-      this.img.setAttribute("width", width + "");
-      this.img.setAttribute("height", height + "");
+    if (img) {
+      img.setAttribute("width", width + "");
+      img.setAttribute("height", height + "");
     }
   };
 
-  _proto.updateImage = function updateImage() {
+  _proto.updateView = function updateView() {
     var imgUri = this.renderValue();
+    var img = this.view;
 
     if (imgUri) {
-      var _this$img, _this$img2;
-
-      (_this$img = this.img) === null || _this$img === void 0 ? void 0 : _this$img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", imgUri);
-      (_this$img2 = this.img) === null || _this$img2 === void 0 ? void 0 : _this$img2.setAttribute("alt", this.getText());
+      img === null || img === void 0 ? void 0 : img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", imgUri);
+      img === null || img === void 0 ? void 0 : img.setAttribute("alt", this.getText());
     }
   }
   /**
@@ -6514,24 +6544,16 @@ var ReactImageField = /*#__PURE__*/function (_ReactField) {
     return undefined;
   };
 
-  _proto.initView = function initView() {
+  _proto.initCustomView = function initCustomView() {
     var _this$size_ = this.size_,
         width = _this$size_.width,
         height = _this$size_.height;
-    this.img = child(this.fieldGroup_, "image", {
+    return child(this.fieldGroup_, "image", {
       height: height,
       width: width,
       alt: this.getText()
     });
-    this.updateImage();
   };
-
-  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
-    this.value_ = newValue;
-    this.updateImage();
-  };
-
-  _proto.updateSize_ = function updateSize_() {};
 
   return ReactImageField;
 }(ReactField);
@@ -6732,6 +6754,10 @@ var SliderField = /*#__PURE__*/function (_ReactField) {
 
   var _proto = SliderField.prototype;
 
+  _proto.getText_ = function getText_() {
+    return this.value + "";
+  };
+
   _proto.renderField = function renderField() {
     return /*#__PURE__*/react.createElement(FieldWithSlider, null, this.renderWidget());
   };
@@ -6787,7 +6813,7 @@ var ServoAngleField = /*#__PURE__*/function (_SliderField) {
   var _proto = ServoAngleField.prototype;
 
   _proto.getText_ = function getText_() {
-    return (this.value || 0) + "°";
+    return this.value + "°";
   };
 
   _proto.renderWidget = function renderWidget() {
@@ -6801,7 +6827,6 @@ ServoAngleField.KEY = "jacdac_field_servo_angle";
 ServoAngleField.SHADOW = toShadowDefinition(ServoAngleField);
 
 ;// CONCATENATED MODULE: ./src/components/vm/fields/LEDColorField.tsx
-
 
 
 
@@ -6833,42 +6858,32 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
   };
 
   function LEDColorField(options) {
-    var _this;
-
-    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
-    _this.size_ = new (blockly_default()).utils.Size(28, 28);
-    return _this;
+    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
+      width: 28,
+      height: 28
+    }) || this;
   }
 
   var _proto = LEDColorField.prototype;
 
-  _proto.updateSize_ = function updateSize_() {};
-
-  _proto.initView = function initView() {
+  _proto.initCustomView = function initCustomView() {
     var width = this.size_.width;
     var r = width >> 1;
-    this.circle = child(this.fieldGroup_, "circle", {
+    return child(this.fieldGroup_, "circle", {
       r: width >> 1,
       cx: r,
       cy: r,
       strokeWidth: 2,
       stroke: "#777"
     });
-    this.updateView();
-  };
-
-  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
-    this.value_ = newValue;
-    this.updateView();
   };
 
   _proto.updateView = function updateView() {
     var c = (0,utils/* rgbToHtmlColor */.b)(this.value);
+    var circle = this.view;
 
     if (c) {
-      var _this$circle;
-
-      (_this$circle = this.circle) === null || _this$circle === void 0 ? void 0 : _this$circle.setAttribute("fill", c);
+      circle === null || circle === void 0 ? void 0 : circle.setAttribute("fill", c);
     }
   };
 
@@ -8810,4 +8825,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-453bd678df727301ecf0.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f03f36b68104555135d4.js.map
