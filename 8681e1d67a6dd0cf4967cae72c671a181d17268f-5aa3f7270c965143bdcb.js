@@ -797,7 +797,9 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 /* harmony export */   "uB": function() { return /* binding */ IT4Functions; }
 /* harmony export */ });
 /* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13173);
-/* harmony import */ var _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30055);
+/* harmony import */ var _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30055);
+/* harmony import */ var _jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+
 
 
 var getServiceFromRole = function getServiceFromRole(info) {
@@ -809,7 +811,9 @@ var getServiceFromRole = function getServiceFromRole(info) {
 
     if (shortId) {
       // must succeed
-      return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromName */ .kB)(shortId.serviceShortName);
+      var def = (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromName */ .kB)(shortId.serviceShortId);
+      (0,_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .assert */ .hu)(!!def, "service " + shortId.serviceShortId + " not resolved");
+      return def;
     } else {
       var service = (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromName */ .kB)(role);
       return service;
@@ -827,8 +831,8 @@ function checkProgram(prog) {
     });
   };
 
-  var symbolResolver = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_1__/* .SpecSymbolResolver */ .ll(undefined, getServiceFromRole(prog), errorFun);
-  var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_1__/* .CheckExpression */ .qg(symbolResolver, function (_) {
+  var symbolResolver = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .SpecSymbolResolver */ .ll(undefined, getServiceFromRole(prog), errorFun);
+  var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .CheckExpression */ .qg(symbolResolver, function (_) {
     return true;
   }, errorFun);
   prog.handlers.forEach(function (h) {
@@ -968,10 +972,14 @@ var Button = __webpack_require__(83332);
 var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
 var Chip = __webpack_require__(4998);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+var assertThisInitialized = __webpack_require__(63349);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(92137);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(96156);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(5991);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
@@ -1116,6 +1124,8 @@ var utils = __webpack_require__(94624);
 
 
 
+
+
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -1124,12 +1134,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
 
 
 
+
+
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 var VMStatus;
 
@@ -1141,15 +1157,26 @@ var VMStatus;
 })(VMStatus || (VMStatus = {}));
 
 var IT4CommandEvaluator = /*#__PURE__*/function () {
-  function IT4CommandEvaluator(env, gc) {
+  function IT4CommandEvaluator(parent, env, gc) {
     this._regSaved = undefined;
     this._changeSaved = undefined;
     this._started = false;
+    this.parent = parent;
     this.env = env;
     this.gc = gc;
   }
 
   var _proto = IT4CommandEvaluator.prototype;
+
+  _proto.trace = function trace(msg, context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    this.parent.trace(msg, _objectSpread({
+      command: this.gc.command.type
+    }, context));
+  };
 
   _proto.evalExpression = function evalExpression(e) {
     var _this = this;
@@ -1257,7 +1284,9 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
                 return _this2.env.lookup(e);
               }, undefined);
               ev = _expr.eval(args[1]);
-              console.log("eval-end", (0,vm_expr/* unparse */.Z)(args[1]));
+              this.trace("eval-end", {
+                expr: (0,vm_expr/* unparse */.Z)(args[1])
+              });
               reg = args[0];
 
               if (!(this.inst === "writeRegister")) {
@@ -1269,7 +1298,10 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
               return this.env.writeRegisterAsync(reg, ev);
 
             case 32:
-              console.log("write-after-wait", (0,vm_expr/* unparse */.Z)(reg), ev);
+              this.trace("write-after-wait", {
+                reg: (0,vm_expr/* unparse */.Z)(reg),
+                expr: ev
+              });
               _context.next = 36;
               break;
 
@@ -1317,14 +1349,25 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
 }();
 
 var IT4CommandRunner = /*#__PURE__*/function () {
-  function IT4CommandRunner(handlerId, env, gc) {
+  function IT4CommandRunner(parent, handlerId, env, gc) {
     this._status = VMStatus.Running;
+    this.parent = parent;
     this.handlerId = handlerId;
     this.gc = gc;
-    this._eval = new IT4CommandEvaluator(env, gc);
+    this._eval = new IT4CommandEvaluator(this, env, gc);
   }
 
   var _proto2 = IT4CommandRunner.prototype;
+
+  _proto2.trace = function trace(msg, context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    this.parent.trace(msg, _objectSpread({
+      handler: this.handlerId
+    }, context));
+  };
 
   _proto2.step = /*#__PURE__*/function () {
     var _step = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
@@ -1338,7 +1381,7 @@ var IT4CommandRunner = /*#__PURE__*/function () {
               }
 
               _context2.prev = 1;
-              console.log(this.handlerId, (0,vm_expr/* unparse */.Z)(this.gc.command));
+              this.trace((0,vm_expr/* unparse */.Z)(this.gc.command));
               _context2.next = 5;
               return this._eval.evaluate();
 
@@ -1372,7 +1415,7 @@ var IT4CommandRunner = /*#__PURE__*/function () {
   };
 
   _proto2.finish = function finish(s) {
-    console.log(this.handlerId, s);
+    this.trace(s);
 
     if (this.isWaiting && s === VMStatus.Completed || s === VMStatus.Stopped) {
       this.status = s;
@@ -1402,11 +1445,12 @@ var IT4CommandRunner = /*#__PURE__*/function () {
 var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   (0,inheritsLoose/* default */.Z)(IT4HandlerRunner, _JDEventSource);
 
-  function IT4HandlerRunner(id, env, handler) {
+  function IT4HandlerRunner(parent, id, env, handler) {
     var _this3;
 
     _this3 = _JDEventSource.call(this) || this;
     _this3.stopped = false;
+    _this3.parent = parent;
     _this3.id = id;
     _this3.env = env;
     _this3.handler = handler;
@@ -1417,6 +1461,16 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   }
 
   var _proto3 = IT4HandlerRunner.prototype;
+
+  _proto3.trace = function trace(msg, context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    this.parent.trace(msg, _objectSpread({
+      id: this.id
+    }, context));
+  };
 
   _proto3.reset = function reset() {
     this._commandIndex = undefined;
@@ -1430,7 +1484,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto3.post_process = function post_process() {
-    if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* JACDAC_VM_COMMAND_COMPLETED */.IB, this._currentCommand.gc.blocklyId);
+    if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* JACDAC_VM_COMMAND_COMPLETED */.IB, this._currentCommand.gc.sourceId);
     if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
   } // run-to-completion semantics
   ;
@@ -1452,14 +1506,14 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 
             case 2:
               // if (this._currentCommand?.status === VMStatus.Completed) return
-              console.log(this.id, "handler-step-begin");
+              this.trace("step begin");
 
               if (this._commandIndex === undefined) {
                 this._commandIndex = 0;
-                this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
+                this._currentCommand = new IT4CommandRunner(this, this.id, this.env, this.handler.commands[this._commandIndex]);
               }
 
-              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.gc.blocklyId);
+              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.gc.sourceId);
               _context3.next = 7;
               return this._currentCommand.step();
 
@@ -1473,8 +1527,8 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               }
 
               this._commandIndex++;
-              this._currentCommand = new IT4CommandRunner(this.id, this.env, this.handler.commands[this._commandIndex]);
-              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.gc.blocklyId);
+              this._currentCommand = new IT4CommandRunner(this, this.id, this.env, this.handler.commands[this._commandIndex]);
+              this.emit(utils/* JACDAC_VM_COMMAND_ATTEMPTED */.kX, this._currentCommand.gc.sourceId);
               _context3.next = 14;
               return this._currentCommand.step();
 
@@ -1484,7 +1538,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               break;
 
             case 17:
-              console.log(this.id, "handler-step-end");
+              this.trace("step end");
 
             case 18:
             case "end":
@@ -1513,6 +1567,19 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 
 var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   (0,inheritsLoose/* default */.Z)(IT4ProgramRunner, _JDEventSource2);
+
+  var _proto4 = IT4ProgramRunner.prototype;
+
+  _proto4.trace = function trace(message, context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    this.emit(constants/* TRACE */.jes, {
+      message: message,
+      context: context
+    });
+  };
 
   function IT4ProgramRunner(program, bus) {
     var _this4;
@@ -1577,7 +1644,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
       });
 
       _this4._handlers = program.handlers.map(function (h, index) {
-        return new IT4HandlerRunner(index, _this4._env, h);
+        return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
       });
       _this4._waitQueue = _this4._handlers.slice(0);
     } catch (e) {
@@ -1588,8 +1655,6 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
 
     return _this4;
   }
-
-  var _proto4 = IT4ProgramRunner.prototype;
 
   _proto4.cancel = function cancel() {
     if (!this._running) return; // nothing to cancel
@@ -1602,6 +1667,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
     });
 
     this.emit(constants/* CHANGE */.Ver);
+    this.trace("cancelled");
   };
 
   _proto4.start = function start() {
@@ -1609,9 +1675,11 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
 
     if (this._running) return; // already running
 
+    this.trace("start");
+
     try {
       this.program.roles.forEach(function (role) {
-        _this5._rm.addRoleService(role.role, role.serviceShortName);
+        _this5._rm.addRoleService(role.role, role.serviceShortId);
       });
       this._running = true;
       this._in_run = false;
@@ -1646,8 +1714,8 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
               return _context4.abrupt("return");
 
             case 4:
+              this.trace("run");
               this._in_run = true;
-              console.log("run-BEGIN");
               _context4.prev = 6;
               _context4.next = 9;
               return this._env.refreshRegistersAsync();
@@ -1704,7 +1772,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
 
             case 30:
               this._in_run = false;
-              console.log("run-END");
+              this.trace("run end");
 
             case 32:
             case "end":
@@ -1730,7 +1798,9 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   }, {
     key: "roles",
     get: function get() {
-      return this._rm.roles();
+      var _this$_rm;
+
+      return (_this$_rm = this._rm) === null || _this$_rm === void 0 ? void 0 : _this$_rm.roles();
     }
   }]);
 
@@ -1752,9 +1822,13 @@ var spec = __webpack_require__(13173);
 var servers = __webpack_require__(37801);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunner.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
 
 
 
@@ -1773,13 +1847,17 @@ function VMRunner(props) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
+  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext2.setError;
+
   var _useState = (0,react.useState)(),
       testRunner = _useState[0],
       setTestRunner = _useState[1];
 
   var _useState2 = (0,react.useState)(!!autoStartDefault),
       autoStart = _useState2[0],
-      setAutoStart = _useState2[1];
+      setAutoStart = _useState2[1]; // create runner
+
 
   (0,react.useEffect)(function () {
     var runner = program && new IT4ProgramRunner(program, bus);
@@ -1790,7 +1868,23 @@ function VMRunner(props) {
       runner === null || runner === void 0 ? void 0 : runner.cancel();
       runnerRef.current = undefined;
     };
-  }, [program, autoStart]);
+  }, [program, autoStart]); // errors
+
+  (0,react.useEffect)(function () {
+    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* ERROR */.pnR, function (e) {
+      return setError(e);
+    });
+  }); // traces
+
+  var handleTrace = function handleTrace(value) {
+    var message = value.message,
+        context = value.context;
+    console.debug("vm> " + message, context);
+  };
+
+  (0,react.useEffect)(function () {
+    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* TRACE */.jes, handleTrace);
+  });
   var disabled = !testRunner;
   var status = (0,useChange/* default */.Z)(testRunner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
@@ -1813,7 +1907,11 @@ function VMRunner(props) {
 
   var running = status === VMStatus.Running;
   var roles = (0,useChange/* default */.Z)(runnerRef.current, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.roles;
+    var r = _ === null || _ === void 0 ? void 0 : _.roles;
+    if (r) console.debug("vm roles", {
+      roles: r
+    });
+    return r;
   });
 
   var handleRoleClick = function handleRoleClick(role, service, specification) {
@@ -1865,4 +1963,4 @@ function VMRunner(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-6b2950e317f93d20df17.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-5aa3f7270c965143bdcb.js.map

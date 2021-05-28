@@ -8037,7 +8037,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
   }).map(function (v) {
     return {
       role: v.name,
-      serviceShortName: v.type
+      serviceShortId: v.type
     };
   });
 
@@ -8211,11 +8211,11 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
             }
           }
         }
-    } // for linking back 
+    } // for linking back
 
 
     return {
-      blocklyId: block.id,
+      sourceId: block.id,
       command: command
     };
   };
@@ -8464,4 +8464,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-53760a3ea827a6f2bae7.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-79ad80e002da7ef4337c.js.map

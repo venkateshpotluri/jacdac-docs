@@ -49315,6 +49315,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Gb8": function() { return /* binding */ REPORT_RECEIVE; },
 /* harmony export */   "rGZ": function() { return /* binding */ REPORT_UPDATE; },
 /* harmony export */   "pnR": function() { return /* binding */ ERROR; },
+/* harmony export */   "jes": function() { return /* binding */ TRACE; },
 /* harmony export */   "LXI": function() { return /* binding */ TIMEOUT; },
 /* harmony export */   "Xxe": function() { return /* binding */ TIMEOUT_DISCONNECT; },
 /* harmony export */   "ad7": function() { return /* binding */ PROGRESS; },
@@ -49628,6 +49629,7 @@ var PACKET_INVALID_CRC = "packetInvalidCrc";
 var REPORT_RECEIVE = "reportReceive";
 var REPORT_UPDATE = "reportUpdate";
 var ERROR = "error";
+var TRACE = "trace";
 var TIMEOUT = "timeout";
 var TIMEOUT_DISCONNECT = "timeoutDisconnect";
 var PROGRESS = "progress";
@@ -54744,14 +54746,15 @@ function isInfrastructure(spec) {
 }
 /**
  * Looks up a service specification by name
- * @param name
+ * @param shortId
  */
 
-function serviceSpecificationFromName(name) {
+function serviceSpecificationFromName(shortId) {
+  if (!shortId) return undefined;
   return _serviceSpecifications.find(function (s) {
-    return s.shortId == name;
+    return s.shortId === shortId;
   }) || Object.values(_customServiceSpecifications).find(function (ser) {
-    return ser.shortId == name;
+    return ser.shortId === shortId;
   });
 }
 /**
@@ -70144,7 +70147,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "98a21b20c9652b89786e75bf6d8f6f5482b050cd";
+  var sha = "fdbc3b26fa433d032f62d580a4d1b55bc440d2f1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86207,4 +86210,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-277ca4f09352e1aeff36.js.map
+//# sourceMappingURL=app-6898cc74d2667f37fde8.js.map

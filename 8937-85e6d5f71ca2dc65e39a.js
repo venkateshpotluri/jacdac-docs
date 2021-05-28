@@ -2642,7 +2642,6 @@ function PianoWidget(props) {
     },
     stopNote: function stopNote() {// not supported
     },
-    width: "28rem",
     keyboardShortcuts: keyboardShortcuts
   }));
 }
@@ -2650,4 +2649,4 @@ function PianoWidget(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8937-ab20da3a6af4f9a7a0b3.js.map
+//# sourceMappingURL=8937-85e6d5f71ca2dc65e39a.js.map

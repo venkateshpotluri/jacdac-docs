@@ -140,7 +140,7 @@ function parseITTTMarkdownToJSON(filecontent, filename) {
             return pair.role === role;
           })) error("role with name " + role + " already declared");else info.roles.push({
             role: role,
-            serviceShortName: serviceShortName
+            serviceShortId: serviceShortName
           });
           return;
         } else if (!command || command.id !== "awaitEvent" && command.id !== "awaitCondition") {
@@ -240,4 +240,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-c369fe90f5b3461b14c7.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-runner-tsx-66a2d043f71dce455237.js.map
