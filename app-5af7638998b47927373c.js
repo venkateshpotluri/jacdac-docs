@@ -65034,8 +65034,8 @@ var ExpandMore = __webpack_require__(47739);
 var ExpandLess = __webpack_require__(16993);
 // EXTERNAL MODULE: ./src/jacdac/useDeviceSpecification.ts
 var useDeviceSpecification = __webpack_require__(77423);
-// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 2 modules
-var DeviceAvatar = __webpack_require__(1291);
+// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
+var DeviceAvatar = __webpack_require__(4726);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
 var DashboardServiceWidget = __webpack_require__(73205);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
@@ -66273,7 +66273,7 @@ function dashboardServiceWeight(service) {
 
 /***/ }),
 
-/***/ 1291:
+/***/ 4726:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66476,18 +66476,6 @@ var Avatar = /*#__PURE__*/react.forwardRef(function Avatar(props, ref) {
 var makeStyles = __webpack_require__(10920);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
 var createStyles = __webpack_require__(70274);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
-var Dialog = __webpack_require__(52468);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogTitle/DialogTitle.js
-var DialogTitle = __webpack_require__(96422);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
-var DialogContent = __webpack_require__(65733);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
-var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
-var DialogActions = __webpack_require__(89952);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
-var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./src/jacdac/useDeviceSpecification.ts
@@ -66508,9 +66496,21 @@ var TransportIcon = __webpack_require__(48245);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
+var Dialog = __webpack_require__(52468);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogTitle/DialogTitle.js
+var DialogTitle = __webpack_require__(96422);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
+var DialogContent = __webpack_require__(65733);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
+var DialogActions = __webpack_require__(89952);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
+var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
-;// CONCATENATED MODULE: ./src/components/devices/DeviceAvatar.tsx
+;// CONCATENATED MODULE: ./src/components/dialogs/IdentifyDialog.tsx
 
 
 
@@ -66518,29 +66518,6 @@ var Alert = __webpack_require__(95453);
 
 
 
-
-
-
-
-
-
-
-
-var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
-  return (0,createStyles/* default */.Z)({
-    img: {
-      marginTop: "58%"
-    },
-    small: {
-      width: theme.spacing(3),
-      height: theme.spacing(3)
-    },
-    large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7)
-    }
-  });
-});
 
 function LazyDeviceImage(props) {
   var device = props.device;
@@ -66575,13 +66552,110 @@ function LazyDeviceImage(props) {
   }));
 }
 
+function IdentifyDialog(props) {
+  var device = props.device,
+      open = props.open,
+      onClose = props.onClose;
+
+  var handleSendIdentify = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return device.identify();
+
+            case 2:
+              return _context.abrupt("return", _context.sent);
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleSendIdentify() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var handleCloseIdentify = function handleCloseIdentify() {
+    return onClose;
+  };
+
+  (0,react.useEffect)(function () {
+    if (open) {
+      var timerId = setInterval(function () {
+        return handleSendIdentify();
+      }, 3500);
+      return function () {
+        return clearInterval(timerId);
+      };
+    }
+  }, [open]);
+  return /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
+    open: open,
+    onClose: handleCloseIdentify
+  }, /*#__PURE__*/react.createElement(DialogTitle/* default */.Z, null, "Identifying ", device.friendlyName, "..."), /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    alignItems: "center",
+    alignContent: "center"
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(LazyDeviceImage, {
+    device: device
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "info"
+  }, "Look for four blinks in around 2 seconds with the blue LED.")))), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "outlined",
+    onClick: handleCloseIdentify
+  }, "Dismiss")));
+}
+;// CONCATENATED MODULE: ./src/components/devices/DeviceAvatar.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
+  return (0,createStyles/* default */.Z)({
+    img: {
+      marginTop: "58%"
+    },
+    small: {
+      width: theme.spacing(3),
+      height: theme.spacing(3)
+    },
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7)
+    }
+  });
+});
 function DeviceAvatar(props) {
   var device = props.device,
       size = props.size;
 
-  var _useState2 = (0,react.useState)(false),
-      identifyDialog = _useState2[0],
-      setIdentifyDialog = _useState2[1];
+  var _useState = (0,react.useState)(false),
+      identifyDialog = _useState[0],
+      setIdentifyDialog = _useState[1];
 
   var specification = (0,useDeviceSpecification/* default */.Z)(device);
   var imageUrl = (0,useDeviceImage/* default */.Z)(specification, "avatar");
@@ -66653,16 +66727,6 @@ function DeviceAvatar(props) {
     return setIdentifyDialog(false);
   };
 
-  (0,react.useEffect)(function () {
-    if (identifyDialog) {
-      var timerId = setInterval(function () {
-        return handleSendIdentify();
-      }, 3500);
-      return function () {
-        return clearInterval(timerId);
-      };
-    }
-  }, [identifyDialog]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(CmdButton/* default */.Z, {
     trackName: "device.identify",
     style: style,
@@ -66681,27 +66745,11 @@ function DeviceAvatar(props) {
         img: classes.img
       }
     })
-  }), imageUrl && /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
+  }), imageUrl && /*#__PURE__*/react.createElement(IdentifyDialog, {
+    device: device,
     open: identifyDialog,
     onClose: handleCloseIdentify
-  }, /*#__PURE__*/react.createElement(DialogTitle/* default */.Z, null, "Identifying ", device.friendlyName, "..."), /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    alignItems: "center",
-    alignContent: "center"
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(LazyDeviceImage, {
-    device: device
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: true
-  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "info"
-  }, "Look for four blinks in around 2 seconds with the blue LED.")))), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "outlined",
-    onClick: handleCloseIdentify
-  }, "Dismiss"))));
+  }));
 }
 
 /***/ }),
@@ -70096,7 +70144,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "1ce843a873b6e7ba546a3bcf7621f53fdd25eec4";
+  var sha = "cf0bf9ab972c374bc8ee01e64d7f1703800e6184";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86159,4 +86207,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-4d6f3b2df76ff2a174ad.js.map
+//# sourceMappingURL=app-5af7638998b47927373c.js.map

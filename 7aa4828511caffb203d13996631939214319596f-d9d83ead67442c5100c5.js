@@ -674,8 +674,8 @@ function DeviceCardMedia(props) {
 }
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 2 modules
-var DeviceAvatar = __webpack_require__(1291);
+// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
+var DeviceAvatar = __webpack_require__(4726);
 ;// CONCATENATED MODULE: ./src/components/DeviceCardHeader.tsx
 
  // tslint:disable-next-line: no-submodule-imports
@@ -764,4 +764,4 @@ function DeviceCardHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7aa4828511caffb203d13996631939214319596f-ce1bd8889de5a7f435f5.js.map
+//# sourceMappingURL=7aa4828511caffb203d13996631939214319596f-d9d83ead67442c5100c5.js.map

@@ -960,8 +960,12 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
+var Chip = __webpack_require__(4998);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
@@ -1738,9 +1742,18 @@ var PlayArrow = __webpack_require__(42404);
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
 var Stop = __webpack_require__(34257);
+// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
+var DeviceAvatar = __webpack_require__(4726);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
+var servers = __webpack_require__(37801);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunner.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
 
 
 
@@ -1794,16 +1807,55 @@ function VMRunner(props) {
   };
 
   var running = status === VMStatus.Running;
-  return /*#__PURE__*/react.createElement(Button/* default */.Z, {
+  var roles = (0,useChange/* default */.Z)(runnerRef.current, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roles;
+  });
+
+  var handleRoleClick = function handleRoleClick(role, service, specification) {
+    return function () {
+      if (!service && specification) {
+        (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+      } else {// do nothing
+      }
+    };
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Button/* default */.Z, {
     disabled: disabled,
     variant: "contained",
     onClick: running ? handleCancel : handleRun,
     color: running ? "default" : "primary",
     startIcon: running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null)
-  }, running ? "Stop" : "Run");
+  }, running ? "Stop" : "Run")), roles && Object.keys(roles).map(function (role) {
+    return {
+      role: role,
+      service: roles[role].service,
+      specification: (0,spec/* serviceSpecificationFromName */.kB)(roles[role].shortName)
+    };
+  }).map(function (_ref) {
+    var role = _ref.role,
+        service = _ref.service,
+        specification = _ref.specification;
+    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+      item: true,
+      key: role
+    }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+      label: role,
+      variant: service ? "default" : "outlined",
+      avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+        device: service.device
+      }),
+      onClick: handleRoleClick(role, service, specification)
+    }));
+  }));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-6e7fdb99cd5e31da8349.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-995082e943b0ff8b38a3.js.map
