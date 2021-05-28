@@ -952,26 +952,17 @@ function errorPath(e) {
 
 /***/ }),
 
-/***/ 88523:
+/***/ 37994:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ VMRunner; }
+  "e": function() { return /* binding */ IT4ProgramRunner; },
+  "G": function() { return /* binding */ VMStatus; }
 });
 
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
-var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
-var Button = __webpack_require__(83332);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
-var Tooltip = __webpack_require__(14685);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
-var Chip = __webpack_require__(4998);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__(63349);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
@@ -1806,25 +1797,22 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
 
   return IT4ProgramRunner;
 }(eventsource/* JDEventSource */.a);
-// EXTERNAL MODULE: ./src/jacdac/useChange.ts
-var useChange = __webpack_require__(54774);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
-var PlayArrow = __webpack_require__(42404);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
-var Stop = __webpack_require__(34257);
-// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
-var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__(84377);
-;// CONCATENATED MODULE: ./src/components/vm/VMRunner.tsx
+
+/***/ }),
+
+/***/ 35099:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ VMRunner; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(83332);
+/* harmony import */ var _jacdac_ts_src_vm_vmrunner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37994);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
+/* harmony import */ var _material_ui_icons_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(42404);
+/* harmony import */ var _material_ui_icons_Stop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34257);
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
@@ -1832,69 +1820,23 @@ var AppContext = __webpack_require__(84377);
 
 
 
-
-
-
-
-
-
-
 function VMRunner(props) {
-  var program = props.program,
-      autoStartDefault = props.autoStart,
-      runnerRef = props.runnerRef;
-
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      setError = _useContext2.setError;
-
-  var _useState = (0,react.useState)(),
-      testRunner = _useState[0],
-      setTestRunner = _useState[1];
-
-  var _useState2 = (0,react.useState)(!!autoStartDefault),
-      autoStart = _useState2[0],
-      setAutoStart = _useState2[1]; // create runner
-
-
-  (0,react.useEffect)(function () {
-    var runner = program && new IT4ProgramRunner(program, bus);
-    setTestRunner(runner);
-    if (runner && runnerRef) runnerRef.current = runner;
-    if (runner && autoStart) runner.start();
-    return function () {
-      runner === null || runner === void 0 ? void 0 : runner.cancel();
-      runnerRef.current = undefined;
-    };
-  }, [program, autoStart]); // errors
-
-  (0,react.useEffect)(function () {
-    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* ERROR */.pnR, function (e) {
-      return setError(e);
-    });
-  }); // traces
-
-  var handleTrace = function handleTrace(value) {
-    var message = value.message,
-        context = value.context;
-    console.debug("vm> " + message, context);
-  };
-
-  (0,react.useEffect)(function () {
-    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* TRACE */.jes, handleTrace);
-  });
-  var disabled = !testRunner;
-  var status = (0,useChange/* default */.Z)(testRunner, function (t) {
+  var runner = props.runner,
+      autoStartDefault = props.autoStart;
+  var disabled = !runner;
+  var status = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(runner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
   });
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!!autoStartDefault),
+      autoStart = _useState[0],
+      setAutoStart = _useState[1];
+
   var handleRun = function handleRun() {
-    setAutoStart(autoStartDefault);
+    setAutoStart(!!autoStartDefault);
 
     try {
-      testRunner.start();
+      runner.start();
     } catch (e) {
       console.debug(e);
     }
@@ -1902,65 +1844,27 @@ function VMRunner(props) {
 
   var handleCancel = function handleCancel() {
     setAutoStart(false);
-    testRunner.cancel();
+    runner.cancel();
   };
 
-  var running = status === VMStatus.Running;
-  var roles = (0,useChange/* default */.Z)(runnerRef.current, function (_) {
-    var r = _ === null || _ === void 0 ? void 0 : _.roles;
-    if (r) console.debug("vm roles", {
-      roles: r
-    });
-    return r;
-  });
+  var running = status === _jacdac_ts_src_vm_vmrunner__WEBPACK_IMPORTED_MODULE_1__/* .VMStatus.Running */ .G.Running; // auto start
 
-  var handleRoleClick = function handleRoleClick(role, service, specification) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (autoStart && runner) runner.start();
     return function () {
-      if (!service && specification) {
-        (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
-      } else {// do nothing
-      }
+      return runner === null || runner === void 0 ? void 0 : runner.cancel();
     };
-  };
-
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    spacing: 1
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(Button/* default */.Z, {
+  }, [runner, autoStart]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     disabled: disabled,
     variant: "contained",
     onClick: running ? handleCancel : handleRun,
     color: running ? "default" : "primary",
-    startIcon: running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null)
-  }, running ? "Stop" : "Run")), roles && Object.keys(roles).map(function (role) {
-    return {
-      role: role,
-      service: roles[role].service,
-      specification: (0,spec/* serviceSpecificationFromName */.kB)(roles[role].shortName)
-    };
-  }).map(function (_ref) {
-    var role = _ref.role,
-        service = _ref.service,
-        specification = _ref.specification;
-    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-      item: true,
-      key: role
-    }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: service ? "bound to " + service.device.friendlyName : "start " + specification.name + " simulator"
-    }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-      label: role,
-      variant: service ? "default" : "outlined",
-      avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
-        device: service.device
-      }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
-      onClick: handleRoleClick(role, service, specification)
-    })));
-  }));
+    startIcon: running ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Stop__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_PlayArrow__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null)
+  }, running ? "Stop" : "Run");
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-5aa3f7270c965143bdcb.js.map
+//# sourceMappingURL=8681e1d67a6dd0cf4967cae72c671a181d17268f-d7b5eadd9742858f8c8c.js.map
