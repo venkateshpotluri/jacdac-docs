@@ -721,7 +721,7 @@ function VMRoles(props) {
       item: true,
       key: role
     }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: service ? "bound to " + service.device.friendlyName : "start " + specification.name + " simulator"
+      title: service ? "bound to " + service.device.friendlyName : "start simulator"
     }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
       label: role,
       variant: service ? "default" : "outlined",
@@ -868,4 +868,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-26be64e834d5594316b5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-30325c061138a4883353.js.map

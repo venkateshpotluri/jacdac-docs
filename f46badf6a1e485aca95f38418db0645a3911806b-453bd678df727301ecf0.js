@@ -7163,14 +7163,19 @@ function loadBlocks(serviceColor, commandColor) {
       type: "fade",
       message0: "fade %1 to %2 at speed %3",
       args0: [fieldVariable(service), {
-        type: LEDColorField.KEY,
-        name: "color"
+        type: "input_value",
+        name: "color",
+        check: "Number"
       }, {
         type: "input_value",
         name: "speed",
         check: "Number"
       }],
       values: {
+        color: {
+          kind: "block",
+          type: LEDColorField.SHADOW.type
+        },
         speed: {
           kind: "block",
           type: "jacdac_ratio",
@@ -7673,8 +7678,14 @@ function loadBlocks(serviceColor, commandColor) {
     }, {
       type: "input_value",
       name: "color",
-      check: "Color"
+      check: "Number"
     }],
+    values: {
+      color: {
+        kind: "block",
+        type: LEDColorField.SHADOW.type
+      }
+    },
     inputsInline: true,
     previousStatement: "Statement",
     nextStatement: "Statement",
@@ -7884,7 +7895,7 @@ function useToolbox(props) {
       values: {
         color: {
           kind: "block",
-          type: "jacdac_color"
+          type: LEDColorField.SHADOW.type
         }
       }
     }].filter(function (b) {
@@ -8799,4 +8810,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2d9341d6afed6ddce086.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-453bd678df727301ecf0.js.map
