@@ -655,7 +655,7 @@ function Diagnostics(props) {
   }, "Blockly JSON"), /*#__PURE__*/react.createElement(CodeBlock.default, {
     className: "json",
     downloadName: "test.json",
-    downloadText: JSON.stringify(program, null, 2)
+    downloadText: JSON.stringify(source, null, 2)
   }, JSON.stringify(source, null, 2))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -748,4 +748,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-512e9c0d87d17f07fc3c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e872cc8dc434d693e9ae.js.map
