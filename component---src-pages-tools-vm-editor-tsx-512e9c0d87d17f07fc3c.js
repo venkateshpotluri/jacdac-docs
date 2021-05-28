@@ -644,14 +644,18 @@ function Diagnostics(props) {
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "subtitle1"
   }, "IT4"), /*#__PURE__*/react.createElement(CodeBlock.default, {
-    className: "json"
+    className: "json",
+    downloadName: "test.json.it4",
+    downloadText: JSON.stringify(program, null, 2)
   }, JSON.stringify(program, null, 2))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "subtitle1"
   }, "Blockly JSON"), /*#__PURE__*/react.createElement(CodeBlock.default, {
-    className: "json"
+    className: "json",
+    downloadName: "test.json",
+    downloadText: JSON.stringify(program, null, 2)
   }, JSON.stringify(source, null, 2))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -744,4 +748,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-21b8e4f712681eda1048.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-512e9c0d87d17f07fc3c.js.map
