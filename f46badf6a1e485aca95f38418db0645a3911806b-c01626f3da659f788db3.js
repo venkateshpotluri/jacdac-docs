@@ -4932,7 +4932,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 85540:
+/***/ 43906:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4942,31 +4942,20 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ VMBlockEditor; }
 });
 
-// NAMESPACE OBJECT: ./src/components/vm/fields/ReactField.tsx
-var ReactField_namespaceObject = {};
-__webpack_require__.r(ReactField_namespaceObject);
-__webpack_require__.d(ReactField_namespaceObject, {
-  "CI": function() { return ReactFieldContext; },
-  "ZP": function() { return ReactField; },
-  "_t": function() { return toShadowDefinition; }
-});
-
 // NAMESPACE OBJECT: ./src/components/vm/useToolbox.ts
 var useToolbox_namespaceObject = {};
 __webpack_require__.r(useToolbox_namespaceObject);
 __webpack_require__.d(useToolbox_namespaceObject, {
   "Nd": function() { return BUILTIN_TYPES; },
   "ZP": function() { return useToolbox; },
-  "of": function() { return scanServices; }
+  "of": function() { return scanServices; },
+  "dZ": function() { return useToolboxButtons; }
 });
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/react-blockly/dist/index.js
 var dist = __webpack_require__(691);
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(6610);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
@@ -5941,101 +5930,11 @@ var overrideOldBlockDefinitions = function overrideOldBlockDefinitions() {
     'blackBackground': '#333'
   }
 }));
-;// CONCATENATED MODULE: ./node_modules/@blockly/disable-top-blocks/src/index.js
-
-
-
-/**
- * @license
- * Copyright 2020 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Plugin for changing the context menu to match the
- * `disableOrphans` event handler.
- */
-
-/**
- * This plugin changes the logic of the enable/disable context menu item. It is
- * enabled for all blocks except top-level blocks that have output or
- * previous connections. In other words, the option is disabled for orphan
- * blocks. Using this plugin allows users to disable valid non-orphan blocks,
- * but not re-enable blocks that have been automatically disabled by
- * `disableOrphans`.
- */
-
-var DisableTopBlocks = /*#__PURE__*/function () {
-  function DisableTopBlocks() {
-    (0,classCallCheck/* default */.Z)(this, DisableTopBlocks);
-  }
-
-  (0,createClass/* default */.Z)(DisableTopBlocks, [{
-    key: "init",
-    value:
-    /**
-     * Modifies the context menu 'disable' option as described above.
-     */
-    function init() {
-      var disableMenuItem = core_browser.ContextMenuRegistry.registry.getItem('blockDisable');
-      this.oldPreconditionFn = disableMenuItem.preconditionFn;
-
-      disableMenuItem.preconditionFn = function (
-      /** @type {!Blockly.ContextMenuRegistry.Scope} */
-      scope) {
-        var block = scope.block;
-
-        if (!block.isInFlyout && block.workspace.options.disable && block.isEditable()) {
-          if (block.getInheritedDisabled() || isOrphan(block)) {
-            return 'disabled';
-          }
-
-          return 'enabled';
-        }
-
-        return 'hidden';
-      };
-    }
-    /**
-     * Turn off the effects of this plugin and restore the initial behavior.
-     * This is never required to be called. It is optional in case you need to
-     * disable the plugin.
-     */
-
-  }, {
-    key: "dispose",
-    value: function dispose() {
-      var disableMenuItem = core_browser.ContextMenuRegistry.registry.getItem('blockDisable');
-      disableMenuItem.preconditionFn = this.oldPreconditionFn;
-    }
-  }]);
-
-  return DisableTopBlocks;
-}();
-/**
- * A block is an orphan if its parent is an orphan, or if it doesn't have a
- * parent but it does have a previous or output connection (so it expects to be
- * attached to something). This means all children of orphan blocks are also
- * orphans and cannot be manually re-enabled.
- * @param {!Blockly.BlockSvg} block Block to check.
- * @return {boolean} Whether the block is an orphan.
- */
-
-function isOrphan(block) {
-  // If the parent is an orphan block, this block should also be considered
-  // an orphan so it cannot be manually re-enabled.
-  var parent =
-  /** @type {Blockly.BlockSvg} */
-  block.getParent();
-
-  if (parent && isOrphan(parent)) {
-    return true;
-  }
-
-  return !parent && !!(block.outputConnection || block.previousConnection);
-}
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(85061);
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
@@ -6082,6 +5981,7 @@ var DarkModeContext = __webpack_require__(91350);
 ;// CONCATENATED MODULE: ./src/components/ui/AppTheme.tsx
 
 
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 function AppTheme(props) {
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
@@ -6108,6 +6008,40 @@ function AppTheme(props) {
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
 var Box = __webpack_require__(8266);
+;// CONCATENATED MODULE: ./src/components/vm/fields/ValueContext.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+var ValueContext = /*#__PURE__*/(0,react.createContext)({
+  value: undefined,
+  onValueChange: undefined
+});
+ValueContext.displayName = "Value";
+/* harmony default export */ var fields_ValueContext = (ValueContext);
+function ValueProvider(props) {
+  var children = props.children,
+      initialValue = props.value,
+      onFieldValueChange = props.onValueChange;
+
+  var _useState = (0,react.useState)(initialValue),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  var onValueChange = function onValueChange(newValue) {
+    setValue(newValue);
+    onFieldValueChange === null || onFieldValueChange === void 0 ? void 0 : onFieldValueChange(newValue);
+  };
+
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line react/react-in-jsx-scope
+    React.createElement(ValueContext.Provider, {
+      value: {
+        value: value,
+        onValueChange: onValueChange
+      }
+    }, children)
+  );
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactField.tsx
 
 
@@ -6122,32 +6056,7 @@ var Box = __webpack_require__(8266);
 
 
 
-var ReactFieldContext = /*#__PURE__*/(0,react.createContext)({
-  value: undefined,
-  onValueChange: undefined
-});
-ReactFieldContext.displayName = "ReactField";
-function ReactFieldProvider(props) {
-  var children = props.children,
-      initialValue = props.value,
-      onFieldValueChange = props.onValueChange;
 
-  var _useState = (0,react.useState)(initialValue),
-      value = _useState[0],
-      setValue = _useState[1];
-
-  var onValueChange = function onValueChange(newValue) {
-    setValue(newValue);
-    onFieldValueChange(newValue);
-  };
-
-  return /*#__PURE__*/react.createElement(ReactFieldContext.Provider, {
-    value: {
-      value: value,
-      onValueChange: onValueChange
-    }
-  }, children);
-}
 
 var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
@@ -6252,10 +6161,12 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
       return _this3.value = newValue;
     };
 
-    return /*#__PURE__*/react.createElement(ReactFieldProvider, {
+    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
+      fixedDarkMode: "dark"
+    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(ValueProvider, {
       value: this.value,
       onValueChange: onValueChange
-    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, null, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    }, /*#__PURE__*/react.createElement(Box/* default */.Z, {
       m: 0.5,
       borderRadius: "0.25rem",
       bgcolor: "background.paper"
@@ -6264,6 +6175,12 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
 
   _proto.renderField = function renderField() {
     return /*#__PURE__*/react.createElement("span", null, "not implemented");
+  };
+
+  _proto.dispose = function dispose() {
+    this.view = undefined;
+
+    _Blockly$Field.prototype.dispose.call(this);
   };
 
   (0,createClass/* default */.Z)(ReactField, [{
@@ -6692,10 +6609,11 @@ var Slider = __webpack_require__(50514);
 
 
 
+
 function FieldWithSlider(props) {
   var children = props.children;
 
-  var _useContext = (0,react.useContext)(ReactFieldContext),
+  var _useContext = (0,react.useContext)(fields_ValueContext),
       value = _useContext.value,
       onValueChange = _useContext.onValueChange;
 
@@ -6783,12 +6701,13 @@ var SliderField = /*#__PURE__*/function (_ReactField) {
 
 
 
+
 var ServoWidget = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 9422));
 });
 
 function ServiceFieldWidget() {
-  var _useContext = (0,react.useContext)(ReactFieldContext),
+  var _useContext = (0,react.useContext)(fields_ValueContext),
       value = _useContext.value;
 
   return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ServoWidget, {
@@ -6833,12 +6752,13 @@ ServoAngleField.SHADOW = toShadowDefinition(ServoAngleField);
 
 
 
+
 var LEDWidget = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 56931));
 });
 
 function LEDColorFieldWidget() {
-  var _useContext = (0,react.useContext)(ReactFieldContext),
+  var _useContext = (0,react.useContext)(fields_ValueContext),
       value = _useContext.value,
       onValueChange = _useContext.onValueChange;
 
@@ -6901,7 +6821,197 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
 LEDColorField.KEY = "jacdac_field_led_color";
 LEDColorField.SHADOW = toShadowDefinition(LEDColorField);
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
+var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
+var DashboardServiceWidget = __webpack_require__(73205);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
+var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
+var Alert = __webpack_require__(95453);
+;// CONCATENATED MODULE: ./src/components/vm/fields/TwinField.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function DashboardServiceFieldWidget(props) {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var serviceClass = props.serviceClass;
+  var specification = (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
+  var services = (0,useServices/* default */.Z)({
+    ignoreSelf: true,
+    serviceClass: serviceClass
+  });
+  var service = services === null || services === void 0 ? void 0 : services[0];
+
+  var handleStartSimulator = function handleStartSimulator() {
+    return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
+  };
+
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    alignItems: "center",
+    alignContent: "center",
+    justify: "center",
+    spacing: 1
+  }, service ? /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement("div", {
+    style: {
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
+    service: service,
+    visible: true,
+    variant: "icon"
+  }))) : /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "info"
+  }, "No ", (specification === null || specification === void 0 ? void 0 : specification.name) || "service", "..."), /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "contained",
+    color: "default",
+    startIcon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
+    onClick: handleStartSimulator
+  }, "start simulator")));
+}
+
+var TwinField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(TwinField, _ReactField);
+
+  TwinField.fromJson = function fromJson(options) {
+    return new TwinField(options);
+  };
+
+  function TwinField(options) {
+    var _this;
+
+    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
+      width: 240,
+      height: 160
+    }) || this;
+    _this.serviceClass = options.serviceClass;
+    return _this;
+  }
+
+  var _proto = TwinField.prototype;
+
+  _proto.initCustomView = function initCustomView() {
+    var _this2 = this;
+
+    var _this$size_ = this.size_,
+        width = _this$size_.width,
+        height = _this$size_.height;
+    var fo = child(this.fieldGroup_, "foreignObject", {
+      x: 0,
+      y: 0,
+      width: width,
+      height: height
+    });
+    this.container = document.createElement("div");
+    fo.appendChild(this.container);
+    this.resizeObserver = new ResizeObserver(function (entries) {
+      var entry = entries[0];
+      var contentRect = entry.contentRect;
+      _this2.size_.width = contentRect.width;
+      _this2.size_.height = contentRect.height;
+      fo.setAttribute("width", _this2.size_.width + "");
+      fo.setAttribute("height", _this2.size_.height + "");
+
+      _this2.forceRerender();
+    });
+    this.resizeObserver.observe(this.container);
+    react_dom.render(this.renderBlock(), this.container);
+    return fo;
+  };
+
+  _proto.dispose = function dispose() {
+    if (this.container) {
+      react_dom.unmountComponentAtNode(this.container);
+      this.container = undefined;
+    }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
+    }
+
+    _ReactField.prototype.dispose.call(this);
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react.createElement("div", null, "field");
+  };
+
+  _proto.renderBlock = function renderBlock() {
+    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
+      fixedDarkMode: "dark"
+    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(DashboardServiceFieldWidget, {
+      serviceClass: this.serviceClass
+    })))));
+  } // don't bind any mouse event
+  ;
+
+  _proto.bindEvents_ = function bindEvents_() {
+    blockly_default().Tooltip.bindMouseEvents(this.getClickTarget_());
+  } // track current role
+  ;
+
+  _proto.onSourceBlockChanged = function onSourceBlockChanged() {
+    this.updateRole();
+  };
+
+  _proto.updateRole = function updateRole() {
+    var source = this.getSourceBlock();
+    var field = source === null || source === void 0 ? void 0 : source.inputList[0].fieldRow[0]; // force model geneartion
+
+    var xml = document.createElement("xml");
+    field === null || field === void 0 ? void 0 : field.toXml(xml);
+    var role = field === null || field === void 0 ? void 0 : field.getVariable();
+    console.log("updated role", {
+      source: source,
+      field: field,
+      role: role
+    });
+  };
+
+  return TwinField;
+}(ReactField);
+
+TwinField.KEY = "jacdac_field_twin";
+TwinField.EDITABLE = false;
+
 ;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
+
 
 
 
@@ -6923,7 +7033,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField];
+  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -6937,6 +7047,7 @@ var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -7302,6 +7413,26 @@ function loadBlocks(serviceColor, commandColor) {
     def.type = "jacdac_custom_" + def.service.shortId + "_" + def.type;
     return def;
   });
+  var bashboardBlocks = allServices.map(function (service) {
+    return {
+      kind: "block",
+      type: "jacdac_dashboard_service_" + service.shortId,
+      message0: "%1 %2 %3",
+      args0: [fieldVariable(service), {
+        type: "input_dummy"
+      }, {
+        type: TwinField.KEY,
+        name: "dashboard",
+        serviceClass: service.classIdentifier
+      }],
+      colour: serviceColor(service),
+      inputsInline: false,
+      tooltip: "Dashboard of the service",
+      helpUrl: serviceHelp(service),
+      service: service,
+      template: "twin"
+    };
+  });
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -7560,7 +7691,7 @@ function loadBlocks(serviceColor, commandColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(bashboardBlocks));
   var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7754,6 +7885,7 @@ function loadBlocks(serviceColor, commandColor) {
 
   blocks.map(function (block) {
     return (blockly_default()).Blocks[block.type] = {
+      jacdacDefinition: block,
       init: function init() {
         this.jsonInit(block);
       }
@@ -8019,6 +8151,24 @@ function useToolbox(props) {
     newProjectXml: NEW_PROJET_XML
   };
 }
+function useToolboxButtons(workspace, toolboxConfiguration) {
+  // track workspace changes and update callbacks
+  (0,react.useEffect)(function () {
+    if (!workspace) return; // collect buttons
+
+    var buttons = toolboxConfiguration === null || toolboxConfiguration === void 0 ? void 0 : toolboxConfiguration.contents // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map(function (cat) {
+      return cat.button;
+    }).filter(function (btn) {
+      return !!btn;
+    });
+    buttons === null || buttons === void 0 ? void 0 : buttons.forEach(function (button) {
+      return workspace.registerButtonCallback(button.callbackKey, function () {
+        return blockly_default().Variables.createVariableButtonHandler(workspace, null, button.service.shortId);
+      });
+    });
+  }, [workspace, JSON.stringify(toolboxConfiguration)]);
+}
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
 var Dialog = __webpack_require__(52468);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
@@ -8235,7 +8385,7 @@ function domToJSON(workspace) {
   var fieldToJSON = function fieldToJSON(field) {
     if (field.isSerializable()) {
       // custom field can just return the value
-      if (field instanceof ReactField_namespaceObject.ReactField) {
+      if (field instanceof ReactField) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         var value = field.value;
         return {
@@ -8607,6 +8757,10 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
       var role = inputs[0].fields["role"].value;
 
       switch (template) {
+        case "twin":
+          break;
+        // ignore
+
         case "event":
           {
             var eventName = inputs[0].fields["event"].value;
@@ -8658,8 +8812,148 @@ var makeStyles = __webpack_require__(10920);
 var createStyles = __webpack_require__(70274);
 // EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
 var clsx_m = __webpack_require__(85505);
-;// CONCATENATED MODULE: ./src/components/vm/VMBlockEditor.tsx
+;// CONCATENATED MODULE: ./node_modules/@blockly/disable-top-blocks/src/index.js
 
+
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Plugin for changing the context menu to match the
+ * `disableOrphans` event handler.
+ */
+
+/**
+ * This plugin changes the logic of the enable/disable context menu item. It is
+ * enabled for all blocks except top-level blocks that have output or
+ * previous connections. In other words, the option is disabled for orphan
+ * blocks. Using this plugin allows users to disable valid non-orphan blocks,
+ * but not re-enable blocks that have been automatically disabled by
+ * `disableOrphans`.
+ */
+
+var DisableTopBlocks = /*#__PURE__*/function () {
+  function DisableTopBlocks() {
+    (0,classCallCheck/* default */.Z)(this, DisableTopBlocks);
+  }
+
+  (0,createClass/* default */.Z)(DisableTopBlocks, [{
+    key: "init",
+    value:
+    /**
+     * Modifies the context menu 'disable' option as described above.
+     */
+    function init() {
+      var disableMenuItem = core_browser.ContextMenuRegistry.registry.getItem('blockDisable');
+      this.oldPreconditionFn = disableMenuItem.preconditionFn;
+
+      disableMenuItem.preconditionFn = function (
+      /** @type {!Blockly.ContextMenuRegistry.Scope} */
+      scope) {
+        var block = scope.block;
+
+        if (!block.isInFlyout && block.workspace.options.disable && block.isEditable()) {
+          if (block.getInheritedDisabled() || isOrphan(block)) {
+            return 'disabled';
+          }
+
+          return 'enabled';
+        }
+
+        return 'hidden';
+      };
+    }
+    /**
+     * Turn off the effects of this plugin and restore the initial behavior.
+     * This is never required to be called. It is optional in case you need to
+     * disable the plugin.
+     */
+
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      var disableMenuItem = core_browser.ContextMenuRegistry.registry.getItem('blockDisable');
+      disableMenuItem.preconditionFn = this.oldPreconditionFn;
+    }
+  }]);
+
+  return DisableTopBlocks;
+}();
+/**
+ * A block is an orphan if its parent is an orphan, or if it doesn't have a
+ * parent but it does have a previous or output connection (so it expects to be
+ * attached to something). This means all children of orphan blocks are also
+ * orphans and cannot be manually re-enabled.
+ * @param {!Blockly.BlockSvg} block Block to check.
+ * @return {boolean} Whether the block is an orphan.
+ */
+
+function isOrphan(block) {
+  // If the parent is an orphan block, this block should also be considered
+  // an orphan so it cannot be manually re-enabled.
+  var parent =
+  /** @type {Blockly.BlockSvg} */
+  block.getParent();
+
+  if (parent && isOrphan(parent)) {
+    return true;
+  }
+
+  return !parent && !!(block.outputConnection || block.previousConnection);
+}
+;// CONCATENATED MODULE: ./src/components/vm/useBlocklyEvents.ts
+
+
+
+function useBlocklyEvents(workspace) {
+  var handleChange = function handleChange(event) {
+    var type = event.type;
+
+    switch (type) {
+      case (blockly_default()).Events.BLOCK_CHANGE:
+        {
+          var _Blockly$Blocks$block;
+
+          var change = event;
+          var block = workspace.getBlockById(change.blockId);
+          var def = (_Blockly$Blocks$block = (blockly_default()).Blocks[block.type]) === null || _Blockly$Blocks$block === void 0 ? void 0 : _Blockly$Blocks$block.jacdacDefinition;
+          var template = def === null || def === void 0 ? void 0 : def.template;
+
+          if (template === "twin") {
+            // notify twin that the value changed
+            var twinField = block.inputList[1].fieldRow[0];
+            twinField.updateRole();
+          }
+
+          break;
+        }
+    }
+  }; // register hook
+
+
+  (0,react.useEffect)(function () {
+    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleChange);
+    return function () {
+      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleChange);
+    };
+  }, [workspace]); //plugins
+
+  (0,react.useEffect)(function () {
+    if (!workspace) return; // Add the disableOrphans event handler. This is not done automatically by
+    // the plugin and should be handled by your application.
+
+    workspace.addChangeListener((blockly_default()).Events.disableOrphans); // The plugin must be initialized before it has any effect.
+
+    var disableTopBlocksPlugin = new DisableTopBlocks();
+    disableTopBlocksPlugin.init();
+    return workspace.removeChangeListener((blockly_default()).Events.disableOrphans);
+  }, [workspace]);
+}
+;// CONCATENATED MODULE: ./src/components/vm/VMBlockEditor.tsx
 
 
 
@@ -8678,7 +8972,7 @@ var clsx_m = __webpack_require__(85505);
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     editor: {
-      height: "40vh",
+      height: "calc(100vh - 10rem)",
       "& .blocklyTreeLabel": {
         fontFamily: theme.typography.fontFamily
       },
@@ -8695,8 +8989,7 @@ function VMBlockEditor(props) {
       onJSONChange = props.onJSONChange,
       onIT4ProgramChange = props.onIT4ProgramChange,
       initialXml = props.initialXml,
-      serviceClass = props.serviceClass,
-      runner = props.runner;
+      serviceClass = props.serviceClass;
   var classes = useStyles();
 
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
@@ -8727,6 +9020,8 @@ function VMBlockEditor(props) {
     ref: blocklyRef,
     toolboxConfiguration: toolboxConfiguration,
     workspaceConfiguration: {
+      collapse: false,
+      disable: false,
       comments: false,
       css: true,
       trashcan: false,
@@ -8751,7 +9046,7 @@ function VMBlockEditor(props) {
         wheel: true,
         startScale: 1.0,
         maxScale: 3,
-        minScale: 0.3,
+        minScale: 0.1,
         scaleSpeed: 1.2,
         pinch: true
       }
@@ -8762,17 +9057,13 @@ function VMBlockEditor(props) {
     }
   }),
       workspace = _ref.workspace,
-      xml = _ref.xml;
+      xml = _ref.xml; // listen for events needed for field editors
 
-  (0,react.useEffect)(function () {
-    if (!workspace) return; // Add the disableOrphans event handler. This is not done automatically by
-    // the plugin and should be handled by your application.
 
-    workspace.addChangeListener((blockly_default()).Events.disableOrphans); // The plugin must be initialized before it has any effect.
+  useBlocklyEvents(workspace); // setup buttons
 
-    var disableTopBlocksPlugin = new DisableTopBlocks();
-    disableTopBlocksPlugin.init();
-  }, [workspace]); // blockly did a change
+  useToolboxButtons(workspace, toolboxConfiguration); // code serialization
+  // blockly did a change
 
   (0,react.useEffect)(function () {
     if (!workspace) return;
@@ -8799,23 +9090,7 @@ function VMBlockEditor(props) {
 
     var newServices = scanServices(workspace);
     if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
-  }, [workspace, xml]); // track workspace changes and update callbacks
-
-  (0,react.useEffect)(function () {
-    if (!workspace) return; // collect buttons
-
-    var buttons = toolboxConfiguration === null || toolboxConfiguration === void 0 ? void 0 : toolboxConfiguration.contents // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map(function (cat) {
-      return cat.button;
-    }).filter(function (btn) {
-      return !!btn;
-    });
-    buttons === null || buttons === void 0 ? void 0 : buttons.forEach(function (button) {
-      return workspace.registerButtonCallback(button.callbackKey, function () {
-        return blockly_default().Variables.createVariableButtonHandler(workspace, null, button.service.shortId);
-      });
-    });
-  }, [workspace, JSON.stringify(toolboxConfiguration)]);
+  }, [workspace, xml]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(BlocklyModalDialogs, null), /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
     ref: blocklyRef
@@ -8825,4 +9100,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f03f36b68104555135d4.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-c01626f3da659f788db3.js.map

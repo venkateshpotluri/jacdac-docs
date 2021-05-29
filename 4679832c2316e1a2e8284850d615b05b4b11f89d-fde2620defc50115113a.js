@@ -770,8 +770,7 @@ function SimulateDeviceAlert() {
 
   var handleStartSimulator = function handleStartSimulator(serviceClass) {
     return function () {
-      var provider = (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(serviceClass);
-      (0,servers/* addServiceProvider */.Q6)(bus, provider);
+      return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
     };
   };
 
@@ -1088,4 +1087,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4679832c2316e1a2e8284850d615b05b4b11f89d-d0648646dd21ecb1f70d.js.map
+//# sourceMappingURL=4679832c2316e1a2e8284850d615b05b4b11f89d-fde2620defc50115113a.js.map

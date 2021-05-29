@@ -44,7 +44,7 @@ function DashbaordWaterLevel(props) {
       textProps = _useWidgetTheme.textProps;
 
   var hasValue = !isNaN(value);
-  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(variant, services.length);
+  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(variant, services === null || services === void 0 ? void 0 : services.length);
   var tvalue = hasValue ? Math.round(value * 100) + "%" : "--";
   var mx = 5;
   var wx = 6;
@@ -116,4 +116,4 @@ function DashbaordWaterLevel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=193-a22545e56bc0a50f942d.js.map
+//# sourceMappingURL=193-0b57b8f0d77938c09228.js.map

@@ -79,7 +79,7 @@ function DashboardTrafficLight(props) {
       background = _useWidgetTheme.background,
       controlBackground = _useWidgetTheme.controlBackground;
 
-  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(variant, services.length);
+  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(variant, services === null || services === void 0 ? void 0 : services.length);
   var cy = 0;
   var names = ["red", "yellow", "green"];
   var colors = ["red", "orange", "green"];
@@ -219,4 +219,4 @@ function useKeyboardNavigationProps(parentRef, vertical) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8847-e08a241e30e45e4d40fe.js.map
+//# sourceMappingURL=8847-88ca2531212a0061d56d.js.map

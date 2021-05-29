@@ -100,7 +100,7 @@ function DashboardSoilMoisture(props) {
   var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(moistureReg, props),
       value = _useRegisterUnpackedV[0];
 
-  var widgetSize = (0,useWidgetSize/* default */.Z)(variant, services.length);
+  var widgetSize = (0,useWidgetSize/* default */.Z)(variant, services === null || services === void 0 ? void 0 : services.length);
   var server = (0,useServiceServer/* default */.Z)(service);
   var color = server ? "secondary" : "primary";
   var hasValue = !isNaN(value);
@@ -138,4 +138,4 @@ function DashboardSoilMoisture(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2459-3f5bed9cbbd75d1363cf.js.map
+//# sourceMappingURL=2459-ca0bc3e4be5c0082f902.js.map

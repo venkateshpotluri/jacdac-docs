@@ -45,7 +45,7 @@ function DashboardReflectedLight(props) {
       background = _useWidgetTheme.background,
       controlBackground = _useWidgetTheme.controlBackground;
 
-  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(variant, services.length);
+  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(variant, services === null || services === void 0 ? void 0 : services.length);
   var maxValue = 1.0;
 
   var handleDown = function handleDown() {
@@ -118,4 +118,4 @@ function DashboardReflectedLight(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5149-41bffaaea0acf1c39454.js.map
+//# sourceMappingURL=5149-1b390e16742383c734b8.js.map

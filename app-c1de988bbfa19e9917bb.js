@@ -57969,7 +57969,8 @@ __webpack_require__.d(__webpack_exports__, {
   "$": function() { return /* binding */ SG90_RESPONSE_SPEED; },
   "Q6": function() { return /* binding */ addServiceProvider; },
   "ZP": function() { return /* binding */ serviceProviderDefinitions; },
-  "vd": function() { return /* binding */ serviceProviderDefinitionFromServiceClass; }
+  "vd": function() { return /* binding */ serviceProviderDefinitionFromServiceClass; },
+  "V6": function() { return /* binding */ startServiceProviderFromServiceClass; }
 });
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
@@ -61012,6 +61013,10 @@ function serviceProviderDefinitionFromServiceClass(serviceClass) {
   return _providerDefinitions.find(function (provider) {
     return provider.serviceClasses.length === 1 && provider.serviceClasses[0] === serviceClass;
   });
+}
+function startServiceProviderFromServiceClass(bus, serviceClass) {
+  var provider = serviceProviderDefinitionFromServiceClass(serviceClass);
+  if (provider) addServiceProvider(bus, provider);
 }
 
 /***/ }),
@@ -67138,6 +67143,7 @@ var useWidgetSize = __webpack_require__(8584);
 
 
 
+
 function ValueWithUnitWidget(props) {
   var value = props.value,
       min = props.min,
@@ -67147,20 +67153,32 @@ function ValueWithUnitWidget(props) {
       icon = props.icon,
       label = props.label,
       tabIndex = props.tabIndex,
+      color = props.color,
       onChange = props.onChange;
   var labelVariant = "subtitle1";
   var precision = step === undefined ? 1 : step < 1 ? Math.ceil(-Math.log10(step)) : 0;
   var hasValue = !isNaN(value);
   var valueText = hasValue ? (0,utils/* roundWithPrecision */.JI)(value, precision).toLocaleString() : "--";
   var valueTextLength = (0,utils/* isSet */.DM)(min) && (0,utils/* isSet */.DM)(max) ? [min, max, min + (min + max) / 3].map(function (v) {
-    return (0,utils/* roundWithPrecision */.JI)(v, precision).toLocaleString().replace(/[,.]/, '').length;
+    return (0,utils/* roundWithPrecision */.JI)(v, precision).toLocaleString().replace(/[,.]/, "").length;
   }).reduce(function (l, r) {
     return Math.max(l, r);
-  }, 0) + precision : valueText.length; //console.log({ min, max, step, precision })
+  }, 0) + precision : valueText.length;
+
+  var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
+      textPrimary = _useWidgetTheme.textPrimary; //console.log({ min, max, step, precision })
+
 
   var valueVariant = valueTextLength < 4 ? "h1" : valueTextLength < 7 ? "h2" : valueTextLength < 9 ? "h3" : valueTextLength < 12 ? "h4" : "h6";
   var valueStyle = {
+    color: textPrimary,
     minWidth: Math.max(2, valueTextLength - 1) + "em"
+  };
+  var unitStyle = {
+    color: textPrimary
+  };
+  var captionStyle = {
+    color: textPrimary
   };
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
@@ -67190,10 +67208,12 @@ function ValueWithUnitWidget(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    style: unitStyle,
     variant: labelVariant
   }, label)), secondaryLabel && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    style: captionStyle,
     variant: "caption"
   }, secondaryLabel)))))), onChange && value !== undefined && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
@@ -70153,7 +70173,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "5268113185c657f32c28680dbd5d7140339788ef";
+  var sha = "de863ba31d2673e4a858fc444656af12d3d4a6c1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71127,15 +71147,25 @@ DarkModeContext.displayName = "DarkMode";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ DarkModeProvider; }
 /* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8129);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91350);
 
 
-function DarkModeProvider(props) {
-  var children = props.children;
-  var KEY = "darkMode";
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("light"),
+function DarkModeProvider(props) {
+  var fixedDarkMode = props.fixedDarkMode,
+      children = props.children;
+  var KEY = "darkMode";
+  var prefersDarkMode = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)("(prefers-color-scheme: dark)", {
+    noSsr: true
+  });
+
+  var localTheme = function localTheme() {
+    return !fixedDarkMode && typeof window !== "undefined" && window.localStorage.getItem(KEY);
+  };
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(fixedDarkMode || localTheme() || (prefersDarkMode ? "dark" : "light")),
       darkMode = _useState[0],
       setDarkMode = _useState[1];
 
@@ -71147,7 +71177,7 @@ function DarkModeProvider(props) {
     if (mode === darkMode) return; // nothing to do
 
     console.debug("dark mode: set " + mode);
-    if (typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
+    if (!fixedDarkMode && typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
     setDarkMode(mode);
   };
 
@@ -71162,20 +71192,13 @@ function DarkModeProvider(props) {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var _window;
-
-    var localTheme = typeof window !== "undefined" && window.localStorage.getItem(KEY);
-
-    if (localTheme) {
-      setDarkMode(localTheme || "light");
-    } else if (typeof window !== "undefined" && (_window = window) !== null && _window !== void 0 && _window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setDarkMode("dark");
-    } else {
-      setDarkMode("light");
-    }
-
+    console.debug("dark mode", {
+      fixedDarkMode: fixedDarkMode,
+      prefersDarkMode: prefersDarkMode,
+      darkMode: darkMode
+    });
     setMounted(true);
-  }, [darkMode]);
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default.Provider */ .Z.Provider, {
     value: {
       darkMode: darkMode,
@@ -79024,7 +79047,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.44"};
+var package_namespaceObject = {"i8":"1.13.45"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -86288,4 +86311,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-52ba9c7cdd345b6f8f16.js.map
+//# sourceMappingURL=app-c1de988bbfa19e9917bb.js.map

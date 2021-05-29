@@ -595,8 +595,8 @@ var Typography = __webpack_require__(80453);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 26 modules
-var VMBlockEditor = __webpack_require__(85540);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 29 modules
+var VMBlockEditor = __webpack_require__(43906);
 // EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 3 modules
 var Dashboard = __webpack_require__(65063);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
@@ -617,6 +617,7 @@ var AppContext = __webpack_require__(84377);
 var constants = __webpack_require__(71815);
 ;// CONCATENATED MODULE: ./src/components/vm/useVMRunner.ts
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -648,7 +649,7 @@ function useVMRunner(program) {
   var handleTrace = function handleTrace(value) {
     var message = value.message,
         context = value.context;
-    console.debug("vm> " + message, context);
+    if (flags/* default.diagnostics */.Z.diagnostics) console.debug("vm> " + message, context);
   };
 
   (0,react.useEffect)(function () {
@@ -868,4 +869,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-30325c061138a4883353.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-23c6e1a1aadd0ee52bbf.js.map

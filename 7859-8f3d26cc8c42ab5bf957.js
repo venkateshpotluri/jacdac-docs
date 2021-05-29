@@ -56,7 +56,7 @@ function DashboardMatrixKeypad(props) {
       active = _useWidgetTheme.active,
       textProps = _useWidgetTheme.textProps;
 
-  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(variant, services.length); // no data about layout
+  var widgetSize = (0,_widgets_useWidgetSize__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(variant, services === null || services === void 0 ? void 0 : services.length); // no data about layout
 
   if (rows === undefined || columns === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null);
   var clickeable = !!server; // compute size
@@ -255,4 +255,4 @@ function useKeyboardNavigationProps(parentRef, vertical) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7859-ad17906bfe083ff4d99b.js.map
+//# sourceMappingURL=7859-8f3d26cc8c42ab5bf957.js.map
