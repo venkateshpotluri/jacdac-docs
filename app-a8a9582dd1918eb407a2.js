@@ -70173,7 +70173,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "cb02e269a5872d6cf0cb37d442d0b47ac60a8551";
+  var sha = "7b4cf316f1cd0126976ce233c157932979918499";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71616,7 +71616,9 @@ function ThemedLayout(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(notistack__WEBPACK_IMPORTED_MODULE_0__/* .SnackbarProvider */ .wT, {
     maxSnack: maxSnack || 1,
     dense: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_DbContext__WEBPACK_IMPORTED_MODULE_5__/* .DbProvider */ .WQ, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__/* .ServiceManagerProvider */ .Aq, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_PacketsContext__WEBPACK_IMPORTED_MODULE_6__/* .PacketsProvider */ .l, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .AppProvider */ .wI, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__/* .MakeCodeSnippetProvider */ .u, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .ZP, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_helmet__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("link", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_DbContext__WEBPACK_IMPORTED_MODULE_5__/* .DbProvider */ .WQ, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    connectOnStart: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__/* .ServiceManagerProvider */ .Aq, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_PacketsContext__WEBPACK_IMPORTED_MODULE_6__/* .PacketsProvider */ .l, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .AppProvider */ .wI, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__/* .MakeCodeSnippetProvider */ .u, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .ZP, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_helmet__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("link", {
     rel: "preconnect",
     href: "https://fonts.googleapis.com",
     crossOrigin: "anonymous"
@@ -72330,7 +72332,8 @@ JacdacContext.displayName = "Jacdac";
 
 
 function JacdacProvider(props) {
-  var children = props.children;
+  var connectOnStart = props.connectOnStart,
+      children = props.children;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       firstConnect = _useState[0],
@@ -72339,7 +72342,7 @@ function JacdacProvider(props) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // bus live accross hot-reloads
-    if (!firstConnect) {
+    if (!firstConnect && connectOnStart) {
       setFirstConnect(true);
       _providerbus__WEBPACK_IMPORTED_MODULE_2__/* .default.connect */ .Z.connect(true);
     }
@@ -86308,4 +86311,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-86882b3f36167d02ad6b.js.map
+//# sourceMappingURL=app-a8a9582dd1918eb407a2.js.map
