@@ -70173,7 +70173,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7b4cf316f1cd0126976ce233c157932979918499";
+  var sha = "6c17e49d2163cb272b3466b8b4d81e1d7b68cdb6";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71176,7 +71176,6 @@ function DarkModeProvider(props) {
   var setMode = function setMode(mode) {
     if (mode === darkMode) return; // nothing to do
 
-    console.debug("dark mode: set " + mode);
     if (!fixedDarkMode && typeof window !== "undefined") window.localStorage.setItem(KEY, mode);
     setDarkMode(mode);
   };
@@ -71192,11 +71191,6 @@ function DarkModeProvider(props) {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.debug("dark mode", {
-      fixedDarkMode: fixedDarkMode,
-      prefersDarkMode: prefersDarkMode,
-      darkMode: darkMode
-    });
     setMounted(true);
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default.Provider */ .Z.Provider, {
@@ -86311,4 +86305,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a8a9582dd1918eb407a2.js.map
+//# sourceMappingURL=app-000f839a7d51a8879c85.js.map
