@@ -9479,7 +9479,7 @@ function VMBlockEditor(props) {
   // blockly did a change
 
   (0,react.useEffect)(function () {
-    if (!workspace) return;
+    if (!workspace || workspace.isDragging()) return;
     onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(xml); // save json
 
     if (onJSONChange || onIT4ProgramChange) {
@@ -9513,4 +9513,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-831d56cbf3a8c41a9244.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-baa6ba1e93e3a41e5615.js.map
