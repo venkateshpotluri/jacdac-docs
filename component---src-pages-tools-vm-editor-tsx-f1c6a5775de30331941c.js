@@ -838,6 +838,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var VMStatus;
 
 (function (VMStatus) {
+  VMStatus["ProgramError"] = "programerror";
   VMStatus["Ready"] = "ready";
   VMStatus["Running"] = "running";
   VMStatus["Completed"] = "completed";
@@ -1386,7 +1387,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
           events = _checkProgram[1];
 
       if (_this4._program.errors.length > 0) {
-        console.debug(_this4._program.errors);
+        if (_this4._program.handlers.length === 0) throw _this4._program.errors;else console.debug(_this4._program.errors);
       }
 
       _this4._rm = new MyRoleManager(bus, function (role, service, added) {
@@ -1438,6 +1439,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
       });
       _this4._waitQueue = _this4._handlers.slice(0);
     } catch (e) {
+      _this4._program = undefined;
       console.debug(e);
 
       _this4.emit(constants/* ERROR */.pnR, e);
@@ -1447,7 +1449,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   }
 
   _proto4.cancel = function cancel() {
-    if (!this._running) return; // nothing to cancel
+    if (!this._program || !this._running) return; // nothing to cancel
 
     this._running = false;
     this._waitQueue = this._handlers.slice(0);
@@ -1463,7 +1465,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   _proto4.start = function start() {
     var _this5 = this;
 
-    if (this._running) return; // already running
+    if (!this._program || this._running) return; // already running
 
     this.trace("start");
 
@@ -1489,7 +1491,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              if (this._running) {
+              if (this._program) {
                 _context5.next = 2;
                 break;
               }
@@ -1497,7 +1499,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
               return _context5.abrupt("return");
 
             case 2:
-              if (!this._in_run) {
+              if (this._running) {
                 _context5.next = 4;
                 break;
               }
@@ -1505,72 +1507,80 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
               return _context5.abrupt("return");
 
             case 4:
+              if (!this._in_run) {
+                _context5.next = 6;
+                break;
+              }
+
+              return _context5.abrupt("return");
+
+            case 6:
               this.trace("run");
               this._in_run = true;
-              _context5.prev = 6;
-              _context5.next = 9;
+              _context5.prev = 8;
+              _context5.next = 11;
               return this._env.refreshRegistersAsync();
 
-            case 9:
+            case 11:
               if (!(this._waitQueue.length > 0)) {
-                _context5.next = 23;
+                _context5.next = 25;
                 break;
               }
 
               nextTime = [];
               _iterator = _createForOfIteratorHelperLoose(this._waitQueue);
 
-            case 12:
+            case 14:
               if ((_step3 = _iterator()).done) {
-                _context5.next = 19;
+                _context5.next = 21;
                 break;
               }
 
               h = _step3.value;
-              _context5.next = 16;
+              _context5.next = 18;
               return h.step();
 
-            case 16:
+            case 18:
               if (h.status !== VMStatus.Stopped) {
                 if (h.status === VMStatus.Completed) h.reset();
                 nextTime.push(h);
               }
 
-            case 17:
-              _context5.next = 12;
+            case 19:
+              _context5.next = 14;
               break;
 
-            case 19:
+            case 21:
               this._waitQueue = nextTime;
 
               this._env.consumeEvent();
 
-              _context5.next = 24;
+              _context5.next = 26;
               break;
 
-            case 23:
+            case 25:
               this.emit(constants/* CHANGE */.Ver);
 
-            case 24:
-              _context5.next = 30;
+            case 26:
+              _context5.next = 32;
               break;
 
-            case 26:
-              _context5.prev = 26;
-              _context5.t0 = _context5["catch"](6);
+            case 28:
+              _context5.prev = 28;
+              _context5.t0 = _context5["catch"](8);
               console.debug(_context5.t0);
               this.emit(constants/* ERROR */.pnR, _context5.t0);
 
-            case 30:
+            case 32:
               this._in_run = false;
               this.trace("run end");
 
-            case 32:
+            case 34:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, this, [[6, 26]]);
+      }, _callee5, this, [[8, 28]]);
     }));
 
     function run() {
@@ -1583,7 +1593,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   (0,createClass/* default */.Z)(IT4ProgramRunner, [{
     key: "status",
     get: function get() {
-      var ret = this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
+      var ret = this._program === undefined ? VMStatus.ProgramError : this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
       return ret;
     }
   }, {
@@ -1591,7 +1601,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
     get: function get() {
       var _this$_rm;
 
-      return (_this$_rm = this._rm) === null || _this$_rm === void 0 ? void 0 : _this$_rm.roles();
+      return this._program ? (_this$_rm = this._rm) === null || _this$_rm === void 0 ? void 0 : _this$_rm.roles() : {};
     }
   }]);
 
@@ -1912,4 +1922,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-9dca205e7166f09025be.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f1c6a5775de30331941c.js.map

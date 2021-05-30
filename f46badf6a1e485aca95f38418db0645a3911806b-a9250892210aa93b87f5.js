@@ -4996,7 +4996,8 @@ function removeIfThenElse(handler) {
 }
 
 function checkProgram(prog) {
-  prog.errors = [];
+  var allErrors = [];
+  var goodHandlers = [];
 
   var errorFun = function errorFun(e) {
     prog.errors.push({
@@ -5010,11 +5011,26 @@ function checkProgram(prog) {
   var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .IT4Checker */ .DG(symbolResolver, function (_) {
     return true;
   }, errorFun);
-  prog.handlers.forEach(function (h) {
+  prog.handlers.forEach(function (h, index) {
+    prog.errors = [];
     handlerVisitor(h, undefined, function (c) {
       return checker.checkCommand(c.command, IT4Functions);
     });
+
+    if (prog.errors.length) {
+      prog.errors.forEach(function (e) {
+        return allErrors.push({
+          file: "handler " + index,
+          line: undefined,
+          message: e.message
+        });
+      });
+    } else {
+      goodHandlers.push(h);
+    }
   });
+  prog.handlers = goodHandlers;
+  prog.errors = allErrors;
   return [symbolResolver.registers.map(function (s) {
     var _s$split = s.split("."),
         root = _s$split[0],
@@ -9488,4 +9504,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6310d613f63db148d02c.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a9250892210aa93b87f5.js.map
