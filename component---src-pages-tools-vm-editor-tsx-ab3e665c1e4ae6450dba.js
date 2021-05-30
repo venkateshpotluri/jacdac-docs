@@ -2120,11 +2120,10 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
         _this4._env.serviceChanged(role, service, added);
 
         if (added) {
-          _this4.emit(utils/* ROLE_SERVICE_BOUND */.hS, service);
-
-          _this4.emit(utils/* ROLE_CHANGE */.X5);
-
-          _this4.emit(constants/* CHANGE */.Ver);
+          console.log("role added", {
+            role: role,
+            service: service
+          });
 
           _this4._program.handlers.forEach(function (h) {
             regs.forEach(function (r) {
@@ -2138,10 +2137,21 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
               }
             });
           });
+
+          _this4.emit(utils/* ROLE_SERVICE_BOUND */.hS, service);
+
+          _this4.emit(utils/* ROLES_CHANGE */.DH);
+
+          _this4.emit(constants/* CHANGE */.Ver);
         } else {
+          console.log("role removed", {
+            role: role,
+            service: service
+          });
+
           _this4.emit(utils/* ROLE_SERVICE_UNBOUND */.fQ, service);
 
-          _this4.emit(utils/* ROLE_CHANGE */.X5);
+          _this4.emit(utils/* ROLES_CHANGE */.DH);
 
           _this4.emit(constants/* CHANGE */.Ver);
         }
@@ -2420,7 +2430,8 @@ function useVMRunner(program) {
 
   (0,react.useEffect)(function () {
     try {
-      var newTestRunner = program && new IT4ProgramRunner(program, bus); // register runner events
+      var newTestRunner = program && new IT4ProgramRunner(program, bus);
+      console.log("new runner", newTestRunner); // register runner events
 
       setTestRunner(newTestRunner);
     } catch (e) {
@@ -2432,7 +2443,7 @@ function useVMRunner(program) {
     return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* ERROR */.pnR, function (e) {
       return setError(e);
     });
-  }); // traces
+  }, [testRunner]); // traces
 
   var handleTrace = function handleTrace(value) {
     var message = value.message,
@@ -2442,7 +2453,7 @@ function useVMRunner(program) {
 
   (0,react.useEffect)(function () {
     return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* TRACE */.jes, handleTrace);
-  });
+  }, [testRunner]);
   return {
     runner: testRunner
   };
@@ -2474,13 +2485,18 @@ function VMRoles(props) {
       bus = _useContext.bus;
 
   var runner = props.runner;
-  var roles = (0,useChange/* default */.Z)(runner, function (_) {
-    var r = _ === null || _ === void 0 ? void 0 : _.roles;
-    if (r) console.debug("vm roles", {
-      roles: r
+
+  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.roles),
+      roles = _useState[0],
+      setRoles = _useState[1];
+
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(utils/* ROLES_CHANGE */.DH, function () {
+      var newRoles = runner === null || runner === void 0 ? void 0 : runner.roles;
+      console.log("vm role", newRoles);
+      setRoles(newRoles);
     });
-    return r;
-  });
+  }, [runner]);
 
   var handleRoleClick = function handleRoleClick(role, service, specification) {
     return function () {
@@ -2498,7 +2514,7 @@ function VMRoles(props) {
     return {
       role: role,
       service: roles[role].service,
-      specification: (0,spec/* serviceSpecificationFromName */.kB)(roles[role].shortName)
+      specification: (0,spec/* serviceSpecificationFromName */.kB)(roles[role].serviceShortId)
     };
   }).map(function (_ref) {
     var role = _ref.role,
@@ -2655,4 +2671,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-325280cd6c7d02132737.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ab3e665c1e4ae6450dba.js.map

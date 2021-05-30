@@ -1129,7 +1129,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "hS": function() { return /* binding */ ROLE_SERVICE_BOUND; },
-/* harmony export */   "X5": function() { return /* binding */ ROLE_CHANGE; },
+/* harmony export */   "DH": function() { return /* binding */ ROLES_CHANGE; },
 /* harmony export */   "fQ": function() { return /* binding */ ROLE_SERVICE_UNBOUND; },
 /* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
 /* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
@@ -1143,7 +1143,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 var VM_ERROR = "JacdacVMError";
 var ROLE_SERVICE_BOUND = "roleServiceBound";
-var ROLE_CHANGE = "roleChange";
+var ROLES_CHANGE = "rolesChange";
 var ROLE_SERVICE_UNBOUND = "roleServiceUnbound";
 var ROLE_HAS_NO_SERVICE = "roleHasNoService";
 var VM_COMMAND_ATTEMPTED = "commandAttempted";
@@ -2745,4 +2745,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-3f01811d5e6a453b46bd.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-d09684de82c4b8a5c82b.js.map

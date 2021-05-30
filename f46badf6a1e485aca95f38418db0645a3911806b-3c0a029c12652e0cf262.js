@@ -5121,7 +5121,7 @@ var IT4Functions = [{
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "hS": function() { return /* binding */ ROLE_SERVICE_BOUND; },
-/* harmony export */   "X5": function() { return /* binding */ ROLE_CHANGE; },
+/* harmony export */   "DH": function() { return /* binding */ ROLES_CHANGE; },
 /* harmony export */   "fQ": function() { return /* binding */ ROLE_SERVICE_UNBOUND; },
 /* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
 /* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
@@ -5135,7 +5135,7 @@ var IT4Functions = [{
 
 var VM_ERROR = "JacdacVMError";
 var ROLE_SERVICE_BOUND = "roleServiceBound";
-var ROLE_CHANGE = "roleChange";
+var ROLES_CHANGE = "rolesChange";
 var ROLE_SERVICE_UNBOUND = "roleServiceUnbound";
 var ROLE_HAS_NO_SERVICE = "roleHasNoService";
 var VM_COMMAND_ATTEMPTED = "commandAttempted";
@@ -5768,14 +5768,11 @@ function WorkspaceProvider(props) {
   }, [field, workspace, runner]); // resolve current role service
 
   (0,react.useEffect)(function () {
-    return setRoleService(resolveRoleService());
-  }, [role, runner]); // resolve role bounds
-
-  (0,react.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* ROLE_CHANGE */.X5, function () {
-      return setRoleService(resolveRoleService());
+    setRoleService(resolveRoleService());
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* ROLES_CHANGE */.DH, function () {
+      setRoleService(resolveRoleService());
     });
-  }, [runner]);
+  }, [role, runner]);
   return (
     /*#__PURE__*/
     // eslint-disable-next-line react/react-in-jsx-scope
@@ -9749,4 +9746,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-04554bab31f4e06ef72c.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3c0a029c12652e0cf262.js.map
