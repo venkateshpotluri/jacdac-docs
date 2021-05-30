@@ -6964,18 +6964,18 @@ function loadBlocks(serviceColor, commandColor) {
   var bashboardBlocks = allServices.map(function (service) {
     return {
       kind: "block",
-      type: "jacdac_dashboard_service_" + service.shortId,
+      type: "jacdac_twin_" + service.shortId,
       message0: "%1 %2 %3",
       args0: [fieldVariable(service), {
         type: "input_dummy"
       }, {
         type: TwinField.KEY,
-        name: "dashboard",
+        name: "twin",
         serviceClass: service.classIdentifier
       }],
       colour: serviceColor(service),
       inputsInline: false,
-      tooltip: "Dashboard of the service",
+      tooltip: "Twin of the service",
       helpUrl: serviceHelp(service),
       service: service,
       template: "twin"
@@ -7967,15 +7967,19 @@ function domToJSON(workspace) {
 
   var blockToJSON = function blockToJSON(block) {
     var blockToJSONHidden = function blockToJSONHidden(block) {
-      var _builtins$block$type;
+      var _Blockly$Blocks$block, _builtins$block$type;
 
-      if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // Skip over insertion markers.
+      // skip disabled blocks
+      if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // skip over insertion markers.
 
       if (block.isInsertionMarker()) {
         var child = block.getChildren(false)[0];
         if (child) return blockToJSON(child);else return undefined;
-      } // dump object
+      } // skip twins
 
+
+      var definition = (_Blockly$Blocks$block = (blockly_default()).Blocks[block.type]) === null || _Blockly$Blocks$block === void 0 ? void 0 : _Blockly$Blocks$block.jacdacDefinition;
+      if ((definition === null || definition === void 0 ? void 0 : definition.template) === "twin") return undefined; // dump object
 
       var value = (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
       var element = {
@@ -8011,9 +8015,7 @@ function domToJSON(workspace) {
 
   try {
     var variables = blockly_default().Variables.allUsedVarModels(workspace);
-    var blocks = workspace.getTopBlocks(true).filter(function (b) {
-      return b.isEnabled();
-    });
+    var blocks = workspace.getTopBlocks(true);
     var json = {
       variables: variables.map(variableToJSON),
       blocks: blocks.map(blockToJSON).filter(function (b) {
@@ -9511,4 +9513,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2a6aafb47a0badbfbaa4.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d9c35905034d78065227.js.map
