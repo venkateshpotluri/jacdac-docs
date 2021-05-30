@@ -65104,8 +65104,8 @@ var DashboardServiceWidget = __webpack_require__(11184);
 var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./src/components/services/useRoleManager.ts
-var useRoleManager = __webpack_require__(40549);
+// EXTERNAL MODULE: ./src/components/services/useRoleManagerClient.ts
+var useRoleManagerClient = __webpack_require__(39922);
 ;// CONCATENATED MODULE: ./src/components/services/useServiceRole.ts
 
 
@@ -65134,7 +65134,7 @@ function ServiceRole(props) {
   var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
       showSelectRoleDialog = _useContext.showSelectRoleDialog;
 
-  var roleManager = (0,useRoleManager/* default */.Z)();
+  var roleManager = (0,useRoleManagerClient/* default */.Z)();
   var role = useServiceRole(service);
 
   var handleClick = function handleClick() {
@@ -70209,7 +70209,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "d2178d70a758437805818590982f7c9194a69133";
+  var sha = "aa61151a2beccdb84c35ee8cf93825c16fd39884";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71071,12 +71071,12 @@ function MakeCodeSnippetProvider(props) {
 
 /***/ }),
 
-/***/ 40549:
+/***/ 39922:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ useRoleManager; }
+/* harmony export */   "Z": function() { return /* binding */ useRoleManagerClient; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
@@ -71084,7 +71084,7 @@ function MakeCodeSnippetProvider(props) {
 
 
 
-function useRoleManager() {
+function useRoleManagerClient() {
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
       bus = _useContext.bus;
 
@@ -81509,7 +81509,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(4841), __webpack_require__.e(3725), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 25166));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(4841), __webpack_require__.e(3725), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 16310));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86344,4 +86344,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b0867a553a0e644d4ffc.js.map
+//# sourceMappingURL=app-fec8e1848512ae1d5ad8.js.map

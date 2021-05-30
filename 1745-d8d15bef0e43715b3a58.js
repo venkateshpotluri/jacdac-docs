@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(80791);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19640);
-/* harmony import */ var _services_useRoleManager__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(40549);
+/* harmony import */ var _services_useRoleManagerClient__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(39922);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54774);
 /* harmony import */ var _services_RoleListItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73588);
 
@@ -34,7 +34,7 @@ function SelectRoleDialog(props) {
   var open = !!service;
   var dialogId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .useId */ .Me)();
   var labelId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .useId */ .Me)();
-  var roleManager = (0,_services_useRoleManager__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)();
+  var roleManager = (0,_services_useRoleManagerClient__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)();
   var roles = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(roleManager, function (rm) {
     return rm === null || rm === void 0 ? void 0 : rm.compatibleRoles(service);
   }, [service]);
@@ -84,4 +84,4 @@ function SelectRoleDialog(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=1745-516a9fa3f735fc4b1cba.js.map
+//# sourceMappingURL=1745-d8d15bef0e43715b3a58.js.map

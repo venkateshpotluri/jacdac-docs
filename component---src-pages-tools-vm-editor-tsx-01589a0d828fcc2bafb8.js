@@ -839,6 +839,49 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ 94624:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "l9": function() { return /* binding */ ROLE_BOUND; },
+/* harmony export */   "CC": function() { return /* binding */ ROLE_UNBOUND; },
+/* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
+/* harmony export */   "D1": function() { return /* binding */ JDVMError; }
+/* harmony export */ });
+/* unused harmony exports VM_ERROR, default */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var VM_ERROR = "JacdacVMError";
+var ROLE_BOUND = "roleBound";
+var ROLE_UNBOUND = "roleUnbound";
+var ROLE_HAS_NO_SERVICE = "roleHasNoService";
+var VM_COMMAND_ATTEMPTED = "commandAttempted";
+var VM_COMMAND_COMPLETED = "commandCompleted";
+var JDVMError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
+
+  function JDVMError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = VM_ERROR;
+    return _this;
+  }
+
+  return JDVMError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
+}
+
+/***/ }),
+
 /***/ 50274:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1356,7 +1399,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 25166:
+/***/ 16310:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1401,140 +1444,20 @@ var createClass = __webpack_require__(5991);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(87757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
-var eventsource = __webpack_require__(45484);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
-var constants = __webpack_require__(71815);
-;// CONCATENATED MODULE: ./jacdac-ts/src/vm/rolemanager.ts
-
-
-
-var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
-  (0,inheritsLoose/* default */.Z)(MyRoleManager, _JDEventSource);
-
-  function MyRoleManager(bus, notify) {
-    var _this;
-
-    _this = _JDEventSource.call(this) || this;
-    _this._roles = {};
-    _this._devices = [];
-    _this.bus = bus;
-    _this.notify = notify;
-
-    _this.bus.on(constants/* DEVICE_ANNOUNCE */.Hob, function (dev) {
-      return _this.addServices(dev);
-    });
-
-    _this.bus.on(constants/* DEVICE_DISCONNECT */.O55, function (dev) {
-      return _this.removeServices(dev);
-    });
-
-    return _this;
-  }
-
-  var _proto = MyRoleManager.prototype;
-
-  _proto.roles = function roles() {
-    return this._roles;
-  };
-
-  _proto.addServices = function addServices(dev) {
-    var _this2 = this;
-
-    dev.services().forEach(function (s) {
-      var roleNeedingService = Object.keys(_this2._roles).find(function (k) {
-        return !_this2._roles[k].service && _this2.nameMatch(_this2._roles[k].serviceShortId, s.specification.shortId);
-      });
-
-      if (roleNeedingService && _this2._devices.indexOf(dev) === -1) {
-        _this2._roles[roleNeedingService] = {
-          serviceShortId: s.specification.shortId,
-          service: s
-        };
-
-        _this2._devices.push(dev);
-
-        if (_this2.notify) _this2.notify(roleNeedingService, s, true);
-      }
-    });
-  };
-
-  _proto.removeServices = function removeServices(dev) {
-    var _this3 = this;
-
-    if (this._devices.indexOf(dev) >= 0) {
-      this._devices = this._devices.filter(function (d) {
-        return d !== dev;
-      });
-      var rolesToUnmap = Object.keys(this._roles).filter(function (k) {
-        return dev.services().indexOf(_this3._roles[k].service) >= 0;
-      });
-
-      if (rolesToUnmap.length > 0) {
-        rolesToUnmap.forEach(function (role) {
-          var service = _this3._roles[role].service;
-          _this3._roles[role] = {
-            serviceShortId: service.specification.shortId,
-            service: undefined
-          };
-          if (_this3.notify) _this3.notify(role, service, false);
-        });
-      }
-    }
-  };
-
-  _proto.getService = function getService(role) {
-    return this._roles[role].service;
-  };
-
-  _proto.nameMatch = function nameMatch(n1, n2) {
-    var cn1 = n1.slice(0).toLowerCase().replace("_", " ").trim();
-    var cn2 = n2.slice(0).toLowerCase().replace("_", " ").trim();
-    return cn1 === cn2;
-  };
-
-  _proto.getServicesFromName = function getServicesFromName(root) {
-    var _this4 = this;
-
-    return this.bus.services().filter(function (s) {
-      return _this4.nameMatch(s.specification.shortId, root);
-    });
-  };
-
-  _proto.addRoleService = function addRoleService(role, serviceShortId) {
-    if (role in this._roles && this._roles[role].service) return;
-    this._roles[role] = {
-      serviceShortId: serviceShortId,
-      service: undefined
-    };
-    var existingServices = Object.values(this._roles).filter(function (p) {
-      return p.service;
-    }).map(function (p) {
-      return p.service;
-    });
-    var ret = this.getServicesFromName(serviceShortId).filter(function (s) {
-      return existingServices.indexOf(s) === -1;
-    });
-
-    if (ret.length > 0) {
-      this._roles[role].service = ret[0];
-
-      this._devices.push(ret[0].device);
-
-      this.notify(role, ret[0], true);
-    }
-  };
-
-  return MyRoleManager;
-}(eventsource/* JDEventSource */.a);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
 var environment = __webpack_require__(96699);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
 var vm_expr = __webpack_require__(18108);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
+var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
 var ir = __webpack_require__(68290);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
 var utils = __webpack_require__(94624);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
+var client = __webpack_require__(47235);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/vmrunner.ts
 
 
@@ -1561,6 +1484,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 var VMStatus;
 
@@ -2081,8 +2005,8 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   return IT4HandlerRunner;
 }(eventsource/* JDEventSource */.a);
 
-var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
-  (0,inheritsLoose/* default */.Z)(IT4ProgramRunner, _JDEventSource2);
+var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
+  (0,inheritsLoose/* default */.Z)(IT4ProgramRunner, _JDClient);
 
   var _proto4 = IT4ProgramRunner.prototype;
 
@@ -2097,14 +2021,16 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
     });
   };
 
-  function IT4ProgramRunner(prog, bus) {
+  function IT4ProgramRunner(bus, roleManager, prog) {
     var _this4;
 
-    _this4 = _JDEventSource2.call(this) || this;
+    _this4 = _JDClient.call(this) || this;
     _this4._handlers = [];
     _this4._waitQueue = [];
     _this4._running = false;
     _this4._in_run = false;
+    _this4.bus = bus;
+    _this4.roleManager = roleManager;
     _this4._program = (0,ir/* compileProgram */.IJ)(prog);
 
     var _checkProgram = (0,ir/* checkProgram */.i_)(_this4._program),
@@ -2115,52 +2041,39 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
       console.debug(_this4._program.errors);
     }
 
-    _this4._rm = new MyRoleManager(bus, function (role, service, added) {
-      try {
-        _this4._env.serviceChanged(role, service, added);
+    _this4.mount(_this4.roleManager.subscribe(utils/* ROLE_BOUND */.l9, function (role) {
+      console.log("role added", {
+        role: role
+      });
 
-        if (added) {
-          console.log("role added", {
-            role: role,
-            service: service
-          });
+      var service = _this4.roleManager.getService(role);
 
-          _this4._program.handlers.forEach(function (h) {
-            regs.forEach(function (r) {
-              if (r.role === role) {
-                _this4._env.registerRegister(role, r.register);
-              }
-            });
-            events.forEach(function (e) {
-              if (e.role === role) {
-                _this4._env.registerEvent(role, e.event);
-              }
-            });
-          });
+      _this4._env.serviceChanged(role, service, true);
 
-          _this4.emit(utils/* ROLE_SERVICE_BOUND */.hS, service);
+      _this4._program.handlers.forEach(function (h) {
+        regs.forEach(function (r) {
+          if (r.role === role) {
+            _this4._env.registerRegister(role, r.register);
+          }
+        });
+        events.forEach(function (e) {
+          if (e.role === role) {
+            _this4._env.registerEvent(role, e.event);
+          }
+        });
+      });
+    }));
 
-          _this4.emit(utils/* ROLES_CHANGE */.DH);
+    _this4.mount(_this4.roleManager.subscribe(utils/* ROLE_UNBOUND */.CC, function (role) {
+      console.log("role removed", {
+        role: role
+      });
 
-          _this4.emit(constants/* CHANGE */.Ver);
-        } else {
-          console.log("role removed", {
-            role: role,
-            service: service
-          });
+      var service = _this4.roleManager.getService(role);
 
-          _this4.emit(utils/* ROLE_SERVICE_UNBOUND */.fQ, service);
+      _this4._env.serviceChanged(role, service, false);
+    }));
 
-          _this4.emit(utils/* ROLES_CHANGE */.DH);
-
-          _this4.emit(constants/* CHANGE */.Ver);
-        }
-      } catch (e) {
-        console.debug(e);
-
-        _this4.emit(constants/* ERROR */.pnR, e);
-      }
-    });
     _this4._env = new environment/* VMEnvironment */.u();
 
     _this4._env.subscribe(constants/* CHANGE */.Ver, function () {
@@ -2195,17 +2108,12 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   };
 
   _proto4.start = function start() {
-    var _this5 = this;
-
     if (!this._program || this._running) return; // already running
 
     this.trace("start");
 
     try {
-      this._program.roles.forEach(function (role) {
-        _this5._rm.addRoleService(role.role, role.serviceShortId);
-      });
-
+      this.roleManager.setRoles(this._program.roles);
       this._running = true;
       this._in_run = false;
       this.run();
@@ -2213,12 +2121,6 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
       console.debug(e);
       this.emit(constants/* ERROR */.pnR, e);
     }
-  };
-
-  _proto4.resolveService = function resolveService(role) {
-    var _this$_rm;
-
-    return this._program && ((_this$_rm = this._rm) === null || _this$_rm === void 0 ? void 0 : _this$_rm.getService(role));
   };
 
   _proto4.run = /*#__PURE__*/function () {
@@ -2334,17 +2236,10 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
       var ret = this._program === undefined ? VMStatus.ProgramError : this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
       return ret;
     }
-  }, {
-    key: "roles",
-    get: function get() {
-      var _this$_rm2;
-
-      return this._program ? (_this$_rm2 = this._rm) === null || _this$_rm2 === void 0 ? void 0 : _this$_rm2.roles() : {};
-    }
   }]);
 
   return IT4ProgramRunner;
-}(eventsource/* JDEventSource */.a);
+}(client/* JDClient */.z);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
@@ -2416,7 +2311,7 @@ var AppContext = __webpack_require__(84377);
 
 
 
-function useVMRunner(program) {
+function useVMRunner(roleManager, program) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
@@ -2430,14 +2325,17 @@ function useVMRunner(program) {
 
   (0,react.useEffect)(function () {
     try {
-      var newTestRunner = program && new IT4ProgramRunner(program, bus);
+      var newTestRunner = program && new IT4ProgramRunner(bus, roleManager, program);
       console.log("new runner", newTestRunner); // register runner events
 
       setTestRunner(newTestRunner);
+      return function () {
+        return newTestRunner === null || newTestRunner === void 0 ? void 0 : newTestRunner.unmount();
+      };
     } catch (e) {
       setTestRunner(undefined);
     }
-  }, [program]); // errors
+  }, [roleManager, program]); // errors
 
   (0,react.useEffect)(function () {
     return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* ERROR */.pnR, function (e) {
@@ -2454,9 +2352,7 @@ function useVMRunner(program) {
   (0,react.useEffect)(function () {
     return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* TRACE */.jes, handleTrace);
   }, [testRunner]);
-  return {
-    runner: testRunner
-  };
+  return testRunner;
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
 var Tooltip = __webpack_require__(14685);
@@ -2484,19 +2380,10 @@ function VMRoles(props) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var runner = props.runner;
-
-  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.roles),
-      roles = _useState[0],
-      setRoles = _useState[1];
-
-  (0,react.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(utils/* ROLES_CHANGE */.DH, function () {
-      var newRoles = runner === null || runner === void 0 ? void 0 : runner.roles;
-      console.log("vm role", newRoles);
-      setRoles(newRoles);
-    });
-  }, [runner]);
+  var roleManager = props.roleManager;
+  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roles;
+  });
 
   var handleRoleClick = function handleRoleClick(role, service, specification) {
     return function () {
@@ -2535,7 +2422,231 @@ function VMRoles(props) {
     })));
   }));
 }
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/rolemanager.ts
+
+
+
+
+
+function rolemanager_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function rolemanager_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { rolemanager_ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { rolemanager_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function rolemanager_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = rolemanager_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function rolemanager_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return rolemanager_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return rolemanager_arrayLikeToArray(o, minLen); }
+
+function rolemanager_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+ // TODO: replicate MakeCode role manager logic
+
+var RoleManager = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(RoleManager, _JDEventSource);
+
+  function RoleManager(bus) {
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this._roles = [];
+    _this.bus = bus;
+
+    _this.bus.on(constants/* DEVICE_ANNOUNCE */.Hob, _this.addServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.bus.on(constants/* DEVICE_DISCONNECT */.O55, _this.removeServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.bus.devices({
+      ignoreSelf: true,
+      announced: true
+    }).forEach(function (dev) {
+      return _this.addServices(dev);
+    });
+
+    _this.on(utils/* ROLE_UNBOUND */.CC, function (role) {
+      return console.log("role unbound", {
+        role: role
+      });
+    });
+
+    _this.on(utils/* ROLE_BOUND */.l9, function (role) {
+      return console.log("role bound", {
+        role: role
+      });
+    });
+
+    return _this;
+  }
+
+  var _proto = RoleManager.prototype;
+
+  _proto.setRoles = function setRoles(newRoles) {
+    var _this2 = this;
+
+    var roles = this.roles;
+    console.debug("set roles", {
+      roles: roles,
+      newRoles: newRoles
+    }); // removed roles
+
+    var _loop = function _loop() {
+      var newRole = _step.value;
+      var existingRole = roles.find(function (r) {
+        return r.role === newRole.role;
+      });
+
+      if (!existingRole) {
+        // added role
+        _this2._roles.push(rolemanager_objectSpread({}, newRole));
+      } else if (existingRole.serviceShortId !== newRole.serviceShortId) {
+        // modified type, force rebinding
+        existingRole.serviceShortId = newRole.serviceShortId;
+
+        if (existingRole.service) {
+          existingRole.service = undefined;
+
+          _this2.emit(utils/* ROLE_UNBOUND */.CC, newRole.role);
+
+          _this2.emit(constants/* CHANGE */.Ver);
+        }
+      } // else unmodifed role
+
+    };
+
+    for (var _iterator = rolemanager_createForOfIteratorHelperLoose(newRoles), _step; !(_step = _iterator()).done;) {
+      _loop();
+    } // bound services
+
+
+    this.bindServices();
+  };
+
+  _proto.bindServices = function bindServices() {
+    var _this3 = this;
+
+    this.unboundRoles.forEach(function (binding) {
+      var boundRoles = _this3.boundRoles;
+
+      var service = _this3.bus.services({
+        ignoreSelf: true,
+        serviceName: binding.serviceShortId
+      }).find(function (srv) {
+        return !boundRoles.find(function (b) {
+          return b.service === srv;
+        });
+      });
+
+      binding.service = service;
+
+      _this3.emit(utils/* ROLE_BOUND */.l9, binding.role);
+
+      _this3.emit(constants/* CHANGE */.Ver);
+    });
+  };
+
+  _proto.addServices = function addServices(dev) {
+    if (dev === this.bus.selfDevice) return;
+    this.bindServices();
+  };
+
+  _proto.removeServices = function removeServices(dev) {
+    var _this4 = this;
+
+    this._roles.filter(function (r) {
+      var _r$service;
+
+      return ((_r$service = r.service) === null || _r$service === void 0 ? void 0 : _r$service.device) === dev;
+    }).forEach(function (r) {
+      r.service = undefined;
+
+      _this4.emit(utils/* ROLE_UNBOUND */.CC, r.role);
+
+      _this4.emit(constants/* CHANGE */.Ver);
+    });
+  };
+
+  _proto.getService = function getService(role) {
+    var _this$_roles$find;
+
+    return (_this$_roles$find = this._roles.find(function (r) {
+      return r.role === role;
+    })) === null || _this$_roles$find === void 0 ? void 0 : _this$_roles$find.service;
+  };
+
+  _proto.addRoleService = function addRoleService(role, serviceShortId) {
+    var _this5 = this;
+
+    var binding = this._roles.find(function (r) {
+      return r.role === role;
+    });
+
+    if (!binding) {
+      binding = {
+        role: role,
+        serviceShortId: serviceShortId
+      };
+
+      this._roles.push(binding);
+    }
+
+    if (binding.service) return;
+    var ret = this.bus.services({
+      ignoreSelf: true,
+      serviceName: serviceShortId
+    }).find(function (s) {
+      return !_this5._roles.find(function (r) {
+        return r.service === s;
+      });
+    });
+
+    if (ret) {
+      binding.service = ret;
+      this.emit(utils/* ROLE_BOUND */.l9, role);
+      this.emit(constants/* CHANGE */.Ver);
+    } else {
+      this.emit(utils/* ROLE_UNBOUND */.CC, role);
+      this.emit(constants/* CHANGE */.Ver);
+    }
+  };
+
+  (0,createClass/* default */.Z)(RoleManager, [{
+    key: "roles",
+    get: function get() {
+      return this._roles.slice(0);
+    }
+  }, {
+    key: "boundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !!r.service;
+      });
+    }
+  }, {
+    key: "unboundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !r.service;
+      });
+    }
+  }]);
+
+  return RoleManager;
+}(eventsource/* JDEventSource */.a);
+;// CONCATENATED MODULE: ./src/components/vm/useRoleManager.ts
+
+
+
+function useRoleManager() {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var roleManager = (0,react.useMemo)(function () {
+    return new RoleManager(bus);
+  }, []);
+  return roleManager;
+}
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+
 
 
 
@@ -2599,8 +2710,8 @@ function VMEditor(props) {
       program = _useState2[0],
       setProgram = _useState2[1];
 
-  var _useVMRunner = useVMRunner(program),
-      runner = _useVMRunner.runner;
+  var roleManager = useRoleManager();
+  var runner = useVMRunner(roleManager, program);
 
   var handleXml = function handleXml(xml) {
     setXml(xml);
@@ -2608,10 +2719,14 @@ function VMEditor(props) {
 
   var handleJSON = function handleJSON(json) {
     var newSource = JSON.stringify(json);
-    if (JSON.stringify(source) !== newSource) setSource(json);
+
+    if (JSON.stringify(source) !== newSource) {
+      setSource(json);
+    }
   };
 
   var handleI4Program = function handleI4Program(json) {
+    if (json) roleManager.setRoles(json.roles);
     var newProgram = JSON.stringify(json);
     if (JSON.stringify(program) !== newProgram) setProgram(json);
   };
@@ -2634,7 +2749,8 @@ function VMEditor(props) {
     onXmlChange: handleXml,
     onJSONChange: handleJSON,
     onIT4ProgramChange: handleI4Program,
-    runner: runner
+    runner: runner,
+    roleManager: roleManager
   }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -2645,7 +2761,7 @@ function VMEditor(props) {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(VMRoles, {
-    runner: runner
+    roleManager: roleManager
   })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Diagnostics, {
     program: program,
     source: source,
@@ -2671,4 +2787,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ab3e665c1e4ae6450dba.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-01589a0d828fcc2bafb8.js.map

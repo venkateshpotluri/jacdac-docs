@@ -717,8 +717,8 @@ var Devices = __webpack_require__(66717);
 var ConnectAlert = __webpack_require__(94431);
 // EXTERNAL MODULE: ./src/components/buttons/ConnectButtons.tsx
 var ConnectButtons = __webpack_require__(45608);
-// EXTERNAL MODULE: ./src/components/services/useRoleManager.ts
-var useRoleManager = __webpack_require__(40549);
+// EXTERNAL MODULE: ./src/components/services/useRoleManagerClient.ts
+var useRoleManagerClient = __webpack_require__(39922);
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
@@ -864,7 +864,7 @@ function Dashboard(props) {
       simulators = _splitFilter[0],
       physicals = _splitFilter[1];
 
-  var roleManager = (0,useRoleManager/* default */.Z)();
+  var roleManager = (0,useRoleManagerClient/* default */.Z)();
 
   var handleClearSimulators = function handleClearSimulators() {
     bus.serviceProviders().forEach(function (dev) {
@@ -983,4 +983,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=639063b5af89a7aee89d93b899885af3c8f7a8d8-5588894800ce70516daf.js.map
+//# sourceMappingURL=639063b5af89a7aee89d93b899885af3c8f7a8d8-523b9a7e40e033cfdcbb.js.map
