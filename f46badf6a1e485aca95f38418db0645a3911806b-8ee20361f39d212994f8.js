@@ -5115,6 +5115,51 @@ var IT4Functions = [{
 
 /***/ }),
 
+/***/ 94624:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hS": function() { return /* binding */ ROLE_SERVICE_BOUND; },
+/* harmony export */   "X5": function() { return /* binding */ ROLE_CHANGE; },
+/* harmony export */   "fQ": function() { return /* binding */ ROLE_SERVICE_UNBOUND; },
+/* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
+/* harmony export */   "D1": function() { return /* binding */ JDVMError; }
+/* harmony export */ });
+/* unused harmony exports VM_ERROR, default */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var VM_ERROR = "JacdacVMError";
+var ROLE_SERVICE_BOUND = "roleServiceBound";
+var ROLE_CHANGE = "roleChange";
+var ROLE_SERVICE_UNBOUND = "roleServiceUnbound";
+var ROLE_HAS_NO_SERVICE = "roleHasNoService";
+var VM_COMMAND_ATTEMPTED = "commandAttempted";
+var VM_COMMAND_COMPLETED = "commandCompleted";
+var JDVMError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
+
+  function JDVMError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = VM_ERROR;
+    return _this;
+  }
+
+  return JDVMError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
+}
+
+/***/ }),
+
 /***/ 24301:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -5584,6 +5629,8 @@ function ValueProvider(props) {
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(96156);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
+var vm_utils = __webpack_require__(94624);
 ;// CONCATENATED MODULE: ./src/components/vm/WorkspaceContext.tsx
 
 
@@ -5592,6 +5639,7 @@ var defineProperty = __webpack_require__(96156);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 
@@ -5666,11 +5714,21 @@ function WorkspaceProvider(props) {
     return newRole;
   };
 
+  var resolveRoleService = function resolveRoleService() {
+    var newRoleService = role && (runner === null || runner === void 0 ? void 0 : runner.resolveService(role));
+    console.log("resolve role service", {
+      role: role,
+      newRoleService: newRoleService,
+      roles: services === null || services === void 0 ? void 0 : services.roles
+    });
+    return newRoleService;
+  };
+
   var _useState2 = (0,react.useState)(resolveRole()),
       role = _useState2[0],
       setRole = _useState2[1];
 
-  var _useState3 = (0,react.useState)(),
+  var _useState3 = (0,react.useState)(resolveRoleService()),
       roleService = _useState3[0],
       setRoleService = _useState3[1];
 
@@ -5707,14 +5765,14 @@ function WorkspaceProvider(props) {
   }, [field, workspace, runner]); // resolve current role service
 
   (0,react.useEffect)(function () {
-    var newRoleService = role && (runner === null || runner === void 0 ? void 0 : runner.resolveService(role));
-    console.log("resolve role service", {
-      role: role,
-      newRoleService: newRoleService,
-      roles: services === null || services === void 0 ? void 0 : services.roles
+    return setRoleService(resolveRoleService());
+  }, [role, runner]); // resolve role bounds
+
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* ROLE_CHANGE */.X5, function () {
+      return setRoleService(resolveRoleService());
     });
-    setRoleService(newRoleService);
-  }, [role, runner]);
+  }, [runner]);
   return (
     /*#__PURE__*/
     // eslint-disable-next-line react/react-in-jsx-scope
@@ -9688,4 +9746,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-e5d1bdf7845e9032654f.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8ee20361f39d212994f8.js.map

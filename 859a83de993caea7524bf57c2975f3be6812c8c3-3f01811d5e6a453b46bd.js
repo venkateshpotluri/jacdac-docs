@@ -666,7 +666,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     var s = this._envs[root];
 
     if (!s) {
-      this.emit(_utils__WEBPACK_IMPORTED_MODULE_6__/* .JACDAC_ROLE_HAS_NO_SERVICE */ .Ex, root);
+      this.emit(_utils__WEBPACK_IMPORTED_MODULE_6__/* .ROLE_HAS_NO_SERVICE */ .ky, root);
     }
 
     return s;
@@ -1128,24 +1128,26 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PY": function() { return /* binding */ JACDAC_ROLE_SERVICE_BOUND; },
-/* harmony export */   "AH": function() { return /* binding */ JACDAC_ROLE_SERVICE_UNBOUND; },
-/* harmony export */   "Ex": function() { return /* binding */ JACDAC_ROLE_HAS_NO_SERVICE; },
-/* harmony export */   "kX": function() { return /* binding */ JACDAC_VM_COMMAND_ATTEMPTED; },
-/* harmony export */   "IB": function() { return /* binding */ JACDAC_VM_COMMAND_COMPLETED; },
+/* harmony export */   "hS": function() { return /* binding */ ROLE_SERVICE_BOUND; },
+/* harmony export */   "X5": function() { return /* binding */ ROLE_CHANGE; },
+/* harmony export */   "fQ": function() { return /* binding */ ROLE_SERVICE_UNBOUND; },
+/* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
 /* harmony export */   "D1": function() { return /* binding */ JDVMError; }
 /* harmony export */ });
-/* unused harmony exports JACDAC_VM_ERROR, default */
+/* unused harmony exports VM_ERROR, default */
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
 /* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
 
 
-var JACDAC_VM_ERROR = "JacdacVMError";
-var JACDAC_ROLE_SERVICE_BOUND = "JacdacVMRoleServiceBound";
-var JACDAC_ROLE_SERVICE_UNBOUND = "JacdacVMRoleServiceUnbound";
-var JACDAC_ROLE_HAS_NO_SERVICE = "JacdacVMRoleHasNoService";
-var JACDAC_VM_COMMAND_ATTEMPTED = "JacdacVMCommandAttempted";
-var JACDAC_VM_COMMAND_COMPLETED = "JacdacVMCommandCompleted";
+var VM_ERROR = "JacdacVMError";
+var ROLE_SERVICE_BOUND = "roleServiceBound";
+var ROLE_CHANGE = "roleChange";
+var ROLE_SERVICE_UNBOUND = "roleServiceUnbound";
+var ROLE_HAS_NO_SERVICE = "roleHasNoService";
+var VM_COMMAND_ATTEMPTED = "commandAttempted";
+var VM_COMMAND_COMPLETED = "commandCompleted";
 var JDVMError = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
 
@@ -1154,7 +1156,7 @@ var JDVMError = /*#__PURE__*/function (_Error) {
 
     _this = _Error.call(this, message) || this;
     _this.jacdacName = jacdacName;
-    _this.name = JACDAC_VM_ERROR;
+    _this.name = VM_ERROR;
     return _this;
   }
 
@@ -2743,4 +2745,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-bda7415446297ad04c63.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-3f01811d5e6a453b46bd.js.map
