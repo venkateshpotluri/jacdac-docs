@@ -5645,20 +5645,21 @@ function WorkspaceProvider(props) {
   var runner = services === null || services === void 0 ? void 0 : services.runner;
 
   var resolveRole = function resolveRole() {
-    var _newSourceBlock$input, _roleField$getVariabl;
+    var _newSourceBlock$input;
 
     var newSourceBlock = field.getSourceBlock();
     var roleField = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : (_newSourceBlock$input = newSourceBlock.inputList[0]) === null || _newSourceBlock$input === void 0 ? void 0 : _newSourceBlock$input.fieldRow[0];
-    {
-      (0,utils/* assert */.hu)(!roleField || (roleField === null || roleField === void 0 ? void 0 : roleField.name) === "role", "unexpected field " + roleField.name, {
-        newSourceBlock: newSourceBlock,
-        roleField: roleField
-      });
+
+    if ((roleField === null || roleField === void 0 ? void 0 : roleField.name) === "role" && roleField instanceof blockly.FieldVariable) {
+      var _roleField$getVariabl;
+
       var xml = document.createElement("xml");
       roleField === null || roleField === void 0 ? void 0 : roleField.toXml(xml);
+      var newRole = roleField === null || roleField === void 0 ? void 0 : (_roleField$getVariabl = roleField.getVariable()) === null || _roleField$getVariabl === void 0 ? void 0 : _roleField$getVariabl.name;
+      return newRole;
     }
-    var newRole = roleField === null || roleField === void 0 ? void 0 : (_roleField$getVariabl = roleField.getVariable()) === null || _roleField$getVariabl === void 0 ? void 0 : _roleField$getVariabl.name;
-    return newRole;
+
+    return undefined;
   };
 
   var resolveRoleService = function resolveRoleService() {
@@ -9677,4 +9678,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bd62bb26853c5c163e98.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-919988d5800734e0f141.js.map
