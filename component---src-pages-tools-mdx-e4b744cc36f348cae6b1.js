@@ -97,11 +97,6 @@ function MDXContent(_ref) {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
-    "href": "/jacdac-docs/tools/vm-editor-runner"
-  }, "virtual machine"), " for if-this-then-that style programming "), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
-    parentName: "ul"
-  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
-    parentName: "li",
     "href": "/jacdac-docs/tools/vm-editor"
   }, "virtual machine editor"), ", block coding for the VM"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
@@ -266,4 +261,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-mdx-796446974d1878fd7a94.js.map
+//# sourceMappingURL=component---src-pages-tools-mdx-e4b744cc36f348cae6b1.js.map
