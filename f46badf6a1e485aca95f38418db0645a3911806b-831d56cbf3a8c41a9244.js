@@ -5582,7 +5582,7 @@ function ValueProvider(props) {
   return (
     /*#__PURE__*/
     // eslint-disable-next-line react/react-in-jsx-scope
-    React.createElement(ValueContext.Provider, {
+    react.createElement(ValueContext.Provider, {
       value: {
         value: value,
         onValueChange: onValueChange
@@ -9513,4 +9513,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d9c35905034d78065227.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-831d56cbf3a8c41a9244.js.map
