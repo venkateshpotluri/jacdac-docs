@@ -1421,8 +1421,8 @@ var Typography = __webpack_require__(80453);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 30 modules
-var VMBlockEditor = __webpack_require__(71519);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 31 modules
+var VMBlockEditor = __webpack_require__(28431);
 // EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 3 modules
 var Dashboard = __webpack_require__(65063);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
@@ -1486,12 +1486,12 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
 
     dev.services().forEach(function (s) {
       var roleNeedingService = Object.keys(_this2._roles).find(function (k) {
-        return !_this2._roles[k].service && _this2.nameMatch(_this2._roles[k].shortName, s.specification.shortName);
+        return !_this2._roles[k].service && _this2.nameMatch(_this2._roles[k].serviceShortId, s.specification.shortId);
       });
 
       if (roleNeedingService && _this2._devices.indexOf(dev) === -1) {
         _this2._roles[roleNeedingService] = {
-          shortName: s.specification.shortName,
+          serviceShortId: s.specification.shortId,
           service: s
         };
 
@@ -1517,7 +1517,7 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
         rolesToUnmap.forEach(function (role) {
           var service = _this3._roles[role].service;
           _this3._roles[role] = {
-            shortName: service.specification.shortName,
+            serviceShortId: service.specification.shortId,
             service: undefined
           };
           if (_this3.notify) _this3.notify(role, service, false);
@@ -1540,14 +1540,14 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
     var _this4 = this;
 
     return this.bus.services().filter(function (s) {
-      return _this4.nameMatch(s.specification.shortName, root);
+      return _this4.nameMatch(s.specification.shortId, root);
     });
   };
 
-  _proto.addRoleService = function addRoleService(role, shortName) {
+  _proto.addRoleService = function addRoleService(role, serviceShortId) {
     if (role in this._roles && this._roles[role].service) return;
     this._roles[role] = {
-      shortName: shortName,
+      serviceShortId: serviceShortId,
       service: undefined
     };
     var existingServices = Object.values(this._roles).filter(function (p) {
@@ -1555,7 +1555,7 @@ var MyRoleManager = /*#__PURE__*/function (_JDEventSource) {
     }).map(function (p) {
       return p.service;
     });
-    var ret = this.getServicesFromName(shortName).filter(function (s) {
+    var ret = this.getServicesFromName(serviceShortId).filter(function (s) {
       return existingServices.indexOf(s) === -1;
     });
 
@@ -2252,6 +2252,12 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
     }
   };
 
+  _proto4.resolveService = function resolveService(role) {
+    var _this$_rm;
+
+    return this._program && ((_this$_rm = this._rm) === null || _this$_rm === void 0 ? void 0 : _this$_rm.getService(role));
+  };
+
   _proto4.run = /*#__PURE__*/function () {
     var _run = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5() {
       var nextTime, _iterator, _step3, h;
@@ -2368,9 +2374,9 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
   }, {
     key: "roles",
     get: function get() {
-      var _this$_rm;
+      var _this$_rm2;
 
-      return this._program ? (_this$_rm = this._rm) === null || _this$_rm === void 0 ? void 0 : _this$_rm.roles() : {};
+      return this._program ? (_this$_rm2 = this._rm) === null || _this$_rm2 === void 0 ? void 0 : _this$_rm2.roles() : {};
     }
   }]);
 
@@ -2691,4 +2697,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-84803567ff9713c1ac3a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-247a1b30760c423245b3.js.map

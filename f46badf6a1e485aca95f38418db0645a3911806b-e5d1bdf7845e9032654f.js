@@ -5127,7 +5127,7 @@ var IT4Functions = [{
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _DashboardDevice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54886);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
-/* harmony import */ var _DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73205);
+/* harmony import */ var _DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11184);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
 
 
@@ -5318,7 +5318,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 71519:
+/***/ 28431:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5326,16 +5326,6 @@ function PaperBox(props) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ VMBlockEditor; }
-});
-
-// NAMESPACE OBJECT: ./src/components/vm/useToolbox.ts
-var useToolbox_namespaceObject = {};
-__webpack_require__.r(useToolbox_namespaceObject);
-__webpack_require__.d(useToolbox_namespaceObject, {
-  "Nd": function() { return BUILTIN_TYPES; },
-  "ZP": function() { return useToolbox; },
-  "of": function() { return scanServices; },
-  "dZ": function() { return useToolboxButtons; }
 });
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
@@ -5590,6 +5580,154 @@ function ValueProvider(props) {
     }, children)
   );
 }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
+var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(96156);
+;// CONCATENATED MODULE: ./src/components/vm/WorkspaceContext.tsx
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
+
+
+var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(WorkspaceServices, _JDEventSource);
+
+  function WorkspaceServices() {
+    return _JDEventSource.call(this) || this;
+  }
+
+  (0,createClass/* default */.Z)(WorkspaceServices, [{
+    key: "runner",
+    get: function get() {
+      return this._runner;
+    },
+    set: function set(value) {
+      if (this._runner !== value) {
+        this._runner = value;
+        this.emit(constants/* CHANGE */.Ver);
+      }
+    }
+  }, {
+    key: "roles",
+    get: function get() {
+      var _this$_runner;
+
+      var roles = (_this$_runner = this._runner) === null || _this$_runner === void 0 ? void 0 : _this$_runner.roles;
+      return roles ? Object.keys(roles).map(function (name) {
+        return _objectSpread({
+          name: name
+        }, roles[name]);
+      }) : [];
+    }
+  }]);
+
+  return WorkspaceServices;
+}(eventsource/* JDEventSource */.a);
+var WorkspaceContext = /*#__PURE__*/(0,react.createContext)({
+  workspace: undefined,
+  flyout: false,
+  services: undefined,
+  role: undefined,
+  roleService: undefined
+});
+WorkspaceContext.displayName = "Workspace";
+/* harmony default export */ var vm_WorkspaceContext = (WorkspaceContext);
+function WorkspaceProvider(props) {
+  var field = props.field,
+      children = props.children;
+
+  var _useState = (0,react.useState)(field === null || field === void 0 ? void 0 : field.getSourceBlock()),
+      sourceBlock = _useState[0],
+      setSourceBlock = _useState[1];
+
+  var resolveRole = function resolveRole() {
+    var _newSourceBlock$input, _roleField$getVariabl;
+
+    var newSourceBlock = field.getSourceBlock();
+    var roleField = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : (_newSourceBlock$input = newSourceBlock.inputList[0]) === null || _newSourceBlock$input === void 0 ? void 0 : _newSourceBlock$input.fieldRow[0];
+    {
+      (0,utils/* assert */.hu)(!roleField || (roleField === null || roleField === void 0 ? void 0 : roleField.name) === "role");
+      var xml = document.createElement("xml");
+      roleField === null || roleField === void 0 ? void 0 : roleField.toXml(xml);
+    }
+    var newRole = roleField === null || roleField === void 0 ? void 0 : (_roleField$getVariabl = roleField.getVariable()) === null || _roleField$getVariabl === void 0 ? void 0 : _roleField$getVariabl.name;
+    console.log("resolved role", {
+      newSourceBlock: newSourceBlock,
+      newRole: newRole
+    });
+    return newRole;
+  };
+
+  var _useState2 = (0,react.useState)(resolveRole()),
+      role = _useState2[0],
+      setRole = _useState2[1];
+
+  var _useState3 = (0,react.useState)(),
+      roleService = _useState3[0],
+      setRoleService = _useState3[1];
+
+  var _useState4 = (0,react.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
+      flyout = _useState4[0],
+      setFlyout = _useState4[1];
+
+  var workspace = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.workspace;
+  var services = workspace === null || workspace === void 0 ? void 0 : workspace.jacdacServices;
+  var runner = services === null || services === void 0 ? void 0 : services.runner;
+  console.log("workspace context", {
+    field: field,
+    sourceBlock: sourceBlock,
+    flyout: flyout,
+    role: role,
+    roleService: roleService,
+    services: services,
+    runner: runner
+  }); // resolve role
+
+  (0,react.useEffect)(function () {
+    console.log("updated field", {
+      field: field
+    });
+    return field === null || field === void 0 ? void 0 : field.events.subscribe(constants/* CHANGE */.Ver, function () {
+      var newSourceBlock = field.getSourceBlock();
+      console.log("field change", {
+        newSourceBlock: newSourceBlock
+      });
+      setSourceBlock(newSourceBlock);
+      setRole(resolveRole());
+      setFlyout(!!(newSourceBlock !== null && newSourceBlock !== void 0 && newSourceBlock.isInFlyout));
+    });
+  }, [field, workspace, runner]); // resolve current role service
+
+  (0,react.useEffect)(function () {
+    var newRoleService = role && (runner === null || runner === void 0 ? void 0 : runner.resolveService(role));
+    console.log("resolve role service", {
+      role: role,
+      newRoleService: newRoleService,
+      roles: services === null || services === void 0 ? void 0 : services.roles
+    });
+    setRoleService(newRoleService);
+  }, [role, runner]);
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line react/react-in-jsx-scope
+    react.createElement(WorkspaceContext.Provider, {
+      value: {
+        services: services,
+        role: role,
+        roleService: roleService,
+        flyout: flyout
+      }
+    }, children)
+  );
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactField.tsx
 
 
@@ -5606,6 +5744,13 @@ function ValueProvider(props) {
 
 
 
+
+
+var SOURCE_BLOCK_CHANGE = "sourceBlockChange";
+var VALUE_CHANGE = "valueChange";
+var MOUNT = "mount";
+var UNMOUNT = "unmount";
+
 var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   (0,inheritsLoose/* default */.Z)(ReactField, _Blockly$Field);
 
@@ -5615,19 +5760,15 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
 
     _this = _Blockly$Field.call(this, value, validator, options) || this;
     _this.SERIALIZABLE = true;
+    _this.events = new eventsource/* JDEventSource */.a();
     if (size) _this.size_ = new (blockly_default()).utils.Size(size.width, size.height);
+    console.log('new field');
     return _this;
   }
 
   var _proto = ReactField.prototype;
 
-  // override to listen for mounting events
-  _proto.onMount = function onMount() {} // override to listen for unmounting
-  ;
-
-  _proto.onUnmount = function onUnmount() {} // override to support custom view
-  ;
-
+  // override to support custom view
   _proto.initCustomView = function initCustomView() {
     return null;
   } // override to update view
@@ -5649,13 +5790,24 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     }
   };
 
-  _proto.setSourceBlock = function setSourceBlock(block) {
-    _Blockly$Field.prototype.setSourceBlock.call(this, block);
-
-    this.onSourceBlockChanged();
+  _proto.emitChange = function emitChange() {
+    this.events.emit(constants/* CHANGE */.Ver);
   };
 
-  _proto.onSourceBlockChanged = function onSourceBlockChanged() {};
+  _proto.setSourceBlock = function setSourceBlock(block) {
+    var changed = block !== this.sourceBlock_;
+
+    _Blockly$Field.prototype.setSourceBlock.call(this, block);
+
+    if (changed) {
+      console.log("set source block", {
+        block: block,
+        current: this.sourceBlock_
+      });
+      this.events.emit(SOURCE_BLOCK_CHANGE, block);
+      this.emitChange();
+    }
+  };
 
   _proto.initView = function initView() {
     this.view = this.initCustomView();
@@ -5667,10 +5819,17 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   };
 
   _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    var change = this.value_ !== newValue;
+
     if (this.view) {
       this.value_ = newValue;
       this.updateView();
     } else _Blockly$Field.prototype.doValueUpdate_.call(this, newValue);
+
+    if (change) {
+      this.events.emit(VALUE_CHANGE, this.value);
+      this.emitChange();
+    }
   };
 
   _proto.showEditor_ = function showEditor_() {
@@ -5684,7 +5843,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     setTimeout(function () {
       blockly_default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
 
-      _this2.onMount();
+      _this2.events.emit(MOUNT);
     }, 200);
   };
 
@@ -5695,7 +5854,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
   _proto.dropdownDispose_ = function dropdownDispose_() {
     // this blows on hot reloads
     try {
-      this.onUnmount();
+      this.events.emit(UNMOUNT);
       react_dom.unmountComponentAtNode(this.div_);
     } catch (e) {
       console.error(e);
@@ -5709,7 +5868,9 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
       return _this3.value = newValue;
     };
 
-    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
+    return /*#__PURE__*/react.createElement(WorkspaceProvider, {
+      field: this
+    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
       fixedDarkMode: "dark"
     }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(ValueProvider, {
       value: this.value,
@@ -5718,7 +5879,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
       m: 0.5,
       borderRadius: "0.25rem",
       bgcolor: "background.paper"
-    }, this.renderField()))))));
+    }, this.renderField())))))));
   };
 
   _proto.renderField = function renderField() {
@@ -5789,13 +5950,25 @@ var PianoWidget = /*#__PURE__*/(0,react.lazy)(function () {
 var NoteField = /*#__PURE__*/function (_ReactField) {
   (0,inheritsLoose/* default */.Z)(NoteField, _ReactField);
 
-  function NoteField() {
-    return _ReactField.apply(this, arguments) || this;
-  }
-
   NoteField.fromJson = function fromJson(options) {
-    return new NoteField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
-  };
+    return new NoteField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function NoteField(options) {
+    var _this;
+
+    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
+
+    _this.events.on(UNMOUNT, function () {
+      var _this$toneContext;
+
+      (_this$toneContext = _this.toneContext) === null || _this$toneContext === void 0 ? void 0 : _this$toneContext.close();
+      _this.toneContext = undefined;
+    });
+
+    return _this;
+  }
 
   var _proto = NoteField.prototype;
 
@@ -5803,27 +5976,20 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
     return (this.value | 0) + "";
   };
 
-  _proto.onUnmount = function onUnmount() {
-    var _this$toneContext;
-
-    (_this$toneContext = this.toneContext) === null || _this$toneContext === void 0 ? void 0 : _this$toneContext.close();
-    this.toneContext = undefined;
-  };
-
   _proto.renderField = function renderField() {
-    var _this = this;
+    var _this2 = this;
 
     var handlePlayTone = /*#__PURE__*/function () {
       var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(newFrequency) {
-        var _this$toneContext2;
+        var _this2$toneContext;
 
         return regenerator_default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.value = newFrequency;
-                if (!_this.toneContext) _this.toneContext = (0,toneContext/* createToneContext */.W)();
-                (_this$toneContext2 = _this.toneContext) === null || _this$toneContext2 === void 0 ? void 0 : _this$toneContext2.playTone(newFrequency, 400);
+                _this2.value = newFrequency;
+                if (!_this2.toneContext) _this2.toneContext = (0,toneContext/* createToneContext */.W)();
+                (_this2$toneContext = _this2.toneContext) === null || _this2$toneContext === void 0 ? void 0 : _this2$toneContext.playTone(newFrequency, 400);
 
               case 3:
               case "end":
@@ -6031,6 +6197,7 @@ var ReactImageField = /*#__PURE__*/function (_ReactField) {
 
 
 
+
 var LEDMatrixWidget = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 71598));
 });
@@ -6039,7 +6206,19 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
   (0,inheritsLoose/* default */.Z)(LEDMatrixField, _ReactImageField);
 
   function LEDMatrixField(value) {
-    return _ReactImageField.call(this, value) || this;
+    var _this;
+
+    _this = _ReactImageField.call(this, value) || this;
+
+    _this.events.on(VALUE_CHANGE, function () {
+      var _this$value = _this.value,
+          rows = _this$value.rows,
+          columns = _this$value.columns;
+
+      _this.setSize(32, 32 / columns * rows);
+    });
+
+    return _this;
   }
 
   LEDMatrixField.fromJson = function fromJson(options) {
@@ -6049,20 +6228,11 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
   var _proto = LEDMatrixField.prototype;
 
   _proto.getText_ = function getText_() {
-    var _this$value = this.value,
-        leds = _this$value.leds,
-        rows = _this$value.rows,
-        columns = _this$value.columns;
-    return leds + " (" + rows + "x" + columns + ")";
-  };
-
-  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
-    _ReactImageField.prototype.doValueUpdate_.call(this, newValue);
-
     var _this$value2 = this.value,
+        leds = _this$value2.leds,
         rows = _this$value2.rows,
         columns = _this$value2.columns;
-    this.setSize(32, 32 / columns * rows);
+    return leds + " (" + rows + "x" + columns + ")";
   };
 
   _proto.renderValue = function renderValue() {
@@ -6102,7 +6272,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
   };
 
   _proto.renderField = function renderField() {
-    var _this = this;
+    var _this2 = this;
 
     var _this$value4 = this.value,
         leds = _this$value4.leds,
@@ -6111,7 +6281,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
     var ledsBytes = (0,utils/* fromHex */.H_)(leds);
 
     var onChange = function onChange(newLeds) {
-      return _this.value = {
+      return _this2.value = {
         leds: (0,utils/* toHex */.NC)(newLeds),
         rows: rows,
         columns: columns
@@ -6323,7 +6493,8 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
 
   LEDColorField.fromJson = function fromJson(options) {
     return new LEDColorField(options);
-  };
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
 
   function LEDColorField(options) {
     return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
@@ -6371,8 +6542,8 @@ LEDColorField.SHADOW = toShadowDefinition(LEDColorField);
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 4 modules
-var DashboardServiceWidget = __webpack_require__(73205);
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 6 modules
+var DashboardServiceWidget = __webpack_require__(11184);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
@@ -6401,17 +6572,17 @@ var Alert = __webpack_require__(95453);
 
 
 
-function DashboardServiceFieldWidget(props) {
+function TwinWidget(props) {
+  var serviceClass = props.serviceClass;
+
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var serviceClass = props.serviceClass;
+  var _useContext2 = (0,react.useContext)(vm_WorkspaceContext),
+      roleService = _useContext2.roleService,
+      flyout = _useContext2.flyout;
+
   var specification = (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
-  var services = (0,useServices/* default */.Z)({
-    ignoreSelf: true,
-    serviceClass: serviceClass
-  });
-  var service = services === null || services === void 0 ? void 0 : services[0];
 
   var handleStartSimulator = function handleStartSimulator() {
     return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
@@ -6422,13 +6593,17 @@ function DashboardServiceFieldWidget(props) {
     event.stopPropagation();
   };
 
+  console.log("twin", {
+    roleService: roleService,
+    flyout: flyout
+  });
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     alignItems: "center",
     alignContent: "center",
     justify: "center",
     spacing: 1
-  }, service ? /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, roleService ? /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement("div", {
     style: {
@@ -6438,14 +6613,14 @@ function DashboardServiceFieldWidget(props) {
     onPointerUp: onPointerStopPropagation,
     onPointerMove: onPointerStopPropagation
   }, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
-    service: service,
+    service: roleService,
     visible: true,
     variant: "icon"
   }))) : /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
-  }, "No ", (specification === null || specification === void 0 ? void 0 : specification.name) || "service", "..."), /*#__PURE__*/react.createElement(Button/* default */.Z, {
+  }, "No ", (specification === null || specification === void 0 ? void 0 : specification.name) || "service", "..."), !flyout && /*#__PURE__*/react.createElement(Button/* default */.Z, {
     variant: "contained",
     color: "default",
     startIcon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
@@ -6458,7 +6633,8 @@ var TwinField = /*#__PURE__*/function (_ReactField) {
 
   TwinField.fromJson = function fromJson(options) {
     return new TwinField(options);
-  };
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
 
   function TwinField(options) {
     var _this;
@@ -6521,35 +6697,18 @@ var TwinField = /*#__PURE__*/function (_ReactField) {
   };
 
   _proto.renderBlock = function renderBlock() {
-    return /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
+    return /*#__PURE__*/react.createElement(WorkspaceProvider, {
+      field: this
+    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
       fixedDarkMode: "dark"
-    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(DashboardServiceFieldWidget, {
+    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(TwinWidget, {
       serviceClass: this.serviceClass
-    })))));
+    }))))));
   } // don't bind any mouse event
   ;
 
   _proto.bindEvents_ = function bindEvents_() {
     blockly_default().Tooltip.bindMouseEvents(this.getClickTarget_());
-  } // track current role
-  ;
-
-  _proto.onSourceBlockChanged = function onSourceBlockChanged() {
-    this.updateRole();
-  };
-
-  _proto.updateRole = function updateRole() {
-    var source = this.getSourceBlock();
-    var field = source === null || source === void 0 ? void 0 : source.inputList[0].fieldRow[0]; // force model geneartion
-
-    var xml = document.createElement("xml");
-    field === null || field === void 0 ? void 0 : field.toXml(xml);
-    var role = field === null || field === void 0 ? void 0 : field.getVariable();
-    console.log("updated role", {
-      source: source,
-      field: field,
-      role: role
-    });
   };
 
   return TwinField;
@@ -6961,7 +7120,7 @@ function loadBlocks(serviceColor, commandColor) {
     def.type = "jacdac_custom_" + def.service.shortId + "_" + def.type;
     return def;
   });
-  var bashboardBlocks = allServices.map(function (service) {
+  var twinBlocks = allServices.map(function (service) {
     return {
       kind: "block",
       type: "jacdac_twin_" + service.shortId,
@@ -7239,7 +7398,7 @@ function loadBlocks(serviceColor, commandColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(bashboardBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(twinBlocks));
   var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
@@ -8014,7 +8173,10 @@ function domToJSON(workspace) {
   };
 
   try {
-    var variables = blockly_default().Variables.allUsedVarModels(workspace);
+    var variables = blockly_default().Variables.allUsedVarModels(workspace).sort(function (l, r) {
+      return l.name.localeCompare(r.name);
+    }); // stable sort name
+
     var blocks = workspace.getTopBlocks(true);
     var json = {
       variables: variables.map(variableToJSON),
@@ -8068,6 +8230,7 @@ function visitWorkspace(workspace, visitor) {
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
 var ir = __webpack_require__(68290);
 ;// CONCATENATED MODULE: ./src/components/vm/it4generator.ts
+
 
 
 
@@ -8217,7 +8380,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
         inputs = block.inputs;
 
     switch (type) {
-      case useToolbox_namespaceObject.WAIT_BLOCK:
+      case WAIT_BLOCK:
         {
           var time = blockToExpression(inputs[0].child);
           command = {
@@ -8310,7 +8473,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     var commands = [];
     var command = undefined;
 
-    if (type === useToolbox_namespaceObject.WHILE_CONDITION_BLOCK) {
+    if (type === WHILE_CONDITION_BLOCK) {
       // this is while (...)
       var condition = inputs[0].child;
       command = {
@@ -8400,7 +8563,7 @@ function useBlocklyEvents(workspace) {
           if (template === "twin") {
             // notify twin that the value changed
             var twinField = block.inputList[1].fieldRow[0];
-            twinField.updateRole();
+            twinField.emitChange();
           }
 
           break;
@@ -9383,6 +9546,7 @@ function useBlocklyPlugins(workspace) {
 
 
 
+
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     editor: {
@@ -9403,7 +9567,8 @@ function VMBlockEditor(props) {
       onJSONChange = props.onJSONChange,
       onIT4ProgramChange = props.onIT4ProgramChange,
       initialXml = props.initialXml,
-      serviceClass = props.serviceClass;
+      serviceClass = props.serviceClass,
+      runner = props.runner;
   var classes = useStyles();
 
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
@@ -9471,12 +9636,22 @@ function VMBlockEditor(props) {
     }
   }),
       workspace = _ref.workspace,
-      xml = _ref.xml;
+      xml = _ref.xml; // surface state to react
+
+
+  (0,react.useEffect)(function () {
+    var ws = workspace;
+    if (ws) ws.jacdacServices = new WorkspaceServices();
+  }, [workspace]);
+  (0,react.useEffect)(function () {
+    var ws = workspace;
+    var services = ws === null || ws === void 0 ? void 0 : ws.jacdacServices;
+    if (services) services.runner = runner;
+  }, [workspace, runner]); // plugins
 
   useBlocklyPlugins(workspace);
   useBlocklyEvents(workspace);
-  useToolboxButtons(workspace, toolboxConfiguration); // code serialization
-  // blockly did a change
+  useToolboxButtons(workspace, toolboxConfiguration); // blockly did a change
 
   (0,react.useEffect)(function () {
     if (!workspace || workspace.isDragging()) return;
@@ -9513,4 +9688,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-baa6ba1e93e3a41e5615.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-e5d1bdf7845e9032654f.js.map
