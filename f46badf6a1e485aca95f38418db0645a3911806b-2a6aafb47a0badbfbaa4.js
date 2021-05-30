@@ -5318,7 +5318,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 43906:
+/***/ 71519:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5342,849 +5342,9 @@ __webpack_require__.d(useToolbox_namespaceObject, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/react-blockly/dist/index.js
 var dist = __webpack_require__(691);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
-var classCallCheck = __webpack_require__(6610);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(5991);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/get.js + 1 modules
-var get = __webpack_require__(66213);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
-var inherits = __webpack_require__(10379);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
-var possibleConstructorReturn = __webpack_require__(46070);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
-var getPrototypeOf = __webpack_require__(77608);
 // EXTERNAL MODULE: ./node_modules/blockly/core-browser.js
 var core_browser = __webpack_require__(90888);
 var core_browser_default = /*#__PURE__*/__webpack_require__.n(core_browser);
-;// CONCATENATED MODULE: ./node_modules/@blockly/field-slider/src/field_slider.js
-
-
-
-
-
-
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-/**
- * @license
- * Copyright 2020 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Number slider input field.
- * @author kozbial@google.com (Monica Kozbial)
- */
-
-/**
- * Slider field.
- */
-
-var FieldSlider = /*#__PURE__*/function (_Blockly$FieldNumber) {
-  (0,inherits/* default */.Z)(FieldSlider, _Blockly$FieldNumber);
-
-  var _super = _createSuper(FieldSlider);
-
-  /**
-   * Class for an number slider field.
-   * @param {string|number=} opt_value The initial value of the field. Should
-   *    cast to a number. Defaults to 0.
-   * @param {?(string|number)=} opt_min Minimum value.
-   * @param {?(string|number)=} opt_max Maximum value.
-   * @param {?(string|number)=} opt_precision Precision for value.
-   * @param {?Function=} opt_validator A function that is called to validate
-   *    changes to the field's value. Takes in a number & returns a validated
-   *    number, or null to abort the change.
-   * @param {Object=} opt_config A map of options used to configure the field.
-   *    See the [field creation documentation]{@link https://developers.google.com/blockly/guides/create-custom-blocks/fields/built-in-fields/number#creation}
-   *    for a list of properties this parameter supports.
-   * @extends {Blockly.FieldNumber}
-   * @constructor
-   */
-  function FieldSlider(opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config) {
-    var _this;
-
-    (0,classCallCheck/* default */.Z)(this, FieldSlider);
-
-    _this = _super.call(this, opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config);
-    /**
-     * Array holding info needed to unbind events.
-     * Used for disposing.
-     * Ex: [[node, name, func], [node, name, func]].
-     * @type {!Array.<Array<?>>}
-     * @private
-     */
-
-    _this.boundEvents_ = [];
-    /**
-     * The HTML range input element.
-     * @type {?HTMLInputElement}
-     * @private
-     */
-
-    _this.sliderInput_ = null;
-    return _this;
-  }
-  /**
-   * Constructs a FieldSlider from a JSON arg object.
-   * @param {!Object} options A JSON object with options (value, min, max, and
-   *                          precision).
-   * @return {!FieldSlider} The new field instance.
-   * @package
-   * @nocollapse
-   */
-
-
-  (0,createClass/* default */.Z)(FieldSlider, [{
-    key: "showEditor_",
-    value:
-    /**
-     * Show the inline free-text editor on top of the text along with the slider
-     *    editor.
-     * @param {Event=} opt_e Optional mouse event that triggered the field to
-     *     open, or undefined if triggered programmatically.
-     * @param {boolean=} _opt_quietInput Quiet input.
-     * @protected
-     * @override
-     */
-    function showEditor_(opt_e, _opt_quietInput) {
-      // Mobile browsers have issues with in-line textareas (focus & keyboards).
-      var noFocus = core_browser.utils.userAgent.MOBILE || core_browser.utils.userAgent.ANDROID || core_browser.utils.userAgent.IPAD;
-
-      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "showEditor_", this).call(this, opt_e, noFocus); // Build the DOM.
-
-
-      var editor = this.dropdownCreate_();
-      core_browser.DropDownDiv.getContentDiv().appendChild(editor);
-      core_browser.DropDownDiv.setColour(this.sourceBlock_.style.colourPrimary, this.sourceBlock_.style.colourTertiary);
-      core_browser.DropDownDiv.showPositionedByField(this, this.dropdownDispose_.bind(this));
-    }
-    /**
-     * Updates the slider when the field rerenders.
-     * @protected
-     * @override
-     */
-
-  }, {
-    key: "render_",
-    value: function render_() {
-      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "render_", this).call(this);
-
-      this.updateSlider_();
-    }
-    /**
-     * Creates the slider editor and add event listeners.
-     * @return {!Element} The newly created slider.
-     * @private
-     */
-
-  }, {
-    key: "dropdownCreate_",
-    value: function dropdownCreate_() {
-      var wrapper = document.createElement('div');
-      wrapper.className = 'fieldSliderContainer';
-      var sliderInput = document.createElement('input');
-      sliderInput.setAttribute('type', 'range');
-      sliderInput.setAttribute('min', this.min_);
-      sliderInput.setAttribute('max', this.max_);
-      sliderInput.setAttribute('step', this.precision_);
-      sliderInput.setAttribute('value', this.getValue());
-      sliderInput.className = 'fieldSlider';
-      wrapper.appendChild(sliderInput);
-      this.sliderInput_ = sliderInput;
-      this.boundEvents_.push(core_browser.bindEventWithChecks_(sliderInput, 'input', this, this.onSliderChange_));
-      return wrapper;
-    }
-    /**
-     * Disposes of events belonging to the slider editor.
-     * @private
-     */
-
-  }, {
-    key: "dropdownDispose_",
-    value: function dropdownDispose_() {
-      var _iterator = _createForOfIteratorHelper(this.boundEvents_),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var event = _step.value;
-          core_browser.unbindEvent_(event);
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      this.sliderInput_ = null;
-    }
-    /**
-     * Sets the text to match the slider's position.
-     * @private
-     */
-
-  }, {
-    key: "onSliderChange_",
-    value: function onSliderChange_() {
-      this.setEditorValue_(this.sliderInput_.value);
-    }
-    /**
-     * Updates the slider when the field rerenders.
-     * @private
-     */
-
-  }, {
-    key: "updateSlider_",
-    value: function updateSlider_() {
-      if (!this.sliderInput_) {
-        return;
-      }
-
-      this.sliderInput_.setAttribute('value', this.getValue());
-    }
-  }], [{
-    key: "fromJson",
-    value: function fromJson(options) {
-      return new FieldSlider(options['value'], undefined, undefined, undefined, undefined, options);
-    }
-  }]);
-
-  return FieldSlider;
-}(core_browser.FieldNumber);
-core_browser.fieldRegistry.register('field_slider', FieldSlider);
-/**
- * CSS for slider field.
- */
-
-core_browser.Css.register([
-/* eslint-disable indent */
-".fieldSliderContainer {\n      align-items: center;\n      display: flex;\n      height: 32px;\n      justify-content: center;\n      width: 150px;\n    }\n    .fieldSlider {\n      -webkit-appearance: none;\n      background: transparent; /* override white in chrome */\n      margin: 4px;\n      padding: 0;\n      width: 100%;\n    }\n    .fieldSlider:focus {\n      outline: none;\n    }\n    /* Webkit */\n    .fieldSlider::-webkit-slider-runnable-track {\n      background: #ddd;\n      border-radius: 5px;\n      height: 10px;\n    }\n    .fieldSlider::-webkit-slider-thumb {\n      -webkit-appearance: none;\n      background: #fff;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      margin-top: -7px;\n      width: 24px;\n    }\n    /* Firefox */\n    .fieldSlider::-moz-range-track {\n      background: #ddd;\n      border-radius: 5px;\n      height: 10px;\n    }\n    .fieldSlider::-moz-range-thumb {\n      background: #fff;\n      border: none;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      width: 24px;\n    }\n    .fieldSlider::-moz-focus-outer {\n      /* override the focus border style */\n      border: 0;\n    }\n    /* IE */\n    .fieldSlider::-ms-track {\n      /* IE wont let the thumb overflow the track, so fake it */\n      background: transparent;\n      border-color: transparent;\n      border-width: 15px 0;\n      /* remove default tick marks */\n      color: transparent;\n      height: 10px;\n      width: 100%;\n      margin: -4px 0;\n    }\n    .fieldSlider::-ms-fill-lower  {\n      background: #ddd;\n      border-radius: 5px;\n    }\n    .fieldSlider::-ms-fill-upper  {\n      background: #ddd;\n      border-radius: 5px;\n    }\n    .fieldSlider::-ms-thumb {\n      background: #fff;\n      border: none;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      width: 24px;\n    }"
-/* eslint-enable indent */
-]);
-;// CONCATENATED MODULE: ./node_modules/@blockly/field-slider/src/index.js
-/**
- * @license
- * Copyright 2020 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/insertion_marker_manager_monkey_patch.js
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Overrides methods on Blockly.InsertionMarkerManager to
- * allow blocks to hook in dynamic functionality when they have pending
- * connections.
- * @author anjali@code.org (Anjali Pal)
- */
-
-
-core_browser.InsertionMarkerManager.prototype.update = function (dxy, deleteArea) {
-  var candidate = this.getCandidate_(dxy);
-  this.wouldDeleteBlock_ = this.shouldDelete_(candidate, deleteArea);
-  var shouldUpdate = this.wouldDeleteBlock_ || this.shouldUpdatePreviews_(candidate, dxy);
-
-  if (shouldUpdate) {
-    // Begin monkey patch
-    if (candidate.closest && candidate.closest.sourceBlock_.onPendingConnection) {
-      candidate.closest.sourceBlock_.onPendingConnection(candidate.closest);
-
-      if (!this.pendingBlocks) {
-        this.pendingBlocks = new Set();
-      }
-
-      this.pendingBlocks.add(candidate.closest.sourceBlock_);
-    } // End monkey patch
-    // Don't fire events for insertion marker creation or movement.
-
-
-    core_browser.Events.disable();
-    this.maybeHidePreview_(candidate);
-    this.maybeShowPreview_(candidate);
-    core_browser.Events.enable();
-  }
-};
-
-var oldDispose = core_browser.InsertionMarkerManager.prototype.dispose;
-
-core_browser.InsertionMarkerManager.prototype.dispose = function () {
-  if (this.pendingBlocks) {
-    this.pendingBlocks.forEach(function (block) {
-      if (block.finalizeConnections) {
-        block.finalizeConnections();
-      }
-    });
-  }
-
-  oldDispose.call(this);
-};
-;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_if.js
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Defines a version of the if block with dyanmic
- *     inputs that appear when a block is dragged over inputs on the block.
- */
-
-core_browser.Blocks.dynamic_if = {
-  /**
-   * Counter for the next input to add to this block.
-   * @type {number}
-   */
-  inputCounter: 1,
-
-  /**
-   * Minimum number of inputs for this block.
-   * @type {number}
-   */
-  minInputs: 1,
-
-  /**
-   * Block for if/elseif/else statements. Must have one if input.
-   * Can have any number of elseif inputs and optionally one else input.
-   * @this {Blockly.Block}
-   */
-  init: function init() {
-    this.setHelpUrl(core_browser.Msg.CONTROLS_IF_HELPURL);
-    this.setStyle('logic_blocks');
-    this.appendValueInput('IF0').setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
-    this.appendStatementInput('DO0').appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
-    this.setNextStatement(true);
-    this.setPreviousStatement(true);
-    this.setTooltip(core_browser.Msg.LISTS_CREATE_WITH_TOOLTIP);
-  },
-
-  /**
-   * Create XML to represent if/elseif/else inputs.
-   * @return {!Element} XML storage element.
-   * @this {Blockly.Block}
-   */
-  mutationToDom: function mutationToDom() {
-    var container = core_browser.utils.xml.createElement('mutation');
-    var inputNames = this.inputList.filter(function (input) {
-      return input.name.includes('IF');
-    }).map(function (input) {
-      return input.name.replace('IF', '');
-    }).join(',');
-    container.setAttribute('inputs', inputNames);
-    var hasElse = !!this.getInput('ELSE');
-    container.setAttribute('else', hasElse);
-    container.setAttribute('next', this.inputCounter);
-    return container;
-  },
-
-  /**
-   * Parse XML to restore the inputs.
-   * @param {!Element} xmlElement XML storage element.
-   * @this {Blockly.Block}
-   */
-  domToMutation: function domToMutation(xmlElement) {
-    var inputs = xmlElement.getAttribute('inputs');
-
-    if (inputs) {
-      var inputNumbers = inputs.split(',');
-
-      if (this.getInput('IF0')) {
-        this.removeInput('IF0');
-      }
-
-      if (this.getInput('DO0')) {
-        this.removeInput('DO0');
-      }
-
-      var first = inputNumbers[0];
-      this.appendValueInput('IF' + first).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
-      this.appendStatementInput('DO' + first).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
-
-      for (var i = 1; i < inputNumbers.length; i++) {
-        this.appendValueInput('IF' + inputNumbers[i]).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSEIF, 'elseif');
-        this.appendStatementInput('DO' + inputNumbers[i]).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
-      }
-    }
-
-    var hasElse = xmlElement.getAttribute('else');
-
-    if (hasElse == 'true') {
-      this.appendStatementInput('ELSE').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSE, 'else');
-    }
-
-    var next = parseInt(xmlElement.getAttribute('next'));
-    this.inputCounter = next;
-  },
-
-  /**
-   * Finds the index of a connection. Used to determine where in the block to
-   * insert new inputs.
-   * @param {!Blockly.Connection} connection A connection on this block.
-   * @return {?number} The index of the connection in the this.inputList.
-   */
-  findInputIndexForConnection: function findInputIndexForConnection(connection) {
-    for (var i = 0; i < this.inputList.length; i++) {
-      var input = this.inputList[i];
-
-      if (input.connection == connection) {
-        return i;
-      }
-    }
-
-    return null;
-  },
-
-  /**
-   * Inserts a boolean value input and statement input at the specified index.
-   * @param {number} index Index of the input before which to add new inputs.
-   */
-  insertElseIf: function insertElseIf(index) {
-    var caseNumber = this.inputCounter;
-    this.appendValueInput('IF' + caseNumber).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSEIF, 'elseif');
-    this.appendStatementInput('DO' + caseNumber).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
-    this.moveInputBefore('IF' + caseNumber, this.inputList[index].name);
-    this.moveInputBefore('DO' + caseNumber, this.inputList[index + 1].name);
-    this.inputCounter++;
-  },
-
-  /**
-   * Called when a block is dragged over one of the connections on this block.
-   * @param {!Blockly.Connection} connection The connection on this block that
-   * has a pending connection.
-   */
-  onPendingConnection: function onPendingConnection(connection) {
-    if (connection.type === core_browser.NEXT_STATEMENT && !this.getInput('ELSE')) {
-      this.appendStatementInput('ELSE').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSE, 'else');
-    }
-
-    var inputIndex = this.findInputIndexForConnection(connection);
-
-    if (inputIndex === null) {
-      return;
-    }
-
-    var input = this.inputList[inputIndex];
-
-    if (connection.targetConnection && input.name.includes('IF')) {
-      var nextIfInput = this.inputList[inputIndex + 2];
-
-      if (!nextIfInput || nextIfInput.name == 'ELSE') {
-        this.insertElseIf(inputIndex + 2);
-      } else {
-        var nextIfConnection = nextIfInput && nextIfInput.connection.targetConnection;
-
-        if (nextIfConnection && !nextIfConnection.sourceBlock_.isInsertionMarker()) {
-          this.insertElseIf(inputIndex + 2);
-        }
-      }
-    }
-  },
-
-  /**
-   * Called when a block drag ends if the dragged block had a pending connection
-   * with this block.
-   */
-  finalizeConnections: function finalizeConnections() {
-    var _this = this;
-
-    var toRemove = []; // Remove Else If inputs if neither the if nor the do has a connected block.
-
-    for (var i = 2; i < this.inputList.length - 1; i += 2) {
-      var ifConnection = this.inputList[i];
-      var doConnection = this.inputList[i + 1];
-
-      if (!ifConnection.connection.targetConnection && !doConnection.connection.targetConnection) {
-        toRemove.push(ifConnection.name);
-        toRemove.push(doConnection.name);
-      }
-    }
-
-    toRemove.forEach(function (input) {
-      return _this.removeInput(input);
-    }); // Remove Else input if it doesn't have a connected block.
-
-    var elseInput = this.getInput('ELSE');
-
-    if (elseInput && !elseInput.connection.targetConnection) {
-      this.removeInput(elseInput.name);
-    } // Remove the If input if it is empty and there is at least one Else If
-
-
-    if (this.inputList.length > 2) {
-      var ifInput = this.inputList[0];
-      var doInput = this.inputList[1];
-      var nextInput = this.inputList[2];
-
-      if (nextInput.name.includes('IF') && !ifInput.connection.targetConnection && !doInput.connection.targetConnection) {
-        this.removeInput(ifInput.name);
-        this.removeInput(doInput.name);
-        nextInput.removeField('elseif');
-        nextInput.appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
-      }
-    }
-  }
-};
-;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_text_join.js
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Defines a version of the text_join block with dyanmic
- *    inputs that appear when a block is dragged over inputs on the block.
- */
-
-core_browser.Blocks.dynamic_text_join = {
-  /**
-   * Counter for the next input to add to this block.
-   * @type {number}
-   */
-  inputCounter: 2,
-
-  /**
-   * Minimum number of inputs for this block.
-   * @type {number}
-   */
-  minInputs: 2,
-
-  /**
-   * Block for concatenating any number of strings.
-   * @this {Blockly.Block}
-   */
-  init: function init() {
-    this.setHelpUrl(core_browser.Msg.TEXT_JOIN_HELPURL);
-    this.setStyle('text_blocks');
-    this.appendValueInput('ADD0').appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
-    this.appendValueInput('ADD1');
-    this.setOutput(true, 'String');
-    this.setTooltip(core_browser.Msg.TEXT_JOIN_TOOLTIP);
-  },
-
-  /**
-   * Create XML to represent number of text inputs.
-   * @return {!Element} XML storage element.
-   * @this {Blockly.Block}
-   */
-  mutationToDom: function mutationToDom() {
-    var container = core_browser.utils.xml.createElement('mutation');
-    var inputNames = this.inputList.map(function (input) {
-      return input.name;
-    }).join(',');
-    container.setAttribute('inputs', inputNames);
-    container.setAttribute('next', this.inputCounter);
-    return container;
-  },
-
-  /**
-   * Parse XML to restore the text inputs.
-   * @param {!Element} xmlElement XML storage element.
-   * @this {Blockly.Block}
-   */
-  domToMutation: function domToMutation(xmlElement) {
-    var _this = this;
-
-    var items = xmlElement.getAttribute('inputs');
-
-    if (items) {
-      var inputNames = items.split(',');
-      this.inputList = [];
-      inputNames.forEach(function (name) {
-        return _this.appendValueInput(name);
-      });
-      this.inputList[0].appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
-    }
-
-    var next = parseInt(xmlElement.getAttribute('next'));
-    this.inputCounter = next;
-  },
-
-  /**
-   * Check whether a new input should be added and determine where it should go.
-   * @param {!Blockly.Connection} connection The connection that has a
-   *     pending connection.
-   * @return {number} The index before which to insert a new input,
-   *     or null if no input should be added.
-   */
-  getIndexForNewInput: function getIndexForNewInput(connection) {
-    if (!connection.targetConnection) {
-      // this connection is available
-      return null;
-    }
-
-    var connectionIndex;
-
-    for (var i = 0; i < this.inputList.length; i++) {
-      if (this.inputList[i].connection == connection) {
-        connectionIndex = i;
-      }
-    }
-
-    if (connectionIndex == this.inputList.length - 1) {
-      // this connection is the last one and already has a block in it, so
-      // we should add a new connection at the end.
-      return this.inputList.length + 1;
-    }
-
-    var nextInput = this.inputList[connectionIndex + 1];
-    var nextConnection = nextInput && nextInput.connection.targetConnection;
-
-    if (nextConnection && !nextConnection.sourceBlock_.isInsertionMarker()) {
-      return connectionIndex + 1;
-    } // Don't add new connection
-
-
-    return null;
-  },
-
-  /**
-   * Called when a block is dragged over one of the connections on this block.
-   * @param {!Blockly.Connection} connection The connection on this block that
-   *     has a pending connection.
-   */
-  onPendingConnection: function onPendingConnection(connection) {
-    var insertIndex = this.getIndexForNewInput(connection);
-
-    if (insertIndex == null) {
-      return;
-    }
-
-    this.appendValueInput('ADD' + this.inputCounter++);
-    this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
-  },
-
-  /**
-   * Called when a block drag ends if the dragged block had a pending connection
-   * with this block.
-   */
-  finalizeConnections: function finalizeConnections() {
-    var _this2 = this;
-
-    if (this.inputList.length > this.minInputs) {
-      var toRemove = [];
-      this.inputList.forEach(function (input) {
-        var targetConnection = input.connection.targetConnection;
-
-        if (!targetConnection) {
-          toRemove.push(input.name);
-        }
-      });
-
-      if (this.inputList.length - toRemove.length < this.minInputs) {
-        // Always show at least two inputs
-        toRemove = toRemove.slice(this.minInputs);
-      }
-
-      toRemove.forEach(function (inputName) {
-        return _this2.removeInput(inputName);
-      }); // The first input should have the block text. If we removed the
-      // first input, add the block text to the new first input.
-
-      if (this.inputList[0].fieldRow.length == 0) {
-        this.inputList[0].appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
-      }
-    }
-  }
-};
-;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_list_create.js
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Defines a version of the list_create block with dyanmic
- *     inputs that appear when a block is dragged over inputs on the block.
- */
-
-core_browser.Blocks.dynamic_list_create = {
-  /**
-   * Counter for the next input to add to this block.
-   * @type {number}
-   */
-  inputCounter: 2,
-
-  /**
-   * Minimum number of inputs for this block.
-   * @type {number}
-   */
-  minInputs: 2,
-
-  /**
-   * Block for concatenating any number of strings.
-   * @this {Blockly.Block}
-   */
-  init: function init() {
-    this.setHelpUrl(core_browser.Msg.LISTS_CREATE_WITH_HELPURL);
-    this.setStyle('list_blocks');
-    this.appendValueInput('ADD0').appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
-    this.appendValueInput('ADD1');
-    this.setOutput(true, 'Array');
-    this.setTooltip(core_browser.Msg.LISTS_CREATE_WITH_TOOLTIP);
-  },
-
-  /**
-   * Create XML to represent number of text inputs.
-   * @return {!Element} XML storage element.
-   * @this {Blockly.Block}
-   */
-  mutationToDom: function mutationToDom() {
-    var container = core_browser.utils.xml.createElement('mutation');
-    var inputNames = this.inputList.map(function (input) {
-      return input.name;
-    }).join(',');
-    container.setAttribute('inputs', inputNames);
-    container.setAttribute('next', this.inputCounter);
-    return container;
-  },
-
-  /**
-   * Parse XML to restore the text inputs.
-   * @param {!Element} xmlElement XML storage element.
-   * @this {Blockly.Block}
-   */
-  domToMutation: function domToMutation(xmlElement) {
-    var _this = this;
-
-    var items = xmlElement.getAttribute('inputs');
-
-    if (items) {
-      var inputNames = items.split(',');
-      this.inputList = [];
-      inputNames.forEach(function (name) {
-        return _this.appendValueInput(name);
-      });
-      this.inputList[0].appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
-    }
-
-    var next = parseInt(xmlElement.getAttribute('next'));
-    this.inputCounter = next;
-  },
-
-  /**
-   * Check whether a new input should be added and determine where it should go.
-   * @param {!Blockly.Connection} connection The connection that has a
-   *     pending connection.
-   * @return {number} The index before which to insert a new input,
-   *     or null if no input should be added.
-   */
-  getIndexForNewInput: function getIndexForNewInput(connection) {
-    if (!connection.targetConnection) {
-      // this connection is available
-      return null;
-    }
-
-    var connectionIndex;
-
-    for (var i = 0; i < this.inputList.length; i++) {
-      if (this.inputList[i].connection == connection) {
-        connectionIndex = i;
-      }
-    }
-
-    if (connectionIndex == this.inputList.length - 1) {
-      // this connection is the last one and already has a block in it, so
-      // we should add a new connection at the end.
-      return this.inputList.length + 1;
-    }
-
-    var nextInput = this.inputList[connectionIndex + 1];
-    var nextConnection = nextInput && nextInput.connection.targetConnection;
-
-    if (nextConnection && !nextConnection.sourceBlock_.isInsertionMarker()) {
-      return connectionIndex + 1;
-    } // Don't add new connection
-
-
-    return null;
-  },
-
-  /**
-   * Called when a block is dragged over one of the connections on this block.
-   * @param {!Blockly.Connection} connection The connection on this block that
-   * has a pending connection.
-   */
-  onPendingConnection: function onPendingConnection(connection) {
-    var insertIndex = this.getIndexForNewInput(connection);
-
-    if (insertIndex == null) {
-      return;
-    }
-
-    this.appendValueInput('ADD' + this.inputCounter++);
-    this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
-  },
-
-  /**
-   * Called when a block drag ends if the dragged block had a pending connection
-   * with this block.
-   */
-  finalizeConnections: function finalizeConnections() {
-    var _this2 = this;
-
-    if (this.inputList.length > this.minInputs) {
-      var toRemove = [];
-      this.inputList.forEach(function (input) {
-        var targetConnection = input.connection.targetConnection;
-
-        if (!targetConnection) {
-          toRemove.push(input.name);
-        }
-      });
-
-      if (this.inputList.length - toRemove.length < this.minInputs) {
-        // Always show at least two inputs
-        toRemove = toRemove.slice(this.minInputs);
-      }
-
-      toRemove.forEach(function (inputName) {
-        return _this2.removeInput(inputName);
-      }); // The first input should have the block text. If we removed the
-      // first input, add the block text to the new first input.
-
-      if (this.inputList[0].fieldRow.length == 0) {
-        this.inputList[0].appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
-      }
-    }
-  }
-};
-;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/index.js
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Adds blocks that replace the built-in mutator UI with dynamic
- *     connections that appear when a block is dragged over inputs on the block.
- */
-
-
-
-
-var overrideOldBlockDefinitions = function overrideOldBlockDefinitions() {
-  Blockly.Blocks['list_create'] = Blockly.Blocks['dynamic_list_create'];
-  Blockly.Blocks['text_join'] = Blockly.Blocks['dynamic_text_join'];
-  Blockly.Blocks['controls_if'] = Blockly.Blocks['dynamic_if'];
-};
 ;// CONCATENATED MODULE: ./node_modules/@blockly/theme-modern/src/index.js
 /**
  * @license
@@ -6339,6 +5499,8 @@ var useTheme = __webpack_require__(59355);
 var gatsby_link = __webpack_require__(38037);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(92137);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(5991);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
@@ -8679,11 +7841,11 @@ function BlocklyModalDialogs() {
   }, "Ok")));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/jsongenerator.ts
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = jsongenerator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
 
-function jsongenerator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return jsongenerator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return jsongenerator_arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function jsongenerator_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -9216,6 +8378,880 @@ var makeStyles = __webpack_require__(10920);
 var createStyles = __webpack_require__(70274);
 // EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
 var clsx_m = __webpack_require__(85505);
+;// CONCATENATED MODULE: ./src/components/vm/useBlocklyEvents.ts
+
+
+function useBlocklyEvents(workspace) {
+  var handleChange = function handleChange(event) {
+    var type = event.type;
+
+    switch (type) {
+      case (blockly_default()).Events.BLOCK_CHANGE:
+        {
+          var _Blockly$Blocks$block;
+
+          var change = event;
+          var block = workspace.getBlockById(change.blockId);
+          var def = (_Blockly$Blocks$block = (blockly_default()).Blocks[block.type]) === null || _Blockly$Blocks$block === void 0 ? void 0 : _Blockly$Blocks$block.jacdacDefinition;
+          var template = def === null || def === void 0 ? void 0 : def.template;
+
+          if (template === "twin") {
+            // notify twin that the value changed
+            var twinField = block.inputList[1].fieldRow[0];
+            twinField.updateRole();
+          }
+
+          break;
+        }
+    }
+  }; // register hook
+
+
+  (0,react.useEffect)(function () {
+    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleChange);
+    return function () {
+      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleChange);
+    };
+  }, [workspace]);
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+var classCallCheck = __webpack_require__(6610);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/get.js + 1 modules
+var get = __webpack_require__(66213);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inherits.js
+var inherits = __webpack_require__(10379);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/possibleConstructorReturn.js
+var possibleConstructorReturn = __webpack_require__(46070);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/getPrototypeOf.js
+var getPrototypeOf = __webpack_require__(77608);
+;// CONCATENATED MODULE: ./node_modules/@blockly/field-slider/src/field_slider.js
+
+
+
+
+
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = field_slider_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function field_slider_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return field_slider_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return field_slider_arrayLikeToArray(o, minLen); }
+
+function field_slider_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Number slider input field.
+ * @author kozbial@google.com (Monica Kozbial)
+ */
+
+/**
+ * Slider field.
+ */
+
+var FieldSlider = /*#__PURE__*/function (_Blockly$FieldNumber) {
+  (0,inherits/* default */.Z)(FieldSlider, _Blockly$FieldNumber);
+
+  var _super = _createSuper(FieldSlider);
+
+  /**
+   * Class for an number slider field.
+   * @param {string|number=} opt_value The initial value of the field. Should
+   *    cast to a number. Defaults to 0.
+   * @param {?(string|number)=} opt_min Minimum value.
+   * @param {?(string|number)=} opt_max Maximum value.
+   * @param {?(string|number)=} opt_precision Precision for value.
+   * @param {?Function=} opt_validator A function that is called to validate
+   *    changes to the field's value. Takes in a number & returns a validated
+   *    number, or null to abort the change.
+   * @param {Object=} opt_config A map of options used to configure the field.
+   *    See the [field creation documentation]{@link https://developers.google.com/blockly/guides/create-custom-blocks/fields/built-in-fields/number#creation}
+   *    for a list of properties this parameter supports.
+   * @extends {Blockly.FieldNumber}
+   * @constructor
+   */
+  function FieldSlider(opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config) {
+    var _this;
+
+    (0,classCallCheck/* default */.Z)(this, FieldSlider);
+
+    _this = _super.call(this, opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config);
+    /**
+     * Array holding info needed to unbind events.
+     * Used for disposing.
+     * Ex: [[node, name, func], [node, name, func]].
+     * @type {!Array.<Array<?>>}
+     * @private
+     */
+
+    _this.boundEvents_ = [];
+    /**
+     * The HTML range input element.
+     * @type {?HTMLInputElement}
+     * @private
+     */
+
+    _this.sliderInput_ = null;
+    return _this;
+  }
+  /**
+   * Constructs a FieldSlider from a JSON arg object.
+   * @param {!Object} options A JSON object with options (value, min, max, and
+   *                          precision).
+   * @return {!FieldSlider} The new field instance.
+   * @package
+   * @nocollapse
+   */
+
+
+  (0,createClass/* default */.Z)(FieldSlider, [{
+    key: "showEditor_",
+    value:
+    /**
+     * Show the inline free-text editor on top of the text along with the slider
+     *    editor.
+     * @param {Event=} opt_e Optional mouse event that triggered the field to
+     *     open, or undefined if triggered programmatically.
+     * @param {boolean=} _opt_quietInput Quiet input.
+     * @protected
+     * @override
+     */
+    function showEditor_(opt_e, _opt_quietInput) {
+      // Mobile browsers have issues with in-line textareas (focus & keyboards).
+      var noFocus = core_browser.utils.userAgent.MOBILE || core_browser.utils.userAgent.ANDROID || core_browser.utils.userAgent.IPAD;
+
+      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "showEditor_", this).call(this, opt_e, noFocus); // Build the DOM.
+
+
+      var editor = this.dropdownCreate_();
+      core_browser.DropDownDiv.getContentDiv().appendChild(editor);
+      core_browser.DropDownDiv.setColour(this.sourceBlock_.style.colourPrimary, this.sourceBlock_.style.colourTertiary);
+      core_browser.DropDownDiv.showPositionedByField(this, this.dropdownDispose_.bind(this));
+    }
+    /**
+     * Updates the slider when the field rerenders.
+     * @protected
+     * @override
+     */
+
+  }, {
+    key: "render_",
+    value: function render_() {
+      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "render_", this).call(this);
+
+      this.updateSlider_();
+    }
+    /**
+     * Creates the slider editor and add event listeners.
+     * @return {!Element} The newly created slider.
+     * @private
+     */
+
+  }, {
+    key: "dropdownCreate_",
+    value: function dropdownCreate_() {
+      var wrapper = document.createElement('div');
+      wrapper.className = 'fieldSliderContainer';
+      var sliderInput = document.createElement('input');
+      sliderInput.setAttribute('type', 'range');
+      sliderInput.setAttribute('min', this.min_);
+      sliderInput.setAttribute('max', this.max_);
+      sliderInput.setAttribute('step', this.precision_);
+      sliderInput.setAttribute('value', this.getValue());
+      sliderInput.className = 'fieldSlider';
+      wrapper.appendChild(sliderInput);
+      this.sliderInput_ = sliderInput;
+      this.boundEvents_.push(core_browser.bindEventWithChecks_(sliderInput, 'input', this, this.onSliderChange_));
+      return wrapper;
+    }
+    /**
+     * Disposes of events belonging to the slider editor.
+     * @private
+     */
+
+  }, {
+    key: "dropdownDispose_",
+    value: function dropdownDispose_() {
+      var _iterator = _createForOfIteratorHelper(this.boundEvents_),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var event = _step.value;
+          core_browser.unbindEvent_(event);
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      this.sliderInput_ = null;
+    }
+    /**
+     * Sets the text to match the slider's position.
+     * @private
+     */
+
+  }, {
+    key: "onSliderChange_",
+    value: function onSliderChange_() {
+      this.setEditorValue_(this.sliderInput_.value);
+    }
+    /**
+     * Updates the slider when the field rerenders.
+     * @private
+     */
+
+  }, {
+    key: "updateSlider_",
+    value: function updateSlider_() {
+      if (!this.sliderInput_) {
+        return;
+      }
+
+      this.sliderInput_.setAttribute('value', this.getValue());
+    }
+  }], [{
+    key: "fromJson",
+    value: function fromJson(options) {
+      return new FieldSlider(options['value'], undefined, undefined, undefined, undefined, options);
+    }
+  }]);
+
+  return FieldSlider;
+}(core_browser.FieldNumber);
+core_browser.fieldRegistry.register('field_slider', FieldSlider);
+/**
+ * CSS for slider field.
+ */
+
+core_browser.Css.register([
+/* eslint-disable indent */
+".fieldSliderContainer {\n      align-items: center;\n      display: flex;\n      height: 32px;\n      justify-content: center;\n      width: 150px;\n    }\n    .fieldSlider {\n      -webkit-appearance: none;\n      background: transparent; /* override white in chrome */\n      margin: 4px;\n      padding: 0;\n      width: 100%;\n    }\n    .fieldSlider:focus {\n      outline: none;\n    }\n    /* Webkit */\n    .fieldSlider::-webkit-slider-runnable-track {\n      background: #ddd;\n      border-radius: 5px;\n      height: 10px;\n    }\n    .fieldSlider::-webkit-slider-thumb {\n      -webkit-appearance: none;\n      background: #fff;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      margin-top: -7px;\n      width: 24px;\n    }\n    /* Firefox */\n    .fieldSlider::-moz-range-track {\n      background: #ddd;\n      border-radius: 5px;\n      height: 10px;\n    }\n    .fieldSlider::-moz-range-thumb {\n      background: #fff;\n      border: none;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      width: 24px;\n    }\n    .fieldSlider::-moz-focus-outer {\n      /* override the focus border style */\n      border: 0;\n    }\n    /* IE */\n    .fieldSlider::-ms-track {\n      /* IE wont let the thumb overflow the track, so fake it */\n      background: transparent;\n      border-color: transparent;\n      border-width: 15px 0;\n      /* remove default tick marks */\n      color: transparent;\n      height: 10px;\n      width: 100%;\n      margin: -4px 0;\n    }\n    .fieldSlider::-ms-fill-lower  {\n      background: #ddd;\n      border-radius: 5px;\n    }\n    .fieldSlider::-ms-fill-upper  {\n      background: #ddd;\n      border-radius: 5px;\n    }\n    .fieldSlider::-ms-thumb {\n      background: #fff;\n      border: none;\n      border-radius: 50%;\n      box-shadow: 0 0 0 4px rgba(255,255,255,.15);\n      cursor: pointer;\n      height: 24px;\n      width: 24px;\n    }"
+/* eslint-enable indent */
+]);
+;// CONCATENATED MODULE: ./node_modules/@blockly/field-slider/src/index.js
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/insertion_marker_manager_monkey_patch.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Overrides methods on Blockly.InsertionMarkerManager to
+ * allow blocks to hook in dynamic functionality when they have pending
+ * connections.
+ * @author anjali@code.org (Anjali Pal)
+ */
+
+
+core_browser.InsertionMarkerManager.prototype.update = function (dxy, deleteArea) {
+  var candidate = this.getCandidate_(dxy);
+  this.wouldDeleteBlock_ = this.shouldDelete_(candidate, deleteArea);
+  var shouldUpdate = this.wouldDeleteBlock_ || this.shouldUpdatePreviews_(candidate, dxy);
+
+  if (shouldUpdate) {
+    // Begin monkey patch
+    if (candidate.closest && candidate.closest.sourceBlock_.onPendingConnection) {
+      candidate.closest.sourceBlock_.onPendingConnection(candidate.closest);
+
+      if (!this.pendingBlocks) {
+        this.pendingBlocks = new Set();
+      }
+
+      this.pendingBlocks.add(candidate.closest.sourceBlock_);
+    } // End monkey patch
+    // Don't fire events for insertion marker creation or movement.
+
+
+    core_browser.Events.disable();
+    this.maybeHidePreview_(candidate);
+    this.maybeShowPreview_(candidate);
+    core_browser.Events.enable();
+  }
+};
+
+var oldDispose = core_browser.InsertionMarkerManager.prototype.dispose;
+
+core_browser.InsertionMarkerManager.prototype.dispose = function () {
+  if (this.pendingBlocks) {
+    this.pendingBlocks.forEach(function (block) {
+      if (block.finalizeConnections) {
+        block.finalizeConnections();
+      }
+    });
+  }
+
+  oldDispose.call(this);
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_if.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Defines a version of the if block with dyanmic
+ *     inputs that appear when a block is dragged over inputs on the block.
+ */
+
+core_browser.Blocks.dynamic_if = {
+  /**
+   * Counter for the next input to add to this block.
+   * @type {number}
+   */
+  inputCounter: 1,
+
+  /**
+   * Minimum number of inputs for this block.
+   * @type {number}
+   */
+  minInputs: 1,
+
+  /**
+   * Block for if/elseif/else statements. Must have one if input.
+   * Can have any number of elseif inputs and optionally one else input.
+   * @this {Blockly.Block}
+   */
+  init: function init() {
+    this.setHelpUrl(core_browser.Msg.CONTROLS_IF_HELPURL);
+    this.setStyle('logic_blocks');
+    this.appendValueInput('IF0').setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
+    this.appendStatementInput('DO0').appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+    this.setNextStatement(true);
+    this.setPreviousStatement(true);
+    this.setTooltip(core_browser.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+
+  /**
+   * Create XML to represent if/elseif/else inputs.
+   * @return {!Element} XML storage element.
+   * @this {Blockly.Block}
+   */
+  mutationToDom: function mutationToDom() {
+    var container = core_browser.utils.xml.createElement('mutation');
+    var inputNames = this.inputList.filter(function (input) {
+      return input.name.includes('IF');
+    }).map(function (input) {
+      return input.name.replace('IF', '');
+    }).join(',');
+    container.setAttribute('inputs', inputNames);
+    var hasElse = !!this.getInput('ELSE');
+    container.setAttribute('else', hasElse);
+    container.setAttribute('next', this.inputCounter);
+    return container;
+  },
+
+  /**
+   * Parse XML to restore the inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this {Blockly.Block}
+   */
+  domToMutation: function domToMutation(xmlElement) {
+    var inputs = xmlElement.getAttribute('inputs');
+
+    if (inputs) {
+      var inputNumbers = inputs.split(',');
+
+      if (this.getInput('IF0')) {
+        this.removeInput('IF0');
+      }
+
+      if (this.getInput('DO0')) {
+        this.removeInput('DO0');
+      }
+
+      var first = inputNumbers[0];
+      this.appendValueInput('IF' + first).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
+      this.appendStatementInput('DO' + first).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+
+      for (var i = 1; i < inputNumbers.length; i++) {
+        this.appendValueInput('IF' + inputNumbers[i]).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSEIF, 'elseif');
+        this.appendStatementInput('DO' + inputNumbers[i]).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+      }
+    }
+
+    var hasElse = xmlElement.getAttribute('else');
+
+    if (hasElse == 'true') {
+      this.appendStatementInput('ELSE').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSE, 'else');
+    }
+
+    var next = parseInt(xmlElement.getAttribute('next'));
+    this.inputCounter = next;
+  },
+
+  /**
+   * Finds the index of a connection. Used to determine where in the block to
+   * insert new inputs.
+   * @param {!Blockly.Connection} connection A connection on this block.
+   * @return {?number} The index of the connection in the this.inputList.
+   */
+  findInputIndexForConnection: function findInputIndexForConnection(connection) {
+    for (var i = 0; i < this.inputList.length; i++) {
+      var input = this.inputList[i];
+
+      if (input.connection == connection) {
+        return i;
+      }
+    }
+
+    return null;
+  },
+
+  /**
+   * Inserts a boolean value input and statement input at the specified index.
+   * @param {number} index Index of the input before which to add new inputs.
+   */
+  insertElseIf: function insertElseIf(index) {
+    var caseNumber = this.inputCounter;
+    this.appendValueInput('IF' + caseNumber).setCheck('Boolean').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSEIF, 'elseif');
+    this.appendStatementInput('DO' + caseNumber).appendField(core_browser.Msg.CONTROLS_IF_MSG_THEN);
+    this.moveInputBefore('IF' + caseNumber, this.inputList[index].name);
+    this.moveInputBefore('DO' + caseNumber, this.inputList[index + 1].name);
+    this.inputCounter++;
+  },
+
+  /**
+   * Called when a block is dragged over one of the connections on this block.
+   * @param {!Blockly.Connection} connection The connection on this block that
+   * has a pending connection.
+   */
+  onPendingConnection: function onPendingConnection(connection) {
+    if (connection.type === core_browser.NEXT_STATEMENT && !this.getInput('ELSE')) {
+      this.appendStatementInput('ELSE').appendField(core_browser.Msg.CONTROLS_IF_MSG_ELSE, 'else');
+    }
+
+    var inputIndex = this.findInputIndexForConnection(connection);
+
+    if (inputIndex === null) {
+      return;
+    }
+
+    var input = this.inputList[inputIndex];
+
+    if (connection.targetConnection && input.name.includes('IF')) {
+      var nextIfInput = this.inputList[inputIndex + 2];
+
+      if (!nextIfInput || nextIfInput.name == 'ELSE') {
+        this.insertElseIf(inputIndex + 2);
+      } else {
+        var nextIfConnection = nextIfInput && nextIfInput.connection.targetConnection;
+
+        if (nextIfConnection && !nextIfConnection.sourceBlock_.isInsertionMarker()) {
+          this.insertElseIf(inputIndex + 2);
+        }
+      }
+    }
+  },
+
+  /**
+   * Called when a block drag ends if the dragged block had a pending connection
+   * with this block.
+   */
+  finalizeConnections: function finalizeConnections() {
+    var _this = this;
+
+    var toRemove = []; // Remove Else If inputs if neither the if nor the do has a connected block.
+
+    for (var i = 2; i < this.inputList.length - 1; i += 2) {
+      var ifConnection = this.inputList[i];
+      var doConnection = this.inputList[i + 1];
+
+      if (!ifConnection.connection.targetConnection && !doConnection.connection.targetConnection) {
+        toRemove.push(ifConnection.name);
+        toRemove.push(doConnection.name);
+      }
+    }
+
+    toRemove.forEach(function (input) {
+      return _this.removeInput(input);
+    }); // Remove Else input if it doesn't have a connected block.
+
+    var elseInput = this.getInput('ELSE');
+
+    if (elseInput && !elseInput.connection.targetConnection) {
+      this.removeInput(elseInput.name);
+    } // Remove the If input if it is empty and there is at least one Else If
+
+
+    if (this.inputList.length > 2) {
+      var ifInput = this.inputList[0];
+      var doInput = this.inputList[1];
+      var nextInput = this.inputList[2];
+
+      if (nextInput.name.includes('IF') && !ifInput.connection.targetConnection && !doInput.connection.targetConnection) {
+        this.removeInput(ifInput.name);
+        this.removeInput(doInput.name);
+        nextInput.removeField('elseif');
+        nextInput.appendField(core_browser.Msg.CONTROLS_IF_MSG_IF, 'if');
+      }
+    }
+  }
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_text_join.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Defines a version of the text_join block with dyanmic
+ *    inputs that appear when a block is dragged over inputs on the block.
+ */
+
+core_browser.Blocks.dynamic_text_join = {
+  /**
+   * Counter for the next input to add to this block.
+   * @type {number}
+   */
+  inputCounter: 2,
+
+  /**
+   * Minimum number of inputs for this block.
+   * @type {number}
+   */
+  minInputs: 2,
+
+  /**
+   * Block for concatenating any number of strings.
+   * @this {Blockly.Block}
+   */
+  init: function init() {
+    this.setHelpUrl(core_browser.Msg.TEXT_JOIN_HELPURL);
+    this.setStyle('text_blocks');
+    this.appendValueInput('ADD0').appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+    this.appendValueInput('ADD1');
+    this.setOutput(true, 'String');
+    this.setTooltip(core_browser.Msg.TEXT_JOIN_TOOLTIP);
+  },
+
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this {Blockly.Block}
+   */
+  mutationToDom: function mutationToDom() {
+    var container = core_browser.utils.xml.createElement('mutation');
+    var inputNames = this.inputList.map(function (input) {
+      return input.name;
+    }).join(',');
+    container.setAttribute('inputs', inputNames);
+    container.setAttribute('next', this.inputCounter);
+    return container;
+  },
+
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this {Blockly.Block}
+   */
+  domToMutation: function domToMutation(xmlElement) {
+    var _this = this;
+
+    var items = xmlElement.getAttribute('inputs');
+
+    if (items) {
+      var inputNames = items.split(',');
+      this.inputList = [];
+      inputNames.forEach(function (name) {
+        return _this.appendValueInput(name);
+      });
+      this.inputList[0].appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+    }
+
+    var next = parseInt(xmlElement.getAttribute('next'));
+    this.inputCounter = next;
+  },
+
+  /**
+   * Check whether a new input should be added and determine where it should go.
+   * @param {!Blockly.Connection} connection The connection that has a
+   *     pending connection.
+   * @return {number} The index before which to insert a new input,
+   *     or null if no input should be added.
+   */
+  getIndexForNewInput: function getIndexForNewInput(connection) {
+    if (!connection.targetConnection) {
+      // this connection is available
+      return null;
+    }
+
+    var connectionIndex;
+
+    for (var i = 0; i < this.inputList.length; i++) {
+      if (this.inputList[i].connection == connection) {
+        connectionIndex = i;
+      }
+    }
+
+    if (connectionIndex == this.inputList.length - 1) {
+      // this connection is the last one and already has a block in it, so
+      // we should add a new connection at the end.
+      return this.inputList.length + 1;
+    }
+
+    var nextInput = this.inputList[connectionIndex + 1];
+    var nextConnection = nextInput && nextInput.connection.targetConnection;
+
+    if (nextConnection && !nextConnection.sourceBlock_.isInsertionMarker()) {
+      return connectionIndex + 1;
+    } // Don't add new connection
+
+
+    return null;
+  },
+
+  /**
+   * Called when a block is dragged over one of the connections on this block.
+   * @param {!Blockly.Connection} connection The connection on this block that
+   *     has a pending connection.
+   */
+  onPendingConnection: function onPendingConnection(connection) {
+    var insertIndex = this.getIndexForNewInput(connection);
+
+    if (insertIndex == null) {
+      return;
+    }
+
+    this.appendValueInput('ADD' + this.inputCounter++);
+    this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
+  },
+
+  /**
+   * Called when a block drag ends if the dragged block had a pending connection
+   * with this block.
+   */
+  finalizeConnections: function finalizeConnections() {
+    var _this2 = this;
+
+    if (this.inputList.length > this.minInputs) {
+      var toRemove = [];
+      this.inputList.forEach(function (input) {
+        var targetConnection = input.connection.targetConnection;
+
+        if (!targetConnection) {
+          toRemove.push(input.name);
+        }
+      });
+
+      if (this.inputList.length - toRemove.length < this.minInputs) {
+        // Always show at least two inputs
+        toRemove = toRemove.slice(this.minInputs);
+      }
+
+      toRemove.forEach(function (inputName) {
+        return _this2.removeInput(inputName);
+      }); // The first input should have the block text. If we removed the
+      // first input, add the block text to the new first input.
+
+      if (this.inputList[0].fieldRow.length == 0) {
+        this.inputList[0].appendField(core_browser.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+      }
+    }
+  }
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/dynamic_list_create.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Defines a version of the list_create block with dyanmic
+ *     inputs that appear when a block is dragged over inputs on the block.
+ */
+
+core_browser.Blocks.dynamic_list_create = {
+  /**
+   * Counter for the next input to add to this block.
+   * @type {number}
+   */
+  inputCounter: 2,
+
+  /**
+   * Minimum number of inputs for this block.
+   * @type {number}
+   */
+  minInputs: 2,
+
+  /**
+   * Block for concatenating any number of strings.
+   * @this {Blockly.Block}
+   */
+  init: function init() {
+    this.setHelpUrl(core_browser.Msg.LISTS_CREATE_WITH_HELPURL);
+    this.setStyle('list_blocks');
+    this.appendValueInput('ADD0').appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+    this.appendValueInput('ADD1');
+    this.setOutput(true, 'Array');
+    this.setTooltip(core_browser.Msg.LISTS_CREATE_WITH_TOOLTIP);
+  },
+
+  /**
+   * Create XML to represent number of text inputs.
+   * @return {!Element} XML storage element.
+   * @this {Blockly.Block}
+   */
+  mutationToDom: function mutationToDom() {
+    var container = core_browser.utils.xml.createElement('mutation');
+    var inputNames = this.inputList.map(function (input) {
+      return input.name;
+    }).join(',');
+    container.setAttribute('inputs', inputNames);
+    container.setAttribute('next', this.inputCounter);
+    return container;
+  },
+
+  /**
+   * Parse XML to restore the text inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this {Blockly.Block}
+   */
+  domToMutation: function domToMutation(xmlElement) {
+    var _this = this;
+
+    var items = xmlElement.getAttribute('inputs');
+
+    if (items) {
+      var inputNames = items.split(',');
+      this.inputList = [];
+      inputNames.forEach(function (name) {
+        return _this.appendValueInput(name);
+      });
+      this.inputList[0].appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+    }
+
+    var next = parseInt(xmlElement.getAttribute('next'));
+    this.inputCounter = next;
+  },
+
+  /**
+   * Check whether a new input should be added and determine where it should go.
+   * @param {!Blockly.Connection} connection The connection that has a
+   *     pending connection.
+   * @return {number} The index before which to insert a new input,
+   *     or null if no input should be added.
+   */
+  getIndexForNewInput: function getIndexForNewInput(connection) {
+    if (!connection.targetConnection) {
+      // this connection is available
+      return null;
+    }
+
+    var connectionIndex;
+
+    for (var i = 0; i < this.inputList.length; i++) {
+      if (this.inputList[i].connection == connection) {
+        connectionIndex = i;
+      }
+    }
+
+    if (connectionIndex == this.inputList.length - 1) {
+      // this connection is the last one and already has a block in it, so
+      // we should add a new connection at the end.
+      return this.inputList.length + 1;
+    }
+
+    var nextInput = this.inputList[connectionIndex + 1];
+    var nextConnection = nextInput && nextInput.connection.targetConnection;
+
+    if (nextConnection && !nextConnection.sourceBlock_.isInsertionMarker()) {
+      return connectionIndex + 1;
+    } // Don't add new connection
+
+
+    return null;
+  },
+
+  /**
+   * Called when a block is dragged over one of the connections on this block.
+   * @param {!Blockly.Connection} connection The connection on this block that
+   * has a pending connection.
+   */
+  onPendingConnection: function onPendingConnection(connection) {
+    var insertIndex = this.getIndexForNewInput(connection);
+
+    if (insertIndex == null) {
+      return;
+    }
+
+    this.appendValueInput('ADD' + this.inputCounter++);
+    this.moveNumberedInputBefore(this.inputList.length - 1, insertIndex);
+  },
+
+  /**
+   * Called when a block drag ends if the dragged block had a pending connection
+   * with this block.
+   */
+  finalizeConnections: function finalizeConnections() {
+    var _this2 = this;
+
+    if (this.inputList.length > this.minInputs) {
+      var toRemove = [];
+      this.inputList.forEach(function (input) {
+        var targetConnection = input.connection.targetConnection;
+
+        if (!targetConnection) {
+          toRemove.push(input.name);
+        }
+      });
+
+      if (this.inputList.length - toRemove.length < this.minInputs) {
+        // Always show at least two inputs
+        toRemove = toRemove.slice(this.minInputs);
+      }
+
+      toRemove.forEach(function (inputName) {
+        return _this2.removeInput(inputName);
+      }); // The first input should have the block text. If we removed the
+      // first input, add the block text to the new first input.
+
+      if (this.inputList[0].fieldRow.length == 0) {
+        this.inputList[0].appendField(core_browser.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+      }
+    }
+  }
+};
+;// CONCATENATED MODULE: ./node_modules/@blockly/block-dynamic-connection/src/index.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Adds blocks that replace the built-in mutator UI with dynamic
+ *     connections that appear when a block is dragged over inputs on the block.
+ */
+
+
+
+
+var overrideOldBlockDefinitions = function overrideOldBlockDefinitions() {
+  Blockly.Blocks['list_create'] = Blockly.Blocks['dynamic_list_create'];
+  Blockly.Blocks['text_join'] = Blockly.Blocks['dynamic_text_join'];
+  Blockly.Blocks['controls_if'] = Blockly.Blocks['dynamic_if'];
+};
 ;// CONCATENATED MODULE: ./node_modules/@blockly/disable-top-blocks/src/index.js
 
 
@@ -9309,43 +9345,14 @@ function isOrphan(block) {
 
   return !parent && !!(block.outputConnection || block.previousConnection);
 }
-;// CONCATENATED MODULE: ./src/components/vm/useBlocklyEvents.ts
+;// CONCATENATED MODULE: ./src/components/vm/useBlocklyPlugins.ts
 
 
 
-function useBlocklyEvents(workspace) {
-  var handleChange = function handleChange(event) {
-    var type = event.type;
-
-    switch (type) {
-      case (blockly_default()).Events.BLOCK_CHANGE:
-        {
-          var _Blockly$Blocks$block;
-
-          var change = event;
-          var block = workspace.getBlockById(change.blockId);
-          var def = (_Blockly$Blocks$block = (blockly_default()).Blocks[block.type]) === null || _Blockly$Blocks$block === void 0 ? void 0 : _Blockly$Blocks$block.jacdacDefinition;
-          var template = def === null || def === void 0 ? void 0 : def.template;
-
-          if (template === "twin") {
-            // notify twin that the value changed
-            var twinField = block.inputList[1].fieldRow[0];
-            twinField.updateRole();
-          }
-
-          break;
-        }
-    }
-  }; // register hook
 
 
-  (0,react.useEffect)(function () {
-    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleChange);
-    return function () {
-      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleChange);
-    };
-  }, [workspace]); //plugins
-
+function useBlocklyPlugins(workspace) {
+  //plugins
   (0,react.useEffect)(function () {
     if (!workspace) return; // Add the disableOrphans event handler. This is not done automatically by
     // the plugin and should be handled by your application.
@@ -9354,11 +9361,12 @@ function useBlocklyEvents(workspace) {
 
     var disableTopBlocksPlugin = new DisableTopBlocks();
     disableTopBlocksPlugin.init();
-    return workspace.removeChangeListener((blockly_default()).Events.disableOrphans);
+    return function () {
+      return workspace.removeChangeListener((blockly_default()).Events.disableOrphans);
+    };
   }, [workspace]);
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMBlockEditor.tsx
-
 
 
 
@@ -9461,11 +9469,10 @@ function VMBlockEditor(props) {
     }
   }),
       workspace = _ref.workspace,
-      xml = _ref.xml; // listen for events needed for field editors
+      xml = _ref.xml;
 
-
-  useBlocklyEvents(workspace); // setup buttons
-
+  useBlocklyPlugins(workspace);
+  useBlocklyEvents(workspace);
   useToolboxButtons(workspace, toolboxConfiguration); // code serialization
   // blockly did a change
 
@@ -9504,4 +9511,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a9250892210aa93b87f5.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2a6aafb47a0badbfbaa4.js.map
