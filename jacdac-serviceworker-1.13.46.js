@@ -194,8 +194,12 @@ function bufferConcat(a, b) {
     r.set(b, a.length);
     return r;
 }
-function assert(cond, msg = "Assertion failed") {
+function assert(cond, msg = "Assertion failed", 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+debugData) {
     if (!cond) {
+        if (debugData)
+            console.debug(`assertion filed ${msg}`, debugData);
         if (Flags.diagnostics)
             // eslint-disable-next-line no-debugger
             debugger;

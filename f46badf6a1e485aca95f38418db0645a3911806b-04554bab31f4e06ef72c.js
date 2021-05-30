@@ -5702,7 +5702,10 @@ function WorkspaceProvider(props) {
     var newSourceBlock = field.getSourceBlock();
     var roleField = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : (_newSourceBlock$input = newSourceBlock.inputList[0]) === null || _newSourceBlock$input === void 0 ? void 0 : _newSourceBlock$input.fieldRow[0];
     {
-      (0,utils/* assert */.hu)(!roleField || (roleField === null || roleField === void 0 ? void 0 : roleField.name) === "role");
+      (0,utils/* assert */.hu)(!roleField || (roleField === null || roleField === void 0 ? void 0 : roleField.name) === "role", "unexpected field " + roleField.name, {
+        newSourceBlock: newSourceBlock,
+        roleField: roleField
+      });
       var xml = document.createElement("xml");
       roleField === null || roleField === void 0 ? void 0 : roleField.toXml(xml);
     }
@@ -9746,4 +9749,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8ee20361f39d212994f8.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-04554bab31f4e06ef72c.js.map

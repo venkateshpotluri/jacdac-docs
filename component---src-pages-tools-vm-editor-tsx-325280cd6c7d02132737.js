@@ -2105,76 +2105,68 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDEventSource2) {
     _this4._waitQueue = [];
     _this4._running = false;
     _this4._in_run = false;
+    _this4._program = (0,ir/* compileProgram */.IJ)(prog);
 
-    try {
-      _this4._program = (0,ir/* compileProgram */.IJ)(prog);
+    var _checkProgram = (0,ir/* checkProgram */.i_)(_this4._program),
+        regs = _checkProgram[0],
+        events = _checkProgram[1];
 
-      var _checkProgram = (0,ir/* checkProgram */.i_)(_this4._program),
-          regs = _checkProgram[0],
-          events = _checkProgram[1];
-
-      if (_this4._program.errors.length > 0) {
-        console.debug(_this4._program.errors);
-      }
-
-      _this4._rm = new MyRoleManager(bus, function (role, service, added) {
-        try {
-          _this4._env.serviceChanged(role, service, added);
-
-          if (added) {
-            _this4.emit(utils/* ROLE_SERVICE_BOUND */.hS, service);
-
-            _this4.emit(utils/* ROLE_CHANGE */.X5);
-
-            _this4.emit(constants/* CHANGE */.Ver);
-
-            _this4._program.handlers.forEach(function (h) {
-              regs.forEach(function (r) {
-                if (r.role === role) {
-                  _this4._env.registerRegister(role, r.register);
-                }
-              });
-              events.forEach(function (e) {
-                if (e.role === role) {
-                  _this4._env.registerEvent(role, e.event);
-                }
-              });
-            });
-          } else {
-            _this4.emit(utils/* ROLE_SERVICE_UNBOUND */.fQ, service);
-
-            _this4.emit(utils/* ROLE_CHANGE */.X5);
-
-            _this4.emit(constants/* CHANGE */.Ver);
-          }
-        } catch (e) {
-          console.debug(e);
-
-          _this4.emit(constants/* ERROR */.pnR, e);
-        }
-      });
-      _this4._env = new environment/* VMEnvironment */.u();
-
-      _this4._env.subscribe(constants/* CHANGE */.Ver, function () {
-        try {
-          _this4.run();
-        } catch (e) {
-          console.debug(e);
-
-          _this4.emit(constants/* ERROR */.pnR, e);
-        }
-      });
-
-      _this4._handlers = _this4._program.handlers.map(function (h, index) {
-        return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
-      });
-      _this4._waitQueue = _this4._handlers.slice(0);
-    } catch (e) {
-      console.debug(e);
-
-      _this4.emit(constants/* ERROR */.pnR, e);
+    if (_this4._program.errors.length > 0) {
+      console.debug(_this4._program.errors);
     }
 
+    _this4._rm = new MyRoleManager(bus, function (role, service, added) {
+      try {
+        _this4._env.serviceChanged(role, service, added);
+
+        if (added) {
+          _this4.emit(utils/* ROLE_SERVICE_BOUND */.hS, service);
+
+          _this4.emit(utils/* ROLE_CHANGE */.X5);
+
+          _this4.emit(constants/* CHANGE */.Ver);
+
+          _this4._program.handlers.forEach(function (h) {
+            regs.forEach(function (r) {
+              if (r.role === role) {
+                _this4._env.registerRegister(role, r.register);
+              }
+            });
+            events.forEach(function (e) {
+              if (e.role === role) {
+                _this4._env.registerEvent(role, e.event);
+              }
+            });
+          });
+        } else {
+          _this4.emit(utils/* ROLE_SERVICE_UNBOUND */.fQ, service);
+
+          _this4.emit(utils/* ROLE_CHANGE */.X5);
+
+          _this4.emit(constants/* CHANGE */.Ver);
+        }
+      } catch (e) {
+        console.debug(e);
+
+        _this4.emit(constants/* ERROR */.pnR, e);
+      }
+    });
+    _this4._env = new environment/* VMEnvironment */.u();
+
+    _this4._env.subscribe(constants/* CHANGE */.Ver, function () {
+      try {
+        _this4.run();
+      } catch (e) {
+        console.debug(e);
+
+        _this4.emit(constants/* ERROR */.pnR, e);
+      }
+    });
+
+    _this4._handlers = _this4._program.handlers.map(function (h, index) {
+      return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
+    });
+    _this4._waitQueue = _this4._handlers.slice(0);
     return _this4;
   }
 
@@ -2427,8 +2419,13 @@ function useVMRunner(program) {
 
 
   (0,react.useEffect)(function () {
-    var runner = program && new IT4ProgramRunner(program, bus);
-    setTestRunner(runner);
+    try {
+      var newTestRunner = program && new IT4ProgramRunner(program, bus); // register runner events
+
+      setTestRunner(newTestRunner);
+    } catch (e) {
+      setTestRunner(undefined);
+    }
   }, [program]); // errors
 
   (0,react.useEffect)(function () {
@@ -2658,4 +2655,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d19ce907bf9c9508eb3c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-325280cd6c7d02132737.js.map

@@ -56184,12 +56184,14 @@ function jsonCopyFrom(trg, src) {
     trg[k] = v[k];
   }
 }
-function assert(cond, msg) {
+function assert(cond, msg, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+debugData) {
   if (msg === void 0) {
     msg = "Assertion failed";
   }
 
   if (!cond) {
+    if (debugData) console.debug("assertion filed " + msg, debugData);
     if (_flags__WEBPACK_IMPORTED_MODULE_1__/* .default.diagnostics */ .Z.diagnostics) // eslint-disable-next-line no-debugger
       debugger;
     throw new Error(msg);
@@ -70207,7 +70209,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "25d88756d55a63d885a5937283cec6966ba6a818";
+  var sha = "05e41933f91b10c1a82ea045eeaaf5028621f9de";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -79078,7 +79080,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.45"};
+var package_namespaceObject = {"i8":"1.13.46"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -86342,4 +86344,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-e83acec1d5c019380945.js.map
+//# sourceMappingURL=app-61a002697440c343c76b.js.map
