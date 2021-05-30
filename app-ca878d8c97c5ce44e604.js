@@ -70173,7 +70173,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "d6233be692f561384ce82aa3c2810188aeccad7d";
+  var sha = "0d487aeef8759492ca2922614c938067d6ce4d70";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81461,10 +81461,10 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5018), __webpack_require__.e(193), __webpack_require__.e(4841), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
   },
   "component---src-pages-tools-service-test-editor-tsx": function componentSrcPagesToolsServiceTestEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(5018), __webpack_require__.e(193), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(5018), __webpack_require__.e(193), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
   },
   "component---src-pages-tools-service-test-tsx": function componentSrcPagesToolsServiceTestTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
   },
   "component---src-pages-tools-settings-tsx": function componentSrcPagesToolsSettingsTsx() {
     return Promise.all(/* import() | component---src-pages-tools-settings-tsx */[__webpack_require__.e(5018), __webpack_require__.e(5560)]).then(__webpack_require__.bind(__webpack_require__, 360));
@@ -81473,7 +81473,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(3725), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 25166));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(4841), __webpack_require__.e(3725), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 25166));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -81488,7 +81488,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5018), __webpack_require__.e(4841), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
   },
   "component---src-templates-service-test-tsx": function componentSrcTemplatesServiceTestTsx() {
-    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
+    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
   },
   "component---src-templates-service-tsx": function componentSrcTemplatesServiceTsx() {
     return Promise.all(/* import() | component---src-templates-service-tsx */[__webpack_require__.e(9871), __webpack_require__.e(3133)]).then(__webpack_require__.bind(__webpack_require__, 59828));
@@ -86308,4 +86308,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-6817fcfc98b1c385ed88.js.map
+//# sourceMappingURL=app-ca878d8c97c5ce44e604.js.map
