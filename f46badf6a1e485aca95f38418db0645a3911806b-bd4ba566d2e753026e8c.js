@@ -7657,7 +7657,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
 
   registerFields(); // re-register blocks with blocklys
 
-  blocks.map(function (block) {
+  blocks.forEach(function (block) {
     return (blockly_default()).Blocks[block.type] = {
       jacdacDefinition: block,
       init: function init() {
@@ -9874,4 +9874,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a5ca38b218f46814da62.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bd4ba566d2e753026e8c.js.map

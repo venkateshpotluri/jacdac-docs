@@ -52851,7 +52851,7 @@ function decodeMember(service, pktInfo, member, pkt, offset) {
   var value = undefined;
   var humanValue = undefined;
   var size = Math.abs(member.storage);
-  var enumInfo = service.enums[member.type];
+  var enumInfo = service === null || service === void 0 ? void 0 : service.enums[member.type];
   var isInt = (0,_spec__WEBPACK_IMPORTED_MODULE_2__/* .isIntegerType */ .YF)(member.type) || !!enumInfo;
 
   if (member.isFloat && (size == 4 || size == 8)) {
@@ -52881,7 +52881,7 @@ function decodeMember(service, pktInfo, member, pkt, offset) {
 
       if (pkt !== null && pkt !== void 0 && (_pkt$device = pkt.device) !== null && _pkt$device !== void 0 && _pkt$device.bus) {
         var trg = pkt.device.bus.device(devid, true);
-        if (trg) trg.port(port).pipeType = service.shortId + "." + pktInfo.pipeType + ".report";
+        if (trg) trg.port(port).pipeType = (service === null || service === void 0 ? void 0 : service.shortId) + "." + pktInfo.pipeType + ".report";
       }
     } else {
       value = buf;
@@ -52893,7 +52893,7 @@ function decodeMember(service, pktInfo, member, pkt, offset) {
     var fmt = (0,_spec__WEBPACK_IMPORTED_MODULE_2__/* .numberFormatFromStorageType */ .m9)(member.storage);
     numValue = pkt.getNumber(fmt, offset);
     value = scaledValue = (0,_spec__WEBPACK_IMPORTED_MODULE_2__/* .scaleIntToFloat */ .xy)(numValue, member);
-    if (pkt.device && member.type == "pipe_port") pkt.device.port(value).pipeType = service.shortId + "." + pktInfo.pipeType + ".command";
+    if (pkt.device && member.type == "pipe_port") pkt.device.port(value).pipeType = (service === null || service === void 0 ? void 0 : service.shortId) + "." + pktInfo.pipeType + ".command";
 
     if (enumInfo) {
       if (enumInfo.isFlags) {
@@ -53031,9 +53031,9 @@ function decodeRegister(service, pkt) {
   var isGet = pkt.isRegisterGet;
   if (isSet == isGet) return null;
   var addr = pkt.serviceCommand & _constants__WEBPACK_IMPORTED_MODULE_3__/* .CMD_REG_MASK */ .Pbb;
-  var regInfo = service.packets.find(function (p) {
+  var regInfo = (service === null || service === void 0 ? void 0 : service.packets.find(function (p) {
     return (0,_spec__WEBPACK_IMPORTED_MODULE_2__/* .isRegister */ .x5)(p) && p.identifier == addr;
-  }) || syntheticPktInfo("rw", addr);
+  })) || syntheticPktInfo("rw", addr);
   var decoded = decodeMembers(service, regInfo, pkt);
   var description = "";
   if (decoded.length == 0) description = regInfo.name;else if (decoded.length == 1) description = regInfo.name + ": " + decoded[0].humanValue;else description = wrapDecodedMembers(decoded);
@@ -53049,9 +53049,9 @@ function decodeRegister(service, pkt) {
 function decodeEvent(service, pkt) {
   if (pkt.isCommand || !pkt.isEvent) return null;
   var evCode = pkt.eventCode;
-  var evInfo = service.packets.find(function (p) {
+  var evInfo = (service === null || service === void 0 ? void 0 : service.packets.find(function (p) {
     return p.kind == "event" && p.identifier == evCode;
-  }) || syntheticPktInfo("event", evCode);
+  })) || syntheticPktInfo("event", evCode);
   var decoded = decodeMembers(service, evInfo, pkt);
   var description = "EVENT[" + pkt.eventCounter + "] " + evInfo.name + wrapDecodedMembers(decoded);
   return {
@@ -53064,9 +53064,9 @@ function decodeEvent(service, pkt) {
 
 function decodeCommand(service, pkt) {
   var kind = pkt.isCommand ? "command" : "report";
-  var cmdInfo = service.packets.find(function (p) {
+  var cmdInfo = (service === null || service === void 0 ? void 0 : service.packets.find(function (p) {
     return p.kind == kind && p.identifier == pkt.serviceCommand;
-  }) || syntheticPktInfo(kind, pkt.serviceCommand);
+  })) || syntheticPktInfo(kind, pkt.serviceCommand);
   var decoded = decodeMembers(service, cmdInfo, pkt);
   var description = (pkt.isCommand ? "CMD " : "REPORT ") + cmdInfo.name + wrapDecodedMembers(decoded);
   return {
@@ -53123,7 +53123,6 @@ function decodePacketData(pkt) {
 
   var srv_class = pkt === null || pkt === void 0 ? void 0 : pkt.serviceClass;
   var service = (0,_spec__WEBPACK_IMPORTED_MODULE_2__/* .serviceSpecificationFromClassIdentifier */ .d5)(srv_class);
-  if (!service) return null;
   return decodePacket(service, pkt);
 }
 
@@ -70241,7 +70240,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "33d528272d957638d11652d9191b2c7a4ffd9046";
+  var sha = "7c62c93be95c5ce85ef74b4849066b23be523dee";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86465,4 +86464,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b1ecb5119274878c33de.js.map
+//# sourceMappingURL=app-566f0ea7ba0089eb6e49.js.map
