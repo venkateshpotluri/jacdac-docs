@@ -56,6 +56,90 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 42404:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M8 5v14l11-7z"
+}), 'PlayArrow');
+
+exports.Z = _default;
+
+/***/ }),
+
+/***/ 8567:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+}), 'Save');
+
+exports.Z = _default;
+
+/***/ }),
+
+/***/ 34257:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M6 6h12v12H6z"
+}), 'Stop');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 96699:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1343,7 +1427,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 79295:
+/***/ 52583:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2529,7 +2613,132 @@ function VMDiagnostics(props) {
     className: "xml"
   }, xml)));
 }
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
+var PlayArrow = __webpack_require__(42404);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
+var Stop = __webpack_require__(34257);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__(79885);
+;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButton.tsx
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
+
+
+
+function VMRunnerButton(props) {
+  var runner = props.runner,
+      run = props.run,
+      cancel = props.cancel;
+  var disabled = !runner;
+  var status = (0,useChange/* default */.Z)(runner, function (t) {
+    return t === null || t === void 0 ? void 0 : t.status;
+  });
+
+  var handleRun = function handleRun() {
+    return run();
+  };
+
+  var handleCancel = function handleCancel() {
+    return cancel();
+  };
+
+  var running = status === VMStatus.Running;
+  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: runner ? "stop" : "start",
+    disabled: disabled,
+    onClick: running ? handleCancel : handleRun
+  }, running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
+var Save = __webpack_require__(8567);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
+var Dialog = __webpack_require__(52468);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
+var DialogContent = __webpack_require__(65733);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
+var DialogContentText = __webpack_require__(32253);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
+var TextField = __webpack_require__(1059);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
+var DialogActions = __webpack_require__(89952);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
+var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+;// CONCATENATED MODULE: ./src/components/vm/VMSaveButton.tsx
+
+
+
+
+
+function VMSaveButton(props) {
+  var xml = props.xml;
+
+  var _useState = (0,react.useState)(""),
+      url = _useState[0],
+      setUrl = _useState[1];
+
+  var open = !!url;
+
+  var handleClick = function handleClick() {
+    var baseUrl = window.location.href;
+    var hash = "blocksxml=" + encodeURIComponent(xml);
+    setUrl(baseUrl + "#" + hash);
+  };
+
+  var handleClose = function handleClose() {
+    return setUrl(undefined);
+  };
+
+  var urlId = (0,react_use_id_hook_esm/* useId */.Me)();
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "save",
+    onClick: handleClick
+  }, /*#__PURE__*/react.createElement(Save/* default */.Z, null)), /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
+    open: open,
+    onClose: handleClose
+  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, "Share this URL to reload your program."), /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    fullWidth: true,
+    id: urlId,
+    value: url,
+    label: "URL"
+  })), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "contained",
+    onClick: handleClose
+  }, "Close"))));
+}
+;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
+
+
+
+
+function VMToolbar(props) {
+  var runner = props.runner,
+      run = props.run,
+      cancel = props.cancel,
+      xml = props.xml;
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    direction: "row",
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMRunnerButton, {
+    runner: runner,
+    run: run,
+    cancel: cancel
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMSaveButton, {
+    xml: xml
+  })));
+}
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+
 
 
 
@@ -2558,7 +2767,9 @@ function VMEditor(props) {
   var autoStart = true;
 
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
-      runner = _useVMRunner.runner;
+      runner = _useVMRunner.runner,
+      run = _useVMRunner.run,
+      cancel = _useVMRunner.cancel;
 
   var handleXml = function handleXml(xml) {
     setXml(xml);
@@ -2585,6 +2796,14 @@ function VMEditor(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
+  }, /*#__PURE__*/react.createElement(VMToolbar, {
+    runner: runner,
+    xml: xml,
+    run: run,
+    cancel: cancel
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
   }, /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(VMBlockEditor/* default */.Z, {
     initialXml: xml,
     onXmlChange: handleXml,
@@ -2608,4 +2827,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-83956e9c2b8b952ead4d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-26a72e4274bdfe3d32d3.js.map

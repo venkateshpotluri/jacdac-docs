@@ -6593,7 +6593,9 @@ function NoServiceAlert() {
   }; // nothing to do here
 
 
-  if (roleService || flyout) return null; // unknown spec
+  if (roleService || flyout) return null; // unresolved, unknown service
+
+  if (!roleService && !roleServiceShortId) return null; // unknown spec
 
   if (!spec) return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "warning"
@@ -7835,10 +7837,10 @@ function useToolbox(props) {
       callbackKey: START_SIMULATOR_CALLBACK_KEY
     }, {
       kind: "block",
-      type: TWIN_BLOCK
+      type: WATCH_BLOCK
     }, {
       kind: "block",
-      type: WATCH_BLOCK
+      type: TWIN_BLOCK
     }, {
       kind: "block",
       type: INSPECT_BLOCK
@@ -8087,6 +8089,7 @@ function BlocklyModalDialogs() {
     id: valueId,
     value: value,
     label: "Value",
+    fullWidth: true,
     onChange: handleValueChange
   })), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, dialogType !== "alert" && /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
     variant: "contained",
@@ -9804,4 +9807,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-87e129e9312949dcdfce.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2534889dd616834eb78b.js.map
