@@ -6550,7 +6550,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
   function ReactInlineField(options) {
     return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
       width: 240,
-      height: 160
+      height: 80
     }) || this;
   }
 
@@ -6658,10 +6658,6 @@ function TwinWidget(props) {
     event.stopPropagation();
   };
 
-  console.log("twin", {
-    roleService: roleService,
-    flyout: flyout
-  });
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     alignItems: "center",
@@ -6723,43 +6719,10 @@ var TwinField = /*#__PURE__*/function (_ReactInlineField) {
 TwinField.KEY = "jacdac_field_twin";
 TwinField.EDITABLE = false;
 
-;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
-
-
-
-
-
-
-
-
-var reactFieldShadows;
-function registerFields() {
-  if (reactFieldShadows) return;
-  reactFieldShadows = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-  var registerType = function registerType(fieldType) {
-    var key = fieldType.KEY;
-    (0,utils/* assert */.hu)(!!key);
-    blockly_default().fieldRegistry.unregister(key); // hot reload issues
-
-    blockly_default().fieldRegistry.register(key, fieldType);
-    if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
-  };
-
-  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField];
-  fieldTypes.forEach(registerType);
-}
-function fieldShadows() {
-  registerFields();
-  return reactFieldShadows.slice(0);
-}
-;// CONCATENATED MODULE: ./src/components/vm/toolbox.ts
-var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
-var WHILE_CONDITION_BLOCK = "jacdac_while_event";
-var WHILE_CONDITION_BLOCK_CONDITION = "condition";
-var WAIT_BLOCK = "jacdac_wait";
-var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
+var Alert_Alert = __webpack_require__(6809);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/JDomTreeField.tsx
+
 
 
 
@@ -6773,11 +6736,24 @@ function JDomTreeWidget() {
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
       roleService = _useContext.roleService;
 
-  if (!roleService) return null;
-  return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  return /*#__PURE__*/react.createElement("div", {
+    style: {
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, !roleService && /*#__PURE__*/react.createElement(Alert_Alert/* default */.Z, {
+    severity: "info"
+  }, "Select a role"), roleService && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
     service: roleService,
     defaultExpanded: [roleService.id]
-  }));
+  })));
 }
 
 var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
@@ -6803,6 +6779,43 @@ var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
 JDomTreeField.KEY = "jacdac_jdom_service_tree";
 JDomTreeField.EDITABLE = false;
 
+;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
+
+
+
+
+
+
+
+
+
+var reactFieldShadows;
+function registerFields() {
+  if (reactFieldShadows) return;
+  reactFieldShadows = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var registerType = function registerType(fieldType) {
+    var key = fieldType.KEY;
+    (0,utils/* assert */.hu)(!!key);
+    blockly_default().fieldRegistry.unregister(key); // hot reload issues
+
+    blockly_default().fieldRegistry.register(key, fieldType);
+    if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
+  };
+
+  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField, JDomTreeField];
+  fieldTypes.forEach(registerType);
+}
+function fieldShadows() {
+  registerFields();
+  return reactFieldShadows.slice(0);
+}
+;// CONCATENATED MODULE: ./src/components/vm/toolbox.ts
+var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+var WHILE_CONDITION_BLOCK = "jacdac_while_event";
+var WHILE_CONDITION_BLOCK_CONDITION = "condition";
+var WAIT_BLOCK = "jacdac_wait";
+var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -9775,4 +9788,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-84aa906f650e53dfaf8b.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-e43326dbb19abb1c69d4.js.map
