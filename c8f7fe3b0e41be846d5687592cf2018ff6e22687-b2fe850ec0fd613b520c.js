@@ -23587,7 +23587,7 @@ __webpack_require__.d(__webpack_exports__, {
   "RL": function() { return /* binding */ ServiceTreeItem; }
 });
 
-// UNUSED EXPORTS: AnnounceFlagsTreeItem, EventTreeItem, RegisterTreeItem
+// UNUSED EXPORTS: AnnounceFlagsTreeItem, EventTreeItem, RegisterTreeItem, ServiceMembersTreeItems
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 var objectWithoutPropertiesLoose = __webpack_require__(19756);
@@ -24272,7 +24272,7 @@ function AnnounceFlagsTreeItem(props) {
     labelInfo: "0x" + announceFlags.toString(16)
   });
 }
-function ServiceTreeItem(props) {
+function ServiceMembersTreeItems(props) {
   var service = props.service,
       registerFilter = props.registerFilter,
       eventFilter = props.eventFilter,
@@ -24282,10 +24282,7 @@ function ServiceTreeItem(props) {
     return service;
   }, [service]),
       specification = _useMemo2.specification,
-      mixins = _useMemo2.mixins,
-      isMixin = _useMemo2.isMixin,
-      name = _useMemo2.name,
-      id = _useMemo2.id;
+      mixins = _useMemo2.mixins;
 
   var packets = specification === null || specification === void 0 ? void 0 : specification.packets;
   var registers = packets === null || packets === void 0 ? void 0 : packets.filter(spec/* isRegister */.x5).map(function (info) {
@@ -24300,20 +24297,7 @@ function ServiceTreeItem(props) {
   }).filter(function (ev) {
     return !eventFilter || eventFilter(ev);
   });
-  var instanceNameRegister = (0,useRegister/* default */.Z)(service, constants/* BaseReg.InstanceName */.vCn.InstanceName);
-
-  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(instanceNameRegister),
-      instanceName = _useRegisterUnpackedV[0];
-
-  var readingRegister = (0,useRegister/* default */.Z)(service, constants/* SystemReg.Reading */.ZJq.Reading);
-  var reading = (0,useRegisterValue/* useRegisterHumanValue */.e_)(readingRegister);
-  var labelText = name + (instanceName ? " " + instanceName : "");
-  return /*#__PURE__*/react.createElement(StyledTreeItem, {
-    nodeId: id,
-    labelText: labelText,
-    labelInfo: reading,
-    kind: isMixin ? constants/* SERVICE_MIXIN_NODE_NAME */.mLn : constants/* SERVICE_NODE_NAME */.M_U
-  }, registers === null || registers === void 0 ? void 0 : registers.map(function (register) {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, registers === null || registers === void 0 ? void 0 : registers.map(function (register) {
     return /*#__PURE__*/react.createElement(RegisterTreeItem, Object.assign({
       key: register.id,
       register: register
@@ -24330,15 +24314,42 @@ function ServiceTreeItem(props) {
     }, other));
   }));
 }
+function ServiceTreeItem(props) {
+  var service = props.service;
+
+  var _useMemo3 = (0,react.useMemo)(function () {
+    return service;
+  }, [service]),
+      isMixin = _useMemo3.isMixin,
+      name = _useMemo3.name,
+      id = _useMemo3.id;
+
+  var instanceNameRegister = (0,useRegister/* default */.Z)(service, constants/* BaseReg.InstanceName */.vCn.InstanceName);
+
+  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(instanceNameRegister),
+      instanceName = _useRegisterUnpackedV[0];
+
+  var readingRegister = (0,useRegister/* default */.Z)(service, constants/* SystemReg.Reading */.ZJq.Reading);
+  var reading = (0,useRegisterValue/* useRegisterHumanValue */.e_)(readingRegister);
+  var labelText = name + (instanceName ? " " + instanceName : "");
+  return /*#__PURE__*/react.createElement(StyledTreeItem, {
+    nodeId: id,
+    labelText: labelText,
+    labelInfo: reading,
+    kind: isMixin ? constants/* SERVICE_MIXIN_NODE_NAME */.mLn : constants/* SERVICE_NODE_NAME */.M_U
+  }, /*#__PURE__*/react.createElement(ServiceMembersTreeItems, Object.assign({
+    service: service
+  }, props)));
+}
 function RegisterTreeItem(props) {
   var register = props.register;
 
-  var _useMemo3 = (0,react.useMemo)(function () {
+  var _useMemo4 = (0,react.useMemo)(function () {
     return register;
   }, [register]),
-      specification = _useMemo3.specification,
-      id = _useMemo3.id,
-      lastGetAttempts = _useMemo3.lastGetAttempts;
+      specification = _useMemo4.specification,
+      id = _useMemo4.id,
+      lastGetAttempts = _useMemo4.lastGetAttempts;
 
   var _useState = (0,react.useState)(lastGetAttempts),
       attempts = _useState[0],
@@ -37712,4 +37723,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-99ae16c51062d5db5cba.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-b2fe850ec0fd613b520c.js.map

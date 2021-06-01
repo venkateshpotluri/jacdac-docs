@@ -5318,7 +5318,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 5497:
+/***/ 98001:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5645,12 +5645,13 @@ function WorkspaceProvider(props) {
   var runner = services === null || services === void 0 ? void 0 : services.runner;
 
   var resolveRole = function resolveRole() {
-    var _newSourceBlock$input;
-
     var newSourceBlock = field.getSourceBlock();
-    var roleField = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : (_newSourceBlock$input = newSourceBlock.inputList[0]) === null || _newSourceBlock$input === void 0 ? void 0 : _newSourceBlock$input.fieldRow[0];
+    var roleInput = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : newSourceBlock.inputList[0];
+    var roleField = roleInput === null || roleInput === void 0 ? void 0 : roleInput.fieldRow.find(function (f) {
+      return f.name === "role" && f instanceof blockly.FieldVariable;
+    });
 
-    if ((roleField === null || roleField === void 0 ? void 0 : roleField.name) === "role" && roleField instanceof blockly.FieldVariable) {
+    if (roleField) {
       var _roleField$getVariabl;
 
       var xml = document.createElement("xml");
@@ -6518,18 +6519,8 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
 LEDColorField.KEY = "jacdac_field_led_color";
 LEDColorField.SHADOW = toShadowDefinition(LEDColorField);
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
-var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
 var DashboardServiceWidget = __webpack_require__(23069);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
-// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
-var Alert = __webpack_require__(95453);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactInlineField.tsx
 
 
@@ -6624,11 +6615,44 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 }(ReactField);
 
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
+var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
+var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+;// CONCATENATED MODULE: ./src/components/vm/fields/NoServiceAlert.tsx
+
+
+
+
+
+
+function NoServiceAlert(props) {
+  var serviceClass = props.serviceClass;
+
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var _useContext2 = (0,react.useContext)(vm_WorkspaceContext),
+      roleService = _useContext2.roleService,
+      flyout = _useContext2.flyout;
+
+  var handleStartSimulator = function handleStartSimulator() {
+    return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
+  };
+
+  if (roleService || flyout) return null;
+  return /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "outlined",
+    color: "default",
+    startIcon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
+    onClick: handleStartSimulator
+  }, "start simulator");
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/TwinField.tsx
-
-
-
-
 
 
 
@@ -6640,31 +6664,23 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 function TwinWidget(props) {
   var serviceClass = props.serviceClass;
 
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var _useContext2 = (0,react.useContext)(vm_WorkspaceContext),
-      roleService = _useContext2.roleService,
-      flyout = _useContext2.flyout;
-
-  var specification = (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
-
-  var handleStartSimulator = function handleStartSimulator() {
-    return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
-  };
+  var _useContext = (0,react.useContext)(vm_WorkspaceContext),
+      roleService = _useContext.roleService,
+      flyout = _useContext.flyout;
 
   var onPointerStopPropagation = function onPointerStopPropagation(event) {
     // make sure blockly does not handle drags when interacting with UI
     event.stopPropagation();
   };
 
+  if (flyout) return null;
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     alignItems: "center",
     alignContent: "center",
     justify: "center",
     spacing: 1
-  }, roleService ? /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement("div", {
     style: {
@@ -6673,20 +6689,13 @@ function TwinWidget(props) {
     onPointerDown: onPointerStopPropagation,
     onPointerUp: onPointerStopPropagation,
     onPointerMove: onPointerStopPropagation
-  }, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
+  }, /*#__PURE__*/react.createElement(NoServiceAlert, {
+    serviceClass: serviceClass
+  }), roleService && /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
     service: roleService,
     visible: true,
     variant: "icon"
-  }))) : /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "info"
-  }, "No ", (specification === null || specification === void 0 ? void 0 : specification.name) || "service", "..."), !flyout && /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "contained",
-    color: "default",
-    startIcon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
-    onClick: handleStartSimulator
-  }, "start simulator")));
+  }))));
 }
 
 var TwinField = /*#__PURE__*/function (_ReactInlineField) {
@@ -6719,8 +6728,6 @@ var TwinField = /*#__PURE__*/function (_ReactInlineField) {
 TwinField.KEY = "jacdac_field_twin";
 TwinField.EDITABLE = false;
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
-var Alert_Alert = __webpack_require__(6809);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/JDomTreeField.tsx
 
 
@@ -6732,25 +6739,30 @@ var JDomServiceTreeView = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
 });
 
-function JDomTreeWidget() {
+function JDomTreeWidget(props) {
+  var serviceClass = props.serviceClass;
+
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
-      roleService = _useContext.roleService;
+      roleService = _useContext.roleService,
+      flyout = _useContext.flyout;
 
   var onPointerStopPropagation = function onPointerStopPropagation(event) {
     // make sure blockly does not handle drags when interacting with UI
     event.stopPropagation();
   };
 
+  if (flyout) return null;
   return /*#__PURE__*/react.createElement("div", {
     style: {
+      minWidth: "20rem",
       cursor: "inherit"
     },
     onPointerDown: onPointerStopPropagation,
     onPointerUp: onPointerStopPropagation,
     onPointerMove: onPointerStopPropagation
-  }, !roleService && /*#__PURE__*/react.createElement(Alert_Alert/* default */.Z, {
-    severity: "info"
-  }, "Select a role"), roleService && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
+  }, /*#__PURE__*/react.createElement(NoServiceAlert, {
+    serviceClass: serviceClass
+  }), roleService && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
     service: roleService,
     defaultExpanded: [roleService.id]
   })));
@@ -6759,18 +6771,25 @@ function JDomTreeWidget() {
 var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
   (0,inheritsLoose/* default */.Z)(JDomTreeField, _ReactInlineField);
 
-  function JDomTreeField() {
-    return _ReactInlineField.apply(this, arguments) || this;
-  }
-
   JDomTreeField.fromJson = function fromJson(options) {
     return new JDomTreeField(options);
-  };
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function JDomTreeField(options) {
+    var _this;
+
+    _this = _ReactInlineField.call(this, options) || this;
+    _this.serviceClass = options === null || options === void 0 ? void 0 : options.serviceClass;
+    return _this;
+  }
 
   var _proto = JDomTreeField.prototype;
 
   _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(JDomTreeWidget, null);
+    return /*#__PURE__*/react.createElement(JDomTreeWidget, {
+      serviceClass: this.serviceClass
+    });
   };
 
   return JDomTreeField;
@@ -7188,7 +7207,7 @@ function loadBlocks(serviceColor, commandColor) {
     return {
       kind: "block",
       type: "jacdac_twin_" + service.shortId,
-      message0: "%1 %2 %3",
+      message0: "twin of %1 %2 %3",
       args0: [fieldVariable(service), {
         type: "input_dummy"
       }, {
@@ -7208,7 +7227,7 @@ function loadBlocks(serviceColor, commandColor) {
     return {
       kind: "block",
       type: "jacdac_inspect_" + service.shortId,
-      message0: "%1 %2 %3",
+      message0: "inspect %1 %2 %3",
       args0: [fieldVariable(service), {
         type: "input_dummy"
       }, {
@@ -9788,4 +9807,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-e43326dbb19abb1c69d4.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-28379123b66416e44a2d.js.map
