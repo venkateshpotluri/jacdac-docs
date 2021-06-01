@@ -6756,6 +6756,7 @@ var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var START_SIMULATOR_CALLBACK_KEY = "jacdac_start_simulator";
 var INSPECT_BLOCK = "jacdac_inspect";
+var WATCH_BLOCK = "jacdac_watch";
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
@@ -7155,7 +7156,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
     return {
       kind: "block",
       type: "jacdac_events_" + service.shortId,
-      message0: "when %1 %2",
+      message0: "on %1 %2",
       args0: [fieldVariable(service), {
         type: "field_dropdown",
         name: "event",
@@ -7577,6 +7578,20 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
     tooltip: "Inspect a service",
     helpUrl: "",
     template: "twin"
+  }, {
+    kind: "block",
+    type: WATCH_BLOCK,
+    message0: "watch %1",
+    args0: [{
+      type: "input_value",
+      name: "value",
+      check: ["Number", "Boolean", "String"]
+    }],
+    colour: modulesColor,
+    inputsInline: false,
+    tooltip: "Watch a value in the editor",
+    helpUrl: "",
+    template: "watch"
   }];
   var mathBlocks = [{
     kind: "block",
@@ -7676,7 +7691,9 @@ function patchCategoryJSONtoXML(cat) {
   }).map(function (node) {
     return node;
   }).filter(function (block) {
-    return !!block.values && (blockly_default()).Blocks[block.type];
+    var exists = (blockly_default()).Blocks[block.type];
+    if (!exists && flags/* default.diagnostics */.Z.diagnostics) console.warn("block type '" + block.type + "' not found, consider refreshing page...");
+    return !!block.values && exists;
   }) // avoid broken blocks
   .forEach(function (block) {
     // yup, this suck but we have to go through it
@@ -7798,6 +7815,9 @@ function useToolbox(props) {
       kind: "button",
       text: "start simulator",
       callbackKey: START_SIMULATOR_CALLBACK_KEY
+    }, {
+      kind: "block",
+      type: WATCH_BLOCK
     }, {
       kind: "block",
       type: INSPECT_BLOCK
@@ -9763,4 +9783,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-589e97d4b45c3c5ccb0a.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f86c31b172d5f691d25a.js.map
