@@ -6736,14 +6736,11 @@ TwinField.EDITABLE = false;
 
 
 
-
 var JDomServiceTreeView = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
 });
 
-function JDomTreeWidget(props) {
-  var serviceClass = props.serviceClass;
-
+function JDomTreeWidget() {
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
       roleService = _useContext.roleService,
       flyout = _useContext.flyout;
@@ -6753,7 +6750,7 @@ function JDomTreeWidget(props) {
     event.stopPropagation();
   };
 
-  if (flyout) return null;
+  if (!roleService || flyout) return null;
   return /*#__PURE__*/react.createElement("div", {
     style: {
       minWidth: "16rem",
@@ -6762,9 +6759,7 @@ function JDomTreeWidget(props) {
     onPointerDown: onPointerStopPropagation,
     onPointerUp: onPointerStopPropagation,
     onPointerMove: onPointerStopPropagation
-  }, /*#__PURE__*/react.createElement(NoServiceAlert, {
-    serviceClass: serviceClass
-  }), roleService && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
+  }, roleService && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
     service: roleService,
     defaultExpanded: [roleService.id]
   })));
@@ -6779,19 +6774,13 @@ var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
   ;
 
   function JDomTreeField(options) {
-    var _this;
-
-    _this = _ReactInlineField.call(this, options) || this;
-    _this.serviceClass = options === null || options === void 0 ? void 0 : options.serviceClass;
-    return _this;
+    return _ReactInlineField.call(this, options) || this;
   }
 
   var _proto = JDomTreeField.prototype;
 
   _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(JDomTreeWidget, {
-      serviceClass: this.serviceClass
-    });
+    return /*#__PURE__*/react.createElement(JDomTreeWidget, null);
   };
 
   return JDomTreeField;
@@ -6838,6 +6827,7 @@ var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var START_SIMULATOR_CALLBACK_KEY = "jacdac_start_simulator";
+var INSPECT_BLOCK = "jacdac_inspect";
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
@@ -6896,7 +6886,7 @@ function createBlockTheme(theme) {
   var sensorColor = theme.palette.success.main;
   var otherColor = theme.palette.info.main;
   var commandColor = theme.palette.warning.main;
-  var modulesColor = theme.palette.success.main;
+  var modulesColor = theme.palette.grey[600];
 
   var serviceColor = function serviceColor(srv) {
     return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
@@ -6911,7 +6901,7 @@ function createBlockTheme(theme) {
   };
 }
 
-function loadBlocks(serviceColor, commandColor) {
+function loadBlocks(serviceColor, commandColor, modulesColor) {
   var customShadows = [{
     serviceClass: constants/* SRV_SERVO */.$X_,
     kind: "rw",
@@ -7231,25 +7221,6 @@ function loadBlocks(serviceColor, commandColor) {
       template: "twin"
     };
   });
-  var inspectBlocks = allServices.map(function (service) {
-    return {
-      kind: "block",
-      type: "jacdac_inspect_" + service.shortId,
-      message0: "inspect %1 %2 %3",
-      args0: [fieldVariable(service), {
-        type: "input_dummy"
-      }, {
-        type: JDomTreeField.KEY,
-        name: "twin"
-      }],
-      colour: serviceColor(service),
-      inputsInline: false,
-      tooltip: "Inspect a service",
-      helpUrl: serviceHelp(service),
-      service: service,
-      template: "twin"
-    };
-  });
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -7508,7 +7479,7 @@ function loadBlocks(serviceColor, commandColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(twinBlocks), (0,toConsumableArray/* default */.Z)(inspectBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(twinBlocks));
   var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7655,6 +7626,29 @@ function loadBlocks(serviceColor, commandColor) {
     colour: commandColor,
     tooltip: "Sets the color on the status light",
     helpUrl: ""
+  }, {
+    kind: "block",
+    type: INSPECT_BLOCK,
+    message0: "inspect %1 %2 %3",
+    args0: [{
+      type: "field_variable",
+      name: "role",
+      variable: "none",
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+        return service.shortId;
+      }))),
+      defaultType: "client"
+    }, {
+      type: "input_dummy"
+    }, {
+      type: JDomTreeField.KEY,
+      name: "twin"
+    }],
+    colour: modulesColor,
+    inputsInline: false,
+    tooltip: "Inspect a service",
+    helpUrl: "",
+    template: "twin"
   }];
   var mathBlocks = [{
     kind: "block",
@@ -7778,7 +7772,7 @@ function useToolbox(props) {
       modulesColor = _createBlockTheme.modulesColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks(serviceColor, commandColor);
+    return loadBlocks(serviceColor, commandColor, modulesColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       services = _useMemo.services;
@@ -7838,6 +7832,7 @@ function useToolbox(props) {
 
     return !!((_cat$contents2 = cat.contents) !== null && _cat$contents2 !== void 0 && _cat$contents2.length);
   });
+  var hasServices = !!toolboxServices.length;
   var commandsCategory = {
     kind: "category",
     name: "Commands",
@@ -7854,7 +7849,7 @@ function useToolbox(props) {
           type: "jacdac_time_picker"
         }
       }
-    }, !!toolboxServices.length && {
+    }, {
       kind: "block",
       type: SET_STATUS_LIGHT_BLOCK,
       values: {
@@ -7875,15 +7870,9 @@ function useToolbox(props) {
       kind: "button",
       text: "start simulator",
       callbackKey: START_SIMULATOR_CALLBACK_KEY
-    }, !!toolboxServices.length && {
+    }, {
       kind: "block",
-      type: SET_STATUS_LIGHT_BLOCK,
-      values: {
-        color: {
-          kind: "block",
-          type: LEDColorField.SHADOW.type
-        }
-      }
+      type: INSPECT_BLOCK
     }].filter(function (b) {
       return !!b;
     })
@@ -9845,4 +9834,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5a673b34688fdadc610d.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-72030b12ec826cc7ce67.js.map
