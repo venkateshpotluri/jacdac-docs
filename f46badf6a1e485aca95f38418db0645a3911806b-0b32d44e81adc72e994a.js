@@ -6772,14 +6772,10 @@ var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
-var START_SIMULATOR_CALLBACK_KEY = "jacdac_start_simulator";
 var TWIN_BLOCK = "jacdac_twin";
 var INSPECT_BLOCK = "jacdac_inspect";
 var WATCH_BLOCK = "jacdac_watch";
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
-
 
 
 
@@ -7835,10 +7831,6 @@ function useToolbox(props) {
     name: "Debugger",
     colour: debuggerColor,
     contents: [{
-      kind: "button",
-      text: "start simulator",
-      callbackKey: START_SIMULATOR_CALLBACK_KEY
-    }, {
       kind: "block",
       type: WATCH_BLOCK
     }, {
@@ -7956,13 +7948,7 @@ function useToolbox(props) {
   };
 }
 function useToolboxButtons(workspace, toolboxConfiguration) {
-  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
-
-  (0,react.useEffect)(function () {
-    workspace === null || workspace === void 0 ? void 0 : workspace.registerButtonCallback(START_SIMULATOR_CALLBACK_KEY, toggleShowDeviceHostsDialog);
-  }, [workspace]); // track workspace changes and update callbacks
-
+  // track workspace changes and update callbacks
   (0,react.useEffect)(function () {
     if (!workspace) return; // collect buttons
 
@@ -8658,6 +8644,8 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     handlers: handlers
   };
 }
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
 var makeStyles = __webpack_require__(10920);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
@@ -9829,4 +9817,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-ff7369ce1fb16c9992c2.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-0b32d44e81adc72e994a.js.map

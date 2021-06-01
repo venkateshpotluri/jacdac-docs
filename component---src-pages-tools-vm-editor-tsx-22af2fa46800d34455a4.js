@@ -1429,7 +1429,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 52583:
+/***/ 81469:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2698,7 +2698,25 @@ function VMSaveButton(props) {
     title: "save"
   }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
 }
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
+;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
+
+
+
+
+
+function VMStartSimulatorButton() {
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
+
+  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null));
+}
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
+
 
 
 
@@ -2726,7 +2744,9 @@ function VMToolbar(props) {
     xml: xml,
     source: source,
     program: program
-  })));
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
@@ -2820,4 +2840,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d4d956b3103e6a20ac8c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-22af2fa46800d34455a4.js.map
