@@ -5318,7 +5318,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 28431:
+/***/ 98955:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6530,14 +6530,101 @@ var servers = __webpack_require__(37801);
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
+;// CONCATENATED MODULE: ./src/components/vm/fields/ReactInlineField.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+var ReactInlineField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(ReactInlineField, _ReactField);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function ReactInlineField(options) {
+    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
+      width: 240,
+      height: 160
+    }) || this;
+  }
+
+  var _proto = ReactInlineField.prototype;
+
+  _proto.initCustomView = function initCustomView() {
+    var _this = this;
+
+    var _this$size_ = this.size_,
+        width = _this$size_.width,
+        height = _this$size_.height;
+    var fo = child(this.fieldGroup_, "foreignObject", {
+      x: 0,
+      y: 0,
+      width: width,
+      height: height
+    });
+    this.container = document.createElement("div");
+    fo.appendChild(this.container);
+    this.resizeObserver = new ResizeObserver(function (entries) {
+      var entry = entries[0];
+      var contentRect = entry.contentRect;
+      _this.size_.width = contentRect.width;
+      _this.size_.height = contentRect.height;
+      fo.setAttribute("width", _this.size_.width + "");
+      fo.setAttribute("height", _this.size_.height + "");
+
+      _this.forceRerender();
+    });
+    this.resizeObserver.observe(this.container);
+    react_dom.render(this.renderBlock(), this.container);
+    return fo;
+  };
+
+  _proto.dispose = function dispose() {
+    if (this.container) {
+      react_dom.unmountComponentAtNode(this.container);
+      this.container = undefined;
+    }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
+    }
+
+    _ReactField.prototype.dispose.call(this);
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react.createElement("div", null, "not used");
+  };
+
+  _proto.renderInlineField = function renderInlineField() {
+    return null;
+  };
+
+  _proto.renderBlock = function renderBlock() {
+    return /*#__PURE__*/react.createElement(WorkspaceProvider, {
+      field: this
+    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
+      fixedDarkMode: "dark"
+    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, this.renderInlineField())))));
+  } // don't bind any mouse event
+  ;
+
+  _proto.bindEvents_ = function bindEvents_() {
+    blockly_default().Tooltip.bindMouseEvents(this.getClickTarget_());
+  };
+
+  return ReactInlineField;
+}(ReactField);
+
+
 ;// CONCATENATED MODULE: ./src/components/vm/fields/TwinField.tsx
-
-
-
-
-
-
-
 
 
 
@@ -6606,8 +6693,8 @@ function TwinWidget(props) {
   }, "start simulator")));
 }
 
-var TwinField = /*#__PURE__*/function (_ReactField) {
-  (0,inheritsLoose/* default */.Z)(TwinField, _ReactField);
+var TwinField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,inheritsLoose/* default */.Z)(TwinField, _ReactInlineField);
 
   TwinField.fromJson = function fromJson(options) {
     return new TwinField(options);
@@ -6617,80 +6704,21 @@ var TwinField = /*#__PURE__*/function (_ReactField) {
   function TwinField(options) {
     var _this;
 
-    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
-      width: 240,
-      height: 160
-    }) || this;
-    _this.serviceClass = options.serviceClass;
+    _this = _ReactInlineField.call(this, options) || this;
+    _this.serviceClass = options === null || options === void 0 ? void 0 : options.serviceClass;
     return _this;
   }
 
   var _proto = TwinField.prototype;
 
-  _proto.initCustomView = function initCustomView() {
-    var _this2 = this;
-
-    var _this$size_ = this.size_,
-        width = _this$size_.width,
-        height = _this$size_.height;
-    var fo = child(this.fieldGroup_, "foreignObject", {
-      x: 0,
-      y: 0,
-      width: width,
-      height: height
-    });
-    this.container = document.createElement("div");
-    fo.appendChild(this.container);
-    this.resizeObserver = new ResizeObserver(function (entries) {
-      var entry = entries[0];
-      var contentRect = entry.contentRect;
-      _this2.size_.width = contentRect.width;
-      _this2.size_.height = contentRect.height;
-      fo.setAttribute("width", _this2.size_.width + "");
-      fo.setAttribute("height", _this2.size_.height + "");
-
-      _this2.forceRerender();
-    });
-    this.resizeObserver.observe(this.container);
-    react_dom.render(this.renderBlock(), this.container);
-    return fo;
-  };
-
-  _proto.dispose = function dispose() {
-    if (this.container) {
-      react_dom.unmountComponentAtNode(this.container);
-      this.container = undefined;
-    }
-
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = undefined;
-    }
-
-    _ReactField.prototype.dispose.call(this);
-  };
-
-  _proto.renderField = function renderField() {
-    return /*#__PURE__*/react.createElement("div", null, "field");
-  };
-
-  _proto.renderBlock = function renderBlock() {
-    return /*#__PURE__*/react.createElement(WorkspaceProvider, {
-      field: this
-    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
-      fixedDarkMode: "dark"
-    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, /*#__PURE__*/react.createElement(TwinWidget, {
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react.createElement(TwinWidget, {
       serviceClass: this.serviceClass
-    }))))));
-  } // don't bind any mouse event
-  ;
-
-  _proto.bindEvents_ = function bindEvents_() {
-    blockly_default().Tooltip.bindMouseEvents(this.getClickTarget_());
+    });
   };
 
   return TwinField;
-}(ReactField);
+}(ReactInlineField);
 
 TwinField.KEY = "jacdac_field_twin";
 TwinField.EDITABLE = false;
@@ -9678,4 +9706,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-919988d5800734e0f141.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-0eda9dfb31b4fa5f2a11.js.map

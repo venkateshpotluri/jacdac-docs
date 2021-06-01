@@ -615,11 +615,11 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
       width: layout/* TOC_DRAWER_WIDTH */.a2 + "rem"
     },
     drawerHeader: _objectSpread(_objectSpread({
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       padding: theme.spacing(0, 1)
     }, theme.mixins.toolbar), {}, {
-      justifyContent: 'flex-start'
+      justifyContent: "flex-start"
     }),
     alertButton: {
       marginLeft: theme.spacing(2)
@@ -673,10 +673,12 @@ function AppDrawer(props) {
     pagePath: pagePath
   })), !showSearchResults && drawerType === AppContext/* DrawerType.Packets */.jw.Packets ? /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(PacketView, {
     showTime: true
-  })) : drawerType === AppContext/* DrawerType.Dom */.jw.Dom ? /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomTreeView, null)) : undefined);
+  })) : drawerType === AppContext/* DrawerType.Dom */.jw.Dom ? /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomTreeView, {
+    showDeviceFlags: true
+  })) : undefined);
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-98b7697d6ac5d61e743c.js.map
+//# sourceMappingURL=8729-53e109dda7f47a514dbc.js.map

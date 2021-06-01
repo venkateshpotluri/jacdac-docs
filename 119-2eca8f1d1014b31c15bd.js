@@ -1370,27 +1370,27 @@ var useTreeItemStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     root: {
       color: theme.palette.text.secondary,
-      '&:hover > $content': {
+      "&:hover > $content": {
         backgroundColor: theme.palette.action.hover
       },
-      '&:focus > $content, &$selected > $content': {
+      "&:focus > $content, &$selected > $content": {
         backgroundColor: "var(--tree-view-bg-color, " + theme.palette.grey[400] + ")",
-        color: 'var(--tree-view-color)'
+        color: "var(--tree-view-color)"
       },
-      '&:focus > $content $label, &:hover > $content $label, &$selected > $content $label': {
-        backgroundColor: 'transparent'
+      "&:focus > $content $label, &:hover > $content $label, &$selected > $content $label": {
+        backgroundColor: "transparent"
       }
     },
     content: {
       color: theme.palette.text.secondary,
       fontWeight: theme.typography.fontWeightMedium,
-      '$expanded > &': {
+      "$expanded > &": {
         fontWeight: theme.typography.fontWeightRegular
       }
     },
     group: {
       marginLeft: 0,
-      '& $content': {
+      "& $content": {
         paddingLeft: theme.spacing(1)
       }
     },
@@ -1399,19 +1399,19 @@ var useTreeItemStyles = (0,makeStyles/* default */.Z)(function (theme) {
       color: theme.palette.background.default
     },
     label: {
-      fontWeight: 'inherit',
-      color: 'inherit'
+      fontWeight: "inherit",
+      color: "inherit"
     },
     labelRoot: {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       padding: theme.spacing(0.5, 0)
     },
     labelIcon: {
       marginRight: theme.spacing(0.5)
     },
     labelText: {
-      fontWeight: 'inherit',
+      fontWeight: "inherit",
       flexGrow: 1
     }
   });
@@ -1450,7 +1450,7 @@ function StyledTreeItem(props) {
       checked: checkedState,
       color: "primary",
       inputProps: {
-        'aria-label': 'secondary checkbox'
+        "aria-label": "secondary checkbox"
       },
       onChange: handleChecked
     }), kind && /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
@@ -1467,8 +1467,8 @@ function StyledTreeItem(props) {
       component: "span"
     }, alert), labelInfo, actions)),
     style: {
-      '--tree-view-color': color,
-      '--tree-view-bg-color': bgColor
+      "--tree-view-color": color,
+      "--tree-view-bg-color": bgColor
     },
     classes: {
       root: classes.root,
@@ -1907,4 +1907,4 @@ function useEventRaised(eventName, node, query) {
 /***/ })
 
 }]);
-//# sourceMappingURL=119-9abe337cec55f0d1de3a.js.map
+//# sourceMappingURL=119-2eca8f1d1014b31c15bd.js.map
