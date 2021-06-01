@@ -8350,8 +8350,8 @@ var ops = {
   GTE: ">=",
   NEG: "-",
   ADD: "+",
-  MUL: "*",
-  DIV: "/",
+  MULTIPLY: "*",
+  DIVIDE: "/",
   MINUS: "-"
 };
 function workspaceJSONToIT4Program(serviceBlocks, workspace) {
@@ -8367,7 +8367,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     };
   });
 
-  var blockToExpression = function blockToExpression(block) {
+  var blockToExpression = function blockToExpression(ev, block) {
     if (!block) return (0,ir/* toIdentifier */.EB)("%%NOCODE%%");
     var type = block.type,
         value = block.value,
@@ -8383,7 +8383,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     switch (type) {
       case "jacdac_math_single":
         {
-          var argument = blockToExpression(inputs[0].child);
+          var argument = blockToExpression(ev, inputs[0].child);
           var op = inputs[0].fields["op"].value;
           return {
             type: "UnaryExpression",
@@ -8396,8 +8396,8 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       case "jacdac_math_arithmetic":
         {
-          var left = blockToExpression(inputs[0].child);
-          var right = blockToExpression(inputs[1].child);
+          var left = blockToExpression(ev, inputs[0].child);
+          var right = blockToExpression(ev, inputs[1].child);
           var _op = inputs[1].fields["op"].value;
           return {
             type: "BinaryExpression",
@@ -8409,9 +8409,9 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       case "logic_operation":
         {
-          var _left = blockToExpression(inputs[0].child);
+          var _left = blockToExpression(ev, inputs[0].child);
 
-          var _right = blockToExpression(inputs[1].child);
+          var _right = blockToExpression(ev, inputs[1].child);
 
           var _op2 = inputs[1].fields["op"].value;
           return {
@@ -8424,7 +8424,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       case "logic_negate":
         {
-          var _argument = blockToExpression(inputs[0].child);
+          var _argument = blockToExpression(ev, inputs[0].child);
 
           return {
             type: "UnaryExpression",
@@ -8437,9 +8437,9 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       case "logic_compare":
         {
-          var _left2 = blockToExpression(inputs[0].child);
+          var _left2 = blockToExpression(ev, inputs[0].child);
 
-          var _right2 = blockToExpression(inputs[1].child);
+          var _right2 = blockToExpression(ev, inputs[1].child);
 
           var _op3 = inputs[1].fields["op"].value;
           return {
@@ -8468,6 +8468,20 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
                   var field = inputs[0].fields["field"];
                   return (0,ir/* toMemberExpression */.vf)(role, field ? (0,ir/* toMemberExpression */.vf)(register.name, field.value) : register.name);
                 }
+
+              case "event_field":
+                {
+                  var _ref2 = def,
+                      event = _ref2.event;
+
+                  if (ev.event !== event.identifierName) {// TODO: we need to raise an error to the user in Blockly
+                    // TODO: the field that they referenced in the block 
+                    // TODO: doesn't belong to the event that fired
+                  }
+
+                  var _field = inputs[0].fields["field"];
+                  return (0,ir/* toMemberExpression */.vf)(ev.role, (0,ir/* toMemberExpression */.vf)(ev.event, _field.value));
+                }
             }
 
             break;
@@ -8478,7 +8492,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     return (0,ir/* toIdentifier */.EB)("%%NOCODE%%");
   };
 
-  var blockToCommand = function blockToCommand(block) {
+  var blockToCommand = function blockToCommand(event, block) {
     var command;
     var type = block.type,
         inputs = block.inputs;
@@ -8486,7 +8500,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     switch (type) {
       case WAIT_BLOCK:
         {
-          var time = blockToExpression(inputs[0].child);
+          var time = blockToExpression(event, inputs[0].child);
           command = {
             type: "CallExpression",
             arguments: [time],
@@ -8502,14 +8516,14 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
           var ret = {
             sourceId: block.id,
             type: "ite",
-            expr: blockToExpression((_inputs$ = inputs[0]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child),
+            expr: blockToExpression(event, (_inputs$ = inputs[0]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child),
             then: [],
             else: []
           };
           var t = (_inputs$2 = inputs[1]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
           var e = (_inputs$3 = inputs[2]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child;
-          if (t) addCommands(ret.then, [t].concat((0,toConsumableArray/* default */.Z)(t.children ? t.children : [])));
-          if (e) addCommands(ret.else, [e].concat((0,toConsumableArray/* default */.Z)(e.children ? e.children : [])));
+          if (t) addCommands(event, ret.then, [t].concat((0,toConsumableArray/* default */.Z)(t.children ? t.children : [])));
+          if (e) addCommands(event, ret.else, [e].concat((0,toConsumableArray/* default */.Z)(e.children ? e.children : [])));
           return ret;
         }
       // more builts
@@ -8526,9 +8540,9 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
             switch (template) {
               case "register_set":
                 {
-                  var _ref2 = def,
-                      register = _ref2.register;
-                  var val = blockToExpression(inputs[0].child);
+                  var _ref3 = def,
+                      register = _ref3.register;
+                  var val = blockToExpression(event, inputs[0].child);
                   var role = inputs[0].fields.role.value;
                   command = {
                     type: "CallExpression",
@@ -8540,13 +8554,13 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
               case "command":
                 {
-                  var _ref3 = def,
-                      serviceCommand = _ref3.command;
+                  var _ref4 = def,
+                      serviceCommand = _ref4.command;
                   var _role = inputs[0].fields.role.value;
                   command = {
                     type: "CallExpression",
                     arguments: inputs.map(function (a) {
-                      return blockToExpression(a.child);
+                      return blockToExpression(event, a.child);
                     }),
                     callee: (0,ir/* toMemberExpression */.vf)(_role, serviceCommand.name)
                   };
@@ -8565,9 +8579,9 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     };
   };
 
-  var addCommands = function addCommands(acc, blocks) {
+  var addCommands = function addCommands(event, acc, blocks) {
     blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
-      if (child) acc.push(blockToCommand(child));
+      if (child) acc.push(blockToCommand(event, child));
     });
   };
 
@@ -8576,13 +8590,14 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
         inputs = top.inputs;
     var commands = [];
     var command = undefined;
+    var topEvent = undefined;
 
     if (type === WHILE_CONDITION_BLOCK) {
       // this is while (...)
       var condition = inputs[0].child;
       command = {
         type: "CallExpression",
-        arguments: [blockToExpression(condition)],
+        arguments: [blockToExpression(undefined, condition)],
         callee: (0,ir/* toIdentifier */.EB)("awaitCondition")
       };
     } else {
@@ -8606,14 +8621,18 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
               arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
               callee: (0,ir/* toIdentifier */.EB)("awaitEvent")
             };
+            topEvent = {
+              role: role.toString(),
+              event: eventName.toString()
+            };
             break;
           }
 
         case "register_change_event":
           {
-            var _ref4 = def,
-                register = _ref4.register;
-            var argument = blockToExpression(inputs[0].child);
+            var _ref5 = def,
+                register = _ref5.register;
+            var argument = blockToExpression(undefined, inputs[0].child);
             command = {
               type: "CallExpression",
               arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), register.name), argument],
@@ -8629,7 +8648,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
       type: "cmd",
       command: command
     });
-    addCommands(commands, top.children);
+    addCommands(topEvent, commands, top.children);
     return {
       commands: commands
     };
@@ -9810,4 +9829,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d5c074f098ad3860a85c.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-ff7369ce1fb16c9992c2.js.map

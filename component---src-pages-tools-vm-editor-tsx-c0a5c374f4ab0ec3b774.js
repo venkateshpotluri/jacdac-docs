@@ -2325,6 +2325,7 @@ function useVMRunner(roleManager, program, autoStart) {
         return newTestRunner === null || newTestRunner === void 0 ? void 0 : newTestRunner.unmount();
       };
     } catch (e) {
+      console.debug(e);
       setRunner(undefined);
     }
   }, [roleManager, program]); // errors
@@ -2837,4 +2838,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-edf26e85a1c01f0deb6b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c0a5c374f4ab0ec3b774.js.map
