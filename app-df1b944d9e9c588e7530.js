@@ -57999,7 +57999,10 @@ var regenerator = __webpack_require__(87757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/sensorserver.ts
 var sensorserver = __webpack_require__(85863);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
+var pack = __webpack_require__(91635);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/servers/buttonserver.ts
+
 
 
 
@@ -58044,55 +58047,61 @@ var ButtonServer = /*#__PURE__*/function (_SensorServer) {
 
   _proto.handleRefresh = /*#__PURE__*/function () {
     var _handleRefresh = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var now, time, _time;
+
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              now = this.device.bus.timestamp;
+
               if (!this.isActive()) {
-                _context.next = 14;
+                _context.next = 16;
                 break;
               }
 
               if (!(this._downTime === undefined)) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
-              this._downTime = this.device.bus.timestamp;
+              this._downTime = now;
               this._nextHold = this._downTime + HOLD_TIME;
-              _context.next = 6;
+              _context.next = 7;
               return this.sendEvent(constants/* ButtonEvent.Down */.XKP.Down);
 
-            case 6:
-              _context.next = 12;
+            case 7:
+              _context.next = 14;
               break;
 
-            case 8:
-              if (!(this.device.bus.timestamp > this._nextHold)) {
-                _context.next = 12;
+            case 9:
+              if (!(now > this._nextHold)) {
+                _context.next = 14;
                 break;
               }
 
+              time = now - this._downTime;
               this._nextHold = this.device.bus.timestamp + HOLD_TIME;
-              _context.next = 12;
-              return this.sendEvent(constants/* ButtonEvent.Hold */.XKP.Hold);
-
-            case 12:
-              _context.next = 19;
-              break;
+              _context.next = 14;
+              return this.sendEvent(constants/* ButtonEvent.Hold */.XKP.Hold, (0,pack/* jdpack */.AV)("u32", [time]));
 
             case 14:
+              _context.next = 22;
+              break;
+
+            case 16:
               if (!(this._downTime !== undefined)) {
-                _context.next = 19;
+                _context.next = 22;
                 break;
               }
 
+              _time = now - this._downTime;
               this._downTime = undefined;
               this._nextHold = undefined;
-              _context.next = 19;
-              return this.sendEvent(constants/* ButtonEvent.Up */.XKP.Up);
+              _context.next = 22;
+              return this.sendEvent(constants/* ButtonEvent.Up */.XKP.Up, (0,pack/* jdpack */.AV)("u32", [_time]));
 
-            case 19:
+            case 22:
             case "end":
               return _context.stop();
           }
@@ -58740,8 +58749,6 @@ var ServoServer = /*#__PURE__*/function (_JDServiceServer) {
 }(serviceserver/* default */.Z);
 
 
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
-var pack = __webpack_require__(91635);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/packet.ts
 var packet = __webpack_require__(57683);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pipes.ts
@@ -70222,7 +70229,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ff9611ec37c6f7ac9b3750acb4de88e3e16e5b3c";
+  var sha = "fbadc3153f5115331611351e3a87f57c92b26977";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86446,4 +86453,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-70509ce54ff1f1b6b95d.js.map
+//# sourceMappingURL=app-df1b944d9e9c588e7530.js.map
