@@ -559,6 +559,8 @@ function PacketRecorder() {
 }
 // EXTERNAL MODULE: ./src/components/DrawerToolsButtonGroup.tsx
 var DrawerToolsButtonGroup = __webpack_require__(95743);
+// EXTERNAL MODULE: ./src/components/alert/ConnectAlert.tsx
+var ConnectAlert = __webpack_require__(94431);
 ;// CONCATENATED MODULE: ./src/components/AppDrawer.tsx
 
 
@@ -572,6 +574,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
  // tslint:disable-next-line: no-submodule-imports
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -673,12 +676,84 @@ function AppDrawer(props) {
     pagePath: pagePath
   })), !showSearchResults && drawerType === AppContext/* DrawerType.Packets */.jw.Packets ? /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(PacketView, {
     showTime: true
-  })) : drawerType === AppContext/* DrawerType.Dom */.jw.Dom ? /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomTreeView, {
-    showDeviceFlags: true
-  })) : undefined);
+  })) : drawerType === AppContext/* DrawerType.Dom */.jw.Dom ? /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(ConnectAlert/* default */.Z, null), /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomTreeView, null))) : undefined);
+}
+
+/***/ }),
+
+/***/ 94431:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ConnectAlert; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(70274);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8266);
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(95453);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13173);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20392);
+/* harmony import */ var _buttons_ConnectButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84125);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(42862);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54774);
+// tslint:disable-next-line: no-submodule-imports
+ // tslint:disable-next-line: no-submodule-imports
+
+
+
+
+
+
+
+
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)({
+    button: {
+      marginLeft: theme.spacing(2)
+    }
+  });
+});
+
+function NoSsrConnectAlert(props) {
+  var classes = useStyles();
+  var serviceClass = props.serviceClass;
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var transports = bus.transports;
+  var devices = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(bus, function (b) {
+    return b.devices({
+      serviceClass: serviceClass,
+      ignoreSelf: true
+    });
+  });
+  var spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__/* .serviceSpecificationFromClassIdentifier */ .d5)(serviceClass); // don't show if no transport, some devices
+
+  if (!transports.length || devices !== null && devices !== void 0 && devices.length) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+    displayPrint: "none"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z, {
+    severity: "info",
+    closeable: true
+  }, !spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, "Did you connect your device?"), spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, "Did you connect a ", spec.name, " device?"), transports.map(function (transport) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_buttons_ConnectButton__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+      key: transport.type,
+      transport: transport,
+      className: classes.button,
+      full: true,
+      transparent: true
+    });
+  })));
+}
+
+function ConnectAlert(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(NoSsrConnectAlert, props));
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-53e109dda7f47a514dbc.js.map
+//# sourceMappingURL=8729-c6a884eb63ea8fc774da.js.map

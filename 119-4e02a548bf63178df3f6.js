@@ -113,80 +113,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 94431:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ ConnectAlert; }
-/* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10920);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(70274);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8266);
-/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(95453);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13173);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20392);
-/* harmony import */ var _buttons_ConnectButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84125);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(42862);
-/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54774);
-// tslint:disable-next-line: no-submodule-imports
- // tslint:disable-next-line: no-submodule-imports
-
-
-
-
-
-
-
-
-var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(function (theme) {
-  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)({
-    button: {
-      marginLeft: theme.spacing(2)
-    }
-  });
-});
-
-function NoSsrConnectAlert(props) {
-  var classes = useStyles();
-  var serviceClass = props.serviceClass;
-
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
-      bus = _useContext.bus;
-
-  var transports = bus.transports;
-  var devices = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(bus, function (b) {
-    return b.devices({
-      serviceClass: serviceClass,
-      ignoreSelf: true
-    });
-  });
-  var spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_2__/* .serviceSpecificationFromClassIdentifier */ .d5)(serviceClass); // don't show if no transport, some devices
-
-  if (!transports.length || devices !== null && devices !== void 0 && devices.length) return null;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
-    displayPrint: "none"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z, {
-    severity: "info",
-    closeable: true
-  }, !spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, "Did you connect your device?"), spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, "Did you connect a ", spec.name, " device?"), transports.map(function (transport) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_buttons_ConnectButton__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-      key: transport.type,
-      transport: transport,
-      className: classes.button,
-      full: true,
-      transparent: true
-    });
-  })));
-}
-
-function ConnectAlert(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(NoSsrConnectAlert, props));
-}
-
-/***/ }),
-
 /***/ 20119:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -906,8 +832,6 @@ var utils = __webpack_require__(81794);
 var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceName.ts
 var useDeviceName = __webpack_require__(5738);
-// EXTERNAL MODULE: ./src/components/alert/ConnectAlert.tsx
-var ConnectAlert = __webpack_require__(94431);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
 var Typography = __webpack_require__(80453);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Collapse/Collapse.js
@@ -1346,8 +1270,6 @@ var TreeItem = /*#__PURE__*/react.forwardRef(function TreeItem(props, ref) {
 })(TreeItem));
 // EXTERNAL MODULE: ./src/components/KindIcon.tsx
 var KindIcon = __webpack_require__(50048);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
-var Switch = __webpack_require__(76544);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/SignalCellularConnectedNoInternet0Bar.js
 var SignalCellularConnectedNoInternet0Bar = __webpack_require__(21151);
 ;// CONCATENATED MODULE: ./src/components/ui/StyledTreeView.tsx
@@ -1361,7 +1283,6 @@ var SignalCellularConnectedNoInternet0Bar = __webpack_require__(21151);
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
@@ -1425,35 +1346,16 @@ function StyledTreeItem(props) {
       labelInfo = props.labelInfo,
       color = props.color,
       bgColor = props.bgColor,
-      checked = props.checked,
-      setChecked = props.setChecked,
       actions = props.actions,
       nodeId = props.nodeId,
       alert = props.alert,
-      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["labelText", "kind", "icon", "labelInfo", "color", "bgColor", "checked", "setChecked", "actions", "nodeId", "alert"]);
-
-  var _useState = (0,react.useState)(checked),
-      checkedState = _useState[0],
-      setCheckedState = _useState[1];
-
-  var handleChecked = function handleChecked(ev, c) {
-    ev.stopPropagation();
-    setChecked(c);
-    setCheckedState(c);
-  };
+      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["labelText", "kind", "icon", "labelInfo", "color", "bgColor", "actions", "nodeId", "alert"]);
 
   return /*#__PURE__*/react.createElement(TreeItem_TreeItem, Object.assign({
     nodeId: nodeId,
     label: /*#__PURE__*/react.createElement("div", {
       className: classes.labelRoot
-    }, setChecked && /*#__PURE__*/react.createElement(Switch/* default */.Z, {
-      checked: checkedState,
-      color: "primary",
-      inputProps: {
-        "aria-label": "secondary checkbox"
-      },
-      onChange: handleChecked
-    }), kind && /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
+    }, kind && /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
       kind: kind,
       className: classes.labelIcon
     }), icon, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
@@ -1511,7 +1413,6 @@ var useMediaQueries = __webpack_require__(20509);
 
 
 
-
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
 
@@ -1521,11 +1422,8 @@ var useMediaQueries = __webpack_require__(20509);
 
 function DeviceTreeItem(props) {
   var device = props.device,
-      checked = props.checked,
-      setChecked = props.setChecked,
-      checkboxes = props.checkboxes,
       serviceFilter = props.serviceFilter,
-      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["device", "checked", "setChecked", "checkboxes", "serviceFilter"]);
+      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["device", "serviceFilter"]);
 
   var id = device.id;
   var name = (0,useDeviceName/* default */.Z)(device, true);
@@ -1560,19 +1458,12 @@ function DeviceTreeItem(props) {
   var labelInfo = [dropped > 1 && dropped + " lost", serviceNames].filter(function (r) {
     return !!r;
   }).join(", ");
-
-  var handleChecked = function handleChecked(c) {
-    return setChecked(id, c);
-  };
-
   return /*#__PURE__*/react.createElement(StyledTreeItem, {
     nodeId: id,
     labelText: name,
     labelInfo: labelInfo,
     alert: alert,
     kind: kind,
-    checked: (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1,
-    setChecked: checkboxes && checkboxes.indexOf("device") > -1 && setChecked && handleChecked,
     actions: showActions && /*#__PURE__*/react.createElement(DeviceActions/* default */.Z, {
       device: device,
       showReset: true
@@ -1582,10 +1473,7 @@ function DeviceTreeItem(props) {
   }), services === null || services === void 0 ? void 0 : services.map(function (service) {
     return /*#__PURE__*/react.createElement(ServiceTreeItem, Object.assign({
       key: service.id,
-      service: service,
-      checked: checked,
-      setChecked: setChecked,
-      checkboxes: checkboxes
+      service: service
     }, other));
   }));
 }
@@ -1606,19 +1494,15 @@ function AnnounceFlagsTreeItem(props) {
 
 function ServiceTreeItem(props) {
   var service = props.service,
-      checked = props.checked,
-      setChecked = props.setChecked,
-      checkboxes = props.checkboxes,
       registerFilter = props.registerFilter,
       eventFilter = props.eventFilter,
-      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["service", "checked", "setChecked", "checkboxes", "registerFilter", "eventFilter"]);
+      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["service", "registerFilter", "eventFilter"]);
 
   var specification = service.specification,
       mixins = service.mixins,
       isMixin = service.isMixin;
   var showSpecificationAction = false;
   var id = service.id;
-  var open = (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1;
   var packets = specification === null || specification === void 0 ? void 0 : specification.packets;
   var registers = packets === null || packets === void 0 ? void 0 : packets.filter(spec/* isRegister */.x5).map(function (info) {
     return service.register(info.identifier);
@@ -1653,17 +1537,11 @@ function ServiceTreeItem(props) {
     if (mobile) setDrawerType(AppContext/* DrawerType.None */.jw.None);
   };
 
-  var handleChecked = function handleChecked(c) {
-    return setChecked(id, c);
-  };
-
   return /*#__PURE__*/react.createElement(StyledTreeItem, {
     nodeId: id,
     labelText: name,
     labelInfo: reading,
     kind: isMixin ? constants/* SERVICE_MIXIN_NODE_NAME */.mLn : constants/* SERVICE_NODE_NAME */.M_U,
-    checked: open,
-    setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("service")) > -1 && setChecked && handleChecked,
     actions: showSpecificationAction ? /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
       color: "inherit",
       to: "/services/" + specification.shortId + "/",
@@ -1675,35 +1553,23 @@ function ServiceTreeItem(props) {
   }, registers === null || registers === void 0 ? void 0 : registers.map(function (register) {
     return /*#__PURE__*/react.createElement(RegisterTreeItem, Object.assign({
       key: register.id,
-      register: register,
-      checked: checked,
-      setChecked: setChecked,
-      checkboxes: checkboxes
+      register: register
     }, other));
   }), events === null || events === void 0 ? void 0 : events.map(function (event) {
     return /*#__PURE__*/react.createElement(EventTreeItem, Object.assign({
       key: event.id,
-      event: event,
-      checked: checked,
-      setChecked: setChecked,
-      checkboxes: checkboxes
+      event: event
     }, other));
   }), mixins === null || mixins === void 0 ? void 0 : mixins.map(function (mixin) {
     return /*#__PURE__*/react.createElement(ServiceTreeItem, Object.assign({
       key: mixin.id,
-      service: mixin,
-      checked: checked,
-      setChecked: setChecked,
-      checkboxes: checkboxes
+      service: mixin
     }, other));
   }));
 }
 
 function RegisterTreeItem(props) {
-  var register = props.register,
-      checked = props.checked,
-      setChecked = props.setChecked,
-      checkboxes = props.checkboxes;
+  var register = props.register;
   var specification = register.specification,
       id = register.id;
 
@@ -1726,12 +1592,7 @@ function RegisterTreeItem(props) {
     return register === null || register === void 0 ? void 0 : register.subscribe(constants/* GET_ATTEMPT */.tDM, function () {
       setAttempts(register.lastGetAttempts);
     });
-  }, [register]);
-
-  var handleChecked = function handleChecked(c) {
-    setChecked(id, c);
-  }; // if register is optional and no data, hide
-
+  }, [register]); // if register is optional and no data, hide
 
   if (optional && failedGet && humanValue === undefined) return /*#__PURE__*/react.createElement(react.Fragment, null);
   return /*#__PURE__*/react.createElement(StyledTreeItem, {
@@ -1740,32 +1601,20 @@ function RegisterTreeItem(props) {
     labelInfo: humanValue || attempts > 0 && "#" + attempts || "",
     kind: (specification === null || specification === void 0 ? void 0 : specification.kind) || constants/* REGISTER_NODE_NAME */.nJc,
     alert: failedGet && !optional && humanValue === undefined && "???",
-    checked: (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1,
-    onClick: handleClick,
-    setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("register")) > -1 && setChecked && handleChecked
+    onClick: handleClick
   });
 }
 
 function EventTreeItem(props) {
-  var event = props.event,
-      checked = props.checked,
-      setChecked = props.setChecked,
-      checkboxes = props.checkboxes;
+  var event = props.event;
   var specification = event.specification,
       id = event.id;
   var count = (0,useEventCount/* default */.Z)(event);
-
-  var handleChecked = function handleChecked(c) {
-    setChecked(id, c);
-  };
-
   return /*#__PURE__*/react.createElement(StyledTreeItem, {
     nodeId: id,
     labelText: (specification === null || specification === void 0 ? void 0 : specification.name) || event.id,
     labelInfo: (count || "") + "",
-    kind: constants/* EVENT_NODE_NAME */.Yuh,
-    checked: (checked === null || checked === void 0 ? void 0 : checked.indexOf(id)) > -1,
-    setChecked: (checkboxes === null || checkboxes === void 0 ? void 0 : checkboxes.indexOf("event")) > -1 && setChecked && handleChecked
+    kind: constants/* EVENT_NODE_NAME */.Yuh
   });
 }
 
@@ -1783,13 +1632,10 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function JDomTreeView(props) {
   var defaultExpanded = props.defaultExpanded,
       defaultSelected = props.defaultSelected,
-      defaultChecked = props.defaultChecked,
-      onChecked = props.onChecked,
       onToggle = props.onToggle,
       onSelect = props.onSelect,
-      checkboxes = props.checkboxes,
       dashboard = props.dashboard,
-      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["defaultExpanded", "defaultSelected", "defaultChecked", "onChecked", "onToggle", "onSelect", "checkboxes", "dashboard"]);
+      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["defaultExpanded", "defaultSelected", "onToggle", "onSelect", "dashboard"]);
 
   var classes = useStyles();
 
@@ -1800,10 +1646,6 @@ function JDomTreeView(props) {
   var _useState3 = (0,react.useState)(defaultSelected || []),
       selected = _useState3[0],
       setSelected = _useState3[1];
-
-  var _useState4 = (0,react.useState)(defaultChecked || []),
-      checked = _useState4[0],
-      setChecked = _useState4[1];
 
   var devices = (0,useDevices/* default */.Z)({
     ignoreSelf: true
@@ -1819,14 +1661,7 @@ function JDomTreeView(props) {
     if (onSelect) onSelect(nodeIds);
   };
 
-  var handleChecked = function handleChecked(id, v) {
-    var i = checked.indexOf(id);
-    if (!v && i > -1) checked.splice(i, 1);else if (v && i < 0) checked.push(id);
-    setChecked(checked);
-    if (onChecked) onChecked(checked);
-  };
-
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(ConnectAlert/* default */.Z, null), /*#__PURE__*/react.createElement(TreeView_TreeView, {
+  return /*#__PURE__*/react.createElement(TreeView_TreeView, {
     className: (0,clsx_m/* default */.Z)(classes.root, classes.margins),
     defaultCollapseIcon: /*#__PURE__*/react.createElement(ArrowDropDown/* default */.Z, null),
     defaultExpandIcon: /*#__PURE__*/react.createElement(ArrowRight/* default */.Z, null),
@@ -1843,14 +1678,11 @@ function JDomTreeView(props) {
     return /*#__PURE__*/react.createElement(DeviceTreeItem, Object.assign({
       key: device.id,
       device: device,
-      checked: checked,
-      setChecked: handleChecked,
-      checkboxes: checkboxes,
       expanded: expanded,
       selected: selected,
       dashboard: dashboard
     }, other));
-  })));
+  }));
 }
 
 /***/ }),
@@ -1907,4 +1739,4 @@ function useEventRaised(eventName, node, query) {
 /***/ })
 
 }]);
-//# sourceMappingURL=119-2eca8f1d1014b31c15bd.js.map
+//# sourceMappingURL=119-4e02a548bf63178df3f6.js.map
