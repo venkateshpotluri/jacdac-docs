@@ -1399,7 +1399,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 65924:
+/***/ 23189:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2244,7 +2244,7 @@ var useChange = __webpack_require__(54774);
 var PlayArrow = __webpack_require__(42404);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
 var Stop = __webpack_require__(34257);
-;// CONCATENATED MODULE: ./src/components/vm/VMRunner.tsx
+;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButton.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
@@ -2252,41 +2252,24 @@ var Stop = __webpack_require__(34257);
 
 
 
-function VMRunner(props) {
+function VMRunnerButton(props) {
   var runner = props.runner,
-      autoStartDefault = props.autoStart;
+      run = props.run,
+      cancel = props.cancel;
   var disabled = !runner;
   var status = (0,useChange/* default */.Z)(runner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
   });
 
-  var _useState = (0,react.useState)(!!autoStartDefault),
-      autoStart = _useState[0],
-      setAutoStart = _useState[1];
-
   var handleRun = function handleRun() {
-    setAutoStart(!!autoStartDefault);
-
-    try {
-      runner.start();
-    } catch (e) {
-      console.debug(e);
-    }
+    return run();
   };
 
   var handleCancel = function handleCancel() {
-    setAutoStart(false);
-    runner.cancel();
+    return cancel();
   };
 
-  var running = status === VMStatus.Running; // auto start
-
-  (0,react.useEffect)(function () {
-    if (autoStart && runner) runner.start();
-    return function () {
-      return runner === null || runner === void 0 ? void 0 : runner.cancel();
-    };
-  }, [runner, autoStart]);
+  var running = status === VMStatus.Running;
   return /*#__PURE__*/react.createElement(Button/* default */.Z, {
     disabled: disabled,
     variant: "contained",
@@ -2307,7 +2290,7 @@ var AppContext = __webpack_require__(84377);
 
 
 
-function useVMRunner(roleManager, program) {
+function useVMRunner(roleManager, program, autoStart) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
@@ -2315,27 +2298,50 @@ function useVMRunner(roleManager, program) {
       setError = _useContext2.setError;
 
   var _useState = (0,react.useState)(),
-      testRunner = _useState[0],
-      setTestRunner = _useState[1]; // create runner
+      runner = _useState[0],
+      setRunner = _useState[1];
 
+  var _useState2 = (0,react.useState)(!!autoStart),
+      _autoStart = _useState2[0],
+      _setAutoStart = _useState2[1];
+
+  var run = function run() {
+    _setAutoStart(!!autoStart);
+
+    runner.start();
+  };
+
+  var cancel = function cancel() {
+    _setAutoStart(false);
+
+    runner.cancel();
+  }; // auto start
+
+
+  (0,react.useEffect)(function () {
+    if (_autoStart && runner) runner.start();
+    return function () {
+      return runner === null || runner === void 0 ? void 0 : runner.cancel();
+    };
+  }, [runner, _autoStart]); // create runner
 
   (0,react.useEffect)(function () {
     try {
       var newTestRunner = program && new IT4ProgramRunner(bus, roleManager, program);
-      setTestRunner(newTestRunner);
+      setRunner(newTestRunner);
       return function () {
         return newTestRunner === null || newTestRunner === void 0 ? void 0 : newTestRunner.unmount();
       };
     } catch (e) {
-      setTestRunner(undefined);
+      setRunner(undefined);
     }
   }, [roleManager, program]); // errors
 
   (0,react.useEffect)(function () {
-    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* ERROR */.pnR, function (e) {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(constants/* ERROR */.pnR, function (e) {
       return setError(e);
     });
-  }, [testRunner]); // traces
+  }, [runner]); // traces
 
   var handleTrace = function handleTrace(value) {
     var message = value.message,
@@ -2344,9 +2350,13 @@ function useVMRunner(roleManager, program) {
   };
 
   (0,react.useEffect)(function () {
-    return testRunner === null || testRunner === void 0 ? void 0 : testRunner.subscribe(constants/* TRACE */.jes, handleTrace);
-  }, [testRunner]);
-  return testRunner;
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(constants/* TRACE */.jes, handleTrace);
+  }, [runner]);
+  return {
+    runner: runner,
+    run: run,
+    cancel: cancel
+  };
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
 var Tooltip = __webpack_require__(14685);
@@ -2379,28 +2389,20 @@ function VMRoles(props) {
     return _ === null || _ === void 0 ? void 0 : _.roles;
   });
 
-  var handleRoleClick = function handleRoleClick(role, service, specification) {
+  var handleRoleClick = function handleRoleClick(role, service, serviceShortId) {
     return function () {
-      if (!service && specification) {
-        (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
-      } else {// do nothing
-      }
+      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
     };
   };
 
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     spacing: 1
-  }, roles && Object.keys(roles).map(function (role) {
-    return {
-      role: role,
-      service: roles[role].service,
-      specification: (0,spec/* serviceSpecificationFromName */.kB)(roles[role].serviceShortId)
-    };
-  }).map(function (_ref) {
+  }, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
     var role = _ref.role,
         service = _ref.service,
-        specification = _ref.specification;
+        serviceShortId = _ref.serviceShortId;
     return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
       item: true,
       key: role
@@ -2412,7 +2414,7 @@ function VMRoles(props) {
       avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
         device: service.device
       }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
-      onClick: handleRoleClick(role, service, specification)
+      onClick: !!serviceShortId && handleRoleClick(role, service, serviceShortId)
     })));
   }));
 }
@@ -2695,8 +2697,7 @@ var VM_SOURCE_STORAGE_KEY = "jacdac:tools:vmeditor";
 function VMEditor(props) {
   var _source$blocks;
 
-  var storageKey = props.storageKey,
-      showDashboard = props.showDashboard;
+  var storageKey = props.storageKey;
 
   var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey || VM_SOURCE_STORAGE_KEY, ""),
       xml = _useLocalStorage[0],
@@ -2711,7 +2712,12 @@ function VMEditor(props) {
       setProgram = _useState2[1];
 
   var roleManager = useRoleManager();
-  var runner = useVMRunner(roleManager, program);
+  var autoStart = true;
+
+  var _useVMRunner = useVMRunner(roleManager, program, autoStart),
+      runner = _useVMRunner.runner,
+      run = _useVMRunner.run,
+      cancel = _useVMRunner.cancel;
 
   var handleXml = function handleXml(xml) {
     setXml(xml);
@@ -2754,9 +2760,10 @@ function VMEditor(props) {
   }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(VMRunner, {
-    autoStart: true,
-    runner: runner
+  }, /*#__PURE__*/react.createElement(VMRunnerButton, {
+    runner: runner,
+    run: run,
+    cancel: cancel
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -2766,7 +2773,7 @@ function VMEditor(props) {
     program: program,
     source: source,
     xml: xml
-  }), showDashboard && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Dashboard/* default */.Z, {
@@ -2779,12 +2786,10 @@ function VMEditor(props) {
 
 
 function Page() {
-  return /*#__PURE__*/react.createElement(VMEditor, {
-    showDashboard: true
-  });
+  return /*#__PURE__*/react.createElement(VMEditor, null);
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d580cc9400bc3b3f9aff.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b26d86ca77f48b0aa753.js.map
