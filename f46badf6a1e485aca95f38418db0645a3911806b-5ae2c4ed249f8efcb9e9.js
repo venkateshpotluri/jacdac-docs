@@ -6540,8 +6540,8 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ReactInlineField(options) {
     return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
-      width: 240,
-      height: 80
+      width: 1,
+      height: 1
     }) || this;
   }
 
@@ -6560,6 +6560,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
       height: height
     });
     this.container = document.createElement("div");
+    this.container.style.display = "inline-block";
     fo.appendChild(this.container);
     this.resizeObserver = new ResizeObserver(function (entries) {
       var entry = entries[0];
@@ -6754,7 +6755,7 @@ function JDomTreeWidget(props) {
   if (flyout) return null;
   return /*#__PURE__*/react.createElement("div", {
     style: {
-      minWidth: "20rem",
+      minWidth: "16rem",
       cursor: "inherit"
     },
     onPointerDown: onPointerStopPropagation,
@@ -9807,4 +9808,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-28379123b66416e44a2d.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5ae2c4ed249f8efcb9e9.js.map

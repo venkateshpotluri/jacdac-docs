@@ -1452,35 +1452,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 21151:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("path", {
-  fillOpacity: ".3",
-  d: "M22 8V2L2 22h16V8z"
-}), /*#__PURE__*/_react.default.createElement("path", {
-  d: "M20 22h2v-2h-2v2zm0-12v8h2v-8h-2z"
-})), 'SignalCellularConnectedNoInternet0Bar');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 53717:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -24063,8 +24034,8 @@ var TreeItem = /*#__PURE__*/react.forwardRef(function TreeItem(props, ref) {
 })(TreeItem));
 // EXTERNAL MODULE: ./src/components/KindIcon.tsx
 var KindIcon = __webpack_require__(50048);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/SignalCellularConnectedNoInternet0Bar.js
-var SignalCellularConnectedNoInternet0Bar = __webpack_require__(21151);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
 ;// CONCATENATED MODULE: ./src/components/ui/StyledTreeView.tsx
 
  // tslint:disable-next-line: no-submodule-imports
@@ -24110,7 +24081,7 @@ var useTreeItemStyles = (0,makeStyles/* default */.Z)(function (theme) {
     },
     expanded: {},
     selected: {
-      color: theme.palette.background.default
+      fontWeight: theme.typography.fontWeightBold
     },
     label: {
       fontWeight: "inherit",
@@ -24126,7 +24097,8 @@ var useTreeItemStyles = (0,makeStyles/* default */.Z)(function (theme) {
     },
     labelText: {
       fontWeight: "inherit",
-      flexGrow: 1
+      flexGrow: 1,
+      marginRight: theme.spacing(0.5)
     }
   });
 });
@@ -24144,7 +24116,10 @@ function StyledTreeItem(props) {
       alert = props.alert,
       other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["labelText", "kind", "icon", "labelInfo", "color", "bgColor", "actions", "nodeId", "alert"]);
 
+  var domId = (0,react_use_id_hook_esm/* useId */.Me)();
   return /*#__PURE__*/react.createElement(TreeItem_TreeItem, Object.assign({
+    id: domId,
+    tabIndex: 0,
     nodeId: nodeId,
     label: /*#__PURE__*/react.createElement("div", {
       className: classes.labelRoot
@@ -24154,7 +24129,7 @@ function StyledTreeItem(props) {
     }), icon, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
       variant: "body2",
       className: classes.labelText
-    }, labelText), alert && /*#__PURE__*/react.createElement(SignalCellularConnectedNoInternet0Bar/* default */.Z, null), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    }, labelText), alert && "!", /*#__PURE__*/react.createElement(Typography/* default */.Z, {
       variant: "caption",
       color: "inherit"
     }, alert && /*#__PURE__*/react.createElement(Typography/* default */.Z, {
@@ -37723,4 +37698,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-b2fe850ec0fd613b520c.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-239d30ce142c40600362.js.map
