@@ -6593,9 +6593,7 @@ function NoServiceAlert() {
   }; // nothing to do here
 
 
-  if (roleService || flyout) return null; // unresolved, unknown service
-
-  if (!roleService && !roleServiceShortId) return null; // unknown spec
+  if (roleService || flyout) return null; // unknown spec
 
   if (!spec) return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "warning"
@@ -9806,4 +9804,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a184888374d17d0729eb.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-b2a38c7e5c89a1c158ea.js.map
