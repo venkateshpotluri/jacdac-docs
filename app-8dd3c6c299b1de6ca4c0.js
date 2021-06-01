@@ -68818,7 +68818,7 @@ function SplitGrid(props) {
 
 
 var JDomTreeView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 119).then(__webpack_require__.bind(__webpack_require__, 20119));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(188)]).then(__webpack_require__.bind(__webpack_require__, 10188));
 });
 var PacketView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8590)]).then(__webpack_require__.bind(__webpack_require__, 3189));
@@ -70221,7 +70221,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "e5c10bc2ab65eb040e3adabacbaaf1fa5500d47e";
+  var sha = "5740be15056f6461015fd271fa7f4f7ea749d535";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86356,4 +86356,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-02c6323936a9e45f63f9.js.map
+//# sourceMappingURL=app-8dd3c6c299b1de6ca4c0.js.map

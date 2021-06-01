@@ -5318,7 +5318,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 98955:
+/***/ 5497:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6759,7 +6759,52 @@ var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+;// CONCATENATED MODULE: ./src/components/vm/fields/JDomTreeField.tsx
+
+
+
+
+
+var JDomServiceTreeView = /*#__PURE__*/(0,react.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
+});
+
+function JDomTreeWidget() {
+  var _useContext = (0,react.useContext)(vm_WorkspaceContext),
+      roleService = _useContext.roleService;
+
+  if (!roleService) return null;
+  return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
+    service: roleService,
+    defaultExpanded: [roleService.id]
+  }));
+}
+
+var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,inheritsLoose/* default */.Z)(JDomTreeField, _ReactInlineField);
+
+  function JDomTreeField() {
+    return _ReactInlineField.apply(this, arguments) || this;
+  }
+
+  JDomTreeField.fromJson = function fromJson(options) {
+    return new JDomTreeField(options);
+  };
+
+  var _proto = JDomTreeField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react.createElement(JDomTreeWidget, null);
+  };
+
+  return JDomTreeField;
+}(ReactInlineField);
+
+JDomTreeField.KEY = "jacdac_jdom_service_tree";
+JDomTreeField.EDITABLE = false;
+
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -7146,6 +7191,25 @@ function loadBlocks(serviceColor, commandColor) {
       template: "twin"
     };
   });
+  var inspectBlocks = allServices.map(function (service) {
+    return {
+      kind: "block",
+      type: "jacdac_inspect_" + service.shortId,
+      message0: "%1 %2 %3",
+      args0: [fieldVariable(service), {
+        type: "input_dummy"
+      }, {
+        type: JDomTreeField.KEY,
+        name: "twin"
+      }],
+      colour: serviceColor(service),
+      inputsInline: false,
+      tooltip: "Inspect a service",
+      helpUrl: serviceHelp(service),
+      service: service,
+      template: "twin"
+    };
+  });
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -7404,7 +7468,7 @@ function loadBlocks(serviceColor, commandColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(twinBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(twinBlocks), (0,toConsumableArray/* default */.Z)(inspectBlocks));
   var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
@@ -8568,7 +8632,12 @@ function useBlocklyEvents(workspace) {
 
           if (template === "twin") {
             // notify twin that the value changed
-            var twinField = block.inputList[1].fieldRow[0];
+            var twinInput = block.inputList[1];
+            console.log("twins", {
+              block: block,
+              twinInput: twinInput
+            });
+            var twinField = twinInput.fieldRow[0];
             twinField.emitChange();
           }
 
@@ -9706,4 +9775,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-67dd2535b9f6113c1cb1.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-84aa906f650e53dfaf8b.js.map

@@ -587,7 +587,7 @@ var PacketView = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 3189));
 });
 var JDomTreeView = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 119).then(__webpack_require__.bind(__webpack_require__, 20119));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(188)]).then(__webpack_require__.bind(__webpack_require__, 10188));
 });
 var DrawerSearchResults = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6130).then(__webpack_require__.bind(__webpack_require__, 86130));
@@ -756,4 +756,4 @@ function ConnectAlert(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-c6a884eb63ea8fc774da.js.map
+//# sourceMappingURL=8729-9134d9d0c25a5245ea92.js.map
