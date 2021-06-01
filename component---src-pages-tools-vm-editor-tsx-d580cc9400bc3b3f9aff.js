@@ -1399,7 +1399,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 16310:
+/***/ 65924:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1415,8 +1415,6 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
-var Typography = __webpack_require__(80453);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
@@ -2297,8 +2295,6 @@ function VMRunner(props) {
     startIcon: running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null)
   }, running ? "Stop" : "Run");
 }
-// EXTERNAL MODULE: ./src/components/CodeBlock.tsx + 4 modules
-var CodeBlock = __webpack_require__(50274);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -2643,21 +2639,15 @@ function useRoleManager() {
   }, []);
   return roleManager;
 }
-;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./src/components/CodeBlock.tsx + 4 modules
+var CodeBlock = __webpack_require__(50274);
+;// CONCATENATED MODULE: ./src/components/vm/VMDiagnostics.tsx
 
 
 
-
-
-
-
-
-
-
-
-
-
-function Diagnostics(props) {
+function VMDiagnostics(props) {
   var program = props.program,
       source = props.source,
       xml = props.xml;
@@ -2688,6 +2678,18 @@ function Diagnostics(props) {
     className: "xml"
   }, xml)));
 }
+;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+
+
+
+
+
+
+
+
+
+
+
 
 var VM_SOURCE_STORAGE_KEY = "jacdac:tools:vmeditor";
 function VMEditor(props) {
@@ -2760,7 +2762,7 @@ function VMEditor(props) {
     xs: 12
   }, /*#__PURE__*/react.createElement(VMRoles, {
     roleManager: roleManager
-  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Diagnostics, {
+  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(VMDiagnostics, {
     program: program,
     source: source,
     xml: xml
@@ -2785,4 +2787,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3c0f042c092f7d9b3d8d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d580cc9400bc3b3f9aff.js.map
