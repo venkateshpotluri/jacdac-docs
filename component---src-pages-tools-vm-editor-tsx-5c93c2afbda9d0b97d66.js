@@ -56,62 +56,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 42404:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M8 5v14l11-7z"
-}), 'PlayArrow');
-
-exports.Z = _default;
-
-/***/ }),
-
-/***/ 34257:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M6 6h12v12H6z"
-}), 'Stop');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 96699:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1399,7 +1343,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 23189:
+/***/ 79295:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1421,14 +1365,8 @@ var NoSsr = __webpack_require__(42862);
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 34 modules
 var VMBlockEditor = __webpack_require__(98001);
-// EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 3 modules
-var Dashboard = __webpack_require__(65063);
-// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
-var Alert = __webpack_require__(95453);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
-var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__(63349);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
@@ -2238,46 +2176,6 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   return IT4ProgramRunner;
 }(client/* JDClient */.z);
-// EXTERNAL MODULE: ./src/jacdac/useChange.ts
-var useChange = __webpack_require__(54774);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
-var PlayArrow = __webpack_require__(42404);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
-var Stop = __webpack_require__(34257);
-;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButton.tsx
-
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
-
-
-
-function VMRunnerButton(props) {
-  var runner = props.runner,
-      run = props.run,
-      cancel = props.cancel;
-  var disabled = !runner;
-  var status = (0,useChange/* default */.Z)(runner, function (t) {
-    return t === null || t === void 0 ? void 0 : t.status;
-  });
-
-  var handleRun = function handleRun() {
-    return run();
-  };
-
-  var handleCancel = function handleCancel() {
-    return cancel();
-  };
-
-  var running = status === VMStatus.Running;
-  return /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    disabled: disabled,
-    variant: "contained",
-    onClick: running ? handleCancel : handleRun,
-    color: running ? "default" : "primary",
-    startIcon: running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null)
-  }, running ? "Stop" : "Run");
-}
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -2357,66 +2255,6 @@ function useVMRunner(roleManager, program, autoStart) {
     run: run,
     cancel: cancel
   };
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
-var Tooltip = __webpack_require__(14685);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
-var Chip = __webpack_require__(4998);
-// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
-var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
-;// CONCATENATED MODULE: ./src/components/vm/VMRoles.tsx
-
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
-
-
-
-
-
-function VMRoles(props) {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var roleManager = props.roleManager;
-  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.roles;
-  });
-
-  var handleRoleClick = function handleRoleClick(role, service, serviceShortId) {
-    return function () {
-      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
-      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
-    };
-  };
-
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    spacing: 1
-  }, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
-    var role = _ref.role,
-        service = _ref.service,
-        serviceShortId = _ref.serviceShortId;
-    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-      item: true,
-      key: role
-    }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: service ? "bound to " + service.device.friendlyName : "start simulator"
-    }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-      label: role,
-      variant: service ? "default" : "outlined",
-      avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
-        device: service.device
-      }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
-      onClick: !!serviceShortId && handleRoleClick(role, service, serviceShortId)
-    })));
-  }));
 }
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/rolemanager.ts
 
@@ -2689,14 +2527,8 @@ function VMDiagnostics(props) {
 
 
 
-
-
-
-
 var VM_SOURCE_STORAGE_KEY = "jacdac:tools:vmeditor";
 function VMEditor(props) {
-  var _source$blocks;
-
   var storageKey = props.storageKey;
 
   var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey || VM_SOURCE_STORAGE_KEY, ""),
@@ -2715,9 +2547,7 @@ function VMEditor(props) {
   var autoStart = true;
 
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
-      runner = _useVMRunner.runner,
-      run = _useVMRunner.run,
-      cancel = _useVMRunner.cancel;
+      runner = _useVMRunner.runner;
 
   var handleXml = function handleXml(xml) {
     setXml(xml);
@@ -2741,13 +2571,7 @@ function VMEditor(props) {
     container: true,
     direction: "column",
     spacing: 1
-  }, !(source !== null && source !== void 0 && (_source$blocks = source.blocks) !== null && _source$blocks !== void 0 && _source$blocks.length) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "info",
-    closeable: true
-  }, "Start a simulator or connect a device to load the blocks automatically.")), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(VMBlockEditor/* default */.Z, {
@@ -2757,30 +2581,11 @@ function VMEditor(props) {
     onIT4ProgramChange: handleI4Program,
     runner: runner,
     roleManager: roleManager
-  }))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(VMRunnerButton, {
-    runner: runner,
-    run: run,
-    cancel: cancel
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(VMRoles, {
-    roleManager: roleManager
-  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(VMDiagnostics, {
+  }))), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(VMDiagnostics, {
     program: program,
     source: source,
     xml: xml
-  }), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(Dashboard/* default */.Z, {
-    showStartSimulators: true,
-    showHeader: true,
-    showAvatar: true
-  })));
+  }));
 }
 ;// CONCATENATED MODULE: ./src/pages/tools/vm-editor.tsx
 
@@ -2792,4 +2597,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b26d86ca77f48b0aa753.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5c93c2afbda9d0b97d66.js.map

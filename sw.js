@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-0dc989be0b27f72abf0a.js"
+    "url": "webpack-runtime-665c0f3e157d89868374.js"
   },
   {
     "url": "styles.f959743513b23a1bb034.css"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "514831cc50d3ea62a006ca2eb2ad8775"
+    "revision": "305cd42359ea8c9107be2d7481bcadde"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "e8cafdfd855facf476fae4ee5e74d2a1"
+    "revision": "f064115eee4ddddaebb4e52a167f1d38"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "c8d01ffd21b51c43f0cf278fa4d9cce5"
+    "revision": "089eb677738f00151f8976ae3f87e50c"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "784fcae9b4288d70455d638efbd0a9ed"
+    "revision": "722a8fb1300cc2206710326b1c33d686"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "2ff8b8c645b0d3ff4c502956b497ecce"
+    "revision": "97eb9ddb9a709607c2b4f29db6202bd9"
   },
   {
     "url": "polyfill-9516ed41eb423968d48c.js"
@@ -101,10 +101,10 @@ self.__precacheManifest = [
     "revision": "9be0850a21e1c0fbd7afa699649413b0"
   },
   {
-    "url": "639063b5af89a7aee89d93b899885af3c8f7a8d8-523b9a7e40e033cfdcbb.js"
+    "url": "7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-92283fd8e663ab86c73d.js"
   },
   {
-    "url": "component---src-pages-dashboard-tsx-23431e46b326646f1e76.js"
+    "url": "component---src-pages-dashboard-tsx-d5d0d7111be563981602.js"
   },
   {
     "url": "page-data/dashboard/page-data.json",
@@ -235,13 +235,13 @@ self.__precacheManifest = [
     "url": "7aa4828511caffb203d13996631939214319596f-d9d83ead67442c5100c5.js"
   },
   {
-    "url": "f46badf6a1e485aca95f38418db0645a3911806b-630b6c5066764a74fd06.js"
+    "url": "f46badf6a1e485aca95f38418db0645a3911806b-67c82563a391aa8025db.js"
   },
   {
     "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-0a8a667cc1add4142465.js"
   },
   {
-    "url": "component---src-templates-service-playground-tsx-ee7c9ad11046e9be02ef.js"
+    "url": "component---src-templates-service-playground-tsx-99f4a23418663b14c15d.js"
   },
   {
     "url": "page-data/services/_base/playground/page-data.json",
@@ -1353,7 +1353,7 @@ self.__precacheManifest = [
     "revision": "8f6256b0f209021e94527886b16a3c47"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-92ef027741a2ae79bafb.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-eaffa02994ce91f8a268.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
@@ -1399,7 +1399,7 @@ self.__precacheManifest = [
     "revision": "a6d523f1fc83918342b187e0d839d3dd"
   },
   {
-    "url": "component---src-pages-tools-service-editor-tsx-892f219b035bc717bcf6.js"
+    "url": "component---src-pages-tools-service-editor-tsx-a6a3e927a55653a0ed73.js"
   },
   {
     "url": "page-data/tools/service-editor/page-data.json",
@@ -1434,7 +1434,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-b26d86ca77f48b0aa753.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-5c93c2afbda9d0b97d66.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1534,7 +1534,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-69b1d96444a548813f2d.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-2ed1d8e9470748e1e4c9.js`))) {
     return await fetch(event.request)
   }
 

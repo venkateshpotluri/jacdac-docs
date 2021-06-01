@@ -70200,7 +70200,7 @@ function GitHubButton(props) {
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     footer: {
-      marginTop: theme.spacing(3),
+      textAlign: "center",
       "& *": {
         fontSize: theme.typography.fontSize * 0.7 + "px",
         textDecoration: "none",
@@ -70221,7 +70221,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a6bc9a5171f694406515875c93b8ad3689232c2a";
+  var sha = "56766062ce9a6c24b68d7a704174cff4fe118f16";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -70664,6 +70664,8 @@ function ui_Breadcrumbs_Breadcrumbs(props) {
 var Forum = __webpack_require__(22203);
 // EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 21 modules
 var providerbus = __webpack_require__(1721);
+// EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
+var notistack_esm = __webpack_require__(70076);
 ;// CONCATENATED MODULE: ./src/components/layout.tsx
 
 
@@ -70686,6 +70688,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -70785,12 +70788,15 @@ var layout_useStyles = (0,makeStyles/* default */.Z)(function (theme) {
       minHeight: "100vh",
       minWidth: "10rem",
       flexDirection: "column",
-      padding: theme.spacing(3),
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
       }),
-      flexGrow: 1
+      flexGrow: 1,
+      padding: theme.spacing(0.5)
+    },
+    contentPadding: {
+      padding: theme.spacing(3)
     },
     container: {
       padding: theme.spacing(3)
@@ -70874,17 +70880,8 @@ function LayoutWithMdx(props) {
   }, /*#__PURE__*/react.createElement(LayoutWithContext, props));
 }
 
-function MainAppBar(props) {
+function MainAppBar() {
   var _clsx;
-
-  var pageProps = props.props;
-  var pageContext = pageProps.pageContext;
-
-  var _ref3 = pageContext || {},
-      frontmatter = _ref3.frontmatter;
-
-  var _ref4 = frontmatter || {},
-      pageTitle = _ref4.pageTitle;
 
   var classes = layout_useStyles();
 
@@ -70957,23 +70954,23 @@ function LayoutWithContext(props) {
       path = pageProps.path,
       location = pageProps.location;
 
-  var _ref5 = pageContext || {},
-      frontmatter = _ref5.frontmatter;
+  var _ref3 = pageContext || {},
+      frontmatter = _ref3.frontmatter;
 
   var makeCodeTool = /tools\/makecode-/.test(path);
   var fullWidthTools = /^\/(tools\/(makecode-|vm-editor)|dashboard)/.test(path);
 
-  var _ref6 = frontmatter || {
+  var _ref4 = frontmatter || {
     hideMainMenu: makeCodeTool,
-    hideUnderConstruction: makeCodeTool,
+    hideUnderConstruction: makeCodeTool || fullWidthTools,
     hideBreadcrumbs: fullWidthTools
   },
-      _ref6$hideMainMenu = _ref6.hideMainMenu,
-      hideMainMenu = _ref6$hideMainMenu === void 0 ? false : _ref6$hideMainMenu,
-      _ref6$hideUnderConstr = _ref6.hideUnderConstruction,
-      hideUnderConstruction = _ref6$hideUnderConstr === void 0 ? false : _ref6$hideUnderConstr,
-      _ref6$hideBreadcrumbs = _ref6.hideBreadcrumbs,
-      hideBreadcrumbs = _ref6$hideBreadcrumbs === void 0 ? false : _ref6$hideBreadcrumbs;
+      _ref4$hideMainMenu = _ref4.hideMainMenu,
+      hideMainMenu = _ref4$hideMainMenu === void 0 ? false : _ref4$hideMainMenu,
+      _ref4$hideUnderConstr = _ref4.hideUnderConstruction,
+      hideUnderConstruction = _ref4$hideUnderConstr === void 0 ? false : _ref4$hideUnderConstr,
+      _ref4$hideBreadcrumbs = _ref4.hideBreadcrumbs,
+      hideBreadcrumbs = _ref4$hideBreadcrumbs === void 0 ? false : _ref4$hideBreadcrumbs;
 
   var classes = layout_useStyles();
 
@@ -70984,6 +70981,9 @@ function LayoutWithContext(props) {
       drawerType = _useContext6.drawerType,
       toolsMenu = _useContext6.toolsMenu;
 
+  var _useSnackbar = (0,notistack_esm/* useSnackbar */.Ds)(),
+      enqueueSnackbar = _useSnackbar.enqueueSnackbar;
+
   var drawerOpen = drawerType !== AppContext/* DrawerType.None */.jw.None;
 
   var _useMediaQueries = (0,useMediaQueries/* default */.Z)(),
@@ -70991,7 +70991,13 @@ function LayoutWithContext(props) {
 
   var container = !medium && !fullWidthTools; // && path !== "/"
 
-  var mainClasses = (0,clsx_m/* default */.Z)(classes.content, (_clsx2 = {}, _clsx2[classes.container] = container, _clsx2[classes.contentShift] = drawerOpen, _clsx2[classes.toolsContentShift] = toolsMenu, _clsx2));
+  var mainClasses = (0,clsx_m/* default */.Z)(classes.content, (_clsx2 = {}, _clsx2[classes.container] = container, _clsx2[classes.contentPadding] = !fullWidthTools, _clsx2[classes.contentShift] = drawerOpen, _clsx2[classes.toolsContentShift] = toolsMenu, _clsx2)); // show under construction warning
+
+  (0,react.useEffect)(function () {
+    if (!hideUnderConstruction) enqueueSnackbar("UNDER CONSTRUCTION - We are still working and changing the\n            Jacdac specification. Do not build devices using Jacdac.", {
+      variant: "warning"
+    });
+  }, []);
 
   var InnerMainSection = function InnerMainSection() {
     return /*#__PURE__*/react.createElement(react.Fragment, null, !hideUnderConstruction && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
@@ -70999,7 +71005,7 @@ function LayoutWithContext(props) {
       severity: "warning"
     }, "UNDER CONSTRUCTION - We are still working and changing the Jacdac specification. Do not build devices using Jacdac."), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(WebDiagnostics, null)), !hideBreadcrumbs && location && /*#__PURE__*/react.createElement(ui_Breadcrumbs_Breadcrumbs, {
       location: location
-    }), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    }), fullWidthTools ? element : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
       className: "markdown",
       component: "span"
     }, element));
@@ -81413,7 +81419,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));
   },
   "component---src-pages-dashboard-tsx": function componentSrcPagesDashboardTsx() {
-    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(3725), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
+    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(5493), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
   },
   "component---src-pages-devices-tsx": function componentSrcPagesDevicesTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-devices-tsx */ 8524).then(__webpack_require__.bind(__webpack_require__, 17673));
@@ -81482,7 +81488,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */ 6456).then(__webpack_require__.bind(__webpack_require__, 25900));
   },
   "component---src-pages-tools-makecode-sim-tsx": function componentSrcPagesToolsMakecodeSimTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(3725), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
+    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(5493), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
   },
   "component---src-pages-tools-mdx": function componentSrcPagesToolsMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));
@@ -81521,7 +81527,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(4841), __webpack_require__.e(3725), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 23189));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 79295));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86356,4 +86362,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-69b1d96444a548813f2d.js.map
+//# sourceMappingURL=app-2ed1d8e9470748e1e4c9.js.map
