@@ -6606,6 +6606,10 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
     }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
       fixedDarkMode: "dark"
     }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme, null, this.renderInlineField())))));
+  };
+
+  _proto.getText_ = function getText_() {
+    return "...";
   } // don't bind any mouse event
   ;
 
@@ -9834,4 +9838,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-72030b12ec826cc7ce67.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-630b6c5066764a74fd06.js.map
