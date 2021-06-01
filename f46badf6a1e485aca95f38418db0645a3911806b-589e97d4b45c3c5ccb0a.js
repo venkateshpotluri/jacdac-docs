@@ -6681,7 +6681,7 @@ function JDomTreeWidget() {
   if (!roleService || flyout) return null;
   return /*#__PURE__*/react.createElement("div", {
     style: {
-      minWidth: "16rem",
+      minWidth: "12rem",
       cursor: "inherit"
     },
     onPointerDown: onPointerStopPropagation,
@@ -7891,13 +7891,11 @@ function useToolbox(props) {
   };
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [commandsCategory, (servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
+    contents: [modulesCategory, (servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
       kind: "sep"
     }].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
       kind: "sep"
-    }, modulesCategory, {
-      kind: "sep"
-    }, logicCategory, mathCategory, variablesCategory, {
+    }, commandsCategory, logicCategory, mathCategory, variablesCategory, {
       kind: "sep"
     }]).filter(function (cat) {
       return !!cat;
@@ -9765,4 +9763,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-67c82563a391aa8025db.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-589e97d4b45c3c5ccb0a.js.map

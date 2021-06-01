@@ -2256,6 +2256,8 @@ function useVMRunner(roleManager, program, autoStart) {
     cancel: cancel
   };
 }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/rolemanager.ts
 
 
@@ -2271,6 +2273,7 @@ function rolemanager_createForOfIteratorHelperLoose(o, allowArrayLike) { var it;
 function rolemanager_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return rolemanager_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return rolemanager_arrayLikeToArray(o, minLen); }
 
 function rolemanager_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -2317,10 +2320,16 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   _proto.setRoles = function setRoles(newRoles) {
     var _this2 = this;
 
-    var roles = this.roles;
+    var roles = this.roles; // remove unknown roles
+
+    var supportedNewRoles = newRoles.filter(function (_ref) {
+      var serviceShortId = _ref.serviceShortId;
+      return (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+    });
     console.debug("set roles", {
       roles: roles,
-      newRoles: newRoles
+      newRoles: newRoles,
+      supportedNewRoles: supportedNewRoles
     }); // removed roles
 
     var _loop = function _loop() {
@@ -2347,7 +2356,7 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 
     };
 
-    for (var _iterator = rolemanager_createForOfIteratorHelperLoose(newRoles), _step; !(_step = _iterator()).done;) {
+    for (var _iterator = rolemanager_createForOfIteratorHelperLoose(supportedNewRoles), _step; !(_step = _iterator()).done;) {
       _loop();
     } // bound services
 
@@ -2409,6 +2418,8 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 
   _proto.addRoleService = function addRoleService(role, serviceShortId) {
     var _this5 = this;
+
+    if (!(0,spec/* serviceSpecificationFromName */.kB)(serviceShortId)) return; // unknown role type
 
     var binding = this._roles.find(function (r) {
       return r.role === role;
@@ -2597,4 +2608,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5c93c2afbda9d0b97d66.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8b66ae1220f4cbb1705e.js.map
