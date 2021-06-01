@@ -65098,8 +65098,8 @@ var ExpandLess = __webpack_require__(16993);
 var useDeviceSpecification = __webpack_require__(77423);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 6 modules
-var DashboardServiceWidget = __webpack_require__(11184);
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
+var DashboardServiceWidget = __webpack_require__(23069);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -65446,7 +65446,7 @@ function DashboardDevice(props) {
 
 /***/ }),
 
-/***/ 11184:
+/***/ 23069:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65493,18 +65493,8 @@ var useWidgetTheme = __webpack_require__(60650);
 var svgutils = __webpack_require__(92526);
 // EXTERNAL MODULE: ./src/components/hooks/useAnimationFrame.ts
 var useAnimationFrame = __webpack_require__(17368);
-;// CONCATENATED MODULE: ./src/components/hooks/useRegister.ts
-
-function useRegister(service, identifier) {
-  var _useState = (0,react.useState)(service === null || service === void 0 ? void 0 : service.register(identifier)),
-      register = _useState[0],
-      setRegister = _useState[1];
-
-  (0,react.useEffect)(function () {
-    return setRegister(service === null || service === void 0 ? void 0 : service.register(identifier));
-  }, [service, identifier]);
-  return register;
-}
+// EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
+var useRegister = __webpack_require__(82677);
 ;// CONCATENATED MODULE: ./src/components/hooks/useEvent.ts
 
 function useEvent(service, identifier) {
@@ -65537,7 +65527,7 @@ function DashboardButton(props) {
       pressed = _useState[0],
       setPressed = _useState[1];
 
-  var analogRegister = useRegister(service, constants/* ButtonReg.Analog */.CP7.Analog);
+  var analogRegister = (0,useRegister/* default */.Z)(service, constants/* ButtonReg.Analog */.CP7.Analog);
   var analog = (0,useRegisterValue/* useRegisterBoolValue */.I8)(analogRegister); // don't track reading, use events only
 
   var downEvent = useEvent(service, constants/* ButtonEvent.Down */.XKP.Down);
@@ -65750,11 +65740,11 @@ function useActualAngle(service, visible) {
 function DashboardServo(props) {
   var service = props.service,
       visible = props.visible;
-  var enabledRegister = useRegister(service, constants/* ServoReg.Enabled */.pmu.Enabled);
+  var enabledRegister = (0,useRegister/* default */.Z)(service, constants/* ServoReg.Enabled */.pmu.Enabled);
   var enabled = (0,useRegisterValue/* useRegisterBoolValue */.I8)(enabledRegister, props);
-  var angleRegister = useRegister(service, constants/* ServoReg.Angle */.pmu.Angle);
+  var angleRegister = (0,useRegister/* default */.Z)(service, constants/* ServoReg.Angle */.pmu.Angle);
   var angle = useActualAngle(service, visible);
-  var offsetRegister = useRegister(service, constants/* ServoReg.Offset */.pmu.Offset);
+  var offsetRegister = (0,useRegister/* default */.Z)(service, constants/* ServoReg.Offset */.pmu.Offset);
 
   var _useRegisterUnpackedV3 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(offsetRegister, props),
       offset = _useRegisterUnpackedV3[0];
@@ -69111,6 +69101,28 @@ function useMounted() {
 
 /***/ }),
 
+/***/ 82677:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useRegister; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+function useRegister(service, identifier) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(service === null || service === void 0 ? void 0 : service.register(identifier)),
+      register = _useState[0],
+      setRegister = _useState[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return setRegister(service === null || service === void 0 ? void 0 : service.register(identifier));
+  }, [service, identifier]);
+  return register;
+}
+
+/***/ }),
+
 /***/ 63793:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -70209,7 +70221,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "9c26731b53385c3cfb9217942512e9bf695eee61";
+  var sha = "e5c10bc2ab65eb040e3adabacbaaf1fa5500d47e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86344,4 +86356,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-301c0f940701abde44d1.js.map
+//# sourceMappingURL=app-02c6323936a9e45f63f9.js.map

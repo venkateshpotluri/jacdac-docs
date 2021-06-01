@@ -1058,7 +1058,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(80838);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
 /* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37801);
-/* harmony import */ var _components_dashboard_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11184);
+/* harmony import */ var _components_dashboard_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23069);
 /* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13173);
 /* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(38037);
 /* harmony import */ var _material_ui_icons_ExpandMore__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(47739);
@@ -1257,4 +1257,4 @@ function ReleaseAssets() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-release-assets-tsx-4b9d76380b7a8a98be35.js.map
+//# sourceMappingURL=component---src-pages-tools-release-assets-tsx-a7d4846558580eac28e4.js.map

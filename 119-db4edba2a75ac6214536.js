@@ -56,34 +56,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 58504:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-}), 'Launch');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 21151:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -828,8 +800,6 @@ var constants = __webpack_require__(71815);
 var useEventRaised = __webpack_require__(28417);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
-var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./src/components/devices/useDeviceName.ts
 var useDeviceName = __webpack_require__(5738);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
@@ -1382,14 +1352,12 @@ function StyledTreeItem(props) {
     }
   }, other));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Launch.js
-var Launch = __webpack_require__(58504);
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__(53074);
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
+// EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
+var useRegister = __webpack_require__(82677);
 ;// CONCATENATED MODULE: ./src/components/tools/JDomTreeView.tsx
 
 
@@ -1412,9 +1380,7 @@ var useMediaQueries = __webpack_require__(20509);
 
 
 
-
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
 
 
 
@@ -1425,11 +1391,13 @@ function DeviceTreeItem(props) {
       serviceFilter = props.serviceFilter,
       other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["device", "serviceFilter"]);
 
-  var id = device.id;
+  var _useMemo = (0,react.useMemo)(function () {
+    return device;
+  }, [device]),
+      id = _useMemo.id,
+      physical = _useMemo.physical;
+
   var name = (0,useDeviceName/* default */.Z)(device, true);
-  var physical = (0,useChange/* default */.Z)(device, function (d) {
-    return d.physical;
-  });
   var kind = physical ? "device" : "virtualdevice";
   var lost = (0,useEventRaised/* default */.Z)([constants/* LOST */.XWw, constants/* FOUND */.a6y], device, function (dev) {
     return !!(dev !== null && dev !== void 0 && dev.lost);
@@ -1498,11 +1466,15 @@ function ServiceTreeItem(props) {
       eventFilter = props.eventFilter,
       other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["service", "registerFilter", "eventFilter"]);
 
-  var specification = service.specification,
-      mixins = service.mixins,
-      isMixin = service.isMixin;
-  var showSpecificationAction = false;
-  var id = service.id;
+  var _useMemo2 = (0,react.useMemo)(function () {
+    return service;
+  }, [service]),
+      specification = _useMemo2.specification,
+      mixins = _useMemo2.mixins,
+      isMixin = _useMemo2.isMixin,
+      name = _useMemo2.name,
+      id = _useMemo2.id;
+
   var packets = specification === null || specification === void 0 ? void 0 : specification.packets;
   var registers = packets === null || packets === void 0 ? void 0 : packets.filter(spec/* isRegister */.x5).map(function (info) {
     return service.register(info.identifier);
@@ -1516,40 +1488,19 @@ function ServiceTreeItem(props) {
   }).filter(function (ev) {
     return !eventFilter || eventFilter(ev);
   });
+  var instanceNameRegister = (0,useRegister/* default */.Z)(service, constants/* BaseReg.InstanceName */.vCn.InstanceName);
 
-  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* BaseReg.InstanceName */.vCn.InstanceName)),
+  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(instanceNameRegister),
       instanceName = _useRegisterUnpackedV[0];
 
-  var readingRegister = service.readingRegister;
+  var readingRegister = (0,useRegister/* default */.Z)(service, constants/* SystemReg.Reading */.ZJq.Reading);
   var reading = (0,useRegisterValue/* useRegisterHumanValue */.e_)(readingRegister);
-  var name = service.name + (instanceName ? " " + instanceName : "");
-
-  var _useMediaQueries2 = (0,useMediaQueries/* default */.Z)(),
-      mobile = _useMediaQueries2.mobile;
-
-  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
-      setDrawerType = _useContext.setDrawerType;
-
-  var handleSpecClick = function handleSpecClick() {
-    console.log("spec click", {
-      mobile: mobile
-    });
-    if (mobile) setDrawerType(AppContext/* DrawerType.None */.jw.None);
-  };
-
+  var labelText = name + (instanceName ? " " + instanceName : "");
   return /*#__PURE__*/react.createElement(StyledTreeItem, {
     nodeId: id,
-    labelText: name,
+    labelText: labelText,
     labelInfo: reading,
-    kind: isMixin ? constants/* SERVICE_MIXIN_NODE_NAME */.mLn : constants/* SERVICE_NODE_NAME */.M_U,
-    actions: showSpecificationAction ? /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
-      color: "inherit",
-      to: "/services/" + specification.shortId + "/",
-      "aria-label": "Open specification",
-      onClick: handleSpecClick
-    }, /*#__PURE__*/react.createElement(Launch/* default */.Z, {
-      fontSize: "small"
-    })) : undefined
+    kind: isMixin ? constants/* SERVICE_MIXIN_NODE_NAME */.mLn : constants/* SERVICE_NODE_NAME */.M_U
   }, registers === null || registers === void 0 ? void 0 : registers.map(function (register) {
     return /*#__PURE__*/react.createElement(RegisterTreeItem, Object.assign({
       key: register.id,
@@ -1570,24 +1521,27 @@ function ServiceTreeItem(props) {
 
 function RegisterTreeItem(props) {
   var register = props.register;
-  var specification = register.specification,
-      id = register.id;
 
-  var _useState = (0,react.useState)(register.lastGetAttempts),
+  var _useMemo3 = (0,react.useMemo)(function () {
+    return register;
+  }, [register]),
+      specification = _useMemo3.specification,
+      id = _useMemo3.id,
+      lastGetAttempts = _useMemo3.lastGetAttempts;
+
+  var _useState = (0,react.useState)(lastGetAttempts),
       attempts = _useState[0],
       setAttempts = _useState[1];
 
   var optional = !!(specification !== null && specification !== void 0 && specification.optional);
   var failedGet = attempts > 2;
-  var labelText = "" + ((specification === null || specification === void 0 ? void 0 : specification.name) || register.id) + (optional ? "?" : "");
+  var labelText = "" + ((specification === null || specification === void 0 ? void 0 : specification.name) || id) + (optional ? "?" : "");
   var humanValue = (0,useRegisterValue/* useRegisterHumanValue */.e_)(register, {
     visible: true
   });
-
-  var handleClick = function handleClick() {
+  var handleClick = (0,react.useCallback)(function () {
     return register.sendGetAsync();
-  };
-
+  }, [register]);
   (0,react.useEffect)(function () {
     return register === null || register === void 0 ? void 0 : register.subscribe(constants/* GET_ATTEMPT */.tDM, function () {
       setAttempts(register.lastGetAttempts);
@@ -1735,4 +1689,4 @@ function useEventRaised(eventName, node, query) {
 /***/ })
 
 }]);
-//# sourceMappingURL=119-95d84569f8efdab27e07.js.map
+//# sourceMappingURL=119-db4edba2a75ac6214536.js.map
