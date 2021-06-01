@@ -145,7 +145,7 @@ function MDXContent(_ref) {
   }, "jacdac"), " into your html page directly.\nThis will load the ES6 build of the library."), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("pre", null, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("code", {
     parentName: "pre",
     "className": "language-html"
-  }, "<script src=\"https://cdn.jsdelivr.net/npm/jacdac-ts@VERSION\"></script>\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "where ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("inlineCode", {
+  }, "<script src=\"https://unpkg.com/jacdac-ts@VERSION/dist/jacdac.js\"></script>\n")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("p", null, "where ", (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("inlineCode", {
     parentName: "p"
   }, "@VERSION"), " is the desired version. "));
 }
@@ -172,4 +172,4 @@ var Page = function Page(_ref) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-clients-javascript-mdx-6b434e8ecdb0717d6377.js.map
+//# sourceMappingURL=component---src-pages-clients-javascript-mdx-b22ceeae6380b71f181b.js.map
