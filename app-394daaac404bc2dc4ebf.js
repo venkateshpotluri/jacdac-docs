@@ -55737,6 +55737,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Dg": function() { return /* binding */ PromiseBuffer; },
 /* harmony export */   "bo": function() { return /* binding */ PromiseQueue; },
 /* harmony export */   "b": function() { return /* binding */ rgbToHtmlColor; },
+/* harmony export */   "$3": function() { return /* binding */ toFullHex; },
 /* harmony export */   "NC": function() { return /* binding */ toHex; },
 /* harmony export */   "H_": function() { return /* binding */ fromHex; },
 /* harmony export */   "DM": function() { return /* binding */ isSet; },
@@ -55774,7 +55775,7 @@ var JDTransport = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "ei": function() { return /* binding */ pick; },
 /* harmony export */   "ap": function() { return /* binding */ splitFilter; }
 /* harmony export */ });
-/* unused harmony exports isAckError, fnv1, toFullHex, decodeU32LE, jsonCopyFrom, flatClone, range */
+/* unused harmony exports isAckError, fnv1, decodeU32LE, jsonCopyFrom, flatClone, range */
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -69060,7 +69061,7 @@ function useFireKey(handler) {
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59355);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8129);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37404);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13886);
 
 
 function useMediaQueries() {
@@ -69386,7 +69387,7 @@ function TransportIcon(props) {
 
 /***/ }),
 
-/***/ 37404:
+/***/ 13886:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70221,7 +70222,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "56766062ce9a6c24b68d7a704174cff4fe118f16";
+  var sha = "69ef255ec09e2c82e8b7aff89636e362e0dbce88";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -70666,6 +70667,88 @@ var Forum = __webpack_require__(22203);
 var providerbus = __webpack_require__(1721);
 // EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
 var notistack_esm = __webpack_require__(70076);
+;// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/useScrollTrigger/useScrollTrigger.js
+
+
+
+
+function defaultTrigger(store, options) {
+  var _options$disableHyste = options.disableHysteresis,
+      disableHysteresis = _options$disableHyste === void 0 ? false : _options$disableHyste,
+      _options$threshold = options.threshold,
+      threshold = _options$threshold === void 0 ? 100 : _options$threshold,
+      target = options.target;
+  var previous = store.current;
+
+  if (target) {
+    // Get vertical scroll
+    store.current = target.pageYOffset !== undefined ? target.pageYOffset : target.scrollTop;
+  }
+
+  if (!disableHysteresis && previous !== undefined) {
+    if (store.current < previous) {
+      return false;
+    }
+  }
+
+  return store.current > threshold;
+}
+
+var defaultTarget = typeof window !== 'undefined' ? window : null;
+function useScrollTrigger() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var _options$getTrigger = options.getTrigger,
+      getTrigger = _options$getTrigger === void 0 ? defaultTrigger : _options$getTrigger,
+      _options$target = options.target,
+      target = _options$target === void 0 ? defaultTarget : _options$target,
+      other = (0,objectWithoutProperties/* default */.Z)(options, ["getTrigger", "target"]);
+
+  var store = react.useRef();
+
+  var _React$useState = react.useState(function () {
+    return getTrigger(store, other);
+  }),
+      trigger = _React$useState[0],
+      setTrigger = _React$useState[1];
+
+  react.useEffect(function () {
+    var handleScroll = function handleScroll() {
+      setTrigger(getTrigger(store, (0,esm_extends/* default */.Z)({
+        target: target
+      }, other)));
+    };
+
+    handleScroll(); // Re-evaluate trigger when dependencies change
+
+    target.addEventListener('scroll', handleScroll);
+    return function () {
+      target.removeEventListener('scroll', handleScroll);
+    }; // See Option 3. https://github.com/facebook/react/issues/14476#issuecomment-471199055
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target, getTrigger, JSON.stringify(other)]);
+  return trigger;
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slide/Slide.js
+var Slide = __webpack_require__(60577);
+;// CONCATENATED MODULE: ./src/components/ui/HideOnScroll.tsx
+
+
+function HideOnScroll(props) {
+  var children = props.children,
+      window = props.window; // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+
+  var trigger = useScrollTrigger({
+    target: window ? window() : undefined
+  });
+  return /*#__PURE__*/react.createElement(Slide/* default */.Z, {
+    appear: false,
+    direction: "down",
+    in: !trigger
+  }, children);
+}
 ;// CONCATENATED MODULE: ./src/components/layout.tsx
 
 
@@ -70688,6 +70771,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -70902,7 +70986,7 @@ function MainAppBar() {
 
   return /*#__PURE__*/react.createElement(Box/* default */.Z, {
     displayPrint: "none"
-  }, /*#__PURE__*/react.createElement(AppBar_AppBar, {
+  }, /*#__PURE__*/react.createElement(HideOnScroll, null, /*#__PURE__*/react.createElement(AppBar_AppBar, {
     position: "fixed",
     color: appBarColor,
     className: (0,clsx_m/* default */.Z)(classes.appBar, (_clsx = {}, _clsx[classes.tocBarShift] = drawerType === AppContext/* DrawerType.Toc */.jw.Toc, _clsx[classes.appBarShift] = drawerOpen && drawerType !== AppContext/* DrawerType.Toc */.jw.Toc, _clsx[classes.toolBarShift] = toolsMenu, _clsx))
@@ -70942,7 +71026,7 @@ function MainAppBar() {
     edge: "start",
     color: "inherit",
     onClick: toggleToolsMenu
-  }, /*#__PURE__*/react.createElement(MoreVert/* default */.Z, null)))));
+  }, /*#__PURE__*/react.createElement(MoreVert/* default */.Z, null))))));
 }
 
 function LayoutWithContext(props) {
@@ -71023,7 +71107,7 @@ function LayoutWithContext(props) {
     className: (0,clsx_m/* default */.Z)(darkMode, classes.root)
   }, /*#__PURE__*/react.createElement("header", null, /*#__PURE__*/react.createElement(seo, {
     lang: "en"
-  })), !hideMainMenu && /*#__PURE__*/react.createElement("nav", null, /*#__PURE__*/react.createElement(MainAppBar, props), drawerType !== AppContext/* DrawerType.None */.jw.None && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(AppDrawer, {
+  })), !hideMainMenu && /*#__PURE__*/react.createElement("nav", null, /*#__PURE__*/react.createElement(MainAppBar, null), drawerType !== AppContext/* DrawerType.None */.jw.None && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(AppDrawer, {
     pagePath: path
   })), toolsMenu && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ToolsDrawer, null))), container ? /*#__PURE__*/react.createElement(Container_Container, {
     maxWidth: "xl",
@@ -83912,7 +83996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "onServiceWorkerUpdateReady": function() { return /* binding */ onServiceWorkerUpdateReady; },
 /* harmony export */   "wrapPageElement": function() { return /* binding */ wrapPageElement; }
 /* harmony export */ });
-/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(37404);
+/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13886);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
 
@@ -86362,4 +86446,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-2ed1d8e9470748e1e4c9.js.map
+//# sourceMappingURL=app-394daaac404bc2dc4ebf.js.map

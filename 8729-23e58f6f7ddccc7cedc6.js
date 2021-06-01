@@ -252,8 +252,8 @@ var Divider = __webpack_require__(62846);
 var Suspense = __webpack_require__(69672);
 // EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
 var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./src/components/layout.tsx + 19 modules
-var layout = __webpack_require__(37404);
+// EXTERNAL MODULE: ./src/components/layout.tsx + 21 modules
+var layout = __webpack_require__(13886);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/ChevronLeft.js
 var ChevronLeft = __webpack_require__(80460);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -756,4 +756,4 @@ function ConnectAlert(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-9134d9d0c25a5245ea92.js.map
+//# sourceMappingURL=8729-23e58f6f7ddccc7cedc6.js.map
