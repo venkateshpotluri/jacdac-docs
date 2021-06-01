@@ -347,19 +347,23 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
 var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(VMEnvironment, _JDEventSource);
 
-  function VMEnvironment() {
+  function VMEnvironment(registers, events) {
     var _this2;
 
     _this2 = _JDEventSource.call(this) || this;
     _this2._currentEvent = undefined;
     _this2._envs = {};
     _this2._locals = {};
+    _this2.registers = registers;
+    _this2.events = events;
     return _this2;
   }
 
   var _proto2 = VMEnvironment.prototype;
 
   _proto2.serviceChanged = function serviceChanged(role, service) {
+    var _this3 = this;
+
     if (this._envs[role]) {
       this._envs[role].unmount();
 
@@ -368,31 +372,41 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
     if (service) {
       this._envs[role] = new VMServiceEnvironment(service);
-    }
-  };
-
-  _proto2.registerRegister = function registerRegister(role, reg) {
-    var _this3 = this;
-
-    var serviceEnv = this.getService(role);
-
-    if (serviceEnv) {
-      serviceEnv.registerRegister(reg, function () {
-        _this3.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+      this.registers.forEach(function (r) {
+        if (r.role === role) {
+          _this3.registerRegister(role, r.register);
+        }
+      });
+      this.events.forEach(function (e) {
+        if (e.role === role) {
+          _this3.registerEvent(role, e.event);
+        }
       });
     }
   };
 
-  _proto2.registerEvent = function registerEvent(role, ev) {
+  _proto2.registerRegister = function registerRegister(role, reg) {
     var _this4 = this;
 
     var serviceEnv = this.getService(role);
 
     if (serviceEnv) {
-      serviceEnv.registerEvent(ev, function () {
-        _this4._currentEvent = role + "." + ev;
-
+      serviceEnv.registerRegister(reg, function () {
         _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+      });
+    }
+  };
+
+  _proto2.registerEvent = function registerEvent(role, ev) {
+    var _this5 = this;
+
+    var serviceEnv = this.getService(role);
+
+    if (serviceEnv) {
+      serviceEnv.registerEvent(ev, function () {
+        _this5._currentEvent = role + "." + ev;
+
+        _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     }
   };
@@ -2064,7 +2078,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
     } // data structures for running program
 
 
-    _this4._env = new environment/* VMEnvironment */.u();
+    _this4._env = new environment/* VMEnvironment */.u(registers, events);
     _this4._handlers = _this4._program.handlers.map(function (h, index) {
       return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
     });
@@ -2086,19 +2100,9 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
 
       if (service) {
         _this4._env.serviceChanged(role, service);
-
-        registers.forEach(function (r) {
-          if (r.role === role) {
-            _this4._env.registerRegister(role, r.register);
-          }
-        });
-        events.forEach(function (e) {
-          if (e.role === role) {
-            _this4._env.registerEvent(role, e.event);
-          }
-        });
       }
-    };
+    }; // initialize
+
 
     _this4.roleManager.roles.forEach(function (r) {
       addRoleService(r.role);
@@ -2840,4 +2844,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-22af2fa46800d34455a4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-93d49fc5b7deccf7442f.js.map
