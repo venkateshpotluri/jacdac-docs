@@ -48482,7 +48482,11 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
 
   _proto.specResolve = function specResolve(e) {
     if (this.spec) {
-      return [this.spec.shortName, this.spec, e];
+      return {
+        role: this.spec.shortName,
+        spec: this.spec,
+        rest: e
+      };
     } // otherwise, we must have a memberexpression at top-level
     // where the object references a role variable or specification shortName
 
@@ -48497,7 +48501,11 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
         this.error("no specification found for " + obj.name);
       }
 
-      return [obj.name, this.role2spec(obj.name), e.property];
+      return {
+        role: obj.name,
+        spec: this.role2spec(obj.name),
+        rest: e.property
+      };
     }
   };
 
@@ -48524,9 +48532,9 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
     var _spec$packets;
 
     var _this$specResolve = this.specResolve(e),
-        role = _this$specResolve[0],
-        spec = _this$specResolve[1],
-        rest = _this$specResolve[2];
+        role = _this$specResolve.role,
+        spec = _this$specResolve.spec,
+        rest = _this$specResolve.rest;
 
     var _this$destructAccessP = this.destructAccessPath(rest, true),
         id = _this$destructAccessP[0],
@@ -48551,9 +48559,9 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
 
   _proto.lookupRegister = function lookupRegister(e) {
     var _this$specResolve2 = this.specResolve(e),
-        role = _this$specResolve2[0],
-        spec = _this$specResolve2[1],
-        rest = _this$specResolve2[2];
+        role = _this$specResolve2.role,
+        spec = _this$specResolve2.spec,
+        rest = _this$specResolve2.rest;
 
     var _this$destructAccessP2 = this.destructAccessPath(rest),
         root = _this$destructAccessP2[0],
@@ -48592,9 +48600,9 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
 
   _proto.lookup = function lookup(events, parent, child) {
     var _this$specResolve3 = this.specResolve(child),
-        role = _this$specResolve3[0],
-        spec = _this$specResolve3[1],
-        rest = _this$specResolve3[2];
+        role = _this$specResolve3.role,
+        spec = _this$specResolve3.spec,
+        rest = _this$specResolve3.rest;
 
     var _this$destructAccessP3 = this.destructAccessPath(rest),
         root = _this$destructAccessP3[0],
@@ -48615,16 +48623,20 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
         if (this.registers.indexOf(reg) < 0) this.registers.push(reg);
       }
     } catch (e) {
-      if (events.length > 0) {
-        var pkt = events.find(function (pkt) {
-          return pkt.name === root;
+      var pkt = undefined;
+      if (events.length) pkt = events.find(function (pkt) {
+        return pkt.name === root;
+      });else {
+        var _spec$packets2;
+
+        // we need a fully qualified name
+        pkt = (_spec$packets2 = spec.packets) === null || _spec$packets2 === void 0 ? void 0 : _spec$packets2.find(function (p) {
+          return p.kind === "event" && p.name === root;
         });
-        if (!pkt) this.error("event " + root + " not bound correctly");else if (!fld && pkt.fields.length > 0) this.error("event " + root + " has fields, but no field specified");else if (fld && !pkt.fields.find(function (f) {
-          return f.name === fld;
-        })) this.error("Field " + fld + " of event " + root + " not found in specification");
-      } else {
-        this.error(e.message);
       }
+      if (!pkt) this.error("event " + root + " not bound correctly");else if (!fld && pkt.fields.length > 0) this.error("event " + root + " has fields, but no field specified");else if (fld && !pkt.fields.find(function (f) {
+        return f.name === fld;
+      })) this.error("Field " + fld + " of event " + root + " not found in specification");
     }
   };
 
@@ -48662,9 +48674,9 @@ var IT4Checker = /*#__PURE__*/function () {
     if (cmdIndex < 0) {
       if (root.callee.type === "MemberExpression") {
         var _this$resolver$specRe = this.resolver.specResolve(root.callee),
-            _role = _this$resolver$specRe[0],
-            _spec = _this$resolver$specRe[1],
-            rest = _this$resolver$specRe[2];
+            _role = _this$resolver$specRe.role,
+            _spec = _this$resolver$specRe.spec,
+            rest = _this$resolver$specRe.rest;
 
         var _this$resolver$destru = this.resolver.destructAccessPath(rest),
             command = _this$resolver$destru[0],
@@ -48674,10 +48686,10 @@ var IT4Checker = /*#__PURE__*/function () {
           this.error("command does not conform to expected call expression");
           return undefined;
         } else {
-          var _spec$packets2;
+          var _spec$packets3;
 
           // we have a spec, now look for command
-          var commands = (_spec$packets2 = _spec.packets) === null || _spec$packets2 === void 0 ? void 0 : _spec$packets2.filter(function (pkt) {
+          var commands = (_spec$packets3 = _spec.packets) === null || _spec$packets3 === void 0 ? void 0 : _spec$packets3.filter(function (pkt) {
             return pkt.kind === "command";
           });
           theCommand = commands.find(function (c) {
@@ -48812,7 +48824,7 @@ var IT4Checker = /*#__PURE__*/function () {
         _this4.resolver.lookupReplace(eventSymTable, p, c);
       } else if (c.type === "ArrayExpression") {
         _this4.error("array expression not allowed in this context");
-      } else if (c.type === "MemberExpression") {
+      } else if (p.type !== "MemberExpression" && c.type === "MemberExpression") {
         var member = c; // A member expression must be of form <Identifier>.<memberExpression|Identifier>
 
         if (member.object.type !== "Identifier" || member.computed) {
@@ -70229,7 +70241,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "0166da5adf46b910aacb5ce99be166daf94fba7d";
+  var sha = "5a05a82d9317507db30fe406f3ac07acb7e47c2e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86453,4 +86465,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-3d8495af84586b7466bc.js.map
+//# sourceMappingURL=app-de0fd4f8146b9fbe2d58.js.map

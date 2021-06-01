@@ -5031,25 +5031,28 @@ function checkProgram(prog) {
   });
   prog.handlers = goodHandlers;
   prog.errors = allErrors;
-  return [symbolResolver.registers.map(function (s) {
-    var _s$split = s.split("."),
-        root = _s$split[0],
-        fld = _s$split[1];
+  return {
+    registers: symbolResolver.registers.map(function (s) {
+      var _s$split = s.split("."),
+          root = _s$split[0],
+          fld = _s$split[1];
 
-    return {
-      role: root,
-      register: fld
-    };
-  }), symbolResolver.events.map(function (e) {
-    var _e$split = e.split("."),
-        root = _e$split[0],
-        fld = _e$split[1];
+      return {
+        role: root,
+        register: fld
+      };
+    }),
+    events: symbolResolver.events.map(function (e) {
+      var _e$split = e.split("."),
+          root = _e$split[0],
+          fld = _e$split[1];
 
-    return {
-      role: root,
-      event: fld
-    };
-  })];
+      return {
+        role: root,
+        event: fld
+      };
+    })
+  };
 }
 var IT4Functions = [{
   id: "label",
@@ -9807,4 +9810,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-2534889dd616834eb78b.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d5c074f098ad3860a85c.js.map

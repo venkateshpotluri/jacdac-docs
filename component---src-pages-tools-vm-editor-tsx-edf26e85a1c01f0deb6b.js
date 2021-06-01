@@ -359,14 +359,14 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
   var _proto2 = VMEnvironment.prototype;
 
-  _proto2.serviceChanged = function serviceChanged(role, service, added) {
+  _proto2.serviceChanged = function serviceChanged(role, service) {
     if (this._envs[role]) {
       this._envs[role].unmount();
 
       this._envs[role] = undefined;
     }
 
-    if (added) {
+    if (service) {
       this._envs[role] = new VMServiceEnvironment(service);
     }
   };
@@ -507,13 +507,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     var me = e;
-
-    if (serviceEnv && me.property.type === "Identifier") {
-      var reg = me.property.name;
-      return serviceEnv.lookup(reg);
-    }
-
-    return undefined;
+    return serviceEnv.lookup(me.property);
   };
 
   _proto2.writeRegisterAsync = /*#__PURE__*/function () {
@@ -790,6 +784,10 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           var top = this.exprStack.pop();
 
           switch (ue.operator) {
+            case "ABS":
+              this.exprStack.push(Math.abs(top));
+              return;
+
             case "!":
               this.exprStack.push(!top);
               return;
@@ -835,7 +833,11 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
-          if (val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + unparse(e) + " failed");
+
+          if (val === undefined) {
+            throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + unparse(e) + " failed");
+          }
+
           this.exprStack.push(val);
           return;
         }
@@ -2054,47 +2056,19 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this4._program = (0,ir/* compileProgram */.IJ)(prog);
 
     var _checkProgram = (0,ir/* checkProgram */.i_)(_this4._program),
-        regs = _checkProgram[0],
-        events = _checkProgram[1];
+        registers = _checkProgram.registers,
+        events = _checkProgram.events;
 
     if (_this4._program.errors.length > 0) {
       console.debug(_this4._program.errors);
-    }
+    } // data structures for running program
 
-    _this4.mount(_this4.roleManager.subscribe(utils/* ROLE_BOUND */.l9, function (role) {
-      console.log("role added", {
-        role: role
-      });
-
-      var service = _this4.roleManager.getService(role);
-
-      _this4._env.serviceChanged(role, service, true);
-
-      _this4._program.handlers.forEach(function (h) {
-        regs.forEach(function (r) {
-          if (r.role === role) {
-            _this4._env.registerRegister(role, r.register);
-          }
-        });
-        events.forEach(function (e) {
-          if (e.role === role) {
-            _this4._env.registerEvent(role, e.event);
-          }
-        });
-      });
-    }));
-
-    _this4.mount(_this4.roleManager.subscribe(utils/* ROLE_UNBOUND */.CC, function (role) {
-      console.log("role removed", {
-        role: role
-      });
-
-      var service = _this4.roleManager.getService(role);
-
-      _this4._env.serviceChanged(role, service, false);
-    }));
 
     _this4._env = new environment/* VMEnvironment */.u();
+    _this4._handlers = _this4._program.handlers.map(function (h, index) {
+      return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
+    });
+    _this4._waitQueue = _this4._handlers.slice(0); // run on any change to environment
 
     _this4._env.subscribe(constants/* CHANGE */.Ver, function () {
       try {
@@ -2104,12 +2078,48 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
 
         _this4.emit(constants/* ERROR */.pnR, e);
       }
-    });
+    }); // adding a (role,service) binding 
 
-    _this4._handlers = _this4._program.handlers.map(function (h, index) {
-      return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
-    });
-    _this4._waitQueue = _this4._handlers.slice(0);
+
+    var addRoleService = function addRoleService(role) {
+      var service = _this4.roleManager.getService(role);
+
+      if (service) {
+        _this4._env.serviceChanged(role, service);
+
+        registers.forEach(function (r) {
+          if (r.role === role) {
+            _this4._env.registerRegister(role, r.register);
+          }
+        });
+        events.forEach(function (e) {
+          if (e.role === role) {
+            _this4._env.registerEvent(role, e.event);
+          }
+        });
+      }
+    };
+
+    _this4.roleManager.roles.forEach(function (r) {
+      addRoleService(r.role);
+    }); // deal with bind/unbind
+
+
+    _this4.mount(_this4.roleManager.subscribe(utils/* ROLE_BOUND */.l9, function (role) {
+      console.log("role added", {
+        role: role
+      });
+      addRoleService(role);
+    }));
+
+    _this4.mount(_this4.roleManager.subscribe(utils/* ROLE_UNBOUND */.CC, function (role) {
+      console.log("role removed", {
+        role: role
+      });
+
+      _this4._env.serviceChanged(role, undefined);
+    }));
+
     return _this4;
   }
 
@@ -2827,4 +2837,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-26a72e4274bdfe3d32d3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-edf26e85a1c01f0deb6b.js.map

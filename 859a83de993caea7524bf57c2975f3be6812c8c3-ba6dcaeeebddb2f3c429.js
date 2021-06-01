@@ -615,14 +615,14 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
   var _proto2 = VMEnvironment.prototype;
 
-  _proto2.serviceChanged = function serviceChanged(role, service, added) {
+  _proto2.serviceChanged = function serviceChanged(role, service) {
     if (this._envs[role]) {
       this._envs[role].unmount();
 
       this._envs[role] = undefined;
     }
 
-    if (added) {
+    if (service) {
       this._envs[role] = new VMServiceEnvironment(service);
     }
   };
@@ -763,13 +763,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     var me = e;
-
-    if (serviceEnv && me.property.type === "Identifier") {
-      var reg = me.property.name;
-      return serviceEnv.lookup(reg);
-    }
-
-    return undefined;
+    return serviceEnv.lookup(me.property);
   };
 
   _proto2.writeRegisterAsync = /*#__PURE__*/function () {
@@ -1046,6 +1040,10 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           var top = this.exprStack.pop();
 
           switch (ue.operator) {
+            case "ABS":
+              this.exprStack.push(Math.abs(top));
+              return;
+
             case "!":
               this.exprStack.push(!top);
               return;
@@ -1091,7 +1089,11 @@ var JDExprEvaluator = /*#__PURE__*/function () {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
           var val = this.env(e);
-          if (val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + unparse(e) + " failed");
+
+          if (val === undefined) {
+            throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .JDVMError */ .D1("lookup of " + unparse(e) + " failed");
+          }
+
           this.exprStack.push(val);
           return;
         }
@@ -2743,4 +2745,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-1482adab66f3dcd0be76.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-ba6dcaeeebddb2f3c429.js.map
