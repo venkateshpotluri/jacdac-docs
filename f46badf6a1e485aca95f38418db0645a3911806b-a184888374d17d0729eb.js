@@ -5400,7 +5400,7 @@ var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
 var jdspec = __webpack_require__(13996);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
+var jdom_spec = __webpack_require__(13173);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/hooks/useServices.ts
@@ -5506,7 +5506,10 @@ function ValueProvider(props) {
 }
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__(54774);
 ;// CONCATENATED MODULE: ./src/components/vm/WorkspaceContext.tsx
+
 
 
 
@@ -5551,6 +5554,7 @@ var WorkspaceContext = /*#__PURE__*/(0,react.createContext)({
   flyout: false,
   services: undefined,
   role: undefined,
+  roleServiceShortId: undefined,
   roleService: undefined
 });
 WorkspaceContext.displayName = "Workspace";
@@ -5600,6 +5604,14 @@ function WorkspaceProvider(props) {
       roleService = _useState3[0],
       setRoleService = _useState3[1];
 
+  var roleServiceShortId = (0,useChange/* default */.Z)(roleManager, function (_) {
+    var _$roles$find;
+
+    return _ === null || _ === void 0 ? void 0 : (_$roles$find = _.roles.find(function (r) {
+      return r.role === role;
+    })) === null || _$roles$find === void 0 ? void 0 : _$roles$find.serviceShortId;
+  });
+
   var _useState4 = (0,react.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
       flyout = _useState4[0],
       setFlyout = _useState4[1]; // resolve role
@@ -5630,6 +5642,7 @@ function WorkspaceProvider(props) {
       value: {
         services: services,
         role: role,
+        roleServiceShortId: roleServiceShortId,
         roleService: roleService,
         flyout: flyout
       }
@@ -6553,6 +6566,8 @@ var Add = __webpack_require__(88880);
 var servers = __webpack_require__(37801);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
+var Alert = __webpack_require__(6809);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/NoServiceAlert.tsx
 
 
@@ -6560,27 +6575,37 @@ var Context = __webpack_require__(20392);
 
 
 
-function NoServiceAlert(props) {
-  var serviceClass = props.serviceClass;
 
+
+function NoServiceAlert() {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
   var _useContext2 = (0,react.useContext)(vm_WorkspaceContext),
       roleService = _useContext2.roleService,
+      roleServiceShortId = _useContext2.roleServiceShortId,
       flyout = _useContext2.flyout;
 
-  var handleStartSimulator = function handleStartSimulator() {
-    return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
-  };
+  var spec = (0,jdom_spec/* serviceSpecificationFromName */.kB)(roleServiceShortId);
 
-  if (roleService || flyout) return null;
+  var handleStartSimulator = function handleStartSimulator() {
+    return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, spec.classIdentifier);
+  }; // nothing to do here
+
+
+  if (roleService || flyout) return null; // unresolved, unknown service
+
+  if (!roleService && !roleServiceShortId) return null; // unknown spec
+
+  if (!spec) return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "warning"
+  }, "Unknown service");
   return /*#__PURE__*/react.createElement(Button/* default */.Z, {
     variant: "outlined",
     color: "default",
     startIcon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
     onClick: handleStartSimulator
-  }, "start simulator");
+  }, "start ", spec.name);
 }
 ;// CONCATENATED MODULE: ./src/components/vm/fields/TwinField.tsx
 
@@ -6591,9 +6616,7 @@ function NoServiceAlert(props) {
 
 
 
-function TwinWidget(props) {
-  var serviceClass = props.serviceClass;
-
+function TwinWidget() {
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
       roleService = _useContext.roleService,
       flyout = _useContext.flyout;
@@ -6612,16 +6635,14 @@ function TwinWidget(props) {
     spacing: 1
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement("div", {
+  }, /*#__PURE__*/react.createElement(NoServiceAlert, null), roleService && /*#__PURE__*/react.createElement("div", {
     style: {
       cursor: "inherit"
     },
     onPointerDown: onPointerStopPropagation,
     onPointerUp: onPointerStopPropagation,
     onPointerMove: onPointerStopPropagation
-  }, /*#__PURE__*/react.createElement(NoServiceAlert, {
-    serviceClass: serviceClass
-  }), roleService && /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
+  }, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
     service: roleService,
     visible: true,
     variant: "icon"
@@ -6637,19 +6658,13 @@ var TwinField = /*#__PURE__*/function (_ReactInlineField) {
   ;
 
   function TwinField(options) {
-    var _this;
-
-    _this = _ReactInlineField.call(this, options) || this;
-    _this.serviceClass = options === null || options === void 0 ? void 0 : options.serviceClass;
-    return _this;
+    return _ReactInlineField.call(this, options) || this;
   }
 
   var _proto = TwinField.prototype;
 
   _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(TwinWidget, {
-      serviceClass: this.serviceClass
-    });
+    return /*#__PURE__*/react.createElement(TwinWidget, null);
   };
 
   return TwinField;
@@ -6755,6 +6770,7 @@ var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var START_SIMULATOR_CALLBACK_KEY = "jacdac_start_simulator";
+var TWIN_BLOCK = "jacdac_twin";
 var INSPECT_BLOCK = "jacdac_inspect";
 var WATCH_BLOCK = "jacdac_watch";
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
@@ -6815,22 +6831,22 @@ function createBlockTheme(theme) {
   var sensorColor = theme.palette.success.main;
   var otherColor = theme.palette.info.main;
   var commandColor = theme.palette.warning.main;
-  var modulesColor = theme.palette.grey[600];
+  var debuggerColor = theme.palette.grey[600];
 
   var serviceColor = function serviceColor(srv) {
-    return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
+    return (0,jdom_spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
   };
 
   return {
     serviceColor: serviceColor,
     sensorColor: sensorColor,
     commandColor: commandColor,
-    modulesColor: modulesColor,
+    debuggerColor: debuggerColor,
     otherColor: otherColor
   };
 }
 
-function loadBlocks(serviceColor, commandColor, modulesColor) {
+function loadBlocks(serviceColor, commandColor, debuggerColor) {
   var customShadows = [{
     serviceClass: constants/* SRV_SERVO */.$X_,
     kind: "rw",
@@ -6938,7 +6954,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
     });
   };
 
-  var allServices = (0,spec/* serviceSpecifications */.Le)().filter(function (service) {
+  var allServices = (0,jdom_spec/* serviceSpecifications */.Le)().filter(function (service) {
     return !/^_/.test(service.shortId) && service.status !== "deprecated";
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
@@ -6952,7 +6968,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
 
   var registers = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,spec/* isRegister */.x5)(pkt) && includedRegisters.indexOf(pkt.identifier) > -1;
+      return (0,jdom_spec/* isRegister */.x5)(pkt) && includedRegisters.indexOf(pkt.identifier) > -1;
     }).map(function (register) {
       return {
         service: service,
@@ -6964,7 +6980,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
     return {
       service: service,
       events: service.packets.filter(function (pkt) {
-        return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
+        return (0,jdom_spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
       })
     };
   }).filter(function (kv) {
@@ -6972,7 +6988,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
   });
   var commands = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,spec/* isCommand */.ao)(pkt) && fieldsSupported(pkt);
+      return (0,jdom_spec/* isCommand */.ao)(pkt) && fieldsSupported(pkt);
     }).map(function (pkt) {
       return {
         service: service,
@@ -7130,26 +7146,6 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
     def.type = "jacdac_custom_" + def.service.shortId + "_" + def.type;
     return def;
   });
-  var twinBlocks = allServices.map(function (service) {
-    return {
-      kind: "block",
-      type: "jacdac_twin_" + service.shortId,
-      message0: "twin of %1 %2 %3",
-      args0: [fieldVariable(service), {
-        type: "input_dummy"
-      }, {
-        type: TwinField.KEY,
-        name: "twin",
-        serviceClass: service.classIdentifier
-      }],
-      colour: serviceColor(service),
-      inputsInline: false,
-      tooltip: "Twin of the service",
-      helpUrl: serviceHelp(service),
-      service: service,
-      template: "twin"
-    };
-  });
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -7213,7 +7209,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
   var registerChangeByEventBlocks = registers.filter(function (_ref4) {
     var service = _ref4.service;
     return !service.packets.some(function (pkt) {
-      return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
+      return (0,jdom_spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
     });
   }).filter(function (_ref5) {
     var register = _ref5.register;
@@ -7408,7 +7404,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks), (0,toConsumableArray/* default */.Z)(twinBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
   var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7557,6 +7553,29 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
     helpUrl: ""
   }, {
     kind: "block",
+    type: TWIN_BLOCK,
+    message0: "twin of %1 %2 %3",
+    args0: [{
+      type: "field_variable",
+      name: "role",
+      variable: "none",
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+        return service.shortId;
+      }))),
+      defaultType: "client"
+    }, {
+      type: "input_dummy"
+    }, {
+      type: TwinField.KEY,
+      name: "twin"
+    }],
+    colour: debuggerColor,
+    inputsInline: false,
+    tooltip: "Twin of the service",
+    helpUrl: "",
+    template: "twin"
+  }, {
+    kind: "block",
     type: INSPECT_BLOCK,
     message0: "inspect %1 %2 %3",
     args0: [{
@@ -7573,7 +7592,7 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
       type: JDomTreeField.KEY,
       name: "twin"
     }],
-    colour: modulesColor,
+    colour: debuggerColor,
     inputsInline: false,
     tooltip: "Inspect a service",
     helpUrl: "",
@@ -7587,11 +7606,13 @@ function loadBlocks(serviceColor, commandColor, modulesColor) {
       name: "value",
       check: ["Number", "Boolean", "String"]
     }],
-    colour: modulesColor,
+    colour: debuggerColor,
     inputsInline: false,
     tooltip: "Watch a value in the editor",
     helpUrl: "",
-    template: "watch"
+    template: "watch",
+    nextStatement: null,
+    previousStatement: null
   }];
   var mathBlocks = [{
     kind: "block",
@@ -7714,10 +7735,10 @@ function useToolbox(props) {
   var _createBlockTheme = createBlockTheme(theme),
       serviceColor = _createBlockTheme.serviceColor,
       commandColor = _createBlockTheme.commandColor,
-      modulesColor = _createBlockTheme.modulesColor;
+      debuggerColor = _createBlockTheme.debuggerColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks(serviceColor, commandColor, modulesColor);
+    return loadBlocks(serviceColor, commandColor, debuggerColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       services = _useMemo.services;
@@ -7777,7 +7798,6 @@ function useToolbox(props) {
 
     return !!((_cat$contents2 = cat.contents) !== null && _cat$contents2 !== void 0 && _cat$contents2.length);
   });
-  var hasServices = !!toolboxServices.length;
   var commandsCategory = {
     kind: "category",
     name: "Commands",
@@ -7809,8 +7829,8 @@ function useToolbox(props) {
   };
   var modulesCategory = {
     kind: "category",
-    name: "Modules",
-    colour: modulesColor,
+    name: "Debugger",
+    colour: debuggerColor,
     contents: [{
       kind: "button",
       text: "start simulator",
@@ -7818,6 +7838,9 @@ function useToolbox(props) {
     }, {
       kind: "block",
       type: WATCH_BLOCK
+    }, {
+      kind: "block",
+      type: TWIN_BLOCK
     }, {
       kind: "block",
       type: INSPECT_BLOCK
@@ -9783,4 +9806,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f86c31b172d5f691d25a.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a184888374d17d0729eb.js.map

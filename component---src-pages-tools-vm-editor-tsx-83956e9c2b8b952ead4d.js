@@ -2277,8 +2277,8 @@ function rolemanager_arrayLikeToArray(arr, len) { if (len == null || len > arr.l
 
 
 
- // TODO: replicate MakeCode role manager logic
 
+// TODO: replicate MakeCode role manager logic
 var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   (0,inheritsLoose/* default */.Z)(RoleManager, _JDEventSource);
 
@@ -2608,4 +2608,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-8b66ae1220f4cbb1705e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-83956e9c2b8b952ead4d.js.map
