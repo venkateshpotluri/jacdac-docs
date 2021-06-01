@@ -8323,6 +8323,7 @@ var ir = __webpack_require__(68290);
 
 
 
+
 var ops = {
   AND: "&&",
   OR: "||",
@@ -8356,6 +8357,13 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     var type = block.type,
         value = block.value,
         inputs = block.inputs;
+    console.log("block2e", {
+      ev: ev,
+      block: block,
+      type: type,
+      value: value,
+      inputs: inputs
+    });
     console.debug("block", type, value, inputs);
     if (value !== undefined) // literal
       return {
@@ -8436,12 +8444,26 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       default:
         {
-          var def = serviceBlocks.find(function (def) {
-            return def.type === type;
-          });
+          var _Blockly$Blocks$type;
+
+          var def = (_Blockly$Blocks$type = (blockly_default()).Blocks[type]) === null || _Blockly$Blocks$type === void 0 ? void 0 : _Blockly$Blocks$type.jacdacDefinition;
+
+          if (!def) {
+            console.warn("unknown block " + type, {
+              type: type,
+              ev: ev,
+              block: block,
+              d: (blockly_default()).Blocks[type]
+            });
+          }
 
           if (def) {
             var template = def.template;
+            console.log("get", {
+              type: type,
+              def: def,
+              template: template
+            });
 
             switch (template) {
               case "register_get":
@@ -8459,12 +8481,32 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
                       event = _ref2.event;
 
                   if (ev.event !== event.identifierName) {// TODO: we need to raise an error to the user in Blockly
-                    // TODO: the field that they referenced in the block 
+                    // TODO: the field that they referenced in the block
                     // TODO: doesn't belong to the event that fired
                   }
 
                   var _field = inputs[0].fields["field"];
                   return (0,ir/* toMemberExpression */.vf)(ev.role, (0,ir/* toMemberExpression */.vf)(ev.event, _field.value));
+                }
+
+              case "shadow":
+                {
+                  var _field2 = inputs[0].fields["value"];
+                  var _value = _field2.value;
+                  return {
+                    type: "Literal",
+                    value: _value,
+                    raw: _value + ""
+                  };
+                }
+
+              default:
+                {
+                  console.warn("unsupported block template " + template + " for " + type, {
+                    ev: ev,
+                    block: block
+                  });
+                  break;
                 }
             }
 
@@ -8514,9 +8556,9 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       default:
         {
-          var def = serviceBlocks.find(function (def) {
-            return def.type === type;
-          });
+          var _Blockly$Blocks$type2;
+
+          var def = (_Blockly$Blocks$type2 = (blockly_default()).Blocks[type]) === null || _Blockly$Blocks$type2 === void 0 ? void 0 : _Blockly$Blocks$type2.jacdacDefinition;
 
           if (def) {
             var template = def.template;
@@ -8548,6 +8590,15 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
                     }),
                     callee: (0,ir/* toMemberExpression */.vf)(_role, serviceCommand.name)
                   };
+                  break;
+                }
+
+              default:
+                {
+                  console.warn("unsupported command template " + template + " for " + type, {
+                    event: event,
+                    block: block
+                  });
                   break;
                 }
             }
@@ -8585,9 +8636,9 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
         callee: (0,ir/* toIdentifier */.EB)("awaitCondition")
       };
     } else {
-      var def = serviceBlocks.find(function (def) {
-        return def.type === type;
-      });
+      var _Blockly$Blocks$type3;
+
+      var def = (_Blockly$Blocks$type3 = (blockly_default()).Blocks[type]) === null || _Blockly$Blocks$type3 === void 0 ? void 0 : _Blockly$Blocks$type3.jacdacDefinition;
       (0,utils/* assert */.hu)(!!def);
       var template = def.template;
       var role = inputs[0].fields["role"].value;
@@ -8622,6 +8673,14 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
               arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), register.name), argument],
               callee: (0,ir/* toIdentifier */.EB)("awaitChange")
             };
+            break;
+          }
+
+        default:
+          {
+            console.warn("unsupported handler template " + template + " for " + type, {
+              top: top
+            });
             break;
           }
       }
@@ -9815,4 +9874,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-60d2383048f4da9eec85.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a5ca38b218f46814da62.js.map
