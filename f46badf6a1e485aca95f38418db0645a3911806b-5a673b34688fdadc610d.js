@@ -6837,7 +6837,11 @@ var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+var START_SIMULATOR_CALLBACK_KEY = "jacdac_start_simulator";
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -6892,6 +6896,7 @@ function createBlockTheme(theme) {
   var sensorColor = theme.palette.success.main;
   var otherColor = theme.palette.info.main;
   var commandColor = theme.palette.warning.main;
+  var modulesColor = theme.palette.success.main;
 
   var serviceColor = function serviceColor(srv) {
     return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
@@ -6901,6 +6906,7 @@ function createBlockTheme(theme) {
     serviceColor: serviceColor,
     sensorColor: sensorColor,
     commandColor: commandColor,
+    modulesColor: modulesColor,
     otherColor: otherColor
   };
 }
@@ -7768,7 +7774,8 @@ function useToolbox(props) {
 
   var _createBlockTheme = createBlockTheme(theme),
       serviceColor = _createBlockTheme.serviceColor,
-      commandColor = _createBlockTheme.commandColor;
+      commandColor = _createBlockTheme.commandColor,
+      modulesColor = _createBlockTheme.modulesColor;
 
   var _useMemo = (0,react.useMemo)(function () {
     return loadBlocks(serviceColor, commandColor);
@@ -7821,7 +7828,7 @@ function useToolbox(props) {
       }),
       button: {
         kind: "button",
-        text: "Add " + service.name,
+        text: "Add " + service.name + " role",
         callbackKey: "jacdac_add_role_callback_" + service.shortId,
         service: service
       }
@@ -7847,6 +7854,27 @@ function useToolbox(props) {
           type: "jacdac_time_picker"
         }
       }
+    }, !!toolboxServices.length && {
+      kind: "block",
+      type: SET_STATUS_LIGHT_BLOCK,
+      values: {
+        color: {
+          kind: "block",
+          type: LEDColorField.SHADOW.type
+        }
+      }
+    }].filter(function (b) {
+      return !!b;
+    })
+  };
+  var modulesCategory = {
+    kind: "category",
+    name: "Modules",
+    colour: modulesColor,
+    contents: [{
+      kind: "button",
+      text: "start simulator",
+      callbackKey: START_SIMULATOR_CALLBACK_KEY
     }, !!toolboxServices.length && {
       kind: "block",
       type: SET_STATUS_LIGHT_BLOCK,
@@ -7950,7 +7978,11 @@ function useToolbox(props) {
       kind: "sep"
     }].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
       kind: "sep"
-    }, logicCategory, mathCategory, variablesCategory]).filter(function (cat) {
+    }, modulesCategory, {
+      kind: "sep"
+    }, logicCategory, mathCategory, variablesCategory, {
+      kind: "sep"
+    }]).filter(function (cat) {
       return !!cat;
     }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
@@ -7963,7 +7995,13 @@ function useToolbox(props) {
   };
 }
 function useToolboxButtons(workspace, toolboxConfiguration) {
-  // track workspace changes and update callbacks
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
+
+  (0,react.useEffect)(function () {
+    workspace === null || workspace === void 0 ? void 0 : workspace.registerButtonCallback(START_SIMULATOR_CALLBACK_KEY, toggleShowDeviceHostsDialog);
+  }, [workspace]); // track workspace changes and update callbacks
+
   (0,react.useEffect)(function () {
     if (!workspace) return; // collect buttons
 
@@ -8639,8 +8677,6 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
     handlers: handlers
   };
 }
-// EXTERNAL MODULE: ./src/components/AppContext.tsx
-var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
 var makeStyles = __webpack_require__(10920);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
@@ -9809,4 +9845,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-0ae0d60fdfa5a45015b9.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5a673b34688fdadc610d.js.map
