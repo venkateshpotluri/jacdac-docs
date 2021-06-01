@@ -6561,6 +6561,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
     });
     this.container = document.createElement("div");
     this.container.style.display = "inline-block";
+    this.container.style.minWidth = "14rem";
     fo.appendChild(this.container);
     this.resizeObserver = new ResizeObserver(function (entries) {
       var entry = entries[0];
@@ -9808,4 +9809,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5ae2c4ed249f8efcb9e9.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-0ae0d60fdfa5a45015b9.js.map
