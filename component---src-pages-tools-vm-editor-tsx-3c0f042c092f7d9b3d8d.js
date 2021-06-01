@@ -2326,8 +2326,6 @@ function useVMRunner(roleManager, program) {
   (0,react.useEffect)(function () {
     try {
       var newTestRunner = program && new IT4ProgramRunner(bus, roleManager, program);
-      console.log("new runner", newTestRunner); // register runner events
-
       setTestRunner(newTestRunner);
       return function () {
         return newTestRunner === null || newTestRunner === void 0 ? void 0 : newTestRunner.unmount();
@@ -2578,18 +2576,18 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 
     var binding = this._roles.find(function (r) {
       return r.role === role;
-    });
+    }); // check if we already have this role
 
-    if (!binding) {
-      binding = {
-        role: role,
-        serviceShortId: serviceShortId
-      };
 
-      this._roles.push(binding);
-    }
+    if (binding && serviceShortId === binding.serviceShortId) return; // new role
 
-    if (binding.service) return;
+    binding = {
+      role: role,
+      serviceShortId: serviceShortId
+    };
+
+    this._roles.push(binding);
+
     var ret = this.bus.services({
       ignoreSelf: true,
       serviceName: serviceShortId
@@ -2787,4 +2785,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-56890dcaf14ca2fea38b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3c0f042c092f7d9b3d8d.js.map
