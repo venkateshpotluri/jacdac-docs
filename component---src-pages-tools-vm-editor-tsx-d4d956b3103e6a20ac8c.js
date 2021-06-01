@@ -2666,20 +2666,10 @@ function VMRunnerButton(props) {
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
 var Save = __webpack_require__(8567);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
-var Dialog = __webpack_require__(52468);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
-var DialogContent = __webpack_require__(65733);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
-var DialogContentText = __webpack_require__(32253);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
-var TextField = __webpack_require__(1059);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
-var DialogActions = __webpack_require__(89952);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
-var Button = __webpack_require__(83332);
-// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
-var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
+var Tooltip = __webpack_require__(14685);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
 ;// CONCATENATED MODULE: ./src/components/vm/VMSaveButton.tsx
 
 
@@ -2687,40 +2677,26 @@ var react_use_id_hook_esm = __webpack_require__(19640);
 
 
 function VMSaveButton(props) {
-  var xml = props.xml;
+  var xml = props.xml,
+      source = props.source,
+      program = props.program; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
-  var _useState = (0,react.useState)(""),
-      url = _useState[0],
-      setUrl = _useState[1];
-
-  var open = !!url;
-
-  var handleClick = function handleClick() {
-    var baseUrl = window.location.href;
-    var hash = "blocksxml=" + encodeURIComponent(xml);
-    setUrl(baseUrl + "#" + hash);
+  var json = {
+    xml: xml
   };
 
-  var handleClose = function handleClose() {
-    return setUrl(undefined);
-  };
+  if (flags/* default.diagnostics */.Z.diagnostics) {
+    json.source = source;
+    json.program = program;
+  }
 
-  var urlId = (0,react_use_id_hook_esm/* useId */.Me)();
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "save",
-    onClick: handleClick
-  }, /*#__PURE__*/react.createElement(Save/* default */.Z, null)), /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
-    open: open,
-    onClose: handleClose
-  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, "Share this URL to reload your program."), /*#__PURE__*/react.createElement(TextField/* default */.Z, {
-    fullWidth: true,
-    id: urlId,
-    value: url,
-    label: "URL"
-  })), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "contained",
-    onClick: handleClose
-  }, "Close"))));
+  var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
+  return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+    download: "jacdac-blocks.json",
+    href: url
+  }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+    title: "save"
+  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
 
@@ -2731,7 +2707,9 @@ function VMToolbar(props) {
   var runner = props.runner,
       run = props.run,
       cancel = props.cancel,
-      xml = props.xml;
+      xml = props.xml,
+      source = props.source,
+      program = props.program;
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "row",
@@ -2745,7 +2723,9 @@ function VMToolbar(props) {
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(VMSaveButton, {
-    xml: xml
+    xml: xml,
+    source: source,
+    program: program
   })));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
@@ -2809,9 +2789,11 @@ function VMEditor(props) {
     xs: 12
   }, /*#__PURE__*/react.createElement(VMToolbar, {
     runner: runner,
-    xml: xml,
     run: run,
-    cancel: cancel
+    cancel: cancel,
+    xml: xml,
+    source: source,
+    program: program
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -2838,4 +2820,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c0a5c374f4ab0ec3b774.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d4d956b3103e6a20ac8c.js.map
