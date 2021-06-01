@@ -7835,10 +7835,10 @@ function useToolbox(props) {
       callbackKey: START_SIMULATOR_CALLBACK_KEY
     }, {
       kind: "block",
-      type: WATCH_BLOCK
+      type: TWIN_BLOCK
     }, {
       kind: "block",
-      type: TWIN_BLOCK
+      type: WATCH_BLOCK
     }, {
       kind: "block",
       type: INSPECT_BLOCK
@@ -9804,4 +9804,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-b2a38c7e5c89a1c158ea.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-87e129e9312949dcdfce.js.map
