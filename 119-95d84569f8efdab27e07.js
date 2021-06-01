@@ -1632,10 +1632,8 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function JDomTreeView(props) {
   var defaultExpanded = props.defaultExpanded,
       defaultSelected = props.defaultSelected,
-      onToggle = props.onToggle,
-      onSelect = props.onSelect,
       dashboard = props.dashboard,
-      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["defaultExpanded", "defaultSelected", "onToggle", "onSelect", "dashboard"]);
+      other = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["defaultExpanded", "defaultSelected", "dashboard"]);
 
   var classes = useStyles();
 
@@ -1653,12 +1651,10 @@ function JDomTreeView(props) {
 
   var handleToggle = function handleToggle(event, nodeIds) {
     setExpanded(nodeIds);
-    if (onToggle) onToggle(nodeIds);
   };
 
   var handleSelect = function handleSelect(event, nodeIds) {
     setSelected(nodeIds);
-    if (onSelect) onSelect(nodeIds);
   };
 
   return /*#__PURE__*/react.createElement(TreeView_TreeView, {
@@ -1739,4 +1735,4 @@ function useEventRaised(eventName, node, query) {
 /***/ })
 
 }]);
-//# sourceMappingURL=119-4e02a548bf63178df3f6.js.map
+//# sourceMappingURL=119-95d84569f8efdab27e07.js.map
