@@ -7828,7 +7828,7 @@ function useToolbox(props) {
   };
   var modulesCategory = {
     kind: "category",
-    name: "Debugger",
+    name: "Tools",
     colour: debuggerColor,
     contents: [{
       kind: "block",
@@ -7929,13 +7929,11 @@ function useToolbox(props) {
   };
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [modulesCategory, (servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
-      kind: "sep"
-    }].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
+    contents: [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [(servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
       kind: "sep"
     }, commandsCategory, logicCategory, mathCategory, variablesCategory, {
       kind: "sep"
-    }]).filter(function (cat) {
+    }, modulesCategory]).filter(function (cat) {
       return !!cat;
     }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
@@ -9817,4 +9815,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-0b32d44e81adc72e994a.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-60d2383048f4da9eec85.js.map
