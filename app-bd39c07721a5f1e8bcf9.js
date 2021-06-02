@@ -48477,7 +48477,15 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   ;
 
   _proto.check = function check(e, type) {
-    if (e.type !== type) this.error("expected " + type + "; got " + e.type);
+    if (!e) {
+      this.error("expression is undefined");
+      return false;
+    } else if (e.type !== type) {
+      this.error("expected " + type + "; got " + e.type);
+      return false;
+    }
+
+    return true;
   };
 
   _proto.specResolve = function specResolve(e) {
@@ -48491,10 +48499,7 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
     // where the object references a role variable or specification shortName
 
 
-    this.check(e, "MemberExpression");
-    this.check(e.object, "Identifier");
-
-    if (this.role2spec) {
+    if (this.check(e, "MemberExpression") && this.check(e.object, "Identifier") && this.role2spec) {
       var obj = e.object;
 
       if (!this.role2spec(obj.name)) {
@@ -48519,9 +48524,8 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
     } else if (!expectIdentifier && e.type === "MemberExpression") {
       var object = e.object;
       var property = e.property;
-      this.check(object, "Identifier");
-      this.check(property, "Identifier");
-      return [object.name, property.name];
+      if (this.check(object, "Identifier") && this.check(property, "Identifier")) return [object.name, property.name];
+      return undefined;
     } else {
       if (!expectIdentifier) this.error("expected Identifier or MemberExpression; got " + e.type);else this.error("expected Identifier; got " + e.type);
       return undefined;
@@ -56162,7 +56166,11 @@ function bufferConcatMany(bufs) {
   return r;
 }
 function arrayConcatMany(arrs) {
-  if (!arrs) return undefined;
+  if (!arrs) return undefined; // weed out empty array
+
+  arrs = arrs.filter(function (a) {
+    return !!(a !== null && a !== void 0 && a.length);
+  });
   var sz = 0;
 
   for (var _iterator4 = _createForOfIteratorHelperLoose(arrs), _step4; !(_step4 = _iterator4()).done;) {
@@ -70247,7 +70255,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a32815df6fdc921cd1a436f57a9d1eeb6f1494eb";
+  var sha = "b55b48572e6e2fc77de6c31877ac9978767099fb";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86499,4 +86507,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7db04ddc6778be2d3327.js.map
+//# sourceMappingURL=app-bd39c07721a5f1e8bcf9.js.map

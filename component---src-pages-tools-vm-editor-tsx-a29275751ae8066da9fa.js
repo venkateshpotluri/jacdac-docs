@@ -2534,10 +2534,11 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     var _checkProgram = (0,ir/* checkProgram */.i_)(_this4._program),
         registers = _checkProgram.registers,
-        events = _checkProgram.events;
+        events = _checkProgram.events,
+        errors = _checkProgram.errors;
 
-    if (_this4._program.errors.length > 0) {
-      console.debug(_this4._program.errors);
+    if (errors.length) {
+      console.warn("ERRORS", errors);
     } // data structures for running program
 
 
@@ -3360,4 +3361,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e25a67f48bf445424b0d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a29275751ae8066da9fa.js.map

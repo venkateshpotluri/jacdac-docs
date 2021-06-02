@@ -4916,7 +4916,8 @@ function compileProgram(prog) {
   };
   newProgram.handlers = prog.handlers.map(function (h) {
     return {
-      commands: removeIfThenElse(h)
+      commands: removeIfThenElse(h),
+      errors: h === null || h === void 0 ? void 0 : h.errors
     };
   });
   return newProgram;
@@ -4998,11 +4999,11 @@ function removeIfThenElse(handler) {
 function checkProgram(prog) {
   var allErrors = [];
   var goodHandlers = [];
+  var currentId = undefined;
 
   var errorFun = function errorFun(e) {
-    prog.errors.push({
-      file: "",
-      line: undefined,
+    allErrors.push({
+      sourceId: currentId,
       message: e
     });
   };
@@ -5011,26 +5012,28 @@ function checkProgram(prog) {
   var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .IT4Checker */ .DG(symbolResolver, function (_) {
     return true;
   }, errorFun);
-  prog.handlers.forEach(function (h, index) {
-    prog.errors = [];
+  prog.handlers.forEach(function (h) {
+    if (h !== null && h !== void 0 && h.errors.length) {
+      h === null || h === void 0 ? void 0 : h.errors.forEach(function (e) {
+        return allErrors.push(e);
+      });
+      return;
+    }
+
+    var errorCount = allErrors.length;
     handlerVisitor(h, undefined, function (c) {
       return checker.checkCommand(c.command, IT4Functions);
     });
 
-    if (prog.errors.length) {
-      prog.errors.forEach(function (e) {
-        return allErrors.push({
-          file: "handler " + index,
-          line: undefined,
-          message: e.message
-        });
-      });
-    } else {
+    if ((h === null || h === void 0 ? void 0 : h.errors.length) === 0 && allErrors.length === errorCount) {
       goodHandlers.push(h);
+    } else {
+      h === null || h === void 0 ? void 0 : h.errors.forEach(function (e) {
+        return allErrors.push(e);
+      });
     }
   });
   prog.handlers = goodHandlers;
-  prog.errors = allErrors;
   return {
     registers: symbolResolver.registers.map(function (s) {
       var _s$split = s.split("."),
@@ -5051,7 +5054,8 @@ function checkProgram(prog) {
         role: root,
         event: fld
       };
-    })
+    }),
+    errors: allErrors
   };
 }
 var IT4Functions = [{
@@ -9752,6 +9756,7 @@ function useBlocklyPlugins(workspace) {
 
 
 
+
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     editor: {
@@ -9904,7 +9909,25 @@ function VMBlockEditor(props) {
         }
       }
     }
-  }, [workspace, xml]);
+  }, [workspace, xml]); // apply errors
+
+  (0,react.useEffect)(function () {
+    if (!workspace) return;
+    var allErrors = (0,utils/* uniqueMap */.EM)((0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
+      var _h$errors;
+
+      return (_h$errors = h.errors) === null || _h$errors === void 0 ? void 0 : _h$errors.filter(function (e) {
+        return !!e.sourceId;
+      });
+    })) || [], function (e) {
+      return e.sourceId;
+    }, function (e) {
+      return e.message;
+    });
+    workspace.getAllBlocks(false).forEach(function (b) {
+      return b.setWarningText(allErrors[b.id] || null);
+    });
+  }, [workspace, program]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
     ref: blocklyRef
@@ -9914,4 +9937,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-214e9fafaad4a036766b.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-005014189eaf9c89eb62.js.map
