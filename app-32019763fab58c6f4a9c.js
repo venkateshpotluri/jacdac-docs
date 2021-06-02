@@ -68265,7 +68265,7 @@ function Home() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: true,
     subtitle: "Protocol.",
-    description: "Bus topology, dynamic discovery, standardized services designed for micro-controllers.",
+    description: "Bus topology, dynamic discovery, services designed for micro-controllers.",
     buttonText: "Learn more",
     buttonVariant: "link",
     buttonUrl: "/protocol/",
@@ -68276,7 +68276,7 @@ function Home() {
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: false,
-    subtitle: "Services catalog.",
+    subtitle: "'Nano' Services.",
     description: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
     buttonText: "Explore services",
     buttonVariant: "link",
@@ -68289,7 +68289,7 @@ function Home() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     right: true,
     subtitle: "Client Software.",
-    description: "Integrate Jacdac in your web or Node.JS using our Javascript library.",
+    description: "Integrate Jacdac in your web or Node.JS using our Javascript/TypeScript library.",
     buttonText: "Add Jacdac to your apps",
     buttonVariant: "link",
     buttonUrl: "/software/",
@@ -68519,7 +68519,7 @@ function Protocol() {
     buttonUrl: "/reference/protocol/#service-layer"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SplitGrid__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     right: false,
-    subtitle: "Standardized services.",
+    subtitle: "'Nano' services.",
     description: "Jacdac services are specified to abstract the hardware device from the software implementation. The services are comprised of registers, commands and events, along with precise data layout information for each packet.",
     imageColumns: 8,
     image: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_7__.S, {
@@ -70255,7 +70255,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "cc7bd788b2e1a9a6a8786fc06ac6fdc09075377d";
+  var sha = "10b05162c04b13543876ad9ad0ab10810075f9e4";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86507,4 +86507,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-accda18b8017dd364a59.js.map
+//# sourceMappingURL=app-32019763fab58c6f4a9c.js.map
