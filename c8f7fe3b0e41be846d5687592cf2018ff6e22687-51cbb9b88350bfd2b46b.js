@@ -30830,16 +30830,18 @@ var Line = /*#__PURE__*/react.forwardRef(function Line(_ref, ref) {
 
     lineMaterial.needsUpdate = true;
   }, [dashed, lineMaterial]);
+  react.useEffect(function () {
+    return function () {
+      return lineGeom.dispose();
+    };
+  }, [lineGeom]);
   return /*#__PURE__*/react.createElement("primitive", (0,esm_extends/* default */.Z)({
-    dispose: undefined,
     object: line2,
     ref: ref
   }, rest), /*#__PURE__*/react.createElement("primitive", {
-    dispose: undefined,
     object: lineGeom,
     attach: "geometry"
   }), /*#__PURE__*/react.createElement("primitive", (0,esm_extends/* default */.Z)({
-    dispose: undefined,
     object: lineMaterial,
     attach: "material",
     color: color,
@@ -37697,4 +37699,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-8fa27bb2ca4fcf2476c8.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-51cbb9b88350bfd2b46b.js.map

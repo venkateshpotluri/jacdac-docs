@@ -451,6 +451,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "VideoTexture": function() { return /* binding */ VideoTexture; },
 /* harmony export */   "WebGL1Renderer": function() { return /* binding */ WebGL1Renderer; },
 /* harmony export */   "WebGLCubeRenderTarget": function() { return /* binding */ WebGLCubeRenderTarget; },
+/* harmony export */   "WebGLMultipleRenderTargets": function() { return /* binding */ WebGLMultipleRenderTargets; },
 /* harmony export */   "WebGLMultisampleRenderTarget": function() { return /* binding */ WebGLMultisampleRenderTarget; },
 /* harmony export */   "WebGLRenderTarget": function() { return /* binding */ WebGLRenderTarget; },
 /* harmony export */   "WebGLRenderTargetCube": function() { return /* binding */ WebGLRenderTargetCube; },
@@ -467,15 +468,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sRGBEncoding": function() { return /* binding */ sRGBEncoding; }
 /* harmony export */ });
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(92137);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(96156);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(28481);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(66213);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(63349);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(10379);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(28481);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(66213);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(96156);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(63349);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10379);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(46070);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(77608);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6610);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5991);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77608);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6610);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5991);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87757);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
 
@@ -499,7 +500,11 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(this, result); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
@@ -508,7 +513,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
  * Copyright 2010-2021 Three.js Authors
  * SPDX-License-Identifier: MIT
  */
-var REVISION = '128';
+var REVISION = '129';
 var MOUSE = {
   LEFT: 0,
   MIDDLE: 1,
@@ -720,10 +725,10 @@ var GLSL3 = '300 es';
 
 var EventDispatcher = /*#__PURE__*/function () {
   function EventDispatcher() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, EventDispatcher);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, EventDispatcher);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(EventDispatcher, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EventDispatcher, [{
     key: "addEventListener",
     value: function addEventListener(type, listener) {
       if (this._listeners === undefined) this._listeners = {};
@@ -978,13 +983,13 @@ var Vector2 = /*#__PURE__*/function () {
     var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Vector2);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Vector2);
 
     this.x = x;
     this.y = y;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Vector2, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Vector2, [{
     key: "width",
     get: function get() {
       return this.x;
@@ -1368,7 +1373,7 @@ Vector2.prototype.isVector2 = true;
 
 var Matrix3 = /*#__PURE__*/function () {
   function Matrix3() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Matrix3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Matrix3);
 
     this.elements = [1, 0, 0, 0, 1, 0, 0, 0, 1];
 
@@ -1377,7 +1382,7 @@ var Matrix3 = /*#__PURE__*/function () {
     }
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Matrix3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Matrix3, [{
     key: "set",
     value: function set(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
       var te = this.elements;
@@ -1678,10 +1683,10 @@ var _canvas;
 
 var ImageUtils = /*#__PURE__*/function () {
   function ImageUtils() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImageUtils);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ImageUtils);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ImageUtils, null, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageUtils, null, [{
     key: "getDataURL",
     value: function getDataURL(image) {
       if (/^data:/i.test(image.src)) {
@@ -1727,7 +1732,7 @@ var ImageUtils = /*#__PURE__*/function () {
 var textureId = 0;
 
 var Texture = /*#__PURE__*/function (_EventDispatcher) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Texture, _EventDispatcher);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Texture, _EventDispatcher);
 
   var _super = _createSuper(Texture);
 
@@ -1745,10 +1750,10 @@ var Texture = /*#__PURE__*/function (_EventDispatcher) {
     var anisotropy = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : 1;
     var encoding = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : LinearEncoding;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Texture);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Texture);
 
     _this2 = _super.call(this);
-    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this2), 'id', {
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this2), 'id', {
       value: textureId++
     });
     _this2.uuid = generateUUID();
@@ -1785,7 +1790,7 @@ var Texture = /*#__PURE__*/function (_EventDispatcher) {
     return _this2;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Texture, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Texture, [{
     key: "updateMatrix",
     value: function updateMatrix() {
       this.matrix.setUvTransform(this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y);
@@ -2002,7 +2007,7 @@ var Vector4 = /*#__PURE__*/function () {
     var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var w = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Vector4);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Vector4);
 
     this.x = x;
     this.y = y;
@@ -2010,7 +2015,7 @@ var Vector4 = /*#__PURE__*/function () {
     this.w = w;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Vector4, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Vector4, [{
     key: "width",
     get: function get() {
       return this.z;
@@ -2547,14 +2552,14 @@ Vector4.prototype.isVector4 = true;
 */
 
 var WebGLRenderTarget = /*#__PURE__*/function (_EventDispatcher2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLRenderTarget, _EventDispatcher2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WebGLRenderTarget, _EventDispatcher2);
 
   var _super2 = _createSuper(WebGLRenderTarget);
 
   function WebGLRenderTarget(width, height, options) {
     var _this3;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebGLRenderTarget);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebGLRenderTarget);
 
     _this3 = _super2.call(this);
     _this3.width = width;
@@ -2577,7 +2582,7 @@ var WebGLRenderTarget = /*#__PURE__*/function (_EventDispatcher2) {
     return _this3;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(WebGLRenderTarget, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLRenderTarget, [{
     key: "setTexture",
     value: function setTexture(texture) {
       texture.image = {
@@ -2618,6 +2623,8 @@ var WebGLRenderTarget = /*#__PURE__*/function (_EventDispatcher2) {
       this.depth = source.depth;
       this.viewport.copy(source.viewport);
       this.texture = source.texture.clone();
+      this.texture.image = _objectSpread({}, this.texture.image); // See #20328.
+
       this.depthBuffer = source.depthBuffer;
       this.stencilBuffer = source.stencilBuffer;
       this.depthTexture = source.depthTexture;
@@ -2637,25 +2644,96 @@ var WebGLRenderTarget = /*#__PURE__*/function (_EventDispatcher2) {
 
 WebGLRenderTarget.prototype.isWebGLRenderTarget = true;
 
-var WebGLMultisampleRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLMultisampleRenderTarget, _WebGLRenderTarget);
+var WebGLMultipleRenderTargets = /*#__PURE__*/function (_WebGLRenderTarget) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WebGLMultipleRenderTargets, _WebGLRenderTarget);
 
-  var _super3 = _createSuper(WebGLMultisampleRenderTarget);
+  var _super3 = _createSuper(WebGLMultipleRenderTargets);
 
-  function WebGLMultisampleRenderTarget(width, height, options) {
+  function WebGLMultipleRenderTargets(width, height, count) {
     var _this4;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebGLMultisampleRenderTarget);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebGLMultipleRenderTargets);
 
-    _this4 = _super3.call(this, width, height, options);
-    _this4.samples = 4;
+    _this4 = _super3.call(this, width, height);
+    var texture = _this4.texture;
+    _this4.texture = [];
+
+    for (var _i4 = 0; _i4 < count; _i4++) {
+      _this4.texture[_i4] = texture.clone();
+    }
+
     return _this4;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(WebGLMultisampleRenderTarget, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLMultipleRenderTargets, [{
+    key: "setSize",
+    value: function setSize(width, height) {
+      var depth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+
+      if (this.width !== width || this.height !== height || this.depth !== depth) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+
+        for (var _i5 = 0, il = this.texture.length; _i5 < il; _i5++) {
+          this.texture[_i5].image.width = width;
+          this.texture[_i5].image.height = height;
+          this.texture[_i5].image.depth = depth;
+        }
+
+        this.dispose();
+      }
+
+      this.viewport.set(0, 0, width, height);
+      this.scissor.set(0, 0, width, height);
+      return this;
+    }
+  }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(WebGLMultisampleRenderTarget.prototype), "copy", this).call(this, source);
+      this.dispose();
+      this.width = source.width;
+      this.height = source.height;
+      this.depth = source.depth;
+      this.viewport.set(0, 0, this.width, this.height);
+      this.scissor.set(0, 0, this.width, this.height);
+      this.depthBuffer = source.depthBuffer;
+      this.stencilBuffer = source.stencilBuffer;
+      this.depthTexture = source.depthTexture;
+      this.texture.length = 0;
+
+      for (var _i6 = 0, il = source.texture.length; _i6 < il; _i6++) {
+        this.texture[_i6] = source.texture[_i6].clone();
+      }
+
+      return this;
+    }
+  }]);
+
+  return WebGLMultipleRenderTargets;
+}(WebGLRenderTarget);
+
+WebGLMultipleRenderTargets.prototype.isWebGLMultipleRenderTargets = true;
+
+var WebGLMultisampleRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WebGLMultisampleRenderTarget, _WebGLRenderTarget2);
+
+  var _super4 = _createSuper(WebGLMultisampleRenderTarget);
+
+  function WebGLMultisampleRenderTarget(width, height, options) {
+    var _this5;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebGLMultisampleRenderTarget);
+
+    _this5 = _super4.call(this, width, height, options);
+    _this5.samples = 4;
+    return _this5;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLMultisampleRenderTarget, [{
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(WebGLMultisampleRenderTarget.prototype), "copy", this).call(this, source);
 
       this.samples = source.samples;
       return this;
@@ -2674,7 +2752,7 @@ var Quaternion = /*#__PURE__*/function () {
     var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var w = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Quaternion);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Quaternion);
 
     this._x = x;
     this._y = y;
@@ -2682,7 +2760,7 @@ var Quaternion = /*#__PURE__*/function () {
     this._w = w;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Quaternion, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Quaternion, [{
     key: "x",
     get: function get() {
       return this._x;
@@ -3238,14 +3316,14 @@ var Vector3 = /*#__PURE__*/function () {
     var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Vector3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Vector3);
 
     this.x = x;
     this.y = y;
     this.z = z;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Vector3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Vector3, [{
     key: "set",
     value: function set(x, y, z) {
       if (z === undefined) z = this.z; // sprite.scale.set(x,y)
@@ -3846,13 +3924,13 @@ var Box3 = /*#__PURE__*/function () {
     var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3(+Infinity, +Infinity, +Infinity);
     var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3(-Infinity, -Infinity, -Infinity);
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Box3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Box3);
 
     this.min = min;
     this.max = max;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Box3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Box3, [{
     key: "set",
     value: function set(min, max) {
       this.min.copy(min);
@@ -3869,10 +3947,10 @@ var Box3 = /*#__PURE__*/function () {
       var maxY = -Infinity;
       var maxZ = -Infinity;
 
-      for (var _i4 = 0, l = array.length; _i4 < l; _i4 += 3) {
-        var x = array[_i4];
-        var y = array[_i4 + 1];
-        var z = array[_i4 + 2];
+      for (var _i7 = 0, l = array.length; _i7 < l; _i7 += 3) {
+        var x = array[_i7];
+        var y = array[_i7 + 1];
+        var z = array[_i7 + 2];
         if (x < minX) minX = x;
         if (y < minY) minY = y;
         if (z < minZ) minZ = z;
@@ -3895,10 +3973,10 @@ var Box3 = /*#__PURE__*/function () {
       var maxY = -Infinity;
       var maxZ = -Infinity;
 
-      for (var _i5 = 0, l = attribute.count; _i5 < l; _i5++) {
-        var x = attribute.getX(_i5);
-        var y = attribute.getY(_i5);
-        var z = attribute.getZ(_i5);
+      for (var _i8 = 0, l = attribute.count; _i8 < l; _i8++) {
+        var x = attribute.getX(_i8);
+        var y = attribute.getY(_i8);
+        var z = attribute.getZ(_i8);
         if (x < minX) minX = x;
         if (y < minY) minY = y;
         if (z < minZ) minZ = z;
@@ -3916,8 +3994,8 @@ var Box3 = /*#__PURE__*/function () {
     value: function setFromPoints(points) {
       this.makeEmpty();
 
-      for (var _i6 = 0, il = points.length; _i6 < il; _i6++) {
-        this.expandByPoint(points[_i6]);
+      for (var _i9 = 0, il = points.length; _i9 < il; _i9++) {
+        this.expandByPoint(points[_i9]);
       }
 
       return this;
@@ -4025,8 +4103,8 @@ var Box3 = /*#__PURE__*/function () {
 
       var children = object.children;
 
-      for (var _i7 = 0, l = children.length; _i7 < l; _i7++) {
-        this.expandByObject(children[_i7]);
+      for (var _i10 = 0, l = children.length; _i10 < l; _i10++) {
+        this.expandByObject(children[_i10]);
       }
 
       return this;
@@ -4273,8 +4351,8 @@ var _triangleNormal = /*@__PURE__*/new Vector3();
 var _testAxis = /*@__PURE__*/new Vector3();
 
 function satForAxes(axes, v0, v1, v2, extents) {
-  for (var _i8 = 0, j = axes.length - 3; _i8 <= j; _i8 += 3) {
-    _testAxis.fromArray(axes, _i8); // project the aabb onto the seperating axis
+  for (var _i11 = 0, j = axes.length - 3; _i11 <= j; _i11 += 3) {
+    _testAxis.fromArray(axes, _i11); // project the aabb onto the seperating axis
 
 
     var r = extents.x * Math.abs(_testAxis.x) + extents.y * Math.abs(_testAxis.y) + extents.z * Math.abs(_testAxis.z); // project all 3 vertices of the triangle onto the seperating axis
@@ -4306,13 +4384,13 @@ var Sphere = /*#__PURE__*/function () {
     var center = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Sphere);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Sphere);
 
     this.center = center;
     this.radius = radius;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Sphere, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Sphere, [{
     key: "set",
     value: function set(center, radius) {
       this.center.copy(center);
@@ -4332,8 +4410,8 @@ var Sphere = /*#__PURE__*/function () {
 
       var maxRadiusSq = 0;
 
-      for (var _i9 = 0, il = points.length; _i9 < il; _i9++) {
-        maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(points[_i9]));
+      for (var _i12 = 0, il = points.length; _i12 < il; _i12++) {
+        maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(points[_i12]));
       }
 
       this.radius = Math.sqrt(maxRadiusSq);
@@ -4501,13 +4579,13 @@ var Ray = /*#__PURE__*/function () {
     var origin = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3(0, 0, -1);
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Ray);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Ray);
 
     this.origin = origin;
     this.direction = direction;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Ray, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Ray, [{
     key: "set",
     value: function set(origin, direction) {
       this.origin.copy(origin);
@@ -4880,7 +4958,7 @@ var Ray = /*#__PURE__*/function () {
 
 var Matrix4 = /*#__PURE__*/function () {
   function Matrix4() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Matrix4);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Matrix4);
 
     this.elements = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 
@@ -4889,7 +4967,7 @@ var Matrix4 = /*#__PURE__*/function () {
     }
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Matrix4, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Matrix4, [{
     key: "set",
     value: function set(n11, n12, n13, n14, n21, n22, n23, n24, n31, n32, n33, n34, n41, n42, n43, n44) {
       var te = this.elements;
@@ -5462,8 +5540,8 @@ var Matrix4 = /*#__PURE__*/function () {
     }
   }, {
     key: "makeShear",
-    value: function makeShear(x, y, z) {
-      this.set(1, y, z, 0, x, 1, z, 0, x, y, 1, 0, 0, 0, 0, 1);
+    value: function makeShear(xy, xz, yx, yz, zx, zy) {
+      this.set(1, yx, zx, 0, xy, 1, zy, 0, xz, yz, 1, 0, 0, 0, 0, 1);
       return this;
     }
   }, {
@@ -5611,8 +5689,8 @@ var Matrix4 = /*#__PURE__*/function () {
       var te = this.elements;
       var me = matrix.elements;
 
-      for (var _i10 = 0; _i10 < 16; _i10++) {
-        if (te[_i10] !== me[_i10]) return false;
+      for (var _i13 = 0; _i13 < 16; _i13++) {
+        if (te[_i13] !== me[_i13]) return false;
       }
 
       return true;
@@ -5622,8 +5700,8 @@ var Matrix4 = /*#__PURE__*/function () {
     value: function fromArray(array) {
       var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-      for (var _i11 = 0; _i11 < 16; _i11++) {
-        this.elements[_i11] = array[_i11 + offset];
+      for (var _i14 = 0; _i14 < 16; _i14++) {
+        this.elements[_i14] = array[_i14 + offset];
       }
 
       return this;
@@ -5684,7 +5762,7 @@ var Euler = /*#__PURE__*/function () {
     var z = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var order = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Euler.DefaultOrder;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Euler);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Euler);
 
     this._x = x;
     this._y = y;
@@ -5692,7 +5770,7 @@ var Euler = /*#__PURE__*/function () {
     this._order = order;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Euler, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Euler, [{
     key: "x",
     get: function get() {
       return this._x;
@@ -5941,12 +6019,12 @@ Euler.RotationOrders = ['XYZ', 'YZX', 'ZXY', 'XZY', 'YXZ', 'ZYX'];
 
 var Layers = /*#__PURE__*/function () {
   function Layers() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Layers);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Layers);
 
     this.mask = 1 | 0;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Layers, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Layers, [{
     key: "set",
     value: function set(channel) {
       this.mask = 1 << channel | 0;
@@ -5988,25 +6066,25 @@ var Layers = /*#__PURE__*/function () {
 
 var _object3DId = 0;
 
-var _v1$4 = new /*@__PURE__*/Vector3();
+var _v1$4 = /*@__PURE__*/new Vector3();
 
-var _q1 = new /*@__PURE__*/Quaternion();
+var _q1 = /*@__PURE__*/new Quaternion();
 
-var _m1$1 = new /*@__PURE__*/Matrix4();
+var _m1$1 = /*@__PURE__*/new Matrix4();
 
-var _target = new /*@__PURE__*/Vector3();
+var _target = /*@__PURE__*/new Vector3();
 
-var _position$3 = new /*@__PURE__*/Vector3();
+var _position$3 = /*@__PURE__*/new Vector3();
 
-var _scale$2 = new /*@__PURE__*/Vector3();
+var _scale$2 = /*@__PURE__*/new Vector3();
 
-var _quaternion$2 = new /*@__PURE__*/Quaternion();
+var _quaternion$2 = /*@__PURE__*/new Quaternion();
 
-var _xAxis = new /*@__PURE__*/Vector3(1, 0, 0);
+var _xAxis = /*@__PURE__*/new Vector3(1, 0, 0);
 
-var _yAxis = new /*@__PURE__*/Vector3(0, 1, 0);
+var _yAxis = /*@__PURE__*/new Vector3(0, 1, 0);
 
-var _zAxis = new /*@__PURE__*/Vector3(0, 0, 1);
+var _zAxis = /*@__PURE__*/new Vector3(0, 0, 1);
 
 var _addedEvent = {
   type: 'added'
@@ -6016,25 +6094,25 @@ var _removedEvent = {
 };
 
 var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Object3D, _EventDispatcher3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Object3D, _EventDispatcher3);
 
-  var _super4 = _createSuper(Object3D);
+  var _super5 = _createSuper(Object3D);
 
   function Object3D() {
-    var _this5;
+    var _this6;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Object3D);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Object3D);
 
-    _this5 = _super4.call(this);
-    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this5), 'id', {
+    _this6 = _super5.call(this);
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this6), 'id', {
       value: _object3DId++
     });
-    _this5.uuid = generateUUID();
-    _this5.name = '';
-    _this5.type = 'Object3D';
-    _this5.parent = null;
-    _this5.children = [];
-    _this5.up = Object3D.DefaultUp.clone();
+    _this6.uuid = generateUUID();
+    _this6.name = '';
+    _this6.type = 'Object3D';
+    _this6.parent = null;
+    _this6.children = [];
+    _this6.up = Object3D.DefaultUp.clone();
     var position = new Vector3();
     var rotation = new Euler();
     var quaternion = new Quaternion();
@@ -6052,7 +6130,7 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
 
     quaternion._onChange(onQuaternionChange);
 
-    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this5), {
+    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this6), {
       position: {
         configurable: true,
         enumerable: true,
@@ -6080,22 +6158,22 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
         value: new Matrix3()
       }
     });
-    _this5.matrix = new Matrix4();
-    _this5.matrixWorld = new Matrix4();
-    _this5.matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate;
-    _this5.matrixWorldNeedsUpdate = false;
-    _this5.layers = new Layers();
-    _this5.visible = true;
-    _this5.castShadow = false;
-    _this5.receiveShadow = false;
-    _this5.frustumCulled = true;
-    _this5.renderOrder = 0;
-    _this5.animations = [];
-    _this5.userData = {};
-    return _this5;
+    _this6.matrix = new Matrix4();
+    _this6.matrixWorld = new Matrix4();
+    _this6.matrixAutoUpdate = Object3D.DefaultMatrixAutoUpdate;
+    _this6.matrixWorldNeedsUpdate = false;
+    _this6.layers = new Layers();
+    _this6.visible = true;
+    _this6.castShadow = false;
+    _this6.receiveShadow = false;
+    _this6.frustumCulled = true;
+    _this6.renderOrder = 0;
+    _this6.animations = [];
+    _this6.userData = {};
+    return _this6;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Object3D, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Object3D, [{
     key: "onBeforeRender",
     value: function onBeforeRender() {}
   }, {
@@ -6243,8 +6321,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
     key: "add",
     value: function add(object) {
       if (arguments.length > 1) {
-        for (var _i12 = 0; _i12 < arguments.length; _i12++) {
-          this.add(arguments[_i12]);
+        for (var _i15 = 0; _i15 < arguments.length; _i15++) {
+          this.add(arguments[_i15]);
         }
 
         return this;
@@ -6273,8 +6351,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
     key: "remove",
     value: function remove(object) {
       if (arguments.length > 1) {
-        for (var _i13 = 0; _i13 < arguments.length; _i13++) {
-          this.remove(arguments[_i13]);
+        for (var _i16 = 0; _i16 < arguments.length; _i16++) {
+          this.remove(arguments[_i16]);
         }
 
         return this;
@@ -6291,10 +6369,21 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       return this;
     }
   }, {
+    key: "removeFromParent",
+    value: function removeFromParent() {
+      var parent = this.parent;
+
+      if (parent !== null) {
+        parent.remove(this);
+      }
+
+      return this;
+    }
+  }, {
     key: "clear",
     value: function clear() {
-      for (var _i14 = 0; _i14 < this.children.length; _i14++) {
-        var object = this.children[_i14];
+      for (var _i17 = 0; _i17 < this.children.length; _i17++) {
+        var object = this.children[_i17];
         object.parent = null;
         object.dispatchEvent(_removedEvent);
       }
@@ -6336,8 +6425,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
     value: function getObjectByProperty(name, value) {
       if (this[name] === value) return this;
 
-      for (var _i15 = 0, l = this.children.length; _i15 < l; _i15++) {
-        var child = this.children[_i15];
+      for (var _i18 = 0, l = this.children.length; _i18 < l; _i18++) {
+        var child = this.children[_i18];
         var object = child.getObjectByProperty(name, value);
 
         if (object !== undefined) {
@@ -6403,8 +6492,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       callback(this);
       var children = this.children;
 
-      for (var _i16 = 0, l = children.length; _i16 < l; _i16++) {
-        children[_i16].traverse(callback);
+      for (var _i19 = 0, l = children.length; _i19 < l; _i19++) {
+        children[_i19].traverse(callback);
       }
     }
   }, {
@@ -6414,8 +6503,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       callback(this);
       var children = this.children;
 
-      for (var _i17 = 0, l = children.length; _i17 < l; _i17++) {
-        children[_i17].traverseVisible(callback);
+      for (var _i20 = 0, l = children.length; _i20 < l; _i20++) {
+        children[_i20].traverseVisible(callback);
       }
     }
   }, {
@@ -6453,8 +6542,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
 
       var children = this.children;
 
-      for (var _i18 = 0, l = children.length; _i18 < l; _i18++) {
-        children[_i18].updateMatrixWorld(force);
+      for (var _i21 = 0, l = children.length; _i21 < l; _i21++) {
+        children[_i21].updateMatrixWorld(force);
       }
     }
   }, {
@@ -6478,8 +6567,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       if (updateChildren === true) {
         var children = this.children;
 
-        for (var _i19 = 0, l = children.length; _i19 < l; _i19++) {
-          children[_i19].updateWorldMatrix(false, true);
+        for (var _i22 = 0, l = children.length; _i22 < l; _i22++) {
+          children[_i22].updateWorldMatrix(false, true);
         }
       }
     }
@@ -6549,8 +6638,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
           var shapes = parameters.shapes;
 
           if (Array.isArray(shapes)) {
-            for (var _i20 = 0, l = shapes.length; _i20 < l; _i20++) {
-              var shape = shapes[_i20];
+            for (var _i23 = 0, l = shapes.length; _i23 < l; _i23++) {
+              var shape = shapes[_i23];
               serialize(meta.shapes, shape);
             }
           } else {
@@ -6573,8 +6662,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
         if (Array.isArray(this.material)) {
           var uuids = [];
 
-          for (var _i21 = 0, _l = this.material.length; _i21 < _l; _i21++) {
-            uuids.push(serialize(meta.materials, this.material[_i21]));
+          for (var _i24 = 0, _l = this.material.length; _i24 < _l; _i24++) {
+            uuids.push(serialize(meta.materials, this.material[_i24]));
           }
 
           object.material = uuids;
@@ -6587,8 +6676,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       if (this.children.length > 0) {
         object.children = [];
 
-        for (var _i22 = 0; _i22 < this.children.length; _i22++) {
-          object.children.push(this.children[_i22].toJSON(meta).object);
+        for (var _i25 = 0; _i25 < this.children.length; _i25++) {
+          object.children.push(this.children[_i25].toJSON(meta).object);
         }
       } //
 
@@ -6596,8 +6685,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       if (this.animations.length > 0) {
         object.animations = [];
 
-        for (var _i23 = 0; _i23 < this.animations.length; _i23++) {
-          var animation = this.animations[_i23];
+        for (var _i26 = 0; _i26 < this.animations.length; _i26++) {
+          var animation = this.animations[_i26];
           object.animations.push(serialize(meta.animations, animation));
         }
       }
@@ -6666,8 +6755,8 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
       this.userData = JSON.parse(JSON.stringify(source.userData));
 
       if (recursive === true) {
-        for (var _i24 = 0; _i24 < source.children.length; _i24++) {
-          var child = source.children[_i24];
+        for (var _i27 = 0; _i27 < source.children.length; _i27++) {
+          var child = source.children[_i27];
           this.add(child.clone());
         }
       }
@@ -6694,14 +6783,14 @@ var Plane = /*#__PURE__*/function () {
     var normal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3(1, 0, 0);
     var constant = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Plane);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Plane);
 
     // normal is assumed to be normalized
     this.normal = normal;
     this.constant = constant;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Plane, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Plane, [{
     key: "set",
     value: function set(normal, constant) {
       this.normal.copy(normal);
@@ -6890,14 +6979,14 @@ var Triangle = /*#__PURE__*/function () {
     var b = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
     var c = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Triangle);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Triangle);
 
     this.a = a;
     this.b = b;
     this.c = c;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Triangle, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Triangle, [{
     key: "set",
     value: function set(a, b, c) {
       this.a.copy(a);
@@ -7172,331 +7261,365 @@ var Triangle = /*#__PURE__*/function () {
 
 var materialId = 0;
 
-function Material() {
-  Object.defineProperty(this, 'id', {
-    value: materialId++
-  });
-  this.uuid = generateUUID();
-  this.name = '';
-  this.type = 'Material';
-  this.fog = true;
-  this.blending = NormalBlending;
-  this.side = FrontSide;
-  this.vertexColors = false;
-  this.opacity = 1;
-  this.transparent = false;
-  this.blendSrc = SrcAlphaFactor;
-  this.blendDst = OneMinusSrcAlphaFactor;
-  this.blendEquation = AddEquation;
-  this.blendSrcAlpha = null;
-  this.blendDstAlpha = null;
-  this.blendEquationAlpha = null;
-  this.depthFunc = LessEqualDepth;
-  this.depthTest = true;
-  this.depthWrite = true;
-  this.stencilWriteMask = 0xff;
-  this.stencilFunc = AlwaysStencilFunc;
-  this.stencilRef = 0;
-  this.stencilFuncMask = 0xff;
-  this.stencilFail = KeepStencilOp;
-  this.stencilZFail = KeepStencilOp;
-  this.stencilZPass = KeepStencilOp;
-  this.stencilWrite = false;
-  this.clippingPlanes = null;
-  this.clipIntersection = false;
-  this.clipShadows = false;
-  this.shadowSide = null;
-  this.colorWrite = true;
-  this.precision = null; // override the renderer's default precision for this material
+var Material = /*#__PURE__*/function (_EventDispatcher4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Material, _EventDispatcher4);
 
-  this.polygonOffset = false;
-  this.polygonOffsetFactor = 0;
-  this.polygonOffsetUnits = 0;
-  this.dithering = false;
-  this.alphaTest = 0;
-  this.alphaToCoverage = false;
-  this.premultipliedAlpha = false;
-  this.visible = true;
-  this.toneMapped = true;
-  this.userData = {};
-  this.version = 0;
-}
+  var _super6 = _createSuper(Material);
 
-Material.prototype = Object.assign(Object.create(EventDispatcher.prototype), {
-  constructor: Material,
-  isMaterial: true,
-  onBuild: function onBuild()
-  /* shaderobject, renderer */
-  {},
-  onBeforeCompile: function onBeforeCompile()
-  /* shaderobject, renderer */
-  {},
-  customProgramCacheKey: function customProgramCacheKey() {
-    return this.onBeforeCompile.toString();
-  },
-  setValues: function setValues(values) {
-    if (values === undefined) return;
+  function Material() {
+    var _this7;
 
-    for (var key in values) {
-      var newValue = values[key];
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Material);
 
-      if (newValue === undefined) {
-        console.warn('THREE.Material: \'' + key + '\' parameter is undefined.');
-        continue;
-      } // for backward compatability if shading is set in the constructor
-
-
-      if (key === 'shading') {
-        console.warn('THREE.' + this.type + ': .shading has been removed. Use the boolean .flatShading instead.');
-        this.flatShading = newValue === FlatShading ? true : false;
-        continue;
-      }
-
-      var currentValue = this[key];
-
-      if (currentValue === undefined) {
-        console.warn('THREE.' + this.type + ': \'' + key + '\' is not a property of this material.');
-        continue;
-      }
-
-      if (currentValue && currentValue.isColor) {
-        currentValue.set(newValue);
-      } else if (currentValue && currentValue.isVector3 && newValue && newValue.isVector3) {
-        currentValue.copy(newValue);
-      } else {
-        this[key] = newValue;
-      }
-    }
-  },
-  toJSON: function toJSON(meta) {
-    var isRoot = meta === undefined || typeof meta === 'string';
-
-    if (isRoot) {
-      meta = {
-        textures: {},
-        images: {}
-      };
-    }
-
-    var data = {
-      metadata: {
-        version: 4.5,
-        type: 'Material',
-        generator: 'Material.toJSON'
-      }
-    }; // standard Material serialization
-
-    data.uuid = this.uuid;
-    data.type = this.type;
-    if (this.name !== '') data.name = this.name;
-    if (this.color && this.color.isColor) data.color = this.color.getHex();
-    if (this.roughness !== undefined) data.roughness = this.roughness;
-    if (this.metalness !== undefined) data.metalness = this.metalness;
-    if (this.sheen && this.sheen.isColor) data.sheen = this.sheen.getHex();
-    if (this.emissive && this.emissive.isColor) data.emissive = this.emissive.getHex();
-    if (this.emissiveIntensity && this.emissiveIntensity !== 1) data.emissiveIntensity = this.emissiveIntensity;
-    if (this.specular && this.specular.isColor) data.specular = this.specular.getHex();
-    if (this.shininess !== undefined) data.shininess = this.shininess;
-    if (this.clearcoat !== undefined) data.clearcoat = this.clearcoat;
-    if (this.clearcoatRoughness !== undefined) data.clearcoatRoughness = this.clearcoatRoughness;
-
-    if (this.clearcoatMap && this.clearcoatMap.isTexture) {
-      data.clearcoatMap = this.clearcoatMap.toJSON(meta).uuid;
-    }
-
-    if (this.clearcoatRoughnessMap && this.clearcoatRoughnessMap.isTexture) {
-      data.clearcoatRoughnessMap = this.clearcoatRoughnessMap.toJSON(meta).uuid;
-    }
-
-    if (this.clearcoatNormalMap && this.clearcoatNormalMap.isTexture) {
-      data.clearcoatNormalMap = this.clearcoatNormalMap.toJSON(meta).uuid;
-      data.clearcoatNormalScale = this.clearcoatNormalScale.toArray();
-    }
-
-    if (this.map && this.map.isTexture) data.map = this.map.toJSON(meta).uuid;
-    if (this.matcap && this.matcap.isTexture) data.matcap = this.matcap.toJSON(meta).uuid;
-    if (this.alphaMap && this.alphaMap.isTexture) data.alphaMap = this.alphaMap.toJSON(meta).uuid;
-
-    if (this.lightMap && this.lightMap.isTexture) {
-      data.lightMap = this.lightMap.toJSON(meta).uuid;
-      data.lightMapIntensity = this.lightMapIntensity;
-    }
-
-    if (this.aoMap && this.aoMap.isTexture) {
-      data.aoMap = this.aoMap.toJSON(meta).uuid;
-      data.aoMapIntensity = this.aoMapIntensity;
-    }
-
-    if (this.bumpMap && this.bumpMap.isTexture) {
-      data.bumpMap = this.bumpMap.toJSON(meta).uuid;
-      data.bumpScale = this.bumpScale;
-    }
-
-    if (this.normalMap && this.normalMap.isTexture) {
-      data.normalMap = this.normalMap.toJSON(meta).uuid;
-      data.normalMapType = this.normalMapType;
-      data.normalScale = this.normalScale.toArray();
-    }
-
-    if (this.displacementMap && this.displacementMap.isTexture) {
-      data.displacementMap = this.displacementMap.toJSON(meta).uuid;
-      data.displacementScale = this.displacementScale;
-      data.displacementBias = this.displacementBias;
-    }
-
-    if (this.roughnessMap && this.roughnessMap.isTexture) data.roughnessMap = this.roughnessMap.toJSON(meta).uuid;
-    if (this.metalnessMap && this.metalnessMap.isTexture) data.metalnessMap = this.metalnessMap.toJSON(meta).uuid;
-    if (this.emissiveMap && this.emissiveMap.isTexture) data.emissiveMap = this.emissiveMap.toJSON(meta).uuid;
-    if (this.specularMap && this.specularMap.isTexture) data.specularMap = this.specularMap.toJSON(meta).uuid;
-
-    if (this.envMap && this.envMap.isTexture) {
-      data.envMap = this.envMap.toJSON(meta).uuid;
-      if (this.combine !== undefined) data.combine = this.combine;
-    }
-
-    if (this.envMapIntensity !== undefined) data.envMapIntensity = this.envMapIntensity;
-    if (this.reflectivity !== undefined) data.reflectivity = this.reflectivity;
-    if (this.refractionRatio !== undefined) data.refractionRatio = this.refractionRatio;
-
-    if (this.gradientMap && this.gradientMap.isTexture) {
-      data.gradientMap = this.gradientMap.toJSON(meta).uuid;
-    }
-
-    if (this.size !== undefined) data.size = this.size;
-    if (this.shadowSide !== null) data.shadowSide = this.shadowSide;
-    if (this.sizeAttenuation !== undefined) data.sizeAttenuation = this.sizeAttenuation;
-    if (this.blending !== NormalBlending) data.blending = this.blending;
-    if (this.side !== FrontSide) data.side = this.side;
-    if (this.vertexColors) data.vertexColors = true;
-    if (this.opacity < 1) data.opacity = this.opacity;
-    if (this.transparent === true) data.transparent = this.transparent;
-    data.depthFunc = this.depthFunc;
-    data.depthTest = this.depthTest;
-    data.depthWrite = this.depthWrite;
-    data.colorWrite = this.colorWrite;
-    data.stencilWrite = this.stencilWrite;
-    data.stencilWriteMask = this.stencilWriteMask;
-    data.stencilFunc = this.stencilFunc;
-    data.stencilRef = this.stencilRef;
-    data.stencilFuncMask = this.stencilFuncMask;
-    data.stencilFail = this.stencilFail;
-    data.stencilZFail = this.stencilZFail;
-    data.stencilZPass = this.stencilZPass; // rotation (SpriteMaterial)
-
-    if (this.rotation && this.rotation !== 0) data.rotation = this.rotation;
-    if (this.polygonOffset === true) data.polygonOffset = true;
-    if (this.polygonOffsetFactor !== 0) data.polygonOffsetFactor = this.polygonOffsetFactor;
-    if (this.polygonOffsetUnits !== 0) data.polygonOffsetUnits = this.polygonOffsetUnits;
-    if (this.linewidth && this.linewidth !== 1) data.linewidth = this.linewidth;
-    if (this.dashSize !== undefined) data.dashSize = this.dashSize;
-    if (this.gapSize !== undefined) data.gapSize = this.gapSize;
-    if (this.scale !== undefined) data.scale = this.scale;
-    if (this.dithering === true) data.dithering = true;
-    if (this.alphaTest > 0) data.alphaTest = this.alphaTest;
-    if (this.alphaToCoverage === true) data.alphaToCoverage = this.alphaToCoverage;
-    if (this.premultipliedAlpha === true) data.premultipliedAlpha = this.premultipliedAlpha;
-    if (this.wireframe === true) data.wireframe = this.wireframe;
-    if (this.wireframeLinewidth > 1) data.wireframeLinewidth = this.wireframeLinewidth;
-    if (this.wireframeLinecap !== 'round') data.wireframeLinecap = this.wireframeLinecap;
-    if (this.wireframeLinejoin !== 'round') data.wireframeLinejoin = this.wireframeLinejoin;
-    if (this.morphTargets === true) data.morphTargets = true;
-    if (this.morphNormals === true) data.morphNormals = true;
-    if (this.skinning === true) data.skinning = true;
-    if (this.flatShading === true) data.flatShading = this.flatShading;
-    if (this.visible === false) data.visible = false;
-    if (this.toneMapped === false) data.toneMapped = false;
-    if (JSON.stringify(this.userData) !== '{}') data.userData = this.userData; // TODO: Copied from Object3D.toJSON
-
-    function extractFromCache(cache) {
-      var values = [];
-
-      for (var key in cache) {
-        var _data = cache[key];
-        delete _data.metadata;
-        values.push(_data);
-      }
-
-      return values;
-    }
-
-    if (isRoot) {
-      var textures = extractFromCache(meta.textures);
-      var images = extractFromCache(meta.images);
-      if (textures.length > 0) data.textures = textures;
-      if (images.length > 0) data.images = images;
-    }
-
-    return data;
-  },
-  clone: function clone() {
-    return new this.constructor().copy(this);
-  },
-  copy: function copy(source) {
-    this.name = source.name;
-    this.fog = source.fog;
-    this.blending = source.blending;
-    this.side = source.side;
-    this.vertexColors = source.vertexColors;
-    this.opacity = source.opacity;
-    this.transparent = source.transparent;
-    this.blendSrc = source.blendSrc;
-    this.blendDst = source.blendDst;
-    this.blendEquation = source.blendEquation;
-    this.blendSrcAlpha = source.blendSrcAlpha;
-    this.blendDstAlpha = source.blendDstAlpha;
-    this.blendEquationAlpha = source.blendEquationAlpha;
-    this.depthFunc = source.depthFunc;
-    this.depthTest = source.depthTest;
-    this.depthWrite = source.depthWrite;
-    this.stencilWriteMask = source.stencilWriteMask;
-    this.stencilFunc = source.stencilFunc;
-    this.stencilRef = source.stencilRef;
-    this.stencilFuncMask = source.stencilFuncMask;
-    this.stencilFail = source.stencilFail;
-    this.stencilZFail = source.stencilZFail;
-    this.stencilZPass = source.stencilZPass;
-    this.stencilWrite = source.stencilWrite;
-    var srcPlanes = source.clippingPlanes;
-    var dstPlanes = null;
-
-    if (srcPlanes !== null) {
-      var n = srcPlanes.length;
-      dstPlanes = new Array(n);
-
-      for (var _i25 = 0; _i25 !== n; ++_i25) {
-        dstPlanes[_i25] = srcPlanes[_i25].clone();
-      }
-    }
-
-    this.clippingPlanes = dstPlanes;
-    this.clipIntersection = source.clipIntersection;
-    this.clipShadows = source.clipShadows;
-    this.shadowSide = source.shadowSide;
-    this.colorWrite = source.colorWrite;
-    this.precision = source.precision;
-    this.polygonOffset = source.polygonOffset;
-    this.polygonOffsetFactor = source.polygonOffsetFactor;
-    this.polygonOffsetUnits = source.polygonOffsetUnits;
-    this.dithering = source.dithering;
-    this.alphaTest = source.alphaTest;
-    this.alphaToCoverage = source.alphaToCoverage;
-    this.premultipliedAlpha = source.premultipliedAlpha;
-    this.visible = source.visible;
-    this.toneMapped = source.toneMapped;
-    this.userData = JSON.parse(JSON.stringify(source.userData));
-    return this;
-  },
-  dispose: function dispose() {
-    this.dispatchEvent({
-      type: 'dispose'
+    _this7 = _super6.call(this);
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this7), 'id', {
+      value: materialId++
     });
+    _this7.uuid = generateUUID();
+    _this7.name = '';
+    _this7.type = 'Material';
+    _this7.fog = true;
+    _this7.blending = NormalBlending;
+    _this7.side = FrontSide;
+    _this7.vertexColors = false;
+    _this7.opacity = 1;
+    _this7.transparent = false;
+    _this7.blendSrc = SrcAlphaFactor;
+    _this7.blendDst = OneMinusSrcAlphaFactor;
+    _this7.blendEquation = AddEquation;
+    _this7.blendSrcAlpha = null;
+    _this7.blendDstAlpha = null;
+    _this7.blendEquationAlpha = null;
+    _this7.depthFunc = LessEqualDepth;
+    _this7.depthTest = true;
+    _this7.depthWrite = true;
+    _this7.stencilWriteMask = 0xff;
+    _this7.stencilFunc = AlwaysStencilFunc;
+    _this7.stencilRef = 0;
+    _this7.stencilFuncMask = 0xff;
+    _this7.stencilFail = KeepStencilOp;
+    _this7.stencilZFail = KeepStencilOp;
+    _this7.stencilZPass = KeepStencilOp;
+    _this7.stencilWrite = false;
+    _this7.clippingPlanes = null;
+    _this7.clipIntersection = false;
+    _this7.clipShadows = false;
+    _this7.shadowSide = null;
+    _this7.colorWrite = true;
+    _this7.precision = null; // override the renderer's default precision for this material
+
+    _this7.polygonOffset = false;
+    _this7.polygonOffsetFactor = 0;
+    _this7.polygonOffsetUnits = 0;
+    _this7.dithering = false;
+    _this7.alphaTest = 0;
+    _this7.alphaToCoverage = false;
+    _this7.premultipliedAlpha = false;
+    _this7.visible = true;
+    _this7.toneMapped = true;
+    _this7.userData = {};
+    _this7.version = 0;
+    return _this7;
   }
-});
-Object.defineProperty(Material.prototype, 'needsUpdate', {
-  set: function set(value) {
-    if (value === true) this.version++;
-  }
-});
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Material, [{
+    key: "onBuild",
+    value: function onBuild()
+    /* shaderobject, renderer */
+    {}
+  }, {
+    key: "onBeforeCompile",
+    value: function onBeforeCompile()
+    /* shaderobject, renderer */
+    {}
+  }, {
+    key: "customProgramCacheKey",
+    value: function customProgramCacheKey() {
+      return this.onBeforeCompile.toString();
+    }
+  }, {
+    key: "setValues",
+    value: function setValues(values) {
+      if (values === undefined) return;
+
+      for (var key in values) {
+        var newValue = values[key];
+
+        if (newValue === undefined) {
+          console.warn('THREE.Material: \'' + key + '\' parameter is undefined.');
+          continue;
+        } // for backward compatability if shading is set in the constructor
+
+
+        if (key === 'shading') {
+          console.warn('THREE.' + this.type + ': .shading has been removed. Use the boolean .flatShading instead.');
+          this.flatShading = newValue === FlatShading ? true : false;
+          continue;
+        }
+
+        var currentValue = this[key];
+
+        if (currentValue === undefined) {
+          console.warn('THREE.' + this.type + ': \'' + key + '\' is not a property of this material.');
+          continue;
+        }
+
+        if (currentValue && currentValue.isColor) {
+          currentValue.set(newValue);
+        } else if (currentValue && currentValue.isVector3 && newValue && newValue.isVector3) {
+          currentValue.copy(newValue);
+        } else {
+          this[key] = newValue;
+        }
+      }
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON(meta) {
+      var isRoot = meta === undefined || typeof meta === 'string';
+
+      if (isRoot) {
+        meta = {
+          textures: {},
+          images: {}
+        };
+      }
+
+      var data = {
+        metadata: {
+          version: 4.5,
+          type: 'Material',
+          generator: 'Material.toJSON'
+        }
+      }; // standard Material serialization
+
+      data.uuid = this.uuid;
+      data.type = this.type;
+      if (this.name !== '') data.name = this.name;
+      if (this.color && this.color.isColor) data.color = this.color.getHex();
+      if (this.roughness !== undefined) data.roughness = this.roughness;
+      if (this.metalness !== undefined) data.metalness = this.metalness;
+      if (this.sheen && this.sheen.isColor) data.sheen = this.sheen.getHex();
+      if (this.emissive && this.emissive.isColor) data.emissive = this.emissive.getHex();
+      if (this.emissiveIntensity && this.emissiveIntensity !== 1) data.emissiveIntensity = this.emissiveIntensity;
+      if (this.specular && this.specular.isColor) data.specular = this.specular.getHex();
+      if (this.shininess !== undefined) data.shininess = this.shininess;
+      if (this.clearcoat !== undefined) data.clearcoat = this.clearcoat;
+      if (this.clearcoatRoughness !== undefined) data.clearcoatRoughness = this.clearcoatRoughness;
+
+      if (this.clearcoatMap && this.clearcoatMap.isTexture) {
+        data.clearcoatMap = this.clearcoatMap.toJSON(meta).uuid;
+      }
+
+      if (this.clearcoatRoughnessMap && this.clearcoatRoughnessMap.isTexture) {
+        data.clearcoatRoughnessMap = this.clearcoatRoughnessMap.toJSON(meta).uuid;
+      }
+
+      if (this.clearcoatNormalMap && this.clearcoatNormalMap.isTexture) {
+        data.clearcoatNormalMap = this.clearcoatNormalMap.toJSON(meta).uuid;
+        data.clearcoatNormalScale = this.clearcoatNormalScale.toArray();
+      }
+
+      if (this.map && this.map.isTexture) data.map = this.map.toJSON(meta).uuid;
+      if (this.matcap && this.matcap.isTexture) data.matcap = this.matcap.toJSON(meta).uuid;
+      if (this.alphaMap && this.alphaMap.isTexture) data.alphaMap = this.alphaMap.toJSON(meta).uuid;
+
+      if (this.lightMap && this.lightMap.isTexture) {
+        data.lightMap = this.lightMap.toJSON(meta).uuid;
+        data.lightMapIntensity = this.lightMapIntensity;
+      }
+
+      if (this.aoMap && this.aoMap.isTexture) {
+        data.aoMap = this.aoMap.toJSON(meta).uuid;
+        data.aoMapIntensity = this.aoMapIntensity;
+      }
+
+      if (this.bumpMap && this.bumpMap.isTexture) {
+        data.bumpMap = this.bumpMap.toJSON(meta).uuid;
+        data.bumpScale = this.bumpScale;
+      }
+
+      if (this.normalMap && this.normalMap.isTexture) {
+        data.normalMap = this.normalMap.toJSON(meta).uuid;
+        data.normalMapType = this.normalMapType;
+        data.normalScale = this.normalScale.toArray();
+      }
+
+      if (this.displacementMap && this.displacementMap.isTexture) {
+        data.displacementMap = this.displacementMap.toJSON(meta).uuid;
+        data.displacementScale = this.displacementScale;
+        data.displacementBias = this.displacementBias;
+      }
+
+      if (this.roughnessMap && this.roughnessMap.isTexture) data.roughnessMap = this.roughnessMap.toJSON(meta).uuid;
+      if (this.metalnessMap && this.metalnessMap.isTexture) data.metalnessMap = this.metalnessMap.toJSON(meta).uuid;
+      if (this.emissiveMap && this.emissiveMap.isTexture) data.emissiveMap = this.emissiveMap.toJSON(meta).uuid;
+      if (this.specularMap && this.specularMap.isTexture) data.specularMap = this.specularMap.toJSON(meta).uuid;
+
+      if (this.envMap && this.envMap.isTexture) {
+        data.envMap = this.envMap.toJSON(meta).uuid;
+        if (this.combine !== undefined) data.combine = this.combine;
+      }
+
+      if (this.envMapIntensity !== undefined) data.envMapIntensity = this.envMapIntensity;
+      if (this.reflectivity !== undefined) data.reflectivity = this.reflectivity;
+      if (this.refractionRatio !== undefined) data.refractionRatio = this.refractionRatio;
+
+      if (this.gradientMap && this.gradientMap.isTexture) {
+        data.gradientMap = this.gradientMap.toJSON(meta).uuid;
+      }
+
+      if (this.transmission !== undefined) data.transmission = this.transmission;
+      if (this.transmissionMap && this.transmissionMap.isTexture) data.transmissionMap = this.transmissionMap.toJSON(meta).uuid;
+      if (this.thickness !== undefined) data.thickness = this.thickness;
+      if (this.thicknessMap && this.thicknessMap.isTexture) data.thicknessMap = this.thicknessMap.toJSON(meta).uuid;
+      if (this.attenuationDistance !== undefined) data.attenuationDistance = this.attenuationDistance;
+      if (this.attenuationColor !== undefined) data.attenuationColor = this.attenuationColor.getHex();
+      if (this.size !== undefined) data.size = this.size;
+      if (this.shadowSide !== null) data.shadowSide = this.shadowSide;
+      if (this.sizeAttenuation !== undefined) data.sizeAttenuation = this.sizeAttenuation;
+      if (this.blending !== NormalBlending) data.blending = this.blending;
+      if (this.side !== FrontSide) data.side = this.side;
+      if (this.vertexColors) data.vertexColors = true;
+      if (this.opacity < 1) data.opacity = this.opacity;
+      if (this.transparent === true) data.transparent = this.transparent;
+      data.depthFunc = this.depthFunc;
+      data.depthTest = this.depthTest;
+      data.depthWrite = this.depthWrite;
+      data.colorWrite = this.colorWrite;
+      data.stencilWrite = this.stencilWrite;
+      data.stencilWriteMask = this.stencilWriteMask;
+      data.stencilFunc = this.stencilFunc;
+      data.stencilRef = this.stencilRef;
+      data.stencilFuncMask = this.stencilFuncMask;
+      data.stencilFail = this.stencilFail;
+      data.stencilZFail = this.stencilZFail;
+      data.stencilZPass = this.stencilZPass; // rotation (SpriteMaterial)
+
+      if (this.rotation && this.rotation !== 0) data.rotation = this.rotation;
+      if (this.polygonOffset === true) data.polygonOffset = true;
+      if (this.polygonOffsetFactor !== 0) data.polygonOffsetFactor = this.polygonOffsetFactor;
+      if (this.polygonOffsetUnits !== 0) data.polygonOffsetUnits = this.polygonOffsetUnits;
+      if (this.linewidth && this.linewidth !== 1) data.linewidth = this.linewidth;
+      if (this.dashSize !== undefined) data.dashSize = this.dashSize;
+      if (this.gapSize !== undefined) data.gapSize = this.gapSize;
+      if (this.scale !== undefined) data.scale = this.scale;
+      if (this.dithering === true) data.dithering = true;
+      if (this.alphaTest > 0) data.alphaTest = this.alphaTest;
+      if (this.alphaToCoverage === true) data.alphaToCoverage = this.alphaToCoverage;
+      if (this.premultipliedAlpha === true) data.premultipliedAlpha = this.premultipliedAlpha;
+      if (this.wireframe === true) data.wireframe = this.wireframe;
+      if (this.wireframeLinewidth > 1) data.wireframeLinewidth = this.wireframeLinewidth;
+      if (this.wireframeLinecap !== 'round') data.wireframeLinecap = this.wireframeLinecap;
+      if (this.wireframeLinejoin !== 'round') data.wireframeLinejoin = this.wireframeLinejoin;
+      if (this.morphTargets === true) data.morphTargets = true;
+      if (this.morphNormals === true) data.morphNormals = true;
+      if (this.flatShading === true) data.flatShading = this.flatShading;
+      if (this.visible === false) data.visible = false;
+      if (this.toneMapped === false) data.toneMapped = false;
+      if (JSON.stringify(this.userData) !== '{}') data.userData = this.userData; // TODO: Copied from Object3D.toJSON
+
+      function extractFromCache(cache) {
+        var values = [];
+
+        for (var key in cache) {
+          var _data = cache[key];
+          delete _data.metadata;
+          values.push(_data);
+        }
+
+        return values;
+      }
+
+      if (isRoot) {
+        var textures = extractFromCache(meta.textures);
+        var images = extractFromCache(meta.images);
+        if (textures.length > 0) data.textures = textures;
+        if (images.length > 0) data.images = images;
+      }
+
+      return data;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor().copy(this);
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      this.name = source.name;
+      this.fog = source.fog;
+      this.blending = source.blending;
+      this.side = source.side;
+      this.vertexColors = source.vertexColors;
+      this.opacity = source.opacity;
+      this.transparent = source.transparent;
+      this.blendSrc = source.blendSrc;
+      this.blendDst = source.blendDst;
+      this.blendEquation = source.blendEquation;
+      this.blendSrcAlpha = source.blendSrcAlpha;
+      this.blendDstAlpha = source.blendDstAlpha;
+      this.blendEquationAlpha = source.blendEquationAlpha;
+      this.depthFunc = source.depthFunc;
+      this.depthTest = source.depthTest;
+      this.depthWrite = source.depthWrite;
+      this.stencilWriteMask = source.stencilWriteMask;
+      this.stencilFunc = source.stencilFunc;
+      this.stencilRef = source.stencilRef;
+      this.stencilFuncMask = source.stencilFuncMask;
+      this.stencilFail = source.stencilFail;
+      this.stencilZFail = source.stencilZFail;
+      this.stencilZPass = source.stencilZPass;
+      this.stencilWrite = source.stencilWrite;
+      var srcPlanes = source.clippingPlanes;
+      var dstPlanes = null;
+
+      if (srcPlanes !== null) {
+        var n = srcPlanes.length;
+        dstPlanes = new Array(n);
+
+        for (var _i28 = 0; _i28 !== n; ++_i28) {
+          dstPlanes[_i28] = srcPlanes[_i28].clone();
+        }
+      }
+
+      this.clippingPlanes = dstPlanes;
+      this.clipIntersection = source.clipIntersection;
+      this.clipShadows = source.clipShadows;
+      this.shadowSide = source.shadowSide;
+      this.colorWrite = source.colorWrite;
+      this.precision = source.precision;
+      this.polygonOffset = source.polygonOffset;
+      this.polygonOffsetFactor = source.polygonOffsetFactor;
+      this.polygonOffsetUnits = source.polygonOffsetUnits;
+      this.dithering = source.dithering;
+      this.alphaTest = source.alphaTest;
+      this.alphaToCoverage = source.alphaToCoverage;
+      this.premultipliedAlpha = source.premultipliedAlpha;
+      this.visible = source.visible;
+      this.toneMapped = source.toneMapped;
+      this.userData = JSON.parse(JSON.stringify(source.userData));
+      return this;
+    }
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this.dispatchEvent({
+        type: 'dispose'
+      });
+    }
+  }, {
+    key: "needsUpdate",
+    set: function set(value) {
+      if (value === true) this.version++;
+    }
+  }]);
+
+  return Material;
+}(EventDispatcher);
+
+Material.prototype.isMaterial = true;
 var _colorKeywords = {
   'aliceblue': 0xF0F8FF,
   'antiquewhite': 0xFAEBD7,
@@ -7677,7 +7800,7 @@ function LinearToSRGB(c) {
 
 var Color = /*#__PURE__*/function () {
   function Color(r, g, b) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Color);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Color);
 
     if (g === undefined && b === undefined) {
       // r is THREE.Color, hex or string
@@ -7687,7 +7810,7 @@ var Color = /*#__PURE__*/function () {
     return this.setRGB(r, g, b);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Color, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Color, [{
     key: "set",
     value: function set(value) {
       if (value && value.isColor) {
@@ -8146,52 +8269,50 @@ Color.prototype.b = 1;
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>
  * }
  */
 
 var MeshBasicMaterial = /*#__PURE__*/function (_Material) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshBasicMaterial, _Material);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshBasicMaterial, _Material);
 
-  var _super5 = _createSuper(MeshBasicMaterial);
+  var _super7 = _createSuper(MeshBasicMaterial);
 
   function MeshBasicMaterial(parameters) {
-    var _this6;
+    var _this8;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshBasicMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshBasicMaterial);
 
-    _this6 = _super5.call(this);
-    _this6.type = 'MeshBasicMaterial';
-    _this6.color = new Color(0xffffff); // emissive
+    _this8 = _super7.call(this);
+    _this8.type = 'MeshBasicMaterial';
+    _this8.color = new Color(0xffffff); // emissive
 
-    _this6.map = null;
-    _this6.lightMap = null;
-    _this6.lightMapIntensity = 1.0;
-    _this6.aoMap = null;
-    _this6.aoMapIntensity = 1.0;
-    _this6.specularMap = null;
-    _this6.alphaMap = null;
-    _this6.envMap = null;
-    _this6.combine = MultiplyOperation;
-    _this6.reflectivity = 1;
-    _this6.refractionRatio = 0.98;
-    _this6.wireframe = false;
-    _this6.wireframeLinewidth = 1;
-    _this6.wireframeLinecap = 'round';
-    _this6.wireframeLinejoin = 'round';
-    _this6.skinning = false;
-    _this6.morphTargets = false;
+    _this8.map = null;
+    _this8.lightMap = null;
+    _this8.lightMapIntensity = 1.0;
+    _this8.aoMap = null;
+    _this8.aoMapIntensity = 1.0;
+    _this8.specularMap = null;
+    _this8.alphaMap = null;
+    _this8.envMap = null;
+    _this8.combine = MultiplyOperation;
+    _this8.reflectivity = 1;
+    _this8.refractionRatio = 0.98;
+    _this8.wireframe = false;
+    _this8.wireframeLinewidth = 1;
+    _this8.wireframeLinecap = 'round';
+    _this8.wireframeLinejoin = 'round';
+    _this8.morphTargets = false;
 
-    _this6.setValues(parameters);
+    _this8.setValues(parameters);
 
-    return _this6;
+    return _this8;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshBasicMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshBasicMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshBasicMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshBasicMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.map = source.map;
@@ -8209,7 +8330,6 @@ var MeshBasicMaterial = /*#__PURE__*/function (_Material) {
       this.wireframeLinewidth = source.wireframeLinewidth;
       this.wireframeLinecap = source.wireframeLinecap;
       this.wireframeLinejoin = source.wireframeLinejoin;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       return this;
     }
@@ -8220,13 +8340,13 @@ var MeshBasicMaterial = /*#__PURE__*/function (_Material) {
 
 MeshBasicMaterial.prototype.isMeshBasicMaterial = true;
 
-var _vector$9 = new /*@__PURE__*/Vector3();
+var _vector$9 = /*@__PURE__*/new Vector3();
 
-var _vector2 = new /*@__PURE__*/Vector2();
+var _vector2 = /*@__PURE__*/new Vector2();
 
 var BufferAttribute = /*#__PURE__*/function () {
   function BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BufferAttribute);
 
     if (Array.isArray(array)) {
       throw new TypeError('THREE.BufferAttribute: array should be a Typed Array.');
@@ -8243,11 +8363,12 @@ var BufferAttribute = /*#__PURE__*/function () {
       count: -1
     };
     this.version = 0;
-
-    this.onUploadCallback = function () {};
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BufferAttribute, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferAttribute, [{
+    key: "onUploadCallback",
+    value: function onUploadCallback() {}
+  }, {
     key: "needsUpdate",
     set: function set(value) {
       if (value === true) this.version++;
@@ -8275,8 +8396,8 @@ var BufferAttribute = /*#__PURE__*/function () {
       index1 *= this.itemSize;
       index2 *= attribute.itemSize;
 
-      for (var _i26 = 0, l = this.itemSize; _i26 < l; _i26++) {
-        this.array[index1 + _i26] = attribute.array[index2 + _i26];
+      for (var _i29 = 0, l = this.itemSize; _i29 < l; _i29++) {
+        this.array[index1 + _i29] = attribute.array[index2 + _i29];
       }
 
       return this;
@@ -8293,11 +8414,11 @@ var BufferAttribute = /*#__PURE__*/function () {
       var array = this.array;
       var offset = 0;
 
-      for (var _i27 = 0, l = colors.length; _i27 < l; _i27++) {
-        var color = colors[_i27];
+      for (var _i30 = 0, l = colors.length; _i30 < l; _i30++) {
+        var color = colors[_i30];
 
         if (color === undefined) {
-          console.warn('THREE.BufferAttribute.copyColorsArray(): color is undefined', _i27);
+          console.warn('THREE.BufferAttribute.copyColorsArray(): color is undefined', _i30);
           color = new Color();
         }
 
@@ -8314,11 +8435,11 @@ var BufferAttribute = /*#__PURE__*/function () {
       var array = this.array;
       var offset = 0;
 
-      for (var _i28 = 0, l = vectors.length; _i28 < l; _i28++) {
-        var vector = vectors[_i28];
+      for (var _i31 = 0, l = vectors.length; _i31 < l; _i31++) {
+        var vector = vectors[_i31];
 
         if (vector === undefined) {
-          console.warn('THREE.BufferAttribute.copyVector2sArray(): vector is undefined', _i28);
+          console.warn('THREE.BufferAttribute.copyVector2sArray(): vector is undefined', _i31);
           vector = new Vector2();
         }
 
@@ -8334,11 +8455,11 @@ var BufferAttribute = /*#__PURE__*/function () {
       var array = this.array;
       var offset = 0;
 
-      for (var _i29 = 0, l = vectors.length; _i29 < l; _i29++) {
-        var vector = vectors[_i29];
+      for (var _i32 = 0, l = vectors.length; _i32 < l; _i32++) {
+        var vector = vectors[_i32];
 
         if (vector === undefined) {
-          console.warn('THREE.BufferAttribute.copyVector3sArray(): vector is undefined', _i29);
+          console.warn('THREE.BufferAttribute.copyVector3sArray(): vector is undefined', _i32);
           vector = new Vector3();
         }
 
@@ -8355,11 +8476,11 @@ var BufferAttribute = /*#__PURE__*/function () {
       var array = this.array;
       var offset = 0;
 
-      for (var _i30 = 0, l = vectors.length; _i30 < l; _i30++) {
-        var vector = vectors[_i30];
+      for (var _i33 = 0, l = vectors.length; _i33 < l; _i33++) {
+        var vector = vectors[_i33];
 
         if (vector === undefined) {
-          console.warn('THREE.BufferAttribute.copyVector4sArray(): vector is undefined', _i30);
+          console.warn('THREE.BufferAttribute.copyVector4sArray(): vector is undefined', _i33);
           vector = new Vector4();
         }
 
@@ -8375,20 +8496,20 @@ var BufferAttribute = /*#__PURE__*/function () {
     key: "applyMatrix3",
     value: function applyMatrix3(m) {
       if (this.itemSize === 2) {
-        for (var _i31 = 0, l = this.count; _i31 < l; _i31++) {
-          _vector2.fromBufferAttribute(this, _i31);
+        for (var _i34 = 0, l = this.count; _i34 < l; _i34++) {
+          _vector2.fromBufferAttribute(this, _i34);
 
           _vector2.applyMatrix3(m);
 
-          this.setXY(_i31, _vector2.x, _vector2.y);
+          this.setXY(_i34, _vector2.x, _vector2.y);
         }
       } else if (this.itemSize === 3) {
-        for (var _i32 = 0, _l2 = this.count; _i32 < _l2; _i32++) {
-          _vector$9.fromBufferAttribute(this, _i32);
+        for (var _i35 = 0, _l2 = this.count; _i35 < _l2; _i35++) {
+          _vector$9.fromBufferAttribute(this, _i35);
 
           _vector$9.applyMatrix3(m);
 
-          this.setXYZ(_i32, _vector$9.x, _vector$9.y, _vector$9.z);
+          this.setXYZ(_i35, _vector$9.x, _vector$9.y, _vector$9.z);
         }
       }
 
@@ -8397,14 +8518,14 @@ var BufferAttribute = /*#__PURE__*/function () {
   }, {
     key: "applyMatrix4",
     value: function applyMatrix4(m) {
-      for (var _i33 = 0, l = this.count; _i33 < l; _i33++) {
-        _vector$9.x = this.getX(_i33);
-        _vector$9.y = this.getY(_i33);
-        _vector$9.z = this.getZ(_i33);
+      for (var _i36 = 0, l = this.count; _i36 < l; _i36++) {
+        _vector$9.x = this.getX(_i36);
+        _vector$9.y = this.getY(_i36);
+        _vector$9.z = this.getZ(_i36);
 
         _vector$9.applyMatrix4(m);
 
-        this.setXYZ(_i33, _vector$9.x, _vector$9.y, _vector$9.z);
+        this.setXYZ(_i36, _vector$9.x, _vector$9.y, _vector$9.z);
       }
 
       return this;
@@ -8412,14 +8533,14 @@ var BufferAttribute = /*#__PURE__*/function () {
   }, {
     key: "applyNormalMatrix",
     value: function applyNormalMatrix(m) {
-      for (var _i34 = 0, l = this.count; _i34 < l; _i34++) {
-        _vector$9.x = this.getX(_i34);
-        _vector$9.y = this.getY(_i34);
-        _vector$9.z = this.getZ(_i34);
+      for (var _i37 = 0, l = this.count; _i37 < l; _i37++) {
+        _vector$9.x = this.getX(_i37);
+        _vector$9.y = this.getY(_i37);
+        _vector$9.z = this.getZ(_i37);
 
         _vector$9.applyNormalMatrix(m);
 
-        this.setXYZ(_i34, _vector$9.x, _vector$9.y, _vector$9.z);
+        this.setXYZ(_i37, _vector$9.x, _vector$9.y, _vector$9.z);
       }
 
       return this;
@@ -8427,14 +8548,14 @@ var BufferAttribute = /*#__PURE__*/function () {
   }, {
     key: "transformDirection",
     value: function transformDirection(m) {
-      for (var _i35 = 0, l = this.count; _i35 < l; _i35++) {
-        _vector$9.x = this.getX(_i35);
-        _vector$9.y = this.getY(_i35);
-        _vector$9.z = this.getZ(_i35);
+      for (var _i38 = 0, l = this.count; _i38 < l; _i38++) {
+        _vector$9.x = this.getX(_i38);
+        _vector$9.y = this.getY(_i38);
+        _vector$9.z = this.getZ(_i38);
 
         _vector$9.transformDirection(m);
 
-        this.setXYZ(_i35, _vector$9.x, _vector$9.y, _vector$9.z);
+        this.setXYZ(_i38, _vector$9.x, _vector$9.y, _vector$9.z);
       }
 
       return this;
@@ -8550,112 +8671,112 @@ var BufferAttribute = /*#__PURE__*/function () {
 BufferAttribute.prototype.isBufferAttribute = true; //
 
 var Int8BufferAttribute = /*#__PURE__*/function (_BufferAttribute) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Int8BufferAttribute, _BufferAttribute);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Int8BufferAttribute, _BufferAttribute);
 
-  var _super6 = _createSuper(Int8BufferAttribute);
+  var _super8 = _createSuper(Int8BufferAttribute);
 
   function Int8BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Int8BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Int8BufferAttribute);
 
-    return _super6.call(this, new Int8Array(array), itemSize, normalized);
+    return _super8.call(this, new Int8Array(array), itemSize, normalized);
   }
 
   return Int8BufferAttribute;
 }(BufferAttribute);
 
 var Uint8BufferAttribute = /*#__PURE__*/function (_BufferAttribute2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint8BufferAttribute, _BufferAttribute2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Uint8BufferAttribute, _BufferAttribute2);
 
-  var _super7 = _createSuper(Uint8BufferAttribute);
+  var _super9 = _createSuper(Uint8BufferAttribute);
 
   function Uint8BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint8BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Uint8BufferAttribute);
 
-    return _super7.call(this, new Uint8Array(array), itemSize, normalized);
+    return _super9.call(this, new Uint8Array(array), itemSize, normalized);
   }
 
   return Uint8BufferAttribute;
 }(BufferAttribute);
 
 var Uint8ClampedBufferAttribute = /*#__PURE__*/function (_BufferAttribute3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint8ClampedBufferAttribute, _BufferAttribute3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Uint8ClampedBufferAttribute, _BufferAttribute3);
 
-  var _super8 = _createSuper(Uint8ClampedBufferAttribute);
+  var _super10 = _createSuper(Uint8ClampedBufferAttribute);
 
   function Uint8ClampedBufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint8ClampedBufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Uint8ClampedBufferAttribute);
 
-    return _super8.call(this, new Uint8ClampedArray(array), itemSize, normalized);
+    return _super10.call(this, new Uint8ClampedArray(array), itemSize, normalized);
   }
 
   return Uint8ClampedBufferAttribute;
 }(BufferAttribute);
 
 var Int16BufferAttribute = /*#__PURE__*/function (_BufferAttribute4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Int16BufferAttribute, _BufferAttribute4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Int16BufferAttribute, _BufferAttribute4);
 
-  var _super9 = _createSuper(Int16BufferAttribute);
+  var _super11 = _createSuper(Int16BufferAttribute);
 
   function Int16BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Int16BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Int16BufferAttribute);
 
-    return _super9.call(this, new Int16Array(array), itemSize, normalized);
+    return _super11.call(this, new Int16Array(array), itemSize, normalized);
   }
 
   return Int16BufferAttribute;
 }(BufferAttribute);
 
 var Uint16BufferAttribute = /*#__PURE__*/function (_BufferAttribute5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint16BufferAttribute, _BufferAttribute5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Uint16BufferAttribute, _BufferAttribute5);
 
-  var _super10 = _createSuper(Uint16BufferAttribute);
+  var _super12 = _createSuper(Uint16BufferAttribute);
 
   function Uint16BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint16BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Uint16BufferAttribute);
 
-    return _super10.call(this, new Uint16Array(array), itemSize, normalized);
+    return _super12.call(this, new Uint16Array(array), itemSize, normalized);
   }
 
   return Uint16BufferAttribute;
 }(BufferAttribute);
 
 var Int32BufferAttribute = /*#__PURE__*/function (_BufferAttribute6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Int32BufferAttribute, _BufferAttribute6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Int32BufferAttribute, _BufferAttribute6);
 
-  var _super11 = _createSuper(Int32BufferAttribute);
+  var _super13 = _createSuper(Int32BufferAttribute);
 
   function Int32BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Int32BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Int32BufferAttribute);
 
-    return _super11.call(this, new Int32Array(array), itemSize, normalized);
+    return _super13.call(this, new Int32Array(array), itemSize, normalized);
   }
 
   return Int32BufferAttribute;
 }(BufferAttribute);
 
 var Uint32BufferAttribute = /*#__PURE__*/function (_BufferAttribute7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uint32BufferAttribute, _BufferAttribute7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Uint32BufferAttribute, _BufferAttribute7);
 
-  var _super12 = _createSuper(Uint32BufferAttribute);
+  var _super14 = _createSuper(Uint32BufferAttribute);
 
   function Uint32BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uint32BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Uint32BufferAttribute);
 
-    return _super12.call(this, new Uint32Array(array), itemSize, normalized);
+    return _super14.call(this, new Uint32Array(array), itemSize, normalized);
   }
 
   return Uint32BufferAttribute;
 }(BufferAttribute);
 
 var Float16BufferAttribute = /*#__PURE__*/function (_BufferAttribute8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Float16BufferAttribute, _BufferAttribute8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Float16BufferAttribute, _BufferAttribute8);
 
-  var _super13 = _createSuper(Float16BufferAttribute);
+  var _super15 = _createSuper(Float16BufferAttribute);
 
   function Float16BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Float16BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Float16BufferAttribute);
 
-    return _super13.call(this, new Uint16Array(array), itemSize, normalized);
+    return _super15.call(this, new Uint16Array(array), itemSize, normalized);
   }
 
   return Float16BufferAttribute;
@@ -8664,28 +8785,28 @@ var Float16BufferAttribute = /*#__PURE__*/function (_BufferAttribute8) {
 Float16BufferAttribute.prototype.isFloat16BufferAttribute = true;
 
 var Float32BufferAttribute = /*#__PURE__*/function (_BufferAttribute9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Float32BufferAttribute, _BufferAttribute9);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Float32BufferAttribute, _BufferAttribute9);
 
-  var _super14 = _createSuper(Float32BufferAttribute);
+  var _super16 = _createSuper(Float32BufferAttribute);
 
   function Float32BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Float32BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Float32BufferAttribute);
 
-    return _super14.call(this, new Float32Array(array), itemSize, normalized);
+    return _super16.call(this, new Float32Array(array), itemSize, normalized);
   }
 
   return Float32BufferAttribute;
 }(BufferAttribute);
 
 var Float64BufferAttribute = /*#__PURE__*/function (_BufferAttribute10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Float64BufferAttribute, _BufferAttribute10);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Float64BufferAttribute, _BufferAttribute10);
 
-  var _super15 = _createSuper(Float64BufferAttribute);
+  var _super17 = _createSuper(Float64BufferAttribute);
 
   function Float64BufferAttribute(array, itemSize, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Float64BufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Float64BufferAttribute);
 
-    return _super15.call(this, new Float64Array(array), itemSize, normalized);
+    return _super17.call(this, new Float64Array(array), itemSize, normalized);
   }
 
   return Float64BufferAttribute;
@@ -8695,8 +8816,8 @@ function arrayMax(array) {
   if (array.length === 0) return -Infinity;
   var max = array[0];
 
-  for (var _i36 = 1, l = array.length; _i36 < l; ++_i36) {
-    if (array[_i36] > max) max = array[_i36];
+  for (var _i39 = 1, l = array.length; _i39 < l; ++_i39) {
+    if (array[_i39] > max) max = array[_i39];
   }
 
   return max;
@@ -8720,51 +8841,51 @@ function getTypedArray(type, buffer) {
 
 var _id = 0;
 
-var _m1 = new /*@__PURE__*/Matrix4();
+var _m1 = /*@__PURE__*/new Matrix4();
 
-var _obj = new /*@__PURE__*/Object3D();
+var _obj = /*@__PURE__*/new Object3D();
 
-var _offset = new /*@__PURE__*/Vector3();
+var _offset = /*@__PURE__*/new Vector3();
 
-var _box$1 = new /*@__PURE__*/Box3();
+var _box$1 = /*@__PURE__*/new Box3();
 
-var _boxMorphTargets = new /*@__PURE__*/Box3();
+var _boxMorphTargets = /*@__PURE__*/new Box3();
 
-var _vector$8 = new /*@__PURE__*/Vector3();
+var _vector$8 = /*@__PURE__*/new Vector3();
 
-var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometry, _EventDispatcher4);
+var BufferGeometry = /*#__PURE__*/function (_EventDispatcher5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BufferGeometry, _EventDispatcher5);
 
-  var _super16 = _createSuper(BufferGeometry);
+  var _super18 = _createSuper(BufferGeometry);
 
   function BufferGeometry() {
-    var _this7;
+    var _this9;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BufferGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BufferGeometry);
 
-    _this7 = _super16.call(this);
-    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this7), 'id', {
+    _this9 = _super18.call(this);
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this9), 'id', {
       value: _id++
     });
-    _this7.uuid = generateUUID();
-    _this7.name = '';
-    _this7.type = 'BufferGeometry';
-    _this7.index = null;
-    _this7.attributes = {};
-    _this7.morphAttributes = {};
-    _this7.morphTargetsRelative = false;
-    _this7.groups = [];
-    _this7.boundingBox = null;
-    _this7.boundingSphere = null;
-    _this7.drawRange = {
+    _this9.uuid = generateUUID();
+    _this9.name = '';
+    _this9.type = 'BufferGeometry';
+    _this9.index = null;
+    _this9.attributes = {};
+    _this9.morphAttributes = {};
+    _this9.morphTargetsRelative = false;
+    _this9.groups = [];
+    _this9.boundingBox = null;
+    _this9.boundingSphere = null;
+    _this9.drawRange = {
       start: 0,
       count: Infinity
     };
-    _this7.userData = {};
-    return _this7;
+    _this9.userData = {};
+    return _this9;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BufferGeometry, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometry, [{
     key: "getIndex",
     value: function getIndex() {
       return this.index;
@@ -8859,6 +8980,14 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
       return this;
     }
   }, {
+    key: "applyQuaternion",
+    value: function applyQuaternion(q) {
+      _m1.makeRotationFromQuaternion(q);
+
+      this.applyMatrix4(_m1);
+      return this;
+    }
+  }, {
     key: "rotateX",
     value: function rotateX(angle) {
       // rotate geometry around world x-axis
@@ -8926,8 +9055,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
     value: function setFromPoints(points) {
       var position = [];
 
-      for (var _i37 = 0, l = points.length; _i37 < l; _i37++) {
-        var point = points[_i37];
+      for (var _i40 = 0, l = points.length; _i40 < l; _i40++) {
+        var point = points[_i40];
         position.push(point.x, point.y, point.z || 0);
       }
 
@@ -8954,8 +9083,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         this.boundingBox.setFromBufferAttribute(position); // process morph attributes if present
 
         if (morphAttributesPosition) {
-          for (var _i38 = 0, il = morphAttributesPosition.length; _i38 < il; _i38++) {
-            var morphAttribute = morphAttributesPosition[_i38];
+          for (var _i41 = 0, il = morphAttributesPosition.length; _i41 < il; _i41++) {
+            var morphAttribute = morphAttributesPosition[_i41];
 
             _box$1.setFromBufferAttribute(morphAttribute);
 
@@ -9005,8 +9134,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
 
 
         if (morphAttributesPosition) {
-          for (var _i39 = 0, il = morphAttributesPosition.length; _i39 < il; _i39++) {
-            var morphAttribute = morphAttributesPosition[_i39];
+          for (var _i42 = 0, il = morphAttributesPosition.length; _i42 < il; _i42++) {
+            var morphAttribute = morphAttributesPosition[_i42];
 
             _boxMorphTargets.setFromBufferAttribute(morphAttribute);
 
@@ -9032,16 +9161,16 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
 
         var maxRadiusSq = 0;
 
-        for (var _i40 = 0, _il = position.count; _i40 < _il; _i40++) {
-          _vector$8.fromBufferAttribute(position, _i40);
+        for (var _i43 = 0, _il = position.count; _i43 < _il; _i43++) {
+          _vector$8.fromBufferAttribute(position, _i43);
 
           maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$8));
         } // process morph attributes if present
 
 
         if (morphAttributesPosition) {
-          for (var _i41 = 0, _il2 = morphAttributesPosition.length; _i41 < _il2; _i41++) {
-            var _morphAttribute = morphAttributesPosition[_i41];
+          for (var _i44 = 0, _il2 = morphAttributesPosition.length; _i44 < _il2; _i44++) {
+            var _morphAttribute = morphAttributesPosition[_i44];
             var morphTargetsRelative = this.morphTargetsRelative;
 
             for (var j = 0, jl = _morphAttribute.count; j < jl; j++) {
@@ -9095,9 +9224,9 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
       var tan1 = [],
           tan2 = [];
 
-      for (var _i42 = 0; _i42 < nVertices; _i42++) {
-        tan1[_i42] = new Vector3();
-        tan2[_i42] = new Vector3();
+      for (var _i45 = 0; _i45 < nVertices; _i45++) {
+        tan1[_i45] = new Vector3();
+        tan2[_i45] = new Vector3();
       }
 
       var vA = new Vector3(),
@@ -9142,8 +9271,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         }];
       }
 
-      for (var _i43 = 0, il = groups.length; _i43 < il; ++_i43) {
-        var group = groups[_i43];
+      for (var _i46 = 0, il = groups.length; _i46 < il; ++_i46) {
+        var group = groups[_i46];
         var start = group.start;
         var count = group.count;
 
@@ -9174,8 +9303,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         tangents[v * 4 + 3] = w;
       }
 
-      for (var _i44 = 0, _il3 = groups.length; _i44 < _il3; ++_i44) {
-        var _group = groups[_i44];
+      for (var _i47 = 0, _il3 = groups.length; _i47 < _il3; ++_i47) {
+        var _group = groups[_i47];
         var _start2 = _group.start;
         var _count = _group.count;
 
@@ -9200,8 +9329,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
           this.setAttribute('normal', normalAttribute);
         } else {
           // reset existing normals to zero
-          for (var _i45 = 0, il = normalAttribute.count; _i45 < il; _i45++) {
-            normalAttribute.setXYZ(_i45, 0, 0, 0);
+          for (var _i48 = 0, il = normalAttribute.count; _i48 < il; _i48++) {
+            normalAttribute.setXYZ(_i48, 0, 0, 0);
           }
         }
 
@@ -9215,10 +9344,10 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
             ab = new Vector3(); // indexed elements
 
         if (index) {
-          for (var _i46 = 0, _il4 = index.count; _i46 < _il4; _i46 += 3) {
-            var vA = index.getX(_i46 + 0);
-            var vB = index.getX(_i46 + 1);
-            var vC = index.getX(_i46 + 2);
+          for (var _i49 = 0, _il4 = index.count; _i49 < _il4; _i49 += 3) {
+            var vA = index.getX(_i49 + 0);
+            var vB = index.getX(_i49 + 1);
+            var vC = index.getX(_i49 + 2);
             pA.fromBufferAttribute(positionAttribute, vA);
             pB.fromBufferAttribute(positionAttribute, vB);
             pC.fromBufferAttribute(positionAttribute, vC);
@@ -9237,16 +9366,16 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
           }
         } else {
           // non-indexed elements (unconnected triangle soup)
-          for (var _i47 = 0, _il5 = positionAttribute.count; _i47 < _il5; _i47 += 3) {
-            pA.fromBufferAttribute(positionAttribute, _i47 + 0);
-            pB.fromBufferAttribute(positionAttribute, _i47 + 1);
-            pC.fromBufferAttribute(positionAttribute, _i47 + 2);
+          for (var _i50 = 0, _il5 = positionAttribute.count; _i50 < _il5; _i50 += 3) {
+            pA.fromBufferAttribute(positionAttribute, _i50 + 0);
+            pB.fromBufferAttribute(positionAttribute, _i50 + 1);
+            pC.fromBufferAttribute(positionAttribute, _i50 + 2);
             cb.subVectors(pC, pB);
             ab.subVectors(pA, pB);
             cb.cross(ab);
-            normalAttribute.setXYZ(_i47 + 0, cb.x, cb.y, cb.z);
-            normalAttribute.setXYZ(_i47 + 1, cb.x, cb.y, cb.z);
-            normalAttribute.setXYZ(_i47 + 2, cb.x, cb.y, cb.z);
+            normalAttribute.setXYZ(_i50 + 0, cb.x, cb.y, cb.z);
+            normalAttribute.setXYZ(_i50 + 1, cb.x, cb.y, cb.z);
+            normalAttribute.setXYZ(_i50 + 2, cb.x, cb.y, cb.z);
           }
         }
 
@@ -9278,8 +9407,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         var attributeOffset = attribute2.itemSize * offset;
         var length = Math.min(attributeArray2.length, attributeArray1.length - attributeOffset);
 
-        for (var _i48 = 0, j = attributeOffset; _i48 < length; _i48++, j++) {
-          attributeArray1[j] = attributeArray2[_i48];
+        for (var _i51 = 0, j = attributeOffset; _i51 < length; _i51++, j++) {
+          attributeArray1[j] = attributeArray2[_i51];
         }
       }
 
@@ -9290,12 +9419,12 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
     value: function normalizeNormals() {
       var normals = this.attributes.normal;
 
-      for (var _i49 = 0, il = normals.count; _i49 < il; _i49++) {
-        _vector$8.fromBufferAttribute(normals, _i49);
+      for (var _i52 = 0, il = normals.count; _i52 < il; _i52++) {
+        _vector$8.fromBufferAttribute(normals, _i52);
 
         _vector$8.normalize();
 
-        normals.setXYZ(_i49, _vector$8.x, _vector$8.y, _vector$8.z);
+        normals.setXYZ(_i52, _vector$8.x, _vector$8.y, _vector$8.z);
       }
     }
   }, {
@@ -9309,8 +9438,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         var index = 0,
             index2 = 0;
 
-        for (var _i50 = 0, l = indices.length; _i50 < l; _i50++) {
-          index = indices[_i50] * itemSize;
+        for (var _i53 = 0, l = indices.length; _i53 < l; _i53++) {
+          index = indices[_i53] * itemSize;
 
           for (var j = 0; j < itemSize; j++) {
             array2[index2++] = array[index++];
@@ -9343,8 +9472,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         var morphArray = [];
         var morphAttribute = morphAttributes[_name]; // morphAttribute: array of Float32BufferAttributes
 
-        for (var _i51 = 0, il = morphAttribute.length; _i51 < il; _i51++) {
-          var _attribute = morphAttribute[_i51];
+        for (var _i54 = 0, il = morphAttribute.length; _i54 < il; _i54++) {
+          var _attribute = morphAttribute[_i54];
 
           var _newAttribute = convertBufferAttribute(_attribute, indices);
 
@@ -9358,8 +9487,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
 
       var groups = this.groups;
 
-      for (var _i52 = 0, l = groups.length; _i52 < l; _i52++) {
-        var group = groups[_i52];
+      for (var _i55 = 0, l = groups.length; _i55 < l; _i55++) {
+        var group = groups[_i55];
         geometry2.addGroup(group.start, group.count, group.materialIndex);
       }
 
@@ -9418,8 +9547,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         var attributeArray = this.morphAttributes[_key2];
         var array = [];
 
-        for (var _i53 = 0, il = attributeArray.length; _i53 < il; _i53++) {
-          var _attribute2 = attributeArray[_i53];
+        for (var _i56 = 0, il = attributeArray.length; _i56 < il; _i56++) {
+          var _attribute2 = attributeArray[_i56];
           array.push(_attribute2.toJSON(data.data));
         }
 
@@ -9506,8 +9635,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
         var array = [];
         var morphAttribute = morphAttributes[_name2]; // morphAttribute: array of Float32BufferAttributes
 
-        for (var _i54 = 0, l = morphAttribute.length; _i54 < l; _i54++) {
-          array.push(morphAttribute[_i54].clone(data));
+        for (var _i57 = 0, l = morphAttribute.length; _i57 < l; _i57++) {
+          array.push(morphAttribute[_i57].clone(data));
         }
 
         this.morphAttributes[_name2] = array;
@@ -9517,8 +9646,8 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher4) {
 
       var groups = source.groups;
 
-      for (var _i55 = 0, _l3 = groups.length; _i55 < _l3; _i55++) {
-        var group = groups[_i55];
+      for (var _i58 = 0, _l3 = groups.length; _i58 < _l3; _i58++) {
+        var group = groups[_i58];
         this.addGroup(group.start, group.count, group.materialIndex);
       } // bounding box
 
@@ -9592,32 +9721,32 @@ var _intersectionPoint = /*@__PURE__*/new Vector3();
 var _intersectionPointWorld = /*@__PURE__*/new Vector3();
 
 var Mesh = /*#__PURE__*/function (_Object3D) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Mesh, _Object3D);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Mesh, _Object3D);
 
-  var _super17 = _createSuper(Mesh);
+  var _super19 = _createSuper(Mesh);
 
   function Mesh() {
-    var _this8;
+    var _this10;
 
     var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
     var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new MeshBasicMaterial();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Mesh);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Mesh);
 
-    _this8 = _super17.call(this);
-    _this8.type = 'Mesh';
-    _this8.geometry = geometry;
-    _this8.material = material;
+    _this10 = _super19.call(this);
+    _this10.type = 'Mesh';
+    _this10.geometry = geometry;
+    _this10.material = material;
 
-    _this8.updateMorphTargets();
+    _this10.updateMorphTargets();
 
-    return _this8;
+    return _this10;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Mesh, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Mesh, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Mesh.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Mesh.prototype), "copy", this).call(this, source);
 
       if (source.morphTargetInfluences !== undefined) {
         this.morphTargetInfluences = source.morphTargetInfluences.slice();
@@ -9702,8 +9831,8 @@ var Mesh = /*#__PURE__*/function (_Object3D) {
         if (index !== null) {
           // indexed buffer geometry
           if (Array.isArray(material)) {
-            for (var _i56 = 0, il = groups.length; _i56 < il; _i56++) {
-              var group = groups[_i56];
+            for (var _i59 = 0, il = groups.length; _i59 < il; _i59++) {
+              var group = groups[_i59];
               var groupMaterial = material[group.materialIndex];
               var start = Math.max(group.start, drawRange.start);
               var end = Math.min(group.start + group.count, drawRange.start + drawRange.count);
@@ -9727,17 +9856,17 @@ var Mesh = /*#__PURE__*/function (_Object3D) {
 
             var _end2 = Math.min(index.count, drawRange.start + drawRange.count);
 
-            for (var _i57 = _start3, _il6 = _end2; _i57 < _il6; _i57 += 3) {
-              var _a = index.getX(_i57);
+            for (var _i60 = _start3, _il6 = _end2; _i60 < _il6; _i60 += 3) {
+              var _a = index.getX(_i60);
 
-              var _b = index.getX(_i57 + 1);
+              var _b = index.getX(_i60 + 1);
 
-              var _c = index.getX(_i57 + 2);
+              var _c = index.getX(_i60 + 2);
 
               intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a, _b, _c);
 
               if (intersection) {
-                intersection.faceIndex = Math.floor(_i57 / 3); // triangle number in indexed buffer semantics
+                intersection.faceIndex = Math.floor(_i60 / 3); // triangle number in indexed buffer semantics
 
                 intersects.push(intersection);
               }
@@ -9746,8 +9875,8 @@ var Mesh = /*#__PURE__*/function (_Object3D) {
         } else if (position !== undefined) {
           // non-indexed buffer geometry
           if (Array.isArray(material)) {
-            for (var _i58 = 0, _il7 = groups.length; _i58 < _il7; _i58++) {
-              var _group2 = groups[_i58];
+            for (var _i61 = 0, _il7 = groups.length; _i61 < _il7; _i61++) {
+              var _group2 = groups[_i61];
               var _groupMaterial = material[_group2.materialIndex];
 
               var _start4 = Math.max(_group2.start, drawRange.start);
@@ -9776,17 +9905,17 @@ var Mesh = /*#__PURE__*/function (_Object3D) {
 
             var _end4 = Math.min(position.count, drawRange.start + drawRange.count);
 
-            for (var _i59 = _start5, _il8 = _end4; _i59 < _il8; _i59 += 3) {
-              var _a3 = _i59;
+            for (var _i62 = _start5, _il8 = _end4; _i62 < _il8; _i62 += 3) {
+              var _a3 = _i62;
 
-              var _b3 = _i59 + 1;
+              var _b3 = _i62 + 1;
 
-              var _c3 = _i59 + 2;
+              var _c3 = _i62 + 2;
 
               intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray$2, position, morphPosition, morphTargetsRelative, uv, uv2, _a3, _b3, _c3);
 
               if (intersection) {
-                intersection.faceIndex = Math.floor(_i59 / 3); // triangle number in non-indexed buffer semantics
+                intersection.faceIndex = Math.floor(_i62 / 3); // triangle number in non-indexed buffer semantics
 
                 intersects.push(intersection);
               }
@@ -9844,9 +9973,9 @@ function checkBufferGeometryIntersection(object, material, raycaster, ray, posit
 
     _morphC.set(0, 0, 0);
 
-    for (var _i60 = 0, il = morphPosition.length; _i60 < il; _i60++) {
-      var influence = morphInfluences[_i60];
-      var morphAttribute = morphPosition[_i60];
+    for (var _i63 = 0, il = morphPosition.length; _i63 < il; _i63++) {
+      var influence = morphInfluences[_i63];
+      var morphAttribute = morphPosition[_i63];
       if (influence === 0) continue;
 
       _tempA.fromBufferAttribute(morphAttribute, a);
@@ -9877,7 +10006,7 @@ function checkBufferGeometryIntersection(object, material, raycaster, ray, posit
     _vC$1.add(_morphC);
   }
 
-  if (object.isSkinnedMesh && material.skinning) {
+  if (object.isSkinnedMesh) {
     object.boneTransform(a, _vA$1);
     object.boneTransform(b, _vB$1);
     object.boneTransform(c, _vC$1);
@@ -9921,12 +10050,12 @@ function checkBufferGeometryIntersection(object, material, raycaster, ray, posit
 }
 
 var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BoxGeometry, _BufferGeometry);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BoxGeometry, _BufferGeometry);
 
-  var _super18 = _createSuper(BoxGeometry);
+  var _super20 = _createSuper(BoxGeometry);
 
   function BoxGeometry() {
-    var _this9;
+    var _this11;
 
     var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -9935,11 +10064,11 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
     var heightSegments = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
     var depthSegments = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BoxGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BoxGeometry);
 
-    _this9 = _super18.call(this);
-    _this9.type = 'BoxGeometry';
-    _this9.parameters = {
+    _this11 = _super20.call(this);
+    _this11.type = 'BoxGeometry';
+    _this11.parameters = {
       width: width,
       height: height,
       depth: depth,
@@ -9948,7 +10077,7 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
       depthSegments: depthSegments
     };
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this9); // segments
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this11); // segments
 
 
     widthSegments = Math.floor(widthSegments);
@@ -9976,13 +10105,13 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
     buildPlane('x', 'y', 'z', -1, -1, width, height, -depth, widthSegments, heightSegments, 5); // nz
     // build geometry
 
-    _this9.setIndex(indices);
+    _this11.setIndex(indices);
 
-    _this9.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this11.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this9.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this11.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this9.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this11.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
     function buildPlane(u, v, w, udir, vdir, width, height, depth, gridX, gridY, materialIndex) {
       var segmentWidth = width / gridX;
@@ -10047,7 +10176,7 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
       numberOfVertices += vertexCounter;
     }
 
-    return _this9;
+    return _this11;
   }
 
   return BoxGeometry;
@@ -10113,44 +10242,41 @@ var default_fragment = "void main() {\n\tgl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0
  *
  *  lights: <bool>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>
  * }
  */
 
 var ShaderMaterial = /*#__PURE__*/function (_Material2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShaderMaterial, _Material2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ShaderMaterial, _Material2);
 
-  var _super19 = _createSuper(ShaderMaterial);
+  var _super21 = _createSuper(ShaderMaterial);
 
   function ShaderMaterial(parameters) {
-    var _this10;
+    var _this12;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShaderMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShaderMaterial);
 
-    _this10 = _super19.call(this);
-    _this10.type = 'ShaderMaterial';
-    _this10.defines = {};
-    _this10.uniforms = {};
-    _this10.vertexShader = default_vertex;
-    _this10.fragmentShader = default_fragment;
-    _this10.linewidth = 1;
-    _this10.wireframe = false;
-    _this10.wireframeLinewidth = 1;
-    _this10.fog = false; // set to use scene fog
+    _this12 = _super21.call(this);
+    _this12.type = 'ShaderMaterial';
+    _this12.defines = {};
+    _this12.uniforms = {};
+    _this12.vertexShader = default_vertex;
+    _this12.fragmentShader = default_fragment;
+    _this12.linewidth = 1;
+    _this12.wireframe = false;
+    _this12.wireframeLinewidth = 1;
+    _this12.fog = false; // set to use scene fog
 
-    _this10.lights = false; // set to use scene lights
+    _this12.lights = false; // set to use scene lights
 
-    _this10.clipping = false; // set to use user-defined clipping planes
+    _this12.clipping = false; // set to use user-defined clipping planes
 
-    _this10.skinning = false; // set to use skinning attribute streams
+    _this12.morphTargets = false; // set to use morph targets
 
-    _this10.morphTargets = false; // set to use morph targets
+    _this12.morphNormals = false; // set to use morph normals
 
-    _this10.morphNormals = false; // set to use morph normals
-
-    _this10.extensions = {
+    _this12.extensions = {
       derivatives: false,
       // set to use derivatives
       fragDepth: false,
@@ -10162,30 +10288,30 @@ var ShaderMaterial = /*#__PURE__*/function (_Material2) {
     }; // When rendered geometry doesn't include these attributes but the material does,
     // use these default values in WebGL. This avoids errors when buffer data is missing.
 
-    _this10.defaultAttributeValues = {
+    _this12.defaultAttributeValues = {
       'color': [1, 1, 1],
       'uv': [0, 0],
       'uv2': [0, 0]
     };
-    _this10.index0AttributeName = undefined;
-    _this10.uniformsNeedUpdate = false;
-    _this10.glslVersion = null;
+    _this12.index0AttributeName = undefined;
+    _this12.uniformsNeedUpdate = false;
+    _this12.glslVersion = null;
 
     if (parameters !== undefined) {
       if (parameters.attributes !== undefined) {
         console.error('THREE.ShaderMaterial: attributes should now be defined in THREE.BufferGeometry instead.');
       }
 
-      _this10.setValues(parameters);
+      _this12.setValues(parameters);
     }
 
-    return _this10;
+    return _this12;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShaderMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShaderMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(ShaderMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(ShaderMaterial.prototype), "copy", this).call(this, source);
 
       this.fragmentShader = source.fragmentShader;
       this.vertexShader = source.vertexShader;
@@ -10195,7 +10321,6 @@ var ShaderMaterial = /*#__PURE__*/function (_Material2) {
       this.wireframeLinewidth = source.wireframeLinewidth;
       this.lights = source.lights;
       this.clipping = source.clipping;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       this.extensions = Object.assign({}, source.extensions);
@@ -10205,7 +10330,7 @@ var ShaderMaterial = /*#__PURE__*/function (_Material2) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(ShaderMaterial.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(ShaderMaterial.prototype), "toJSON", this).call(this, meta);
 
       data.glslVersion = this.glslVersion;
       data.uniforms = {};
@@ -10276,27 +10401,27 @@ var ShaderMaterial = /*#__PURE__*/function (_Material2) {
 ShaderMaterial.prototype.isShaderMaterial = true;
 
 var Camera = /*#__PURE__*/function (_Object3D2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Camera, _Object3D2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Camera, _Object3D2);
 
-  var _super20 = _createSuper(Camera);
+  var _super22 = _createSuper(Camera);
 
   function Camera() {
-    var _this11;
+    var _this13;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Camera);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Camera);
 
-    _this11 = _super20.call(this);
-    _this11.type = 'Camera';
-    _this11.matrixWorldInverse = new Matrix4();
-    _this11.projectionMatrix = new Matrix4();
-    _this11.projectionMatrixInverse = new Matrix4();
-    return _this11;
+    _this13 = _super22.call(this);
+    _this13.type = 'Camera';
+    _this13.matrixWorldInverse = new Matrix4();
+    _this13.projectionMatrix = new Matrix4();
+    _this13.projectionMatrixInverse = new Matrix4();
+    return _this13;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Camera, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Camera, [{
     key: "copy",
     value: function copy(source, recursive) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Camera.prototype), "copy", this).call(this, source, recursive);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Camera.prototype), "copy", this).call(this, source, recursive);
 
       this.matrixWorldInverse.copy(source.matrixWorldInverse);
       this.projectionMatrix.copy(source.projectionMatrix);
@@ -10318,14 +10443,14 @@ var Camera = /*#__PURE__*/function (_Object3D2) {
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Camera.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Camera.prototype), "updateMatrixWorld", this).call(this, force);
 
       this.matrixWorldInverse.copy(this.matrixWorld).invert();
     }
   }, {
     key: "updateWorldMatrix",
     value: function updateWorldMatrix(updateParents, updateChildren) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Camera.prototype), "updateWorldMatrix", this).call(this, updateParents, updateChildren);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Camera.prototype), "updateWorldMatrix", this).call(this, updateParents, updateChildren);
 
       this.matrixWorldInverse.copy(this.matrixWorld).invert();
     }
@@ -10342,42 +10467,42 @@ var Camera = /*#__PURE__*/function (_Object3D2) {
 Camera.prototype.isCamera = true;
 
 var PerspectiveCamera = /*#__PURE__*/function (_Camera) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PerspectiveCamera, _Camera);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PerspectiveCamera, _Camera);
 
-  var _super21 = _createSuper(PerspectiveCamera);
+  var _super23 = _createSuper(PerspectiveCamera);
 
   function PerspectiveCamera() {
-    var _this12;
+    var _this14;
 
     var fov = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
     var aspect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var near = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.1;
     var far = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 2000;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PerspectiveCamera);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PerspectiveCamera);
 
-    _this12 = _super21.call(this);
-    _this12.type = 'PerspectiveCamera';
-    _this12.fov = fov;
-    _this12.zoom = 1;
-    _this12.near = near;
-    _this12.far = far;
-    _this12.focus = 10;
-    _this12.aspect = aspect;
-    _this12.view = null;
-    _this12.filmGauge = 35; // width of the film (default in millimeters)
+    _this14 = _super23.call(this);
+    _this14.type = 'PerspectiveCamera';
+    _this14.fov = fov;
+    _this14.zoom = 1;
+    _this14.near = near;
+    _this14.far = far;
+    _this14.focus = 10;
+    _this14.aspect = aspect;
+    _this14.view = null;
+    _this14.filmGauge = 35; // width of the film (default in millimeters)
 
-    _this12.filmOffset = 0; // horizontal film offset (same unit as gauge)
+    _this14.filmOffset = 0; // horizontal film offset (same unit as gauge)
 
-    _this12.updateProjectionMatrix();
+    _this14.updateProjectionMatrix();
 
-    return _this12;
+    return _this14;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PerspectiveCamera, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PerspectiveCamera, [{
     key: "copy",
     value: function copy(source, recursive) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PerspectiveCamera.prototype), "copy", this).call(this, source, recursive);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(PerspectiveCamera.prototype), "copy", this).call(this, source, recursive);
 
       this.fov = source.fov;
       this.zoom = source.zoom;
@@ -10532,7 +10657,7 @@ var PerspectiveCamera = /*#__PURE__*/function (_Camera) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PerspectiveCamera.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(PerspectiveCamera.prototype), "toJSON", this).call(this, meta);
 
       data.object.fov = this.fov;
       data.object.zoom = this.zoom;
@@ -10555,76 +10680,76 @@ var fov = 90,
     aspect = 1;
 
 var CubeCamera = /*#__PURE__*/function (_Object3D3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeCamera, _Object3D3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubeCamera, _Object3D3);
 
-  var _super22 = _createSuper(CubeCamera);
+  var _super24 = _createSuper(CubeCamera);
 
   function CubeCamera(near, far, renderTarget) {
-    var _this13;
+    var _this15;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubeCamera);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubeCamera);
 
-    _this13 = _super22.call(this);
-    _this13.type = 'CubeCamera';
+    _this15 = _super24.call(this);
+    _this15.type = 'CubeCamera';
 
     if (renderTarget.isWebGLCubeRenderTarget !== true) {
       console.error('THREE.CubeCamera: The constructor now expects an instance of WebGLCubeRenderTarget as third parameter.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this13);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this15);
     }
 
-    _this13.renderTarget = renderTarget;
+    _this15.renderTarget = renderTarget;
     var cameraPX = new PerspectiveCamera(fov, aspect, near, far);
-    cameraPX.layers = _this13.layers;
+    cameraPX.layers = _this15.layers;
     cameraPX.up.set(0, -1, 0);
     cameraPX.lookAt(new Vector3(1, 0, 0));
 
-    _this13.add(cameraPX);
+    _this15.add(cameraPX);
 
     var cameraNX = new PerspectiveCamera(fov, aspect, near, far);
-    cameraNX.layers = _this13.layers;
+    cameraNX.layers = _this15.layers;
     cameraNX.up.set(0, -1, 0);
     cameraNX.lookAt(new Vector3(-1, 0, 0));
 
-    _this13.add(cameraNX);
+    _this15.add(cameraNX);
 
     var cameraPY = new PerspectiveCamera(fov, aspect, near, far);
-    cameraPY.layers = _this13.layers;
+    cameraPY.layers = _this15.layers;
     cameraPY.up.set(0, 0, 1);
     cameraPY.lookAt(new Vector3(0, 1, 0));
 
-    _this13.add(cameraPY);
+    _this15.add(cameraPY);
 
     var cameraNY = new PerspectiveCamera(fov, aspect, near, far);
-    cameraNY.layers = _this13.layers;
+    cameraNY.layers = _this15.layers;
     cameraNY.up.set(0, 0, -1);
     cameraNY.lookAt(new Vector3(0, -1, 0));
 
-    _this13.add(cameraNY);
+    _this15.add(cameraNY);
 
     var cameraPZ = new PerspectiveCamera(fov, aspect, near, far);
-    cameraPZ.layers = _this13.layers;
+    cameraPZ.layers = _this15.layers;
     cameraPZ.up.set(0, -1, 0);
     cameraPZ.lookAt(new Vector3(0, 0, 1));
 
-    _this13.add(cameraPZ);
+    _this15.add(cameraPZ);
 
     var cameraNZ = new PerspectiveCamera(fov, aspect, near, far);
-    cameraNZ.layers = _this13.layers;
+    cameraNZ.layers = _this15.layers;
     cameraNZ.up.set(0, -1, 0);
     cameraNZ.lookAt(new Vector3(0, 0, -1));
 
-    _this13.add(cameraNZ);
+    _this15.add(cameraNZ);
 
-    return _this13;
+    return _this15;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubeCamera, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeCamera, [{
     key: "update",
     value: function update(renderer, scene) {
       if (this.parent === null) this.updateMatrixWorld();
       var renderTarget = this.renderTarget;
 
-      var _this$children = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(this.children, 6),
+      var _this$children = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(this.children, 6),
           cameraPX = _this$children[0],
           cameraNX = _this$children[1],
           cameraPY = _this$children[2],
@@ -10659,19 +10784,19 @@ var CubeCamera = /*#__PURE__*/function (_Object3D3) {
 }(Object3D);
 
 var CubeTexture = /*#__PURE__*/function (_Texture) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTexture, _Texture);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubeTexture, _Texture);
 
-  var _super23 = _createSuper(CubeTexture);
+  var _super25 = _createSuper(CubeTexture);
 
   function CubeTexture(images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding) {
-    var _this14;
+    var _this16;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubeTexture);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubeTexture);
 
     images = images !== undefined ? images : [];
     mapping = mapping !== undefined ? mapping : CubeReflectionMapping;
     format = format !== undefined ? format : RGBFormat;
-    _this14 = _super23.call(this, images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding); // Why CubeTexture._needsFlipEnvMap is necessary:
+    _this16 = _super25.call(this, images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding); // Why CubeTexture._needsFlipEnvMap is necessary:
     //
     // By convention -- likely based on the RenderMan spec from the 1990's -- cube maps are specified by WebGL (and three.js)
     // in a coordinate system in which positive-x is to the right when looking up the positive-z axis -- in other words,
@@ -10680,12 +10805,12 @@ var CubeTexture = /*#__PURE__*/function (_Texture) {
     // and the flag _needsFlipEnvMap controls this conversion. The flip is not required (and thus _needsFlipEnvMap is set to false)
     // when using WebGLCubeRenderTarget.texture as a cube texture.
 
-    _this14._needsFlipEnvMap = true;
-    _this14.flipY = false;
-    return _this14;
+    _this16._needsFlipEnvMap = true;
+    _this16.flipY = false;
+    return _this16;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubeTexture, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTexture, [{
     key: "images",
     get: function get() {
       return this.image;
@@ -10700,31 +10825,31 @@ var CubeTexture = /*#__PURE__*/function (_Texture) {
 
 CubeTexture.prototype.isCubeTexture = true;
 
-var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLCubeRenderTarget, _WebGLRenderTarget2);
+var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WebGLCubeRenderTarget, _WebGLRenderTarget3);
 
-  var _super24 = _createSuper(WebGLCubeRenderTarget);
+  var _super26 = _createSuper(WebGLCubeRenderTarget);
 
   function WebGLCubeRenderTarget(size, options, dummy) {
-    var _this15;
+    var _this17;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebGLCubeRenderTarget);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebGLCubeRenderTarget);
 
     if (Number.isInteger(options)) {
       console.warn('THREE.WebGLCubeRenderTarget: constructor signature is now WebGLCubeRenderTarget( size, options )');
       options = dummy;
     }
 
-    _this15 = _super24.call(this, size, size, options);
+    _this17 = _super26.call(this, size, size, options);
     options = options || {};
-    _this15.texture = new CubeTexture(undefined, options.mapping, options.wrapS, options.wrapT, options.magFilter, options.minFilter, options.format, options.type, options.anisotropy, options.encoding);
-    _this15.texture.generateMipmaps = options.generateMipmaps !== undefined ? options.generateMipmaps : false;
-    _this15.texture.minFilter = options.minFilter !== undefined ? options.minFilter : LinearFilter;
-    _this15.texture._needsFlipEnvMap = false;
-    return _this15;
+    _this17.texture = new CubeTexture(undefined, options.mapping, options.wrapS, options.wrapT, options.magFilter, options.minFilter, options.format, options.type, options.anisotropy, options.encoding);
+    _this17.texture.generateMipmaps = options.generateMipmaps !== undefined ? options.generateMipmaps : false;
+    _this17.texture.minFilter = options.minFilter !== undefined ? options.minFilter : LinearFilter;
+    _this17.texture._needsFlipEnvMap = false;
+    return _this17;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(WebGLCubeRenderTarget, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGLCubeRenderTarget, [{
     key: "fromEquirectangularTexture",
     value: function fromEquirectangularTexture(renderer, texture) {
       this.texture.type = texture.type;
@@ -10773,8 +10898,8 @@ var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget2) {
     value: function clear(renderer, color, depth, stencil) {
       var currentRenderTarget = renderer.getRenderTarget();
 
-      for (var _i61 = 0; _i61 < 6; _i61++) {
-        renderer.setRenderTarget(this, _i61);
+      for (var _i64 = 0; _i64 < 6; _i64++) {
+        renderer.setRenderTarget(this, _i64);
         renderer.clear(color, depth, stencil);
       }
 
@@ -10786,36 +10911,6 @@ var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget2) {
 }(WebGLRenderTarget);
 
 WebGLCubeRenderTarget.prototype.isWebGLCubeRenderTarget = true;
-
-var DataTexture = /*#__PURE__*/function (_Texture2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTexture, _Texture2);
-
-  var _super25 = _createSuper(DataTexture);
-
-  function DataTexture(data, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding) {
-    var _this16;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTexture);
-
-    _this16 = _super25.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
-    _this16.image = {
-      data: data || null,
-      width: width || 1,
-      height: height || 1
-    };
-    _this16.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
-    _this16.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
-    _this16.generateMipmaps = false;
-    _this16.flipY = false;
-    _this16.unpackAlignment = 1;
-    _this16.needsUpdate = true;
-    return _this16;
-  }
-
-  return DataTexture;
-}(Texture);
-
-DataTexture.prototype.isDataTexture = true;
 
 var _sphere$2 = /*@__PURE__*/new Sphere();
 
@@ -10830,12 +10925,12 @@ var Frustum = /*#__PURE__*/function () {
     var p4 = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : new Plane();
     var p5 = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : new Plane();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Frustum);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Frustum);
 
     this.planes = [p0, p1, p2, p3, p4, p5];
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Frustum, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Frustum, [{
     key: "set",
     value: function set(p0, p1, p2, p3, p4, p5) {
       var planes = this.planes;
@@ -10852,8 +10947,8 @@ var Frustum = /*#__PURE__*/function () {
     value: function copy(frustum) {
       var planes = this.planes;
 
-      for (var _i62 = 0; _i62 < 6; _i62++) {
-        planes[_i62].copy(frustum.planes[_i62]);
+      for (var _i65 = 0; _i65 < 6; _i65++) {
+        planes[_i65].copy(frustum.planes[_i65]);
       }
 
       return this;
@@ -10915,8 +11010,8 @@ var Frustum = /*#__PURE__*/function () {
       var center = sphere.center;
       var negRadius = -sphere.radius;
 
-      for (var _i63 = 0; _i63 < 6; _i63++) {
-        var distance = planes[_i63].distanceToPoint(center);
+      for (var _i66 = 0; _i66 < 6; _i66++) {
+        var distance = planes[_i66].distanceToPoint(center);
 
         if (distance < negRadius) {
           return false;
@@ -10930,8 +11025,8 @@ var Frustum = /*#__PURE__*/function () {
     value: function intersectsBox(box) {
       var planes = this.planes;
 
-      for (var _i64 = 0; _i64 < 6; _i64++) {
-        var plane = planes[_i64]; // corner at max distance
+      for (var _i67 = 0; _i67 < 6; _i67++) {
+        var plane = planes[_i67]; // corner at max distance
 
         _vector$7.x = plane.normal.x > 0 ? box.max.x : box.min.x;
         _vector$7.y = plane.normal.y > 0 ? box.max.y : box.min.y;
@@ -10949,8 +11044,8 @@ var Frustum = /*#__PURE__*/function () {
     value: function containsPoint(point) {
       var planes = this.planes;
 
-      for (var _i65 = 0; _i65 < 6; _i65++) {
-        if (planes[_i65].distanceToPoint(point) < 0) {
+      for (var _i68 = 0; _i68 < 6; _i68++) {
+        if (planes[_i68].distanceToPoint(point) < 0) {
           return false;
         }
       }
@@ -11035,6 +11130,8 @@ function WebGLAttributes(gl, capabilities) {
       type = 5120;
     } else if (array instanceof Uint8Array) {
       type = 5121;
+    } else if (array instanceof Uint8ClampedArray) {
+      type = 5121;
     }
 
     return {
@@ -11115,23 +11212,23 @@ function WebGLAttributes(gl, capabilities) {
 }
 
 var PlaneGeometry = /*#__PURE__*/function (_BufferGeometry2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneGeometry, _BufferGeometry2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PlaneGeometry, _BufferGeometry2);
 
-  var _super26 = _createSuper(PlaneGeometry);
+  var _super27 = _createSuper(PlaneGeometry);
 
   function PlaneGeometry() {
-    var _this17;
+    var _this18;
 
     var width = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var widthSegments = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var heightSegments = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PlaneGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PlaneGeometry);
 
-    _this17 = _super26.call(this);
-    _this17.type = 'PlaneGeometry';
-    _this17.parameters = {
+    _this18 = _super27.call(this);
+    _this18.type = 'PlaneGeometry';
+    _this18.parameters = {
       width: width,
       height: height,
       widthSegments: widthSegments,
@@ -11174,15 +11271,15 @@ var PlaneGeometry = /*#__PURE__*/function (_BufferGeometry2) {
       }
     }
 
-    _this17.setIndex(indices);
+    _this18.setIndex(indices);
 
-    _this17.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this18.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this17.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this18.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this17.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this18.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this17;
+    return _this18;
   }
 
   return PlaneGeometry;
@@ -11233,7 +11330,7 @@ var lights_toon_fragment = "ToonMaterial material;\nmaterial.diffuseColor = diff
 var lights_toon_pars_fragment = "varying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\nstruct ToonMaterial {\n\tvec3 diffuseColor;\n};\nvoid RE_Direct_Toon( const in IncidentLight directLight, const in GeometricContext geometry, const in ToonMaterial material, inout ReflectedLight reflectedLight ) {\n\tvec3 irradiance = getGradientIrradiance( geometry.normal, directLight.direction ) * directLight.color;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tirradiance *= PI;\n\t#endif\n\treflectedLight.directDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\nvoid RE_IndirectDiffuse_Toon( const in vec3 irradiance, const in GeometricContext geometry, const in ToonMaterial material, inout ReflectedLight reflectedLight ) {\n\treflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\n#define RE_Direct\t\t\t\tRE_Direct_Toon\n#define RE_IndirectDiffuse\t\tRE_IndirectDiffuse_Toon\n#define Material_LightProbeLOD( material )\t(0)";
 var lights_phong_fragment = "BlinnPhongMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb;\nmaterial.specularColor = specular;\nmaterial.specularShininess = shininess;\nmaterial.specularStrength = specularStrength;";
 var lights_phong_pars_fragment = "varying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\nstruct BlinnPhongMaterial {\n\tvec3 diffuseColor;\n\tvec3 specularColor;\n\tfloat specularShininess;\n\tfloat specularStrength;\n};\nvoid RE_Direct_BlinnPhong( const in IncidentLight directLight, const in GeometricContext geometry, const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {\n\tfloat dotNL = saturate( dot( geometry.normal, directLight.direction ) );\n\tvec3 irradiance = dotNL * directLight.color;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tirradiance *= PI;\n\t#endif\n\treflectedLight.directDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n\treflectedLight.directSpecular += irradiance * BRDF_Specular_BlinnPhong( directLight, geometry, material.specularColor, material.specularShininess ) * material.specularStrength;\n}\nvoid RE_IndirectDiffuse_BlinnPhong( const in vec3 irradiance, const in GeometricContext geometry, const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {\n\treflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\n#define RE_Direct\t\t\t\tRE_Direct_BlinnPhong\n#define RE_IndirectDiffuse\t\tRE_IndirectDiffuse_BlinnPhong\n#define Material_LightProbeLOD( material )\t(0)";
-var lights_physical_fragment = "PhysicalMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb * ( 1.0 - metalnessFactor );\nvec3 dxy = max( abs( dFdx( geometryNormal ) ), abs( dFdy( geometryNormal ) ) );\nfloat geometryRoughness = max( max( dxy.x, dxy.y ), dxy.z );\nmaterial.specularRoughness = max( roughnessFactor, 0.0525 );material.specularRoughness += geometryRoughness;\nmaterial.specularRoughness = min( material.specularRoughness, 1.0 );\n#ifdef REFLECTIVITY\n\tmaterial.specularColor = mix( vec3( MAXIMUM_SPECULAR_COEFFICIENT * pow2( reflectivity ) ), diffuseColor.rgb, metalnessFactor );\n#else\n\tmaterial.specularColor = mix( vec3( DEFAULT_SPECULAR_COEFFICIENT ), diffuseColor.rgb, metalnessFactor );\n#endif\n#ifdef CLEARCOAT\n\tmaterial.clearcoat = clearcoat;\n\tmaterial.clearcoatRoughness = clearcoatRoughness;\n\t#ifdef USE_CLEARCOATMAP\n\t\tmaterial.clearcoat *= texture2D( clearcoatMap, vUv ).x;\n\t#endif\n\t#ifdef USE_CLEARCOAT_ROUGHNESSMAP\n\t\tmaterial.clearcoatRoughness *= texture2D( clearcoatRoughnessMap, vUv ).y;\n\t#endif\n\tmaterial.clearcoat = saturate( material.clearcoat );\tmaterial.clearcoatRoughness = max( material.clearcoatRoughness, 0.0525 );\n\tmaterial.clearcoatRoughness += geometryRoughness;\n\tmaterial.clearcoatRoughness = min( material.clearcoatRoughness, 1.0 );\n#endif\n#ifdef USE_SHEEN\n\tmaterial.sheenColor = sheen;\n#endif";
+var lights_physical_fragment = "PhysicalMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb * ( 1.0 - metalnessFactor );\nvec3 dxy = max( abs( dFdx( geometryNormal ) ), abs( dFdy( geometryNormal ) ) );\nfloat geometryRoughness = max( max( dxy.x, dxy.y ), dxy.z );\nmaterial.specularRoughness = max( roughnessFactor, 0.0525 );material.specularRoughness += geometryRoughness;\nmaterial.specularRoughness = min( material.specularRoughness, 1.0 );\n#ifdef REFLECTIVITY\n\tmaterial.specularColor = mix( vec3( MAXIMUM_SPECULAR_COEFFICIENT * pow2( reflectivity ) ), rawDiffuseColor, metalnessFactor );\n#else\n\tmaterial.specularColor = mix( vec3( DEFAULT_SPECULAR_COEFFICIENT ), rawDiffuseColor, metalnessFactor );\n#endif\n#ifdef CLEARCOAT\n\tmaterial.clearcoat = clearcoat;\n\tmaterial.clearcoatRoughness = clearcoatRoughness;\n\t#ifdef USE_CLEARCOATMAP\n\t\tmaterial.clearcoat *= texture2D( clearcoatMap, vUv ).x;\n\t#endif\n\t#ifdef USE_CLEARCOAT_ROUGHNESSMAP\n\t\tmaterial.clearcoatRoughness *= texture2D( clearcoatRoughnessMap, vUv ).y;\n\t#endif\n\tmaterial.clearcoat = saturate( material.clearcoat );\tmaterial.clearcoatRoughness = max( material.clearcoatRoughness, 0.0525 );\n\tmaterial.clearcoatRoughness += geometryRoughness;\n\tmaterial.clearcoatRoughness = min( material.clearcoatRoughness, 1.0 );\n#endif\n#ifdef USE_SHEEN\n\tmaterial.sheenColor = sheen;\n#endif";
 var lights_physical_pars_fragment = "struct PhysicalMaterial {\n\tvec3 diffuseColor;\n\tfloat specularRoughness;\n\tvec3 specularColor;\n#ifdef CLEARCOAT\n\tfloat clearcoat;\n\tfloat clearcoatRoughness;\n#endif\n#ifdef USE_SHEEN\n\tvec3 sheenColor;\n#endif\n};\n#define MAXIMUM_SPECULAR_COEFFICIENT 0.16\n#define DEFAULT_SPECULAR_COEFFICIENT 0.04\nfloat clearcoatDHRApprox( const in float roughness, const in float dotNL ) {\n\treturn DEFAULT_SPECULAR_COEFFICIENT + ( 1.0 - DEFAULT_SPECULAR_COEFFICIENT ) * ( pow( 1.0 - dotNL, 5.0 ) * pow( 1.0 - roughness, 2.0 ) );\n}\n#if NUM_RECT_AREA_LIGHTS > 0\n\tvoid RE_Direct_RectArea_Physical( const in RectAreaLight rectAreaLight, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight ) {\n\t\tvec3 normal = geometry.normal;\n\t\tvec3 viewDir = geometry.viewDir;\n\t\tvec3 position = geometry.position;\n\t\tvec3 lightPos = rectAreaLight.position;\n\t\tvec3 halfWidth = rectAreaLight.halfWidth;\n\t\tvec3 halfHeight = rectAreaLight.halfHeight;\n\t\tvec3 lightColor = rectAreaLight.color;\n\t\tfloat roughness = material.specularRoughness;\n\t\tvec3 rectCoords[ 4 ];\n\t\trectCoords[ 0 ] = lightPos + halfWidth - halfHeight;\t\trectCoords[ 1 ] = lightPos - halfWidth - halfHeight;\n\t\trectCoords[ 2 ] = lightPos - halfWidth + halfHeight;\n\t\trectCoords[ 3 ] = lightPos + halfWidth + halfHeight;\n\t\tvec2 uv = LTC_Uv( normal, viewDir, roughness );\n\t\tvec4 t1 = texture2D( ltc_1, uv );\n\t\tvec4 t2 = texture2D( ltc_2, uv );\n\t\tmat3 mInv = mat3(\n\t\t\tvec3( t1.x, 0, t1.y ),\n\t\t\tvec3(    0, 1,    0 ),\n\t\t\tvec3( t1.z, 0, t1.w )\n\t\t);\n\t\tvec3 fresnel = ( material.specularColor * t2.x + ( vec3( 1.0 ) - material.specularColor ) * t2.y );\n\t\treflectedLight.directSpecular += lightColor * fresnel * LTC_Evaluate( normal, viewDir, position, mInv, rectCoords );\n\t\treflectedLight.directDiffuse += lightColor * material.diffuseColor * LTC_Evaluate( normal, viewDir, position, mat3( 1.0 ), rectCoords );\n\t}\n#endif\nvoid RE_Direct_Physical( const in IncidentLight directLight, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight ) {\n\tfloat dotNL = saturate( dot( geometry.normal, directLight.direction ) );\n\tvec3 irradiance = dotNL * directLight.color;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tirradiance *= PI;\n\t#endif\n\t#ifdef CLEARCOAT\n\t\tfloat ccDotNL = saturate( dot( geometry.clearcoatNormal, directLight.direction ) );\n\t\tvec3 ccIrradiance = ccDotNL * directLight.color;\n\t\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\t\tccIrradiance *= PI;\n\t\t#endif\n\t\tfloat clearcoatDHR = material.clearcoat * clearcoatDHRApprox( material.clearcoatRoughness, ccDotNL );\n\t\treflectedLight.directSpecular += ccIrradiance * material.clearcoat * BRDF_Specular_GGX( directLight, geometry.viewDir, geometry.clearcoatNormal, vec3( DEFAULT_SPECULAR_COEFFICIENT ), material.clearcoatRoughness );\n\t#else\n\t\tfloat clearcoatDHR = 0.0;\n\t#endif\n\t#ifdef USE_SHEEN\n\t\treflectedLight.directSpecular += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Specular_Sheen(\n\t\t\tmaterial.specularRoughness,\n\t\t\tdirectLight.direction,\n\t\t\tgeometry,\n\t\t\tmaterial.sheenColor\n\t\t);\n\t#else\n\t\treflectedLight.directSpecular += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Specular_GGX( directLight, geometry.viewDir, geometry.normal, material.specularColor, material.specularRoughness);\n\t#endif\n\treflectedLight.directDiffuse += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\nvoid RE_IndirectDiffuse_Physical( const in vec3 irradiance, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight ) {\n\treflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\nvoid RE_IndirectSpecular_Physical( const in vec3 radiance, const in vec3 irradiance, const in vec3 clearcoatRadiance, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight) {\n\t#ifdef CLEARCOAT\n\t\tfloat ccDotNV = saturate( dot( geometry.clearcoatNormal, geometry.viewDir ) );\n\t\treflectedLight.indirectSpecular += clearcoatRadiance * material.clearcoat * BRDF_Specular_GGX_Environment( geometry.viewDir, geometry.clearcoatNormal, vec3( DEFAULT_SPECULAR_COEFFICIENT ), material.clearcoatRoughness );\n\t\tfloat ccDotNL = ccDotNV;\n\t\tfloat clearcoatDHR = material.clearcoat * clearcoatDHRApprox( material.clearcoatRoughness, ccDotNL );\n\t#else\n\t\tfloat clearcoatDHR = 0.0;\n\t#endif\n\tfloat clearcoatInv = 1.0 - clearcoatDHR;\n\tvec3 singleScattering = vec3( 0.0 );\n\tvec3 multiScattering = vec3( 0.0 );\n\tvec3 cosineWeightedIrradiance = irradiance * RECIPROCAL_PI;\n\tBRDF_Specular_Multiscattering_Environment( geometry, material.specularColor, material.specularRoughness, singleScattering, multiScattering );\n\tvec3 diffuse = material.diffuseColor * ( 1.0 - ( singleScattering + multiScattering ) );\n\treflectedLight.indirectSpecular += clearcoatInv * radiance * singleScattering;\n\treflectedLight.indirectSpecular += multiScattering * cosineWeightedIrradiance;\n\treflectedLight.indirectDiffuse += diffuse * cosineWeightedIrradiance;\n}\n#define RE_Direct\t\t\t\tRE_Direct_Physical\n#define RE_Direct_RectArea\t\tRE_Direct_RectArea_Physical\n#define RE_IndirectDiffuse\t\tRE_IndirectDiffuse_Physical\n#define RE_IndirectSpecular\t\tRE_IndirectSpecular_Physical\nfloat computeSpecularOcclusion( const in float dotNV, const in float ambientOcclusion, const in float roughness ) {\n\treturn saturate( pow( dotNV + ambientOcclusion, exp2( - 16.0 * roughness - 1.0 ) ) - 1.0 + ambientOcclusion );\n}";
 var lights_fragment_begin = "\nGeometricContext geometry;\ngeometry.position = - vViewPosition;\ngeometry.normal = normal;\ngeometry.viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\n#ifdef CLEARCOAT\n\tgeometry.clearcoatNormal = clearcoatNormal;\n#endif\nIncidentLight directLight;\n#if ( NUM_POINT_LIGHTS > 0 ) && defined( RE_Direct )\n\tPointLight pointLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0\n\tPointLightShadow pointLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_POINT_LIGHTS; i ++ ) {\n\t\tpointLight = pointLights[ i ];\n\t\tgetPointDirectLightIrradiance( pointLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_POINT_LIGHT_SHADOWS )\n\t\tpointLightShadow = pointLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getPointShadow( pointShadowMap[ i ], pointLightShadow.shadowMapSize, pointLightShadow.shadowBias, pointLightShadow.shadowRadius, vPointShadowCoord[ i ], pointLightShadow.shadowCameraNear, pointLightShadow.shadowCameraFar ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_SPOT_LIGHTS > 0 ) && defined( RE_Direct )\n\tSpotLight spotLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_SPOT_LIGHT_SHADOWS > 0\n\tSpotLightShadow spotLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_SPOT_LIGHTS; i ++ ) {\n\t\tspotLight = spotLights[ i ];\n\t\tgetSpotDirectLightIrradiance( spotLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_SPOT_LIGHT_SHADOWS )\n\t\tspotLightShadow = spotLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getShadow( spotShadowMap[ i ], spotLightShadow.shadowMapSize, spotLightShadow.shadowBias, spotLightShadow.shadowRadius, vSpotShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )\n\tDirectionalLight directionalLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 0\n\tDirectionalLightShadow directionalLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {\n\t\tdirectionalLight = directionalLights[ i ];\n\t\tgetDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_DIR_LIGHT_SHADOWS )\n\t\tdirectionalLightShadow = directionalLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getShadow( directionalShadowMap[ i ], directionalLightShadow.shadowMapSize, directionalLightShadow.shadowBias, directionalLightShadow.shadowRadius, vDirectionalShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_RECT_AREA_LIGHTS > 0 ) && defined( RE_Direct_RectArea )\n\tRectAreaLight rectAreaLight;\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_RECT_AREA_LIGHTS; i ++ ) {\n\t\trectAreaLight = rectAreaLights[ i ];\n\t\tRE_Direct_RectArea( rectAreaLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if defined( RE_IndirectDiffuse )\n\tvec3 iblIrradiance = vec3( 0.0 );\n\tvec3 irradiance = getAmbientLightIrradiance( ambientLightColor );\n\tirradiance += getLightProbeIrradiance( lightProbe, geometry );\n\t#if ( NUM_HEMI_LIGHTS > 0 )\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i < NUM_HEMI_LIGHTS; i ++ ) {\n\t\t\tirradiance += getHemisphereLightIrradiance( hemisphereLights[ i ], geometry );\n\t\t}\n\t\t#pragma unroll_loop_end\n\t#endif\n#endif\n#if defined( RE_IndirectSpecular )\n\tvec3 radiance = vec3( 0.0 );\n\tvec3 clearcoatRadiance = vec3( 0.0 );\n#endif";
 var lights_fragment_maps = "#if defined( RE_IndirectDiffuse )\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel= texture2D( lightMap, vUv2 );\n\t\tvec3 lightMapIrradiance = lightMapTexelToLinear( lightMapTexel ).rgb * lightMapIntensity;\n\t\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\t\tlightMapIrradiance *= PI;\n\t\t#endif\n\t\tirradiance += lightMapIrradiance;\n\t#endif\n\t#if defined( USE_ENVMAP ) && defined( STANDARD ) && defined( ENVMAP_TYPE_CUBE_UV )\n\t\tiblIrradiance += getLightProbeIndirectIrradiance( geometry, maxMipLevel );\n\t#endif\n#endif\n#if defined( USE_ENVMAP ) && defined( RE_IndirectSpecular )\n\tradiance += getLightProbeIndirectRadiance( geometry.viewDir, geometry.normal, material.specularRoughness, maxMipLevel );\n\t#ifdef CLEARCOAT\n\t\tclearcoatRadiance += getLightProbeIndirectRadiance( geometry.viewDir, geometry.clearcoatNormal, material.clearcoatRoughness, maxMipLevel );\n\t#endif\n#endif";
@@ -11276,15 +11373,15 @@ var specularmap_fragment = "float specularStrength;\n#ifdef USE_SPECULARMAP\n\tv
 var specularmap_pars_fragment = "#ifdef USE_SPECULARMAP\n\tuniform sampler2D specularMap;\n#endif";
 var tonemapping_fragment = "#if defined( TONE_MAPPING )\n\tgl_FragColor.rgb = toneMapping( gl_FragColor.rgb );\n#endif";
 var tonemapping_pars_fragment = "#ifndef saturate\n#define saturate(a) clamp( a, 0.0, 1.0 )\n#endif\nuniform float toneMappingExposure;\nvec3 LinearToneMapping( vec3 color ) {\n\treturn toneMappingExposure * color;\n}\nvec3 ReinhardToneMapping( vec3 color ) {\n\tcolor *= toneMappingExposure;\n\treturn saturate( color / ( vec3( 1.0 ) + color ) );\n}\nvec3 OptimizedCineonToneMapping( vec3 color ) {\n\tcolor *= toneMappingExposure;\n\tcolor = max( vec3( 0.0 ), color - 0.004 );\n\treturn pow( ( color * ( 6.2 * color + 0.5 ) ) / ( color * ( 6.2 * color + 1.7 ) + 0.06 ), vec3( 2.2 ) );\n}\nvec3 RRTAndODTFit( vec3 v ) {\n\tvec3 a = v * ( v + 0.0245786 ) - 0.000090537;\n\tvec3 b = v * ( 0.983729 * v + 0.4329510 ) + 0.238081;\n\treturn a / b;\n}\nvec3 ACESFilmicToneMapping( vec3 color ) {\n\tconst mat3 ACESInputMat = mat3(\n\t\tvec3( 0.59719, 0.07600, 0.02840 ),\t\tvec3( 0.35458, 0.90834, 0.13383 ),\n\t\tvec3( 0.04823, 0.01566, 0.83777 )\n\t);\n\tconst mat3 ACESOutputMat = mat3(\n\t\tvec3(  1.60475, -0.10208, -0.00327 ),\t\tvec3( -0.53108,  1.10813, -0.07276 ),\n\t\tvec3( -0.07367, -0.00605,  1.07602 )\n\t);\n\tcolor *= toneMappingExposure / 0.6;\n\tcolor = ACESInputMat * color;\n\tcolor = RRTAndODTFit( color );\n\tcolor = ACESOutputMat * color;\n\treturn saturate( color );\n}\nvec3 CustomToneMapping( vec3 color ) { return color; }";
-var transmissionmap_fragment = "#ifdef USE_TRANSMISSIONMAP\n\ttotalTransmission *= texture2D( transmissionMap, vUv ).r;\n#endif";
-var transmissionmap_pars_fragment = "#ifdef USE_TRANSMISSIONMAP\n\tuniform sampler2D transmissionMap;\n#endif";
+var transmission_fragment = "#ifdef USE_TRANSMISSION\n\t#ifdef USE_TRANSMISSIONMAP\n\t\ttotalTransmission *= texture2D( transmissionMap, vUv ).r;\n\t#endif\n\t#ifdef USE_THICKNESSNMAP\n\t\tthicknessFactor *= texture2D( thicknessMap, vUv ).g;\n\t#endif\n\tvec3 pos = vWorldPosition.xyz / vWorldPosition.w;\n\tvec3 v = normalize( cameraPosition - pos );\n\tvec3 viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\n\tfloat ior = ( 1.0 + 0.4 * reflectivity ) / ( 1.0 - 0.4 * reflectivity );\n\tvec3 f0 = vec3( pow( ior - 1.0, 2.0 ) / pow( ior + 1.0, 2.0 ) );\n\tvec3 f90 = vec3( 1.0 );\n\tvec3 f_transmission = totalTransmission * getIBLVolumeRefraction(\n\t\tnormal, v, viewDir, roughnessFactor, diffuseColor.rgb, f0, f90,\n\t\tpos, modelMatrix, viewMatrix, projectionMatrix, ior, thicknessFactor,\n\t\tattenuationColor, attenuationDistance);\n\tdiffuseColor.rgb = mix( diffuseColor.rgb, f_transmission, totalTransmission );\n#endif";
+var transmission_pars_fragment = "#ifdef USE_TRANSMISSION\n\t#ifdef USE_TRANSMISSIONMAP\n\t\tuniform sampler2D transmissionMap;\n\t#endif\n\t#ifdef USE_THICKNESSMAP\n\t\tuniform sampler2D thicknessMap;\n\t#endif\n\tuniform vec2 transmissionSamplerSize;\n\tuniform sampler2D transmissionSamplerMap;\n\tuniform mat4 modelMatrix;\n\tuniform mat4 projectionMatrix;\n\tvarying vec4 vWorldPosition;\n\tvec3 getVolumeTransmissionRay(vec3 n, vec3 v, float thickness, float ior, mat4 modelMatrix) {\n\t\tvec3 refractionVector = refract(-v, normalize(n), 1.0 / ior);\n\t\tvec3 modelScale;\n\t\tmodelScale.x = length(vec3(modelMatrix[0].xyz));\n\t\tmodelScale.y = length(vec3(modelMatrix[1].xyz));\n\t\tmodelScale.z = length(vec3(modelMatrix[2].xyz));\n\t\treturn normalize(refractionVector) * thickness * modelScale;\n\t}\n\tfloat applyIorToRoughness(float roughness, float ior) {\n\t\treturn roughness * clamp(ior * 2.0 - 2.0, 0.0, 1.0);\n\t}\n\tvec3 getTransmissionSample(vec2 fragCoord, float roughness, float ior) {\n\t\tfloat framebufferLod = log2(transmissionSamplerSize.x) * applyIorToRoughness(roughness, ior);\n\t\treturn texture2DLodEXT(transmissionSamplerMap, fragCoord.xy, framebufferLod).rgb;\n\t}\n\tvec3 applyVolumeAttenuation(vec3 radiance, float transmissionDistance, vec3 attenuationColor, float attenuationDistance) {\n\t\tif (attenuationDistance == 0.0) {\n\t\t\treturn radiance;\n\t\t} else {\n\t\t\tvec3 attenuationCoefficient = -log(attenuationColor) / attenuationDistance;\n\t\t\tvec3 transmittance = exp(-attenuationCoefficient * transmissionDistance);\t\t\treturn transmittance * radiance;\n\t\t}\n\t}\n\tvec3 getIBLVolumeRefraction(vec3 n, vec3 v, vec3 viewDir, float perceptualRoughness, vec3 baseColor, vec3 f0, vec3 f90,\n\t\tvec3 position, mat4 modelMatrix, mat4 viewMatrix, mat4 projMatrix, float ior, float thickness, vec3 attenuationColor, float attenuationDistance) {\n\t\tvec3 transmissionRay = getVolumeTransmissionRay(n, v, thickness, ior, modelMatrix);\n\t\tvec3 refractedRayExit = position + transmissionRay;\n\t\tvec4 ndcPos = projMatrix * viewMatrix * vec4(refractedRayExit, 1.0);\n\t\tvec2 refractionCoords = ndcPos.xy / ndcPos.w;\n\t\trefractionCoords += 1.0;\n\t\trefractionCoords /= 2.0;\n\t\tvec3 transmittedLight = getTransmissionSample(refractionCoords, perceptualRoughness, ior);\n\t\tvec3 attenuatedColor = applyVolumeAttenuation(transmittedLight, length(transmissionRay), attenuationColor, attenuationDistance);\n\t\tfloat NdotV = saturate(dot(n, viewDir));\n\t\tvec2 brdf = integrateSpecularBRDF(NdotV, perceptualRoughness);\n\t\tvec3 specularColor = f0 * brdf.x + f90 * brdf.y;\n\t\treturn (1.0 - specularColor) * attenuatedColor * baseColor;\n\t}\n#endif";
 var uv_pars_fragment = "#if ( defined( USE_UV ) && ! defined( UVS_VERTEX_ONLY ) )\n\tvarying vec2 vUv;\n#endif";
 var uv_pars_vertex = "#ifdef USE_UV\n\t#ifdef UVS_VERTEX_ONLY\n\t\tvec2 vUv;\n\t#else\n\t\tvarying vec2 vUv;\n\t#endif\n\tuniform mat3 uvTransform;\n#endif";
 var uv_vertex = "#ifdef USE_UV\n\tvUv = ( uvTransform * vec3( uv, 1 ) ).xy;\n#endif";
 var uv2_pars_fragment = "#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )\n\tvarying vec2 vUv2;\n#endif";
 var uv2_pars_vertex = "#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )\n\tattribute vec2 uv2;\n\tvarying vec2 vUv2;\n\tuniform mat3 uv2Transform;\n#endif";
 var uv2_vertex = "#if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )\n\tvUv2 = ( uv2Transform * vec3( uv2, 1 ) ).xy;\n#endif";
-var worldpos_vertex = "#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP )\n\tvec4 worldPosition = vec4( transformed, 1.0 );\n\t#ifdef USE_INSTANCING\n\t\tworldPosition = instanceMatrix * worldPosition;\n\t#endif\n\tworldPosition = modelMatrix * worldPosition;\n#endif";
+var worldpos_vertex = "#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP ) || defined ( USE_TRANSMISSION )\n\tvec4 worldPosition = vec4( transformed, 1.0 );\n\t#ifdef USE_INSTANCING\n\t\tworldPosition = instanceMatrix * worldPosition;\n\t#endif\n\tworldPosition = modelMatrix * worldPosition;\n#endif";
 var background_frag = "uniform sampler2D t2D;\nvarying vec2 vUv;\nvoid main() {\n\tvec4 texColor = texture2D( t2D, vUv );\n\tgl_FragColor = mapTexelToLinear( texColor );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n}";
 var background_vert = "varying vec2 vUv;\nuniform mat3 uvTransform;\nvoid main() {\n\tvUv = ( uvTransform * vec3( uv, 1 ) ).xy;\n\tgl_Position = vec4( position.xy, 1.0, 1.0 );\n}";
 var cube_frag = "#include <envmap_common_pars_fragment>\nuniform float opacity;\nvarying vec3 vWorldDirection;\n#include <cube_uv_reflection_fragment>\nvoid main() {\n\tvec3 vReflect = vWorldDirection;\n\t#include <envmap_fragment>\n\tgl_FragColor = envColor;\n\tgl_FragColor.a *= opacity;\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n}";
@@ -11307,8 +11404,8 @@ var meshtoon_frag = "#define TOON\nuniform vec3 diffuse;\nuniform vec3 emissive;
 var meshtoon_vert = "#define TOON\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
 var meshphong_frag = "#define PHONG\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform vec3 specular;\nuniform float shininess;\nuniform float opacity;\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <bsdfs>\n#include <lights_pars_begin>\n#include <lights_phong_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\t#include <lights_phong_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\t#include <envmap_fragment>\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
 var meshphong_vert = "#define PHONG\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <envmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <envmap_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
-var meshphysical_frag = "#define STANDARD\n#ifdef PHYSICAL\n\t#define REFLECTIVITY\n\t#define CLEARCOAT\n\t#define TRANSMISSION\n#endif\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform float roughness;\nuniform float metalness;\nuniform float opacity;\n#ifdef TRANSMISSION\n\tuniform float transmission;\n#endif\n#ifdef REFLECTIVITY\n\tuniform float reflectivity;\n#endif\n#ifdef CLEARCOAT\n\tuniform float clearcoat;\n\tuniform float clearcoatRoughness;\n#endif\n#ifdef USE_SHEEN\n\tuniform vec3 sheen;\n#endif\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <transmissionmap_pars_fragment>\n#include <bsdfs>\n#include <cube_uv_reflection_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_physical_pars_fragment>\n#include <fog_pars_fragment>\n#include <lights_pars_begin>\n#include <lights_physical_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <clearcoat_pars_fragment>\n#include <roughnessmap_pars_fragment>\n#include <metalnessmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#ifdef TRANSMISSION\n\t\tfloat totalTransmission = transmission;\n\t#endif\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <roughnessmap_fragment>\n\t#include <metalnessmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <clearcoat_normal_fragment_begin>\n\t#include <clearcoat_normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\t#include <transmissionmap_fragment>\n\t#include <lights_physical_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\t#ifdef TRANSMISSION\n\t\tdiffuseColor.a *= mix( saturate( 1. - totalTransmission + linearToRelativeLuminance( reflectedLight.directSpecular + reflectedLight.indirectSpecular ) ), 1.0, metalness );\n\t#endif\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
-var meshphysical_vert = "#define STANDARD\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n\t#ifdef USE_TANGENT\n\t\tvTangent = normalize( transformedTangent );\n\t\tvBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );\n\t#endif\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
+var meshphysical_frag = "#define STANDARD\n#ifdef PHYSICAL\n\t#define REFLECTIVITY\n\t#define CLEARCOAT\n#endif\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform float roughness;\nuniform float metalness;\nuniform float opacity;\n#ifdef USE_TRANSMISSION\n\tuniform float transmission;\n\tuniform float thickness;\n\tuniform vec3 attenuationColor;\n\tuniform float attenuationDistance;\n#endif\n#ifdef REFLECTIVITY\n\tuniform float reflectivity;\n#endif\n#ifdef CLEARCOAT\n\tuniform float clearcoat;\n\tuniform float clearcoatRoughness;\n#endif\n#ifdef USE_SHEEN\n\tuniform vec3 sheen;\n#endif\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <bsdfs>\n#include <transmission_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_physical_pars_fragment>\n#include <fog_pars_fragment>\n#include <lights_pars_begin>\n#include <lights_physical_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <clearcoat_pars_fragment>\n#include <roughnessmap_pars_fragment>\n#include <metalnessmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#ifdef USE_TRANSMISSION\n\t\tfloat totalTransmission = transmission;\n\t\tfloat thicknessFactor = thickness;\n\t#endif\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <roughnessmap_fragment>\n\t#include <metalnessmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <clearcoat_normal_fragment_begin>\n\t#include <clearcoat_normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\tvec3 rawDiffuseColor = diffuseColor.rgb;\n\t#include <transmission_fragment>\n\t#include <lights_physical_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
+var meshphysical_vert = "#define STANDARD\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#ifdef USE_TRANSMISSION\n\tvarying vec4 vWorldPosition;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n\t#ifdef USE_TANGENT\n\t\tvTangent = normalize( transformedTangent );\n\t\tvBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );\n\t#endif\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n#ifdef USE_TRANSMISSION\n\tvWorldPosition = worldPosition;\n#endif\n}";
 var normal_frag = "#define NORMAL\nuniform float opacity;\n#if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || defined( TANGENTSPACE_NORMALMAP )\n\tvarying vec3 vViewPosition;\n#endif\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <packing>\n#include <uv_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\t#include <logdepthbuf_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\tgl_FragColor = vec4( packNormalToRGB( normal ), opacity );\n}";
 var normal_vert = "#define NORMAL\n#if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || defined( TANGENTSPACE_NORMALMAP )\n\tvarying vec3 vViewPosition;\n#endif\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n\t#ifdef USE_TANGENT\n\t\tvTangent = normalize( transformedTangent );\n\t\tvBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );\n\t#endif\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n#if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || defined( TANGENTSPACE_NORMALMAP )\n\tvViewPosition = - mvPosition.xyz;\n#endif\n}";
 var points_frag = "uniform vec3 diffuse;\nuniform float opacity;\n#include <common>\n#include <color_pars_fragment>\n#include <map_particle_pars_fragment>\n#include <fog_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec3 outgoingLight = vec3( 0.0 );\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\t#include <logdepthbuf_fragment>\n\t#include <map_particle_fragment>\n\t#include <color_fragment>\n\t#include <alphatest_fragment>\n\toutgoingLight = diffuseColor.rgb;\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n}";
@@ -11406,8 +11503,8 @@ var ShaderChunk = {
   specularmap_pars_fragment: specularmap_pars_fragment,
   tonemapping_fragment: tonemapping_fragment,
   tonemapping_pars_fragment: tonemapping_pars_fragment,
-  transmissionmap_fragment: transmissionmap_fragment,
-  transmissionmap_pars_fragment: transmissionmap_pars_fragment,
+  transmission_fragment: transmission_fragment,
+  transmission_pars_fragment: transmission_pars_fragment,
   uv_pars_fragment: uv_pars_fragment,
   uv_pars_vertex: uv_pars_vertex,
   uv_vertex: uv_vertex,
@@ -11455,7 +11552,7 @@ var ShaderChunk = {
 var UniformsLib = {
   common: {
     diffuse: {
-      value: new Color(0xeeeeee)
+      value: new Color(0xffffff)
     },
     opacity: {
       value: 1.0
@@ -11681,7 +11778,7 @@ var UniformsLib = {
   },
   points: {
     diffuse: {
-      value: new Color(0xeeeeee)
+      value: new Color(0xffffff)
     },
     opacity: {
       value: 1.0
@@ -11704,7 +11801,7 @@ var UniformsLib = {
   },
   sprite: {
     diffuse: {
-      value: new Color(0xeeeeee)
+      value: new Color(0xffffff)
     },
     opacity: {
       value: 1.0
@@ -11922,6 +12019,24 @@ ShaderLib.physical = {
     },
     transmissionMap: {
       value: null
+    },
+    transmissionSamplerSize: {
+      value: new Vector2()
+    },
+    transmissionSamplerMap: {
+      value: null
+    },
+    thickness: {
+      value: 0
+    },
+    thicknessMap: {
+      value: null
+    },
+    attenuationDistance: {
+      value: 0
+    },
+    attenuationColor: {
+      value: new Color(0x000000)
     }
   }]),
   vertexShader: ShaderChunk.meshphysical_vert,
@@ -11937,7 +12052,8 @@ function WebGLBackground(renderer, cubemaps, state, objects, premultipliedAlpha)
   var currentBackgroundVersion = 0;
   var currentTonemapping = null;
 
-  function render(renderList, scene, camera, forceClear) {
+  function render(renderList, scene) {
+    var forceClear = false;
     var background = scene.isScene === true ? scene.background : null;
 
     if (background && background.isTexture) {
@@ -12166,10 +12282,10 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
     var enabledAttributes = [];
     var attributeDivisors = [];
 
-    for (var _i66 = 0; _i66 < maxVertexAttributes; _i66++) {
-      newAttributes[_i66] = 0;
-      enabledAttributes[_i66] = 0;
-      attributeDivisors[_i66] = 0;
+    for (var _i69 = 0; _i69 < maxVertexAttributes; _i69++) {
+      newAttributes[_i69] = 0;
+      enabledAttributes[_i69] = 0;
+      attributeDivisors[_i69] = 0;
     }
 
     return {
@@ -12231,8 +12347,8 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
   function initAttributes() {
     var newAttributes = currentState.newAttributes;
 
-    for (var _i67 = 0, il = newAttributes.length; _i67 < il; _i67++) {
-      newAttributes[_i67] = 0;
+    for (var _i70 = 0, il = newAttributes.length; _i70 < il; _i70++) {
+      newAttributes[_i70] = 0;
     }
   }
 
@@ -12264,10 +12380,10 @@ function WebGLBindingStates(gl, extensions, attributes, capabilities) {
     var newAttributes = currentState.newAttributes;
     var enabledAttributes = currentState.enabledAttributes;
 
-    for (var _i68 = 0, il = enabledAttributes.length; _i68 < il; _i68++) {
-      if (enabledAttributes[_i68] !== newAttributes[_i68]) {
-        gl.disableVertexAttribArray(_i68);
-        enabledAttributes[_i68] = 0;
+    for (var _i71 = 0, il = enabledAttributes.length; _i71 < il; _i71++) {
+      if (enabledAttributes[_i71] !== newAttributes[_i71]) {
+        gl.disableVertexAttribArray(_i71);
+        enabledAttributes[_i71] = 0;
       }
     }
   }
@@ -12559,6 +12675,7 @@ function WebGLCapabilities(gl, extensions, parameters) {
     precision = maxPrecision;
   }
 
+  var drawBuffers = isWebGL2 || extensions.has('WEBGL_draw_buffers');
   var logarithmicDepthBuffer = parameters.logarithmicDepthBuffer === true;
   var maxTextures = gl.getParameter(34930);
   var maxVertexTextures = gl.getParameter(35660);
@@ -12574,6 +12691,7 @@ function WebGLCapabilities(gl, extensions, parameters) {
   var maxSamples = isWebGL2 ? gl.getParameter(36183) : 0;
   return {
     isWebGL2: isWebGL2,
+    drawBuffers: drawBuffers,
     getMaxAnisotropy: getMaxAnisotropy,
     getMaxPrecision: getMaxPrecision,
     precision: precision,
@@ -12651,8 +12769,8 @@ function WebGLClipping(properties) {
 
       dstArray = projectPlanes(planes, camera, lGlobal, useCache);
 
-      for (var _i69 = 0; _i69 !== lGlobal; ++_i69) {
-        dstArray[_i69] = globalState[_i69];
+      for (var _i72 = 0; _i72 !== lGlobal; ++_i72) {
+        dstArray[_i72] = globalState[_i72];
       }
 
       materialProperties.clippingState = dstArray;
@@ -12687,8 +12805,8 @@ function WebGLClipping(properties) {
           dstArray = new Float32Array(flatSize);
         }
 
-        for (var _i70 = 0, i4 = dstOffset; _i70 !== nPlanes; ++_i70, i4 += 4) {
-          plane.copy(planes[_i70]).applyMatrix4(viewMatrix, viewNormalMatrix);
+        for (var _i73 = 0, i4 = dstOffset; _i73 !== nPlanes; ++_i73, i4 += 4) {
+          plane.copy(planes[_i73]).applyMatrix4(viewMatrix, viewNormalMatrix);
           plane.normal.toArray(dstArray, i4);
           dstArray[i4 + 3] = plane.constant;
         }
@@ -12891,8 +13009,8 @@ function WebGLGeometries(gl, attributes, info, bindingStates) {
     for (var _name3 in morphAttributes) {
       var array = morphAttributes[_name3];
 
-      for (var _i71 = 0, l = array.length; _i71 < l; _i71++) {
-        attributes.update(array[_i71], 34962);
+      for (var _i74 = 0, l = array.length; _i74 < l; _i74++) {
+        attributes.update(array[_i74], 34962);
       }
     }
   }
@@ -12907,22 +13025,22 @@ function WebGLGeometries(gl, attributes, info, bindingStates) {
       var array = geometryIndex.array;
       version = geometryIndex.version;
 
-      for (var _i72 = 0, l = array.length; _i72 < l; _i72 += 3) {
-        var a = array[_i72 + 0];
-        var b = array[_i72 + 1];
-        var c = array[_i72 + 2];
+      for (var _i75 = 0, l = array.length; _i75 < l; _i75 += 3) {
+        var a = array[_i75 + 0];
+        var b = array[_i75 + 1];
+        var c = array[_i75 + 2];
         indices.push(a, b, b, c, c, a);
       }
     } else {
       var _array = geometryPosition.array;
       version = geometryPosition.version;
 
-      for (var _i73 = 0, _l4 = _array.length / 3 - 1; _i73 < _l4; _i73 += 3) {
-        var _a4 = _i73 + 0;
+      for (var _i76 = 0, _l4 = _array.length / 3 - 1; _i76 < _l4; _i76 += 3) {
+        var _a4 = _i76 + 0;
 
-        var _b4 = _i73 + 1;
+        var _b4 = _i76 + 1;
 
-        var _c4 = _i73 + 2;
+        var _c4 = _i76 + 2;
 
         indices.push(_a4, _b4, _b4, _c4, _c4, _a4);
       }
@@ -13086,8 +13204,8 @@ function WebGLMorphtargets(gl) {
   var morphInfluences = new Float32Array(8);
   var workInfluences = [];
 
-  for (var _i74 = 0; _i74 < 8; _i74++) {
-    workInfluences[_i74] = [_i74, 0];
+  for (var _i77 = 0; _i77 < 8; _i77++) {
+    workInfluences[_i77] = [_i77, 0];
   }
 
   function update(object, geometry, material, program) {
@@ -13101,29 +13219,29 @@ function WebGLMorphtargets(gl) {
       // initialise list
       influences = [];
 
-      for (var _i75 = 0; _i75 < length; _i75++) {
-        influences[_i75] = [_i75, 0];
+      for (var _i78 = 0; _i78 < length; _i78++) {
+        influences[_i78] = [_i78, 0];
       }
 
       influencesList[geometry.id] = influences;
     } // Collect influences
 
 
-    for (var _i76 = 0; _i76 < length; _i76++) {
-      var influence = influences[_i76];
-      influence[0] = _i76;
-      influence[1] = objectInfluences[_i76];
+    for (var _i79 = 0; _i79 < length; _i79++) {
+      var influence = influences[_i79];
+      influence[0] = _i79;
+      influence[1] = objectInfluences[_i79];
     }
 
     influences.sort(absNumericalSort);
 
-    for (var _i77 = 0; _i77 < 8; _i77++) {
-      if (_i77 < length && influences[_i77][1]) {
-        workInfluences[_i77][0] = influences[_i77][0];
-        workInfluences[_i77][1] = influences[_i77][1];
+    for (var _i80 = 0; _i80 < 8; _i80++) {
+      if (_i80 < length && influences[_i80][1]) {
+        workInfluences[_i80][0] = influences[_i80][0];
+        workInfluences[_i80][1] = influences[_i80][1];
       } else {
-        workInfluences[_i77][0] = Number.MAX_SAFE_INTEGER;
-        workInfluences[_i77][1] = 0;
+        workInfluences[_i80][0] = Number.MAX_SAFE_INTEGER;
+        workInfluences[_i80][1] = 0;
       }
     }
 
@@ -13132,32 +13250,32 @@ function WebGLMorphtargets(gl) {
     var morphNormals = material.morphNormals && geometry.morphAttributes.normal;
     var morphInfluencesSum = 0;
 
-    for (var _i78 = 0; _i78 < 8; _i78++) {
-      var _influence = workInfluences[_i78];
+    for (var _i81 = 0; _i81 < 8; _i81++) {
+      var _influence = workInfluences[_i81];
       var index = _influence[0];
       var value = _influence[1];
 
       if (index !== Number.MAX_SAFE_INTEGER && value) {
-        if (morphTargets && geometry.getAttribute('morphTarget' + _i78) !== morphTargets[index]) {
-          geometry.setAttribute('morphTarget' + _i78, morphTargets[index]);
+        if (morphTargets && geometry.getAttribute('morphTarget' + _i81) !== morphTargets[index]) {
+          geometry.setAttribute('morphTarget' + _i81, morphTargets[index]);
         }
 
-        if (morphNormals && geometry.getAttribute('morphNormal' + _i78) !== morphNormals[index]) {
-          geometry.setAttribute('morphNormal' + _i78, morphNormals[index]);
+        if (morphNormals && geometry.getAttribute('morphNormal' + _i81) !== morphNormals[index]) {
+          geometry.setAttribute('morphNormal' + _i81, morphNormals[index]);
         }
 
-        morphInfluences[_i78] = value;
+        morphInfluences[_i81] = value;
         morphInfluencesSum += value;
       } else {
-        if (morphTargets && geometry.hasAttribute('morphTarget' + _i78) === true) {
-          geometry.deleteAttribute('morphTarget' + _i78);
+        if (morphTargets && geometry.hasAttribute('morphTarget' + _i81) === true) {
+          geometry.deleteAttribute('morphTarget' + _i81);
         }
 
-        if (morphNormals && geometry.hasAttribute('morphNormal' + _i78) === true) {
-          geometry.deleteAttribute('morphNormal' + _i78);
+        if (morphNormals && geometry.hasAttribute('morphNormal' + _i81) === true) {
+          geometry.deleteAttribute('morphNormal' + _i81);
         }
 
-        morphInfluences[_i78] = 0;
+        morphInfluences[_i81] = 0;
       }
     } // GLSL shader uses formula baseinfluence * base + sum(target * influence)
     // This allows us to switch between absolute morphs and relative morphs without changing shader code
@@ -13219,49 +13337,12 @@ function WebGLObjects(gl, geometries, attributes, info) {
   };
 }
 
-var DataTexture2DArray = /*#__PURE__*/function (_Texture3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTexture2DArray, _Texture3);
+var DataTexture2DArray = /*#__PURE__*/function (_Texture2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTexture2DArray, _Texture2);
 
-  var _super27 = _createSuper(DataTexture2DArray);
+  var _super28 = _createSuper(DataTexture2DArray);
 
   function DataTexture2DArray() {
-    var _this18;
-
-    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-    var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-    var depth = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTexture2DArray);
-
-    _this18 = _super27.call(this, null);
-    _this18.image = {
-      data: data,
-      width: width,
-      height: height,
-      depth: depth
-    };
-    _this18.magFilter = NearestFilter;
-    _this18.minFilter = NearestFilter;
-    _this18.wrapR = ClampToEdgeWrapping;
-    _this18.generateMipmaps = false;
-    _this18.flipY = false;
-    _this18.unpackAlignment = 1;
-    _this18.needsUpdate = true;
-    return _this18;
-  }
-
-  return DataTexture2DArray;
-}(Texture);
-
-DataTexture2DArray.prototype.isDataTexture2DArray = true;
-
-var DataTexture3D = /*#__PURE__*/function (_Texture4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTexture3D, _Texture4);
-
-  var _super28 = _createSuper(DataTexture3D);
-
-  function DataTexture3D() {
     var _this19;
 
     var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
@@ -13269,15 +13350,8 @@ var DataTexture3D = /*#__PURE__*/function (_Texture4) {
     var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var depth = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTexture3D);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataTexture2DArray);
 
-    // We're going to add .setXXX() methods for setting properties later.
-    // Users can still set in DataTexture3D directly.
-    //
-    //	const texture = new THREE.DataTexture3D( data, width, height, depth );
-    // 	texture.anisotropy = 16;
-    //
-    // See #14839
     _this19 = _super28.call(this, null);
     _this19.image = {
       data: data,
@@ -13293,6 +13367,50 @@ var DataTexture3D = /*#__PURE__*/function (_Texture4) {
     _this19.unpackAlignment = 1;
     _this19.needsUpdate = true;
     return _this19;
+  }
+
+  return DataTexture2DArray;
+}(Texture);
+
+DataTexture2DArray.prototype.isDataTexture2DArray = true;
+
+var DataTexture3D = /*#__PURE__*/function (_Texture3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTexture3D, _Texture3);
+
+  var _super29 = _createSuper(DataTexture3D);
+
+  function DataTexture3D() {
+    var _this20;
+
+    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    var depth = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataTexture3D);
+
+    // We're going to add .setXXX() methods for setting properties later.
+    // Users can still set in DataTexture3D directly.
+    //
+    //	const texture = new THREE.DataTexture3D( data, width, height, depth );
+    // 	texture.anisotropy = 16;
+    //
+    // See #14839
+    _this20 = _super29.call(this, null);
+    _this20.image = {
+      data: data,
+      width: width,
+      height: height,
+      depth: depth
+    };
+    _this20.magFilter = NearestFilter;
+    _this20.minFilter = NearestFilter;
+    _this20.wrapR = ClampToEdgeWrapping;
+    _this20.generateMipmaps = false;
+    _this20.flipY = false;
+    _this20.unpackAlignment = 1;
+    _this20.needsUpdate = true;
+    return _this20;
   }
 
   return DataTexture3D;
@@ -13371,10 +13489,10 @@ function flatten(array, nBlocks, blockSize) {
   if (nBlocks !== 0) {
     firstElem.toArray(r, 0);
 
-    for (var _i79 = 1, offset = 0; _i79 !== nBlocks; ++_i79) {
+    for (var _i82 = 1, offset = 0; _i82 !== nBlocks; ++_i82) {
       offset += blockSize;
 
-      array[_i79].toArray(r, offset);
+      array[_i82].toArray(r, offset);
     }
   }
 
@@ -13384,16 +13502,16 @@ function flatten(array, nBlocks, blockSize) {
 function arraysEqual(a, b) {
   if (a.length !== b.length) return false;
 
-  for (var _i80 = 0, l = a.length; _i80 < l; _i80++) {
-    if (a[_i80] !== b[_i80]) return false;
+  for (var _i83 = 0, l = a.length; _i83 < l; _i83++) {
+    if (a[_i83] !== b[_i83]) return false;
   }
 
   return true;
 }
 
 function copyArray(a, b) {
-  for (var _i81 = 0, l = b.length; _i81 < l; _i81++) {
-    a[_i81] = b[_i81];
+  for (var _i84 = 0, l = b.length; _i84 < l; _i84++) {
+    a[_i84] = b[_i84];
   }
 } // Texture unit allocation
 
@@ -13406,8 +13524,8 @@ function allocTexUnits(textures, n) {
     arrayCacheI32[n] = r;
   }
 
-  for (var _i82 = 0; _i82 !== n; ++_i82) {
-    r[_i82] = textures.allocateTextureUnit();
+  for (var _i85 = 0; _i85 !== n; ++_i85) {
+    r[_i85] = textures.allocateTextureUnit();
   }
 
   return r;
@@ -13829,8 +13947,8 @@ function setValueT1Array(gl, v, textures) {
   var units = allocTexUnits(textures, n);
   gl.uniform1iv(this.addr, units);
 
-  for (var _i83 = 0; _i83 !== n; ++_i83) {
-    textures.safeSetTexture2D(v[_i83] || emptyTexture, units[_i83]);
+  for (var _i86 = 0; _i86 !== n; ++_i86) {
+    textures.safeSetTexture2D(v[_i86] || emptyTexture, units[_i86]);
   }
 }
 
@@ -13839,8 +13957,8 @@ function setValueT6Array(gl, v, textures) {
   var units = allocTexUnits(textures, n);
   gl.uniform1iv(this.addr, units);
 
-  for (var _i84 = 0; _i84 !== n; ++_i84) {
-    textures.safeSetTextureCube(v[_i84] || emptyCubeTexture, units[_i84]);
+  for (var _i87 = 0; _i87 !== n; ++_i87) {
+    textures.safeSetTextureCube(v[_i87] || emptyCubeTexture, units[_i87]);
   }
 } // Helper to pick the right setter for a pure (bottom-level) array
 
@@ -13970,8 +14088,8 @@ function StructuredUniform(id) {
 StructuredUniform.prototype.setValue = function (gl, value, textures) {
   var seq = this.seq;
 
-  for (var _i85 = 0, n = seq.length; _i85 !== n; ++_i85) {
-    var u = seq[_i85];
+  for (var _i88 = 0, n = seq.length; _i88 !== n; ++_i88) {
+    var u = seq[_i88];
     u.setValue(gl, value[u.id], textures);
   }
 }; // --- Top-level ---
@@ -14031,8 +14149,8 @@ function WebGLUniforms(gl, program) {
   this.map = {};
   var n = gl.getProgramParameter(program, 35718);
 
-  for (var _i86 = 0; _i86 < n; ++_i86) {
-    var info = gl.getActiveUniform(program, _i86),
+  for (var _i89 = 0; _i89 < n; ++_i89) {
+    var info = gl.getActiveUniform(program, _i89),
         addr = gl.getUniformLocation(program, info.name);
     parseUniform(info, addr, this);
   }
@@ -14050,8 +14168,8 @@ WebGLUniforms.prototype.setOptional = function (gl, object, name) {
 
 
 WebGLUniforms.upload = function (gl, seq, values, textures) {
-  for (var _i87 = 0, n = seq.length; _i87 !== n; ++_i87) {
-    var u = seq[_i87],
+  for (var _i90 = 0, n = seq.length; _i90 !== n; ++_i90) {
+    var u = seq[_i90],
         v = values[u.id];
 
     if (v.needsUpdate !== false) {
@@ -14064,8 +14182,8 @@ WebGLUniforms.upload = function (gl, seq, values, textures) {
 WebGLUniforms.seqWithValue = function (seq, values) {
   var r = [];
 
-  for (var _i88 = 0, n = seq.length; _i88 !== n; ++_i88) {
-    var u = seq[_i88];
+  for (var _i91 = 0, n = seq.length; _i91 !== n; ++_i91) {
+    var u = seq[_i91];
     if (u.id in values) r.push(u);
   }
 
@@ -14084,8 +14202,8 @@ var programIdCount = 0;
 function addLineNumbers(string) {
   var lines = string.split('\n');
 
-  for (var _i89 = 0; _i89 < lines.length; _i89++) {
-    lines[_i89] = _i89 + 1 + ': ' + lines[_i89];
+  for (var _i92 = 0; _i92 < lines.length; _i92++) {
+    lines[_i92] = _i92 + 1 + ': ' + lines[_i92];
   }
 
   return lines.join('\n');
@@ -14176,7 +14294,7 @@ function getToneMappingFunction(functionName, toneMapping) {
 }
 
 function generateExtensions(parameters) {
-  var chunks = [parameters.extensionDerivatives || parameters.envMapCubeUV || parameters.bumpMap || parameters.tangentSpaceNormalMap || parameters.clearcoatNormalMap || parameters.flatShading || parameters.shaderID === 'physical' ? '#extension GL_OES_standard_derivatives : enable' : '', (parameters.extensionFragDepth || parameters.logarithmicDepthBuffer) && parameters.rendererExtensionFragDepth ? '#extension GL_EXT_frag_depth : enable' : '', parameters.extensionDrawBuffers && parameters.rendererExtensionDrawBuffers ? '#extension GL_EXT_draw_buffers : require' : '', (parameters.extensionShaderTextureLOD || parameters.envMap) && parameters.rendererExtensionShaderTextureLod ? '#extension GL_EXT_shader_texture_lod : enable' : ''];
+  var chunks = [parameters.extensionDerivatives || parameters.envMapCubeUV || parameters.bumpMap || parameters.tangentSpaceNormalMap || parameters.clearcoatNormalMap || parameters.flatShading || parameters.shaderID === 'physical' ? '#extension GL_OES_standard_derivatives : enable' : '', (parameters.extensionFragDepth || parameters.logarithmicDepthBuffer) && parameters.rendererExtensionFragDepth ? '#extension GL_EXT_frag_depth : enable' : '', parameters.extensionDrawBuffers && parameters.rendererExtensionDrawBuffers ? '#extension GL_EXT_draw_buffers : require' : '', (parameters.extensionShaderTextureLOD || parameters.envMap || parameters.transmission > 0.0) && parameters.rendererExtensionShaderTextureLod ? '#extension GL_EXT_shader_texture_lod : enable' : ''];
   return chunks.filter(filterEmptyLine).join('\n');
 }
 
@@ -14196,8 +14314,8 @@ function fetchAttributeLocations(gl, program) {
   var attributes = {};
   var n = gl.getProgramParameter(program, 35721);
 
-  for (var _i90 = 0; _i90 < n; _i90++) {
-    var info = gl.getActiveAttrib(program, _i90);
+  for (var _i93 = 0; _i93 < n; _i93++) {
+    var info = gl.getActiveAttrib(program, _i93);
     var name = info.name; // console.log( 'THREE.WebGLProgram: ACTIVE VERTEX ATTRIBUTE:', name, i );
 
     attributes[name] = gl.getAttribLocation(program, name);
@@ -14251,8 +14369,8 @@ function deprecatedLoopReplacer(match, start, end, snippet) {
 function loopReplacer(match, start, end, snippet) {
   var string = '';
 
-  for (var _i91 = parseInt(start); _i91 < parseInt(end); _i91++) {
-    string += snippet.replace(/\[\s*i\s*\]/g, '[ ' + _i91 + ' ]').replace(/UNROLLED_LOOP_INDEX/g, _i91);
+  for (var _i94 = parseInt(start); _i94 < parseInt(end); _i94++) {
+    string += snippet.replace(/\[\s*i\s*\]/g, '[ ' + _i94 + ' ]').replace(/UNROLLED_LOOP_INDEX/g, _i94);
   }
 
   return string;
@@ -14373,9 +14491,9 @@ function WebGLProgram(renderer, cacheKey, parameters, bindingStates) {
       prefixFragment += '\n';
     }
   } else {
-    prefixVertex = [generatePrecision(parameters), '#define SHADER_NAME ' + parameters.shaderName, customDefines, parameters.instancing ? '#define USE_INSTANCING' : '', parameters.instancingColor ? '#define USE_INSTANCING_COLOR' : '', parameters.supportsVertexTextures ? '#define VERTEX_TEXTURES' : '', '#define GAMMA_FACTOR ' + gammaFactorDefine, '#define MAX_BONES ' + parameters.maxBones, parameters.useFog && parameters.fog ? '#define USE_FOG' : '', parameters.useFog && parameters.fogExp2 ? '#define FOG_EXP2' : '', parameters.map ? '#define USE_MAP' : '', parameters.envMap ? '#define USE_ENVMAP' : '', parameters.envMap ? '#define ' + envMapModeDefine : '', parameters.lightMap ? '#define USE_LIGHTMAP' : '', parameters.aoMap ? '#define USE_AOMAP' : '', parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '', parameters.bumpMap ? '#define USE_BUMPMAP' : '', parameters.normalMap ? '#define USE_NORMALMAP' : '', parameters.normalMap && parameters.objectSpaceNormalMap ? '#define OBJECTSPACE_NORMALMAP' : '', parameters.normalMap && parameters.tangentSpaceNormalMap ? '#define TANGENTSPACE_NORMALMAP' : '', parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '', parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '', parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '', parameters.displacementMap && parameters.supportsVertexTextures ? '#define USE_DISPLACEMENTMAP' : '', parameters.specularMap ? '#define USE_SPECULARMAP' : '', parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '', parameters.metalnessMap ? '#define USE_METALNESSMAP' : '', parameters.alphaMap ? '#define USE_ALPHAMAP' : '', parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '', parameters.vertexTangents ? '#define USE_TANGENT' : '', parameters.vertexColors ? '#define USE_COLOR' : '', parameters.vertexAlphas ? '#define USE_COLOR_ALPHA' : '', parameters.vertexUvs ? '#define USE_UV' : '', parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '', parameters.flatShading ? '#define FLAT_SHADED' : '', parameters.skinning ? '#define USE_SKINNING' : '', parameters.useVertexTexture ? '#define BONE_TEXTURE' : '', parameters.morphTargets ? '#define USE_MORPHTARGETS' : '', parameters.morphNormals && parameters.flatShading === false ? '#define USE_MORPHNORMALS' : '', parameters.doubleSided ? '#define DOUBLE_SIDED' : '', parameters.flipSided ? '#define FLIP_SIDED' : '', parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '', parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '', parameters.sizeAttenuation ? '#define USE_SIZEATTENUATION' : '', parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '', parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ? '#define USE_LOGDEPTHBUF_EXT' : '', 'uniform mat4 modelMatrix;', 'uniform mat4 modelViewMatrix;', 'uniform mat4 projectionMatrix;', 'uniform mat4 viewMatrix;', 'uniform mat3 normalMatrix;', 'uniform vec3 cameraPosition;', 'uniform bool isOrthographic;', '#ifdef USE_INSTANCING', '	attribute mat4 instanceMatrix;', '#endif', '#ifdef USE_INSTANCING_COLOR', '	attribute vec3 instanceColor;', '#endif', 'attribute vec3 position;', 'attribute vec3 normal;', 'attribute vec2 uv;', '#ifdef USE_TANGENT', '	attribute vec4 tangent;', '#endif', '#if defined( USE_COLOR_ALPHA )', '	attribute vec4 color;', '#elif defined( USE_COLOR )', '	attribute vec3 color;', '#endif', '#ifdef USE_MORPHTARGETS', '	attribute vec3 morphTarget0;', '	attribute vec3 morphTarget1;', '	attribute vec3 morphTarget2;', '	attribute vec3 morphTarget3;', '	#ifdef USE_MORPHNORMALS', '		attribute vec3 morphNormal0;', '		attribute vec3 morphNormal1;', '		attribute vec3 morphNormal2;', '		attribute vec3 morphNormal3;', '	#else', '		attribute vec3 morphTarget4;', '		attribute vec3 morphTarget5;', '		attribute vec3 morphTarget6;', '		attribute vec3 morphTarget7;', '	#endif', '#endif', '#ifdef USE_SKINNING', '	attribute vec4 skinIndex;', '	attribute vec4 skinWeight;', '#endif', '\n'].filter(filterEmptyLine).join('\n');
+    prefixVertex = [generatePrecision(parameters), '#define SHADER_NAME ' + parameters.shaderName, customDefines, parameters.instancing ? '#define USE_INSTANCING' : '', parameters.instancingColor ? '#define USE_INSTANCING_COLOR' : '', parameters.supportsVertexTextures ? '#define VERTEX_TEXTURES' : '', '#define GAMMA_FACTOR ' + gammaFactorDefine, '#define MAX_BONES ' + parameters.maxBones, parameters.useFog && parameters.fog ? '#define USE_FOG' : '', parameters.useFog && parameters.fogExp2 ? '#define FOG_EXP2' : '', parameters.map ? '#define USE_MAP' : '', parameters.envMap ? '#define USE_ENVMAP' : '', parameters.envMap ? '#define ' + envMapModeDefine : '', parameters.lightMap ? '#define USE_LIGHTMAP' : '', parameters.aoMap ? '#define USE_AOMAP' : '', parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '', parameters.bumpMap ? '#define USE_BUMPMAP' : '', parameters.normalMap ? '#define USE_NORMALMAP' : '', parameters.normalMap && parameters.objectSpaceNormalMap ? '#define OBJECTSPACE_NORMALMAP' : '', parameters.normalMap && parameters.tangentSpaceNormalMap ? '#define TANGENTSPACE_NORMALMAP' : '', parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '', parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '', parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '', parameters.displacementMap && parameters.supportsVertexTextures ? '#define USE_DISPLACEMENTMAP' : '', parameters.specularMap ? '#define USE_SPECULARMAP' : '', parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '', parameters.metalnessMap ? '#define USE_METALNESSMAP' : '', parameters.alphaMap ? '#define USE_ALPHAMAP' : '', parameters.transmission ? '#define USE_TRANSMISSION' : '', parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '', parameters.thicknessMap ? '#define USE_THICKNESSMAP' : '', parameters.vertexTangents ? '#define USE_TANGENT' : '', parameters.vertexColors ? '#define USE_COLOR' : '', parameters.vertexAlphas ? '#define USE_COLOR_ALPHA' : '', parameters.vertexUvs ? '#define USE_UV' : '', parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '', parameters.flatShading ? '#define FLAT_SHADED' : '', parameters.skinning ? '#define USE_SKINNING' : '', parameters.useVertexTexture ? '#define BONE_TEXTURE' : '', parameters.morphTargets ? '#define USE_MORPHTARGETS' : '', parameters.morphNormals && parameters.flatShading === false ? '#define USE_MORPHNORMALS' : '', parameters.doubleSided ? '#define DOUBLE_SIDED' : '', parameters.flipSided ? '#define FLIP_SIDED' : '', parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '', parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '', parameters.sizeAttenuation ? '#define USE_SIZEATTENUATION' : '', parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '', parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ? '#define USE_LOGDEPTHBUF_EXT' : '', 'uniform mat4 modelMatrix;', 'uniform mat4 modelViewMatrix;', 'uniform mat4 projectionMatrix;', 'uniform mat4 viewMatrix;', 'uniform mat3 normalMatrix;', 'uniform vec3 cameraPosition;', 'uniform bool isOrthographic;', '#ifdef USE_INSTANCING', '	attribute mat4 instanceMatrix;', '#endif', '#ifdef USE_INSTANCING_COLOR', '	attribute vec3 instanceColor;', '#endif', 'attribute vec3 position;', 'attribute vec3 normal;', 'attribute vec2 uv;', '#ifdef USE_TANGENT', '	attribute vec4 tangent;', '#endif', '#if defined( USE_COLOR_ALPHA )', '	attribute vec4 color;', '#elif defined( USE_COLOR )', '	attribute vec3 color;', '#endif', '#ifdef USE_MORPHTARGETS', '	attribute vec3 morphTarget0;', '	attribute vec3 morphTarget1;', '	attribute vec3 morphTarget2;', '	attribute vec3 morphTarget3;', '	#ifdef USE_MORPHNORMALS', '		attribute vec3 morphNormal0;', '		attribute vec3 morphNormal1;', '		attribute vec3 morphNormal2;', '		attribute vec3 morphNormal3;', '	#else', '		attribute vec3 morphTarget4;', '		attribute vec3 morphTarget5;', '		attribute vec3 morphTarget6;', '		attribute vec3 morphTarget7;', '	#endif', '#endif', '#ifdef USE_SKINNING', '	attribute vec4 skinIndex;', '	attribute vec4 skinWeight;', '#endif', '\n'].filter(filterEmptyLine).join('\n');
     prefixFragment = [customExtensions, generatePrecision(parameters), '#define SHADER_NAME ' + parameters.shaderName, customDefines, parameters.alphaTest ? '#define ALPHATEST ' + parameters.alphaTest + (parameters.alphaTest % 1 ? '' : '.0') : '', // add '.0' if integer
-    '#define GAMMA_FACTOR ' + gammaFactorDefine, parameters.useFog && parameters.fog ? '#define USE_FOG' : '', parameters.useFog && parameters.fogExp2 ? '#define FOG_EXP2' : '', parameters.map ? '#define USE_MAP' : '', parameters.matcap ? '#define USE_MATCAP' : '', parameters.envMap ? '#define USE_ENVMAP' : '', parameters.envMap ? '#define ' + envMapTypeDefine : '', parameters.envMap ? '#define ' + envMapModeDefine : '', parameters.envMap ? '#define ' + envMapBlendingDefine : '', parameters.lightMap ? '#define USE_LIGHTMAP' : '', parameters.aoMap ? '#define USE_AOMAP' : '', parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '', parameters.bumpMap ? '#define USE_BUMPMAP' : '', parameters.normalMap ? '#define USE_NORMALMAP' : '', parameters.normalMap && parameters.objectSpaceNormalMap ? '#define OBJECTSPACE_NORMALMAP' : '', parameters.normalMap && parameters.tangentSpaceNormalMap ? '#define TANGENTSPACE_NORMALMAP' : '', parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '', parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '', parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '', parameters.specularMap ? '#define USE_SPECULARMAP' : '', parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '', parameters.metalnessMap ? '#define USE_METALNESSMAP' : '', parameters.alphaMap ? '#define USE_ALPHAMAP' : '', parameters.sheen ? '#define USE_SHEEN' : '', parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '', parameters.vertexTangents ? '#define USE_TANGENT' : '', parameters.vertexColors || parameters.instancingColor ? '#define USE_COLOR' : '', parameters.vertexAlphas ? '#define USE_COLOR_ALPHA' : '', parameters.vertexUvs ? '#define USE_UV' : '', parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '', parameters.gradientMap ? '#define USE_GRADIENTMAP' : '', parameters.flatShading ? '#define FLAT_SHADED' : '', parameters.doubleSided ? '#define DOUBLE_SIDED' : '', parameters.flipSided ? '#define FLIP_SIDED' : '', parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '', parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '', parameters.premultipliedAlpha ? '#define PREMULTIPLIED_ALPHA' : '', parameters.physicallyCorrectLights ? '#define PHYSICALLY_CORRECT_LIGHTS' : '', parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '', parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ? '#define USE_LOGDEPTHBUF_EXT' : '', (parameters.extensionShaderTextureLOD || parameters.envMap) && parameters.rendererExtensionShaderTextureLod ? '#define TEXTURE_LOD_EXT' : '', 'uniform mat4 viewMatrix;', 'uniform vec3 cameraPosition;', 'uniform bool isOrthographic;', parameters.toneMapping !== NoToneMapping ? '#define TONE_MAPPING' : '', parameters.toneMapping !== NoToneMapping ? ShaderChunk['tonemapping_pars_fragment'] : '', // this code is required here because it is used by the toneMapping() function defined below
+    '#define GAMMA_FACTOR ' + gammaFactorDefine, parameters.useFog && parameters.fog ? '#define USE_FOG' : '', parameters.useFog && parameters.fogExp2 ? '#define FOG_EXP2' : '', parameters.map ? '#define USE_MAP' : '', parameters.matcap ? '#define USE_MATCAP' : '', parameters.envMap ? '#define USE_ENVMAP' : '', parameters.envMap ? '#define ' + envMapTypeDefine : '', parameters.envMap ? '#define ' + envMapModeDefine : '', parameters.envMap ? '#define ' + envMapBlendingDefine : '', parameters.lightMap ? '#define USE_LIGHTMAP' : '', parameters.aoMap ? '#define USE_AOMAP' : '', parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '', parameters.bumpMap ? '#define USE_BUMPMAP' : '', parameters.normalMap ? '#define USE_NORMALMAP' : '', parameters.normalMap && parameters.objectSpaceNormalMap ? '#define OBJECTSPACE_NORMALMAP' : '', parameters.normalMap && parameters.tangentSpaceNormalMap ? '#define TANGENTSPACE_NORMALMAP' : '', parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '', parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '', parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '', parameters.specularMap ? '#define USE_SPECULARMAP' : '', parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '', parameters.metalnessMap ? '#define USE_METALNESSMAP' : '', parameters.alphaMap ? '#define USE_ALPHAMAP' : '', parameters.sheen ? '#define USE_SHEEN' : '', parameters.transmission ? '#define USE_TRANSMISSION' : '', parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '', parameters.thicknessMap ? '#define USE_THICKNESSMAP' : '', parameters.vertexTangents ? '#define USE_TANGENT' : '', parameters.vertexColors || parameters.instancingColor ? '#define USE_COLOR' : '', parameters.vertexAlphas ? '#define USE_COLOR_ALPHA' : '', parameters.vertexUvs ? '#define USE_UV' : '', parameters.uvsVertexOnly ? '#define UVS_VERTEX_ONLY' : '', parameters.gradientMap ? '#define USE_GRADIENTMAP' : '', parameters.flatShading ? '#define FLAT_SHADED' : '', parameters.doubleSided ? '#define DOUBLE_SIDED' : '', parameters.flipSided ? '#define FLIP_SIDED' : '', parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '', parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '', parameters.premultipliedAlpha ? '#define PREMULTIPLIED_ALPHA' : '', parameters.physicallyCorrectLights ? '#define PHYSICALLY_CORRECT_LIGHTS' : '', parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '', parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ? '#define USE_LOGDEPTHBUF_EXT' : '', (parameters.extensionShaderTextureLOD || parameters.envMap) && parameters.rendererExtensionShaderTextureLod ? '#define TEXTURE_LOD_EXT' : '', 'uniform mat4 viewMatrix;', 'uniform vec3 cameraPosition;', 'uniform bool isOrthographic;', parameters.toneMapping !== NoToneMapping ? '#define TONE_MAPPING' : '', parameters.toneMapping !== NoToneMapping ? ShaderChunk['tonemapping_pars_fragment'] : '', // this code is required here because it is used by the toneMapping() function defined below
     parameters.toneMapping !== NoToneMapping ? getToneMappingFunction('toneMapping', parameters.toneMapping) : '', parameters.dithering ? '#define DITHERING' : '', ShaderChunk['encodings_pars_fragment'], // this code is required here because it is used by the various encoding/decoding function defined below
     parameters.map ? getTexelDecodingFunction('mapTexelToLinear', parameters.mapEncoding) : '', parameters.matcap ? getTexelDecodingFunction('matcapTexelToLinear', parameters.matcapEncoding) : '', parameters.envMap ? getTexelDecodingFunction('envMapTexelToLinear', parameters.envMapEncoding) : '', parameters.emissiveMap ? getTexelDecodingFunction('emissiveMapTexelToLinear', parameters.emissiveMapEncoding) : '', parameters.lightMap ? getTexelDecodingFunction('lightMapTexelToLinear', parameters.lightMapEncoding) : '', getTexelEncodingFunction('linearToOutputTexel', parameters.outputEncoding), parameters.depthPacking ? '#define DEPTH_PACKING ' + parameters.depthPacking : '', '\n'].filter(filterEmptyLine).join('\n');
   }
@@ -14519,7 +14637,7 @@ function WebGLPrograms(renderer, cubemaps, extensions, capabilities, bindingStat
     ShadowMaterial: 'shadow',
     SpriteMaterial: 'sprite'
   };
-  var parameterNames = ['precision', 'isWebGL2', 'supportsVertexTextures', 'outputEncoding', 'instancing', 'instancingColor', 'map', 'mapEncoding', 'matcap', 'matcapEncoding', 'envMap', 'envMapMode', 'envMapEncoding', 'envMapCubeUV', 'lightMap', 'lightMapEncoding', 'aoMap', 'emissiveMap', 'emissiveMapEncoding', 'bumpMap', 'normalMap', 'objectSpaceNormalMap', 'tangentSpaceNormalMap', 'clearcoatMap', 'clearcoatRoughnessMap', 'clearcoatNormalMap', 'displacementMap', 'specularMap', 'roughnessMap', 'metalnessMap', 'gradientMap', 'alphaMap', 'combine', 'vertexColors', 'vertexAlphas', 'vertexTangents', 'vertexUvs', 'uvsVertexOnly', 'fog', 'useFog', 'fogExp2', 'flatShading', 'sizeAttenuation', 'logarithmicDepthBuffer', 'skinning', 'maxBones', 'useVertexTexture', 'morphTargets', 'morphNormals', 'premultipliedAlpha', 'numDirLights', 'numPointLights', 'numSpotLights', 'numHemiLights', 'numRectAreaLights', 'numDirLightShadows', 'numPointLightShadows', 'numSpotLightShadows', 'shadowMapEnabled', 'shadowMapType', 'toneMapping', 'physicallyCorrectLights', 'alphaTest', 'doubleSided', 'flipSided', 'numClippingPlanes', 'numClipIntersection', 'depthPacking', 'dithering', 'sheen', 'transmissionMap'];
+  var parameterNames = ['precision', 'isWebGL2', 'supportsVertexTextures', 'outputEncoding', 'instancing', 'instancingColor', 'map', 'mapEncoding', 'matcap', 'matcapEncoding', 'envMap', 'envMapMode', 'envMapEncoding', 'envMapCubeUV', 'lightMap', 'lightMapEncoding', 'aoMap', 'emissiveMap', 'emissiveMapEncoding', 'bumpMap', 'normalMap', 'objectSpaceNormalMap', 'tangentSpaceNormalMap', 'clearcoatMap', 'clearcoatRoughnessMap', 'clearcoatNormalMap', 'displacementMap', 'specularMap', 'roughnessMap', 'metalnessMap', 'gradientMap', 'alphaMap', 'combine', 'vertexColors', 'vertexAlphas', 'vertexTangents', 'vertexUvs', 'uvsVertexOnly', 'fog', 'useFog', 'fogExp2', 'flatShading', 'sizeAttenuation', 'logarithmicDepthBuffer', 'skinning', 'maxBones', 'useVertexTexture', 'morphTargets', 'morphNormals', 'premultipliedAlpha', 'numDirLights', 'numPointLights', 'numSpotLights', 'numHemiLights', 'numRectAreaLights', 'numDirLightShadows', 'numPointLightShadows', 'numSpotLightShadows', 'shadowMapEnabled', 'shadowMapType', 'toneMapping', 'physicallyCorrectLights', 'alphaTest', 'doubleSided', 'flipSided', 'numClippingPlanes', 'numClipIntersection', 'depthPacking', 'dithering', 'sheen', 'transmission', 'transmissionMap', 'thicknessMap'];
 
   function getMaxBones(object) {
     var skeleton = object.skeleton;
@@ -14632,20 +14750,22 @@ function WebGLPrograms(renderer, cubemaps, extensions, capabilities, bindingStat
       alphaMap: !!material.alphaMap,
       gradientMap: !!material.gradientMap,
       sheen: !!material.sheen,
+      transmission: !!material.transmission,
       transmissionMap: !!material.transmissionMap,
+      thicknessMap: !!material.thicknessMap,
       combine: material.combine,
       vertexTangents: material.normalMap && material.vertexTangents,
       vertexColors: material.vertexColors,
       vertexAlphas: material.vertexColors === true && object.geometry && object.geometry.attributes.color && object.geometry.attributes.color.itemSize === 4,
-      vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.displacementMap || !!material.transmissionMap,
-      uvsVertexOnly: !(!!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatNormalMap || !!material.transmissionMap) && !!material.displacementMap,
+      vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.displacementMap || !!material.transmission || !!material.transmissionMap || !!material.thicknessMap,
+      uvsVertexOnly: !(!!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatNormalMap || !!material.transmission || !!material.transmissionMap || !!material.thicknessMap) && !!material.displacementMap,
       fog: !!fog,
       useFog: material.fog,
       fogExp2: fog && fog.isFogExp2,
       flatShading: !!material.flatShading,
       sizeAttenuation: material.sizeAttenuation,
       logarithmicDepthBuffer: logarithmicDepthBuffer,
-      skinning: material.skinning && maxBones > 0,
+      skinning: object.isSkinnedMesh === true && maxBones > 0,
       maxBones: maxBones,
       useVertexTexture: floatVertexTextures,
       morphTargets: material.morphTargets,
@@ -14701,8 +14821,8 @@ function WebGLPrograms(renderer, cubemaps, extensions, capabilities, bindingStat
     }
 
     if (parameters.isRawShaderMaterial === false) {
-      for (var _i92 = 0; _i92 < parameterNames.length; _i92++) {
-        array.push(parameters[parameterNames[_i92]]);
+      for (var _i95 = 0; _i95 < parameterNames.length; _i95++) {
+        array.push(parameters[parameterNames[_i95]]);
       }
 
       array.push(renderer.outputEncoding);
@@ -14751,9 +14871,9 @@ function WebGLPrograms(renderer, cubemaps, extensions, capabilities, bindingStat
   function releaseProgram(program) {
     if (--program.usedTimes === 0) {
       // Remove from unordered set
-      var _i93 = programs.indexOf(program);
+      var _i96 = programs.indexOf(program);
 
-      programs[_i93] = programs[programs.length - 1];
+      programs[_i96] = programs[programs.length - 1];
       programs.pop(); // Free WebGL resources
 
       program.destroy();
@@ -14837,6 +14957,7 @@ function WebGLRenderList(properties) {
   var renderItems = [];
   var renderItemsIndex = 0;
   var opaque = [];
+  var transmissive = [];
   var transparent = [];
   var defaultProgram = {
     id: -1
@@ -14845,6 +14966,7 @@ function WebGLRenderList(properties) {
   function init() {
     renderItemsIndex = 0;
     opaque.length = 0;
+    transmissive.length = 0;
     transparent.length = 0;
   }
 
@@ -14883,23 +15005,38 @@ function WebGLRenderList(properties) {
 
   function push(object, geometry, material, groupOrder, z, group) {
     var renderItem = getNextRenderItem(object, geometry, material, groupOrder, z, group);
-    (material.transparent === true ? transparent : opaque).push(renderItem);
+
+    if (material.transmission > 0.0) {
+      transmissive.push(renderItem);
+    } else if (material.transparent === true) {
+      transparent.push(renderItem);
+    } else {
+      opaque.push(renderItem);
+    }
   }
 
   function unshift(object, geometry, material, groupOrder, z, group) {
     var renderItem = getNextRenderItem(object, geometry, material, groupOrder, z, group);
-    (material.transparent === true ? transparent : opaque).unshift(renderItem);
+
+    if (material.transmission > 0.0) {
+      transmissive.unshift(renderItem);
+    } else if (material.transparent === true) {
+      transparent.unshift(renderItem);
+    } else {
+      opaque.unshift(renderItem);
+    }
   }
 
   function sort(customOpaqueSort, customTransparentSort) {
     if (opaque.length > 1) opaque.sort(customOpaqueSort || painterSortStable);
+    if (transmissive.length > 1) transmissive.sort(customTransparentSort || reversePainterSortStable);
     if (transparent.length > 1) transparent.sort(customTransparentSort || reversePainterSortStable);
   }
 
   function finish() {
     // Clear references from inactive renderItems in the list
-    for (var _i94 = renderItemsIndex, il = renderItems.length; _i94 < il; _i94++) {
-      var renderItem = renderItems[_i94];
+    for (var _i97 = renderItemsIndex, il = renderItems.length; _i97 < il; _i97++) {
+      var renderItem = renderItems[_i97];
       if (renderItem.id === null) break;
       renderItem.id = null;
       renderItem.object = null;
@@ -14912,6 +15049,7 @@ function WebGLRenderList(properties) {
 
   return {
     opaque: opaque,
+    transmissive: transmissive,
     transparent: transparent,
     init: init,
     push: push,
@@ -15104,7 +15242,7 @@ function WebGLLights(extensions, capabilities) {
     hemi: []
   };
 
-  for (var _i95 = 0; _i95 < 9; _i95++) {
+  for (var _i98 = 0; _i98 < 9; _i98++) {
     state.probe.push(new Vector3());
   }
 
@@ -15117,8 +15255,8 @@ function WebGLLights(extensions, capabilities) {
         g = 0,
         b = 0;
 
-    for (var _i96 = 0; _i96 < 9; _i96++) {
-      state.probe[_i96].set(0, 0, 0);
+    for (var _i99 = 0; _i99 < 9; _i99++) {
+      state.probe[_i99].set(0, 0, 0);
     }
 
     var directionalLength = 0;
@@ -15131,8 +15269,8 @@ function WebGLLights(extensions, capabilities) {
     var numSpotShadows = 0;
     lights.sort(shadowCastingLightsFirst);
 
-    for (var _i97 = 0, l = lights.length; _i97 < l; _i97++) {
-      var light = lights[_i97];
+    for (var _i100 = 0, l = lights.length; _i100 < l; _i100++) {
+      var light = lights[_i100];
       var color = light.color;
       var intensity = light.intensity;
       var distance = light.distance;
@@ -15306,8 +15444,8 @@ function WebGLLights(extensions, capabilities) {
     var hemiLength = 0;
     var viewMatrix = camera.matrixWorldInverse;
 
-    for (var _i98 = 0, l = lights.length; _i98 < l; _i98++) {
-      var light = lights[_i98];
+    for (var _i101 = 0, l = lights.length; _i101 < l; _i101++) {
+      var light = lights[_i101];
 
       if (light.isDirectionalLight) {
         var uniforms = state.directional[directionalLength];
@@ -15475,41 +15613,39 @@ function WebGLRenderStates(extensions, capabilities) {
 
 
 var MeshDepthMaterial = /*#__PURE__*/function (_Material3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDepthMaterial, _Material3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshDepthMaterial, _Material3);
 
-  var _super29 = _createSuper(MeshDepthMaterial);
+  var _super30 = _createSuper(MeshDepthMaterial);
 
   function MeshDepthMaterial(parameters) {
-    var _this20;
+    var _this21;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshDepthMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshDepthMaterial);
 
-    _this20 = _super29.call(this);
-    _this20.type = 'MeshDepthMaterial';
-    _this20.depthPacking = BasicDepthPacking;
-    _this20.skinning = false;
-    _this20.morphTargets = false;
-    _this20.map = null;
-    _this20.alphaMap = null;
-    _this20.displacementMap = null;
-    _this20.displacementScale = 1;
-    _this20.displacementBias = 0;
-    _this20.wireframe = false;
-    _this20.wireframeLinewidth = 1;
-    _this20.fog = false;
+    _this21 = _super30.call(this);
+    _this21.type = 'MeshDepthMaterial';
+    _this21.depthPacking = BasicDepthPacking;
+    _this21.morphTargets = false;
+    _this21.map = null;
+    _this21.alphaMap = null;
+    _this21.displacementMap = null;
+    _this21.displacementScale = 1;
+    _this21.displacementBias = 0;
+    _this21.wireframe = false;
+    _this21.wireframeLinewidth = 1;
+    _this21.fog = false;
 
-    _this20.setValues(parameters);
+    _this21.setValues(parameters);
 
-    return _this20;
+    return _this21;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshDepthMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDepthMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshDepthMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshDepthMaterial.prototype), "copy", this).call(this, source);
 
       this.depthPacking = source.depthPacking;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.map = source.map;
       this.alphaMap = source.alphaMap;
@@ -15533,7 +15669,6 @@ MeshDepthMaterial.prototype.isMeshDepthMaterial = true;
  *  nearDistance: <float>,
  *  farDistance: <float>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *
  *  map: new THREE.Texture( <Image> ),
@@ -15548,43 +15683,41 @@ MeshDepthMaterial.prototype.isMeshDepthMaterial = true;
  */
 
 var MeshDistanceMaterial = /*#__PURE__*/function (_Material4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDistanceMaterial, _Material4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshDistanceMaterial, _Material4);
 
-  var _super30 = _createSuper(MeshDistanceMaterial);
+  var _super31 = _createSuper(MeshDistanceMaterial);
 
   function MeshDistanceMaterial(parameters) {
-    var _this21;
+    var _this22;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshDistanceMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshDistanceMaterial);
 
-    _this21 = _super30.call(this);
-    _this21.type = 'MeshDistanceMaterial';
-    _this21.referencePosition = new Vector3();
-    _this21.nearDistance = 1;
-    _this21.farDistance = 1000;
-    _this21.skinning = false;
-    _this21.morphTargets = false;
-    _this21.map = null;
-    _this21.alphaMap = null;
-    _this21.displacementMap = null;
-    _this21.displacementScale = 1;
-    _this21.displacementBias = 0;
-    _this21.fog = false;
+    _this22 = _super31.call(this);
+    _this22.type = 'MeshDistanceMaterial';
+    _this22.referencePosition = new Vector3();
+    _this22.nearDistance = 1;
+    _this22.farDistance = 1000;
+    _this22.morphTargets = false;
+    _this22.map = null;
+    _this22.alphaMap = null;
+    _this22.displacementMap = null;
+    _this22.displacementScale = 1;
+    _this22.displacementBias = 0;
+    _this22.fog = false;
 
-    _this21.setValues(parameters);
+    _this22.setValues(parameters);
 
-    return _this21;
+    return _this22;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshDistanceMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshDistanceMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshDistanceMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshDistanceMaterial.prototype), "copy", this).call(this, source);
 
       this.referencePosition.copy(source.referencePosition);
       this.nearDistance = source.nearDistance;
       this.farDistance = source.farDistance;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.map = source.map;
       this.alphaMap = source.alphaMap;
@@ -15670,8 +15803,8 @@ function WebGLShadowMap(_renderer, _objects, _capabilities) {
     _state.setScissorTest(false); // render depth map
 
 
-    for (var _i99 = 0, il = lights.length; _i99 < il; _i99++) {
-      var light = lights[_i99];
+    for (var _i102 = 0, il = lights.length; _i102 < il; _i102++) {
+      var light = lights[_i102];
       var shadow = light.shadow;
 
       if (shadow === undefined) {
@@ -15783,15 +15916,14 @@ function WebGLShadowMap(_renderer, _objects, _capabilities) {
     _renderer.renderBufferDirect(camera, null, geometry, shadowMaterialHorizontal, fullScreenMesh, null);
   }
 
-  function getDepthMaterialVariant(useMorphing, useSkinning, useInstancing) {
-    var index = useMorphing << 0 | useSkinning << 1 | useInstancing << 2;
+  function getDepthMaterialVariant(useMorphing) {
+    var index = useMorphing << 0;
     var material = _depthMaterials[index];
 
     if (material === undefined) {
       material = new MeshDepthMaterial({
         depthPacking: RGBADepthPacking,
-        morphTargets: useMorphing,
-        skinning: useSkinning
+        morphTargets: useMorphing
       });
       _depthMaterials[index] = material;
     }
@@ -15799,14 +15931,13 @@ function WebGLShadowMap(_renderer, _objects, _capabilities) {
     return material;
   }
 
-  function getDistanceMaterialVariant(useMorphing, useSkinning, useInstancing) {
-    var index = useMorphing << 0 | useSkinning << 1 | useInstancing << 2;
+  function getDistanceMaterialVariant(useMorphing) {
+    var index = useMorphing << 0;
     var material = _distanceMaterials[index];
 
     if (material === undefined) {
       material = new MeshDistanceMaterial({
-        morphTargets: useMorphing,
-        skinning: useSkinning
+        morphTargets: useMorphing
       });
       _distanceMaterials[index] = material;
     }
@@ -15831,18 +15962,7 @@ function WebGLShadowMap(_renderer, _objects, _capabilities) {
         useMorphing = geometry.morphAttributes && geometry.morphAttributes.position && geometry.morphAttributes.position.length > 0;
       }
 
-      var useSkinning = false;
-
-      if (object.isSkinnedMesh === true) {
-        if (material.skinning === true) {
-          useSkinning = true;
-        } else {
-          console.warn('THREE.WebGLShadowMap: THREE.SkinnedMesh with material.skinning set to false:', object);
-        }
-      }
-
-      var useInstancing = object.isInstancedMesh === true;
-      result = getMaterialVariant(useMorphing, useSkinning, useInstancing);
+      result = getMaterialVariant(useMorphing);
     } else {
       result = customMaterial;
     }
@@ -15928,8 +16048,8 @@ function WebGLShadowMap(_renderer, _objects, _capabilities) {
 
     var children = object.children;
 
-    for (var _i100 = 0, l = children.length; _i100 < l; _i100++) {
-      renderObject(children[_i100], camera, shadowCamera, light, type);
+    for (var _i103 = 0, l = children.length; _i103 < l; _i103++) {
+      renderObject(children[_i103], camera, shadowCamera, light, type);
     }
   }
 }
@@ -16161,8 +16281,10 @@ function WebGLState(gl, extensions, capabilities) {
 
   var currentTextureSlot = null;
   var currentBoundTextures = {};
-  var currentScissor = new Vector4(0, 0, gl.canvas.width, gl.canvas.height);
-  var currentViewport = new Vector4(0, 0, gl.canvas.width, gl.canvas.height);
+  var scissorParam = gl.getParameter(3088);
+  var viewportParam = gl.getParameter(2978);
+  var currentScissor = new Vector4().fromArray(scissorParam);
+  var currentViewport = new Vector4().fromArray(viewportParam);
 
   function createTexture(type, target, count) {
     var data = new Uint8Array(4); // 4 is required to match default unpack alignment of 4.
@@ -16172,8 +16294,8 @@ function WebGLState(gl, extensions, capabilities) {
     gl.texParameteri(type, 10241, 9728);
     gl.texParameteri(type, 10240, 9728);
 
-    for (var _i101 = 0; _i101 < count; _i101++) {
-      gl.texImage2D(target + _i101, 0, 6408, 1, 1, 0, 6408, 5121, data);
+    for (var _i104 = 0; _i104 < count; _i104++) {
+      gl.texImage2D(target + _i104, 0, 6408, 1, 1, 0, 6408, 5121, data);
     }
 
     return texture;
@@ -16231,7 +16353,11 @@ function WebGLState(gl, extensions, capabilities) {
           currentBoundFramebuffers[36009] = framebuffer;
         }
       }
+
+      return true;
     }
+
+    return false;
   }
 
   function useProgram(program) {
@@ -16244,7 +16370,7 @@ function WebGLState(gl, extensions, capabilities) {
     return false;
   }
 
-  var equationToGL = (_equationToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_equationToGL, AddEquation, 32774), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_equationToGL, SubtractEquation, 32778), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_equationToGL, ReverseSubtractEquation, 32779), _equationToGL);
+  var equationToGL = (_equationToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_equationToGL, AddEquation, 32774), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_equationToGL, SubtractEquation, 32778), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_equationToGL, ReverseSubtractEquation, 32779), _equationToGL);
 
   if (isWebGL2) {
     equationToGL[MinEquation] = 32775;
@@ -16258,7 +16384,7 @@ function WebGLState(gl, extensions, capabilities) {
     }
   }
 
-  var factorToGL = (_factorToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, ZeroFactor, 0), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, OneFactor, 1), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, SrcColorFactor, 768), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, SrcAlphaFactor, 770), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, SrcAlphaSaturateFactor, 776), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, DstColorFactor, 774), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, DstAlphaFactor, 772), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, OneMinusSrcColorFactor, 769), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, OneMinusSrcAlphaFactor, 771), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, OneMinusDstColorFactor, 775), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_factorToGL, OneMinusDstAlphaFactor, 773), _factorToGL);
+  var factorToGL = (_factorToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, ZeroFactor, 0), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, OneFactor, 1), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, SrcColorFactor, 768), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, SrcAlphaFactor, 770), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, SrcAlphaSaturateFactor, 776), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, DstColorFactor, 774), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, DstAlphaFactor, 772), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, OneMinusSrcColorFactor, 769), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, OneMinusSrcAlphaFactor, 771), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, OneMinusDstColorFactor, 775), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_factorToGL, OneMinusDstAlphaFactor, 773), _factorToGL);
 
   function setBlending(blending, blendEquation, blendSrc, blendDst, blendEquationAlpha, blendSrcAlpha, blendDstAlpha, premultipliedAlpha) {
     if (blending === NoBlending) {
@@ -16768,7 +16894,6 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     var renderTarget = event.target;
     renderTarget.removeEventListener('dispose', onRenderTargetDispose);
     deallocateRenderTarget(renderTarget);
-    info.memory.textures--;
   } //
 
 
@@ -16789,6 +16914,8 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
     if (textureProperties.__webglTexture !== undefined) {
       _gl.deleteTexture(textureProperties.__webglTexture);
+
+      info.memory.textures--;
     }
 
     if (renderTarget.depthTexture) {
@@ -16796,10 +16923,10 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     }
 
     if (renderTarget.isWebGLCubeRenderTarget) {
-      for (var _i102 = 0; _i102 < 6; _i102++) {
-        _gl.deleteFramebuffer(renderTargetProperties.__webglFramebuffer[_i102]);
+      for (var _i105 = 0; _i105 < 6; _i105++) {
+        _gl.deleteFramebuffer(renderTargetProperties.__webglFramebuffer[_i105]);
 
-        if (renderTargetProperties.__webglDepthbuffer) _gl.deleteRenderbuffer(renderTargetProperties.__webglDepthbuffer[_i102]);
+        if (renderTargetProperties.__webglDepthbuffer) _gl.deleteRenderbuffer(renderTargetProperties.__webglDepthbuffer[_i105]);
       }
     } else {
       _gl.deleteFramebuffer(renderTargetProperties.__webglFramebuffer);
@@ -16808,6 +16935,20 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
       if (renderTargetProperties.__webglMultisampledFramebuffer) _gl.deleteFramebuffer(renderTargetProperties.__webglMultisampledFramebuffer);
       if (renderTargetProperties.__webglColorRenderbuffer) _gl.deleteRenderbuffer(renderTargetProperties.__webglColorRenderbuffer);
       if (renderTargetProperties.__webglDepthRenderbuffer) _gl.deleteRenderbuffer(renderTargetProperties.__webglDepthRenderbuffer);
+    }
+
+    if (renderTarget.isWebGLMultipleRenderTargets) {
+      for (var _i106 = 0, il = texture.length; _i106 < il; _i106++) {
+        var attachmentProperties = properties.get(texture[_i106]);
+
+        if (attachmentProperties.__webglTexture) {
+          _gl.deleteTexture(attachmentProperties.__webglTexture);
+
+          info.memory.textures--;
+        }
+
+        properties.remove(texture[_i106]);
+      }
     }
 
     properties.remove(texture);
@@ -16890,8 +17031,8 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     state.bindTexture(34067, textureProperties.__webglTexture);
   }
 
-  var wrappingToGL = (_wrappingToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_wrappingToGL, RepeatWrapping, 10497), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_wrappingToGL, ClampToEdgeWrapping, 33071), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_wrappingToGL, MirroredRepeatWrapping, 33648), _wrappingToGL);
-  var filterToGL = (_filterToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_filterToGL, NearestFilter, 9728), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_filterToGL, NearestMipmapNearestFilter, 9984), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_filterToGL, NearestMipmapLinearFilter, 9986), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_filterToGL, LinearFilter, 9729), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_filterToGL, LinearMipmapNearestFilter, 9985), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_filterToGL, LinearMipmapLinearFilter, 9987), _filterToGL);
+  var wrappingToGL = (_wrappingToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_wrappingToGL, RepeatWrapping, 10497), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_wrappingToGL, ClampToEdgeWrapping, 33071), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_wrappingToGL, MirroredRepeatWrapping, 33648), _wrappingToGL);
+  var filterToGL = (_filterToGL = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_filterToGL, NearestFilter, 9728), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_filterToGL, NearestMipmapNearestFilter, 9984), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_filterToGL, NearestMipmapLinearFilter, 9986), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_filterToGL, LinearFilter, 9729), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_filterToGL, LinearMipmapNearestFilter, 9985), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_filterToGL, LinearMipmapLinearFilter, 9987), _filterToGL);
 
   function setTextureParameters(textureType, texture, supportsMips) {
     if (supportsMips) {
@@ -17030,9 +17171,9 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
       // if there are no manual mipmaps
       // set 0 level mipmap and then use GL to generate other mipmap levels
       if (mipmaps.length > 0 && supportsMips) {
-        for (var _i103 = 0, il = mipmaps.length; _i103 < il; _i103++) {
-          mipmap = mipmaps[_i103];
-          state.texImage2D(3553, _i103, glInternalFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
+        for (var _i107 = 0, il = mipmaps.length; _i107 < il; _i107++) {
+          mipmap = mipmaps[_i107];
+          state.texImage2D(3553, _i107, glInternalFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
         }
 
         texture.generateMipmaps = false;
@@ -17042,17 +17183,17 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
         textureProperties.__maxMipLevel = 0;
       }
     } else if (texture.isCompressedTexture) {
-      for (var _i104 = 0, _il9 = mipmaps.length; _i104 < _il9; _i104++) {
-        mipmap = mipmaps[_i104];
+      for (var _i108 = 0, _il9 = mipmaps.length; _i108 < _il9; _i108++) {
+        mipmap = mipmaps[_i108];
 
         if (texture.format !== RGBAFormat && texture.format !== RGBFormat) {
           if (glFormat !== null) {
-            state.compressedTexImage2D(3553, _i104, glInternalFormat, mipmap.width, mipmap.height, 0, mipmap.data);
+            state.compressedTexImage2D(3553, _i108, glInternalFormat, mipmap.width, mipmap.height, 0, mipmap.data);
           } else {
             console.warn('THREE.WebGLRenderer: Attempt to load unsupported compressed texture format in .uploadTexture()');
           }
         } else {
-          state.texImage2D(3553, _i104, glInternalFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
+          state.texImage2D(3553, _i108, glInternalFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
         }
       }
 
@@ -17069,9 +17210,9 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
       // if there are no manual mipmaps
       // set 0 level mipmap and then use GL to generate other mipmap levels
       if (mipmaps.length > 0 && supportsMips) {
-        for (var _i105 = 0, _il10 = mipmaps.length; _i105 < _il10; _i105++) {
-          mipmap = mipmaps[_i105];
-          state.texImage2D(3553, _i105, glInternalFormat, glFormat, glType, mipmap);
+        for (var _i109 = 0, _il10 = mipmaps.length; _i109 < _il10; _i109++) {
+          mipmap = mipmaps[_i109];
+          state.texImage2D(3553, _i109, glInternalFormat, glFormat, glType, mipmap);
         }
 
         texture.generateMipmaps = false;
@@ -17108,11 +17249,11 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     var isDataTexture = texture.image[0] && texture.image[0].isDataTexture;
     var cubeImage = [];
 
-    for (var _i106 = 0; _i106 < 6; _i106++) {
+    for (var _i110 = 0; _i110 < 6; _i110++) {
       if (!isCompressed && !isDataTexture) {
-        cubeImage[_i106] = resizeImage(texture.image[_i106], false, true, maxCubemapSize);
+        cubeImage[_i110] = resizeImage(texture.image[_i110], false, true, maxCubemapSize);
       } else {
-        cubeImage[_i106] = isDataTexture ? texture.image[_i106].image : texture.image[_i106];
+        cubeImage[_i110] = isDataTexture ? texture.image[_i110].image : texture.image[_i110];
       }
     }
 
@@ -17125,20 +17266,20 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     var mipmaps;
 
     if (isCompressed) {
-      for (var _i107 = 0; _i107 < 6; _i107++) {
-        mipmaps = cubeImage[_i107].mipmaps;
+      for (var _i111 = 0; _i111 < 6; _i111++) {
+        mipmaps = cubeImage[_i111].mipmaps;
 
         for (var j = 0; j < mipmaps.length; j++) {
           var mipmap = mipmaps[j];
 
           if (texture.format !== RGBAFormat && texture.format !== RGBFormat) {
             if (glFormat !== null) {
-              state.compressedTexImage2D(34069 + _i107, j, glInternalFormat, mipmap.width, mipmap.height, 0, mipmap.data);
+              state.compressedTexImage2D(34069 + _i111, j, glInternalFormat, mipmap.width, mipmap.height, 0, mipmap.data);
             } else {
               console.warn('THREE.WebGLRenderer: Attempt to load unsupported compressed texture format in .setTextureCube()');
             }
           } else {
-            state.texImage2D(34069 + _i107, j, glInternalFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
+            state.texImage2D(34069 + _i111, j, glInternalFormat, mipmap.width, mipmap.height, 0, glFormat, glType, mipmap.data);
           }
         }
       }
@@ -17147,21 +17288,21 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     } else {
       mipmaps = texture.mipmaps;
 
-      for (var _i108 = 0; _i108 < 6; _i108++) {
+      for (var _i112 = 0; _i112 < 6; _i112++) {
         if (isDataTexture) {
-          state.texImage2D(34069 + _i108, 0, glInternalFormat, cubeImage[_i108].width, cubeImage[_i108].height, 0, glFormat, glType, cubeImage[_i108].data);
+          state.texImage2D(34069 + _i112, 0, glInternalFormat, cubeImage[_i112].width, cubeImage[_i112].height, 0, glFormat, glType, cubeImage[_i112].data);
 
           for (var _j3 = 0; _j3 < mipmaps.length; _j3++) {
             var _mipmap = mipmaps[_j3];
-            var mipmapImage = _mipmap.image[_i108].image;
-            state.texImage2D(34069 + _i108, _j3 + 1, glInternalFormat, mipmapImage.width, mipmapImage.height, 0, glFormat, glType, mipmapImage.data);
+            var mipmapImage = _mipmap.image[_i112].image;
+            state.texImage2D(34069 + _i112, _j3 + 1, glInternalFormat, mipmapImage.width, mipmapImage.height, 0, glFormat, glType, mipmapImage.data);
           }
         } else {
-          state.texImage2D(34069 + _i108, 0, glInternalFormat, glFormat, glType, cubeImage[_i108]);
+          state.texImage2D(34069 + _i112, 0, glInternalFormat, glFormat, glType, cubeImage[_i112]);
 
           for (var _j4 = 0; _j4 < mipmaps.length; _j4++) {
             var _mipmap2 = mipmaps[_j4];
-            state.texImage2D(34069 + _i108, _j4 + 1, glInternalFormat, glFormat, glType, _mipmap2.image[_i108]);
+            state.texImage2D(34069 + _i112, _j4 + 1, glInternalFormat, glFormat, glType, _mipmap2.image[_i112]);
           }
         }
       }
@@ -17180,8 +17321,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
   // Setup storage for target texture and bind it to correct framebuffer
 
 
-  function setupFrameBufferTexture(framebuffer, renderTarget, attachment, textureTarget) {
-    var texture = renderTarget.texture;
+  function setupFrameBufferTexture(framebuffer, renderTarget, texture, attachment, textureTarget) {
     var glFormat = utils.convert(texture.format);
     var glType = utils.convert(texture.type);
     var glInternalFormat = getInternalFormat(texture.internalFormat, glFormat, glType);
@@ -17236,7 +17376,8 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
       _gl.framebufferRenderbuffer(36160, 33306, 36161, renderbuffer);
     } else {
-      var texture = renderTarget.texture;
+      // Use the first texture for MRT so far
+      var texture = renderTarget.isWebGLMultipleRenderTargets === true ? renderTarget.texture[0] : renderTarget.texture;
       var glFormat = utils.convert(texture.format);
       var glType = utils.convert(texture.type);
 
@@ -17296,10 +17437,10 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
       if (isCube) {
         renderTargetProperties.__webglDepthbuffer = [];
 
-        for (var _i109 = 0; _i109 < 6; _i109++) {
-          state.bindFramebuffer(36160, renderTargetProperties.__webglFramebuffer[_i109]);
-          renderTargetProperties.__webglDepthbuffer[_i109] = _gl.createRenderbuffer();
-          setupRenderBufferStorage(renderTargetProperties.__webglDepthbuffer[_i109], renderTarget, false);
+        for (var _i113 = 0; _i113 < 6; _i113++) {
+          state.bindFramebuffer(36160, renderTargetProperties.__webglFramebuffer[_i113]);
+          renderTargetProperties.__webglDepthbuffer[_i113] = _gl.createRenderbuffer();
+          setupRenderBufferStorage(renderTargetProperties.__webglDepthbuffer[_i113], renderTarget, false);
         }
       } else {
         state.bindFramebuffer(36160, renderTargetProperties.__webglFramebuffer);
@@ -17317,10 +17458,15 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     var renderTargetProperties = properties.get(renderTarget);
     var textureProperties = properties.get(texture);
     renderTarget.addEventListener('dispose', onRenderTargetDispose);
-    textureProperties.__webglTexture = _gl.createTexture();
-    textureProperties.__version = texture.version;
-    info.memory.textures++;
+
+    if (renderTarget.isWebGLMultipleRenderTargets !== true) {
+      textureProperties.__webglTexture = _gl.createTexture();
+      textureProperties.__version = texture.version;
+      info.memory.textures++;
+    }
+
     var isCube = renderTarget.isWebGLCubeRenderTarget === true;
+    var isMultipleRenderTargets = renderTarget.isWebGLMultipleRenderTargets === true;
     var isMultisample = renderTarget.isWebGLMultisampleRenderTarget === true;
     var isRenderTarget3D = texture.isDataTexture3D || texture.isDataTexture2DArray;
     var supportsMips = isPowerOfTwo$1(renderTarget) || isWebGL2; // Handles WebGL2 RGBFormat fallback - #18858
@@ -17334,13 +17480,28 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
     if (isCube) {
       renderTargetProperties.__webglFramebuffer = [];
 
-      for (var _i110 = 0; _i110 < 6; _i110++) {
-        renderTargetProperties.__webglFramebuffer[_i110] = _gl.createFramebuffer();
+      for (var _i114 = 0; _i114 < 6; _i114++) {
+        renderTargetProperties.__webglFramebuffer[_i114] = _gl.createFramebuffer();
       }
     } else {
       renderTargetProperties.__webglFramebuffer = _gl.createFramebuffer();
 
-      if (isMultisample) {
+      if (isMultipleRenderTargets) {
+        if (capabilities.drawBuffers) {
+          var textures = renderTarget.texture;
+
+          for (var _i115 = 0, il = textures.length; _i115 < il; _i115++) {
+            var attachmentProperties = properties.get(textures[_i115]);
+
+            if (attachmentProperties.__webglTexture === undefined) {
+              attachmentProperties.__webglTexture = _gl.createTexture();
+              info.memory.textures++;
+            }
+          }
+        } else {
+          console.warn('THREE.WebGLRenderer: WebGLMultipleRenderTargets can only be used with WebGL2 or WEBGL_draw_buffers extension.');
+        }
+      } else if (isMultisample) {
         if (isWebGL2) {
           renderTargetProperties.__webglMultisampledFramebuffer = _gl.createFramebuffer();
           renderTargetProperties.__webglColorRenderbuffer = _gl.createRenderbuffer();
@@ -17377,8 +17538,8 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
       state.bindTexture(34067, textureProperties.__webglTexture);
       setTextureParameters(34067, texture, supportsMips);
 
-      for (var _i111 = 0; _i111 < 6; _i111++) {
-        setupFrameBufferTexture(renderTargetProperties.__webglFramebuffer[_i111], renderTarget, 36064, 34069 + _i111);
+      for (var _i116 = 0; _i116 < 6; _i116++) {
+        setupFrameBufferTexture(renderTargetProperties.__webglFramebuffer[_i116], renderTarget, texture, 36064, 34069 + _i116);
       }
 
       if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
@@ -17386,6 +17547,24 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
       }
 
       state.bindTexture(34067, null);
+    } else if (isMultipleRenderTargets) {
+      var _textures = renderTarget.texture;
+
+      for (var _i117 = 0, _il11 = _textures.length; _i117 < _il11; _i117++) {
+        var attachment = _textures[_i117];
+
+        var _attachmentProperties = properties.get(attachment);
+
+        state.bindTexture(3553, _attachmentProperties.__webglTexture);
+        setTextureParameters(3553, attachment, supportsMips);
+        setupFrameBufferTexture(renderTargetProperties.__webglFramebuffer, renderTarget, attachment, 36064 + _i117, 3553);
+
+        if (textureNeedsGenerateMipmaps(attachment, supportsMips)) {
+          generateMipmap(3553, attachment, renderTarget.width, renderTarget.height);
+        }
+      }
+
+      state.bindTexture(3553, null);
     } else {
       var glTextureType = 3553;
 
@@ -17401,7 +17580,7 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
 
       state.bindTexture(glTextureType, textureProperties.__webglTexture);
       setTextureParameters(glTextureType, texture, supportsMips);
-      setupFrameBufferTexture(renderTargetProperties.__webglFramebuffer, renderTarget, 36064, glTextureType);
+      setupFrameBufferTexture(renderTargetProperties.__webglFramebuffer, renderTarget, texture, 36064, glTextureType);
 
       if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
         generateMipmap(3553, texture, renderTarget.width, renderTarget.height);
@@ -17417,17 +17596,21 @@ function WebGLTextures(_gl, extensions, state, properties, capabilities, utils, 
   }
 
   function updateRenderTargetMipmap(renderTarget) {
-    var texture = renderTarget.texture;
     var supportsMips = isPowerOfTwo$1(renderTarget) || isWebGL2;
+    var textures = renderTarget.isWebGLMultipleRenderTargets === true ? renderTarget.texture : [renderTarget.texture];
 
-    if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
-      var target = renderTarget.isWebGLCubeRenderTarget ? 34067 : 3553;
+    for (var _i118 = 0, il = textures.length; _i118 < il; _i118++) {
+      var texture = textures[_i118];
 
-      var webglTexture = properties.get(texture).__webglTexture;
+      if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
+        var target = renderTarget.isWebGLCubeRenderTarget ? 34067 : 3553;
 
-      state.bindTexture(target, webglTexture);
-      generateMipmap(target, texture, renderTarget.width, renderTarget.height);
-      state.bindTexture(target, null);
+        var webglTexture = properties.get(texture).__webglTexture;
+
+        state.bindTexture(target, webglTexture);
+        generateMipmap(target, texture, renderTarget.width, renderTarget.height);
+        state.bindTexture(target, null);
+      }
     }
   }
 
@@ -17638,20 +17821,20 @@ function WebGLUtils(gl, extensions, capabilities) {
 }
 
 var ArrayCamera = /*#__PURE__*/function (_PerspectiveCamera) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArrayCamera, _PerspectiveCamera);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ArrayCamera, _PerspectiveCamera);
 
-  var _super31 = _createSuper(ArrayCamera);
+  var _super32 = _createSuper(ArrayCamera);
 
   function ArrayCamera() {
-    var _this22;
+    var _this23;
 
     var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ArrayCamera);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ArrayCamera);
 
-    _this22 = _super31.call(this);
-    _this22.cameras = array;
-    return _this22;
+    _this23 = _super32.call(this);
+    _this23.cameras = array;
+    return _this23;
   }
 
   return ArrayCamera;
@@ -17660,18 +17843,18 @@ var ArrayCamera = /*#__PURE__*/function (_PerspectiveCamera) {
 ArrayCamera.prototype.isArrayCamera = true;
 
 var Group = /*#__PURE__*/function (_Object3D4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Group, _Object3D4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Group, _Object3D4);
 
-  var _super32 = _createSuper(Group);
+  var _super33 = _createSuper(Group);
 
   function Group() {
-    var _this23;
+    var _this24;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Group);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Group);
 
-    _this23 = _super32.call(this);
-    _this23.type = 'Group';
-    return _this23;
+    _this24 = _super33.call(this);
+    _this24.type = 'Group';
+    return _this24;
   }
 
   return Group;
@@ -17684,14 +17867,14 @@ var _moveEvent = {
 
 var WebXRController = /*#__PURE__*/function () {
   function WebXRController() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebXRController);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebXRController);
 
     this._targetRay = null;
     this._grip = null;
     this._hand = null;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(WebXRController, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebXRController, [{
     key: "getHandSpace",
     value: function getHandSpace() {
       if (this._hand === null) {
@@ -17918,19 +18101,19 @@ var WebXRController = /*#__PURE__*/function () {
   return WebXRController;
 }();
 
-var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebXRManager, _EventDispatcher5);
+var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WebXRManager, _EventDispatcher6);
 
-  var _super33 = _createSuper(WebXRManager);
+  var _super34 = _createSuper(WebXRManager);
 
   function WebXRManager(renderer, gl) {
-    var _this24;
+    var _this25;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebXRManager);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebXRManager);
 
-    _this24 = _super33.call(this);
+    _this25 = _super34.call(this);
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this24);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this25);
 
     var state = renderer.state;
     var session = null;
@@ -17954,10 +18137,11 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
     var _currentDepthNear = null;
     var _currentDepthFar = null; //
 
-    _this24.enabled = false;
-    _this24.isPresenting = false;
+    _this25.cameraAutoUpdate = true;
+    _this25.enabled = false;
+    _this25.isPresenting = false;
 
-    _this24.getController = function (index) {
+    _this25.getController = function (index) {
       var controller = controllers[index];
 
       if (controller === undefined) {
@@ -17968,7 +18152,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       return controller.getTargetRaySpace();
     };
 
-    _this24.getControllerGrip = function (index) {
+    _this25.getControllerGrip = function (index) {
       var controller = controllers[index];
 
       if (controller === undefined) {
@@ -17979,7 +18163,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       return controller.getGripSpace();
     };
 
-    _this24.getHand = function (index) {
+    _this25.getHand = function (index) {
       var controller = controllers[index];
 
       if (controller === undefined) {
@@ -18020,7 +18204,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       });
     }
 
-    _this24.setFramebufferScaleFactor = function (value) {
+    _this25.setFramebufferScaleFactor = function (value) {
       framebufferScaleFactor = value;
 
       if (scope.isPresenting === true) {
@@ -18028,7 +18212,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       }
     };
 
-    _this24.setReferenceSpaceType = function (value) {
+    _this25.setReferenceSpaceType = function (value) {
       referenceSpaceType = value;
 
       if (scope.isPresenting === true) {
@@ -18036,15 +18220,15 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       }
     };
 
-    _this24.getReferenceSpace = function () {
+    _this25.getReferenceSpace = function () {
       return referenceSpace;
     };
 
-    _this24.getSession = function () {
+    _this25.getSession = function () {
       return session;
     };
 
-    _this24.setSession = /*#__PURE__*/function () {
+    _this25.setSession = /*#__PURE__*/function () {
       var _ref = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(value) {
         var attributes, layerInit, baseLayer;
         return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context2) {
@@ -18117,13 +18301,13 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
     function onInputSourcesChange(event) {
       var inputSources = session.inputSources; // Assign inputSources to available controllers
 
-      for (var _i112 = 0; _i112 < controllers.length; _i112++) {
-        inputSourcesMap.set(inputSources[_i112], controllers[_i112]);
+      for (var _i119 = 0; _i119 < controllers.length; _i119++) {
+        inputSourcesMap.set(inputSources[_i119], controllers[_i119]);
       } // Notify disconnected
 
 
-      for (var _i113 = 0; _i113 < event.removed.length; _i113++) {
-        var inputSource = event.removed[_i113];
+      for (var _i120 = 0; _i120 < event.removed.length; _i120++) {
+        var inputSource = event.removed[_i120];
         var controller = inputSourcesMap.get(inputSource);
 
         if (controller) {
@@ -18136,8 +18320,8 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       } // Notify connected
 
 
-      for (var _i114 = 0; _i114 < event.added.length; _i114++) {
-        var _inputSource = event.added[_i114];
+      for (var _i121 = 0; _i121 < event.added.length; _i121++) {
+        var _inputSource = event.added[_i121];
 
         var _controller = inputSourcesMap.get(_inputSource);
 
@@ -18209,7 +18393,8 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       camera.matrixWorldInverse.copy(camera.matrixWorld).invert();
     }
 
-    _this24.getCamera = function (camera) {
+    _this25.updateCamera = function (camera) {
+      if (session === null) return;
       cameraVR.near = cameraR.near = cameraL.near = camera.near;
       cameraVR.far = cameraR.far = cameraL.far = camera.far;
 
@@ -18227,8 +18412,8 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       var cameras = cameraVR.cameras;
       updateCamera(cameraVR, parent);
 
-      for (var _i115 = 0; _i115 < cameras.length; _i115++) {
-        updateCamera(cameras[_i115], parent);
+      for (var _i122 = 0; _i122 < cameras.length; _i122++) {
+        updateCamera(cameras[_i122], parent);
       } // update camera and its children
 
 
@@ -18237,8 +18422,8 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
       camera.matrix.decompose(camera.position, camera.quaternion, camera.scale);
       var children = camera.children;
 
-      for (var _i116 = 0, l = children.length; _i116 < l; _i116++) {
-        children[_i116].updateMatrixWorld(true);
+      for (var _i123 = 0, l = children.length; _i123 < l; _i123++) {
+        children[_i123].updateMatrixWorld(true);
       } // update projection matrix for proper view frustum culling
 
 
@@ -18248,7 +18433,9 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
         // assume single camera setup (AR)
         cameraVR.projectionMatrix.copy(cameraL.projectionMatrix);
       }
+    };
 
+    _this25.getCamera = function () {
       return cameraVR;
     }; // Animation Loop
 
@@ -18269,15 +18456,15 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
           cameraVRNeedsUpdate = true;
         }
 
-        for (var _i117 = 0; _i117 < views.length; _i117++) {
-          var view = views[_i117];
+        for (var _i124 = 0; _i124 < views.length; _i124++) {
+          var view = views[_i124];
           var viewport = baseLayer.getViewport(view);
-          var camera = cameras[_i117];
+          var camera = cameras[_i124];
           camera.matrix.fromArray(view.transform.matrix);
           camera.projectionMatrix.fromArray(view.projectionMatrix);
           camera.viewport.set(viewport.x, viewport.y, viewport.width, viewport.height);
 
-          if (_i117 === 0) {
+          if (_i124 === 0) {
             cameraVR.matrix.copy(camera.matrix);
           }
 
@@ -18290,9 +18477,9 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
 
       var inputSources = session.inputSources;
 
-      for (var _i118 = 0; _i118 < controllers.length; _i118++) {
-        var controller = controllers[_i118];
-        var inputSource = inputSources[_i118];
+      for (var _i125 = 0; _i125 < controllers.length; _i125++) {
+        var controller = controllers[_i125];
+        var inputSource = inputSources[_i125];
         controller.update(inputSource, frame, referenceSpace);
       }
 
@@ -18302,13 +18489,13 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher5) {
     var animation = new WebGLAnimation();
     animation.setAnimationLoop(onAnimationFrame);
 
-    _this24.setAnimationLoop = function (callback) {
+    _this25.setAnimationLoop = function (callback) {
       onAnimationFrameCallback = callback;
     };
 
-    _this24.dispose = function () {};
+    _this25.dispose = function () {};
 
-    return _this24;
+    return _this25;
   }
 
   return WebXRManager;
@@ -18326,7 +18513,7 @@ function WebGLMaterials(properties) {
     }
   }
 
-  function refreshMaterialUniforms(uniforms, material, pixelRatio, height) {
+  function refreshMaterialUniforms(uniforms, material, pixelRatio, height, transmissionRenderTarget) {
     if (material.isMeshBasicMaterial) {
       refreshUniformsCommon(uniforms, material);
     } else if (material.isMeshLambertMaterial) {
@@ -18342,7 +18529,7 @@ function WebGLMaterials(properties) {
       refreshUniformsCommon(uniforms, material);
 
       if (material.isMeshPhysicalMaterial) {
-        refreshUniformsPhysical(uniforms, material);
+        refreshUniformsPhysical(uniforms, material, transmissionRenderTarget);
       } else {
         refreshUniformsStandard(uniforms, material);
       }
@@ -18684,7 +18871,7 @@ function WebGLMaterials(properties) {
     }
   }
 
-  function refreshUniformsPhysical(uniforms, material) {
+  function refreshUniformsPhysical(uniforms, material, transmissionRenderTarget) {
     refreshUniformsStandard(uniforms, material);
     uniforms.reflectivity.value = material.reflectivity; // also part of uniforms common
 
@@ -18714,6 +18901,20 @@ function WebGLMaterials(properties) {
     if (material.transmissionMap) {
       uniforms.transmissionMap.value = material.transmissionMap;
     }
+
+    if (material.transmission > 0.0) {
+      uniforms.transmissionSamplerMap.value = transmissionRenderTarget.texture;
+      uniforms.transmissionSamplerSize.value.set(transmissionRenderTarget.width, transmissionRenderTarget.height);
+    }
+
+    uniforms.thickness.value = material.thickness;
+
+    if (material.thicknessMap) {
+      uniforms.thicknessMap.value = material.thicknessMap;
+    }
+
+    uniforms.attenuationDistance.value = material.attenuationDistance;
+    uniforms.attenuationColor.value.copy(material.attenuationColor);
   }
 
   function refreshUniformsMatcap(uniforms, material) {
@@ -18870,13 +19071,17 @@ function WebGLRenderer(parameters) {
 
   var _scissor = new Vector4(0, 0, _width, _height);
 
-  var _scissorTest = false; // frustum
+  var _scissorTest = false; //
+
+  var _currentDrawBuffers = []; // frustum
 
   var _frustum = new Frustum(); // clipping
 
 
   var _clippingEnabled = false;
-  var _localClippingEnabled = false; // camera matrices cache
+  var _localClippingEnabled = false; // transmission
+
+  var _transmissionRenderTarget = null; // camera matrices cache
 
   var _projScreenMatrix = new Matrix4();
 
@@ -18898,8 +19103,8 @@ function WebGLRenderer(parameters) {
   var _gl = _context;
 
   function getContext(contextNames, contextAttributes) {
-    for (var _i119 = 0; _i119 < contextNames.length; _i119++) {
-      var contextName = contextNames[_i119];
+    for (var _i126 = 0; _i126 < contextNames.length; _i126++) {
+      var contextName = contextNames[_i126];
 
       var context = _canvas.getContext(contextName, contextAttributes);
 
@@ -18970,6 +19175,7 @@ function WebGLRenderer(parameters) {
     extensions.init(capabilities);
     utils = new WebGLUtils(_gl, extensions, capabilities);
     state = new WebGLState(_gl, extensions, capabilities);
+    _currentDrawBuffers[0] = 1029;
     info = new WebGLInfo(_gl);
     properties = new WebGLProperties();
     textures = new WebGLTextures(_gl, extensions, state, properties, capabilities, utils, info);
@@ -19188,6 +19394,13 @@ function WebGLRenderer(parameters) {
     xr.dispose();
     xr.removeEventListener('sessionstart', onXRSessionStart);
     xr.removeEventListener('sessionend', onXRSessionEnd);
+
+    if (_transmissionRenderTarget) {
+      _transmissionRenderTarget.dispose();
+
+      _transmissionRenderTarget = null;
+    }
+
     animation.stop();
   }; // Events
 
@@ -19405,8 +19618,8 @@ function WebGLRenderer(parameters) {
 
       if (material) {
         if (Array.isArray(material)) {
-          for (var _i120 = 0; _i120 < material.length; _i120++) {
-            var material2 = material[_i120];
+          for (var _i127 = 0; _i127 < material.length; _i127++) {
+            var material2 = material[_i127];
             getProgram(material2, scene, object);
           }
         } else {
@@ -19445,18 +19658,6 @@ function WebGLRenderer(parameters) {
   xr.addEventListener('sessionend', onXRSessionEnd); // Rendering
 
   this.render = function (scene, camera) {
-    var renderTarget, forceClear;
-
-    if (arguments[2] !== undefined) {
-      console.warn('THREE.WebGLRenderer.render(): the renderTarget argument has been removed. Use .setRenderTarget() instead.');
-      renderTarget = arguments[2];
-    }
-
-    if (arguments[3] !== undefined) {
-      console.warn('THREE.WebGLRenderer.render(): the forceClear argument has been removed. Use .clear() instead.');
-      forceClear = arguments[3];
-    }
-
     if (camera !== undefined && camera.isCamera !== true) {
       console.error('THREE.WebGLRenderer.render: camera is not an instance of THREE.Camera.');
       return;
@@ -19469,11 +19670,12 @@ function WebGLRenderer(parameters) {
     if (camera.parent === null) camera.updateMatrixWorld();
 
     if (xr.enabled === true && xr.isPresenting === true) {
-      camera = xr.getCamera(camera);
+      if (xr.cameraAutoUpdate === true) xr.updateCamera(camera);
+      camera = xr.getCamera(); // use XR camera for rendering
     } //
 
 
-    if (scene.isScene === true) scene.onBeforeRender(_this, scene, camera, renderTarget || _currentRenderTarget);
+    if (scene.isScene === true) scene.onBeforeRender(_this, scene, camera, _currentRenderTarget);
     currentRenderState = renderStates.get(scene, renderStateStack.length);
     currentRenderState.init();
     renderStateStack.push(currentRenderState);
@@ -19502,18 +19704,15 @@ function WebGLRenderer(parameters) {
     currentRenderState.setupLightsView(camera);
     if (_clippingEnabled === true) clipping.endShadows(); //
 
-    if (this.info.autoReset === true) this.info.reset();
+    if (this.info.autoReset === true) this.info.reset(); //
 
-    if (renderTarget !== undefined) {
-      this.setRenderTarget(renderTarget);
-    } //
-
-
-    background.render(currentRenderList, scene, camera, forceClear); // render scene
+    background.render(currentRenderList, scene); // render scene
 
     var opaqueObjects = currentRenderList.opaque;
+    var transmissiveObjects = currentRenderList.transmissive;
     var transparentObjects = currentRenderList.transparent;
     if (opaqueObjects.length > 0) renderObjects(opaqueObjects, scene, camera);
+    if (transmissiveObjects.length > 0) renderTransmissiveObjects(opaqueObjects, transmissiveObjects, scene, camera);
     if (transparentObjects.length > 0) renderObjects(transparentObjects, scene, camera); //
 
     if (_currentRenderTarget !== null) {
@@ -19606,8 +19805,8 @@ function WebGLRenderer(parameters) {
           if (Array.isArray(_material)) {
             var groups = _geometry2.groups;
 
-            for (var _i121 = 0, l = groups.length; _i121 < l; _i121++) {
-              var group = groups[_i121];
+            for (var _i128 = 0, l = groups.length; _i128 < l; _i128++) {
+              var group = groups[_i128];
               var groupMaterial = _material[group.materialIndex];
 
               if (groupMaterial && groupMaterial.visible) {
@@ -19623,16 +19822,41 @@ function WebGLRenderer(parameters) {
 
     var children = object.children;
 
-    for (var _i122 = 0, _l5 = children.length; _i122 < _l5; _i122++) {
-      projectObject(children[_i122], camera, groupOrder, sortObjects);
+    for (var _i129 = 0, _l5 = children.length; _i129 < _l5; _i129++) {
+      projectObject(children[_i129], camera, groupOrder, sortObjects);
     }
+  }
+
+  function renderTransmissiveObjects(opaqueObjects, transmissiveObjects, scene, camera) {
+    if (_transmissionRenderTarget === null) {
+      _transmissionRenderTarget = new WebGLRenderTarget(1024, 1024, {
+        generateMipmaps: true,
+        minFilter: LinearMipmapLinearFilter,
+        magFilter: NearestFilter,
+        wrapS: ClampToEdgeWrapping,
+        wrapT: ClampToEdgeWrapping
+      });
+    }
+
+    var currentRenderTarget = _this.getRenderTarget();
+
+    _this.setRenderTarget(_transmissionRenderTarget);
+
+    _this.clear();
+
+    renderObjects(opaqueObjects, scene, camera);
+    textures.updateRenderTargetMipmap(_transmissionRenderTarget);
+
+    _this.setRenderTarget(currentRenderTarget);
+
+    renderObjects(transmissiveObjects, scene, camera);
   }
 
   function renderObjects(renderList, scene, camera) {
     var overrideMaterial = scene.isScene === true ? scene.overrideMaterial : null;
 
-    for (var _i123 = 0, l = renderList.length; _i123 < l; _i123++) {
-      var renderItem = renderList[_i123];
+    for (var _i130 = 0, l = renderList.length; _i130 < l; _i130++) {
+      var renderItem = renderList[_i130];
       var object = renderItem.object;
       var geometry = renderItem.geometry;
       var material = overrideMaterial === null ? renderItem.material : overrideMaterial;
@@ -19756,6 +19980,7 @@ function WebGLRenderer(parameters) {
     var materialProperties = properties.get(material);
     materialProperties.outputEncoding = parameters.outputEncoding;
     materialProperties.instancing = parameters.instancing;
+    materialProperties.skinning = parameters.skinning;
     materialProperties.numClippingPlanes = parameters.numClippingPlanes;
     materialProperties.numIntersection = parameters.numClipIntersection;
     materialProperties.vertexAlphas = parameters.vertexAlphas;
@@ -19794,6 +20019,10 @@ function WebGLRenderer(parameters) {
       } else if (object.isInstancedMesh && materialProperties.instancing === false) {
         needsProgramChange = true;
       } else if (!object.isInstancedMesh && materialProperties.instancing === true) {
+        needsProgramChange = true;
+      } else if (object.isSkinnedMesh && materialProperties.skinning === false) {
+        needsProgramChange = true;
+      } else if (!object.isSkinnedMesh && materialProperties.skinning === true) {
         needsProgramChange = true;
       } else if (materialProperties.envMap !== envMap) {
         needsProgramChange = true;
@@ -19864,7 +20093,7 @@ function WebGLRenderer(parameters) {
         p_uniforms.setValue(_gl, 'isOrthographic', camera.isOrthographicCamera === true);
       }
 
-      if (material.isMeshPhongMaterial || material.isMeshToonMaterial || material.isMeshLambertMaterial || material.isMeshBasicMaterial || material.isMeshStandardMaterial || material.isShaderMaterial || material.isShadowMaterial || material.skinning) {
+      if (material.isMeshPhongMaterial || material.isMeshToonMaterial || material.isMeshLambertMaterial || material.isMeshBasicMaterial || material.isMeshStandardMaterial || material.isShaderMaterial || material.isShadowMaterial || object.isSkinnedMesh) {
         p_uniforms.setValue(_gl, 'viewMatrix', camera.matrixWorldInverse);
       }
     } // skinning uniforms must be set even if material didn't change
@@ -19872,36 +20101,14 @@ function WebGLRenderer(parameters) {
     // otherwise textures used for skinning can take over texture units reserved for other material textures
 
 
-    if (material.skinning) {
+    if (object.isSkinnedMesh) {
       p_uniforms.setOptional(_gl, object, 'bindMatrix');
       p_uniforms.setOptional(_gl, object, 'bindMatrixInverse');
       var skeleton = object.skeleton;
 
       if (skeleton) {
-        var bones = skeleton.bones;
-
         if (capabilities.floatVertexTextures) {
-          if (skeleton.boneTexture === null) {
-            // layout (1 matrix = 4 pixels)
-            //      RGBA RGBA RGBA RGBA (=> column1, column2, column3, column4)
-            //  with  8x8  pixel texture max   16 bones * 4 pixels =  (8 * 8)
-            //       16x16 pixel texture max   64 bones * 4 pixels = (16 * 16)
-            //       32x32 pixel texture max  256 bones * 4 pixels = (32 * 32)
-            //       64x64 pixel texture max 1024 bones * 4 pixels = (64 * 64)
-            var size = Math.sqrt(bones.length * 4); // 4 pixels needed for 1 matrix
-
-            size = ceilPowerOfTwo(size);
-            size = Math.max(size, 4);
-            var boneMatrices = new Float32Array(size * size * 4); // 4 floats per RGBA pixel
-
-            boneMatrices.set(skeleton.boneMatrices); // copy current values
-
-            var boneTexture = new DataTexture(boneMatrices, size, size, RGBAFormat, FloatType);
-            skeleton.boneMatrices = boneMatrices;
-            skeleton.boneTexture = boneTexture;
-            skeleton.boneTextureSize = size;
-          }
-
+          if (skeleton.boneTexture === null) skeleton.computeBoneTexture();
           p_uniforms.setValue(_gl, 'boneTexture', skeleton.boneTexture, textures);
           p_uniforms.setValue(_gl, 'boneTextureSize', skeleton.boneTextureSize);
         } else {
@@ -19934,7 +20141,7 @@ function WebGLRenderer(parameters) {
         materials.refreshFogUniforms(m_uniforms, fog);
       }
 
-      materials.refreshMaterialUniforms(m_uniforms, material, _pixelRatio, _height);
+      materials.refreshMaterialUniforms(m_uniforms, material, _pixelRatio, _height, _transmissionRenderTarget);
       WebGLUniforms.upload(_gl, materialProperties.uniformsList, m_uniforms, textures);
     }
 
@@ -20030,7 +20237,47 @@ function WebGLRenderer(parameters) {
       _currentScissorTest = _scissorTest;
     }
 
-    state.bindFramebuffer(36160, framebuffer);
+    var framebufferBound = state.bindFramebuffer(36160, framebuffer);
+
+    if (framebufferBound && capabilities.drawBuffers) {
+      var needsUpdate = false;
+
+      if (renderTarget) {
+        if (renderTarget.isWebGLMultipleRenderTargets) {
+          var _textures2 = renderTarget.texture;
+
+          if (_currentDrawBuffers.length !== _textures2.length || _currentDrawBuffers[0] !== 36064) {
+            for (var _i131 = 0, il = _textures2.length; _i131 < il; _i131++) {
+              _currentDrawBuffers[_i131] = 36064 + _i131;
+            }
+
+            _currentDrawBuffers.length = _textures2.length;
+            needsUpdate = true;
+          }
+        } else {
+          if (_currentDrawBuffers.length !== 1 || _currentDrawBuffers[0] !== 36064) {
+            _currentDrawBuffers[0] = 36064;
+            _currentDrawBuffers.length = 1;
+            needsUpdate = true;
+          }
+        }
+      } else {
+        if (_currentDrawBuffers.length !== 1 || _currentDrawBuffers[0] !== 1029) {
+          _currentDrawBuffers[0] = 1029;
+          _currentDrawBuffers.length = 1;
+          needsUpdate = true;
+        }
+      }
+
+      if (needsUpdate) {
+        if (capabilities.isWebGL2) {
+          _gl.drawBuffers(_currentDrawBuffers);
+        } else {
+          extensions.get('WEBGL_draw_buffers').drawBuffersWEBGL(_currentDrawBuffers);
+        }
+      }
+    }
+
     state.viewport(_currentViewport);
     state.scissor(_currentScissor);
     state.setScissorTest(_currentScissorTest);
@@ -20105,6 +20352,13 @@ function WebGLRenderer(parameters) {
     var width = Math.floor(texture.image.width * levelScale);
     var height = Math.floor(texture.image.height * levelScale);
     var glFormat = utils.convert(texture.format);
+
+    if (capabilities.isWebGL2) {
+      // Workaround for https://bugs.chromium.org/p/chromium/issues/detail?id=1120100
+      if (glFormat === 6407) glFormat = 32849;
+      if (glFormat === 6408) glFormat = 32856;
+    }
+
     textures.setTexture2D(texture, 0);
 
     _gl.copyTexImage2D(3553, level, glFormat, position.x, position.y, width, height, 0);
@@ -20234,14 +20488,14 @@ function WebGLRenderer(parameters) {
 }
 
 var WebGL1Renderer = /*#__PURE__*/function (_WebGLRenderer) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WebGL1Renderer, _WebGLRenderer);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WebGL1Renderer, _WebGLRenderer);
 
-  var _super34 = _createSuper(WebGL1Renderer);
+  var _super35 = _createSuper(WebGL1Renderer);
 
   function WebGL1Renderer() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WebGL1Renderer);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebGL1Renderer);
 
-    return _super34.apply(this, arguments);
+    return _super35.apply(this, arguments);
   }
 
   return WebGL1Renderer;
@@ -20253,14 +20507,14 @@ var FogExp2 = /*#__PURE__*/function () {
   function FogExp2(color) {
     var density = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.00025;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, FogExp2);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, FogExp2);
 
     this.name = '';
     this.color = new Color(color);
     this.density = density;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(FogExp2, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FogExp2, [{
     key: "clone",
     value: function clone() {
       return new FogExp2(this.color, this.density);
@@ -20288,7 +20542,7 @@ var Fog = /*#__PURE__*/function () {
     var near = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var far = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Fog);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Fog);
 
     this.name = '';
     this.color = new Color(color);
@@ -20296,7 +20550,7 @@ var Fog = /*#__PURE__*/function () {
     this.far = far;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Fog, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Fog, [{
     key: "clone",
     value: function clone() {
       return new Fog(this.color, this.near, this.far);
@@ -20321,37 +20575,37 @@ var Fog = /*#__PURE__*/function () {
 Fog.prototype.isFog = true;
 
 var Scene = /*#__PURE__*/function (_Object3D5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Scene, _Object3D5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Scene, _Object3D5);
 
-  var _super35 = _createSuper(Scene);
+  var _super36 = _createSuper(Scene);
 
   function Scene() {
-    var _this25;
+    var _this26;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Scene);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Scene);
 
-    _this25 = _super35.call(this);
-    _this25.type = 'Scene';
-    _this25.background = null;
-    _this25.environment = null;
-    _this25.fog = null;
-    _this25.overrideMaterial = null;
-    _this25.autoUpdate = true; // checked by the renderer
+    _this26 = _super36.call(this);
+    _this26.type = 'Scene';
+    _this26.background = null;
+    _this26.environment = null;
+    _this26.fog = null;
+    _this26.overrideMaterial = null;
+    _this26.autoUpdate = true; // checked by the renderer
 
     if (typeof __THREE_DEVTOOLS__ !== 'undefined') {
       __THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('observe', {
-        detail: (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this25)
+        detail: (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this26)
       })); // eslint-disable-line no-undef
 
     }
 
-    return _this25;
+    return _this26;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Scene, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Scene, [{
     key: "copy",
     value: function copy(source, recursive) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Scene.prototype), "copy", this).call(this, source, recursive);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Scene.prototype), "copy", this).call(this, source, recursive);
 
       if (source.background !== null) this.background = source.background.clone();
       if (source.environment !== null) this.environment = source.environment.clone();
@@ -20364,7 +20618,7 @@ var Scene = /*#__PURE__*/function (_Object3D5) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Scene.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Scene.prototype), "toJSON", this).call(this, meta);
 
       if (this.background !== null) data.object.background = this.background.toJSON(meta);
       if (this.environment !== null) data.object.environment = this.environment.toJSON(meta);
@@ -20380,7 +20634,7 @@ Scene.prototype.isScene = true;
 
 var InterleavedBuffer = /*#__PURE__*/function () {
   function InterleavedBuffer(array, stride) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InterleavedBuffer);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InterleavedBuffer);
 
     this.array = array;
     this.stride = stride;
@@ -20392,11 +20646,12 @@ var InterleavedBuffer = /*#__PURE__*/function () {
     };
     this.version = 0;
     this.uuid = generateUUID();
-
-    this.onUploadCallback = function () {};
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InterleavedBuffer, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InterleavedBuffer, [{
+    key: "onUploadCallback",
+    value: function onUploadCallback() {}
+  }, {
     key: "needsUpdate",
     set: function set(value) {
       if (value === true) this.version++;
@@ -20422,8 +20677,8 @@ var InterleavedBuffer = /*#__PURE__*/function () {
       index1 *= this.stride;
       index2 *= attribute.stride;
 
-      for (var _i124 = 0, l = this.stride; _i124 < l; _i124++) {
-        this.array[index1 + _i124] = attribute.array[index2 + _i124];
+      for (var _i132 = 0, l = this.stride; _i132 < l; _i132++) {
+        this.array[index1 + _i132] = attribute.array[index2 + _i132];
       }
 
       return this;
@@ -20451,7 +20706,7 @@ var InterleavedBuffer = /*#__PURE__*/function () {
       }
 
       var array = new this.array.constructor(data.arrayBuffers[this.array.buffer._uuid]);
-      var ib = new InterleavedBuffer(array, this.stride);
+      var ib = new this.constructor(array, this.stride);
       ib.setUsage(this.usage);
       return ib;
     }
@@ -20492,11 +20747,11 @@ var InterleavedBuffer = /*#__PURE__*/function () {
 
 InterleavedBuffer.prototype.isInterleavedBuffer = true;
 
-var _vector$6 = new /*@__PURE__*/Vector3();
+var _vector$6 = /*@__PURE__*/new Vector3();
 
 var InterleavedBufferAttribute = /*#__PURE__*/function () {
   function InterleavedBufferAttribute(interleavedBuffer, itemSize, offset, normalized) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InterleavedBufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InterleavedBufferAttribute);
 
     this.name = '';
     this.data = interleavedBuffer;
@@ -20505,7 +20760,7 @@ var InterleavedBufferAttribute = /*#__PURE__*/function () {
     this.normalized = normalized === true;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InterleavedBufferAttribute, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InterleavedBufferAttribute, [{
     key: "count",
     get: function get() {
       return this.data.count;
@@ -20523,14 +20778,14 @@ var InterleavedBufferAttribute = /*#__PURE__*/function () {
   }, {
     key: "applyMatrix4",
     value: function applyMatrix4(m) {
-      for (var _i125 = 0, l = this.data.count; _i125 < l; _i125++) {
-        _vector$6.x = this.getX(_i125);
-        _vector$6.y = this.getY(_i125);
-        _vector$6.z = this.getZ(_i125);
+      for (var _i133 = 0, l = this.data.count; _i133 < l; _i133++) {
+        _vector$6.x = this.getX(_i133);
+        _vector$6.y = this.getY(_i133);
+        _vector$6.z = this.getZ(_i133);
 
         _vector$6.applyMatrix4(m);
 
-        this.setXYZ(_i125, _vector$6.x, _vector$6.y, _vector$6.z);
+        this.setXYZ(_i133, _vector$6.x, _vector$6.y, _vector$6.z);
       }
 
       return this;
@@ -20538,14 +20793,14 @@ var InterleavedBufferAttribute = /*#__PURE__*/function () {
   }, {
     key: "applyNormalMatrix",
     value: function applyNormalMatrix(m) {
-      for (var _i126 = 0, l = this.count; _i126 < l; _i126++) {
-        _vector$6.x = this.getX(_i126);
-        _vector$6.y = this.getY(_i126);
-        _vector$6.z = this.getZ(_i126);
+      for (var _i134 = 0, l = this.count; _i134 < l; _i134++) {
+        _vector$6.x = this.getX(_i134);
+        _vector$6.y = this.getY(_i134);
+        _vector$6.z = this.getZ(_i134);
 
         _vector$6.applyNormalMatrix(m);
 
-        this.setXYZ(_i126, _vector$6.x, _vector$6.y, _vector$6.z);
+        this.setXYZ(_i134, _vector$6.x, _vector$6.y, _vector$6.z);
       }
 
       return this;
@@ -20553,14 +20808,14 @@ var InterleavedBufferAttribute = /*#__PURE__*/function () {
   }, {
     key: "transformDirection",
     value: function transformDirection(m) {
-      for (var _i127 = 0, l = this.count; _i127 < l; _i127++) {
-        _vector$6.x = this.getX(_i127);
-        _vector$6.y = this.getY(_i127);
-        _vector$6.z = this.getZ(_i127);
+      for (var _i135 = 0, l = this.count; _i135 < l; _i135++) {
+        _vector$6.x = this.getX(_i135);
+        _vector$6.y = this.getY(_i135);
+        _vector$6.z = this.getZ(_i135);
 
         _vector$6.transformDirection(m);
 
-        this.setXYZ(_i127, _vector$6.x, _vector$6.y, _vector$6.z);
+        this.setXYZ(_i135, _vector$6.x, _vector$6.y, _vector$6.z);
       }
 
       return this;
@@ -20643,8 +20898,8 @@ var InterleavedBufferAttribute = /*#__PURE__*/function () {
         console.log('THREE.InterleavedBufferAttribute.clone(): Cloning an interlaved buffer attribute will deinterleave buffer data.');
         var array = [];
 
-        for (var _i128 = 0; _i128 < this.count; _i128++) {
-          var index = _i128 * this.data.stride + this.offset;
+        for (var _i136 = 0; _i136 < this.count; _i136++) {
+          var index = _i136 * this.data.stride + this.offset;
 
           for (var j = 0; j < this.itemSize; j++) {
             array.push(this.data.array[index + j]);
@@ -20671,8 +20926,8 @@ var InterleavedBufferAttribute = /*#__PURE__*/function () {
         console.log('THREE.InterleavedBufferAttribute.toJSON(): Serializing an interlaved buffer attribute will deinterleave buffer data.');
         var array = [];
 
-        for (var _i129 = 0; _i129 < this.count; _i129++) {
-          var index = _i129 * this.data.stride + this.offset;
+        for (var _i137 = 0; _i137 < this.count; _i137++) {
+          var index = _i137 * this.data.stride + this.offset;
 
           for (var j = 0; j < this.itemSize; j++) {
             array.push(this.data.array[index + j]);
@@ -20722,33 +20977,33 @@ InterleavedBufferAttribute.prototype.isInterleavedBufferAttribute = true;
  */
 
 var SpriteMaterial = /*#__PURE__*/function (_Material5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpriteMaterial, _Material5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SpriteMaterial, _Material5);
 
-  var _super36 = _createSuper(SpriteMaterial);
+  var _super37 = _createSuper(SpriteMaterial);
 
   function SpriteMaterial(parameters) {
-    var _this26;
+    var _this27;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpriteMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SpriteMaterial);
 
-    _this26 = _super36.call(this);
-    _this26.type = 'SpriteMaterial';
-    _this26.color = new Color(0xffffff);
-    _this26.map = null;
-    _this26.alphaMap = null;
-    _this26.rotation = 0;
-    _this26.sizeAttenuation = true;
-    _this26.transparent = true;
+    _this27 = _super37.call(this);
+    _this27.type = 'SpriteMaterial';
+    _this27.color = new Color(0xffffff);
+    _this27.map = null;
+    _this27.alphaMap = null;
+    _this27.rotation = 0;
+    _this27.sizeAttenuation = true;
+    _this27.transparent = true;
 
-    _this26.setValues(parameters);
+    _this27.setValues(parameters);
 
-    return _this26;
+    return _this27;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpriteMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpriteMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SpriteMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SpriteMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.map = source.map;
@@ -20791,17 +21046,17 @@ var _uvB = /*@__PURE__*/new Vector2();
 var _uvC = /*@__PURE__*/new Vector2();
 
 var Sprite = /*#__PURE__*/function (_Object3D6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Sprite, _Object3D6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Sprite, _Object3D6);
 
-  var _super37 = _createSuper(Sprite);
+  var _super38 = _createSuper(Sprite);
 
   function Sprite(material) {
-    var _this27;
+    var _this28;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Sprite);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Sprite);
 
-    _this27 = _super37.call(this);
-    _this27.type = 'Sprite';
+    _this28 = _super38.call(this);
+    _this28.type = 'Sprite';
 
     if (_geometry === undefined) {
       _geometry = new BufferGeometry();
@@ -20815,13 +21070,13 @@ var Sprite = /*#__PURE__*/function (_Object3D6) {
       _geometry.setAttribute('uv', new InterleavedBufferAttribute(interleavedBuffer, 2, 3, false));
     }
 
-    _this27.geometry = _geometry;
-    _this27.material = material !== undefined ? material : new SpriteMaterial();
-    _this27.center = new Vector2(0.5, 0.5);
-    return _this27;
+    _this28.geometry = _geometry;
+    _this28.material = material !== undefined ? material : new SpriteMaterial();
+    _this28.center = new Vector2(0.5, 0.5);
+    return _this28;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Sprite, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Sprite, [{
     key: "raycast",
     value: function raycast(raycaster, intersects) {
       if (raycaster.camera === null) {
@@ -20888,7 +21143,7 @@ var Sprite = /*#__PURE__*/function (_Object3D6) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Sprite.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Sprite.prototype), "copy", this).call(this, source);
 
       if (source.center !== undefined) this.center.copy(source.center);
       this.material = source.material;
@@ -20925,19 +21180,19 @@ var _v1$2 = /*@__PURE__*/new Vector3();
 var _v2$1 = /*@__PURE__*/new Vector3();
 
 var LOD = /*#__PURE__*/function (_Object3D7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LOD, _Object3D7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LOD, _Object3D7);
 
-  var _super38 = _createSuper(LOD);
+  var _super39 = _createSuper(LOD);
 
   function LOD() {
-    var _this28;
+    var _this29;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LOD);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LOD);
 
-    _this28 = _super38.call(this);
-    _this28._currentLevel = 0;
-    _this28.type = 'LOD';
-    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this28), {
+    _this29 = _super39.call(this);
+    _this29._currentLevel = 0;
+    _this29.type = 'LOD';
+    Object.defineProperties((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this29), {
       levels: {
         enumerable: true,
         value: []
@@ -20946,19 +21201,19 @@ var LOD = /*#__PURE__*/function (_Object3D7) {
         value: true
       }
     });
-    _this28.autoUpdate = true;
-    return _this28;
+    _this29.autoUpdate = true;
+    return _this29;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LOD, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LOD, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LOD.prototype), "copy", this).call(this, source, false);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LOD.prototype), "copy", this).call(this, source, false);
 
       var levels = source.levels;
 
-      for (var _i130 = 0, l = levels.length; _i130 < l; _i130++) {
-        var level = levels[_i130];
+      for (var _i138 = 0, l = levels.length; _i138 < l; _i138++) {
+        var level = levels[_i138];
         this.addLevel(level.object.clone(), level.distance);
       }
 
@@ -20997,15 +21252,15 @@ var LOD = /*#__PURE__*/function (_Object3D7) {
       var levels = this.levels;
 
       if (levels.length > 0) {
-        var _i131, l;
+        var _i139, l;
 
-        for (_i131 = 1, l = levels.length; _i131 < l; _i131++) {
-          if (distance < levels[_i131].distance) {
+        for (_i139 = 1, l = levels.length; _i139 < l; _i139++) {
+          if (distance < levels[_i139].distance) {
             break;
           }
         }
 
-        return levels[_i131 - 1].object;
+        return levels[_i139 - 1].object;
       }
 
       return null;
@@ -21035,35 +21290,35 @@ var LOD = /*#__PURE__*/function (_Object3D7) {
         var distance = _v1$2.distanceTo(_v2$1) / camera.zoom;
         levels[0].object.visible = true;
 
-        var _i132, l;
+        var _i140, l;
 
-        for (_i132 = 1, l = levels.length; _i132 < l; _i132++) {
-          if (distance >= levels[_i132].distance) {
-            levels[_i132 - 1].object.visible = false;
-            levels[_i132].object.visible = true;
+        for (_i140 = 1, l = levels.length; _i140 < l; _i140++) {
+          if (distance >= levels[_i140].distance) {
+            levels[_i140 - 1].object.visible = false;
+            levels[_i140].object.visible = true;
           } else {
             break;
           }
         }
 
-        this._currentLevel = _i132 - 1;
+        this._currentLevel = _i140 - 1;
 
-        for (; _i132 < l; _i132++) {
-          levels[_i132].object.visible = false;
+        for (; _i140 < l; _i140++) {
+          levels[_i140].object.visible = false;
         }
       }
     }
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LOD.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LOD.prototype), "toJSON", this).call(this, meta);
 
       if (this.autoUpdate === false) data.object.autoUpdate = false;
       data.object.levels = [];
       var levels = this.levels;
 
-      for (var _i133 = 0, l = levels.length; _i133 < l; _i133++) {
-        var level = levels[_i133];
+      for (var _i141 = 0, l = levels.length; _i141 < l; _i141++) {
+        var level = levels[_i141];
         data.object.levels.push({
           object: level.object.uuid,
           distance: level.distance
@@ -21088,27 +21343,27 @@ var _vector$5 = /*@__PURE__*/new Vector3();
 var _matrix = /*@__PURE__*/new Matrix4();
 
 var SkinnedMesh = /*#__PURE__*/function (_Mesh) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SkinnedMesh, _Mesh);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SkinnedMesh, _Mesh);
 
-  var _super39 = _createSuper(SkinnedMesh);
+  var _super40 = _createSuper(SkinnedMesh);
 
   function SkinnedMesh(geometry, material) {
-    var _this29;
+    var _this30;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SkinnedMesh);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SkinnedMesh);
 
-    _this29 = _super39.call(this, geometry, material);
-    _this29.type = 'SkinnedMesh';
-    _this29.bindMode = 'attached';
-    _this29.bindMatrix = new Matrix4();
-    _this29.bindMatrixInverse = new Matrix4();
-    return _this29;
+    _this30 = _super40.call(this, geometry, material);
+    _this30.type = 'SkinnedMesh';
+    _this30.bindMode = 'attached';
+    _this30.bindMatrix = new Matrix4();
+    _this30.bindMatrixInverse = new Matrix4();
+    return _this30;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SkinnedMesh, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SkinnedMesh, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SkinnedMesh.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SkinnedMesh.prototype), "copy", this).call(this, source);
 
       this.bindMode = source.bindMode;
       this.bindMatrix.copy(source.bindMatrix);
@@ -21141,11 +21396,11 @@ var SkinnedMesh = /*#__PURE__*/function (_Mesh) {
       var vector = new Vector4();
       var skinWeight = this.geometry.attributes.skinWeight;
 
-      for (var _i134 = 0, l = skinWeight.count; _i134 < l; _i134++) {
-        vector.x = skinWeight.getX(_i134);
-        vector.y = skinWeight.getY(_i134);
-        vector.z = skinWeight.getZ(_i134);
-        vector.w = skinWeight.getW(_i134);
+      for (var _i142 = 0, l = skinWeight.count; _i142 < l; _i142++) {
+        vector.x = skinWeight.getX(_i142);
+        vector.y = skinWeight.getY(_i142);
+        vector.z = skinWeight.getZ(_i142);
+        vector.w = skinWeight.getW(_i142);
         var scale = 1.0 / vector.manhattanLength();
 
         if (scale !== Infinity) {
@@ -21154,13 +21409,13 @@ var SkinnedMesh = /*#__PURE__*/function (_Mesh) {
           vector.set(1, 0, 0, 0); // do something reasonable
         }
 
-        skinWeight.setXYZW(_i134, vector.x, vector.y, vector.z, vector.w);
+        skinWeight.setXYZW(_i142, vector.x, vector.y, vector.z, vector.w);
       }
     }
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SkinnedMesh.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SkinnedMesh.prototype), "updateMatrixWorld", this).call(this, force);
 
       if (this.bindMode === 'attached') {
         this.bindMatrixInverse.copy(this.matrixWorld).invert();
@@ -21184,11 +21439,11 @@ var SkinnedMesh = /*#__PURE__*/function (_Mesh) {
 
       target.set(0, 0, 0);
 
-      for (var _i135 = 0; _i135 < 4; _i135++) {
-        var weight = _skinWeight.getComponent(_i135);
+      for (var _i143 = 0; _i143 < 4; _i143++) {
+        var weight = _skinWeight.getComponent(_i143);
 
         if (weight !== 0) {
-          var boneIndex = _skinIndex.getComponent(_i135);
+          var boneIndex = _skinIndex.getComponent(_i143);
 
           _matrix.multiplyMatrices(skeleton.bones[boneIndex].matrixWorld, skeleton.boneInverses[boneIndex]);
 
@@ -21206,24 +21461,54 @@ var SkinnedMesh = /*#__PURE__*/function (_Mesh) {
 SkinnedMesh.prototype.isSkinnedMesh = true;
 
 var Bone = /*#__PURE__*/function (_Object3D8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Bone, _Object3D8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Bone, _Object3D8);
 
-  var _super40 = _createSuper(Bone);
+  var _super41 = _createSuper(Bone);
 
   function Bone() {
-    var _this30;
+    var _this31;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Bone);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Bone);
 
-    _this30 = _super40.call(this);
-    _this30.type = 'Bone';
-    return _this30;
+    _this31 = _super41.call(this);
+    _this31.type = 'Bone';
+    return _this31;
   }
 
   return Bone;
 }(Object3D);
 
 Bone.prototype.isBone = true;
+
+var DataTexture = /*#__PURE__*/function (_Texture4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTexture, _Texture4);
+
+  var _super42 = _createSuper(DataTexture);
+
+  function DataTexture(data, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding) {
+    var _this32;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataTexture);
+
+    _this32 = _super42.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
+    _this32.image = {
+      data: data || null,
+      width: width || 1,
+      height: height || 1
+    };
+    _this32.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
+    _this32.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
+    _this32.generateMipmaps = false;
+    _this32.flipY = false;
+    _this32.unpackAlignment = 1;
+    _this32.needsUpdate = true;
+    return _this32;
+  }
+
+  return DataTexture;
+}(Texture);
+
+DataTexture.prototype.isDataTexture = true;
 
 var _offsetMatrix = /*@__PURE__*/new Matrix4();
 
@@ -21234,7 +21519,7 @@ var Skeleton = /*#__PURE__*/function () {
     var bones = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var boneInverses = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Skeleton);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Skeleton);
 
     this.uuid = generateUUID();
     this.bones = bones.slice(0);
@@ -21246,7 +21531,7 @@ var Skeleton = /*#__PURE__*/function () {
     this.init();
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Skeleton, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Skeleton, [{
     key: "init",
     value: function init() {
       var bones = this.bones;
@@ -21261,7 +21546,7 @@ var Skeleton = /*#__PURE__*/function () {
           console.warn('THREE.Skeleton: Number of inverse bone matrices does not match amount of bones.');
           this.boneInverses = [];
 
-          for (var _i136 = 0, il = this.bones.length; _i136 < il; _i136++) {
+          for (var _i144 = 0, il = this.bones.length; _i144 < il; _i144++) {
             this.boneInverses.push(new Matrix4());
           }
         }
@@ -21272,11 +21557,11 @@ var Skeleton = /*#__PURE__*/function () {
     value: function calculateInverses() {
       this.boneInverses.length = 0;
 
-      for (var _i137 = 0, il = this.bones.length; _i137 < il; _i137++) {
+      for (var _i145 = 0, il = this.bones.length; _i145 < il; _i145++) {
         var inverse = new Matrix4();
 
-        if (this.bones[_i137]) {
-          inverse.copy(this.bones[_i137].matrixWorld).invert();
+        if (this.bones[_i145]) {
+          inverse.copy(this.bones[_i145].matrixWorld).invert();
         }
 
         this.boneInverses.push(inverse);
@@ -21286,17 +21571,17 @@ var Skeleton = /*#__PURE__*/function () {
     key: "pose",
     value: function pose() {
       // recover the bind-time world matrices
-      for (var _i138 = 0, il = this.bones.length; _i138 < il; _i138++) {
-        var bone = this.bones[_i138];
+      for (var _i146 = 0, il = this.bones.length; _i146 < il; _i146++) {
+        var bone = this.bones[_i146];
 
         if (bone) {
-          bone.matrixWorld.copy(this.boneInverses[_i138]).invert();
+          bone.matrixWorld.copy(this.boneInverses[_i146]).invert();
         }
       } // compute the local matrices, positions, rotations and scales
 
 
-      for (var _i139 = 0, _il11 = this.bones.length; _i139 < _il11; _i139++) {
-        var _bone = this.bones[_i139];
+      for (var _i147 = 0, _il12 = this.bones.length; _i147 < _il12; _i147++) {
+        var _bone = this.bones[_i147];
 
         if (_bone) {
           if (_bone.parent && _bone.parent.isBone) {
@@ -21319,13 +21604,13 @@ var Skeleton = /*#__PURE__*/function () {
       var boneMatrices = this.boneMatrices;
       var boneTexture = this.boneTexture; // flatten bone matrices to array
 
-      for (var _i140 = 0, il = bones.length; _i140 < il; _i140++) {
+      for (var _i148 = 0, il = bones.length; _i148 < il; _i148++) {
         // compute the offset between the current and the original transform
-        var matrix = bones[_i140] ? bones[_i140].matrixWorld : _identityMatrix;
+        var matrix = bones[_i148] ? bones[_i148].matrixWorld : _identityMatrix;
 
-        _offsetMatrix.multiplyMatrices(matrix, boneInverses[_i140]);
+        _offsetMatrix.multiplyMatrices(matrix, boneInverses[_i148]);
 
-        _offsetMatrix.toArray(boneMatrices, _i140 * 16);
+        _offsetMatrix.toArray(boneMatrices, _i148 * 16);
       }
 
       if (boneTexture !== null) {
@@ -21338,10 +21623,33 @@ var Skeleton = /*#__PURE__*/function () {
       return new Skeleton(this.bones, this.boneInverses);
     }
   }, {
+    key: "computeBoneTexture",
+    value: function computeBoneTexture() {
+      // layout (1 matrix = 4 pixels)
+      //      RGBA RGBA RGBA RGBA (=> column1, column2, column3, column4)
+      //  with  8x8  pixel texture max   16 bones * 4 pixels =  (8 * 8)
+      //       16x16 pixel texture max   64 bones * 4 pixels = (16 * 16)
+      //       32x32 pixel texture max  256 bones * 4 pixels = (32 * 32)
+      //       64x64 pixel texture max 1024 bones * 4 pixels = (64 * 64)
+      var size = Math.sqrt(this.bones.length * 4); // 4 pixels needed for 1 matrix
+
+      size = ceilPowerOfTwo(size);
+      size = Math.max(size, 4);
+      var boneMatrices = new Float32Array(size * size * 4); // 4 floats per RGBA pixel
+
+      boneMatrices.set(this.boneMatrices); // copy current values
+
+      var boneTexture = new DataTexture(boneMatrices, size, size, RGBAFormat, FloatType);
+      this.boneMatrices = boneMatrices;
+      this.boneTexture = boneTexture;
+      this.boneTextureSize = size;
+      return this;
+    }
+  }, {
     key: "getBoneByName",
     value: function getBoneByName(name) {
-      for (var _i141 = 0, il = this.bones.length; _i141 < il; _i141++) {
-        var bone = this.bones[_i141];
+      for (var _i149 = 0, il = this.bones.length; _i149 < il; _i149++) {
+        var bone = this.bones[_i149];
 
         if (bone.name === name) {
           return bone;
@@ -21363,8 +21671,8 @@ var Skeleton = /*#__PURE__*/function () {
     value: function fromJSON(json, bones) {
       this.uuid = json.uuid;
 
-      for (var _i142 = 0, l = json.bones.length; _i142 < l; _i142++) {
-        var uuid = json.bones[_i142];
+      for (var _i150 = 0, l = json.bones.length; _i150 < l; _i150++) {
+        var uuid = json.bones[_i150];
         var bone = bones[uuid];
 
         if (bone === undefined) {
@@ -21373,7 +21681,7 @@ var Skeleton = /*#__PURE__*/function () {
         }
 
         this.bones.push(bone);
-        this.boneInverses.push(new Matrix4().fromArray(json.boneInverses[_i142]));
+        this.boneInverses.push(new Matrix4().fromArray(json.boneInverses[_i150]));
       }
 
       this.init();
@@ -21395,10 +21703,10 @@ var Skeleton = /*#__PURE__*/function () {
       var bones = this.bones;
       var boneInverses = this.boneInverses;
 
-      for (var _i143 = 0, l = bones.length; _i143 < l; _i143++) {
-        var bone = bones[_i143];
+      for (var _i151 = 0, l = bones.length; _i151 < l; _i151++) {
+        var bone = bones[_i151];
         data.bones.push(bone.uuid);
-        var boneInverse = boneInverses[_i143];
+        var boneInverse = boneInverses[_i151];
         data.boneInverses.push(boneInverse.toArray());
       }
 
@@ -21418,27 +21726,27 @@ var _instanceIntersects = [];
 var _mesh = /*@__PURE__*/new Mesh();
 
 var InstancedMesh = /*#__PURE__*/function (_Mesh2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedMesh, _Mesh2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(InstancedMesh, _Mesh2);
 
-  var _super41 = _createSuper(InstancedMesh);
+  var _super43 = _createSuper(InstancedMesh);
 
   function InstancedMesh(geometry, material, count) {
-    var _this31;
+    var _this33;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedMesh);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InstancedMesh);
 
-    _this31 = _super41.call(this, geometry, material);
-    _this31.instanceMatrix = new BufferAttribute(new Float32Array(count * 16), 16);
-    _this31.instanceColor = null;
-    _this31.count = count;
-    _this31.frustumCulled = false;
-    return _this31;
+    _this33 = _super43.call(this, geometry, material);
+    _this33.instanceMatrix = new BufferAttribute(new Float32Array(count * 16), 16);
+    _this33.instanceColor = null;
+    _this33.count = count;
+    _this33.frustumCulled = false;
+    return _this33;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedMesh, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedMesh, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedMesh.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedMesh.prototype), "copy", this).call(this, source);
 
       this.instanceMatrix.copy(source.instanceMatrix);
       if (source.instanceColor !== null) this.instanceColor = source.instanceColor.clone();
@@ -21476,8 +21784,8 @@ var InstancedMesh = /*#__PURE__*/function (_Mesh2) {
         _mesh.raycast(raycaster, _instanceIntersects); // process the result of raycast
 
 
-        for (var _i144 = 0, l = _instanceIntersects.length; _i144 < l; _i144++) {
-          var intersect = _instanceIntersects[_i144];
+        for (var _i152 = 0, l = _instanceIntersects.length; _i152 < l; _i152++) {
+          var intersect = _instanceIntersects[_i152];
           intersect.instanceId = instanceId;
           intersect.object = this;
           intersects.push(intersect);
@@ -21528,32 +21836,32 @@ InstancedMesh.prototype.isInstancedMesh = true;
  */
 
 var LineBasicMaterial = /*#__PURE__*/function (_Material6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineBasicMaterial, _Material6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineBasicMaterial, _Material6);
 
-  var _super42 = _createSuper(LineBasicMaterial);
+  var _super44 = _createSuper(LineBasicMaterial);
 
   function LineBasicMaterial(parameters) {
-    var _this32;
+    var _this34;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineBasicMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineBasicMaterial);
 
-    _this32 = _super42.call(this);
-    _this32.type = 'LineBasicMaterial';
-    _this32.color = new Color(0xffffff);
-    _this32.linewidth = 1;
-    _this32.linecap = 'round';
-    _this32.linejoin = 'round';
-    _this32.morphTargets = false;
+    _this34 = _super44.call(this);
+    _this34.type = 'LineBasicMaterial';
+    _this34.color = new Color(0xffffff);
+    _this34.linewidth = 1;
+    _this34.linecap = 'round';
+    _this34.linejoin = 'round';
+    _this34.morphTargets = false;
 
-    _this32.setValues(parameters);
+    _this34.setValues(parameters);
 
-    return _this32;
+    return _this34;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineBasicMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineBasicMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineBasicMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineBasicMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.linewidth = source.linewidth;
@@ -21580,32 +21888,32 @@ var _ray$1 = /*@__PURE__*/new Ray();
 var _sphere$1 = /*@__PURE__*/new Sphere();
 
 var Line = /*#__PURE__*/function (_Object3D9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Line, _Object3D9);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Line, _Object3D9);
 
-  var _super43 = _createSuper(Line);
+  var _super45 = _createSuper(Line);
 
   function Line() {
-    var _this33;
+    var _this35;
 
     var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
     var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new LineBasicMaterial();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Line);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Line);
 
-    _this33 = _super43.call(this);
-    _this33.type = 'Line';
-    _this33.geometry = geometry;
-    _this33.material = material;
+    _this35 = _super45.call(this);
+    _this35.type = 'Line';
+    _this35.geometry = geometry;
+    _this35.material = material;
 
-    _this33.updateMorphTargets();
+    _this35.updateMorphTargets();
 
-    return _this33;
+    return _this35;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Line, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Line, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Line.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Line.prototype), "copy", this).call(this, source);
 
       this.material = source.material;
       this.geometry = source.geometry;
@@ -21622,13 +21930,13 @@ var Line = /*#__PURE__*/function (_Object3D9) {
           var positionAttribute = geometry.attributes.position;
           var lineDistances = [0];
 
-          for (var _i145 = 1, l = positionAttribute.count; _i145 < l; _i145++) {
-            _start$1.fromBufferAttribute(positionAttribute, _i145 - 1);
+          for (var _i153 = 1, l = positionAttribute.count; _i153 < l; _i153++) {
+            _start$1.fromBufferAttribute(positionAttribute, _i153 - 1);
 
-            _end$1.fromBufferAttribute(positionAttribute, _i145);
+            _end$1.fromBufferAttribute(positionAttribute, _i153);
 
-            lineDistances[_i145] = lineDistances[_i145 - 1];
-            lineDistances[_i145] += _start$1.distanceTo(_end$1);
+            lineDistances[_i153] = lineDistances[_i153 - 1];
+            lineDistances[_i153] += _start$1.distanceTo(_end$1);
           }
 
           geometry.setAttribute('lineDistance', new Float32BufferAttribute(lineDistances, 1));
@@ -21679,9 +21987,9 @@ var Line = /*#__PURE__*/function (_Object3D9) {
           var start = Math.max(0, drawRange.start);
           var end = Math.min(index.count, drawRange.start + drawRange.count);
 
-          for (var _i146 = start, l = end - 1; _i146 < l; _i146 += step) {
-            var a = index.getX(_i146);
-            var b = index.getX(_i146 + 1);
+          for (var _i154 = start, l = end - 1; _i154 < l; _i154 += step) {
+            var a = index.getX(_i154);
+            var b = index.getX(_i154 + 1);
             vStart.fromBufferAttribute(positionAttribute, a);
             vEnd.fromBufferAttribute(positionAttribute, b);
 
@@ -21697,7 +22005,7 @@ var Line = /*#__PURE__*/function (_Object3D9) {
               // What do we want? intersection point on the ray or on the segment??
               // point: raycaster.ray.at( distance ),
               point: interSegment.clone().applyMatrix4(this.matrixWorld),
-              index: _i146,
+              index: _i154,
               face: null,
               faceIndex: null,
               object: this
@@ -21708,9 +22016,9 @@ var Line = /*#__PURE__*/function (_Object3D9) {
 
           var _end5 = Math.min(positionAttribute.count, drawRange.start + drawRange.count);
 
-          for (var _i147 = _start6, _l6 = _end5 - 1; _i147 < _l6; _i147 += step) {
-            vStart.fromBufferAttribute(positionAttribute, _i147);
-            vEnd.fromBufferAttribute(positionAttribute, _i147 + 1);
+          for (var _i155 = _start6, _l6 = _end5 - 1; _i155 < _l6; _i155 += step) {
+            vStart.fromBufferAttribute(positionAttribute, _i155);
+            vEnd.fromBufferAttribute(positionAttribute, _i155 + 1);
 
             var _distSq = _ray$1.distanceSqToSegment(vStart, vEnd, interRay, interSegment);
 
@@ -21725,7 +22033,7 @@ var Line = /*#__PURE__*/function (_Object3D9) {
               // What do we want? intersection point on the ray or on the segment??
               // point: raycaster.ray.at( distance ),
               point: interSegment.clone().applyMatrix4(this.matrixWorld),
-              index: _i147,
+              index: _i155,
               face: null,
               faceIndex: null,
               object: this
@@ -21779,21 +22087,21 @@ var _start = /*@__PURE__*/new Vector3();
 var _end = /*@__PURE__*/new Vector3();
 
 var LineSegments = /*#__PURE__*/function (_Line) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineSegments, _Line);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineSegments, _Line);
 
-  var _super44 = _createSuper(LineSegments);
+  var _super46 = _createSuper(LineSegments);
 
   function LineSegments(geometry, material) {
-    var _this34;
+    var _this36;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineSegments);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineSegments);
 
-    _this34 = _super44.call(this, geometry, material);
-    _this34.type = 'LineSegments';
-    return _this34;
+    _this36 = _super46.call(this, geometry, material);
+    _this36.type = 'LineSegments';
+    return _this36;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineSegments, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineSegments, [{
     key: "computeLineDistances",
     value: function computeLineDistances() {
       var geometry = this.geometry;
@@ -21804,13 +22112,13 @@ var LineSegments = /*#__PURE__*/function (_Line) {
           var positionAttribute = geometry.attributes.position;
           var lineDistances = [];
 
-          for (var _i148 = 0, l = positionAttribute.count; _i148 < l; _i148 += 2) {
-            _start.fromBufferAttribute(positionAttribute, _i148);
+          for (var _i156 = 0, l = positionAttribute.count; _i156 < l; _i156 += 2) {
+            _start.fromBufferAttribute(positionAttribute, _i156);
 
-            _end.fromBufferAttribute(positionAttribute, _i148 + 1);
+            _end.fromBufferAttribute(positionAttribute, _i156 + 1);
 
-            lineDistances[_i148] = _i148 === 0 ? 0 : lineDistances[_i148 - 1];
-            lineDistances[_i148 + 1] = lineDistances[_i148] + _start.distanceTo(_end);
+            lineDistances[_i156] = _i156 === 0 ? 0 : lineDistances[_i156 - 1];
+            lineDistances[_i156 + 1] = lineDistances[_i156] + _start.distanceTo(_end);
           }
 
           geometry.setAttribute('lineDistance', new Float32BufferAttribute(lineDistances, 1));
@@ -21831,18 +22139,18 @@ var LineSegments = /*#__PURE__*/function (_Line) {
 LineSegments.prototype.isLineSegments = true;
 
 var LineLoop = /*#__PURE__*/function (_Line2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineLoop, _Line2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineLoop, _Line2);
 
-  var _super45 = _createSuper(LineLoop);
+  var _super47 = _createSuper(LineLoop);
 
   function LineLoop(geometry, material) {
-    var _this35;
+    var _this37;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineLoop);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineLoop);
 
-    _this35 = _super45.call(this, geometry, material);
-    _this35.type = 'LineLoop';
-    return _this35;
+    _this37 = _super47.call(this, geometry, material);
+    _this37.type = 'LineLoop';
+    return _this37;
   }
 
   return LineLoop;
@@ -21864,33 +22172,33 @@ LineLoop.prototype.isLineLoop = true;
  */
 
 var PointsMaterial = /*#__PURE__*/function (_Material7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointsMaterial, _Material7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PointsMaterial, _Material7);
 
-  var _super46 = _createSuper(PointsMaterial);
+  var _super48 = _createSuper(PointsMaterial);
 
   function PointsMaterial(parameters) {
-    var _this36;
+    var _this38;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointsMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PointsMaterial);
 
-    _this36 = _super46.call(this);
-    _this36.type = 'PointsMaterial';
-    _this36.color = new Color(0xffffff);
-    _this36.map = null;
-    _this36.alphaMap = null;
-    _this36.size = 1;
-    _this36.sizeAttenuation = true;
-    _this36.morphTargets = false;
+    _this38 = _super48.call(this);
+    _this38.type = 'PointsMaterial';
+    _this38.color = new Color(0xffffff);
+    _this38.map = null;
+    _this38.alphaMap = null;
+    _this38.size = 1;
+    _this38.sizeAttenuation = true;
+    _this38.morphTargets = false;
 
-    _this36.setValues(parameters);
+    _this38.setValues(parameters);
 
-    return _this36;
+    return _this38;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointsMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointsMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PointsMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(PointsMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.map = source.map;
@@ -21916,32 +22224,32 @@ var _sphere = /*@__PURE__*/new Sphere();
 var _position$2 = /*@__PURE__*/new Vector3();
 
 var Points = /*#__PURE__*/function (_Object3D10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Points, _Object3D10);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Points, _Object3D10);
 
-  var _super47 = _createSuper(Points);
+  var _super49 = _createSuper(Points);
 
   function Points() {
-    var _this37;
+    var _this39;
 
     var geometry = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new BufferGeometry();
     var material = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new PointsMaterial();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Points);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Points);
 
-    _this37 = _super47.call(this);
-    _this37.type = 'Points';
-    _this37.geometry = geometry;
-    _this37.material = material;
+    _this39 = _super49.call(this);
+    _this39.type = 'Points';
+    _this39.geometry = geometry;
+    _this39.material = material;
 
-    _this37.updateMorphTargets();
+    _this39.updateMorphTargets();
 
-    return _this37;
+    return _this39;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Points, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Points, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Points.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Points.prototype), "copy", this).call(this, source);
 
       this.material = source.material;
       this.geometry = source.geometry;
@@ -21980,8 +22288,8 @@ var Points = /*#__PURE__*/function (_Object3D10) {
           var start = Math.max(0, drawRange.start);
           var end = Math.min(index.count, drawRange.start + drawRange.count);
 
-          for (var _i149 = start, il = end; _i149 < il; _i149++) {
-            var a = index.getX(_i149);
+          for (var _i157 = start, il = end; _i157 < il; _i157++) {
+            var a = index.getX(_i157);
 
             _position$2.fromBufferAttribute(positionAttribute, a);
 
@@ -21992,10 +22300,10 @@ var Points = /*#__PURE__*/function (_Object3D10) {
 
           var _end6 = Math.min(positionAttribute.count, drawRange.start + drawRange.count);
 
-          for (var _i150 = _start7, l = _end6; _i150 < l; _i150++) {
-            _position$2.fromBufferAttribute(positionAttribute, _i150);
+          for (var _i158 = _start7, l = _end6; _i158 < l; _i158++) {
+            _position$2.fromBufferAttribute(positionAttribute, _i158);
 
-            testPoint(_position$2, _i150, localThresholdSq, matrixWorld, raycaster, intersects, this);
+            testPoint(_position$2, _i158, localThresholdSq, matrixWorld, raycaster, intersects, this);
           }
         }
       } else {
@@ -22063,22 +22371,22 @@ function testPoint(point, index, localThresholdSq, matrixWorld, raycaster, inter
 }
 
 var VideoTexture = /*#__PURE__*/function (_Texture5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VideoTexture, _Texture5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VideoTexture, _Texture5);
 
-  var _super48 = _createSuper(VideoTexture);
+  var _super50 = _createSuper(VideoTexture);
 
   function VideoTexture(video, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy) {
-    var _this38;
+    var _this40;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, VideoTexture);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, VideoTexture);
 
-    _this38 = _super48.call(this, video, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
-    _this38.format = format !== undefined ? format : RGBFormat;
-    _this38.minFilter = minFilter !== undefined ? minFilter : LinearFilter;
-    _this38.magFilter = magFilter !== undefined ? magFilter : LinearFilter;
-    _this38.generateMipmaps = false;
+    _this40 = _super50.call(this, video, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+    _this40.format = format !== undefined ? format : RGBFormat;
+    _this40.minFilter = minFilter !== undefined ? minFilter : LinearFilter;
+    _this40.magFilter = magFilter !== undefined ? magFilter : LinearFilter;
+    _this40.generateMipmaps = false;
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this38);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this40);
 
     function updateVideo() {
       scope.needsUpdate = true;
@@ -22089,10 +22397,10 @@ var VideoTexture = /*#__PURE__*/function (_Texture5) {
       video.requestVideoFrameCallback(updateVideo);
     }
 
-    return _this38;
+    return _this40;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(VideoTexture, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VideoTexture, [{
     key: "clone",
     value: function clone() {
       return new this.constructor(this.image).copy(this);
@@ -22115,28 +22423,28 @@ var VideoTexture = /*#__PURE__*/function (_Texture5) {
 VideoTexture.prototype.isVideoTexture = true;
 
 var CompressedTexture = /*#__PURE__*/function (_Texture6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CompressedTexture, _Texture6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CompressedTexture, _Texture6);
 
-  var _super49 = _createSuper(CompressedTexture);
+  var _super51 = _createSuper(CompressedTexture);
 
   function CompressedTexture(mipmaps, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding) {
-    var _this39;
+    var _this41;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CompressedTexture);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CompressedTexture);
 
-    _this39 = _super49.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
-    _this39.image = {
+    _this41 = _super51.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
+    _this41.image = {
       width: width,
       height: height
     };
-    _this39.mipmaps = mipmaps; // no flipping for cube textures
+    _this41.mipmaps = mipmaps; // no flipping for cube textures
     // (also flipping doesn't work for compressed textures )
 
-    _this39.flipY = false; // can't generate mipmaps for compressed textures
+    _this41.flipY = false; // can't generate mipmaps for compressed textures
     // mips must be embedded in DDS files
 
-    _this39.generateMipmaps = false;
-    return _this39;
+    _this41.generateMipmaps = false;
+    return _this41;
   }
 
   return CompressedTexture;
@@ -22145,18 +22453,18 @@ var CompressedTexture = /*#__PURE__*/function (_Texture6) {
 CompressedTexture.prototype.isCompressedTexture = true;
 
 var CanvasTexture = /*#__PURE__*/function (_Texture7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CanvasTexture, _Texture7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CanvasTexture, _Texture7);
 
-  var _super50 = _createSuper(CanvasTexture);
+  var _super52 = _createSuper(CanvasTexture);
 
   function CanvasTexture(canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy) {
-    var _this40;
+    var _this42;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CanvasTexture);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CanvasTexture);
 
-    _this40 = _super50.call(this, canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
-    _this40.needsUpdate = true;
-    return _this40;
+    _this42 = _super52.call(this, canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+    _this42.needsUpdate = true;
+    return _this42;
   }
 
   return CanvasTexture;
@@ -22165,14 +22473,14 @@ var CanvasTexture = /*#__PURE__*/function (_Texture7) {
 CanvasTexture.prototype.isCanvasTexture = true;
 
 var DepthTexture = /*#__PURE__*/function (_Texture8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DepthTexture, _Texture8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DepthTexture, _Texture8);
 
-  var _super51 = _createSuper(DepthTexture);
+  var _super53 = _createSuper(DepthTexture);
 
   function DepthTexture(width, height, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, format) {
-    var _this41;
+    var _this43;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DepthTexture);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DepthTexture);
 
     format = format !== undefined ? format : DepthFormat;
 
@@ -22182,16 +22490,16 @@ var DepthTexture = /*#__PURE__*/function (_Texture8) {
 
     if (type === undefined && format === DepthFormat) type = UnsignedShortType;
     if (type === undefined && format === DepthStencilFormat) type = UnsignedInt248Type;
-    _this41 = _super51.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
-    _this41.image = {
+    _this43 = _super53.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+    _this43.image = {
       width: width,
       height: height
     };
-    _this41.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
-    _this41.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
-    _this41.flipY = false;
-    _this41.generateMipmaps = false;
-    return _this41;
+    _this43.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
+    _this43.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
+    _this43.flipY = false;
+    _this43.generateMipmaps = false;
+    return _this43;
   }
 
   return DepthTexture;
@@ -22200,23 +22508,23 @@ var DepthTexture = /*#__PURE__*/function (_Texture8) {
 DepthTexture.prototype.isDepthTexture = true;
 
 var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CircleGeometry, _BufferGeometry3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CircleGeometry, _BufferGeometry3);
 
-  var _super52 = _createSuper(CircleGeometry);
+  var _super54 = _createSuper(CircleGeometry);
 
   function CircleGeometry() {
-    var _this42;
+    var _this44;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var segments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
     var thetaStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var thetaLength = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Math.PI * 2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CircleGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CircleGeometry);
 
-    _this42 = _super52.call(this);
-    _this42.type = 'CircleGeometry';
-    _this42.parameters = {
+    _this44 = _super54.call(this);
+    _this44.type = 'CircleGeometry';
+    _this44.parameters = {
       radius: radius,
       segments: segments,
       thetaStart: thetaStart,
@@ -22236,7 +22544,7 @@ var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
     normals.push(0, 0, 1);
     uvs.push(0.5, 0.5);
 
-    for (var s = 0, _i151 = 3; s <= segments; s++, _i151 += 3) {
+    for (var s = 0, _i159 = 3; s <= segments; s++, _i159 += 3) {
       var segment = thetaStart + s / segments * thetaLength; // vertex
 
       vertex.x = radius * Math.cos(segment);
@@ -22245,38 +22553,38 @@ var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
 
       normals.push(0, 0, 1); // uvs
 
-      uv.x = (vertices[_i151] / radius + 1) / 2;
-      uv.y = (vertices[_i151 + 1] / radius + 1) / 2;
+      uv.x = (vertices[_i159] / radius + 1) / 2;
+      uv.y = (vertices[_i159 + 1] / radius + 1) / 2;
       uvs.push(uv.x, uv.y);
     } // indices
 
 
-    for (var _i152 = 1; _i152 <= segments; _i152++) {
-      indices.push(_i152, _i152 + 1, 0);
+    for (var _i160 = 1; _i160 <= segments; _i160++) {
+      indices.push(_i160, _i160 + 1, 0);
     } // build geometry
 
 
-    _this42.setIndex(indices);
+    _this44.setIndex(indices);
 
-    _this42.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this44.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this42.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this44.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this42.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this44.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this42;
+    return _this44;
   }
 
   return CircleGeometry;
 }(BufferGeometry);
 
 var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CylinderGeometry, _BufferGeometry4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CylinderGeometry, _BufferGeometry4);
 
-  var _super53 = _createSuper(CylinderGeometry);
+  var _super55 = _createSuper(CylinderGeometry);
 
   function CylinderGeometry() {
-    var _this43;
+    var _this45;
 
     var radiusTop = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var radiusBottom = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -22287,11 +22595,11 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
     var thetaStart = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 0;
     var thetaLength = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : Math.PI * 2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CylinderGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CylinderGeometry);
 
-    _this43 = _super53.call(this);
-    _this43.type = 'CylinderGeometry';
-    _this43.parameters = {
+    _this45 = _super55.call(this);
+    _this45.type = 'CylinderGeometry';
+    _this45.parameters = {
       radiusTop: radiusTop,
       radiusBottom: radiusBottom,
       height: height,
@@ -22302,7 +22610,7 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
       thetaLength: thetaLength
     };
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this43);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this45);
 
     radialSegments = Math.floor(radialSegments);
     heightSegments = Math.floor(heightSegments); // buffers
@@ -22325,13 +22633,13 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
     } // build geometry
 
 
-    _this43.setIndex(indices);
+    _this45.setIndex(indices);
 
-    _this43.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this45.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this43.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this45.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this43.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this45.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
     function generateTorso() {
       var normal = new Vector3();
@@ -22440,14 +22748,14 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
       for (var _x5 = 0; _x5 < radialSegments; _x5++) {
         var c = centerIndexStart + _x5;
 
-        var _i153 = centerIndexEnd + _x5;
+        var _i161 = centerIndexEnd + _x5;
 
         if (top === true) {
           // face top
-          indices.push(_i153, _i153 + 1, c);
+          indices.push(_i161, _i161 + 1, c);
         } else {
           // face bottom
-          indices.push(_i153 + 1, _i153, c);
+          indices.push(_i161 + 1, _i161, c);
         }
 
         groupCount += 3;
@@ -22459,19 +22767,19 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
       groupStart += groupCount;
     }
 
-    return _this43;
+    return _this45;
   }
 
   return CylinderGeometry;
 }(BufferGeometry);
 
 var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ConeGeometry, _CylinderGeometry);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ConeGeometry, _CylinderGeometry);
 
-  var _super54 = _createSuper(ConeGeometry);
+  var _super56 = _createSuper(ConeGeometry);
 
   function ConeGeometry() {
-    var _this44;
+    var _this46;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -22481,11 +22789,11 @@ var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
     var thetaStart = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
     var thetaLength = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : Math.PI * 2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ConeGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ConeGeometry);
 
-    _this44 = _super54.call(this, 0, radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
-    _this44.type = 'ConeGeometry';
-    _this44.parameters = {
+    _this46 = _super56.call(this, 0, radius, height, radialSegments, heightSegments, openEnded, thetaStart, thetaLength);
+    _this46.type = 'ConeGeometry';
+    _this46.parameters = {
       radius: radius,
       height: height,
       radialSegments: radialSegments,
@@ -22494,28 +22802,28 @@ var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
       thetaStart: thetaStart,
       thetaLength: thetaLength
     };
-    return _this44;
+    return _this46;
   }
 
   return ConeGeometry;
 }(CylinderGeometry);
 
 var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PolyhedronGeometry, _BufferGeometry5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PolyhedronGeometry, _BufferGeometry5);
 
-  var _super55 = _createSuper(PolyhedronGeometry);
+  var _super57 = _createSuper(PolyhedronGeometry);
 
   function PolyhedronGeometry(vertices, indices) {
-    var _this45;
+    var _this47;
 
     var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var detail = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PolyhedronGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PolyhedronGeometry);
 
-    _this45 = _super55.call(this);
-    _this45.type = 'PolyhedronGeometry';
-    _this45.parameters = {
+    _this47 = _super57.call(this);
+    _this47.type = 'PolyhedronGeometry';
+    _this47.parameters = {
       vertices: vertices,
       indices: indices,
       radius: radius,
@@ -22531,17 +22839,17 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
 
     generateUVs(); // build non-indexed geometry
 
-    _this45.setAttribute('position', new Float32BufferAttribute(vertexBuffer, 3));
+    _this47.setAttribute('position', new Float32BufferAttribute(vertexBuffer, 3));
 
-    _this45.setAttribute('normal', new Float32BufferAttribute(vertexBuffer.slice(), 3));
+    _this47.setAttribute('normal', new Float32BufferAttribute(vertexBuffer.slice(), 3));
 
-    _this45.setAttribute('uv', new Float32BufferAttribute(uvBuffer, 2));
+    _this47.setAttribute('uv', new Float32BufferAttribute(uvBuffer, 2));
 
     if (detail === 0) {
-      _this45.computeVertexNormals(); // flat normals
+      _this47.computeVertexNormals(); // flat normals
 
     } else {
-      _this45.normalizeNormals(); // smooth normals
+      _this47.normalizeNormals(); // smooth normals
 
     } // helper functions
 
@@ -22551,11 +22859,11 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
       var b = new Vector3();
       var c = new Vector3(); // iterate over all faces and apply a subdivison with the given detail value
 
-      for (var _i154 = 0; _i154 < indices.length; _i154 += 3) {
+      for (var _i162 = 0; _i162 < indices.length; _i162 += 3) {
         // get the vertices of the face
-        getVertexByIndex(indices[_i154 + 0], a);
-        getVertexByIndex(indices[_i154 + 1], b);
-        getVertexByIndex(indices[_i154 + 2], c); // perform subdivision
+        getVertexByIndex(indices[_i162 + 0], a);
+        getVertexByIndex(indices[_i162 + 1], b);
+        getVertexByIndex(indices[_i162 + 2], c); // perform subdivision
 
         subdivideFace(a, b, c, detail);
       }
@@ -22566,34 +22874,34 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
 
       var v = []; // construct all of the vertices for this subdivision
 
-      for (var _i155 = 0; _i155 <= cols; _i155++) {
-        v[_i155] = [];
-        var aj = a.clone().lerp(c, _i155 / cols);
-        var bj = b.clone().lerp(c, _i155 / cols);
-        var rows = cols - _i155;
+      for (var _i163 = 0; _i163 <= cols; _i163++) {
+        v[_i163] = [];
+        var aj = a.clone().lerp(c, _i163 / cols);
+        var bj = b.clone().lerp(c, _i163 / cols);
+        var rows = cols - _i163;
 
         for (var j = 0; j <= rows; j++) {
-          if (j === 0 && _i155 === cols) {
-            v[_i155][j] = aj;
+          if (j === 0 && _i163 === cols) {
+            v[_i163][j] = aj;
           } else {
-            v[_i155][j] = aj.clone().lerp(bj, j / rows);
+            v[_i163][j] = aj.clone().lerp(bj, j / rows);
           }
         }
       } // construct all of the faces
 
 
-      for (var _i156 = 0; _i156 < cols; _i156++) {
-        for (var _j5 = 0; _j5 < 2 * (cols - _i156) - 1; _j5++) {
+      for (var _i164 = 0; _i164 < cols; _i164++) {
+        for (var _j5 = 0; _j5 < 2 * (cols - _i164) - 1; _j5++) {
           var k = Math.floor(_j5 / 2);
 
           if (_j5 % 2 === 0) {
-            pushVertex(v[_i156][k + 1]);
-            pushVertex(v[_i156 + 1][k]);
-            pushVertex(v[_i156][k]);
+            pushVertex(v[_i164][k + 1]);
+            pushVertex(v[_i164 + 1][k]);
+            pushVertex(v[_i164][k]);
           } else {
-            pushVertex(v[_i156][k + 1]);
-            pushVertex(v[_i156 + 1][k + 1]);
-            pushVertex(v[_i156 + 1][k]);
+            pushVertex(v[_i164][k + 1]);
+            pushVertex(v[_i164 + 1][k + 1]);
+            pushVertex(v[_i164 + 1][k]);
           }
         }
       }
@@ -22602,24 +22910,24 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
     function applyRadius(radius) {
       var vertex = new Vector3(); // iterate over the entire buffer and apply the radius to each vertex
 
-      for (var _i157 = 0; _i157 < vertexBuffer.length; _i157 += 3) {
-        vertex.x = vertexBuffer[_i157 + 0];
-        vertex.y = vertexBuffer[_i157 + 1];
-        vertex.z = vertexBuffer[_i157 + 2];
+      for (var _i165 = 0; _i165 < vertexBuffer.length; _i165 += 3) {
+        vertex.x = vertexBuffer[_i165 + 0];
+        vertex.y = vertexBuffer[_i165 + 1];
+        vertex.z = vertexBuffer[_i165 + 2];
         vertex.normalize().multiplyScalar(radius);
-        vertexBuffer[_i157 + 0] = vertex.x;
-        vertexBuffer[_i157 + 1] = vertex.y;
-        vertexBuffer[_i157 + 2] = vertex.z;
+        vertexBuffer[_i165 + 0] = vertex.x;
+        vertexBuffer[_i165 + 1] = vertex.y;
+        vertexBuffer[_i165 + 2] = vertex.z;
       }
     }
 
     function generateUVs() {
       var vertex = new Vector3();
 
-      for (var _i158 = 0; _i158 < vertexBuffer.length; _i158 += 3) {
-        vertex.x = vertexBuffer[_i158 + 0];
-        vertex.y = vertexBuffer[_i158 + 1];
-        vertex.z = vertexBuffer[_i158 + 2];
+      for (var _i166 = 0; _i166 < vertexBuffer.length; _i166 += 3) {
+        vertex.x = vertexBuffer[_i166 + 0];
+        vertex.y = vertexBuffer[_i166 + 1];
+        vertex.z = vertexBuffer[_i166 + 2];
         var u = azimuth(vertex) / 2 / Math.PI + 0.5;
         var v = inclination(vertex) / Math.PI + 0.5;
         uvBuffer.push(u, 1 - v);
@@ -22631,18 +22939,18 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
 
     function correctSeam() {
       // handle case when face straddles the seam, see #3269
-      for (var _i159 = 0; _i159 < uvBuffer.length; _i159 += 6) {
+      for (var _i167 = 0; _i167 < uvBuffer.length; _i167 += 6) {
         // uv data of a single face
-        var x0 = uvBuffer[_i159 + 0];
-        var x1 = uvBuffer[_i159 + 2];
-        var x2 = uvBuffer[_i159 + 4];
+        var x0 = uvBuffer[_i167 + 0];
+        var x1 = uvBuffer[_i167 + 2];
+        var x2 = uvBuffer[_i167 + 4];
         var max = Math.max(x0, x1, x2);
         var min = Math.min(x0, x1, x2); // 0.9 is somewhat arbitrary
 
         if (max > 0.9 && min < 0.1) {
-          if (x0 < 0.2) uvBuffer[_i159 + 0] += 1;
-          if (x1 < 0.2) uvBuffer[_i159 + 2] += 1;
-          if (x2 < 0.2) uvBuffer[_i159 + 4] += 1;
+          if (x0 < 0.2) uvBuffer[_i167 + 0] += 1;
+          if (x1 < 0.2) uvBuffer[_i167 + 2] += 1;
+          if (x2 < 0.2) uvBuffer[_i167 + 4] += 1;
         }
       }
     }
@@ -22667,10 +22975,10 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
       var uvB = new Vector2();
       var uvC = new Vector2();
 
-      for (var _i160 = 0, j = 0; _i160 < vertexBuffer.length; _i160 += 9, j += 6) {
-        a.set(vertexBuffer[_i160 + 0], vertexBuffer[_i160 + 1], vertexBuffer[_i160 + 2]);
-        b.set(vertexBuffer[_i160 + 3], vertexBuffer[_i160 + 4], vertexBuffer[_i160 + 5]);
-        c.set(vertexBuffer[_i160 + 6], vertexBuffer[_i160 + 7], vertexBuffer[_i160 + 8]);
+      for (var _i168 = 0, j = 0; _i168 < vertexBuffer.length; _i168 += 9, j += 6) {
+        a.set(vertexBuffer[_i168 + 0], vertexBuffer[_i168 + 1], vertexBuffer[_i168 + 2]);
+        b.set(vertexBuffer[_i168 + 3], vertexBuffer[_i168 + 4], vertexBuffer[_i168 + 5]);
+        c.set(vertexBuffer[_i168 + 6], vertexBuffer[_i168 + 7], vertexBuffer[_i168 + 8]);
         uvA.set(uvBuffer[j + 0], uvBuffer[j + 1]);
         uvB.set(uvBuffer[j + 2], uvBuffer[j + 3]);
         uvC.set(uvBuffer[j + 4], uvBuffer[j + 5]);
@@ -22702,24 +23010,24 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
       return Math.atan2(-vector.y, Math.sqrt(vector.x * vector.x + vector.z * vector.z));
     }
 
-    return _this45;
+    return _this47;
   }
 
   return PolyhedronGeometry;
 }(BufferGeometry);
 
 var DodecahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DodecahedronGeometry, _PolyhedronGeometry);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DodecahedronGeometry, _PolyhedronGeometry);
 
-  var _super56 = _createSuper(DodecahedronGeometry);
+  var _super58 = _createSuper(DodecahedronGeometry);
 
   function DodecahedronGeometry() {
-    var _this46;
+    var _this48;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DodecahedronGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DodecahedronGeometry);
 
     var t = (1 + Math.sqrt(5)) / 2;
     var r = 1 / t;
@@ -22729,13 +23037,13 @@ var DodecahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry) {
     -r, -t, 0, -r, t, 0, r, -t, 0, r, t, 0, // (±φ, 0, ±1/φ)
     -t, 0, -r, t, 0, -r, -t, 0, r, t, 0, r];
     var indices = [3, 11, 7, 3, 7, 15, 3, 15, 13, 7, 19, 17, 7, 17, 6, 7, 6, 15, 17, 4, 8, 17, 8, 10, 17, 10, 6, 8, 0, 16, 8, 16, 2, 8, 2, 10, 0, 12, 1, 0, 1, 18, 0, 18, 16, 6, 10, 2, 6, 2, 13, 6, 13, 15, 2, 16, 18, 2, 18, 3, 2, 3, 13, 18, 1, 9, 18, 9, 11, 18, 11, 3, 4, 14, 12, 4, 12, 0, 4, 0, 8, 11, 9, 5, 11, 5, 19, 11, 19, 7, 19, 5, 14, 19, 14, 4, 19, 4, 17, 1, 12, 14, 1, 14, 5, 1, 5, 9];
-    _this46 = _super56.call(this, vertices, indices, radius, detail);
-    _this46.type = 'DodecahedronGeometry';
-    _this46.parameters = {
+    _this48 = _super58.call(this, vertices, indices, radius, detail);
+    _this48.type = 'DodecahedronGeometry';
+    _this48.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this46;
+    return _this48;
   }
 
   return DodecahedronGeometry;
@@ -22750,25 +23058,25 @@ var _normal = new Vector3();
 var _triangle = new Triangle();
 
 var EdgesGeometry = /*#__PURE__*/function (_BufferGeometry6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EdgesGeometry, _BufferGeometry6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(EdgesGeometry, _BufferGeometry6);
 
-  var _super57 = _createSuper(EdgesGeometry);
+  var _super59 = _createSuper(EdgesGeometry);
 
   function EdgesGeometry(geometry, thresholdAngle) {
-    var _this47;
+    var _this49;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, EdgesGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, EdgesGeometry);
 
-    _this47 = _super57.call(this);
-    _this47.type = 'EdgesGeometry';
-    _this47.parameters = {
+    _this49 = _super59.call(this);
+    _this49.type = 'EdgesGeometry';
+    _this49.parameters = {
       thresholdAngle: thresholdAngle
     };
     thresholdAngle = thresholdAngle !== undefined ? thresholdAngle : 1;
 
     if (geometry.isGeometry === true) {
       console.error('THREE.EdgesGeometry no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this47);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this49);
     }
 
     var precisionPoints = 4;
@@ -22783,15 +23091,15 @@ var EdgesGeometry = /*#__PURE__*/function (_BufferGeometry6) {
     var edgeData = {};
     var vertices = [];
 
-    for (var _i161 = 0; _i161 < indexCount; _i161 += 3) {
+    for (var _i169 = 0; _i169 < indexCount; _i169 += 3) {
       if (indexAttr) {
-        indexArr[0] = indexAttr.getX(_i161);
-        indexArr[1] = indexAttr.getX(_i161 + 1);
-        indexArr[2] = indexAttr.getX(_i161 + 2);
+        indexArr[0] = indexAttr.getX(_i169);
+        indexArr[1] = indexAttr.getX(_i169 + 1);
+        indexArr[2] = indexAttr.getX(_i169 + 2);
       } else {
-        indexArr[0] = _i161;
-        indexArr[1] = _i161 + 1;
-        indexArr[2] = _i161 + 2;
+        indexArr[0] = _i169;
+        indexArr[1] = _i169 + 1;
+        indexArr[2] = _i169 + 2;
       }
 
       var a = _triangle.a,
@@ -22859,9 +23167,9 @@ var EdgesGeometry = /*#__PURE__*/function (_BufferGeometry6) {
       }
     }
 
-    _this47.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this49.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    return _this47;
+    return _this49;
   }
 
   return EdgesGeometry;
@@ -22886,9 +23194,9 @@ var Earcut = {
       minX = maxX = data[0];
       minY = maxY = data[1];
 
-      for (var _i162 = dim; _i162 < outerLen; _i162 += dim) {
-        x = data[_i162];
-        y = data[_i162 + 1];
+      for (var _i170 = dim; _i170 < outerLen; _i170 += dim) {
+        x = data[_i170];
+        y = data[_i170 + 1];
         if (x < minX) minX = x;
         if (y < minY) minY = y;
         if (x > maxX) maxX = x;
@@ -23451,9 +23759,9 @@ function Node(i, x, y) {
 function signedArea(data, start, end, dim) {
   var sum = 0;
 
-  for (var _i163 = start, j = end - dim; _i163 < end; _i163 += dim) {
-    sum += (data[j] - data[_i163]) * (data[_i163 + 1] + data[j + 1]);
-    j = _i163;
+  for (var _i171 = start, j = end - dim; _i171 < end; _i171 += dim) {
+    sum += (data[j] - data[_i171]) * (data[_i171 + 1] + data[j + 1]);
+    j = _i171;
   }
 
   return sum;
@@ -23461,10 +23769,10 @@ function signedArea(data, start, end, dim) {
 
 var ShapeUtils = /*#__PURE__*/function () {
   function ShapeUtils() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShapeUtils);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShapeUtils);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShapeUtils, null, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapeUtils, null, [{
     key: "area",
     value: // calculate area of the contour polygon
     function area(contour) {
@@ -23497,17 +23805,17 @@ var ShapeUtils = /*#__PURE__*/function () {
       var holeIndex = contour.length;
       holes.forEach(removeDupEndPts);
 
-      for (var _i164 = 0; _i164 < holes.length; _i164++) {
+      for (var _i172 = 0; _i172 < holes.length; _i172++) {
         holeIndices.push(holeIndex);
-        holeIndex += holes[_i164].length;
-        addContour(vertices, holes[_i164]);
+        holeIndex += holes[_i172].length;
+        addContour(vertices, holes[_i172]);
       } //
 
 
       var triangles = Earcut.triangulate(vertices, holeIndices); //
 
-      for (var _i165 = 0; _i165 < triangles.length; _i165 += 3) {
-        faces.push(triangles.slice(_i165, _i165 + 3));
+      for (var _i173 = 0; _i173 < triangles.length; _i173 += 3) {
+        faces.push(triangles.slice(_i173, _i173 + 3));
       }
 
       return faces;
@@ -23526,9 +23834,9 @@ function removeDupEndPts(points) {
 }
 
 function addContour(vertices, contour) {
-  for (var _i166 = 0; _i166 < contour.length; _i166++) {
-    vertices.push(contour[_i166].x);
-    vertices.push(contour[_i166].y);
+  for (var _i174 = 0; _i174 < contour.length; _i174++) {
+    vertices.push(contour[_i174].x);
+    vertices.push(contour[_i174].y);
   }
 }
 /**
@@ -23555,39 +23863,39 @@ function addContour(vertices, contour) {
 
 
 var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ExtrudeGeometry, _BufferGeometry7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ExtrudeGeometry, _BufferGeometry7);
 
-  var _super58 = _createSuper(ExtrudeGeometry);
+  var _super60 = _createSuper(ExtrudeGeometry);
 
   function ExtrudeGeometry(shapes, options) {
-    var _this48;
+    var _this50;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ExtrudeGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ExtrudeGeometry);
 
-    _this48 = _super58.call(this);
-    _this48.type = 'ExtrudeGeometry';
-    _this48.parameters = {
+    _this50 = _super60.call(this);
+    _this50.type = 'ExtrudeGeometry';
+    _this50.parameters = {
       shapes: shapes,
       options: options
     };
     shapes = Array.isArray(shapes) ? shapes : [shapes];
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this48);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this50);
 
     var verticesArray = [];
     var uvArray = [];
 
-    for (var _i167 = 0, l = shapes.length; _i167 < l; _i167++) {
-      var shape = shapes[_i167];
+    for (var _i175 = 0, l = shapes.length; _i175 < l; _i175++) {
+      var shape = shapes[_i175];
       addShape(shape);
     } // build geometry
 
 
-    _this48.setAttribute('position', new Float32BufferAttribute(verticesArray, 3));
+    _this50.setAttribute('position', new Float32BufferAttribute(verticesArray, 3));
 
-    _this48.setAttribute('uv', new Float32BufferAttribute(uvArray, 2));
+    _this50.setAttribute('uv', new Float32BufferAttribute(uvArray, 2));
 
-    _this48.computeVertexNormals(); // functions
+    _this50.computeVertexNormals(); // functions
 
 
     function addShape(shape) {
@@ -23753,12 +24061,12 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
       var contourMovements = [];
 
-      for (var _i168 = 0, il = contour.length, j = il - 1, k = _i168 + 1; _i168 < il; _i168++, j++, k++) {
+      for (var _i176 = 0, il = contour.length, j = il - 1, k = _i176 + 1; _i176 < il; _i176++, j++, k++) {
         if (j === il) j = 0;
         if (k === il) k = 0; //  (j)---(i)---(k)
         // console.log('i,j,k', i, j , k)
 
-        contourMovements[_i168] = getBevelVec(contour[_i168], contour[j], contour[k]);
+        contourMovements[_i176] = getBevelVec(contour[_i176], contour[j], contour[k]);
       }
 
       var holesMovements = [];
@@ -23769,11 +24077,11 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
         var _ahole2 = holes[_h2];
         oneHoleMovements = [];
 
-        for (var _i169 = 0, _il12 = _ahole2.length, _j6 = _il12 - 1, _k = _i169 + 1; _i169 < _il12; _i169++, _j6++, _k++) {
-          if (_j6 === _il12) _j6 = 0;
-          if (_k === _il12) _k = 0; //  (j)---(i)---(k)
+        for (var _i177 = 0, _il13 = _ahole2.length, _j6 = _il13 - 1, _k = _i177 + 1; _i177 < _il13; _i177++, _j6++, _k++) {
+          if (_j6 === _il13) _j6 = 0;
+          if (_k === _il13) _k = 0; //  (j)---(i)---(k)
 
-          oneHoleMovements[_i169] = getBevelVec(_ahole2[_i169], _ahole2[_j6], _ahole2[_k]);
+          oneHoleMovements[_i177] = getBevelVec(_ahole2[_i177], _ahole2[_j6], _ahole2[_k]);
         }
 
         holesMovements.push(oneHoleMovements);
@@ -23789,8 +24097,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
         var _bs = bevelSize * Math.sin(t * Math.PI / 2) + bevelOffset; // contract shape
 
 
-        for (var _i170 = 0, _il13 = contour.length; _i170 < _il13; _i170++) {
-          var vert = scalePt2(contour[_i170], contourMovements[_i170], _bs);
+        for (var _i178 = 0, _il14 = contour.length; _i178 < _il14; _i178++) {
+          var vert = scalePt2(contour[_i178], contourMovements[_i178], _bs);
           v(vert.x, vert.y, -z);
         } // expand holes
 
@@ -23799,8 +24107,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
           var _ahole3 = holes[_h3];
           oneHoleMovements = holesMovements[_h3];
 
-          for (var _i171 = 0, _il14 = _ahole3.length; _i171 < _il14; _i171++) {
-            var _vert = scalePt2(_ahole3[_i171], oneHoleMovements[_i171], _bs);
+          for (var _i179 = 0, _il15 = _ahole3.length; _i179 < _il15; _i179++) {
+            var _vert = scalePt2(_ahole3[_i179], oneHoleMovements[_i179], _bs);
 
             v(_vert.x, _vert.y, -z);
           }
@@ -23809,8 +24117,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
       var bs = bevelSize + bevelOffset; // Back facing vertices
 
-      for (var _i172 = 0; _i172 < vlen; _i172++) {
-        var _vert2 = bevelEnabled ? scalePt2(vertices[_i172], verticesMovements[_i172], bs) : vertices[_i172];
+      for (var _i180 = 0; _i180 < vlen; _i180++) {
+        var _vert2 = bevelEnabled ? scalePt2(vertices[_i180], verticesMovements[_i180], bs) : vertices[_i180];
 
         if (!extrudeByPath) {
           v(_vert2.x, _vert2.y, 0);
@@ -23826,8 +24134,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
 
       for (var s = 1; s <= steps; s++) {
-        for (var _i173 = 0; _i173 < vlen; _i173++) {
-          var _vert3 = bevelEnabled ? scalePt2(vertices[_i173], verticesMovements[_i173], bs) : vertices[_i173];
+        for (var _i181 = 0; _i181 < vlen; _i181++) {
+          var _vert3 = bevelEnabled ? scalePt2(vertices[_i181], verticesMovements[_i181], bs) : vertices[_i181];
 
           if (!extrudeByPath) {
             v(_vert3.x, _vert3.y, depth / steps * s);
@@ -23851,8 +24159,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
         var _bs2 = bevelSize * Math.sin(_t * Math.PI / 2) + bevelOffset; // contract shape
 
 
-        for (var _i174 = 0, _il15 = contour.length; _i174 < _il15; _i174++) {
-          var _vert4 = scalePt2(contour[_i174], contourMovements[_i174], _bs2);
+        for (var _i182 = 0, _il16 = contour.length; _i182 < _il16; _i182++) {
+          var _vert4 = scalePt2(contour[_i182], contourMovements[_i182], _bs2);
 
           v(_vert4.x, _vert4.y, depth + _z2);
         } // expand holes
@@ -23862,8 +24170,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
           var _ahole4 = holes[_h4];
           oneHoleMovements = holesMovements[_h4];
 
-          for (var _i175 = 0, _il16 = _ahole4.length; _i175 < _il16; _i175++) {
-            var _vert5 = scalePt2(_ahole4[_i175], oneHoleMovements[_i175], _bs2);
+          for (var _i183 = 0, _il17 = _ahole4.length; _i183 < _il17; _i183++) {
+            var _vert5 = scalePt2(_ahole4[_i183], oneHoleMovements[_i183], _bs2);
 
             if (!extrudeByPath) {
               v(_vert5.x, _vert5.y, depth + _z2);
@@ -23889,28 +24197,28 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
           var offset = vlen * layer; // Bottom faces
 
-          for (var _i176 = 0; _i176 < flen; _i176++) {
-            var face = faces[_i176];
+          for (var _i184 = 0; _i184 < flen; _i184++) {
+            var face = faces[_i184];
             f3(face[2] + offset, face[1] + offset, face[0] + offset);
           }
 
           layer = steps + bevelSegments * 2;
           offset = vlen * layer; // Top faces
 
-          for (var _i177 = 0; _i177 < flen; _i177++) {
-            var _face = faces[_i177];
+          for (var _i185 = 0; _i185 < flen; _i185++) {
+            var _face = faces[_i185];
             f3(_face[0] + offset, _face[1] + offset, _face[2] + offset);
           }
         } else {
           // Bottom faces
-          for (var _i178 = 0; _i178 < flen; _i178++) {
-            var _face2 = faces[_i178];
+          for (var _i186 = 0; _i186 < flen; _i186++) {
+            var _face2 = faces[_i186];
             f3(_face2[2], _face2[1], _face2[0]);
           } // Top faces
 
 
-          for (var _i179 = 0; _i179 < flen; _i179++) {
-            var _face3 = faces[_i179];
+          for (var _i187 = 0; _i187 < flen; _i187++) {
+            var _face3 = faces[_i187];
             f3(_face3[0] + vlen * steps, _face3[1] + vlen * steps, _face3[2] + vlen * steps);
           }
         }
@@ -24005,13 +24313,14 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
       }
     }
 
-    return _this48;
+    return _this50;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ExtrudeGeometry, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ExtrudeGeometry, [{
     key: "toJSON",
     value: function toJSON() {
-      var data = BufferGeometry.prototype.toJSON.call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(ExtrudeGeometry.prototype), "toJSON", this).call(this);
+
       var shapes = this.parameters.shapes;
       var options = this.parameters.options;
       return toJSON$1(shapes, options, data);
@@ -24045,7 +24354,7 @@ var WorldUVGenerator = {
     var d_y = vertices[indexD * 3 + 1];
     var d_z = vertices[indexD * 3 + 2];
 
-    if (Math.abs(a_y - b_y) < 0.01) {
+    if (Math.abs(a_y - b_y) < Math.abs(a_x - b_x)) {
       return [new Vector2(a_x, 1 - a_z), new Vector2(b_x, 1 - b_z), new Vector2(c_x, 1 - c_z), new Vector2(d_x, 1 - d_z)];
     } else {
       return [new Vector2(a_y, 1 - a_z), new Vector2(b_y, 1 - b_z), new Vector2(c_y, 1 - c_z), new Vector2(d_y, 1 - d_z)];
@@ -24057,8 +24366,8 @@ function toJSON$1(shapes, options, data) {
   data.shapes = [];
 
   if (Array.isArray(shapes)) {
-    for (var _i180 = 0, l = shapes.length; _i180 < l; _i180++) {
-      var shape = shapes[_i180];
+    for (var _i188 = 0, l = shapes.length; _i188 < l; _i188++) {
+      var shape = shapes[_i188];
       data.shapes.push(shape.uuid);
     }
   } else {
@@ -24070,50 +24379,50 @@ function toJSON$1(shapes, options, data) {
 }
 
 var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(IcosahedronGeometry, _PolyhedronGeometry2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(IcosahedronGeometry, _PolyhedronGeometry2);
 
-  var _super59 = _createSuper(IcosahedronGeometry);
+  var _super61 = _createSuper(IcosahedronGeometry);
 
   function IcosahedronGeometry() {
-    var _this49;
+    var _this51;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, IcosahedronGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, IcosahedronGeometry);
 
     var t = (1 + Math.sqrt(5)) / 2;
     var vertices = [-1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, 0, 0, -1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, t, 0, -1, t, 0, 1, -t, 0, -1, -t, 0, 1];
     var indices = [0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1];
-    _this49 = _super59.call(this, vertices, indices, radius, detail);
-    _this49.type = 'IcosahedronGeometry';
-    _this49.parameters = {
+    _this51 = _super61.call(this, vertices, indices, radius, detail);
+    _this51.type = 'IcosahedronGeometry';
+    _this51.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this49;
+    return _this51;
   }
 
   return IcosahedronGeometry;
 }(PolyhedronGeometry);
 
 var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LatheGeometry, _BufferGeometry8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LatheGeometry, _BufferGeometry8);
 
-  var _super60 = _createSuper(LatheGeometry);
+  var _super62 = _createSuper(LatheGeometry);
 
   function LatheGeometry(points) {
-    var _this50;
+    var _this52;
 
     var segments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
     var phiStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var phiLength = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Math.PI * 2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LatheGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LatheGeometry);
 
-    _this50 = _super60.call(this);
-    _this50.type = 'LatheGeometry';
-    _this50.parameters = {
+    _this52 = _super62.call(this);
+    _this52.type = 'LatheGeometry';
+    _this52.parameters = {
       points: points,
       segments: segments,
       phiStart: phiStart,
@@ -24131,8 +24440,8 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
     var vertex = new Vector3();
     var uv = new Vector2(); // generate vertices and uvs
 
-    for (var _i181 = 0; _i181 <= segments; _i181++) {
-      var phi = phiStart + _i181 * inverseSegments * phiLength;
+    for (var _i189 = 0; _i189 <= segments; _i189++) {
+      var phi = phiStart + _i189 * inverseSegments * phiLength;
       var sin = Math.sin(phi);
       var cos = Math.cos(phi);
 
@@ -24143,16 +24452,16 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
         vertex.z = points[j].x * cos;
         vertices.push(vertex.x, vertex.y, vertex.z); // uv
 
-        uv.x = _i181 / segments;
+        uv.x = _i189 / segments;
         uv.y = j / (points.length - 1);
         uvs.push(uv.x, uv.y);
       }
     } // indices
 
 
-    for (var _i182 = 0; _i182 < segments; _i182++) {
+    for (var _i190 = 0; _i190 < segments; _i190++) {
       for (var _j8 = 0; _j8 < points.length - 1; _j8++) {
-        var base = _j8 + _i182 * points.length;
+        var base = _j8 + _i190 * points.length;
         var a = base;
         var b = base + points.length;
         var c = base + points.length + 1;
@@ -24164,26 +24473,26 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
     } // build geometry
 
 
-    _this50.setIndex(indices);
+    _this52.setIndex(indices);
 
-    _this50.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this52.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this50.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // generate normals
+    _this52.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // generate normals
 
 
-    _this50.computeVertexNormals(); // if the geometry is closed, we need to average the normals along the seam.
+    _this52.computeVertexNormals(); // if the geometry is closed, we need to average the normals along the seam.
     // because the corresponding vertices are identical (but still have different UVs).
 
 
     if (phiLength === Math.PI * 2) {
-      var normals = _this50.attributes.normal.array;
+      var normals = _this52.attributes.normal.array;
       var n1 = new Vector3();
       var n2 = new Vector3();
       var n = new Vector3(); // this is the buffer offset for the last line of vertices
 
       var _base = segments * points.length * 3;
 
-      for (var _i183 = 0, _j9 = 0; _i183 < points.length; _i183++, _j9 += 3) {
+      for (var _i191 = 0, _j9 = 0; _i191 < points.length; _i191++, _j9 += 3) {
         // select the normal of the vertex in the first line
         n1.x = normals[_j9 + 0];
         n1.y = normals[_j9 + 1];
@@ -24201,34 +24510,34 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
       }
     }
 
-    return _this50;
+    return _this52;
   }
 
   return LatheGeometry;
 }(BufferGeometry);
 
 var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OctahedronGeometry, _PolyhedronGeometry3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(OctahedronGeometry, _PolyhedronGeometry3);
 
-  var _super61 = _createSuper(OctahedronGeometry);
+  var _super63 = _createSuper(OctahedronGeometry);
 
   function OctahedronGeometry() {
-    var _this51;
+    var _this53;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, OctahedronGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, OctahedronGeometry);
 
     var vertices = [1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1];
     var indices = [0, 2, 4, 0, 4, 3, 0, 3, 5, 0, 5, 2, 1, 2, 5, 1, 5, 3, 1, 3, 4, 1, 4, 2];
-    _this51 = _super61.call(this, vertices, indices, radius, detail);
-    _this51.type = 'OctahedronGeometry';
-    _this51.parameters = {
+    _this53 = _super63.call(this, vertices, indices, radius, detail);
+    _this53.type = 'OctahedronGeometry';
+    _this53.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this51;
+    return _this53;
   }
 
   return OctahedronGeometry;
@@ -24240,18 +24549,18 @@ var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
 
 
 var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ParametricGeometry, _BufferGeometry9);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ParametricGeometry, _BufferGeometry9);
 
-  var _super62 = _createSuper(ParametricGeometry);
+  var _super64 = _createSuper(ParametricGeometry);
 
   function ParametricGeometry(func, slices, stacks) {
-    var _this52;
+    var _this54;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ParametricGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ParametricGeometry);
 
-    _this52 = _super62.call(this);
-    _this52.type = 'ParametricGeometry';
-    _this52.parameters = {
+    _this54 = _super64.call(this);
+    _this54.type = 'ParametricGeometry';
+    _this54.parameters = {
       func: func,
       slices: slices,
       stacks: stacks
@@ -24275,8 +24584,8 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
 
     var sliceCount = slices + 1;
 
-    for (var _i184 = 0; _i184 <= stacks; _i184++) {
-      var v = _i184 / stacks;
+    for (var _i192 = 0; _i192 <= stacks; _i192++) {
+      var v = _i192 / stacks;
 
       for (var j = 0; j <= slices; j++) {
         var u = j / slices; // vertex
@@ -24310,12 +24619,12 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
     } // generate indices
 
 
-    for (var _i185 = 0; _i185 < stacks; _i185++) {
+    for (var _i193 = 0; _i193 < stacks; _i193++) {
       for (var _j10 = 0; _j10 < slices; _j10++) {
-        var a = _i185 * sliceCount + _j10;
-        var b = _i185 * sliceCount + _j10 + 1;
-        var c = (_i185 + 1) * sliceCount + _j10 + 1;
-        var d = (_i185 + 1) * sliceCount + _j10; // faces one and two
+        var a = _i193 * sliceCount + _j10;
+        var b = _i193 * sliceCount + _j10 + 1;
+        var c = (_i193 + 1) * sliceCount + _j10 + 1;
+        var d = (_i193 + 1) * sliceCount + _j10; // faces one and two
 
         indices.push(a, b, d);
         indices.push(b, c, d);
@@ -24323,27 +24632,27 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
     } // build geometry
 
 
-    _this52.setIndex(indices);
+    _this54.setIndex(indices);
 
-    _this52.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this54.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this52.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this54.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this52.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this54.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this52;
+    return _this54;
   }
 
   return ParametricGeometry;
 }(BufferGeometry);
 
 var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RingGeometry, _BufferGeometry10);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RingGeometry, _BufferGeometry10);
 
-  var _super63 = _createSuper(RingGeometry);
+  var _super65 = _createSuper(RingGeometry);
 
   function RingGeometry() {
-    var _this53;
+    var _this55;
 
     var innerRadius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0.5;
     var outerRadius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -24352,11 +24661,11 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     var thetaStart = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
     var thetaLength = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : Math.PI * 2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, RingGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, RingGeometry);
 
-    _this53 = _super63.call(this);
-    _this53.type = 'RingGeometry';
-    _this53.parameters = {
+    _this55 = _super65.call(this);
+    _this55.type = 'RingGeometry';
+    _this55.parameters = {
       innerRadius: innerRadius,
       outerRadius: outerRadius,
       thetaSegments: thetaSegments,
@@ -24378,9 +24687,9 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     var uv = new Vector2(); // generate vertices, normals and uvs
 
     for (var j = 0; j <= phiSegments; j++) {
-      for (var _i186 = 0; _i186 <= thetaSegments; _i186++) {
+      for (var _i194 = 0; _i194 <= thetaSegments; _i194++) {
         // values are generate from the inside of the ring to the outside
-        var segment = thetaStart + _i186 / thetaSegments * thetaLength; // vertex
+        var segment = thetaStart + _i194 / thetaSegments * thetaLength; // vertex
 
         vertex.x = radius * Math.cos(segment);
         vertex.y = radius * Math.sin(segment);
@@ -24401,8 +24710,8 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     for (var _j11 = 0; _j11 < phiSegments; _j11++) {
       var thetaSegmentLevel = _j11 * (thetaSegments + 1);
 
-      for (var _i187 = 0; _i187 < thetaSegments; _i187++) {
-        var _segment = _i187 + thetaSegmentLevel;
+      for (var _i195 = 0; _i195 < thetaSegments; _i195++) {
+        var _segment = _i195 + thetaSegmentLevel;
 
         var a = _segment;
         var b = _segment + thetaSegments + 1;
@@ -24415,35 +24724,35 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     } // build geometry
 
 
-    _this53.setIndex(indices);
+    _this55.setIndex(indices);
 
-    _this53.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this55.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this53.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this55.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this53.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this55.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this53;
+    return _this55;
   }
 
   return RingGeometry;
 }(BufferGeometry);
 
 var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapeGeometry, _BufferGeometry11);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ShapeGeometry, _BufferGeometry11);
 
-  var _super64 = _createSuper(ShapeGeometry);
+  var _super66 = _createSuper(ShapeGeometry);
 
   function ShapeGeometry(shapes) {
-    var _this54;
+    var _this56;
 
     var curveSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShapeGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShapeGeometry);
 
-    _this54 = _super64.call(this);
-    _this54.type = 'ShapeGeometry';
-    _this54.parameters = {
+    _this56 = _super66.call(this);
+    _this56.type = 'ShapeGeometry';
+    _this56.parameters = {
       shapes: shapes,
       curveSegments: curveSegments
     }; // buffers
@@ -24459,10 +24768,10 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
     if (Array.isArray(shapes) === false) {
       addShape(shapes);
     } else {
-      for (var _i188 = 0; _i188 < shapes.length; _i188++) {
-        addShape(shapes[_i188]);
+      for (var _i196 = 0; _i196 < shapes.length; _i196++) {
+        addShape(shapes[_i196]);
 
-        _this54.addGroup(groupStart, groupCount, _i188); // enables MultiMaterial support
+        _this56.addGroup(groupStart, groupCount, _i196); // enables MultiMaterial support
 
 
         groupStart += groupCount;
@@ -24471,13 +24780,13 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
     } // build geometry
 
 
-    _this54.setIndex(indices);
+    _this56.setIndex(indices);
 
-    _this54.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this56.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this54.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this56.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this54.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // helper functions
+    _this56.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // helper functions
 
 
     function addShape(shape) {
@@ -24490,32 +24799,32 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
         shapeVertices = shapeVertices.reverse();
       }
 
-      for (var _i189 = 0, l = shapeHoles.length; _i189 < l; _i189++) {
-        var shapeHole = shapeHoles[_i189];
+      for (var _i197 = 0, l = shapeHoles.length; _i197 < l; _i197++) {
+        var shapeHole = shapeHoles[_i197];
 
         if (ShapeUtils.isClockWise(shapeHole) === true) {
-          shapeHoles[_i189] = shapeHole.reverse();
+          shapeHoles[_i197] = shapeHole.reverse();
         }
       }
 
       var faces = ShapeUtils.triangulateShape(shapeVertices, shapeHoles); // join vertices of inner and outer paths to a single array
 
-      for (var _i190 = 0, _l7 = shapeHoles.length; _i190 < _l7; _i190++) {
-        var _shapeHole = shapeHoles[_i190];
+      for (var _i198 = 0, _l7 = shapeHoles.length; _i198 < _l7; _i198++) {
+        var _shapeHole = shapeHoles[_i198];
         shapeVertices = shapeVertices.concat(_shapeHole);
       } // vertices, normals, uvs
 
 
-      for (var _i191 = 0, _l8 = shapeVertices.length; _i191 < _l8; _i191++) {
-        var vertex = shapeVertices[_i191];
+      for (var _i199 = 0, _l8 = shapeVertices.length; _i199 < _l8; _i199++) {
+        var vertex = shapeVertices[_i199];
         vertices.push(vertex.x, vertex.y, 0);
         normals.push(0, 0, 1);
         uvs.push(vertex.x, vertex.y); // world uvs
       } // incides
 
 
-      for (var _i192 = 0, _l9 = faces.length; _i192 < _l9; _i192++) {
-        var face = faces[_i192];
+      for (var _i200 = 0, _l9 = faces.length; _i200 < _l9; _i200++) {
+        var face = faces[_i200];
         var a = face[0] + indexOffset;
         var b = face[1] + indexOffset;
         var c = face[2] + indexOffset;
@@ -24524,13 +24833,14 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
       }
     }
 
-    return _this54;
+    return _this56;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShapeGeometry, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapeGeometry, [{
     key: "toJSON",
     value: function toJSON() {
-      var data = BufferGeometry.prototype.toJSON.call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(ShapeGeometry.prototype), "toJSON", this).call(this);
+
       var shapes = this.parameters.shapes;
       return _toJSON(shapes, data);
     }
@@ -24543,8 +24853,8 @@ function _toJSON(shapes, data) {
   data.shapes = [];
 
   if (Array.isArray(shapes)) {
-    for (var _i193 = 0, l = shapes.length; _i193 < l; _i193++) {
-      var shape = shapes[_i193];
+    for (var _i201 = 0, l = shapes.length; _i201 < l; _i201++) {
+      var shape = shapes[_i201];
       data.shapes.push(shape.uuid);
     }
   } else {
@@ -24555,12 +24865,12 @@ function _toJSON(shapes, data) {
 }
 
 var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SphereGeometry, _BufferGeometry12);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SphereGeometry, _BufferGeometry12);
 
-  var _super65 = _createSuper(SphereGeometry);
+  var _super67 = _createSuper(SphereGeometry);
 
   function SphereGeometry() {
-    var _this55;
+    var _this57;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var widthSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
@@ -24570,11 +24880,11 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
     var thetaStart = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
     var thetaLength = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : Math.PI;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SphereGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SphereGeometry);
 
-    _this55 = _super65.call(this);
-    _this55.type = 'SphereGeometry';
-    _this55.parameters = {
+    _this57 = _super67.call(this);
+    _this57.type = 'SphereGeometry';
+    _this57.parameters = {
       radius: radius,
       widthSegments: widthSegments,
       heightSegments: heightSegments,
@@ -24639,42 +24949,42 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
     } // build geometry
 
 
-    _this55.setIndex(indices);
+    _this57.setIndex(indices);
 
-    _this55.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this57.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this55.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this57.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this55.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this57.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this55;
+    return _this57;
   }
 
   return SphereGeometry;
 }(BufferGeometry);
 
 var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TetrahedronGeometry, _PolyhedronGeometry4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TetrahedronGeometry, _PolyhedronGeometry4);
 
-  var _super66 = _createSuper(TetrahedronGeometry);
+  var _super68 = _createSuper(TetrahedronGeometry);
 
   function TetrahedronGeometry() {
-    var _this56;
+    var _this58;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TetrahedronGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TetrahedronGeometry);
 
     var vertices = [1, 1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1];
     var indices = [2, 1, 0, 0, 3, 2, 1, 3, 0, 2, 3, 1];
-    _this56 = _super66.call(this, vertices, indices, radius, detail);
-    _this56.type = 'TetrahedronGeometry';
-    _this56.parameters = {
+    _this58 = _super68.call(this, vertices, indices, radius, detail);
+    _this58.type = 'TetrahedronGeometry';
+    _this58.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this56;
+    return _this58;
   }
 
   return TetrahedronGeometry;
@@ -24698,22 +25008,22 @@ var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
 
 
 var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TextGeometry, _ExtrudeGeometry);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TextGeometry, _ExtrudeGeometry);
 
-  var _super67 = _createSuper(TextGeometry);
+  var _super69 = _createSuper(TextGeometry);
 
   function TextGeometry(text) {
-    var _this57;
+    var _this59;
 
     var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TextGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TextGeometry);
 
     var font = parameters.font;
 
     if (!(font && font.isFont)) {
       console.error('THREE.TextGeometry: font parameter is not an instance of THREE.Font.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this57, new BufferGeometry());
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this59, new BufferGeometry());
     }
 
     var shapes = font.generateShapes(text, parameters.size); // translate parameters to ExtrudeGeometry API
@@ -24723,21 +25033,21 @@ var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
     if (parameters.bevelThickness === undefined) parameters.bevelThickness = 10;
     if (parameters.bevelSize === undefined) parameters.bevelSize = 8;
     if (parameters.bevelEnabled === undefined) parameters.bevelEnabled = false;
-    _this57 = _super67.call(this, shapes, parameters);
-    _this57.type = 'TextGeometry';
-    return _this57;
+    _this59 = _super69.call(this, shapes, parameters);
+    _this59.type = 'TextGeometry';
+    return _this59;
   }
 
   return TextGeometry;
 }(ExtrudeGeometry);
 
 var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusGeometry, _BufferGeometry13);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TorusGeometry, _BufferGeometry13);
 
-  var _super68 = _createSuper(TorusGeometry);
+  var _super70 = _createSuper(TorusGeometry);
 
   function TorusGeometry() {
-    var _this58;
+    var _this60;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var tube = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.4;
@@ -24745,11 +25055,11 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
     var tubularSegments = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 6;
     var arc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : Math.PI * 2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TorusGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TorusGeometry);
 
-    _this58 = _super68.call(this);
-    _this58.type = 'TorusGeometry';
-    _this58.parameters = {
+    _this60 = _super70.call(this);
+    _this60.type = 'TorusGeometry';
+    _this60.parameters = {
       radius: radius,
       tube: tube,
       radialSegments: radialSegments,
@@ -24769,8 +25079,8 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
     var normal = new Vector3(); // generate vertices, normals and uvs
 
     for (var j = 0; j <= radialSegments; j++) {
-      for (var _i194 = 0; _i194 <= tubularSegments; _i194++) {
-        var u = _i194 / tubularSegments * arc;
+      for (var _i202 = 0; _i202 <= tubularSegments; _i202++) {
+        var u = _i202 / tubularSegments * arc;
         var v = j / radialSegments * Math.PI * 2; // vertex
 
         vertex.x = (radius + tube * Math.cos(v)) * Math.cos(u);
@@ -24783,19 +25093,19 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
         normal.subVectors(vertex, center).normalize();
         normals.push(normal.x, normal.y, normal.z); // uv
 
-        uvs.push(_i194 / tubularSegments);
+        uvs.push(_i202 / tubularSegments);
         uvs.push(j / radialSegments);
       }
     } // generate indices
 
 
     for (var _j12 = 1; _j12 <= radialSegments; _j12++) {
-      for (var _i195 = 1; _i195 <= tubularSegments; _i195++) {
+      for (var _i203 = 1; _i203 <= tubularSegments; _i203++) {
         // indices
-        var a = (tubularSegments + 1) * _j12 + _i195 - 1;
-        var b = (tubularSegments + 1) * (_j12 - 1) + _i195 - 1;
-        var c = (tubularSegments + 1) * (_j12 - 1) + _i195;
-        var d = (tubularSegments + 1) * _j12 + _i195; // faces
+        var a = (tubularSegments + 1) * _j12 + _i203 - 1;
+        var b = (tubularSegments + 1) * (_j12 - 1) + _i203 - 1;
+        var c = (tubularSegments + 1) * (_j12 - 1) + _i203;
+        var d = (tubularSegments + 1) * _j12 + _i203; // faces
 
         indices.push(a, b, d);
         indices.push(b, c, d);
@@ -24803,27 +25113,27 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
     } // build geometry
 
 
-    _this58.setIndex(indices);
+    _this60.setIndex(indices);
 
-    _this58.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this60.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this58.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this60.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this58.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this60.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this58;
+    return _this60;
   }
 
   return TorusGeometry;
 }(BufferGeometry);
 
 var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusKnotGeometry, _BufferGeometry14);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TorusKnotGeometry, _BufferGeometry14);
 
-  var _super69 = _createSuper(TorusKnotGeometry);
+  var _super71 = _createSuper(TorusKnotGeometry);
 
   function TorusKnotGeometry() {
-    var _this59;
+    var _this61;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var tube = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.4;
@@ -24832,11 +25142,11 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
     var p = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 2;
     var q = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 3;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TorusKnotGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TorusKnotGeometry);
 
-    _this59 = _super69.call(this);
-    _this59.type = 'TorusKnotGeometry';
-    _this59.parameters = {
+    _this61 = _super71.call(this);
+    _this61.type = 'TorusKnotGeometry';
+    _this61.parameters = {
       radius: radius,
       tube: tube,
       tubularSegments: tubularSegments,
@@ -24860,9 +25170,9 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
     var T = new Vector3();
     var N = new Vector3(); // generate vertices, normals and uvs
 
-    for (var _i196 = 0; _i196 <= tubularSegments; ++_i196) {
+    for (var _i204 = 0; _i204 <= tubularSegments; ++_i204) {
       // the radian "u" is used to calculate the position on the torus curve of the current tubular segement
-      var u = _i196 / tubularSegments * p * Math.PI * 2; // now we calculate two points. P1 is our current position on the curve, P2 is a little farther ahead.
+      var u = _i204 / tubularSegments * p * Math.PI * 2; // now we calculate two points. P1 is our current position on the curve, P2 is a little farther ahead.
       // these points are used to create a special "coordinate space", which is necessary to calculate the correct vertex positions
 
       calculatePositionOnCurve(u, p, q, radius, P1);
@@ -24892,19 +25202,19 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
         normal.subVectors(vertex, P1).normalize();
         normals.push(normal.x, normal.y, normal.z); // uv
 
-        uvs.push(_i196 / tubularSegments);
+        uvs.push(_i204 / tubularSegments);
         uvs.push(j / radialSegments);
       }
     } // generate indices
 
 
     for (var _j13 = 1; _j13 <= tubularSegments; _j13++) {
-      for (var _i197 = 1; _i197 <= radialSegments; _i197++) {
+      for (var _i205 = 1; _i205 <= radialSegments; _i205++) {
         // indices
-        var a = (radialSegments + 1) * (_j13 - 1) + (_i197 - 1);
-        var b = (radialSegments + 1) * _j13 + (_i197 - 1);
-        var c = (radialSegments + 1) * _j13 + _i197;
-        var d = (radialSegments + 1) * (_j13 - 1) + _i197; // faces
+        var a = (radialSegments + 1) * (_j13 - 1) + (_i205 - 1);
+        var b = (radialSegments + 1) * _j13 + (_i205 - 1);
+        var c = (radialSegments + 1) * _j13 + _i205;
+        var d = (radialSegments + 1) * (_j13 - 1) + _i205; // faces
 
         indices.push(a, b, d);
         indices.push(b, c, d);
@@ -24912,13 +25222,13 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
     } // build geometry
 
 
-    _this59.setIndex(indices);
+    _this61.setIndex(indices);
 
-    _this59.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this61.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this59.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this61.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this59.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // this function calculates the current position on the torus curve
+    _this61.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // this function calculates the current position on the torus curve
 
 
     function calculatePositionOnCurve(u, p, q, radius, position) {
@@ -24931,30 +25241,30 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
       position.z = radius * Math.sin(quOverP) * 0.5;
     }
 
-    return _this59;
+    return _this61;
   }
 
   return TorusKnotGeometry;
 }(BufferGeometry);
 
 var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TubeGeometry, _BufferGeometry15);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TubeGeometry, _BufferGeometry15);
 
-  var _super70 = _createSuper(TubeGeometry);
+  var _super72 = _createSuper(TubeGeometry);
 
   function TubeGeometry(path) {
-    var _this60;
+    var _this62;
 
     var tubularSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 64;
     var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
     var radialSegments = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 8;
     var closed = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TubeGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TubeGeometry);
 
-    _this60 = _super70.call(this);
-    _this60.type = 'TubeGeometry';
-    _this60.parameters = {
+    _this62 = _super72.call(this);
+    _this62.type = 'TubeGeometry';
+    _this62.parameters = {
       path: path,
       tubularSegments: tubularSegments,
       radius: radius,
@@ -24963,9 +25273,9 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
     };
     var frames = path.computeFrenetFrames(tubularSegments, closed); // expose internals
 
-    _this60.tangents = frames.tangents;
-    _this60.normals = frames.normals;
-    _this60.binormals = frames.binormals; // helper variables
+    _this62.tangents = frames.tangents;
+    _this62.normals = frames.normals;
+    _this62.binormals = frames.binormals; // helper variables
 
     var vertex = new Vector3();
     var normal = new Vector3();
@@ -24979,18 +25289,18 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 
     generateBufferData(); // build geometry
 
-    _this60.setIndex(indices);
+    _this62.setIndex(indices);
 
-    _this60.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this62.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this60.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this62.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this60.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // functions
+    _this62.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // functions
 
 
     function generateBufferData() {
-      for (var _i198 = 0; _i198 < tubularSegments; _i198++) {
-        generateSegment(_i198);
+      for (var _i206 = 0; _i206 < tubularSegments; _i206++) {
+        generateSegment(_i206);
       } // if the geometry is not closed, generate the last row of vertices and normals
       // at the regular position on the given path
       //
@@ -25032,11 +25342,11 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 
     function generateIndices() {
       for (var j = 1; j <= tubularSegments; j++) {
-        for (var _i199 = 1; _i199 <= radialSegments; _i199++) {
-          var a = (radialSegments + 1) * (j - 1) + (_i199 - 1);
-          var b = (radialSegments + 1) * j + (_i199 - 1);
-          var c = (radialSegments + 1) * j + _i199;
-          var d = (radialSegments + 1) * (j - 1) + _i199; // faces
+        for (var _i207 = 1; _i207 <= radialSegments; _i207++) {
+          var a = (radialSegments + 1) * (j - 1) + (_i207 - 1);
+          var b = (radialSegments + 1) * j + (_i207 - 1);
+          var c = (radialSegments + 1) * j + _i207;
+          var d = (radialSegments + 1) * (j - 1) + _i207; // faces
 
           indices.push(a, b, d);
           indices.push(b, c, d);
@@ -25045,22 +25355,23 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
     }
 
     function generateUVs() {
-      for (var _i200 = 0; _i200 <= tubularSegments; _i200++) {
+      for (var _i208 = 0; _i208 <= tubularSegments; _i208++) {
         for (var j = 0; j <= radialSegments; j++) {
-          uv.x = _i200 / tubularSegments;
+          uv.x = _i208 / tubularSegments;
           uv.y = j / radialSegments;
           uvs.push(uv.x, uv.y);
         }
       }
     }
 
-    return _this60;
+    return _this62;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(TubeGeometry, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TubeGeometry, [{
     key: "toJSON",
     value: function toJSON() {
-      var data = BufferGeometry.prototype.toJSON.call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(TubeGeometry.prototype), "toJSON", this).call(this);
+
       data.path = this.parameters.path.toJSON();
       return data;
     }
@@ -25070,21 +25381,21 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 }(BufferGeometry);
 
 var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WireframeGeometry, _BufferGeometry16);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WireframeGeometry, _BufferGeometry16);
 
-  var _super71 = _createSuper(WireframeGeometry);
+  var _super73 = _createSuper(WireframeGeometry);
 
   function WireframeGeometry(geometry) {
-    var _this61;
+    var _this63;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, WireframeGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WireframeGeometry);
 
-    _this61 = _super71.call(this);
-    _this61.type = 'WireframeGeometry';
+    _this63 = _super73.call(this);
+    _this63.type = 'WireframeGeometry';
 
     if (geometry.isGeometry === true) {
       console.error('THREE.WireframeGeometry no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this61);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this63);
     } // buffer
 
 
@@ -25114,10 +25425,10 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
         var start = group.start;
         var count = group.count;
 
-        for (var _i201 = start, l = start + count; _i201 < l; _i201 += 3) {
+        for (var _i209 = start, l = start + count; _i209 < l; _i209 += 3) {
           for (var j = 0; j < 3; j++) {
-            var edge1 = indices.getX(_i201 + j);
-            var edge2 = indices.getX(_i201 + (j + 1) % 3);
+            var edge1 = indices.getX(_i209 + j);
+            var edge2 = indices.getX(_i209 + (j + 1) % 3);
             edge[0] = Math.min(edge1, edge2); // sorting prevents duplicates
 
             edge[1] = Math.max(edge1, edge2);
@@ -25145,14 +25456,14 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
       // non-indexed BufferGeometry
       var _position2 = geometry.attributes.position;
 
-      for (var _i202 = 0, _l10 = _position2.count / 3; _i202 < _l10; _i202++) {
+      for (var _i210 = 0, _l10 = _position2.count / 3; _i210 < _l10; _i210++) {
         for (var _j14 = 0; _j14 < 3; _j14++) {
           // three edges per triangle, an edge is represented as (index1, index2)
           // e.g. the first triangle has the following edges: (0,1),(1,2),(2,0)
-          var index1 = 3 * _i202 + _j14;
+          var index1 = 3 * _i210 + _j14;
           vertex.fromBufferAttribute(_position2, index1);
           vertices.push(vertex.x, vertex.y, vertex.z);
-          var index2 = 3 * _i202 + (_j14 + 1) % 3;
+          var index2 = 3 * _i210 + (_j14 + 1) % 3;
           vertex.fromBufferAttribute(_position2, index2);
           vertices.push(vertex.x, vertex.y, vertex.z);
         }
@@ -25160,9 +25471,9 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
     } // build geometry
 
 
-    _this61.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this63.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    return _this61;
+    return _this63;
   }
 
   return WireframeGeometry;
@@ -25220,29 +25531,29 @@ var Geometries = /*#__PURE__*/Object.freeze({
  */
 
 var ShadowMaterial = /*#__PURE__*/function (_Material8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShadowMaterial, _Material8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ShadowMaterial, _Material8);
 
-  var _super72 = _createSuper(ShadowMaterial);
+  var _super74 = _createSuper(ShadowMaterial);
 
   function ShadowMaterial(parameters) {
-    var _this62;
+    var _this64;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShadowMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShadowMaterial);
 
-    _this62 = _super72.call(this);
-    _this62.type = 'ShadowMaterial';
-    _this62.color = new Color(0x000000);
-    _this62.transparent = true;
+    _this64 = _super74.call(this);
+    _this64.type = 'ShadowMaterial';
+    _this64.color = new Color(0x000000);
+    _this64.transparent = true;
 
-    _this62.setValues(parameters);
+    _this64.setValues(parameters);
 
-    return _this62;
+    return _this64;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShadowMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShadowMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(ShadowMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(ShadowMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       return this;
@@ -25255,18 +25566,18 @@ var ShadowMaterial = /*#__PURE__*/function (_Material8) {
 ShadowMaterial.prototype.isShadowMaterial = true;
 
 var RawShaderMaterial = /*#__PURE__*/function (_ShaderMaterial) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RawShaderMaterial, _ShaderMaterial);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RawShaderMaterial, _ShaderMaterial);
 
-  var _super73 = _createSuper(RawShaderMaterial);
+  var _super75 = _createSuper(RawShaderMaterial);
 
   function RawShaderMaterial(parameters) {
-    var _this63;
+    var _this65;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, RawShaderMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, RawShaderMaterial);
 
-    _this63 = _super73.call(this, parameters);
-    _this63.type = 'RawShaderMaterial';
-    return _this63;
+    _this65 = _super75.call(this, parameters);
+    _this65.type = 'RawShaderMaterial';
+    return _this65;
   }
 
   return RawShaderMaterial;
@@ -25317,7 +25628,6 @@ RawShaderMaterial.prototype.isRawShaderMaterial = true;
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>,
  *
@@ -25326,65 +25636,64 @@ RawShaderMaterial.prototype.isRawShaderMaterial = true;
  */
 
 var MeshStandardMaterial = /*#__PURE__*/function (_Material9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshStandardMaterial, _Material9);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshStandardMaterial, _Material9);
 
-  var _super74 = _createSuper(MeshStandardMaterial);
+  var _super76 = _createSuper(MeshStandardMaterial);
 
   function MeshStandardMaterial(parameters) {
-    var _this64;
+    var _this66;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshStandardMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshStandardMaterial);
 
-    _this64 = _super74.call(this);
-    _this64.defines = {
+    _this66 = _super76.call(this);
+    _this66.defines = {
       'STANDARD': ''
     };
-    _this64.type = 'MeshStandardMaterial';
-    _this64.color = new Color(0xffffff); // diffuse
+    _this66.type = 'MeshStandardMaterial';
+    _this66.color = new Color(0xffffff); // diffuse
 
-    _this64.roughness = 1.0;
-    _this64.metalness = 0.0;
-    _this64.map = null;
-    _this64.lightMap = null;
-    _this64.lightMapIntensity = 1.0;
-    _this64.aoMap = null;
-    _this64.aoMapIntensity = 1.0;
-    _this64.emissive = new Color(0x000000);
-    _this64.emissiveIntensity = 1.0;
-    _this64.emissiveMap = null;
-    _this64.bumpMap = null;
-    _this64.bumpScale = 1;
-    _this64.normalMap = null;
-    _this64.normalMapType = TangentSpaceNormalMap;
-    _this64.normalScale = new Vector2(1, 1);
-    _this64.displacementMap = null;
-    _this64.displacementScale = 1;
-    _this64.displacementBias = 0;
-    _this64.roughnessMap = null;
-    _this64.metalnessMap = null;
-    _this64.alphaMap = null;
-    _this64.envMap = null;
-    _this64.envMapIntensity = 1.0;
-    _this64.refractionRatio = 0.98;
-    _this64.wireframe = false;
-    _this64.wireframeLinewidth = 1;
-    _this64.wireframeLinecap = 'round';
-    _this64.wireframeLinejoin = 'round';
-    _this64.skinning = false;
-    _this64.morphTargets = false;
-    _this64.morphNormals = false;
-    _this64.flatShading = false;
-    _this64.vertexTangents = false;
+    _this66.roughness = 1.0;
+    _this66.metalness = 0.0;
+    _this66.map = null;
+    _this66.lightMap = null;
+    _this66.lightMapIntensity = 1.0;
+    _this66.aoMap = null;
+    _this66.aoMapIntensity = 1.0;
+    _this66.emissive = new Color(0x000000);
+    _this66.emissiveIntensity = 1.0;
+    _this66.emissiveMap = null;
+    _this66.bumpMap = null;
+    _this66.bumpScale = 1;
+    _this66.normalMap = null;
+    _this66.normalMapType = TangentSpaceNormalMap;
+    _this66.normalScale = new Vector2(1, 1);
+    _this66.displacementMap = null;
+    _this66.displacementScale = 1;
+    _this66.displacementBias = 0;
+    _this66.roughnessMap = null;
+    _this66.metalnessMap = null;
+    _this66.alphaMap = null;
+    _this66.envMap = null;
+    _this66.envMapIntensity = 1.0;
+    _this66.refractionRatio = 0.98;
+    _this66.wireframe = false;
+    _this66.wireframeLinewidth = 1;
+    _this66.wireframeLinecap = 'round';
+    _this66.wireframeLinejoin = 'round';
+    _this66.morphTargets = false;
+    _this66.morphNormals = false;
+    _this66.flatShading = false;
+    _this66.vertexTangents = false;
 
-    _this64.setValues(parameters);
+    _this66.setValues(parameters);
 
-    return _this64;
+    return _this66;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshStandardMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshStandardMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshStandardMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshStandardMaterial.prototype), "copy", this).call(this, source);
 
       this.defines = {
         'STANDARD': ''
@@ -25418,7 +25727,6 @@ var MeshStandardMaterial = /*#__PURE__*/function (_Material9) {
       this.wireframeLinewidth = source.wireframeLinewidth;
       this.wireframeLinecap = source.wireframeLinecap;
       this.wireframeLinejoin = source.wireframeLinejoin;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       this.flatShading = source.flatShading;
@@ -25446,35 +25754,40 @@ MeshStandardMaterial.prototype.isMeshStandardMaterial = true;
  *  sheen: <Color>,
  *
  *  transmission: <float>,
- *  transmissionMap: new THREE.Texture( <Image> )
+ *  transmissionMap: new THREE.Texture( <Image> ),
+ *
+ *  thickness: <float>,
+ *  thicknessMap: new THREE.Texture( <Image> ),
+ *  attenuationDistance: <float>,
+ *  attenuationColor: <Color>
  * }
  */
 
 var MeshPhysicalMaterial = /*#__PURE__*/function (_MeshStandardMaterial) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhysicalMaterial, _MeshStandardMaterial);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshPhysicalMaterial, _MeshStandardMaterial);
 
-  var _super75 = _createSuper(MeshPhysicalMaterial);
+  var _super77 = _createSuper(MeshPhysicalMaterial);
 
   function MeshPhysicalMaterial(parameters) {
-    var _this65;
+    var _this67;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshPhysicalMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshPhysicalMaterial);
 
-    _this65 = _super75.call(this);
-    _this65.defines = {
+    _this67 = _super77.call(this);
+    _this67.defines = {
       'STANDARD': '',
       'PHYSICAL': ''
     };
-    _this65.type = 'MeshPhysicalMaterial';
-    _this65.clearcoat = 0.0;
-    _this65.clearcoatMap = null;
-    _this65.clearcoatRoughness = 0.0;
-    _this65.clearcoatRoughnessMap = null;
-    _this65.clearcoatNormalScale = new Vector2(1, 1);
-    _this65.clearcoatNormalMap = null;
-    _this65.reflectivity = 0.5; // maps to F0 = 0.04
+    _this67.type = 'MeshPhysicalMaterial';
+    _this67.clearcoat = 0.0;
+    _this67.clearcoatMap = null;
+    _this67.clearcoatRoughness = 0.0;
+    _this67.clearcoatRoughnessMap = null;
+    _this67.clearcoatNormalScale = new Vector2(1, 1);
+    _this67.clearcoatNormalMap = null;
+    _this67.reflectivity = 0.5; // maps to F0 = 0.04
 
-    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_this65), 'ior', {
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this67), 'ior', {
       get: function get() {
         return (1 + 0.4 * this.reflectivity) / (1 - 0.4 * this.reflectivity);
       },
@@ -25482,20 +25795,24 @@ var MeshPhysicalMaterial = /*#__PURE__*/function (_MeshStandardMaterial) {
         this.reflectivity = clamp(2.5 * (ior - 1) / (ior + 1), 0, 1);
       }
     });
-    _this65.sheen = null; // null will disable sheen bsdf
+    _this67.sheen = null; // null will disable sheen bsdf
 
-    _this65.transmission = 0.0;
-    _this65.transmissionMap = null;
+    _this67.transmission = 0.0;
+    _this67.transmissionMap = null;
+    _this67.thickness = 0.01;
+    _this67.thicknessMap = null;
+    _this67.attenuationDistance = 0.0;
+    _this67.attenuationColor = new Color(1, 1, 1);
 
-    _this65.setValues(parameters);
+    _this67.setValues(parameters);
 
-    return _this65;
+    return _this67;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshPhysicalMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhysicalMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshPhysicalMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshPhysicalMaterial.prototype), "copy", this).call(this, source);
 
       this.defines = {
         'STANDARD': '',
@@ -25517,6 +25834,10 @@ var MeshPhysicalMaterial = /*#__PURE__*/function (_MeshStandardMaterial) {
 
       this.transmission = source.transmission;
       this.transmissionMap = source.transmissionMap;
+      this.thickness = source.thickness;
+      this.thicknessMap = source.thicknessMap;
+      this.attenuationDistance = source.attenuationDistance;
+      this.attenuationColor.copy(source.attenuationColor);
       return this;
     }
   }]);
@@ -25567,7 +25888,6 @@ MeshPhysicalMaterial.prototype.isMeshPhysicalMaterial = true;
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>,
  *
@@ -25576,61 +25896,60 @@ MeshPhysicalMaterial.prototype.isMeshPhysicalMaterial = true;
  */
 
 var MeshPhongMaterial = /*#__PURE__*/function (_Material10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhongMaterial, _Material10);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshPhongMaterial, _Material10);
 
-  var _super76 = _createSuper(MeshPhongMaterial);
+  var _super78 = _createSuper(MeshPhongMaterial);
 
   function MeshPhongMaterial(parameters) {
-    var _this66;
+    var _this68;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshPhongMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshPhongMaterial);
 
-    _this66 = _super76.call(this);
-    _this66.type = 'MeshPhongMaterial';
-    _this66.color = new Color(0xffffff); // diffuse
+    _this68 = _super78.call(this);
+    _this68.type = 'MeshPhongMaterial';
+    _this68.color = new Color(0xffffff); // diffuse
 
-    _this66.specular = new Color(0x111111);
-    _this66.shininess = 30;
-    _this66.map = null;
-    _this66.lightMap = null;
-    _this66.lightMapIntensity = 1.0;
-    _this66.aoMap = null;
-    _this66.aoMapIntensity = 1.0;
-    _this66.emissive = new Color(0x000000);
-    _this66.emissiveIntensity = 1.0;
-    _this66.emissiveMap = null;
-    _this66.bumpMap = null;
-    _this66.bumpScale = 1;
-    _this66.normalMap = null;
-    _this66.normalMapType = TangentSpaceNormalMap;
-    _this66.normalScale = new Vector2(1, 1);
-    _this66.displacementMap = null;
-    _this66.displacementScale = 1;
-    _this66.displacementBias = 0;
-    _this66.specularMap = null;
-    _this66.alphaMap = null;
-    _this66.envMap = null;
-    _this66.combine = MultiplyOperation;
-    _this66.reflectivity = 1;
-    _this66.refractionRatio = 0.98;
-    _this66.wireframe = false;
-    _this66.wireframeLinewidth = 1;
-    _this66.wireframeLinecap = 'round';
-    _this66.wireframeLinejoin = 'round';
-    _this66.skinning = false;
-    _this66.morphTargets = false;
-    _this66.morphNormals = false;
-    _this66.flatShading = false;
+    _this68.specular = new Color(0x111111);
+    _this68.shininess = 30;
+    _this68.map = null;
+    _this68.lightMap = null;
+    _this68.lightMapIntensity = 1.0;
+    _this68.aoMap = null;
+    _this68.aoMapIntensity = 1.0;
+    _this68.emissive = new Color(0x000000);
+    _this68.emissiveIntensity = 1.0;
+    _this68.emissiveMap = null;
+    _this68.bumpMap = null;
+    _this68.bumpScale = 1;
+    _this68.normalMap = null;
+    _this68.normalMapType = TangentSpaceNormalMap;
+    _this68.normalScale = new Vector2(1, 1);
+    _this68.displacementMap = null;
+    _this68.displacementScale = 1;
+    _this68.displacementBias = 0;
+    _this68.specularMap = null;
+    _this68.alphaMap = null;
+    _this68.envMap = null;
+    _this68.combine = MultiplyOperation;
+    _this68.reflectivity = 1;
+    _this68.refractionRatio = 0.98;
+    _this68.wireframe = false;
+    _this68.wireframeLinewidth = 1;
+    _this68.wireframeLinecap = 'round';
+    _this68.wireframeLinejoin = 'round';
+    _this68.morphTargets = false;
+    _this68.morphNormals = false;
+    _this68.flatShading = false;
 
-    _this66.setValues(parameters);
+    _this68.setValues(parameters);
 
-    return _this66;
+    return _this68;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshPhongMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhongMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshPhongMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshPhongMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.specular.copy(source.specular);
@@ -25661,7 +25980,6 @@ var MeshPhongMaterial = /*#__PURE__*/function (_Material10) {
       this.wireframeLinewidth = source.wireframeLinewidth;
       this.wireframeLinecap = source.wireframeLinecap;
       this.wireframeLinejoin = source.wireframeLinejoin;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       this.flatShading = source.flatShading;
@@ -25706,63 +26024,61 @@ MeshPhongMaterial.prototype.isMeshPhongMaterial = true;
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>
  * }
  */
 
 var MeshToonMaterial = /*#__PURE__*/function (_Material11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshToonMaterial, _Material11);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshToonMaterial, _Material11);
 
-  var _super77 = _createSuper(MeshToonMaterial);
+  var _super79 = _createSuper(MeshToonMaterial);
 
   function MeshToonMaterial(parameters) {
-    var _this67;
+    var _this69;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshToonMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshToonMaterial);
 
-    _this67 = _super77.call(this);
-    _this67.defines = {
+    _this69 = _super79.call(this);
+    _this69.defines = {
       'TOON': ''
     };
-    _this67.type = 'MeshToonMaterial';
-    _this67.color = new Color(0xffffff);
-    _this67.map = null;
-    _this67.gradientMap = null;
-    _this67.lightMap = null;
-    _this67.lightMapIntensity = 1.0;
-    _this67.aoMap = null;
-    _this67.aoMapIntensity = 1.0;
-    _this67.emissive = new Color(0x000000);
-    _this67.emissiveIntensity = 1.0;
-    _this67.emissiveMap = null;
-    _this67.bumpMap = null;
-    _this67.bumpScale = 1;
-    _this67.normalMap = null;
-    _this67.normalMapType = TangentSpaceNormalMap;
-    _this67.normalScale = new Vector2(1, 1);
-    _this67.displacementMap = null;
-    _this67.displacementScale = 1;
-    _this67.displacementBias = 0;
-    _this67.alphaMap = null;
-    _this67.wireframe = false;
-    _this67.wireframeLinewidth = 1;
-    _this67.wireframeLinecap = 'round';
-    _this67.wireframeLinejoin = 'round';
-    _this67.skinning = false;
-    _this67.morphTargets = false;
-    _this67.morphNormals = false;
+    _this69.type = 'MeshToonMaterial';
+    _this69.color = new Color(0xffffff);
+    _this69.map = null;
+    _this69.gradientMap = null;
+    _this69.lightMap = null;
+    _this69.lightMapIntensity = 1.0;
+    _this69.aoMap = null;
+    _this69.aoMapIntensity = 1.0;
+    _this69.emissive = new Color(0x000000);
+    _this69.emissiveIntensity = 1.0;
+    _this69.emissiveMap = null;
+    _this69.bumpMap = null;
+    _this69.bumpScale = 1;
+    _this69.normalMap = null;
+    _this69.normalMapType = TangentSpaceNormalMap;
+    _this69.normalScale = new Vector2(1, 1);
+    _this69.displacementMap = null;
+    _this69.displacementScale = 1;
+    _this69.displacementBias = 0;
+    _this69.alphaMap = null;
+    _this69.wireframe = false;
+    _this69.wireframeLinewidth = 1;
+    _this69.wireframeLinecap = 'round';
+    _this69.wireframeLinejoin = 'round';
+    _this69.morphTargets = false;
+    _this69.morphNormals = false;
 
-    _this67.setValues(parameters);
+    _this69.setValues(parameters);
 
-    return _this67;
+    return _this69;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshToonMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshToonMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshToonMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshToonMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.map = source.map;
@@ -25787,7 +26103,6 @@ var MeshToonMaterial = /*#__PURE__*/function (_Material11) {
       this.wireframeLinewidth = source.wireframeLinewidth;
       this.wireframeLinecap = source.wireframeLinecap;
       this.wireframeLinejoin = source.wireframeLinejoin;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       return this;
@@ -25816,7 +26131,6 @@ MeshToonMaterial.prototype.isMeshToonMaterial = true;
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>,
  *
@@ -25825,42 +26139,41 @@ MeshToonMaterial.prototype.isMeshToonMaterial = true;
  */
 
 var MeshNormalMaterial = /*#__PURE__*/function (_Material12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshNormalMaterial, _Material12);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshNormalMaterial, _Material12);
 
-  var _super78 = _createSuper(MeshNormalMaterial);
+  var _super80 = _createSuper(MeshNormalMaterial);
 
   function MeshNormalMaterial(parameters) {
-    var _this68;
+    var _this70;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshNormalMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshNormalMaterial);
 
-    _this68 = _super78.call(this);
-    _this68.type = 'MeshNormalMaterial';
-    _this68.bumpMap = null;
-    _this68.bumpScale = 1;
-    _this68.normalMap = null;
-    _this68.normalMapType = TangentSpaceNormalMap;
-    _this68.normalScale = new Vector2(1, 1);
-    _this68.displacementMap = null;
-    _this68.displacementScale = 1;
-    _this68.displacementBias = 0;
-    _this68.wireframe = false;
-    _this68.wireframeLinewidth = 1;
-    _this68.fog = false;
-    _this68.skinning = false;
-    _this68.morphTargets = false;
-    _this68.morphNormals = false;
-    _this68.flatShading = false;
+    _this70 = _super80.call(this);
+    _this70.type = 'MeshNormalMaterial';
+    _this70.bumpMap = null;
+    _this70.bumpScale = 1;
+    _this70.normalMap = null;
+    _this70.normalMapType = TangentSpaceNormalMap;
+    _this70.normalScale = new Vector2(1, 1);
+    _this70.displacementMap = null;
+    _this70.displacementScale = 1;
+    _this70.displacementBias = 0;
+    _this70.wireframe = false;
+    _this70.wireframeLinewidth = 1;
+    _this70.fog = false;
+    _this70.morphTargets = false;
+    _this70.morphNormals = false;
+    _this70.flatShading = false;
 
-    _this68.setValues(parameters);
+    _this70.setValues(parameters);
 
-    return _this68;
+    return _this70;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshNormalMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshNormalMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshNormalMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshNormalMaterial.prototype), "copy", this).call(this, source);
 
       this.bumpMap = source.bumpMap;
       this.bumpScale = source.bumpScale;
@@ -25872,7 +26185,6 @@ var MeshNormalMaterial = /*#__PURE__*/function (_Material12) {
       this.displacementBias = source.displacementBias;
       this.wireframe = source.wireframe;
       this.wireframeLinewidth = source.wireframeLinewidth;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       this.flatShading = source.flatShading;
@@ -25913,57 +26225,55 @@ MeshNormalMaterial.prototype.isMeshNormalMaterial = true;
  *  wireframe: <boolean>,
  *  wireframeLinewidth: <float>,
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>
  * }
  */
 
 var MeshLambertMaterial = /*#__PURE__*/function (_Material13) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshLambertMaterial, _Material13);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshLambertMaterial, _Material13);
 
-  var _super79 = _createSuper(MeshLambertMaterial);
+  var _super81 = _createSuper(MeshLambertMaterial);
 
   function MeshLambertMaterial(parameters) {
-    var _this69;
+    var _this71;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshLambertMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshLambertMaterial);
 
-    _this69 = _super79.call(this);
-    _this69.type = 'MeshLambertMaterial';
-    _this69.color = new Color(0xffffff); // diffuse
+    _this71 = _super81.call(this);
+    _this71.type = 'MeshLambertMaterial';
+    _this71.color = new Color(0xffffff); // diffuse
 
-    _this69.map = null;
-    _this69.lightMap = null;
-    _this69.lightMapIntensity = 1.0;
-    _this69.aoMap = null;
-    _this69.aoMapIntensity = 1.0;
-    _this69.emissive = new Color(0x000000);
-    _this69.emissiveIntensity = 1.0;
-    _this69.emissiveMap = null;
-    _this69.specularMap = null;
-    _this69.alphaMap = null;
-    _this69.envMap = null;
-    _this69.combine = MultiplyOperation;
-    _this69.reflectivity = 1;
-    _this69.refractionRatio = 0.98;
-    _this69.wireframe = false;
-    _this69.wireframeLinewidth = 1;
-    _this69.wireframeLinecap = 'round';
-    _this69.wireframeLinejoin = 'round';
-    _this69.skinning = false;
-    _this69.morphTargets = false;
-    _this69.morphNormals = false;
+    _this71.map = null;
+    _this71.lightMap = null;
+    _this71.lightMapIntensity = 1.0;
+    _this71.aoMap = null;
+    _this71.aoMapIntensity = 1.0;
+    _this71.emissive = new Color(0x000000);
+    _this71.emissiveIntensity = 1.0;
+    _this71.emissiveMap = null;
+    _this71.specularMap = null;
+    _this71.alphaMap = null;
+    _this71.envMap = null;
+    _this71.combine = MultiplyOperation;
+    _this71.reflectivity = 1;
+    _this71.refractionRatio = 0.98;
+    _this71.wireframe = false;
+    _this71.wireframeLinewidth = 1;
+    _this71.wireframeLinecap = 'round';
+    _this71.wireframeLinejoin = 'round';
+    _this71.morphTargets = false;
+    _this71.morphNormals = false;
 
-    _this69.setValues(parameters);
+    _this71.setValues(parameters);
 
-    return _this69;
+    return _this71;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshLambertMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshLambertMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshLambertMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshLambertMaterial.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.map = source.map;
@@ -25984,7 +26294,6 @@ var MeshLambertMaterial = /*#__PURE__*/function (_Material13) {
       this.wireframeLinewidth = source.wireframeLinewidth;
       this.wireframeLinecap = source.wireframeLinecap;
       this.wireframeLinejoin = source.wireframeLinejoin;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       return this;
@@ -26017,7 +26326,6 @@ MeshLambertMaterial.prototype.isMeshLambertMaterial = true;
  *
  *  alphaMap: new THREE.Texture( <Image> ),
  *
- *  skinning: <bool>,
  *  morphTargets: <bool>,
  *  morphNormals: <bool>
  *
@@ -26026,47 +26334,46 @@ MeshLambertMaterial.prototype.isMeshLambertMaterial = true;
  */
 
 var MeshMatcapMaterial = /*#__PURE__*/function (_Material14) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshMatcapMaterial, _Material14);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshMatcapMaterial, _Material14);
 
-  var _super80 = _createSuper(MeshMatcapMaterial);
+  var _super82 = _createSuper(MeshMatcapMaterial);
 
   function MeshMatcapMaterial(parameters) {
-    var _this70;
+    var _this72;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MeshMatcapMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshMatcapMaterial);
 
-    _this70 = _super80.call(this);
-    _this70.defines = {
+    _this72 = _super82.call(this);
+    _this72.defines = {
       'MATCAP': ''
     };
-    _this70.type = 'MeshMatcapMaterial';
-    _this70.color = new Color(0xffffff); // diffuse
+    _this72.type = 'MeshMatcapMaterial';
+    _this72.color = new Color(0xffffff); // diffuse
 
-    _this70.matcap = null;
-    _this70.map = null;
-    _this70.bumpMap = null;
-    _this70.bumpScale = 1;
-    _this70.normalMap = null;
-    _this70.normalMapType = TangentSpaceNormalMap;
-    _this70.normalScale = new Vector2(1, 1);
-    _this70.displacementMap = null;
-    _this70.displacementScale = 1;
-    _this70.displacementBias = 0;
-    _this70.alphaMap = null;
-    _this70.skinning = false;
-    _this70.morphTargets = false;
-    _this70.morphNormals = false;
-    _this70.flatShading = false;
+    _this72.matcap = null;
+    _this72.map = null;
+    _this72.bumpMap = null;
+    _this72.bumpScale = 1;
+    _this72.normalMap = null;
+    _this72.normalMapType = TangentSpaceNormalMap;
+    _this72.normalScale = new Vector2(1, 1);
+    _this72.displacementMap = null;
+    _this72.displacementScale = 1;
+    _this72.displacementBias = 0;
+    _this72.alphaMap = null;
+    _this72.morphTargets = false;
+    _this72.morphNormals = false;
+    _this72.flatShading = false;
 
-    _this70.setValues(parameters);
+    _this72.setValues(parameters);
 
-    return _this70;
+    return _this72;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MeshMatcapMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshMatcapMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(MeshMatcapMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(MeshMatcapMaterial.prototype), "copy", this).call(this, source);
 
       this.defines = {
         'MATCAP': ''
@@ -26083,7 +26390,6 @@ var MeshMatcapMaterial = /*#__PURE__*/function (_Material14) {
       this.displacementScale = source.displacementScale;
       this.displacementBias = source.displacementBias;
       this.alphaMap = source.alphaMap;
-      this.skinning = source.skinning;
       this.morphTargets = source.morphTargets;
       this.morphNormals = source.morphNormals;
       this.flatShading = source.flatShading;
@@ -26109,30 +26415,30 @@ MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true;
  */
 
 var LineDashedMaterial = /*#__PURE__*/function (_LineBasicMaterial) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineDashedMaterial, _LineBasicMaterial);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineDashedMaterial, _LineBasicMaterial);
 
-  var _super81 = _createSuper(LineDashedMaterial);
+  var _super83 = _createSuper(LineDashedMaterial);
 
   function LineDashedMaterial(parameters) {
-    var _this71;
+    var _this73;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineDashedMaterial);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineDashedMaterial);
 
-    _this71 = _super81.call(this);
-    _this71.type = 'LineDashedMaterial';
-    _this71.scale = 1;
-    _this71.dashSize = 3;
-    _this71.gapSize = 1;
+    _this73 = _super83.call(this);
+    _this73.type = 'LineDashedMaterial';
+    _this73.scale = 1;
+    _this73.dashSize = 3;
+    _this73.gapSize = 1;
 
-    _this71.setValues(parameters);
+    _this73.setValues(parameters);
 
-    return _this71;
+    return _this73;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineDashedMaterial, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineDashedMaterial, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineDashedMaterial.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineDashedMaterial.prototype), "copy", this).call(this, source);
 
       this.scale = source.scale;
       this.dashSize = source.dashSize;
@@ -26200,8 +26506,8 @@ var AnimationUtils = {
     var n = times.length;
     var result = new Array(n);
 
-    for (var _i203 = 0; _i203 !== n; ++_i203) {
-      result[_i203] = _i203;
+    for (var _i211 = 0; _i211 !== n; ++_i211) {
+      result[_i211] = _i211;
     }
 
     result.sort(compareTime);
@@ -26212,8 +26518,8 @@ var AnimationUtils = {
     var nValues = values.length;
     var result = new values.constructor(nValues);
 
-    for (var _i204 = 0, dstOffset = 0; dstOffset !== nValues; ++_i204) {
-      var srcOffset = order[_i204] * stride;
+    for (var _i212 = 0, dstOffset = 0; dstOffset !== nValues; ++_i212) {
+      var srcOffset = order[_i212] * stride;
 
       for (var j = 0; j !== stride; ++j) {
         result[dstOffset++] = values[srcOffset + j];
@@ -26279,8 +26585,8 @@ var AnimationUtils = {
     clip.name = name;
     var tracks = [];
 
-    for (var _i205 = 0; _i205 < clip.tracks.length; ++_i205) {
-      var track = clip.tracks[_i205];
+    for (var _i213 = 0; _i213 < clip.tracks.length; ++_i213) {
+      var track = clip.tracks[_i213];
       var valueSize = track.getValueSize();
       var times = [];
       var values = [];
@@ -26305,15 +26611,15 @@ var AnimationUtils = {
 
     var minStartTime = Infinity;
 
-    for (var _i206 = 0; _i206 < clip.tracks.length; ++_i206) {
-      if (minStartTime > clip.tracks[_i206].times[0]) {
-        minStartTime = clip.tracks[_i206].times[0];
+    for (var _i214 = 0; _i214 < clip.tracks.length; ++_i214) {
+      if (minStartTime > clip.tracks[_i214].times[0]) {
+        minStartTime = clip.tracks[_i214].times[0];
       }
     } // shift all tracks such that clip begins at t=0
 
 
-    for (var _i207 = 0; _i207 < clip.tracks.length; ++_i207) {
-      clip.tracks[_i207].shift(-1 * minStartTime);
+    for (var _i215 = 0; _i215 < clip.tracks.length; ++_i215) {
+      clip.tracks[_i215].shift(-1 * minStartTime);
     }
 
     clip.resetDuration();
@@ -26327,8 +26633,8 @@ var AnimationUtils = {
     var numTracks = referenceClip.tracks.length;
     var referenceTime = referenceFrame / fps; // Make each track's values relative to the values at the reference frame
 
-    var _loop = function _loop(_i208) {
-      var referenceTrack = referenceClip.tracks[_i208];
+    var _loop = function _loop(_i216) {
+      var referenceTrack = referenceClip.tracks[_i216];
       var referenceTrackType = referenceTrack.ValueTypeName; // Skip this track if it's non-numeric
 
       if (referenceTrackType === 'bool' || referenceTrackType === 'string') return "continue"; // Find the track in the target clip whose name and type matches the reference track
@@ -26402,8 +26708,8 @@ var AnimationUtils = {
       }
     };
 
-    for (var _i208 = 0; _i208 < numTracks; ++_i208) {
-      var _ret = _loop(_i208);
+    for (var _i216 = 0; _i216 < numTracks; ++_i216) {
+      var _ret = _loop(_i216);
 
       if (_ret === "continue") continue;
     }
@@ -26435,7 +26741,7 @@ var AnimationUtils = {
 
 var Interpolant = /*#__PURE__*/function () {
   function Interpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Interpolant);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Interpolant);
 
     this.parameterPositions = parameterPositions;
     this._cachedIndex = 0;
@@ -26446,7 +26752,7 @@ var Interpolant = /*#__PURE__*/function () {
     this.DefaultSettings_ = {};
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Interpolant, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Interpolant, [{
     key: "evaluate",
     value: function evaluate(t) {
       var pp = this.parameterPositions;
@@ -26579,8 +26885,8 @@ var Interpolant = /*#__PURE__*/function () {
           stride = this.valueSize,
           offset = index * stride;
 
-      for (var _i209 = 0; _i209 !== stride; ++_i209) {
-        result[_i209] = values[offset + _i209];
+      for (var _i217 = 0; _i217 !== stride; ++_i217) {
+        result[_i217] = values[offset + _i217];
       }
 
       return result;
@@ -26616,28 +26922,28 @@ Interpolant.prototype.afterEnd_ = Interpolant.prototype.copySampleValue_;
  */
 
 var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicInterpolant, _Interpolant);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicInterpolant, _Interpolant);
 
-  var _super82 = _createSuper(CubicInterpolant);
+  var _super84 = _createSuper(CubicInterpolant);
 
   function CubicInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-    var _this72;
+    var _this74;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubicInterpolant);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicInterpolant);
 
-    _this72 = _super82.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
-    _this72._weightPrev = -0;
-    _this72._offsetPrev = -0;
-    _this72._weightNext = -0;
-    _this72._offsetNext = -0;
-    _this72.DefaultSettings_ = {
+    _this74 = _super84.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    _this74._weightPrev = -0;
+    _this74._offsetPrev = -0;
+    _this74._weightNext = -0;
+    _this74._offsetNext = -0;
+    _this74.DefaultSettings_ = {
       endingStart: ZeroCurvatureEnding,
       endingEnd: ZeroCurvatureEnding
     };
-    return _this72;
+    return _this74;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubicInterpolant, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicInterpolant, [{
     key: "intervalChanged_",
     value: function intervalChanged_(i1, t0, t1) {
       var pp = this.parameterPositions;
@@ -26718,8 +27024,8 @@ var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
       var s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p;
       var sN = wN * ppp - wN * pp; // combine data linearly
 
-      for (var _i210 = 0; _i210 !== stride; ++_i210) {
-        result[_i210] = sP * values[oP + _i210] + s0 * values[o0 + _i210] + s1 * values[o1 + _i210] + sN * values[oN + _i210];
+      for (var _i218 = 0; _i218 !== stride; ++_i218) {
+        result[_i218] = sP * values[oP + _i218] + s0 * values[o0 + _i218] + s1 * values[o1 + _i218] + sN * values[oN + _i218];
       }
 
       return result;
@@ -26730,17 +27036,17 @@ var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
 }(Interpolant);
 
 var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LinearInterpolant, _Interpolant2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LinearInterpolant, _Interpolant2);
 
-  var _super83 = _createSuper(LinearInterpolant);
+  var _super85 = _createSuper(LinearInterpolant);
 
   function LinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LinearInterpolant);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LinearInterpolant);
 
-    return _super83.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    return _super85.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LinearInterpolant, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LinearInterpolant, [{
     key: "interpolate_",
     value: function interpolate_(i1, t0, t, t1) {
       var result = this.resultBuffer,
@@ -26751,8 +27057,8 @@ var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
           weight1 = (t - t0) / (t1 - t0),
           weight0 = 1 - weight1;
 
-      for (var _i211 = 0; _i211 !== stride; ++_i211) {
-        result[_i211] = values[offset0 + _i211] * weight0 + values[offset1 + _i211] * weight1;
+      for (var _i219 = 0; _i219 !== stride; ++_i219) {
+        result[_i219] = values[offset0 + _i219] * weight0 + values[offset1 + _i219] * weight1;
       }
 
       return result;
@@ -26769,17 +27075,17 @@ var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
 
 
 var DiscreteInterpolant = /*#__PURE__*/function (_Interpolant3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DiscreteInterpolant, _Interpolant3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DiscreteInterpolant, _Interpolant3);
 
-  var _super84 = _createSuper(DiscreteInterpolant);
+  var _super86 = _createSuper(DiscreteInterpolant);
 
   function DiscreteInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DiscreteInterpolant);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DiscreteInterpolant);
 
-    return _super84.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    return _super86.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DiscreteInterpolant, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DiscreteInterpolant, [{
     key: "interpolate_",
     value: function interpolate_(i1
     /*, t0, t, t1 */
@@ -26793,7 +27099,7 @@ var DiscreteInterpolant = /*#__PURE__*/function (_Interpolant3) {
 
 var KeyframeTrack = /*#__PURE__*/function () {
   function KeyframeTrack(name, times, values, interpolation) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, KeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, KeyframeTrack);
 
     if (name === undefined) throw new Error('THREE.KeyframeTrack: track name is undefined');
     if (times === undefined || times.length === 0) throw new Error('THREE.KeyframeTrack: no keyframes in track named ' + name);
@@ -26805,7 +27111,7 @@ var KeyframeTrack = /*#__PURE__*/function () {
   // and automatic invocation of .toJSON):
 
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(KeyframeTrack, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(KeyframeTrack, [{
     key: "InterpolantFactoryMethodDiscrete",
     value: function InterpolantFactoryMethodDiscrete(result) {
       return new DiscreteInterpolant(this.times, this.values, this.getValueSize(), result);
@@ -26884,8 +27190,8 @@ var KeyframeTrack = /*#__PURE__*/function () {
       if (timeOffset !== 0.0) {
         var times = this.times;
 
-        for (var _i212 = 0, n = times.length; _i212 !== n; ++_i212) {
-          times[_i212] += timeOffset;
+        for (var _i220 = 0, n = times.length; _i220 !== n; ++_i220) {
+          times[_i220] += timeOffset;
         }
       }
 
@@ -26898,8 +27204,8 @@ var KeyframeTrack = /*#__PURE__*/function () {
       if (timeScale !== 1.0) {
         var times = this.times;
 
-        for (var _i213 = 0, n = times.length; _i213 !== n; ++_i213) {
-          times[_i213] *= timeScale;
+        for (var _i221 = 0, n = times.length; _i221 !== n; ++_i221) {
+          times[_i221] *= timeScale;
         }
       }
 
@@ -26962,17 +27268,17 @@ var KeyframeTrack = /*#__PURE__*/function () {
 
       var prevTime = null;
 
-      for (var _i214 = 0; _i214 !== nKeys; _i214++) {
-        var currTime = times[_i214];
+      for (var _i222 = 0; _i222 !== nKeys; _i222++) {
+        var currTime = times[_i222];
 
         if (typeof currTime === 'number' && isNaN(currTime)) {
-          console.error('THREE.KeyframeTrack: Time is not a valid number.', this, _i214, currTime);
+          console.error('THREE.KeyframeTrack: Time is not a valid number.', this, _i222, currTime);
           valid = false;
           break;
         }
 
         if (prevTime !== null && prevTime > currTime) {
-          console.error('THREE.KeyframeTrack: Out of order keys.', this, _i214, currTime, prevTime);
+          console.error('THREE.KeyframeTrack: Out of order keys.', this, _i222, currTime, prevTime);
           valid = false;
           break;
         }
@@ -26982,11 +27288,11 @@ var KeyframeTrack = /*#__PURE__*/function () {
 
       if (values !== undefined) {
         if (AnimationUtils.isTypedArray(values)) {
-          for (var _i215 = 0, n = values.length; _i215 !== n; ++_i215) {
-            var value = values[_i215];
+          for (var _i223 = 0, n = values.length; _i223 !== n; ++_i223) {
+            var value = values[_i223];
 
             if (isNaN(value)) {
-              console.error('THREE.KeyframeTrack: Value is not a valid number.', this, _i215, value);
+              console.error('THREE.KeyframeTrack: Value is not a valid number.', this, _i223, value);
               valid = false;
               break;
             }
@@ -27009,15 +27315,15 @@ var KeyframeTrack = /*#__PURE__*/function () {
           lastIndex = times.length - 1;
       var writeIndex = 1;
 
-      for (var _i216 = 1; _i216 < lastIndex; ++_i216) {
+      for (var _i224 = 1; _i224 < lastIndex; ++_i224) {
         var keep = false;
-        var time = times[_i216];
-        var timeNext = times[_i216 + 1]; // remove adjacent keyframes scheduled at the same time
+        var time = times[_i224];
+        var timeNext = times[_i224 + 1]; // remove adjacent keyframes scheduled at the same time
 
-        if (time !== timeNext && (_i216 !== 1 || time !== times[0])) {
+        if (time !== timeNext && (_i224 !== 1 || time !== times[0])) {
           if (!smoothInterpolation) {
             // remove unnecessary keyframes same as their neighbors
-            var offset = _i216 * stride,
+            var offset = _i224 * stride,
                 offsetP = offset - stride,
                 offsetN = offset + stride;
 
@@ -27036,9 +27342,9 @@ var KeyframeTrack = /*#__PURE__*/function () {
 
 
         if (keep) {
-          if (_i216 !== writeIndex) {
-            times[writeIndex] = times[_i216];
-            var readOffset = _i216 * stride,
+          if (_i224 !== writeIndex) {
+            times[writeIndex] = times[_i224];
+            var readOffset = _i224 * stride,
                 writeOffset = writeIndex * stride;
 
             for (var _j15 = 0; _j15 !== stride; ++_j15) {
@@ -27121,14 +27427,14 @@ KeyframeTrack.prototype.DefaultInterpolation = InterpolateLinear;
  */
 
 var BooleanKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BooleanKeyframeTrack, _KeyframeTrack);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BooleanKeyframeTrack, _KeyframeTrack);
 
-  var _super85 = _createSuper(BooleanKeyframeTrack);
+  var _super87 = _createSuper(BooleanKeyframeTrack);
 
   function BooleanKeyframeTrack() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BooleanKeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BooleanKeyframeTrack);
 
-    return _super85.apply(this, arguments);
+    return _super87.apply(this, arguments);
   }
 
   return BooleanKeyframeTrack;
@@ -27144,14 +27450,14 @@ BooleanKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
  */
 
 var ColorKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ColorKeyframeTrack, _KeyframeTrack2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ColorKeyframeTrack, _KeyframeTrack2);
 
-  var _super86 = _createSuper(ColorKeyframeTrack);
+  var _super88 = _createSuper(ColorKeyframeTrack);
 
   function ColorKeyframeTrack() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ColorKeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ColorKeyframeTrack);
 
-    return _super86.apply(this, arguments);
+    return _super88.apply(this, arguments);
   }
 
   return ColorKeyframeTrack;
@@ -27163,14 +27469,14 @@ ColorKeyframeTrack.prototype.ValueTypeName = 'color';
  */
 
 var NumberKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(NumberKeyframeTrack, _KeyframeTrack3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(NumberKeyframeTrack, _KeyframeTrack3);
 
-  var _super87 = _createSuper(NumberKeyframeTrack);
+  var _super89 = _createSuper(NumberKeyframeTrack);
 
   function NumberKeyframeTrack() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, NumberKeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, NumberKeyframeTrack);
 
-    return _super87.apply(this, arguments);
+    return _super89.apply(this, arguments);
   }
 
   return NumberKeyframeTrack;
@@ -27182,17 +27488,17 @@ NumberKeyframeTrack.prototype.ValueTypeName = 'number';
  */
 
 var QuaternionLinearInterpolant = /*#__PURE__*/function (_Interpolant4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionLinearInterpolant, _Interpolant4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuaternionLinearInterpolant, _Interpolant4);
 
-  var _super88 = _createSuper(QuaternionLinearInterpolant);
+  var _super90 = _createSuper(QuaternionLinearInterpolant);
 
   function QuaternionLinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuaternionLinearInterpolant);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuaternionLinearInterpolant);
 
-    return _super88.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    return _super90.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuaternionLinearInterpolant, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionLinearInterpolant, [{
     key: "interpolate_",
     value: function interpolate_(i1, t0, t, t1) {
       var result = this.resultBuffer,
@@ -27217,17 +27523,17 @@ var QuaternionLinearInterpolant = /*#__PURE__*/function (_Interpolant4) {
 
 
 var QuaternionKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionKeyframeTrack, _KeyframeTrack4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuaternionKeyframeTrack, _KeyframeTrack4);
 
-  var _super89 = _createSuper(QuaternionKeyframeTrack);
+  var _super91 = _createSuper(QuaternionKeyframeTrack);
 
   function QuaternionKeyframeTrack() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuaternionKeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuaternionKeyframeTrack);
 
-    return _super89.apply(this, arguments);
+    return _super91.apply(this, arguments);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuaternionKeyframeTrack, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionKeyframeTrack, [{
     key: "InterpolantFactoryMethodLinear",
     value: function InterpolantFactoryMethodLinear(result) {
       return new QuaternionLinearInterpolant(this.times, this.values, this.getValueSize(), result);
@@ -27246,14 +27552,14 @@ QuaternionKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
  */
 
 var StringKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(StringKeyframeTrack, _KeyframeTrack5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(StringKeyframeTrack, _KeyframeTrack5);
 
-  var _super90 = _createSuper(StringKeyframeTrack);
+  var _super92 = _createSuper(StringKeyframeTrack);
 
   function StringKeyframeTrack() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, StringKeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, StringKeyframeTrack);
 
-    return _super90.apply(this, arguments);
+    return _super92.apply(this, arguments);
   }
 
   return StringKeyframeTrack;
@@ -27269,14 +27575,14 @@ StringKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
  */
 
 var VectorKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VectorKeyframeTrack, _KeyframeTrack6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VectorKeyframeTrack, _KeyframeTrack6);
 
-  var _super91 = _createSuper(VectorKeyframeTrack);
+  var _super93 = _createSuper(VectorKeyframeTrack);
 
   function VectorKeyframeTrack() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, VectorKeyframeTrack);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, VectorKeyframeTrack);
 
-    return _super91.apply(this, arguments);
+    return _super93.apply(this, arguments);
   }
 
   return VectorKeyframeTrack;
@@ -27290,7 +27596,7 @@ var AnimationClip = /*#__PURE__*/function () {
     var tracks = arguments.length > 2 ? arguments[2] : undefined;
     var blendMode = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : NormalAnimationBlendMode;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationClip);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimationClip);
 
     this.name = name;
     this.tracks = tracks;
@@ -27303,14 +27609,14 @@ var AnimationClip = /*#__PURE__*/function () {
     }
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationClip, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationClip, [{
     key: "resetDuration",
     value: function resetDuration() {
       var tracks = this.tracks;
       var duration = 0;
 
-      for (var _i217 = 0, n = tracks.length; _i217 !== n; ++_i217) {
-        var track = this.tracks[_i217];
+      for (var _i225 = 0, n = tracks.length; _i225 !== n; ++_i225) {
+        var track = this.tracks[_i225];
         duration = Math.max(duration, track.times[track.times.length - 1]);
       }
 
@@ -27320,8 +27626,8 @@ var AnimationClip = /*#__PURE__*/function () {
   }, {
     key: "trim",
     value: function trim() {
-      for (var _i218 = 0; _i218 < this.tracks.length; _i218++) {
-        this.tracks[_i218].trim(0, this.duration);
+      for (var _i226 = 0; _i226 < this.tracks.length; _i226++) {
+        this.tracks[_i226].trim(0, this.duration);
       }
 
       return this;
@@ -27331,8 +27637,8 @@ var AnimationClip = /*#__PURE__*/function () {
     value: function validate() {
       var valid = true;
 
-      for (var _i219 = 0; _i219 < this.tracks.length; _i219++) {
-        valid = valid && this.tracks[_i219].validate();
+      for (var _i227 = 0; _i227 < this.tracks.length; _i227++) {
+        valid = valid && this.tracks[_i227].validate();
       }
 
       return valid;
@@ -27340,8 +27646,8 @@ var AnimationClip = /*#__PURE__*/function () {
   }, {
     key: "optimize",
     value: function optimize() {
-      for (var _i220 = 0; _i220 < this.tracks.length; _i220++) {
-        this.tracks[_i220].optimize();
+      for (var _i228 = 0; _i228 < this.tracks.length; _i228++) {
+        this.tracks[_i228].optimize();
       }
 
       return this;
@@ -27351,8 +27657,8 @@ var AnimationClip = /*#__PURE__*/function () {
     value: function clone() {
       var tracks = [];
 
-      for (var _i221 = 0; _i221 < this.tracks.length; _i221++) {
-        tracks.push(this.tracks[_i221].clone());
+      for (var _i229 = 0; _i229 < this.tracks.length; _i229++) {
+        tracks.push(this.tracks[_i229].clone());
       }
 
       return new this.constructor(this.name, this.duration, tracks, this.blendMode);
@@ -27369,8 +27675,8 @@ var AnimationClip = /*#__PURE__*/function () {
           jsonTracks = json.tracks,
           frameTime = 1.0 / (json.fps || 1.0);
 
-      for (var _i222 = 0, n = jsonTracks.length; _i222 !== n; ++_i222) {
-        tracks.push(parseKeyframeTrack(jsonTracks[_i222]).scale(frameTime));
+      for (var _i230 = 0, n = jsonTracks.length; _i230 !== n; ++_i230) {
+        tracks.push(parseKeyframeTrack(jsonTracks[_i230]).scale(frameTime));
       }
 
       var clip = new this(json.name, json.duration, tracks, json.blendMode);
@@ -27390,8 +27696,8 @@ var AnimationClip = /*#__PURE__*/function () {
         'blendMode': clip.blendMode
       };
 
-      for (var _i223 = 0, n = clipTracks.length; _i223 !== n; ++_i223) {
-        tracks.push(KeyframeTrack.toJSON(clipTracks[_i223]));
+      for (var _i231 = 0, n = clipTracks.length; _i231 !== n; ++_i231) {
+        tracks.push(KeyframeTrack.toJSON(clipTracks[_i231]));
       }
 
       return json;
@@ -27402,10 +27708,10 @@ var AnimationClip = /*#__PURE__*/function () {
       var numMorphTargets = morphTargetSequence.length;
       var tracks = [];
 
-      for (var _i224 = 0; _i224 < numMorphTargets; _i224++) {
+      for (var _i232 = 0; _i232 < numMorphTargets; _i232++) {
         var times = [];
         var values = [];
-        times.push((_i224 + numMorphTargets - 1) % numMorphTargets, _i224, (_i224 + 1) % numMorphTargets);
+        times.push((_i232 + numMorphTargets - 1) % numMorphTargets, _i232, (_i232 + 1) % numMorphTargets);
         values.push(0, 1, 0);
         var order = AnimationUtils.getKeyframeOrder(times);
         times = AnimationUtils.sortedArray(times, 1, order);
@@ -27417,7 +27723,7 @@ var AnimationClip = /*#__PURE__*/function () {
           values.push(values[0]);
         }
 
-        tracks.push(new NumberKeyframeTrack('.morphTargetInfluences[' + morphTargetSequence[_i224].name + ']', times, values).scale(1.0 / fps));
+        tracks.push(new NumberKeyframeTrack('.morphTargetInfluences[' + morphTargetSequence[_i232].name + ']', times, values).scale(1.0 / fps));
       }
 
       return new this(name, -1, tracks);
@@ -27432,9 +27738,9 @@ var AnimationClip = /*#__PURE__*/function () {
         clipArray = o.geometry && o.geometry.animations || o.animations;
       }
 
-      for (var _i225 = 0; _i225 < clipArray.length; _i225++) {
-        if (clipArray[_i225].name === name) {
-          return clipArray[_i225];
+      for (var _i233 = 0; _i233 < clipArray.length; _i233++) {
+        if (clipArray[_i233].name === name) {
+          return clipArray[_i233];
         }
       }
 
@@ -27449,8 +27755,8 @@ var AnimationClip = /*#__PURE__*/function () {
       var pattern = /^([\w-]*?)([\d]+)$/; // sort morph target names into animation groups based
       // patterns like Walk_001, Walk_002, Run_001, Run_002
 
-      for (var _i226 = 0, il = morphTargets.length; _i226 < il; _i226++) {
-        var morphTarget = morphTargets[_i226];
+      for (var _i234 = 0, il = morphTargets.length; _i234 < il; _i234++) {
+        var morphTarget = morphTargets[_i234];
         var parts = morphTarget.name.match(pattern);
 
         if (parts && parts.length > 1) {
@@ -27637,7 +27943,7 @@ var Cache = {
 };
 
 var LoadingManager = function LoadingManager(onLoad, onProgress, onError) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LoadingManager);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LoadingManager);
 
   var scope = this;
   var isLoading = false;
@@ -27715,9 +28021,9 @@ var LoadingManager = function LoadingManager(onLoad, onProgress, onError) {
   };
 
   this.getHandler = function (file) {
-    for (var _i227 = 0, l = handlers.length; _i227 < l; _i227 += 2) {
-      var regex = handlers[_i227];
-      var loader = handlers[_i227 + 1];
+    for (var _i235 = 0, l = handlers.length; _i235 < l; _i235 += 2) {
+      var regex = handlers[_i235];
+      var loader = handlers[_i235 + 1];
       if (regex.global) regex.lastIndex = 0; // see #17920
 
       if (regex.test(file)) {
@@ -27733,7 +28039,7 @@ var DefaultLoadingManager = new LoadingManager();
 
 var Loader = /*#__PURE__*/function () {
   function Loader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Loader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Loader);
 
     this.manager = manager !== undefined ? manager : DefaultLoadingManager;
     this.crossOrigin = 'anonymous';
@@ -27743,7 +28049,7 @@ var Loader = /*#__PURE__*/function () {
     this.requestHeader = {};
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Loader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Loader, [{
     key: "load",
     value: function load()
     /* url, onLoad, onProgress, onError */
@@ -27799,17 +28105,17 @@ var Loader = /*#__PURE__*/function () {
 var loading = {};
 
 var FileLoader = /*#__PURE__*/function (_Loader) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FileLoader, _Loader);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(FileLoader, _Loader);
 
-  var _super92 = _createSuper(FileLoader);
+  var _super94 = _createSuper(FileLoader);
 
   function FileLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, FileLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, FileLoader);
 
-    return _super92.call(this, manager);
+    return _super94.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(FileLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FileLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       if (url === undefined) url = '';
@@ -27858,8 +28164,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
             case 'blob':
               var view = new Uint8Array(data.length);
 
-              for (var _i228 = 0; _i228 < data.length; _i228++) {
-                view[_i228] = data.charCodeAt(_i228);
+              for (var _i236 = 0; _i236 < data.length; _i236++) {
+                view[_i236] = data.charCodeAt(_i236);
               }
 
               if (responseType === 'blob') {
@@ -27923,15 +28229,15 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
 
             Cache.add(url, response);
 
-            for (var _i229 = 0, il = callbacks.length; _i229 < il; _i229++) {
-              var callback = callbacks[_i229];
+            for (var _i237 = 0, il = callbacks.length; _i237 < il; _i237++) {
+              var callback = callbacks[_i237];
               if (callback.onLoad) callback.onLoad(response);
             }
 
             scope.manager.itemEnd(url);
           } else {
-            for (var _i230 = 0, _il17 = callbacks.length; _i230 < _il17; _i230++) {
-              var _callback = callbacks[_i230];
+            for (var _i238 = 0, _il18 = callbacks.length; _i238 < _il18; _i238++) {
+              var _callback = callbacks[_i238];
               if (_callback.onError) _callback.onError(event);
             }
 
@@ -27942,8 +28248,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
         request.addEventListener('progress', function (event) {
           var callbacks = loading[url];
 
-          for (var _i231 = 0, il = callbacks.length; _i231 < il; _i231++) {
-            var callback = callbacks[_i231];
+          for (var _i239 = 0, il = callbacks.length; _i239 < il; _i239++) {
+            var callback = callbacks[_i239];
             if (callback.onProgress) callback.onProgress(event);
           }
         }, false);
@@ -27951,8 +28257,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
           var callbacks = loading[url];
           delete loading[url];
 
-          for (var _i232 = 0, il = callbacks.length; _i232 < il; _i232++) {
-            var callback = callbacks[_i232];
+          for (var _i240 = 0, il = callbacks.length; _i240 < il; _i240++) {
+            var callback = callbacks[_i240];
             if (callback.onError) callback.onError(event);
           }
 
@@ -27963,8 +28269,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
           var callbacks = loading[url];
           delete loading[url];
 
-          for (var _i233 = 0, il = callbacks.length; _i233 < il; _i233++) {
-            var callback = callbacks[_i233];
+          for (var _i241 = 0, il = callbacks.length; _i241 < il; _i241++) {
+            var callback = callbacks[_i241];
             if (callback.onError) callback.onError(event);
           }
 
@@ -28003,17 +28309,17 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
 }(Loader);
 
 var AnimationLoader = /*#__PURE__*/function (_Loader2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationLoader, _Loader2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimationLoader, _Loader2);
 
-  var _super93 = _createSuper(AnimationLoader);
+  var _super95 = _createSuper(AnimationLoader);
 
   function AnimationLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimationLoader);
 
-    return _super93.call(this, manager);
+    return _super95.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -28040,8 +28346,8 @@ var AnimationLoader = /*#__PURE__*/function (_Loader2) {
     value: function parse(json) {
       var animations = [];
 
-      for (var _i234 = 0; _i234 < json.length; _i234++) {
-        var clip = AnimationClip.parse(json[_i234]);
+      for (var _i242 = 0; _i242 < json.length; _i242++) {
+        var clip = AnimationClip.parse(json[_i242]);
         animations.push(clip);
       }
 
@@ -28059,17 +28365,17 @@ var AnimationLoader = /*#__PURE__*/function (_Loader2) {
 
 
 var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CompressedTextureLoader, _Loader3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CompressedTextureLoader, _Loader3);
 
-  var _super94 = _createSuper(CompressedTextureLoader);
+  var _super96 = _createSuper(CompressedTextureLoader);
 
   function CompressedTextureLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CompressedTextureLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CompressedTextureLoader);
 
-    return _super94.call(this, manager);
+    return _super96.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CompressedTextureLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CompressedTextureLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -28104,8 +28410,8 @@ var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
       }
 
       if (Array.isArray(url)) {
-        for (var _i235 = 0, il = url.length; _i235 < il; ++_i235) {
-          loadTexture(_i235);
+        for (var _i243 = 0, il = url.length; _i243 < il; ++_i243) {
+          loadTexture(_i243);
         }
       } else {
         // compressed cubemap texture stored in a single DDS file
@@ -28120,8 +28426,8 @@ var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
                 mipmaps: []
               };
 
-              for (var _i236 = 0; _i236 < texDatas.mipmapCount; _i236++) {
-                images[f].mipmaps.push(texDatas.mipmaps[f * texDatas.mipmapCount + _i236]);
+              for (var _i244 = 0; _i244 < texDatas.mipmapCount; _i244++) {
+                images[f].mipmaps.push(texDatas.mipmaps[f * texDatas.mipmapCount + _i244]);
                 images[f].format = texDatas.format;
                 images[f].width = texDatas.width;
                 images[f].height = texDatas.height;
@@ -28153,17 +28459,17 @@ var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
 }(Loader);
 
 var ImageLoader = /*#__PURE__*/function (_Loader4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageLoader, _Loader4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ImageLoader, _Loader4);
 
-  var _super95 = _createSuper(ImageLoader);
+  var _super97 = _createSuper(ImageLoader);
 
   function ImageLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImageLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ImageLoader);
 
-    return _super95.call(this, manager);
+    return _super97.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ImageLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       if (this.path !== undefined) url = this.path + url;
@@ -28215,17 +28521,17 @@ var ImageLoader = /*#__PURE__*/function (_Loader4) {
 }(Loader);
 
 var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTextureLoader, _Loader5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubeTextureLoader, _Loader5);
 
-  var _super96 = _createSuper(CubeTextureLoader);
+  var _super98 = _createSuper(CubeTextureLoader);
 
   function CubeTextureLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubeTextureLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubeTextureLoader);
 
-    return _super96.call(this, manager);
+    return _super98.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubeTextureLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTextureLoader, [{
     key: "load",
     value: function load(urls, onLoad, onProgress, onError) {
       var texture = new CubeTexture();
@@ -28246,8 +28552,8 @@ var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
         }, undefined, onError);
       }
 
-      for (var _i237 = 0; _i237 < urls.length; ++_i237) {
-        loadTexture(_i237);
+      for (var _i245 = 0; _i245 < urls.length; ++_i245) {
+        loadTexture(_i245);
       }
 
       return texture;
@@ -28264,17 +28570,17 @@ var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
 
 
 var DataTextureLoader = /*#__PURE__*/function (_Loader6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTextureLoader, _Loader6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTextureLoader, _Loader6);
 
-  var _super97 = _createSuper(DataTextureLoader);
+  var _super99 = _createSuper(DataTextureLoader);
 
   function DataTextureLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataTextureLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataTextureLoader);
 
-    return _super97.call(this, manager);
+    return _super99.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DataTextureLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTextureLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -28342,17 +28648,17 @@ var DataTextureLoader = /*#__PURE__*/function (_Loader6) {
 }(Loader);
 
 var TextureLoader = /*#__PURE__*/function (_Loader7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TextureLoader, _Loader7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TextureLoader, _Loader7);
 
-  var _super98 = _createSuper(TextureLoader);
+  var _super100 = _createSuper(TextureLoader);
 
   function TextureLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, TextureLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TextureLoader);
 
-    return _super98.call(this, manager);
+    return _super100.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(TextureLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TextureLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var texture = new Texture();
@@ -28409,7 +28715,7 @@ var TextureLoader = /*#__PURE__*/function (_Loader7) {
 
 var Curve = /*#__PURE__*/function () {
   function Curve() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Curve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Curve);
 
     this.type = 'Curve';
     this.arcLengthDivisions = 200;
@@ -28417,7 +28723,7 @@ var Curve = /*#__PURE__*/function () {
   //	- t [0 .. 1]
 
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Curve, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Curve, [{
     key: "getPoint",
     value: function getPoint()
     /* t, optionalTarget */
@@ -28586,11 +28892,11 @@ var Curve = /*#__PURE__*/function () {
       var vec = new Vector3();
       var mat = new Matrix4(); // compute the tangent vectors for each segment on the curve
 
-      for (var _i238 = 0; _i238 <= segments; _i238++) {
-        var u = _i238 / segments;
-        tangents[_i238] = this.getTangentAt(u, new Vector3());
+      for (var _i246 = 0; _i246 <= segments; _i246++) {
+        var u = _i246 / segments;
+        tangents[_i246] = this.getTangentAt(u, new Vector3());
 
-        tangents[_i238].normalize();
+        tangents[_i246].normalize();
       } // select an initial normal vector perpendicular to the first tangent vector,
       // and in the direction of the minimum tangent xyz component
 
@@ -28620,19 +28926,19 @@ var Curve = /*#__PURE__*/function () {
       normals[0].crossVectors(tangents[0], vec);
       binormals[0].crossVectors(tangents[0], normals[0]); // compute the slowly-varying normal and binormal vectors for each segment on the curve
 
-      for (var _i239 = 1; _i239 <= segments; _i239++) {
-        normals[_i239] = normals[_i239 - 1].clone();
-        binormals[_i239] = binormals[_i239 - 1].clone();
-        vec.crossVectors(tangents[_i239 - 1], tangents[_i239]);
+      for (var _i247 = 1; _i247 <= segments; _i247++) {
+        normals[_i247] = normals[_i247 - 1].clone();
+        binormals[_i247] = binormals[_i247 - 1].clone();
+        vec.crossVectors(tangents[_i247 - 1], tangents[_i247]);
 
         if (vec.length() > Number.EPSILON) {
           vec.normalize();
-          var theta = Math.acos(clamp(tangents[_i239 - 1].dot(tangents[_i239]), -1, 1)); // clamp for floating pt errors
+          var theta = Math.acos(clamp(tangents[_i247 - 1].dot(tangents[_i247]), -1, 1)); // clamp for floating pt errors
 
-          normals[_i239].applyMatrix4(mat.makeRotationAxis(vec, theta));
+          normals[_i247].applyMatrix4(mat.makeRotationAxis(vec, theta));
         }
 
-        binormals[_i239].crossVectors(tangents[_i239], normals[_i239]);
+        binormals[_i247].crossVectors(tangents[_i247], normals[_i247]);
       } // if the curve is closed, postprocess the vectors so the first and last normal vectors are the same
 
 
@@ -28645,11 +28951,11 @@ var Curve = /*#__PURE__*/function () {
           _theta = -_theta;
         }
 
-        for (var _i240 = 1; _i240 <= segments; _i240++) {
+        for (var _i248 = 1; _i248 <= segments; _i248++) {
           // twist a little...
-          normals[_i240].applyMatrix4(mat.makeRotationAxis(tangents[_i240], _theta * _i240));
+          normals[_i248].applyMatrix4(mat.makeRotationAxis(tangents[_i248], _theta * _i248));
 
-          binormals[_i240].crossVectors(tangents[_i240], normals[_i240]);
+          binormals[_i248].crossVectors(tangents[_i248], normals[_i248]);
         }
       }
 
@@ -28696,12 +29002,12 @@ var Curve = /*#__PURE__*/function () {
 }();
 
 var EllipseCurve = /*#__PURE__*/function (_Curve) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EllipseCurve, _Curve);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(EllipseCurve, _Curve);
 
-  var _super99 = _createSuper(EllipseCurve);
+  var _super101 = _createSuper(EllipseCurve);
 
   function EllipseCurve() {
-    var _this73;
+    var _this75;
 
     var aX = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     var aY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -28712,22 +29018,22 @@ var EllipseCurve = /*#__PURE__*/function (_Curve) {
     var aClockwise = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
     var aRotation = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, EllipseCurve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, EllipseCurve);
 
-    _this73 = _super99.call(this);
-    _this73.type = 'EllipseCurve';
-    _this73.aX = aX;
-    _this73.aY = aY;
-    _this73.xRadius = xRadius;
-    _this73.yRadius = yRadius;
-    _this73.aStartAngle = aStartAngle;
-    _this73.aEndAngle = aEndAngle;
-    _this73.aClockwise = aClockwise;
-    _this73.aRotation = aRotation;
-    return _this73;
+    _this75 = _super101.call(this);
+    _this75.type = 'EllipseCurve';
+    _this75.aX = aX;
+    _this75.aY = aY;
+    _this75.xRadius = xRadius;
+    _this75.yRadius = yRadius;
+    _this75.aStartAngle = aStartAngle;
+    _this75.aEndAngle = aEndAngle;
+    _this75.aClockwise = aClockwise;
+    _this75.aRotation = aRotation;
+    return _this75;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(EllipseCurve, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EllipseCurve, [{
     key: "getPoint",
     value: function getPoint(t, optionalTarget) {
       var point = optionalTarget || new Vector2();
@@ -28778,7 +29084,7 @@ var EllipseCurve = /*#__PURE__*/function (_Curve) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(EllipseCurve.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "copy", this).call(this, source);
 
       this.aX = source.aX;
       this.aY = source.aY;
@@ -28793,7 +29099,7 @@ var EllipseCurve = /*#__PURE__*/function (_Curve) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(EllipseCurve.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "toJSON", this).call(this);
 
       data.aX = this.aX;
       data.aY = this.aY;
@@ -28808,7 +29114,7 @@ var EllipseCurve = /*#__PURE__*/function (_Curve) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(EllipseCurve.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "fromJSON", this).call(this, json);
 
       this.aX = json.aX;
       this.aY = json.aY;
@@ -28828,18 +29134,18 @@ var EllipseCurve = /*#__PURE__*/function (_Curve) {
 EllipseCurve.prototype.isEllipseCurve = true;
 
 var ArcCurve = /*#__PURE__*/function (_EllipseCurve) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArcCurve, _EllipseCurve);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ArcCurve, _EllipseCurve);
 
-  var _super100 = _createSuper(ArcCurve);
+  var _super102 = _createSuper(ArcCurve);
 
   function ArcCurve(aX, aY, aRadius, aStartAngle, aEndAngle, aClockwise) {
-    var _this74;
+    var _this76;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ArcCurve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ArcCurve);
 
-    _this74 = _super100.call(this, aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
-    _this74.type = 'ArcCurve';
-    return _this74;
+    _this76 = _super102.call(this, aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
+    _this76.type = 'ArcCurve';
+    return _this76;
   }
 
   return ArcCurve;
@@ -28914,30 +29220,30 @@ var px = new CubicPoly(),
     pz = new CubicPoly();
 
 var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CatmullRomCurve3, _Curve2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CatmullRomCurve3, _Curve2);
 
-  var _super101 = _createSuper(CatmullRomCurve3);
+  var _super103 = _createSuper(CatmullRomCurve3);
 
   function CatmullRomCurve3() {
-    var _this75;
+    var _this77;
 
     var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var closed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     var curveType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'centripetal';
     var tension = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0.5;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CatmullRomCurve3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CatmullRomCurve3);
 
-    _this75 = _super101.call(this);
-    _this75.type = 'CatmullRomCurve3';
-    _this75.points = points;
-    _this75.closed = closed;
-    _this75.curveType = curveType;
-    _this75.tension = tension;
-    return _this75;
+    _this77 = _super103.call(this);
+    _this77.type = 'CatmullRomCurve3';
+    _this77.points = points;
+    _this77.closed = closed;
+    _this77.curveType = curveType;
+    _this77.tension = tension;
+    return _this77;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CatmullRomCurve3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CatmullRomCurve3, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
@@ -29001,12 +29307,12 @@ var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CatmullRomCurve3.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "copy", this).call(this, source);
 
       this.points = [];
 
-      for (var _i241 = 0, l = source.points.length; _i241 < l; _i241++) {
-        var point = source.points[_i241];
+      for (var _i249 = 0, l = source.points.length; _i249 < l; _i249++) {
+        var point = source.points[_i249];
         this.points.push(point.clone());
       }
 
@@ -29018,12 +29324,12 @@ var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CatmullRomCurve3.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "toJSON", this).call(this);
 
       data.points = [];
 
-      for (var _i242 = 0, l = this.points.length; _i242 < l; _i242++) {
-        var point = this.points[_i242];
+      for (var _i250 = 0, l = this.points.length; _i250 < l; _i250++) {
+        var point = this.points[_i250];
         data.points.push(point.toArray());
       }
 
@@ -29035,12 +29341,12 @@ var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CatmullRomCurve3.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "fromJSON", this).call(this, json);
 
       this.points = [];
 
-      for (var _i243 = 0, l = json.points.length; _i243 < l; _i243++) {
-        var point = json.points[_i243];
+      for (var _i251 = 0, l = json.points.length; _i251 < l; _i251++) {
+        var point = json.points[_i251];
         this.points.push(new Vector3().fromArray(point));
       }
 
@@ -29110,30 +29416,30 @@ function CubicBezier(t, p0, p1, p2, p3) {
 }
 
 var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve, _Curve3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicBezierCurve, _Curve3);
 
-  var _super102 = _createSuper(CubicBezierCurve);
+  var _super104 = _createSuper(CubicBezierCurve);
 
   function CubicBezierCurve() {
-    var _this76;
+    var _this78;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
     var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector2();
     var v3 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Vector2();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubicBezierCurve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicBezierCurve);
 
-    _this76 = _super102.call(this);
-    _this76.type = 'CubicBezierCurve';
-    _this76.v0 = v0;
-    _this76.v1 = v1;
-    _this76.v2 = v2;
-    _this76.v3 = v3;
-    return _this76;
+    _this78 = _super104.call(this);
+    _this78.type = 'CubicBezierCurve';
+    _this78.v0 = v0;
+    _this78.v1 = v1;
+    _this78.v2 = v2;
+    _this78.v3 = v3;
+    return _this78;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubicBezierCurve, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
@@ -29148,7 +29454,7 @@ var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CubicBezierCurve.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "copy", this).call(this, source);
 
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
@@ -29159,7 +29465,7 @@ var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CubicBezierCurve.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "toJSON", this).call(this);
 
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
@@ -29170,7 +29476,7 @@ var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CubicBezierCurve.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "fromJSON", this).call(this, json);
 
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
@@ -29186,30 +29492,30 @@ var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
 CubicBezierCurve.prototype.isCubicBezierCurve = true;
 
 var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve3, _Curve4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicBezierCurve3, _Curve4);
 
-  var _super103 = _createSuper(CubicBezierCurve3);
+  var _super105 = _createSuper(CubicBezierCurve3);
 
   function CubicBezierCurve3() {
-    var _this77;
+    var _this79;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
     var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
     var v3 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Vector3();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CubicBezierCurve3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicBezierCurve3);
 
-    _this77 = _super103.call(this);
-    _this77.type = 'CubicBezierCurve3';
-    _this77.v0 = v0;
-    _this77.v1 = v1;
-    _this77.v2 = v2;
-    _this77.v3 = v3;
-    return _this77;
+    _this79 = _super105.call(this);
+    _this79.type = 'CubicBezierCurve3';
+    _this79.v0 = v0;
+    _this79.v1 = v1;
+    _this79.v2 = v2;
+    _this79.v3 = v3;
+    return _this79;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CubicBezierCurve3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve3, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
@@ -29224,7 +29530,7 @@ var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CubicBezierCurve3.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "copy", this).call(this, source);
 
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
@@ -29235,7 +29541,7 @@ var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CubicBezierCurve3.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "toJSON", this).call(this);
 
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
@@ -29246,7 +29552,7 @@ var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CubicBezierCurve3.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "fromJSON", this).call(this, json);
 
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
@@ -29262,26 +29568,26 @@ var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
 CubicBezierCurve3.prototype.isCubicBezierCurve3 = true;
 
 var LineCurve = /*#__PURE__*/function (_Curve5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve, _Curve5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineCurve, _Curve5);
 
-  var _super104 = _createSuper(LineCurve);
+  var _super106 = _createSuper(LineCurve);
 
   function LineCurve() {
-    var _this78;
+    var _this80;
 
     var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
     var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineCurve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineCurve);
 
-    _this78 = _super104.call(this);
-    _this78.type = 'LineCurve';
-    _this78.v1 = v1;
-    _this78.v2 = v2;
-    return _this78;
+    _this80 = _super106.call(this);
+    _this80.type = 'LineCurve';
+    _this80.v1 = v1;
+    _this80.v2 = v2;
+    return _this80;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineCurve, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
@@ -29312,7 +29618,7 @@ var LineCurve = /*#__PURE__*/function (_Curve5) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineCurve.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "copy", this).call(this, source);
 
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
@@ -29321,7 +29627,7 @@ var LineCurve = /*#__PURE__*/function (_Curve5) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineCurve.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "toJSON", this).call(this);
 
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
@@ -29330,7 +29636,7 @@ var LineCurve = /*#__PURE__*/function (_Curve5) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineCurve.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "fromJSON", this).call(this, json);
 
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
@@ -29344,27 +29650,27 @@ var LineCurve = /*#__PURE__*/function (_Curve5) {
 LineCurve.prototype.isLineCurve = true;
 
 var LineCurve3 = /*#__PURE__*/function (_Curve6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve3, _Curve6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineCurve3, _Curve6);
 
-  var _super105 = _createSuper(LineCurve3);
+  var _super107 = _createSuper(LineCurve3);
 
   function LineCurve3() {
-    var _this79;
+    var _this81;
 
     var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LineCurve3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineCurve3);
 
-    _this79 = _super105.call(this);
-    _this79.type = 'LineCurve3';
-    _this79.isLineCurve3 = true;
-    _this79.v1 = v1;
-    _this79.v2 = v2;
-    return _this79;
+    _this81 = _super107.call(this);
+    _this81.type = 'LineCurve3';
+    _this81.isLineCurve3 = true;
+    _this81.v1 = v1;
+    _this81.v2 = v2;
+    return _this81;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LineCurve3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve3, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
@@ -29388,7 +29694,7 @@ var LineCurve3 = /*#__PURE__*/function (_Curve6) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineCurve3.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "copy", this).call(this, source);
 
       this.v1.copy(source.v1);
       this.v2.copy(source.v2);
@@ -29397,7 +29703,7 @@ var LineCurve3 = /*#__PURE__*/function (_Curve6) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineCurve3.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "toJSON", this).call(this);
 
       data.v1 = this.v1.toArray();
       data.v2 = this.v2.toArray();
@@ -29406,7 +29712,7 @@ var LineCurve3 = /*#__PURE__*/function (_Curve6) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LineCurve3.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "fromJSON", this).call(this, json);
 
       this.v1.fromArray(json.v1);
       this.v2.fromArray(json.v2);
@@ -29418,28 +29724,28 @@ var LineCurve3 = /*#__PURE__*/function (_Curve6) {
 }(Curve);
 
 var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve, _Curve7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuadraticBezierCurve, _Curve7);
 
-  var _super106 = _createSuper(QuadraticBezierCurve);
+  var _super108 = _createSuper(QuadraticBezierCurve);
 
   function QuadraticBezierCurve() {
-    var _this80;
+    var _this82;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
     var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector2();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuadraticBezierCurve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuadraticBezierCurve);
 
-    _this80 = _super106.call(this);
-    _this80.type = 'QuadraticBezierCurve';
-    _this80.v0 = v0;
-    _this80.v1 = v1;
-    _this80.v2 = v2;
-    return _this80;
+    _this82 = _super108.call(this);
+    _this82.type = 'QuadraticBezierCurve';
+    _this82.v0 = v0;
+    _this82.v1 = v1;
+    _this82.v2 = v2;
+    return _this82;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuadraticBezierCurve, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
@@ -29453,7 +29759,7 @@ var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(QuadraticBezierCurve.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "copy", this).call(this, source);
 
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
@@ -29463,7 +29769,7 @@ var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(QuadraticBezierCurve.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "toJSON", this).call(this);
 
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
@@ -29473,7 +29779,7 @@ var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(QuadraticBezierCurve.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "fromJSON", this).call(this, json);
 
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
@@ -29488,28 +29794,28 @@ var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
 QuadraticBezierCurve.prototype.isQuadraticBezierCurve = true;
 
 var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve3, _Curve8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuadraticBezierCurve3, _Curve8);
 
-  var _super107 = _createSuper(QuadraticBezierCurve3);
+  var _super109 = _createSuper(QuadraticBezierCurve3);
 
   function QuadraticBezierCurve3() {
-    var _this81;
+    var _this83;
 
     var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
     var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, QuadraticBezierCurve3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuadraticBezierCurve3);
 
-    _this81 = _super107.call(this);
-    _this81.type = 'QuadraticBezierCurve3';
-    _this81.v0 = v0;
-    _this81.v1 = v1;
-    _this81.v2 = v2;
-    return _this81;
+    _this83 = _super109.call(this);
+    _this83.type = 'QuadraticBezierCurve3';
+    _this83.v0 = v0;
+    _this83.v1 = v1;
+    _this83.v2 = v2;
+    return _this83;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(QuadraticBezierCurve3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve3, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
@@ -29523,7 +29829,7 @@ var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "copy", this).call(this, source);
 
       this.v0.copy(source.v0);
       this.v1.copy(source.v1);
@@ -29533,7 +29839,7 @@ var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "toJSON", this).call(this);
 
       data.v0 = this.v0.toArray();
       data.v1 = this.v1.toArray();
@@ -29543,7 +29849,7 @@ var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "fromJSON", this).call(this, json);
 
       this.v0.fromArray(json.v0);
       this.v1.fromArray(json.v1);
@@ -29558,24 +29864,24 @@ var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
 QuadraticBezierCurve3.prototype.isQuadraticBezierCurve3 = true;
 
 var SplineCurve = /*#__PURE__*/function (_Curve9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SplineCurve, _Curve9);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SplineCurve, _Curve9);
 
-  var _super108 = _createSuper(SplineCurve);
+  var _super110 = _createSuper(SplineCurve);
 
   function SplineCurve() {
-    var _this82;
+    var _this84;
 
     var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SplineCurve);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SplineCurve);
 
-    _this82 = _super108.call(this);
-    _this82.type = 'SplineCurve';
-    _this82.points = points;
-    return _this82;
+    _this84 = _super110.call(this);
+    _this84.type = 'SplineCurve';
+    _this84.points = points;
+    return _this84;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SplineCurve, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SplineCurve, [{
     key: "getPoint",
     value: function getPoint(t) {
       var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
@@ -29594,12 +29900,12 @@ var SplineCurve = /*#__PURE__*/function (_Curve9) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SplineCurve.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "copy", this).call(this, source);
 
       this.points = [];
 
-      for (var _i244 = 0, l = source.points.length; _i244 < l; _i244++) {
-        var point = source.points[_i244];
+      for (var _i252 = 0, l = source.points.length; _i252 < l; _i252++) {
+        var point = source.points[_i252];
         this.points.push(point.clone());
       }
 
@@ -29608,12 +29914,12 @@ var SplineCurve = /*#__PURE__*/function (_Curve9) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SplineCurve.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "toJSON", this).call(this);
 
       data.points = [];
 
-      for (var _i245 = 0, l = this.points.length; _i245 < l; _i245++) {
-        var point = this.points[_i245];
+      for (var _i253 = 0, l = this.points.length; _i253 < l; _i253++) {
+        var point = this.points[_i253];
         data.points.push(point.toArray());
       }
 
@@ -29622,12 +29928,12 @@ var SplineCurve = /*#__PURE__*/function (_Curve9) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SplineCurve.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "fromJSON", this).call(this, json);
 
       this.points = [];
 
-      for (var _i246 = 0, l = json.points.length; _i246 < l; _i246++) {
-        var point = json.points[_i246];
+      for (var _i254 = 0, l = json.points.length; _i254 < l; _i254++) {
+        var point = json.points[_i254];
         this.points.push(new Vector2().fromArray(point));
       }
 
@@ -29658,24 +29964,24 @@ var Curves = /*#__PURE__*/Object.freeze({
  **************************************************************/
 
 var CurvePath = /*#__PURE__*/function (_Curve10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CurvePath, _Curve10);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CurvePath, _Curve10);
 
-  var _super109 = _createSuper(CurvePath);
+  var _super111 = _createSuper(CurvePath);
 
   function CurvePath() {
-    var _this83;
+    var _this85;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CurvePath);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CurvePath);
 
-    _this83 = _super109.call(this);
-    _this83.type = 'CurvePath';
-    _this83.curves = [];
-    _this83.autoClose = false; // Automatically closes the path
+    _this85 = _super111.call(this);
+    _this85.type = 'CurvePath';
+    _this85.curves = [];
+    _this85.autoClose = false; // Automatically closes the path
 
-    return _this83;
+    return _this85;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CurvePath, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CurvePath, [{
     key: "add",
     value: function add(curve) {
       this.curves.push(curve);
@@ -29751,8 +30057,8 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
       var lengths = [];
       var sums = 0;
 
-      for (var _i247 = 0, l = this.curves.length; _i247 < l; _i247++) {
-        sums += this.curves[_i247].getLength();
+      for (var _i255 = 0, l = this.curves.length; _i255 < l; _i255++) {
+        sums += this.curves[_i255].getLength();
         lengths.push(sums);
       }
 
@@ -29765,8 +30071,8 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
       var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 40;
       var points = [];
 
-      for (var _i248 = 0; _i248 <= divisions; _i248++) {
-        points.push(this.getPoint(_i248 / divisions));
+      for (var _i256 = 0; _i256 <= divisions; _i256++) {
+        points.push(this.getPoint(_i256 / divisions));
       }
 
       if (this.autoClose) {
@@ -29782,8 +30088,8 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
       var points = [];
       var last;
 
-      for (var _i249 = 0, curves = this.curves; _i249 < curves.length; _i249++) {
-        var curve = curves[_i249];
+      for (var _i257 = 0, curves = this.curves; _i257 < curves.length; _i257++) {
+        var curve = curves[_i257];
         var resolution = curve && curve.isEllipseCurve ? divisions * 2 : curve && (curve.isLineCurve || curve.isLineCurve3) ? 1 : curve && curve.isSplineCurve ? divisions * curve.points.length : divisions;
         var pts = curve.getPoints(resolution);
 
@@ -29805,12 +30111,12 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CurvePath.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CurvePath.prototype), "copy", this).call(this, source);
 
       this.curves = [];
 
-      for (var _i250 = 0, l = source.curves.length; _i250 < l; _i250++) {
-        var curve = source.curves[_i250];
+      for (var _i258 = 0, l = source.curves.length; _i258 < l; _i258++) {
+        var curve = source.curves[_i258];
         this.curves.push(curve.clone());
       }
 
@@ -29820,13 +30126,13 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CurvePath.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CurvePath.prototype), "toJSON", this).call(this);
 
       data.autoClose = this.autoClose;
       data.curves = [];
 
-      for (var _i251 = 0, l = this.curves.length; _i251 < l; _i251++) {
-        var curve = this.curves[_i251];
+      for (var _i259 = 0, l = this.curves.length; _i259 < l; _i259++) {
+        var curve = this.curves[_i259];
         data.curves.push(curve.toJSON());
       }
 
@@ -29835,13 +30141,13 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(CurvePath.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CurvePath.prototype), "fromJSON", this).call(this, json);
 
       this.autoClose = json.autoClose;
       this.curves = [];
 
-      for (var _i252 = 0, l = json.curves.length; _i252 < l; _i252++) {
-        var curve = json.curves[_i252];
+      for (var _i260 = 0, l = json.curves.length; _i260 < l; _i260++) {
+        var curve = json.curves[_i260];
         this.curves.push(new Curves[curve.type]().fromJSON(curve));
       }
 
@@ -29853,33 +30159,33 @@ var CurvePath = /*#__PURE__*/function (_Curve10) {
 }(Curve);
 
 var Path = /*#__PURE__*/function (_CurvePath) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Path, _CurvePath);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Path, _CurvePath);
 
-  var _super110 = _createSuper(Path);
+  var _super112 = _createSuper(Path);
 
   function Path(points) {
-    var _this84;
+    var _this86;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Path);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Path);
 
-    _this84 = _super110.call(this);
-    _this84.type = 'Path';
-    _this84.currentPoint = new Vector2();
+    _this86 = _super112.call(this);
+    _this86.type = 'Path';
+    _this86.currentPoint = new Vector2();
 
     if (points) {
-      _this84.setFromPoints(points);
+      _this86.setFromPoints(points);
     }
 
-    return _this84;
+    return _this86;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Path, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Path, [{
     key: "setFromPoints",
     value: function setFromPoints(points) {
       this.moveTo(points[0].x, points[0].y);
 
-      for (var _i253 = 1, l = points.length; _i253 < l; _i253++) {
-        this.lineTo(points[_i253].x, points[_i253].y);
+      for (var _i261 = 1, l = points.length; _i261 < l; _i261++) {
+        this.lineTo(points[_i261].x, points[_i261].y);
       }
 
       return this;
@@ -29970,7 +30276,7 @@ var Path = /*#__PURE__*/function (_CurvePath) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Path.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Path.prototype), "copy", this).call(this, source);
 
       this.currentPoint.copy(source.currentPoint);
       return this;
@@ -29978,7 +30284,7 @@ var Path = /*#__PURE__*/function (_CurvePath) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Path.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Path.prototype), "toJSON", this).call(this);
 
       data.currentPoint = this.currentPoint.toArray();
       return data;
@@ -29986,7 +30292,7 @@ var Path = /*#__PURE__*/function (_CurvePath) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Path.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Path.prototype), "fromJSON", this).call(this, json);
 
       this.currentPoint.fromArray(json.currentPoint);
       return this;
@@ -29997,29 +30303,29 @@ var Path = /*#__PURE__*/function (_CurvePath) {
 }(CurvePath);
 
 var Shape = /*#__PURE__*/function (_Path) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Shape, _Path);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Shape, _Path);
 
-  var _super111 = _createSuper(Shape);
+  var _super113 = _createSuper(Shape);
 
   function Shape(points) {
-    var _this85;
+    var _this87;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Shape);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Shape);
 
-    _this85 = _super111.call(this, points);
-    _this85.uuid = generateUUID();
-    _this85.type = 'Shape';
-    _this85.holes = [];
-    return _this85;
+    _this87 = _super113.call(this, points);
+    _this87.uuid = generateUUID();
+    _this87.type = 'Shape';
+    _this87.holes = [];
+    return _this87;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Shape, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Shape, [{
     key: "getPointsHoles",
     value: function getPointsHoles(divisions) {
       var holesPts = [];
 
-      for (var _i254 = 0, l = this.holes.length; _i254 < l; _i254++) {
-        holesPts[_i254] = this.holes[_i254].getPoints(divisions);
+      for (var _i262 = 0, l = this.holes.length; _i262 < l; _i262++) {
+        holesPts[_i262] = this.holes[_i262].getPoints(divisions);
       }
 
       return holesPts;
@@ -30036,12 +30342,12 @@ var Shape = /*#__PURE__*/function (_Path) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Shape.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Shape.prototype), "copy", this).call(this, source);
 
       this.holes = [];
 
-      for (var _i255 = 0, l = source.holes.length; _i255 < l; _i255++) {
-        var hole = source.holes[_i255];
+      for (var _i263 = 0, l = source.holes.length; _i263 < l; _i263++) {
+        var hole = source.holes[_i263];
         this.holes.push(hole.clone());
       }
 
@@ -30050,13 +30356,13 @@ var Shape = /*#__PURE__*/function (_Path) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Shape.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Shape.prototype), "toJSON", this).call(this);
 
       data.uuid = this.uuid;
       data.holes = [];
 
-      for (var _i256 = 0, l = this.holes.length; _i256 < l; _i256++) {
-        var hole = this.holes[_i256];
+      for (var _i264 = 0, l = this.holes.length; _i264 < l; _i264++) {
+        var hole = this.holes[_i264];
         data.holes.push(hole.toJSON());
       }
 
@@ -30065,13 +30371,13 @@ var Shape = /*#__PURE__*/function (_Path) {
   }, {
     key: "fromJSON",
     value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Shape.prototype), "fromJSON", this).call(this, json);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Shape.prototype), "fromJSON", this).call(this, json);
 
       this.uuid = json.uuid;
       this.holes = [];
 
-      for (var _i257 = 0, l = json.holes.length; _i257 < l; _i257++) {
-        var hole = json.holes[_i257];
+      for (var _i265 = 0, l = json.holes.length; _i265 < l; _i265++) {
+        var hole = json.holes[_i265];
         this.holes.push(new Path().fromJSON(hole));
       }
 
@@ -30083,32 +30389,32 @@ var Shape = /*#__PURE__*/function (_Path) {
 }(Path);
 
 var Light = /*#__PURE__*/function (_Object3D11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Light, _Object3D11);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Light, _Object3D11);
 
-  var _super112 = _createSuper(Light);
+  var _super114 = _createSuper(Light);
 
   function Light(color) {
-    var _this86;
+    var _this88;
 
     var intensity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Light);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Light);
 
-    _this86 = _super112.call(this);
-    _this86.type = 'Light';
-    _this86.color = new Color(color);
-    _this86.intensity = intensity;
-    return _this86;
+    _this88 = _super114.call(this);
+    _this88.type = 'Light';
+    _this88.color = new Color(color);
+    _this88.intensity = intensity;
+    return _this88;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Light, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Light, [{
     key: "dispose",
     value: function dispose() {// Empty here in base class; some subclasses override.
     }
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Light.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Light.prototype), "copy", this).call(this, source);
 
       this.color.copy(source.color);
       this.intensity = source.intensity;
@@ -30117,7 +30423,7 @@ var Light = /*#__PURE__*/function (_Object3D11) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Light.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Light.prototype), "toJSON", this).call(this, meta);
 
       data.object.color = this.color.getHex();
       data.object.intensity = this.intensity;
@@ -30137,27 +30443,27 @@ var Light = /*#__PURE__*/function (_Object3D11) {
 Light.prototype.isLight = true;
 
 var HemisphereLight = /*#__PURE__*/function (_Light) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLight, _Light);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(HemisphereLight, _Light);
 
-  var _super113 = _createSuper(HemisphereLight);
+  var _super115 = _createSuper(HemisphereLight);
 
   function HemisphereLight(skyColor, groundColor, intensity) {
-    var _this87;
+    var _this89;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, HemisphereLight);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, HemisphereLight);
 
-    _this87 = _super113.call(this, skyColor, intensity);
-    _this87.type = 'HemisphereLight';
+    _this89 = _super115.call(this, skyColor, intensity);
+    _this89.type = 'HemisphereLight';
 
-    _this87.position.copy(Object3D.DefaultUp);
+    _this89.position.copy(Object3D.DefaultUp);
 
-    _this87.updateMatrix();
+    _this89.updateMatrix();
 
-    _this87.groundColor = new Color(groundColor);
-    return _this87;
+    _this89.groundColor = new Color(groundColor);
+    return _this89;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(HemisphereLight, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLight, [{
     key: "copy",
     value: function copy(source) {
       Light.prototype.copy.call(this, source);
@@ -30179,7 +30485,7 @@ var _lookTarget$1 = /*@__PURE__*/new Vector3();
 
 var LightShadow = /*#__PURE__*/function () {
   function LightShadow(camera) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LightShadow);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LightShadow);
 
     this.camera = camera;
     this.bias = 0;
@@ -30197,7 +30503,7 @@ var LightShadow = /*#__PURE__*/function () {
     this._viewports = [new Vector4(0, 0, 1, 1)];
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LightShadow, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LightShadow, [{
     key: "getViewportCount",
     value: function getViewportCount() {
       return this._viewportCount;
@@ -30283,21 +30589,21 @@ var LightShadow = /*#__PURE__*/function () {
 }();
 
 var SpotLightShadow = /*#__PURE__*/function (_LightShadow) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightShadow, _LightShadow);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SpotLightShadow, _LightShadow);
 
-  var _super114 = _createSuper(SpotLightShadow);
+  var _super116 = _createSuper(SpotLightShadow);
 
   function SpotLightShadow() {
-    var _this88;
+    var _this90;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpotLightShadow);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SpotLightShadow);
 
-    _this88 = _super114.call(this, new PerspectiveCamera(50, 1, 0.5, 500));
-    _this88.focus = 1;
-    return _this88;
+    _this90 = _super116.call(this, new PerspectiveCamera(50, 1, 0.5, 500));
+    _this90.focus = 1;
+    return _this90;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpotLightShadow, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightShadow, [{
     key: "updateMatrices",
     value: function updateMatrices(light) {
       var camera = this.camera;
@@ -30312,12 +30618,12 @@ var SpotLightShadow = /*#__PURE__*/function (_LightShadow) {
         camera.updateProjectionMatrix();
       }
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SpotLightShadow.prototype), "updateMatrices", this).call(this, light);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SpotLightShadow.prototype), "updateMatrices", this).call(this, light);
     }
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SpotLightShadow.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SpotLightShadow.prototype), "copy", this).call(this, source);
 
       this.focus = source.focus;
       return this;
@@ -30330,38 +30636,38 @@ var SpotLightShadow = /*#__PURE__*/function (_LightShadow) {
 SpotLightShadow.prototype.isSpotLightShadow = true;
 
 var SpotLight = /*#__PURE__*/function (_Light2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLight, _Light2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SpotLight, _Light2);
 
-  var _super115 = _createSuper(SpotLight);
+  var _super117 = _createSuper(SpotLight);
 
   function SpotLight(color, intensity) {
-    var _this89;
+    var _this91;
 
     var distance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var angle = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Math.PI / 3;
     var penumbra = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
     var decay = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpotLight);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SpotLight);
 
-    _this89 = _super115.call(this, color, intensity);
-    _this89.type = 'SpotLight';
+    _this91 = _super117.call(this, color, intensity);
+    _this91.type = 'SpotLight';
 
-    _this89.position.copy(Object3D.DefaultUp);
+    _this91.position.copy(Object3D.DefaultUp);
 
-    _this89.updateMatrix();
+    _this91.updateMatrix();
 
-    _this89.target = new Object3D();
-    _this89.distance = distance;
-    _this89.angle = angle;
-    _this89.penumbra = penumbra;
-    _this89.decay = decay; // for physically correct lights, should be 2.
+    _this91.target = new Object3D();
+    _this91.distance = distance;
+    _this91.angle = angle;
+    _this91.penumbra = penumbra;
+    _this91.decay = decay; // for physically correct lights, should be 2.
 
-    _this89.shadow = new SpotLightShadow();
-    return _this89;
+    _this91.shadow = new SpotLightShadow();
+    return _this91;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpotLight, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLight, [{
     key: "power",
     get: function get() {
       // intensity = power per solid angle.
@@ -30381,7 +30687,7 @@ var SpotLight = /*#__PURE__*/function (_Light2) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SpotLight.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SpotLight.prototype), "copy", this).call(this, source);
 
       this.distance = source.distance;
       this.angle = source.angle;
@@ -30405,19 +30711,19 @@ var _lightPositionWorld = /*@__PURE__*/new Vector3();
 var _lookTarget = /*@__PURE__*/new Vector3();
 
 var PointLightShadow = /*#__PURE__*/function (_LightShadow2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightShadow, _LightShadow2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PointLightShadow, _LightShadow2);
 
-  var _super116 = _createSuper(PointLightShadow);
+  var _super118 = _createSuper(PointLightShadow);
 
   function PointLightShadow() {
-    var _this90;
+    var _this92;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointLightShadow);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PointLightShadow);
 
-    _this90 = _super116.call(this, new PerspectiveCamera(90, 1, 0.5, 500));
-    _this90._frameExtents = new Vector2(4, 2);
-    _this90._viewportCount = 6;
-    _this90._viewports = [// These viewports map a cube-map onto a 2D texture with the
+    _this92 = _super118.call(this, new PerspectiveCamera(90, 1, 0.5, 500));
+    _this92._frameExtents = new Vector2(4, 2);
+    _this92._viewportCount = 6;
+    _this92._viewports = [// These viewports map a cube-map onto a 2D texture with the
     // following orientation:
     //
     //  xzXZ
@@ -30436,12 +30742,12 @@ var PointLightShadow = /*#__PURE__*/function (_LightShadow2) {
     new Vector4(1, 1, 1, 1), // positive Y
     new Vector4(3, 0, 1, 1), // negative Y
     new Vector4(1, 0, 1, 1)];
-    _this90._cubeDirections = [new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1), new Vector3(0, 1, 0), new Vector3(0, -1, 0)];
-    _this90._cubeUps = [new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1)];
-    return _this90;
+    _this92._cubeDirections = [new Vector3(1, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1), new Vector3(0, 1, 0), new Vector3(0, -1, 0)];
+    _this92._cubeUps = [new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1), new Vector3(0, 0, -1)];
+    return _this92;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointLightShadow, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightShadow, [{
     key: "updateMatrices",
     value: function updateMatrices(light) {
       var viewportIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -30479,28 +30785,28 @@ var PointLightShadow = /*#__PURE__*/function (_LightShadow2) {
 PointLightShadow.prototype.isPointLightShadow = true;
 
 var PointLight = /*#__PURE__*/function (_Light3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLight, _Light3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PointLight, _Light3);
 
-  var _super117 = _createSuper(PointLight);
+  var _super119 = _createSuper(PointLight);
 
   function PointLight(color, intensity) {
-    var _this91;
+    var _this93;
 
     var distance = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var decay = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointLight);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PointLight);
 
-    _this91 = _super117.call(this, color, intensity);
-    _this91.type = 'PointLight';
-    _this91.distance = distance;
-    _this91.decay = decay; // for physically correct lights, should be 2.
+    _this93 = _super119.call(this, color, intensity);
+    _this93.type = 'PointLight';
+    _this93.distance = distance;
+    _this93.decay = decay; // for physically correct lights, should be 2.
 
-    _this91.shadow = new PointLightShadow();
-    return _this91;
+    _this93.shadow = new PointLightShadow();
+    return _this93;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointLight, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLight, [{
     key: "power",
     get: function get() {
       // intensity = power per solid angle.
@@ -30520,7 +30826,7 @@ var PointLight = /*#__PURE__*/function (_Light3) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PointLight.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(PointLight.prototype), "copy", this).call(this, source);
 
       this.distance = source.distance;
       this.decay = source.decay;
@@ -30535,12 +30841,12 @@ var PointLight = /*#__PURE__*/function (_Light3) {
 PointLight.prototype.isPointLight = true;
 
 var OrthographicCamera = /*#__PURE__*/function (_Camera2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OrthographicCamera, _Camera2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(OrthographicCamera, _Camera2);
 
-  var _super118 = _createSuper(OrthographicCamera);
+  var _super120 = _createSuper(OrthographicCamera);
 
   function OrthographicCamera() {
-    var _this92;
+    var _this94;
 
     var left = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
     var right = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -30549,28 +30855,28 @@ var OrthographicCamera = /*#__PURE__*/function (_Camera2) {
     var near = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0.1;
     var far = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 2000;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, OrthographicCamera);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, OrthographicCamera);
 
-    _this92 = _super118.call(this);
-    _this92.type = 'OrthographicCamera';
-    _this92.zoom = 1;
-    _this92.view = null;
-    _this92.left = left;
-    _this92.right = right;
-    _this92.top = top;
-    _this92.bottom = bottom;
-    _this92.near = near;
-    _this92.far = far;
+    _this94 = _super120.call(this);
+    _this94.type = 'OrthographicCamera';
+    _this94.zoom = 1;
+    _this94.view = null;
+    _this94.left = left;
+    _this94.right = right;
+    _this94.top = top;
+    _this94.bottom = bottom;
+    _this94.near = near;
+    _this94.far = far;
 
-    _this92.updateProjectionMatrix();
+    _this94.updateProjectionMatrix();
 
-    return _this92;
+    return _this94;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(OrthographicCamera, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OrthographicCamera, [{
     key: "copy",
     value: function copy(source, recursive) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(OrthographicCamera.prototype), "copy", this).call(this, source, recursive);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(OrthographicCamera.prototype), "copy", this).call(this, source, recursive);
 
       this.left = source.left;
       this.right = source.right;
@@ -30642,7 +30948,7 @@ var OrthographicCamera = /*#__PURE__*/function (_Camera2) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(OrthographicCamera.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(OrthographicCamera.prototype), "toJSON", this).call(this, meta);
 
       data.object.zoom = this.zoom;
       data.object.left = this.left;
@@ -30662,14 +30968,14 @@ var OrthographicCamera = /*#__PURE__*/function (_Camera2) {
 OrthographicCamera.prototype.isOrthographicCamera = true;
 
 var DirectionalLightShadow = /*#__PURE__*/function (_LightShadow3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLightShadow, _LightShadow3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DirectionalLightShadow, _LightShadow3);
 
-  var _super119 = _createSuper(DirectionalLightShadow);
+  var _super121 = _createSuper(DirectionalLightShadow);
 
   function DirectionalLightShadow() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DirectionalLightShadow);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DirectionalLightShadow);
 
-    return _super119.call(this, new OrthographicCamera(-5, 5, 5, -5, 0.5, 500));
+    return _super121.call(this, new OrthographicCamera(-5, 5, 5, -5, 0.5, 500));
   }
 
   return DirectionalLightShadow;
@@ -30678,28 +30984,28 @@ var DirectionalLightShadow = /*#__PURE__*/function (_LightShadow3) {
 DirectionalLightShadow.prototype.isDirectionalLightShadow = true;
 
 var DirectionalLight = /*#__PURE__*/function (_Light4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLight, _Light4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DirectionalLight, _Light4);
 
-  var _super120 = _createSuper(DirectionalLight);
+  var _super122 = _createSuper(DirectionalLight);
 
   function DirectionalLight(color, intensity) {
-    var _this93;
+    var _this95;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DirectionalLight);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DirectionalLight);
 
-    _this93 = _super120.call(this, color, intensity);
-    _this93.type = 'DirectionalLight';
+    _this95 = _super122.call(this, color, intensity);
+    _this95.type = 'DirectionalLight';
 
-    _this93.position.copy(Object3D.DefaultUp);
+    _this95.position.copy(Object3D.DefaultUp);
 
-    _this93.updateMatrix();
+    _this95.updateMatrix();
 
-    _this93.target = new Object3D();
-    _this93.shadow = new DirectionalLightShadow();
-    return _this93;
+    _this95.target = new Object3D();
+    _this95.shadow = new DirectionalLightShadow();
+    return _this95;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DirectionalLight, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLight, [{
     key: "dispose",
     value: function dispose() {
       this.shadow.dispose();
@@ -30707,7 +31013,7 @@ var DirectionalLight = /*#__PURE__*/function (_Light4) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(DirectionalLight.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(DirectionalLight.prototype), "copy", this).call(this, source);
 
       this.target = source.target.clone();
       this.shadow = source.shadow.clone();
@@ -30721,18 +31027,18 @@ var DirectionalLight = /*#__PURE__*/function (_Light4) {
 DirectionalLight.prototype.isDirectionalLight = true;
 
 var AmbientLight = /*#__PURE__*/function (_Light5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AmbientLight, _Light5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AmbientLight, _Light5);
 
-  var _super121 = _createSuper(AmbientLight);
+  var _super123 = _createSuper(AmbientLight);
 
   function AmbientLight(color, intensity) {
-    var _this94;
+    var _this96;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AmbientLight);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AmbientLight);
 
-    _this94 = _super121.call(this, color, intensity);
-    _this94.type = 'AmbientLight';
-    return _this94;
+    _this96 = _super123.call(this, color, intensity);
+    _this96.type = 'AmbientLight';
+    return _this96;
   }
 
   return AmbientLight;
@@ -30741,29 +31047,29 @@ var AmbientLight = /*#__PURE__*/function (_Light5) {
 AmbientLight.prototype.isAmbientLight = true;
 
 var RectAreaLight = /*#__PURE__*/function (_Light6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RectAreaLight, _Light6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RectAreaLight, _Light6);
 
-  var _super122 = _createSuper(RectAreaLight);
+  var _super124 = _createSuper(RectAreaLight);
 
   function RectAreaLight(color, intensity) {
-    var _this95;
+    var _this97;
 
     var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
     var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, RectAreaLight);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, RectAreaLight);
 
-    _this95 = _super122.call(this, color, intensity);
-    _this95.type = 'RectAreaLight';
-    _this95.width = width;
-    _this95.height = height;
-    return _this95;
+    _this97 = _super124.call(this, color, intensity);
+    _this97.type = 'RectAreaLight';
+    _this97.width = width;
+    _this97.height = height;
+    return _this97;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(RectAreaLight, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RectAreaLight, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(RectAreaLight.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(RectAreaLight.prototype), "copy", this).call(this, source);
 
       this.width = source.width;
       this.height = source.height;
@@ -30772,7 +31078,7 @@ var RectAreaLight = /*#__PURE__*/function (_Light6) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(RectAreaLight.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(RectAreaLight.prototype), "toJSON", this).call(this, meta);
 
       data.object.width = this.width;
       data.object.height = this.height;
@@ -30795,20 +31101,20 @@ RectAreaLight.prototype.isRectAreaLight = true;
 
 var SphericalHarmonics3 = /*#__PURE__*/function () {
   function SphericalHarmonics3() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SphericalHarmonics3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SphericalHarmonics3);
 
     this.coefficients = [];
 
-    for (var _i258 = 0; _i258 < 9; _i258++) {
+    for (var _i266 = 0; _i266 < 9; _i266++) {
       this.coefficients.push(new Vector3());
     }
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SphericalHarmonics3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SphericalHarmonics3, [{
     key: "set",
     value: function set(coefficients) {
-      for (var _i259 = 0; _i259 < 9; _i259++) {
-        this.coefficients[_i259].copy(coefficients[_i259]);
+      for (var _i267 = 0; _i267 < 9; _i267++) {
+        this.coefficients[_i267].copy(coefficients[_i267]);
       }
 
       return this;
@@ -30816,8 +31122,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
   }, {
     key: "zero",
     value: function zero() {
-      for (var _i260 = 0; _i260 < 9; _i260++) {
-        this.coefficients[_i260].set(0, 0, 0);
+      for (var _i268 = 0; _i268 < 9; _i268++) {
+        this.coefficients[_i268].set(0, 0, 0);
       }
 
       return this;
@@ -30879,8 +31185,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
   }, {
     key: "add",
     value: function add(sh) {
-      for (var _i261 = 0; _i261 < 9; _i261++) {
-        this.coefficients[_i261].add(sh.coefficients[_i261]);
+      for (var _i269 = 0; _i269 < 9; _i269++) {
+        this.coefficients[_i269].add(sh.coefficients[_i269]);
       }
 
       return this;
@@ -30888,8 +31194,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
   }, {
     key: "addScaledSH",
     value: function addScaledSH(sh, s) {
-      for (var _i262 = 0; _i262 < 9; _i262++) {
-        this.coefficients[_i262].addScaledVector(sh.coefficients[_i262], s);
+      for (var _i270 = 0; _i270 < 9; _i270++) {
+        this.coefficients[_i270].addScaledVector(sh.coefficients[_i270], s);
       }
 
       return this;
@@ -30897,8 +31203,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
   }, {
     key: "scale",
     value: function scale(s) {
-      for (var _i263 = 0; _i263 < 9; _i263++) {
-        this.coefficients[_i263].multiplyScalar(s);
+      for (var _i271 = 0; _i271 < 9; _i271++) {
+        this.coefficients[_i271].multiplyScalar(s);
       }
 
       return this;
@@ -30906,8 +31212,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
   }, {
     key: "lerp",
     value: function lerp(sh, alpha) {
-      for (var _i264 = 0; _i264 < 9; _i264++) {
-        this.coefficients[_i264].lerp(sh.coefficients[_i264], alpha);
+      for (var _i272 = 0; _i272 < 9; _i272++) {
+        this.coefficients[_i272].lerp(sh.coefficients[_i272], alpha);
       }
 
       return this;
@@ -30915,8 +31221,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
   }, {
     key: "equals",
     value: function equals(sh) {
-      for (var _i265 = 0; _i265 < 9; _i265++) {
-        if (!this.coefficients[_i265].equals(sh.coefficients[_i265])) {
+      for (var _i273 = 0; _i273 < 9; _i273++) {
+        if (!this.coefficients[_i273].equals(sh.coefficients[_i273])) {
           return false;
         }
       }
@@ -30939,8 +31245,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
       var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var coefficients = this.coefficients;
 
-      for (var _i266 = 0; _i266 < 9; _i266++) {
-        coefficients[_i266].fromArray(array, offset + _i266 * 3);
+      for (var _i274 = 0; _i274 < 9; _i274++) {
+        coefficients[_i274].fromArray(array, offset + _i274 * 3);
       }
 
       return this;
@@ -30952,8 +31258,8 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
       var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var coefficients = this.coefficients;
 
-      for (var _i267 = 0; _i267 < 9; _i267++) {
-        coefficients[_i267].toArray(array, offset + _i267 * 3);
+      for (var _i275 = 0; _i275 < 9; _i275++) {
+        coefficients[_i275].toArray(array, offset + _i275 * 3);
       }
 
       return array;
@@ -30988,27 +31294,27 @@ var SphericalHarmonics3 = /*#__PURE__*/function () {
 SphericalHarmonics3.prototype.isSphericalHarmonics3 = true;
 
 var LightProbe = /*#__PURE__*/function (_Light7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LightProbe, _Light7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LightProbe, _Light7);
 
-  var _super123 = _createSuper(LightProbe);
+  var _super125 = _createSuper(LightProbe);
 
   function LightProbe() {
-    var _this96;
+    var _this98;
 
     var sh = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new SphericalHarmonics3();
     var intensity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LightProbe);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LightProbe);
 
-    _this96 = _super123.call(this, undefined, intensity);
-    _this96.sh = sh;
-    return _this96;
+    _this98 = _super125.call(this, undefined, intensity);
+    _this98.sh = sh;
+    return _this98;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LightProbe, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LightProbe, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LightProbe.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LightProbe.prototype), "copy", this).call(this, source);
 
       this.sh.copy(source.sh);
       return this;
@@ -31024,7 +31330,7 @@ var LightProbe = /*#__PURE__*/function (_Light7) {
   }, {
     key: "toJSON",
     value: function toJSON(meta) {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(LightProbe.prototype), "toJSON", this).call(this, meta);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LightProbe.prototype), "toJSON", this).call(this, meta);
 
       data.object.sh = this.sh.toArray();
       return data;
@@ -31037,21 +31343,21 @@ var LightProbe = /*#__PURE__*/function (_Light7) {
 LightProbe.prototype.isLightProbe = true;
 
 var MaterialLoader = /*#__PURE__*/function (_Loader8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MaterialLoader, _Loader8);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MaterialLoader, _Loader8);
 
-  var _super124 = _createSuper(MaterialLoader);
+  var _super126 = _createSuper(MaterialLoader);
 
   function MaterialLoader(manager) {
-    var _this97;
+    var _this99;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, MaterialLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MaterialLoader);
 
-    _this97 = _super124.call(this, manager);
-    _this97.textures = {};
-    return _this97;
+    _this99 = _super126.call(this, manager);
+    _this99.textures = {};
+    return _this99;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(MaterialLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MaterialLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -31098,6 +31404,10 @@ var MaterialLoader = /*#__PURE__*/function (_Loader8) {
       if (json.shininess !== undefined) material.shininess = json.shininess;
       if (json.clearcoat !== undefined) material.clearcoat = json.clearcoat;
       if (json.clearcoatRoughness !== undefined) material.clearcoatRoughness = json.clearcoatRoughness;
+      if (json.transmission !== undefined) material.transmission = json.transmission;
+      if (json.thickness !== undefined) material.thickness = json.thickness;
+      if (json.attenuationDistance !== undefined) material.attenuationDistance = json.attenuationDistance;
+      if (json.attenuationColor !== undefined && material.attenuationColor !== undefined) material.attenuationColor.setHex(json.attenuationColor);
       if (json.fog !== undefined) material.fog = json.fog;
       if (json.flatShading !== undefined) material.flatShading = json.flatShading;
       if (json.blending !== undefined) material.blending = json.blending;
@@ -31130,7 +31440,6 @@ var MaterialLoader = /*#__PURE__*/function (_Loader8) {
       if (json.polygonOffset !== undefined) material.polygonOffset = json.polygonOffset;
       if (json.polygonOffsetFactor !== undefined) material.polygonOffsetFactor = json.polygonOffsetFactor;
       if (json.polygonOffsetUnits !== undefined) material.polygonOffsetUnits = json.polygonOffsetUnits;
-      if (json.skinning !== undefined) material.skinning = json.skinning;
       if (json.morphTargets !== undefined) material.morphTargets = json.morphTargets;
       if (json.morphNormals !== undefined) material.morphNormals = json.morphNormals;
       if (json.dithering !== undefined) material.dithering = json.dithering;
@@ -31247,8 +31556,8 @@ var MaterialLoader = /*#__PURE__*/function (_Loader8) {
       if (json.clearcoatRoughnessMap !== undefined) material.clearcoatRoughnessMap = getTexture(json.clearcoatRoughnessMap);
       if (json.clearcoatNormalMap !== undefined) material.clearcoatNormalMap = getTexture(json.clearcoatNormalMap);
       if (json.clearcoatNormalScale !== undefined) material.clearcoatNormalScale = new Vector2().fromArray(json.clearcoatNormalScale);
-      if (json.transmission !== undefined) material.transmission = json.transmission;
       if (json.transmissionMap !== undefined) material.transmissionMap = getTexture(json.transmissionMap);
+      if (json.thicknessMap !== undefined) material.thicknessMap = getTexture(json.thicknessMap);
       return material;
     }
   }, {
@@ -31264,10 +31573,10 @@ var MaterialLoader = /*#__PURE__*/function (_Loader8) {
 
 var LoaderUtils = /*#__PURE__*/function () {
   function LoaderUtils() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, LoaderUtils);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LoaderUtils);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(LoaderUtils, null, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LoaderUtils, null, [{
     key: "decodeText",
     value: function decodeText(array) {
       if (typeof TextDecoder !== 'undefined') {
@@ -31278,9 +31587,9 @@ var LoaderUtils = /*#__PURE__*/function () {
 
       var s = '';
 
-      for (var _i268 = 0, il = array.length; _i268 < il; _i268++) {
+      for (var _i276 = 0, il = array.length; _i276 < il; _i276++) {
         // Implicitly assumes little-endian.
-        s += String.fromCharCode(array[_i268]);
+        s += String.fromCharCode(array[_i276]);
       }
 
       try {
@@ -31304,25 +31613,25 @@ var LoaderUtils = /*#__PURE__*/function () {
 }();
 
 var InstancedBufferGeometry = /*#__PURE__*/function (_BufferGeometry17) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedBufferGeometry, _BufferGeometry17);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(InstancedBufferGeometry, _BufferGeometry17);
 
-  var _super125 = _createSuper(InstancedBufferGeometry);
+  var _super127 = _createSuper(InstancedBufferGeometry);
 
   function InstancedBufferGeometry() {
-    var _this98;
+    var _this100;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedBufferGeometry);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InstancedBufferGeometry);
 
-    _this98 = _super125.call(this);
-    _this98.type = 'InstancedBufferGeometry';
-    _this98.instanceCount = Infinity;
-    return _this98;
+    _this100 = _super127.call(this);
+    _this100.type = 'InstancedBufferGeometry';
+    _this100.instanceCount = Infinity;
+    return _this100;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedBufferGeometry, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedBufferGeometry, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferGeometry.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedBufferGeometry.prototype), "copy", this).call(this, source);
 
       this.instanceCount = source.instanceCount;
       return this;
@@ -31335,7 +31644,7 @@ var InstancedBufferGeometry = /*#__PURE__*/function (_BufferGeometry17) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferGeometry.prototype), "toJSON", this).call(this, this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedBufferGeometry.prototype), "toJSON", this).call(this, this);
 
       data.instanceCount = this.instanceCount;
       data.isInstancedBufferGeometry = true;
@@ -31349,14 +31658,14 @@ var InstancedBufferGeometry = /*#__PURE__*/function (_BufferGeometry17) {
 InstancedBufferGeometry.prototype.isInstancedBufferGeometry = true;
 
 var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedBufferAttribute, _BufferAttribute11);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(InstancedBufferAttribute, _BufferAttribute11);
 
-  var _super126 = _createSuper(InstancedBufferAttribute);
+  var _super128 = _createSuper(InstancedBufferAttribute);
 
   function InstancedBufferAttribute(array, itemSize, normalized, meshPerAttribute) {
-    var _this99;
+    var _this101;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedBufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InstancedBufferAttribute);
 
     if (typeof normalized === 'number') {
       meshPerAttribute = normalized;
@@ -31364,15 +31673,15 @@ var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
       console.error('THREE.InstancedBufferAttribute: The constructor now expects normalized as the third argument.');
     }
 
-    _this99 = _super126.call(this, array, itemSize, normalized);
-    _this99.meshPerAttribute = meshPerAttribute || 1;
-    return _this99;
+    _this101 = _super128.call(this, array, itemSize, normalized);
+    _this101.meshPerAttribute = meshPerAttribute || 1;
+    return _this101;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedBufferAttribute, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedBufferAttribute, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferAttribute.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedBufferAttribute.prototype), "copy", this).call(this, source);
 
       this.meshPerAttribute = source.meshPerAttribute;
       return this;
@@ -31380,7 +31689,7 @@ var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedBufferAttribute.prototype), "toJSON", this).call(this);
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedBufferAttribute.prototype), "toJSON", this).call(this);
 
       data.meshPerAttribute = this.meshPerAttribute;
       data.isInstancedBufferAttribute = true;
@@ -31394,17 +31703,17 @@ var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
 InstancedBufferAttribute.prototype.isInstancedBufferAttribute = true;
 
 var BufferGeometryLoader = /*#__PURE__*/function (_Loader9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometryLoader, _Loader9);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BufferGeometryLoader, _Loader9);
 
-  var _super127 = _createSuper(BufferGeometryLoader);
+  var _super129 = _createSuper(BufferGeometryLoader);
 
   function BufferGeometryLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BufferGeometryLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BufferGeometryLoader);
 
-    return _super127.call(this, manager);
+    return _super129.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BufferGeometryLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BufferGeometryLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -31495,8 +31804,8 @@ var BufferGeometryLoader = /*#__PURE__*/function (_Loader9) {
           var attributeArray = morphAttributes[_key4];
           var array = [];
 
-          for (var _i269 = 0, il = attributeArray.length; _i269 < il; _i269++) {
-            var _attribute5 = attributeArray[_i269];
+          for (var _i277 = 0, il = attributeArray.length; _i277 < il; _i277++) {
+            var _attribute5 = attributeArray[_i277];
 
             var _bufferAttribute = void 0;
 
@@ -31527,8 +31836,8 @@ var BufferGeometryLoader = /*#__PURE__*/function (_Loader9) {
       var groups = json.data.groups || json.data.drawcalls || json.data.offsets;
 
       if (groups !== undefined) {
-        for (var _i270 = 0, n = groups.length; _i270 !== n; ++_i270) {
-          var group = groups[_i270];
+        for (var _i278 = 0, n = groups.length; _i278 !== n; ++_i278) {
+          var group = groups[_i278];
           geometry.addGroup(group.start, group.count, group.materialIndex);
         }
       }
@@ -31555,17 +31864,17 @@ var BufferGeometryLoader = /*#__PURE__*/function (_Loader9) {
 }(Loader);
 
 var ObjectLoader = /*#__PURE__*/function (_Loader10) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ObjectLoader, _Loader10);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ObjectLoader, _Loader10);
 
-  var _super128 = _createSuper(ObjectLoader);
+  var _super130 = _createSuper(ObjectLoader);
 
   function ObjectLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ObjectLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ObjectLoader);
 
-    return _super128.call(this, manager);
+    return _super130.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ObjectLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ObjectLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -31632,8 +31941,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       var shapes = {};
 
       if (json !== undefined) {
-        for (var _i271 = 0, l = json.length; _i271 < l; _i271++) {
-          var shape = new Shape().fromJSON(json[_i271]);
+        for (var _i279 = 0, l = json.length; _i279 < l; _i279++) {
+          var shape = new Shape().fromJSON(json[_i279]);
           shapes[shape.uuid] = shape;
         }
       }
@@ -31651,8 +31960,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       }); // create skeletons
 
       if (json !== undefined) {
-        for (var _i272 = 0, l = json.length; _i272 < l; _i272++) {
-          var skeleton = new Skeleton().fromJSON(json[_i272], bones);
+        for (var _i280 = 0, l = json.length; _i280 < l; _i280++) {
+          var skeleton = new Skeleton().fromJSON(json[_i280], bones);
           skeletons[skeleton.uuid] = skeleton;
         }
       }
@@ -31668,9 +31977,9 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       if (json !== undefined) {
         var bufferGeometryLoader = new BufferGeometryLoader();
 
-        for (var _i273 = 0, l = json.length; _i273 < l; _i273++) {
+        for (var _i281 = 0, l = json.length; _i281 < l; _i281++) {
           var geometry = void 0;
-          var data = json[_i273];
+          var data = json[_i281];
 
           switch (data.type) {
             case 'PlaneGeometry':
@@ -31810,8 +32119,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
         var loader = new MaterialLoader();
         loader.setTextures(textures);
 
-        for (var _i274 = 0, l = json.length; _i274 < l; _i274++) {
-          var data = json[_i274];
+        for (var _i282 = 0, l = json.length; _i282 < l; _i282++) {
+          var data = json[_i282];
 
           if (data.type === 'MultiMaterial') {
             // Deprecated
@@ -31846,8 +32155,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       var animations = {};
 
       if (json !== undefined) {
-        for (var _i275 = 0; _i275 < json.length; _i275++) {
-          var data = json[_i275];
+        for (var _i283 = 0; _i283 < json.length; _i283++) {
+          var data = json[_i283];
           var clip = AnimationClip.parse(data);
           animations[clip.uuid] = clip;
         }
@@ -31895,8 +32204,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
         loader = new ImageLoader(manager);
         loader.setCrossOrigin(this.crossOrigin);
 
-        for (var _i276 = 0, il = json.length; _i276 < il; _i276++) {
-          var image = json[_i276];
+        for (var _i284 = 0, il = json.length; _i284 < il; _i284++) {
+          var image = json[_i284];
           var url = image.url;
 
           if (Array.isArray(url)) {
@@ -31941,8 +32250,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       var textures = {};
 
       if (json !== undefined) {
-        for (var _i277 = 0, l = json.length; _i277 < l; _i277++) {
-          var data = json[_i277];
+        for (var _i285 = 0, l = json.length; _i285 < l; _i285++) {
+          var data = json[_i285];
 
           if (data.image === undefined) {
             console.warn('THREE.ObjectLoader: No "image" specified for', data.uuid);
@@ -32015,8 +32324,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
         if (Array.isArray(name)) {
           var array = [];
 
-          for (var _i278 = 0, l = name.length; _i278 < l; _i278++) {
-            var uuid = name[_i278];
+          for (var _i286 = 0, l = name.length; _i286 < l; _i286++) {
+            var uuid = name[_i286];
 
             if (materials[uuid] === undefined) {
               console.warn('THREE.ObjectLoader: Undefined material', uuid);
@@ -32197,16 +32506,16 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       if (data.children !== undefined) {
         var children = data.children;
 
-        for (var _i279 = 0; _i279 < children.length; _i279++) {
-          object.add(this.parseObject(children[_i279], geometries, materials, animations));
+        for (var _i287 = 0; _i287 < children.length; _i287++) {
+          object.add(this.parseObject(children[_i287], geometries, materials, animations));
         }
       }
 
       if (data.animations !== undefined) {
         var objectAnimations = data.animations;
 
-        for (var _i280 = 0; _i280 < objectAnimations.length; _i280++) {
-          var uuid = objectAnimations[_i280];
+        for (var _i288 = 0; _i288 < objectAnimations.length; _i288++) {
+          var uuid = objectAnimations[_i288];
           object.animations.push(animations[uuid]);
         }
       }
@@ -32280,16 +32589,16 @@ var TEXTURE_FILTER = {
 };
 
 var ImageBitmapLoader = /*#__PURE__*/function (_Loader11) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageBitmapLoader, _Loader11);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ImageBitmapLoader, _Loader11);
 
-  var _super129 = _createSuper(ImageBitmapLoader);
+  var _super131 = _createSuper(ImageBitmapLoader);
 
   function ImageBitmapLoader(manager) {
-    var _this100;
+    var _this102;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImageBitmapLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ImageBitmapLoader);
 
-    _this100 = _super129.call(this, manager);
+    _this102 = _super131.call(this, manager);
 
     if (typeof createImageBitmap === 'undefined') {
       console.warn('THREE.ImageBitmapLoader: createImageBitmap() not supported.');
@@ -32299,13 +32608,13 @@ var ImageBitmapLoader = /*#__PURE__*/function (_Loader11) {
       console.warn('THREE.ImageBitmapLoader: fetch() not supported.');
     }
 
-    _this100.options = {
+    _this102.options = {
       premultiplyAlpha: 'none'
     };
-    return _this100;
+    return _this102;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ImageBitmapLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageBitmapLoader, [{
     key: "setOptions",
     value: function setOptions(options) {
       this.options = options;
@@ -32358,7 +32667,7 @@ ImageBitmapLoader.prototype.isImageBitmapLoader = true;
 
 var ShapePath = /*#__PURE__*/function () {
   function ShapePath() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ShapePath);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShapePath);
 
     this.type = 'ShapePath';
     this.color = new Color();
@@ -32366,7 +32675,7 @@ var ShapePath = /*#__PURE__*/function () {
     this.currentPath = null;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ShapePath, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapePath, [{
     key: "moveTo",
     value: function moveTo(x, y) {
       this.currentPath = new Path();
@@ -32404,8 +32713,8 @@ var ShapePath = /*#__PURE__*/function () {
       function toShapesNoHoles(inSubpaths) {
         var shapes = [];
 
-        for (var _i281 = 0, l = inSubpaths.length; _i281 < l; _i281++) {
-          var _tmpPath = inSubpaths[_i281];
+        for (var _i289 = 0, l = inSubpaths.length; _i289 < l; _i289++) {
+          var _tmpPath = inSubpaths[_i289];
 
           var _tmpShape = new Shape();
 
@@ -32490,8 +32799,8 @@ var ShapePath = /*#__PURE__*/function () {
       newShapes[mainIdx] = undefined;
       newShapeHoles[mainIdx] = [];
 
-      for (var _i282 = 0, l = subPaths.length; _i282 < l; _i282++) {
-        tmpPath = subPaths[_i282];
+      for (var _i290 = 0, l = subPaths.length; _i290 < l; _i290++) {
+        tmpPath = subPaths[_i290];
         tmpPoints = tmpPath.getPoints();
         solid = isClockWise(tmpPoints);
         solid = isCCW ? !solid : solid;
@@ -32563,10 +32872,10 @@ var ShapePath = /*#__PURE__*/function () {
 
       var tmpHoles;
 
-      for (var _i283 = 0, il = newShapes.length; _i283 < il; _i283++) {
-        tmpShape = newShapes[_i283].s;
+      for (var _i291 = 0, il = newShapes.length; _i291 < il; _i291++) {
+        tmpShape = newShapes[_i291].s;
         shapes.push(tmpShape);
-        tmpHoles = newShapeHoles[_i283];
+        tmpHoles = newShapeHoles[_i291];
 
         for (var j = 0, jl = tmpHoles.length; j < jl; j++) {
           tmpShape.holes.push(tmpHoles[j].h);
@@ -32583,13 +32892,13 @@ var ShapePath = /*#__PURE__*/function () {
 
 var Font = /*#__PURE__*/function () {
   function Font(data) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Font);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Font);
 
     this.type = 'Font';
     this.data = data;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Font, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Font, [{
     key: "generateShapes",
     value: function generateShapes(text) {
       var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
@@ -32615,8 +32924,8 @@ function createPaths(text, size, data) {
   var offsetX = 0,
       offsetY = 0;
 
-  for (var _i284 = 0; _i284 < chars.length; _i284++) {
-    var char = chars[_i284];
+  for (var _i292 = 0; _i292 < chars.length; _i292++) {
+    var char = chars[_i292];
 
     if (char === '\n') {
       offsetX = 0;
@@ -32645,41 +32954,41 @@ function createPath(char, scale, offsetX, offsetY, data) {
   if (glyph.o) {
     var outline = glyph._cachedOutline || (glyph._cachedOutline = glyph.o.split(' '));
 
-    for (var _i285 = 0, l = outline.length; _i285 < l;) {
-      var action = outline[_i285++];
+    for (var _i293 = 0, l = outline.length; _i293 < l;) {
+      var action = outline[_i293++];
 
       switch (action) {
         case 'm':
           // moveTo
-          x = outline[_i285++] * scale + offsetX;
-          y = outline[_i285++] * scale + offsetY;
+          x = outline[_i293++] * scale + offsetX;
+          y = outline[_i293++] * scale + offsetY;
           path.moveTo(x, y);
           break;
 
         case 'l':
           // lineTo
-          x = outline[_i285++] * scale + offsetX;
-          y = outline[_i285++] * scale + offsetY;
+          x = outline[_i293++] * scale + offsetX;
+          y = outline[_i293++] * scale + offsetY;
           path.lineTo(x, y);
           break;
 
         case 'q':
           // quadraticCurveTo
-          cpx = outline[_i285++] * scale + offsetX;
-          cpy = outline[_i285++] * scale + offsetY;
-          cpx1 = outline[_i285++] * scale + offsetX;
-          cpy1 = outline[_i285++] * scale + offsetY;
+          cpx = outline[_i293++] * scale + offsetX;
+          cpy = outline[_i293++] * scale + offsetY;
+          cpx1 = outline[_i293++] * scale + offsetX;
+          cpy1 = outline[_i293++] * scale + offsetY;
           path.quadraticCurveTo(cpx1, cpy1, cpx, cpy);
           break;
 
         case 'b':
           // bezierCurveTo
-          cpx = outline[_i285++] * scale + offsetX;
-          cpy = outline[_i285++] * scale + offsetY;
-          cpx1 = outline[_i285++] * scale + offsetX;
-          cpy1 = outline[_i285++] * scale + offsetY;
-          cpx2 = outline[_i285++] * scale + offsetX;
-          cpy2 = outline[_i285++] * scale + offsetY;
+          cpx = outline[_i293++] * scale + offsetX;
+          cpy = outline[_i293++] * scale + offsetY;
+          cpx1 = outline[_i293++] * scale + offsetX;
+          cpy1 = outline[_i293++] * scale + offsetY;
+          cpx2 = outline[_i293++] * scale + offsetX;
+          cpy2 = outline[_i293++] * scale + offsetY;
           path.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, cpx, cpy);
           break;
       }
@@ -32695,17 +33004,17 @@ function createPath(char, scale, offsetX, offsetY, data) {
 Font.prototype.isFont = true;
 
 var FontLoader = /*#__PURE__*/function (_Loader12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FontLoader, _Loader12);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(FontLoader, _Loader12);
 
-  var _super130 = _createSuper(FontLoader);
+  var _super132 = _createSuper(FontLoader);
 
   function FontLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, FontLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, FontLoader);
 
-    return _super130.call(this, manager);
+    return _super132.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(FontLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FontLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -32753,17 +33062,17 @@ var AudioContext = {
 };
 
 var AudioLoader = /*#__PURE__*/function (_Loader13) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioLoader, _Loader13);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AudioLoader, _Loader13);
 
-  var _super131 = _createSuper(AudioLoader);
+  var _super133 = _createSuper(AudioLoader);
 
   function AudioLoader(manager) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AudioLoader);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AudioLoader);
 
-    return _super131.call(this, manager);
+    return _super133.call(this, manager);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AudioLoader, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioLoader, [{
     key: "load",
     value: function load(url, onLoad, onProgress, onError) {
       var scope = this;
@@ -32798,18 +33107,18 @@ var AudioLoader = /*#__PURE__*/function (_Loader13) {
 }(Loader);
 
 var HemisphereLightProbe = /*#__PURE__*/function (_LightProbe) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLightProbe, _LightProbe);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(HemisphereLightProbe, _LightProbe);
 
-  var _super132 = _createSuper(HemisphereLightProbe);
+  var _super134 = _createSuper(HemisphereLightProbe);
 
   function HemisphereLightProbe(skyColor, groundColor) {
-    var _this101;
+    var _this103;
 
     var intensity = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, HemisphereLightProbe);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, HemisphereLightProbe);
 
-    _this101 = _super132.call(this, undefined, intensity);
+    _this103 = _super134.call(this, undefined, intensity);
     var color1 = new Color().set(skyColor);
     var color2 = new Color().set(groundColor);
     var sky = new Vector3(color1.r, color1.g, color1.b);
@@ -32818,11 +33127,11 @@ var HemisphereLightProbe = /*#__PURE__*/function (_LightProbe) {
     var c0 = Math.sqrt(Math.PI);
     var c1 = c0 * Math.sqrt(0.75);
 
-    _this101.sh.coefficients[0].copy(sky).add(ground).multiplyScalar(c0);
+    _this103.sh.coefficients[0].copy(sky).add(ground).multiplyScalar(c0);
 
-    _this101.sh.coefficients[1].copy(sky).sub(ground).multiplyScalar(c1);
+    _this103.sh.coefficients[1].copy(sky).sub(ground).multiplyScalar(c1);
 
-    return _this101;
+    return _this103;
   }
 
   return HemisphereLightProbe;
@@ -32831,23 +33140,23 @@ var HemisphereLightProbe = /*#__PURE__*/function (_LightProbe) {
 HemisphereLightProbe.prototype.isHemisphereLightProbe = true;
 
 var AmbientLightProbe = /*#__PURE__*/function (_LightProbe2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AmbientLightProbe, _LightProbe2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AmbientLightProbe, _LightProbe2);
 
-  var _super133 = _createSuper(AmbientLightProbe);
+  var _super135 = _createSuper(AmbientLightProbe);
 
   function AmbientLightProbe(color) {
-    var _this102;
+    var _this104;
 
     var intensity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AmbientLightProbe);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AmbientLightProbe);
 
-    _this102 = _super133.call(this, undefined, intensity);
+    _this104 = _super135.call(this, undefined, intensity);
     var color1 = new Color().set(color); // without extra factor of PI in the shader, would be 2 / Math.sqrt( Math.PI );
 
-    _this102.sh.coefficients[0].set(color1.r, color1.g, color1.b).multiplyScalar(2 * Math.sqrt(Math.PI));
+    _this104.sh.coefficients[0].set(color1.r, color1.g, color1.b).multiplyScalar(2 * Math.sqrt(Math.PI));
 
-    return _this102;
+    return _this104;
   }
 
   return AmbientLightProbe;
@@ -32861,7 +33170,7 @@ var _eyeLeft = /*@__PURE__*/new Matrix4();
 
 var StereoCamera = /*#__PURE__*/function () {
   function StereoCamera() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, StereoCamera);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, StereoCamera);
 
     this.type = 'StereoCamera';
     this.aspect = 1;
@@ -32883,7 +33192,7 @@ var StereoCamera = /*#__PURE__*/function () {
     };
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(StereoCamera, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(StereoCamera, [{
     key: "update",
     value: function update(camera) {
       var cache = this._cache;
@@ -32933,7 +33242,7 @@ var Clock = /*#__PURE__*/function () {
   function Clock() {
     var autoStart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Clock);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Clock);
 
     this.autoStart = autoStart;
     this.startTime = 0;
@@ -32942,7 +33251,7 @@ var Clock = /*#__PURE__*/function () {
     this.running = false;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Clock, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Clock, [{
     key: "start",
     value: function start() {
       this.startTime = now();
@@ -33000,30 +33309,30 @@ var _scale$1 = /*@__PURE__*/new Vector3();
 var _orientation$1 = /*@__PURE__*/new Vector3();
 
 var AudioListener = /*#__PURE__*/function (_Object3D12) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioListener, _Object3D12);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AudioListener, _Object3D12);
 
-  var _super134 = _createSuper(AudioListener);
+  var _super136 = _createSuper(AudioListener);
 
   function AudioListener() {
-    var _this103;
+    var _this105;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AudioListener);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AudioListener);
 
-    _this103 = _super134.call(this);
-    _this103.type = 'AudioListener';
-    _this103.context = AudioContext.getContext();
-    _this103.gain = _this103.context.createGain();
+    _this105 = _super136.call(this);
+    _this105.type = 'AudioListener';
+    _this105.context = AudioContext.getContext();
+    _this105.gain = _this105.context.createGain();
 
-    _this103.gain.connect(_this103.context.destination);
+    _this105.gain.connect(_this105.context.destination);
 
-    _this103.filter = null;
-    _this103.timeDelta = 0; // private
+    _this105.filter = null;
+    _this105.timeDelta = 0; // private
 
-    _this103._clock = new Clock();
-    return _this103;
+    _this105._clock = new Clock();
+    return _this105;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AudioListener, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioListener, [{
     key: "getInput",
     value: function getInput() {
       return this.gain;
@@ -33074,7 +33383,7 @@ var AudioListener = /*#__PURE__*/function (_Object3D12) {
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(AudioListener.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(AudioListener.prototype), "updateMatrixWorld", this).call(this, force);
 
       var listener = this.context.listener;
       var up = this.up;
@@ -33106,44 +33415,44 @@ var AudioListener = /*#__PURE__*/function (_Object3D12) {
 }(Object3D);
 
 var Audio = /*#__PURE__*/function (_Object3D13) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Audio, _Object3D13);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Audio, _Object3D13);
 
-  var _super135 = _createSuper(Audio);
+  var _super137 = _createSuper(Audio);
 
   function Audio(listener) {
-    var _this104;
+    var _this106;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Audio);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Audio);
 
-    _this104 = _super135.call(this);
-    _this104.type = 'Audio';
-    _this104.listener = listener;
-    _this104.context = listener.context;
-    _this104.gain = _this104.context.createGain();
+    _this106 = _super137.call(this);
+    _this106.type = 'Audio';
+    _this106.listener = listener;
+    _this106.context = listener.context;
+    _this106.gain = _this106.context.createGain();
 
-    _this104.gain.connect(listener.getInput());
+    _this106.gain.connect(listener.getInput());
 
-    _this104.autoplay = false;
-    _this104.buffer = null;
-    _this104.detune = 0;
-    _this104.loop = false;
-    _this104.loopStart = 0;
-    _this104.loopEnd = 0;
-    _this104.offset = 0;
-    _this104.duration = undefined;
-    _this104.playbackRate = 1;
-    _this104.isPlaying = false;
-    _this104.hasPlaybackControl = true;
-    _this104.source = null;
-    _this104.sourceType = 'empty';
-    _this104._startedAt = 0;
-    _this104._progress = 0;
-    _this104._connected = false;
-    _this104.filters = [];
-    return _this104;
+    _this106.autoplay = false;
+    _this106.buffer = null;
+    _this106.detune = 0;
+    _this106.loop = false;
+    _this106.loopStart = 0;
+    _this106.loopEnd = 0;
+    _this106.offset = 0;
+    _this106.duration = undefined;
+    _this106.playbackRate = 1;
+    _this106.isPlaying = false;
+    _this106.hasPlaybackControl = true;
+    _this106.source = null;
+    _this106.sourceType = 'empty';
+    _this106._startedAt = 0;
+    _this106._progress = 0;
+    _this106._connected = false;
+    _this106.filters = [];
+    return _this106;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Audio, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Audio, [{
     key: "getOutput",
     value: function getOutput() {
       return this.gain;
@@ -33256,8 +33565,8 @@ var Audio = /*#__PURE__*/function (_Object3D13) {
       if (this.filters.length > 0) {
         this.source.connect(this.filters[0]);
 
-        for (var _i286 = 1, l = this.filters.length; _i286 < l; _i286++) {
-          this.filters[_i286 - 1].connect(this.filters[_i286]);
+        for (var _i294 = 1, l = this.filters.length; _i294 < l; _i294++) {
+          this.filters[_i294 - 1].connect(this.filters[_i294]);
         }
 
         this.filters[this.filters.length - 1].connect(this.getOutput());
@@ -33274,8 +33583,8 @@ var Audio = /*#__PURE__*/function (_Object3D13) {
       if (this.filters.length > 0) {
         this.source.disconnect(this.filters[0]);
 
-        for (var _i287 = 1, l = this.filters.length; _i287 < l; _i287++) {
-          this.filters[_i287 - 1].disconnect(this.filters[_i287]);
+        for (var _i295 = 1, l = this.filters.length; _i295 < l; _i295++) {
+          this.filters[_i295 - 1].disconnect(this.filters[_i295]);
         }
 
         this.filters[this.filters.length - 1].disconnect(this.getOutput());
@@ -33422,25 +33731,25 @@ var _scale = /*@__PURE__*/new Vector3();
 var _orientation = /*@__PURE__*/new Vector3();
 
 var PositionalAudio = /*#__PURE__*/function (_Audio) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PositionalAudio, _Audio);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PositionalAudio, _Audio);
 
-  var _super136 = _createSuper(PositionalAudio);
+  var _super138 = _createSuper(PositionalAudio);
 
   function PositionalAudio(listener) {
-    var _this105;
+    var _this107;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PositionalAudio);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PositionalAudio);
 
-    _this105 = _super136.call(this, listener);
-    _this105.panner = _this105.context.createPanner();
-    _this105.panner.panningModel = 'HRTF';
+    _this107 = _super138.call(this, listener);
+    _this107.panner = _this107.context.createPanner();
+    _this107.panner.panningModel = 'HRTF';
 
-    _this105.panner.connect(_this105.gain);
+    _this107.panner.connect(_this107.gain);
 
-    return _this105;
+    return _this107;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PositionalAudio, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PositionalAudio, [{
     key: "getOutput",
     value: function getOutput() {
       return this.panner;
@@ -33500,7 +33809,7 @@ var PositionalAudio = /*#__PURE__*/function (_Audio) {
   }, {
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PositionalAudio.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(PositionalAudio.prototype), "updateMatrixWorld", this).call(this, force);
 
       if (this.hasPlaybackControl === true && this.isPlaying === false) return;
       this.matrixWorld.decompose(_position, _quaternion, _scale);
@@ -33532,7 +33841,7 @@ var AudioAnalyser = /*#__PURE__*/function () {
   function AudioAnalyser(audio) {
     var fftSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2048;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AudioAnalyser);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AudioAnalyser);
 
     this.analyser = audio.context.createAnalyser();
     this.analyser.fftSize = fftSize;
@@ -33540,7 +33849,7 @@ var AudioAnalyser = /*#__PURE__*/function () {
     audio.getOutput().connect(this.analyser);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AudioAnalyser, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AudioAnalyser, [{
     key: "getFrequencyData",
     value: function getFrequencyData() {
       this.analyser.getByteFrequencyData(this.data);
@@ -33552,8 +33861,8 @@ var AudioAnalyser = /*#__PURE__*/function () {
       var value = 0;
       var data = this.getFrequencyData();
 
-      for (var _i288 = 0; _i288 < data.length; _i288++) {
-        value += data[_i288];
+      for (var _i296 = 0; _i296 < data.length; _i296++) {
+        value += data[_i296];
       }
 
       return value / data.length;
@@ -33565,7 +33874,7 @@ var AudioAnalyser = /*#__PURE__*/function () {
 
 var PropertyMixer = /*#__PURE__*/function () {
   function PropertyMixer(binding, typeName, valueSize) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PropertyMixer);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PropertyMixer);
 
     this.binding = binding;
     this.valueSize = valueSize;
@@ -33623,7 +33932,7 @@ var PropertyMixer = /*#__PURE__*/function () {
   } // accumulate data in the 'incoming' region into 'accu<i>'
 
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PropertyMixer, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PropertyMixer, [{
     key: "accumulate",
     value: function accumulate(accuIndex, weight) {
       // note: happily accumulating nothing when weight = 0, the caller knows
@@ -33635,8 +33944,8 @@ var PropertyMixer = /*#__PURE__*/function () {
 
       if (currentWeight === 0) {
         // accuN := incoming * weight
-        for (var _i289 = 0; _i289 !== stride; ++_i289) {
-          buffer[offset + _i289] = buffer[_i289];
+        for (var _i297 = 0; _i297 !== stride; ++_i297) {
+          buffer[offset + _i297] = buffer[_i297];
         }
 
         currentWeight = weight;
@@ -33693,8 +34002,8 @@ var PropertyMixer = /*#__PURE__*/function () {
         this._mixBufferRegionAdditive(buffer, offset, this._addIndex * stride, 1, stride);
       }
 
-      for (var _i290 = stride, e = stride + stride; _i290 !== e; ++_i290) {
-        if (buffer[_i290] !== buffer[_i290 + stride]) {
+      for (var _i298 = stride, e = stride + stride; _i298 !== e; ++_i298) {
+        if (buffer[_i298] !== buffer[_i298 + stride]) {
           // value has changed -> update scene graph
           binding.setValue(buffer, offset);
           break;
@@ -33711,8 +34020,8 @@ var PropertyMixer = /*#__PURE__*/function () {
           originalValueOffset = stride * this._origIndex;
       binding.getValue(buffer, originalValueOffset); // accu[0..1] := orig -- initially detect changes against the original
 
-      for (var _i291 = stride, e = originalValueOffset; _i291 !== e; ++_i291) {
-        buffer[_i291] = buffer[originalValueOffset + _i291 % stride];
+      for (var _i299 = stride, e = originalValueOffset; _i299 !== e; ++_i299) {
+        buffer[_i299] = buffer[originalValueOffset + _i299 % stride];
       } // Add to identity for additive
 
 
@@ -33734,8 +34043,8 @@ var PropertyMixer = /*#__PURE__*/function () {
       var startIndex = this._addIndex * this.valueSize;
       var endIndex = startIndex + this.valueSize;
 
-      for (var _i292 = startIndex; _i292 < endIndex; _i292++) {
-        this.buffer[_i292] = 0;
+      for (var _i300 = startIndex; _i300 < endIndex; _i300++) {
+        this.buffer[_i300] = 0;
       }
     }
   }, {
@@ -33751,8 +34060,8 @@ var PropertyMixer = /*#__PURE__*/function () {
       var startIndex = this._origIndex * this.valueSize;
       var targetIndex = this._addIndex * this.valueSize;
 
-      for (var _i293 = 0; _i293 < this.valueSize; _i293++) {
-        this.buffer[targetIndex + _i293] = this.buffer[startIndex + _i293];
+      for (var _i301 = 0; _i301 < this.valueSize; _i301++) {
+        this.buffer[targetIndex + _i301] = this.buffer[startIndex + _i301];
       }
     } // mix functions
 
@@ -33760,8 +34069,8 @@ var PropertyMixer = /*#__PURE__*/function () {
     key: "_select",
     value: function _select(buffer, dstOffset, srcOffset, t, stride) {
       if (t >= 0.5) {
-        for (var _i294 = 0; _i294 !== stride; ++_i294) {
-          buffer[dstOffset + _i294] = buffer[srcOffset + _i294];
+        for (var _i302 = 0; _i302 !== stride; ++_i302) {
+          buffer[dstOffset + _i302] = buffer[srcOffset + _i302];
         }
       }
     }
@@ -33784,17 +34093,17 @@ var PropertyMixer = /*#__PURE__*/function () {
     value: function _lerp(buffer, dstOffset, srcOffset, t, stride) {
       var s = 1 - t;
 
-      for (var _i295 = 0; _i295 !== stride; ++_i295) {
-        var j = dstOffset + _i295;
-        buffer[j] = buffer[j] * s + buffer[srcOffset + _i295] * t;
+      for (var _i303 = 0; _i303 !== stride; ++_i303) {
+        var j = dstOffset + _i303;
+        buffer[j] = buffer[j] * s + buffer[srcOffset + _i303] * t;
       }
     }
   }, {
     key: "_lerpAdditive",
     value: function _lerpAdditive(buffer, dstOffset, srcOffset, t, stride) {
-      for (var _i296 = 0; _i296 !== stride; ++_i296) {
-        var j = dstOffset + _i296;
-        buffer[j] = buffer[j] + buffer[srcOffset + _i296] * t;
+      for (var _i304 = 0; _i304 !== stride; ++_i304) {
+        var j = dstOffset + _i304;
+        buffer[j] = buffer[j] + buffer[srcOffset + _i304] * t;
       }
     }
   }]);
@@ -33835,14 +34144,14 @@ var _supportedObjectNames = ['material', 'materials', 'bones'];
 
 var Composite = /*#__PURE__*/function () {
   function Composite(targetGroup, path, optionalParsedPath) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Composite);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Composite);
 
     var parsedPath = optionalParsedPath || PropertyBinding.parseTrackName(path);
     this._targetGroup = targetGroup;
     this._bindings = targetGroup.subscribe_(path, parsedPath);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Composite, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Composite, [{
     key: "getValue",
     value: function getValue(array, offset) {
       this.bind(); // bind all binding
@@ -33857,8 +34166,8 @@ var Composite = /*#__PURE__*/function () {
     value: function setValue(array, offset) {
       var bindings = this._bindings;
 
-      for (var _i297 = this._targetGroup.nCachedObjects_, n = bindings.length; _i297 !== n; ++_i297) {
-        bindings[_i297].setValue(array, offset);
+      for (var _i305 = this._targetGroup.nCachedObjects_, n = bindings.length; _i305 !== n; ++_i305) {
+        bindings[_i305].setValue(array, offset);
       }
     }
   }, {
@@ -33866,8 +34175,8 @@ var Composite = /*#__PURE__*/function () {
     value: function bind() {
       var bindings = this._bindings;
 
-      for (var _i298 = this._targetGroup.nCachedObjects_, n = bindings.length; _i298 !== n; ++_i298) {
-        bindings[_i298].bind();
+      for (var _i306 = this._targetGroup.nCachedObjects_, n = bindings.length; _i306 !== n; ++_i306) {
+        bindings[_i306].bind();
       }
     }
   }, {
@@ -33875,8 +34184,8 @@ var Composite = /*#__PURE__*/function () {
     value: function unbind() {
       var bindings = this._bindings;
 
-      for (var _i299 = this._targetGroup.nCachedObjects_, n = bindings.length; _i299 !== n; ++_i299) {
-        bindings[_i299].unbind();
+      for (var _i307 = this._targetGroup.nCachedObjects_, n = bindings.length; _i307 !== n; ++_i307) {
+        bindings[_i307].unbind();
       }
     }
   }]);
@@ -33891,7 +34200,7 @@ var Composite = /*#__PURE__*/function () {
 
 var PropertyBinding = /*#__PURE__*/function () {
   function PropertyBinding(rootNode, path, parsedPath) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PropertyBinding);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PropertyBinding);
 
     this.path = path;
     this.parsedPath = parsedPath || PropertyBinding.parseTrackName(path);
@@ -33902,7 +34211,7 @@ var PropertyBinding = /*#__PURE__*/function () {
     this.setValue = this._setValue_unbound;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PropertyBinding, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PropertyBinding, [{
     key: "_getValue_unavailable",
     value: // these are used to "bind" a nonexistent property
     function _getValue_unavailable() {}
@@ -33920,8 +34229,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _getValue_array(buffer, offset) {
       var source = this.resolvedProperty;
 
-      for (var _i300 = 0, n = source.length; _i300 !== n; ++_i300) {
-        buffer[offset++] = source[_i300];
+      for (var _i308 = 0, n = source.length; _i308 !== n; ++_i308) {
+        buffer[offset++] = source[_i308];
       }
     }
   }, {
@@ -33958,8 +34267,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _setValue_array(buffer, offset) {
       var dest = this.resolvedProperty;
 
-      for (var _i301 = 0, n = dest.length; _i301 !== n; ++_i301) {
-        dest[_i301] = buffer[offset++];
+      for (var _i309 = 0, n = dest.length; _i309 !== n; ++_i309) {
+        dest[_i309] = buffer[offset++];
       }
     }
   }, {
@@ -33967,8 +34276,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _setValue_array_setNeedsUpdate(buffer, offset) {
       var dest = this.resolvedProperty;
 
-      for (var _i302 = 0, n = dest.length; _i302 !== n; ++_i302) {
-        dest[_i302] = buffer[offset++];
+      for (var _i310 = 0, n = dest.length; _i310 !== n; ++_i310) {
+        dest[_i310] = buffer[offset++];
       }
 
       this.targetObject.needsUpdate = true;
@@ -33978,8 +34287,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _setValue_array_setMatrixWorldNeedsUpdate(buffer, offset) {
       var dest = this.resolvedProperty;
 
-      for (var _i303 = 0, n = dest.length; _i303 !== n; ++_i303) {
-        dest[_i303] = buffer[offset++];
+      for (var _i311 = 0, n = dest.length; _i311 !== n; ++_i311) {
+        dest[_i311] = buffer[offset++];
       }
 
       this.targetObject.matrixWorldNeedsUpdate = true;
@@ -34084,9 +34393,9 @@ var PropertyBinding = /*#__PURE__*/function () {
 
             targetObject = targetObject.skeleton.bones; // support resolving morphTarget names into indices.
 
-            for (var _i304 = 0; _i304 < targetObject.length; _i304++) {
-              if (targetObject[_i304].name === objectIndex) {
-                objectIndex = _i304;
+            for (var _i312 = 0; _i312 < targetObject.length; _i312++) {
+              if (targetObject[_i312].name === objectIndex) {
+                objectIndex = _i312;
                 break;
               }
             }
@@ -34267,8 +34576,8 @@ var PropertyBinding = /*#__PURE__*/function () {
 
       if (root.children) {
         var searchNodeSubtree = function searchNodeSubtree(children) {
-          for (var _i305 = 0; _i305 < children.length; _i305++) {
-            var childNode = children[_i305];
+          for (var _i313 = 0; _i313 < children.length; _i313++) {
+            var childNode = children[_i313];
 
             if (childNode.name === nodeName || childNode.uuid === nodeName) {
               return childNode;
@@ -34344,7 +34653,7 @@ PropertyBinding.prototype._setValue_fromArray, PropertyBinding.prototype._setVal
 
 var AnimationObjectGroup = /*#__PURE__*/function () {
   function AnimationObjectGroup() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationObjectGroup);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimationObjectGroup);
 
     this.uuid = generateUUID(); // cached objects followed by the active ones
 
@@ -34355,8 +34664,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
     var indices = {};
     this._indicesByUUID = indices; // for bookkeeping
 
-    for (var _i306 = 0, n = arguments.length; _i306 !== n; ++_i306) {
-      indices[arguments[_i306].uuid] = _i306;
+    for (var _i314 = 0, n = arguments.length; _i314 !== n; ++_i314) {
+      indices[arguments[_i314].uuid] = _i314;
     }
 
     this._paths = []; // inside: string
@@ -34387,7 +34696,7 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
     };
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationObjectGroup, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationObjectGroup, [{
     key: "add",
     value: function add() {
       var objects = this._objects,
@@ -34400,8 +34709,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
           nObjects = objects.length,
           nCachedObjects = this.nCachedObjects_;
 
-      for (var _i307 = 0, n = arguments.length; _i307 !== n; ++_i307) {
-        var object = arguments[_i307],
+      for (var _i315 = 0, n = arguments.length; _i315 !== n; ++_i315) {
+        var object = arguments[_i315],
             uuid = object.uuid;
         var index = indicesByUUID[uuid];
 
@@ -34457,8 +34766,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
           nBindings = bindings.length;
       var nCachedObjects = this.nCachedObjects_;
 
-      for (var _i308 = 0, n = arguments.length; _i308 !== n; ++_i308) {
-        var object = arguments[_i308],
+      for (var _i316 = 0, n = arguments.length; _i316 !== n; ++_i316) {
+        var object = arguments[_i316],
             uuid = object.uuid,
             index = indicesByUUID[uuid];
 
@@ -34495,8 +34804,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
       var nCachedObjects = this.nCachedObjects_,
           nObjects = objects.length;
 
-      for (var _i309 = 0, n = arguments.length; _i309 !== n; ++_i309) {
-        var object = arguments[_i309],
+      for (var _i317 = 0, n = arguments.length; _i317 !== n; ++_i317) {
+        var object = arguments[_i317],
             uuid = object.uuid,
             index = indicesByUUID[uuid];
 
@@ -34574,9 +34883,9 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
       parsedPaths.push(parsedPath);
       bindings.push(bindingsForPath);
 
-      for (var _i310 = nCachedObjects, n = objects.length; _i310 !== n; ++_i310) {
-        var object = objects[_i310];
-        bindingsForPath[_i310] = new PropertyBinding(object, path, parsedPath);
+      for (var _i318 = nCachedObjects, n = objects.length; _i318 !== n; ++_i318) {
+        var object = objects[_i318];
+        bindingsForPath[_i318] = new PropertyBinding(object, path, parsedPath);
       }
 
       return bindingsForPath;
@@ -34617,7 +34926,7 @@ var AnimationAction = /*#__PURE__*/function () {
     var localRoot = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     var blendMode = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : clip.blendMode;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationAction);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimationAction);
 
     this._mixer = mixer;
     this._clip = clip;
@@ -34631,10 +34940,10 @@ var AnimationAction = /*#__PURE__*/function () {
       endingEnd: ZeroCurvatureEnding
     };
 
-    for (var _i311 = 0; _i311 !== nTracks; ++_i311) {
-      var interpolant = tracks[_i311].createInterpolant(null);
+    for (var _i319 = 0; _i319 !== nTracks; ++_i319) {
+      var interpolant = tracks[_i319].createInterpolant(null);
 
-      interpolants[_i311] = interpolant;
+      interpolants[_i319] = interpolant;
       interpolant.settings = interpolantSettings;
     }
 
@@ -34675,7 +34984,7 @@ var AnimationAction = /*#__PURE__*/function () {
   } // State & Scheduling
 
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationAction, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationAction, [{
     key: "play",
     value: function play() {
       this._mixer._activateAction(this);
@@ -35148,28 +35457,28 @@ var AnimationAction = /*#__PURE__*/function () {
   return AnimationAction;
 }();
 
-var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationMixer, _EventDispatcher6);
+var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimationMixer, _EventDispatcher7);
 
-  var _super137 = _createSuper(AnimationMixer);
+  var _super139 = _createSuper(AnimationMixer);
 
   function AnimationMixer(root) {
-    var _this106;
+    var _this108;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AnimationMixer);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimationMixer);
 
-    _this106 = _super137.call(this);
-    _this106._root = root;
+    _this108 = _super139.call(this);
+    _this108._root = root;
 
-    _this106._initMemoryManager();
+    _this108._initMemoryManager();
 
-    _this106._accuIndex = 0;
-    _this106.time = 0;
-    _this106.timeScale = 1.0;
-    return _this106;
+    _this108._accuIndex = 0;
+    _this108.time = 0;
+    _this108.timeScale = 1.0;
+    return _this108;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AnimationMixer, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationMixer, [{
     key: "_bindAction",
     value: function _bindAction(action, prototypeAction) {
       var root = action._localRoot || this._root,
@@ -35186,15 +35495,15 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
         bindingsByRoot[rootUuid] = bindingsByName;
       }
 
-      for (var _i312 = 0; _i312 !== nTracks; ++_i312) {
-        var track = tracks[_i312],
+      for (var _i320 = 0; _i320 !== nTracks; ++_i320) {
+        var track = tracks[_i320],
             trackName = track.name;
         var binding = bindingsByName[trackName];
 
         if (binding !== undefined) {
-          bindings[_i312] = binding;
+          bindings[_i320] = binding;
         } else {
-          binding = bindings[_i312];
+          binding = bindings[_i320];
 
           if (binding !== undefined) {
             // existing binding, make sure the cache knows
@@ -35207,16 +35516,16 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
             continue;
           }
 
-          var path = prototypeAction && prototypeAction._propertyBindings[_i312].binding.parsedPath;
+          var path = prototypeAction && prototypeAction._propertyBindings[_i320].binding.parsedPath;
           binding = new PropertyMixer(PropertyBinding.create(root, trackName, path), track.ValueTypeName, track.getValueSize());
           ++binding.referenceCount;
 
           this._addInactiveBinding(binding, rootUuid, trackName);
 
-          bindings[_i312] = binding;
+          bindings[_i320] = binding;
         }
 
-        interpolants[_i312].resultBuffer = binding.buffer;
+        interpolants[_i320].resultBuffer = binding.buffer;
       }
     }
   }, {
@@ -35237,8 +35546,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
 
         var bindings = action._propertyBindings; // increment reference counts / sort out state
 
-        for (var _i313 = 0, n = bindings.length; _i313 !== n; ++_i313) {
-          var binding = bindings[_i313];
+        for (var _i321 = 0, n = bindings.length; _i321 !== n; ++_i321) {
+          var binding = bindings[_i321];
 
           if (binding.useCount++ === 0) {
             this._lendBinding(binding);
@@ -35256,8 +35565,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
       if (this._isActiveAction(action)) {
         var bindings = action._propertyBindings; // decrement reference counts / sort out state
 
-        for (var _i314 = 0, n = bindings.length; _i314 !== n; ++_i314) {
-          var binding = bindings[_i314];
+        for (var _i322 = 0, n = bindings.length; _i322 !== n; ++_i322) {
+          var binding = bindings[_i322];
 
           if (--binding.useCount === 0) {
             binding.restoreOriginalState();
@@ -35390,8 +35699,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
     value: function _removeInactiveBindingsForAction(action) {
       var bindings = action._propertyBindings;
 
-      for (var _i315 = 0, n = bindings.length; _i315 !== n; ++_i315) {
-        var binding = bindings[_i315];
+      for (var _i323 = 0, n = bindings.length; _i323 !== n; ++_i323) {
+        var binding = bindings[_i323];
 
         if (--binding.referenceCount === 0) {
           this._removeInactiveBinding(binding);
@@ -35591,8 +35900,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
       var actions = this._actions,
           nActions = this._nActiveActions;
 
-      for (var _i316 = nActions - 1; _i316 >= 0; --_i316) {
-        actions[_i316].stop();
+      for (var _i324 = nActions - 1; _i324 >= 0; --_i324) {
+        actions[_i324].stop();
       }
 
       return this;
@@ -35608,8 +35917,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
           timeDirection = Math.sign(deltaTime),
           accuIndex = this._accuIndex ^= 1; // run active actions
 
-      for (var _i317 = 0; _i317 !== nActions; ++_i317) {
-        var action = actions[_i317];
+      for (var _i325 = 0; _i325 !== nActions; ++_i325) {
+        var action = actions[_i325];
 
         action._update(time, deltaTime, timeDirection, accuIndex);
       } // update scene graph
@@ -35618,8 +35927,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
       var bindings = this._bindings,
           nBindings = this._nActiveBindings;
 
-      for (var _i318 = 0; _i318 !== nBindings; ++_i318) {
-        bindings[_i318].apply(accuIndex);
+      for (var _i326 = 0; _i326 !== nBindings; ++_i326) {
+        bindings[_i326].apply(accuIndex);
       }
 
       return this;
@@ -35630,8 +35939,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
     value: function setTime(timeInSeconds) {
       this.time = 0; // Zero out time attribute for AnimationMixer object;
 
-      for (var _i319 = 0; _i319 < this._actions.length; _i319++) {
-        this._actions[_i319].time = 0; // Zero out time attribute for all associated AnimationAction objects.
+      for (var _i327 = 0; _i327 < this._actions.length; _i327++) {
+        this._actions[_i327].time = 0; // Zero out time attribute for all associated AnimationAction objects.
       }
 
       return this.update(timeInSeconds); // Update used to set exact time. Returns "this" AnimationMixer object.
@@ -35657,8 +35966,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher6) {
         // just throw away
         var actionsToRemove = actionsForClip.knownActions;
 
-        for (var _i320 = 0, n = actionsToRemove.length; _i320 !== n; ++_i320) {
-          var action = actionsToRemove[_i320];
+        for (var _i328 = 0, n = actionsToRemove.length; _i328 !== n; ++_i328) {
+          var action = actionsToRemove[_i328];
 
           this._deactivateAction(action);
 
@@ -35727,7 +36036,7 @@ AnimationMixer.prototype._controlInterpolantsResultBuffer = new Float32Array(1);
 
 var Uniform = /*#__PURE__*/function () {
   function Uniform(value) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Uniform);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Uniform);
 
     if (typeof value === 'string') {
       console.warn('THREE.Uniform: Type parameter is no longer needed.');
@@ -35737,7 +36046,7 @@ var Uniform = /*#__PURE__*/function () {
     this.value = value;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Uniform, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Uniform, [{
     key: "clone",
     value: function clone() {
       return new Uniform(this.value.clone === undefined ? this.value : this.value.clone());
@@ -35748,26 +36057,26 @@ var Uniform = /*#__PURE__*/function () {
 }();
 
 var InstancedInterleavedBuffer = /*#__PURE__*/function (_InterleavedBuffer) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedInterleavedBuffer, _InterleavedBuffer);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(InstancedInterleavedBuffer, _InterleavedBuffer);
 
-  var _super138 = _createSuper(InstancedInterleavedBuffer);
+  var _super140 = _createSuper(InstancedInterleavedBuffer);
 
   function InstancedInterleavedBuffer(array, stride) {
-    var _this107;
+    var _this109;
 
     var meshPerAttribute = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, InstancedInterleavedBuffer);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InstancedInterleavedBuffer);
 
-    _this107 = _super138.call(this, array, stride);
-    _this107.meshPerAttribute = meshPerAttribute || 1;
-    return _this107;
+    _this109 = _super140.call(this, array, stride);
+    _this109.meshPerAttribute = meshPerAttribute || 1;
+    return _this109;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(InstancedInterleavedBuffer, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(InstancedInterleavedBuffer, [{
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "copy", this).call(this, source);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "copy", this).call(this, source);
 
       this.meshPerAttribute = source.meshPerAttribute;
       return this;
@@ -35775,7 +36084,7 @@ var InstancedInterleavedBuffer = /*#__PURE__*/function (_InterleavedBuffer) {
   }, {
     key: "clone",
     value: function clone(data) {
-      var ib = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "clone", this).call(this, data);
+      var ib = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "clone", this).call(this, data);
 
       ib.meshPerAttribute = this.meshPerAttribute;
       return ib;
@@ -35783,7 +36092,7 @@ var InstancedInterleavedBuffer = /*#__PURE__*/function (_InterleavedBuffer) {
   }, {
     key: "toJSON",
     value: function toJSON(data) {
-      var json = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "toJSON", this).call(this, data);
+      var json = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(InstancedInterleavedBuffer.prototype), "toJSON", this).call(this, data);
 
       json.isInstancedInterleavedBuffer = true;
       json.meshPerAttribute = this.meshPerAttribute;
@@ -35798,7 +36107,7 @@ InstancedInterleavedBuffer.prototype.isInstancedInterleavedBuffer = true;
 
 var GLBufferAttribute = /*#__PURE__*/function () {
   function GLBufferAttribute(buffer, type, itemSize, elementSize, count) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, GLBufferAttribute);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, GLBufferAttribute);
 
     this.buffer = buffer;
     this.type = type;
@@ -35808,7 +36117,7 @@ var GLBufferAttribute = /*#__PURE__*/function () {
     this.version = 0;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(GLBufferAttribute, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(GLBufferAttribute, [{
     key: "needsUpdate",
     set: function set(value) {
       if (value === true) this.version++;
@@ -35850,7 +36159,7 @@ var Raycaster = /*#__PURE__*/function () {
     var near = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
     var far = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Infinity;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Raycaster);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Raycaster);
 
     this.ray = new Ray(origin, direction); // direction is assumed to be normalized (for accurate distance calculations)
 
@@ -35871,7 +36180,7 @@ var Raycaster = /*#__PURE__*/function () {
     };
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Raycaster, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Raycaster, [{
     key: "set",
     value: function set(origin, direction) {
       // direction is assumed to be normalized (for accurate distance calculations)
@@ -35910,8 +36219,8 @@ var Raycaster = /*#__PURE__*/function () {
       var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       var intersects = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-      for (var _i321 = 0, l = objects.length; _i321 < l; _i321++) {
-        _intersectObject(objects[_i321], this, intersects, recursive);
+      for (var _i329 = 0, l = objects.length; _i329 < l; _i329++) {
+        _intersectObject(objects[_i329], this, intersects, recursive);
       }
 
       intersects.sort(ascSort);
@@ -35934,8 +36243,8 @@ function _intersectObject(object, raycaster, intersects, recursive) {
   if (recursive === true) {
     var children = object.children;
 
-    for (var _i322 = 0, l = children.length; _i322 < l; _i322++) {
-      _intersectObject(children[_i322], raycaster, intersects, true);
+    for (var _i330 = 0, l = children.length; _i330 < l; _i330++) {
+      _intersectObject(children[_i330], raycaster, intersects, true);
     }
   }
 }
@@ -35953,7 +36262,7 @@ var Spherical = /*#__PURE__*/function () {
     var phi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     var theta = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Spherical);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Spherical);
 
     this.radius = radius;
     this.phi = phi; // polar angle
@@ -35963,7 +36272,7 @@ var Spherical = /*#__PURE__*/function () {
     return this;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Spherical, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Spherical, [{
     key: "set",
     value: function set(radius, phi, theta) {
       this.radius = radius;
@@ -36027,7 +36336,7 @@ var Cylindrical = /*#__PURE__*/function () {
     var theta = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
     var y = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Cylindrical);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Cylindrical);
 
     this.radius = radius; // distance from the origin to a point in the x-z plane
 
@@ -36038,7 +36347,7 @@ var Cylindrical = /*#__PURE__*/function () {
     return this;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Cylindrical, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Cylindrical, [{
     key: "set",
     value: function set(radius, theta, y) {
       this.radius = radius;
@@ -36084,13 +36393,13 @@ var Box2 = /*#__PURE__*/function () {
     var min = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2(+Infinity, +Infinity);
     var max = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2(-Infinity, -Infinity);
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Box2);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Box2);
 
     this.min = min;
     this.max = max;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Box2, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Box2, [{
     key: "set",
     value: function set(min, max) {
       this.min.copy(min);
@@ -36102,8 +36411,8 @@ var Box2 = /*#__PURE__*/function () {
     value: function setFromPoints(points) {
       this.makeEmpty();
 
-      for (var _i323 = 0, il = points.length; _i323 < il; _i323++) {
-        this.expandByPoint(points[_i323]);
+      for (var _i331 = 0, il = points.length; _i331 < il; _i331++) {
+        this.expandByPoint(points[_i331]);
       }
 
       return this;
@@ -36270,13 +36579,13 @@ var Line3 = /*#__PURE__*/function () {
     var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
     var end = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Line3);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Line3);
 
     this.start = start;
     this.end = end;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Line3, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Line3, [{
     key: "set",
     value: function set(start, end) {
       this.start.copy(start);
@@ -36384,32 +36693,32 @@ var Line3 = /*#__PURE__*/function () {
 }();
 
 var ImmediateRenderObject = /*#__PURE__*/function (_Object3D14) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImmediateRenderObject, _Object3D14);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ImmediateRenderObject, _Object3D14);
 
-  var _super139 = _createSuper(ImmediateRenderObject);
+  var _super141 = _createSuper(ImmediateRenderObject);
 
   function ImmediateRenderObject(material) {
-    var _this108;
+    var _this110;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ImmediateRenderObject);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ImmediateRenderObject);
 
-    _this108 = _super139.call(this);
-    _this108.material = material;
+    _this110 = _super141.call(this);
+    _this110.material = material;
 
-    _this108.render = function ()
+    _this110.render = function ()
     /* renderCallback */
     {};
 
-    _this108.hasPositions = false;
-    _this108.hasNormals = false;
-    _this108.hasColors = false;
-    _this108.hasUvs = false;
-    _this108.positionArray = null;
-    _this108.normalArray = null;
-    _this108.colorArray = null;
-    _this108.uvArray = null;
-    _this108.count = 0;
-    return _this108;
+    _this110.hasPositions = false;
+    _this110.hasNormals = false;
+    _this110.hasColors = false;
+    _this110.hasUvs = false;
+    _this110.positionArray = null;
+    _this110.normalArray = null;
+    _this110.colorArray = null;
+    _this110.uvArray = null;
+    _this110.count = 0;
+    return _this110;
   }
 
   return ImmediateRenderObject;
@@ -36420,28 +36729,28 @@ ImmediateRenderObject.prototype.isImmediateRenderObject = true;
 var _vector$3 = /*@__PURE__*/new Vector3();
 
 var SpotLightHelper = /*#__PURE__*/function (_Object3D15) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightHelper, _Object3D15);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SpotLightHelper, _Object3D15);
 
-  var _super140 = _createSuper(SpotLightHelper);
+  var _super142 = _createSuper(SpotLightHelper);
 
   function SpotLightHelper(light, color) {
-    var _this109;
+    var _this111;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SpotLightHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SpotLightHelper);
 
-    _this109 = _super140.call(this);
-    _this109.light = light;
+    _this111 = _super142.call(this);
+    _this111.light = light;
 
-    _this109.light.updateMatrixWorld();
+    _this111.light.updateMatrixWorld();
 
-    _this109.matrix = light.matrixWorld;
-    _this109.matrixAutoUpdate = false;
-    _this109.color = color;
+    _this111.matrix = light.matrixWorld;
+    _this111.matrixAutoUpdate = false;
+    _this111.color = color;
     var geometry = new BufferGeometry();
     var positions = [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, -1, 1];
 
-    for (var _i324 = 0, j = 1, l = 32; _i324 < l; _i324++, j++) {
-      var p1 = _i324 / l * Math.PI * 2;
+    for (var _i332 = 0, j = 1, l = 32; _i332 < l; _i332++, j++) {
+      var p1 = _i332 / l * Math.PI * 2;
       var p2 = j / l * Math.PI * 2;
       positions.push(Math.cos(p1), Math.sin(p1), 1, Math.cos(p2), Math.sin(p2), 1);
     }
@@ -36451,16 +36760,16 @@ var SpotLightHelper = /*#__PURE__*/function (_Object3D15) {
       fog: false,
       toneMapped: false
     });
-    _this109.cone = new LineSegments(geometry, material);
+    _this111.cone = new LineSegments(geometry, material);
 
-    _this109.add(_this109.cone);
+    _this111.add(_this111.cone);
 
-    _this109.update();
+    _this111.update();
 
-    return _this109;
+    return _this111;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SpotLightHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SpotLightHelper, [{
     key: "dispose",
     value: function dispose() {
       this.cone.geometry.dispose();
@@ -36496,14 +36805,14 @@ var _boneMatrix = /*@__PURE__*/new Matrix4();
 var _matrixWorldInv = /*@__PURE__*/new Matrix4();
 
 var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SkeletonHelper, _LineSegments);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SkeletonHelper, _LineSegments);
 
-  var _super141 = _createSuper(SkeletonHelper);
+  var _super143 = _createSuper(SkeletonHelper);
 
   function SkeletonHelper(object) {
-    var _this110;
+    var _this112;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, SkeletonHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SkeletonHelper);
 
     var bones = getBoneList(object);
     var geometry = new BufferGeometry();
@@ -36512,8 +36821,8 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
     var color1 = new Color(0, 0, 1);
     var color2 = new Color(0, 1, 0);
 
-    for (var _i325 = 0; _i325 < bones.length; _i325++) {
-      var bone = bones[_i325];
+    for (var _i333 = 0; _i333 < bones.length; _i333++) {
+      var bone = bones[_i333];
 
       if (bone.parent && bone.parent.isBone) {
         vertices.push(0, 0, 0);
@@ -36532,17 +36841,17 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
       toneMapped: false,
       transparent: true
     });
-    _this110 = _super141.call(this, geometry, material);
-    _this110.type = 'SkeletonHelper';
-    _this110.isSkeletonHelper = true;
-    _this110.root = object;
-    _this110.bones = bones;
-    _this110.matrix = object.matrixWorld;
-    _this110.matrixAutoUpdate = false;
-    return _this110;
+    _this112 = _super143.call(this, geometry, material);
+    _this112.type = 'SkeletonHelper';
+    _this112.isSkeletonHelper = true;
+    _this112.root = object;
+    _this112.bones = bones;
+    _this112.matrix = object.matrixWorld;
+    _this112.matrixAutoUpdate = false;
+    return _this112;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(SkeletonHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SkeletonHelper, [{
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
       var bones = this.bones;
@@ -36551,8 +36860,8 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
 
       _matrixWorldInv.copy(this.root.matrixWorld).invert();
 
-      for (var _i326 = 0, j = 0; _i326 < bones.length; _i326++) {
-        var bone = bones[_i326];
+      for (var _i334 = 0, j = 0; _i334 < bones.length; _i334++) {
+        var bone = bones[_i334];
 
         if (bone.parent && bone.parent.isBone) {
           _boneMatrix.multiplyMatrices(_matrixWorldInv, bone.matrixWorld);
@@ -36572,7 +36881,7 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
 
       geometry.getAttribute('position').needsUpdate = true;
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(SkeletonHelper.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SkeletonHelper.prototype), "updateMatrixWorld", this).call(this, force);
     }
   }]);
 
@@ -36586,22 +36895,22 @@ function getBoneList(object) {
     boneList.push(object);
   }
 
-  for (var _i327 = 0; _i327 < object.children.length; _i327++) {
-    boneList.push.apply(boneList, getBoneList(object.children[_i327]));
+  for (var _i335 = 0; _i335 < object.children.length; _i335++) {
+    boneList.push.apply(boneList, getBoneList(object.children[_i335]));
   }
 
   return boneList;
 }
 
 var PointLightHelper = /*#__PURE__*/function (_Mesh3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightHelper, _Mesh3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PointLightHelper, _Mesh3);
 
-  var _super142 = _createSuper(PointLightHelper);
+  var _super144 = _createSuper(PointLightHelper);
 
   function PointLightHelper(light, sphereSize, color) {
-    var _this111;
+    var _this113;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PointLightHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PointLightHelper);
 
     var geometry = new SphereGeometry(sphereSize, 4, 2);
     var material = new MeshBasicMaterial({
@@ -36609,17 +36918,17 @@ var PointLightHelper = /*#__PURE__*/function (_Mesh3) {
       fog: false,
       toneMapped: false
     });
-    _this111 = _super142.call(this, geometry, material);
-    _this111.light = light;
+    _this113 = _super144.call(this, geometry, material);
+    _this113.light = light;
 
-    _this111.light.updateMatrixWorld();
+    _this113.light.updateMatrixWorld();
 
-    _this111.color = color;
-    _this111.type = 'PointLightHelper';
-    _this111.matrix = _this111.light.matrixWorld;
-    _this111.matrixAutoUpdate = false;
+    _this113.color = color;
+    _this113.type = 'PointLightHelper';
+    _this113.matrix = _this113.light.matrixWorld;
+    _this113.matrixAutoUpdate = false;
 
-    _this111.update();
+    _this113.update();
     /*
     // TODO: delete this comment?
     const distanceGeometry = new THREE.IcosahedronBufferGeometry( 1, 2 );
@@ -36636,10 +36945,10 @@ var PointLightHelper = /*#__PURE__*/function (_Mesh3) {
     */
 
 
-    return _this111;
+    return _this113;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PointLightHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PointLightHelper, [{
     key: "dispose",
     value: function dispose() {
       this.geometry.dispose();
@@ -36676,43 +36985,43 @@ var _color1 = /*@__PURE__*/new Color();
 var _color2 = /*@__PURE__*/new Color();
 
 var HemisphereLightHelper = /*#__PURE__*/function (_Object3D16) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLightHelper, _Object3D16);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(HemisphereLightHelper, _Object3D16);
 
-  var _super143 = _createSuper(HemisphereLightHelper);
+  var _super145 = _createSuper(HemisphereLightHelper);
 
   function HemisphereLightHelper(light, size, color) {
-    var _this112;
+    var _this114;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, HemisphereLightHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, HemisphereLightHelper);
 
-    _this112 = _super143.call(this);
-    _this112.light = light;
+    _this114 = _super145.call(this);
+    _this114.light = light;
 
-    _this112.light.updateMatrixWorld();
+    _this114.light.updateMatrixWorld();
 
-    _this112.matrix = light.matrixWorld;
-    _this112.matrixAutoUpdate = false;
-    _this112.color = color;
+    _this114.matrix = light.matrixWorld;
+    _this114.matrixAutoUpdate = false;
+    _this114.color = color;
     var geometry = new OctahedronGeometry(size);
     geometry.rotateY(Math.PI * 0.5);
-    _this112.material = new MeshBasicMaterial({
+    _this114.material = new MeshBasicMaterial({
       wireframe: true,
       fog: false,
       toneMapped: false
     });
-    if (_this112.color === undefined) _this112.material.vertexColors = true;
+    if (_this114.color === undefined) _this114.material.vertexColors = true;
     var position = geometry.getAttribute('position');
     var colors = new Float32Array(position.count * 3);
     geometry.setAttribute('color', new BufferAttribute(colors, 3));
 
-    _this112.add(new Mesh(geometry, _this112.material));
+    _this114.add(new Mesh(geometry, _this114.material));
 
-    _this112.update();
+    _this114.update();
 
-    return _this112;
+    return _this114;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(HemisphereLightHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(HemisphereLightHelper, [{
     key: "dispose",
     value: function dispose() {
       this.children[0].geometry.dispose();
@@ -36732,9 +37041,9 @@ var HemisphereLightHelper = /*#__PURE__*/function (_Object3D16) {
 
         _color2.copy(this.light.groundColor);
 
-        for (var _i328 = 0, l = colors.count; _i328 < l; _i328++) {
-          var color = _i328 < l / 2 ? _color1 : _color2;
-          colors.setXYZ(_i328, color.r, color.g, color.b);
+        for (var _i336 = 0, l = colors.count; _i336 < l; _i336++) {
+          var color = _i336 < l / 2 ? _color1 : _color2;
+          colors.setXYZ(_i336, color.r, color.g, color.b);
         }
 
         colors.needsUpdate = true;
@@ -36748,19 +37057,19 @@ var HemisphereLightHelper = /*#__PURE__*/function (_Object3D16) {
 }(Object3D);
 
 var GridHelper = /*#__PURE__*/function (_LineSegments2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(GridHelper, _LineSegments2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(GridHelper, _LineSegments2);
 
-  var _super144 = _createSuper(GridHelper);
+  var _super146 = _createSuper(GridHelper);
 
   function GridHelper() {
-    var _this113;
+    var _this115;
 
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
     var divisions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 10;
     var color1 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0x444444;
     var color2 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0x888888;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, GridHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, GridHelper);
 
     color1 = new Color(color1);
     color2 = new Color(color2);
@@ -36770,10 +37079,10 @@ var GridHelper = /*#__PURE__*/function (_LineSegments2) {
     var vertices = [],
         colors = [];
 
-    for (var _i329 = 0, j = 0, k = -halfSize; _i329 <= divisions; _i329++, k += step) {
+    for (var _i337 = 0, j = 0, k = -halfSize; _i337 <= divisions; _i337++, k += step) {
       vertices.push(-halfSize, 0, k, halfSize, 0, k);
       vertices.push(k, 0, -halfSize, k, 0, halfSize);
-      var color = _i329 === center ? color1 : color2;
+      var color = _i337 === center ? color1 : color2;
       color.toArray(colors, j);
       j += 3;
       color.toArray(colors, j);
@@ -36791,21 +37100,21 @@ var GridHelper = /*#__PURE__*/function (_LineSegments2) {
       vertexColors: true,
       toneMapped: false
     });
-    _this113 = _super144.call(this, geometry, material);
-    _this113.type = 'GridHelper';
-    return _this113;
+    _this115 = _super146.call(this, geometry, material);
+    _this115.type = 'GridHelper';
+    return _this115;
   }
 
   return GridHelper;
 }(LineSegments);
 
 var PolarGridHelper = /*#__PURE__*/function (_LineSegments3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PolarGridHelper, _LineSegments3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PolarGridHelper, _LineSegments3);
 
-  var _super145 = _createSuper(PolarGridHelper);
+  var _super147 = _createSuper(PolarGridHelper);
 
   function PolarGridHelper() {
-    var _this114;
+    var _this116;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 10;
     var radials = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 16;
@@ -36814,29 +37123,29 @@ var PolarGridHelper = /*#__PURE__*/function (_LineSegments3) {
     var color1 = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0x444444;
     var color2 = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0x888888;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PolarGridHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PolarGridHelper);
 
     color1 = new Color(color1);
     color2 = new Color(color2);
     var vertices = [];
     var colors = []; // create the radials
 
-    for (var _i330 = 0; _i330 <= radials; _i330++) {
-      var v = _i330 / radials * (Math.PI * 2);
+    for (var _i338 = 0; _i338 <= radials; _i338++) {
+      var v = _i338 / radials * (Math.PI * 2);
       var x = Math.sin(v) * radius;
       var z = Math.cos(v) * radius;
       vertices.push(0, 0, 0);
       vertices.push(x, 0, z);
-      var color = _i330 & 1 ? color1 : color2;
+      var color = _i338 & 1 ? color1 : color2;
       colors.push(color.r, color.g, color.b);
       colors.push(color.r, color.g, color.b);
     } // create the circles
 
 
-    for (var _i331 = 0; _i331 <= circles; _i331++) {
-      var _color = _i331 & 1 ? color1 : color2;
+    for (var _i339 = 0; _i339 <= circles; _i339++) {
+      var _color = _i339 & 1 ? color1 : color2;
 
-      var r = radius - radius / circles * _i331;
+      var r = radius - radius / circles * _i339;
 
       for (var j = 0; j < divisions; j++) {
         // first vertex
@@ -36864,9 +37173,9 @@ var PolarGridHelper = /*#__PURE__*/function (_LineSegments3) {
       vertexColors: true,
       toneMapped: false
     });
-    _this114 = _super145.call(this, geometry, material);
-    _this114.type = 'PolarGridHelper';
-    return _this114;
+    _this116 = _super147.call(this, geometry, material);
+    _this116.type = 'PolarGridHelper';
+    return _this116;
   }
 
   return PolarGridHelper;
@@ -36879,23 +37188,23 @@ var _v2 = /*@__PURE__*/new Vector3();
 var _v3 = /*@__PURE__*/new Vector3();
 
 var DirectionalLightHelper = /*#__PURE__*/function (_Object3D17) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLightHelper, _Object3D17);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DirectionalLightHelper, _Object3D17);
 
-  var _super146 = _createSuper(DirectionalLightHelper);
+  var _super148 = _createSuper(DirectionalLightHelper);
 
   function DirectionalLightHelper(light, size, color) {
-    var _this115;
+    var _this117;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DirectionalLightHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DirectionalLightHelper);
 
-    _this115 = _super146.call(this);
-    _this115.light = light;
+    _this117 = _super148.call(this);
+    _this117.light = light;
 
-    _this115.light.updateMatrixWorld();
+    _this117.light.updateMatrixWorld();
 
-    _this115.matrix = light.matrixWorld;
-    _this115.matrixAutoUpdate = false;
-    _this115.color = color;
+    _this117.matrix = light.matrixWorld;
+    _this117.matrixAutoUpdate = false;
+    _this117.color = color;
     if (size === undefined) size = 1;
     var geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute([-size, size, 0, size, size, 0, size, -size, 0, -size, -size, 0, -size, size, 0], 3));
@@ -36903,22 +37212,22 @@ var DirectionalLightHelper = /*#__PURE__*/function (_Object3D17) {
       fog: false,
       toneMapped: false
     });
-    _this115.lightPlane = new Line(geometry, material);
+    _this117.lightPlane = new Line(geometry, material);
 
-    _this115.add(_this115.lightPlane);
+    _this117.add(_this117.lightPlane);
 
     geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute([0, 0, 0, 0, 0, 1], 3));
-    _this115.targetLine = new Line(geometry, material);
+    _this117.targetLine = new Line(geometry, material);
 
-    _this115.add(_this115.targetLine);
+    _this117.add(_this117.targetLine);
 
-    _this115.update();
+    _this117.update();
 
-    return _this115;
+    return _this117;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DirectionalLightHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DirectionalLightHelper, [{
     key: "dispose",
     value: function dispose() {
       this.lightPlane.geometry.dispose();
@@ -36965,14 +37274,14 @@ var _camera = /*@__PURE__*/new Camera();
 
 
 var CameraHelper = /*#__PURE__*/function (_LineSegments4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CameraHelper, _LineSegments4);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CameraHelper, _LineSegments4);
 
-  var _super147 = _createSuper(CameraHelper);
+  var _super149 = _createSuper(CameraHelper);
 
   function CameraHelper(camera) {
-    var _this116;
+    var _this118;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, CameraHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CameraHelper);
 
     var geometry = new BufferGeometry();
     var material = new LineBasicMaterial({
@@ -37040,20 +37349,20 @@ var CameraHelper = /*#__PURE__*/function (_LineSegments4) {
 
     geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3));
     geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
-    _this116 = _super147.call(this, geometry, material);
-    _this116.type = 'CameraHelper';
-    _this116.camera = camera;
-    if (_this116.camera.updateProjectionMatrix) _this116.camera.updateProjectionMatrix();
-    _this116.matrix = camera.matrixWorld;
-    _this116.matrixAutoUpdate = false;
-    _this116.pointMap = pointMap;
+    _this118 = _super149.call(this, geometry, material);
+    _this118.type = 'CameraHelper';
+    _this118.camera = camera;
+    if (_this118.camera.updateProjectionMatrix) _this118.camera.updateProjectionMatrix();
+    _this118.matrix = camera.matrixWorld;
+    _this118.matrixAutoUpdate = false;
+    _this118.pointMap = pointMap;
 
-    _this116.update();
+    _this118.update();
 
-    return _this116;
+    return _this118;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(CameraHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CameraHelper, [{
     key: "update",
     value: function update() {
       var geometry = this.geometry;
@@ -37111,8 +37420,8 @@ function setPoint(point, pointMap, geometry, camera, x, y, z) {
   if (points !== undefined) {
     var position = geometry.getAttribute('position');
 
-    for (var _i332 = 0, l = points.length; _i332 < l; _i332++) {
-      position.setXYZ(points[_i332], _vector.x, _vector.y, _vector.z);
+    for (var _i340 = 0, l = points.length; _i340 < l; _i340++) {
+      position.setXYZ(points[_i340], _vector.x, _vector.y, _vector.z);
     }
   }
 }
@@ -37120,36 +37429,36 @@ function setPoint(point, pointMap, geometry, camera, x, y, z) {
 var _box = /*@__PURE__*/new Box3();
 
 var BoxHelper = /*#__PURE__*/function (_LineSegments5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BoxHelper, _LineSegments5);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BoxHelper, _LineSegments5);
 
-  var _super148 = _createSuper(BoxHelper);
+  var _super150 = _createSuper(BoxHelper);
 
   function BoxHelper(object) {
-    var _this117;
+    var _this119;
 
     var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0xffff00;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, BoxHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BoxHelper);
 
     var indices = new Uint16Array([0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 6, 6, 7, 7, 4, 0, 4, 1, 5, 2, 6, 3, 7]);
     var positions = new Float32Array(8 * 3);
     var geometry = new BufferGeometry();
     geometry.setIndex(new BufferAttribute(indices, 1));
     geometry.setAttribute('position', new BufferAttribute(positions, 3));
-    _this117 = _super148.call(this, geometry, new LineBasicMaterial({
+    _this119 = _super150.call(this, geometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this117.object = object;
-    _this117.type = 'BoxHelper';
-    _this117.matrixAutoUpdate = false;
+    _this119.object = object;
+    _this119.type = 'BoxHelper';
+    _this119.matrixAutoUpdate = false;
 
-    _this117.update();
+    _this119.update();
 
-    return _this117;
+    return _this119;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BoxHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BoxHelper, [{
     key: "update",
     value: function update(object) {
       if (object !== undefined) {
@@ -37227,35 +37536,35 @@ var BoxHelper = /*#__PURE__*/function (_LineSegments5) {
 }(LineSegments);
 
 var Box3Helper = /*#__PURE__*/function (_LineSegments6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Box3Helper, _LineSegments6);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Box3Helper, _LineSegments6);
 
-  var _super149 = _createSuper(Box3Helper);
+  var _super151 = _createSuper(Box3Helper);
 
   function Box3Helper(box) {
-    var _this118;
+    var _this120;
 
     var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0xffff00;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, Box3Helper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Box3Helper);
 
     var indices = new Uint16Array([0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 6, 6, 7, 7, 4, 0, 4, 1, 5, 2, 6, 3, 7]);
     var positions = [1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1];
     var geometry = new BufferGeometry();
     geometry.setIndex(new BufferAttribute(indices, 1));
     geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
-    _this118 = _super149.call(this, geometry, new LineBasicMaterial({
+    _this120 = _super151.call(this, geometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this118.box = box;
-    _this118.type = 'Box3Helper';
+    _this120.box = box;
+    _this120.type = 'Box3Helper';
 
-    _this118.geometry.computeBoundingSphere();
+    _this120.geometry.computeBoundingSphere();
 
-    return _this118;
+    return _this120;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Box3Helper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Box3Helper, [{
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
       var box = this.box;
@@ -37264,7 +37573,7 @@ var Box3Helper = /*#__PURE__*/function (_LineSegments6) {
       box.getSize(this.scale);
       this.scale.multiplyScalar(0.5);
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Box3Helper.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Box3Helper.prototype), "updateMatrixWorld", this).call(this, force);
     }
   }]);
 
@@ -37272,36 +37581,36 @@ var Box3Helper = /*#__PURE__*/function (_LineSegments6) {
 }(LineSegments);
 
 var PlaneHelper = /*#__PURE__*/function (_Line3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneHelper, _Line3);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PlaneHelper, _Line3);
 
-  var _super150 = _createSuper(PlaneHelper);
+  var _super152 = _createSuper(PlaneHelper);
 
   function PlaneHelper(plane) {
-    var _this119;
+    var _this121;
 
     var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
     var hex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0xffff00;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PlaneHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PlaneHelper);
 
     var color = hex;
     var positions = [1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0];
     var geometry = new BufferGeometry();
     geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
     geometry.computeBoundingSphere();
-    _this119 = _super150.call(this, geometry, new LineBasicMaterial({
+    _this121 = _super152.call(this, geometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this119.type = 'PlaneHelper';
-    _this119.plane = plane;
-    _this119.size = size;
+    _this121.type = 'PlaneHelper';
+    _this121.plane = plane;
+    _this121.size = size;
     var positions2 = [1, 1, 1, -1, 1, 1, -1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1];
     var geometry2 = new BufferGeometry();
     geometry2.setAttribute('position', new Float32BufferAttribute(positions2, 3));
     geometry2.computeBoundingSphere();
 
-    _this119.add(new Mesh(geometry2, new MeshBasicMaterial({
+    _this121.add(new Mesh(geometry2, new MeshBasicMaterial({
       color: color,
       opacity: 0.2,
       transparent: true,
@@ -37309,10 +37618,10 @@ var PlaneHelper = /*#__PURE__*/function (_Line3) {
       toneMapped: false
     })));
 
-    return _this119;
+    return _this121;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PlaneHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneHelper, [{
     key: "updateMatrixWorld",
     value: function updateMatrixWorld(force) {
       var scale = -this.plane.constant;
@@ -37323,7 +37632,7 @@ var PlaneHelper = /*#__PURE__*/function (_Line3) {
 
       this.lookAt(this.plane.normal);
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(PlaneHelper.prototype), "updateMatrixWorld", this).call(this, force);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(PlaneHelper.prototype), "updateMatrixWorld", this).call(this, force);
     }
   }]);
 
@@ -37335,13 +37644,13 @@ var _axis = /*@__PURE__*/new Vector3();
 var _lineGeometry, _coneGeometry;
 
 var ArrowHelper = /*#__PURE__*/function (_Object3D18) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArrowHelper, _Object3D18);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ArrowHelper, _Object3D18);
 
-  var _super151 = _createSuper(ArrowHelper);
+  var _super153 = _createSuper(ArrowHelper);
 
   // dir is assumed to be normalized
   function ArrowHelper() {
-    var _this120;
+    var _this122;
 
     var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3(0, 0, 1);
     var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3(0, 0, 0);
@@ -37350,10 +37659,10 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D18) {
     var headLength = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : length * 0.2;
     var headWidth = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : headLength * 0.2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, ArrowHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ArrowHelper);
 
-    _this120 = _super151.call(this);
-    _this120.type = 'ArrowHelper';
+    _this122 = _super153.call(this);
+    _this122.type = 'ArrowHelper';
 
     if (_lineGeometry === undefined) {
       _lineGeometry = new BufferGeometry();
@@ -37365,32 +37674,32 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D18) {
       _coneGeometry.translate(0, -0.5, 0);
     }
 
-    _this120.position.copy(origin);
+    _this122.position.copy(origin);
 
-    _this120.line = new Line(_lineGeometry, new LineBasicMaterial({
+    _this122.line = new Line(_lineGeometry, new LineBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this120.line.matrixAutoUpdate = false;
+    _this122.line.matrixAutoUpdate = false;
 
-    _this120.add(_this120.line);
+    _this122.add(_this122.line);
 
-    _this120.cone = new Mesh(_coneGeometry, new MeshBasicMaterial({
+    _this122.cone = new Mesh(_coneGeometry, new MeshBasicMaterial({
       color: color,
       toneMapped: false
     }));
-    _this120.cone.matrixAutoUpdate = false;
+    _this122.cone.matrixAutoUpdate = false;
 
-    _this120.add(_this120.cone);
+    _this122.add(_this122.cone);
 
-    _this120.setDirection(dir);
+    _this122.setDirection(dir);
 
-    _this120.setLength(length, headLength, headWidth);
+    _this122.setLength(length, headLength, headWidth);
 
-    return _this120;
+    return _this122;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(ArrowHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ArrowHelper, [{
     key: "setDirection",
     value: function setDirection(dir) {
       // dir is assumed to be normalized
@@ -37426,7 +37735,7 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D18) {
   }, {
     key: "copy",
     value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(ArrowHelper.prototype), "copy", this).call(this, source, false);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(ArrowHelper.prototype), "copy", this).call(this, source, false);
 
       this.line.copy(source.line);
       this.cone.copy(source.cone);
@@ -37438,16 +37747,16 @@ var ArrowHelper = /*#__PURE__*/function (_Object3D18) {
 }(Object3D);
 
 var AxesHelper = /*#__PURE__*/function (_LineSegments7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AxesHelper, _LineSegments7);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AxesHelper, _LineSegments7);
 
-  var _super152 = _createSuper(AxesHelper);
+  var _super154 = _createSuper(AxesHelper);
 
   function AxesHelper() {
-    var _this121;
+    var _this123;
 
     var size = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, AxesHelper);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AxesHelper);
 
     var vertices = [0, 0, 0, size, 0, 0, 0, 0, 0, 0, size, 0, 0, 0, 0, 0, 0, size];
     var colors = [1, 0, 0, 1, 0.6, 0, 0, 1, 0, 0.6, 1, 0, 0, 0, 1, 0, 0.6, 1];
@@ -37458,12 +37767,12 @@ var AxesHelper = /*#__PURE__*/function (_LineSegments7) {
       vertexColors: true,
       toneMapped: false
     });
-    _this121 = _super152.call(this, geometry, material);
-    _this121.type = 'AxesHelper';
-    return _this121;
+    _this123 = _super154.call(this, geometry, material);
+    _this123.type = 'AxesHelper';
+    return _this123;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(AxesHelper, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AxesHelper, [{
     key: "dispose",
     value: function dispose() {
       this.geometry.dispose();
@@ -37480,10 +37789,10 @@ var _int32View = new Int32Array(_floatView.buffer);
 
 var DataUtils = /*#__PURE__*/function () {
   function DataUtils() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, DataUtils);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataUtils);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(DataUtils, null, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataUtils, null, [{
     key: "toHalfFloat",
     value: // Converts float32 to float16 (stored as uint16 value).
     function toHalfFloat(val) {
@@ -37553,7 +37862,7 @@ var TOTAL_LODS = LOD_MAX - LOD_MIN + 1 + EXTRA_LOD_SIGMA.length; // The maximum 
 // samples and exit early, but not recompile the shader.
 
 var MAX_SAMPLES = 20;
-var ENCODINGS = (_ENCODINGS = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, LinearEncoding, 0), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, sRGBEncoding, 1), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, RGBEEncoding, 2), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, RGBM7Encoding, 3), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, RGBM16Encoding, 4), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, RGBDEncoding, 5), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ENCODINGS, GammaEncoding, 6), _ENCODINGS);
+var ENCODINGS = (_ENCODINGS = {}, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, LinearEncoding, 0), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, sRGBEncoding, 1), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, RGBEEncoding, 2), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, RGBM7Encoding, 3), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, RGBM16Encoding, 4), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, RGBDEncoding, 5), (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(_ENCODINGS, GammaEncoding, 6), _ENCODINGS);
 var backgroundMaterial = new MeshBasicMaterial({
   side: BackSide,
   depthWrite: false,
@@ -37602,7 +37911,7 @@ function convertLinearToRGBE(color) {
 
 var PMREMGenerator = /*#__PURE__*/function () {
   function PMREMGenerator(renderer) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(this, PMREMGenerator);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PMREMGenerator);
 
     this._renderer = renderer;
     this._pingPongRenderTarget = null;
@@ -37621,7 +37930,7 @@ var PMREMGenerator = /*#__PURE__*/function () {
    */
 
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PMREMGenerator, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PMREMGenerator, [{
     key: "fromScene",
     value: function fromScene(scene) {
       var sigma = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -37707,8 +38016,8 @@ var PMREMGenerator = /*#__PURE__*/function () {
       if (this._cubemapShader !== null) this._cubemapShader.dispose();
       if (this._equirectShader !== null) this._equirectShader.dispose();
 
-      for (var _i333 = 0; _i333 < _lodPlanes.length; _i333++) {
-        _lodPlanes[_i333].dispose();
+      for (var _i341 = 0; _i341 < _lodPlanes.length; _i341++) {
+        _lodPlanes[_i341].dispose();
       }
     } // private interface
 
@@ -37801,21 +38110,21 @@ var PMREMGenerator = /*#__PURE__*/function () {
         useSolidColor = true;
       }
 
-      for (var _i334 = 0; _i334 < 6; _i334++) {
-        var col = _i334 % 3;
+      for (var _i342 = 0; _i342 < 6; _i342++) {
+        var col = _i342 % 3;
 
         if (col == 0) {
-          cubeCamera.up.set(0, upSign[_i334], 0);
-          cubeCamera.lookAt(forwardSign[_i334], 0, 0);
+          cubeCamera.up.set(0, upSign[_i342], 0);
+          cubeCamera.lookAt(forwardSign[_i342], 0, 0);
         } else if (col == 1) {
-          cubeCamera.up.set(0, 0, upSign[_i334]);
-          cubeCamera.lookAt(0, forwardSign[_i334], 0);
+          cubeCamera.up.set(0, 0, upSign[_i342]);
+          cubeCamera.lookAt(0, forwardSign[_i342], 0);
         } else {
-          cubeCamera.up.set(0, upSign[_i334], 0);
-          cubeCamera.lookAt(0, 0, forwardSign[_i334]);
+          cubeCamera.up.set(0, upSign[_i342], 0);
+          cubeCamera.lookAt(0, 0, forwardSign[_i342]);
         }
 
-        _setViewport(cubeUVRenderTarget, col * SIZE_MAX, _i334 > 2 ? SIZE_MAX : 0, SIZE_MAX, SIZE_MAX);
+        _setViewport(cubeUVRenderTarget, col * SIZE_MAX, _i342 > 2 ? SIZE_MAX : 0, SIZE_MAX, SIZE_MAX);
 
         renderer.setRenderTarget(cubeUVRenderTarget);
 
@@ -37869,11 +38178,11 @@ var PMREMGenerator = /*#__PURE__*/function () {
       var autoClear = renderer.autoClear;
       renderer.autoClear = false;
 
-      for (var _i335 = 1; _i335 < TOTAL_LODS; _i335++) {
-        var sigma = Math.sqrt(_sigmas[_i335] * _sigmas[_i335] - _sigmas[_i335 - 1] * _sigmas[_i335 - 1]);
-        var poleAxis = _axisDirections[(_i335 - 1) % _axisDirections.length];
+      for (var _i343 = 1; _i343 < TOTAL_LODS; _i343++) {
+        var sigma = Math.sqrt(_sigmas[_i343] * _sigmas[_i343] - _sigmas[_i343 - 1] * _sigmas[_i343 - 1]);
+        var poleAxis = _axisDirections[(_i343 - 1) % _axisDirections.length];
 
-        this._blur(cubeUVRenderTarget, _i335 - 1, _i335, sigma, poleAxis);
+        this._blur(cubeUVRenderTarget, _i343 - 1, _i343, sigma, poleAxis);
       }
 
       renderer.autoClear = autoClear;
@@ -37921,21 +38230,21 @@ var PMREMGenerator = /*#__PURE__*/function () {
       var weights = [];
       var sum = 0;
 
-      for (var _i336 = 0; _i336 < MAX_SAMPLES; ++_i336) {
-        var _x7 = _i336 / sigmaPixels;
+      for (var _i344 = 0; _i344 < MAX_SAMPLES; ++_i344) {
+        var _x7 = _i344 / sigmaPixels;
 
         var weight = Math.exp(-_x7 * _x7 / 2);
         weights.push(weight);
 
-        if (_i336 == 0) {
+        if (_i344 == 0) {
           sum += weight;
-        } else if (_i336 < samples) {
+        } else if (_i344 < samples) {
           sum += 2 * weight;
         }
       }
 
-      for (var _i337 = 0; _i337 < weights.length; _i337++) {
-        weights[_i337] = weights[_i337] / sum;
+      for (var _i345 = 0; _i345 < weights.length; _i345++) {
+        weights[_i345] = weights[_i345] / sum;
       }
 
       blurUniforms['envMap'].value = targetIn.texture;
@@ -37976,16 +38285,16 @@ function _createPlanes() {
   var _sigmas = [];
   var lod = LOD_MAX;
 
-  for (var _i338 = 0; _i338 < TOTAL_LODS; _i338++) {
+  for (var _i346 = 0; _i346 < TOTAL_LODS; _i346++) {
     var sizeLod = Math.pow(2, lod);
 
     _sizeLods.push(sizeLod);
 
     var sigma = 1.0 / sizeLod;
 
-    if (_i338 > LOD_MAX - LOD_MIN) {
-      sigma = EXTRA_LOD_SIGMA[_i338 - LOD_MAX + LOD_MIN - 1];
-    } else if (_i338 == 0) {
+    if (_i346 > LOD_MAX - LOD_MIN) {
+      sigma = EXTRA_LOD_SIGMA[_i346 - LOD_MAX + LOD_MIN - 1];
+    } else if (_i346 == 0) {
       sigma = 0;
     }
 
@@ -39481,4 +39790,4 @@ if (typeof window !== 'undefined') {
 /***/ })
 
 }]);
-//# sourceMappingURL=fb7d5399-70ccbaf7abce96fcb368.js.map
+//# sourceMappingURL=fb7d5399-e926ccee18bb44d1aa72.js.map

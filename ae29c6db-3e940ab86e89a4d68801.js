@@ -5,7 +5,7 @@
 
 /*!
  * 
- *   react-simple-keyboard v3.1.20
+ *   react-simple-keyboard v3.1.26
  *   https://github.com/hodgef/react-simple-keyboard
  *
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -19,7 +19,6 @@
 }(this, function (t) {
   return function () {
     var e = {
-      118: function _() {},
       752: function _() {
         "undefined" == typeof Element || "remove" in Element.prototype || (Element.prototype.remove = function () {
           this.parentNode && this.parentNode.removeChild(this);
@@ -156,7 +155,7 @@
       86: function _(t) {
         /*!
          * 
-         *   simple-keyboard v3.1.17
+         *   simple-keyboard v3.1.20
          *   https://github.com/hodgef/simple-keyboard
          *
          *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -969,7 +968,7 @@
               var o = n(7908),
                   r = {}.hasOwnProperty;
 
-              t.exports = function (t, e) {
+              t.exports = Object.hasOwn || function (t, e) {
                 return r.call(o(t), e);
               };
             },
@@ -1174,7 +1173,8 @@
               var o = n(7392),
                   r = n(7293);
               t.exports = !!Object.getOwnPropertySymbols && !r(function () {
-                return !String(Symbol()) || !Symbol.sham && o && o < 41;
+                var t = Symbol();
+                return !String(t) || !(Object(t) instanceof Symbol) || !Symbol.sham && o && o < 41;
               });
             },
             8536: function _(t, e, n) {
@@ -1403,10 +1403,15 @@
 
               var o = n(1913),
                   r = n(7854),
-                  i = n(7293);
+                  i = n(7293),
+                  a = n(8113);
               t.exports = o || !i(function () {
-                var t = Math.random();
-                __defineSetter__.call(null, t, function () {}), delete r[t];
+                var t = a.match(/AppleWebKit\/(\d+)\./);
+
+                if (!(t && +t[1] < 535)) {
+                  var e = Math.random();
+                  __defineSetter__.call(null, e, function () {}), delete r[e];
+                }
               });
             },
             7674: function _(t, e, n) {
@@ -1622,7 +1627,7 @@
               (t.exports = function (t, e) {
                 return r[t] || (r[t] = void 0 !== e ? e : {});
               })("versions", []).push({
-                version: "3.13.0",
+                version: "3.13.1",
                 mode: o ? "pure" : "global",
                 copyright: "© 2021 Denis Pushkarev (zloirock.ru)"
               });
@@ -4417,18 +4422,20 @@
 
       o.r(r), o.d(r, {
         KeyboardReactInterface: function KeyboardReactInterface() {
-          return c.KeyboardReactInterface;
+          return t.KeyboardReactInterface;
         },
         default: function _default() {
           return l;
         }
       });
+      var t = {};
+      o.r(t);
       o(752);
-      var t = o(698),
-          e = o(86),
-          n = o.n(e);
+      var e = o(698),
+          n = o(86),
+          i = o.n(n);
 
-      function i(t, e) {
+      function a(t, e) {
         var n = Object.keys(t);
 
         if (Object.getOwnPropertySymbols) {
@@ -4441,12 +4448,12 @@
         return n;
       }
 
-      function a(t) {
+      function s(t) {
         for (var e = 1; e < arguments.length; e++) {
           var n = null != arguments[e] ? arguments[e] : {};
-          e % 2 ? i(Object(n), !0).forEach(function (e) {
-            s(t, e, n[e]);
-          }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(t, Object.getOwnPropertyDescriptors(n)) : i(Object(n)).forEach(function (e) {
+          e % 2 ? a(Object(n), !0).forEach(function (e) {
+            u(t, e, n[e]);
+          }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(t, Object.getOwnPropertyDescriptors(n)) : a(Object(n)).forEach(function (e) {
             Object.defineProperty(t, e, Object.getOwnPropertyDescriptor(n, e));
           });
         }
@@ -4454,7 +4461,7 @@
         return t;
       }
 
-      function s(t, e, n) {
+      function u(t, e, n) {
         return e in t ? Object.defineProperty(t, e, {
           value: n,
           enumerable: !0,
@@ -4463,40 +4470,39 @@
         }) : t[e] = n, t;
       }
 
-      var u = function u(t) {
-        return a(a({}, t), {}, {
+      var c = function c(t) {
+        return s(s({}, t), {}, {
           keyboardRef: null
         });
       },
-          c = o(118),
-          l = function l(e) {
-        var o = e.baseClass || "react-simple-keyboard",
-            r = t.useRef(null),
-            i = t.useRef(null),
-            s = t.useRef(e);
-        return t.useEffect(function () {
-          var t = function (t) {
-            return a(a({}, t), {}, {
+          l = function l(t) {
+        var n = t.baseClass || "react-simple-keyboard",
+            o = e.useRef(null),
+            r = e.useRef(null),
+            a = e.useRef(t);
+        return e.useEffect(function () {
+          var e = function (t) {
+            return s(s({}, t), {}, {
               theme: "simple-keyboard ".concat(t.theme || "hg-theme-default")
             });
-          }(e);
+          }(t);
 
-          r.current || (r.current = !0, t.debug && console.log("ReactSimpleKeyboard: Init"), i.current = new (n())(".".concat(o), t), t.keyboardRef && t.keyboardRef(i.current));
+          o.current || (o.current = !0, e.debug && console.log("ReactSimpleKeyboard: Init"), r.current = new (i())(".".concat(n), e), e.keyboardRef && e.keyboardRef(r.current));
 
-          var c = function (t, e) {
-            var n = u(e),
-                o = u(t);
+          var u = function (t, e) {
+            var n = c(e),
+                o = c(t);
             return Object.keys(n).filter(function (t) {
               return n[t] !== o[t];
             });
-          }(s.current, t);
+          }(a.current, e);
 
-          if (c.length) {
-            var l = i.current;
-            s.current = t, null == l || l.setOptions(t), t.debug && console.log("ReactSimpleKeyboard - setOptions called due to updated props:", c);
+          if (u.length) {
+            var l = r.current;
+            a.current = e, null == l || l.setOptions(e), e.debug && console.log("ReactSimpleKeyboard - setOptions called due to updated props:", u);
           }
-        }, [r, o, s, e]), t.createElement("div", {
-          className: o
+        }, [o, n, a, t]), e.createElement("div", {
+          className: n
         });
       };
     }(), r;
@@ -4506,4 +4512,4 @@
 /***/ })
 
 }]);
-//# sourceMappingURL=ae29c6db-0a5137884761debdebf1.js.map
+//# sourceMappingURL=ae29c6db-3e940ab86e89a4d68801.js.map
