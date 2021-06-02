@@ -9036,17 +9036,18 @@ function workspaceJSONToIT4Program(workspace) {
 
               default:
                 {
-                  console.warn("unsupported command template " + template + " for " + type, {
-                    event: event,
-                    block: block
-                  });
+                  return {
+                    cmd: undefined,
+                    errors: [{
+                      sourceId: block.id,
+                      message: "unsupported command template " + template + " for " + type
+                    }]
+                  };
                 }
             }
           }
         }
     }
-
-    return undefined;
   };
 
   var addCommands = function addCommands(event, blocks, handler) {
@@ -9056,7 +9057,7 @@ function workspaceJSONToIT4Program(workspace) {
             cmd = _blockToCommand.cmd,
             errors = _blockToCommand.errors;
 
-        handler.commands.push(cmd);
+        if (cmd) handler.commands.push(cmd);
         errors.forEach(function (e) {
           return handler.errors.push(e);
         });
@@ -10401,4 +10402,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-67993ee46090b7f41aa9.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-354be38a2855df460b5a.js.map
