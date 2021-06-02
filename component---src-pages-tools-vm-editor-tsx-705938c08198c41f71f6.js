@@ -3206,7 +3206,7 @@ function RoleChip(props) {
       device: service.device
     }),
     onClick: handleRoleClick,
-    onDelete: !!server && handleDelete,
+    onDelete: server ? handleDelete : undefined,
     deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
       title: "stop simulator"
     }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
@@ -3453,4 +3453,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4da33eadacc4000f496d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-705938c08198c41f71f6.js.map
