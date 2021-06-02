@@ -49382,7 +49382,6 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "kbU": function() { return /* binding */ ERROR_MICROBIT_JACDAC_MISSING; },
 /* harmony export */   "mZW": function() { return /* binding */ ERROR_MICROBIT_INVALID_MEMORY; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
-/* harmony export */   "vCn": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.vCn; },
 /* harmony export */   "GZs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.GZs; },
 /* harmony export */   "qdU": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.qdU; },
 /* harmony export */   "e96": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.e96; },
@@ -65117,6 +65116,8 @@ var ExpandLess = __webpack_require__(16993);
 var useDeviceSpecification = __webpack_require__(77423);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+var objectWithoutPropertiesLoose = __webpack_require__(19756);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
 var DashboardServiceWidget = __webpack_require__(23069);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
@@ -65170,10 +65171,8 @@ function ServiceRole(props) {
     onClick: handleClick
   }, role || "...");
 }
-// EXTERNAL MODULE: ./src/jacdac/useRegisterValue.ts
-var useRegisterValue = __webpack_require__(89196);
-// EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
-var useRegister = __webpack_require__(82677);
+// EXTERNAL MODULE: ./src/components/services/useInstanceName.ts
+var useInstanceName = __webpack_require__(20563);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardServiceWidgetItem.tsx
 
 
@@ -65181,14 +65180,11 @@ var useRegister = __webpack_require__(82677);
 
 
 
-
 function DashboardServiceWidgetItem(props) {
-  var service = props.service;
-  var instanceNameRegister = (0,useRegister/* default */.Z)(service, constants/* SystemReg.InstanceName */.ZJq.InstanceName);
+  var service = props.service,
+      rest = (0,objectWithoutPropertiesLoose/* default */.Z)(props, ["service"]);
 
-  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(instanceNameRegister, props),
-      instanceName = _useRegisterUnpackedV[0];
-
+  var instanceName = (0,useInstanceName/* default */.Z)(service, rest);
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -70251,7 +70247,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "4e4bbc0ba5acb98c7e08e810bd8b02b7e00a93a4";
+  var sha = "c7459dd9c7736b61f54c6bc2c7585a588b1d411a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71198,6 +71194,30 @@ function MakeCodeSnippetProvider(props) {
       simUrl: simUrl
     }
   }, children);
+}
+
+/***/ }),
+
+/***/ 20563:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useInstanceName; }
+/* harmony export */ });
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89196);
+/* harmony import */ var _hooks_useRegister__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(82677);
+
+
+
+function useInstanceName(service, options) {
+  var instanceNameRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_0__/* .SystemReg.InstanceName */ .ZJq.InstanceName);
+
+  var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_1__/* .useRegisterUnpackedValue */ .Pf)(instanceNameRegister, options),
+      instanceName = _useRegisterUnpackedV[0];
+
+  return instanceName;
 }
 
 /***/ }),
@@ -86479,4 +86499,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-f6a57213697672f2ff83.js.map
+//# sourceMappingURL=app-5a050197936837b74701.js.map

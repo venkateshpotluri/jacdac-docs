@@ -24154,6 +24154,8 @@ function StyledTreeItem(props) {
 var useMediaQueries = __webpack_require__(20509);
 // EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
 var useRegister = __webpack_require__(82677);
+// EXTERNAL MODULE: ./src/components/services/useInstanceName.ts
+var useInstanceName = __webpack_require__(20563);
 ;// CONCATENATED MODULE: ./src/components/tools/JDomTreeViewItems.tsx
 
  // tslint:disable-next-line: no-submodule-imports
@@ -24172,6 +24174,7 @@ var useRegister = __webpack_require__(82677);
 
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -24299,11 +24302,7 @@ function ServiceTreeItem(props) {
       name = _useMemo3.name,
       id = _useMemo3.id;
 
-  var instanceNameRegister = (0,useRegister/* default */.Z)(service, constants/* BaseReg.InstanceName */.vCn.InstanceName);
-
-  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(instanceNameRegister),
-      instanceName = _useRegisterUnpackedV[0];
-
+  var instanceName = (0,useInstanceName/* default */.Z)(service);
   var readingRegister = (0,useRegister/* default */.Z)(service, constants/* SystemReg.Reading */.ZJq.Reading);
   var reading = (0,useRegisterValue/* useRegisterHumanValue */.e_)(readingRegister);
   var labelText = name + (instanceName ? " " + instanceName : "");
@@ -37698,4 +37697,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-239d30ce142c40600362.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-8fa27bb2ca4fcf2476c8.js.map
