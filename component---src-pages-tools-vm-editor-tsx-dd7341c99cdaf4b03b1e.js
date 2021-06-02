@@ -3152,6 +3152,7 @@ function VMRoles(props) {
           });
           field.setValue(variable.getId());
           twinBlock.initSvg();
+          twinBlock.render(false);
         }
 
         workspace.centerOnBlock(twinBlock.id);
@@ -3397,4 +3398,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-33497369a826eb4ab160.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-dd7341c99cdaf4b03b1e.js.map
