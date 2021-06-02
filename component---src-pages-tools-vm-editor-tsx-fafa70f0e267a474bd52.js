@@ -2663,7 +2663,7 @@ function VMRunnerButton(props) {
 
   var running = status === VMStatus.Running;
   return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: runner ? "stop" : "start",
+    title: running ? "stop" : "start",
     disabled: disabled,
     onClick: running ? handleCancel : handleRun
   }, running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null));
@@ -2844,4 +2844,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a22510c10d0110ab71d8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fafa70f0e267a474bd52.js.map
