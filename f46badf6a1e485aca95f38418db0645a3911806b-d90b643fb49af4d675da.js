@@ -6814,7 +6814,12 @@ function fieldShadows() {
   return reactFieldShadows.slice(0);
 }
 ;// CONCATENATED MODULE: ./src/components/vm/toolbox.ts
+
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+function resolveServiceBlockDefinition(type) {
+  var b = (blockly_default()).Blocks[type];
+  return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
+}
 var WHILE_CONDITION_BLOCK = "jacdac_while_event";
 var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
@@ -7450,7 +7455,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       template: "command"
     };
   });
-  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
+  var serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
   var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
     kind: "block",
     type: "jacdac_on_off",
@@ -7617,7 +7622,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     }],
     colour: debuggerColor,
     inputsInline: false,
-    tooltip: "Twin of the service",
+    tooltip: "Twin of the selected service",
     helpUrl: "",
     template: "twin"
   }, {
@@ -7700,7 +7705,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
   }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks); // register field editors
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks); // register field editors
 
   registerFields(); // re-register blocks with blocklys
 
@@ -7729,6 +7734,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   return {
     blocks: blocks,
     serviceBlocks: serviceBlocks,
+    eventFieldBlocks: eventFieldBlocks,
     services: services
   };
 }
@@ -7774,8 +7780,11 @@ function patchCategoryJSONtoXML(cat) {
 }
 
 function useToolbox(props) {
+  var _source$blocks;
+
   var blockServices = props.blockServices,
-      serviceClass = props.serviceClass;
+      serviceClass = props.serviceClass,
+      source = props.source;
   var theme = (0,useTheme/* default */.Z)();
 
   var _createBlockTheme = createBlockTheme(theme),
@@ -7787,11 +7796,30 @@ function useToolbox(props) {
     return loadBlocks(serviceColor, commandColor, debuggerColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
+      eventFieldBlocks = _useMemo.eventFieldBlocks,
       services = _useMemo.services;
 
   var liveServices = (0,useServices/* default */.Z)({
     specification: true
   });
+  var usedEvents = new Set(source === null || source === void 0 ? void 0 : (_source$blocks = source.blocks) === null || _source$blocks === void 0 ? void 0 : _source$blocks.map(function (block) {
+    return {
+      block: block,
+      definition: resolveServiceBlockDefinition(block.type)
+    };
+  }).filter(function (_ref19) {
+    var definition = _ref19.definition;
+    return definition.template === "event";
+  }).map(function (_ref20) {
+    var block = _ref20.block,
+        definition = _ref20.definition;
+    var eventName = block.inputs[0].fields["event"].value;
+    return definition.events.find(function (ev) {
+      return ev.name === eventName;
+    });
+  }).filter(function (ev) {
+    return !!ev;
+  }));
   var toolboxServices = (0,utils/* uniqueMap */.EM)(flags/* default.diagnostics */.Z.diagnostics ? services : [].concat((0,toConsumableArray/* default */.Z)(blockServices.map(function (srvid) {
     return services.find(function (service) {
       return service.shortId === srvid;
@@ -7818,20 +7846,28 @@ function useToolbox(props) {
         return block.service === service;
       })
     };
-  }).map(function (_ref19) {
-    var service = _ref19.service,
-        serviceBlocks = _ref19.serviceBlocks;
+  }).map(function (_ref21) {
+    var service = _ref21.service,
+        serviceBlocks = _ref21.serviceBlocks;
     return {
       kind: "category",
       name: service.name,
       colour: serviceColor(service),
-      contents: serviceBlocks.map(function (block) {
+      contents: [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks.map(function (block) {
         return {
           kind: "block",
           type: block.type,
           values: block.values
         };
-      }),
+      })), (0,toConsumableArray/* default */.Z)(eventFieldBlocks.filter(function (ev) {
+        return usedEvents.has(ev.event);
+      }).map(function (block) {
+        return {
+          kind: "block",
+          type: block.type,
+          values: block.values
+        };
+      }))),
       button: {
         kind: "button",
         text: "Add " + service.name + " role",
@@ -8145,6 +8181,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 function domToJSON(workspace) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   var clean = function clean(o) {
@@ -8261,7 +8298,7 @@ function domToJSON(workspace) {
 
   var blockToJSON = function blockToJSON(block) {
     var blockToJSONHidden = function blockToJSONHidden(block) {
-      var _Blockly$Blocks$block, _builtins$block$type;
+      var _builtins$block$type;
 
       // skip disabled blocks
       if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // skip over insertion markers.
@@ -8272,7 +8309,7 @@ function domToJSON(workspace) {
       } // skip twins
 
 
-      var definition = (_Blockly$Blocks$block = (blockly_default()).Blocks[block.type]) === null || _Blockly$Blocks$block === void 0 ? void 0 : _Blockly$Blocks$block.jacdacDefinition;
+      var definition = resolveServiceBlockDefinition(block.type);
       if ((definition === null || definition === void 0 ? void 0 : definition.template) === "twin") return undefined; // dump object
 
       var value = (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
@@ -8491,9 +8528,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       default:
         {
-          var _Blockly$Blocks$type;
-
-          var def = (_Blockly$Blocks$type = (blockly_default()).Blocks[type]) === null || _Blockly$Blocks$type === void 0 ? void 0 : _Blockly$Blocks$type.jacdacDefinition;
+          var def = resolveServiceBlockDefinition(type);
 
           if (!def) {
             console.warn("unknown block " + type, {
@@ -8603,9 +8638,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
 
       default:
         {
-          var _Blockly$Blocks$type2;
-
-          var def = (_Blockly$Blocks$type2 = (blockly_default()).Blocks[type]) === null || _Blockly$Blocks$type2 === void 0 ? void 0 : _Blockly$Blocks$type2.jacdacDefinition;
+          var def = resolveServiceBlockDefinition(type);
 
           if (def) {
             var template = def.template;
@@ -8683,9 +8716,7 @@ function workspaceJSONToIT4Program(serviceBlocks, workspace) {
         callee: (0,ir/* toIdentifier */.EB)("awaitCondition")
       };
     } else {
-      var _Blockly$Blocks$type3;
-
-      var def = (_Blockly$Blocks$type3 = (blockly_default()).Blocks[type]) === null || _Blockly$Blocks$type3 === void 0 ? void 0 : _Blockly$Blocks$type3.jacdacDefinition;
+      var def = resolveServiceBlockDefinition(type);
       (0,utils/* assert */.hu)(!!def);
       var template = def.template;
       var role = inputs[0].fields["role"].value;
@@ -8759,6 +8790,7 @@ var clsx_m = __webpack_require__(85505);
 ;// CONCATENATED MODULE: ./src/components/vm/useBlocklyEvents.ts
 
 
+
 function useBlocklyEvents(workspace) {
   var handleChange = function handleChange(event) {
     var type = event.type;
@@ -8766,11 +8798,9 @@ function useBlocklyEvents(workspace) {
     switch (type) {
       case (blockly_default()).Events.BLOCK_CHANGE:
         {
-          var _Blockly$Blocks$block;
-
           var change = event;
           var block = workspace.getBlockById(change.blockId);
-          var def = (_Blockly$Blocks$block = (blockly_default()).Blocks[block.type]) === null || _Blockly$Blocks$block === void 0 ? void 0 : _Blockly$Blocks$block.jacdacDefinition;
+          var def = resolveServiceBlockDefinition(block.type);
           var template = def === null || def === void 0 ? void 0 : def.template;
 
           if (template === "twin") {
@@ -9800,9 +9830,14 @@ function VMBlockEditor(props) {
       services = _useState[0],
       setServices = _useState[1];
 
+  var _useState2 = (0,react.useState)(),
+      source = _useState2[0],
+      setSource = _useState2[1];
+
   var _useToolbox = useToolbox({
     blockServices: services,
-    serviceClass: serviceClass
+    serviceClass: serviceClass,
+    source: source
   }),
       toolboxConfiguration = _useToolbox.toolboxConfiguration,
       newProjectXml = _useToolbox.newProjectXml,
@@ -9892,18 +9927,21 @@ function VMBlockEditor(props) {
 
     if (onJSONChange || onIT4ProgramChange) {
       // emit json
-      var _json = domToJSON(workspace);
+      var newSource = domToJSON(workspace);
 
-      onJSONChange === null || onJSONChange === void 0 ? void 0 : onJSONChange(_json);
+      if (JSON.stringify(newSource) !== JSON.stringify(source)) {
+        setSource(newSource);
+        onJSONChange === null || onJSONChange === void 0 ? void 0 : onJSONChange(newSource);
 
-      if (onIT4ProgramChange) {
-        try {
-          var _program = workspaceJSONToIT4Program(serviceBlocks, _json);
+        if (onIT4ProgramChange) {
+          try {
+            var _program = workspaceJSONToIT4Program(serviceBlocks, newSource);
 
-          onIT4ProgramChange(_program);
-        } catch (e) {
-          console.error(e);
-          onIT4ProgramChange(undefined);
+            onIT4ProgramChange(_program);
+          } catch (e) {
+            console.error(e);
+            onIT4ProgramChange(undefined);
+          }
         }
       }
     } // update toolbox with declared roles
@@ -9921,4 +9959,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f78dfdb3ccbfcde28297.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d90b643fb49af4d675da.js.map
