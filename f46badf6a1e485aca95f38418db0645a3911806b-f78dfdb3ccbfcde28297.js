@@ -7571,7 +7571,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   }, {
     kind: "block",
     type: SET_STATUS_LIGHT_BLOCK,
-    message0: "set %1 LED status to %2",
+    message0: "set %1 status light to %2",
     args0: [{
       type: "field_variable",
       name: "role",
@@ -9921,4 +9921,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-31d0fcfe4385e2831334.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f78dfdb3ccbfcde28297.js.map
