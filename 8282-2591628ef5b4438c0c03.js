@@ -84,7 +84,7 @@ function DashboardLED(props) {
 
             case 5:
               _context.next = 7;
-              return service.register(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.Color */ .Abo.Color).sendGetAsync();
+              return colorRegister.sendGetAsync();
 
             case 7:
               _context.next = 12;
@@ -116,4 +116,4 @@ function DashboardLED(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8282-a380818624abc7c3971f.js.map
+//# sourceMappingURL=8282-2591628ef5b4438c0c03.js.map

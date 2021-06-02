@@ -1562,6 +1562,8 @@ function ModelContent(props) {
   var service = props.service;
   var modelSizeRegister = (0,useRegister/* default */.Z)(service, constants/* ModelRunnerReg.ModelSize */.FEd.ModelSize);
   var lastErrorRegister = (0,useRegister/* default */.Z)(service, constants/* ModelRunnerReg.LastError */.FEd.LastError);
+  var autoInvokeEveryRegister = (0,useRegister/* default */.Z)(service, constants/* ModelRunnerReg.AutoInvokeEvery */.FEd.AutoInvokeEvery);
+  var outputsRegister = (0,useRegister/* default */.Z)(service, constants/* ModelRunnerReg.Outputs */.FEd.Outputs);
 
   var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(modelSizeRegister),
       modelSize = _useRegisterUnpackedV[0];
@@ -1572,11 +1574,11 @@ function ModelContent(props) {
   return /*#__PURE__*/react.createElement(react.Fragment, null, lastError && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "warning"
   }, lastError), /*#__PURE__*/react.createElement(Typography/* default */.Z, null, "model size:", " ", modelSize === undefined ? "..." : (0,pretty/* prettySize */.or)(modelSize)), /*#__PURE__*/react.createElement(RegisterInput/* default */.Z, {
-    register: service.register(constants/* ModelRunnerReg.AutoInvokeEvery */.FEd.AutoInvokeEvery),
+    register: autoInvokeEveryRegister,
     visible: true
   }), /*#__PURE__*/react.createElement(RegisterTrend/* default */.Z, {
     showName: true,
-    register: service.register(constants/* ModelRunnerReg.Outputs */.FEd.Outputs),
+    register: outputsRegister,
     mini: true
   }));
 }
@@ -1958,4 +1960,4 @@ function ModelUploader() {
 /***/ })
 
 }]);
-//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-60bc1f049db0a3344b0f.js.map
+//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-a80623b8988bb7407d1a.js.map

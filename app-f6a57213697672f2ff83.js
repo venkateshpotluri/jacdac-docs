@@ -65223,7 +65223,6 @@ var spec = __webpack_require__(13173);
 
 
 
-
 // filter out common registers
 var ignoreRegisters = [constants/* SystemReg.StatusCode */.ZJq.StatusCode, constants/* SystemReg.StreamingPreferredInterval */.ZJq.StreamingPreferredInterval, constants/* SystemReg.StreamingSamples */.ZJq.StreamingSamples, constants/* SystemReg.StreamingInterval */.ZJq.StreamingInterval];
 var collapsedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
@@ -65231,9 +65230,9 @@ function DashboardServiceDetails(props) {
   var service = props.service,
       expanded = props.expanded,
       visible = props.visible;
-  var specification = (0,useChange/* default */.Z)(service, function (spec) {
-    return spec.specification;
-  });
+  var specification = (0,react.useMemo)(function () {
+    return service === null || service === void 0 ? void 0 : service.specification;
+  }, [service]);
   var registers = (0,react.useMemo)(function () {
     var _packets$filter;
 
@@ -65987,6 +65986,7 @@ var _serviceViews;
 
 
 
+
  // lazy devices
 
 var DashboardAccelerometer = /*#__PURE__*/(0,react.lazy)(function () {
@@ -66286,7 +66286,7 @@ function DefaultWidget(props) {
     return null; // if register is value, disable if enabled is 0.
 
   if (register.specification.identifier == constants/* SystemReg.Value */.ZJq.Value) {
-    var intensityRegister = register.service.register(constants/* SystemReg.Intensity */.ZJq.Intensity);
+    var intensityRegister = (0,useRegister/* default */.Z)(register.service, constants/* SystemReg.Intensity */.ZJq.Intensity);
     return /*#__PURE__*/react.createElement(ValueWidget, Object.assign({
       valueRegister: register,
       intensityRegister: intensityRegister
@@ -70251,7 +70251,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "02d4b4e51d836e0c48e7904d958ba25354d80c72";
+  var sha = "4e4bbc0ba5acb98c7e08e810bd8b02b7e00a93a4";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86479,4 +86479,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9e371d37ccfa0ebbaec4.js.map
+//# sourceMappingURL=app-f6a57213697672f2ff83.js.map

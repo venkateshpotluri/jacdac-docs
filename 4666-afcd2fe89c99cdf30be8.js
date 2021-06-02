@@ -115,7 +115,10 @@ function BytesBarGraphWidget(props) {
     ref: pathRef
   }));
 }
+// EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
+var useRegister = __webpack_require__(82677);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardSoundSpectrum.tsx
+
 
 
 
@@ -132,21 +135,25 @@ function HostMicrophoneButton(props) {
   var server = props.server,
       service = props.service,
       visible = props.visible;
-  var enabledRegister = service.register(constants/* SoundSpectrumReg.Enabled */.w4N.Enabled);
+  var enabledRegister = (0,useRegister/* default */.Z)(service, constants/* SoundSpectrumReg.Enabled */.w4N.Enabled);
+  var minDecibelsRegister = (0,useRegister/* default */.Z)(service, constants/* SoundSpectrumReg.MinDecibels */.w4N.MinDecibels);
+  var maxDecibelsRegister = (0,useRegister/* default */.Z)(service, constants/* SoundSpectrumReg.MaxDecibels */.w4N.MaxDecibels);
+  var fftPow2SizeRegister = (0,useRegister/* default */.Z)(service, constants/* SoundSpectrumReg.FftPow2Size */.w4N.FftPow2Size);
+  var smoothingTimeConstantRegister = (0,useRegister/* default */.Z)(service, constants/* SoundSpectrumReg.SmoothingTimeConstant */.w4N.SmoothingTimeConstant);
   var enabled = (0,useRegisterValue/* useRegisterBoolValue */.I8)(enabledRegister, props);
 
-  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SoundSpectrumReg.MinDecibels */.w4N.MinDecibels), props),
+  var _useRegisterUnpackedV = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(minDecibelsRegister, props),
       minDecibels = _useRegisterUnpackedV[0];
 
-  var _useRegisterUnpackedV2 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SoundSpectrumReg.MaxDecibels */.w4N.MaxDecibels), props),
+  var _useRegisterUnpackedV2 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(maxDecibelsRegister, props),
       maxDecibels = _useRegisterUnpackedV2[0];
 
-  var _useRegisterUnpackedV3 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SoundSpectrumReg.FftPow2Size */.w4N.FftPow2Size), props),
+  var _useRegisterUnpackedV3 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(fftPow2SizeRegister, props),
       fftPow2Size = _useRegisterUnpackedV3[0];
 
   var fftSize = 1 << (fftPow2Size || 5);
 
-  var _useRegisterUnpackedV4 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(service.register(constants/* SoundSpectrumReg.SmoothingTimeConstant */.w4N.SmoothingTimeConstant), props),
+  var _useRegisterUnpackedV4 = (0,useRegisterValue/* useRegisterUnpackedValue */.Pf)(smoothingTimeConstantRegister, props),
       smoothingTimeConstant = _useRegisterUnpackedV4[0];
 
   var _useMicrophoneSpectru = useMicrophoneSpectrum(enabled && !!server, {
@@ -212,7 +219,7 @@ function HostMicrophoneButton(props) {
 function DashboardSoundSpectrum(props) {
   var service = props.service,
       visible = props.visible;
-  var frequencyBinsRegister = service.register(constants/* SoundSpectrumReg.FrequencyBins */.w4N.FrequencyBins);
+  var frequencyBinsRegister = (0,useRegister/* default */.Z)(service, constants/* SoundSpectrumReg.FrequencyBins */.w4N.FrequencyBins);
   var server = (0,useServiceServer/* default */.Z)(service);
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
@@ -234,4 +241,4 @@ function DashboardSoundSpectrum(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4666-69762723d1a2ed52e134.js.map
+//# sourceMappingURL=4666-afcd2fe89c99cdf30be8.js.map
