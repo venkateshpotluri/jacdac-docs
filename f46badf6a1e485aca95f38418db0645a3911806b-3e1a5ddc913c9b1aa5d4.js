@@ -7853,7 +7853,7 @@ function useToolbox(props) {
           values: block.values
         };
       })), (0,toConsumableArray/* default */.Z)(eventFieldBlocks.filter(function (ev) {
-        return usedEvents.has(ev.event);
+        return ev.service === service && usedEvents.has(ev.event);
       }).map(function (block) {
         return {
           kind: "block",
@@ -9950,4 +9950,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bd5ffd197ac29ab0858a.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3e1a5ddc913c9b1aa5d4.js.map
