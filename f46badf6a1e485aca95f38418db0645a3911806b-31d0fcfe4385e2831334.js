@@ -5245,7 +5245,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 98001:
+/***/ 30978:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6459,6 +6459,8 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
 LEDColorField.KEY = "jacdac_field_led_color";
 LEDColorField.SHADOW = toShadowDefinition(LEDColorField);
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
 var DashboardServiceWidget = __webpack_require__(23069);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactInlineField.tsx
@@ -6610,6 +6612,31 @@ function NoServiceAlert() {
     onClick: handleStartSimulator
   }, "start ", spec.name);
 }
+// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
+var DeviceAvatar = __webpack_require__(4726);
+// EXTERNAL MODULE: ./src/components/devices/DeviceName.tsx
+var DeviceName = __webpack_require__(26390);
+;// CONCATENATED MODULE: ./src/components/vm/fields/PointerBoundary.tsx
+
+function PointerBoundary(props) {
+  var className = props.className,
+      children = props.children;
+
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  return /*#__PURE__*/react.createElement("div", {
+    className: className,
+    style: {
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, children);
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/TwinField.tsx
 
 
@@ -6619,17 +6646,42 @@ function NoServiceAlert() {
 
 
 
+
+
+
+
+function RoleBindingView(props) {
+  var roleService = props.roleService;
+  var device = roleService.device,
+      serviceClass = roleService.serviceClass;
+  var services = (0,useServices/* default */.Z)({
+    ignoreSelf: true,
+    serviceClass: serviceClass
+  });
+  if (services.length < 2) return null;
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    style: {
+      color: "white"
+    },
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(PointerBoundary, null, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "caption"
+  }, " bound to"), /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+    device: device
+  }), /*#__PURE__*/react.createElement(DeviceName/* default */.Z, {
+    device: device,
+    showShortId: true
+  })));
+}
+
 function TwinWidget() {
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
       roleService = _useContext.roleService,
       flyout = _useContext.flyout;
 
-  var onPointerStopPropagation = function onPointerStopPropagation(event) {
-    // make sure blockly does not handle drags when interacting with UI
-    event.stopPropagation();
-  };
-
   if (flyout) return null;
+  if (!roleService) return /*#__PURE__*/react.createElement(NoServiceAlert, null);
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     alignItems: "center",
@@ -6638,18 +6690,13 @@ function TwinWidget() {
     spacing: 1
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(NoServiceAlert, null), roleService && /*#__PURE__*/react.createElement("div", {
-    style: {
-      cursor: "inherit"
-    },
-    onPointerDown: onPointerStopPropagation,
-    onPointerUp: onPointerStopPropagation,
-    onPointerMove: onPointerStopPropagation
-  }, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
+  }, /*#__PURE__*/react.createElement(PointerBoundary, null, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
     service: roleService,
     visible: true,
     variant: "icon"
-  }))));
+  }))), /*#__PURE__*/react.createElement(RoleBindingView, {
+    roleService: roleService
+  }));
 }
 
 var TwinField = /*#__PURE__*/function (_ReactInlineField) {
@@ -9874,4 +9921,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-533be7a43f77f1553b98.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-31d0fcfe4385e2831334.js.map
