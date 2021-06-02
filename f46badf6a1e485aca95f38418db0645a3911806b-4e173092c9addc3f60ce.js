@@ -9182,10 +9182,6 @@ function useBlocklyEvents(workspace) {
           if (template === "twin") {
             // notify twin that the value changed
             var twinInput = block.inputList[1];
-            console.log("twins", {
-              block: block,
-              twinInput: twinInput
-            });
             var twinField = twinInput.fieldRow[0];
             twinField.emitChange();
           }
@@ -10395,4 +10391,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-526f433376a5f0d94fb6.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4e173092c9addc3f60ce.js.map

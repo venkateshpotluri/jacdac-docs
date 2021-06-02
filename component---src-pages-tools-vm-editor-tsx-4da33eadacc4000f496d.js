@@ -3185,6 +3185,8 @@ function RoleChip(props) {
           return f.name === "role";
         });
         field.setValue(variable.getId());
+        var m = workspace.getMetrics();
+        twinBlock.moveBy(m.viewWidth / 2, m.viewHeight / 3);
         twinBlock.initSvg();
         twinBlock.render(false);
       }
@@ -3451,4 +3453,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-42353b21870bd7646215.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4da33eadacc4000f496d.js.map
