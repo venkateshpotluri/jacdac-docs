@@ -2787,21 +2787,16 @@ function VMEditor(props) {
       cancel = _useVMRunner.cancel;
 
   var handleXml = function handleXml(xml) {
-    setXml(xml);
+    return setXml(xml);
   };
 
   var handleJSON = function handleJSON(json) {
-    var newSource = JSON.stringify(json);
-
-    if (JSON.stringify(source) !== newSource) {
-      setSource(json);
-    }
+    return setSource(json);
   };
 
   var handleI4Program = function handleI4Program(json) {
     if (json) roleManager.setRoles(json.roles);
-    var newProgram = JSON.stringify(json);
-    if (JSON.stringify(program) !== newProgram) setProgram(json);
+    setProgram(json);
   };
 
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -2844,4 +2839,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fafa70f0e267a474bd52.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e453319f38d794ee5e0e.js.map

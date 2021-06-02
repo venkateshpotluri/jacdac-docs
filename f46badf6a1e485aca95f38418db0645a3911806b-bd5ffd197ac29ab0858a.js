@@ -7739,18 +7739,6 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   };
 }
 
-var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
-function scanServices(workspace) {
-  var variables = blockly_default().Variables.allUsedVarModels(workspace).filter(function (v) {
-    return BUILTIN_TYPES.indexOf(v.type) < 0;
-  }); // remove buildins
-
-  var services = variables.map(function (v) {
-    return v.type;
-  });
-  return services;
-}
-
 function patchCategoryJSONtoXML(cat) {
   var _cat$contents;
 
@@ -7782,9 +7770,9 @@ function patchCategoryJSONtoXML(cat) {
 function useToolbox(props) {
   var _source$blocks;
 
-  var blockServices = props.blockServices,
-      serviceClass = props.serviceClass,
-      source = props.source;
+  var serviceClass = props.serviceClass,
+      source = props.source,
+      program = props.program;
   var theme = (0,useTheme/* default */.Z)();
 
   var _createBlockTheme = createBlockTheme(theme),
@@ -7799,6 +7787,11 @@ function useToolbox(props) {
       eventFieldBlocks = _useMemo.eventFieldBlocks,
       services = _useMemo.services;
 
+  var blockServices = (program === null || program === void 0 ? void 0 : program.roles.map(function (r) {
+    return r.serviceShortId;
+  })) || (source === null || source === void 0 ? void 0 : source.variables.map(function (v) {
+    return v.type;
+  })) || [];
   var liveServices = (0,useServices/* default */.Z)({
     specification: true
   });
@@ -8407,7 +8400,6 @@ var ir = __webpack_require__(68290);
 
 
 
-
 var ops = {
   AND: "&&",
   OR: "||",
@@ -8423,7 +8415,8 @@ var ops = {
   DIVIDE: "/",
   MINUS: "-"
 };
-function workspaceJSONToIT4Program(serviceBlocks, workspace) {
+var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
+function workspaceJSONToIT4Program(workspace) {
   console.debug("compile it4", {
     workspace: workspace
   });
@@ -9826,22 +9819,21 @@ function VMBlockEditor(props) {
   var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
       setError = _useContext2.setError;
 
-  var _useState = (0,react.useState)([]),
-      services = _useState[0],
-      setServices = _useState[1];
+  var _useState = (0,react.useState)(),
+      source = _useState[0],
+      setSource = _useState[1];
 
   var _useState2 = (0,react.useState)(),
-      source = _useState2[0],
-      setSource = _useState2[1];
+      program = _useState2[0],
+      setProgram = _useState2[1];
 
   var _useToolbox = useToolbox({
-    blockServices: services,
     serviceClass: serviceClass,
-    source: source
+    source: source,
+    program: program
   }),
       toolboxConfiguration = _useToolbox.toolboxConfiguration,
-      newProjectXml = _useToolbox.newProjectXml,
-      serviceBlocks = _useToolbox.serviceBlocks;
+      newProjectXml = _useToolbox.newProjectXml;
 
   var theme = darkMode === "dark" ? theme_dark_src : src;
   var gridColor = darkMode === "dark" ? "#555" : "#ccc"; // ReactBlockly
@@ -9935,20 +9927,19 @@ function VMBlockEditor(props) {
 
         if (onIT4ProgramChange) {
           try {
-            var _program = workspaceJSONToIT4Program(serviceBlocks, newSource);
+            var newProgram = workspaceJSONToIT4Program(newSource);
 
-            onIT4ProgramChange(_program);
+            if (JSON.stringify(newProgram) !== JSON.stringify(program)) {
+              setProgram(newProgram);
+              onIT4ProgramChange(newProgram);
+            }
           } catch (e) {
             console.error(e);
             onIT4ProgramChange(undefined);
           }
         }
       }
-    } // update toolbox with declared roles
-
-
-    var newServices = scanServices(workspace);
-    if (JSON.stringify(services) !== JSON.stringify(newServices)) setServices(newServices);
+    }
   }, [workspace, xml]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
@@ -9959,4 +9950,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d90b643fb49af4d675da.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bd5ffd197ac29ab0858a.js.map
