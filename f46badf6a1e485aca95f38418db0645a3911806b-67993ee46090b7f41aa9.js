@@ -10348,7 +10348,17 @@ function VMBlockEditor(props) {
     workspace.getAllBlocks(false).forEach(function (b) {
       return b.setWarningText(allErrors[b.id] || null);
     });
-  }, [workspace, program]);
+  }, [workspace, program]); // resize blockly
+
+  (0,react.useEffect)(function () {
+    var observer = new ResizeObserver(function () {
+      return workspace.resize();
+    });
+    observer.observe(blocklyRef.current);
+    return function () {
+      return observer.disconnect();
+    };
+  }, [workspace]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
     ref: blocklyRef
@@ -10391,4 +10401,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4e173092c9addc3f60ce.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-67993ee46090b7f41aa9.js.map
