@@ -2216,7 +2216,7 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
   var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(spec, undefined, function (e) {
     return error(e);
   });
-  var checkExpression = new jdutils/* IT4Checker */.DG(symbolResolver, function (t) {
+  var checkExpression = new jdutils/* VMChecker */.Ys(symbolResolver, function (t) {
     return supportedExpressions.indexOf(t) >= 0;
   }, function (e) {
     return error(e);
@@ -2545,4 +2545,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-fc15e61a581791e1eb6d.js.map
+//# sourceMappingURL=component---src-pages-tools-service-test-editor-tsx-582a4227a48e91bb0868.js.map

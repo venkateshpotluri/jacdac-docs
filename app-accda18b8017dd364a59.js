@@ -48400,7 +48400,7 @@ function isNumericType(field) {
 /* harmony export */   "Qv": function() { return /* binding */ parseIntFloat; },
 /* harmony export */   "ao": function() { return /* binding */ exprVisitor; },
 /* harmony export */   "ll": function() { return /* binding */ SpecSymbolResolver; },
-/* harmony export */   "DG": function() { return /* binding */ IT4Checker; }
+/* harmony export */   "Ys": function() { return /* binding */ VMChecker; }
 /* harmony export */ });
 /* unused harmony export packetsToRegisters */
 function isMixinService(serviceClass) {
@@ -48646,14 +48646,14 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
 
   return SpecSymbolResolver;
 }();
-var IT4Checker = /*#__PURE__*/function () {
-  function IT4Checker(resolver, supportedExpression, error) {
+var VMChecker = /*#__PURE__*/function () {
+  function VMChecker(resolver, supportedExpression, error) {
     this.resolver = resolver;
     this.supportedExpression = supportedExpression;
     this.error = error;
   }
 
-  var _proto2 = IT4Checker.prototype;
+  var _proto2 = VMChecker.prototype;
 
   _proto2.checkCommand = function checkCommand(root, funs) {
     var _this = this,
@@ -48840,7 +48840,7 @@ var IT4Checker = /*#__PURE__*/function () {
     });
   };
 
-  return IT4Checker;
+  return VMChecker;
 }(); // private stuff
 
 function isBoolOrNumericFormat(fmt) {
@@ -70255,7 +70255,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "5b44c1a09daaa954bc8c76b712fa1a398ad06ea1";
+  var sha = "cc7bd788b2e1a9a6a8786fc06ac6fdc09075377d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86507,4 +86507,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-30caae91e572f1d21c9e.js.map
+//# sourceMappingURL=app-accda18b8017dd364a59.js.map

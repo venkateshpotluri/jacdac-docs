@@ -1955,7 +1955,7 @@ var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 34 modules
-var VMBlockEditor = __webpack_require__(79862);
+var VMBlockEditor = __webpack_require__(67147);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
@@ -2023,12 +2023,12 @@ var VMStatus;
   VMStatus["Stopped"] = "stopped";
 })(VMStatus || (VMStatus = {}));
 
-var JumpException = function JumpException(label) {
+var VMJumpException = function VMJumpException(label) {
   this.label = label;
 };
 
-var IT4CommandEvaluator = /*#__PURE__*/function () {
-  function IT4CommandEvaluator(parent, env, gc) {
+var VMCommandEvaluator = /*#__PURE__*/function () {
+  function VMCommandEvaluator(parent, env, gc) {
     this._regSaved = undefined;
     this._changeSaved = undefined;
     this._started = false;
@@ -2037,7 +2037,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
     this.gc = gc;
   }
 
-  var _proto = IT4CommandEvaluator.prototype;
+  var _proto = VMCommandEvaluator.prototype;
 
   _proto.trace = function trace(msg, context) {
     if (context === void 0) {
@@ -2136,7 +2136,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
                 break;
               }
 
-              throw new JumpException(args[1].name);
+              throw new VMJumpException(args[1].name);
 
             case 20:
               this._status = VMStatus.Completed;
@@ -2144,7 +2144,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
 
             case 22:
               this._status = VMStatus.Completed;
-              throw new JumpException(args[0].name);
+              throw new VMJumpException(args[0].name);
 
             case 24:
               this._status = VMStatus.Completed;
@@ -2227,7 +2227,7 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
     return evaluate;
   }();
 
-  (0,createClass/* default */.Z)(IT4CommandEvaluator, [{
+  (0,createClass/* default */.Z)(VMCommandEvaluator, [{
     key: "status",
     get: function get() {
       return this._status;
@@ -2241,19 +2241,19 @@ var IT4CommandEvaluator = /*#__PURE__*/function () {
     }
   }]);
 
-  return IT4CommandEvaluator;
+  return VMCommandEvaluator;
 }();
 
-var IT4CommandRunner = /*#__PURE__*/function () {
-  function IT4CommandRunner(parent, handlerId, env, gc) {
+var VMCommandRunner = /*#__PURE__*/function () {
+  function VMCommandRunner(parent, handlerId, env, gc) {
     this._status = VMStatus.Running;
     this.parent = parent;
     this.handlerId = handlerId;
     this.gc = gc;
-    this._eval = new IT4CommandEvaluator(this, env, gc);
+    this._eval = new VMCommandEvaluator(this, env, gc);
   }
 
-  var _proto2 = IT4CommandRunner.prototype;
+  var _proto2 = VMCommandRunner.prototype;
 
   _proto2.trace = function trace(msg, context) {
     if (context === void 0) {
@@ -2310,7 +2310,7 @@ var IT4CommandRunner = /*#__PURE__*/function () {
     }
   };
 
-  (0,createClass/* default */.Z)(IT4CommandRunner, [{
+  (0,createClass/* default */.Z)(VMCommandRunner, [{
     key: "status",
     get: function get() {
       return this._status;
@@ -2327,13 +2327,13 @@ var IT4CommandRunner = /*#__PURE__*/function () {
     }
   }]);
 
-  return IT4CommandRunner;
+  return VMCommandRunner;
 }();
 
-var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
-  (0,inheritsLoose/* default */.Z)(IT4HandlerRunner, _JDEventSource);
+var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(VMHandlerRunner, _JDEventSource);
 
-  function IT4HandlerRunner(parent, id, env, handler) {
+  function VMHandlerRunner(parent, id, env, handler) {
     var _this3;
 
     _this3 = _JDEventSource.call(this) || this; // find the label commands (targets of jumps)
@@ -2362,7 +2362,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     return _this3;
   }
 
-  var _proto3 = IT4HandlerRunner.prototype;
+  var _proto3 = VMHandlerRunner.prototype;
 
   _proto3.trace = function trace(msg, context) {
     if (context === void 0) {
@@ -2415,7 +2415,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               _context3.prev = 6;
               _context3.t0 = _context3["catch"](1);
 
-              if (!(_context3.t0 instanceof JumpException)) {
+              if (!(_context3.t0 instanceof VMJumpException)) {
                 _context3.next = 15;
                 break;
               }
@@ -2508,7 +2508,7 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     return step;
   }();
 
-  (0,createClass/* default */.Z)(IT4HandlerRunner, [{
+  (0,createClass/* default */.Z)(VMHandlerRunner, [{
     key: "status",
     get: function get() {
       return this.stopped ? VMStatus.Stopped : this._currentCommand === undefined ? VMStatus.Ready : this._currentCommand.status;
@@ -2524,18 +2524,18 @@ var IT4HandlerRunner = /*#__PURE__*/function (_JDEventSource) {
         this._currentCommand = undefined;
       } else if (index !== this._commandIndex) {
         this._commandIndex = index;
-        this._currentCommand = new IT4CommandRunner(this, this.id, this.env, this.getCommand());
+        this._currentCommand = new VMCommandRunner(this, this.id, this.env, this.getCommand());
       }
     }
   }]);
 
-  return IT4HandlerRunner;
+  return VMHandlerRunner;
 }(eventsource/* JDEventSource */.a);
 
-var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
-  (0,inheritsLoose/* default */.Z)(IT4ProgramRunner, _JDClient);
+var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
+  (0,inheritsLoose/* default */.Z)(VMProgramRunner, _JDClient);
 
-  var _proto4 = IT4ProgramRunner.prototype;
+  var _proto4 = VMProgramRunner.prototype;
 
   _proto4.trace = function trace(message, context) {
     if (context === void 0) {
@@ -2548,7 +2548,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
     });
   };
 
-  function IT4ProgramRunner(bus, roleManager, prog) {
+  function VMProgramRunner(bus, roleManager, prog) {
     var _this4;
 
     _this4 = _JDClient.call(this) || this;
@@ -2572,7 +2572,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     _this4._env = new environment/* VMEnvironment */.u(registers, events);
     _this4._handlers = _this4._program.handlers.map(function (h, index) {
-      return new IT4HandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
+      return new VMHandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
     });
     _this4._waitQueue = _this4._handlers.slice(0); // run on any change to environment
 
@@ -2756,7 +2756,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
     return run;
   }();
 
-  (0,createClass/* default */.Z)(IT4ProgramRunner, [{
+  (0,createClass/* default */.Z)(VMProgramRunner, [{
     key: "status",
     get: function get() {
       var ret = this._program === undefined ? VMStatus.ProgramError : this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
@@ -2764,7 +2764,7 @@ var IT4ProgramRunner = /*#__PURE__*/function (_JDClient) {
     }
   }]);
 
-  return IT4ProgramRunner;
+  return VMProgramRunner;
 }(client/* JDClient */.z);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
@@ -2815,7 +2815,7 @@ function useVMRunner(roleManager, program, autoStart) {
 
   (0,react.useEffect)(function () {
     try {
-      var newTestRunner = program && new IT4ProgramRunner(bus, roleManager, program);
+      var newTestRunner = program && new VMProgramRunner(bus, roleManager, program);
       setRunner(newTestRunner);
       return function () {
         return newTestRunner === null || newTestRunner === void 0 ? void 0 : newTestRunner.unmount();
@@ -3098,9 +3098,9 @@ function VMDiagnostics(props) {
     xs: 12
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "subtitle1"
-  }, "IT4"), /*#__PURE__*/react.createElement(CodeBlock.default, {
+  }, "VM"), /*#__PURE__*/react.createElement(CodeBlock.default, {
     className: "json",
-    downloadName: "test.json.it4",
+    downloadName: "test.json.vm",
     downloadText: JSON.stringify(program, null, 2)
   }, JSON.stringify(program, null, 2))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
@@ -3433,7 +3433,7 @@ function VMEditor(props) {
     initialXml: xml,
     onXmlChange: handleXml,
     onJSONChange: handleJSON,
-    onIT4ProgramChange: handleI4Program,
+    onVMProgramChange: handleI4Program,
     runner: runner,
     roleManager: roleManager,
     workspaceRef: workspaceRef
@@ -3453,4 +3453,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-705938c08198c41f71f6.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-27fbd874eaffd11978e3.js.map

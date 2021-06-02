@@ -5174,7 +5174,7 @@ addToUnscopables('flatMap');
 /* harmony export */   "IJ": function() { return /* binding */ compileProgram; },
 /* harmony export */   "i_": function() { return /* binding */ checkProgram; }
 /* harmony export */ });
-/* unused harmony exports getServiceFromRole, IT4Functions */
+/* unused harmony exports getServiceFromRole, VMFunctions */
 /* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13173);
 /* harmony import */ var _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30055);
 /* harmony import */ var _jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
@@ -5340,7 +5340,7 @@ function checkProgram(prog) {
   };
 
   var symbolResolver = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .SpecSymbolResolver */ .ll(undefined, getServiceFromRole(prog), errorFun);
-  var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .IT4Checker */ .DG(symbolResolver, function (_) {
+  var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .VMChecker */ .Ys(symbolResolver, function (_) {
     return true;
   }, errorFun);
   prog.handlers.forEach(function (h) {
@@ -5353,7 +5353,7 @@ function checkProgram(prog) {
 
     var errorCount = allErrors.length;
     handlerVisitor(h, undefined, function (c) {
-      return checker.checkCommand(c.command, IT4Functions);
+      return checker.checkCommand(c.command, VMFunctions);
     });
 
     if ((h === null || h === void 0 ? void 0 : h.errors.length) === 0 && allErrors.length === errorCount) {
@@ -5389,7 +5389,7 @@ function checkProgram(prog) {
     errors: allErrors
   };
 }
-var IT4Functions = [{
+var VMFunctions = [{
   id: "label",
   args: ["Identifier"],
   prompt: "label target {1}",
@@ -5580,7 +5580,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 79862:
+/***/ 67147:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8685,7 +8685,7 @@ var es_array_flat_map = __webpack_require__(86535);
 var es_array_unscopables_flat_map = __webpack_require__(99244);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
 var ir = __webpack_require__(68290);
-;// CONCATENATED MODULE: ./src/components/vm/it4generator.ts
+;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
 
 
 
@@ -8709,8 +8709,8 @@ var ops = {
   MINUS: "-"
 };
 var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
-function workspaceJSONToIT4Program(workspace) {
-  console.debug("compile it4", {
+function workspaceJSONToVMProgram(workspace) {
+  console.debug("compile vm", {
     workspace: workspace
   });
   var roles = workspace.variables.filter(function (v) {
@@ -8906,7 +8906,7 @@ function workspaceJSONToIT4Program(workspace) {
   };
 
   var blockToCommand = function blockToCommand(event, block) {
-    var makeIT4Base = function makeIT4Base(command) {
+    var makeVMBase = function makeVMBase(command) {
       return {
         sourceId: block.id,
         type: "cmd",
@@ -8934,7 +8934,7 @@ function workspaceJSONToIT4Program(workspace) {
               errors = _blockToExpression.errors;
 
           return {
-            cmd: makeIT4Base({
+            cmd: makeVMBase({
               type: "CallExpression",
               arguments: [time],
               callee: (0,ir/* toIdentifier */.EB)("wait")
@@ -9003,7 +9003,7 @@ function workspaceJSONToIT4Program(workspace) {
 
                   var role = inputs[0].fields.role.value;
                   return {
-                    cmd: makeIT4Base({
+                    cmd: makeVMBase({
                       type: "CallExpression",
                       arguments: [(0,ir/* toMemberExpression */.vf)(role, register.name), _expr],
                       callee: (0,ir/* toIdentifier */.EB)("writeRegister")
@@ -9021,7 +9021,7 @@ function workspaceJSONToIT4Program(workspace) {
                     return blockToExpression(event, a.child);
                   });
                   return {
-                    cmd: makeIT4Base({
+                    cmd: makeVMBase({
                       type: "CallExpression",
                       arguments: exprsErrors.map(function (p) {
                         return p.expr;
@@ -10152,7 +10152,10 @@ function useBlocklyPlugins(workspace) {
     };
   }, [workspace]);
 }
+// EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
+var gatsby_browser_entry = __webpack_require__(35313);
 ;// CONCATENATED MODULE: ./src/components/vm/VMBlockEditor.tsx
+
 
 
 
@@ -10187,7 +10190,7 @@ function VMBlockEditor(props) {
   var className = props.className,
       onXmlChange = props.onXmlChange,
       onJSONChange = props.onJSONChange,
-      onIT4ProgramChange = props.onIT4ProgramChange,
+      onVMProgramChange = props.onVMProgramChange,
       initialXml = props.initialXml,
       serviceClass = props.serviceClass,
       runner = props.runner,
@@ -10248,6 +10251,7 @@ function VMBlockEditor(props) {
           horizontal: true
         }
       },
+      media: (0,gatsby_browser_entry.withPrefix)("blockly"),
       zoom: {
         controls: true,
         wheel: true,
@@ -10308,7 +10312,7 @@ function VMBlockEditor(props) {
     if (!workspace || workspace.isDragging()) return;
     onXmlChange === null || onXmlChange === void 0 ? void 0 : onXmlChange(xml); // save json
 
-    if (onJSONChange || onIT4ProgramChange) {
+    if (onJSONChange || onVMProgramChange) {
       // emit json
       var newSource = domToJSON(workspace);
 
@@ -10316,17 +10320,17 @@ function VMBlockEditor(props) {
         setSource(newSource);
         onJSONChange === null || onJSONChange === void 0 ? void 0 : onJSONChange(newSource);
 
-        if (onIT4ProgramChange) {
+        if (onVMProgramChange) {
           try {
-            var newProgram = workspaceJSONToIT4Program(newSource);
+            var newProgram = workspaceJSONToVMProgram(newSource);
 
             if (JSON.stringify(newProgram) !== JSON.stringify(program)) {
               setProgram(newProgram);
-              onIT4ProgramChange(newProgram);
+              onVMProgramChange(newProgram);
             }
           } catch (e) {
             console.error(e);
-            onIT4ProgramChange(undefined);
+            onVMProgramChange(undefined);
           }
         }
       }
@@ -10402,4 +10406,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-354be38a2855df460b5a.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-888d64f5747d66107bd0.js.map
