@@ -1926,8 +1926,8 @@ var Grid = __webpack_require__(80838);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 35 modules
-var VMBlockEditor = __webpack_require__(30978);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 34 modules
+var VMBlockEditor = __webpack_require__(79862);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
@@ -3100,10 +3100,10 @@ var Chip = __webpack_require__(4998);
 var DeviceAvatar = __webpack_require__(4726);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
 var servers = __webpack_require__(37801);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./src/components/vm/toolbox.ts
+var toolbox = __webpack_require__(20055);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRoles.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
@@ -3115,18 +3115,47 @@ var useChange = __webpack_require__(54774);
 
 
 function VMRoles(props) {
+  var roleManager = props.roleManager,
+      workspace = props.workspace;
+
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var roleManager = props.roleManager;
   var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.roles;
   });
 
   var handleRoleClick = function handleRoleClick(role, service, serviceShortId) {
     return function () {
-      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
-      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+      // spin off simulator
+      if (!service) {
+        var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+        if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+      } // add twin block
+
+
+      if (workspace) {
+        // try to find existing twin block
+        var twinBlock = workspace.getTopBlocks(false).find(function (b) {
+          var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
+
+          return b.type === toolbox/* TWIN_BLOCK */.Zt && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
+            return f.name === "role";
+          })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
+        });
+
+        if (!twinBlock) {
+          twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
+          var variable = workspace.getVariable(role, serviceShortId);
+          var field = twinBlock.inputList[0].fieldRow.find(function (f) {
+            return f.name === "role";
+          });
+          field.setValue(variable.getId());
+          twinBlock.initSvg();
+        }
+
+        workspace.centerOnBlock(twinBlock.id);
+      }
     };
   };
 
@@ -3138,14 +3167,14 @@ function VMRoles(props) {
       item: true,
       key: role
     }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: service ? "bound to " + service.device.friendlyName : "start simulator"
+      title: service ? "add twin block" : "start simulator"
     }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
       label: role,
       variant: service ? "default" : "outlined",
-      avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+      avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
         device: service.device
-      }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
-      onClick: !!serviceShortId && handleRoleClick(role, service, serviceShortId)
+      }),
+      onClick: handleRoleClick(role, service, serviceShortId)
     })));
   }));
 }
@@ -3219,6 +3248,8 @@ function VMSaveButton(props) {
     title: "save"
   }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
 }
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
 ;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
 
 
@@ -3248,7 +3279,8 @@ function VMToolbar(props) {
       cancel = props.cancel,
       xml = props.xml,
       source = props.source,
-      program = props.program;
+      program = props.program,
+      workspace = props.workspace;
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "row",
@@ -3270,7 +3302,8 @@ function VMToolbar(props) {
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(VMRoles, {
-    roleManager: roleManager
+    roleManager: roleManager,
+    workspace: workspace
   }));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
@@ -3286,6 +3319,7 @@ function VMToolbar(props) {
 var VM_SOURCE_STORAGE_KEY = "jacdac:tools:vmeditor";
 function VMEditor(props) {
   var storageKey = props.storageKey;
+  var workspaceRef = (0,react.useRef)();
 
   var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey || VM_SOURCE_STORAGE_KEY, ""),
       xml = _useLocalStorage[0],
@@ -3334,7 +3368,8 @@ function VMEditor(props) {
     cancel: cancel,
     xml: xml,
     source: source,
-    program: program
+    program: program,
+    workspace: workspaceRef.current
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -3344,7 +3379,8 @@ function VMEditor(props) {
     onJSONChange: handleJSON,
     onIT4ProgramChange: handleI4Program,
     runner: runner,
-    roleManager: roleManager
+    roleManager: roleManager,
+    workspaceRef: workspaceRef
   }))), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(VMDiagnostics, {
     program: program,
     source: source,
@@ -3361,4 +3397,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e9af2fa064fea0232210.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-33497369a826eb4ab160.js.map

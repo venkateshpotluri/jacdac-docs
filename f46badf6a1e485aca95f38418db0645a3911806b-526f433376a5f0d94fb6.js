@@ -5580,7 +5580,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 30978:
+/***/ 79862:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7112,20 +7112,8 @@ function fieldShadows() {
   registerFields();
   return reactFieldShadows.slice(0);
 }
-;// CONCATENATED MODULE: ./src/components/vm/toolbox.ts
-
-var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
-function resolveServiceBlockDefinition(type) {
-  var b = (blockly_default()).Blocks[type];
-  return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
-}
-var WHILE_CONDITION_BLOCK = "jacdac_while_event";
-var WHILE_CONDITION_BLOCK_CONDITION = "condition";
-var WAIT_BLOCK = "jacdac_wait";
-var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
-var TWIN_BLOCK = "jacdac_twin";
-var INSPECT_BLOCK = "jacdac_inspect";
-var WATCH_BLOCK = "jacdac_watch";
+// EXTERNAL MODULE: ./src/components/vm/toolbox.ts
+var toolbox = __webpack_require__(20055);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -7845,11 +7833,11 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   }]);
   var runtimeBlocks = [{
     kind: "block",
-    type: WHILE_CONDITION_BLOCK,
+    type: toolbox/* WHILE_CONDITION_BLOCK */.uB,
     message0: "while %1",
     args0: [{
       type: "input_value",
-      name: WHILE_CONDITION_BLOCK_CONDITION,
+      name: toolbox/* WHILE_CONDITION_BLOCK_CONDITION */.yy,
       check: "Boolean"
     }],
     colour: commandColor,
@@ -7859,7 +7847,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     helpUrl: ""
   }, {
     kind: "block",
-    type: WAIT_BLOCK,
+    type: toolbox/* WAIT_BLOCK */.sX,
     message0: "wait %1 s",
     args0: [{
       type: "input_value",
@@ -7874,7 +7862,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     helpUrl: ""
   }, {
     kind: "block",
-    type: SET_STATUS_LIGHT_BLOCK,
+    type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
     message0: "set %1 status light to %2",
     args0: [{
       type: "field_variable",
@@ -7903,7 +7891,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     helpUrl: ""
   }, {
     kind: "block",
-    type: TWIN_BLOCK,
+    type: toolbox/* TWIN_BLOCK */.Zt,
     message0: "twin of %1 %2 %3",
     args0: [{
       type: "field_variable",
@@ -7926,7 +7914,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     template: "twin"
   }, {
     kind: "block",
-    type: INSPECT_BLOCK,
+    type: toolbox/* INSPECT_BLOCK */.Xd,
     message0: "inspect %1 %2 %3",
     args0: [{
       type: "field_variable",
@@ -7949,7 +7937,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     template: "twin"
   }, {
     kind: "block",
-    type: WATCH_BLOCK,
+    type: toolbox/* WATCH_BLOCK */.HN,
     message0: "watch %1",
     args0: [{
       type: "input_value",
@@ -8097,7 +8085,7 @@ function useToolbox(props) {
   var usedEvents = new Set(source === null || source === void 0 ? void 0 : (_source$blocks = source.blocks) === null || _source$blocks === void 0 ? void 0 : _source$blocks.map(function (block) {
     return {
       block: block,
-      definition: resolveServiceBlockDefinition(block.type)
+      definition: (0,toolbox/* resolveServiceBlockDefinition */.yn)(block.type)
     };
   }).filter(function (_ref19) {
     var definition = _ref19.definition;
@@ -8178,10 +8166,10 @@ function useToolbox(props) {
     colour: commandColor,
     contents: [{
       kind: "block",
-      type: WHILE_CONDITION_BLOCK
+      type: toolbox/* WHILE_CONDITION_BLOCK */.uB
     }, {
       kind: "block",
-      type: WAIT_BLOCK,
+      type: toolbox/* WAIT_BLOCK */.sX,
       values: {
         time: {
           kind: "block",
@@ -8190,7 +8178,7 @@ function useToolbox(props) {
       }
     }, {
       kind: "block",
-      type: SET_STATUS_LIGHT_BLOCK,
+      type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
       values: {
         color: {
           kind: "block",
@@ -8207,13 +8195,13 @@ function useToolbox(props) {
     colour: debuggerColor,
     contents: [{
       kind: "block",
-      type: WATCH_BLOCK
+      type: toolbox/* WATCH_BLOCK */.HN
     }, {
       kind: "block",
-      type: TWIN_BLOCK
+      type: toolbox/* TWIN_BLOCK */.Zt
     }, {
       kind: "block",
-      type: INSPECT_BLOCK
+      type: toolbox/* INSPECT_BLOCK */.Xd
     }].filter(function (b) {
       return !!b;
     })
@@ -8317,7 +8305,7 @@ function useToolbox(props) {
   return {
     serviceBlocks: serviceBlocks,
     toolboxConfiguration: toolboxConfiguration,
-    newProjectXml: NEW_PROJET_XML
+    newProjectXml: toolbox/* NEW_PROJET_XML */.Uz
   };
 }
 function useToolboxButtons(workspace, toolboxConfiguration) {
@@ -8601,7 +8589,7 @@ function domToJSON(workspace) {
       } // skip twins
 
 
-      var definition = resolveServiceBlockDefinition(block.type);
+      var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(block.type);
       if ((definition === null || definition === void 0 ? void 0 : definition.template) === "twin") return undefined; // dump object
 
       var value = (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
@@ -8835,7 +8823,7 @@ function workspaceJSONToIT4Program(workspace) {
 
         default:
           {
-            var def = resolveServiceBlockDefinition(type);
+            var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
 
             if (!def) {
               console.warn("unknown block " + type, {
@@ -8939,7 +8927,7 @@ function workspaceJSONToIT4Program(workspace) {
         inputs = block.inputs;
 
     switch (type) {
-      case WAIT_BLOCK:
+      case toolbox/* WAIT_BLOCK */.sX:
         {
           var _blockToExpression = blockToExpression(event, inputs[0].child),
               time = _blockToExpression.expr,
@@ -8998,7 +8986,7 @@ function workspaceJSONToIT4Program(workspace) {
 
       default:
         {
-          var def = resolveServiceBlockDefinition(type);
+          var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
 
           if (def) {
             var template = def.template;
@@ -9083,7 +9071,7 @@ function workspaceJSONToIT4Program(workspace) {
     var topEvent = undefined;
     var topErrors = [];
 
-    if (type === WHILE_CONDITION_BLOCK) {
+    if (type === toolbox/* WHILE_CONDITION_BLOCK */.uB) {
       // this is while (...)
       var condition = inputs[0].child;
 
@@ -9098,7 +9086,7 @@ function workspaceJSONToIT4Program(workspace) {
       };
       topErrors = errors;
     } else {
-      var def = resolveServiceBlockDefinition(type);
+      var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
       (0,utils/* assert */.hu)(!!def);
       var template = def.template;
       var role = inputs[0].fields["role"].value;
@@ -9188,7 +9176,7 @@ function useBlocklyEvents(workspace) {
         {
           var change = event;
           var block = workspace.getBlockById(change.blockId);
-          var def = resolveServiceBlockDefinition(block.type);
+          var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(block.type);
           var template = def === null || def === void 0 ? void 0 : def.template;
 
           if (template === "twin") {
@@ -10206,7 +10194,8 @@ function VMBlockEditor(props) {
       initialXml = props.initialXml,
       serviceClass = props.serviceClass,
       runner = props.runner,
-      roleManager = props.roleManager;
+      roleManager = props.roleManager,
+      workspaceRef = props.workspaceRef;
   var classes = useStyles();
 
   var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
@@ -10278,8 +10267,17 @@ function VMBlockEditor(props) {
     }
   }),
       workspace = _ref.workspace,
-      xml = _ref.xml; // surface state to react
+      xml = _ref.xml; // store ref
 
+
+  (0,react.useEffect)(function () {
+    if (workspaceRef) {
+      workspaceRef.current = workspace;
+      return function () {
+        return workspaceRef.current = undefined;
+      };
+    }
+  }, [workspace, workspaceRef]); // surface state to react
 
   (0,react.useEffect)(function () {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10361,7 +10359,40 @@ function VMBlockEditor(props) {
   }), /*#__PURE__*/react.createElement(BlocklyModalDialogs, null));
 }
 
+/***/ }),
+
+/***/ 20055:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
+/* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
+/* harmony export */   "uB": function() { return /* binding */ WHILE_CONDITION_BLOCK; },
+/* harmony export */   "yy": function() { return /* binding */ WHILE_CONDITION_BLOCK_CONDITION; },
+/* harmony export */   "sX": function() { return /* binding */ WAIT_BLOCK; },
+/* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
+/* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
+/* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
+/* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; }
+/* harmony export */ });
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+
+var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+function resolveServiceBlockDefinition(type) {
+  var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
+  return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
+}
+var WHILE_CONDITION_BLOCK = "jacdac_while_event";
+var WHILE_CONDITION_BLOCK_CONDITION = "condition";
+var WAIT_BLOCK = "jacdac_wait";
+var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+var TWIN_BLOCK = "jacdac_twin";
+var INSPECT_BLOCK = "jacdac_inspect";
+var WATCH_BLOCK = "jacdac_watch";
+
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8e619ee99325dd5e645d.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-526f433376a5f0d94fb6.js.map
