@@ -10340,7 +10340,7 @@ function VMBlockEditor(props) {
 
   (0,react.useEffect)(function () {
     if (!workspace) return;
-    var allErrors = (0,utils/* uniqueMap */.EM)((0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
+    var allErrors = (0,utils/* toMap */.qL)((0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
       var _h$errors;
 
       return (_h$errors = h.errors) === null || _h$errors === void 0 ? void 0 : _h$errors.filter(function (e) {
@@ -10364,4 +10364,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-094c6ce2ab2063e8a29a.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8e619ee99325dd5e645d.js.map
