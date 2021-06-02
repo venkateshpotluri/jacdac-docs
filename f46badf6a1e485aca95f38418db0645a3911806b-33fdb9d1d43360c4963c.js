@@ -6459,8 +6459,6 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
 LEDColorField.KEY = "jacdac_field_led_color";
 LEDColorField.SHADOW = toShadowDefinition(LEDColorField);
 
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
-var Typography = __webpack_require__(80453);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
 var DashboardServiceWidget = __webpack_require__(23069);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactInlineField.tsx
@@ -6612,10 +6610,6 @@ function NoServiceAlert() {
     onClick: handleStartSimulator
   }, "start ", spec.name);
 }
-// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
-var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./src/components/devices/DeviceName.tsx
-var DeviceName = __webpack_require__(26390);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/PointerBoundary.tsx
 
 function PointerBoundary(props) {
@@ -6647,34 +6641,6 @@ function PointerBoundary(props) {
 
 
 
-
-
-
-function RoleBindingView(props) {
-  var roleService = props.roleService;
-  var device = roleService.device,
-      serviceClass = roleService.serviceClass;
-  var services = (0,useServices/* default */.Z)({
-    ignoreSelf: true,
-    serviceClass: serviceClass
-  });
-  if (services.length < 2) return null;
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    style: {
-      color: "white"
-    },
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react.createElement(PointerBoundary, null, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    variant: "caption"
-  }, " bound to"), /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
-    device: device
-  }), /*#__PURE__*/react.createElement(DeviceName/* default */.Z, {
-    device: device,
-    showShortId: true
-  })));
-}
-
 function TwinWidget() {
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
       roleService = _useContext.roleService,
@@ -6694,9 +6660,7 @@ function TwinWidget() {
     service: roleService,
     visible: true,
     variant: "icon"
-  }))), /*#__PURE__*/react.createElement(RoleBindingView, {
-    roleService: roleService
-  }));
+  }))));
 }
 
 var TwinField = /*#__PURE__*/function (_ReactInlineField) {
@@ -9950,4 +9914,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3e1a5ddc913c9b1aa5d4.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-33fdb9d1d43360c4963c.js.map
