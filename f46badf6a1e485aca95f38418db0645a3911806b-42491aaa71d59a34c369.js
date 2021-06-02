@@ -10175,7 +10175,7 @@ var gatsby_browser_entry = __webpack_require__(35313);
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     editor: {
-      height: "calc(100vh - 7rem)",
+      height: "calc(100vh - 10rem)",
       "& .blocklyTreeLabel": {
         fontFamily: theme.typography.fontFamily
       },
@@ -10406,4 +10406,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-888d64f5747d66107bd0.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-42491aaa71d59a34c369.js.map
