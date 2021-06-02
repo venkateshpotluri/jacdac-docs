@@ -9826,7 +9826,7 @@ function VMBlockEditor(props) {
       oneBasedIndex: false,
       move: {
         scrollbars: {
-          vertical: false,
+          vertical: true,
           horizontal: true
         }
       },
@@ -9914,4 +9914,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-33fdb9d1d43360c4963c.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-214e9fafaad4a036766b.js.map
