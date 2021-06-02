@@ -3100,11 +3100,14 @@ var Chip = __webpack_require__(4998);
 var DeviceAvatar = __webpack_require__(4726);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
 var servers = __webpack_require__(37801);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRoles.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -3139,9 +3142,9 @@ function VMRoles(props) {
     }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
       label: role,
       variant: service ? "default" : "outlined",
-      avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+      avatar: service ? /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
         device: service.device
-      }),
+      }) : /*#__PURE__*/react.createElement(Add/* default */.Z, null),
       onClick: !!serviceShortId && handleRoleClick(role, service, serviceShortId)
     })));
   }));
@@ -3216,8 +3219,6 @@ function VMSaveButton(props) {
     title: "save"
   }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
 ;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
 
 
@@ -3360,4 +3361,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7699fcf3a7e4d5093e4f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e9af2fa064fea0232210.js.map
