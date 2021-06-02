@@ -5420,9 +5420,9 @@ var VMFunctions = [{
   prompt: "wait for {1} milliseconds",
   context: "command"
 }, {
-  id: "role",
-  args: ["Identifier", "Identifier"],
-  prompt: "role variable {1} of service type {2}",
+  id: "watch",
+  args: ["number"],
+  prompt: "watch expression {1}",
   context: "command"
 }, {
   id: "awaitEvent",
@@ -9034,14 +9034,30 @@ function workspaceJSONToVMProgram(workspace) {
                   };
                 }
 
+              case "watch":
+                {
+                  var _blockToExpression4 = blockToExpression(event, inputs[0].child),
+                      _expr2 = _blockToExpression4.expr,
+                      _errors3 = _blockToExpression4.errors;
+
+                  return {
+                    cmd: makeVMBase({
+                      type: "CallExpression",
+                      arguments: [_expr2],
+                      callee: (0,ir/* toIdentifier */.EB)("watch")
+                    }),
+                    errors: processErrors(_errors3)
+                  };
+                }
+
               default:
                 {
+                  console.warn("unsupported block template " + template + " for " + type, {
+                    block: block
+                  });
                   return {
                     cmd: undefined,
-                    errors: [{
-                      sourceId: block.id,
-                      message: "unsupported command template " + template + " for " + type
-                    }]
+                    errors: []
                   };
                 }
             }
@@ -9076,9 +9092,9 @@ function workspaceJSONToVMProgram(workspace) {
       // this is while (...)
       var condition = inputs[0].child;
 
-      var _blockToExpression4 = blockToExpression(undefined, condition),
-          expr = _blockToExpression4.expr,
-          errors = _blockToExpression4.errors;
+      var _blockToExpression5 = blockToExpression(undefined, condition),
+          expr = _blockToExpression5.expr,
+          errors = _blockToExpression5.errors;
 
       command = {
         type: "CallExpression",
@@ -9117,16 +9133,16 @@ function workspaceJSONToVMProgram(workspace) {
             var _ref5 = def,
                 register = _ref5.register;
 
-            var _blockToExpression5 = blockToExpression(undefined, inputs[0].child),
-                _expr2 = _blockToExpression5.expr,
-                _errors3 = _blockToExpression5.errors;
+            var _blockToExpression6 = blockToExpression(undefined, inputs[0].child),
+                _expr3 = _blockToExpression6.expr,
+                _errors4 = _blockToExpression6.errors;
 
             command = {
               type: "CallExpression",
-              arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), register.name), _expr2],
+              arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), register.name), _expr3],
               callee: (0,ir/* toIdentifier */.EB)("awaitChange")
             };
-            topErrors = _errors3;
+            topErrors = _errors4;
             break;
           }
 
@@ -10406,4 +10422,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-42491aaa71d59a34c369.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-107f67b5742e5caa93c5.js.map

@@ -1144,6 +1144,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hb": function() { return /* binding */ VM_WATCH; },
 /* harmony export */   "l9": function() { return /* binding */ ROLE_BOUND; },
 /* harmony export */   "CC": function() { return /* binding */ ROLE_UNBOUND; },
 /* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
@@ -1157,6 +1158,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 
 var VM_ERROR = "JacdacVMError";
+var VM_WATCH = "JacdacVMWatch";
 var ROLE_BOUND = "roleBound";
 var ROLE_UNBOUND = "roleUnbound";
 var ROLE_HAS_NO_SERVICE = "roleHasNoService";
@@ -2759,4 +2761,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-4ba3d73e4012fa4e17e7.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-95238df8813a95a27a92.js.map

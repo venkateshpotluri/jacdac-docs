@@ -1379,6 +1379,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hb": function() { return /* binding */ VM_WATCH; },
 /* harmony export */   "l9": function() { return /* binding */ ROLE_BOUND; },
 /* harmony export */   "CC": function() { return /* binding */ ROLE_UNBOUND; },
 /* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
@@ -1392,6 +1393,7 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 
 var VM_ERROR = "JacdacVMError";
+var VM_WATCH = "JacdacVMWatch";
 var ROLE_BOUND = "roleBound";
 var ROLE_UNBOUND = "roleUnbound";
 var ROLE_HAS_NO_SERVICE = "roleHasNoService";
@@ -2078,7 +2080,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
     var _evaluate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
       var _this2 = this;
 
-      var neededStart, args, expr, _values, _expr, event, regValue, _expr2, ev, reg;
+      var neededStart, args, expr, _values, _expr, event, regValue, _expr2, ev, reg, _this$gc, _expr3, _ev;
 
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
@@ -2125,7 +2127,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 14:
               _context.t0 = this.inst;
-              _context.next = _context.t0 === "branchOnCondition" ? 17 : _context.t0 === "jump" ? 22 : _context.t0 === "label" ? 24 : _context.t0 === "awaitEvent" ? 26 : _context.t0 === "awaitCondition" ? 29 : _context.t0 === "awaitChange" ? 31 : _context.t0 === "awaitRegister" ? 31 : _context.t0 === "writeRegister" ? 34 : _context.t0 === "writeLocal" ? 34 : _context.t0 === "halt" ? 47 : 49;
+              _context.next = _context.t0 === "branchOnCondition" ? 17 : _context.t0 === "jump" ? 22 : _context.t0 === "label" ? 24 : _context.t0 === "awaitEvent" ? 26 : _context.t0 === "awaitCondition" ? 29 : _context.t0 === "awaitChange" ? 31 : _context.t0 === "awaitRegister" ? 31 : _context.t0 === "writeRegister" ? 34 : _context.t0 === "writeLocal" ? 34 : _context.t0 === "watch" ? 47 : _context.t0 === "halt" ? 52 : 54;
               break;
 
             case 17:
@@ -2140,7 +2142,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 20:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 55);
 
             case 22:
               this._status = VMStatus.Completed;
@@ -2148,7 +2150,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 24:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 55);
 
             case 26:
               event = args[0];
@@ -2157,11 +2159,11 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
                 this._status = this.checkExpression(args[1]) ? VMStatus.Completed : VMStatus.Running;
               }
 
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 55);
 
             case 29:
               this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Running;
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 55);
 
             case 31:
               regValue = this.evalExpression(args[0]);
@@ -2170,7 +2172,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
                 this._status = VMStatus.Completed;
               }
 
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 55);
 
             case 34:
               _expr2 = new vm_expr/* JDExprEvaluator */.f(function (e) {
@@ -2203,16 +2205,25 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 45:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 55);
 
             case 47:
-              this._status = VMStatus.Stopped;
-              return _context.abrupt("break", 50);
+              _expr3 = new vm_expr/* JDExprEvaluator */.f(function (e) {
+                return _this2.env.lookup(e);
+              }, undefined);
+              _ev = _expr3.eval(args[0]);
+              this._status = VMStatus.Completed;
+              this.parent.watch((_this$gc = this.gc) === null || _this$gc === void 0 ? void 0 : _this$gc.sourceId, _ev);
+              return _context.abrupt("break", 55);
 
-            case 49:
+            case 52:
+              this._status = VMStatus.Stopped;
+              return _context.abrupt("break", 55);
+
+            case 54:
               throw new utils/* JDVMError */.D1("Unknown instruction " + this.inst);
 
-            case 50:
+            case 55:
             case "end":
               return _context.stop();
           }
@@ -2263,6 +2274,10 @@ var VMCommandRunner = /*#__PURE__*/function () {
     this.parent.trace(msg, _objectSpread({
       handler: this.handlerId
     }, context));
+  };
+
+  _proto2.watch = function watch(id, val) {
+    this.parent.watch(id, val);
   };
 
   _proto2.step = /*#__PURE__*/function () {
@@ -2372,6 +2387,10 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     this.parent.trace(msg, _objectSpread({
       id: this.id
     }, context));
+  };
+
+  _proto3.watch = function watch(id, val) {
+    this.parent.watch(id, val);
   };
 
   _proto3.reset = function reset() {
@@ -2535,19 +2554,6 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   (0,inheritsLoose/* default */.Z)(VMProgramRunner, _JDClient);
 
-  var _proto4 = VMProgramRunner.prototype;
-
-  _proto4.trace = function trace(message, context) {
-    if (context === void 0) {
-      context = {};
-    }
-
-    this.emit(constants/* TRACE */.jes, {
-      message: message,
-      context: context
-    });
-  };
-
   function VMProgramRunner(bus, roleManager, prog) {
     var _this4;
 
@@ -2556,6 +2562,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this4._waitQueue = [];
     _this4._running = false;
     _this4._in_run = false;
+    _this4._watch = {};
     _this4.bus = bus;
     _this4.roleManager = roleManager;
     _this4._program = (0,ir/* compileProgram */.IJ)(prog);
@@ -2618,6 +2625,24 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     return _this4;
   }
+
+  var _proto4 = VMProgramRunner.prototype;
+
+  _proto4.trace = function trace(message, context) {
+    if (context === void 0) {
+      context = {};
+    }
+
+    this.emit(constants/* TRACE */.jes, {
+      message: message,
+      context: context
+    });
+  };
+
+  _proto4.watch = function watch(id, val) {
+    this._watch[id] = val;
+    this.emit(utils/* VM_WATCH */.hb, id);
+  };
 
   _proto4.cancel = function cancel() {
     if (!this._program || !this._running) return; // nothing to cancel
@@ -2757,6 +2782,11 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   }();
 
   (0,createClass/* default */.Z)(VMProgramRunner, [{
+    key: "watchMap",
+    get: function get() {
+      return this._watch;
+    }
+  }, {
     key: "status",
     get: function get() {
       var ret = this._program === undefined ? VMStatus.ProgramError : this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
@@ -3453,4 +3483,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-27fbd874eaffd11978e3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-36d21b75d67c7fd585a3.js.map
