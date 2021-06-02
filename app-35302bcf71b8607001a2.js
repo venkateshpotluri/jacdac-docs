@@ -69230,12 +69230,12 @@ function useServiceProviderFromServiceClass(serviceClass) {
 
 
 function useServiceServer(service, createTwin) {
-  var provider = (0,_useServiceProvider__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(service.device);
+  var provider = (0,_useServiceProvider__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(service === null || service === void 0 ? void 0 : service.device);
   var twin = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     if (provider) return undefined;
-    var twin = service.twin;
+    var twin = service === null || service === void 0 ? void 0 : service.twin;
 
-    if (!twin && createTwin) {
+    if (!twin && service && createTwin) {
       twin = createTwin();
       if (twin) service.twin = twin;
     }
@@ -70255,7 +70255,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b1f1c52568ffdb4456964efc3086bce8a3098ee9";
+  var sha = "e8c94acacd7eb95c0a434d04e21cf47ed1cc53e0";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86507,4 +86507,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-972077b39580b336c469.js.map
+//# sourceMappingURL=app-35302bcf71b8607001a2.js.map

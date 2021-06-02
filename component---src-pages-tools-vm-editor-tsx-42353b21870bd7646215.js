@@ -463,6 +463,34 @@ var Chip = /*#__PURE__*/react.forwardRef(function Chip(props, ref) {
 
 /***/ }),
 
+/***/ 30263:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+}), 'Cancel');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -3092,10 +3120,10 @@ function VMDiagnostics(props) {
     className: "xml"
   }, xml)));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
-var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
 var Chip = __webpack_require__(4998);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
+var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
@@ -3104,6 +3132,10 @@ var servers = __webpack_require__(37801);
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
+// EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
+var useServiceServer = __webpack_require__(49013);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Cancel.js
+var Cancel = __webpack_require__(30263);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRoles.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
@@ -3114,52 +3146,77 @@ var toolbox = __webpack_require__(20055);
 
 
 
-function VMRoles(props) {
-  var roleManager = props.roleManager,
+
+
+
+function RoleChip(props) {
+  var role = props.role,
+      service = props.service,
+      serviceShortId = props.serviceShortId,
       workspace = props.workspace;
 
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
+  var server = (0,useServiceServer/* default */.Z)(service);
+
+  var handleRoleClick = function handleRoleClick() {
+    // spin off simulator
+    if (!service) {
+      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+    } // add twin block
+
+
+    if (workspace) {
+      // try to find existing twin block
+      var twinBlock = workspace.getTopBlocks(false).find(function (b) {
+        var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
+
+        return b.type === toolbox/* TWIN_BLOCK */.Zt && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
+          return f.name === "role";
+        })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
+      });
+
+      if (!twinBlock) {
+        twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
+        var variable = workspace.getVariable(role, serviceShortId);
+        var field = twinBlock.inputList[0].fieldRow.find(function (f) {
+          return f.name === "role";
+        });
+        field.setValue(variable.getId());
+        twinBlock.initSvg();
+        twinBlock.render(false);
+      }
+
+      workspace.centerOnBlock(twinBlock.id);
+    }
+  };
+
+  var handleDelete = function handleDelete() {
+    return bus.removeServiceProvider(server.device);
+  };
+
+  return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    label: role,
+    variant: service ? "default" : "outlined",
+    avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+      device: service.device
+    }),
+    onClick: handleRoleClick,
+    onDelete: !!server && handleDelete,
+    deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+      title: "stop simulator"
+    }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
+  });
+}
+
+function VMRoles(props) {
+  var roleManager = props.roleManager,
+      workspace = props.workspace;
   var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.roles;
   });
-
-  var handleRoleClick = function handleRoleClick(role, service, serviceShortId) {
-    return function () {
-      // spin off simulator
-      if (!service) {
-        var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
-        if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
-      } // add twin block
-
-
-      if (workspace) {
-        // try to find existing twin block
-        var twinBlock = workspace.getTopBlocks(false).find(function (b) {
-          var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
-
-          return b.type === toolbox/* TWIN_BLOCK */.Zt && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
-            return f.name === "role";
-          })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
-        });
-
-        if (!twinBlock) {
-          twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
-          var variable = workspace.getVariable(role, serviceShortId);
-          var field = twinBlock.inputList[0].fieldRow.find(function (f) {
-            return f.name === "role";
-          });
-          field.setValue(variable.getId());
-          twinBlock.initSvg();
-          twinBlock.render(false);
-        }
-
-        workspace.centerOnBlock(twinBlock.id);
-      }
-    };
-  };
-
   return /*#__PURE__*/react.createElement(react.Fragment, null, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
     var role = _ref.role,
         service = _ref.service,
@@ -3167,16 +3224,12 @@ function VMRoles(props) {
     return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
       item: true,
       key: role
-    }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: service ? "add twin block" : "start simulator"
-    }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-      label: role,
-      variant: service ? "default" : "outlined",
-      avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
-        device: service.device
-      }),
-      onClick: handleRoleClick(role, service, serviceShortId)
-    })));
+    }, /*#__PURE__*/react.createElement(RoleChip, {
+      role: role,
+      service: service,
+      serviceShortId: serviceShortId,
+      workspace: workspace
+    }));
   }));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
@@ -3398,4 +3451,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-dd7341c99cdaf4b03b1e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-42353b21870bd7646215.js.map
