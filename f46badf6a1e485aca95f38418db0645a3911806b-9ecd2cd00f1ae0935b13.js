@@ -6827,6 +6827,13 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
   var _proto = ReactInlineField.prototype;
 
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "inline-block";
+    c.style.minWidth = "14rem";
+    return c;
+  };
+
   _proto.initCustomView = function initCustomView() {
     var _this = this;
 
@@ -6839,9 +6846,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
       width: width,
       height: height
     });
-    this.container = document.createElement("div");
-    this.container.style.display = "inline-block";
-    this.container.style.minWidth = "14rem";
+    this.container = this.createContainer();
     fo.appendChild(this.container);
     this.resizeObserver = new ResizeObserver(function (entries) {
       var entry = entries[0];
@@ -7105,8 +7110,9 @@ var vm_utils = __webpack_require__(94624);
 function WatchValueWidget() {
   var _useContext = (0,react.useContext)(vm_WorkspaceContext),
       runner = _useContext.runner,
-      sourceId = _useContext.sourceId; // track changes
+      sourceId = _useContext.sourceId;
 
+  var theme = (0,useTheme/* default */.Z)(); // track changes
 
   var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
       value = _useState[0],
@@ -7114,20 +7120,17 @@ function WatchValueWidget() {
 
   (0,react.useEffect)(function () {
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
+      console.log("watch change", {
+        watchSourceId: watchSourceId,
+        sourceId: sourceId
+      });
+
       if (watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
       }
     });
   }, [runner, sourceId]);
-  console.log("watch", {
-    sourceId: sourceId,
-    value: value
-  }); // nothing to show here
-
-  if (value === undefined) return /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    variant: "caption"
-  }, "...");
   var valueNumber = typeof value === "number" ? value : undefined;
 
   if (!isNaN(valueNumber)) {
@@ -7136,10 +7139,15 @@ function WatchValueWidget() {
     valueNumber = (0,utils/* roundWithPrecision */.JI)(valueNumber, precision);
   }
 
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  return /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    bgcolor: theme.palette.background.paper,
+    borderRadius: theme.spacing(1),
+    color: theme.palette.text.primary
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
-    alignItems: "flex-start",
+    alignItems: "flex-end",
     alignContent: "center",
+    justify: "center",
     spacing: 1
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
@@ -7149,7 +7157,7 @@ function WatchValueWidget() {
     value: !!value
   }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body1"
-  }, value))));
+  }, value === undefined ? "..." : value + "")))));
 }
 
 var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
@@ -7165,6 +7173,13 @@ var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
   }
 
   var _proto = WatchValueField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "inline-block";
+    c.style.minWidth = "4rem";
+    return c;
+  };
 
   _proto.renderInlineField = function renderInlineField() {
     return /*#__PURE__*/react.createElement(WatchValueWidget, null);
@@ -8045,12 +8060,27 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       name: "watch"
     }],
     colour: debuggerColor,
-    inputsInline: false,
+    inputsInline: true,
     tooltip: "Watch a value in the editor",
     helpUrl: "",
     template: "watch",
     nextStatement: null,
     previousStatement: null
+  }, {
+    kind: "block",
+    type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
+    message0: "repeat every %1s",
+    args0: [{
+      type: "input_value",
+      name: "interval",
+      check: "Number"
+    }],
+    colour: commandColor,
+    inputsInline: true,
+    tooltip: "Repeats code at a given interval in seconds",
+    helpUrl: "",
+    template: "every",
+    nextStatement: null
   }];
   var mathBlocks = [{
     kind: "block",
@@ -8267,6 +8297,15 @@ function useToolbox(props) {
     contents: [{
       kind: "block",
       type: toolbox/* WHILE_CONDITION_BLOCK */.uB
+    }, {
+      kind: "block",
+      type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
+      values: {
+        interval: {
+          kind: "block",
+          type: "jacdac_time_picker"
+        }
+      }
     }, {
       kind: "block",
       type: toolbox/* WAIT_BLOCK */.sX,
@@ -10501,7 +10540,8 @@ function VMBlockEditor(props) {
 /* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
 /* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
 /* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
-/* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; }
+/* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
+/* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; }
 /* harmony export */ });
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
@@ -10518,8 +10558,9 @@ var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var TWIN_BLOCK = "jacdac_twin";
 var INSPECT_BLOCK = "jacdac_inspect";
 var WATCH_BLOCK = "jacdac_watch";
+var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8734879c7b802a5dfef4.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-9ecd2cd00f1ae0935b13.js.map
