@@ -5580,7 +5580,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 67147:
+/***/ 44802:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5890,10 +5890,12 @@ var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
 var WorkspaceContext = /*#__PURE__*/(0,react.createContext)({
   workspace: undefined,
   flyout: false,
+  sourceId: undefined,
   services: undefined,
   role: undefined,
   roleServiceShortId: undefined,
-  roleService: undefined
+  roleService: undefined,
+  runner: undefined
 });
 WorkspaceContext.displayName = "Workspace";
 /* harmony default export */ var vm_WorkspaceContext = (WorkspaceContext);
@@ -5905,6 +5907,7 @@ function WorkspaceProvider(props) {
       sourceBlock = _useState[0],
       setSourceBlock = _useState[1];
 
+  var sourceId = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.id;
   var workspace = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.workspace;
   var services = workspace === null || workspace === void 0 ? void 0 : workspace.jacdacServices;
   var roleManager = services === null || services === void 0 ? void 0 : services.roleManager;
@@ -5978,10 +5981,12 @@ function WorkspaceProvider(props) {
     // eslint-disable-next-line react/react-in-jsx-scope
     react.createElement(WorkspaceContext.Provider, {
       value: {
+        sourceId: sourceId,
         services: services,
         role: role,
         roleServiceShortId: roleServiceShortId,
         roleService: roleService,
+        runner: runner,
         flyout: flyout
       }
     }, children)
@@ -7081,7 +7086,98 @@ var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
 JDomTreeField.KEY = "jacdac_jdom_service_tree";
 JDomTreeField.EDITABLE = false;
 
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
+var Switch = __webpack_require__(76544);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
+var vm_utils = __webpack_require__(94624);
+;// CONCATENATED MODULE: ./src/components/vm/fields/WatchValueField.tsx
+
+
+
+
+
+
+
+
+
+function WatchValueWidget() {
+  var _useContext = (0,react.useContext)(vm_WorkspaceContext),
+      runner = _useContext.runner,
+      sourceId = _useContext.sourceId; // track changes
+
+
+  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
+      if (watchSourceId === sourceId) {
+        var newValue = runner.lookupWatch(sourceId);
+        setValue(newValue);
+      }
+    });
+  }, [runner, sourceId]);
+  console.log("watch", {
+    sourceId: sourceId,
+    value: value
+  }); // nothing to show here
+
+  if (value === undefined) return /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "caption"
+  }, "...");
+  var valueNumber = typeof value === "number" ? value : undefined;
+
+  if (!isNaN(valueNumber)) {
+    var step = Math.ceil(Math.abs(valueNumber)) / 10;
+    var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
+    valueNumber = (0,utils/* roundWithPrecision */.JI)(valueNumber, precision);
+  }
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    alignItems: "flex-start",
+    alignContent: "center",
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(PointerBoundary, null, !isNaN(valueNumber) ? /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "body1"
+  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react.createElement(Switch/* default */.Z, {
+    value: !!value
+  }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "body1"
+  }, value))));
+}
+
+var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,inheritsLoose/* default */.Z)(WatchValueField, _ReactInlineField);
+
+  WatchValueField.fromJson = function fromJson(options) {
+    return new WatchValueField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function WatchValueField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = WatchValueField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react.createElement(WatchValueWidget, null);
+  };
+
+  return WatchValueField;
+}(ReactInlineField);
+
+WatchValueField.KEY = "jacdac_watch_value";
+WatchValueField.EDITABLE = false;
+
 ;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
+
 
 
 
@@ -7105,7 +7201,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField, JDomTreeField];
+  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField, JDomTreeField, WatchValueField];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -7115,6 +7211,7 @@ function fieldShadows() {
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -7938,11 +8035,14 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   }, {
     kind: "block",
     type: toolbox/* WATCH_BLOCK */.HN,
-    message0: "watch %1",
+    message0: "watch %1 %2",
     args0: [{
       type: "input_value",
       name: "value",
       check: ["Number", "Boolean", "String"]
+    }, {
+      type: WatchValueField.KEY,
+      name: "watch"
     }],
     colour: debuggerColor,
     inputsInline: false,
@@ -10373,13 +10473,13 @@ function VMBlockEditor(props) {
 
   (0,react.useEffect)(function () {
     var observer = new ResizeObserver(function () {
-      return workspace.resize();
+      return workspace === null || workspace === void 0 ? void 0 : workspace.resize();
     });
     observer.observe(blocklyRef.current);
     return function () {
       return observer.disconnect();
     };
-  }, [workspace]);
+  }, [workspace, blocklyRef.current]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
     ref: blocklyRef
@@ -10422,4 +10522,4 @@ var WATCH_BLOCK = "jacdac_watch";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-107f67b5742e5caa93c5.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8734879c7b802a5dfef4.js.map

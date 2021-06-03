@@ -1,5 +1,44 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6540],{
 
+/***/ 94624:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
+/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
+/* harmony export */   "D1": function() { return /* binding */ JDVMError; }
+/* harmony export */ });
+/* unused harmony exports VM_ERROR, default */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var VM_ERROR = "JacdacVMError";
+var VM_WATCH_CHANGE = "vmWatchChange";
+var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
+var VM_COMMAND_COMPLETED = "vmCommandCompleted";
+var JDVMError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
+
+  function JDVMError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = VM_ERROR;
+    return _this;
+  }
+
+  return JDVMError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
+}
+
+/***/ }),
+
 /***/ 81857:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -62,8 +101,8 @@ var Context = __webpack_require__(20392);
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
 var DashboardDeviceItem = __webpack_require__(24301);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 34 modules
-var VMBlockEditor = __webpack_require__(67147);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 35 modules
+var VMBlockEditor = __webpack_require__(44802);
 // EXTERNAL MODULE: ./src/components/ui/PaperBox.tsx
 var PaperBox = __webpack_require__(79739);
 ;// CONCATENATED MODULE: ./src/components/ServiceSpecification.tsx
@@ -316,4 +355,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-playground-tsx-b99aab34ab1a7b7dab98.js.map
+//# sourceMappingURL=component---src-templates-service-playground-tsx-0ebe4de9cda2d0c3f7cb.js.map

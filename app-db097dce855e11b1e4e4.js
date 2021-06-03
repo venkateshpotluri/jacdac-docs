@@ -51959,6 +51959,9 @@ var Packet = /*#__PURE__*/function () {
     key: "frameFlags",
     get: function get() {
       return this._header[3];
+    },
+    set: function set(v) {
+      this._header[3] = v;
     }
   }, {
     key: "isMultiCommand",
@@ -64789,7 +64792,6 @@ function UnitTrendChart(props) {
       useGradient = props.useGradient,
       data = props.data,
       unit = props.unit,
-      horizon = props.horizon,
       vpw = props.vpw,
       vph = props.vph,
       dot = props.dot;
@@ -64910,9 +64912,9 @@ function UnitTrendChart(props) {
     var color = colors[i];
     var path = shape == "step" ? data.map(function (row, ri) {
       return ri == 0 ? "M " + x(row.timestamp) + " " + y(row.data[index]) : "H " + x(row.timestamp) + " V " + y(row.data[index]);
-    }).join(' ') : data.map(function (row, ri) {
+    }).join(" ") : data.map(function (row, ri) {
       return (ri == 0 ? "M" : "L") + " " + x(row.timestamp) + " " + y(row.data[index]);
-    }).join(' ');
+    }).join(" ");
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
       key: "line" + index
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
@@ -67244,7 +67246,7 @@ function ValueWithUnitWidget(props) {
     container: true,
     direction: "column",
     tabIndex: tabIndex,
-    "aria-label": valueText + " " + label
+    "aria-label": valueText + " " + (label || "")
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
@@ -67265,7 +67267,7 @@ function ValueWithUnitWidget(props) {
     container: true,
     direction: "column",
     alignContent: "space-between"
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, label && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     style: unitStyle,
@@ -70255,7 +70257,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "af0b70157b7a52120e8b1baefbc1e255c523296a";
+  var sha = "ca3e21a4de9434889edbb05592dd68614c62a2e2";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -79239,7 +79241,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.50"};
+var package_namespaceObject = {"i8":"1.13.51"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -81672,7 +81674,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 15970));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 53522));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86507,4 +86509,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b79473c8eb628a8defe2.js.map
+//# sourceMappingURL=app-db097dce855e11b1e4e4.js.map

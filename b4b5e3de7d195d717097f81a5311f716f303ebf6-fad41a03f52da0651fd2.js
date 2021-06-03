@@ -17,7 +17,7 @@
 /* harmony import */ var _jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71815);
 /* harmony import */ var _jdom_pack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(91635);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(94624);
+/* harmony import */ var _rolemanager__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37073);
 
 
 
@@ -343,7 +343,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     var s = this._envs[root];
 
     if (!s) {
-      this.emit(_utils__WEBPACK_IMPORTED_MODULE_6__/* .ROLE_HAS_NO_SERVICE */ .ky, root);
+      this.emit(_rolemanager__WEBPACK_IMPORTED_MODULE_6__/* .ROLE_HAS_NO_SERVICE */ .ky, root);
     }
 
     return s;
@@ -802,15 +802,252 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ 37073:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "l9": function() { return /* binding */ ROLE_BOUND; },
+/* harmony export */   "CC": function() { return /* binding */ ROLE_UNBOUND; },
+/* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "aw": function() { return /* binding */ RoleManager; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96156);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5991);
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63349);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41788);
+/* harmony import */ var _jdom_eventsource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(45484);
+/* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
+/* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13173);
+
+
+
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+var ROLE_BOUND = "roleBound";
+var ROLE_UNBOUND = "roleUnbound";
+var ROLE_HAS_NO_SERVICE = "roleHasNoService";
+// TODO: replicate MakeCode role manager logic
+var RoleManager = /*#__PURE__*/function (_JDEventSource) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(RoleManager, _JDEventSource);
+
+  function RoleManager(bus) {
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this._roles = [];
+    _this.bus = bus;
+
+    _this.bus.on(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .DEVICE_ANNOUNCE */ .Hob, _this.addServices.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(_this)));
+
+    _this.bus.on(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .DEVICE_DISCONNECT */ .O55, _this.removeServices.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(_this)));
+
+    _this.bus.devices({
+      ignoreSelf: true,
+      announced: true
+    }).forEach(function (dev) {
+      return _this.addServices(dev);
+    });
+
+    _this.on(ROLE_UNBOUND, function (role) {
+      return console.log("role unbound", {
+        role: role
+      });
+    });
+
+    _this.on(ROLE_BOUND, function (role) {
+      return console.log("role bound", {
+        role: role
+      });
+    });
+
+    return _this;
+  }
+
+  var _proto = RoleManager.prototype;
+
+  _proto.setRoles = function setRoles(newRoles) {
+    var _this2 = this;
+
+    var roles = this.roles; // remove unknown roles
+
+    var supportedNewRoles = newRoles.filter(function (_ref) {
+      var serviceShortId = _ref.serviceShortId;
+      return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_3__/* .serviceSpecificationFromName */ .kB)(serviceShortId);
+    });
+    console.debug("set roles", {
+      roles: roles,
+      newRoles: newRoles,
+      supportedNewRoles: supportedNewRoles
+    }); // removed roles
+
+    var _loop = function _loop() {
+      var newRole = _step.value;
+      var existingRole = roles.find(function (r) {
+        return r.role === newRole.role;
+      });
+
+      if (!existingRole) {
+        // added role
+        _this2._roles.push(_objectSpread({}, newRole));
+      } else if (existingRole.serviceShortId !== newRole.serviceShortId) {
+        // modified type, force rebinding
+        existingRole.serviceShortId = newRole.serviceShortId;
+
+        if (existingRole.service) {
+          existingRole.service = undefined;
+
+          _this2.emit(ROLE_UNBOUND, newRole.role);
+
+          _this2.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+        }
+      } // else unmodifed role
+
+    };
+
+    for (var _iterator = _createForOfIteratorHelperLoose(supportedNewRoles), _step; !(_step = _iterator()).done;) {
+      _loop();
+    } // bound services
+
+
+    this.bindServices();
+  };
+
+  _proto.bindServices = function bindServices() {
+    var _this3 = this;
+
+    this.unboundRoles.forEach(function (binding) {
+      var boundRoles = _this3.boundRoles;
+
+      var service = _this3.bus.services({
+        ignoreSelf: true,
+        serviceName: binding.serviceShortId
+      }).find(function (srv) {
+        return !boundRoles.find(function (b) {
+          return b.service === srv;
+        });
+      });
+
+      binding.service = service;
+
+      _this3.emit(ROLE_BOUND, binding.role);
+
+      _this3.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+    });
+  };
+
+  _proto.addServices = function addServices(dev) {
+    if (dev === this.bus.selfDevice) return;
+    this.bindServices();
+  };
+
+  _proto.removeServices = function removeServices(dev) {
+    var _this4 = this;
+
+    this._roles.filter(function (r) {
+      var _r$service;
+
+      return ((_r$service = r.service) === null || _r$service === void 0 ? void 0 : _r$service.device) === dev;
+    }).forEach(function (r) {
+      r.service = undefined;
+
+      _this4.emit(ROLE_UNBOUND, r.role);
+
+      _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+    });
+  };
+
+  _proto.getService = function getService(role) {
+    var _this$_roles$find;
+
+    return (_this$_roles$find = this._roles.find(function (r) {
+      return r.role === role;
+    })) === null || _this$_roles$find === void 0 ? void 0 : _this$_roles$find.service;
+  };
+
+  _proto.addRoleService = function addRoleService(role, serviceShortId) {
+    var _this5 = this;
+
+    if (!(0,_jdom_spec__WEBPACK_IMPORTED_MODULE_3__/* .serviceSpecificationFromName */ .kB)(serviceShortId)) return; // unknown role type
+
+    var binding = this._roles.find(function (r) {
+      return r.role === role;
+    }); // check if we already have this role
+
+
+    if (binding && serviceShortId === binding.serviceShortId) return; // new role
+
+    binding = {
+      role: role,
+      serviceShortId: serviceShortId
+    };
+
+    this._roles.push(binding);
+
+    var ret = this.bus.services({
+      ignoreSelf: true,
+      serviceName: serviceShortId
+    }).find(function (s) {
+      return !_this5._roles.find(function (r) {
+        return r.service === s;
+      });
+    });
+
+    if (ret) {
+      binding.service = ret;
+      this.emit(ROLE_BOUND, role);
+      this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+    } else {
+      this.emit(ROLE_UNBOUND, role);
+      this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+    }
+  };
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RoleManager, [{
+    key: "roles",
+    get: function get() {
+      return this._roles.slice(0);
+    }
+  }, {
+    key: "boundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !!r.service;
+      });
+    }
+  }, {
+    key: "unboundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !r.service;
+      });
+    }
+  }]);
+
+  return RoleManager;
+}(_jdom_eventsource__WEBPACK_IMPORTED_MODULE_1__/* .JDEventSource */ .a);
+
+/***/ }),
+
 /***/ 94624:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "hb": function() { return /* binding */ VM_WATCH; },
-/* harmony export */   "l9": function() { return /* binding */ ROLE_BOUND; },
-/* harmony export */   "CC": function() { return /* binding */ ROLE_UNBOUND; },
-/* harmony export */   "ky": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
+/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
 /* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
 /* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
 /* harmony export */   "D1": function() { return /* binding */ JDVMError; }
@@ -821,12 +1058,9 @@ var JDExprEvaluator = /*#__PURE__*/function () {
 
 
 var VM_ERROR = "JacdacVMError";
-var VM_WATCH = "JacdacVMWatch";
-var ROLE_BOUND = "roleBound";
-var ROLE_UNBOUND = "roleUnbound";
-var ROLE_HAS_NO_SERVICE = "roleHasNoService";
-var VM_COMMAND_ATTEMPTED = "commandAttempted";
-var VM_COMMAND_COMPLETED = "commandCompleted";
+var VM_WATCH_CHANGE = "vmWatchChange";
+var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
+var VM_COMMAND_COMPLETED = "vmCommandCompleted";
 var JDVMError = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(JDVMError, _Error);
 
@@ -848,4 +1082,4 @@ function errorPath(e) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-6be8f467f73bf44cb27a.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-fad41a03f52da0651fd2.js.map
