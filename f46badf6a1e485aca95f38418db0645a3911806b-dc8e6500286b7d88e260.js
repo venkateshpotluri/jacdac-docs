@@ -5449,6 +5449,11 @@ var VMFunctions = [{
   args: [],
   prompt: "terminates the current handler",
   context: "command"
+}, {
+  id: "nop",
+  args: [],
+  prompt: "no operation",
+  context: "command"
 }];
 
 /***/ }),
@@ -8814,6 +8819,8 @@ function visitWorkspace(workspace, visitor) {
     return visitBlock(block, visitor);
   });
 }
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 1 modules
+var wrapNativeSuper = __webpack_require__(57869);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
 var es_array_flat_map = __webpack_require__(86535);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
@@ -8821,6 +8828,8 @@ var es_array_unscopables_flat_map = __webpack_require__(99244);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/VMir.ts
 var VMir = __webpack_require__(42612);
 ;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
+
+
 
 
 
@@ -8857,16 +8866,22 @@ function workspaceJSONToVMProgram(workspace) {
     };
   });
 
+  var EmptyExpression = /*#__PURE__*/function (_Error) {
+    (0,inheritsLoose/* default */.Z)(EmptyExpression, _Error);
+
+    function EmptyExpression() {
+      return _Error.apply(this, arguments) || this;
+    }
+
+    return EmptyExpression;
+  }( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
+
   var blockToExpression = function blockToExpression(ev, blockIn) {
     var errors = [];
 
     var blockToExpressionInner = function blockToExpressionInner(ev, block) {
       if (!block) {
-        errors.push({
-          sourceId: blockIn === null || blockIn === void 0 ? void 0 : blockIn.id,
-          message: "Incomplete code under this block."
-        });
-        return (0,VMir/* toIdentifier */.EB)("%%NOCODE%%");
+        throw new EmptyExpression();
       }
 
       var type = block.type,
@@ -9027,11 +9042,7 @@ function workspaceJSONToVMProgram(workspace) {
           }
       }
 
-      errors.push({
-        sourceId: block.id,
-        message: "Incomplete code."
-      });
-      return (0,VMir/* toIdentifier */.EB)("%%NOCODE%%");
+      throw new EmptyExpression();
     };
 
     return {
@@ -9201,17 +9212,33 @@ function workspaceJSONToVMProgram(workspace) {
     }
   };
 
+  var nop = {
+    type: "CallExpression",
+    arguments: [],
+    callee: (0,VMir/* toIdentifier */.EB)("nop")
+  };
+
   var addCommands = function addCommands(event, blocks, handler) {
     blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
       if (child) {
-        var _blockToCommand = blockToCommand(event, child),
-            cmd = _blockToCommand.cmd,
-            errors = _blockToCommand.errors;
+        try {
+          var _blockToCommand = blockToCommand(event, child),
+              cmd = _blockToCommand.cmd,
+              errors = _blockToCommand.errors;
 
-        if (cmd) handler.commands.push(cmd);
-        errors.forEach(function (e) {
-          return handler.errors.push(e);
-        });
+          if (cmd) handler.commands.push(cmd);
+          errors.forEach(function (e) {
+            return handler.errors.push(e);
+          });
+        } catch (e) {
+          if (e instanceof EmptyExpression) {
+            handler.commands.push({
+              sourceId: child.id,
+              type: "cmd",
+              command: nop
+            });
+          }
+        }
       }
     });
   };
@@ -10542,4 +10569,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-bd62c1036fd84a56a14b.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-dc8e6500286b7d88e260.js.map
