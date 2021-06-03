@@ -5910,8 +5910,12 @@ function WorkspaceProvider(props) {
   var sourceId = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.id;
   var workspace = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.workspace;
   var services = workspace === null || workspace === void 0 ? void 0 : workspace.jacdacServices;
-  var roleManager = services === null || services === void 0 ? void 0 : services.roleManager;
-  var runner = services === null || services === void 0 ? void 0 : services.runner;
+  var roleManager = (0,useChange/* default */.Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roleManager;
+  });
+  var runner = (0,useChange/* default */.Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.runner;
+  });
 
   var resolveRole = function resolveRole() {
     var newSourceBlock = field.getSourceBlock();
@@ -7119,6 +7123,7 @@ function WatchValueWidget() {
       setValue = _useState[1];
 
   (0,react.useEffect)(function () {
+    setValue(undefined);
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
       console.log("watch change", {
         watchSourceId: watchSourceId,
@@ -7306,6 +7311,15 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       kind: "block",
       type: ServoAngleField.SHADOW.type
     }
+  }, {
+    serviceClass: constants/* SRV_BUZZER */.J1$,
+    kind: "command",
+    identifier: constants/* BuzzerCmd.PlayNote */.Rv2.PlayNote,
+    field: "frequency",
+    shadow: {
+      kind: "block",
+      type: NoteField.SHADOW.type
+    }
   }];
 
   var lookupCustomShadow = function lookupCustomShadow(service, info, field) {
@@ -7418,7 +7432,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
 
   var registers = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,jdom_spec/* isRegister */.x5)(pkt) && includedRegisters.indexOf(pkt.identifier) > -1;
+      return (0,jdom_spec/* isRegister */.x5)(pkt) && !pkt.lowLevel && includedRegisters.indexOf(pkt.identifier) > -1;
     }).map(function (register) {
       return {
         service: service,
@@ -7430,7 +7444,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     return {
       service: service,
       events: service.packets.filter(function (pkt) {
-        return (0,jdom_spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
+        return (0,jdom_spec/* isEvent */.cO)(pkt) && !pkt.lowLevel && ignoredEvents.indexOf(pkt.identifier) < 0;
       })
     };
   }).filter(function (kv) {
@@ -7438,7 +7452,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   });
   var commands = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,jdom_spec/* isCommand */.ao)(pkt) && fieldsSupported(pkt);
+      return (0,jdom_spec/* isCommand */.ao)(pkt) && !pkt.lowLevel && fieldsSupported(pkt);
     }).map(function (pkt) {
       return {
         service: service,
@@ -7463,7 +7477,6 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       helpUrl: serviceHelp(service),
       service: service,
       expression: "role.key(combo.selectors, combo.modifiers)",
-      //expression: `play_tone(frequency, duration) => role.send_pulse(frequency / 10000, duration)`,
       template: "custom"
     };
   })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_LED */.i04).map(function (service) {
@@ -7499,52 +7512,6 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       helpUrl: serviceHelp(service),
       service: service,
       expression: "role.animate((color >> 16) & 0xff, (color >> 8) & 0xff, (color >> 0) & 0xff, speed * 0xff)",
-      template: "custom"
-    };
-  })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_BUZZER */.J1$).map(function (service) {
-    return {
-      kind: "block",
-      type: "play_note",
-      message0: "play %1 note %2 for %3 s at volume %4",
-      args0: [fieldVariable(service), {
-        type: "input_value",
-        name: "frequency",
-        check: "Number"
-      }, {
-        type: "input_value",
-        name: "duration",
-        check: "Number"
-      }, {
-        type: "input_value",
-        name: "volume",
-        check: "Number"
-      }],
-      values: {
-        frequency: {
-          kind: "block",
-          type: NoteField.SHADOW.type,
-          shadow: true
-        },
-        duration: {
-          kind: "block",
-          type: "jacdac_time_picker",
-          shadow: true
-        },
-        volume: {
-          kind: "block",
-          type: "jacdac_ratio",
-          value: 0.5,
-          shadow: true
-        }
-      },
-      colour: serviceColor(service),
-      inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
-      tooltip: "Send a keyboard key combo",
-      helpUrl: serviceHelp(service),
-      service: service,
-      expression: "role.play_tone(frequency / 10000, duration) TODO",
       template: "custom"
     };
   })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_SEVEN_SEGMENT_DISPLAY */.hvg).map(function (service) {
@@ -7945,20 +7912,6 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   }]);
   var runtimeBlocks = [{
     kind: "block",
-    type: toolbox/* WHILE_CONDITION_BLOCK */.uB,
-    message0: "while %1",
-    args0: [{
-      type: "input_value",
-      name: toolbox/* WHILE_CONDITION_BLOCK_CONDITION */.yy,
-      check: "Boolean"
-    }],
-    colour: commandColor,
-    inputsInline: true,
-    nextStatement: "Statement",
-    tooltip: "",
-    helpUrl: ""
-  }, {
-    kind: "block",
     type: toolbox/* WAIT_BLOCK */.sX,
     message0: "wait %1 s",
     args0: [{
@@ -7967,11 +7920,53 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       check: "Number"
     }],
     inputsInline: true,
-    previousStatement: "Statement",
-    nextStatement: "Statement",
+    previousStatement: null,
+    nextStatement: null,
     colour: commandColor,
     tooltip: "Wait the desired time",
     helpUrl: ""
+  }, {
+    kind: "block",
+    type: toolbox/* CONNECTION_BLOCK */.CW,
+    message0: "when %1 %2",
+    args0: [{
+      type: "field_variable",
+      name: "role",
+      variable: "any",
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+        return service.shortId;
+      }))),
+      defaultType: "client"
+    }, {
+      type: "field_dropdown",
+      name: "event",
+      options: [["connected", "connected"], ["disconnected", "disconnected"]]
+    }],
+    inputsInline: true,
+    nextStatement: null,
+    colour: commandColor,
+    tooltip: "Runs code when a role is connected or disconnected",
+    helpUrl: "",
+    template: "connection"
+  }, {
+    kind: "block",
+    type: toolbox/* CONNECTED_BLOCK */.rF,
+    message0: "%1 connected",
+    args0: [{
+      type: "field_variable",
+      name: "role",
+      variable: "any",
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+        return service.shortId;
+      }))),
+      defaultType: "client"
+    }],
+    output: "Boolean",
+    inputsInline: true,
+    colour: commandColor,
+    tooltip: "Runs code when a role is connected or disconnected",
+    helpUrl: "",
+    template: "connected"
   }, {
     kind: "block",
     type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
@@ -7996,8 +7991,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       }
     },
     inputsInline: true,
-    previousStatement: "Statement",
-    nextStatement: "Statement",
+    previousStatement: null,
+    nextStatement: null,
     colour: commandColor,
     tooltip: "Sets the color on the status light",
     helpUrl: ""
@@ -8063,9 +8058,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     inputsInline: true,
     tooltip: "Watch a value in the editor",
     helpUrl: "",
-    template: "watch",
-    nextStatement: null,
-    previousStatement: null
+    template: "watch"
   }, {
     kind: "block",
     type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
@@ -8296,9 +8289,6 @@ function useToolbox(props) {
     colour: commandColor,
     contents: [{
       kind: "block",
-      type: toolbox/* WHILE_CONDITION_BLOCK */.uB
-    }, {
-      kind: "block",
       type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
       values: {
         interval: {
@@ -8315,6 +8305,12 @@ function useToolbox(props) {
           type: "jacdac_time_picker"
         }
       }
+    }, {
+      kind: "block",
+      type: toolbox/* CONNECTION_BLOCK */.CW
+    }, {
+      kind: "block",
+      type: toolbox/* CONNECTED_BLOCK */.rF
     }, {
       kind: "block",
       type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
@@ -9226,73 +9222,56 @@ function workspaceJSONToVMProgram(workspace) {
     var command = undefined;
     var topEvent = undefined;
     var topErrors = [];
+    var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+    (0,utils/* assert */.hu)(!!def);
+    var template = def.template;
+    var role = inputs[0].fields["role"].value;
 
-    if (type === toolbox/* WHILE_CONDITION_BLOCK */.uB) {
-      // this is while (...)
-      var condition = inputs[0].child;
+    switch (template) {
+      case "twin":
+        break;
+      // ignore
 
-      var _blockToExpression5 = blockToExpression(undefined, condition),
-          expr = _blockToExpression5.expr,
-          errors = _blockToExpression5.errors;
-
-      command = {
-        type: "CallExpression",
-        arguments: [expr],
-        callee: (0,ir/* toIdentifier */.EB)("awaitCondition")
-      };
-      topErrors = errors;
-    } else {
-      var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-      (0,utils/* assert */.hu)(!!def);
-      var template = def.template;
-      var role = inputs[0].fields["role"].value;
-
-      switch (template) {
-        case "twin":
+      case "event":
+        {
+          var eventName = inputs[0].fields["event"].value;
+          command = {
+            type: "CallExpression",
+            arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
+            callee: (0,ir/* toIdentifier */.EB)("awaitEvent")
+          };
+          topEvent = {
+            role: role.toString(),
+            event: eventName.toString()
+          };
           break;
-        // ignore
+        }
 
-        case "event":
-          {
-            var eventName = inputs[0].fields["event"].value;
-            command = {
-              type: "CallExpression",
-              arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
-              callee: (0,ir/* toIdentifier */.EB)("awaitEvent")
-            };
-            topEvent = {
-              role: role.toString(),
-              event: eventName.toString()
-            };
-            break;
-          }
+      case "register_change_event":
+        {
+          var _ref5 = def,
+              register = _ref5.register;
 
-        case "register_change_event":
-          {
-            var _ref5 = def,
-                register = _ref5.register;
+          var _blockToExpression5 = blockToExpression(undefined, inputs[0].child),
+              expr = _blockToExpression5.expr,
+              errors = _blockToExpression5.errors;
 
-            var _blockToExpression6 = blockToExpression(undefined, inputs[0].child),
-                _expr3 = _blockToExpression6.expr,
-                _errors4 = _blockToExpression6.errors;
+          command = {
+            type: "CallExpression",
+            arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), register.name), expr],
+            callee: (0,ir/* toIdentifier */.EB)("awaitChange")
+          };
+          topErrors = errors;
+          break;
+        }
 
-            command = {
-              type: "CallExpression",
-              arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), register.name), _expr3],
-              callee: (0,ir/* toIdentifier */.EB)("awaitChange")
-            };
-            topErrors = _errors4;
-            break;
-          }
-
-        default:
-          {
-            console.warn("unsupported handler template " + template + " for " + type, {
-              top: top
-            });
-            break;
-          }
-      }
+      default:
+        {
+          console.warn("unsupported handler template " + template + " for " + type, {
+            top: top
+          });
+          break;
+        }
     }
 
     var handler = {
@@ -10534,14 +10513,14 @@ function VMBlockEditor(props) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
 /* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
-/* harmony export */   "uB": function() { return /* binding */ WHILE_CONDITION_BLOCK; },
-/* harmony export */   "yy": function() { return /* binding */ WHILE_CONDITION_BLOCK_CONDITION; },
 /* harmony export */   "sX": function() { return /* binding */ WAIT_BLOCK; },
 /* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
 /* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
 /* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
 /* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
-/* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; }
+/* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
+/* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
+/* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; }
 /* harmony export */ });
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
@@ -10551,16 +10530,16 @@ function resolveServiceBlockDefinition(type) {
   var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
   return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
 }
-var WHILE_CONDITION_BLOCK = "jacdac_while_event";
-var WHILE_CONDITION_BLOCK_CONDITION = "condition";
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var TWIN_BLOCK = "jacdac_twin";
 var INSPECT_BLOCK = "jacdac_inspect";
 var WATCH_BLOCK = "jacdac_watch";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
+var CONNECTION_BLOCK = "jacdac_connection";
+var CONNECTED_BLOCK = "jacdac_connected";
 
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-9ecd2cd00f1ae0935b13.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5a635ae4b8f384d3121e.js.map

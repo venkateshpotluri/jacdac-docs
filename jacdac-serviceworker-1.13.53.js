@@ -1125,6 +1125,10 @@ var ButtonReg;
      * ```
      */
     ButtonReg[ButtonReg["Analog"] = 384] = "Analog";
+    /**
+     * Read-only bool (uint8_t). Determines if the button is pressed currently.
+     */
+    ButtonReg[ButtonReg["Pressed"] = 385] = "Pressed";
 })(ButtonReg || (ButtonReg = {}));
 var ButtonEvent;
 (function (ButtonEvent) {
@@ -1176,6 +1180,10 @@ var BuzzerCmd;
      * ```
      */
     BuzzerCmd[BuzzerCmd["PlayTone"] = 128] = "PlayTone";
+    /**
+     * Play a note at the given frequency and volume.
+     */
+    BuzzerCmd[BuzzerCmd["PlayNote"] = 129] = "PlayNote";
 })(BuzzerCmd || (BuzzerCmd = {}));
 var CapacitiveButtonReg;
 (function (CapacitiveButtonReg) {
@@ -3901,6 +3909,17 @@ var SevenSegmentDisplayReg;
      */
     SevenSegmentDisplayReg[SevenSegmentDisplayReg["DecimalPoint"] = 385] = "DecimalPoint";
 })(SevenSegmentDisplayReg || (SevenSegmentDisplayReg = {}));
+var SevenSegmentDisplayCmd;
+(function (SevenSegmentDisplayCmd) {
+    /**
+     * Argument: value f64 (uint64_t). Shows the number on the screen using the decimal dot if available.
+     */
+    SevenSegmentDisplayCmd[SevenSegmentDisplayCmd["SetNumber"] = 128] = "SetNumber";
+    /**
+     * Argument: text string (bytes). Shows the text on the screen. The client may decide to scroll the text if too long.
+     */
+    SevenSegmentDisplayCmd[SevenSegmentDisplayCmd["SetText"] = 129] = "SetText";
+})(SevenSegmentDisplayCmd || (SevenSegmentDisplayCmd = {}));
 var SoilMoistureVariant;
 (function (SoilMoistureVariant) {
     SoilMoistureVariant[SoilMoistureVariant["Resistive"] = 1] = "Resistive";

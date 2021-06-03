@@ -728,6 +728,13 @@
         "schema": "boolean"
       },
       {
+        "@type": "Telemetry",
+        "name": "pressed",
+        "@id": "dtmi:jacdac:x1473a263:ro:pressed;1",
+        "description": "Determines if the button is pressed currently.\n\nIf the event ``down`` is observed, ``pressed`` is true; if ``up`` or ``hold`` are observed, ``pressed`` is false.\nTo initialize, wait for any event or timeout to ``pressed`` is true after 750ms (1.5x hold time).",
+        "schema": "boolean"
+      },
+      {
         "@type": [
           "Telemetry",
           "Event"

@@ -1855,14 +1855,16 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   };
 
   _proto4.watch = function watch(sourceId, value) {
-    this._watch[sourceId] = value;
-    this.emit(utils/* VM_WATCH_CHANGE */.UM, sourceId);
+    var oldValue = this._watch[sourceId];
+
+    if (oldValue !== value) {
+      this._watch[sourceId] = value;
+      this.emit(utils/* VM_WATCH_CHANGE */.UM, sourceId);
+    }
   };
 
   _proto4.lookupWatch = function lookupWatch(sourceId) {
-    var _this$_watch;
-
-    return (_this$_watch = this._watch) === null || _this$_watch === void 0 ? void 0 : _this$_watch[sourceId];
+    return this._watch[sourceId];
   };
 
   _proto4.cancel = function cancel() {
@@ -2480,4 +2482,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-989dd8dcc490e66f1857.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c436350d47d3557294c8.js.map
