@@ -9091,11 +9091,7 @@ function workspaceJSONToVMProgram(workspace) {
 
       case "dynamic_if":
         {
-          var _inputs$, _inputs$2, _inputs$3;
-
-          var _blockToExpression2 = blockToExpression(event, (_inputs$ = inputs[0]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child),
-              expr = _blockToExpression2.expr,
-              _errors = _blockToExpression2.errors;
+          var _inputs$, _inputs$2;
 
           var thenHandler = {
             commands: [],
@@ -9105,8 +9101,8 @@ function workspaceJSONToVMProgram(workspace) {
             commands: [],
             errors: []
           };
-          var t = (_inputs$2 = inputs[1]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
-          var e = (_inputs$3 = inputs[2]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child;
+          var t = (_inputs$ = inputs[1]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child;
+          var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
 
           if (t) {
             addCommands(event, [t].concat((0,toConsumableArray/* default */.Z)(t.children ? t.children : [])), thenHandler);
@@ -9116,6 +9112,30 @@ function workspaceJSONToVMProgram(workspace) {
             addCommands(event, [e].concat((0,toConsumableArray/* default */.Z)(e.children ? e.children : [])), elseHandler);
           }
 
+          var exprErrors = undefined;
+
+          try {
+            var _inputs$3;
+
+            exprErrors = blockToExpression(event, (_inputs$3 = inputs[0]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child);
+          } catch (e) {
+            if (e instanceof EmptyExpression) {
+              exprErrors = {
+                expr: {
+                  type: "Literal",
+                  value: false,
+                  raw: "false "
+                },
+                errors: []
+              };
+            } else {
+              throw e;
+            }
+          }
+
+          var _exprErrors = exprErrors,
+              expr = _exprErrors.expr,
+              _errors = _exprErrors.errors;
           var ifThenElse = {
             sourceId: block.id,
             type: "ite",
@@ -9143,9 +9163,9 @@ function workspaceJSONToVMProgram(workspace) {
                   var _ref3 = def,
                       register = _ref3.register;
 
-                  var _blockToExpression3 = blockToExpression(event, inputs[0].child),
-                      _expr = _blockToExpression3.expr,
-                      _errors2 = _blockToExpression3.errors;
+                  var _blockToExpression2 = blockToExpression(event, inputs[0].child),
+                      _expr = _blockToExpression2.expr,
+                      _errors2 = _blockToExpression2.errors;
 
                   var role = inputs[0].fields.role.value;
                   return {
@@ -9182,9 +9202,9 @@ function workspaceJSONToVMProgram(workspace) {
 
               case "watch":
                 {
-                  var _blockToExpression4 = blockToExpression(event, inputs[0].child),
-                      _expr2 = _blockToExpression4.expr,
-                      _errors3 = _blockToExpression4.errors;
+                  var _blockToExpression3 = blockToExpression(event, inputs[0].child),
+                      _expr2 = _blockToExpression3.expr,
+                      _errors3 = _blockToExpression3.errors;
 
                   return {
                     cmd: makeVMBase({
@@ -9279,9 +9299,9 @@ function workspaceJSONToVMProgram(workspace) {
           var _ref5 = def,
               register = _ref5.register;
 
-          var _blockToExpression5 = blockToExpression(undefined, inputs[0].child),
-              expr = _blockToExpression5.expr,
-              errors = _blockToExpression5.errors;
+          var _blockToExpression4 = blockToExpression(undefined, inputs[0].child),
+              expr = _blockToExpression4.expr,
+              errors = _blockToExpression4.errors;
 
           command = {
             type: "CallExpression",
@@ -10569,4 +10589,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-dc8e6500286b7d88e260.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-74daf8ce384a1556af17.js.map
