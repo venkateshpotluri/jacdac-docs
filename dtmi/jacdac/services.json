@@ -3229,9 +3229,9 @@
     "contents": [
       {
         "@type": "Property",
-        "name": "enabled",
-        "@id": "dtmi:jacdac:x1fa4c95a:rw:enabled;1",
-        "description": "Turn the power to the bus on/off.",
+        "name": "allowed",
+        "@id": "dtmi:jacdac:x1fa4c95a:rw:allowed;1",
+        "description": "Can be used to completely disable the service.\nWhen allowed, the service may still not be providing power, see \n`power_status` for the actual current state.",
         "schema": "boolean",
         "writable": true
       },
@@ -3249,10 +3249,10 @@
       },
       {
         "@type": "Telemetry",
-        "name": "overload",
-        "@id": "dtmi:jacdac:x1fa4c95a:ro:overload;1",
-        "description": "Indicates whether the power has been shut down due to overdraw.",
-        "schema": "boolean"
+        "name": "power_status",
+        "@id": "dtmi:jacdac:x1fa4c95a:ro:powerstatus;1",
+        "description": "Indicates whether the power provider is currently providing power (`Powering` state), and if not, why not.\n`Overprovision` means there was another power provider, and we stopped not to overprovision the bus.\nThe `Startup` status is used during the initial 0-300ms delay.",
+        "schema": "dtmi:jacdac:x1fa4c95a:powerstatus;1"
       },
       {
         "@type": [
@@ -3315,12 +3315,11 @@
         "writable": true
       },
       {
-        "@type": "Property",
-        "name": "priority_offset",
-        "@id": "dtmi:jacdac:x1fa4c95a:rw:priorityoffset;1",
-        "description": "This value is added to `priority` of `active` reports, thus modifying amount of load-sharing\nbetween different supplies.\nThe `priority` is clamped to `u32` range when included in `active` reports.",
-        "schema": "integer",
-        "writable": true
+        "@type": "Telemetry",
+        "name": "power_status_changed",
+        "@id": "dtmi:jacdac:x1fa4c95a:event:powerstatuschanged;1",
+        "description": "Emitted whenever `power_status` changes.",
+        "schema": "dtmi:jacdac:x1fa4c95a:powerstatus;1"
       }
     ],
     "extends": [
@@ -3334,6 +3333,38 @@
           {
             "name": "count",
             "schema": "integer"
+          }
+        ]
+      },
+      {
+        "@type": "Enum",
+        "@id": "dtmi:jacdac:x1fa4c95a:powerstatus;1",
+        "valueSchema": "integer",
+        "enumValues": [
+          {
+            "name": "disallowed",
+            "displayName": "Disallowed",
+            "enumValue": 0
+          },
+          {
+            "name": "powering",
+            "displayName": "Powering",
+            "enumValue": 1
+          },
+          {
+            "name": "overload",
+            "displayName": "Overload",
+            "enumValue": 2
+          },
+          {
+            "name": "overprovision",
+            "displayName": "Overprovision",
+            "enumValue": 3
+          },
+          {
+            "name": "startup",
+            "displayName": "Startup",
+            "enumValue": 4
           }
         ]
       }

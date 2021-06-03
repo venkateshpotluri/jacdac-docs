@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-05999e0552a53c4e0c2b.js"
+    "url": "webpack-runtime-91b330e49c40c597ad6d.js"
   },
   {
     "url": "styles.aca8dc644fec66959e28.css"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "39c5d364461e3021154e254672baea76"
+    "revision": "2b3faca9951ceb58fbe7bfcaf2af686a"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "63d60167a58533f3cf530179c18123d1"
+    "revision": "4981de6eb86b39011e72eb2ca39cb58c"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "99198095f606a3d3b75aafed9a96cf70"
+    "revision": "3dbc508d87344bcc2d93a4c7f5441464"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "bab223c2eca4efca8cdb8f21c8d6d207"
+    "revision": "56df0179b6fe3fd0e97341f1bd9f87e6"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "d592e786e5c66fb3f661236587a7693e"
+    "revision": "f7a676a79b4aba120504357d18a4bdde"
   },
   {
     "url": "polyfill-9516ed41eb423968d48c.js"
@@ -235,23 +235,23 @@ self.__precacheManifest = [
     "url": "7aa4828511caffb203d13996631939214319596f-0d281cdf811091757a11.js"
   },
   {
-    "url": "f46badf6a1e485aca95f38418db0645a3911806b-5a635ae4b8f384d3121e.js"
+    "url": "f46badf6a1e485aca95f38418db0645a3911806b-bd62c1036fd84a56a14b.js"
   },
   {
     "url": "de590f55fa2f17e49ed8680dc5a022fe834f3017-23d7edbb61adff53c862.js"
   },
   {
-    "url": "component---src-templates-service-playground-tsx-0ebe4de9cda2d0c3f7cb.js"
+    "url": "component---src-templates-service-playground-tsx-2b955bd2612648bd68c5.js"
   },
   {
     "url": "page-data/services/_base/playground/page-data.json",
     "revision": "94c0c51ebd7c3297856570ca01b7365f"
   },
   {
-    "url": "b4b5e3de7d195d717097f81a5311f716f303ebf6-fad41a03f52da0651fd2.js"
+    "url": "b4b5e3de7d195d717097f81a5311f716f303ebf6-cff4ecfd056e8858a6d8.js"
   },
   {
-    "url": "859a83de993caea7524bf57c2975f3be6812c8c3-31b7b1e175dbf8364758.js"
+    "url": "859a83de993caea7524bf57c2975f3be6812c8c3-8703c5dd78da2c4e3e88.js"
   },
   {
     "url": "component---src-templates-service-test-tsx-1f13c9411077952ad3fe.js"
@@ -778,7 +778,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/power/page-data.json",
-    "revision": "0cbd08703cd1951a8b636a38d308c030"
+    "revision": "e4ba8064bdae69274afa1408ec15ee6b"
   },
   {
     "url": "page-data/services/power/playground/page-data.json",
@@ -1402,7 +1402,7 @@ self.__precacheManifest = [
     "revision": "a6d523f1fc83918342b187e0d839d3dd"
   },
   {
-    "url": "component---src-pages-tools-service-editor-tsx-bc582cb53e7e3955aa9d.js"
+    "url": "component---src-pages-tools-service-editor-tsx-2e188a7490353c46e662.js"
   },
   {
     "url": "page-data/tools/service-editor/page-data.json",
@@ -1437,7 +1437,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-c436350d47d3557294c8.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-797e9ff8956c6ff035a5.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1537,7 +1537,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-4094e6aacd2d3af35d3e.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-6961d358816ef769eff9.js`))) {
     return await fetch(event.request)
   }
 

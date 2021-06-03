@@ -2976,16 +2976,26 @@ var PotentiometerReg;
      */
     PotentiometerReg[PotentiometerReg["Variant"] = 263] = "Variant";
 })(PotentiometerReg || (PotentiometerReg = {}));
+var PowerPowerStatus;
+(function (PowerPowerStatus) {
+    PowerPowerStatus[PowerPowerStatus["Disallowed"] = 0] = "Disallowed";
+    PowerPowerStatus[PowerPowerStatus["Powering"] = 1] = "Powering";
+    PowerPowerStatus[PowerPowerStatus["Overload"] = 2] = "Overload";
+    PowerPowerStatus[PowerPowerStatus["Overprovision"] = 3] = "Overprovision";
+    PowerPowerStatus[PowerPowerStatus["Startup"] = 4] = "Startup";
+})(PowerPowerStatus || (PowerPowerStatus = {}));
 var PowerReg;
 (function (PowerReg) {
     /**
-     * Read-write bool (uint8_t). Turn the power to the bus on/off.
+     * Read-write bool (uint8_t). Can be used to completely disable the service.
+     * When allowed, the service may still not be providing power, see
+     * `power_status` for the actual current state.
      *
      * ```
-     * const [enabled] = jdunpack<[number]>(buf, "u8")
+     * const [allowed] = jdunpack<[number]>(buf, "u8")
      * ```
      */
-    PowerReg[PowerReg["Enabled"] = 1] = "Enabled";
+    PowerReg[PowerReg["Allowed"] = 1] = "Allowed";
     /**
      * Read-write mA uint16_t. Limit the power provided by the service. The actual maximum limit will depend on hardware.
      * This field may be read-only in some implementations - you should read it back after setting.
@@ -2996,13 +3006,15 @@ var PowerReg;
      */
     PowerReg[PowerReg["MaxPower"] = 7] = "MaxPower";
     /**
-     * Read-only bool (uint8_t). Indicates whether the power has been shut down due to overdraw.
+     * Read-only PowerStatus (uint8_t). Indicates whether the power provider is currently providing power (`Powering` state), and if not, why not.
+     * `Overprovision` means there was another power provider, and we stopped not to overprovision the bus.
+     * The `Startup` status is used during the initial 0-300ms delay.
      *
      * ```
-     * const [overload] = jdunpack<[number]>(buf, "u8")
+     * const [powerStatus] = jdunpack<[PowerPowerStatus]>(buf, "u8")
      * ```
      */
-    PowerReg[PowerReg["Overload"] = 385] = "Overload";
+    PowerReg[PowerReg["PowerStatus"] = 385] = "PowerStatus";
     /**
      * Read-only mA uint16_t. Present current draw from the bus.
      *
@@ -3056,39 +3068,25 @@ var PowerReg;
      * ```
      */
     PowerReg[PowerReg["KeepOnPulsePeriod"] = 129] = "KeepOnPulsePeriod";
-    /**
-     * Read-write int32_t. This value is added to `priority` of `active` reports, thus modifying amount of load-sharing
-     * between different supplies.
-     * The `priority` is clamped to `u32` range when included in `active` reports.
-     *
-     * ```
-     * const [priorityOffset] = jdunpack<[number]>(buf, "i32")
-     * ```
-     */
-    PowerReg[PowerReg["PriorityOffset"] = 130] = "PriorityOffset";
 })(PowerReg || (PowerReg = {}));
 var PowerCmd;
 (function (PowerCmd) {
     /**
-     * Argument: priority uint32_t. Emitted with announce packets when the service is running.
-     * The `priority` should be computed as
-     * `(((max_power >> 5) << 24) | remaining_capacity) + priority_offset`
-     * where the `remaining_capacity` is `(battery_charge * battery_capacity) >> 16`,
-     * or one of the special constants
-     * `0xe00000` when the remaining capacity is unknown,
-     * or `0xf00000` when the capacity is considered infinite (eg., wall charger).
-     * The `priority` is clamped to `u32` range after computation.
-     * In cases where battery capacity is unknown but the charge percentage can be estimated,
-     * it's recommended to assume a fixed (typical) battery capacity for priority purposes,
-     * rather than using `0xe00000`, as this will have a better load-sharing characteristic,
-     * especially if several power providers of the same type are used.
+     * No args. Sent by the power service periodically, as broadcast.
+     */
+    PowerCmd[PowerCmd["Shutdown"] = 128] = "Shutdown";
+})(PowerCmd || (PowerCmd = {}));
+var PowerEvent;
+(function (PowerEvent) {
+    /**
+     * Argument: power_status PowerStatus (uint8_t). Emitted whenever `power_status` changes.
      *
      * ```
-     * const [priority] = jdunpack<[number]>(buf, "u32")
+     * const [powerStatus] = jdunpack<[PowerPowerStatus]>(buf, "u8")
      * ```
      */
-    PowerCmd[PowerCmd["Active"] = 128] = "Active";
-})(PowerCmd || (PowerCmd = {}));
+    PowerEvent[PowerEvent["PowerStatusChanged"] = 3] = "PowerStatusChanged";
+})(PowerEvent || (PowerEvent = {}));
 var PressureButtonReg;
 (function (PressureButtonReg) {
     /**

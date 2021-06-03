@@ -1148,7 +1148,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 53522:
+/***/ 69685:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1187,21 +1187,21 @@ var regenerator = __webpack_require__(87757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/rolemanager.ts
 var rolemanager = __webpack_require__(37073);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
-var environment = __webpack_require__(96699);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
-var vm_expr = __webpack_require__(18108);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMenvironment.ts
+var VMenvironment = __webpack_require__(75133);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMexpr.ts
+var VMexpr = __webpack_require__(22036);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
-var ir = __webpack_require__(68290);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
-var utils = __webpack_require__(94624);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMir.ts
+var VMir = __webpack_require__(42612);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMutils.ts
+var VMutils = __webpack_require__(69705);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
 var client = __webpack_require__(47235);
-;// CONCATENATED MODULE: ./jacdac-ts/src/vm/vmrunner.ts
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/VMrunner.ts
 
 
 
@@ -1227,14 +1227,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-
  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 var VMStatus;
 
 (function (VMStatus) {
-  VMStatus["ProgramError"] = "programerror";
   VMStatus["Ready"] = "ready";
+  VMStatus["Enabled"] = "enabled";
   VMStatus["Running"] = "running";
   VMStatus["Completed"] = "completed";
   VMStatus["Stopped"] = "stopped";
@@ -1269,7 +1268,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
   _proto.evalExpression = function evalExpression(e) {
     var _this = this;
 
-    var expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
+    var expr = new VMexpr/* VMExprEvaluator */.W(function (e) {
       return _this.env.lookup(e);
     }, undefined);
     return expr.eval(e);
@@ -1327,7 +1326,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               }
 
               // interpret as a service command (role.comand)
-              expr = new vm_expr/* JDExprEvaluator */.f(function (e) {
+              expr = new VMexpr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               _values = this.gc.command.arguments.map(function (a) {
@@ -1390,12 +1389,12 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("break", 55);
 
             case 34:
-              _expr2 = new vm_expr/* JDExprEvaluator */.f(function (e) {
+              _expr2 = new VMexpr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               ev = _expr2.eval(args[1]);
               this.trace("eval-end", {
-                expr: (0,vm_expr/* unparse */.Z)(args[1])
+                expr: (0,VMexpr/* unparse */.Z)(args[1])
               });
               reg = args[0];
 
@@ -1409,7 +1408,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 41:
               this.trace("write-after-wait", {
-                reg: (0,vm_expr/* unparse */.Z)(reg),
+                reg: (0,VMexpr/* unparse */.Z)(reg),
                 expr: ev
               });
               _context.next = 45;
@@ -1423,7 +1422,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("break", 55);
 
             case 47:
-              _expr3 = new vm_expr/* JDExprEvaluator */.f(function (e) {
+              _expr3 = new VMexpr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               _ev = _expr3.eval(args[0]);
@@ -1436,7 +1435,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("break", 55);
 
             case 54:
-              throw new utils/* JDVMError */.D1("Unknown instruction " + this.inst);
+              throw new VMutils/* VMError */.L1("Unknown instruction " + this.inst);
 
             case 55:
             case "end":
@@ -1495,8 +1494,8 @@ var VMCommandRunner = /*#__PURE__*/function () {
     this.parent.watch(id, val);
   };
 
-  _proto2.step = /*#__PURE__*/function () {
-    var _step = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+  _proto2.stepAsync = /*#__PURE__*/function () {
+    var _stepAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
       return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -1506,7 +1505,7 @@ var VMCommandRunner = /*#__PURE__*/function () {
                 break;
               }
 
-              this.trace((0,vm_expr/* unparse */.Z)(this.gc.command));
+              this.trace((0,VMexpr/* unparse */.Z)(this.gc.command));
               _context2.next = 4;
               return this._eval.evaluate();
 
@@ -1521,11 +1520,11 @@ var VMCommandRunner = /*#__PURE__*/function () {
       }, _callee2, this);
     }));
 
-    function step() {
-      return _step.apply(this, arguments);
+    function stepAsync() {
+      return _stepAsync.apply(this, arguments);
     }
 
-    return step;
+    return stepAsync;
   }();
 
   _proto2.cancel = function cancel() {
@@ -1568,8 +1567,12 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 
     _this3 = _JDEventSource.call(this) || this; // find the label commands (targets of jumps)
 
+    _this3._commandIndex = undefined;
+    _this3._currentCommand = undefined;
     _this3.stopped = false;
     _this3._labelToIndex = {};
+    _this3._breakRequested = false;
+    _this3._singleStep = false;
     _this3.parent = parent;
     _this3.id = id;
     _this3.env = env;
@@ -1618,116 +1621,154 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     this.env.unsubscribe();
   };
 
+  _proto3.requestBreak = function requestBreak() {
+    this._breakRequested = true;
+  };
+
+  _proto3.resume = function resume() {
+    this._singleStep = false;
+  } // run-to-completion semantics (true if breakpoint)
+  ;
+
+  _proto3.runToCompletionAsync =
+  /*#__PURE__*/
+  function () {
+    var _runToCompletionAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              if (!(this.stopped || !this.handler.commands.length)) {
+                _context3.next = 2;
+                break;
+              }
+
+              return _context3.abrupt("return", undefined);
+
+            case 2:
+              if (this.commandIndex === undefined) {
+                this.commandIndex = 0;
+              }
+
+              _context3.next = 5;
+              return this.singleStepCheckBreakAsync();
+
+            case 5:
+              _context3.t0 = _context3.sent;
+
+              if (_context3.t0) {
+                _context3.next = 8;
+                break;
+              }
+
+              _context3.t0 = this._singleStep;
+
+            case 8:
+              if (!_context3.t0) {
+                _context3.next = 10;
+                break;
+              }
+
+              return _context3.abrupt("return", this._currentCommand);
+
+            case 10:
+              if (!this.next()) {
+                _context3.next = 20;
+                break;
+              }
+
+              _context3.next = 13;
+              return this.singleStepCheckBreakAsync();
+
+            case 13:
+              _context3.t1 = _context3.sent;
+
+              if (_context3.t1) {
+                _context3.next = 16;
+                break;
+              }
+
+              _context3.t1 = this._singleStep;
+
+            case 16:
+              if (!_context3.t1) {
+                _context3.next = 18;
+                break;
+              }
+
+              return _context3.abrupt("return", this._currentCommand);
+
+            case 18:
+              _context3.next = 10;
+              break;
+
+            case 20:
+              return _context3.abrupt("return", undefined);
+
+            case 21:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function runToCompletionAsync() {
+      return _runToCompletionAsync.apply(this, arguments);
+    }
+
+    return runToCompletionAsync;
+  }();
+
+  _proto3.next = function next() {
+    if (this._currentCommand.status === VMStatus.Completed && this.commandIndex < this.handler.commands.length - 1) {
+      this.commandIndex++;
+      return true;
+    }
+
+    return false;
+  };
+
   _proto3.getCommand = function getCommand() {
     var cmd = this.handler.commands[this._commandIndex];
 
     if (cmd.type === "ite") {
-      throw new utils/* JDVMError */.D1("ite not compiled away");
+      throw new VMutils/* VMError */.L1("ite not compiled away");
     }
 
     return cmd;
   };
 
-  _proto3.executeCommandAsync = /*#__PURE__*/function () {
-    var _executeCommandAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
-      var _ref, _label2, index;
+  _proto3.singleStepCheckBreakAsync = /*#__PURE__*/function () {
+    var _singleStepCheckBreakAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      var _this$_currentCommand;
 
-      return regenerator_default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              this.emit(utils/* VM_COMMAND_ATTEMPTED */.Ed, this._currentCommand.gc.sourceId);
-              _context3.prev = 1;
-              _context3.next = 4;
-              return this._currentCommand.step();
-
-            case 4:
-              _context3.next = 16;
-              break;
-
-            case 6:
-              _context3.prev = 6;
-              _context3.t0 = _context3["catch"](1);
-
-              if (!(_context3.t0 instanceof VMJumpException)) {
-                _context3.next = 15;
-                break;
-              }
-
-              _ref = _context3.t0, _label2 = _ref.label;
-              index = this._labelToIndex[_label2];
-              this.commandIndex = index; // since it's a label it executes successfully
-
-              this._currentCommand.status = VMStatus.Completed;
-              _context3.next = 16;
-              break;
-
-            case 15:
-              throw _context3.t0;
-
-            case 16:
-              if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* VM_COMMAND_COMPLETED */.p_, this._currentCommand.gc.sourceId);
-              if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
-
-            case 18:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, this, [[1, 6]]);
-    }));
-
-    function executeCommandAsync() {
-      return _executeCommandAsync.apply(this, arguments);
-    }
-
-    return executeCommandAsync;
-  }();
-
-  // run-to-completion semantics
-  _proto3.step =
-  /*#__PURE__*/
-  function () {
-    var _step2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      var sid;
       return regenerator_default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              if (!(this.stopped || !this.handler.commands.length)) {
-                _context4.next = 2;
+              this.trace("step begin");
+              sid = (_this$_currentCommand = this._currentCommand.gc) === null || _this$_currentCommand === void 0 ? void 0 : _this$_currentCommand.sourceId;
+
+              if (!(this.parent.breakpointOn(sid) || this._breakRequested)) {
+                _context4.next = 6;
                 break;
               }
 
-              return _context4.abrupt("return");
-
-            case 2:
-              this.trace("step begin");
-
-              if (this.commandIndex === undefined) {
-                this.commandIndex = 0;
-              }
-
-              _context4.next = 6;
-              return this.executeCommandAsync();
+              this._singleStep = true;
+              this._breakRequested = false;
+              return _context4.abrupt("return", true);
 
             case 6:
-              if (!(this._currentCommand.status === VMStatus.Completed && this.commandIndex < this.handler.commands.length - 1)) {
-                _context4.next = 12;
-                break;
-              }
+              _context4.next = 8;
+              return this.singleStepAsync();
 
-              this.commandIndex++;
-              _context4.next = 10;
-              return this.executeCommandAsync();
+            case 8:
+              this.trace("step end");
+              return _context4.abrupt("return", false);
 
             case 10:
-              _context4.next = 6;
-              break;
-
-            case 12:
-              this.trace("step end");
-
-            case 13:
             case "end":
               return _context4.stop();
           }
@@ -1735,11 +1776,76 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
       }, _callee4, this);
     }));
 
-    function step() {
-      return _step2.apply(this, arguments);
+    function singleStepCheckBreakAsync() {
+      return _singleStepCheckBreakAsync.apply(this, arguments);
     }
 
-    return step;
+    return singleStepCheckBreakAsync;
+  }();
+
+  _proto3.singleStepAsync = /*#__PURE__*/function () {
+    var _singleStepAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5() {
+      var sid, _ref, _label2, index;
+
+      return regenerator_default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              sid = this._currentCommand.gc.sourceId;
+              this.emit(VMutils/* VM_COMMAND_ATTEMPTED */.Ed, sid);
+              _context5.prev = 2;
+              _context5.next = 5;
+              return this._currentCommand.stepAsync();
+
+            case 5:
+              _context5.next = 21;
+              break;
+
+            case 7:
+              _context5.prev = 7;
+              _context5.t0 = _context5["catch"](2);
+
+              if (!(_context5.t0 instanceof VMJumpException)) {
+                _context5.next = 16;
+                break;
+              }
+
+              _ref = _context5.t0, _label2 = _ref.label;
+              index = this._labelToIndex[_label2];
+              this.commandIndex = index; // since it's a label it executes successfully
+
+              this._currentCommand.status = VMStatus.Completed;
+              _context5.next = 21;
+              break;
+
+            case 16:
+              if (!(_context5.t0 instanceof VMutils/* VMError */.L1)) {
+                _context5.next = 20;
+                break;
+              }
+
+              throw _context5.t0;
+
+            case 20:
+              throw new VMutils/* VMError */.L1(_context5.t0.message);
+
+            case 21:
+              if (this._currentCommand.status === VMStatus.Completed) this.emit(VMutils/* VM_COMMAND_COMPLETED */.p_, this._currentCommand.gc.sourceId);
+              if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
+
+            case 23:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this, [[2, 7]]);
+    }));
+
+    function singleStepAsync() {
+      return _singleStepAsync.apply(this, arguments);
+    }
+
+    return singleStepAsync;
   }();
 
   (0,createClass/* default */.Z)(VMHandlerRunner, [{
@@ -1778,34 +1884,33 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this4._running = false;
     _this4._in_run = false;
     _this4._watch = {};
+    _this4._breaks = {};
+    _this4._roles = [];
+    _this4._handlerAtBreak = undefined;
     _this4.bus = bus;
     _this4.roleManager = roleManager;
-    _this4._program = (0,ir/* compileProgram */.IJ)(prog);
+    var compiled = (0,VMir/* compileProgram */.IJ)(prog);
 
-    var _checkProgram = (0,ir/* checkProgram */.i_)(_this4._program),
+    var _checkProgram = (0,VMir/* checkProgram */.i_)(compiled),
         registers = _checkProgram.registers,
         events = _checkProgram.events,
         errors = _checkProgram.errors;
+
+    _this4._roles = compiled.roles;
 
     if (errors.length) {
       console.warn("ERRORS", errors);
     } // data structures for running program
 
 
-    _this4._env = new environment/* VMEnvironment */.u(registers, events);
-    _this4._handlers = _this4._program.handlers.map(function (h, index) {
+    _this4._env = new VMenvironment/* VMEnvironment */.u(registers, events);
+    _this4._handlers = compiled.handlers.map(function (h, index) {
       return new VMHandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
     });
     _this4._waitQueue = _this4._handlers.slice(0); // run on any change to environment
 
     _this4._env.subscribe(constants/* CHANGE */.Ver, function () {
-      try {
-        _this4.run();
-      } catch (e) {
-        console.debug(e);
-
-        _this4.emit(constants/* ERROR */.pnR, e);
-      }
+      _this4.runWithTry();
     }); // adding a (role,service) binding
 
 
@@ -1813,20 +1918,24 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       var service = _this4.roleManager.getService(role);
 
       if (service) {
+        console.log("role added", {
+          role: role
+        });
+
         _this4._env.serviceChanged(role, service);
       }
     }; // initialize
 
 
     _this4.roleManager.roles.forEach(function (r) {
-      addRoleService(r.role);
-    }); // deal with bind/unbind
-
+      if (_this4._roles.find(function (rv) {
+        return rv.role === r.role;
+      })) {
+        addRoleService(r.role);
+      }
+    });
 
     _this4.mount(_this4.roleManager.subscribe(rolemanager/* ROLE_BOUND */.l9, function (role) {
-      console.log("role added", {
-        role: role
-      });
       addRoleService(role);
     }));
 
@@ -1839,7 +1948,8 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     }));
 
     return _this4;
-  }
+  } // debugging
+
 
   var _proto4 = VMProgramRunner.prototype;
 
@@ -1852,23 +1962,61 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       message: message,
       context: context
     });
-  };
+  } // watch statement - watch an expression
+  ;
 
   _proto4.watch = function watch(sourceId, value) {
     var oldValue = this._watch[sourceId];
 
     if (oldValue !== value) {
       this._watch[sourceId] = value;
-      this.emit(utils/* VM_WATCH_CHANGE */.UM, sourceId);
+      this.emit(VMutils/* VM_WATCH_CHANGE */.UM, sourceId);
     }
   };
 
   _proto4.lookupWatch = function lookupWatch(sourceId) {
     return this._watch[sourceId];
+  } // breakpoints
+  ;
+
+  _proto4.setBreakpoints = function setBreakpoints(breaks) {
+    var _this5 = this;
+
+    this.clearBreakpoints();
+    breaks.forEach(function (b) {
+      _this5._breaks[b] = true;
+    });
+  };
+
+  _proto4.clearBreakpoints = function clearBreakpoints() {
+    this._breaks = {};
+  };
+
+  _proto4.breakpointOn = function breakpointOn(id) {
+    var _this$_breaks;
+
+    return !!((_this$_breaks = this._breaks) !== null && _this$_breaks !== void 0 && _this$_breaks[id]);
+  } // control of VM
+  ;
+
+  _proto4.start = function start() {
+    if (this._running) return; // already running
+
+    this.trace("start");
+
+    try {
+      this.roleManager.setRoles(this._roles);
+      this._running = true;
+      this._in_run = false;
+      this.run();
+    } catch (e) {
+      console.debug(e);
+      this.emit(constants/* ERROR */.pnR, e);
+    }
   };
 
   _proto4.cancel = function cancel() {
-    if (!this._program || !this._running) return; // nothing to cancel
+    if (!this._running) return; // nothing to cancel
 
     this._running = false;
     this._waitQueue = this._handlers.slice(0);
@@ -1881,15 +2029,26 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     this.trace("cancelled");
   };
 
-  _proto4.start = function start() {
-    if (!this._program || this._running) return; // already running
+  _proto4.resume = function resume() {
+    if (!this._running) return;
+    this.trace("resume");
+    this._handlerAtBreak = undefined;
 
-    this.trace("start");
+    this._handlers.forEach(function (h) {
+      return h.resume();
+    });
 
+    this.runWithTry();
+  };
+
+  _proto4.step = function step() {
+    if (!this._running || !this._handlerAtBreak) return;
+    this.trace("step");
+    this.runWithTry();
+  };
+
+  _proto4.runWithTry = function runWithTry() {
     try {
-      this.roleManager.setRoles(this._program.roles);
-      this._running = true;
-      this._in_run = false;
       this.run();
     } catch (e) {
       console.debug(e);
@@ -1897,104 +2056,141 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     }
   };
 
-  _proto4.run = /*#__PURE__*/function () {
-    var _run = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5() {
-      var nextTime, _iterator, _step3, h;
+  _proto4.runHandler = /*#__PURE__*/function () {
+    var _runHandler = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee6(h) {
+      var brkCommand, _brkCommand$gc;
 
-      return regenerator_default().wrap(function _callee5$(_context5) {
+      return regenerator_default().wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              if (this._program) {
-                _context5.next = 2;
+              if (!(!this._handlerAtBreak || this._handlerAtBreak === h)) {
+                _context6.next = 13;
                 break;
               }
 
-              return _context5.abrupt("return");
+              _context6.next = 3;
+              return h.runToCompletionAsync();
 
-            case 2:
-              if (this._running) {
-                _context5.next = 4;
+            case 3:
+              brkCommand = _context6.sent;
+
+              if (brkCommand) {
+                this._handlerAtBreak = h;
+                this.emit(VMutils/* VM_BREAKPOINT */.Di, {
+                  handler: h,
+                  sourceId: (_brkCommand$gc = brkCommand.gc) === null || _brkCommand$gc === void 0 ? void 0 : _brkCommand$gc.sourceId
+                });
+              }
+
+              if (!(h.status !== VMStatus.Stopped)) {
+                _context6.next = 10;
                 break;
               }
 
-              return _context5.abrupt("return");
-
-            case 4:
-              if (!this._in_run) {
-                _context5.next = 6;
-                break;
+              if (h.status === VMStatus.Completed) {
+                h.reset();
               }
 
-              return _context5.abrupt("return");
+              return _context6.abrupt("return", true);
 
-            case 6:
-              this.trace("run");
-              this._in_run = true;
-              _context5.prev = 8;
-              _context5.next = 11;
-              return this._env.refreshRegistersAsync();
+            case 10:
+              return _context6.abrupt("return", false);
 
             case 11:
-              if (!(this._waitQueue.length > 0)) {
-                _context5.next = 25;
-                break;
-              }
+              _context6.next = 14;
+              break;
 
-              nextTime = [];
-              _iterator = _createForOfIteratorHelperLoose(this._waitQueue);
+            case 13:
+              return _context6.abrupt("return", true);
 
             case 14:
-              if ((_step3 = _iterator()).done) {
-                _context5.next = 21;
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, this);
+    }));
+
+    function runHandler(_x) {
+      return _runHandler.apply(this, arguments);
+    }
+
+    return runHandler;
+  }();
+
+  _proto4.run = /*#__PURE__*/function () {
+    var _run = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee7() {
+      var currentHandler, nextTime, _iterator, _step, h;
+
+      return regenerator_default().wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              if (this._running) {
+                _context7.next = 2;
                 break;
               }
 
-              h = _step3.value;
-              _context5.next = 18;
-              return h.step();
+              return _context7.abrupt("return");
 
-            case 18:
-              if (h.status !== VMStatus.Stopped) {
-                if (h.status === VMStatus.Completed) h.reset();
-                nextTime.push(h);
+            case 2:
+              if (!this._in_run) {
+                _context7.next = 4;
+                break;
               }
 
-            case 19:
-              _context5.next = 14;
+              return _context7.abrupt("return");
+
+            case 4:
+              this.trace("run");
+              this._in_run = true;
+              currentHandler = undefined;
+              _context7.prev = 7;
+              _context7.next = 10;
+              return this._env.refreshRegistersAsync();
+
+            case 10:
+              if (this._waitQueue.length > 0) {
+                nextTime = [];
+
+                for (_iterator = _createForOfIteratorHelperLoose(this._waitQueue); !(_step = _iterator()).done;) {
+                  h = _step.value;
+                  currentHandler = h;
+                  if (this.runHandler(h)) nextTime.push(h);
+                  currentHandler = undefined;
+                }
+
+                this._waitQueue = nextTime;
+
+                this._env.consumeEvent();
+              } else {
+                this.emit(constants/* CHANGE */.Ver);
+              }
+
+              _context7.next = 18;
               break;
 
-            case 21:
-              this._waitQueue = nextTime;
+            case 13:
+              _context7.prev = 13;
+              _context7.t0 = _context7["catch"](7);
 
-              this._env.consumeEvent();
+              if (currentHandler) {// program error in handler?
+              }
 
-              _context5.next = 26;
-              break;
+              console.debug(_context7.t0);
+              this.emit(constants/* ERROR */.pnR, _context7.t0);
 
-            case 25:
-              this.emit(constants/* CHANGE */.Ver);
-
-            case 26:
-              _context5.next = 32;
-              break;
-
-            case 28:
-              _context5.prev = 28;
-              _context5.t0 = _context5["catch"](8);
-              console.debug(_context5.t0);
-              this.emit(constants/* ERROR */.pnR, _context5.t0);
-
-            case 32:
+            case 18:
               this._in_run = false;
               this.trace("run end");
 
-            case 34:
+            case 20:
             case "end":
-              return _context5.stop();
+              return _context7.stop();
           }
         }
-      }, _callee5, this, [[8, 28]]);
+      }, _callee7, this, [[7, 13]]);
     }));
 
     function run() {
@@ -2007,7 +2203,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   (0,createClass/* default */.Z)(VMProgramRunner, [{
     key: "status",
     get: function get() {
-      var ret = this._program === undefined ? VMStatus.ProgramError : this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
+      var ret = this._running === false ? VMStatus.Stopped : this._waitQueue.length > 0 ? VMStatus.Running : VMStatus.Completed;
       return ret;
     }
   }]);
@@ -2482,4 +2678,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c436350d47d3557294c8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-797e9ff8956c6ff035a5.js.map
