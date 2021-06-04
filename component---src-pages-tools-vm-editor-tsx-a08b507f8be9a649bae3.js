@@ -2557,12 +2557,12 @@ function VMRunnerButton(props) {
     return cancel();
   };
 
-  var running = status === VMStatus.Running;
+  var stopped = !status || status === VMStatus.Stopped;
   return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: running ? "stop" : "start",
+    title: stopped ? "start" : "stop",
     disabled: disabled,
-    onClick: running ? handleCancel : handleRun
-  }, running ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null));
+    onClick: stopped ? handleRun : handleCancel
+  }, stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
@@ -2706,7 +2706,6 @@ function VMToolbar(props) {
       run = props.run,
       cancel = props.cancel,
       xml = props.xml,
-      source = props.source,
       program = props.program,
       workspace = props.workspace;
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -2717,12 +2716,6 @@ function VMToolbar(props) {
     alignContent: "center"
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(VMRunnerButton, {
-    runner: runner,
-    run: run,
-    cancel: cancel
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
   }, /*#__PURE__*/react.createElement(VMSaveButton, {
     xml: xml,
     program: program
@@ -2730,6 +2723,12 @@ function VMToolbar(props) {
     item: true
   }, /*#__PURE__*/react.createElement(VMLoadButton, {
     workspace: workspace
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMRunnerButton, {
+    runner: runner,
+    run: run,
+    cancel: cancel
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(VMRoles, {
@@ -2798,7 +2797,6 @@ function VMEditor(props) {
     run: run,
     cancel: cancel,
     xml: xml,
-    source: source,
     program: program,
     workspace: workspaceRef.current
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -2828,4 +2826,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1602bf0039e91ce80c7a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a08b507f8be9a649bae3.js.map
