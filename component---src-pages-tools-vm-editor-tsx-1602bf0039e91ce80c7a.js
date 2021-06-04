@@ -2599,7 +2599,6 @@ var blockly = __webpack_require__(74640);
 
 
 
-
 function VMLoadButton(props) {
   var workspace = props.workspace;
 
@@ -2680,18 +2679,12 @@ function VMLoadButton(props) {
 }
 function VMSaveButton(props) {
   var xml = props.xml,
-      source = props.source,
       program = props.program; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   var json = {
-    xml: xml
+    xml: xml,
+    program: program
   };
-
-  if (flags/* default.diagnostics */.Z.diagnostics) {
-    json.source = source;
-    json.program = program;
-  }
-
   var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
   return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     download: "jacdac-blocks.json",
@@ -2732,7 +2725,6 @@ function VMToolbar(props) {
     item: true
   }, /*#__PURE__*/react.createElement(VMSaveButton, {
     xml: xml,
-    source: source,
     program: program
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
@@ -2836,4 +2828,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-42495b26368cf093919b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1602bf0039e91ce80c7a.js.map
