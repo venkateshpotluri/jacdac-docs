@@ -1940,10 +1940,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       var service = _this4.roleManager.getService(role);
 
       if (service) {
-        console.log("role added", {
-          role: role
-        });
-
+        //console.log(`role added`, { role })
         _this4._env.serviceChanged(role, service);
       }
     }; // initialize
@@ -1962,10 +1959,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     }));
 
     _this4.mount(_this4.roleManager.subscribe(rolemanager/* ROLE_UNBOUND */.CC, function (role) {
-      console.log("role removed", {
-        role: role
-      });
-
+      //console.log(`role removed`, { role })
       _this4._env.serviceChanged(role, undefined);
     }));
 
@@ -2723,4 +2717,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0ec31ded39509860f858.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7a17e52d6f9b3feea6fd.js.map

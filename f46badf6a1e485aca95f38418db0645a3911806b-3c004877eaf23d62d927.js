@@ -7130,11 +7130,6 @@ function WatchValueWidget() {
   (0,react.useEffect)(function () {
     setValue(undefined);
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(VMutils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
-      console.log("watch change", {
-        watchSourceId: watchSourceId,
-        sourceId: sourceId
-      });
-
       if (watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
@@ -10614,4 +10609,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6ee7b4c2bbd5799c0d1b.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3c004877eaf23d62d927.js.map
