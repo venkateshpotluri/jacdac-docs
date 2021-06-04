@@ -70296,7 +70296,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c0820dfcde793206ad825a2874c2c5dbaf656910";
+  var sha = "17d6992c4932c117d1191c6ad0d4208c0cfe298c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81655,6 +81655,9 @@ exports.components = {
   "component---src-pages-tools-collector-tsx": function componentSrcPagesToolsCollectorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(5018), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
   },
+  "component---src-pages-tools-data-science-editor-tsx": function componentSrcPagesToolsDataScienceEditorTsx() {
+    return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(3802), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 42164));
+  },
   "component---src-pages-tools-device-registration-tsx": function componentSrcPagesToolsDeviceRegistrationTsx() {
     return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(5018), __webpack_require__.e(7788), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));
   },
@@ -81698,7 +81701,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-release-assets-tsx */ 9225).then(__webpack_require__.bind(__webpack_require__, 71044));
   },
   "component---src-pages-tools-service-editor-tsx": function componentSrcPagesToolsServiceEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5018), __webpack_require__.e(193), __webpack_require__.e(4841), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
+    return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5018), __webpack_require__.e(193), __webpack_require__.e(3802), __webpack_require__.e(4841), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
   },
   "component---src-pages-tools-service-test-editor-tsx": function componentSrcPagesToolsServiceTestEditorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(5018), __webpack_require__.e(193), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
@@ -81713,7 +81716,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(7541), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 81188));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3802), __webpack_require__.e(7541), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 81188));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -81725,7 +81728,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-templates-device-tsx */[__webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(5244), __webpack_require__.e(8323)]).then(__webpack_require__.bind(__webpack_require__, 10454));
   },
   "component---src-templates-service-playground-tsx": function componentSrcTemplatesServicePlaygroundTsx() {
-    return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5018), __webpack_require__.e(4841), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
+    return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5018), __webpack_require__.e(3802), __webpack_require__.e(4841), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
   },
   "component---src-templates-service-test-tsx": function componentSrcTemplatesServiceTestTsx() {
     return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
@@ -86548,4 +86551,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-917db6ae0b47e201522f.js.map
+//# sourceMappingURL=app-29a90e651155ba79f3a2.js.map
