@@ -7251,7 +7251,19 @@ var toolbox = __webpack_require__(20055);
 
 
 
+ // overrides blockly emboss filter for svg elements
 
+(blockly_default()).BlockSvg.prototype.setHighlighted = function (highlighted) {
+  if (!this.rendered) {
+    return;
+  }
+
+  if (highlighted) {
+    this.addSelect();
+  } else {
+    this.removeSelect();
+  }
+};
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -10672,4 +10684,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-778fd02953e55e0263c3.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6e1ce5720b219861dd65.js.map

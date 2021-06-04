@@ -2652,14 +2652,13 @@ function VMRunnerButtons(props) {
   console.log("runner status", status);
 
   var handleRun = function handleRun() {
-    runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints();
+    setPaused(false);
     run();
   };
 
   var handleCancel = function handleCancel() {
-    runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints();
-    cancel();
     setPaused(false);
+    cancel();
   };
 
   var handlePause = function handlePause() {
@@ -2667,7 +2666,7 @@ function VMRunnerButtons(props) {
   };
 
   var handleStep = function handleStep() {
-    return runner === null || runner === void 0 ? void 0 : runner.resume();
+    return runner === null || runner === void 0 ? void 0 : runner.step();
   }; // register breakpoint handler
 
 
@@ -2678,10 +2677,14 @@ function VMRunnerButtons(props) {
   }, [runner]); // register breakpoints
 
   (0,react.useEffect)(function () {
-    if (paused) runner === null || runner === void 0 ? void 0 : runner.setBreakpoints(breakpoints);
-    return function () {
-      return paused && (runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints());
-    };
+    if (paused) {
+      runner === null || runner === void 0 ? void 0 : runner.setBreakpoints(breakpoints);
+      runner === null || runner === void 0 ? void 0 : runner.resume();
+      return function () {
+        runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints();
+        setBreakpoint(null);
+      };
+    }
   }, [runner, paused]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
@@ -2977,4 +2980,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4fb54114087466530610.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-47fdef66f6c536fcac8f.js.map
