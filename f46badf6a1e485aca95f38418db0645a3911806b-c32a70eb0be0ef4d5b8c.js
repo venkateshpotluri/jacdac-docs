@@ -9200,22 +9200,6 @@ function workspaceJSONToVMProgram(workspace) {
                   };
                 }
 
-              case "watch":
-                {
-                  var _blockToExpression3 = blockToExpression(event, inputs[0].child),
-                      _expr2 = _blockToExpression3.expr,
-                      _errors3 = _blockToExpression3.errors;
-
-                  return {
-                    cmd: makeVMBase({
-                      type: "CallExpression",
-                      arguments: [_expr2],
-                      callee: (0,VMir/* toIdentifier */.EB)("watch")
-                    }),
-                    errors: processErrors(_errors3)
-                  };
-                }
-
               default:
                 {
                   console.warn("unsupported block template " + template + " for " + type, {
@@ -9272,53 +9256,78 @@ function workspaceJSONToVMProgram(workspace) {
     var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
     (0,utils/* assert */.hu)(!!def);
     var template = def.template;
-    var role = inputs[0].fields["role"].value;
 
-    switch (template) {
-      case "twin":
-        break;
-      // ignore
-
-      case "event":
-        {
-          var eventName = inputs[0].fields["event"].value;
-          command = {
-            type: "CallExpression",
-            arguments: [(0,VMir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
-            callee: (0,VMir/* toIdentifier */.EB)("awaitEvent")
-          };
-          topEvent = {
-            role: role.toString(),
-            event: eventName.toString()
-          };
+    try {
+      switch (template) {
+        case "twin":
           break;
-        }
+        // ignore
 
-      case "register_change_event":
-        {
-          var _ref5 = def,
-              register = _ref5.register;
+        case "event":
+          {
+            var role = inputs[0].fields["role"].value;
+            var eventName = inputs[0].fields["event"].value;
+            command = {
+              type: "CallExpression",
+              arguments: [(0,VMir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
+              callee: (0,VMir/* toIdentifier */.EB)("awaitEvent")
+            };
+            topEvent = {
+              role: role.toString(),
+              event: eventName.toString()
+            };
+            break;
+          }
 
-          var _blockToExpression4 = blockToExpression(undefined, inputs[0].child),
-              expr = _blockToExpression4.expr,
-              errors = _blockToExpression4.errors;
+        case "register_change_event":
+          {
+            var _role2 = inputs[0].fields["role"].value;
+            var _ref5 = def,
+                register = _ref5.register;
 
-          command = {
-            type: "CallExpression",
-            arguments: [(0,VMir/* toMemberExpression */.vf)(role.toString(), register.name), expr],
-            callee: (0,VMir/* toIdentifier */.EB)("awaitChange")
-          };
-          topErrors = errors;
-          break;
-        }
+            var _blockToExpression3 = blockToExpression(undefined, inputs[0].child),
+                expr = _blockToExpression3.expr,
+                errors = _blockToExpression3.errors;
 
-      default:
-        {
-          console.warn("unsupported handler template " + template + " for " + type, {
-            top: top
-          });
-          break;
-        }
+            command = {
+              type: "CallExpression",
+              arguments: [(0,VMir/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
+              callee: (0,VMir/* toIdentifier */.EB)("awaitChange")
+            };
+            topErrors = errors;
+            break;
+          }
+
+        case "watch":
+          {
+            var _blockToExpression4 = blockToExpression(undefined, inputs[0].child),
+                _expr2 = _blockToExpression4.expr,
+                _errors3 = _blockToExpression4.errors;
+
+            command = {
+              type: "CallExpression",
+              arguments: [_expr2],
+              callee: (0,VMir/* toIdentifier */.EB)("watch")
+            };
+            topErrors = _errors3;
+            break;
+          }
+
+        default:
+          {
+            console.warn("unsupported handler template " + template + " for " + type, {
+              top: top
+            });
+            break;
+          }
+      }
+    } catch (e) {
+      if (e instanceof EmptyExpression) {
+        command = nop;
+        topErrors = [];
+      } else {
+        throw e;
+      }
     }
 
     var handler = {
@@ -10589,4 +10598,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-74daf8ce384a1556af17.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-c32a70eb0be0ef4d5b8c.js.map
