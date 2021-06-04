@@ -631,6 +631,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 34264:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M11 5v5.59H7.5l4.5 4.5 4.5-4.5H13V5h-2zm-5 9c0 3.31 2.69 6 6 6s6-2.69 6-6h-2c0 2.21-1.79 4-4 4s-4-1.79-4-4H6z"
+}), 'PlayForWork');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 8567:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -2102,9 +2130,6 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     this.trace("cancelled");
   };
 
-  _proto4.pause = function pause() {// TODO
-  };
-
   _proto4.resume = function resume() {
     if (!this._running) return;
     this.trace("resume");
@@ -2153,10 +2178,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
               if (brkCommand) {
                 this._handlerAtBreak = h;
-                this.emit(VMutils/* VM_BREAKPOINT */.Di, {
-                  handler: h,
-                  sourceId: (_brkCommand$gc = brkCommand.gc) === null || _brkCommand$gc === void 0 ? void 0 : _brkCommand$gc.sourceId
-                });
+                this.emit(VMutils/* VM_BREAKPOINT */.Di, h, (_brkCommand$gc = brkCommand.gc) === null || _brkCommand$gc === void 0 ? void 0 : _brkCommand$gc.sourceId);
               }
 
               if (!(h.status !== VMStatus.Stopped)) {
@@ -2566,6 +2588,10 @@ var Stop = __webpack_require__(34257);
 var IconButtonWithTooltip = __webpack_require__(79885);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
 var Pause = __webpack_require__(66601);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
+var PlayForWork = __webpack_require__(34264);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
@@ -2576,29 +2602,87 @@ var Pause = __webpack_require__(66601);
 
 
 
+
+
+
+
+function useWorkspaceBreakpoints(program, workspace) {
+  var breakpoints = (0,react.useMemo)(function () {
+    var _arrayConcatMany, _program$handlers;
+
+    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.map(function (h) {
+      return h.commands.map(function (cmd) {
+        return cmd.sourceId;
+      });
+    }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
+      return !!id;
+    })) || [];
+  }, [program]);
+
+  var setBreakpoint = function setBreakpoint(sourceId) {
+    workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
+  };
+
+  return {
+    breakpoints: breakpoints,
+    setBreakpoint: setBreakpoint
+  };
+}
+
 function VMRunnerButtons(props) {
   var runner = props.runner,
       run = props.run,
-      cancel = props.cancel;
+      cancel = props.cancel,
+      workspace = props.workspace;
   var status = (0,useChange/* default */.Z)(runner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
   });
   var disabled = !runner;
   var stopped = !status || status === VMStatus.Stopped;
-  console.log('runner status', status);
+  var program = runner === null || runner === void 0 ? void 0 : runner.program;
+
+  var _useState = (0,react.useState)(false),
+      paused = _useState[0],
+      setPaused = _useState[1];
+
+  var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program, workspace),
+      breakpoints = _useWorkspaceBreakpoi.breakpoints,
+      setBreakpoint = _useWorkspaceBreakpoi.setBreakpoint;
+
+  console.log("runner status", status);
 
   var handleRun = function handleRun() {
-    return run();
+    runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints();
+    run();
   };
 
   var handleCancel = function handleCancel() {
-    return cancel();
+    runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints();
+    cancel();
+    setPaused(false);
   };
 
   var handlePause = function handlePause() {
-    return runner.pause();
+    return setPaused(!paused);
   };
 
+  var handleStep = function handleStep() {
+    return runner === null || runner === void 0 ? void 0 : runner.resume();
+  }; // register breakpoint handler
+
+
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(VMutils/* VM_BREAKPOINT */.Di, function (_, sourceId) {
+      return setBreakpoint(sourceId);
+    });
+  }, [runner]); // register breakpoints
+
+  (0,react.useEffect)(function () {
+    if (paused) runner === null || runner === void 0 ? void 0 : runner.setBreakpoints(breakpoints);
+    return function () {
+      return paused && (runner === null || runner === void 0 ? void 0 : runner.clearBreakpoints());
+    };
+  }, [runner, paused]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
@@ -2611,7 +2695,13 @@ function VMRunnerButtons(props) {
     title: "pause",
     disabled: disabled,
     onClick: handlePause
-  }, /*#__PURE__*/react.createElement(Pause/* default */.Z, null))));
+  }, /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), paused && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "step",
+    disabled: disabled,
+    onClick: handleStep
+  }, /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null))));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
@@ -2788,7 +2878,8 @@ function VMToolbar(props) {
   }), /*#__PURE__*/react.createElement(VMRunnerButtons, {
     runner: runner,
     run: run,
-    cancel: cancel
+    cancel: cancel,
+    workspace: workspace
   }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(VMRoles, {
@@ -2886,4 +2977,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-62691b367cc47ac9891b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4fb54114087466530610.js.map
