@@ -25618,14 +25618,18 @@ function ServiceMembersTreeItems(props) {
       mixins = _useMemo2.mixins;
 
   var packets = specification === null || specification === void 0 ? void 0 : specification.packets;
-  var registers = packets === null || packets === void 0 ? void 0 : packets.filter(spec/* isRegister */.x5).map(function (info) {
+  var registers = packets === null || packets === void 0 ? void 0 : packets.filter(function (pkt) {
+    return !pkt.client && (0,spec/* isRegister */.x5)(pkt);
+  }).map(function (info) {
     return service.register(info.identifier);
   }).filter(function (reg) {
     return !registerFilter || registerFilter(reg);
   }).sort(function (l, r) {
     return l.name.localeCompare(r.name);
   });
-  var events = packets === null || packets === void 0 ? void 0 : packets.filter(spec/* isEvent */.cO).map(function (info) {
+  var events = packets === null || packets === void 0 ? void 0 : packets.filter(function (pkt) {
+    return !pkt.client && (0,spec/* isEvent */.cO)(pkt);
+  }).map(function (info) {
     return service.event(info.identifier);
   }).filter(function (ev) {
     return !eventFilter || eventFilter(ev);
@@ -40193,4 +40197,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-f3e9ee2c4a75a68e16ff.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-bce6053a556560c46bc9.js.map
