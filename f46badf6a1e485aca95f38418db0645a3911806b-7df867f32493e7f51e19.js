@@ -7047,6 +7047,7 @@ TwinField.EDITABLE = false;
 
 
 
+
 var JDomServiceTreeView = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
 });
@@ -7061,7 +7062,8 @@ function JDomTreeWidget() {
     event.stopPropagation();
   };
 
-  if (!roleService || flyout) return null;
+  if (flyout) return null;
+  if (!roleService) return /*#__PURE__*/react.createElement(NoServiceAlert, null);
   return /*#__PURE__*/react.createElement("div", {
     style: {
       minWidth: "12rem",
@@ -10684,4 +10686,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6e1ce5720b219861dd65.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-7df867f32493e7f51e19.js.map
