@@ -10452,7 +10452,7 @@ function VMBlockEditor(props) {
           horizontal: true
         }
       },
-      media: (0,gatsby_browser_entry.withPrefix)("blockly"),
+      media: (0,gatsby_browser_entry.withPrefix)("blockly/media/"),
       zoom: {
         controls: true,
         wheel: true,
@@ -10609,4 +10609,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3c004877eaf23d62d927.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a39694c3bca2a8893b30.js.map
