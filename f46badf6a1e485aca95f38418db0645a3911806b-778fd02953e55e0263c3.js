@@ -10403,8 +10403,8 @@ function useBlocklyPlugins(workspace) {
   (0,react.useEffect)(function () {
     if (!workspace) return; // context menu stuff
 
-    blockly.ContextMenuRegistry.registry.unregister("blockInline");
-    blockly.ContextMenuRegistry.registry.unregister("cleanWorkspace"); // Add the disableOrphans event handler. This is not done automatically by
+    if (blockly.ContextMenuRegistry.registry.getItem("blockInline")) blockly.ContextMenuRegistry.registry.unregister("blockInline");
+    if (blockly.ContextMenuRegistry.registry.getItem("cleanWorkspace")) blockly.ContextMenuRegistry.registry.unregister("cleanWorkspace"); // Add the disableOrphans event handler. This is not done automatically by
     // the plugin and should be handled by your application.
 
     workspace.addChangeListener((blockly_default()).Events.disableOrphans); // The plugin must be initialized before it has any effect.
@@ -10672,4 +10672,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-56f8fba768c889be19ea.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-778fd02953e55e0263c3.js.map
