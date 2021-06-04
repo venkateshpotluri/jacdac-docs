@@ -575,6 +575,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 66601:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M6 19h4V5H6v14zm8-14v14h4V5h-4z"
+}), 'Pause');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 42404:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1176,7 +1204,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 21293:
+/***/ 81188:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1925,7 +1953,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   (0,inheritsLoose/* default */.Z)(VMProgramRunner, _JDClient);
 
-  function VMProgramRunner(bus, roleManager, prog) {
+  function VMProgramRunner(bus, roleManager, program) {
     var _this4;
 
     _this4 = _JDClient.call(this) || this;
@@ -1939,7 +1967,8 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this4._handlerAtBreak = undefined;
     _this4.bus = bus;
     _this4.roleManager = roleManager;
-    var compiled = (0,VMir/* compileProgram */.IJ)(prog);
+    _this4.program = program;
+    var compiled = (0,VMir/* compileProgram */.IJ)(program);
 
     var _checkProgram = (0,VMir/* checkProgram */.i_)(compiled),
         registers = _checkProgram.registers,
@@ -2071,6 +2100,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     this.emit(constants/* CHANGE */.Ver);
     this.trace("cancelled");
+  };
+
+  _proto4.pause = function pause() {// TODO
   };
 
   _proto4.resume = function resume() {
@@ -2532,7 +2564,9 @@ var PlayArrow = __webpack_require__(42404);
 var Stop = __webpack_require__(34257);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
-;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButton.tsx
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
+var Pause = __webpack_require__(66601);
+;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
 
@@ -2540,14 +2574,18 @@ var IconButtonWithTooltip = __webpack_require__(79885);
 
 
 
-function VMRunnerButton(props) {
+
+
+function VMRunnerButtons(props) {
   var runner = props.runner,
       run = props.run,
       cancel = props.cancel;
-  var disabled = !runner;
   var status = (0,useChange/* default */.Z)(runner, function (t) {
     return t === null || t === void 0 ? void 0 : t.status;
   });
+  var disabled = !runner;
+  var stopped = !status || status === VMStatus.Stopped;
+  console.log('runner status', status);
 
   var handleRun = function handleRun() {
     return run();
@@ -2557,12 +2595,23 @@ function VMRunnerButton(props) {
     return cancel();
   };
 
-  var stopped = !status || status === VMStatus.Stopped;
-  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  var handlePause = function handlePause() {
+    return runner.pause();
+  };
+
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: stopped ? "start" : "stop",
     disabled: disabled,
     onClick: stopped ? handleRun : handleCancel
-  }, stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null));
+  }, stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "pause",
+    disabled: disabled,
+    onClick: handlePause
+  }, /*#__PURE__*/react.createElement(Pause/* default */.Z, null))));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
@@ -2590,6 +2639,7 @@ var ImportButton = __webpack_require__(94934);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 ;// CONCATENATED MODULE: ./src/components/vm/VMFileButtons.tsx
+
 
 
 
@@ -2677,6 +2727,7 @@ function VMLoadButton(props) {
     filesLimit: 1
   });
 }
+
 function VMSaveButton(props) {
   var xml = props.xml,
       program = props.program; // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -2692,6 +2743,22 @@ function VMSaveButton(props) {
   }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
     title: "Save"
   }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
+}
+
+function VMFileButtons(props) {
+  var xml = props.xml,
+      program = props.program,
+      workspace = props.workspace;
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMSaveButton, {
+    xml: xml,
+    program: program
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMLoadButton, {
+    workspace: workspace
+  })));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
 
@@ -2714,22 +2781,15 @@ function VMToolbar(props) {
     spacing: 1,
     alignItems: "center",
     alignContent: "center"
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(VMSaveButton, {
+  }, /*#__PURE__*/react.createElement(VMFileButtons, {
     xml: xml,
-    program: program
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(VMLoadButton, {
+    program: program,
     workspace: workspace
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(VMRunnerButton, {
+  }), /*#__PURE__*/react.createElement(VMRunnerButtons, {
     runner: runner,
     run: run,
     cancel: cancel
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(VMRoles, {
     roleManager: roleManager,
@@ -2826,4 +2886,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a08b507f8be9a649bae3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-62691b367cc47ac9891b.js.map
