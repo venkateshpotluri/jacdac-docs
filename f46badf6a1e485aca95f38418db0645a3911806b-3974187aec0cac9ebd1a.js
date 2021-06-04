@@ -7302,6 +7302,10 @@ function createBlockTheme(theme) {
 }
 
 function loadBlocks(serviceColor, commandColor, debuggerColor) {
+  // context menu stuff
+  blockly.ContextMenuRegistry.registry.unregister("blockInline");
+  blockly.ContextMenuRegistry.registry.unregister("cleanWorkspace"); // blocks
+
   var customShadows = [{
     serviceClass: constants/* SRV_SERVO */.$X_,
     kind: "rw",
@@ -10668,4 +10672,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-1813035a51c8b06419c8.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-3974187aec0cac9ebd1a.js.map
