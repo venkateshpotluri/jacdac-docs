@@ -2143,7 +2143,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.run = /*#__PURE__*/function () {
     var _run = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee7() {
-      var currentHandler, nextTime, _iterator, _step, h;
+      var currentHandler, nextTime, _iterator, _step, h, result;
 
       return regenerator_default().wrap(function _callee7$(_context7) {
         while (1) {
@@ -2173,28 +2173,51 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               return this._env.refreshRegistersAsync();
 
             case 10:
-              if (this._waitQueue.length > 0) {
-                nextTime = [];
-
-                for (_iterator = _createForOfIteratorHelperLoose(this._waitQueue); !(_step = _iterator()).done;) {
-                  h = _step.value;
-                  currentHandler = h;
-                  if (this.runHandler(h)) nextTime.push(h);
-                  currentHandler = undefined;
-                }
-
-                this._waitQueue = nextTime;
-
-                this._env.consumeEvent();
-              } else {
-                this.emit(constants/* CHANGE */.Ver);
+              if (!(this._waitQueue.length > 0)) {
+                _context7.next = 27;
+                break;
               }
 
-              _context7.next = 18;
-              break;
+              nextTime = [];
+              _iterator = _createForOfIteratorHelperLoose(this._waitQueue);
 
             case 13:
-              _context7.prev = 13;
+              if ((_step = _iterator()).done) {
+                _context7.next = 23;
+                break;
+              }
+
+              h = _step.value;
+              currentHandler = h;
+              _context7.next = 18;
+              return this.runHandler(h);
+
+            case 18:
+              result = _context7.sent;
+              if (result) nextTime.push(h);
+              currentHandler = undefined;
+
+            case 21:
+              _context7.next = 13;
+              break;
+
+            case 23:
+              this._waitQueue = nextTime;
+
+              this._env.consumeEvent();
+
+              _context7.next = 28;
+              break;
+
+            case 27:
+              this.emit(constants/* CHANGE */.Ver);
+
+            case 28:
+              _context7.next = 35;
+              break;
+
+            case 30:
+              _context7.prev = 30;
               _context7.t0 = _context7["catch"](7);
 
               if (currentHandler) {// program error in handler?
@@ -2203,16 +2226,16 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               console.debug(_context7.t0);
               this.emit(constants/* ERROR */.pnR, _context7.t0);
 
-            case 18:
+            case 35:
               this._in_run = false;
               this.trace("run end");
 
-            case 20:
+            case 37:
             case "end":
               return _context7.stop();
           }
         }
-      }, _callee7, this, [[7, 13]]);
+      }, _callee7, this, [[7, 30]]);
     }));
 
     function run() {
@@ -2700,4 +2723,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3cdf27b021714926e5df.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0ec31ded39509860f858.js.map
