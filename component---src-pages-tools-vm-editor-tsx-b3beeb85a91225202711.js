@@ -519,6 +519,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 91008:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"
+}), 'FastForward');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -2592,8 +2620,11 @@ var Pause = __webpack_require__(66601);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
 var PlayForWork = __webpack_require__(34264);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/FastForward.js
+var FastForward = __webpack_require__(91008);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -2665,6 +2696,12 @@ function VMRunnerButtons(props) {
     return setPaused(!paused);
   };
 
+  var handleResume = function handleResume() {
+    setPaused(false);
+    runner.clearBreakpoints();
+    runner.resume();
+  };
+
   var handleStep = function handleStep() {
     return runner === null || runner === void 0 ? void 0 : runner.step();
   }; // register breakpoint handler
@@ -2695,10 +2732,10 @@ function VMRunnerButtons(props) {
   }, stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "pause",
+    title: paused ? "resume" : "pause",
     disabled: disabled,
-    onClick: handlePause
-  }, /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), paused && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    onClick: paused ? handleResume : handlePause
+  }, paused ? /*#__PURE__*/react.createElement(FastForward/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), paused && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "step",
@@ -2980,4 +3017,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-47fdef66f6c536fcac8f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b3beeb85a91225202711.js.map
