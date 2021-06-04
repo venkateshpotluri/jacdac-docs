@@ -1243,6 +1243,12 @@ var VMJumpException = function VMJumpException(label) {
   this.label = label;
 };
 
+function delay(ms) {
+  return new Promise(function (resolve) {
+    return setTimeout(resolve, ms);
+  });
+}
+
 var VMCommandEvaluator = /*#__PURE__*/function () {
   function VMCommandEvaluator(parent, env, gc) {
     this._regSaved = undefined;
@@ -1294,7 +1300,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
     var _evaluate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
       var _this2 = this;
 
-      var neededStart, args, expr, _values, _expr, event, regValue, _expr2, ev, reg, _this$gc, _expr3, _ev;
+      var neededStart, args, expr, _values, _expr, event, regValue, _expr2, ev, reg, _this$gc, _expr3, _ev, _expr4, _ev2;
 
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
@@ -1341,7 +1347,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 14:
               _context.t0 = this.inst;
-              _context.next = _context.t0 === "branchOnCondition" ? 17 : _context.t0 === "jump" ? 22 : _context.t0 === "label" ? 24 : _context.t0 === "awaitEvent" ? 26 : _context.t0 === "awaitCondition" ? 29 : _context.t0 === "awaitChange" ? 31 : _context.t0 === "awaitRegister" ? 31 : _context.t0 === "writeRegister" ? 34 : _context.t0 === "writeLocal" ? 34 : _context.t0 === "watch" ? 47 : _context.t0 === "halt" ? 52 : _context.t0 === "nop" ? 54 : 56;
+              _context.next = _context.t0 === "branchOnCondition" ? 17 : _context.t0 === "jump" ? 22 : _context.t0 === "label" ? 24 : _context.t0 === "awaitEvent" ? 26 : _context.t0 === "awaitCondition" ? 29 : _context.t0 === "awaitChange" ? 31 : _context.t0 === "awaitRegister" ? 31 : _context.t0 === "writeRegister" ? 34 : _context.t0 === "writeLocal" ? 34 : _context.t0 === "watch" ? 47 : _context.t0 === "halt" ? 52 : _context.t0 === "nop" ? 54 : _context.t0 === "wait" ? 56 : 62;
               break;
 
             case 17:
@@ -1356,7 +1362,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 20:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 22:
               this._status = VMStatus.Completed;
@@ -1364,7 +1370,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 24:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 26:
               event = args[0];
@@ -1373,11 +1379,11 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
                 this._status = this.checkExpression(args[1]) ? VMStatus.Completed : VMStatus.Running;
               }
 
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 29:
               this._status = this.checkExpression(args[0]) ? VMStatus.Completed : VMStatus.Running;
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 31:
               regValue = this.evalExpression(args[0]);
@@ -1386,7 +1392,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
                 this._status = VMStatus.Completed;
               }
 
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 34:
               _expr2 = new VMexpr/* VMExprEvaluator */.W(function (e) {
@@ -1419,7 +1425,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 45:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 47:
               _expr3 = new VMexpr/* VMExprEvaluator */.W(function (e) {
@@ -1428,20 +1434,32 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               _ev = _expr3.eval(args[0]);
               this._status = VMStatus.Completed;
               this.parent.watch((_this$gc = this.gc) === null || _this$gc === void 0 ? void 0 : _this$gc.sourceId, _ev);
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 52:
               this._status = VMStatus.Stopped;
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 54:
               this._status = VMStatus.Completed;
-              return _context.abrupt("break", 57);
+              return _context.abrupt("break", 63);
 
             case 56:
+              _expr4 = new VMexpr/* VMExprEvaluator */.W(function (e) {
+                return _this2.env.lookup(e);
+              }, undefined);
+              _ev2 = _expr4.eval(args[0]);
+              _context.next = 60;
+              return delay(_ev2 * 1000);
+
+            case 60:
+              this._status = VMStatus.Completed;
+              return _context.abrupt("break", 63);
+
+            case 62:
               throw new VMutils/* VMError */.L1("Unknown instruction " + this.inst);
 
-            case 57:
+            case 63:
             case "end":
               return _context.stop();
           }
@@ -2682,4 +2700,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a3785ae3038ca661d345.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3cdf27b021714926e5df.js.map
