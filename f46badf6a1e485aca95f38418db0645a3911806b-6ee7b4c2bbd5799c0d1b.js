@@ -9051,43 +9051,48 @@ function workspaceJSONToVMProgram(workspace) {
     };
   };
 
-  var blockToCommand = function blockToCommand(event, block) {
-    var makeVMBase = function makeVMBase(command) {
+  var makeVMBase = function makeVMBase(block, command) {
+    return {
+      sourceId: block.id,
+      type: "cmd",
+      command: command
+    };
+  };
+
+  var processErrors = function processErrors(block, errors) {
+    return errors.map(function (e) {
       return {
-        sourceId: block.id,
-        type: "cmd",
-        command: command
+        sourceId: e.sourceId ? e.sourceId : block.id,
+        message: e.message
       };
-    };
+    });
+  };
 
-    var processErrors = function processErrors(errors) {
-      return errors.map(function (e) {
-        return {
-          sourceId: e.sourceId ? e.sourceId : block.id,
-          message: e.message
-        };
-      });
-    };
+  var makeWait = function makeWait(event, block) {
+    var inputs = block.inputs;
+    {
+      var _blockToExpression = blockToExpression(event, inputs[0].child),
+          time = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
 
+      return {
+        cmd: makeVMBase(block, {
+          type: "CallExpression",
+          arguments: [time],
+          callee: (0,VMir/* toIdentifier */.EB)("wait")
+        }),
+        errors: processErrors(block, errors)
+      };
+    }
+  };
+
+  var blockToCommand = function blockToCommand(event, block) {
     var type = block.type,
         inputs = block.inputs;
 
     switch (type) {
       case toolbox/* WAIT_BLOCK */.sX:
-        {
-          var _blockToExpression = blockToExpression(event, inputs[0].child),
-              time = _blockToExpression.expr,
-              errors = _blockToExpression.errors;
-
-          return {
-            cmd: makeVMBase({
-              type: "CallExpression",
-              arguments: [time],
-              callee: (0,VMir/* toIdentifier */.EB)("wait")
-            }),
-            errors: processErrors(errors)
-          };
-        }
+        return makeWait(event, block);
 
       case "dynamic_if":
         {
@@ -9135,7 +9140,7 @@ function workspaceJSONToVMProgram(workspace) {
 
           var _exprErrors = exprErrors,
               expr = _exprErrors.expr,
-              _errors = _exprErrors.errors;
+              errors = _exprErrors.errors;
           var ifThenElse = {
             sourceId: block.id,
             type: "ite",
@@ -9145,7 +9150,7 @@ function workspaceJSONToVMProgram(workspace) {
           };
           return {
             cmd: ifThenElse,
-            errors: processErrors(_errors.concat(thenHandler.errors).concat(elseHandler.errors))
+            errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
           };
         }
       // more builts
@@ -9165,16 +9170,16 @@ function workspaceJSONToVMProgram(workspace) {
 
                   var _blockToExpression2 = blockToExpression(event, inputs[0].child),
                       _expr = _blockToExpression2.expr,
-                      _errors2 = _blockToExpression2.errors;
+                      _errors = _blockToExpression2.errors;
 
                   var role = inputs[0].fields.role.value;
                   return {
-                    cmd: makeVMBase({
+                    cmd: makeVMBase(block, {
                       type: "CallExpression",
                       arguments: [(0,VMir/* toMemberExpression */.vf)(role, register.name), _expr],
                       callee: (0,VMir/* toIdentifier */.EB)("writeRegister")
                     }),
-                    errors: processErrors(_errors2)
+                    errors: processErrors(block, _errors)
                   };
                 }
 
@@ -9187,14 +9192,14 @@ function workspaceJSONToVMProgram(workspace) {
                     return blockToExpression(event, a.child);
                   });
                   return {
-                    cmd: makeVMBase({
+                    cmd: makeVMBase(block, {
                       type: "CallExpression",
                       arguments: exprsErrors.map(function (p) {
                         return p.expr;
                       }),
                       callee: (0,VMir/* toMemberExpression */.vf)(_role, serviceCommand.name)
                     }),
-                    errors: processErrors(exprsErrors.flatMap(function (p) {
+                    errors: processErrors(block, exprsErrors.flatMap(function (p) {
                       return p.errors;
                     }))
                   };
@@ -9263,6 +9268,17 @@ function workspaceJSONToVMProgram(workspace) {
           break;
         // ignore
 
+        case "every":
+          {
+            var _makeWait = makeWait(undefined, top),
+                cmd = _makeWait.cmd,
+                errors = _makeWait.errors;
+
+            command = cmd.command;
+            topErrors = errors;
+            break;
+          }
+
         case "event":
           {
             var role = inputs[0].fields["role"].value;
@@ -9287,14 +9303,14 @@ function workspaceJSONToVMProgram(workspace) {
 
             var _blockToExpression3 = blockToExpression(undefined, inputs[0].child),
                 expr = _blockToExpression3.expr,
-                errors = _blockToExpression3.errors;
+                _errors2 = _blockToExpression3.errors;
 
             command = {
               type: "CallExpression",
               arguments: [(0,VMir/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
               callee: (0,VMir/* toIdentifier */.EB)("awaitChange")
             };
-            topErrors = errors;
+            topErrors = _errors2;
             break;
           }
 
@@ -10598,4 +10614,4 @@ var CONNECTED_BLOCK = "jacdac_connected";
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-c32a70eb0be0ef4d5b8c.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6ee7b4c2bbd5799c0d1b.js.map
