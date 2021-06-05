@@ -519,34 +519,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 91008:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"
-}), 'FastForward');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1284,19 +1256,19 @@ var flags = __webpack_require__(21258);
 var VMBlockEditor = __webpack_require__(62437);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(92137);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(87757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 var assertThisInitialized = __webpack_require__(63349);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(92137);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(96156);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(5991);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(87757);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/rolemanager.ts
 var rolemanager = __webpack_require__(37073);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/VMenvironment.ts
@@ -2803,6 +2775,8 @@ var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/useVMRunner.ts
+
+
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
 
@@ -2810,7 +2784,7 @@ var AppContext = __webpack_require__(84377);
 
 
 
-function useVMRunner(roleManager, program, autoStart) {
+function useVMRunner(roleManager, program, autoRun) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
@@ -2821,21 +2795,56 @@ function useVMRunner(roleManager, program, autoStart) {
       runner = _useState[0],
       setRunner = _useState[1];
 
-  var _useState2 = (0,react.useState)(!!autoStart),
+  var _useState2 = (0,react.useState)(!!autoRun),
       _autoStart = _useState2[0],
       _setAutoStart = _useState2[1];
 
-  var run = function run() {
-    _setAutoStart(!!autoStart);
+  var run = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _setAutoStart(!!autoRun);
 
-    runner.startAsync();
-  };
+              _context.next = 3;
+              return runner.startAsync();
 
-  var cancel = function cancel() {
-    _setAutoStart(false);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
 
-    runner.cancel();
-  }; // auto start
+    return function run() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var cancel = /*#__PURE__*/function () {
+    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _setAutoStart(false);
+
+              runner.cancel();
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function cancel() {
+      return _ref2.apply(this, arguments);
+    };
+  }(); // auto start
 
 
   (0,react.useEffect)(function () {
@@ -3059,8 +3068,8 @@ var Pause = __webpack_require__(66601);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
 var PlayForWork = __webpack_require__(34264);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/FastForward.js
-var FastForward = __webpack_require__(91008);
+// EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
+var useMounted = __webpack_require__(72179);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
 
 
@@ -3083,15 +3092,20 @@ function useWorkspaceBreakpoints(program, workspace) {
     var _arrayConcatMany, _program$handlers;
 
     return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.map(function (h) {
-      return h.commands.map(function (cmd) {
-        return cmd.sourceId;
-      });
+      return (// skip first command to avoid breaking on the event itself
+        h.commands.slice(1).map(function (cmd) {
+          return cmd.sourceId;
+        })
+      );
     }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
       return !!id;
     })) || [];
   }, [program]);
 
   var setBreakpoint = function setBreakpoint(sourceId) {
+    console.debug("breakpoint", {
+      sourceId: sourceId
+    });
     workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
   };
 
@@ -3106,37 +3120,22 @@ function VMRunnerButtons(props) {
       run = props.run,
       cancel = props.cancel,
       workspace = props.workspace;
-  var status = (0,useChange/* useChangeAsync */.R)(runner, /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(t) {
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return t === null || t === void 0 ? void 0 : t.statusAsync();
-
-            case 2:
-              return _context.abrupt("return", _context.sent);
-
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function (_x) {
-      return _ref.apply(this, arguments);
-    };
-  }());
-  var disabled = !runner;
+  var status = (0,useChange/* useChangeAsync */.R)(runner, function (t) {
+    return t === null || t === void 0 ? void 0 : t.statusAsync();
+  });
   var stopped = !status || status === VMStatus.Stopped;
   var program = runner === null || runner === void 0 ? void 0 : runner.program;
 
   var _useState = (0,react.useState)(false),
-      paused = _useState[0],
-      setPaused = _useState[1];
+      indeterminate = _useState[0],
+      setIndeterminate = _useState[1];
+
+  var _useState2 = (0,react.useState)(false),
+      paused = _useState2[0],
+      setPaused = _useState2[1];
+
+  var mounted = (0,useMounted/* default */.Z)();
+  var disabled = indeterminate || !runner;
 
   var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program, workspace),
       breakpoints = _useWorkspaceBreakpoi.breakpoints,
@@ -3144,48 +3143,144 @@ function VMRunnerButtons(props) {
 
   console.log("runner status", status);
 
-  var handleRun = function handleRun() {
-    setPaused(false);
-    run();
-  };
+  var handleRun = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              setIndeterminate(true);
+              _context.next = 4;
+              return run();
 
-  var handleCancel = function handleCancel() {
-    setPaused(false);
-    cancel();
-  };
+            case 4:
+              if (mounted()) setPaused(false);
 
-  var handlePause = function handlePause() {
-    return setPaused(!paused);
-  };
+            case 5:
+              _context.prev = 5;
+              if (mounted()) setIndeterminate(false);
+              return _context.finish(5);
 
-  var handleResume = /*#__PURE__*/function () {
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0,, 5, 8]]);
+    }));
+
+    return function handleRun() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var handleCancel = /*#__PURE__*/function () {
     var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
       return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              setPaused(false);
-              _context2.next = 3;
-              return runner.clearBreakpointsAsync();
-
-            case 3:
-              runner.resumeAsync();
+              _context2.prev = 0;
+              setIndeterminate(true);
+              _context2.next = 4;
+              return cancel();
 
             case 4:
+              if (mounted()) setPaused(false);
+
+            case 5:
+              _context2.prev = 5;
+              if (mounted()) setIndeterminate(false);
+              return _context2.finish(5);
+
+            case 8:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, null, [[0,, 5, 8]]);
     }));
 
-    return function handleResume() {
+    return function handleCancel() {
       return _ref2.apply(this, arguments);
     };
   }();
 
+  var handleResume = /*#__PURE__*/function () {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              setIndeterminate(true);
+              _context3.next = 4;
+              return runner.clearBreakpointsAsync();
+
+            case 4:
+              _context3.next = 6;
+              return runner.resumeAsync();
+
+            case 6:
+              if (mounted()) setPaused(false);
+
+            case 7:
+              _context3.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context3.finish(7);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0,, 7, 10]]);
+    }));
+
+    return function handleResume() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var handlePause = /*#__PURE__*/function () {
+    var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              setIndeterminate(true);
+              _context4.next = 4;
+              return runner.setBreakpointsAsync(breakpoints);
+
+            case 4:
+              _context4.next = 6;
+              return runner.resumeAsync();
+
+            case 6:
+              if (mounted()) setPaused(true);
+
+            case 7:
+              _context4.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context4.finish(7);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0,, 7, 10]]);
+    }));
+
+    return function handlePause() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
   var handleStep = function handleStep() {
-    return runner === null || runner === void 0 ? void 0 : runner.step();
+    return runner.step();
   }; // register breakpoint handler
 
 
@@ -3193,39 +3288,24 @@ function VMRunnerButtons(props) {
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(VMutils/* VM_BREAKPOINT */.Di, function (_, sourceId) {
       return setBreakpoint(sourceId);
     });
-  }, [runner]); // register breakpoints
+  }, [runner]); // reset breakpoint in ui when runner, paused mode changes
 
   (0,react.useEffect)(function () {
-    if (paused) {
-      runner === null || runner === void 0 ? void 0 : runner.setBreakpointsAsync(breakpoints).then(function () {
-        runner === null || runner === void 0 ? void 0 : runner.resumeAsync();
-      });
-      return function () {
-        runner === null || runner === void 0 ? void 0 : runner.clearBreakpointsAsync().then(function () {
-          setBreakpoint(null);
-        });
-      };
-    }
+    if (!runner || !paused) setBreakpoint(undefined);
   }, [runner, paused]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: stopped ? "start" : "stop",
+    title: paused ? "resume" : stopped ? "start" : "stop",
     disabled: disabled,
-    onClick: stopped ? handleRun : handleCancel
-  }, stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    onClick: paused ? handleResume : stopped ? handleRun : handleCancel
+  }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: paused ? "resume" : "pause",
+    title: paused ? "step" : "pause",
     disabled: disabled,
-    onClick: paused ? handleResume : handlePause
-  }, paused ? /*#__PURE__*/react.createElement(FastForward/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), paused && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "step",
-    disabled: disabled,
-    onClick: handleStep
-  }, /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null))));
+    onClick: paused ? handleStep : handlePause
+  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
@@ -3501,4 +3581,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f55d145428f447faa699.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-221047fef5506ad04990.js.map

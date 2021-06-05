@@ -61334,8 +61334,8 @@ function useAnalytics() {
     track: track
   };
 }
-// EXTERNAL MODULE: ./src/components/hooks/useMounted.tsx
-var useMounted = __webpack_require__(81888);
+// EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
+var useMounted = __webpack_require__(72179);
 // EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
 var clsx_m = __webpack_require__(85505);
 ;// CONCATENATED MODULE: ./src/components/CmdButton.tsx
@@ -69152,7 +69152,7 @@ function useMediaQueries() {
 
 /***/ }),
 
-/***/ 81888:
+/***/ 72179:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70296,7 +70296,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "2fb2af72027406cbe2a708a66ed411ac95d35f3d";
+  var sha = "eb1e026c856b6b7fdc6fcd5ea78e8ee240596204";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86551,4 +86551,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9db5e066da23d3c535fa.js.map
+//# sourceMappingURL=app-c4600844585e0424ec39.js.map
