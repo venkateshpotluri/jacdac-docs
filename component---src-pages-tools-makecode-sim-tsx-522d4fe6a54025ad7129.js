@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
 /* harmony import */ var _components_icons_MakeCodeIcon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70654);
 /* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(35414);
-/* harmony import */ var _components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(65063);
+/* harmony import */ var _components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(23976);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(20392);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(54774);
 /* harmony import */ var _components_ui_DarkModeContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(91350);
@@ -140,4 +140,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-eaffa02994ce91f8a268.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-sim-tsx-522d4fe6a54025ad7129.js.map

@@ -621,7 +621,77 @@ function ConnectAlert(props) {
 
 /***/ }),
 
-/***/ 65063:
+/***/ 76610:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "f": function() { return /* binding */ SimulateDeviceHint; },
+/* harmony export */   "Z": function() { return /* binding */ SimulateDeviceAlert; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37801);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20392);
+/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
+/* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(79885);
+/* harmony import */ var _material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(88880);
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(95453);
+
+
+
+
+
+
+
+
+function SimulateDeviceHint() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var handleStartSimulator = function handleStartSimulator(serviceClass) {
+    return function () {
+      return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__/* .startServiceProviderFromServiceClass */ .V6)(bus, serviceClass);
+    };
+  };
+
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP),
+      toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "Simulate devices (", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_BUTTON */ .XJR),
+    title: "button",
+    "aria-label": "start button simulator"
+  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_BUZZER */ .J1$),
+    title: "buzzer",
+    "aria-label": "start buzzer simulator"
+  }, "\uD83C\uDFB9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_JOYSTICK */ .vRO),
+    title: "joystick",
+    "aria-label": "start joystick simulator"
+  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_LED */ .i04),
+    title: "LED",
+    "aria-label": "start LED simulator"
+  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_TRAFFIC_LIGHT */ .jHN),
+    title: "traffic light",
+    "aria-label": "start traffic light simulator"
+  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null)), ".");
+}
+function SimulateDeviceAlert() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    severity: "info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SimulateDeviceHint, null));
+}
+
+/***/ }),
+
+/***/ 23976:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -749,61 +819,8 @@ var ConnectButtons = __webpack_require__(45608);
 var useRoleManagerClient = __webpack_require__(39922);
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
-var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
-// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
-var Alert = __webpack_require__(95453);
-;// CONCATENATED MODULE: ./src/components/alert/SimulateDeviceAlert.tsx
-
-
-
-
-
-
-
-
-function SimulateDeviceAlert() {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var handleStartSimulator = function handleStartSimulator(serviceClass) {
-    return function () {
-      return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, serviceClass);
-    };
-  };
-
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
-
-  return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "info"
-  }, "Simulate devices (", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    onClick: handleStartSimulator(constants/* SRV_BUTTON */.XJR),
-    title: "button",
-    "aria-label": "start button simulator"
-  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    onClick: handleStartSimulator(constants/* SRV_BUZZER */.J1$),
-    title: "buzzer",
-    "aria-label": "start buzzer simulator"
-  }, "\uD83C\uDFB9"), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    onClick: handleStartSimulator(constants/* SRV_JOYSTICK */.vRO),
-    title: "joystick",
-    "aria-label": "start joystick simulator"
-  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    onClick: handleStartSimulator(constants/* SRV_LED */.i04),
-    title: "LED",
-    "aria-label": "start LED simulator"
-  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    onClick: handleStartSimulator(constants/* SRV_TRAFFIC_LIGHT */.jHN),
-    title: "traffic light",
-    "aria-label": "start traffic light simulator"
-  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "start simulator",
-    onClick: toggleShowDeviceHostsDialog
-  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), ".");
-}
+// EXTERNAL MODULE: ./src/components/alert/SimulateDeviceAlert.tsx
+var SimulateDeviceAlert = __webpack_require__(76610);
 ;// CONCATENATED MODULE: ./src/components/dashboard/Dashboard.tsx
 
 
@@ -922,7 +939,7 @@ function Dashboard(props) {
   }, other), showStartSimulators && !(simulators !== null && simulators !== void 0 && simulators.length) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(SimulateDeviceAlert, null))), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
+  }, /*#__PURE__*/react.createElement(SimulateDeviceAlert/* default */.Z, null))), /*#__PURE__*/react.createElement(DeviceGroup, Object.assign({
     title: "Devices",
     action: showConnect && /*#__PURE__*/react.createElement(ConnectButtons/* default */.Z, {
       full: false,
@@ -1087,4 +1104,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-92283fd8e663ab86c73d.js.map
+//# sourceMappingURL=7a6ddfc67c61f6ab4d0fd9135a6802daa2a5a396-4bde3db2e89cb59f168c.js.map

@@ -1260,6 +1260,76 @@ function CodeBlock(props) {
 
 /***/ }),
 
+/***/ 76610:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "f": function() { return /* binding */ SimulateDeviceHint; },
+/* harmony export */   "Z": function() { return /* binding */ SimulateDeviceAlert; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37801);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20392);
+/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
+/* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(79885);
+/* harmony import */ var _material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(88880);
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(95453);
+
+
+
+
+
+
+
+
+function SimulateDeviceHint() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var handleStartSimulator = function handleStartSimulator(serviceClass) {
+    return function () {
+      return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__/* .startServiceProviderFromServiceClass */ .V6)(bus, serviceClass);
+    };
+  };
+
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP),
+      toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "Simulate devices (", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_BUTTON */ .XJR),
+    title: "button",
+    "aria-label": "start button simulator"
+  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_BUZZER */ .J1$),
+    title: "buzzer",
+    "aria-label": "start buzzer simulator"
+  }, "\uD83C\uDFB9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_JOYSTICK */ .vRO),
+    title: "joystick",
+    "aria-label": "start joystick simulator"
+  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_LED */ .i04),
+    title: "LED",
+    "aria-label": "start LED simulator"
+  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_TRAFFIC_LIGHT */ .jHN),
+    title: "traffic light",
+    "aria-label": "start traffic light simulator"
+  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null)), ".");
+}
+function SimulateDeviceAlert() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    severity: "info"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SimulateDeviceHint, null));
+}
+
+/***/ }),
+
 /***/ 81188:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -3499,7 +3569,14 @@ function VMFileButtons(props) {
     workspace: workspace
   })));
 }
+// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
+var useDevices = __webpack_require__(53074);
+// EXTERNAL MODULE: ./src/components/alert/SimulateDeviceAlert.tsx
+var SimulateDeviceAlert = __webpack_require__(76610);
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
+
+
+
 
 
 
@@ -3514,6 +3591,13 @@ function VMToolbar(props) {
       xml = props.xml,
       program = props.program,
       workspace = props.workspace;
+  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roles;
+  });
+  var devices = (0,useDevices/* default */.Z)({
+    ignoreSelf: true
+  });
+  var noRoles = !(roles !== null && roles !== void 0 && roles.length) && !(devices !== null && devices !== void 0 && devices.length);
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "row",
@@ -3534,7 +3618,9 @@ function VMToolbar(props) {
   }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(VMRoles, {
     roleManager: roleManager,
     workspace: workspace
-  }));
+  }), noRoles && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(SimulateDeviceAlert/* SimulateDeviceHint */.f, null)));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
@@ -3626,4 +3712,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-05cc8a9f7749f62e4e3b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-12b4d7699fdcfbac6581.js.map
