@@ -20151,6 +20151,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 42025:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"
+}), 'Extension');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 46576:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -69135,7 +69163,7 @@ function useFireKey(handler) {
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59355);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8129);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13886);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70439);
 
 
 function useMediaQueries() {
@@ -69461,7 +69489,7 @@ function TransportIcon(props) {
 
 /***/ }),
 
-/***/ 13886:
+/***/ 70439:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -70296,7 +70324,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7875f14125afae1f3a9341deb37a46f647554ecc";
+  var sha = "ef17050487f4adc4572df9e84fbfee642060fcb2";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -70823,6 +70851,22 @@ function HideOnScroll(props) {
     in: !trigger
   }, children);
 }
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Extension.js
+var Extension = __webpack_require__(42025);
+;// CONCATENATED MODULE: ./src/components/buttons/OpenVMEditorButton.tsx
+
+
+
+function OpenVMEditorButton(props) {
+  var className = props.className;
+  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    className: className,
+    title: "Block Editor",
+    edge: "start",
+    color: "inherit",
+    to: "/tools/vm-editor/"
+  }, /*#__PURE__*/react.createElement(Extension/* default */.Z, null));
+}
 ;// CONCATENATED MODULE: ./src/components/layout.tsx
 
 
@@ -70845,6 +70889,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -71082,6 +71127,8 @@ function MainAppBar() {
   }, "Jacdac"))), /*#__PURE__*/react.createElement("div", {
     className: classes.grow
   }), /*#__PURE__*/react.createElement(PacketStats, null), /*#__PURE__*/react.createElement(OpenDashboardButton, {
+    className: (0,clsx_m/* default */.Z)(classes.menuButton)
+  }), /*#__PURE__*/react.createElement(OpenVMEditorButton, {
     className: (0,clsx_m/* default */.Z)(classes.menuButton)
   }), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     className: (0,clsx_m/* default */.Z)(classes.menuButton, drawerOpen && classes.hideMobile),
@@ -84101,7 +84148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "onServiceWorkerUpdateReady": function() { return /* binding */ onServiceWorkerUpdateReady; },
 /* harmony export */   "wrapPageElement": function() { return /* binding */ wrapPageElement; }
 /* harmony export */ });
-/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13886);
+/* harmony import */ var _src_components_layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70439);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73935);
 
@@ -86551,4 +86598,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c1c04b054b160b4f2d37.js.map
+//# sourceMappingURL=app-1d7166d6403a5812fcfd.js.map
