@@ -962,46 +962,68 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   _proto.setRoles = function setRoles(newRoles) {
     var _this2 = this;
 
-    var roles = this.roles; // remove unknown roles
+    var changed = false; // remove unknown roles
 
     var supportedNewRoles = newRoles.filter(function (_ref) {
       var serviceShortId = _ref.serviceShortId;
       return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_3__/* .serviceSpecificationFromName */ .kB)(serviceShortId);
-    });
-    console.debug("set roles", {
-      roles: roles,
-      newRoles: newRoles,
-      supportedNewRoles: supportedNewRoles
-    }); // removed roles
+    }); // unbind removed roles
+
+    var i = 0;
 
     var _loop = function _loop() {
+      var role = _this2._roles[i];
+
+      if (!supportedNewRoles.find(function (r) {
+        return r.role === role.role;
+      })) {
+        changed = true;
+
+        _this2._roles.splice(i, 1);
+
+        _this2.emit(ROLE_UNBOUND, role.role);
+      } else {
+        i++;
+      }
+    };
+
+    while (i < this._roles.length) {
+      _loop();
+    } // update or add roles
+
+
+    var _loop2 = function _loop2() {
       var newRole = _step.value;
-      var existingRole = roles.find(function (r) {
+
+      var existingRole = _this2._roles.find(function (r) {
         return r.role === newRole.role;
       });
 
       if (!existingRole) {
         // added role
+        changed = true;
+
         _this2._roles.push(_objectSpread({}, newRole));
       } else if (existingRole.serviceShortId !== newRole.serviceShortId) {
         // modified type, force rebinding
+        changed = true;
         existingRole.serviceShortId = newRole.serviceShortId;
 
         if (existingRole.service) {
           existingRole.service = undefined;
 
-          _this2.emit(ROLE_UNBOUND, newRole.role);
-
-          _this2.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+          _this2.emit(ROLE_UNBOUND, existingRole.role);
         }
       } // else unmodifed role
 
     };
 
     for (var _iterator = _createForOfIteratorHelperLoose(supportedNewRoles), _step; !(_step = _iterator()).done;) {
-      _loop();
-    } // bound services
+      _loop2();
+    } // emit change as needed
 
+
+    if (changed) this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver); // bound services
 
     this.bindServices();
   };
@@ -1009,6 +1031,7 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   _proto.bindServices = function bindServices() {
     var _this3 = this;
 
+    var changed = false;
     this.unboundRoles.forEach(function (binding) {
       var boundRoles = _this3.boundRoles;
 
@@ -1025,8 +1048,9 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 
       _this3.emit(ROLE_BOUND, binding.role);
 
-      _this3.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+      changed = true;
     });
+    if (changed) this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
   };
 
   _proto.addServices = function addServices(dev) {
@@ -1037,6 +1061,8 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   _proto.removeServices = function removeServices(dev) {
     var _this4 = this;
 
+    var changed = false;
+
     this._roles.filter(function (r) {
       var _r$service;
 
@@ -1046,8 +1072,10 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 
       _this4.emit(ROLE_UNBOUND, r.role);
 
-      _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+      changed = true;
     });
+
+    if (changed) this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
   };
 
   _proto.getService = function getService(role) {
@@ -1089,11 +1117,11 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
     if (ret) {
       binding.service = ret;
       this.emit(ROLE_BOUND, role);
-      this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
     } else {
       this.emit(ROLE_UNBOUND, role);
-      this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
     }
+
+    this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
   };
 
   (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RoleManager, [{
@@ -1123,4 +1151,4 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-10335737309e5e4a0c8a.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-afae2b4ad935eaba602f.js.map
