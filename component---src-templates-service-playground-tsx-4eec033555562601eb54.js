@@ -9,7 +9,9 @@
 /* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
 /* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
 /* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
-/* harmony export */   "L1": function() { return /* binding */ VMError; }
+/* harmony export */   "gf": function() { return /* binding */ VM_WAKE_SLEEPER; },
+/* harmony export */   "L1": function() { return /* binding */ VMError; },
+/* harmony export */   "WU": function() { return /* binding */ Mutex; }
 /* harmony export */ });
 /* unused harmony exports VM_ERROR, VM_MISSING_ROLE_WARNING, VM_MISSING_DEVICE_WARNING, default */
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
@@ -23,6 +25,7 @@ var VM_MISSING_DEVICE_WARNING = "vmMissingDevice";
 var VM_BREAKPOINT = "vmBreakpoint";
 var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
 var VM_COMMAND_COMPLETED = "vmCommandCompleted";
+var VM_WAKE_SLEEPER = "vmWakeSleeper";
 var VMError = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(VMError, _Error);
 
@@ -40,6 +43,40 @@ var VMError = /*#__PURE__*/function (_Error) {
 function errorPath(e) {
   return e === null || e === void 0 ? void 0 : e.jacdacName;
 }
+var Mutex = /*#__PURE__*/function () {
+  function Mutex() {
+    this.promises = [];
+  }
+
+  var _proto = Mutex.prototype;
+
+  _proto.shift = function shift() {
+    this.promises.shift();
+    if (this.promises[0]) this.promises[0]();
+  };
+
+  _proto.acquire = function acquire(f) {
+    var _this2 = this;
+
+    return new Promise(function (resolve, reject) {
+      _this2.promises.push(function () {
+        return f().then(function (v) {
+          _this2.shift();
+
+          resolve(v);
+        }, function (e) {
+          _this2.shift();
+
+          reject(e);
+        });
+      });
+
+      if (_this2.promises.length == 1) _this2.promises[0]();
+    });
+  };
+
+  return Mutex;
+}();
 
 /***/ }),
 
@@ -359,4 +396,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-playground-tsx-e1b83b7bbb8f867a0852.js.map
+//# sourceMappingURL=component---src-templates-service-playground-tsx-4eec033555562601eb54.js.map
