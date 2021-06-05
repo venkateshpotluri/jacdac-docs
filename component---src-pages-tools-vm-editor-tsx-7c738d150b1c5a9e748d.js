@@ -463,6 +463,34 @@ var Chip = /*#__PURE__*/react.forwardRef(function Chip(props, ref) {
 
 /***/ }),
 
+/***/ 62481:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"
+}), 'BugReport');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 30263:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -3070,11 +3098,17 @@ var utils = __webpack_require__(81794);
 var PlayForWork = __webpack_require__(34264);
 // EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
 var useMounted = __webpack_require__(72179);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
+var IconButtonWithProgress = __webpack_require__(16845);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/BugReport.js
+var BugReport = __webpack_require__(62481);
 ;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
 
 
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
 
 
 
@@ -3103,9 +3137,6 @@ function useWorkspaceBreakpoints(program, workspace) {
   }, [program]);
 
   var setBreakpointHighlight = function setBreakpointHighlight(sourceId) {
-    console.debug("breakpoint", {
-      sourceId: sourceId
-    });
     workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
   };
 
@@ -3277,6 +3308,10 @@ function VMRunnerButtons(props) {
 
   var handleStep = function handleStep() {
     return runner.step();
+  };
+
+  var handleCenterOnBreakpoint = function handleCenterOnBreakpoint() {
+    return workspace.centerOnBlock(breakpoint);
   }; // register breakpoint handler
 
 
@@ -3308,15 +3343,18 @@ function VMRunnerButtons(props) {
     onClick: paused ? handleResume : stopped ? handleRun : handleCancel
   }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: paused ? "step" : "pause",
+  }, /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, {
+    title: pausing ? "cancel pause" : paused ? "step" : "pause",
     disabled: disabled,
-    onClick: paused ? handleStep : handlePause
+    indeterminate: pausing,
+    onClick: pausing ? handleResume : paused ? handleStep : handlePause
   }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), (pausing || paused) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    variant: "caption"
-  }, pausing ? "pausing" : "paused")));
+  }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    icon: /*#__PURE__*/react.createElement(BugReport/* default */.Z, null),
+    label: pausing ? "pausing" : "paused",
+    color: "secondary"
+  })));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
@@ -3592,4 +3630,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-93e6d59c1181ac311d3d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7c738d150b1c5a9e748d.js.map
