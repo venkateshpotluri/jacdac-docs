@@ -3308,10 +3308,6 @@ function VMRunnerButtons(props) {
 
   var handleStep = function handleStep() {
     return runner.step();
-  };
-
-  var handleCenterOnBreakpoint = function handleCenterOnBreakpoint() {
-    return workspace.centerOnBlock(breakpoint);
   }; // register breakpoint handler
 
 
@@ -3630,4 +3626,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7c738d150b1c5a9e748d.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-05cc8a9f7749f62e4e3b.js.map
