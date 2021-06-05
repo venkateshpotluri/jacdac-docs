@@ -2662,7 +2662,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
   }, {
     kind: "block",
     type: toolbox/* TWIN_BLOCK */.Zt,
-    message0: "twin of %1 %2 %3",
+    message0: "view %1 %2 %3",
     args0: [{
       type: "field_variable",
       name: "role",
@@ -3965,4 +3965,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6aa88e0278284c596910.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-446ae398db9d9caa6f22.js.map

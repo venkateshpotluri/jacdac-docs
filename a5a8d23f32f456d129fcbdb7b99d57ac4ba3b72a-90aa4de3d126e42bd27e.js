@@ -5878,7 +5878,9 @@ function useBlocklyEvents(workspace) {
           if (template === "twin") {
             // notify twin that the value changed
             var twinInput = block.inputList[1];
-            var twinField = twinInput.fieldRow[0];
+            var twinField = twinInput.fieldRow.find(function (f) {
+              return f.name === "twin";
+            });
             twinField.emitChange();
           }
 
@@ -6876,4 +6878,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-05c3b56aea3c97b09ef2.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-90aa4de3d126e42bd27e.js.map
