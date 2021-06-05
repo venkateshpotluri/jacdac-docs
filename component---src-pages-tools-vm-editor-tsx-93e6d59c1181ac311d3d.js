@@ -3102,7 +3102,7 @@ function useWorkspaceBreakpoints(program, workspace) {
     })) || [];
   }, [program]);
 
-  var setBreakpoint = function setBreakpoint(sourceId) {
+  var setBreakpointHighlight = function setBreakpointHighlight(sourceId) {
     console.debug("breakpoint", {
       sourceId: sourceId
     });
@@ -3111,7 +3111,7 @@ function useWorkspaceBreakpoints(program, workspace) {
 
   return {
     breakpoints: breakpoints,
-    setBreakpoint: setBreakpoint
+    setBreakpointHighlight: setBreakpointHighlight
   };
 }
 
@@ -3130,16 +3130,18 @@ function VMRunnerButtons(props) {
       indeterminate = _useState[0],
       setIndeterminate = _useState[1];
 
-  var _useState2 = (0,react.useState)(false),
-      paused = _useState2[0],
-      setPaused = _useState2[1];
+  var _useState2 = (0,react.useState)(undefined),
+      breakpoint = _useState2[0],
+      setBreakpoint = _useState2[1];
 
+  var pausing = breakpoint === "";
+  var paused = !!(breakpoint !== null && breakpoint !== void 0 && breakpoint.length);
   var mounted = (0,useMounted/* default */.Z)();
   var disabled = indeterminate || !runner;
 
   var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program, workspace),
       breakpoints = _useWorkspaceBreakpoi.breakpoints,
-      setBreakpoint = _useWorkspaceBreakpoi.setBreakpoint;
+      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight;
 
   console.log("runner status", status);
 
@@ -3151,11 +3153,9 @@ function VMRunnerButtons(props) {
             case 0:
               _context.prev = 0;
               setIndeterminate(true);
-              _context.next = 4;
+              setBreakpoint(undefined);
+              _context.next = 5;
               return run();
-
-            case 4:
-              if (mounted()) setPaused(false);
 
             case 5:
               _context.prev = 5;
@@ -3183,11 +3183,9 @@ function VMRunnerButtons(props) {
             case 0:
               _context2.prev = 0;
               setIndeterminate(true);
-              _context2.next = 4;
+              setBreakpoint(undefined);
+              _context2.next = 5;
               return cancel();
-
-            case 4:
-              if (mounted()) setPaused(false);
 
             case 5:
               _context2.prev = 5;
@@ -3215,15 +3213,13 @@ function VMRunnerButtons(props) {
             case 0:
               _context3.prev = 0;
               setIndeterminate(true);
-              _context3.next = 4;
+              setBreakpoint(undefined);
+              _context3.next = 5;
               return runner.clearBreakpointsAsync();
 
-            case 4:
-              _context3.next = 6;
+            case 5:
+              _context3.next = 7;
               return runner.resumeAsync();
-
-            case 6:
-              if (mounted()) setPaused(false);
 
             case 7:
               _context3.prev = 7;
@@ -3259,7 +3255,7 @@ function VMRunnerButtons(props) {
               return runner.resumeAsync();
 
             case 6:
-              if (mounted()) setPaused(true);
+              setBreakpoint("");
 
             case 7:
               _context4.prev = 7;
@@ -3286,13 +3282,24 @@ function VMRunnerButtons(props) {
 
   (0,react.useEffect)(function () {
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(VMutils/* VM_BREAKPOINT */.Di, function (_, sourceId) {
-      return setBreakpoint(sourceId);
+      console.log("breakpoint", {
+        sourceId: sourceId,
+        mounted: mounted()
+      });
+      if (mounted()) setBreakpoint(sourceId);
     });
-  }, [runner]); // reset breakpoint in ui when runner, paused mode changes
+  }, [runner]); // setting blockly breakpoint
 
   (0,react.useEffect)(function () {
-    if (!runner || !paused) setBreakpoint(undefined);
-  }, [runner, paused]);
+    setBreakpointHighlight(breakpoint);
+    return function () {
+      return setBreakpointHighlight(undefined);
+    };
+  }, [breakpoint]); // reset breakpoint in ui when runner, paused mode changes
+
+  (0,react.useEffect)(function () {
+    return setBreakpoint(undefined);
+  }, [runner]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
@@ -3305,7 +3312,11 @@ function VMRunnerButtons(props) {
     title: paused ? "step" : "pause",
     disabled: disabled,
     onClick: paused ? handleStep : handlePause
-  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))));
+  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), (pausing || paused) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "caption"
+  }, pausing ? "pausing" : "paused")));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
@@ -3581,4 +3592,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-221047fef5506ad04990.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-93e6d59c1181ac311d3d.js.map
