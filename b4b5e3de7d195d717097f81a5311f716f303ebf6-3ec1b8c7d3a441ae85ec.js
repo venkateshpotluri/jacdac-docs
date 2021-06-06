@@ -5,11 +5,13 @@
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "K": function() { return /* binding */ VMServiceEnvironment; },
-/* harmony export */   "u": function() { return /* binding */ VMEnvironment; }
+/* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
+/* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(92137);
+/* unused harmony export VMRoleNoServiceException */
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(57869);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
@@ -25,6 +27,16 @@
 
 
 
+
+var VMRoleNoServiceException = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMRoleNoServiceException, _Error);
+
+  function VMRoleNoServiceException() {
+    return _Error.call(this) || this;
+  }
+
+  return VMRoleNoServiceException;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(Error));
 var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
 
@@ -68,7 +80,7 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   };
 
   _proto.sendCommandAsync = /*#__PURE__*/function () {
-    var _sendCommandAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(command, values) {
+    var _sendCommandAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(command, values) {
       var commandName, pkt;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -106,7 +118,7 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   _proto.writeRegisterAsync =
   /*#__PURE__*/
   function () {
-    var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, ev) {
+    var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, ev) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -134,7 +146,7 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   }();
 
   _proto.writeRegAsync = /*#__PURE__*/function () {
-    var _writeRegAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(jdreg, ev) {
+    var _writeRegAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(jdreg, ev) {
       var _jdreg$specification;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
@@ -160,7 +172,7 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   }();
 
   _proto.setEnabled = /*#__PURE__*/function () {
-    var _setEnabled = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+    var _setEnabled = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       var pkt, jdreg;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
@@ -221,7 +233,7 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   };
 
   _proto.refreshRegistersAsync = /*#__PURE__*/function () {
-    var _refreshRegistersAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+    var _refreshRegistersAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
       var k, register;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
@@ -305,26 +317,26 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   _proto2.registerRegister = function registerRegister(role, reg) {
     var _this4 = this;
 
-    var serviceEnv = this.getService(role);
-
-    if (serviceEnv) {
+    try {
+      var serviceEnv = this.getService(role);
       serviceEnv.registerRegister(reg, function () {
         _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
+    } catch (e) {// nothing
     }
   };
 
   _proto2.registerEvent = function registerEvent(role, ev) {
     var _this5 = this;
 
-    var serviceEnv = this.getService(role);
-
-    if (serviceEnv) {
+    try {
+      var serviceEnv = this.getService(role);
       serviceEnv.registerEvent(ev, function () {
         _this5._currentEvent = role + "." + ev;
 
         _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
+    } catch (e) {// nothing
     }
   };
 
@@ -342,13 +354,14 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
     if (!s) {
       this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .ROLE_HAS_NO_SERVICE */ .ky2, root);
+      throw new VMRoleNoServiceException();
     }
 
     return s;
   };
 
   _proto2.refreshRegistersAsync = /*#__PURE__*/function () {
-    var _refreshRegistersAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+    var _refreshRegistersAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
       var _i, _Object$values, s;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
@@ -391,13 +404,14 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   _proto2.sendCommandAsync =
   /*#__PURE__*/
   function () {
-    var _sendCommandAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e, values) {
+    var _sendCommandAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e, values) {
       var serviceEnv;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              serviceEnv = this.getService(e);
+              serviceEnv = this.getService(e); // TODO: need to raise alert if service undefined
+
               _context7.next = 3;
               return serviceEnv === null || serviceEnv === void 0 ? void 0 : serviceEnv.sendCommandAsync(e.property, values);
 
@@ -432,17 +446,12 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     var serviceEnv = this.getService(e);
-
-    if (!serviceEnv) {
-      return undefined;
-    }
-
     var me = e;
     return serviceEnv.lookup(me.property);
   };
 
   _proto2.writeRegisterAsync = /*#__PURE__*/function () {
-    var _writeRegisterAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(e, ev) {
+    var _writeRegisterAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(e, ev) {
       var serviceEnv, me, reg;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
         while (1) {
@@ -451,7 +460,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
               serviceEnv = this.getService(e);
               me = e;
 
-              if (!(serviceEnv && me.property.type === "Identifier")) {
+              if (!(me.property.type === "Identifier")) {
                 _context8.next = 6;
                 break;
               }
@@ -495,8 +504,6 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
   _proto2.hasEvent = function hasEvent(e) {
     var roleName = this.getRootName(e);
-    var serviceEnv = this.getService(e);
-    if (!serviceEnv) return false;
     var me = e;
 
     if (me.property.type === "Identifier") {
@@ -813,15 +820,13 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 /* harmony export */   "L1": function() { return /* binding */ VMError; },
 /* harmony export */   "WU": function() { return /* binding */ Mutex; }
 /* harmony export */ });
-/* unused harmony exports VM_ERROR, VM_MISSING_ROLE_WARNING, VM_MISSING_DEVICE_WARNING, default */
+/* unused harmony exports VM_ERROR, default */
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
 /* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
 
 
 var VM_ERROR = "vmError";
 var VM_WATCH_CHANGE = "vmWatchChange";
-var VM_MISSING_ROLE_WARNING = "vmMissingRole";
-var VM_MISSING_DEVICE_WARNING = "vmMissingDevice";
 var VM_BREAKPOINT = "vmBreakpoint";
 var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
 var VM_COMMAND_COMPLETED = "vmCommandCompleted";
@@ -881,4 +886,4 @@ var Mutex = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-c0e259faa16c5123172c.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-3ec1b8c7d3a441ae85ec.js.map

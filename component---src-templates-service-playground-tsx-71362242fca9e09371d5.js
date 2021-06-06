@@ -13,15 +13,13 @@
 /* harmony export */   "L1": function() { return /* binding */ VMError; },
 /* harmony export */   "WU": function() { return /* binding */ Mutex; }
 /* harmony export */ });
-/* unused harmony exports VM_ERROR, VM_MISSING_ROLE_WARNING, VM_MISSING_DEVICE_WARNING, default */
+/* unused harmony exports VM_ERROR, default */
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
 /* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
 
 
 var VM_ERROR = "vmError";
 var VM_WATCH_CHANGE = "vmWatchChange";
-var VM_MISSING_ROLE_WARNING = "vmMissingRole";
-var VM_MISSING_DEVICE_WARNING = "vmMissingDevice";
 var VM_BREAKPOINT = "vmBreakpoint";
 var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
 var VM_COMMAND_COMPLETED = "vmCommandCompleted";
@@ -396,4 +394,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-playground-tsx-381bb46bd84faf525881.js.map
+//# sourceMappingURL=component---src-templates-service-playground-tsx-71362242fca9e09371d5.js.map

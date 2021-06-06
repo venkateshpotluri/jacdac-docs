@@ -48578,7 +48578,7 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
       };
     }
 
-    if (ret && this.roles.indexOf(ret.role) < 0) this.registers.push(ret.role);
+    if (ret && this.roles.indexOf(ret.role) < 0) this.roles.push(ret.role);
     return ret;
   };
 
@@ -70331,7 +70331,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "1f1ac755e98159529bebf483ff8f8c858851d648";
+  var sha = "50f2ac621ce19e7ad1372e72c0650ac67b431e13";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86605,4 +86605,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-18f9702409de50ad4583.js.map
+//# sourceMappingURL=app-c0e53d373cf78035e89b.js.map

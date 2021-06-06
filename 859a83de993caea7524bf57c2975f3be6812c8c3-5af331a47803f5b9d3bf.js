@@ -1405,7 +1405,7 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     _this6 = _JDServiceClient.call(this, service) || this;
     _this6._testIndex = -1;
     _this6.testSpec = testSpec;
-    _this6._env = new environment/* VMServiceEnvironment */.K(service);
+    _this6._env = new environment/* VMServiceEnvironment */.Kx(service);
     _this6.tests = _this6.testSpec.tests.map(function (t) {
       return new JDTestRunner((0,assertThisInitialized/* default */.Z)(_this6), t);
     });
@@ -1973,4 +1973,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-ba53f5beddf6f92749ba.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-5af331a47803f5b9d3bf.js.map
