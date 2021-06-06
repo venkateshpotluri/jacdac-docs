@@ -359,7 +359,7 @@ addToUnscopables('flatMap');
 
 /***/ }),
 
-/***/ 42612:
+/***/ 68290:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1754,8 +1754,8 @@ var Box = __webpack_require__(8266);
 var Typography = __webpack_require__(80453);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
 var Switch = __webpack_require__(76544);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMutils.ts
-var VMutils = __webpack_require__(69705);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
+var vm_utils = __webpack_require__(94624);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/WatchValueField.tsx
 
 
@@ -1779,7 +1779,7 @@ function WatchValueWidget() {
 
   (0,react.useEffect)(function () {
     setValue(undefined);
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(VMutils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
       if (watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
@@ -3195,8 +3195,8 @@ var wrapNativeSuper = __webpack_require__(57869);
 var es_array_flat_map = __webpack_require__(86535);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
 var es_array_unscopables_flat_map = __webpack_require__(99244);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMir.ts
-var VMir = __webpack_require__(42612);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
+var ir = __webpack_require__(68290);
 ;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
 
 
@@ -3367,7 +3367,7 @@ function workspaceJSONToVMProgram(workspace) {
                         register = _ref.register;
                     var role = inputs[0].fields["role"].value;
                     var field = inputs[0].fields["field"];
-                    return (0,VMir/* toMemberExpression */.vf)(role, field ? (0,VMir/* toMemberExpression */.vf)(register.name, field.value) : register.name);
+                    return (0,ir/* toMemberExpression */.vf)(role, field ? (0,ir/* toMemberExpression */.vf)(register.name, field.value) : register.name);
                   }
 
                 case "event_field":
@@ -3383,7 +3383,7 @@ function workspaceJSONToVMProgram(workspace) {
                     }
 
                     var _field = inputs[0].fields["field"];
-                    return (0,VMir/* toMemberExpression */.vf)(ev.role, (0,VMir/* toMemberExpression */.vf)(ev.event, _field.value));
+                    return (0,ir/* toMemberExpression */.vf)(ev.role, (0,ir/* toMemberExpression */.vf)(ev.event, _field.value));
                   }
 
                 case "shadow":
@@ -3449,7 +3449,7 @@ function workspaceJSONToVMProgram(workspace) {
         cmd: makeVMBase(block, {
           type: "CallExpression",
           arguments: [time],
-          callee: (0,VMir/* toIdentifier */.EB)("wait")
+          callee: (0,ir/* toIdentifier */.EB)("wait")
         }),
         errors: processErrors(block, errors)
       };
@@ -3546,8 +3546,8 @@ function workspaceJSONToVMProgram(workspace) {
                   return {
                     cmd: makeVMBase(block, {
                       type: "CallExpression",
-                      arguments: [(0,VMir/* toMemberExpression */.vf)(role, register.name), _expr],
-                      callee: (0,VMir/* toIdentifier */.EB)("writeRegister")
+                      arguments: [(0,ir/* toMemberExpression */.vf)(role, register.name), _expr],
+                      callee: (0,ir/* toIdentifier */.EB)("writeRegister")
                     }),
                     errors: processErrors(block, _errors)
                   };
@@ -3567,7 +3567,7 @@ function workspaceJSONToVMProgram(workspace) {
                       arguments: exprsErrors.map(function (p) {
                         return p.expr;
                       }),
-                      callee: (0,VMir/* toMemberExpression */.vf)(_role, serviceCommand.name)
+                      callee: (0,ir/* toMemberExpression */.vf)(_role, serviceCommand.name)
                     }),
                     errors: processErrors(block, exprsErrors.flatMap(function (p) {
                       return p.errors;
@@ -3594,7 +3594,7 @@ function workspaceJSONToVMProgram(workspace) {
   var nop = {
     type: "CallExpression",
     arguments: [],
-    callee: (0,VMir/* toIdentifier */.EB)("nop")
+    callee: (0,ir/* toIdentifier */.EB)("nop")
   };
 
   var addCommands = function addCommands(event, blocks, handler) {
@@ -3655,8 +3655,8 @@ function workspaceJSONToVMProgram(workspace) {
             var eventName = inputs[0].fields["event"].value;
             command = {
               type: "CallExpression",
-              arguments: [(0,VMir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
-              callee: (0,VMir/* toIdentifier */.EB)("awaitEvent")
+              arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
+              callee: (0,ir/* toIdentifier */.EB)("awaitEvent")
             };
             topEvent = {
               role: role.toString(),
@@ -3677,8 +3677,8 @@ function workspaceJSONToVMProgram(workspace) {
 
             command = {
               type: "CallExpression",
-              arguments: [(0,VMir/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
-              callee: (0,VMir/* toIdentifier */.EB)("awaitChange")
+              arguments: [(0,ir/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
+              callee: (0,ir/* toIdentifier */.EB)("awaitChange")
             };
             topErrors = _errors2;
             break;
@@ -3693,7 +3693,7 @@ function workspaceJSONToVMProgram(workspace) {
             command = {
               type: "CallExpression",
               arguments: [_expr2],
-              callee: (0,VMir/* toIdentifier */.EB)("watch")
+              callee: (0,ir/* toIdentifier */.EB)("watch")
             };
             topErrors = _errors3;
             break;
@@ -3965,4 +3965,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-446ae398db9d9caa6f22.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-ab2a9dd79ad54ebb93bf.js.map

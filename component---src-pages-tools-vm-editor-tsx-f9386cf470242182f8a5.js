@@ -1330,7 +1330,7 @@ function SimulateDeviceAlert() {
 
 /***/ }),
 
-/***/ 81188:
+/***/ 83571:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1369,21 +1369,21 @@ var defineProperty = __webpack_require__(96156);
 var createClass = __webpack_require__(5991);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/rolemanager.ts
 var rolemanager = __webpack_require__(37073);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMenvironment.ts
-var VMenvironment = __webpack_require__(75133);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMexpr.ts
-var VMexpr = __webpack_require__(22036);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
+var environment = __webpack_require__(96699);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
+var vm_expr = __webpack_require__(18108);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMir.ts
-var VMir = __webpack_require__(42612);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMutils.ts
-var VMutils = __webpack_require__(69705);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
+var ir = __webpack_require__(68290);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
+var utils = __webpack_require__(94624);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
 var client = __webpack_require__(47235);
-;// CONCATENATED MODULE: ./jacdac-ts/src/vm/VMrunner.ts
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/runner.ts
 
 
 
@@ -1455,7 +1455,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
   _proto.evalExpression = function evalExpression(e) {
     var _this = this;
 
-    var expr = new VMexpr/* VMExprEvaluator */.W(function (e) {
+    var expr = new vm_expr/* VMExprEvaluator */.W(function (e) {
       return _this.env.lookup(e);
     }, undefined);
     return expr.eval(e);
@@ -1511,7 +1511,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               }
 
               // interpret as a service command (role.comand)
-              expr = new VMexpr/* VMExprEvaluator */.W(function (e) {
+              expr = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               _values = this.gc.command.arguments.map(function (a) {
@@ -1577,12 +1577,12 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("return", VMStatus.Running);
 
             case 30:
-              _expr2 = new VMexpr/* VMExprEvaluator */.W(function (e) {
+              _expr2 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               ev = _expr2.eval(args[1]);
               this.trace("eval-end", {
-                expr: (0,VMexpr/* unparse */.Z)(args[1])
+                expr: (0,vm_expr/* unparse */.Z)(args[1])
               });
               reg = args[0];
 
@@ -1596,7 +1596,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 37:
               this.trace("write-after-wait", {
-                reg: (0,VMexpr/* unparse */.Z)(reg),
+                reg: (0,vm_expr/* unparse */.Z)(reg),
                 expr: ev
               });
               _context.next = 41;
@@ -1609,7 +1609,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("return", VMStatus.Completed);
 
             case 42:
-              _expr3 = new VMexpr/* VMExprEvaluator */.W(function (e) {
+              _expr3 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               _ev = _expr3.eval(args[0]);
@@ -1623,14 +1623,14 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("return", VMStatus.Completed);
 
             case 48:
-              _expr4 = new VMexpr/* VMExprEvaluator */.W(function (e) {
+              _expr4 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this2.env.lookup(e);
               }, undefined);
               _ev2 = _expr4.eval(args[0]);
               throw new VMTimerException(_ev2 * 1000);
 
             case 51:
-              throw new VMutils/* VMError */.L1("Unknown instruction " + this.inst);
+              throw new utils/* VMError */.L1("Unknown instruction " + this.inst);
 
             case 52:
             case "end":
@@ -1695,7 +1695,7 @@ var VMCommandRunner = /*#__PURE__*/function () {
                 break;
               }
 
-              this.trace((0,VMexpr/* unparse */.Z)(this.gc.command));
+              this.trace((0,vm_expr/* unparse */.Z)(this.gc.command));
               _context2.next = 4;
               return this._eval.evaluate();
 
@@ -1910,7 +1910,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     var cmd = this.handler.commands[this._commandIndex];
 
     if (cmd.type === "ite") {
-      throw new VMutils/* VMError */.L1("ite not compiled away");
+      throw new utils/* VMError */.L1("ite not compiled away");
     }
 
     return cmd;
@@ -1982,7 +1982,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
           switch (_context5.prev = _context5.next) {
             case 0:
               sid = this._currentCommand.gc.sourceId;
-              this.emit(VMutils/* VM_COMMAND_ATTEMPTED */.Ed, sid);
+              this.emit(utils/* VM_COMMAND_ATTEMPTED */.Ed, sid);
               _context5.prev = 2;
               _context5.next = 5;
               return this._currentCommand.stepAsync();
@@ -2023,7 +2023,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               break;
 
             case 23:
-              if (!(_context5.t0 instanceof VMutils/* VMError */.L1)) {
+              if (!(_context5.t0 instanceof utils/* VMError */.L1)) {
                 _context5.next = 27;
                 break;
               }
@@ -2031,10 +2031,10 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               throw _context5.t0;
 
             case 27:
-              throw new VMutils/* VMError */.L1(_context5.t0.message);
+              throw new utils/* VMError */.L1(_context5.t0.message);
 
             case 28:
-              if (this._currentCommand.status === VMStatus.Completed) this.emit(VMutils/* VM_COMMAND_COMPLETED */.p_, this._currentCommand.gc.sourceId);
+              if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* VM_COMMAND_COMPLETED */.p_, this._currentCommand.gc.sourceId);
               if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
 
             case 30:
@@ -2105,9 +2105,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this4.bus = bus;
     _this4.roleManager = roleManager;
     _this4.program = program;
-    var compiled = (0,VMir/* compileProgram */.IJ)(program);
+    var compiled = (0,ir/* compileProgram */.IJ)(program);
 
-    var _checkProgram = (0,VMir/* checkProgram */.i_)(compiled),
+    var _checkProgram = (0,ir/* checkProgram */.i_)(compiled),
         registers = _checkProgram.registers,
         events = _checkProgram.events,
         errors = _checkProgram.errors;
@@ -2119,19 +2119,19 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     } // data structures for running program
 
 
-    _this4._env = new VMenvironment/* VMEnvironment */.u(registers, events);
+    _this4._env = new environment/* VMEnvironment */.u(registers, events);
     _this4._handlers = compiled.handlers.map(function (h, index) {
       return new VMHandlerRunner((0,assertThisInitialized/* default */.Z)(_this4), index, _this4._env, h);
     });
-    _this4._waitMutex = new VMutils/* Mutex */.WU();
-    _this4._breaksMutex = new VMutils/* Mutex */.WU();
-    _this4._sleepMutex = new VMutils/* Mutex */.WU(); // run on any change to environment
+    _this4._waitMutex = new utils/* Mutex */.WU();
+    _this4._breaksMutex = new utils/* Mutex */.WU();
+    _this4._sleepMutex = new utils/* Mutex */.WU(); // run on any change to environment
 
     _this4.mount(_this4._env.subscribe(constants/* CHANGE */.Ver, function () {
       _this4.runWithTry();
     }));
 
-    _this4.mount(_this4.subscribe(VMutils/* VM_WAKE_SLEEPER */.gf, /*#__PURE__*/function () {
+    _this4.mount(_this4.subscribe(utils/* VM_WAKE_SLEEPER */.gf, /*#__PURE__*/function () {
       var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee8(h) {
         var result;
         return regenerator_default().wrap(function _callee8$(_context8) {
@@ -2243,7 +2243,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     if (oldValue !== value) {
       this._watch[sourceId] = value;
-      this.emit(VMutils/* VM_WATCH_CHANGE */.UM, sourceId);
+      this.emit(utils/* VM_WATCH_CHANGE */.UM, sourceId);
     }
   };
 
@@ -2400,7 +2400,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                     switch (_context15.prev = _context15.next) {
                       case 0:
                         id = setTimeout(function () {
-                          _this8.emit(VMutils/* VM_WAKE_SLEEPER */.gf, handler);
+                          _this8.emit(utils/* VM_WAKE_SLEEPER */.gf, handler);
                         }, ms);
 
                         _this8._sleepQueue.push({
@@ -2653,7 +2653,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
               if (brkCommand) {
                 this._handlerAtBreak = h;
-                this.emit(VMutils/* VM_BREAKPOINT */.Di, h, (_brkCommand$gc = brkCommand.gc) === null || _brkCommand$gc === void 0 ? void 0 : _brkCommand$gc.sourceId);
+                this.emit(utils/* VM_BREAKPOINT */.Di, h, (_brkCommand$gc = brkCommand.gc) === null || _brkCommand$gc === void 0 ? void 0 : _brkCommand$gc.sourceId);
               }
 
               if (!(h.status !== VMStatus.Stopped)) {
@@ -3163,7 +3163,7 @@ var IconButtonWithTooltip = __webpack_require__(79885);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
 var Pause = __webpack_require__(66601);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
+var jdom_utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
 var PlayForWork = __webpack_require__(34264);
 // EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
@@ -3195,7 +3195,7 @@ function useWorkspaceBreakpoints(program, workspace) {
   var breakpoints = (0,react.useMemo)(function () {
     var _arrayConcatMany, _program$handlers;
 
-    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.map(function (h) {
+    return ((_arrayConcatMany = (0,jdom_utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.map(function (h) {
       return (// skip first command to avoid breaking on the event itself
         h.commands.slice(1).map(function (cmd) {
           return cmd.sourceId;
@@ -3382,7 +3382,7 @@ function VMRunnerButtons(props) {
 
 
   (0,react.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(VMutils/* VM_BREAKPOINT */.Di, function (_, sourceId) {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(utils/* VM_BREAKPOINT */.Di, function (_, sourceId) {
       console.log("breakpoint", {
         sourceId: sourceId,
         mounted: mounted()
@@ -3712,4 +3712,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-12b4d7699fdcfbac6581.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f9386cf470242182f8a5.js.map

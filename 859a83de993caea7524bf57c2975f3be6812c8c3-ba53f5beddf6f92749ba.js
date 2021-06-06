@@ -501,10 +501,10 @@ var eventsource = __webpack_require__(45484);
 var serviceclient = __webpack_require__(56763);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMexpr.ts
-var VMexpr = __webpack_require__(22036);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/VMenvironment.ts
-var VMenvironment = __webpack_require__(75133);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
+var vm_expr = __webpack_require__(18108);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
+var environment = __webpack_require__(96699);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/test/testrunner.ts
 
 
@@ -688,7 +688,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
       if (_this._startExpressions.findIndex(function (r) {
         return r.e === child;
       }) < 0) {
-        var exprEval = new VMexpr/* VMExprEvaluator */.W(_this.env, _this.callEval([]));
+        var exprEval = new vm_expr/* VMExprEvaluator */.W(_this.env, _this.callEval([]));
 
         _this._startExpressions.push({
           e: child,
@@ -704,14 +704,14 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
 
     var testFun = cmdToTestFunction(this.command);
     var replaceId = this.command.call.arguments.map(function (a, i) {
-      return ["{" + (i + 1) + "}", (0,VMexpr/* unparse */.Z)(a)];
+      return ["{" + (i + 1) + "}", (0,vm_expr/* unparse */.Z)(a)];
     });
     var replaceVal = this.command.call.arguments.map(function (a, i) {
       var aStart = _this2._startExpressions.find(function (r) {
         return r.e === a;
       });
 
-      return ["{" + (i + 1) + ":val}", aStart && aStart.v ? (0,utils/* roundWithPrecision */.JI)(aStart.v, 3).toString() : (0,VMexpr/* unparse */.Z)(a)];
+      return ["{" + (i + 1) + ":val}", aStart && aStart.v ? (0,utils/* roundWithPrecision */.JI)(aStart.v, 3).toString() : (0,vm_expr/* unparse */.Z)(a)];
     });
     this._prompt = testFun.id === "ask" || testFun.id === "say" ? this.command.prompt.slice(0) : testFun.prompt.slice(0);
     replaceId.forEach(function (p) {
@@ -725,7 +725,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
   _proto.setEvent = function setEvent(ev) {};
 
   _proto.checkExpression = function checkExpression(e) {
-    var expr = new VMexpr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
+    var expr = new vm_expr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
     return expr.eval(e) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
   };
 
@@ -766,7 +766,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
             case 12:
               goal = this.getStart(args[1]);
               error = this.getStart(args[2]);
-              expr = new VMexpr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
+              expr = new vm_expr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
               ev = expr.eval(args[0]);
               if (Math.abs(ev - goal.v) <= error.v) this._status = JDTestCommandStatus.Passed;
               this._progress = "current: " + pretify(ev) + "; goal: " + pretify(goal.v) + "; error: " + pretify(error.v);
@@ -776,7 +776,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
               regSaved = this._startExpressions.find(function (r) {
                 return r.e === args[0];
               });
-              regValue = this.env((0,VMexpr/* unparse */.Z)(args[0]));
+              regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
               status = regValue && regSaved.v && (testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
               this._status = status;
               regSaved.v = regValue;
@@ -785,7 +785,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
             case 25:
               _regSaved = this.getStart(args[0]);
               amtSaved = this.getStart(args[1]);
-              _regValue = this.env((0,VMexpr/* unparse */.Z)(args[0]));
+              _regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
 
               if (testFun.id === "increasesBy") {
                 if (_regValue >= _regSaved.v + amtSaved.v) {
@@ -812,7 +812,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
 
             case 30:
               this._status = JDTestCommandStatus.Active;
-              _regValue2 = this.env((0,VMexpr/* unparse */.Z)(args[0]));
+              _regValue2 = this.env((0,vm_expr/* unparse */.Z)(args[0]));
               beginSaved = this.getStart(args[0]);
               endSaved = this.getStart(args[1]);
 
@@ -871,7 +871,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("break", 50);
 
             case 43:
-              _expr = new VMexpr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
+              _expr = new vm_expr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
               _ev3 = _expr.eval(args[1]);
               reg = args[0];
               _context.next = 48;
@@ -1405,7 +1405,7 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     _this6 = _JDServiceClient.call(this, service) || this;
     _this6._testIndex = -1;
     _this6.testSpec = testSpec;
-    _this6._env = new VMenvironment/* VMServiceEnvironment */.K(service);
+    _this6._env = new environment/* VMServiceEnvironment */.K(service);
     _this6.tests = _this6.testSpec.tests.map(function (t) {
       return new JDTestRunner((0,assertThisInitialized/* default */.Z)(_this6), t);
     });
@@ -1973,4 +1973,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-8703c5dd78da2c4e3e88.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-ba53f5beddf6f92749ba.js.map

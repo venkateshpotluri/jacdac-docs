@@ -1,6 +1,6 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[3],{
 
-/***/ 75133:
+/***/ 96699:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -521,7 +521,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
 /***/ }),
 
-/***/ 22036:
+/***/ 18108:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -529,7 +529,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Z": function() { return /* binding */ unparse; },
 /* harmony export */   "W": function() { return /* binding */ VMExprEvaluator; }
 /* harmony export */ });
-/* harmony import */ var _VMutils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69705);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94624);
 
 function unparse(e) {
   switch (e.type) {
@@ -768,7 +768,7 @@ var VMExprEvaluator = /*#__PURE__*/function () {
           var val = this.env(e);
 
           if (val === undefined) {
-            throw new _VMutils__WEBPACK_IMPORTED_MODULE_0__/* .VMError */ .L1("lookup of " + unparse(e) + " failed");
+            throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .VMError */ .L1("lookup of " + unparse(e) + " failed");
           }
 
           this.exprStack.push(val);
@@ -781,7 +781,7 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 
           var _val = this.env(id.name);
 
-          if (_val === undefined) throw new _VMutils__WEBPACK_IMPORTED_MODULE_0__/* .VMError */ .L1("lookup of " + id.name + " failed");
+          if (_val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .VMError */ .L1("lookup of " + id.name + " failed");
           this.exprStack.push(_val);
           return;
         }
@@ -798,86 +798,6 @@ var VMExprEvaluator = /*#__PURE__*/function () {
   };
 
   return VMExprEvaluator;
-}();
-
-/***/ }),
-
-/***/ 69705:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
-/* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
-/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
-/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
-/* harmony export */   "gf": function() { return /* binding */ VM_WAKE_SLEEPER; },
-/* harmony export */   "L1": function() { return /* binding */ VMError; },
-/* harmony export */   "WU": function() { return /* binding */ Mutex; }
-/* harmony export */ });
-/* unused harmony exports VM_ERROR, VM_MISSING_ROLE_WARNING, VM_MISSING_DEVICE_WARNING, default */
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
-/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
-
-
-var VM_ERROR = "vmError";
-var VM_WATCH_CHANGE = "vmWatchChange";
-var VM_MISSING_ROLE_WARNING = "vmMissingRole";
-var VM_MISSING_DEVICE_WARNING = "vmMissingDevice";
-var VM_BREAKPOINT = "vmBreakpoint";
-var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
-var VM_COMMAND_COMPLETED = "vmCommandCompleted";
-var VM_WAKE_SLEEPER = "vmWakeSleeper";
-var VMError = /*#__PURE__*/function (_Error) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(VMError, _Error);
-
-  function VMError(message, jacdacName) {
-    var _this;
-
-    _this = _Error.call(this, message) || this;
-    _this.jacdacName = jacdacName;
-    _this.name = VM_ERROR;
-    return _this;
-  }
-
-  return VMError;
-}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
-function errorPath(e) {
-  return e === null || e === void 0 ? void 0 : e.jacdacName;
-}
-var Mutex = /*#__PURE__*/function () {
-  function Mutex() {
-    this.promises = [];
-  }
-
-  var _proto = Mutex.prototype;
-
-  _proto.shift = function shift() {
-    this.promises.shift();
-    if (this.promises[0]) this.promises[0]();
-  };
-
-  _proto.acquire = function acquire(f) {
-    var _this2 = this;
-
-    return new Promise(function (resolve, reject) {
-      _this2.promises.push(function () {
-        return f().then(function (v) {
-          _this2.shift();
-
-          resolve(v);
-        }, function (e) {
-          _this2.shift();
-
-          reject(e);
-        });
-      });
-
-      if (_this2.promises.length == 1) _this2.promises[0]();
-    });
-  };
-
-  return Mutex;
 }();
 
 /***/ }),
@@ -1148,7 +1068,87 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   return RoleManager;
 }(_jdom_eventsource__WEBPACK_IMPORTED_MODULE_1__/* .JDEventSource */ .a);
 
+/***/ }),
+
+/***/ 94624:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
+/* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
+/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
+/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
+/* harmony export */   "gf": function() { return /* binding */ VM_WAKE_SLEEPER; },
+/* harmony export */   "L1": function() { return /* binding */ VMError; },
+/* harmony export */   "WU": function() { return /* binding */ Mutex; }
+/* harmony export */ });
+/* unused harmony exports VM_ERROR, VM_MISSING_ROLE_WARNING, VM_MISSING_DEVICE_WARNING, default */
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+
+
+var VM_ERROR = "vmError";
+var VM_WATCH_CHANGE = "vmWatchChange";
+var VM_MISSING_ROLE_WARNING = "vmMissingRole";
+var VM_MISSING_DEVICE_WARNING = "vmMissingDevice";
+var VM_BREAKPOINT = "vmBreakpoint";
+var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
+var VM_COMMAND_COMPLETED = "vmCommandCompleted";
+var VM_WAKE_SLEEPER = "vmWakeSleeper";
+var VMError = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(VMError, _Error);
+
+  function VMError(message, jacdacName) {
+    var _this;
+
+    _this = _Error.call(this, message) || this;
+    _this.jacdacName = jacdacName;
+    _this.name = VM_ERROR;
+    return _this;
+  }
+
+  return VMError;
+}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
+function errorPath(e) {
+  return e === null || e === void 0 ? void 0 : e.jacdacName;
+}
+var Mutex = /*#__PURE__*/function () {
+  function Mutex() {
+    this.promises = [];
+  }
+
+  var _proto = Mutex.prototype;
+
+  _proto.shift = function shift() {
+    this.promises.shift();
+    if (this.promises[0]) this.promises[0]();
+  };
+
+  _proto.acquire = function acquire(f) {
+    var _this2 = this;
+
+    return new Promise(function (resolve, reject) {
+      _this2.promises.push(function () {
+        return f().then(function (v) {
+          _this2.shift();
+
+          resolve(v);
+        }, function (e) {
+          _this2.shift();
+
+          reject(e);
+        });
+      });
+
+      if (_this2.promises.length == 1) _this2.promises[0]();
+    });
+  };
+
+  return Mutex;
+}();
+
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-afae2b4ad935eaba602f.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-46c70251761098bc4e3b.js.map
