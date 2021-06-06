@@ -48540,8 +48540,8 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   _proto.reset = function reset() {
     this.registers = [];
     this.events = [];
-  } // TODO: OR
-  ;
+    this.roles = [];
+  };
 
   _proto.check = function check(e, type) {
     if (!e) {
@@ -48556,29 +48556,30 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   };
 
   _proto.specResolve = function specResolve(e) {
+    var ret = undefined;
+
     if (this.spec) {
-      return {
+      ret = {
         role: this.spec.shortName,
         spec: this.spec,
         rest: e
       };
-    } // otherwise, we must have a memberexpression at top-level
-    // where the object references a role variable or specification shortName
-
-
-    if (this.check(e, "MemberExpression") && this.check(e.object, "Identifier") && this.role2spec) {
+    } else if (this.check(e, "MemberExpression") && this.check(e.object, "Identifier") && this.role2spec) {
       var obj = e.object;
 
       if (!this.role2spec(obj.name)) {
         this.error("no specification found for " + obj.name);
       }
 
-      return {
+      ret = {
         role: obj.name,
         spec: this.role2spec(obj.name),
         rest: e.property
       };
     }
+
+    if (ret && this.roles.indexOf(ret.role) < 0) this.registers.push(ret.role);
+    return ret;
   };
 
   _proto.destructAccessPath = function destructAccessPath(e, expectIdentifier) {
@@ -49452,6 +49453,9 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "CM_": function() { return /* binding */ ERROR_MICROBIT_UNKNOWN; },
 /* harmony export */   "kbU": function() { return /* binding */ ERROR_MICROBIT_JACDAC_MISSING; },
 /* harmony export */   "mZW": function() { return /* binding */ ERROR_MICROBIT_INVALID_MEMORY; },
+/* harmony export */   "l9m": function() { return /* binding */ ROLE_BOUND; },
+/* harmony export */   "CCp": function() { return /* binding */ ROLE_UNBOUND; },
+/* harmony export */   "ky2": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
 /* harmony export */   "GZs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.GZs; },
 /* harmony export */   "qdU": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.qdU; },
@@ -49770,6 +49774,9 @@ var ERROR_MICROBIT_V1 = "microbit/v1-not-supported";
 var ERROR_MICROBIT_UNKNOWN = "microbit/unknown-hardware-revision";
 var ERROR_MICROBIT_JACDAC_MISSING = "microbit/jacdac-missing";
 var ERROR_MICROBIT_INVALID_MEMORY = "microbit/invalid-memory";
+var ROLE_BOUND = "roleBound";
+var ROLE_UNBOUND = "roleUnbound";
+var ROLE_HAS_NO_SERVICE = "roleHasNoService";
 
 
 /***/ }),
@@ -70324,7 +70331,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "3e8d3578d674b562a0982bab0783029f47ffd7cd";
+  var sha = "35a92620d298ac4db6322239533fe2b0098b9e7a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -79327,7 +79334,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.56"};
+var package_namespaceObject = {"i8":"1.13.59"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -81763,7 +81770,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3802), __webpack_require__.e(7541), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 83571));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3802), __webpack_require__.e(7541), __webpack_require__.e(3), __webpack_require__.e(4841), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 92366));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86598,4 +86605,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-102d492d70d8eda0db7b.js.map
+//# sourceMappingURL=app-117c93d3c3818ff8417b.js.map

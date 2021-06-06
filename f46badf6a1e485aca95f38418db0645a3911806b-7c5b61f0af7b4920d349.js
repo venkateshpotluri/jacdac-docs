@@ -359,41 +359,154 @@ addToUnscopables('flatMap');
 
 /***/ }),
 
-/***/ 68290:
+/***/ 2864:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "EB": function() { return /* binding */ toIdentifier; },
-/* harmony export */   "vf": function() { return /* binding */ toMemberExpression; },
-/* harmony export */   "IJ": function() { return /* binding */ compileProgram; },
-/* harmony export */   "i_": function() { return /* binding */ checkProgram; }
+/* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
+/* harmony export */   "Jg": function() { return /* binding */ escapeName; },
+/* harmony export */   "d0": function() { return /* binding */ DTDLUnits; }
 /* harmony export */ });
-/* unused harmony exports getServiceFromRole, VMFunctions */
-/* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13173);
-/* harmony import */ var _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30055);
-/* harmony import */ var _jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, escapeDisplayName */
+/***
+ *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
+ */
+var DTDL_REFERENCE_URL = "https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md";
+var DTDL_NAME = "Digital Twins Definition Language";
+var DTDL_CONTEXT = "dtmi:dtdl:context;2"; // warps fields into an object
 
-
-
-var getServiceFromRole = function getServiceFromRole(info) {
-  return function (role) {
-    // lookup in roles first
-    var shortId = info.roles.find(function (pair) {
-      return pair.role === role;
-    });
-
-    if (shortId) {
-      // must succeed
-      var def = (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromName */ .kB)(shortId.serviceShortId);
-      (0,_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .assert */ .hu)(!!def, "service " + shortId.serviceShortId + " not resolved");
-      return def;
-    } else {
-      var service = (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromName */ .kB)(role);
-      return service;
-    }
+function objectSchema(schemas) {
+  return {
+    "@type": "Object",
+    fields: schemas
   };
-};
+} // wraps a schema into an array
+
+function arraySchema(schema) {
+  return {
+    "@type": "Array",
+    elementSchema: schema
+  };
+}
+function escapeName(name) {
+  name = name.trim().replace(/[^a-zA-Z0-9_]/g, "_");
+  if (!/^[a-zA-Z]/.test(name)) name = "a" + name;
+  name = name[0].toLowerCase() + name.slice(1);
+  return name.slice(0, 64);
+}
+function escapeDisplayName(name) {
+  return name.slice(0, 64);
+}
+function DTDLUnits() {
+  return ["metrePerSecondSquared", "centimetrePerSecondSquared", "gForce", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radianPerSecondSquared", "radianPerSecond", "degreePerSecond", "revolutionPerSecond", "revolutionPerMinute", "squareMetre", "squareCentimetre", "squareMillimetre", "squareKilometre", "hectare", "squareFoot", "squareInch", "acre", "farad", "millifarad", "microfarad", "nanofarad", "picofarad", "ampere", "microampere", "milliampere", "bitPerSecond", "kibibitPerSecond", "mebibitPerSecond", "gibibitPerSecond", "tebibitPerSecond", "exbibitPerSecond", "zebibitPerSecond", "yobibitPerSecond", "bytePerSecond", "kibibytePerSecond", "mebibytePerSecond", "gibibytePerSecond", "tebibytePerSecond", "exbibytePerSecond", "zebibytePerSecond", "yobibytePerSecond", "bit", "kibibit", "mebibit", "gibibit", "tebibit", "exbibit", "zebibit", "yobibit", "byte", "kibibyte", "mebibyte", "gibibyte", "tebibyte", "exbibyte", "zebibyte", "yobibyte", "kilogramPerCubicMetre", "gramPerCubicMetre", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "coulomb", "joule", "kilojoule", "megajoule", "gigajoule", "electronvolt", "megaelectronvolt", "kilowattHour", "newton", "pound", "ounce", "ton", "hertz", "kilohertz", "megahertz", "gigahertz", "kilogramPerCubicMetre", "gramPerCubicMetre", "lux", "footcandle", "henry", "millihenry", "microhenry", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "candelaPerSquareMetre", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "lumen", "candela", "weber", "maxwell", "tesla", "kilogram", "gram", "milligram", "microgram", "tonne", "slug", "gramPerSecond", "kilogramPerSecond", "gramPerHour", "kilogramPerHour", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "pascal", "kilopascal", "bar", "millibar", "millimetresOfMercury", "poundPerSquareInch", "inchesOfMercury", "inchesOfWater", "unity percent", "ohm", "milliohm", "kiloohm", "megaohm", "decibel", "bel", "kelvin", "degreeCelsius", "degreeFahrenheit", "newton", "pound", "ounce", "ton", "second", "millisecond", "microsecond", "nanosecond", "minute", "hour", "day", "year", "newtonMetre", "metrePerSecond", "centimetrePerSecond", "kilometrePerSecond", "metrePerHour", "kilometrePerHour", "milePerHour", "milePerSecond", "knot", "volt", "millivolt", "microvolt", "kilovolt", "megavolt", "cubicMetre", "cubicCentimetre", "litre", "millilitre", "cubicFoot", "cubicInch", "fluidOunce", "gallon", "litrePerSecond", "millilitrePerSecond", "litrePerHour", "millilitrePerHour"];
+}
+
+/***/ }),
+
+/***/ 79973:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "i_": function() { return /* binding */ checkProgram; },
+  "IJ": function() { return /* binding */ compileProgram; },
+  "EB": function() { return /* binding */ toIdentifier; },
+  "vf": function() { return /* binding */ toMemberExpression; }
+});
+
+// UNUSED EXPORTS: getServiceFromRole
+
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/ir.ts
+var VMFunctions = [{
+  id: "label",
+  args: ["Identifier"],
+  prompt: "label target {1}",
+  context: "command"
+}, {
+  id: "jump",
+  args: ["Identifier"],
+  prompt: "jump to label {1}",
+  context: "command"
+}, {
+  id: "branchOnCondition",
+  args: ["boolean", "Identifier"],
+  prompt: "if {1} then jump to label {2}",
+  context: "command"
+}, {
+  id: "awaitRegister",
+  args: ["register"],
+  prompt: "wait on register {1} to change value",
+  context: "command"
+}, {
+  id: "awaitChange",
+  args: ["register", "number"],
+  prompt: "wait for register {1} to change by {2}",
+  context: "command"
+}, {
+  id: "wait",
+  args: ["number"],
+  prompt: "wait for {1} milliseconds",
+  context: "command"
+}, {
+  id: "watch",
+  args: ["number"],
+  prompt: "watch expression {1}",
+  context: "command"
+}, {
+  id: "awaitEvent",
+  args: ["event", ["boolean", true]],
+  prompt: "wait for event {1} and then check {2} (other events ignored)",
+  context: "command"
+}, {
+  id: "awaitCondition",
+  args: ["boolean"],
+  prompt: "wait for condition {1}",
+  context: "command"
+}, {
+  id: "writeRegister",
+  args: ["register", "number"],
+  prompt: "write value {2:val} to {1}",
+  context: "command"
+}, {
+  id: "writeLocal",
+  args: ["register", "number"],
+  prompt: "write value {2:val} to {1}",
+  context: "command"
+}, {
+  id: "halt",
+  args: [],
+  prompt: "terminates the current handler",
+  context: "command"
+}, {
+  id: "nop",
+  args: [],
+  prompt: "no operation",
+  context: "command"
+}, {
+  id: "onRoleConnected",
+  args: ["Identifier"],
+  prompt: "fires when a role is connected",
+  context: "command"
+}, {
+  id: "onRoleDisconnected",
+  args: ["Identifier"],
+  prompt: "fires when a role is disconnected",
+  context: "command"
+}];
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
+var jdutils = __webpack_require__(30055);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/compile.ts
+
+
+
+
 function toIdentifier(id) {
   return {
     type: "Identifier",
@@ -503,7 +616,7 @@ function removeIfThenElse(handler) {
 
       case 2:
         {
-          (0,_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .assert */ .hu)(labels.length > 0);
+          (0,utils/* assert */.hu)(labels.length > 0);
           var _end2 = labels[labels.length - 1].end;
           newSequence.push({
             type: "cmd",
@@ -522,6 +635,24 @@ function removeIfThenElse(handler) {
   return newSequence;
 }
 
+var getServiceFromRole = function getServiceFromRole(info) {
+  return function (role) {
+    // lookup in roles first
+    var shortId = info.roles.find(function (pair) {
+      return pair.role === role;
+    });
+
+    if (shortId) {
+      // must succeed
+      var def = (0,spec/* serviceSpecificationFromName */.kB)(shortId.serviceShortId);
+      (0,utils/* assert */.hu)(!!def, "service " + shortId.serviceShortId + " not resolved");
+      return def;
+    } else {
+      var service = (0,spec/* serviceSpecificationFromName */.kB)(role);
+      return service;
+    }
+  };
+};
 function checkProgram(prog) {
   var allErrors = [];
   var goodHandlers = [];
@@ -534,8 +665,8 @@ function checkProgram(prog) {
     });
   };
 
-  var symbolResolver = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .SpecSymbolResolver */ .ll(undefined, getServiceFromRole(prog), errorFun);
-  var checker = new _jacdac_spec_spectool_jdutils__WEBPACK_IMPORTED_MODULE_2__/* .VMChecker */ .Ys(symbolResolver, function (_) {
+  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(undefined, getServiceFromRole(prog), errorFun);
+  var checker = new jdutils/* VMChecker */.Ys(symbolResolver, function (_) {
     return true;
   }, errorFun);
   prog.handlers.forEach(function (h) {
@@ -547,11 +678,13 @@ function checkProgram(prog) {
     }
 
     var errorCount = allErrors.length;
+    symbolResolver.roles = [];
     handlerVisitor(h, undefined, function (c) {
       return checker.checkCommand(c.command, VMFunctions);
     });
 
     if ((h === null || h === void 0 ? void 0 : h.errors.length) === 0 && allErrors.length === errorCount) {
+      h.roles = symbolResolver.roles;
       goodHandlers.push(h);
     } else {
       h === null || h === void 0 ? void 0 : h.errors.forEach(function (e) {
@@ -584,72 +717,6 @@ function checkProgram(prog) {
     errors: allErrors
   };
 }
-var VMFunctions = [{
-  id: "label",
-  args: ["Identifier"],
-  prompt: "label target {1}",
-  context: "command"
-}, {
-  id: "jump",
-  args: ["Identifier"],
-  prompt: "jump to label {1}",
-  context: "command"
-}, {
-  id: "branchOnCondition",
-  args: ["boolean", "Identifier"],
-  prompt: "if {1} then jump to label {2}",
-  context: "command"
-}, {
-  id: "awaitRegister",
-  args: ["register"],
-  prompt: "wait on register {1} to change value",
-  context: "command"
-}, {
-  id: "awaitChange",
-  args: ["register", "number"],
-  prompt: "wait for register {1} to change by {2}",
-  context: "command"
-}, {
-  id: "wait",
-  args: ["number"],
-  prompt: "wait for {1} milliseconds",
-  context: "command"
-}, {
-  id: "watch",
-  args: ["number"],
-  prompt: "watch expression {1}",
-  context: "command"
-}, {
-  id: "awaitEvent",
-  args: ["event", ["boolean", true]],
-  prompt: "wait for event {1} and then check {2} (other events ignored)",
-  context: "command"
-}, {
-  id: "awaitCondition",
-  args: ["boolean"],
-  prompt: "wait for condition {1}",
-  context: "command"
-}, {
-  id: "writeRegister",
-  args: ["register", "number"],
-  prompt: "write value {2:val} to {1}",
-  context: "command"
-}, {
-  id: "writeLocal",
-  args: ["register", "number"],
-  prompt: "write value {2:val} to {1}",
-  context: "command"
-}, {
-  id: "halt",
-  args: [],
-  prompt: "terminates the current handler",
-  context: "command"
-}, {
-  id: "nop",
-  args: [],
-  prompt: "no operation",
-  context: "command"
-}];
 
 /***/ }),
 
@@ -1880,7 +1947,10 @@ function fieldShadows() {
 }
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
+// EXTERNAL MODULE: ./jacdac-ts/src/azure-iot/dtdl.ts
+var dtdl = __webpack_require__(2864);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
+
 
 
 
@@ -1949,6 +2019,7 @@ function createBlockTheme(theme) {
   var otherColor = theme.palette.info.main;
   var commandColor = theme.palette.warning.main;
   var debuggerColor = theme.palette.grey[600];
+  var deviceTwinColor = theme.palette.error.light;
 
   var serviceColor = function serviceColor(srv) {
     return (0,jdom_spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
@@ -1959,11 +2030,22 @@ function createBlockTheme(theme) {
     sensorColor: sensorColor,
     commandColor: commandColor,
     debuggerColor: debuggerColor,
-    otherColor: otherColor
+    otherColor: otherColor,
+    deviceTwinColor: deviceTwinColor
   };
 }
 
-function loadBlocks(serviceColor, commandColor, debuggerColor) {
+var codeStatementType = "Code";
+var deviceTwinContentType = "DeviceTwinContent";
+var deviceTwinCommonOptionType = "DeviceTwinCommonOption";
+var deviceTwinPropertyOptionType = "DeviceTwinPropertyOption";
+var deviceTwinTelemetryOptionType = "DeviceTwinTelemetryOption";
+var deviceTwinStatementType = [deviceTwinContentType];
+var deviceTwinCommonOptionStatementType = [deviceTwinCommonOptionType];
+var deviceTwinPropertyOptionStatementType = [deviceTwinPropertyOptionType].concat(deviceTwinCommonOptionStatementType);
+var deviceTwinTelemetryOptionStatementType = [deviceTwinTelemetryOptionType].concat(deviceTwinCommonOptionStatementType);
+
+function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) {
   // blocks
   var customShadows = [{
     serviceClass: constants/* SRV_SERVO */.$X_,
@@ -2134,8 +2216,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       }],
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
       tooltip: "Send a keyboard key combo",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2169,8 +2251,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       },
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
       tooltip: "Fade LED color",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2195,8 +2277,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       },
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
       tooltip: "Display a number of the screen",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2214,8 +2296,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       }],
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
       tooltip: "Display LEDs on the LED matrix",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2242,7 +2324,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       }],
       colour: serviceColor(service),
       inputsInline: true,
-      nextStatement: null,
+      nextStatement: codeStatementType,
       tooltip: "Events for the " + service.name + " service",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2306,7 +2388,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       }),
       values: fieldsToValues(service, register),
       inputsInline: true,
-      nextStatement: null,
+      nextStatement: codeStatementType,
       colour: serviceColor(service),
       tooltip: "Event raised when " + register.name + " changes",
       helpUrl: serviceHelp(service),
@@ -2459,8 +2541,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       helpUrl: serviceHelp(service),
       service: service,
       register: register,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
       template: "register_set"
     };
   });
@@ -2479,8 +2561,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       helpUrl: serviceHelp(service),
       service: service,
       command: command,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
       template: "command"
     };
   });
@@ -2493,6 +2575,17 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       type: "field_dropdown",
       name: "value",
       options: [["enabled", "on"], ["disabled", "off"]]
+    }],
+    style: "logic_blocks",
+    output: "Boolean"
+  }, {
+    kind: "block",
+    type: "jacdac_yes_no",
+    message0: "%1",
+    args0: [{
+      type: "field_dropdown",
+      name: "value",
+      options: [["yes", "on"], ["no", "off"]]
     }],
     style: "logic_blocks",
     output: "Boolean"
@@ -2583,8 +2676,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       check: "Number"
     }],
     inputsInline: true,
-    previousStatement: null,
-    nextStatement: null,
+    previousStatement: codeStatementType,
+    nextStatement: codeStatementType,
     colour: commandColor,
     tooltip: "Wait the desired time",
     helpUrl: ""
@@ -2606,7 +2699,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       options: [["connected", "connected"], ["disconnected", "disconnected"]]
     }],
     inputsInline: true,
-    nextStatement: null,
+    nextStatement: codeStatementType,
     colour: commandColor,
     tooltip: "Runs code when a role is connected or disconnected",
     helpUrl: "",
@@ -2654,8 +2747,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
       }
     },
     inputsInline: true,
-    previousStatement: null,
-    nextStatement: null,
+    previousStatement: codeStatementType,
+    nextStatement: codeStatementType,
     colour: commandColor,
     tooltip: "Sets the color on the status light",
     helpUrl: ""
@@ -2736,7 +2829,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     tooltip: "Repeats code at a given interval in seconds",
     helpUrl: "",
     template: "every",
-    nextStatement: null
+    nextStatement: codeStatementType
   }];
   var mathBlocks = [{
     kind: "block",
@@ -2828,7 +2921,121 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     output: "Number",
     style: "math_blocks"
   }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks); // register field editors
+  var deviceTwinsBlocks = [{
+    kind: "block",
+    type: toolbox/* DEVICE_TWIN_DEFINITION_BLOCK */.M1,
+    message0: "device twin id %1",
+    args0: [{
+      type: "field_input",
+      name: "id"
+    }],
+    inputsInline: true,
+    nextStatement: deviceTwinStatementType,
+    template: "dtdl",
+    colour: deviceTwinColor
+  }, {
+    kind: "block",
+    type: toolbox/* DEVICE_TWIN_PROPERTY_BLOCK */.x$,
+    message0: "property %1 %2",
+    args0: [{
+      type: "field_variable",
+      name: "name",
+      variable: "property 1",
+      variableTypes: [toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv],
+      defaultType: toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv
+    }, {
+      type: "input_statement",
+      name: "options",
+      check: deviceTwinPropertyOptionStatementType
+    }],
+    previousStatement: deviceTwinStatementType,
+    nextStatement: deviceTwinStatementType,
+    template: "dtdl",
+    colour: deviceTwinColor
+  }, {
+    kind: "block",
+    type: toolbox/* DEVICE_TWIN_TELEMETRY_BLOCK */.Ff,
+    message0: "telemetry %1 %2",
+    args0: [{
+      type: "field_variable",
+      name: "name",
+      variable: "telemetry 1",
+      variableTypes: [toolbox/* DEVICE_TWIN_TELEMETRY_TYPE */.FG],
+      defaultType: toolbox/* DEVICE_TWIN_TELEMETRY_TYPE */.FG
+    }, {
+      type: "input_statement",
+      name: "options",
+      check: deviceTwinTelemetryOptionStatementType
+    }],
+    previousStatement: deviceTwinStatementType,
+    nextStatement: deviceTwinStatementType,
+    template: "dtdl",
+    colour: deviceTwinColor
+  }, // options
+  {
+    kind: "block",
+    type: "device_twin_option_writeable",
+    message0: "writeable %1",
+    args0: [{
+      type: "field_dropdown",
+      name: "value",
+      options: [["yes", "on"], ["no", "off"]]
+    }],
+    previousStatement: deviceTwinPropertyOptionStatementType,
+    nextStatement: deviceTwinPropertyOptionStatementType,
+    template: "dtdlOption",
+    colour: deviceTwinColor,
+    inputsInline: false
+  }, {
+    kind: "block",
+    type: "device_twin_option_value",
+    message0: "value %1 %2 %3 %4",
+    args0: [{
+      type: "field_variable",
+      name: "variable",
+      variable: "value 1",
+      variableTypes: [toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz],
+      defaultType: toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz
+    }, {
+      type: "field_dropdown",
+      name: "type",
+      options: ["float", "boolean", "string", "integer"].map(function (unit) {
+        return [unit, unit];
+      })
+    }, {
+      type: "field_dropdown",
+      name: "unit",
+      options: (0,dtdl/* DTDLUnits */.d0)().map(function (unit) {
+        return [unit, unit];
+      })
+    }, {
+      type: "input_value",
+      name: "value"
+    }],
+    previousStatement: deviceTwinCommonOptionStatementType,
+    nextStatement: deviceTwinCommonOptionStatementType,
+    template: "dtdlOption",
+    colour: deviceTwinColor,
+    inputsInline: false
+  }, {
+    kind: "block",
+    type: "device_twin_option_comment",
+    message0: "%1 %2",
+    args0: [{
+      type: "field_dropdown",
+      name: "type",
+      options: [["comment", "comment"], ["description", "description"], ["display name", "displayName"]]
+    }, {
+      type: "field_multilinetext",
+      name: "text"
+    }],
+    previousStatement: deviceTwinCommonOptionStatementType,
+    nextStatement: deviceTwinCommonOptionStatementType,
+    template: "dtdlOption",
+    colour: deviceTwinColor,
+    inputsInline: false
+  }];
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks, deviceTwinsBlocks); // register field editors
 
   registerFields(); // re-register blocks with blocklys
 
@@ -2858,6 +3065,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor) {
     blocks: blocks,
     serviceBlocks: serviceBlocks,
     eventFieldBlocks: eventFieldBlocks,
+    deviceTwinsBlocks: deviceTwinsBlocks,
     services: services
   };
 }
@@ -2901,13 +3109,15 @@ function useToolbox(props) {
   var _createBlockTheme = createBlockTheme(theme),
       serviceColor = _createBlockTheme.serviceColor,
       commandColor = _createBlockTheme.commandColor,
-      debuggerColor = _createBlockTheme.debuggerColor;
+      debuggerColor = _createBlockTheme.debuggerColor,
+      deviceTwinColor = _createBlockTheme.deviceTwinColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks(serviceColor, commandColor, debuggerColor);
+    return loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       eventFieldBlocks = _useMemo.eventFieldBlocks,
+      deviceTwinsBlocks = _useMemo.deviceTwinsBlocks,
       services = _useMemo.services;
 
   var blockServices = (program === null || program === void 0 ? void 0 : program.roles.map(function (r) {
@@ -3037,7 +3247,7 @@ function useToolbox(props) {
       return !!b;
     })
   };
-  var modulesCategory = {
+  var toolsCategory = {
     kind: "category",
     name: "Tools",
     colour: debuggerColor,
@@ -3147,13 +3357,25 @@ function useToolbox(props) {
     colour: "%{BKY_VARIABLES_HUE}",
     custom: "VARIABLE"
   };
+  var deviceTwinsCategory = {
+    kind: "category",
+    name: "Device Twin",
+    colour: deviceTwinColor,
+    contents: (0,toConsumableArray/* default */.Z)(deviceTwinsBlocks.map(function (_ref22) {
+      var type = _ref22.type;
+      return {
+        kind: "block",
+        type: type
+      };
+    }))
+  };
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [(servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
+    contents: [deviceTwinsCategory].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [(servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
       kind: "sep"
     }, commandsCategory, logicCategory, mathCategory, variablesCategory, {
       kind: "sep"
-    }, modulesCategory]).filter(function (cat) {
+    }, toolsCategory]).filter(function (cat) {
       return !!cat;
     }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
@@ -3195,8 +3417,8 @@ var wrapNativeSuper = __webpack_require__(57869);
 var es_array_flat_map = __webpack_require__(86535);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
 var es_array_unscopables_flat_map = __webpack_require__(99244);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
-var ir = __webpack_require__(68290);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/compile.ts + 1 modules
+var compile = __webpack_require__(79973);
 ;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
 
 
@@ -3367,7 +3589,7 @@ function workspaceJSONToVMProgram(workspace) {
                         register = _ref.register;
                     var role = inputs[0].fields["role"].value;
                     var field = inputs[0].fields["field"];
-                    return (0,ir/* toMemberExpression */.vf)(role, field ? (0,ir/* toMemberExpression */.vf)(register.name, field.value) : register.name);
+                    return (0,compile/* toMemberExpression */.vf)(role, field ? (0,compile/* toMemberExpression */.vf)(register.name, field.value) : register.name);
                   }
 
                 case "event_field":
@@ -3383,7 +3605,7 @@ function workspaceJSONToVMProgram(workspace) {
                     }
 
                     var _field = inputs[0].fields["field"];
-                    return (0,ir/* toMemberExpression */.vf)(ev.role, (0,ir/* toMemberExpression */.vf)(ev.event, _field.value));
+                    return (0,compile/* toMemberExpression */.vf)(ev.role, (0,compile/* toMemberExpression */.vf)(ev.event, _field.value));
                   }
 
                 case "shadow":
@@ -3449,7 +3671,7 @@ function workspaceJSONToVMProgram(workspace) {
         cmd: makeVMBase(block, {
           type: "CallExpression",
           arguments: [time],
-          callee: (0,ir/* toIdentifier */.EB)("wait")
+          callee: (0,compile/* toIdentifier */.EB)("wait")
         }),
         errors: processErrors(block, errors)
       };
@@ -3546,8 +3768,8 @@ function workspaceJSONToVMProgram(workspace) {
                   return {
                     cmd: makeVMBase(block, {
                       type: "CallExpression",
-                      arguments: [(0,ir/* toMemberExpression */.vf)(role, register.name), _expr],
-                      callee: (0,ir/* toIdentifier */.EB)("writeRegister")
+                      arguments: [(0,compile/* toMemberExpression */.vf)(role, register.name), _expr],
+                      callee: (0,compile/* toIdentifier */.EB)("writeRegister")
                     }),
                     errors: processErrors(block, _errors)
                   };
@@ -3567,7 +3789,7 @@ function workspaceJSONToVMProgram(workspace) {
                       arguments: exprsErrors.map(function (p) {
                         return p.expr;
                       }),
-                      callee: (0,ir/* toMemberExpression */.vf)(_role, serviceCommand.name)
+                      callee: (0,compile/* toMemberExpression */.vf)(_role, serviceCommand.name)
                     }),
                     errors: processErrors(block, exprsErrors.flatMap(function (p) {
                       return p.errors;
@@ -3594,7 +3816,7 @@ function workspaceJSONToVMProgram(workspace) {
   var nop = {
     type: "CallExpression",
     arguments: [],
-    callee: (0,ir/* toIdentifier */.EB)("nop")
+    callee: (0,compile/* toIdentifier */.EB)("nop")
   };
 
   var addCommands = function addCommands(event, blocks, handler) {
@@ -3655,8 +3877,8 @@ function workspaceJSONToVMProgram(workspace) {
             var eventName = inputs[0].fields["event"].value;
             command = {
               type: "CallExpression",
-              arguments: [(0,ir/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
-              callee: (0,ir/* toIdentifier */.EB)("awaitEvent")
+              arguments: [(0,compile/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
+              callee: (0,compile/* toIdentifier */.EB)("awaitEvent")
             };
             topEvent = {
               role: role.toString(),
@@ -3677,8 +3899,8 @@ function workspaceJSONToVMProgram(workspace) {
 
             command = {
               type: "CallExpression",
-              arguments: [(0,ir/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
-              callee: (0,ir/* toIdentifier */.EB)("awaitChange")
+              arguments: [(0,compile/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
+              callee: (0,compile/* toIdentifier */.EB)("awaitChange")
             };
             topErrors = _errors2;
             break;
@@ -3693,7 +3915,7 @@ function workspaceJSONToVMProgram(workspace) {
             command = {
               type: "CallExpression",
               arguments: [_expr2],
-              callee: (0,ir/* toIdentifier */.EB)("watch")
+              callee: (0,compile/* toIdentifier */.EB)("watch")
             };
             topErrors = _errors3;
             break;
@@ -3965,4 +4187,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-ab2a9dd79ad54ebb93bf.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-7c5b61f0af7b4920d349.js.map

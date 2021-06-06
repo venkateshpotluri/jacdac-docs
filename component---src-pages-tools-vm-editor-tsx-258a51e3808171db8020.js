@@ -1260,77 +1260,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 76610:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "f": function() { return /* binding */ SimulateDeviceHint; },
-/* harmony export */   "Z": function() { return /* binding */ SimulateDeviceAlert; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37801);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20392);
-/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
-/* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(79885);
-/* harmony import */ var _material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(88880);
-/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(95453);
-
-
-
-
-
-
-
-
-function SimulateDeviceHint() {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
-      bus = _useContext.bus;
-
-  var handleStartSimulator = function handleStartSimulator(serviceClass) {
-    return function () {
-      return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_2__/* .startServiceProviderFromServiceClass */ .V6)(bus, serviceClass);
-    };
-  };
-
-  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP),
-      toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "Simulate devices (", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_BUTTON */ .XJR),
-    title: "button",
-    "aria-label": "start button simulator"
-  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_BUZZER */ .J1$),
-    title: "buzzer",
-    "aria-label": "start buzzer simulator"
-  }, "\uD83C\uDFB9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_JOYSTICK */ .vRO),
-    title: "joystick",
-    "aria-label": "start joystick simulator"
-  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_LED */ .i04),
-    title: "LED",
-    "aria-label": "start LED simulator"
-  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    onClick: handleStartSimulator(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .SRV_TRAFFIC_LIGHT */ .jHN),
-    title: "traffic light",
-    "aria-label": "start traffic light simulator"
-  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    title: "start simulator",
-    onClick: toggleShowDeviceHostsDialog
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null)), ".");
-}
-function SimulateDeviceAlert() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
-    severity: "info"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SimulateDeviceHint, null));
-}
-
-/***/ }),
-
-/***/ 83571:
+/***/ 92366:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1367,8 +1297,6 @@ var inheritsLoose = __webpack_require__(41788);
 var defineProperty = __webpack_require__(96156);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
 var createClass = __webpack_require__(5991);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/rolemanager.ts
-var rolemanager = __webpack_require__(37073);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
 var environment = __webpack_require__(96699);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
@@ -1377,8 +1305,8 @@ var vm_expr = __webpack_require__(18108);
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/ir.ts
-var ir = __webpack_require__(68290);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/compile.ts + 1 modules
+var compile = __webpack_require__(79973);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
 var utils = __webpack_require__(94624);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
@@ -1401,7 +1329,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 
 
 
@@ -1525,7 +1452,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 12:
               _context.t0 = this.inst;
-              _context.next = _context.t0 === "branchOnCondition" ? 15 : _context.t0 === "jump" ? 19 : _context.t0 === "label" ? 20 : _context.t0 === "awaitEvent" ? 21 : _context.t0 === "awaitCondition" ? 25 : _context.t0 === "awaitChange" ? 26 : _context.t0 === "awaitRegister" ? 26 : _context.t0 === "writeRegister" ? 30 : _context.t0 === "writeLocal" ? 30 : _context.t0 === "watch" ? 42 : _context.t0 === "halt" ? 46 : _context.t0 === "nop" ? 47 : _context.t0 === "wait" ? 48 : 51;
+              _context.next = _context.t0 === "branchOnCondition" ? 15 : _context.t0 === "jump" ? 19 : _context.t0 === "label" ? 20 : _context.t0 === "awaitEvent" ? 21 : _context.t0 === "awaitCondition" ? 25 : _context.t0 === "awaitChange" ? 26 : _context.t0 === "awaitRegister" ? 26 : _context.t0 === "writeRegister" ? 30 : _context.t0 === "writeLocal" ? 30 : _context.t0 === "watch" ? 42 : _context.t0 === "halt" ? 46 : _context.t0 === "nop" ? 47 : _context.t0 === "wait" ? 48 : _context.t0 === "onRoleConnected" ? 51 : _context.t0 === "onRoleDisonnected" ? 52 : 53;
               break;
 
             case 15:
@@ -1630,9 +1557,15 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               throw new VMTimerException(_ev2 * 1000);
 
             case 51:
-              throw new utils/* VMError */.L1("Unknown instruction " + this.inst);
+              return _context.abrupt("return", VMStatus.Completed);
 
             case 52:
+              return _context.abrupt("return", VMStatus.Completed);
+
+            case 53:
+              throw new utils/* VMError */.L1("Unknown instruction " + this.inst);
+
+            case 54:
             case "end":
               return _context.stop();
           }
@@ -1988,7 +1921,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               return this._currentCommand.stepAsync();
 
             case 5:
-              _context5.next = 28;
+              _context5.next = 24;
               break;
 
             case 7:
@@ -2004,7 +1937,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               index = this._labelToIndex[_label2];
               this.commandIndex = index;
               this._currentCommand.status = VMStatus.Completed;
-              _context5.next = 28;
+              _context5.next = 24;
               break;
 
             case 16:
@@ -2019,25 +1952,17 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               return this.parent.sleepAsync(this, vmt.ms);
 
             case 21:
-              _context5.next = 28;
+              _context5.next = 24;
               break;
 
             case 23:
-              if (!(_context5.t0 instanceof utils/* VMError */.L1)) {
-                _context5.next = 27;
-                break;
-              }
-
               throw _context5.t0;
 
-            case 27:
-              throw new utils/* VMError */.L1(_context5.t0.message);
-
-            case 28:
+            case 24:
               if (this._currentCommand.status === VMStatus.Completed) this.emit(utils/* VM_COMMAND_COMPLETED */.p_, this._currentCommand.gc.sourceId);
               if (this._currentCommand.status === VMStatus.Stopped) this.stopped = true;
 
-            case 30:
+            case 26:
             case "end":
               return _context5.stop();
           }
@@ -2105,9 +2030,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this4.bus = bus;
     _this4.roleManager = roleManager;
     _this4.program = program;
-    var compiled = (0,ir/* compileProgram */.IJ)(program);
+    var compiled = (0,compile/* compileProgram */.IJ)(program);
 
-    var _checkProgram = (0,ir/* checkProgram */.i_)(compiled),
+    var _checkProgram = (0,compile/* checkProgram */.i_)(compiled),
         registers = _checkProgram.registers,
         events = _checkProgram.events,
         errors = _checkProgram.errors;
@@ -2640,15 +2565,17 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               return _context23.abrupt("return", false);
 
             case 2:
+              _context23.prev = 2;
+
               if (!(!this._handlerAtBreak || this._handlerAtBreak === h)) {
-                _context23.next = 15;
+                _context23.next = 16;
                 break;
               }
 
-              _context23.next = 5;
+              _context23.next = 6;
               return h.runToCompletionAsync();
 
-            case 5:
+            case 6:
               brkCommand = _context23.sent;
 
               if (brkCommand) {
@@ -2657,7 +2584,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               }
 
               if (!(h.status !== VMStatus.Stopped)) {
-                _context23.next = 12;
+                _context23.next = 13;
                 break;
               }
 
@@ -2671,22 +2598,30 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
               return _context23.abrupt("return", h.status !== VMStatus.Sleeping);
 
-            case 12:
+            case 13:
               return _context23.abrupt("return", false);
 
-            case 13:
-              _context23.next = 16;
+            case 14:
+              _context23.next = 17;
               break;
 
-            case 15:
+            case 16:
               return _context23.abrupt("return", true);
 
-            case 16:
+            case 17:
+              _context23.next = 21;
+              break;
+
+            case 19:
+              _context23.prev = 19;
+              _context23.t0 = _context23["catch"](2);
+
+            case 21:
             case "end":
               return _context23.stop();
           }
         }
-      }, _callee23, this);
+      }, _callee23, this, [[2, 19]]);
     }));
 
     function runHandler(_x6) {
@@ -2858,10 +2793,10 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         addRoleService(r.role);
       }
     });
-    this.mount(this.roleManager.subscribe(rolemanager/* ROLE_BOUND */.l9, function (role) {
+    this.mount(this.roleManager.subscribe(constants/* ROLE_BOUND */.l9m, function (role) {
       addRoleService(role);
     }));
-    this.mount(this.roleManager.subscribe(rolemanager/* ROLE_UNBOUND */.CC, function (role) {
+    this.mount(this.roleManager.subscribe(constants/* ROLE_UNBOUND */.CCp, function (role) {
       _this13._env.serviceChanged(role, undefined);
     }));
   };
@@ -2986,6 +2921,257 @@ function useVMRunner(roleManager, program, autoRun) {
     cancel: cancel
   };
 }
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+;// CONCATENATED MODULE: ./jacdac-ts/src/servers/rolemanager.ts
+
+
+
+
+
+function rolemanager_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function rolemanager_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { rolemanager_ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { rolemanager_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function rolemanager_createForOfIteratorHelperLoose(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = rolemanager_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } it = o[Symbol.iterator](); return it.next.bind(it); }
+
+function rolemanager_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return rolemanager_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return rolemanager_arrayLikeToArray(o, minLen); }
+
+function rolemanager_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+// TODO: replicate MakeCode role manager logic
+var RoleManager = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(RoleManager, _JDEventSource);
+
+  function RoleManager(bus) {
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this._roles = [];
+    _this.bus = bus;
+
+    _this.bus.on(constants/* DEVICE_ANNOUNCE */.Hob, _this.addServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.bus.on(constants/* DEVICE_DISCONNECT */.O55, _this.removeServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.bus.devices({
+      ignoreSelf: true,
+      announced: true
+    }).forEach(function (dev) {
+      return _this.addServices(dev);
+    });
+
+    _this.on(constants/* ROLE_UNBOUND */.CCp, function (role) {
+      return console.log("role unbound", {
+        role: role
+      });
+    });
+
+    _this.on(constants/* ROLE_BOUND */.l9m, function (role) {
+      return console.log("role bound", {
+        role: role
+      });
+    });
+
+    return _this;
+  }
+
+  var _proto = RoleManager.prototype;
+
+  _proto.setRoles = function setRoles(newRoles) {
+    var _this2 = this;
+
+    var changed = false; // remove unknown roles
+
+    var supportedNewRoles = newRoles.filter(function (_ref) {
+      var serviceShortId = _ref.serviceShortId;
+      return (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+    }); // unbind removed roles
+
+    var i = 0;
+
+    var _loop = function _loop() {
+      var role = _this2._roles[i];
+
+      if (!supportedNewRoles.find(function (r) {
+        return r.role === role.role;
+      })) {
+        changed = true;
+
+        _this2._roles.splice(i, 1);
+
+        _this2.emit(constants/* ROLE_UNBOUND */.CCp, role.role);
+      } else {
+        i++;
+      }
+    };
+
+    while (i < this._roles.length) {
+      _loop();
+    } // update or add roles
+
+
+    var _loop2 = function _loop2() {
+      var newRole = _step.value;
+
+      var existingRole = _this2._roles.find(function (r) {
+        return r.role === newRole.role;
+      });
+
+      if (!existingRole) {
+        // added role
+        changed = true;
+
+        _this2._roles.push(rolemanager_objectSpread({}, newRole));
+      } else if (existingRole.serviceShortId !== newRole.serviceShortId) {
+        // modified type, force rebinding
+        changed = true;
+        existingRole.serviceShortId = newRole.serviceShortId;
+
+        if (existingRole.service) {
+          existingRole.service = undefined;
+
+          _this2.emit(constants/* ROLE_UNBOUND */.CCp, existingRole.role);
+        }
+      } // else unmodifed role
+
+    };
+
+    for (var _iterator = rolemanager_createForOfIteratorHelperLoose(supportedNewRoles), _step; !(_step = _iterator()).done;) {
+      _loop2();
+    } // emit change as needed
+
+
+    if (changed) this.emit(constants/* CHANGE */.Ver); // bound services
+
+    this.bindServices();
+  };
+
+  _proto.bindServices = function bindServices() {
+    var _this3 = this;
+
+    var changed = false;
+    this.unboundRoles.forEach(function (binding) {
+      var boundRoles = _this3.boundRoles;
+
+      var service = _this3.bus.services({
+        ignoreSelf: true,
+        serviceName: binding.serviceShortId
+      }).find(function (srv) {
+        return !boundRoles.find(function (b) {
+          return b.service === srv;
+        });
+      });
+
+      binding.service = service;
+
+      _this3.emit(constants/* ROLE_BOUND */.l9m, binding.role);
+
+      changed = true;
+    });
+    if (changed) this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.addServices = function addServices(dev) {
+    if (dev === this.bus.selfDevice) return;
+    this.bindServices();
+  };
+
+  _proto.removeServices = function removeServices(dev) {
+    var _this4 = this;
+
+    var changed = false;
+
+    this._roles.filter(function (r) {
+      var _r$service;
+
+      return ((_r$service = r.service) === null || _r$service === void 0 ? void 0 : _r$service.device) === dev;
+    }).forEach(function (r) {
+      r.service = undefined;
+
+      _this4.emit(constants/* ROLE_UNBOUND */.CCp, r.role);
+
+      changed = true;
+    });
+
+    if (changed) this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.getService = function getService(role) {
+    var _this$_roles$find;
+
+    return (_this$_roles$find = this._roles.find(function (r) {
+      return r.role === role;
+    })) === null || _this$_roles$find === void 0 ? void 0 : _this$_roles$find.service;
+  };
+
+  _proto.addRoleService = function addRoleService(role, serviceShortId) {
+    var _this5 = this;
+
+    if (!(0,spec/* serviceSpecificationFromName */.kB)(serviceShortId)) return; // unknown role type
+
+    var binding = this._roles.find(function (r) {
+      return r.role === role;
+    }); // check if we already have this role
+
+
+    if (binding && serviceShortId === binding.serviceShortId) return; // new role
+
+    binding = {
+      role: role,
+      serviceShortId: serviceShortId
+    };
+
+    this._roles.push(binding);
+
+    var ret = this.bus.services({
+      ignoreSelf: true,
+      serviceName: serviceShortId
+    }).find(function (s) {
+      return !_this5._roles.find(function (r) {
+        return r.service === s;
+      });
+    });
+
+    if (ret) {
+      binding.service = ret;
+      this.emit(constants/* ROLE_BOUND */.l9m, role);
+    } else {
+      this.emit(constants/* ROLE_UNBOUND */.CCp, role);
+    }
+
+    this.emit(constants/* CHANGE */.Ver);
+  };
+
+  (0,createClass/* default */.Z)(RoleManager, [{
+    key: "roles",
+    get: function get() {
+      return this._roles.slice(0);
+    }
+  }, {
+    key: "boundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !!r.service;
+      });
+    }
+  }, {
+    key: "unboundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !r.service;
+      });
+    }
+  }]);
+
+  return RoleManager;
+}(eventsource/* JDEventSource */.a);
+
+
 ;// CONCATENATED MODULE: ./src/components/vm/useRoleManager.ts
 
 
@@ -2995,7 +3181,7 @@ function useRoleManager() {
       bus = _useContext.bus;
 
   var roleManager = (0,react.useMemo)(function () {
-    return new rolemanager/* RoleManager */.aw(bus);
+    return new RoleManager(bus);
   }, []);
   return roleManager;
 }
@@ -3044,8 +3230,6 @@ var Chip = __webpack_require__(4998);
 var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
 var servers = __webpack_require__(37801);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
@@ -3571,10 +3755,7 @@ function VMFileButtons(props) {
 }
 // EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
 var useDevices = __webpack_require__(53074);
-// EXTERNAL MODULE: ./src/components/alert/SimulateDeviceAlert.tsx
-var SimulateDeviceAlert = __webpack_require__(76610);
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
-
 
 
 
@@ -3618,9 +3799,7 @@ function VMToolbar(props) {
   }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(VMRoles, {
     roleManager: roleManager,
     workspace: workspace
-  }), noRoles && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(SimulateDeviceAlert/* SimulateDeviceHint */.f, null)));
+  }));
 }
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
@@ -3712,4 +3891,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f9386cf470242182f8a5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-258a51e3808171db8020.js.map

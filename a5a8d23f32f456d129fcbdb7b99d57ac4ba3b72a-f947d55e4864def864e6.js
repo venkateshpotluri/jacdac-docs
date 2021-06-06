@@ -5620,6 +5620,9 @@ function domToJSON(workspace) {
     jacdac_on_off: function jacdac_on_off(block) {
       return block.getFieldValue("value") === "on";
     },
+    jacdac_yes_no: function jacdac_yes_no(block) {
+      return block.getFieldValue("value") === "on";
+    },
     jacdac_time_picker: function jacdac_time_picker(block) {
       return Number(block.getFieldValue("value") || "0");
     },
@@ -5828,7 +5831,13 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
-/* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; }
+/* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
+/* harmony export */   "M1": function() { return /* binding */ DEVICE_TWIN_DEFINITION_BLOCK; },
+/* harmony export */   "x$": function() { return /* binding */ DEVICE_TWIN_PROPERTY_BLOCK; },
+/* harmony export */   "Ff": function() { return /* binding */ DEVICE_TWIN_TELEMETRY_BLOCK; },
+/* harmony export */   "pv": function() { return /* binding */ DEVICE_TWIN_PROPERTY_TYPE; },
+/* harmony export */   "FG": function() { return /* binding */ DEVICE_TWIN_TELEMETRY_TYPE; },
+/* harmony export */   "wz": function() { return /* binding */ DEVICE_TWIN_VALUE_TYPE; }
 /* harmony export */ });
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
@@ -5846,6 +5855,12 @@ var WATCH_BLOCK = "jacdac_watch";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
+var DEVICE_TWIN_DEFINITION_BLOCK = "device_twin_definition";
+var DEVICE_TWIN_PROPERTY_BLOCK = "device_twin_property";
+var DEVICE_TWIN_TELEMETRY_BLOCK = "device_twin_telemetry";
+var DEVICE_TWIN_PROPERTY_TYPE = "DeviceTwinProperty";
+var DEVICE_TWIN_TELEMETRY_TYPE = "DeviceTwinTelemetry";
+var DEVICE_TWIN_VALUE_TYPE = "DeviceTwinValue";
 
 /***/ }),
 
@@ -6878,4 +6893,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-90aa4de3d126e42bd27e.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-f947d55e4864def864e6.js.map
