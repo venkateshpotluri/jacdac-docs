@@ -2947,8 +2947,37 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
   }];
   var azureIoTHubBlocks = [{
     kind: "block",
+    type: "device_twin_receive_telemetry",
+    message0: "on receive cloud-to-device message",
+    args0: [],
+    nextStatement: codeStatementType,
+    colour: azureIoTHubColor
+  }, {
+    kind: "block",
+    type: "device_twin_receive_telemetry_number",
+    message0: "received number %1",
+    args0: [{
+      type: "field_input",
+      name: "name",
+      text: "value"
+    }],
+    output: "Number",
+    colour: azureIoTHubColor
+  }, {
+    kind: "block",
+    type: "device_twin_receive_telemetry_string",
+    message0: "received string %1",
+    args0: [{
+      type: "field_input",
+      name: "name",
+      text: "value"
+    }],
+    output: "String",
+    colour: azureIoTHubColor
+  }, {
+    kind: "block",
     type: "device_twin_send_telemetry",
-    message0: "send telemetry %1 %2",
+    message0: "send device-to-cloud message %1 %2",
     args0: [{
       type: "input_dummy"
     }, {
@@ -2964,7 +2993,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     message0: "with %1 = %2",
     args0: [{
       type: "field_input",
-      name: "name"
+      name: "name",
+      text: "value"
     }, {
       type: "input_value",
       name: "value",
@@ -4218,4 +4248,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8fbe4222155bdcc3b1dd.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d0fda40f9f9391408895.js.map
