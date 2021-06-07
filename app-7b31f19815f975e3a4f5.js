@@ -67410,6 +67410,7 @@ var LoadingProgress = __webpack_require__(2285);
 
 
 
+
 function MemberInput(props) {
   var _serviceSpecification;
 
@@ -67452,6 +67453,10 @@ function MemberInput(props) {
   var unitIcon = useUnitIcon(specification.unit, {
     "aria-label": label
   });
+
+  var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
+      textPrimary = _useWidgetTheme.textPrimary;
+
   var minValue = (0,utils/* pick */.ei)(min, typicalMin, absoluteMin, /^u/.test(type) ? 0 : undefined);
   var maxValue = (0,utils/* pick */.ei)(max, typicalMax, absoluteMax);
   var errorValue = error ? "±" + (0,utils/* roundWithPrecision */.JI)(error, 1 - Math.floor(Math.log10(error))).toLocaleString() : undefined;
@@ -67531,7 +67536,11 @@ function MemberInput(props) {
         onChange: disabled ? undefined : handleChecked,
         color: color
       }),
-      label: label
+      label: /*#__PURE__*/react.createElement("span", {
+        style: {
+          color: textPrimary
+        }
+      }, label)
     });
   } else if (enumInfo !== undefined) {
     return /*#__PURE__*/react.createElement(Select/* default */.Z, {
@@ -70331,7 +70340,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "400acde3dad9d3d4aadd895e822285326a2db137";
+  var sha = "aad8136891aa753bcb5703e1e790ce16c4d45dd5";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86605,4 +86614,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-2ed1f5bfe44a1ad178db.js.map
+//# sourceMappingURL=app-7b31f19815f975e3a4f5.js.map
