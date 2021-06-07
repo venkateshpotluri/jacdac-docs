@@ -399,7 +399,7 @@ function escapeDisplayName(name) {
   return name.slice(0, 64);
 }
 function DTDLUnits() {
-  return ["metrePerSecondSquared", "centimetrePerSecondSquared", "gForce", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radianPerSecondSquared", "radianPerSecond", "degreePerSecond", "revolutionPerSecond", "revolutionPerMinute", "squareMetre", "squareCentimetre", "squareMillimetre", "squareKilometre", "hectare", "squareFoot", "squareInch", "acre", "farad", "millifarad", "microfarad", "nanofarad", "picofarad", "ampere", "microampere", "milliampere", "bitPerSecond", "kibibitPerSecond", "mebibitPerSecond", "gibibitPerSecond", "tebibitPerSecond", "exbibitPerSecond", "zebibitPerSecond", "yobibitPerSecond", "bytePerSecond", "kibibytePerSecond", "mebibytePerSecond", "gibibytePerSecond", "tebibytePerSecond", "exbibytePerSecond", "zebibytePerSecond", "yobibytePerSecond", "bit", "kibibit", "mebibit", "gibibit", "tebibit", "exbibit", "zebibit", "yobibit", "byte", "kibibyte", "mebibyte", "gibibyte", "tebibyte", "exbibyte", "zebibyte", "yobibyte", "kilogramPerCubicMetre", "gramPerCubicMetre", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "coulomb", "joule", "kilojoule", "megajoule", "gigajoule", "electronvolt", "megaelectronvolt", "kilowattHour", "newton", "pound", "ounce", "ton", "hertz", "kilohertz", "megahertz", "gigahertz", "kilogramPerCubicMetre", "gramPerCubicMetre", "lux", "footcandle", "henry", "millihenry", "microhenry", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "candelaPerSquareMetre", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "lumen", "candela", "weber", "maxwell", "tesla", "kilogram", "gram", "milligram", "microgram", "tonne", "slug", "gramPerSecond", "kilogramPerSecond", "gramPerHour", "kilogramPerHour", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "pascal", "kilopascal", "bar", "millibar", "millimetresOfMercury", "poundPerSquareInch", "inchesOfMercury", "inchesOfWater", "unity percent", "ohm", "milliohm", "kiloohm", "megaohm", "decibel", "bel", "kelvin", "degreeCelsius", "degreeFahrenheit", "newton", "pound", "ounce", "ton", "second", "millisecond", "microsecond", "nanosecond", "minute", "hour", "day", "year", "newtonMetre", "metrePerSecond", "centimetrePerSecond", "kilometrePerSecond", "metrePerHour", "kilometrePerHour", "milePerHour", "milePerSecond", "knot", "volt", "millivolt", "microvolt", "kilovolt", "megavolt", "cubicMetre", "cubicCentimetre", "litre", "millilitre", "cubicFoot", "cubicInch", "fluidOunce", "gallon", "litrePerSecond", "millilitrePerSecond", "litrePerHour", "millilitrePerHour"];
+  return ["metrePerSecondSquared", "centimetrePerSecondSquared", "gForce", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radianPerSecondSquared", "radianPerSecond", "degreePerSecond", "revolutionPerSecond", "revolutionPerMinute", "squareMetre", "squareCentimetre", "squareMillimetre", "squareKilometre", "hectare", "squareFoot", "squareInch", "acre", "farad", "millifarad", "microfarad", "nanofarad", "picofarad", "ampere", "microampere", "milliampere", "bitPerSecond", "kibibitPerSecond", "mebibitPerSecond", "gibibitPerSecond", "tebibitPerSecond", "exbibitPerSecond", "zebibitPerSecond", "yobibitPerSecond", "bytePerSecond", "kibibytePerSecond", "mebibytePerSecond", "gibibytePerSecond", "tebibytePerSecond", "exbibytePerSecond", "zebibytePerSecond", "yobibytePerSecond", "bit", "kibibit", "mebibit", "gibibit", "tebibit", "exbibit", "zebibit", "yobibit", "byte", "kibibyte", "mebibyte", "gibibyte", "tebibyte", "exbibyte", "zebibyte", "yobibyte", "kilogramPerCubicMetre", "gramPerCubicMetre", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "coulomb", "joule", "kilojoule", "megajoule", "gigajoule", "electronvolt", "megaelectronvolt", "kilowattHour", "newton", "pound", "ounce", "ton", "hertz", "kilohertz", "megahertz", "gigahertz", "kilogramPerCubicMetre", "gramPerCubicMetre", "lux", "footcandle", "henry", "millihenry", "microhenry", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "candelaPerSquareMetre", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "lumen", "candela", "weber", "maxwell", "tesla", "kilogram", "gram", "milligram", "microgram", "tonne", "slug", "gramPerSecond", "kilogramPerSecond", "gramPerHour", "kilogramPerHour", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "pascal", "kilopascal", "bar", "millibar", "millimetresOfMercury", "poundPerSquareInch", "inchesOfMercury", "inchesOfWater", "unity percent", "ohm", "milliohm", "kiloohm", "megaohm", "decibel", "bel", "kelvin", "degreeCelsius", "degreeFahrenheit", "newton", "pound", "ounce", "ton", "second", "millisecond", "microsecond", "nanosecond", "minute", "hour", "day", "year", "newtonMetre", "metrePerSecond", "centimetrePerSecond", "kilometrePerSecond", "metrePerHour", "kilometrePerHour", "milePerHour", "milePerSecond", "knot", "volt", "millivolt", "microvolt", "kilovolt", "megavolt", "cubicMetre", "cubicCentimetre", "litre", "millilitre", "cubicFoot", "cubicInch", "fluidOunce", "gallon", "litrePerSecond", "millilitrePerSecond", "litrePerHour", "millilitrePerHour"].sort();
 }
 
 /***/ }),
@@ -2019,6 +2019,7 @@ function createBlockTheme(theme) {
   var otherColor = theme.palette.info.main;
   var commandColor = theme.palette.warning.main;
   var debuggerColor = theme.palette.grey[600];
+  var azureIoTHubColor = theme.palette.error.main;
   var deviceTwinColor = theme.palette.error.light;
 
   var serviceColor = function serviceColor(srv) {
@@ -2031,6 +2032,7 @@ function createBlockTheme(theme) {
     commandColor: commandColor,
     debuggerColor: debuggerColor,
     otherColor: otherColor,
+    azureIoTHubColor: azureIoTHubColor,
     deviceTwinColor: deviceTwinColor
   };
 }
@@ -2043,7 +2045,7 @@ var deviceTwinStatementType = [deviceTwinContentType];
 var deviceTwinCommonOptionStatementType = [deviceTwinCommonOptionType];
 var deviceTwinPropertyOptionStatementType = [deviceTwinPropertyOptionType].concat(deviceTwinCommonOptionStatementType);
 
-function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) {
+function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor, deviceTwinColor) {
   // blocks
   var customShadows = [{
     serviceClass: constants/* SRV_SERVO */.$X_,
@@ -2943,76 +2945,52 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
     output: "Number",
     style: "math_blocks"
   }];
+  var azureIoTHubBlocks = [{
+    kind: "block",
+    type: "device_twin_send_telemetry",
+    message0: "send telemetry %1 %2",
+    args0: [{
+      type: "input_dummy"
+    }, {
+      type: "input_statement",
+      name: "fields"
+    }],
+    previousStatement: codeStatementType,
+    nextStatement: codeStatementType,
+    colour: azureIoTHubColor
+  }, {
+    kind: "block",
+    type: "device_twin_send_telemetry_value",
+    message0: "with %1 = %2",
+    args0: [{
+      type: "field_input",
+      name: "name"
+    }, {
+      type: "input_value",
+      name: "value",
+      check: ["String", "Boolean", "Number"]
+    }],
+    previousStatement: codeStatementType,
+    nextStatement: codeStatementType,
+    colour: azureIoTHubColor
+  }];
   var deviceTwinsBlocks = [{
     kind: "block",
     type: toolbox/* DEVICE_TWIN_DEFINITION_BLOCK */.M1,
-    message0: "device twin id %1",
-    args0: [{
-      type: "field_input",
-      name: "id"
-    }],
+    message0: "device twin id",
+    args0: [],
     inputsInline: true,
     nextStatement: deviceTwinStatementType,
     template: "dtdl",
     colour: deviceTwinColor
   }, {
     kind: "block",
-    type: toolbox/* DEVICE_TWIN_DESIRED_PROPERTY_BLOCK */.A9,
-    message0: "desired property %1 %2 %3",
+    type: toolbox/* DEVICE_TWIN_PROPERTY_BLOCK */.x$,
+    message0: "property %1 %2 %3",
     args0: [{
       type: "field_variable",
       name: "name",
-      variable: "reported property 1",
-      variableTypes: [toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv],
-      defaultType: toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv
-    }, {
-      type: "input_dummy"
-    }, {
-      type: "input_statement",
-      name: "options",
-      check: deviceTwinPropertyOptionStatementType
-    }],
-    previousStatement: deviceTwinStatementType,
-    nextStatement: deviceTwinStatementType,
-    template: "dtdl",
-    colour: deviceTwinColor,
-    inputsInline: false
-  }, {
-    kind: "block",
-    type: "device_twin_option_desired_value",
-    message0: "desired value %1 %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "variable",
-      variable: "desired value 1",
-      variableTypes: [toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz],
-      defaultType: toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz
-    }, {
-      type: "field_dropdown",
-      name: "type",
-      options: ["float", "boolean", "string", "integer"].map(function (unit) {
-        return [unit, unit];
-      })
-    }, {
-      type: "field_dropdown",
-      name: "unit",
-      options: (0,dtdl/* DTDLUnits */.d0)().map(function (unit) {
-        return [unit, unit];
-      })
-    }],
-    previousStatement: deviceTwinCommonOptionStatementType,
-    nextStatement: deviceTwinCommonOptionStatementType,
-    template: "dtdlOption",
-    colour: deviceTwinColor,
-    inputsInline: false
-  }, {
-    kind: "block",
-    type: toolbox/* DEVICE_TWIN_REPORTED_PROPERTY_BLOCK */.e3,
-    message0: "reported property %1 %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "name",
-      variable: "desired property 1",
+      variable: "property 1",
       variableTypes: [toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv],
       defaultType: toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv
     }, {
@@ -3030,20 +3008,14 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
   }, // options
   {
     kind: "block",
-    type: "device_twin_option_reported_value",
-    message0: "reported value %1 %2 %3 %4",
+    type: "device_twin_option_property_field",
+    message0: "field %1 %2 %3",
     args0: [{
       type: "field_variable",
       name: "variable",
-      variable: "reported value 1",
+      variable: "value 1",
       variableTypes: [toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz],
       defaultType: toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz
-    }, {
-      type: "field_dropdown",
-      name: "type",
-      options: ["float", "boolean", "string", "integer"].map(function (unit) {
-        return [unit, unit];
-      })
     }, {
       type: "field_dropdown",
       name: "unit",
@@ -3059,33 +3031,22 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
     template: "dtdlOption",
     colour: deviceTwinColor,
     inputsInline: false
-  }, {
-    kind: "block",
-    type: "device_twin_option_comment",
-    message0: "%1 %2",
-    args0: [{
-      type: "field_dropdown",
-      name: "type",
-      options: [["comment", "comment"], ["description", "description"], ["display name", "displayName"]]
-    }, {
-      type: "field_multilinetext",
-      name: "text"
-    }],
-    previousStatement: deviceTwinCommonOptionStatementType,
-    nextStatement: deviceTwinCommonOptionStatementType,
-    template: "dtdlOption",
-    colour: deviceTwinColor,
-    inputsInline: false
   }, // events
   {
     kind: "block",
-    type: "device_twin_reported_property_change",
-    message0: "on reported property change",
-    args0: [],
+    type: "device_twin_property_change",
+    message0: "on property %1 change",
+    args0: [{
+      type: "field_variable",
+      name: "name",
+      variable: "property 1",
+      variableTypes: [toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv],
+      defaultType: toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv
+    }],
     nextStatement: codeStatementType,
     colour: deviceTwinColor
   }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks, deviceTwinsBlocks); // register field editors
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks, azureIoTHubBlocks, deviceTwinsBlocks); // register field editors
 
   registerFields(); // re-register blocks with blocklys
 
@@ -3115,6 +3076,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
     blocks: blocks,
     serviceBlocks: serviceBlocks,
     eventFieldBlocks: eventFieldBlocks,
+    azureIoTHubBlocks: azureIoTHubBlocks,
     deviceTwinsBlocks: deviceTwinsBlocks,
     services: services
   };
@@ -3160,13 +3122,15 @@ function useToolbox(props) {
       serviceColor = _createBlockTheme.serviceColor,
       commandColor = _createBlockTheme.commandColor,
       debuggerColor = _createBlockTheme.debuggerColor,
+      azureIoTHubColor = _createBlockTheme.azureIoTHubColor,
       deviceTwinColor = _createBlockTheme.deviceTwinColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor);
+    return loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor, deviceTwinColor);
   }, [theme]),
       serviceBlocks = _useMemo.serviceBlocks,
       eventFieldBlocks = _useMemo.eventFieldBlocks,
+      azureIoTHubBlocks = _useMemo.azureIoTHubBlocks,
       deviceTwinsBlocks = _useMemo.deviceTwinsBlocks,
       services = _useMemo.services;
 
@@ -3410,12 +3374,24 @@ function useToolbox(props) {
     colour: "%{BKY_VARIABLES_HUE}",
     custom: "VARIABLE"
   };
+  var azureIoTHubCategory = {
+    kind: "category",
+    name: "Azure IoT Hub",
+    colour: azureIoTHubColor,
+    contents: (0,toConsumableArray/* default */.Z)(azureIoTHubBlocks.map(function (_ref22) {
+      var type = _ref22.type;
+      return {
+        kind: "block",
+        type: type
+      };
+    }))
+  };
   var deviceTwinsCategory = {
     kind: "category",
     name: "Device Twin",
     colour: deviceTwinColor,
-    contents: (0,toConsumableArray/* default */.Z)(deviceTwinsBlocks.map(function (_ref22) {
-      var type = _ref22.type;
+    contents: (0,toConsumableArray/* default */.Z)(deviceTwinsBlocks.map(function (_ref23) {
+      var type = _ref23.type;
       return {
         kind: "block",
         type: type
@@ -3424,9 +3400,11 @@ function useToolbox(props) {
   };
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [deviceTwinsCategory].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
+    contents: [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [!!jdom_spec/* serviceSpecifications.length */.Le.length && {
       kind: "sep"
     }, commandsCategory, logicCategory, mathCategory, variablesCategory, {
+      kind: "sep"
+    }, azureIoTHubCategory, deviceTwinsCategory, {
       kind: "sep"
     }, toolsCategory]).filter(function (cat) {
       return !!cat;
@@ -4240,4 +4218,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f721842a5b6b024d37a9.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-8fbe4222155bdcc3b1dd.js.map

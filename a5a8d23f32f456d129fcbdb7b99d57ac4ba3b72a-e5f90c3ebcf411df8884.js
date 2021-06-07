@@ -5834,11 +5834,11 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
 /* harmony export */   "NK": function() { return /* binding */ LOG_BLOCK; },
 /* harmony export */   "M1": function() { return /* binding */ DEVICE_TWIN_DEFINITION_BLOCK; },
-/* harmony export */   "A9": function() { return /* binding */ DEVICE_TWIN_DESIRED_PROPERTY_BLOCK; },
-/* harmony export */   "e3": function() { return /* binding */ DEVICE_TWIN_REPORTED_PROPERTY_BLOCK; },
+/* harmony export */   "x$": function() { return /* binding */ DEVICE_TWIN_PROPERTY_BLOCK; },
 /* harmony export */   "pv": function() { return /* binding */ DEVICE_TWIN_PROPERTY_TYPE; },
 /* harmony export */   "wz": function() { return /* binding */ DEVICE_TWIN_VALUE_TYPE; }
 /* harmony export */ });
+/* unused harmony export DEVICE_TWIN_SEND_TELEMETRY */
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -5856,9 +5856,9 @@ var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
 var LOG_BLOCK = "jacdac_custom_logger_log";
+var DEVICE_TWIN_SEND_TELEMETRY = "device_twin_send_telemetry";
 var DEVICE_TWIN_DEFINITION_BLOCK = "device_twin_definition";
-var DEVICE_TWIN_DESIRED_PROPERTY_BLOCK = "device_twin_desired_property";
-var DEVICE_TWIN_REPORTED_PROPERTY_BLOCK = "device_twin_reported_property";
+var DEVICE_TWIN_PROPERTY_BLOCK = "device_twin_property";
 var DEVICE_TWIN_PROPERTY_TYPE = "DeviceTwinProperty";
 var DEVICE_TWIN_VALUE_TYPE = "DeviceTwinValue";
 
@@ -6893,4 +6893,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-a69943710cc3978c6b51.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-e5f90c3ebcf411df8884.js.map
