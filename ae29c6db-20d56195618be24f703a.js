@@ -5,7 +5,7 @@
 
 /*!
  * 
- *   react-simple-keyboard v3.1.27
+ *   react-simple-keyboard v3.1.30
  *   https://github.com/hodgef/react-simple-keyboard
  *
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -155,7 +155,7 @@
       86: function _(t) {
         /*!
          * 
-         *   simple-keyboard v3.1.20
+         *   simple-keyboard v3.1.25
          *   https://github.com/hodgef/simple-keyboard
          *
          *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -398,6 +398,34 @@
                 left: s(!1),
                 right: s(!0)
               };
+            },
+            4362: function _(t) {
+              var e = Math.floor,
+                  n = function n(t, i) {
+                var a = t.length,
+                    s = e(a / 2);
+                return a < 8 ? o(t, i) : r(n(t.slice(0, s), i), n(t.slice(s), i), i);
+              },
+                  o = function o(t, e) {
+                for (var n, o, r = t.length, i = 1; i < r;) {
+                  for (o = i, n = t[i]; o && e(t[o - 1], n) > 0;) {
+                    t[o] = t[--o];
+                  }
+
+                  o !== i++ && (t[o] = n);
+                }
+
+                return t;
+              },
+                  r = function r(t, e, n) {
+                for (var o = t.length, r = e.length, i = 0, a = 0, s = []; i < o || a < r;) {
+                  i < o && a < r ? s.push(n(t[i], e[a]) <= 0 ? t[i++] : e[a++]) : s.push(i < o ? t[i++] : e[a++]);
+                }
+
+                return s;
+              };
+
+              t.exports = n;
             },
             5417: function _(t, e, n) {
               var o = n(111),
@@ -714,6 +742,14 @@
                 TouchList: 0
               };
             },
+            8886: function _(t, e, n) {
+              var o = n(8113).match(/firefox\/(\d+)/i);
+              t.exports = !!o && +o[1];
+            },
+            256: function _(t, e, n) {
+              var o = n(8113);
+              t.exports = /MSIE|Trident/.test(o);
+            },
             5268: function _(t, e, n) {
               var o = n(4326),
                   r = n(7854);
@@ -732,6 +768,10 @@
                   u = s && s.versions,
                   c = u && u.v8;
               c ? r = (o = c.split("."))[0] < 4 ? 1 : o[0] + o[1] : a && (!(o = a.match(/Edge\/(\d+)/)) || o[1] >= 74) && (o = a.match(/Chrome\/(\d+)/)) && (r = o[1]), t.exports = r && +r;
+            },
+            8008: function _(t, e, n) {
+              var o = n(8113).match(/AppleWebKit\/(\d+)\./);
+              t.exports = !!o && +o[1];
             },
             748: function _(t) {
               t.exports = ["constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "valueOf"];
@@ -1404,13 +1444,11 @@
               var o = n(1913),
                   r = n(7854),
                   i = n(7293),
-                  a = n(8113);
+                  a = n(8008);
               t.exports = o || !i(function () {
-                var t = a.match(/AppleWebKit\/(\d+)\./);
-
-                if (!(t && +t[1] < 535)) {
-                  var e = Math.random();
-                  __defineSetter__.call(null, e, function () {}), delete r[e];
+                if (!(a && a < 535)) {
+                  var t = Math.random();
+                  __defineSetter__.call(null, t, function () {}), delete r[t];
                 }
               });
             },
@@ -1627,7 +1665,7 @@
               (t.exports = function (t, e) {
                 return r[t] || (r[t] = void 0 !== e ? e : {});
               })("versions", []).push({
-                version: "3.13.1",
+                version: "3.14.0",
                 mode: o ? "pure" : "global",
                 copyright: "© 2021 Denis Pushkarev (zloirock.ru)"
               });
@@ -2038,24 +2076,101 @@
               var o = n(2109),
                   r = n(3099),
                   i = n(7908),
-                  a = n(7293),
-                  s = n(9341),
-                  u = [],
-                  c = u.sort,
-                  l = a(function () {
-                u.sort(void 0);
+                  a = n(7466),
+                  s = n(7293),
+                  u = n(4362),
+                  c = n(9341),
+                  l = n(8886),
+                  f = n(256),
+                  d = n(7392),
+                  p = n(8008),
+                  h = [],
+                  v = h.sort,
+                  y = s(function () {
+                h.sort(void 0);
               }),
-                  f = a(function () {
-                u.sort(null);
+                  g = s(function () {
+                h.sort(null);
               }),
-                  d = s("sort");
+                  m = c("sort"),
+                  b = !s(function () {
+                if (d) return d < 70;
+
+                if (!(l && l > 3)) {
+                  if (f) return !0;
+                  if (p) return p < 603;
+                  var t,
+                      e,
+                      n,
+                      o,
+                      r = "";
+
+                  for (t = 65; t < 76; t++) {
+                    switch (e = String.fromCharCode(t), t) {
+                      case 66:
+                      case 69:
+                      case 70:
+                      case 72:
+                        n = 3;
+                        break;
+
+                      case 68:
+                      case 71:
+                        n = 4;
+                        break;
+
+                      default:
+                        n = 2;
+                    }
+
+                    for (o = 0; o < 47; o++) {
+                      h.push({
+                        k: e + o,
+                        v: n
+                      });
+                    }
+                  }
+
+                  for (h.sort(function (t, e) {
+                    return e.v - t.v;
+                  }), o = 0; o < h.length; o++) {
+                    e = h[o].k.charAt(0), r.charAt(r.length - 1) !== e && (r += e);
+                  }
+
+                  return "DGBEFHACIJK" !== r;
+                }
+              });
               o({
                 target: "Array",
                 proto: !0,
-                forced: l || !f || !d
+                forced: y || !g || !m || !b
               }, {
                 sort: function sort(t) {
-                  return void 0 === t ? c.call(i(this)) : c.call(i(this), r(t));
+                  void 0 !== t && r(t);
+                  var e = i(this);
+                  if (b) return void 0 === t ? v.call(e) : v.call(e, t);
+                  var n,
+                      o,
+                      s = [],
+                      c = a(e.length);
+
+                  for (o = 0; o < c; o++) {
+                    o in e && s.push(e[o]);
+                  }
+
+                  for (n = (s = u(s, function (t) {
+                    return function (e, n) {
+                      return void 0 === n ? -1 : void 0 === e ? 1 : void 0 !== t ? +t(e, n) || 0 : String(e) > String(n) ? 1 : -1;
+                    };
+                  }(t))).length, o = 0; o < n;) {
+                    e[o] = s[o++];
+                  }
+
+                  for (; o < c;) {
+                    delete e[o++];
+                  }
+
+                  return e;
                 }
               });
             },
@@ -2729,14 +2844,14 @@
                   j = n(6061),
                   L = n(7235),
                   R = n(8003),
-                  _ = n(9909),
-                  B = n(2092).forEach,
+                  B = n(9909),
+                  _ = n(2092).forEach,
                   K = T("hidden"),
                   F = "Symbol",
                   U = D("toPrimitive"),
-                  H = _.set,
-                  $ = _.getterFor(F),
-                  G = Object.prototype,
+                  H = B.set,
+                  G = B.getterFor(F),
+                  $ = Object.prototype,
                   _V = r.Symbol,
                   z = i("JSON", "stringify"),
                   Y = S.f,
@@ -2759,8 +2874,8 @@
                   }
                 })).a;
               }) ? function (t, e, n) {
-                var o = Y(G, e);
-                o && delete G[e], W(t, e, n), o && t !== G && W(G, e, o);
+                var o = Y($, e);
+                o && delete $[e], W(t, e, n), o && t !== $ && W($, e, o);
               } : W,
                   it = function it(t, e) {
                 var n = J[t] = b(_V.prototype);
@@ -2776,7 +2891,7 @@
                 return Object(t) instanceof _V;
               },
                   st = function st(t, e, n) {
-                t === G && st(Q, e, n), h(t);
+                t === $ && st(Q, e, n), h(t);
                 var o = g(e, !0);
                 return h(n), f(J, o) ? (n.enumerable ? (f(t, K) && t[K][o] && (t[K][o] = !1), n = b(n, {
                   enumerable: m(0, !1)
@@ -2786,20 +2901,20 @@
                 h(t);
                 var n = y(e),
                     o = x(n).concat(dt(n));
-                return B(o, function (e) {
+                return _(o, function (e) {
                   s && !ct.call(n, e) || st(t, e, n[e]);
                 }), t;
               },
                   ct = function ct(t) {
                 var e = g(t, !0),
                     n = q.call(this, e);
-                return !(this === G && f(J, e) && !f(Q, e)) && (!(n || !f(this, e) || !f(J, e) || f(this, K) && this[K][e]) || n);
+                return !(this === $ && f(J, e) && !f(Q, e)) && (!(n || !f(this, e) || !f(J, e) || f(this, K) && this[K][e]) || n);
               },
                   lt = function lt(t, e) {
                 var n = y(t),
                     o = g(e, !0);
 
-                if (n !== G || !f(J, o) || f(Q, o)) {
+                if (n !== $ || !f(J, o) || f(Q, o)) {
                   var r = Y(n, o);
                   return !r || !f(J, o) || f(n, K) && n[K][o] || (r.enumerable = !0), r;
                 }
@@ -2807,16 +2922,16 @@
                   ft = function ft(t) {
                 var e = X(y(t)),
                     n = [];
-                return B(e, function (t) {
+                return _(e, function (t) {
                   f(J, t) || f(M, t) || n.push(t);
                 }), n;
               },
                   dt = function dt(t) {
-                var e = t === G,
+                var e = t === $,
                     n = X(e ? Q : y(t)),
                     o = [];
-                return B(n, function (t) {
-                  !f(J, t) || e && !f(G, t) || o.push(J[t]);
+                return _(n, function (t) {
+                  !f(J, t) || e && !f($, t) || o.push(J[t]);
                 }), o;
               };
 
@@ -2826,15 +2941,15 @@
                 var t = arguments.length && void 0 !== arguments[0] ? String(arguments[0]) : void 0,
                     e = N(t),
                     n = function n(t) {
-                  this === G && n.call(Q, t), f(this, K) && f(this[K], e) && (this[K][e] = !1), rt(this, e, m(1, t));
+                  this === $ && n.call(Q, t), f(this, K) && f(this[K], e) && (this[K][e] = !1), rt(this, e, m(1, t));
                 };
 
-                return s && ot && rt(G, e, {
+                return s && ot && rt($, e, {
                   configurable: !0,
                   set: n
                 }), it(e, t);
               }).prototype, "toString", function () {
-                return $(this).tag;
+                return G(this).tag;
               }), I(_V, "withoutSetter", function (t) {
                 return it(N(t), t);
               }), P.f = ct, k.f = st, S.f = lt, w.f = O.f = ft, E.f = dt, j.f = function (t) {
@@ -2842,9 +2957,9 @@
               }, s && (W(_V.prototype, "description", {
                 configurable: !0,
                 get: function get() {
-                  return $(this).description;
+                  return G(this).description;
                 }
-              }), a || I(G, "propertyIsEnumerable", ct, {
+              }), a || I($, "propertyIsEnumerable", ct, {
                 unsafe: !0
               }))), o({
                 global: !0,
@@ -2853,7 +2968,7 @@
                 sham: !u
               }, {
                 Symbol: _V
-              }), B(x(et), function (t) {
+              }), _(x(et), function (t) {
                 L(t);
               }), o({
                 target: F,
@@ -4512,4 +4627,4 @@
 /***/ })
 
 }]);
-//# sourceMappingURL=ae29c6db-67c5a556085352893343.js.map
+//# sourceMappingURL=ae29c6db-20d56195618be24f703a.js.map
