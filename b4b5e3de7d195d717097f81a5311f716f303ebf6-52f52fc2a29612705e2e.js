@@ -119,18 +119,26 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   /*#__PURE__*/
   function () {
     var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, ev) {
+      var register;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
+              register = this._registers[regName];
+
+              if (!(register.code === _jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .SystemReg.Value */ .ZJq.Value)) {
+                _context2.next = 4;
+                break;
+              }
+
+              _context2.next = 4;
               return this.setEnabled();
 
-            case 2:
-              _context2.next = 4;
+            case 4:
+              _context2.next = 6;
               return this.writeRegAsync(this._registers[regName], ev);
 
-            case 4:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -886,4 +894,4 @@ var Mutex = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-3ec1b8c7d3a441ae85ec.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-52f52fc2a29612705e2e.js.map

@@ -963,6 +963,10 @@ function PacketHeaderLayout(props) {
 }
 // EXTERNAL MODULE: ./src/components/PacketBadge.tsx + 1 modules
 var PacketBadge = __webpack_require__(97309);
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
+var Alert_Alert = __webpack_require__(6809);
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/AlertTitle/AlertTitle.js
+var AlertTitle = __webpack_require__(99330);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
 var pack = __webpack_require__(91635);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/packobject.ts
@@ -970,6 +974,7 @@ var packobject = __webpack_require__(53616);
 // EXTERNAL MODULE: ./src/components/CodeBlock.tsx + 4 modules
 var CodeBlock = __webpack_require__(50274);
 ;// CONCATENATED MODULE: ./src/components/PacketDataLayout.tsx
+
 
 
 
@@ -989,8 +994,18 @@ function PacketDataLayout(props) {
   var data = packet.data,
       decoded = packet.decoded;
   var info = decoded === null || decoded === void 0 ? void 0 : decoded.info;
-  var unpacked = (info === null || info === void 0 ? void 0 : info.packFormat) && (0,pack/* jdunpack */.TE)(data, info.packFormat);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, showHex && !!data.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
+  var unpacked;
+  var error;
+
+  try {
+    unpacked = (info === null || info === void 0 ? void 0 : info.packFormat) && (0,pack/* jdunpack */.TE)(data, info.packFormat);
+  } catch (e) {
+    error = e + "";
+  }
+
+  return /*#__PURE__*/react.createElement(react.Fragment, null, error && /*#__PURE__*/react.createElement(Alert_Alert/* default */.Z, {
+    severity: "error"
+  }, /*#__PURE__*/react.createElement(AlertTitle/* default */.Z, null, "Invalid data payload"), error), showHex && !!data.length && /*#__PURE__*/react.createElement(PaperBox/* default */.Z, {
     padding: 0
   }, /*#__PURE__*/react.createElement(Tooltip/* default */.Z, {
     title: (decoded === null || decoded === void 0 ? void 0 : (_decoded$info = decoded.info) === null || _decoded$info === void 0 ? void 0 : _decoded$info.packFormat) || "unknown data layout"
@@ -1000,11 +1015,11 @@ function PacketDataLayout(props) {
     return /*#__PURE__*/react.createElement(TableRow/* default */.Z, {
       key: i
     }, /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, member.info.name == "_" ? info.name : member.info.name), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, member.value)), /*#__PURE__*/react.createElement(TableCell/* default */.Z, null, /*#__PURE__*/react.createElement("code", null, member.humanValue)));
-  }))))), showUnpacked && (info === null || info === void 0 ? void 0 : info.packFormat) && /*#__PURE__*/react.createElement(Box/* default */.Z, {
+  }))))), showUnpacked && unpacked && /*#__PURE__*/react.createElement(Box/* default */.Z, {
     pb: 2
   }, /*#__PURE__*/react.createElement(CodeBlock.default, {
     className: "language-json"
-  }, JSON.stringify(unpacked, null, 4))), showJSON && (info === null || info === void 0 ? void 0 : info.packFormat) && /*#__PURE__*/react.createElement(Box/* default */.Z, {
+  }, JSON.stringify(unpacked, null, 4))), showJSON && unpacked && /*#__PURE__*/react.createElement(Box/* default */.Z, {
     pb: 2
   }, /*#__PURE__*/react.createElement(CodeBlock.default, {
     className: "language-json"
@@ -1105,4 +1120,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-2ce0b8701dc23fb4d760.js.map
+//# sourceMappingURL=component---src-pages-tools-packet-inspector-tsx-856db36f07035344fe30.js.map
