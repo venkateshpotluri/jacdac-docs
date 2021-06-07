@@ -2919,6 +2919,25 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     inputsInline: true
   }, {
     kind: "block",
+    type: "jacdac_math_clamp",
+    message0: "clamp %1 in [%2, %3]",
+    args0: [{
+      type: "input_value",
+      name: "value",
+      check: "Number"
+    }, {
+      type: "input_value",
+      name: "minInclusive",
+      check: "Number"
+    }, {
+      type: "input_value",
+      name: "maxInclusive",
+      check: "Number"
+    }],
+    output: "Number",
+    style: "math_blocks"
+  }, {
+    kind: "block",
     type: "jacdac_math_map",
     message0: "map %1 from [%2, %3] to [%4, %5]",
     args0: [{
@@ -4248,4 +4267,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d0fda40f9f9391408895.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d397cb03cfc802024950.js.map
