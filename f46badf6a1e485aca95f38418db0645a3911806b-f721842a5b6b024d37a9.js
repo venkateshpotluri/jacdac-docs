@@ -2161,7 +2161,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
     });
   };
 
-  var allServices = (0,jdom_spec/* serviceSpecifications */.Le)().filter(function (service) {
+  var allServices = (0,jdom_spec/* serviceSpecifications */.Le)();
+  var supportedServices = allServices.filter(function (service) {
     return !/^_/.test(service.shortId) && service.status !== "deprecated";
   }).filter(function (service) {
     return ignoredServices.indexOf(service.classIdentifier) < 0;
@@ -2173,7 +2174,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
     });
   };
 
-  var registers = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
+  var registers = (0,utils/* arrayConcatMany */.ue)(supportedServices.map(function (service) {
     return service.packets.filter(function (pkt) {
       return (0,jdom_spec/* isRegister */.x5)(pkt) && !pkt.lowLevel && includedRegisters.indexOf(pkt.identifier) > -1;
     }).map(function (register) {
@@ -2183,7 +2184,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       };
     });
   }));
-  var events = allServices.map(function (service) {
+  var events = supportedServices.map(function (service) {
     return {
       service: service,
       events: service.packets.filter(function (pkt) {
@@ -2193,7 +2194,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
   }).filter(function (kv) {
     return !!kv.events.length;
   });
-  var commands = (0,utils/* arrayConcatMany */.ue)(allServices.map(function (service) {
+  var commands = (0,utils/* arrayConcatMany */.ue)(supportedServices.map(function (service) {
     return service.packets.filter(function (pkt) {
       return (0,jdom_spec/* isCommand */.ao)(pkt) && !pkt.lowLevel && fieldsSupported(pkt);
     }).map(function (pkt) {
@@ -2203,7 +2204,29 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       };
     });
   }));
-  var customBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
+  var customBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_LOGGER */.w9j).map(function (service) {
+    return {
+      kind: "block",
+      type: "log",
+      // do not rename
+      message0: "log %1 with value %2",
+      args0: [{
+        type: "field_input",
+        name: "message"
+      }, {
+        type: "input_value",
+        name: "value"
+      }],
+      colour: commandColor,
+      inputsInline: true,
+      previousStatement: codeStatementType,
+      nextStatement: codeStatementType,
+      tooltip: "Logs a message and an optional value to the logger",
+      helpUrl: serviceHelp(service),
+      service: service,
+      template: "custom"
+    };
+  })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
     return {
       kind: "block",
       type: "key",
@@ -2303,9 +2326,10 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       template: "custom"
     };
   }))).map(function (def) {
-    def.type = "jacdac_custom_" + def.service.shortId + "_" + def.type;
+    def.type = "jacdac_custom_" + def.service.shortId.toLowerCase() + "_" + def.type;
     return def;
   });
+  console.log("custom blocks", customBlockDefinitions);
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -2687,7 +2711,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       type: "field_variable",
       name: "role",
       variable: "any",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
         return service.shortId;
       }))),
       defaultType: "client"
@@ -2710,7 +2734,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       type: "field_variable",
       name: "role",
       variable: "any",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
         return service.shortId;
       }))),
       defaultType: "client"
@@ -2729,7 +2753,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       type: "field_variable",
       name: "role",
       variable: "all",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
         return service.shortId;
       }))),
       defaultType: "client"
@@ -2758,7 +2782,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       type: "field_variable",
       name: "role",
       variable: "none",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
         return service.shortId;
       }))),
       defaultType: "client"
@@ -2781,7 +2805,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) 
       type: "field_variable",
       name: "role",
       variable: "none",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(allServices.map(function (service) {
+      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
         return service.shortId;
       }))),
       defaultType: "client"
@@ -3269,6 +3293,9 @@ function useToolbox(props) {
           type: LEDColorField.SHADOW.type
         }
       }
+    }, {
+      kind: "block",
+      type: toolbox/* LOG_BLOCK */.NK
     }].filter(function (b) {
       return !!b;
     })
@@ -3397,7 +3424,7 @@ function useToolbox(props) {
   };
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [deviceTwinsCategory].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [(servicesCategories === null || servicesCategories === void 0 ? void 0 : servicesCategories.length) && {
+    contents: [deviceTwinsCategory].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [{
       kind: "sep"
     }, commandsCategory, logicCategory, mathCategory, variablesCategory, {
       kind: "sep"
@@ -4213,4 +4240,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-c9e27307ac6f731c0e28.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f721842a5b6b024d37a9.js.map

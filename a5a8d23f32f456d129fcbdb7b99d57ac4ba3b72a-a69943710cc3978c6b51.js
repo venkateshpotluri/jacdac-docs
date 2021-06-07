@@ -5832,6 +5832,7 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
+/* harmony export */   "NK": function() { return /* binding */ LOG_BLOCK; },
 /* harmony export */   "M1": function() { return /* binding */ DEVICE_TWIN_DEFINITION_BLOCK; },
 /* harmony export */   "A9": function() { return /* binding */ DEVICE_TWIN_DESIRED_PROPERTY_BLOCK; },
 /* harmony export */   "e3": function() { return /* binding */ DEVICE_TWIN_REPORTED_PROPERTY_BLOCK; },
@@ -5854,6 +5855,7 @@ var WATCH_BLOCK = "jacdac_watch";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
+var LOG_BLOCK = "jacdac_custom_logger_log";
 var DEVICE_TWIN_DEFINITION_BLOCK = "device_twin_definition";
 var DEVICE_TWIN_DESIRED_PROPERTY_BLOCK = "device_twin_desired_property";
 var DEVICE_TWIN_REPORTED_PROPERTY_BLOCK = "device_twin_reported_property";
@@ -6891,4 +6893,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-9d20d48ace88f059c186.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-a69943710cc3978c6b51.js.map
