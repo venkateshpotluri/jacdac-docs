@@ -2039,11 +2039,9 @@ var codeStatementType = "Code";
 var deviceTwinContentType = "DeviceTwinContent";
 var deviceTwinCommonOptionType = "DeviceTwinCommonOption";
 var deviceTwinPropertyOptionType = "DeviceTwinPropertyOption";
-var deviceTwinTelemetryOptionType = "DeviceTwinTelemetryOption";
 var deviceTwinStatementType = [deviceTwinContentType];
 var deviceTwinCommonOptionStatementType = [deviceTwinCommonOptionType];
 var deviceTwinPropertyOptionStatementType = [deviceTwinPropertyOptionType].concat(deviceTwinCommonOptionStatementType);
-var deviceTwinTelemetryOptionStatementType = [deviceTwinTelemetryOptionType].concat(deviceTwinCommonOptionStatementType);
 
 function loadBlocks(serviceColor, commandColor, debuggerColor, deviceTwinColor) {
   // blocks
@@ -4215,4 +4213,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-88ed151be3d3975debd3.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a5c2f8d3c2bff684a2e4.js.map
