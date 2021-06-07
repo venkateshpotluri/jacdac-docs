@@ -3475,11 +3475,9 @@ function useWorkspaceBreakpoints(program, workspace) {
     var _arrayConcatMany, _program$handlers;
 
     return ((_arrayConcatMany = (0,jdom_utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.map(function (h) {
-      return (// skip first command to avoid breaking on the event itself
-        h.commands.slice(1).map(function (cmd) {
-          return cmd.sourceId;
-        })
-      );
+      return h.commands.map(function (cmd) {
+        return cmd.sourceId;
+      });
     }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
       return !!id;
     })) || [];
@@ -3986,4 +3984,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a305ef00f2da034ee793.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c3aef61cc753d74d4c36.js.map
