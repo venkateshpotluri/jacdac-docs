@@ -43,40 +43,44 @@ function DashboardLED(props) {
 
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(32),
+      speed = _useState[0],
+      setSpeed = _useState[1];
+
   var waveLengthRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.WaveLength */ .Abo.WaveLength);
 
   var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(waveLengthRegister, props),
       waveLength = _useRegisterUnpackedV[0];
 
-  var colorRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.Color */ .Abo.Color);
-  var busColor = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(colorRegister, props);
+  var busColorRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.Color */ .Abo.Color);
+  var busColor = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(busColorRegister, props);
   var serverColor = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(server === null || server === void 0 ? void 0 : server.color, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.values();
   });
+  var ledCountRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.LedCount */ .Abo.LedCount);
+
+  var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(ledCountRegister, props),
+      ledCount = _useRegisterUnpackedV2[0];
 
   var _ref = serverColor || busColor,
       r = _ref[0],
       g = _ref[1],
       b = _ref[2];
 
-  var rgb = r << 16 | g << 8 | b;
-  var ledCountRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.LedCount */ .Abo.LedCount);
-
-  var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(ledCountRegister, props),
-      ledCount = _useRegisterUnpackedV2[0]; // nothing to see
-
+  var rgb = r << 16 | g << 8 | b; // nothing to see
 
   if (r === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null); // send animate command
 
-  var handleSetColor = function handleSetColor(col) {
-    return /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+  var handleSetColor = /*#__PURE__*/function () {
+    var _ref2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(col) {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return service.sendCmdAsync(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedCmd.Animate */ .tVE.Animate, (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_6__/* .jdpack */ .AV)("u8 u8 u8 u8", [col >> 16 & 0xff, col >> 8 & 0xff, col & 0xff, 32]));
+              return service.sendCmdAsync(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedCmd.Animate */ .tVE.Animate, (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_6__/* .jdpack */ .AV)("u8 u8 u8 u8", [col >> 16 & 0xff, col >> 8 & 0xff, col & 0xff, speed]));
 
             case 3:
               _context.next = 5;
@@ -84,7 +88,7 @@ function DashboardLED(props) {
 
             case 5:
               _context.next = 7;
-              return colorRegister.sendGetAsync();
+              return busColorRegister.sendGetAsync();
 
             case 7:
               _context.next = 12;
@@ -102,18 +106,24 @@ function DashboardLED(props) {
         }
       }, _callee, null, [[0, 9]]);
     }));
-  };
+
+    return function handleSetColor(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets_LEDWidget__WEBPACK_IMPORTED_MODULE_10__.default, {
     color: color,
-    value: rgb,
+    ledColor: rgb,
     waveLength: waveLength,
     ledCount: ledCount,
-    onChange: handleSetColor
+    onLedColorChange: handleSetColor,
+    speed: speed,
+    onSpeedChange: setSpeed
   });
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=8282-2591628ef5b4438c0c03.js.map
+//# sourceMappingURL=8282-72c187d81e003b39894f.js.map

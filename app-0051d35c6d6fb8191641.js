@@ -66070,7 +66070,7 @@ var _serviceViews;
  // lazy devices
 
 var DashboardAccelerometer = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(7470)]).then(__webpack_require__.bind(__webpack_require__, 67470));
+  return __webpack_require__.e(/* import() */ 7470).then(__webpack_require__.bind(__webpack_require__, 67470));
 });
 var DashboardBuzzer = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5769).then(__webpack_require__.bind(__webpack_require__, 15769));
@@ -70331,7 +70331,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "94c3f7bcc26eda1ef5108878e78ae466dba3322d";
+  var sha = "3eaac24589ae23c309c1ecf66fa123330b0dbf31";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86605,4 +86605,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9aead233c1866cbc72eb.js.map
+//# sourceMappingURL=app-0051d35c6d6fb8191641.js.map

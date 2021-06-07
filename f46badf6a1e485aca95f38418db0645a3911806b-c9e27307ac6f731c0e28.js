@@ -1450,8 +1450,8 @@ function LEDColorFieldWidget() {
       onValueChange = _useContext.onValueChange;
 
   return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(LEDWidget, {
-    value: value,
-    onChange: onValueChange,
+    ledColor: value,
+    onLedColorChange: onValueChange,
     ledCount: 3,
     color: "secondary"
   }));
@@ -4213,4 +4213,4 @@ function VMBlockEditor(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a5c2f8d3c2bff684a2e4.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-c9e27307ac6f731c0e28.js.map

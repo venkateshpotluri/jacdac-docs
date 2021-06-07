@@ -197,7 +197,72 @@ function DashboardAccelerometer(props) {
   }));
 }
 
+/***/ }),
+
+/***/ 23461:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ SliderWithLabel; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19756);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14685);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80453);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(50514);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19640);
+
+
+
+
+var useStyle = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(function (theme) {
+  return {
+    arrow: {
+      color: theme.palette.primary.main
+    },
+    tooltip: {
+      backgroundColor: theme.palette.primary.main
+    }
+  };
+});
+
+function ValueLabelComponent(props) {
+  var children = props.children,
+      open = props.open,
+      value = props.value;
+  var classes = useStyle();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP, {
+    classes: classes,
+    open: open,
+    arrow: true,
+    color: "primary",
+    enterTouchDelay: 0,
+    placement: "top",
+    title: value
+  }, children);
+}
+
+function SliderWithLabel(props) {
+  var label = props.label,
+      others = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(props, ["label"]);
+
+  var labelId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_1__/* .useId */ .Me)();
+  var sliderId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_1__/* .useId */ .Me)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    id: labelId,
+    variant: "caption",
+    gutterBottom: true
+  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, Object.assign({
+    id: sliderId,
+    "aria-labelledby": labelId,
+    "aria-label": label,
+    ValueLabelComponent: ValueLabelComponent
+  }, others)));
+}
+
 /***/ })
 
 }]);
-//# sourceMappingURL=7470-c4d63171d4f48118f36f.js.map
+//# sourceMappingURL=7470-874c44d07b6c5aa5cf90.js.map
