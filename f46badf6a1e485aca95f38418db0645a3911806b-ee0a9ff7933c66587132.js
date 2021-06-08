@@ -932,8 +932,8 @@ function fieldShadows() {
 }
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
-// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 4 modules
-var DslContext = __webpack_require__(36573);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 5 modules
+var DslContext = __webpack_require__(96962);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -1099,115 +1099,6 @@ function loadBlocks(dsls, theme, commandColor) {
     template: "every",
     nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
   }];
-  var mathBlocks = [{
-    kind: "block",
-    type: "jacdac_math_arithmetic",
-    message0: "%1 %2 %3",
-    args0: [{
-      type: "input_value",
-      name: "A",
-      check: "Number"
-    }, {
-      type: "field_dropdown",
-      name: "OP",
-      options: [["%{BKY_MATH_ADDITION_SYMBOL}", "ADD"], ["%{BKY_MATH_SUBTRACTION_SYMBOL}", "MINUS"], ["%{BKY_MATH_MULTIPLICATION_SYMBOL}", "MULTIPLY"], ["%{BKY_MATH_DIVISION_SYMBOL}", "DIVIDE"]]
-    }, {
-      type: "input_value",
-      name: "B",
-      check: "Number"
-    }],
-    inputsInline: true,
-    output: "Number",
-    style: "math_blocks",
-    helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
-    extensions: ["math_op_tooltip"]
-  }, {
-    kind: "block",
-    type: "jacdac_math_single",
-    message0: "%1 %2",
-    args0: [{
-      type: "field_dropdown",
-      name: "OP",
-      options: [["-", "NEG"], ["%{BKY_MATH_SINGLE_OP_ABSOLUTE}", "ABS"]]
-    }, {
-      type: "input_value",
-      name: "NUM",
-      check: "Number"
-    }],
-    output: "Number",
-    style: "math_blocks",
-    helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
-    extensions: ["math_op_tooltip"]
-  }, {
-    kind: "block",
-    type: "jacdac_math_random",
-    message0: "random",
-    args0: [],
-    output: "Number",
-    style: "math_blocks"
-  }, {
-    kind: "block",
-    type: "jacdac_math_random_range",
-    message0: "random from %1 to %2",
-    args0: [{
-      type: "input_value",
-      name: "min",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "max",
-      check: "Number"
-    }],
-    output: "Number",
-    style: "math_blocks",
-    inputsInline: true
-  }, {
-    kind: "block",
-    type: "jacdac_math_clamp",
-    message0: "clamp %1 in [%2, %3]",
-    args0: [{
-      type: "input_value",
-      name: "value",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "minInclusive",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "maxInclusive",
-      check: "Number"
-    }],
-    output: "Number",
-    style: "math_blocks"
-  }, {
-    kind: "block",
-    type: "jacdac_math_map",
-    message0: "map %1 from [%2, %3] to [%4, %5]",
-    args0: [{
-      type: "input_value",
-      name: "value",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "fromMin",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "fromMax",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "toMin",
-      check: "Number"
-    }, {
-      type: "input_value",
-      name: "toMax",
-      check: "Number"
-    }],
-    output: "Number",
-    style: "math_blocks"
-  }];
   var dslsBlocks = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
     return dsl === null || dsl === void 0 ? void 0 : dsl.createBlocks({
       theme: theme
@@ -1217,7 +1108,7 @@ function loadBlocks(dsls, theme, commandColor) {
       return b;
     });
   }));
-  var blocks = [].concat(runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks, (0,toConsumableArray/* default */.Z)(dslsBlocks));
+  var blocks = [].concat(runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), (0,toConsumableArray/* default */.Z)(dslsBlocks));
   console.log("blocks", {
     blocks: blocks
   }); // register field editors
@@ -1357,46 +1248,6 @@ function useToolbox(props) {
       type: "logic_boolean"
     }]
   };
-  var mathCategory = {
-    kind: "category",
-    name: "Math",
-    colour: "%{BKY_MATH_HUE}",
-    contents: [{
-      kind: "block",
-      type: "jacdac_math_arithmetic",
-      values: {
-        A: {
-          kind: "block",
-          type: "math_number"
-        },
-        B: {
-          kind: "block",
-          type: "math_number"
-        }
-      }
-    }, {
-      kind: "block",
-      type: "jacdac_math_single",
-      values: {
-        NUM: {
-          kind: "block",
-          type: "math_number"
-        }
-      }
-    }, {
-      kind: "block",
-      type: "jacdac_math_random"
-    }, {
-      kind: "block",
-      type: "jacdac_math_random_range"
-    }, {
-      kind: "block",
-      type: "jacdac_math_map"
-    }, {
-      kind: "block",
-      type: "math_number"
-    }]
-  };
   var variablesCategory = {
     kind: "category",
     name: "Variables",
@@ -1417,7 +1268,7 @@ function useToolbox(props) {
   });
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [commandsCategory, logicCategory, mathCategory, variablesCategory, {
+    contents: [commandsCategory, logicCategory, variablesCategory, {
       kind: "sep"
     }].concat((0,toConsumableArray/* default */.Z)(dslsCategories)).filter(function (cat) {
       return !!cat;
@@ -2219,7 +2070,7 @@ function VMBlockEditor(props) {
 
 /***/ }),
 
-/***/ 36573:
+/***/ 96962:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3440,7 +3291,166 @@ var DeviceTwinBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 
 var deviceTwinDSL = new DeviceTwinBlockDomainSpecificLanguage();
 /* harmony default export */ var devicetwindsl = (deviceTwinDSL);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/mathdsl.ts
+var mathDSL = {
+  id: "jacdacmath",
+  createBlocks: function createBlocks() {
+    return [{
+      kind: "block",
+      type: "jacdac_math_arithmetic",
+      message0: "%1 %2 %3",
+      args0: [{
+        type: "input_value",
+        name: "A",
+        check: "Number"
+      }, {
+        type: "field_dropdown",
+        name: "OP",
+        options: [["%{BKY_MATH_ADDITION_SYMBOL}", "ADD"], ["%{BKY_MATH_SUBTRACTION_SYMBOL}", "MINUS"], ["%{BKY_MATH_MULTIPLICATION_SYMBOL}", "MULTIPLY"], ["%{BKY_MATH_DIVISION_SYMBOL}", "DIVIDE"]]
+      }, {
+        type: "input_value",
+        name: "B",
+        check: "Number"
+      }],
+      inputsInline: true,
+      output: "Number",
+      style: "math_blocks",
+      helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
+      extensions: ["math_op_tooltip"]
+    }, {
+      kind: "block",
+      type: "jacdac_math_single",
+      message0: "%1 %2",
+      args0: [{
+        type: "field_dropdown",
+        name: "OP",
+        options: [["-", "NEG"], ["%{BKY_MATH_SINGLE_OP_ABSOLUTE}", "ABS"]]
+      }, {
+        type: "input_value",
+        name: "NUM",
+        check: "Number"
+      }],
+      output: "Number",
+      style: "math_blocks",
+      helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
+      extensions: ["math_op_tooltip"]
+    }, {
+      kind: "block",
+      type: "jacdac_math_random",
+      message0: "random",
+      args0: [],
+      output: "Number",
+      style: "math_blocks"
+    }, {
+      kind: "block",
+      type: "jacdac_math_random_range",
+      message0: "random from %1 to %2",
+      args0: [{
+        type: "input_value",
+        name: "min",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "max",
+        check: "Number"
+      }],
+      output: "Number",
+      style: "math_blocks",
+      inputsInline: true
+    }, {
+      kind: "block",
+      type: "jacdac_math_clamp",
+      message0: "clamp %1 in [%2, %3]",
+      args0: [{
+        type: "input_value",
+        name: "value",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "minInclusive",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "maxInclusive",
+        check: "Number"
+      }],
+      output: "Number",
+      style: "math_blocks"
+    }, {
+      kind: "block",
+      type: "jacdac_math_map",
+      message0: "map %1 from [%2, %3] to [%4, %5]",
+      args0: [{
+        type: "input_value",
+        name: "value",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "fromMin",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "fromMax",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "toMin",
+        check: "Number"
+      }, {
+        type: "input_value",
+        name: "toMax",
+        check: "Number"
+      }],
+      output: "Number",
+      style: "math_blocks"
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Math",
+      colour: "%{BKY_MATH_HUE}",
+      contents: [{
+        kind: "block",
+        type: "jacdac_math_arithmetic",
+        values: {
+          A: {
+            kind: "block",
+            type: "math_number"
+          },
+          B: {
+            kind: "block",
+            type: "math_number"
+          }
+        }
+      }, {
+        kind: "block",
+        type: "jacdac_math_single",
+        values: {
+          NUM: {
+            kind: "block",
+            type: "math_number"
+          }
+        }
+      }, {
+        kind: "block",
+        type: "jacdac_math_random"
+      }, {
+        kind: "block",
+        type: "jacdac_math_random_range"
+      }, {
+        kind: "block",
+        type: "jacdac_math_map"
+      }, {
+        kind: "block",
+        type: "math_number"
+      }]
+    }];
+  }
+};
+/* harmony default export */ var mathdsl = (mathDSL);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/DslContext.tsx
+
 
 
 
@@ -3455,7 +3465,7 @@ DslContext.displayName = "DSL";
 var DslProvider = function DslProvider(_ref) {
   var children = _ref.children;
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl];
+    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, mathdsl];
   }, []);
   return /*#__PURE__*/react.createElement(DslContext.Provider, {
     value: {
@@ -4663,4 +4673,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a158a93800b2786f51d6.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-ee0a9ff7933c66587132.js.map
