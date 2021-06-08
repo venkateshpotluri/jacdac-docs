@@ -5371,12 +5371,19 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     return JSON.stringify(this.value);
   };
 
+  _proto.toXml = function toXml(fieldElement) {
+    fieldElement.textContent = JSON.stringify(this.value);
+    return fieldElement;
+  };
+
   _proto.fromXml = function fromXml(fieldElement) {
     try {
       var v = JSON.parse(fieldElement.textContent);
       this.value = v;
     } catch (e) {
-      console.warn(e);
+      console.log(e, {
+        text: fieldElement.textContent
+      });
       this.value = undefined;
     }
   };
@@ -6892,4 +6899,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-a43278a698a399dee3d1.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-4e4f21900b4783c6b943.js.map
