@@ -1718,9 +1718,9 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     var _topErrors2;
 
     var type = top.type;
-    var command = undefined;
-    var topEvent = undefined;
-    var topErrors = [];
+    var command;
+    var topEvent;
+    var topErrors;
     var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
     (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .assert */ .hu)(!!definition);
     var template = definition.template,
@@ -1730,23 +1730,20 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     }));
 
     try {
-      var _topErrors;
+      var _dsl$compileEventToVM, _topErrors;
 
-      if (dsl !== null && dsl !== void 0 && dsl.compileToVM) {
-        var _ref5 = (dsl === null || dsl === void 0 ? void 0 : dsl.compileToVM({
-          block: top,
-          definition: definition,
-          blockToExpression: blockToExpression
-        })) || {},
-            expression = _ref5.expression,
-            errors = _ref5.errors,
-            event = _ref5.event;
+      var _ref5 = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
+        block: top,
+        definition: definition,
+        blockToExpression: blockToExpression
+      })) || {},
+          expression = _ref5.expression,
+          errors = _ref5.errors,
+          event = _ref5.event;
 
-        command = expression;
-        topErrors = errors;
-        topEvent = event;
-      } // if dsl didn't compile anything try again
-
+      command = expression;
+      topErrors = errors;
+      topEvent = event; // if dsl didn't compile anything try again
 
       if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
         switch (template) {
@@ -2634,7 +2631,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     }]);
   };
 
-  _proto.compileToVM = function compileToVM(options) {
+  _proto.compileEventToVM = function compileEventToVM(options) {
     var block = options.block,
         definition = options.definition,
         blockToExpression = options.blockToExpression;
@@ -2780,7 +2777,7 @@ var toolsDSL = {
       }]
     }];
   },
-  compileToVM: function compileToVM(_ref) {
+  compileEventToVM: function compileEventToVM(_ref) {
     var block = _ref.block,
         blockToExpression = _ref.blockToExpression;
     var type = block.type;
@@ -3450,7 +3447,7 @@ var loopsDsl = {
       })
     }];
   },
-  compileToVM: function compileToVM(_ref) {
+  compileEventToVM: function compileEventToVM(_ref) {
     var block = _ref.block,
         blockToExpression = _ref.blockToExpression;
     var type = block.type;
@@ -4761,4 +4758,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-69bd820f99a9e979f6cc.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5c9eac660aa07d11697e.js.map

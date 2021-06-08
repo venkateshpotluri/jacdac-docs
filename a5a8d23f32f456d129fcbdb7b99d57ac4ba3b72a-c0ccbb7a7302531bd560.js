@@ -5702,7 +5702,7 @@ function domToJSON(workspace, dsls) {
 
   var blockToJSON = function blockToJSON(block) {
     var blockToJSONHidden = function blockToJSONHidden(block) {
-      var _dsl$convertToJSON, _dsl$blockToValue, _builtins$block$type;
+      var _dsl$blockToValue, _builtins$block$type;
 
       // skip disabled blocks
       if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // skip over insertion markers.
@@ -5717,12 +5717,6 @@ function domToJSON(workspace, dsls) {
       var dsl = (definition === null || definition === void 0 ? void 0 : definition.dsl) && dsls.find(function (d) {
         return d.id === definition.dsl;
       });
-      var dslConverted = dsl === null || dsl === void 0 ? void 0 : (_dsl$convertToJSON = dsl.convertToJSON) === null || _dsl$convertToJSON === void 0 ? void 0 : _dsl$convertToJSON.call(dsl, {
-        workspace: workspace,
-        block: block,
-        definition: definition
-      });
-      if (dslConverted) return dslConverted;
       var value = (dsl === null || dsl === void 0 ? void 0 : (_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block)) || ((_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block));
       var element = {
         type: block.type,
@@ -6877,4 +6871,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-dac7eebb189bde684782.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-c0ccbb7a7302531bd560.js.map
