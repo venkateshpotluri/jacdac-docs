@@ -932,8 +932,8 @@ function fieldShadows() {
 }
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
-// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 5 modules
-var DslContext = __webpack_require__(96962);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 6 modules
+var DslContext = __webpack_require__(60440);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -1100,7 +1100,9 @@ function loadBlocks(dsls, theme, commandColor) {
     nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
   }];
   var dslsBlocks = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
-    return dsl === null || dsl === void 0 ? void 0 : dsl.createBlocks({
+    var _dsl$createBlocks;
+
+    return dsl === null || dsl === void 0 ? void 0 : (_dsl$createBlocks = dsl.createBlocks) === null || _dsl$createBlocks === void 0 ? void 0 : _dsl$createBlocks.call(dsl, {
       theme: theme
     }).map(function (b) {
       b.dsl = dsl.id; // ensure DSL is set
@@ -1201,53 +1203,6 @@ function useToolbox(props) {
       return !!b;
     })
   };
-  var logicCategory = {
-    kind: "category",
-    name: "Logic",
-    colour: "%{BKY_LOGIC_HUE}",
-    contents: [{
-      kind: "block",
-      type: "dynamic_if"
-    }, {
-      kind: "block",
-      type: "logic_compare",
-      values: {
-        A: {
-          kind: "block",
-          type: "math_number"
-        },
-        B: {
-          kind: "block",
-          type: "math_number"
-        }
-      }
-    }, {
-      kind: "block",
-      type: "logic_operation",
-      values: {
-        A: {
-          kind: "block",
-          type: "logic_boolean"
-        },
-        B: {
-          kind: "block",
-          type: "logic_boolean"
-        }
-      }
-    }, {
-      kind: "block",
-      type: "logic_negate",
-      values: {
-        BOOL: {
-          kind: "block",
-          type: "logic_boolean"
-        }
-      }
-    }, {
-      kind: "block",
-      type: "logic_boolean"
-    }]
-  };
   var variablesCategory = {
     kind: "category",
     name: "Variables",
@@ -1255,7 +1210,9 @@ function useToolbox(props) {
     custom: "VARIABLE"
   };
   var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
-    return dsl === null || dsl === void 0 ? void 0 : dsl.createCategory({
+    var _dsl$createCategory;
+
+    return dsl === null || dsl === void 0 ? void 0 : (_dsl$createCategory = dsl.createCategory) === null || _dsl$createCategory === void 0 ? void 0 : _dsl$createCategory.call(dsl, {
       theme: theme,
       source: source,
       program: program,
@@ -1268,7 +1225,7 @@ function useToolbox(props) {
   });
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [commandsCategory, logicCategory, variablesCategory, {
+    contents: [commandsCategory, variablesCategory, {
       kind: "sep"
     }].concat((0,toConsumableArray/* default */.Z)(dslsCategories)).filter(function (cat) {
       return !!cat;
@@ -2070,7 +2027,7 @@ function VMBlockEditor(props) {
 
 /***/ }),
 
-/***/ 96962:
+/***/ 60440:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3449,7 +3406,62 @@ var mathDSL = {
   }
 };
 /* harmony default export */ var mathdsl = (mathDSL);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/logicdsl.ts
+var logicDsl = {
+  id: "logic",
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Logic",
+      colour: "%{BKY_LOGIC_HUE}",
+      contents: [{
+        kind: "block",
+        type: "dynamic_if"
+      }, {
+        kind: "block",
+        type: "logic_compare",
+        values: {
+          A: {
+            kind: "block",
+            type: "math_number"
+          },
+          B: {
+            kind: "block",
+            type: "math_number"
+          }
+        }
+      }, {
+        kind: "block",
+        type: "logic_operation",
+        values: {
+          A: {
+            kind: "block",
+            type: "logic_boolean"
+          },
+          B: {
+            kind: "block",
+            type: "logic_boolean"
+          }
+        }
+      }, {
+        kind: "block",
+        type: "logic_negate",
+        values: {
+          BOOL: {
+            kind: "block",
+            type: "logic_boolean"
+          }
+        }
+      }, {
+        kind: "block",
+        type: "logic_boolean"
+      }]
+    }];
+  }
+};
+/* harmony default export */ var logicdsl = (logicDsl);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/DslContext.tsx
+
 
 
 
@@ -3465,7 +3477,7 @@ DslContext.displayName = "DSL";
 var DslProvider = function DslProvider(_ref) {
   var children = _ref.children;
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, mathdsl];
+    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, logicdsl, mathdsl];
   }, []);
   return /*#__PURE__*/react.createElement(DslContext.Provider, {
     value: {
@@ -4673,4 +4685,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-ee0a9ff7933c66587132.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-93c7167c060682afc689.js.map

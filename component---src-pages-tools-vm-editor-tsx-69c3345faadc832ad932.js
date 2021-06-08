@@ -3893,8 +3893,8 @@ function VMToolbar(props) {
     workspace: workspace
   }));
 }
-// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 5 modules
-var DslContext = __webpack_require__(96962);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 6 modules
+var DslContext = __webpack_require__(60440);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
 
@@ -3986,4 +3986,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1155013ca2fe091a9428.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-69c3345faadc832ad932.js.map
