@@ -847,7 +847,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 35281:
+/***/ 81698:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -878,62 +878,12 @@ var useServices = __webpack_require__(2928);
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
 var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./src/components/vm/fields/NoteField.tsx
-var NoteField = __webpack_require__(3453);
-// EXTERNAL MODULE: ./src/components/vm/fields/KeyboardKeyField.tsx
-var KeyboardKeyField = __webpack_require__(7183);
-// EXTERNAL MODULE: ./src/components/vm/fields/LEDMatrixField.tsx + 1 modules
-var LEDMatrixField = __webpack_require__(97483);
-// EXTERNAL MODULE: ./src/components/vm/fields/ServoAngleField.tsx + 1 modules
-var ServoAngleField = __webpack_require__(58592);
-// EXTERNAL MODULE: ./src/components/vm/fields/LEDColorField.tsx
-var LEDColorField = __webpack_require__(31100);
-// EXTERNAL MODULE: ./src/components/vm/fields/TwinField.tsx
-var TwinField = __webpack_require__(41392);
-// EXTERNAL MODULE: ./src/components/vm/fields/JDomTreeField.tsx
-var JDomTreeField = __webpack_require__(56945);
-// EXTERNAL MODULE: ./src/components/vm/fields/WatchValueField.tsx
-var WatchValueField = __webpack_require__(9238);
-;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
-
-
-
-
-
-
-
-
-
-
-var reactFieldShadows;
-function registerFields() {
-  if (reactFieldShadows) return;
-  reactFieldShadows = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-  var registerType = function registerType(fieldType) {
-    var key = fieldType.KEY;
-    (0,utils/* assert */.hu)(!!key);
-
-    try {
-      blockly_default().fieldRegistry.unregister(key); // hot reload issues
-    } catch (e) {// ignore hot reload issues
-    }
-
-    blockly_default().fieldRegistry.register(key, fieldType);
-    if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
-  };
-
-  var fieldTypes = [KeyboardKeyField/* default */.Z, NoteField/* default */.Z, LEDMatrixField/* default */.Z, ServoAngleField/* default */.Z, LEDColorField/* default */.Z, TwinField/* default */.Z, JDomTreeField/* default */.Z, WatchValueField/* default */.Z];
-  fieldTypes.forEach(registerType);
-}
-function fieldShadows() {
-  registerFields();
-  return reactFieldShadows.slice(0);
-}
+// EXTERNAL MODULE: ./src/components/vm/fields/fields.ts
+var fields = __webpack_require__(8244);
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
-// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 6 modules
-var DslContext = __webpack_require__(60440);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 8 modules
+var DslContext = __webpack_require__(62091);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -969,105 +919,6 @@ function createBlockTheme(theme) {
 }
 
 function loadBlocks(dsls, theme, commandColor) {
-  var shadowBlocks = [].concat((0,toConsumableArray/* default */.Z)(fieldShadows()), [{
-    kind: "block",
-    type: "jacdac_on_off",
-    message0: "%1",
-    args0: [{
-      type: "field_dropdown",
-      name: "value",
-      options: [["enabled", "on"], ["disabled", "off"]]
-    }],
-    style: "logic_blocks",
-    output: "Boolean"
-  }, {
-    kind: "block",
-    type: "jacdac_yes_no",
-    message0: "%1",
-    args0: [{
-      type: "field_dropdown",
-      name: "value",
-      options: [["yes", "on"], ["no", "off"]]
-    }],
-    style: "logic_blocks",
-    output: "Boolean"
-  }, {
-    kind: "block",
-    type: "jacdac_time_picker",
-    message0: "%1",
-    args0: [{
-      type: "field_dropdown",
-      name: "value",
-      options: [["0.1", "0.1"], ["1", "1"], ["5", "5"], ["30", "30"], ["60", "60"]]
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
-    kind: "block",
-    type: "jacdac_angle",
-    message0: "%1",
-    args0: [{
-      type: "field_angle",
-      name: "value",
-      min: 0,
-      max: 360,
-      precision: 10
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
-    kind: "block",
-    type: "jacdac_percent",
-    message0: "%1",
-    args0: [{
-      type: "field_slider",
-      name: "value",
-      min: 0,
-      max: 100,
-      precision: 1
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
-    kind: "block",
-    type: "jacdac_byte",
-    message0: "%1",
-    args0: [{
-      type: "field_slider",
-      name: "value",
-      min: 0,
-      max: 255,
-      precision: 1
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
-    kind: "block",
-    type: "jacdac_ratio",
-    message0: "%1",
-    args0: [{
-      type: "field_slider",
-      name: "value",
-      min: 0,
-      max: 1,
-      precision: 0.1
-    }],
-    style: "math_blocks",
-    output: "Number"
-  }, {
-    kind: "block",
-    type: "jacdac_color",
-    message0: "%1",
-    args0: [{
-      type: "field_colour",
-      name: "col",
-      colour: "#ff0000",
-      colourOptions: ["#ff0000", "#ff8000", "#ffff00", "#ff9da5", "#00ff00", "#b09eff", "#00ffff", "#007fff", "#65471f", "#0000ff", "#7f00ff", "#ff0080", "#ff00ff", "#ffffff", "#999999", "#000000"],
-      columns: 4
-    }],
-    style: "math_blocks",
-    output: "Color"
-  }]);
   var runtimeBlocks = [{
     kind: "block",
     type: toolbox/* WAIT_BLOCK */.sX,
@@ -1110,12 +961,12 @@ function loadBlocks(dsls, theme, commandColor) {
       return b;
     });
   }));
-  var blocks = [].concat(runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), (0,toConsumableArray/* default */.Z)(dslsBlocks));
+  var blocks = [].concat(runtimeBlocks, (0,toConsumableArray/* default */.Z)(dslsBlocks));
   console.log("blocks", {
     blocks: blocks
   }); // register field editors
 
-  registerFields(); // re-register blocks with blocklys
+  (0,fields/* registerFields */.k)(); // re-register blocks with blocklys
 
   blocks.forEach(function (block) {
     return (blockly_default()).Blocks[block.type] = {
@@ -1203,12 +1054,6 @@ function useToolbox(props) {
       return !!b;
     })
   };
-  var variablesCategory = {
-    kind: "category",
-    name: "Variables",
-    colour: "%{BKY_VARIABLES_HUE}",
-    custom: "VARIABLE"
-  };
   var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
     var _dsl$createCategory;
 
@@ -1225,9 +1070,7 @@ function useToolbox(props) {
   });
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [commandsCategory, variablesCategory, {
-      kind: "sep"
-    }].concat((0,toConsumableArray/* default */.Z)(dslsCategories)).filter(function (cat) {
+    contents: [commandsCategory].concat((0,toConsumableArray/* default */.Z)(dslsCategories)).filter(function (cat) {
       return !!cat;
     }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
@@ -2027,7 +1870,7 @@ function VMBlockEditor(props) {
 
 /***/ }),
 
-/***/ 60440:
+/***/ 62091:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3460,7 +3303,132 @@ var logicDsl = {
   }
 };
 /* harmony default export */ var logicdsl = (logicDsl);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/variablesdsl.ts
+var variablesDsl = {
+  id: "variables",
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Variables",
+      colour: "%{BKY_VARIABLES_HUE}",
+      custom: "VARIABLE"
+    }];
+  }
+};
+/* harmony default export */ var variablesdsl = (variablesDsl);
+// EXTERNAL MODULE: ./src/components/vm/fields/fields.ts
+var fields = __webpack_require__(8244);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/shadowdsl.ts
+
+
+var shadowDsl = {
+  id: "shadow",
+  createBlocks: function createBlocks() {
+    return [].concat((0,toConsumableArray/* default */.Z)((0,fields/* fieldShadows */.w)()), [{
+      kind: "block",
+      type: "jacdac_on_off",
+      message0: "%1",
+      args0: [{
+        type: "field_dropdown",
+        name: "value",
+        options: [["enabled", "on"], ["disabled", "off"]]
+      }],
+      style: "logic_blocks",
+      output: "Boolean"
+    }, {
+      kind: "block",
+      type: "jacdac_yes_no",
+      message0: "%1",
+      args0: [{
+        type: "field_dropdown",
+        name: "value",
+        options: [["yes", "on"], ["no", "off"]]
+      }],
+      style: "logic_blocks",
+      output: "Boolean"
+    }, {
+      kind: "block",
+      type: "jacdac_time_picker",
+      message0: "%1",
+      args0: [{
+        type: "field_dropdown",
+        name: "value",
+        options: [["0.1", "0.1"], ["1", "1"], ["5", "5"], ["30", "30"], ["60", "60"]]
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_angle",
+      message0: "%1",
+      args0: [{
+        type: "field_angle",
+        name: "value",
+        min: 0,
+        max: 360,
+        precision: 10
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_percent",
+      message0: "%1",
+      args0: [{
+        type: "field_slider",
+        name: "value",
+        min: 0,
+        max: 100,
+        precision: 1
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_byte",
+      message0: "%1",
+      args0: [{
+        type: "field_slider",
+        name: "value",
+        min: 0,
+        max: 255,
+        precision: 1
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_ratio",
+      message0: "%1",
+      args0: [{
+        type: "field_slider",
+        name: "value",
+        min: 0,
+        max: 1,
+        precision: 0.1
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_color",
+      message0: "%1",
+      args0: [{
+        type: "field_colour",
+        name: "col",
+        colour: "#ff0000",
+        colourOptions: ["#ff0000", "#ff8000", "#ffff00", "#ff9da5", "#00ff00", "#b09eff", "#00ffff", "#007fff", "#65471f", "#0000ff", "#7f00ff", "#ff0080", "#ff00ff", "#ffffff", "#999999", "#000000"],
+        columns: 4
+      }],
+      style: "math_blocks",
+      output: "Color"
+    }]);
+  }
+};
+/* harmony default export */ var shadowdsl = (shadowDsl);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/DslContext.tsx
+
+
 
 
 
@@ -3477,7 +3445,7 @@ DslContext.displayName = "DSL";
 var DslProvider = function DslProvider(_ref) {
   var children = _ref.children;
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, logicdsl, mathdsl];
+    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, logicdsl, mathdsl, variablesdsl, shadowdsl];
   }, []);
   return /*#__PURE__*/react.createElement(DslContext.Provider, {
     value: {
@@ -4644,6 +4612,63 @@ WatchValueField.EDITABLE = false;
 
 /***/ }),
 
+/***/ 8244:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "k": function() { return /* binding */ registerFields; },
+/* harmony export */   "w": function() { return /* binding */ fieldShadows; }
+/* harmony export */ });
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _NoteField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3453);
+/* harmony import */ var _KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7183);
+/* harmony import */ var _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(97483);
+/* harmony import */ var _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(58592);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
+/* harmony import */ var _LEDColorField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(31100);
+/* harmony import */ var _TwinField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(41392);
+/* harmony import */ var _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(56945);
+/* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(9238);
+
+
+
+
+
+
+
+
+
+
+var reactFieldShadows;
+function registerFields() {
+  if (reactFieldShadows) return;
+  reactFieldShadows = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var registerType = function registerType(fieldType) {
+    var key = fieldType.KEY;
+    (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .assert */ .hu)(!!key);
+
+    try {
+      blockly__WEBPACK_IMPORTED_MODULE_0___default().fieldRegistry.unregister(key); // hot reload issues
+    } catch (e) {// ignore hot reload issues
+    }
+
+    blockly__WEBPACK_IMPORTED_MODULE_0___default().fieldRegistry.register(key, fieldType);
+    if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
+  };
+
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z];
+  fieldTypes.forEach(registerType);
+}
+function fieldShadows() {
+  registerFields();
+  return reactFieldShadows.slice(0);
+}
+
+/***/ }),
+
 /***/ 41173:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -4685,4 +4710,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-93c7167c060682afc689.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-fbf5ae2b29886af7c443.js.map

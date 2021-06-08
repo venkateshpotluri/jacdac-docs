@@ -1280,8 +1280,8 @@ var Grid = __webpack_require__(80838);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 3 modules
-var VMBlockEditor = __webpack_require__(35281);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 2 modules
+var VMBlockEditor = __webpack_require__(81698);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
@@ -3893,8 +3893,8 @@ function VMToolbar(props) {
     workspace: workspace
   }));
 }
-// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 6 modules
-var DslContext = __webpack_require__(60440);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 8 modules
+var DslContext = __webpack_require__(62091);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
 
@@ -3986,4 +3986,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-69c3345faadc832ad932.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-9428157c47e17fa2e800.js.map
