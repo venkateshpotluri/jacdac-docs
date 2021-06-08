@@ -2838,13 +2838,13 @@ var ops = {
   DIVIDE: "/",
   MINUS: "-"
 };
-var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
 function workspaceJSONToVMProgram(workspace, dsls) {
   console.debug("compile vm", {
-    workspace: workspace
+    workspace: workspace,
+    dsls: dsls
   });
   var roles = workspace.variables.filter(function (v) {
-    return BUILTIN_TYPES.indexOf(v.type) < 0;
+    return toolbox/* BUILTIN_TYPES.indexOf */.Nd.indexOf(v.type) < 0;
   }).map(function (v) {
     return {
       role: v.name,
@@ -3244,23 +3244,58 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     var command = undefined;
     var topEvent = undefined;
     var topErrors = [];
-    var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-    (0,utils/* assert */.hu)(!!def);
-    var template = def.template,
-        dsl = def.dsl;
+    var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+    (0,utils/* assert */.hu)(!!definition);
+    var template = definition.template,
+        dslName = definition.dsl;
+    var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
+      return d.id === dslName;
+    }));
+    console.log("template", {
+      template: template,
+      dsl: dsl,
+      dslName: dslName,
+      dsls: dsls
+    });
 
-    if (!dsl) {
-      // dsl blocks, handled somewhere else in another compiler
-      try {
+    try {
+      var _topErrors;
+
+      if (dsl !== null && dsl !== void 0 && dsl.compileToVM) {
+        console.log("compile to vm", {
+          dsl: dsl,
+          top: top,
+          definition: definition
+        });
+
+        var _ref5 = (dsl === null || dsl === void 0 ? void 0 : dsl.compileToVM({
+          block: top,
+          definition: definition,
+          blockToExpression: blockToExpression
+        })) || {},
+            expression = _ref5.expression,
+            errors = _ref5.errors;
+
+        command = expression;
+        topErrors = errors;
+      } // if dsl didn't compile anything try again
+
+
+      if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
         switch (template) {
+          case "meta":
+            {
+              break;
+            }
+
           case "every":
             {
               var _makeWait = makeWait(undefined, top),
                   cmd = _makeWait.cmd,
-                  errors = _makeWait.errors;
+                  _errors2 = _makeWait.errors;
 
               command = cmd.command;
-              topErrors = errors;
+              topErrors = _errors2;
               break;
             }
 
@@ -3283,32 +3318,17 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           case "register_change_event":
             {
               var _role2 = inputs[0].fields["role"].value;
-              var _ref5 = def,
-                  register = _ref5.register;
+              var _ref6 = definition,
+                  register = _ref6.register;
 
               var _blockToExpression3 = blockToExpression(undefined, inputs[0].child),
                   expr = _blockToExpression3.expr,
-                  _errors2 = _blockToExpression3.errors;
+                  _errors3 = _blockToExpression3.errors;
 
               command = {
                 type: "CallExpression",
                 arguments: [(0,compile/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
                 callee: (0,compile/* toIdentifier */.EB)("awaitChange")
-              };
-              topErrors = _errors2;
-              break;
-            }
-
-          case "watch":
-            {
-              var _blockToExpression4 = blockToExpression(undefined, inputs[0].child),
-                  _expr2 = _blockToExpression4.expr,
-                  _errors3 = _blockToExpression4.errors;
-
-              command = {
-                type: "CallExpression",
-                arguments: [_expr2],
-                callee: (0,compile/* toIdentifier */.EB)("watch")
               };
               topErrors = _errors3;
               break;
@@ -3322,13 +3342,15 @@ function workspaceJSONToVMProgram(workspace, dsls) {
               break;
             }
         }
-      } catch (e) {
-        if (e instanceof EmptyExpression) {
-          command = nop;
-          topErrors = [];
-        } else {
-          throw e;
-        }
+      }
+    } catch (e) {
+      console.debug(e);
+
+      if (e instanceof EmptyExpression) {
+        command = nop;
+        topErrors = [];
+      } else {
+        throw e;
       }
     }
 
@@ -3338,7 +3360,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
         type: "cmd",
         command: command
       }],
-      errors: topErrors
+      errors: topErrors || []
     };
     addCommands(topEvent, top.children, handler);
     return handler;
@@ -3537,7 +3559,7 @@ function VMBlockEditor(props) {
 
         if (onVMProgramChange) {
           try {
-            var newProgram = workspaceJSONToVMProgram(newSource);
+            var newProgram = workspaceJSONToVMProgram(newSource, dsls);
 
             if (JSON.stringify(newProgram) !== JSON.stringify(program)) {
               setProgram(newProgram);
@@ -3602,6 +3624,8 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(85061);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/compile.ts + 1 modules
+var compile = __webpack_require__(79973);
 // EXTERNAL MODULE: ./src/components/vm/fields/JDomTreeField.tsx
 var JDomTreeField = __webpack_require__(56945);
 // EXTERNAL MODULE: ./src/components/vm/fields/TwinField.tsx
@@ -3611,6 +3635,7 @@ var WatchValueField = __webpack_require__(9238);
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/toolsdsl.ts
+
 
 
 
@@ -3642,7 +3667,8 @@ var toolsDSL = {
       colour: colour,
       inputsInline: false,
       tooltip: "Twin of the selected service",
-      helpUrl: ""
+      helpUrl: "",
+      template: "meta"
     }, {
       kind: "block",
       type: toolbox/* INSPECT_BLOCK */.Xd,
@@ -3664,7 +3690,8 @@ var toolsDSL = {
       colour: colour,
       inputsInline: false,
       tooltip: "Inspect a service",
-      helpUrl: ""
+      helpUrl: "",
+      template: "meta"
     }, {
       kind: "block",
       type: toolbox/* WATCH_BLOCK */.HN,
@@ -3700,7 +3727,28 @@ var toolsDSL = {
       }]
     }];
   },
-  convertToJSON: function convertToJSON() {
+  compileToVM: function compileToVM(_ref2) {
+    var block = _ref2.block,
+        blockToExpression = _ref2.blockToExpression;
+    var type = block.type;
+
+    if (type === toolbox/* WATCH_BLOCK */.HN) {
+      var inputs = block.inputs;
+
+      var _blockToExpression = blockToExpression(undefined, inputs[0].child),
+          expr = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
+
+      return {
+        expression: {
+          type: "CallExpression",
+          arguments: [expr],
+          callee: (0,compile/* toIdentifier */.EB)("watch")
+        },
+        errors: errors
+      };
+    }
+
     return undefined;
   }
 };
@@ -4452,4 +4500,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-17a57fda83029ad2b551.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-70cd14347cdc7d69d31e.js.map

@@ -5847,6 +5847,7 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
 /* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
+/* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
 /* harmony export */ });
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
@@ -5866,6 +5867,7 @@ var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
 var PRIMITIVE_TYPES = ["String", "Boolean", "Number"];
+var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
 var CODE_STATEMENT_TYPE = "Code";
 
 /***/ }),
@@ -5880,8 +5882,6 @@ var CODE_STATEMENT_TYPE = "Code";
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20055);
-
 
 
 function useBlocklyEvents(workspace) {
@@ -5891,20 +5891,16 @@ function useBlocklyEvents(workspace) {
     switch (type) {
       case (blockly__WEBPACK_IMPORTED_MODULE_0___default().Events.BLOCK_CHANGE):
         {
+          var _twinField$emitChange;
+
           var change = event;
-          var block = workspace.getBlockById(change.blockId);
-          var def = (0,_toolbox__WEBPACK_IMPORTED_MODULE_2__/* .resolveServiceBlockDefinition */ .yn)(block.type);
-          var template = def === null || def === void 0 ? void 0 : def.template;
+          var block = workspace.getBlockById(change.blockId); // notify twin that the value changed
 
-          if (template === "twin") {
-            // notify twin that the value changed
-            var twinInput = block.inputList[1];
-            var twinField = twinInput.fieldRow.find(function (f) {
-              return f.name === "twin";
-            });
-            twinField.emitChange();
-          }
-
+          var twinInput = block.inputList[1];
+          var twinField = twinInput === null || twinInput === void 0 ? void 0 : twinInput.fieldRow.find(function (f) {
+            return f.name === "twin";
+          });
+          twinField === null || twinField === void 0 ? void 0 : (_twinField$emitChange = twinField.emitChange) === null || _twinField$emitChange === void 0 ? void 0 : _twinField$emitChange.call(twinField);
           break;
         }
     }
@@ -6899,4 +6895,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-4e4f21900b4783c6b943.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-ba98ed00ca3d25dce41a.js.map
