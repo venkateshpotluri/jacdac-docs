@@ -1381,6 +1381,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
         };
 
       switch (type) {
+        case "math_single": // built-in blockly
+
         case "jacdac_math_single":
           {
             var argument = blockToExpressionInner(ev, inputs[0].child);
@@ -1393,6 +1395,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
             };
           }
+
+        case "math_arithmetic": // built-in blockly
 
         case "jacdac_math_arithmetic":
           {
@@ -1452,9 +1456,9 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
         default:
           {
-            var def = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
+            var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
 
-            if (!def) {
+            if (!definition) {
               console.warn("unknown block " + type, {
                 type: type,
                 ev: ev,
@@ -1462,43 +1466,33 @@ function workspaceJSONToVMProgram(workspace, dsls) {
                 d: (blockly__WEBPACK_IMPORTED_MODULE_5___default().Blocks)[type]
               });
             } else {
-              var template = def.template;
-              console.log("get", {
-                type: type,
-                def: def,
-                template: template
+              // try any DSL
+              var dslName = definition.dsl;
+              var dsl = dsls.find(function (d) {
+                return d.id === dslName;
+              });
+              var res = dsl === null || dsl === void 0 ? void 0 : dsl.compileExpressionToVM({
+                event: ev,
+                definition: definition,
+                block: block,
+                blockToExpressionInner: blockToExpressionInner
               });
 
+              if (res) {
+                if (res.errors) res.errors.forEach(function (e) {
+                  return errors.push(e);
+                });
+                return res.expr;
+              } // try built-in
+
+
+              var template = definition.template;
+
               switch (template) {
-                case "register_get":
-                  {
-                    var _ref = def,
-                        register = _ref.register;
-                    var role = inputs[0].fields["role"].value;
-                    var field = inputs[0].fields["field"];
-                    return (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(role, field ? (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(register.name, field.value) : register.name);
-                  }
-
-                case "event_field":
-                  {
-                    var _ref2 = def,
-                        event = _ref2.event;
-
-                    if (ev.event !== event.name) {
-                      errors.push({
-                        sourceId: block.id,
-                        message: "Event " + event.name + " is not available in this handler."
-                      });
-                    }
-
-                    var _field = inputs[0].fields["field"];
-                    return (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(ev.role, (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(ev.event, _field.value));
-                  }
-
                 case "shadow":
                   {
-                    var _field2 = inputs[0].fields["value"];
-                    var _value = _field2.value;
+                    var field = inputs[0].fields["value"];
+                    var _value = field.value;
                     return {
                       type: "Literal",
                       value: _value,
@@ -1627,8 +1621,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
             switch (template) {
               case "register_set":
                 {
-                  var _ref3 = def,
-                      register = _ref3.register;
+                  var _ref = def,
+                      register = _ref.register;
 
                   var _blockToExpression2 = blockToExpression(event, inputs[0].child),
                       _expr = _blockToExpression2.expr,
@@ -1647,8 +1641,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
               case "command":
                 {
-                  var _ref4 = def,
-                      serviceCommand = _ref4.command;
+                  var _ref2 = def,
+                      serviceCommand = _ref2.command;
                   var _role = inputs[0].fields.role.value;
                   var exprsErrors = inputs.map(function (a) {
                     return blockToExpression(event, a.child);
@@ -1732,14 +1726,14 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     try {
       var _dsl$compileEventToVM, _topErrors;
 
-      var _ref5 = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
+      var _ref3 = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
         block: top,
         definition: definition,
         blockToExpression: blockToExpression
       })) || {},
-          expression = _ref5.expression,
-          errors = _ref5.errors,
-          event = _ref5.event;
+          expression = _ref3.expression,
+          errors = _ref3.errors,
+          event = _ref3.event;
 
       command = expression;
       topErrors = errors;
@@ -2678,6 +2672,52 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     }
 
     return undefined;
+  };
+
+  _proto.compileExpressionToVM = function compileExpressionToVM(options) {
+    var event = options.event,
+        definition = options.definition,
+        block = options.block;
+    var inputs = block.inputs,
+        id = block.id;
+    var template = definition.template;
+
+    switch (template) {
+      case "register_get":
+        {
+          var _ref23 = definition,
+              register = _ref23.register;
+          var role = inputs[0].fields["role"].value;
+          var field = inputs[0].fields["field"];
+          return {
+            expr: (0,compile/* toMemberExpression */.vf)(role, field ? (0,compile/* toMemberExpression */.vf)(register.name, field.value) : register.name),
+            errors: []
+          };
+        }
+
+      case "event_field":
+        {
+          var _ref24 = definition,
+              eventInfo = _ref24.event;
+          var errors = [];
+
+          if (event.event !== eventInfo.name) {
+            errors.push({
+              sourceId: id,
+              message: "Event " + eventInfo.name + " is not available in this handler."
+            });
+          }
+
+          var _field = inputs[0].fields["field"];
+          return {
+            expr: (0,compile/* toMemberExpression */.vf)(event.role, (0,compile/* toMemberExpression */.vf)(event.event, _field.value)),
+            errors: errors
+          };
+        }
+
+      default:
+        return undefined;
+    }
   };
 
   return ServicesBlockDomainSpecificLanguage;
@@ -4758,4 +4798,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-5c9eac660aa07d11697e.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-1f52b0b37a3cadae9825.js.map
