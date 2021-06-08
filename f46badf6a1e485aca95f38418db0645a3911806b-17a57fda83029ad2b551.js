@@ -1764,29 +1764,7 @@ function loadBlocks(dsls, theme, serviceColor, commandColor) {
       };
     });
   }));
-  var customBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_LOGGER */.w9j).map(function (service) {
-    return {
-      kind: "block",
-      type: "log",
-      // do not rename
-      message0: "log %1 with value %2",
-      args0: [{
-        type: "field_input",
-        name: "message"
-      }, {
-        type: "input_value",
-        name: "value"
-      }],
-      colour: commandColor,
-      inputsInline: true,
-      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      tooltip: "Logs a message and an optional value to the logger",
-      helpUrl: serviceHelp(service),
-      service: service,
-      template: "custom"
-    };
-  })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
+  var customBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
     return {
       kind: "block",
       type: "key",
@@ -1889,7 +1867,6 @@ function loadBlocks(dsls, theme, serviceColor, commandColor) {
     def.type = "jacdac_custom_" + def.service.shortId.toLowerCase() + "_" + def.type;
     return def;
   });
-  console.log("custom blocks", customBlockDefinitions);
   var eventBlocks = events.map(function (_ref) {
     var service = _ref.service,
         events = _ref.events;
@@ -2678,9 +2655,6 @@ function useToolbox(props) {
           type: LEDColorField.SHADOW.type
         }
       }
-    }, {
-      kind: "block",
-      type: toolbox/* LOG_BLOCK */.NK
     }].filter(function (b) {
       return !!b;
     })
@@ -4478,4 +4452,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6a21b6dbb8b50224219d.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-17a57fda83029ad2b551.js.map

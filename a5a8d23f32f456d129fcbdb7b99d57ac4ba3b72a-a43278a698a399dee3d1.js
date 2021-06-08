@@ -5839,7 +5839,6 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
-/* harmony export */   "NK": function() { return /* binding */ LOG_BLOCK; },
 /* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
 /* harmony export */ });
@@ -5859,7 +5858,6 @@ var WATCH_BLOCK = "jacdac_watch";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
-var LOG_BLOCK = "jacdac_custom_logger_log";
 var PRIMITIVE_TYPES = ["String", "Boolean", "Number"];
 var CODE_STATEMENT_TYPE = "Code";
 
@@ -6894,4 +6892,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-e513674ec36361c014a9.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-a43278a698a399dee3d1.js.map
