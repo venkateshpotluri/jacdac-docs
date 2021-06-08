@@ -1415,7 +1415,6 @@ function useToolbox(props) {
   }).sort(function (l, r) {
     return -(l.order - r.order);
   });
-  console.log("DSL categories", dslsCategories);
   var toolboxConfiguration = {
     kind: "categoryToolbox",
     contents: [commandsCategory, logicCategory, mathCategory, variablesCategory, {
@@ -1904,25 +1903,11 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
       return d.id === dslName;
     }));
-    console.log("compile handler", {
-      top: top,
-      definition: definition,
-      template: template,
-      dsl: dsl,
-      dslName: dslName,
-      dsls: dsls
-    });
 
     try {
       var _topErrors;
 
       if (dsl !== null && dsl !== void 0 && dsl.compileToVM) {
-        console.log("compile to vm", {
-          dsl: dsl,
-          top: top,
-          definition: definition
-        });
-
         var _ref5 = (dsl === null || dsl === void 0 ? void 0 : dsl.compileToVM({
           block: top,
           definition: definition,
@@ -3077,10 +3062,6 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         blockToExpression = options.blockToExpression;
     var inputs = block.inputs;
     var template = definition.template;
-    console.log("services compile to vm", {
-      template: template,
-      inputs: inputs
-    });
 
     switch (template) {
       case "event":
@@ -4682,4 +4663,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4eb1984a413b19a64c73.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-a158a93800b2786f51d6.js.map
