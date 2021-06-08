@@ -865,8 +865,6 @@ var dist = __webpack_require__(691);
 var src = __webpack_require__(2990);
 // EXTERNAL MODULE: ./node_modules/@blockly/theme-dark/src/index.js
 var theme_dark_src = __webpack_require__(26576);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(85061);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
@@ -882,10 +880,9 @@ var useTheme = __webpack_require__(59355);
 var fields = __webpack_require__(8244);
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
-// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 8 modules
-var DslContext = __webpack_require__(62091);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 9 modules
+var DslContext = __webpack_require__(14753);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
-
 
 
 
@@ -909,48 +906,8 @@ var DslContext = __webpack_require__(62091);
   }
 };
 
-function createBlockTheme(theme) {
-  var otherColor = theme.palette.info.main;
-  var commandColor = theme.palette.warning.main;
-  return {
-    commandColor: commandColor,
-    otherColor: otherColor
-  };
-}
-
-function loadBlocks(dsls, theme, commandColor) {
-  var runtimeBlocks = [{
-    kind: "block",
-    type: toolbox/* WAIT_BLOCK */.sX,
-    message0: "wait %1 s",
-    args0: [{
-      type: "input_value",
-      name: "time",
-      check: "Number"
-    }],
-    inputsInline: true,
-    previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-    nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-    colour: commandColor,
-    tooltip: "Wait the desired time",
-    helpUrl: ""
-  }, {
-    kind: "block",
-    type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
-    message0: "repeat every %1s",
-    args0: [{
-      type: "input_value",
-      name: "interval",
-      check: "Number"
-    }],
-    colour: commandColor,
-    inputsInline: true,
-    tooltip: "Repeats code at a given interval in seconds",
-    helpUrl: "",
-    template: "every",
-    nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
-  }];
-  var dslsBlocks = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
+function loadBlocks(dsls, theme) {
+  var blocks = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
     var _dsl$createBlocks;
 
     return dsl === null || dsl === void 0 ? void 0 : (_dsl$createBlocks = dsl.createBlocks) === null || _dsl$createBlocks === void 0 ? void 0 : _dsl$createBlocks.call(dsl, {
@@ -961,7 +918,6 @@ function loadBlocks(dsls, theme, commandColor) {
       return b;
     });
   }));
-  var blocks = [].concat(runtimeBlocks, (0,toConsumableArray/* default */.Z)(dslsBlocks));
   console.log("blocks", {
     blocks: blocks
   }); // register field editors
@@ -1020,40 +976,9 @@ function useToolbox(props) {
       dsls = _useContext.dsls;
 
   var theme = (0,useTheme/* default */.Z)();
-
-  var _createBlockTheme = createBlockTheme(theme),
-      commandColor = _createBlockTheme.commandColor;
-
   (0,react.useMemo)(function () {
-    return loadBlocks(dsls, theme, commandColor);
+    return loadBlocks(dsls, theme);
   }, [theme, dsls]);
-  var commandsCategory = {
-    kind: "category",
-    name: "Commands",
-    order: 4,
-    colour: commandColor,
-    contents: [{
-      kind: "block",
-      type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
-      values: {
-        interval: {
-          kind: "block",
-          type: "jacdac_time_picker"
-        }
-      }
-    }, {
-      kind: "block",
-      type: toolbox/* WAIT_BLOCK */.sX,
-      values: {
-        time: {
-          kind: "block",
-          type: "jacdac_time_picker"
-        }
-      }
-    }].filter(function (b) {
-      return !!b;
-    })
-  };
   var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
     var _dsl$createCategory;
 
@@ -1070,7 +995,7 @@ function useToolbox(props) {
   });
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [commandsCategory].concat((0,toConsumableArray/* default */.Z)(dslsCategories)).filter(function (cat) {
+    contents: dslsCategories.filter(function (cat) {
       return !!cat;
     }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
@@ -1105,6 +1030,8 @@ var BlocklyModalDialogs = __webpack_require__(50769);
 var jsongenerator = __webpack_require__(8374);
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(85061);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(41788);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 1 modules
@@ -1870,7 +1797,7 @@ function VMBlockEditor(props) {
 
 /***/ }),
 
-/***/ 62091:
+/***/ 14753:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3426,7 +3353,79 @@ var shadowDsl = {
   }
 };
 /* harmony default export */ var shadowdsl = (shadowDsl);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/loopsdsl.ts
+
+var loopsdsl_colour = "#4fbac9";
+var loopsDsl = {
+  id: "loops",
+  createBlocks: function createBlocks() {
+    return [{
+      kind: "block",
+      type: toolbox/* WAIT_BLOCK */.sX,
+      message0: "wait %1 s",
+      args0: [{
+        type: "input_value",
+        name: "time",
+        check: "Number"
+      }],
+      inputsInline: true,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      colour: loopsdsl_colour,
+      tooltip: "Wait the desired time",
+      helpUrl: ""
+    }, {
+      kind: "block",
+      type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
+      message0: "repeat every %1s",
+      args0: [{
+        type: "input_value",
+        name: "interval",
+        check: "Number"
+      }],
+      colour: loopsdsl_colour,
+      inputsInline: true,
+      tooltip: "Repeats code at a given interval in seconds",
+      helpUrl: "",
+      template: "every",
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "sep"
+    }, {
+      kind: "category",
+      name: "Commands",
+      order: 4,
+      colour: loopsdsl_colour,
+      contents: [{
+        kind: "block",
+        type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
+        values: {
+          interval: {
+            kind: "block",
+            type: "jacdac_time_picker"
+          }
+        }
+      }, {
+        kind: "block",
+        type: toolbox/* WAIT_BLOCK */.sX,
+        values: {
+          time: {
+            kind: "block",
+            type: "jacdac_time_picker"
+          }
+        }
+      }].filter(function (b) {
+        return !!b;
+      })
+    }];
+  }
+};
+/* harmony default export */ var loopsdsl = (loopsDsl);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/DslContext.tsx
+
 
 
 
@@ -3445,7 +3444,7 @@ DslContext.displayName = "DSL";
 var DslProvider = function DslProvider(_ref) {
   var children = _ref.children;
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, logicdsl, mathdsl, variablesdsl, shadowdsl];
+    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, loopsdsl, logicdsl, mathdsl, variablesdsl, shadowdsl];
   }, []);
   return /*#__PURE__*/react.createElement(DslContext.Provider, {
     value: {
@@ -4710,4 +4709,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-fbf5ae2b29886af7c443.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-b71dc204592abe48c69d.js.map
