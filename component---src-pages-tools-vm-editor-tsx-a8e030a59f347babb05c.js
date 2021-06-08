@@ -1280,8 +1280,8 @@ var Grid = __webpack_require__(80838);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 2 modules
-var VMBlockEditor = __webpack_require__(81698);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 1 modules
+var VMBlockEditor = __webpack_require__(90301);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
@@ -3986,4 +3986,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e5d2b4954fdfb160b895.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a8e030a59f347babb05c.js.map

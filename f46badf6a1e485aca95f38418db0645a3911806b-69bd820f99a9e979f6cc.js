@@ -847,7 +847,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 81698:
+/***/ 90301:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1030,534 +1030,8 @@ var BlocklyModalDialogs = __webpack_require__(50769);
 var jsongenerator = __webpack_require__(8374);
 // EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
 var DarkModeContext = __webpack_require__(91350);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(85061);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(41788);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 1 modules
-var wrapNativeSuper = __webpack_require__(57869);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
-var es_array_flat_map = __webpack_require__(86535);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
-var es_array_unscopables_flat_map = __webpack_require__(99244);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/compile.ts + 1 modules
-var compile = __webpack_require__(79973);
-;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
-
-
-
-
-
-
-
-
-
-var ops = {
-  AND: "&&",
-  OR: "||",
-  EQ: "===",
-  NEQ: "!==",
-  LT: "<",
-  GT: ">",
-  LTE: "<=",
-  GTE: ">=",
-  NEG: "-",
-  ADD: "+",
-  MULTIPLY: "*",
-  DIVIDE: "/",
-  MINUS: "-"
-};
-function workspaceJSONToVMProgram(workspace, dsls) {
-  console.debug("compile vm", {
-    workspace: workspace,
-    dsls: dsls
-  });
-  var roles = workspace.variables.filter(function (v) {
-    return toolbox/* BUILTIN_TYPES.indexOf */.Nd.indexOf(v.type) < 0;
-  }).map(function (v) {
-    return {
-      role: v.name,
-      serviceShortId: v.type
-    };
-  });
-
-  var EmptyExpression = /*#__PURE__*/function (_Error) {
-    (0,inheritsLoose/* default */.Z)(EmptyExpression, _Error);
-
-    function EmptyExpression() {
-      return _Error.apply(this, arguments) || this;
-    }
-
-    return EmptyExpression;
-  }( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
-
-  var blockToExpression = function blockToExpression(ev, blockIn) {
-    var errors = [];
-
-    var blockToExpressionInner = function blockToExpressionInner(ev, block) {
-      if (!block) {
-        throw new EmptyExpression();
-      }
-
-      var type = block.type,
-          value = block.value,
-          inputs = block.inputs;
-      console.log("block2e", {
-        ev: ev,
-        block: block,
-        type: type,
-        value: value,
-        inputs: inputs
-      });
-      if (value !== undefined) // literal
-        return {
-          type: "Literal",
-          value: value,
-          raw: value + ""
-        };
-
-      switch (type) {
-        case "jacdac_math_single":
-          {
-            var argument = blockToExpressionInner(ev, inputs[0].child);
-            var op = inputs[0].fields["op"].value;
-            return {
-              type: "UnaryExpression",
-              operator: ops[op] || op,
-              argument: argument,
-              prefix: false // TODO:?
-
-            };
-          }
-
-        case "jacdac_math_arithmetic":
-          {
-            var left = blockToExpressionInner(ev, inputs[0].child);
-            var right = blockToExpressionInner(ev, inputs[1].child);
-            var _op = inputs[1].fields["op"].value;
-            return {
-              type: "BinaryExpression",
-              operator: ops[_op] || _op,
-              left: left,
-              right: right
-            };
-          }
-
-        case "logic_operation":
-          {
-            var _left = blockToExpressionInner(ev, inputs[0].child);
-
-            var _right = blockToExpressionInner(ev, inputs[1].child);
-
-            var _op2 = inputs[1].fields["op"].value;
-            return {
-              type: "LogicalExpression",
-              operator: ops[_op2] || _op2,
-              left: _left,
-              right: _right
-            };
-          }
-
-        case "logic_negate":
-          {
-            var _argument = blockToExpressionInner(ev, inputs[0].child);
-
-            return {
-              type: "UnaryExpression",
-              operator: "!",
-              argument: _argument,
-              prefix: false // TODO:?
-
-            };
-          }
-
-        case "logic_compare":
-          {
-            var _left2 = blockToExpressionInner(ev, inputs[0].child);
-
-            var _right2 = blockToExpressionInner(ev, inputs[1].child);
-
-            var _op3 = inputs[1].fields["op"].value;
-            return {
-              type: "BinaryExpression",
-              operator: ops[_op3] || _op3,
-              left: _left2,
-              right: _right2
-            };
-          }
-
-        default:
-          {
-            var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-
-            if (!def) {
-              console.warn("unknown block " + type, {
-                type: type,
-                ev: ev,
-                block: block,
-                d: (blockly_default()).Blocks[type]
-              });
-            } else {
-              var template = def.template;
-              console.log("get", {
-                type: type,
-                def: def,
-                template: template
-              });
-
-              switch (template) {
-                case "register_get":
-                  {
-                    var _ref = def,
-                        register = _ref.register;
-                    var role = inputs[0].fields["role"].value;
-                    var field = inputs[0].fields["field"];
-                    return (0,compile/* toMemberExpression */.vf)(role, field ? (0,compile/* toMemberExpression */.vf)(register.name, field.value) : register.name);
-                  }
-
-                case "event_field":
-                  {
-                    var _ref2 = def,
-                        event = _ref2.event;
-
-                    if (ev.event !== event.name) {
-                      errors.push({
-                        sourceId: block.id,
-                        message: "Event " + event.name + " is not available in this handler."
-                      });
-                    }
-
-                    var _field = inputs[0].fields["field"];
-                    return (0,compile/* toMemberExpression */.vf)(ev.role, (0,compile/* toMemberExpression */.vf)(ev.event, _field.value));
-                  }
-
-                case "shadow":
-                  {
-                    var _field2 = inputs[0].fields["value"];
-                    var _value = _field2.value;
-                    return {
-                      type: "Literal",
-                      value: _value,
-                      raw: _value + ""
-                    };
-                  }
-
-                default:
-                  {
-                    console.warn("unsupported block template " + template + " for " + type, {
-                      ev: ev,
-                      block: block
-                    });
-                    break;
-                  }
-              }
-
-              break;
-            }
-          }
-      }
-
-      throw new EmptyExpression();
-    };
-
-    return {
-      expr: blockToExpressionInner(ev, blockIn),
-      errors: errors
-    };
-  };
-
-  var makeVMBase = function makeVMBase(block, command) {
-    return {
-      sourceId: block.id,
-      type: "cmd",
-      command: command
-    };
-  };
-
-  var processErrors = function processErrors(block, errors) {
-    return errors.map(function (e) {
-      return {
-        sourceId: e.sourceId ? e.sourceId : block.id,
-        message: e.message
-      };
-    });
-  };
-
-  var makeWait = function makeWait(event, block) {
-    var inputs = block.inputs;
-    {
-      var _blockToExpression = blockToExpression(event, inputs[0].child),
-          time = _blockToExpression.expr,
-          errors = _blockToExpression.errors;
-
-      return {
-        cmd: makeVMBase(block, {
-          type: "CallExpression",
-          arguments: [time],
-          callee: (0,compile/* toIdentifier */.EB)("wait")
-        }),
-        errors: processErrors(block, errors)
-      };
-    }
-  };
-
-  var blockToCommand = function blockToCommand(event, block) {
-    var type = block.type,
-        inputs = block.inputs;
-
-    switch (type) {
-      case toolbox/* WAIT_BLOCK */.sX:
-        return makeWait(event, block);
-
-      case "dynamic_if":
-        {
-          var _inputs$, _inputs$2;
-
-          var thenHandler = {
-            commands: [],
-            errors: []
-          };
-          var elseHandler = {
-            commands: [],
-            errors: []
-          };
-          var t = (_inputs$ = inputs[1]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child;
-          var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
-
-          if (t) {
-            addCommands(event, [t].concat((0,toConsumableArray/* default */.Z)(t.children ? t.children : [])), thenHandler);
-          }
-
-          if (e) {
-            addCommands(event, [e].concat((0,toConsumableArray/* default */.Z)(e.children ? e.children : [])), elseHandler);
-          }
-
-          var exprErrors = undefined;
-
-          try {
-            var _inputs$3;
-
-            exprErrors = blockToExpression(event, (_inputs$3 = inputs[0]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child);
-          } catch (e) {
-            if (e instanceof EmptyExpression) {
-              exprErrors = {
-                expr: {
-                  type: "Literal",
-                  value: false,
-                  raw: "false "
-                },
-                errors: []
-              };
-            } else {
-              throw e;
-            }
-          }
-
-          var _exprErrors = exprErrors,
-              expr = _exprErrors.expr,
-              errors = _exprErrors.errors;
-          var ifThenElse = {
-            sourceId: block.id,
-            type: "ite",
-            expr: expr,
-            then: thenHandler.commands,
-            else: elseHandler.commands
-          };
-          return {
-            cmd: ifThenElse,
-            errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
-          };
-        }
-      // more builts
-
-      default:
-        {
-          var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-
-          if (def) {
-            var template = def.template;
-
-            switch (template) {
-              case "register_set":
-                {
-                  var _ref3 = def,
-                      register = _ref3.register;
-
-                  var _blockToExpression2 = blockToExpression(event, inputs[0].child),
-                      _expr = _blockToExpression2.expr,
-                      _errors = _blockToExpression2.errors;
-
-                  var role = inputs[0].fields.role.value;
-                  return {
-                    cmd: makeVMBase(block, {
-                      type: "CallExpression",
-                      arguments: [(0,compile/* toMemberExpression */.vf)(role, register.name), _expr],
-                      callee: (0,compile/* toIdentifier */.EB)("writeRegister")
-                    }),
-                    errors: processErrors(block, _errors)
-                  };
-                }
-
-              case "command":
-                {
-                  var _ref4 = def,
-                      serviceCommand = _ref4.command;
-                  var _role = inputs[0].fields.role.value;
-                  var exprsErrors = inputs.map(function (a) {
-                    return blockToExpression(event, a.child);
-                  });
-                  return {
-                    cmd: makeVMBase(block, {
-                      type: "CallExpression",
-                      arguments: exprsErrors.map(function (p) {
-                        return p.expr;
-                      }),
-                      callee: (0,compile/* toMemberExpression */.vf)(_role, serviceCommand.name)
-                    }),
-                    errors: processErrors(block, exprsErrors.flatMap(function (p) {
-                      return p.errors;
-                    }))
-                  };
-                }
-
-              default:
-                {
-                  console.warn("unsupported block template " + template + " for " + type, {
-                    block: block
-                  });
-                  return {
-                    cmd: undefined,
-                    errors: []
-                  };
-                }
-            }
-          }
-        }
-    }
-  };
-
-  var nop = {
-    type: "CallExpression",
-    arguments: [],
-    callee: (0,compile/* toIdentifier */.EB)("nop")
-  };
-
-  var addCommands = function addCommands(event, blocks, handler) {
-    blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
-      if (child) {
-        try {
-          var _blockToCommand = blockToCommand(event, child),
-              cmd = _blockToCommand.cmd,
-              errors = _blockToCommand.errors;
-
-          if (cmd) handler.commands.push(cmd);
-          errors.forEach(function (e) {
-            return handler.errors.push(e);
-          });
-        } catch (e) {
-          if (e instanceof EmptyExpression) {
-            handler.commands.push({
-              sourceId: child.id,
-              type: "cmd",
-              command: nop
-            });
-          }
-        }
-      }
-    });
-  };
-
-  var handlers = workspace.blocks.map(function (top) {
-    var _topErrors2;
-
-    var type = top.type;
-    var command = undefined;
-    var topEvent = undefined;
-    var topErrors = [];
-    var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-    (0,utils/* assert */.hu)(!!definition);
-    var template = definition.template,
-        dslName = definition.dsl;
-    var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
-      return d.id === dslName;
-    }));
-
-    try {
-      var _topErrors;
-
-      if (dsl !== null && dsl !== void 0 && dsl.compileToVM) {
-        var _ref5 = (dsl === null || dsl === void 0 ? void 0 : dsl.compileToVM({
-          block: top,
-          definition: definition,
-          blockToExpression: blockToExpression
-        })) || {},
-            expression = _ref5.expression,
-            errors = _ref5.errors,
-            event = _ref5.event;
-
-        command = expression;
-        topErrors = errors;
-        topEvent = event;
-      } // if dsl didn't compile anything try again
-
-
-      if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
-        switch (template) {
-          case "meta":
-            {
-              break;
-            }
-
-          case "every":
-            {
-              var _makeWait = makeWait(undefined, top),
-                  cmd = _makeWait.cmd,
-                  _errors2 = _makeWait.errors;
-
-              command = cmd.command;
-              topErrors = _errors2;
-              break;
-            }
-
-          default:
-            {
-              console.warn("unsupported handler template " + template + " for " + type, {
-                top: top
-              });
-              break;
-            }
-        }
-      }
-    } catch (e) {
-      console.debug(e);
-
-      if (e instanceof EmptyExpression) {
-        return undefined;
-      } else {
-        throw e;
-      }
-    } // nothing to compile here
-
-
-    if (!command && !((_topErrors2 = topErrors) !== null && _topErrors2 !== void 0 && _topErrors2.length)) return undefined;
-    var handler = {
-      commands: [{
-        sourceId: top.id,
-        type: "cmd",
-        command: command
-      }],
-      errors: topErrors || []
-    };
-    addCommands(topEvent, top.children, handler);
-    return handler;
-  }).filter(function (handler) {
-    return !!handler;
-  });
-  return {
-    roles: roles,
-    handlers: handlers
-  };
-}
+// EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
+var VMgenerator = __webpack_require__(15056);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
@@ -1747,7 +1221,7 @@ function VMBlockEditor(props) {
 
         if (onVMProgramChange) {
           try {
-            var newProgram = workspaceJSONToVMProgram(newSource, dsls);
+            var newProgram = (0,VMgenerator/* default */.ZP)(newSource, dsls);
 
             if (JSON.stringify(newProgram) !== JSON.stringify(program)) {
               setProgram(newProgram);
@@ -1793,6 +1267,532 @@ function VMBlockEditor(props) {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
     ref: blocklyRef
   }), /*#__PURE__*/react.createElement(BlocklyModalDialogs/* default */.Z, null));
+}
+
+/***/ }),
+
+/***/ 15056:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "IZ": function() { return /* binding */ makeVMBase; },
+/* harmony export */   "cC": function() { return /* binding */ processErrors; },
+/* harmony export */   "ZP": function() { return /* binding */ workspaceJSONToVMProgram; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(85061);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41788);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(57869);
+/* harmony import */ var core_js_modules_es_array_flat_map_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(86535);
+/* harmony import */ var core_js_modules_es_array_flat_map_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_flat_map_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_unscopables_flat_map_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(99244);
+/* harmony import */ var core_js_modules_es_array_unscopables_flat_map_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_unscopables_flat_map_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79973);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20055);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+
+
+
+var ops = {
+  AND: "&&",
+  OR: "||",
+  EQ: "===",
+  NEQ: "!==",
+  LT: "<",
+  GT: ">",
+  LTE: "<=",
+  GTE: ">=",
+  NEG: "-",
+  ADD: "+",
+  MULTIPLY: "*",
+  DIVIDE: "/",
+  MINUS: "-"
+};
+var makeVMBase = function makeVMBase(block, command) {
+  return {
+    sourceId: block.id,
+    type: "cmd",
+    command: command
+  };
+};
+var processErrors = function processErrors(block, errors) {
+  return errors.map(function (e) {
+    return {
+      sourceId: e.sourceId ? e.sourceId : block.id,
+      message: e.message
+    };
+  });
+};
+function workspaceJSONToVMProgram(workspace, dsls) {
+  console.debug("compile vm", {
+    workspace: workspace,
+    dsls: dsls
+  });
+  var roles = workspace.variables.filter(function (v) {
+    return _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .BUILTIN_TYPES.indexOf */ .Nd.indexOf(v.type) < 0;
+  }).map(function (v) {
+    return {
+      role: v.name,
+      serviceShortId: v.type
+    };
+  });
+
+  var EmptyExpression = /*#__PURE__*/function (_Error) {
+    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(EmptyExpression, _Error);
+
+    function EmptyExpression() {
+      return _Error.apply(this, arguments) || this;
+    }
+
+    return EmptyExpression;
+  }( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(Error));
+
+  var blockToExpression = function blockToExpression(ev, blockIn) {
+    var errors = [];
+
+    var blockToExpressionInner = function blockToExpressionInner(ev, block) {
+      if (!block) {
+        throw new EmptyExpression();
+      }
+
+      var type = block.type,
+          value = block.value,
+          inputs = block.inputs;
+      console.log("block2e", {
+        ev: ev,
+        block: block,
+        type: type,
+        value: value,
+        inputs: inputs
+      });
+      if (value !== undefined) // literal
+        return {
+          type: "Literal",
+          value: value,
+          raw: value + ""
+        };
+
+      switch (type) {
+        case "jacdac_math_single":
+          {
+            var argument = blockToExpressionInner(ev, inputs[0].child);
+            var op = inputs[0].fields["op"].value;
+            return {
+              type: "UnaryExpression",
+              operator: ops[op] || op,
+              argument: argument,
+              prefix: false // TODO:?
+
+            };
+          }
+
+        case "jacdac_math_arithmetic":
+          {
+            var left = blockToExpressionInner(ev, inputs[0].child);
+            var right = blockToExpressionInner(ev, inputs[1].child);
+            var _op = inputs[1].fields["op"].value;
+            return {
+              type: "BinaryExpression",
+              operator: ops[_op] || _op,
+              left: left,
+              right: right
+            };
+          }
+
+        case "logic_operation":
+          {
+            var _left = blockToExpressionInner(ev, inputs[0].child);
+
+            var _right = blockToExpressionInner(ev, inputs[1].child);
+
+            var _op2 = inputs[1].fields["op"].value;
+            return {
+              type: "LogicalExpression",
+              operator: ops[_op2] || _op2,
+              left: _left,
+              right: _right
+            };
+          }
+
+        case "logic_negate":
+          {
+            var _argument = blockToExpressionInner(ev, inputs[0].child);
+
+            return {
+              type: "UnaryExpression",
+              operator: "!",
+              argument: _argument,
+              prefix: false // TODO:?
+
+            };
+          }
+
+        case "logic_compare":
+          {
+            var _left2 = blockToExpressionInner(ev, inputs[0].child);
+
+            var _right2 = blockToExpressionInner(ev, inputs[1].child);
+
+            var _op3 = inputs[1].fields["op"].value;
+            return {
+              type: "BinaryExpression",
+              operator: ops[_op3] || _op3,
+              left: _left2,
+              right: _right2
+            };
+          }
+
+        default:
+          {
+            var def = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
+
+            if (!def) {
+              console.warn("unknown block " + type, {
+                type: type,
+                ev: ev,
+                block: block,
+                d: (blockly__WEBPACK_IMPORTED_MODULE_5___default().Blocks)[type]
+              });
+            } else {
+              var template = def.template;
+              console.log("get", {
+                type: type,
+                def: def,
+                template: template
+              });
+
+              switch (template) {
+                case "register_get":
+                  {
+                    var _ref = def,
+                        register = _ref.register;
+                    var role = inputs[0].fields["role"].value;
+                    var field = inputs[0].fields["field"];
+                    return (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(role, field ? (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(register.name, field.value) : register.name);
+                  }
+
+                case "event_field":
+                  {
+                    var _ref2 = def,
+                        event = _ref2.event;
+
+                    if (ev.event !== event.name) {
+                      errors.push({
+                        sourceId: block.id,
+                        message: "Event " + event.name + " is not available in this handler."
+                      });
+                    }
+
+                    var _field = inputs[0].fields["field"];
+                    return (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(ev.role, (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(ev.event, _field.value));
+                  }
+
+                case "shadow":
+                  {
+                    var _field2 = inputs[0].fields["value"];
+                    var _value = _field2.value;
+                    return {
+                      type: "Literal",
+                      value: _value,
+                      raw: _value + ""
+                    };
+                  }
+
+                default:
+                  {
+                    console.warn("unsupported block template " + template + " for " + type, {
+                      ev: ev,
+                      block: block
+                    });
+                    break;
+                  }
+              }
+
+              break;
+            }
+          }
+      }
+
+      throw new EmptyExpression();
+    };
+
+    return {
+      expr: blockToExpressionInner(ev, blockIn),
+      errors: errors
+    };
+  };
+
+  var makeWait = function makeWait(event, block) {
+    var inputs = block.inputs;
+    {
+      var _blockToExpression = blockToExpression(event, inputs[0].child),
+          time = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
+
+      return {
+        cmd: makeVMBase(block, {
+          type: "CallExpression",
+          arguments: [time],
+          callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toIdentifier */ .EB)("wait")
+        }),
+        errors: processErrors(block, errors)
+      };
+    }
+  };
+
+  var blockToCommand = function blockToCommand(event, block) {
+    var type = block.type,
+        inputs = block.inputs;
+
+    switch (type) {
+      case _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .WAIT_BLOCK */ .sX:
+        return makeWait(event, block);
+
+      case "dynamic_if":
+        {
+          var _inputs$, _inputs$2;
+
+          var thenHandler = {
+            commands: [],
+            errors: []
+          };
+          var elseHandler = {
+            commands: [],
+            errors: []
+          };
+          var t = (_inputs$ = inputs[1]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child;
+          var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
+
+          if (t) {
+            addCommands(event, [t].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(t.children ? t.children : [])), thenHandler);
+          }
+
+          if (e) {
+            addCommands(event, [e].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(e.children ? e.children : [])), elseHandler);
+          }
+
+          var exprErrors = undefined;
+
+          try {
+            var _inputs$3;
+
+            exprErrors = blockToExpression(event, (_inputs$3 = inputs[0]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child);
+          } catch (e) {
+            if (e instanceof EmptyExpression) {
+              exprErrors = {
+                expr: {
+                  type: "Literal",
+                  value: false,
+                  raw: "false "
+                },
+                errors: []
+              };
+            } else {
+              throw e;
+            }
+          }
+
+          var _exprErrors = exprErrors,
+              expr = _exprErrors.expr,
+              errors = _exprErrors.errors;
+          var ifThenElse = {
+            sourceId: block.id,
+            type: "ite",
+            expr: expr,
+            then: thenHandler.commands,
+            else: elseHandler.commands
+          };
+          return {
+            cmd: ifThenElse,
+            errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
+          };
+        }
+      // more builts
+
+      default:
+        {
+          var def = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
+
+          if (def) {
+            var template = def.template;
+
+            switch (template) {
+              case "register_set":
+                {
+                  var _ref3 = def,
+                      register = _ref3.register;
+
+                  var _blockToExpression2 = blockToExpression(event, inputs[0].child),
+                      _expr = _blockToExpression2.expr,
+                      _errors = _blockToExpression2.errors;
+
+                  var role = inputs[0].fields.role.value;
+                  return {
+                    cmd: makeVMBase(block, {
+                      type: "CallExpression",
+                      arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(role, register.name), _expr],
+                      callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toIdentifier */ .EB)("writeRegister")
+                    }),
+                    errors: processErrors(block, _errors)
+                  };
+                }
+
+              case "command":
+                {
+                  var _ref4 = def,
+                      serviceCommand = _ref4.command;
+                  var _role = inputs[0].fields.role.value;
+                  var exprsErrors = inputs.map(function (a) {
+                    return blockToExpression(event, a.child);
+                  });
+                  return {
+                    cmd: makeVMBase(block, {
+                      type: "CallExpression",
+                      arguments: exprsErrors.map(function (p) {
+                        return p.expr;
+                      }),
+                      callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toMemberExpression */ .vf)(_role, serviceCommand.name)
+                    }),
+                    errors: processErrors(block, exprsErrors.flatMap(function (p) {
+                      return p.errors;
+                    }))
+                  };
+                }
+
+              default:
+                {
+                  console.warn("unsupported block template " + template + " for " + type, {
+                    block: block
+                  });
+                  return {
+                    cmd: undefined,
+                    errors: []
+                  };
+                }
+            }
+          }
+        }
+    }
+  };
+
+  var nop = {
+    type: "CallExpression",
+    arguments: [],
+    callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_2__/* .toIdentifier */ .EB)("nop")
+  };
+
+  var addCommands = function addCommands(event, blocks, handler) {
+    blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
+      if (child) {
+        try {
+          var _blockToCommand = blockToCommand(event, child),
+              cmd = _blockToCommand.cmd,
+              errors = _blockToCommand.errors;
+
+          if (cmd) handler.commands.push(cmd);
+          errors.forEach(function (e) {
+            return handler.errors.push(e);
+          });
+        } catch (e) {
+          if (e instanceof EmptyExpression) {
+            handler.commands.push({
+              sourceId: child.id,
+              type: "cmd",
+              command: nop
+            });
+          }
+        }
+      }
+    });
+  };
+
+  var handlers = workspace.blocks.map(function (top) {
+    var _topErrors2;
+
+    var type = top.type;
+    var command = undefined;
+    var topEvent = undefined;
+    var topErrors = [];
+    var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
+    (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .assert */ .hu)(!!definition);
+    var template = definition.template,
+        dslName = definition.dsl;
+    var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
+      return d.id === dslName;
+    }));
+
+    try {
+      var _topErrors;
+
+      if (dsl !== null && dsl !== void 0 && dsl.compileToVM) {
+        var _ref5 = (dsl === null || dsl === void 0 ? void 0 : dsl.compileToVM({
+          block: top,
+          definition: definition,
+          blockToExpression: blockToExpression
+        })) || {},
+            expression = _ref5.expression,
+            errors = _ref5.errors,
+            event = _ref5.event;
+
+        command = expression;
+        topErrors = errors;
+        topEvent = event;
+      } // if dsl didn't compile anything try again
+
+
+      if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
+        switch (template) {
+          case "meta":
+            {
+              break;
+            }
+
+          default:
+            {
+              console.warn("unsupported handler template " + template + " for " + type, {
+                top: top
+              });
+              break;
+            }
+        }
+      }
+    } catch (e) {
+      console.debug(e);
+
+      if (e instanceof EmptyExpression) {
+        return undefined;
+      } else {
+        throw e;
+      }
+    } // nothing to compile here
+
+
+    if (!command && !((_topErrors2 = topErrors) !== null && _topErrors2 !== void 0 && _topErrors2.length)) return undefined;
+    var handler = {
+      commands: [{
+        sourceId: top.id,
+        type: "cmd",
+        command: command
+      }],
+      errors: topErrors || []
+    };
+    addCommands(topEvent, top.children, handler);
+    return handler;
+  }).filter(function (handler) {
+    return !!handler;
+  });
+  return {
+    roles: roles,
+    handlers: handlers
+  };
 }
 
 /***/ }),
@@ -3378,7 +3378,11 @@ var shadowDsl = {
   }
 };
 /* harmony default export */ var shadowdsl = (shadowDsl);
+// EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
+var VMgenerator = __webpack_require__(15056);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/loopsdsl.ts
+
+
 
 var loopsdsl_colour = "#4fbac9";
 var loopsDsl = {
@@ -3412,7 +3416,6 @@ var loopsDsl = {
       inputsInline: true,
       tooltip: "Repeats code at a given interval in seconds",
       helpUrl: "",
-      template: "every",
       nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
     }];
   },
@@ -3446,6 +3449,30 @@ var loopsDsl = {
         return !!b;
       })
     }];
+  },
+  compileToVM: function compileToVM(_ref) {
+    var block = _ref.block,
+        blockToExpression = _ref.blockToExpression;
+    var type = block.type;
+
+    if (type === toolbox/* REPEAT_EVERY_BLOCK */.BB) {
+      var inputs = block.inputs;
+
+      var _blockToExpression = blockToExpression(undefined, inputs[0].child),
+          time = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
+
+      return {
+        expression: (0,VMgenerator/* makeVMBase */.IZ)(block, {
+          type: "CallExpression",
+          arguments: [time],
+          callee: (0,compile/* toIdentifier */.EB)("wait")
+        }).command,
+        errors: (0,VMgenerator/* processErrors */.cC)(block, errors)
+      };
+    }
+
+    return undefined;
   }
 };
 /* harmony default export */ var loopsdsl = (loopsDsl);
@@ -4734,4 +4761,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-08be31f4cd1ed18ca983.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-69bd820f99a9e979f6cc.js.map
