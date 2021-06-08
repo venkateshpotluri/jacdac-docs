@@ -3519,9 +3519,8 @@ function VMRunnerButtons(props) {
 
   var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program, workspace),
       breakpoints = _useWorkspaceBreakpoi.breakpoints,
-      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight;
+      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight; //console.log("runner status", status)
 
-  console.log("runner status", status);
 
   var handleRun = /*#__PURE__*/function () {
     var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
@@ -3987,4 +3986,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-bb0298b249b181bba0c1.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-716d012dffadc30c49ef.js.map
