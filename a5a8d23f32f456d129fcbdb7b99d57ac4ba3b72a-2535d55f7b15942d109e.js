@@ -5623,24 +5623,6 @@ function domToJSON(workspace, dsls) {
     },
     logic_boolean: function logic_boolean(block) {
       return block.getFieldValue("BOOL") === "TRUE";
-    },
-    jacdac_on_off: function jacdac_on_off(block) {
-      return block.getFieldValue("value") === "on";
-    },
-    jacdac_yes_no: function jacdac_yes_no(block) {
-      return block.getFieldValue("value") === "on";
-    },
-    jacdac_time_picker: function jacdac_time_picker(block) {
-      return Number(block.getFieldValue("value") || "0");
-    },
-    jacdac_angle: function jacdac_angle(block) {
-      return Number(block.getFieldValue("value") || "0");
-    },
-    jacdac_percent: function jacdac_percent(block) {
-      return Number(block.getFieldValue("value") || "0");
-    },
-    jacdac_ratio: function jacdac_ratio(block) {
-      return Number(block.getFieldValue("value") || "0");
     }
   };
 
@@ -5720,7 +5702,7 @@ function domToJSON(workspace, dsls) {
 
   var blockToJSON = function blockToJSON(block) {
     var blockToJSONHidden = function blockToJSONHidden(block) {
-      var _dsl$convertToJSON, _builtins$block$type;
+      var _dsl$convertToJSON, _dsl$blockToValue, _builtins$block$type;
 
       // skip disabled blocks
       if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // skip over insertion markers.
@@ -5740,9 +5722,8 @@ function domToJSON(workspace, dsls) {
         block: block,
         definition: definition
       });
-      if (dslConverted) return dslConverted; // dump object
-
-      var value = (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
+      if (dslConverted) return dslConverted;
+      var value = ((_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block)) || ((_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block));
       var element = {
         type: block.type,
         id: block.id,
@@ -6896,4 +6877,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-ceb68c2bc4f25bc1941e.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-2535d55f7b15942d109e.js.map

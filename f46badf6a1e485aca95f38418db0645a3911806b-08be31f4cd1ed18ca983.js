@@ -3248,6 +3248,26 @@ var fields = __webpack_require__(8244);
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/shadowdsl.ts
 
 
+var builtins = {
+  jacdac_on_off: function jacdac_on_off(block) {
+    return block.getFieldValue("value") === "on";
+  },
+  jacdac_yes_no: function jacdac_yes_no(block) {
+    return block.getFieldValue("value") === "on";
+  },
+  jacdac_time_picker: function jacdac_time_picker(block) {
+    return Number(block.getFieldValue("value") || "0");
+  },
+  jacdac_angle: function jacdac_angle(block) {
+    return Number(block.getFieldValue("value") || "0");
+  },
+  jacdac_percent: function jacdac_percent(block) {
+    return Number(block.getFieldValue("value") || "0");
+  },
+  jacdac_ratio: function jacdac_ratio(block) {
+    return Number(block.getFieldValue("value") || "0");
+  }
+};
 var shadowDsl = {
   id: "shadow",
   createBlocks: function createBlocks() {
@@ -3350,6 +3370,11 @@ var shadowDsl = {
       style: "math_blocks",
       output: "Color"
     }]);
+  },
+  blockToValue: function blockToValue(block) {
+    var _builtins$block$type;
+
+    return (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
   }
 };
 /* harmony default export */ var shadowdsl = (shadowDsl);
@@ -4709,4 +4734,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-b71dc204592abe48c69d.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-08be31f4cd1ed18ca983.js.map
