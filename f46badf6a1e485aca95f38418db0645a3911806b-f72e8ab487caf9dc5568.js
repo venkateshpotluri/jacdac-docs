@@ -3274,10 +3274,12 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           blockToExpression: blockToExpression
         })) || {},
             expression = _ref5.expression,
-            errors = _ref5.errors;
+            errors = _ref5.errors,
+            event = _ref5.event;
 
         command = expression;
         topErrors = errors;
+        topEvent = event;
       } // if dsl didn't compile anything try again
 
 
@@ -4500,4 +4502,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-70cd14347cdc7d69d31e.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-f72e8ab487caf9dc5568.js.map
