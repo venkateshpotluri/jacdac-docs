@@ -49453,7 +49453,6 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "mZW": function() { return /* binding */ ERROR_MICROBIT_INVALID_MEMORY; },
 /* harmony export */   "l9m": function() { return /* binding */ ROLE_BOUND; },
 /* harmony export */   "CCp": function() { return /* binding */ ROLE_UNBOUND; },
-/* harmony export */   "ky2": function() { return /* binding */ ROLE_HAS_NO_SERVICE; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
 /* harmony export */   "GZs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.GZs; },
 /* harmony export */   "qdU": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.qdU; },
@@ -49610,7 +49609,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "wrj": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.wrj; },
 /* harmony export */   "EPs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.EPs; }
 /* harmony export */ });
-/* unused harmony exports JD_ADVERTISEMENT_0_ACK_SUPPORTED, PACKET_INVALID_CRC, PACKET_KIND_EVENT, BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC */
+/* unused harmony exports JD_ADVERTISEMENT_0_ACK_SUPPORTED, PACKET_INVALID_CRC, PACKET_KIND_EVENT, BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC, ROLE_HAS_NO_SERVICE */
 /* harmony import */ var _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73512);
 // Registers 0x001-0x07f - r/w common to all services
 // Registers 0x080-0x0ff - r/w defined per-service
@@ -70338,7 +70337,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "3bedde8a7ed7416f47f889912beae9e5bab77b0b";
+  var sha = "53fec81b5abb2bea17af7a326a5f977a6addb4aa";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86612,4 +86611,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-a102a8fa2e760fa218a7.js.map
+//# sourceMappingURL=app-e0d2a1438cd759e5dd34.js.map

@@ -1,80 +1,25 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6540],{
 
-/***/ 94624:
+/***/ 59448:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
-/* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
-/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
-/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
-/* harmony export */   "gf": function() { return /* binding */ VM_WAKE_SLEEPER; },
-/* harmony export */   "L1": function() { return /* binding */ VMError; },
-/* harmony export */   "WU": function() { return /* binding */ Mutex; }
+/* harmony export */   "J": function() { return /* binding */ VM_EVENT; },
+/* harmony export */   "H": function() { return /* binding */ VMCode; }
 /* harmony export */ });
-/* unused harmony exports VM_ERROR, default */
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
-/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
+var VM_EVENT = "vmEvent";
+var VMCode;
 
-
-var VM_ERROR = "vmError";
-var VM_WATCH_CHANGE = "vmWatchChange";
-var VM_BREAKPOINT = "vmBreakpoint";
-var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
-var VM_COMMAND_COMPLETED = "vmCommandCompleted";
-var VM_WAKE_SLEEPER = "vmWakeSleeper";
-var VMError = /*#__PURE__*/function (_Error) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(VMError, _Error);
-
-  function VMError(message, jacdacName) {
-    var _this;
-
-    _this = _Error.call(this, message) || this;
-    _this.jacdacName = jacdacName;
-    _this.name = VM_ERROR;
-    return _this;
-  }
-
-  return VMError;
-}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
-function errorPath(e) {
-  return e === null || e === void 0 ? void 0 : e.jacdacName;
-}
-var Mutex = /*#__PURE__*/function () {
-  function Mutex() {
-    this.promises = [];
-  }
-
-  var _proto = Mutex.prototype;
-
-  _proto.shift = function shift() {
-    this.promises.shift();
-    if (this.promises[0]) this.promises[0]();
-  };
-
-  _proto.acquire = function acquire(f) {
-    var _this2 = this;
-
-    return new Promise(function (resolve, reject) {
-      _this2.promises.push(function () {
-        return f().then(function (v) {
-          _this2.shift();
-
-          resolve(v);
-        }, function (e) {
-          _this2.shift();
-
-          reject(e);
-        });
-      });
-
-      if (_this2.promises.length == 1) _this2.promises[0]();
-    });
-  };
-
-  return Mutex;
-}();
+(function (VMCode) {
+  VMCode["WatchChange"] = "vmWatchChange";
+  VMCode["Breakpoint"] = "vmBreakpoint";
+  VMCode["CommandStarted"] = "vmCommandStarted";
+  VMCode["CommandCompleted"] = "vmCommandCompleted";
+  VMCode["CommandFailed"] = "vmCommandFailed";
+  VMCode["RoleMissing"] = "vmRoleMissing";
+  VMCode["InternalError"] = "vmInternalError";
+})(VMCode || (VMCode = {}));
 
 /***/ }),
 
@@ -394,4 +339,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-service-playground-tsx-aed1ada51c87f5ea3f49.js.map
+//# sourceMappingURL=component---src-templates-service-playground-tsx-e1ad6c5c6fdbe9b8aaad.js.map

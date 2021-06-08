@@ -656,11 +656,10 @@ var getServiceFromRole = function getServiceFromRole(info) {
 function checkProgram(prog) {
   var allErrors = [];
   var goodHandlers = [];
-  var currentId = undefined;
 
   var errorFun = function errorFun(e) {
     allErrors.push({
-      sourceId: currentId,
+      sourceId: undefined,
       message: e
     });
   };
@@ -4606,7 +4605,7 @@ TwinField.EDITABLE = false;
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26934);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16319);
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(88967);
-/* harmony import */ var _jacdac_ts_src_vm_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(94624);
+/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59448);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
 
 
@@ -4630,8 +4629,8 @@ function WatchValueWidget() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setValue(undefined);
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_utils__WEBPACK_IMPORTED_MODULE_4__/* .VM_WATCH_CHANGE */ .UM, function (watchSourceId) {
-      if (watchSourceId === sourceId) {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_4__/* .VM_EVENT */ .J, function (code, watchSourceId) {
+      if (code === _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_4__/* .VMCode.WatchChange */ .H.WatchChange && watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
       }
@@ -4798,4 +4797,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-1f52b0b37a3cadae9825.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-daaf91f98b9a7a880b6b.js.map

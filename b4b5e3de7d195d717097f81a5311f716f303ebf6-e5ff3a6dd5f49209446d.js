@@ -5,10 +5,10 @@
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "iq": function() { return /* binding */ VMRoleNoServiceException; },
 /* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
 /* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
-/* unused harmony export VMRoleNoServiceException */
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(92137);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41788);
 /* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(57869);
@@ -31,8 +31,12 @@
 var VMRoleNoServiceException = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMRoleNoServiceException, _Error);
 
-  function VMRoleNoServiceException() {
-    return _Error.call(this) || this;
+  function VMRoleNoServiceException(role) {
+    var _this;
+
+    _this = _Error.call(this) || this;
+    _this.role = role;
+    return _this;
   }
 
   return VMRoleNoServiceException;
@@ -41,12 +45,12 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
 
   function VMServiceEnvironment(service) {
-    var _this;
+    var _this2;
 
-    _this = _JDServiceClient.call(this, service) || this;
-    _this._registers = {};
-    _this._events = {};
-    return _this;
+    _this2 = _JDServiceClient.call(this, service) || this;
+    _this2._registers = {};
+    _this2._events = {};
+    return _this2;
   }
 
   var _proto = VMServiceEnvironment.prototype;
@@ -285,21 +289,21 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMEnvironment, _JDEventSource);
 
   function VMEnvironment(registers, events) {
-    var _this2;
+    var _this3;
 
-    _this2 = _JDEventSource.call(this) || this;
-    _this2._currentEvent = undefined;
-    _this2._envs = {};
-    _this2._locals = {};
-    _this2.registers = registers;
-    _this2.events = events;
-    return _this2;
+    _this3 = _JDEventSource.call(this) || this;
+    _this3._currentEvent = undefined;
+    _this3._envs = {};
+    _this3._locals = {};
+    _this3.registers = registers;
+    _this3.events = events;
+    return _this3;
   }
 
   var _proto2 = VMEnvironment.prototype;
 
   _proto2.serviceChanged = function serviceChanged(role, service) {
-    var _this3 = this;
+    var _this4 = this;
 
     if (this._envs[role]) {
       this._envs[role].unmount();
@@ -311,38 +315,38 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       this._envs[role] = new VMServiceEnvironment(service);
       this.registers.forEach(function (r) {
         if (r.role === role) {
-          _this3.registerRegister(role, r.register);
+          _this4.registerRegister(role, r.register);
         }
       });
       this.events.forEach(function (e) {
         if (e.role === role) {
-          _this3.registerEvent(role, e.event);
+          _this4.registerEvent(role, e.event);
         }
       });
     }
   };
 
   _proto2.registerRegister = function registerRegister(role, reg) {
-    var _this4 = this;
+    var _this5 = this;
 
     try {
       var serviceEnv = this.getService(role);
       serviceEnv.registerRegister(reg, function () {
-        _this4.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+        _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     } catch (e) {// nothing
     }
   };
 
   _proto2.registerEvent = function registerEvent(role, ev) {
-    var _this5 = this;
+    var _this6 = this;
 
     try {
       var serviceEnv = this.getService(role);
       serviceEnv.registerEvent(ev, function () {
-        _this5._currentEvent = role + "." + ev;
+        _this6._currentEvent = role + "." + ev;
 
-        _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+        _this6.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     } catch (e) {// nothing
     }
@@ -361,8 +365,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     var s = this._envs[root];
 
     if (!s) {
-      this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .ROLE_HAS_NO_SERVICE */ .ky2, root);
-      throw new VMRoleNoServiceException();
+      throw new VMRoleNoServiceException(root);
     }
 
     return s;
@@ -534,6 +537,29 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
 /***/ }),
 
+/***/ 59448:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "J": function() { return /* binding */ VM_EVENT; },
+/* harmony export */   "H": function() { return /* binding */ VMCode; }
+/* harmony export */ });
+var VM_EVENT = "vmEvent";
+var VMCode;
+
+(function (VMCode) {
+  VMCode["WatchChange"] = "vmWatchChange";
+  VMCode["Breakpoint"] = "vmBreakpoint";
+  VMCode["CommandStarted"] = "vmCommandStarted";
+  VMCode["CommandCompleted"] = "vmCommandCompleted";
+  VMCode["CommandFailed"] = "vmCommandFailed";
+  VMCode["RoleMissing"] = "vmRoleMissing";
+  VMCode["InternalError"] = "vmInternalError";
+})(VMCode || (VMCode = {}));
+
+/***/ }),
+
 /***/ 18108:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -542,7 +568,9 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Z": function() { return /* binding */ unparse; },
 /* harmony export */   "W": function() { return /* binding */ VMExprEvaluator; }
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94624);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59448);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(94624);
+
 
 function unparse(e) {
   switch (e.type) {
@@ -781,7 +809,7 @@ var VMExprEvaluator = /*#__PURE__*/function () {
           var val = this.env(e);
 
           if (val === undefined) {
-            throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .VMError */ .L1("lookup of " + unparse(e) + " failed");
+            throw new _utils__WEBPACK_IMPORTED_MODULE_1__/* .VMError */ .L1(_events__WEBPACK_IMPORTED_MODULE_0__/* .VMCode.InternalError */ .H.InternalError, "lookup of " + unparse(e) + " failed");
           }
 
           this.exprStack.push(val);
@@ -794,7 +822,7 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 
           var _val = this.env(id.name);
 
-          if (_val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_0__/* .VMError */ .L1("lookup of " + id.name + " failed");
+          if (_val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_1__/* .VMError */ .L1(_events__WEBPACK_IMPORTED_MODULE_0__/* .VMCode.InternalError */ .H.InternalError, "lookup of " + id.name + " failed");
           this.exprStack.push(_val);
           return;
         }
@@ -820,34 +848,24 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
-/* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
-/* harmony export */   "Ed": function() { return /* binding */ VM_COMMAND_ATTEMPTED; },
-/* harmony export */   "p_": function() { return /* binding */ VM_COMMAND_COMPLETED; },
-/* harmony export */   "gf": function() { return /* binding */ VM_WAKE_SLEEPER; },
 /* harmony export */   "L1": function() { return /* binding */ VMError; },
 /* harmony export */   "WU": function() { return /* binding */ Mutex; }
 /* harmony export */ });
-/* unused harmony exports VM_ERROR, default */
+/* unused harmony export default */
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41788);
 /* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57869);
 
 
-var VM_ERROR = "vmError";
-var VM_WATCH_CHANGE = "vmWatchChange";
-var VM_BREAKPOINT = "vmBreakpoint";
-var VM_COMMAND_ATTEMPTED = "vmCommandAttempted";
-var VM_COMMAND_COMPLETED = "vmCommandCompleted";
-var VM_WAKE_SLEEPER = "vmWakeSleeper";
 var VMError = /*#__PURE__*/function (_Error) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(VMError, _Error);
 
-  function VMError(message, jacdacName) {
+  function VMError(name, message, jacdacName) {
     var _this;
 
     _this = _Error.call(this, message) || this;
+    _this.message = message;
     _this.jacdacName = jacdacName;
-    _this.name = VM_ERROR;
+    _this.name = name;
     return _this;
   }
 
@@ -894,4 +912,4 @@ var Mutex = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-52f52fc2a29612705e2e.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-e5ff3a6dd5f49209446d.js.map
