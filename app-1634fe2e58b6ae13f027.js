@@ -48516,7 +48516,6 @@ function parseIntFloat(spec, w, allowFloat) {
 
 function exprVisitor(parent, current, structVisit) {
   if (Array.isArray(current)) {
-    ;
     current.forEach(function (c) {
       return exprVisitor(current, c, structVisit);
     });
@@ -48870,7 +48869,6 @@ var VMChecker = /*#__PURE__*/function () {
         }
       } else if (argType === "events") {
         if (arg.type != "ArrayExpression") _this3.error("events function expects a list of service events");else {
-          ;
           arg.elements.forEach(function (e) {
             return _this3.resolver.lookupEvent(e);
           });
@@ -70340,7 +70338,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8775d2d33199d87db90f7fa1ea8937fd448ada6e";
+  var sha = "4753d05b9347d42fea896c6285c01bf94a62aa71";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86614,4 +86612,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-d40ee57bc8d585aa680a.js.map
+//# sourceMappingURL=app-1634fe2e58b6ae13f027.js.map

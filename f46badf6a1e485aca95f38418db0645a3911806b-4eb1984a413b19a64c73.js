@@ -1891,6 +1891,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
   };
 
   var handlers = workspace.blocks.map(function (top) {
+    var _topErrors2;
+
     var type = top.type;
     var command = undefined;
     var topEvent = undefined;
@@ -1967,13 +1969,14 @@ function workspaceJSONToVMProgram(workspace, dsls) {
       console.debug(e);
 
       if (e instanceof EmptyExpression) {
-        command = nop;
-        topErrors = [];
+        return undefined;
       } else {
         throw e;
       }
-    }
+    } // nothing to compile here
 
+
+    if (!command && !((_topErrors2 = topErrors) !== null && _topErrors2 !== void 0 && _topErrors2.length)) return undefined;
     var handler = {
       commands: [{
         sourceId: top.id,
@@ -1984,6 +1987,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     };
     addCommands(topEvent, top.children, handler);
     return handler;
+  }).filter(function (handler) {
+    return !!handler;
   });
   return {
     roles: roles,
@@ -4677,4 +4682,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4e0dd530cde9646832b1.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-4eb1984a413b19a64c73.js.map
