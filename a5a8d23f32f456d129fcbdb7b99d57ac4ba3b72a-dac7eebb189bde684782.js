@@ -5723,7 +5723,7 @@ function domToJSON(workspace, dsls) {
         definition: definition
       });
       if (dslConverted) return dslConverted;
-      var value = ((_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block)) || ((_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block));
+      var value = (dsl === null || dsl === void 0 ? void 0 : (_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block)) || ((_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block));
       var element = {
         type: block.type,
         id: block.id,
@@ -6877,4 +6877,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-2535d55f7b15942d109e.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-dac7eebb189bde684782.js.map
