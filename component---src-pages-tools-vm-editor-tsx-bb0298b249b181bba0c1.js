@@ -1280,8 +1280,8 @@ var Grid = __webpack_require__(80838);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 17 modules
-var VMBlockEditor = __webpack_require__(62437);
+// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 10 modules
+var VMBlockEditor = __webpack_require__(93655);
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
@@ -3894,7 +3894,10 @@ function VMToolbar(props) {
     workspace: workspace
   }));
 }
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 3 modules
+var DslContext = __webpack_require__(15060);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+
 
 
 
@@ -3942,7 +3945,7 @@ function VMEditor(props) {
     setProgram(json);
   };
 
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  return /*#__PURE__*/react.createElement(DslContext/* DslProvider */.K, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "column",
     spacing: 1
@@ -3972,7 +3975,7 @@ function VMEditor(props) {
     program: program,
     source: source,
     xml: xml
-  }));
+  })));
 }
 ;// CONCATENATED MODULE: ./src/pages/tools/vm-editor.tsx
 
@@ -3984,4 +3987,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c3aef61cc753d74d4c36.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-bb0298b249b181bba0c1.js.map

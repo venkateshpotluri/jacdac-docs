@@ -847,7 +847,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 62437:
+/***/ 93655:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -875,7 +875,7 @@ var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
 var jdspec = __webpack_require__(13996);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var jdom_spec = __webpack_require__(13173);
+var spec = __webpack_require__(13173);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/hooks/useServices.ts
@@ -1058,36 +1058,8 @@ var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
 
 KeyboardKeyField.KEY = "jacdac_field_keyboard_key";
 
-;// CONCATENATED MODULE: ./src/components/widgets/svg.ts
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function mkTitle(txt) {
-  var t = elt("title");
-  t.textContent = txt;
-  return t;
-}
-
-function title(el, txt) {
-  var t = mkTitle(txt);
-  el.appendChild(t);
-  return t;
-}
-function hydrate(el, props) {
-  for (var k in props) {
-    if (k == "title") {
-      title(el, props[k]);
-    } else el.setAttributeNS(null, k, props[k]);
-  }
-}
-function elt(name, props) {
-  var el = document.createElementNS("http://www.w3.org/2000/svg", name);
-  if (props) hydrate(el, props);
-  return el;
-}
-function child(parent, name, props) {
-  var el = elt(name, props);
-  parent.appendChild(el);
-  return el;
-}
+// EXTERNAL MODULE: ./src/components/widgets/svg.ts
+var svg = __webpack_require__(41173);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/ReactImageField.tsx
 
 
@@ -1146,7 +1118,7 @@ var ReactImageField = /*#__PURE__*/function (_ReactField) {
     var _this$size_ = this.size_,
         width = _this$size_.width,
         height = _this$size_.height;
-    return child(this.fieldGroup_, "image", {
+    return (0,svg/* child */.iU)(this.fieldGroup_, "image", {
       height: height,
       width: width,
       alt: this.getText()
@@ -1477,7 +1449,7 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
   _proto.initCustomView = function initCustomView() {
     var width = this.size_.width;
     var r = width >> 1;
-    return child(this.fieldGroup_, "circle", {
+    return (0,svg/* child */.iU)(this.fieldGroup_, "circle", {
       r: width >> 1,
       cx: r,
       cy: r,
@@ -1509,410 +1481,12 @@ var LEDColorField = /*#__PURE__*/function (_ReactField) {
 LEDColorField.KEY = "jacdac_field_led_color";
 LEDColorField.SHADOW = (0,ReactField/* toShadowDefinition */._t)(LEDColorField);
 
-// EXTERNAL MODULE: ./src/components/dashboard/DashboardServiceWidget.tsx + 5 modules
-var DashboardServiceWidget = __webpack_require__(23069);
-// EXTERNAL MODULE: ./src/components/vm/WorkspaceContext.tsx
-var WorkspaceContext = __webpack_require__(26934);
-// EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(73935);
-// EXTERNAL MODULE: ./src/components/ui/DarkModeProvider.tsx
-var DarkModeProvider = __webpack_require__(7796);
-// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
-var react_use_id_hook_esm = __webpack_require__(19640);
-// EXTERNAL MODULE: ./src/jacdac/Provider.tsx
-var Provider = __webpack_require__(727);
-// EXTERNAL MODULE: ./src/components/ui/AppTheme.tsx
-var AppTheme = __webpack_require__(25853);
-;// CONCATENATED MODULE: ./src/components/vm/fields/ReactInlineField.tsx
-
-
-
-
-
-
-
-
-
-
-
-
-var ReactInlineField = /*#__PURE__*/function (_ReactField) {
-  (0,inheritsLoose/* default */.Z)(ReactInlineField, _ReactField);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function ReactInlineField(options) {
-    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
-      width: 1,
-      height: 1
-    }) || this;
-  }
-
-  var _proto = ReactInlineField.prototype;
-
-  _proto.createContainer = function createContainer() {
-    var c = document.createElement("div");
-    c.style.display = "inline-block";
-    c.style.minWidth = "14rem";
-    return c;
-  };
-
-  _proto.initCustomView = function initCustomView() {
-    var _this = this;
-
-    var _this$size_ = this.size_,
-        width = _this$size_.width,
-        height = _this$size_.height;
-    var fo = child(this.fieldGroup_, "foreignObject", {
-      x: 0,
-      y: 0,
-      width: width,
-      height: height
-    });
-    this.container = this.createContainer();
-    fo.appendChild(this.container);
-    this.resizeObserver = new ResizeObserver(function (entries) {
-      var entry = entries[0];
-      var contentRect = entry.contentRect;
-      _this.size_.width = contentRect.width;
-      _this.size_.height = contentRect.height;
-      fo.setAttribute("width", _this.size_.width + "");
-      fo.setAttribute("height", _this.size_.height + "");
-
-      _this.forceRerender();
-    });
-    this.resizeObserver.observe(this.container);
-    react_dom.render(this.renderBlock(), this.container);
-    return fo;
-  };
-
-  _proto.dispose = function dispose() {
-    if (this.container) {
-      react_dom.unmountComponentAtNode(this.container);
-      this.container = undefined;
-    }
-
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = undefined;
-    }
-
-    _ReactField.prototype.dispose.call(this);
-  };
-
-  _proto.renderField = function renderField() {
-    return /*#__PURE__*/react.createElement("div", null, "not used");
-  };
-
-  _proto.renderInlineField = function renderInlineField() {
-    return null;
-  };
-
-  _proto.renderBlock = function renderBlock() {
-    return /*#__PURE__*/react.createElement(WorkspaceContext/* WorkspaceProvider */.W5, {
-      field: this
-    }, /*#__PURE__*/react.createElement(DarkModeProvider/* default */.Z, {
-      fixedDarkMode: "dark"
-    }, /*#__PURE__*/react.createElement(react_use_id_hook_esm/* IdProvider */.vc, null, /*#__PURE__*/react.createElement(Provider/* default */.Z, null, /*#__PURE__*/react.createElement(AppTheme/* default */.Z, null, this.renderInlineField())))));
-  };
-
-  _proto.getText_ = function getText_() {
-    return "...";
-  } // don't bind any mouse event
-  ;
-
-  _proto.bindEvents_ = function bindEvents_() {
-    blockly_default().Tooltip.bindMouseEvents(this.getClickTarget_());
-  };
-
-  return ReactInlineField;
-}(ReactField/* default */.ZP);
-
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
-var Button = __webpack_require__(83332);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 23 modules
-var servers = __webpack_require__(37801);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
-// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
-var Alert = __webpack_require__(6809);
-;// CONCATENATED MODULE: ./src/components/vm/fields/NoServiceAlert.tsx
-
-
-
-
-
-
-
-
-function NoServiceAlert() {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var _useContext2 = (0,react.useContext)(WorkspaceContext/* default */.ZP),
-      roleService = _useContext2.roleService,
-      roleServiceShortId = _useContext2.roleServiceShortId,
-      flyout = _useContext2.flyout;
-
-  var spec = (0,jdom_spec/* serviceSpecificationFromName */.kB)(roleServiceShortId);
-
-  var handleStartSimulator = function handleStartSimulator() {
-    return (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, spec.classIdentifier);
-  }; // nothing to do here
-
-
-  if (roleService || flyout) return null; // unresolved, unknown service
-
-  if (!roleService && !roleServiceShortId) return null; // unknown spec
-
-  if (!spec) return /*#__PURE__*/react.createElement(Alert/* default */.Z, {
-    severity: "warning"
-  }, "Unknown service");
-  return /*#__PURE__*/react.createElement(Button/* default */.Z, {
-    variant: "outlined",
-    color: "default",
-    startIcon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
-    onClick: handleStartSimulator
-  }, "start ", spec.name);
-}
-;// CONCATENATED MODULE: ./src/components/vm/fields/PointerBoundary.tsx
-
-function PointerBoundary(props) {
-  var className = props.className,
-      children = props.children;
-
-  var onPointerStopPropagation = function onPointerStopPropagation(event) {
-    // make sure blockly does not handle drags when interacting with UI
-    event.stopPropagation();
-  };
-
-  return /*#__PURE__*/react.createElement("div", {
-    className: className,
-    style: {
-      cursor: "inherit"
-    },
-    onPointerDown: onPointerStopPropagation,
-    onPointerUp: onPointerStopPropagation,
-    onPointerMove: onPointerStopPropagation
-  }, children);
-}
-;// CONCATENATED MODULE: ./src/components/vm/fields/TwinField.tsx
-
-
-
-
-
-
-
-
-
-function TwinWidget() {
-  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
-      roleService = _useContext.roleService,
-      flyout = _useContext.flyout;
-
-  if (flyout) return null;
-  if (!roleService) return /*#__PURE__*/react.createElement(NoServiceAlert, null);
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    alignItems: "center",
-    alignContent: "center",
-    justify: "center",
-    spacing: 1
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(PointerBoundary, null, /*#__PURE__*/react.createElement(DashboardServiceWidget/* default */.ZP, {
-    service: roleService,
-    visible: true,
-    variant: "icon"
-  }))));
-}
-
-var TwinField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,inheritsLoose/* default */.Z)(TwinField, _ReactInlineField);
-
-  TwinField.fromJson = function fromJson(options) {
-    return new TwinField(options);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
-
-  function TwinField(options) {
-    return _ReactInlineField.call(this, options) || this;
-  }
-
-  var _proto = TwinField.prototype;
-
-  _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(TwinWidget, null);
-  };
-
-  return TwinField;
-}(ReactInlineField);
-
-TwinField.KEY = "jacdac_field_twin";
-TwinField.EDITABLE = false;
-
-;// CONCATENATED MODULE: ./src/components/vm/fields/JDomTreeField.tsx
-
-
-
-
-
-
-var JDomServiceTreeView = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
-});
-
-function JDomTreeWidget() {
-  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
-      roleService = _useContext.roleService,
-      flyout = _useContext.flyout;
-
-  var onPointerStopPropagation = function onPointerStopPropagation(event) {
-    // make sure blockly does not handle drags when interacting with UI
-    event.stopPropagation();
-  };
-
-  if (flyout) return null;
-  if (!roleService) return /*#__PURE__*/react.createElement(NoServiceAlert, null);
-  return /*#__PURE__*/react.createElement("div", {
-    style: {
-      minWidth: "12rem",
-      cursor: "inherit"
-    },
-    onPointerDown: onPointerStopPropagation,
-    onPointerUp: onPointerStopPropagation,
-    onPointerMove: onPointerStopPropagation
-  }, roleService && /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomServiceTreeView, {
-    service: roleService,
-    defaultExpanded: [roleService.id]
-  })));
-}
-
-var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,inheritsLoose/* default */.Z)(JDomTreeField, _ReactInlineField);
-
-  JDomTreeField.fromJson = function fromJson(options) {
-    return new JDomTreeField(options);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
-
-  function JDomTreeField(options) {
-    return _ReactInlineField.call(this, options) || this;
-  }
-
-  var _proto = JDomTreeField.prototype;
-
-  _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(JDomTreeWidget, null);
-  };
-
-  return JDomTreeField;
-}(ReactInlineField);
-
-JDomTreeField.KEY = "jacdac_jdom_service_tree";
-JDomTreeField.EDITABLE = false;
-
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
-var Box = __webpack_require__(8266);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
-var Typography = __webpack_require__(80453);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
-var Switch = __webpack_require__(76544);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/utils.ts
-var vm_utils = __webpack_require__(94624);
-;// CONCATENATED MODULE: ./src/components/vm/fields/WatchValueField.tsx
-
-
-
-
-
-
-
-
-
-function WatchValueWidget() {
-  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
-      runner = _useContext.runner,
-      sourceId = _useContext.sourceId;
-
-  var theme = (0,useTheme/* default */.Z)(); // track changes
-
-  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
-      value = _useState[0],
-      setValue = _useState[1];
-
-  (0,react.useEffect)(function () {
-    setValue(undefined);
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_utils/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
-      if (watchSourceId === sourceId) {
-        var newValue = runner.lookupWatch(sourceId);
-        setValue(newValue);
-      }
-    });
-  }, [runner, sourceId]);
-  var valueNumber = typeof value === "number" ? value : undefined;
-
-  if (!isNaN(valueNumber)) {
-    var step = Math.ceil(Math.abs(valueNumber)) / 10;
-    var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
-    valueNumber = (0,utils/* roundWithPrecision */.JI)(valueNumber, precision);
-  }
-
-  return /*#__PURE__*/react.createElement(Box/* default */.Z, {
-    bgcolor: theme.palette.background.paper,
-    borderRadius: theme.spacing(1),
-    color: theme.palette.text.primary
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    alignItems: "flex-end",
-    alignContent: "center",
-    justify: "center",
-    spacing: 1
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(PointerBoundary, null, !isNaN(valueNumber) ? /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    variant: "body1"
-  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react.createElement(Switch/* default */.Z, {
-    value: !!value
-  }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    variant: "body1"
-  }, value === undefined ? "..." : value + "")))));
-}
-
-var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,inheritsLoose/* default */.Z)(WatchValueField, _ReactInlineField);
-
-  WatchValueField.fromJson = function fromJson(options) {
-    return new WatchValueField(options);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
-
-  function WatchValueField(options) {
-    return _ReactInlineField.call(this, options) || this;
-  }
-
-  var _proto = WatchValueField.prototype;
-
-  _proto.createContainer = function createContainer() {
-    var c = document.createElement("div");
-    c.style.display = "inline-block";
-    c.style.minWidth = "4rem";
-    return c;
-  };
-
-  _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(WatchValueWidget, null);
-  };
-
-  return WatchValueField;
-}(ReactInlineField);
-
-WatchValueField.KEY = "jacdac_watch_value";
-WatchValueField.EDITABLE = false;
-
+// EXTERNAL MODULE: ./src/components/vm/fields/TwinField.tsx
+var TwinField = __webpack_require__(41392);
+// EXTERNAL MODULE: ./src/components/vm/fields/JDomTreeField.tsx
+var JDomTreeField = __webpack_require__(56945);
+// EXTERNAL MODULE: ./src/components/vm/fields/WatchValueField.tsx
+var WatchValueField = __webpack_require__(9238);
 ;// CONCATENATED MODULE: ./src/components/vm/fields/fields.ts
 
 
@@ -1938,7 +1512,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField, JDomTreeField, WatchValueField];
+  var fieldTypes = [KeyboardKeyField, NoteField, LEDMatrixField, ServoAngleField, LEDColorField, TwinField/* default */.Z, JDomTreeField/* default */.Z, WatchValueField/* default */.Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -1947,8 +1521,8 @@ function fieldShadows() {
 }
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
-// EXTERNAL MODULE: ./jacdac-ts/src/azure-iot/dtdl.ts
-var dtdl = __webpack_require__(2864);
+// EXTERNAL MODULE: ./src/components/vm/dsl/DslContext.tsx + 3 modules
+var DslContext = __webpack_require__(15060);
 ;// CONCATENATED MODULE: ./src/components/vm/useToolbox.ts
 
 
@@ -1970,9 +1544,7 @@ var dtdl = __webpack_require__(2864);
 
 
 
-
- // overrides blockly emboss filter for svg elements
-
+// overrides blockly emboss filter for svg elements
 (blockly_default()).BlockSvg.prototype.setHighlighted = function (highlighted) {
   if (!this.rendered) {
     return;
@@ -2018,34 +1590,20 @@ function createBlockTheme(theme) {
   var sensorColor = theme.palette.success.main;
   var otherColor = theme.palette.info.main;
   var commandColor = theme.palette.warning.main;
-  var debuggerColor = theme.palette.grey[600];
-  var azureIoTHubColor = theme.palette.error.main;
-  var deviceTwinColor = theme.palette.error.light;
 
   var serviceColor = function serviceColor(srv) {
-    return (0,jdom_spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
+    return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
   };
 
   return {
     serviceColor: serviceColor,
     sensorColor: sensorColor,
     commandColor: commandColor,
-    debuggerColor: debuggerColor,
-    otherColor: otherColor,
-    azureIoTHubColor: azureIoTHubColor,
-    deviceTwinColor: deviceTwinColor
+    otherColor: otherColor
   };
 }
 
-var codeStatementType = "Code";
-var deviceTwinContentType = "DeviceTwinContent";
-var deviceTwinCommonOptionType = "DeviceTwinCommonOption";
-var deviceTwinPropertyOptionType = "DeviceTwinPropertyOption";
-var deviceTwinStatementType = [deviceTwinContentType];
-var deviceTwinCommonOptionStatementType = [deviceTwinCommonOptionType];
-var deviceTwinPropertyOptionStatementType = [deviceTwinPropertyOptionType].concat(deviceTwinCommonOptionStatementType);
-
-function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor, deviceTwinColor) {
+function loadBlocks(dsls, theme, serviceColor, commandColor) {
   // blocks
   var customShadows = [{
     serviceClass: constants/* SRV_SERVO */.$X_,
@@ -2163,7 +1721,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     });
   };
 
-  var allServices = (0,jdom_spec/* serviceSpecifications */.Le)();
+  var allServices = (0,spec/* serviceSpecifications */.Le)();
   var supportedServices = allServices.filter(function (service) {
     return !/^_/.test(service.shortId) && service.status !== "deprecated";
   }).filter(function (service) {
@@ -2178,7 +1736,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
 
   var registers = (0,utils/* arrayConcatMany */.ue)(supportedServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,jdom_spec/* isRegister */.x5)(pkt) && !pkt.lowLevel && includedRegisters.indexOf(pkt.identifier) > -1;
+      return (0,spec/* isRegister */.x5)(pkt) && !pkt.lowLevel && includedRegisters.indexOf(pkt.identifier) > -1;
     }).map(function (register) {
       return {
         service: service,
@@ -2190,7 +1748,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     return {
       service: service,
       events: service.packets.filter(function (pkt) {
-        return (0,jdom_spec/* isEvent */.cO)(pkt) && !pkt.lowLevel && ignoredEvents.indexOf(pkt.identifier) < 0;
+        return (0,spec/* isEvent */.cO)(pkt) && !pkt.lowLevel && ignoredEvents.indexOf(pkt.identifier) < 0;
       })
     };
   }).filter(function (kv) {
@@ -2198,7 +1756,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
   });
   var commands = (0,utils/* arrayConcatMany */.ue)(supportedServices.map(function (service) {
     return service.packets.filter(function (pkt) {
-      return (0,jdom_spec/* isCommand */.ao)(pkt) && !pkt.lowLevel && fieldsSupported(pkt);
+      return (0,spec/* isCommand */.ao)(pkt) && !pkt.lowLevel && fieldsSupported(pkt);
     }).map(function (pkt) {
       return {
         service: service,
@@ -2221,8 +1779,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       }],
       colour: commandColor,
       inputsInline: true,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Logs a message and an optional value to the logger",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2239,8 +1797,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       }],
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Send a keyboard key combo",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2274,8 +1832,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       },
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Fade LED color",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2300,8 +1858,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       },
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Display a number of the screen",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2319,8 +1877,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       }],
       colour: serviceColor(service),
       inputsInline: true,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Display LEDs on the LED matrix",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2348,7 +1906,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       }],
       colour: serviceColor(service),
       inputsInline: true,
-      nextStatement: codeStatementType,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Events for the " + service.name + " service",
       helpUrl: serviceHelp(service),
       service: service,
@@ -2395,7 +1953,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
   var registerChangeByEventBlocks = registers.filter(function (_ref4) {
     var service = _ref4.service;
     return !service.packets.some(function (pkt) {
-      return (0,jdom_spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
+      return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
     });
   }).filter(function (_ref5) {
     var register = _ref5.register;
@@ -2412,7 +1970,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       }),
       values: fieldsToValues(service, register),
       inputsInline: true,
-      nextStatement: codeStatementType,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       colour: serviceColor(service),
       tooltip: "Event raised when " + register.name + " changes",
       helpUrl: serviceHelp(service),
@@ -2565,8 +2123,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       helpUrl: serviceHelp(service),
       service: service,
       register: register,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       template: "register_set"
     };
   });
@@ -2585,8 +2143,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       helpUrl: serviceHelp(service),
       service: service,
       command: command,
-      previousStatement: codeStatementType,
-      nextStatement: codeStatementType,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       template: "command"
     };
   });
@@ -2700,8 +2258,8 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       check: "Number"
     }],
     inputsInline: true,
-    previousStatement: codeStatementType,
-    nextStatement: codeStatementType,
+    previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+    nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
     colour: commandColor,
     tooltip: "Wait the desired time",
     helpUrl: ""
@@ -2723,7 +2281,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       options: [["connected", "connected"], ["disconnected", "disconnected"]]
     }],
     inputsInline: true,
-    nextStatement: codeStatementType,
+    nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
     colour: commandColor,
     tooltip: "Runs code when a role is connected or disconnected",
     helpUrl: "",
@@ -2771,74 +2329,11 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
       }
     },
     inputsInline: true,
-    previousStatement: codeStatementType,
-    nextStatement: codeStatementType,
+    previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+    nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
     colour: commandColor,
     tooltip: "Sets the color on the status light",
     helpUrl: ""
-  }, {
-    kind: "block",
-    type: toolbox/* TWIN_BLOCK */.Zt,
-    message0: "view %1 %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "role",
-      variable: "none",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
-        return service.shortId;
-      }))),
-      defaultType: "client"
-    }, {
-      type: "input_dummy"
-    }, {
-      type: TwinField.KEY,
-      name: "twin"
-    }],
-    colour: debuggerColor,
-    inputsInline: false,
-    tooltip: "Twin of the selected service",
-    helpUrl: "",
-    template: "twin"
-  }, {
-    kind: "block",
-    type: toolbox/* INSPECT_BLOCK */.Xd,
-    message0: "inspect %1 %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "role",
-      variable: "none",
-      variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
-        return service.shortId;
-      }))),
-      defaultType: "client"
-    }, {
-      type: "input_dummy"
-    }, {
-      type: JDomTreeField.KEY,
-      name: "twin"
-    }],
-    colour: debuggerColor,
-    inputsInline: false,
-    tooltip: "Inspect a service",
-    helpUrl: "",
-    template: "twin"
-  }, {
-    kind: "block",
-    type: toolbox/* WATCH_BLOCK */.HN,
-    message0: "watch %1 %2",
-    args0: [{
-      type: "input_value",
-      name: "value",
-      check: ["Number", "Boolean", "String"]
-    }, {
-      type: WatchValueField.KEY,
-      name: "watch"
-    }],
-    colour: debuggerColor,
-    inputsInline: true,
-    tooltip: "Watch a value in the editor",
-    helpUrl: "",
-    template: "watch"
   }, {
     kind: "block",
     type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
@@ -2853,7 +2348,7 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     tooltip: "Repeats code at a given interval in seconds",
     helpUrl: "",
     template: "every",
-    nextStatement: codeStatementType
+    nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
   }];
   var mathBlocks = [{
     kind: "block",
@@ -2964,138 +2459,17 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     output: "Number",
     style: "math_blocks"
   }];
-  var azureIoTHubBlocks = [{
-    kind: "block",
-    type: "device_twin_receive_telemetry",
-    message0: "on receive cloud-to-device message",
-    args0: [],
-    nextStatement: codeStatementType,
-    colour: azureIoTHubColor
-  }, {
-    kind: "block",
-    type: "device_twin_receive_telemetry_number",
-    message0: "received number %1",
-    args0: [{
-      type: "field_input",
-      name: "name",
-      text: "value"
-    }],
-    output: "Number",
-    colour: azureIoTHubColor
-  }, {
-    kind: "block",
-    type: "device_twin_receive_telemetry_string",
-    message0: "received string %1",
-    args0: [{
-      type: "field_input",
-      name: "name",
-      text: "value"
-    }],
-    output: "String",
-    colour: azureIoTHubColor
-  }, {
-    kind: "block",
-    type: "device_twin_send_telemetry",
-    message0: "send device-to-cloud message %1 %2",
-    args0: [{
-      type: "input_dummy"
-    }, {
-      type: "input_statement",
-      name: "fields"
-    }],
-    previousStatement: codeStatementType,
-    nextStatement: codeStatementType,
-    colour: azureIoTHubColor
-  }, {
-    kind: "block",
-    type: "device_twin_send_telemetry_value",
-    message0: "with %1 = %2",
-    args0: [{
-      type: "field_input",
-      name: "name",
-      text: "value"
-    }, {
-      type: "input_value",
-      name: "value",
-      check: ["String", "Boolean", "Number"]
-    }],
-    previousStatement: codeStatementType,
-    nextStatement: codeStatementType,
-    colour: azureIoTHubColor
-  }];
-  var deviceTwinsBlocks = [{
-    kind: "block",
-    type: toolbox/* DEVICE_TWIN_DEFINITION_BLOCK */.M1,
-    message0: "device twin id",
-    args0: [],
-    inputsInline: true,
-    nextStatement: deviceTwinStatementType,
-    template: "dtdl",
-    colour: deviceTwinColor
-  }, {
-    kind: "block",
-    type: toolbox/* DEVICE_TWIN_PROPERTY_BLOCK */.x$,
-    message0: "property %1 %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "name",
-      variable: "property 1",
-      variableTypes: [toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv],
-      defaultType: toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv
-    }, {
-      type: "input_dummy"
-    }, {
-      type: "input_statement",
-      name: "options",
-      check: deviceTwinPropertyOptionStatementType
-    }],
-    previousStatement: deviceTwinStatementType,
-    nextStatement: deviceTwinStatementType,
-    template: "dtdl",
-    colour: deviceTwinColor,
-    inputsInline: false
-  }, // options
-  {
-    kind: "block",
-    type: "device_twin_option_property_field",
-    message0: "field %1 %2 %3",
-    args0: [{
-      type: "field_variable",
-      name: "variable",
-      variable: "value 1",
-      variableTypes: [toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz],
-      defaultType: toolbox/* DEVICE_TWIN_VALUE_TYPE */.wz
-    }, {
-      type: "field_dropdown",
-      name: "unit",
-      options: (0,dtdl/* DTDLUnits */.d0)().map(function (unit) {
-        return [unit, unit];
-      })
-    }, {
-      type: "input_value",
-      name: "value"
-    }],
-    previousStatement: deviceTwinCommonOptionStatementType,
-    nextStatement: deviceTwinCommonOptionStatementType,
-    template: "dtdlOption",
-    colour: deviceTwinColor,
-    inputsInline: false
-  }, // events
-  {
-    kind: "block",
-    type: "device_twin_property_change",
-    message0: "on property %1 change",
-    args0: [{
-      type: "field_variable",
-      name: "name",
-      variable: "property 1",
-      variableTypes: [toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv],
-      defaultType: toolbox/* DEVICE_TWIN_PROPERTY_TYPE */.pv
-    }],
-    nextStatement: codeStatementType,
-    colour: deviceTwinColor
-  }];
-  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks, azureIoTHubBlocks, deviceTwinsBlocks); // register field editors
+  var dslsBlocks = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
+    return dsl.createBlocks({
+      theme: theme,
+      supportedServices: supportedServices
+    }).map(function (b) {
+      b.dsl = b.dsl || dsl.id; // ensure DSL is set
+
+      return b;
+    });
+  }));
+  var blocks = [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks), (0,toConsumableArray/* default */.Z)(eventFieldBlocks), runtimeBlocks, (0,toConsumableArray/* default */.Z)(shadowBlocks), mathBlocks, (0,toConsumableArray/* default */.Z)(dslsBlocks)); // register field editors
 
   registerFields(); // re-register blocks with blocklys
 
@@ -3125,8 +2499,6 @@ function loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor,
     blocks: blocks,
     serviceBlocks: serviceBlocks,
     eventFieldBlocks: eventFieldBlocks,
-    azureIoTHubBlocks: azureIoTHubBlocks,
-    deviceTwinsBlocks: deviceTwinsBlocks,
     services: services
   };
 }
@@ -3165,22 +2537,21 @@ function useToolbox(props) {
   var serviceClass = props.serviceClass,
       source = props.source,
       program = props.program;
+
+  var _useContext = (0,react.useContext)(DslContext/* default */.Z),
+      dsls = _useContext.dsls;
+
   var theme = (0,useTheme/* default */.Z)();
 
   var _createBlockTheme = createBlockTheme(theme),
       serviceColor = _createBlockTheme.serviceColor,
-      commandColor = _createBlockTheme.commandColor,
-      debuggerColor = _createBlockTheme.debuggerColor,
-      azureIoTHubColor = _createBlockTheme.azureIoTHubColor,
-      deviceTwinColor = _createBlockTheme.deviceTwinColor;
+      commandColor = _createBlockTheme.commandColor;
 
   var _useMemo = (0,react.useMemo)(function () {
-    return loadBlocks(serviceColor, commandColor, debuggerColor, azureIoTHubColor, deviceTwinColor);
-  }, [theme]),
+    return loadBlocks(dsls, theme, serviceColor, commandColor);
+  }, [theme, dsls]),
       serviceBlocks = _useMemo.serviceBlocks,
       eventFieldBlocks = _useMemo.eventFieldBlocks,
-      azureIoTHubBlocks = _useMemo.azureIoTHubBlocks,
-      deviceTwinsBlocks = _useMemo.deviceTwinsBlocks,
       services = _useMemo.services;
 
   var blockServices = (program === null || program === void 0 ? void 0 : program.roles.map(function (r) {
@@ -3272,6 +2643,7 @@ function useToolbox(props) {
   var commandsCategory = {
     kind: "category",
     name: "Commands",
+    order: 4,
     colour: commandColor,
     contents: [{
       kind: "block",
@@ -3309,23 +2681,6 @@ function useToolbox(props) {
     }, {
       kind: "block",
       type: toolbox/* LOG_BLOCK */.NK
-    }].filter(function (b) {
-      return !!b;
-    })
-  };
-  var toolsCategory = {
-    kind: "category",
-    name: "Tools",
-    colour: debuggerColor,
-    contents: [{
-      kind: "block",
-      type: toolbox/* WATCH_BLOCK */.HN
-    }, {
-      kind: "block",
-      type: toolbox/* TWIN_BLOCK */.Zt
-    }, {
-      kind: "block",
-      type: toolbox/* INSPECT_BLOCK */.Xd
     }].filter(function (b) {
       return !!b;
     })
@@ -3423,39 +2778,24 @@ function useToolbox(props) {
     colour: "%{BKY_VARIABLES_HUE}",
     custom: "VARIABLE"
   };
-  var azureIoTHubCategory = {
-    kind: "category",
-    name: "Azure IoT Hub",
-    colour: azureIoTHubColor,
-    contents: (0,toConsumableArray/* default */.Z)(azureIoTHubBlocks.map(function (_ref22) {
-      var type = _ref22.type;
-      return {
-        kind: "block",
-        type: type
-      };
-    }))
-  };
-  var deviceTwinsCategory = {
-    kind: "category",
-    name: "Device Twin",
-    colour: deviceTwinColor,
-    contents: (0,toConsumableArray/* default */.Z)(deviceTwinsBlocks.map(function (_ref23) {
-      var type = _ref23.type;
-      return {
-        kind: "block",
-        type: type
-      };
-    }))
-  };
+  var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
+    return dsl.createCategory({
+      theme: theme,
+      source: source
+    });
+  })).filter(function (cat) {
+    return !!cat;
+  }).sort(function (l, r) {
+    return -(l.order - r.order);
+  });
+  console.log("DSL categories", dslsCategories);
   var toolboxConfiguration = {
     kind: "categoryToolbox",
-    contents: [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [!!jdom_spec/* serviceSpecifications.length */.Le.length && {
+    contents: [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [!!spec/* serviceSpecifications.length */.Le.length && {
       kind: "sep"
     }, commandsCategory, logicCategory, mathCategory, variablesCategory, {
       kind: "sep"
-    }, azureIoTHubCategory, deviceTwinsCategory, {
-      kind: "sep"
-    }, toolsCategory]).filter(function (cat) {
+    }], (0,toConsumableArray/* default */.Z)(dslsCategories)).filter(function (cat) {
       return !!cat;
     }).map(function (node) {
       return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
@@ -3525,7 +2865,7 @@ var ops = {
   MINUS: "-"
 };
 var BUILTIN_TYPES = ["", "Boolean", "Number", "String"];
-function workspaceJSONToVMProgram(workspace) {
+function workspaceJSONToVMProgram(workspace, dsls) {
   console.debug("compile vm", {
     workspace: workspace
   });
@@ -3932,89 +3272,89 @@ function workspaceJSONToVMProgram(workspace) {
     var topErrors = [];
     var def = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
     (0,utils/* assert */.hu)(!!def);
-    var template = def.template;
+    var template = def.template,
+        dsl = def.dsl;
 
-    try {
-      switch (template) {
-        case "twin":
-          break;
-        // ignore
+    if (!dsl) {
+      // dsl blocks, handled somewhere else in another compiler
+      try {
+        switch (template) {
+          case "every":
+            {
+              var _makeWait = makeWait(undefined, top),
+                  cmd = _makeWait.cmd,
+                  errors = _makeWait.errors;
 
-        case "every":
-          {
-            var _makeWait = makeWait(undefined, top),
-                cmd = _makeWait.cmd,
-                errors = _makeWait.errors;
+              command = cmd.command;
+              topErrors = errors;
+              break;
+            }
 
-            command = cmd.command;
-            topErrors = errors;
-            break;
-          }
+          case "event":
+            {
+              var role = inputs[0].fields["role"].value;
+              var eventName = inputs[0].fields["event"].value;
+              command = {
+                type: "CallExpression",
+                arguments: [(0,compile/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
+                callee: (0,compile/* toIdentifier */.EB)("awaitEvent")
+              };
+              topEvent = {
+                role: role.toString(),
+                event: eventName.toString()
+              };
+              break;
+            }
 
-        case "event":
-          {
-            var role = inputs[0].fields["role"].value;
-            var eventName = inputs[0].fields["event"].value;
-            command = {
-              type: "CallExpression",
-              arguments: [(0,compile/* toMemberExpression */.vf)(role.toString(), eventName.toString())],
-              callee: (0,compile/* toIdentifier */.EB)("awaitEvent")
-            };
-            topEvent = {
-              role: role.toString(),
-              event: eventName.toString()
-            };
-            break;
-          }
+          case "register_change_event":
+            {
+              var _role2 = inputs[0].fields["role"].value;
+              var _ref5 = def,
+                  register = _ref5.register;
 
-        case "register_change_event":
-          {
-            var _role2 = inputs[0].fields["role"].value;
-            var _ref5 = def,
-                register = _ref5.register;
+              var _blockToExpression3 = blockToExpression(undefined, inputs[0].child),
+                  expr = _blockToExpression3.expr,
+                  _errors2 = _blockToExpression3.errors;
 
-            var _blockToExpression3 = blockToExpression(undefined, inputs[0].child),
-                expr = _blockToExpression3.expr,
-                _errors2 = _blockToExpression3.errors;
+              command = {
+                type: "CallExpression",
+                arguments: [(0,compile/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
+                callee: (0,compile/* toIdentifier */.EB)("awaitChange")
+              };
+              topErrors = _errors2;
+              break;
+            }
 
-            command = {
-              type: "CallExpression",
-              arguments: [(0,compile/* toMemberExpression */.vf)(_role2.toString(), register.name), expr],
-              callee: (0,compile/* toIdentifier */.EB)("awaitChange")
-            };
-            topErrors = _errors2;
-            break;
-          }
+          case "watch":
+            {
+              var _blockToExpression4 = blockToExpression(undefined, inputs[0].child),
+                  _expr2 = _blockToExpression4.expr,
+                  _errors3 = _blockToExpression4.errors;
 
-        case "watch":
-          {
-            var _blockToExpression4 = blockToExpression(undefined, inputs[0].child),
-                _expr2 = _blockToExpression4.expr,
-                _errors3 = _blockToExpression4.errors;
+              command = {
+                type: "CallExpression",
+                arguments: [_expr2],
+                callee: (0,compile/* toIdentifier */.EB)("watch")
+              };
+              topErrors = _errors3;
+              break;
+            }
 
-            command = {
-              type: "CallExpression",
-              arguments: [_expr2],
-              callee: (0,compile/* toIdentifier */.EB)("watch")
-            };
-            topErrors = _errors3;
-            break;
-          }
-
-        default:
-          {
-            console.warn("unsupported handler template " + template + " for " + type, {
-              top: top
-            });
-            break;
-          }
-      }
-    } catch (e) {
-      if (e instanceof EmptyExpression) {
-        command = nop;
-        topErrors = [];
-      } else {
-        throw e;
+          default:
+            {
+              console.warn("unsupported handler template " + template + " for " + type, {
+                top: top
+              });
+              break;
+            }
+        }
+      } catch (e) {
+        if (e instanceof EmptyExpression) {
+          command = nop;
+          topErrors = [];
+        } else {
+          throw e;
+        }
       }
     }
 
@@ -4046,9 +3386,12 @@ var clsx_m = __webpack_require__(85505);
 var useBlocklyEvents = __webpack_require__(52152);
 // EXTERNAL MODULE: ./src/components/vm/useBlocklyPlugins.ts + 8 modules
 var useBlocklyPlugins = __webpack_require__(30567);
+// EXTERNAL MODULE: ./src/components/vm/WorkspaceContext.tsx
+var WorkspaceContext = __webpack_require__(26934);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(35313);
 ;// CONCATENATED MODULE: ./src/components/vm/VMBlockEditor.tsx
+
 
 
 
@@ -4090,13 +3433,17 @@ function VMBlockEditor(props) {
       runner = props.runner,
       roleManager = props.roleManager,
       workspaceRef = props.workspaceRef;
+
+  var _useContext = (0,react.useContext)(DslContext/* default */.Z),
+      dsls = _useContext.dsls;
+
   var classes = useStyles();
 
-  var _useContext = (0,react.useContext)(DarkModeContext/* default */.Z),
-      darkMode = _useContext.darkMode;
+  var _useContext2 = (0,react.useContext)(DarkModeContext/* default */.Z),
+      darkMode = _useContext2.darkMode;
 
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      setError = _useContext2.setError;
+  var _useContext3 = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext3.setError;
 
   var _useState = (0,react.useState)(),
       source = _useState[0],
@@ -4208,7 +3555,7 @@ function VMBlockEditor(props) {
 
     if (onJSONChange || onVMProgramChange) {
       // emit json
-      var newSource = (0,jsongenerator/* domToJSON */.iL)(workspace);
+      var newSource = (0,jsongenerator/* domToJSON */.iL)(workspace, dsls);
 
       if (JSON.stringify(newSource) !== JSON.stringify(source)) {
         setSource(newSource);
@@ -4229,7 +3576,7 @@ function VMBlockEditor(props) {
         }
       }
     }
-  }, [workspace, xml]); // apply errors
+  }, [dsls, workspace, xml]); // apply errors
 
   (0,react.useEffect)(function () {
     if (!workspace) return;
@@ -4264,7 +3611,871 @@ function VMBlockEditor(props) {
   }), /*#__PURE__*/react.createElement(BlocklyModalDialogs/* default */.Z, null));
 }
 
+/***/ }),
+
+/***/ 15060:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "K": function() { return /* binding */ DslProvider; },
+  "Z": function() { return /* binding */ dsl_DslContext; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(85061);
+// EXTERNAL MODULE: ./src/components/vm/fields/JDomTreeField.tsx
+var JDomTreeField = __webpack_require__(56945);
+// EXTERNAL MODULE: ./src/components/vm/fields/TwinField.tsx
+var TwinField = __webpack_require__(41392);
+// EXTERNAL MODULE: ./src/components/vm/fields/WatchValueField.tsx
+var WatchValueField = __webpack_require__(9238);
+// EXTERNAL MODULE: ./src/components/vm/toolbox.ts
+var toolbox = __webpack_require__(20055);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/toolsdsl.ts
+
+
+
+
+
+var colour = "#888";
+var toolsDSL = {
+  id: "tools",
+  createBlocks: function createBlocks(_ref) {
+    var supportedServices = _ref.supportedServices;
+    return [{
+      kind: "block",
+      type: toolbox/* TWIN_BLOCK */.Zt,
+      message0: "view %1 %2 %3",
+      args0: [{
+        type: "field_variable",
+        name: "role",
+        variable: "none",
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
+          return service.shortId;
+        }))),
+        defaultType: "client"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: TwinField/* default.KEY */.Z.KEY,
+        name: "twin"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "Twin of the selected service",
+      helpUrl: ""
+    }, {
+      kind: "block",
+      type: toolbox/* INSPECT_BLOCK */.Xd,
+      message0: "inspect %1 %2 %3",
+      args0: [{
+        type: "field_variable",
+        name: "role",
+        variable: "none",
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (service) {
+          return service.shortId;
+        }))),
+        defaultType: "client"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: JDomTreeField/* default.KEY */.Z.KEY,
+        name: "twin"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "Inspect a service",
+      helpUrl: ""
+    }, {
+      kind: "block",
+      type: toolbox/* WATCH_BLOCK */.HN,
+      message0: "watch %1 %2",
+      args0: [{
+        type: "input_value",
+        name: "value",
+        check: ["Number", "Boolean", "String"]
+      }, {
+        type: WatchValueField/* default.KEY */.Z.KEY,
+        name: "watch"
+      }],
+      colour: colour,
+      inputsInline: true,
+      tooltip: "Watch a value in the editor",
+      helpUrl: ""
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Tools",
+      colour: colour,
+      contents: [{
+        kind: "block",
+        type: toolbox/* WATCH_BLOCK */.HN
+      }, {
+        kind: "block",
+        type: toolbox/* TWIN_BLOCK */.Zt
+      }, {
+        kind: "block",
+        type: toolbox/* INSPECT_BLOCK */.Xd
+      }]
+    }];
+  },
+  convertToJSON: function convertToJSON() {
+    return undefined;
+  }
+};
+/* harmony default export */ var toolsdsl = (toolsDSL);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/azureiothubdsl.ts
+
+
+var azureiothubdsl_colour = "#8a57c2";
+
+var AzureIoTHubBlockDomainSpecificLanguage = /*#__PURE__*/function () {
+  function AzureIoTHubBlockDomainSpecificLanguage() {}
+
+  var _proto = AzureIoTHubBlockDomainSpecificLanguage.prototype;
+
+  _proto.createBlocks = function createBlocks() {
+    return this._blocks = [{
+      kind: "block",
+      type: "device_twin_receive_telemetry",
+      message0: "on receive cloud-to-device message",
+      args0: [],
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      colour: azureiothubdsl_colour
+    }, {
+      kind: "block",
+      type: "device_twin_receive_telemetry_number",
+      message0: "received number %1",
+      args0: [{
+        type: "field_input",
+        name: "name",
+        text: "value"
+      }],
+      output: "Number",
+      colour: azureiothubdsl_colour
+    }, {
+      kind: "block",
+      type: "device_twin_receive_telemetry_string",
+      message0: "received string %1",
+      args0: [{
+        type: "field_input",
+        name: "name",
+        text: "value"
+      }],
+      output: "String",
+      colour: azureiothubdsl_colour
+    }, {
+      kind: "block",
+      type: "device_twin_send_telemetry",
+      message0: "send device-to-cloud message %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: "input_statement",
+        name: "fields"
+      }],
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      colour: azureiothubdsl_colour
+    }, {
+      kind: "block",
+      type: "device_twin_send_telemetry_value",
+      message0: "with %1 = %2",
+      args0: [{
+        type: "field_input",
+        name: "name",
+        text: "value"
+      }, {
+        type: "input_value",
+        name: "value",
+        check: toolbox/* PRIMITIVE_TYPES */.eg
+      }],
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      colour: azureiothubdsl_colour
+    }];
+  };
+
+  _proto.createCategory = function createCategory() {
+    return [{
+      kind: "category",
+      name: "Azure IoT Hub",
+      colour: azureiothubdsl_colour,
+      contents: (0,toConsumableArray/* default */.Z)(this._blocks.map(function (_ref) {
+        var type = _ref.type;
+        return {
+          kind: "block",
+          type: type
+        };
+      }))
+    }];
+  };
+
+  return AzureIoTHubBlockDomainSpecificLanguage;
+}();
+
+var azureIoTHubDSL = new AzureIoTHubBlockDomainSpecificLanguage();
+/* harmony default export */ var azureiothubdsl = (azureIoTHubDSL);
+// EXTERNAL MODULE: ./jacdac-ts/src/azure-iot/dtdl.ts
+var dtdl = __webpack_require__(2864);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/devicetwindsl.ts
+
+
+
+var DEVICE_TWIN_SEND_TELEMETRY = "device_twin_send_telemetry";
+var DEVICE_TWIN_DEFINITION_BLOCK = "device_twin_definition";
+var DEVICE_TWIN_PROPERTY_BLOCK = "device_twin_property";
+var DEVICE_TWIN_PROPERTY_TYPE = "DeviceTwinProperty";
+var DEVICE_TWIN_VALUE_TYPE = "DeviceTwinValue";
+var devicetwindsl_colour = "#843ed0";
+var deviceTwinContentType = "DeviceTwinContent";
+var deviceTwinCommonOptionType = "DeviceTwinCommonOption";
+var deviceTwinPropertyOptionType = "DeviceTwinPropertyOption";
+var deviceTwinStatementType = [deviceTwinContentType];
+var deviceTwinCommonOptionStatementType = [deviceTwinCommonOptionType];
+var deviceTwinPropertyOptionStatementType = [deviceTwinPropertyOptionType].concat(deviceTwinCommonOptionStatementType);
+
+var DeviceTwinBlockDomainSpecificLanguage = /*#__PURE__*/function () {
+  function DeviceTwinBlockDomainSpecificLanguage() {}
+
+  var _proto = DeviceTwinBlockDomainSpecificLanguage.prototype;
+
+  _proto.createBlocks = function createBlocks() {
+    return this._blocks = [{
+      kind: "block",
+      type: DEVICE_TWIN_DEFINITION_BLOCK,
+      message0: "device twin",
+      args0: [],
+      inputsInline: true,
+      nextStatement: deviceTwinStatementType,
+      colour: devicetwindsl_colour
+    }, {
+      kind: "block",
+      type: DEVICE_TWIN_PROPERTY_BLOCK,
+      message0: "property %1 %2 %3",
+      args0: [{
+        type: "field_variable",
+        name: "name",
+        variable: "property 1",
+        variableTypes: [DEVICE_TWIN_PROPERTY_TYPE],
+        defaultType: DEVICE_TWIN_PROPERTY_TYPE
+      }, {
+        type: "input_dummy"
+      }, {
+        type: "input_statement",
+        name: "options",
+        check: deviceTwinPropertyOptionStatementType
+      }],
+      previousStatement: deviceTwinStatementType,
+      nextStatement: deviceTwinStatementType,
+      colour: devicetwindsl_colour,
+      inputsInline: false
+    }, // options
+    {
+      kind: "block",
+      type: "device_twin_option_property_field",
+      message0: "field %1 %2 %3",
+      args0: [{
+        type: "field_variable",
+        name: "variable",
+        variable: "value 1",
+        variableTypes: [DEVICE_TWIN_VALUE_TYPE],
+        defaultType: DEVICE_TWIN_VALUE_TYPE
+      }, {
+        type: "field_dropdown",
+        name: "unit",
+        options: (0,dtdl/* DTDLUnits */.d0)().map(function (unit) {
+          return [unit, unit];
+        })
+      }, {
+        type: "input_value",
+        name: "value"
+      }],
+      previousStatement: deviceTwinCommonOptionStatementType,
+      nextStatement: deviceTwinCommonOptionStatementType,
+      colour: devicetwindsl_colour,
+      inputsInline: false
+    }, // events
+    {
+      kind: "block",
+      type: "device_twin_property_change",
+      message0: "on property %1 change",
+      args0: [{
+        type: "field_variable",
+        name: "name",
+        variable: "property 1",
+        variableTypes: [DEVICE_TWIN_PROPERTY_TYPE],
+        defaultType: DEVICE_TWIN_PROPERTY_TYPE
+      }],
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      colour: devicetwindsl_colour
+    }];
+  };
+
+  _proto.createCategory = function createCategory() {
+    return [{
+      kind: "category",
+      name: "Device Twin",
+      colour: devicetwindsl_colour,
+      contents: (0,toConsumableArray/* default */.Z)(this._blocks.map(function (_ref) {
+        var type = _ref.type;
+        return {
+          kind: "block",
+          type: type
+        };
+      }))
+    }];
+  };
+
+  return DeviceTwinBlockDomainSpecificLanguage;
+}();
+
+var deviceTwinDSL = new DeviceTwinBlockDomainSpecificLanguage();
+/* harmony default export */ var devicetwindsl = (deviceTwinDSL);
+;// CONCATENATED MODULE: ./src/components/vm/dsl/DslContext.tsx
+
+
+
+
+var DslContext = /*#__PURE__*/(0,react.createContext)({
+  dsls: []
+});
+DslContext.displayName = "DSL";
+/* harmony default export */ var dsl_DslContext = (DslContext); // eslint-disable-next-line react/prop-types
+
+var DslProvider = function DslProvider(_ref) {
+  var children = _ref.children;
+  var dsls = (0,react.useMemo)(function () {
+    return [azureiothubdsl, devicetwindsl, toolsdsl];
+  }, []);
+  return /*#__PURE__*/react.createElement(DslContext.Provider, {
+    value: {
+      dsls: dsls
+    }
+  }, children);
+};
+
+/***/ }),
+
+/***/ 56945:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ JDomTreeField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41788);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26934);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16319);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69672);
+/* harmony import */ var _NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43070);
+
+
+
+
+
+
+var JDomServiceTreeView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
+});
+
+function JDomTreeWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      roleService = _useContext.roleService,
+      flyout = _useContext.flyout;
+
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  if (flyout) return null;
+  if (!roleService) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      minWidth: "12rem",
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, roleService && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(JDomServiceTreeView, {
+    service: roleService,
+    defaultExpanded: [roleService.id]
+  })));
+}
+
+var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(JDomTreeField, _ReactInlineField);
+
+  JDomTreeField.fromJson = function fromJson(options) {
+    return new JDomTreeField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function JDomTreeField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = JDomTreeField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(JDomTreeWidget, null);
+  };
+
+  return JDomTreeField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+JDomTreeField.KEY = "jacdac_jdom_service_tree";
+JDomTreeField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 43070:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ NoServiceAlert; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(83332);
+/* harmony import */ var _material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(88880);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37801);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26934);
+/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13173);
+/* harmony import */ var _material_ui_lab__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6809);
+
+
+
+
+
+
+
+
+function NoServiceAlert() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
+      roleService = _useContext2.roleService,
+      roleServiceShortId = _useContext2.roleServiceShortId,
+      flyout = _useContext2.flyout;
+
+  var spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__/* .serviceSpecificationFromName */ .kB)(roleServiceShortId);
+
+  var handleStartSimulator = function handleStartSimulator() {
+    return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .startServiceProviderFromServiceClass */ .V6)(bus, spec.classIdentifier);
+  }; // nothing to do here
+
+
+  if (roleService || flyout) return null; // unresolved, unknown service
+
+  if (!roleService && !roleServiceShortId) return null; // unknown spec
+
+  if (!spec) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    severity: "warning"
+  }, "Unknown service");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    variant: "outlined",
+    color: "default",
+    startIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null),
+    onClick: handleStartSimulator
+  }, "start ", spec.name);
+}
+
+/***/ }),
+
+/***/ 88967:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "A": function() { return /* binding */ PointerBoundary; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+function PointerBoundary(props) {
+  var className = props.className,
+      children = props.children;
+
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: className,
+    style: {
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, children);
+}
+
+/***/ }),
+
+/***/ 16319:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ReactInlineField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(41788);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73935);
+/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15171);
+/* harmony import */ var _widgets_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(41173);
+/* harmony import */ var _ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7796);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
+/* harmony import */ var _jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(727);
+/* harmony import */ var _ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25853);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(26934);
+
+
+
+
+
+
+
+
+
+
+
+
+var ReactInlineField = /*#__PURE__*/function (_ReactField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(ReactInlineField, _ReactField);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function ReactInlineField(options) {
+    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
+      width: 1,
+      height: 1
+    }) || this;
+  }
+
+  var _proto = ReactInlineField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "inline-block";
+    c.style.minWidth = "14rem";
+    return c;
+  };
+
+  _proto.initCustomView = function initCustomView() {
+    var _this = this;
+
+    var _this$size_ = this.size_,
+        width = _this$size_.width,
+        height = _this$size_.height;
+    var fo = (0,_widgets_svg__WEBPACK_IMPORTED_MODULE_10__/* .child */ .iU)(this.fieldGroup_, "foreignObject", {
+      x: 0,
+      y: 0,
+      width: width,
+      height: height
+    });
+    this.container = this.createContainer();
+    fo.appendChild(this.container);
+    this.resizeObserver = new ResizeObserver(function (entries) {
+      var entry = entries[0];
+      var contentRect = entry.contentRect;
+      _this.size_.width = contentRect.width;
+      _this.size_.height = contentRect.height;
+      fo.setAttribute("width", _this.size_.width + "");
+      fo.setAttribute("height", _this.size_.height + "");
+
+      _this.forceRerender();
+    });
+    this.resizeObserver.observe(this.container);
+    react_dom__WEBPACK_IMPORTED_MODULE_1__.render(this.renderBlock(), this.container);
+    return fo;
+  };
+
+  _proto.dispose = function dispose() {
+    if (this.container) {
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.unmountComponentAtNode(this.container);
+      this.container = undefined;
+    }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
+    }
+
+    _ReactField.prototype.dispose.call(this);
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "not used");
+  };
+
+  _proto.renderInlineField = function renderInlineField() {
+    return null;
+  };
+
+  _proto.renderBlock = function renderBlock() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_8__/* .WorkspaceProvider */ .W5, {
+      field: this
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+      fixedDarkMode: "dark"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, this.renderInlineField())))));
+  };
+
+  _proto.getText_ = function getText_() {
+    return "...";
+  } // don't bind any mouse event
+  ;
+
+  _proto.bindEvents_ = function bindEvents_() {
+    blockly__WEBPACK_IMPORTED_MODULE_7___default().Tooltip.bindMouseEvents(this.getClickTarget_());
+  };
+
+  return ReactInlineField;
+}(_ReactField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP);
+
+
+
+/***/ }),
+
+/***/ 41392:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ TwinField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(41788);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80838);
+/* harmony import */ var _dashboard_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(23069);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26934);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16319);
+/* harmony import */ var _NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43070);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(88967);
+
+
+
+
+
+
+
+
+
+function TwinWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP),
+      roleService = _useContext.roleService,
+      flyout = _useContext.flyout;
+
+  if (flyout) return null;
+  if (!roleService) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    container: true,
+    alignItems: "center",
+    alignContent: "center",
+    justify: "center",
+    spacing: 1
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_dashboard_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP, {
+    service: roleService,
+    visible: true,
+    variant: "icon"
+  }))));
+}
+
+var TwinField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(TwinField, _ReactInlineField);
+
+  TwinField.fromJson = function fromJson(options) {
+    return new TwinField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function TwinField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = TwinField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TwinWidget, null);
+  };
+
+  return TwinField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
+
+TwinField.KEY = "jacdac_field_twin";
+TwinField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 9238:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ WatchValueField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(41788);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(59355);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8266);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(80453);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(76544);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26934);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16319);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(88967);
+/* harmony import */ var _jacdac_ts_src_vm_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(94624);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
+
+
+
+
+
+
+
+
+
+function WatchValueWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      runner = _useContext.runner,
+      sourceId = _useContext.sourceId;
+
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(); // track changes
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setValue(undefined);
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_utils__WEBPACK_IMPORTED_MODULE_4__/* .VM_WATCH_CHANGE */ .UM, function (watchSourceId) {
+      if (watchSourceId === sourceId) {
+        var newValue = runner.lookupWatch(sourceId);
+        setValue(newValue);
+      }
+    });
+  }, [runner, sourceId]);
+  var valueNumber = typeof value === "number" ? value : undefined;
+
+  if (!isNaN(valueNumber)) {
+    var step = Math.ceil(Math.abs(valueNumber)) / 10;
+    var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
+    valueNumber = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .roundWithPrecision */ .JI)(valueNumber, precision);
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    bgcolor: theme.palette.background.paper,
+    borderRadius: theme.spacing(1),
+    color: theme.palette.text.primary
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+    container: true,
+    alignItems: "flex-end",
+    alignContent: "center",
+    justify: "center",
+    spacing: 1
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_3__/* .PointerBoundary */ .A, null, !isNaN(valueNumber) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
+    variant: "body1"
+  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+    value: !!value
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
+    variant: "body1"
+  }, value === undefined ? "..." : value + "")))));
+}
+
+var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(WatchValueField, _ReactInlineField);
+
+  WatchValueField.fromJson = function fromJson(options) {
+    return new WatchValueField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function WatchValueField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = WatchValueField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "inline-block";
+    c.style.minWidth = "4rem";
+    return c;
+  };
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WatchValueWidget, null);
+  };
+
+  return WatchValueField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+WatchValueField.KEY = "jacdac_watch_value";
+WatchValueField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 41173:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "iU": function() { return /* binding */ child; }
+/* harmony export */ });
+/* unused harmony exports title, hydrate, elt */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+function mkTitle(txt) {
+  var t = elt("title");
+  t.textContent = txt;
+  return t;
+}
+
+function title(el, txt) {
+  var t = mkTitle(txt);
+  el.appendChild(t);
+  return t;
+}
+function hydrate(el, props) {
+  for (var k in props) {
+    if (k == "title") {
+      title(el, props[k]);
+    } else el.setAttributeNS(null, k, props[k]);
+  }
+}
+function elt(name, props) {
+  var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+  if (props) hydrate(el, props);
+  return el;
+}
+function child(parent, name, props) {
+  var el = elt(name, props);
+  parent.appendChild(el);
+  return el;
+}
+
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d397cb03cfc802024950.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-6a21b6dbb8b50224219d.js.map

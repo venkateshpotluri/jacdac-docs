@@ -5594,7 +5594,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-function domToJSON(workspace) {
+function domToJSON(workspace, dsls) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   var clean = function clean(o) {
     return Object.keys(o).filter(function (k) {
@@ -5721,11 +5721,18 @@ function domToJSON(workspace) {
       if (block.isInsertionMarker()) {
         var child = block.getChildren(false)[0];
         if (child) return blockToJSON(child);else return undefined;
-      } // skip twins
+      } // allow DSL to handle conversion
 
 
       var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(block.type);
-      if ((definition === null || definition === void 0 ? void 0 : definition.template) === "twin") return undefined; // dump object
+      var dsl = (definition === null || definition === void 0 ? void 0 : definition.dsl) && dsls.find(function (d) {
+        return d.id === definition.dsl;
+      });
+      if (dsl !== null && dsl !== void 0 && dsl.convertToJSON) return dsl.convertToJSON({
+        workspace: workspace,
+        block: block,
+        definition: definition
+      }); // dump object
 
       var value = (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
       var element = {
@@ -5833,12 +5840,9 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
 /* harmony export */   "NK": function() { return /* binding */ LOG_BLOCK; },
-/* harmony export */   "M1": function() { return /* binding */ DEVICE_TWIN_DEFINITION_BLOCK; },
-/* harmony export */   "x$": function() { return /* binding */ DEVICE_TWIN_PROPERTY_BLOCK; },
-/* harmony export */   "pv": function() { return /* binding */ DEVICE_TWIN_PROPERTY_TYPE; },
-/* harmony export */   "wz": function() { return /* binding */ DEVICE_TWIN_VALUE_TYPE; }
+/* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
+/* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
 /* harmony export */ });
-/* unused harmony export DEVICE_TWIN_SEND_TELEMETRY */
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -5856,11 +5860,8 @@ var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
 var LOG_BLOCK = "jacdac_custom_logger_log";
-var DEVICE_TWIN_SEND_TELEMETRY = "device_twin_send_telemetry";
-var DEVICE_TWIN_DEFINITION_BLOCK = "device_twin_definition";
-var DEVICE_TWIN_PROPERTY_BLOCK = "device_twin_property";
-var DEVICE_TWIN_PROPERTY_TYPE = "DeviceTwinProperty";
-var DEVICE_TWIN_VALUE_TYPE = "DeviceTwinValue";
+var PRIMITIVE_TYPES = ["String", "Boolean", "Number"];
+var CODE_STATEMENT_TYPE = "Code";
 
 /***/ }),
 
@@ -6893,4 +6894,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-e5f90c3ebcf411df8884.js.map
+//# sourceMappingURL=a5a8d23f32f456d129fcbdb7b99d57ac4ba3b72a-e513674ec36361c014a9.js.map
