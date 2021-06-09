@@ -8221,6 +8221,7 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
       changed = true;
     });
 
+    this.bindServices();
     if (changed) this.emit(constants/* CHANGE */.Ver);
   };
 
@@ -8996,4 +8997,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-794ced7c4803bef65e4e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-00bcea1592721a0d81ad.js.map
