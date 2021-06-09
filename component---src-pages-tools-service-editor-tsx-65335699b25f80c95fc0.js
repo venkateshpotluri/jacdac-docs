@@ -28,29 +28,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 59448:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "J": function() { return /* binding */ VM_EVENT; },
-/* harmony export */   "H": function() { return /* binding */ VMCode; }
-/* harmony export */ });
-var VM_EVENT = "vmEvent";
-var VMCode;
-
-(function (VMCode) {
-  VMCode["WatchChange"] = "vmWatchChange";
-  VMCode["Breakpoint"] = "vmBreakpoint";
-  VMCode["CommandStarted"] = "vmCommandStarted";
-  VMCode["CommandCompleted"] = "vmCommandCompleted";
-  VMCode["CommandFailed"] = "vmCommandFailed";
-  VMCode["RoleMissing"] = "vmRoleMissing";
-  VMCode["InternalError"] = "vmInternalError";
-})(VMCode || (VMCode = {}));
-
-/***/ }),
-
 /***/ 72833:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -304,13 +281,7 @@ var Context = __webpack_require__(20392);
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
 var DashboardDeviceItem = __webpack_require__(24301);
-// EXTERNAL MODULE: ./src/components/vm/VMBlockEditor.tsx + 1 modules
-var VMBlockEditor = __webpack_require__(90301);
-// EXTERNAL MODULE: ./src/components/ui/PaperBox.tsx
-var PaperBox = __webpack_require__(79739);
 ;// CONCATENATED MODULE: ./src/components/ServiceSpecification.tsx
-
-
 
 
 
@@ -412,7 +383,7 @@ function ServiceSpecification(props) {
   }), "."), /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
     key: "noteslong",
     source: node.notes.long || ""
-  }), /*#__PURE__*/react.createElement(PaperBox/* default */.Z, null, /*#__PURE__*/react.createElement(VMBlockEditor/* default */.Z, null)), /*#__PURE__*/react.createElement(DashboardServiceDevices, {
+  }), /*#__PURE__*/react.createElement(DashboardServiceDevices, {
     serviceClass: classIdentifier
   }), /*#__PURE__*/react.createElement(EnumSpecification, {
     key: "enums",
@@ -1108,4 +1079,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-1388df2c4ecb9d3300ad.js.map
+//# sourceMappingURL=component---src-pages-tools-service-editor-tsx-65335699b25f80c95fc0.js.map
