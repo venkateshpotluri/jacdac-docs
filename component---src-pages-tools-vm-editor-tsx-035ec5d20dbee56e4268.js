@@ -1865,7 +1865,7 @@ function PaperBox(props) {
 
 /***/ }),
 
-/***/ 78712:
+/***/ 48664:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2841,7 +2841,194 @@ var Typography = __webpack_require__(80453);
 var Switch = __webpack_require__(76544);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/events.ts
 var events = __webpack_require__(59448);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
+var makeStyles = __webpack_require__(10920);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
+var createStyles = __webpack_require__(70274);
+;// CONCATENATED MODULE: ./src/components/TrendChart.tsx
+
+
+
+
+var useStyles = (0,makeStyles/* default */.Z)(function () {
+  return (0,createStyles/* default */.Z)({
+    mini: {
+      display: "inline-block",
+      width: "10rem"
+    }
+  });
+});
+function useTrendChartData(maxLength) {
+  if (maxLength === void 0) {
+    maxLength = 25;
+  }
+
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var _useState = (0,react.useState)([]),
+      trendData = _useState[0],
+      setTrendData = _useState[1];
+
+  var addTrendValue = function addTrendValue(value) {
+    if (isNaN(value)) return;
+    var timestamp = bus.timestamp;
+    var entry = [timestamp, value];
+    setTrendData(function (trendData) {
+      return [].concat((0,toConsumableArray/* default */.Z)(trendData.slice(-(maxLength - 1))), [entry]);
+    });
+  };
+
+  return {
+    trendData: trendData,
+    addTrendValue: addTrendValue
+  };
+}
+function TrendChart(props) {
+  var useGradient = props.useGradient,
+      data = props.data,
+      unit = props.unit,
+      _props$width = props.width,
+      width = _props$width === void 0 ? 80 : _props$width,
+      _props$height = props.height,
+      height = _props$height === void 0 ? 15 : _props$height,
+      dot = props.dot,
+      mini = props.mini;
+  var theme = (0,useTheme/* default */.Z)();
+  var classes = useStyles(); // nothing to show for
+
+  if ((data === null || data === void 0 ? void 0 : data.length) < 2) return null;
+  var vpw = width;
+  var vph = height;
+  var color = theme.palette.secondary.main;
+  var shape = unit === "#" ? "step" : "line";
+  var symmetric = unit === "g" ? true : false;
+  var values = data.map(function (r) {
+    return r[1];
+  });
+  var mint = data[0][0];
+  var maxt = data[data.length - 1][0];
+  var minv = unit === "/" ? 0 : Math.min.apply(null, values);
+  var maxv = unit === "/" ? 1 : Math.max.apply(null, values);
+  var opposite = unit !== "/" && Math.sign(minv) != Math.sign(maxv);
+
+  if (isNaN(minv) && isNaN(maxv)) {
+    minv = 0;
+    maxv = 1;
+  }
+
+  if (symmetric) {
+    maxv = Math.max(Math.abs(minv), Math.abs(maxv));
+    minv = -maxv;
+  }
+
+  var rv = maxv - minv;
+  var margin = 2;
+  var h = maxv - minv || 10;
+  var w = maxt - mint || 10;
+  var strokeWidth = 0.25;
+  var axisWidth = 0.2;
+  var axisColor = "#ccc";
+  var pointRadius = strokeWidth * 1.5;
+  var toffset = -pointRadius * 3;
+
+  var x = function x(t) {
+    return (t - mint) / w * vpw;
+  };
+
+  var y = function y(v) {
+    if (v === undefined || isNaN(v)) v = minv; // adding random for lineragradient bug workaround
+    // which does not render perfectly
+    // horizontal lines
+
+    return (Math.random() * 0.0001 * rv - (v - minv)) / h * (vph - 2 * margin);
+  };
+
+  var lastRow = data[data.length - 1];
+  var path = shape == "step" ? data.map(function (row, ri) {
+    return ri == 0 ? "M " + x(row[0]) + " " + y(row[1]) : "H " + x(row[0]) + " V " + y(row[1]);
+  }).join(" ") : data.map(function (row, ri) {
+    return (ri == 0 ? "M" : "L") + " " + x(row[0]) + " " + y(row[1]);
+  }).join(" ");
+  return /*#__PURE__*/react.createElement("div", {
+    className: mini ? classes.mini : undefined
+  }, /*#__PURE__*/react.createElement("svg", {
+    viewBox: "0 0 " + vpw + " " + vph,
+    style: {
+      maxHeight: mini ? "5vh" : "10vh",
+      maxWidth: "100%"
+    }
+  }, useGradient && /*#__PURE__*/react.createElement("defs", null, /*#__PURE__*/react.createElement("linearGradient", {
+    key: "gradaxis",
+    id: "gradientaxis",
+    x1: "0%",
+    y1: "0%",
+    x2: "100%",
+    y2: "0%"
+  }, /*#__PURE__*/react.createElement("stop", {
+    offset: "0%",
+    stopOpacity: "0",
+    stopColor: axisColor
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "5%",
+    stopOpacity: "0",
+    stopColor: axisColor
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "40%",
+    stopOpacity: "1",
+    stopColor: axisColor
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "100%",
+    stopOpacity: "1",
+    stopColor: axisColor
+  })), useGradient && /*#__PURE__*/react.createElement("linearGradient", {
+    id: "gradient0",
+    x1: "0%",
+    y1: "0%",
+    x2: "100%",
+    y2: "0%"
+  }, /*#__PURE__*/react.createElement("stop", {
+    offset: "0%",
+    stopOpacity: "0",
+    stopColor: color
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "5%",
+    stopOpacity: "0",
+    stopColor: color
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "40%",
+    stopOpacity: "1",
+    stopColor: color
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "100%",
+    stopOpacity: "1",
+    stopColor: color
+  }))), /*#__PURE__*/react.createElement("g", {
+    transform: "translate(" + toffset + ", " + (vph - margin) + ")"
+  }, opposite && /*#__PURE__*/react.createElement("line", {
+    x1: x(mint),
+    x2: x(maxt),
+    y1: y(0),
+    y2: y(0),
+    strokeWidth: axisWidth,
+    stroke: useGradient ? "url(#gradientaxis)" : axisColor
+  }), /*#__PURE__*/react.createElement("g", null, /*#__PURE__*/react.createElement("path", {
+    d: path,
+    fill: "none",
+    stroke: useGradient ? "url(#gradient0)" : color,
+    strokeWidth: strokeWidth,
+    strokeLinejoin: "round"
+  }), dot && /*#__PURE__*/react.createElement("circle", {
+    cx: x(lastRow[0]),
+    cy: y(lastRow[1]),
+    r: pointRadius,
+    fill: color
+  })))));
+}
 ;// CONCATENATED MODULE: ./src/components/vm/fields/WatchValueField.tsx
+
 
 
 
@@ -2862,12 +3049,17 @@ function WatchValueWidget() {
       value = _useState[0],
       setValue = _useState[1];
 
+  var _useTrendChartData = useTrendChartData(),
+      trendData = _useTrendChartData.trendData,
+      addTrendValue = _useTrendChartData.addTrendValue;
+
   (0,react.useEffect)(function () {
     setValue(undefined);
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, watchSourceId) {
       if (code === events/* VMCode.WatchChange */.H.WatchChange && watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
+        addTrendValue(newValue);
       }
     });
   }, [runner, sourceId]);
@@ -2897,7 +3089,14 @@ function WatchValueWidget() {
     value: !!value
   }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body1"
-  }, value === undefined ? "..." : value + "")))));
+  }, value === undefined ? "..." : value + ""))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(PointerBoundary, null, /*#__PURE__*/react.createElement(TrendChart, {
+    data: trendData,
+    mini: true,
+    dot: 2,
+    useGradient: true
+  })))));
 }
 
 var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
@@ -2969,8 +3168,6 @@ function fieldShadows() {
 }
 // EXTERNAL MODULE: ./src/components/vm/toolbox.ts
 var toolbox = __webpack_require__(20055);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(90293);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/ir.ts
 var VMFunctions = [{
   id: "label",
@@ -5661,10 +5858,6 @@ var jsongenerator = __webpack_require__(8374);
 var DarkModeContext = __webpack_require__(91350);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
-var makeStyles = __webpack_require__(10920);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
-var createStyles = __webpack_require__(70274);
 // EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
 var clsx_m = __webpack_require__(85505);
 // EXTERNAL MODULE: ./src/components/vm/useBlocklyEvents.ts
@@ -5691,7 +5884,7 @@ var useBlocklyPlugins = __webpack_require__(30567);
 
 
 
-var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
+var VMBlockEditor_useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     editor: {
       height: "calc(100vh - " + (flags/* default.diagnostics */.Z.diagnostics ? 15 : 10) + "rem)",
@@ -5718,7 +5911,7 @@ function VMBlockEditor(props) {
   var _useContext = (0,react.useContext)(dsl_DslContext),
       dsls = _useContext.dsls;
 
-  var classes = useStyles();
+  var classes = VMBlockEditor_useStyles();
 
   var _useContext2 = (0,react.useContext)(DarkModeContext/* default */.Z),
       darkMode = _useContext2.darkMode;
@@ -8794,4 +8987,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2b5c822d8fb6491c7fcd.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-035ec5d20dbee56e4268.js.map

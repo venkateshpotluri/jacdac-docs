@@ -69526,7 +69526,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7fd5aea3dd13ed8627f0b0d3cea7cab4666f1cd3";
+  var sha = "ae41ca398171deef5b9e74e3062bc806af8a5412";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -80991,7 +80991,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 78712));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 48664));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86592,4 +86592,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-e22aed2447e543cb1796.js.map
+//# sourceMappingURL=app-43207640d42fd0f97839.js.map
