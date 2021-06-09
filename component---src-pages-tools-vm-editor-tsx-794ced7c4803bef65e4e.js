@@ -3089,7 +3089,7 @@ function WatchValueWidget() {
     value: !!value
   }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body1"
-  }, value === undefined ? "..." : value + ""))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, value === undefined ? "..." : value + ""))), !isNaN(valueNumber) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(PointerBoundary, null, /*#__PURE__*/react.createElement(TrendChart, {
     data: trendData,
@@ -8996,4 +8996,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7087b477a6a6d8dd0c9a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-794ced7c4803bef65e4e.js.map
