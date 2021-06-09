@@ -5862,13 +5862,6 @@ function domToJSON(workspace, dsls) {
           return d.id === definition.dsl;
         });
         value = dsl === null || dsl === void 0 ? void 0 : (_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block);
-        console.log("blocktovalue", {
-          type: type,
-          definition: definition,
-          dsl: dsl,
-          block: block,
-          value: value
-        });
       }
 
       var element = {
@@ -7024,4 +7017,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-4f51c837d10992c75dae.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-6effaa6cb8645b5d0ad8.js.map
