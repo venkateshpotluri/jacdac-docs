@@ -3852,6 +3852,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     var command;
     var topEvent;
     var topErrors;
+    var topMeta = false;
     var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
     (0,utils/* assert */.hu)(!!definition);
     var template = definition.template,
@@ -3870,11 +3871,13 @@ function workspaceJSONToVMProgram(workspace, dsls) {
       })) || {},
           expression = _ref.expression,
           errors = _ref.errors,
-          event = _ref.event;
+          event = _ref.event,
+          meta = _ref.meta;
 
       command = expression;
       topErrors = errors;
-      topEvent = event; // if dsl didn't compile anything try again
+      topEvent = event;
+      topMeta = meta; // if dsl didn't compile anything try again
 
       if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
         switch (template) {
@@ -3910,7 +3913,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
         type: "cmd",
         command: command
       }],
-      errors: topErrors || []
+      errors: topErrors || [],
+      meta: !!topMeta
     };
     addCommands(topEvent, top.children, handler);
     return handler;
@@ -4980,7 +4984,8 @@ var toolsDSL = {
           arguments: [expr],
           callee: toIdentifier("watch")
         },
-        errors: errors
+        errors: errors,
+        meta: true
       };
     }
 
@@ -8489,7 +8494,11 @@ function useWorkspaceBreakpoints(program, workspace) {
   var breakpoints = (0,react.useMemo)(function () {
     var _arrayConcatMany, _program$handlers;
 
-    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.map(function (h) {
+    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.filter(function (h) {
+      return !h.meta;
+    }) // don't debug watch statements
+    . // don't debug watch statements
+    map(function (h) {
       return h.commands.map(function (cmd) {
         return cmd.sourceId;
       });
@@ -8987,4 +8996,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-035ec5d20dbee56e4268.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7087b477a6a6d8dd0c9a.js.map
