@@ -771,7 +771,7 @@ var Suspense = __webpack_require__(69672);
 
 
 var ImportButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(7541), __webpack_require__.e(4500)]).then(__webpack_require__.bind(__webpack_require__, 94934));
+  return __webpack_require__.e(/* import() */ 119).then(__webpack_require__.bind(__webpack_require__, 20119));
 });
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
@@ -2938,4 +2938,4 @@ function DeviceRegistration() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-76627e68388127ef8c25.js.map
+//# sourceMappingURL=component---src-pages-tools-device-registration-tsx-143e6d9da836518fe507.js.map

@@ -575,7 +575,7 @@ var Suspense = __webpack_require__(69672);
 
 
 var ImportButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(7541), __webpack_require__.e(4500)]).then(__webpack_require__.bind(__webpack_require__, 94934));
+  return __webpack_require__.e(/* import() */ 119).then(__webpack_require__.bind(__webpack_require__, 20119));
 });
 var LOCAL_FILE_SLUG = "local file";
 function LocalFileFirmwareCard() {
@@ -1349,4 +1349,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-updater-tsx-52b0ec1ce7c2ab5380ed.js.map
+//# sourceMappingURL=component---src-pages-tools-updater-tsx-5e586caad6b2488f6c98.js.map

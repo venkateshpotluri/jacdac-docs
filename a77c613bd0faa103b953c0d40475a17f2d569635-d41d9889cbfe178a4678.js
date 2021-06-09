@@ -1556,7 +1556,7 @@ var useRegister = __webpack_require__(82677);
 
 
 var ImportButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(7541), __webpack_require__.e(4500)]).then(__webpack_require__.bind(__webpack_require__, 94934));
+  return __webpack_require__.e(/* import() */ 119).then(__webpack_require__.bind(__webpack_require__, 20119));
 });
 function ModelContent(props) {
   var service = props.service;
@@ -1960,4 +1960,4 @@ function ModelUploader() {
 /***/ })
 
 }]);
-//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-b6dae1c8c5bf06f924e5.js.map
+//# sourceMappingURL=a77c613bd0faa103b953c0d40475a17f2d569635-d41d9889cbfe178a4678.js.map

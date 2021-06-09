@@ -426,7 +426,7 @@ var jdom_trace = __webpack_require__(79918);
 
 
 var ImportButton = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(7541), __webpack_require__.e(2369)]).then(__webpack_require__.bind(__webpack_require__, 94934));
+  return __webpack_require__.e(/* import() */ 119).then(__webpack_require__.bind(__webpack_require__, 20119));
 });
 function TraceImportButton(props) {
   var icon = props.icon,
@@ -893,4 +893,4 @@ function ConnectAlert(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-f10b80c7fe4b2144c1a6.js.map
+//# sourceMappingURL=8729-5a4ef3273466c2824ba9.js.map

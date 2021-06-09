@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6456,4500],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6456],{
 
 /***/ 88880:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -1173,4 +1173,4 @@ function MakeCodeEditorExtensionPage() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-a5106564e3b99e472362.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-3fecc953e69e4f62a089.js.map
