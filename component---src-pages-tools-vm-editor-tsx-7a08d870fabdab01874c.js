@@ -3263,13 +3263,472 @@ function checkProgram(prog) {
     errors: allErrors
   };
 }
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
+var es_array_flat_map = __webpack_require__(86535);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
+var es_array_unscopables_flat_map = __webpack_require__(99244);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(35313);
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
 var jdspec = __webpack_require__(13996);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 1 modules
+var wrapNativeSuper = __webpack_require__(57869);
+;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
+
+
+
+
+
+
+
+var ops = {
+  AND: "&&",
+  OR: "||",
+  EQ: "===",
+  NEQ: "!==",
+  LT: "<",
+  GT: ">",
+  LTE: "<=",
+  GTE: ">=",
+  NEG: "-",
+  ADD: "+",
+  MULTIPLY: "*",
+  DIVIDE: "/",
+  MINUS: "-"
+};
+var makeVMBase = function makeVMBase(block, command) {
+  return {
+    sourceId: block.id,
+    type: "cmd",
+    command: command
+  };
+};
+var processErrors = function processErrors(block, errors) {
+  return errors.map(function (e) {
+    return {
+      sourceId: e.sourceId ? e.sourceId : block.id,
+      message: e.message
+    };
+  });
+};
+function workspaceJSONToVMProgram(workspace, dsls) {
+  console.debug("compile vm", {
+    workspace: workspace,
+    dsls: dsls
+  });
+  var roles = workspace.variables.filter(function (v) {
+    return toolbox/* BUILTIN_TYPES.indexOf */.Nd.indexOf(v.type) < 0;
+  }).map(function (v) {
+    return {
+      role: v.name,
+      serviceShortId: v.type
+    };
+  });
+
+  var EmptyExpression = /*#__PURE__*/function (_Error) {
+    (0,inheritsLoose/* default */.Z)(EmptyExpression, _Error);
+
+    function EmptyExpression() {
+      return _Error.apply(this, arguments) || this;
+    }
+
+    return EmptyExpression;
+  }( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
+
+  var blockToExpression = function blockToExpression(ev, blockIn) {
+    var errors = [];
+
+    var blockToExpressionInner = function blockToExpressionInner(ev, block) {
+      if (!block) {
+        throw new EmptyExpression();
+      }
+
+      var type = block.type,
+          value = block.value,
+          inputs = block.inputs;
+      console.log("block2e", {
+        ev: ev,
+        block: block,
+        type: type,
+        value: value,
+        inputs: inputs
+      });
+      if (value !== undefined) // literal
+        return {
+          type: "Literal",
+          value: value,
+          raw: value + ""
+        };
+
+      switch (type) {
+        case "math_single": // built-in blockly
+
+        case "jacdac_math_single":
+          {
+            var argument = blockToExpressionInner(ev, inputs[0].child);
+            var op = inputs[0].fields["op"].value;
+            return {
+              type: "UnaryExpression",
+              operator: ops[op] || op,
+              argument: argument,
+              prefix: false // TODO:?
+
+            };
+          }
+
+        case "math_arithmetic": // built-in blockly
+
+        case "jacdac_math_arithmetic":
+          {
+            var left = blockToExpressionInner(ev, inputs[0].child);
+            var right = blockToExpressionInner(ev, inputs[1].child);
+            var _op = inputs[1].fields["op"].value;
+            return {
+              type: "BinaryExpression",
+              operator: ops[_op] || _op,
+              left: left,
+              right: right
+            };
+          }
+
+        case "logic_operation":
+          {
+            var _left = blockToExpressionInner(ev, inputs[0].child);
+
+            var _right = blockToExpressionInner(ev, inputs[1].child);
+
+            var _op2 = inputs[1].fields["op"].value;
+            return {
+              type: "LogicalExpression",
+              operator: ops[_op2] || _op2,
+              left: _left,
+              right: _right
+            };
+          }
+
+        case "logic_negate":
+          {
+            var _argument = blockToExpressionInner(ev, inputs[0].child);
+
+            return {
+              type: "UnaryExpression",
+              operator: "!",
+              argument: _argument,
+              prefix: false // TODO:?
+
+            };
+          }
+
+        case "logic_compare":
+          {
+            var _left2 = blockToExpressionInner(ev, inputs[0].child);
+
+            var _right2 = blockToExpressionInner(ev, inputs[1].child);
+
+            var _op3 = inputs[1].fields["op"].value;
+            return {
+              type: "BinaryExpression",
+              operator: ops[_op3] || _op3,
+              left: _left2,
+              right: _right2
+            };
+          }
+
+        default:
+          {
+            var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+
+            if (!definition) {
+              console.warn("unknown block " + type, {
+                type: type,
+                ev: ev,
+                block: block,
+                d: (blockly_default()).Blocks[type]
+              });
+            } else {
+              var _dsl$compileExpressio;
+
+              // try any DSL
+              var dslName = definition.dsl;
+              var dsl = dsls.find(function (d) {
+                return d.id === dslName;
+              });
+              var res = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
+                event: ev,
+                definition: definition,
+                block: block,
+                blockToExpressionInner: blockToExpressionInner
+              });
+
+              if (res) {
+                if (res.errors) res.errors.forEach(function (e) {
+                  return errors.push(e);
+                });
+                return res.expr;
+              }
+
+              var template = definition.template;
+
+              switch (template) {
+                case "shadow":
+                  {
+                    var field = inputs[0].fields["value"];
+                    var v = field.value;
+                    return {
+                      type: "Literal",
+                      value: v,
+                      raw: v + ""
+                    };
+                  }
+
+                default:
+                  {
+                    console.warn("unsupported block template " + template + " for " + type, {
+                      ev: ev,
+                      block: block
+                    });
+                    break;
+                  }
+              }
+
+              break;
+            }
+          }
+      }
+
+      throw new EmptyExpression();
+    };
+
+    return {
+      expr: blockToExpressionInner(ev, blockIn),
+      errors: errors
+    };
+  };
+
+  var blockToCommand = function blockToCommand(event, block) {
+    var type = block.type,
+        inputs = block.inputs;
+    console.debug("block2c", {
+      event: event,
+      type: type,
+      block: block,
+      inputs: inputs
+    });
+
+    switch (type) {
+      case "dynamic_if":
+        {
+          var _inputs$, _inputs$2;
+
+          var thenHandler = {
+            commands: [],
+            errors: []
+          };
+          var elseHandler = {
+            commands: [],
+            errors: []
+          };
+          var t = (_inputs$ = inputs[1]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child;
+          var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
+
+          if (t) {
+            addCommands(event, [t].concat((0,toConsumableArray/* default */.Z)(t.children ? t.children : [])), thenHandler);
+          }
+
+          if (e) {
+            addCommands(event, [e].concat((0,toConsumableArray/* default */.Z)(e.children ? e.children : [])), elseHandler);
+          }
+
+          var exprErrors = undefined;
+
+          try {
+            var _inputs$3;
+
+            exprErrors = blockToExpression(event, (_inputs$3 = inputs[0]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child);
+          } catch (e) {
+            if (e instanceof EmptyExpression) {
+              exprErrors = {
+                expr: {
+                  type: "Literal",
+                  value: false,
+                  raw: "false "
+                },
+                errors: []
+              };
+            } else {
+              throw e;
+            }
+          }
+
+          var _exprErrors = exprErrors,
+              expr = _exprErrors.expr,
+              errors = _exprErrors.errors;
+          var ifThenElse = {
+            sourceId: block.id,
+            type: "ite",
+            expr: expr,
+            then: thenHandler.commands,
+            else: elseHandler.commands
+          };
+          return {
+            cmd: ifThenElse,
+            errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
+          };
+        }
+      // more builts
+
+      default:
+        {
+          var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+
+          if (definition) {
+            var _dsl$compileCommandTo;
+
+            var dslName = definition.dsl,
+                template = definition.template;
+            var dsl = dsls.find(function (dsl) {
+              return dsl.id === dslName;
+            });
+            var dslRes = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileCommandTo = dsl.compileCommandToVM) === null || _dsl$compileCommandTo === void 0 ? void 0 : _dsl$compileCommandTo.call(dsl, {
+              event: event,
+              block: block,
+              definition: definition,
+              blockToExpression: blockToExpression
+            });
+
+            if (dslRes) {
+              dslRes.errors = processErrors(block, dslRes.errors);
+              return dslRes;
+            }
+
+            console.warn("unsupported block " + type, {
+              block: block
+            });
+            return {
+              cmd: undefined,
+              errors: []
+            };
+          }
+        }
+    }
+  };
+
+  var nop = {
+    type: "CallExpression",
+    arguments: [],
+    callee: toIdentifier("nop")
+  };
+
+  var addCommands = function addCommands(event, blocks, handler) {
+    blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
+      if (child) {
+        try {
+          var _blockToCommand = blockToCommand(event, child),
+              cmd = _blockToCommand.cmd,
+              errors = _blockToCommand.errors;
+
+          if (cmd) handler.commands.push(cmd);
+          errors.forEach(function (e) {
+            return handler.errors.push(e);
+          });
+        } catch (e) {
+          if (e instanceof EmptyExpression) {
+            handler.commands.push({
+              sourceId: child.id,
+              type: "cmd",
+              command: nop
+            });
+          } else {
+            console.debug(e);
+          }
+        }
+      }
+    });
+  };
+
+  var handlers = workspace.blocks.map(function (top) {
+    var _topErrors2;
+
+    var type = top.type;
+    var command;
+    var topEvent;
+    var topErrors;
+    var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+    (0,utils/* assert */.hu)(!!definition);
+    var template = definition.template,
+        dslName = definition.dsl;
+    var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
+      return d.id === dslName;
+    }));
+
+    try {
+      var _dsl$compileEventToVM, _topErrors;
+
+      var _ref = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
+        block: top,
+        definition: definition,
+        blockToExpression: blockToExpression
+      })) || {},
+          expression = _ref.expression,
+          errors = _ref.errors,
+          event = _ref.event;
+
+      command = expression;
+      topErrors = errors;
+      topEvent = event; // if dsl didn't compile anything try again
+
+      if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
+        switch (template) {
+          case "meta":
+            {
+              break;
+            }
+
+          default:
+            {
+              console.warn("unsupported handler template " + template + " for " + type, {
+                top: top
+              });
+              break;
+            }
+        }
+      }
+    } catch (e) {
+      console.debug(e);
+
+      if (e instanceof EmptyExpression) {
+        return undefined;
+      } else {
+        throw e;
+      }
+    } // nothing to compile here
+
+
+    if (!command && !((_topErrors2 = topErrors) !== null && _topErrors2 !== void 0 && _topErrors2.length)) return undefined;
+    var handler = {
+      commands: [{
+        sourceId: top.id,
+        type: "cmd",
+        command: command
+      }],
+      errors: topErrors || []
+    };
+    addCommands(topEvent, top.children, handler);
+    return handler;
+  }).filter(function (handler) {
+    return !!handler;
+  });
+  return {
+    roles: roles,
+    handlers: handlers
+  };
+}
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/servicesdsl.ts
+
+
+
 
 
 
@@ -4154,6 +4613,61 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     }
   };
 
+  _proto.compileCommandToVM = function compileCommandToVM(options) {
+    var event = options.event,
+        block = options.block,
+        definition = options.definition,
+        blockToExpression = options.blockToExpression;
+    var template = definition.template;
+    var inputs = block.inputs;
+
+    switch (template) {
+      case "register_set":
+        {
+          var _ref25 = definition,
+              register = _ref25.register;
+
+          var _blockToExpression2 = blockToExpression(event, inputs[0].child),
+              expr = _blockToExpression2.expr,
+              errors = _blockToExpression2.errors;
+
+          var role = inputs[0].fields.role.value;
+          return {
+            cmd: makeVMBase(block, {
+              type: "CallExpression",
+              arguments: [toMemberExpression(role, register.name), expr],
+              callee: toIdentifier("writeRegister")
+            }),
+            errors: errors
+          };
+        }
+
+      case "command":
+        {
+          var _ref26 = definition,
+              serviceCommand = _ref26.command;
+          var _role2 = inputs[0].fields.role.value;
+          var exprsErrors = inputs.map(function (a) {
+            return blockToExpression(event, a.child);
+          });
+          return {
+            cmd: makeVMBase(block, {
+              type: "CallExpression",
+              arguments: exprsErrors.map(function (p) {
+                return p.expr;
+              }),
+              callee: toMemberExpression(_role2, serviceCommand.name)
+            }),
+            errors: exprsErrors.flatMap(function (p) {
+              return p.errors;
+            })
+          };
+        }
+    }
+
+    return undefined;
+  };
+
   return ServicesBlockDomainSpecificLanguage;
 }();
 var servicesDSL = new ServicesBlockDomainSpecificLanguage();
@@ -4847,507 +5361,6 @@ var shadowDsl = {
   }
 };
 /* harmony default export */ var shadowdsl = (shadowDsl);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 1 modules
-var wrapNativeSuper = __webpack_require__(57869);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
-var es_array_flat_map = __webpack_require__(86535);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
-var es_array_unscopables_flat_map = __webpack_require__(99244);
-;// CONCATENATED MODULE: ./src/components/vm/VMgenerator.ts
-
-
-
-
-
-
-
-
-
-var ops = {
-  AND: "&&",
-  OR: "||",
-  EQ: "===",
-  NEQ: "!==",
-  LT: "<",
-  GT: ">",
-  LTE: "<=",
-  GTE: ">=",
-  NEG: "-",
-  ADD: "+",
-  MULTIPLY: "*",
-  DIVIDE: "/",
-  MINUS: "-"
-};
-var makeVMBase = function makeVMBase(block, command) {
-  return {
-    sourceId: block.id,
-    type: "cmd",
-    command: command
-  };
-};
-var processErrors = function processErrors(block, errors) {
-  return errors.map(function (e) {
-    return {
-      sourceId: e.sourceId ? e.sourceId : block.id,
-      message: e.message
-    };
-  });
-};
-function workspaceJSONToVMProgram(workspace, dsls) {
-  console.debug("compile vm", {
-    workspace: workspace,
-    dsls: dsls
-  });
-  var roles = workspace.variables.filter(function (v) {
-    return toolbox/* BUILTIN_TYPES.indexOf */.Nd.indexOf(v.type) < 0;
-  }).map(function (v) {
-    return {
-      role: v.name,
-      serviceShortId: v.type
-    };
-  });
-
-  var EmptyExpression = /*#__PURE__*/function (_Error) {
-    (0,inheritsLoose/* default */.Z)(EmptyExpression, _Error);
-
-    function EmptyExpression() {
-      return _Error.apply(this, arguments) || this;
-    }
-
-    return EmptyExpression;
-  }( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
-
-  var blockToExpression = function blockToExpression(ev, blockIn) {
-    var errors = [];
-
-    var blockToExpressionInner = function blockToExpressionInner(ev, block) {
-      if (!block) {
-        throw new EmptyExpression();
-      }
-
-      var type = block.type,
-          value = block.value,
-          inputs = block.inputs;
-      console.log("block2e", {
-        ev: ev,
-        block: block,
-        type: type,
-        value: value,
-        inputs: inputs
-      });
-      if (value !== undefined) // literal
-        return {
-          type: "Literal",
-          value: value,
-          raw: value + ""
-        };
-
-      switch (type) {
-        case "math_single": // built-in blockly
-
-        case "jacdac_math_single":
-          {
-            var argument = blockToExpressionInner(ev, inputs[0].child);
-            var op = inputs[0].fields["op"].value;
-            return {
-              type: "UnaryExpression",
-              operator: ops[op] || op,
-              argument: argument,
-              prefix: false // TODO:?
-
-            };
-          }
-
-        case "math_arithmetic": // built-in blockly
-
-        case "jacdac_math_arithmetic":
-          {
-            var left = blockToExpressionInner(ev, inputs[0].child);
-            var right = blockToExpressionInner(ev, inputs[1].child);
-            var _op = inputs[1].fields["op"].value;
-            return {
-              type: "BinaryExpression",
-              operator: ops[_op] || _op,
-              left: left,
-              right: right
-            };
-          }
-
-        case "logic_operation":
-          {
-            var _left = blockToExpressionInner(ev, inputs[0].child);
-
-            var _right = blockToExpressionInner(ev, inputs[1].child);
-
-            var _op2 = inputs[1].fields["op"].value;
-            return {
-              type: "LogicalExpression",
-              operator: ops[_op2] || _op2,
-              left: _left,
-              right: _right
-            };
-          }
-
-        case "logic_negate":
-          {
-            var _argument = blockToExpressionInner(ev, inputs[0].child);
-
-            return {
-              type: "UnaryExpression",
-              operator: "!",
-              argument: _argument,
-              prefix: false // TODO:?
-
-            };
-          }
-
-        case "logic_compare":
-          {
-            var _left2 = blockToExpressionInner(ev, inputs[0].child);
-
-            var _right2 = blockToExpressionInner(ev, inputs[1].child);
-
-            var _op3 = inputs[1].fields["op"].value;
-            return {
-              type: "BinaryExpression",
-              operator: ops[_op3] || _op3,
-              left: _left2,
-              right: _right2
-            };
-          }
-
-        default:
-          {
-            var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-
-            if (!definition) {
-              console.warn("unknown block " + type, {
-                type: type,
-                ev: ev,
-                block: block,
-                d: (blockly_default()).Blocks[type]
-              });
-            } else {
-              var _dsl$compileExpressio;
-
-              // try any DSL
-              var dslName = definition.dsl;
-              var dsl = dsls.find(function (d) {
-                return d.id === dslName;
-              });
-              var res = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
-                event: ev,
-                definition: definition,
-                block: block,
-                blockToExpressionInner: blockToExpressionInner
-              });
-
-              if (res) {
-                if (res.errors) res.errors.forEach(function (e) {
-                  return errors.push(e);
-                });
-                return res.expr;
-              }
-
-              var template = definition.template;
-
-              switch (template) {
-                case "shadow":
-                  {
-                    var field = inputs[0].fields["value"];
-                    var v = field.value;
-                    return {
-                      type: "Literal",
-                      value: v,
-                      raw: v + ""
-                    };
-                  }
-
-                default:
-                  {
-                    console.warn("unsupported block template " + template + " for " + type, {
-                      ev: ev,
-                      block: block
-                    });
-                    break;
-                  }
-              }
-
-              break;
-            }
-          }
-      }
-
-      throw new EmptyExpression();
-    };
-
-    return {
-      expr: blockToExpressionInner(ev, blockIn),
-      errors: errors
-    };
-  };
-
-  var blockToCommand = function blockToCommand(event, block) {
-    var type = block.type,
-        inputs = block.inputs;
-    console.debug("block2c", {
-      event: event,
-      type: type,
-      block: block,
-      inputs: inputs
-    });
-
-    switch (type) {
-      case "dynamic_if":
-        {
-          var _inputs$, _inputs$2;
-
-          var thenHandler = {
-            commands: [],
-            errors: []
-          };
-          var elseHandler = {
-            commands: [],
-            errors: []
-          };
-          var t = (_inputs$ = inputs[1]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child;
-          var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
-
-          if (t) {
-            addCommands(event, [t].concat((0,toConsumableArray/* default */.Z)(t.children ? t.children : [])), thenHandler);
-          }
-
-          if (e) {
-            addCommands(event, [e].concat((0,toConsumableArray/* default */.Z)(e.children ? e.children : [])), elseHandler);
-          }
-
-          var exprErrors = undefined;
-
-          try {
-            var _inputs$3;
-
-            exprErrors = blockToExpression(event, (_inputs$3 = inputs[0]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child);
-          } catch (e) {
-            if (e instanceof EmptyExpression) {
-              exprErrors = {
-                expr: {
-                  type: "Literal",
-                  value: false,
-                  raw: "false "
-                },
-                errors: []
-              };
-            } else {
-              throw e;
-            }
-          }
-
-          var _exprErrors = exprErrors,
-              expr = _exprErrors.expr,
-              errors = _exprErrors.errors;
-          var ifThenElse = {
-            sourceId: block.id,
-            type: "ite",
-            expr: expr,
-            then: thenHandler.commands,
-            else: elseHandler.commands
-          };
-          return {
-            cmd: ifThenElse,
-            errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
-          };
-        }
-      // more builts
-
-      default:
-        {
-          var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-
-          if (definition) {
-            var _dsl$compileCommandTo;
-
-            var dslName = definition.dsl,
-                template = definition.template;
-            var dsl = dsls.find(function (dsl) {
-              return dsl.id === dslName;
-            });
-            var dslRes = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileCommandTo = dsl.compileCommandToVM) === null || _dsl$compileCommandTo === void 0 ? void 0 : _dsl$compileCommandTo.call(dsl, {
-              event: event,
-              block: block,
-              definition: definition,
-              blockToExpression: blockToExpression
-            });
-            if (dslRes) return dslRes;
-
-            switch (template) {
-              case "register_set":
-                {
-                  var _ref = definition,
-                      register = _ref.register;
-
-                  var _blockToExpression = blockToExpression(event, inputs[0].child),
-                      _expr = _blockToExpression.expr,
-                      _errors = _blockToExpression.errors;
-
-                  var role = inputs[0].fields.role.value;
-                  return {
-                    cmd: makeVMBase(block, {
-                      type: "CallExpression",
-                      arguments: [toMemberExpression(role, register.name), _expr],
-                      callee: toIdentifier("writeRegister")
-                    }),
-                    errors: processErrors(block, _errors)
-                  };
-                }
-
-              case "command":
-                {
-                  var _ref2 = definition,
-                      serviceCommand = _ref2.command;
-                  var _role = inputs[0].fields.role.value;
-                  var exprsErrors = inputs.map(function (a) {
-                    return blockToExpression(event, a.child);
-                  });
-                  return {
-                    cmd: makeVMBase(block, {
-                      type: "CallExpression",
-                      arguments: exprsErrors.map(function (p) {
-                        return p.expr;
-                      }),
-                      callee: toMemberExpression(_role, serviceCommand.name)
-                    }),
-                    errors: processErrors(block, exprsErrors.flatMap(function (p) {
-                      return p.errors;
-                    }))
-                  };
-                }
-
-              default:
-                {
-                  console.warn("unsupported block template " + template + " for " + type, {
-                    block: block
-                  });
-                  return {
-                    cmd: undefined,
-                    errors: []
-                  };
-                }
-            }
-          }
-        }
-    }
-  };
-
-  var nop = {
-    type: "CallExpression",
-    arguments: [],
-    callee: toIdentifier("nop")
-  };
-
-  var addCommands = function addCommands(event, blocks, handler) {
-    blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
-      if (child) {
-        try {
-          var _blockToCommand = blockToCommand(event, child),
-              cmd = _blockToCommand.cmd,
-              errors = _blockToCommand.errors;
-
-          if (cmd) handler.commands.push(cmd);
-          errors.forEach(function (e) {
-            return handler.errors.push(e);
-          });
-        } catch (e) {
-          if (e instanceof EmptyExpression) {
-            handler.commands.push({
-              sourceId: child.id,
-              type: "cmd",
-              command: nop
-            });
-          } else {
-            console.debug(e);
-          }
-        }
-      }
-    });
-  };
-
-  var handlers = workspace.blocks.map(function (top) {
-    var _topErrors2;
-
-    var type = top.type;
-    var command;
-    var topEvent;
-    var topErrors;
-    var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-    (0,utils/* assert */.hu)(!!definition);
-    var template = definition.template,
-        dslName = definition.dsl;
-    var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
-      return d.id === dslName;
-    }));
-
-    try {
-      var _dsl$compileEventToVM, _topErrors;
-
-      var _ref3 = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
-        block: top,
-        definition: definition,
-        blockToExpression: blockToExpression
-      })) || {},
-          expression = _ref3.expression,
-          errors = _ref3.errors,
-          event = _ref3.event;
-
-      command = expression;
-      topErrors = errors;
-      topEvent = event; // if dsl didn't compile anything try again
-
-      if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
-        switch (template) {
-          case "meta":
-            {
-              break;
-            }
-
-          default:
-            {
-              console.warn("unsupported handler template " + template + " for " + type, {
-                top: top
-              });
-              break;
-            }
-        }
-      }
-    } catch (e) {
-      console.debug(e);
-
-      if (e instanceof EmptyExpression) {
-        return undefined;
-      } else {
-        throw e;
-      }
-    } // nothing to compile here
-
-
-    if (!command && !((_topErrors2 = topErrors) !== null && _topErrors2 !== void 0 && _topErrors2.length)) return undefined;
-    var handler = {
-      commands: [{
-        sourceId: top.id,
-        type: "cmd",
-        command: command
-      }],
-      errors: topErrors || []
-    };
-    addCommands(topEvent, top.children, handler);
-    return handler;
-  }).filter(function (handler) {
-    return !!handler;
-  });
-  return {
-    roles: roles,
-    handlers: handlers
-  };
-}
 ;// CONCATENATED MODULE: ./src/components/vm/dsl/loopsdsl.ts
 
 
@@ -8763,4 +8776,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-25bfe2319bc9311c39c5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7a08d870fabdab01874c.js.map

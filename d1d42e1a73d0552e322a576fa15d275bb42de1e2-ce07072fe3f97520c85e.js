@@ -5702,7 +5702,7 @@ function domToJSON(workspace, dsls) {
 
   var blockToJSON = function blockToJSON(block) {
     var blockToJSONHidden = function blockToJSONHidden(block) {
-      var _dsl$blockToValue, _builtins$block$type;
+      var _builtins$block$type;
 
       // skip disabled blocks
       if (!(block !== null && block !== void 0 && block.isEnabled())) return undefined; // skip over insertion markers.
@@ -5710,14 +5710,29 @@ function domToJSON(workspace, dsls) {
       if (block.isInsertionMarker()) {
         var child = block.getChildren(false)[0];
         if (child) return blockToJSON(child);else return undefined;
-      } // allow DSL to handle conversion
+      }
 
+      var type = block.type; // allow DSL to handle conversion
 
-      var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(block.type);
-      var dsl = (definition === null || definition === void 0 ? void 0 : definition.dsl) && dsls.find(function (d) {
-        return d.id === definition.dsl;
-      });
-      var value = (dsl === null || dsl === void 0 ? void 0 : (_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block)) || ((_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block));
+      var value = (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
+
+      if (value === undefined) {
+        var _dsl$blockToValue;
+
+        var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
+        var dsl = (definition === null || definition === void 0 ? void 0 : definition.dsl) && dsls.find(function (d) {
+          return d.id === definition.dsl;
+        });
+        value = dsl === null || dsl === void 0 ? void 0 : (_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block);
+        console.log("blocktovalue", {
+          type: type,
+          definition: definition,
+          dsl: dsl,
+          block: block,
+          value: value
+        });
+      }
+
       var element = {
         type: block.type,
         id: block.id,
@@ -6871,4 +6886,4 @@ function useBlocklyPlugins(workspace) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-3aa68fef78730c8daba2.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-ce07072fe3f97520c85e.js.map
