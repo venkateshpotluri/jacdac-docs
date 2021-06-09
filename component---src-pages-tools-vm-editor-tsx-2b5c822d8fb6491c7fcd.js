@@ -8486,10 +8486,6 @@ function VMRunnerButtons(props) {
   (0,react.useEffect)(function () {
     return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, _, sourceId) {
       if (code === events/* VMCode.Breakpoint */.H.Breakpoint) {
-        console.log("breakpoint", {
-          sourceId: sourceId,
-          mounted: mounted()
-        });
         if (mounted()) setBreakpoint(sourceId);
       }
     });
@@ -8510,6 +8506,7 @@ function VMRunnerButtons(props) {
   }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: paused ? "resume" : stopped ? "start" : "stop",
     disabled: disabled,
+    color: stopped ? "primary" : "default",
     onClick: paused ? handleResume : stopped ? handleRun : handleCancel
   }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
@@ -8669,11 +8666,7 @@ function VMFileButtons(props) {
     workspace: workspace
   })));
 }
-// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
-var useDevices = __webpack_require__(53074);
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
-
-
 
 
 
@@ -8688,13 +8681,6 @@ function VMToolbar(props) {
       xml = props.xml,
       program = props.program,
       workspace = props.workspace;
-  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.roles;
-  });
-  var devices = (0,useDevices/* default */.Z)({
-    ignoreSelf: true
-  });
-  var noRoles = !(roles !== null && roles !== void 0 && roles.length) && !(devices !== null && devices !== void 0 && devices.length);
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "row",
@@ -8746,7 +8732,7 @@ function VMEditor(props) {
       setProgram = _useState2[1];
 
   var roleManager = useRoleManager();
-  var autoStart = false;
+  var autoStart = true;
 
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
       runner = _useVMRunner.runner,
@@ -8808,4 +8794,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b18d3b116d8b43ef0dd9.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2b5c822d8fb6491c7fcd.js.map
