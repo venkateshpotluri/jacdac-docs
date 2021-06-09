@@ -52308,7 +52308,7 @@ function frameToPackets(frame, timestamp) {
       var psz = frame[ptr] + 4;
       var sz = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .ALIGN */ .Hp)(psz);
       var pkt = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .bufferConcat */ .gX)(frame.slice(0, 12), frame.slice(ptr, ptr + psz));
-      if (ptr + sz > 12 + frame[2]) warn(timestamp + "ms: invalid frame compression, res len=" + res.length);
+      if (ptr + psz > 12 + frame[2]) warn(timestamp + "ms: invalid frame compression, res len=" + res.length);
       var p = Packet.fromBinary(pkt);
       p.timestamp = timestamp;
       res.push(p); // only set req_ack flag on first packet - otherwise we would sent multiple acks
@@ -70337,7 +70337,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b1c701c663008c26525ad4a5b8c0c6afb8f22903";
+  var sha = "5552ec2712a5b7b09ae1b3f70edf79fa50260e0e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86611,4 +86611,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-f0e06a0e3bca48456679.js.map
+//# sourceMappingURL=app-8a7c2b8ddef092179c5f.js.map
