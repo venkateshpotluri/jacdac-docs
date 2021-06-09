@@ -70337,7 +70337,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c83fe2f244e0d12e2d48b65630fa2f74a85b7bb3";
+  var sha = "4ea59d8d4b758401ddd4eafa4aaad7a7777f0041";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -75287,9 +75287,13 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     return dispose;
   }();
 
-  _proto.clear = function clear() {
+  _proto.clear = function clear(timestamp) {
     var _this$_serviceProvide,
         _this5 = this;
+
+    if (timestamp === void 0) {
+      timestamp = 0;
+    }
 
     // clear hosts
     if ((_this$_serviceProvide = this._serviceProviders) !== null && _this$_serviceProvide !== void 0 && _this$_serviceProvide.length) {
@@ -75314,7 +75318,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       });
     }
 
-    this.resetTime();
+    this.resetTime(timestamp);
   }
   /**
    * Gets a unique identifier for this node in the Jacdac DOM.
@@ -75397,8 +75401,12 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     return node;
   };
 
-  _proto.resetTime = function resetTime() {
-    this._startTime = Date.now();
+  _proto.resetTime = function resetTime(delta) {
+    if (delta === void 0) {
+      delta = 0;
+    }
+
+    this._startTime = Date.now() - delta;
     this.emit(constants/* CHANGE */.Ver);
   };
 
@@ -86611,4 +86619,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-49cfa1739c32b84dba99.js.map
+//# sourceMappingURL=app-e8d6f45d2a53cc64da69.js.map

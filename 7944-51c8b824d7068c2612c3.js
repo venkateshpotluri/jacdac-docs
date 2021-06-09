@@ -181,6 +181,7 @@ function replayLog(bus, frames, speed) {
   }));
   var player = new TracePlayer(bus, speed);
   player.trace = new Trace(packets);
+  bus.clear(packets[0].timestamp);
   player.start();
 }
 
@@ -359,4 +360,4 @@ function useGridBreakpoints(itemCount) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7944-c5ebc4219c0e932c88df.js.map
+//# sourceMappingURL=7944-51c8b824d7068c2612c3.js.map

@@ -33389,7 +33389,18 @@ function LEDMatrixWidget(props) {
   var handleLedClick = function handleLedClick(bitindex) {
     return function (ev) {
       if (ev && !ev.buttons) return;
-      var newLeds = currentLeds.slice(0);
+      var newLeds = currentLeds.slice(0); // ensure that newLeds has the right size
+
+      var n = rows * columnspadded;
+
+      if (newLeds.length !== n) {
+        if (newLeds.length > n) newLeds = newLeds.slice(0, n);else {
+          var temp = new Uint8Array(n);
+          temp.set(newLeds, 0);
+          newLeds = temp;
+        }
+      }
+
       (0,_jacdac_ts_src_servers_ledmatrixserver__WEBPACK_IMPORTED_MODULE_3__/* .toggle */ .w)(newLeds, bitindex);
       setCurrentLeds(newLeds);
       onChange === null || onChange === void 0 ? void 0 : onChange(newLeds);
@@ -40224,4 +40235,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-f0cc8c4de2203db63b50.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-01fa98531659a8c292e6.js.map

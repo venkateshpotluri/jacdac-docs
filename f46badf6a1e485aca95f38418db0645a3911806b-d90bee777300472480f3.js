@@ -3979,6 +3979,10 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
         rows = _this$value4.rows,
         columns = _this$value4.columns;
     var ledsBytes = (0,utils/* fromHex */.H_)(leds);
+    console.log("led bytes", {
+      leds: leds,
+      ledsBytes: ledsBytes
+    });
 
     var onChange = function onChange(newLeds) {
       return _this2.value = {
@@ -4002,7 +4006,7 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
     key: "defaultValue",
     get: function get() {
       return {
-        leds: (0,utils/* toHex */.NC)(new Uint8Array(4)),
+        leds: (0,utils/* toHex */.NC)(new Uint8Array(0)),
         rows: 5,
         columns: 5
       };
@@ -4797,4 +4801,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-daaf91f98b9a7a880b6b.js.map
+//# sourceMappingURL=f46badf6a1e485aca95f38418db0645a3911806b-d90bee777300472480f3.js.map

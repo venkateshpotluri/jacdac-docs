@@ -482,6 +482,7 @@ function replayLog(bus, frames, speed) {
   }));
   var player = new TracePlayer(bus, speed);
   player.trace = new Trace(packets);
+  bus.clear(packets[0].timestamp);
   player.start();
 }
 
@@ -748,4 +749,4 @@ function TraceSnippet(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7510-a0b3881a4815b49dc3c3.js.map
+//# sourceMappingURL=7510-d4d5e241fcf1454578c2.js.map

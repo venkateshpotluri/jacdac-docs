@@ -356,6 +356,7 @@ function replayLog(bus, frames, speed) {
   }));
   var player = new TracePlayer(bus, speed);
   player.trace = new Trace(packets);
+  bus.clear(packets[0].timestamp);
   player.start();
 }
 
@@ -893,4 +894,4 @@ function ConnectAlert(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8729-5a4ef3273466c2824ba9.js.map
+//# sourceMappingURL=8729-2a9be66c200faffbf475.js.map
