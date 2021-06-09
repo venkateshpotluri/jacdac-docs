@@ -3586,8 +3586,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           if (definition) {
             var _dsl$compileCommandTo;
 
-            var dslName = definition.dsl,
-                template = definition.template;
+            var dslName = definition.dsl;
             var dsl = dsls.find(function (dsl) {
               return dsl.id === dslName;
             });
@@ -8776,4 +8775,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7a08d870fabdab01874c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-215864c0c1df25f5e4f9.js.map
