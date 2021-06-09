@@ -4143,7 +4143,7 @@ function VMEditor(props) {
       setProgram = _useState2[1];
 
   var roleManager = useRoleManager();
-  var autoStart = true;
+  var autoStart = false;
 
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
       runner = _useVMRunner.runner,
@@ -4205,4 +4205,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-7a82fcc44ee6af9b1b58.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1a4530410a6d67357959.js.map
