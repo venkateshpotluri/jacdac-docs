@@ -4201,7 +4201,11 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           };
         }
 
-        console.warn("unsupported block template " + template + " for " + type, {
+        errors.push({
+          sourceId: block.id,
+          message: "unknown block " + type
+        });
+        console.warn("unsupported block " + type, {
           ev: ev,
           block: block,
           definition: definition
@@ -4318,7 +4322,10 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           });
           return {
             cmd: undefined,
-            errors: []
+            errors: [{
+              sourceId: block.id,
+              message: "unsupported block " + type
+            }]
           };
         }
     }
@@ -4331,27 +4338,27 @@ function workspaceJSONToVMProgram(workspace, dsls) {
   };
 
   var addCommands = function addCommands(event, blocks, handler) {
-    blocks === null || blocks === void 0 ? void 0 : blocks.forEach(function (child) {
-      if (child) {
-        try {
-          var _blockToCommand = blockToCommand(event, child),
-              cmd = _blockToCommand.cmd,
-              errors = _blockToCommand.errors;
+    blocks === null || blocks === void 0 ? void 0 : blocks.filter(function (child) {
+      return !!child;
+    }).forEach(function (child) {
+      try {
+        var _blockToCommand = blockToCommand(event, child),
+            cmd = _blockToCommand.cmd,
+            errors = _blockToCommand.errors;
 
-          if (cmd) handler.commands.push(cmd);
-          errors.forEach(function (e) {
-            return handler.errors.push(e);
+        if (cmd) handler.commands.push(cmd);
+        errors.forEach(function (e) {
+          return handler.errors.push(e);
+        });
+      } catch (e) {
+        if (e instanceof EmptyExpression) {
+          handler.commands.push({
+            sourceId: child.id,
+            type: "cmd",
+            command: nop
           });
-        } catch (e) {
-          if (e instanceof EmptyExpression) {
-            handler.commands.push({
-              sourceId: child.id,
-              type: "cmd",
-              command: nop
-            });
-          } else {
-            console.debug(e);
-          }
+        } else {
+          console.debug(e);
         }
       }
     });
@@ -6235,4 +6242,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-eaf4ec166af50527fb01.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d166a6911f2bde09e658.js.map
