@@ -69598,7 +69598,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "1197ee5c3953ac5d6ca2fa21682b165898b4a385";
+  var sha = "bbf7841f735a401a0339c882e4898080f636cd93";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71398,13 +71398,15 @@ function useEffectAsync(effect, dependencies) {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 
+var PREFIX = "jacdac:";
 function useLocalStorage(key, initialValue) {
-  // State to store our value
+  var pkey = PREFIX + key; // State to store our value
   // Pass initial state function to useState so logic is only executed once
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
     try {
       // Get from local storage by key
-      var item = typeof window !== "undefined" && window.localStorage.getItem("jacdac:" + key); // Parse stored json or if none return initialValue
+      var item = typeof window !== "undefined" && key && window.localStorage.getItem(pkey); // Parse stored json or if none return initialValue
 
       // Parse stored json or if none return initialValue
       return item && JSON.parse(item) || initialValue;
@@ -71426,7 +71428,7 @@ function useLocalStorage(key, initialValue) {
 
       setStoredValue(valueToStore); // Save to local storage
 
-      if (typeof window !== "undefined") window.localStorage.setItem("jacdac:" + key, JSON.stringify(valueToStore));
+      if (typeof window !== "undefined" && key) window.localStorage.setItem(pkey, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
       console.log(error);
@@ -78626,7 +78628,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.63"};
+var package_namespaceObject = {"i8":"1.13.64"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -81003,7 +81005,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(5018), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
   },
   "component---src-pages-tools-data-science-editor-tsx": function componentSrcPagesToolsDataScienceEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5917), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 42164));
+    return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(5917), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 24116));
   },
   "component---src-pages-tools-device-registration-tsx": function componentSrcPagesToolsDeviceRegistrationTsx() {
     return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(5018), __webpack_require__.e(7788), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));
@@ -81063,7 +81065,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9142), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 48664));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(193), __webpack_require__.e(9142), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 19608));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86664,4 +86666,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-40a62e9d9d769948a603.js.map
+//# sourceMappingURL=app-20d26b63c39806017351.js.map

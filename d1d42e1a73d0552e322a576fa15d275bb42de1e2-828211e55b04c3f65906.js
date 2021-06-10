@@ -1,152 +1,5 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[5917],{
 
-/***/ 26576:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var blockly_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(90888);
-/* harmony import */ var blockly_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly_core__WEBPACK_IMPORTED_MODULE_0__);
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Dark theme.
- */
-
-/**
- * Dark theme.
- */
-
-/* harmony default export */ __webpack_exports__["Z"] = (blockly_core__WEBPACK_IMPORTED_MODULE_0___default().Theme.defineTheme('theme_dark', {
-  'base': (blockly_core__WEBPACK_IMPORTED_MODULE_0___default().Themes.Classic),
-  'componentStyles': {
-    'workspaceBackgroundColour': '#1e1e1e',
-    'toolboxBackgroundColour': 'blackBackground',
-    'toolboxForegroundColour': '#fff',
-    'flyoutBackgroundColour': '#252526',
-    'flyoutForegroundColour': '#ccc',
-    'flyoutOpacity': 1,
-    'scrollbarColour': '#797979',
-    'insertionMarkerColour': '#fff',
-    'insertionMarkerOpacity': 0.3,
-    'scrollbarOpacity': 0.4,
-    'cursorColour': '#d0d0d0',
-    'blackBackground': '#333'
-  }
-}));
-
-/***/ }),
-
-/***/ 2990:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var blockly_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(90888);
-/* harmony import */ var blockly_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly_core__WEBPACK_IMPORTED_MODULE_0__);
-/**
- * @license
- * Copyright 2020 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @fileoverview Modern theme.
- */
-
-/* harmony default export */ __webpack_exports__["Z"] = (blockly_core__WEBPACK_IMPORTED_MODULE_0___default().Theme.defineTheme('modern', {
-  'base': (blockly_core__WEBPACK_IMPORTED_MODULE_0___default().Themes.Classic),
-  'blockStyles': {
-    'colour_blocks': {
-      'colourPrimary': '#a5745b',
-      'colourSecondary': '#dbc7bd',
-      'colourTertiary': '#845d49'
-    },
-    'list_blocks': {
-      'colourPrimary': '#745ba5',
-      'colourSecondary': '#c7bddb',
-      'colourTertiary': '#5d4984'
-    },
-    'logic_blocks': {
-      'colourPrimary': '#5b80a5',
-      'colourSecondary': '#bdccdb',
-      'colourTertiary': '#496684'
-    },
-    'loop_blocks': {
-      'colourPrimary': '#5ba55b',
-      'colourSecondary': '#bddbbd',
-      'colourTertiary': '#498449'
-    },
-    'math_blocks': {
-      'colourPrimary': '#5b67a5',
-      'colourSecondary': '#bdc2db',
-      'colourTertiary': '#495284'
-    },
-    'procedure_blocks': {
-      'colourPrimary': '#995ba5',
-      'colourSecondary': '#d6bddb',
-      'colourTertiary': '#7a4984'
-    },
-    'text_blocks': {
-      'colourPrimary': '#5ba58c',
-      'colourSecondary': '#bddbd1',
-      'colourTertiary': '#498470'
-    },
-    'variable_blocks': {
-      'colourPrimary': '#a55b99',
-      'colourSecondary': '#dbbdd6',
-      'colourTertiary': '#84497a'
-    },
-    'variable_dynamic_blocks': {
-      'colourPrimary': '#a55b99',
-      'colourSecondary': '#dbbdd6',
-      'colourTertiary': '#84497a'
-    },
-    'hat_blocks': {
-      'colourPrimary': '#a55b99',
-      'colourSecondary': '#dbbdd6',
-      'colourTertiary': '#84497a',
-      'hat': 'cap'
-    }
-  },
-  'categoryStyles': {
-    'colour_category': {
-      'colour': '#a5745b'
-    },
-    'list_category': {
-      'colour': '#745ba5'
-    },
-    'logic_category': {
-      'colour': '#5b80a5'
-    },
-    'loop_category': {
-      'colour': '#5ba55b'
-    },
-    'math_category': {
-      'colour': '#5b67a5'
-    },
-    'procedure_category': {
-      'colour': '#995ba5'
-    },
-    'text_category': {
-      'colour': '#5ba58c'
-    },
-    'variable_category': {
-      'colour': '#a55b99'
-    },
-    'variable_dynamic_category': {
-      'colour': '#a55b99'
-    }
-  },
-  'componentStyles': {},
-  'fontStyle': {},
-  'startHats': null
-}));
-
-/***/ }),
-
 /***/ 32253:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -178,6 +31,34 @@ var DialogContentText = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardR
 /* harmony default export */ __webpack_exports__["Z"] = ((0,_styles_withStyles__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(styles, {
   name: 'MuiDialogContentText'
 })(DialogContentText));
+
+/***/ }),
+
+/***/ 88880:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(8580);
+
+var _interopRequireWildcard = __webpack_require__(1022);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+}), 'Add');
+
+exports.Z = _default;
 
 /***/ }),
 
@@ -5090,649 +4971,317 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 
-/***/ 25853:
+/***/ 85379:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ AppTheme; }
-/* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81864);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23581);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(87761);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91350);
 
-
- // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-function AppTheme(props) {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
-      darkMode = _useContext.darkMode;
-
-  var isDark = darkMode === "dark";
-  var themeDef = {
-    palette: {
-      primary: {
-        main: isDark ? "#56d364" : "#2e7d32"
-      },
-      secondary: {
-        main: "#ffc400"
-      },
-      contrastThreshold: isDark ? 5.1 : 3.1,
-      type: darkMode
-    }
-  };
-  var rawTheme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(themeDef);
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(rawTheme);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, Object.assign({
-    theme: theme
-  }, props));
-}
-
-/***/ }),
-
-/***/ 50769:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ BlocklyModalDialogs; }
-/* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(52468);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(65733);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(32253);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(1059);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(89952);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36176);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67294);
-/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19640);
-
-
-
-
-
-function BlocklyModalDialogs() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(),
-      dialogType = _useState[0],
-      setDialogType = _useState[1];
-
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-      message = _useState2[0],
-      setMessage = _useState2[1];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-      value = _useState3[0],
-      setValue = _useState3[1];
-
-  var valueId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_3__/* .useId */ .Me)(); // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-  var callback = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)();
-  var showDialog = !!dialogType;
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    // store older
-    var previous = {
-      alert: (blockly__WEBPACK_IMPORTED_MODULE_0___default().alert),
-      confirm: (blockly__WEBPACK_IMPORTED_MODULE_0___default().confirm),
-      prompt: (blockly__WEBPACK_IMPORTED_MODULE_0___default().prompt)
-    }; // replace
-
-    (blockly__WEBPACK_IMPORTED_MODULE_0___default().alert) = function (message, cb) {
-      setMessage(message);
-      callback.current = cb;
-      setDialogType("alert");
-    };
-
-    (blockly__WEBPACK_IMPORTED_MODULE_0___default().confirm) = function (message, cb) {
-      setMessage(message);
-      callback.current = cb;
-      setDialogType("confirm");
-    };
-
-    (blockly__WEBPACK_IMPORTED_MODULE_0___default().prompt) = function (message, defaultValue, cb) {
-      setMessage(message);
-      setValue(defaultValue);
-      callback.current = cb;
-      setDialogType("prompt");
-    }; // cleanup
-
-
-    return function () {
-      console.log("cleanup");
-      (blockly__WEBPACK_IMPORTED_MODULE_0___default().alert) = previous.alert;
-      (blockly__WEBPACK_IMPORTED_MODULE_0___default().confirm) = previous.confirm;
-      (blockly__WEBPACK_IMPORTED_MODULE_0___default().prompt) = previous.prompt;
-    };
-  }, []);
-
-  var handleCloseConfirm = function handleCloseConfirm() {
-    return setDialogType(undefined);
-  };
-
-  var handleCancel = function handleCancel() {
-    var _callback$current;
-
-    (_callback$current = callback.current) === null || _callback$current === void 0 ? void 0 : _callback$current.call(callback, undefined);
-    setDialogType(undefined);
-  };
-
-  var handleOk = function handleOk() {
-    var _callback$current2;
-
-    switch (dialogType) {
-      case "alert":
-        (_callback$current2 = callback.current) === null || _callback$current2 === void 0 ? void 0 : _callback$current2.call(callback);
-        break;
-
-      case "confirm":
-        callback.current(true);
-        break;
-
-      case "prompt":
-        callback.current(value);
-        break;
-    }
-
-    setDialogType(undefined);
-  };
-
-  var handleValueChange = function handleValueChange(event) {
-    setValue(event.target.value);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    open: showDialog,
-    onClose: handleCloseConfirm
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, message), dialogType === "prompt" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
-    id: valueId,
-    value: value,
-    label: "Value",
-    fullWidth: true,
-    onChange: handleValueChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, dialogType !== "alert" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    variant: "contained",
-    onClick: handleCancel
-  }, "Cancel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    variant: "contained",
-    color: "primary",
-    onClick: handleOk
-  }, "Ok")));
-}
-
-/***/ }),
-
-/***/ 26934:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "yq": function() { return /* binding */ WorkspaceServices; },
-/* harmony export */   "W5": function() { return /* binding */ WorkspaceProvider; }
-/* harmony export */ });
-/* unused harmony export WorkspaceContext */
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(53719);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
-/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54774);
-
-
-
-
-
-
-
-var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WorkspaceServices, _JDEventSource);
-
-  function WorkspaceServices() {
-    return _JDEventSource.call(this) || this;
-  }
-
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WorkspaceServices, [{
-    key: "runner",
-    get: function get() {
-      return this._runner;
-    },
-    set: function set(value) {
-      if (this._runner !== value) {
-        this._runner = value;
-        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
-      }
-    }
-  }, {
-    key: "roleManager",
-    get: function get() {
-      return this._roleManager;
-    },
-    set: function set(value) {
-      if (this._roleManager !== value) {
-        this._roleManager = value;
-        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
-      }
-    }
-  }]);
-
-  return WorkspaceServices;
-}(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
-var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
-  workspace: undefined,
-  flyout: false,
-  sourceId: undefined,
-  services: undefined,
-  role: undefined,
-  roleServiceShortId: undefined,
-  roleService: undefined,
-  runner: undefined
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ BlockProvider; },
+  "C": function() { return /* binding */ blockly_BlockContext; }
 });
-WorkspaceContext.displayName = "Workspace";
-/* harmony default export */ __webpack_exports__["ZP"] = (WorkspaceContext);
-function WorkspaceProvider(props) {
-  var field = props.field,
-      children = props.children;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(field === null || field === void 0 ? void 0 : field.getSourceBlock()),
-      sourceBlock = _useState[0],
-      setSourceBlock = _useState[1];
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__(75167);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(53719);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+var assertThisInitialized = __webpack_require__(25342);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(85413);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
+var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+;// CONCATENATED MODULE: ./jacdac-ts/src/servers/rolemanager.ts
 
-  var sourceId = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.id;
-  var workspace = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.workspace;
-  var services = workspace === null || workspace === void 0 ? void 0 : workspace.jacdacServices;
-  var roleManager = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(services, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.roleManager;
-  });
-  var runner = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(services, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.runner;
-  });
 
-  var resolveRole = function resolveRole() {
-    var newSourceBlock = field.getSourceBlock();
-    var roleInput = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : newSourceBlock.inputList[0];
-    var roleField = roleInput === null || roleInput === void 0 ? void 0 : roleInput.fieldRow.find(function (f) {
-      return f.name === "role" && f instanceof blockly__WEBPACK_IMPORTED_MODULE_0__.FieldVariable;
-    });
 
-    if (roleField) {
-      var _roleField$getVariabl;
 
-      var xml = document.createElement("xml");
-      roleField === null || roleField === void 0 ? void 0 : roleField.toXml(xml);
-      var newRole = roleField === null || roleField === void 0 ? void 0 : (_roleField$getVariabl = roleField.getVariable()) === null || _roleField$getVariabl === void 0 ? void 0 : _roleField$getVariabl.name;
-      return newRole;
-    }
 
-    return undefined;
-  };
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
-  var resolveRoleService = function resolveRoleService() {
-    var newRoleService = role && (roleManager === null || roleManager === void 0 ? void 0 : roleManager.getService(role));
-    return newRoleService;
-  };
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRole()),
-      role = _useState2[0],
-      setRole = _useState2[1];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRoleService()),
-      roleService = _useState3[0],
-      setRoleService = _useState3[1];
-
-  var roleServiceShortId = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(roleManager, function (_) {
-    var _$roles$find;
-
-    return _ === null || _ === void 0 ? void 0 : (_$roles$find = _.roles.find(function (r) {
-      return r.role === role;
-    })) === null || _$roles$find === void 0 ? void 0 : _$roles$find.serviceShortId;
-  });
-
-  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
-      flyout = _useState4[0],
-      setFlyout = _useState4[1]; // resolve role
-
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    return field === null || field === void 0 ? void 0 : field.events.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
-      var newSourceBlock = field.getSourceBlock();
-      console.log("field change", {
-        newSourceBlock: newSourceBlock
-      });
-      setSourceBlock(newSourceBlock);
-      setRole(resolveRole());
-      setFlyout(!!(newSourceBlock !== null && newSourceBlock !== void 0 && newSourceBlock.isInFlyout));
-    });
-  }, [field, workspace, runner]); // resolve current role service
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    setRoleService(resolveRoleService());
-    return roleManager === null || roleManager === void 0 ? void 0 : roleManager.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
-      return setRoleService(resolveRoleService());
-    });
-  }, [role, runner]);
-  return (
-    /*#__PURE__*/
-    // eslint-disable-next-line react/react-in-jsx-scope
-    react__WEBPACK_IMPORTED_MODULE_1__.createElement(WorkspaceContext.Provider, {
-      value: {
-        sourceId: sourceId,
-        services: services,
-        role: role,
-        roleServiceShortId: roleServiceShortId,
-        roleService: roleService,
-        runner: runner,
-        flyout: flyout
-      }
-    }, children)
-  );
-}
-
-/***/ }),
-
-/***/ 15171:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z8": function() { return /* binding */ VALUE_CHANGE; },
-/* harmony export */   "lo": function() { return /* binding */ UNMOUNT; },
-/* harmony export */   "ZP": function() { return /* binding */ ReactField; },
-/* harmony export */   "_t": function() { return /* binding */ toShadowDefinition; }
-/* harmony export */ });
-/* unused harmony exports SOURCE_BLOCK_CHANGE, MOUNT */
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(53719);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(85413);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73935);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(727);
-/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
-/* harmony import */ var _ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7796);
-/* harmony import */ var _ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25853);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8266);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
-/* harmony import */ var _ValueContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(84419);
-/* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(45484);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(71815);
-/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(26934);
-
-
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-
-
-
-
-
-
-
-
-
-
-
-
-var SOURCE_BLOCK_CHANGE = "sourceBlockChange";
-var VALUE_CHANGE = "valueChange";
-var MOUNT = "mount";
-var UNMOUNT = "unmount";
-
-var ReactField = /*#__PURE__*/function (_Blockly$Field) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(ReactField, _Blockly$Field);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function ReactField(value, validator, options, size) {
-    var _this;
-
-    _this = _Blockly$Field.call(this, value, validator, options) || this;
-    _this.SERIALIZABLE = true;
-    _this.events = new _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_9__/* .JDEventSource */ .a();
-    if (size) _this.size_ = new (blockly__WEBPACK_IMPORTED_MODULE_2___default().utils.Size)(size.width, size.height);
-    return _this;
-  }
-
-  var _proto = ReactField.prototype;
-
-  // override to support custom view
-  _proto.initCustomView = function initCustomView() {
-    return null;
-  } // override to update view
-  ;
-
-  _proto.updateView = function updateView() {};
-
-  _proto.getText_ = function getText_() {
-    return JSON.stringify(this.value);
-  };
-
-  _proto.toXml = function toXml(fieldElement) {
-    fieldElement.textContent = JSON.stringify(this.value);
-    return fieldElement;
-  };
-
-  _proto.fromXml = function fromXml(fieldElement) {
-    try {
-      var v = JSON.parse(fieldElement.textContent);
-      this.value = v;
-    } catch (e) {
-      console.log(e, {
-        text: fieldElement.textContent
-      });
-      this.value = undefined;
-    }
-  };
-
-  _proto.emitChange = function emitChange() {
-    this.events.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_10__/* .CHANGE */ .Ver);
-  };
-
-  _proto.setSourceBlock = function setSourceBlock(block) {
-    var changed = block !== this.sourceBlock_;
-
-    _Blockly$Field.prototype.setSourceBlock.call(this, block);
-
-    if (changed) {
-      this.events.emit(SOURCE_BLOCK_CHANGE, block);
-      this.emitChange();
-    }
-  };
-
-  _proto.initView = function initView() {
-    this.view = this.initCustomView();
-    if (this.view) this.updateView();else _Blockly$Field.prototype.initView.call(this);
-  };
-
-  _proto.updateSize_ = function updateSize_() {
-    if (!this.view) _Blockly$Field.prototype.updateSize_.call(this);
-  };
-
-  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
-    var change = this.value_ !== newValue;
-
-    if (this.view) {
-      this.value_ = newValue;
-      this.updateView();
-    } else _Blockly$Field.prototype.doValueUpdate_.call(this, newValue);
-
-    if (change) {
-      this.events.emit(VALUE_CHANGE, this.value);
-      this.emitChange();
-    }
-  };
-
-  _proto.showEditor_ = function showEditor_() {
-    var _this2 = this;
-
-    this.div_ = blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.getContentDiv();
-    react_dom__WEBPACK_IMPORTED_MODULE_1__.render(this.render(), this.div_);
-    var border = this.sourceBlock_.getColourTertiary();
-    blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.setColour(this.sourceBlock_.getColour(), border); // the div_ size has not been computed yet, so let the browse handle this
-
-    setTimeout(function () {
-      blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
-
-      _this2.events.emit(MOUNT);
-    }, 200);
-  };
-
-  _proto.hide = function hide() {
-    blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.hideIfOwner(this, true);
-  };
-
-  _proto.dropdownDispose_ = function dropdownDispose_() {
-    // this blows on hot reloads
-    try {
-      this.events.emit(UNMOUNT);
-      react_dom__WEBPACK_IMPORTED_MODULE_1__.unmountComponentAtNode(this.div_);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  _proto.render = function render() {
-    var _this3 = this;
-
-    var onValueChange = function onValueChange(newValue) {
-      return _this3.value = newValue;
-    };
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_11__/* .WorkspaceProvider */ .W5, {
-      field: this
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-      fixedDarkMode: "dark"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ValueContext__WEBPACK_IMPORTED_MODULE_8__/* .ValueProvider */ .Lt, {
-      value: this.value,
-      onValueChange: onValueChange
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-      m: 0.5,
-      borderRadius: "0.25rem",
-      bgcolor: "background.paper"
-    }, this.renderField())))))));
-  };
-
-  _proto.renderField = function renderField() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "not implemented");
-  };
-
-  _proto.dispose = function dispose() {
-    this.view = undefined;
-
-    _Blockly$Field.prototype.dispose.call(this);
-  };
-
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(ReactField, [{
-    key: "defaultValue",
-    get: function get() {
-      return {};
-    }
-  }, {
-    key: "value",
-    get: function get() {
-      try {
-        var v = JSON.parse(this.getValue());
-        return v || this.defaultValue;
-      } catch (e) {
-        console.warn(e);
-        return this.defaultValue;
-      }
-    },
-    set: function set(v) {
-      this.setValue(JSON.stringify(v));
-    }
-  }]);
-
-  return ReactField;
-}((blockly__WEBPACK_IMPORTED_MODULE_2___default().Field)); // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
-
-function toShadowDefinition(fieldType) {
-  (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .assert */ .hu)(!!fieldType.KEY);
-  var type = fieldType.KEY + "_shadow";
-  return {
-    kind: "block",
-    type: type,
-    message0: "%1",
-    args0: [{
-      type: fieldType.KEY,
-      name: "value"
-    }],
-    style: "math_blocks",
-    output: "Number",
-    template: "shadow"
-  };
-}
-
-/***/ }),
-
-/***/ 84419:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Lt": function() { return /* binding */ ValueProvider; }
-/* harmony export */ });
-/* unused harmony export ValueContext */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-var ValueContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  value: undefined,
-  onValueChange: undefined
-});
-ValueContext.displayName = "Value";
-/* harmony default export */ __webpack_exports__["ZP"] = (ValueContext);
-function ValueProvider(props) {
-  var children = props.children,
-      initialValue = props.value,
-      onFieldValueChange = props.onValueChange;
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialValue),
-      value = _useState[0],
-      setValue = _useState[1];
-
-  var onValueChange = function onValueChange(newValue) {
-    setValue(newValue);
-    onFieldValueChange === null || onFieldValueChange === void 0 ? void 0 : onFieldValueChange(newValue);
-  };
-
-  return (
-    /*#__PURE__*/
-    // eslint-disable-next-line react/react-in-jsx-scope
-    react__WEBPACK_IMPORTED_MODULE_0__.createElement(ValueContext.Provider, {
-      value: {
-        value: value,
-        onValueChange: onValueChange
-      }
-    }, children)
-  );
-}
-
-/***/ }),
-
-/***/ 8374:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "iL": function() { return /* binding */ domToJSON; }
-/* harmony export */ });
-/* unused harmony exports visitBlock, visitInput, visitField, visitWorkspace */
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21258);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81794);
-/* harmony import */ var _fields_ReactField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15171);
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20055);
 function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+
+// TODO: replicate MakeCode role manager logic
+var RoleManager = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(RoleManager, _JDEventSource);
+
+  function RoleManager(bus) {
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this._roles = [];
+    _this.bus = bus;
+
+    _this.bus.on(constants/* DEVICE_ANNOUNCE */.Hob, _this.addServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.bus.on(constants/* DEVICE_DISCONNECT */.O55, _this.removeServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this.bus.devices({
+      ignoreSelf: true,
+      announced: true
+    }).forEach(function (dev) {
+      return _this.addServices(dev);
+    });
+
+    _this.on(constants/* ROLE_UNBOUND */.CCp, function (role) {
+      return console.log("role unbound", {
+        role: role
+      });
+    });
+
+    _this.on(constants/* ROLE_BOUND */.l9m, function (role) {
+      return console.log("role bound", {
+        role: role
+      });
+    });
+
+    return _this;
+  }
+
+  var _proto = RoleManager.prototype;
+
+  _proto.setRoles = function setRoles(newRoles) {
+    var _this2 = this;
+
+    var changed = false; // remove unknown roles
+
+    var supportedNewRoles = newRoles.filter(function (_ref) {
+      var serviceShortId = _ref.serviceShortId;
+      return (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+    }); // unbind removed roles
+
+    var i = 0;
+
+    var _loop = function _loop() {
+      var role = _this2._roles[i];
+
+      if (!supportedNewRoles.find(function (r) {
+        return r.role === role.role;
+      })) {
+        changed = true;
+
+        _this2._roles.splice(i, 1);
+
+        _this2.emit(constants/* ROLE_UNBOUND */.CCp, role.role);
+      } else {
+        i++;
+      }
+    };
+
+    while (i < this._roles.length) {
+      _loop();
+    } // update or add roles
+
+
+    var _loop2 = function _loop2() {
+      var newRole = _step.value;
+
+      var existingRole = _this2._roles.find(function (r) {
+        return r.role === newRole.role;
+      });
+
+      if (!existingRole) {
+        // added role
+        changed = true;
+
+        _this2._roles.push(_objectSpread({}, newRole));
+      } else if (existingRole.serviceShortId !== newRole.serviceShortId) {
+        // modified type, force rebinding
+        changed = true;
+        existingRole.serviceShortId = newRole.serviceShortId;
+
+        if (existingRole.service) {
+          existingRole.service = undefined;
+
+          _this2.emit(constants/* ROLE_UNBOUND */.CCp, existingRole.role);
+        }
+      } // else unmodifed role
+
+    };
+
+    for (var _iterator = _createForOfIteratorHelperLoose(supportedNewRoles), _step; !(_step = _iterator()).done;) {
+      _loop2();
+    } // emit change as needed
+
+
+    if (changed) this.emit(constants/* CHANGE */.Ver); // bound services
+
+    this.bindServices();
+  };
+
+  _proto.bindServices = function bindServices() {
+    var _this3 = this;
+
+    var changed = false;
+    this.unboundRoles.forEach(function (binding) {
+      var boundRoles = _this3.boundRoles;
+
+      var service = _this3.bus.services({
+        ignoreSelf: true,
+        serviceName: binding.serviceShortId
+      }).find(function (srv) {
+        return !boundRoles.find(function (b) {
+          return b.service === srv;
+        });
+      });
+
+      binding.service = service;
+
+      _this3.emit(constants/* ROLE_BOUND */.l9m, binding.role);
+
+      changed = true;
+    });
+    if (changed) this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.addServices = function addServices(dev) {
+    if (dev === this.bus.selfDevice) return;
+    this.bindServices();
+  };
+
+  _proto.removeServices = function removeServices(dev) {
+    var _this4 = this;
+
+    var changed = false;
+
+    this._roles.filter(function (r) {
+      var _r$service;
+
+      return ((_r$service = r.service) === null || _r$service === void 0 ? void 0 : _r$service.device) === dev;
+    }).forEach(function (r) {
+      r.service = undefined;
+
+      _this4.emit(constants/* ROLE_UNBOUND */.CCp, r.role);
+
+      changed = true;
+    });
+
+    this.bindServices();
+    if (changed) this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.getService = function getService(role) {
+    var _this$_roles$find;
+
+    return (_this$_roles$find = this._roles.find(function (r) {
+      return r.role === role;
+    })) === null || _this$_roles$find === void 0 ? void 0 : _this$_roles$find.service;
+  };
+
+  _proto.addRoleService = function addRoleService(role, serviceShortId) {
+    var _this5 = this;
+
+    if (!(0,spec/* serviceSpecificationFromName */.kB)(serviceShortId)) return; // unknown role type
+
+    var binding = this._roles.find(function (r) {
+      return r.role === role;
+    }); // check if we already have this role
+
+
+    if (binding && serviceShortId === binding.serviceShortId) return; // new role
+
+    binding = {
+      role: role,
+      serviceShortId: serviceShortId
+    };
+
+    this._roles.push(binding);
+
+    var ret = this.bus.services({
+      ignoreSelf: true,
+      serviceName: serviceShortId
+    }).find(function (s) {
+      return !_this5._roles.find(function (r) {
+        return r.service === s;
+      });
+    });
+
+    if (ret) {
+      binding.service = ret;
+      this.emit(constants/* ROLE_BOUND */.l9m, role);
+    } else {
+      this.emit(constants/* ROLE_UNBOUND */.CCp, role);
+    }
+
+    this.emit(constants/* CHANGE */.Ver);
+  };
+
+  (0,createClass/* default */.Z)(RoleManager, [{
+    key: "roles",
+    get: function get() {
+      return this._roles.slice(0);
+    }
+  }, {
+    key: "boundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !!r.service;
+      });
+    }
+  }, {
+    key: "unboundRoles",
+    get: function get() {
+      return this._roles.filter(function (r) {
+        return !r.service;
+      });
+    }
+  }]);
+
+  return RoleManager;
+}(eventsource/* JDEventSource */.a);
+
+
+;// CONCATENATED MODULE: ./src/components/hooks/useRoleManager.ts
+
+
+
+function useRoleManager() {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var roleManager = (0,react.useMemo)(function () {
+    return new RoleManager(bus);
+  }, [bus]);
+  return roleManager;
+}
+// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
+var flags = __webpack_require__(21258);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ReactField.tsx
+var ReactField = __webpack_require__(77576);
+// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
+var toolbox = __webpack_require__(16582);
+;// CONCATENATED MODULE: ./src/components/blockly/jsongenerator.ts
+function jsongenerator_createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = jsongenerator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function jsongenerator_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return jsongenerator_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return jsongenerator_arrayLikeToArray(o, minLen); }
+
+function jsongenerator_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -5773,7 +5322,7 @@ function domToJSON(workspace, dsls) {
   };
 
   var fieldsToJSON = function fieldsToJSON(fields) {
-    return !fields.length ? undefined : (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__/* .toMap */ .qL)(fields, function (field) {
+    return !fields.length ? undefined : (0,utils/* toMap */.qL)(fields, function (field) {
       var _field$name;
 
       return (_field$name = field.name) === null || _field$name === void 0 ? void 0 : _field$name.toLowerCase();
@@ -5783,15 +5332,15 @@ function domToJSON(workspace, dsls) {
 
   var xmlToJSON = function xmlToJSON(xml) {
     var j = {};
-    if (_jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_1__/* .default.diagnostics */ .Z.diagnostics) j["xml"] = xml.outerHTML; // dump attributes
+    if (flags/* default.diagnostics */.Z.diagnostics) j["xml"] = xml.outerHTML; // dump attributes
 
-    for (var _iterator = _createForOfIteratorHelperLoose(xml.getAttributeNames()), _step; !(_step = _iterator()).done;) {
+    for (var _iterator = jsongenerator_createForOfIteratorHelperLoose(xml.getAttributeNames()), _step; !(_step = _iterator()).done;) {
       var _name = _step.value;
       var v = xml.getAttribute(_name);
       j[_name.toLowerCase()] = v;
     }
 
-    for (var _iterator2 = _createForOfIteratorHelperLoose(xml.childNodes), _step2; !(_step2 = _iterator2()).done;) {
+    for (var _iterator2 = jsongenerator_createForOfIteratorHelperLoose(xml.childNodes), _step2; !(_step2 = _iterator2()).done;) {
       var child = _step2.value;
       if (child.nodeType === Node.TEXT_NODE) j["value"] = xml.textContent;else if (child.nodeType === Node.ELEMENT_NODE) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -5806,14 +5355,14 @@ function domToJSON(workspace, dsls) {
   var fieldToJSON = function fieldToJSON(field) {
     if (field.isSerializable()) {
       // custom field can just return the value
-      if (field instanceof _fields_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP) {
+      if (field instanceof ReactField/* default */.ZP) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         var value = field.value;
         return {
           value: value
         };
       } else {
-        var container = blockly__WEBPACK_IMPORTED_MODULE_0___default().utils.xml.createElement("field");
+        var container = blockly_default().utils.xml.createElement("field");
         var fieldXml = field.toXml(container);
         return xmlToJSON(fieldXml);
       }
@@ -5857,7 +5406,7 @@ function domToJSON(workspace, dsls) {
       if (value === undefined) {
         var _dsl$blockToValue;
 
-        var definition = (0,_toolbox__WEBPACK_IMPORTED_MODULE_4__/* .resolveServiceBlockDefinition */ .yn)(type);
+        var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
         var dsl = (definition === null || definition === void 0 ? void 0 : definition.dsl) && dsls.find(function (d) {
           return d.id === definition.dsl;
         });
@@ -5896,7 +5445,7 @@ function domToJSON(workspace, dsls) {
   };
 
   try {
-    var variables = blockly__WEBPACK_IMPORTED_MODULE_0___default().Variables.allUsedVarModels(workspace).sort(function (l, r) {
+    var variables = blockly_default().Variables.allUsedVarModels(workspace).sort(function (l, r) {
       return l.name.localeCompare(r.name);
     }); // stable sort name
 
@@ -5950,68 +5499,16 @@ function visitWorkspace(workspace, visitor) {
     return visitBlock(block, visitor);
   });
 }
-
-/***/ }),
-
-/***/ 20055:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
-/* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
-/* harmony export */   "sX": function() { return /* binding */ WAIT_BLOCK; },
-/* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
-/* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
-/* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
-/* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
-/* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
-/* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
-/* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
-/* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
-/* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
-/* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
-/* harmony export */ });
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
-
-var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
-function resolveServiceBlockDefinition(type) {
-  var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
-  return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
-}
-var WAIT_BLOCK = "jacdac_wait";
-var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
-var TWIN_BLOCK = "jacdac_twin";
-var INSPECT_BLOCK = "jacdac_inspect";
-var WATCH_BLOCK = "jacdac_watch";
-var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
-var CONNECTION_BLOCK = "jacdac_connection";
-var CONNECTED_BLOCK = "jacdac_connected";
-var PRIMITIVE_TYPES = ["String", "Boolean", "Number"];
-var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
-var CODE_STATEMENT_TYPE = "Code";
-
-/***/ }),
-
-/***/ 52152:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ useBlocklyEvents; }
-/* harmony export */ });
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+;// CONCATENATED MODULE: ./src/components/blockly/useBlocklyEvents.ts
 
 
+// do not use block context
 function useBlocklyEvents(workspace) {
   var handleChange = function handleChange(event) {
     var type = event.type;
 
     switch (type) {
-      case (blockly__WEBPACK_IMPORTED_MODULE_0___default().Events.BLOCK_CHANGE):
+      case (blockly_default()).Events.BLOCK_CHANGE:
         {
           var _twinField$emitChange;
 
@@ -6029,33 +5526,17 @@ function useBlocklyEvents(workspace) {
   }; // register hook
 
 
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+  (0,react.useEffect)(function () {
     workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleChange);
     return function () {
       return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleChange);
     };
   }, [workspace]);
 }
-
-/***/ }),
-
-/***/ 30567:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ useBlocklyPlugins; }
-});
-
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(32738);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(25008);
+var esm_createClass = __webpack_require__(25008);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/get.js + 1 modules
 var get = __webpack_require__(44005);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/inherits.js
@@ -6074,11 +5555,11 @@ var core_browser = __webpack_require__(90888);
 
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = field_slider_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function field_slider_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return field_slider_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return field_slider_arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function field_slider_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,getPrototypeOf/* default */.Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,getPrototypeOf/* default */.Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,possibleConstructorReturn/* default */.Z)(this, result); }; }
 
@@ -6154,7 +5635,7 @@ var FieldSlider = /*#__PURE__*/function (_Blockly$FieldNumber) {
    */
 
 
-  (0,createClass/* default */.Z)(FieldSlider, [{
+  (0,esm_createClass/* default */.Z)(FieldSlider, [{
     key: "showEditor_",
     value:
     /**
@@ -6894,8 +6375,6 @@ var overrideOldBlockDefinitions = function overrideOldBlockDefinitions() {
   Blockly.Blocks['text_join'] = Blockly.Blocks['dynamic_text_join'];
   Blockly.Blocks['controls_if'] = Blockly.Blocks['dynamic_if'];
 };
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
 ;// CONCATENATED MODULE: ./node_modules/@blockly/disable-top-blocks/src/index.js
 
 
@@ -6925,7 +6404,7 @@ var DisableTopBlocks = /*#__PURE__*/function () {
     (0,classCallCheck/* default */.Z)(this, DisableTopBlocks);
   }
 
-  (0,createClass/* default */.Z)(DisableTopBlocks, [{
+  (0,esm_createClass/* default */.Z)(DisableTopBlocks, [{
     key: "init",
     value:
     /**
@@ -6989,11 +6468,12 @@ function isOrphan(block) {
 
   return !parent && !!(block.outputConnection || block.previousConnection);
 }
-;// CONCATENATED MODULE: ./src/components/vm/useBlocklyPlugins.ts
+;// CONCATENATED MODULE: ./src/components/blockly/useBlocklyPlugins.ts
 
 
 
 
+ // do not use block context
 
 function useBlocklyPlugins(workspace) {
   //plugins
@@ -7013,8 +6493,2931 @@ function useBlocklyPlugins(workspace) {
     };
   }, [workspace]);
 }
+// EXTERNAL MODULE: ./src/components/hooks/useServices.ts
+var useServices = __webpack_require__(2928);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__(59355);
+// EXTERNAL MODULE: ./src/components/blockly/fields/fields.ts
+var fields = __webpack_require__(29434);
+;// CONCATENATED MODULE: ./src/components/blockly/useToolbox.ts
+
+
+
+
+
+
+
+
+// overrides blockly emboss filter for svg elements
+(blockly_default()).BlockSvg.prototype.setHighlighted = function (highlighted) {
+  if (!this.rendered) {
+    return;
+  }
+
+  if (highlighted) {
+    this.addSelect();
+  } else {
+    this.removeSelect();
+  }
+};
+
+function loadBlocks(dsls, theme) {
+  var blocks = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
+    var _dsl$createBlocks;
+
+    return dsl === null || dsl === void 0 ? void 0 : (_dsl$createBlocks = dsl.createBlocks) === null || _dsl$createBlocks === void 0 ? void 0 : _dsl$createBlocks.call(dsl, {
+      theme: theme
+    }).map(function (b) {
+      b.dsl = dsl.id; // ensure DSL is set
+
+      return b;
+    });
+  }));
+  console.log("blocks", {
+    blocks: blocks
+  }); // register field editors
+
+  (0,fields/* registerFields */.k)(); // re-register blocks with blocklys
+
+  blocks.forEach(function (block) {
+    return (blockly_default()).Blocks[block.type] = {
+      jacdacDefinition: block,
+      init: function init() {
+        this.jsonInit(block);
+      }
+    };
+  });
+  return {
+    blocks: blocks
+  };
+}
+
+function patchCategoryJSONtoXML(cat) {
+  var _cat$contents;
+
+  if (cat.button) {
+    if (!cat.contents) cat.contents = [];
+    cat.contents.unshift(cat.button);
+  }
+
+  (_cat$contents = cat.contents) === null || _cat$contents === void 0 ? void 0 : _cat$contents.filter(function (node) {
+    return node.kind === "block";
+  }).map(function (node) {
+    return node;
+  }).filter(function (block) {
+    var exists = (blockly_default()).Blocks[block.type];
+    if (!exists && flags/* default.diagnostics */.Z.diagnostics) console.warn("block type '" + block.type + "' not found, consider refreshing page...");
+    return !!block.values && exists;
+  }) // avoid broken blocks
+  .forEach(function (block) {
+    // yup, this suck but we have to go through it
+    block.blockxml = "<block type=\"" + block.type + "\">" + Object.keys(block.values).map(function (name) {
+      var type = block.values[name].type;
+      return "<value name=\"" + name + "\"><shadow type=\"" + type + "\" /></value>";
+    }).join("\n") + "</block>";
+    delete block.type;
+  });
+  return cat;
+}
+
+function useToolbox(dsls, source) {
+  var liveServices = (0,useServices/* default */.Z)({
+    specification: true
+  });
+  var theme = (0,useTheme/* default */.Z)();
+  (0,react.useMemo)(function () {
+    return loadBlocks(dsls, theme);
+  }, [theme, dsls]);
+  var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
+    var _dsl$createCategory;
+
+    return dsl === null || dsl === void 0 ? void 0 : (_dsl$createCategory = dsl.createCategory) === null || _dsl$createCategory === void 0 ? void 0 : _dsl$createCategory.call(dsl, {
+      theme: theme,
+      source: source,
+      liveServices: liveServices
+    });
+  })).filter(function (cat) {
+    return !!cat;
+  }).sort(function (l, r) {
+    return -(l.order - r.order);
+  });
+  var toolboxConfiguration = {
+    kind: "categoryToolbox",
+    contents: dslsCategories.filter(function (cat) {
+      return !!cat;
+    }).map(function (node) {
+      return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
+    })
+  };
+  return toolboxConfiguration;
+} // do not use block context
+
+function useToolboxButtons(workspace, toolboxConfiguration) {
+  // track workspace changes and update callbacks
+  (0,react.useEffect)(function () {
+    if (!workspace) return; // collect buttons
+
+    var buttons = toolboxConfiguration === null || toolboxConfiguration === void 0 ? void 0 : toolboxConfiguration.contents // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map(function (cat) {
+      return cat.button;
+    }).filter(function (btn) {
+      return !!btn;
+    });
+    buttons === null || buttons === void 0 ? void 0 : buttons.forEach(function (button) {
+      return workspace.registerButtonCallback(button.callbackKey, function () {
+        return blockly_default().Variables.createVariableButtonHandler(workspace, null, button.service.shortId);
+      });
+    });
+  }, [workspace, JSON.stringify(toolboxConfiguration)]);
+}
+// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
+var WorkspaceContext = __webpack_require__(89801);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockContext.tsx
+
+
+
+
+
+
+
+
+
+
+var BlockContext = /*#__PURE__*/(0,react.createContext)({
+  dsls: [],
+  workspace: undefined,
+  workspaceXml: undefined,
+  workspaceJSON: undefined,
+  toolboxConfiguration: undefined,
+  roleManager: undefined,
+  setWarnings: function setWarnings() {},
+  setWorkspace: function setWorkspace() {},
+  setWorkspaceXml: function setWorkspaceXml() {}
+});
+BlockContext.displayName = "Block";
+/* harmony default export */ var blockly_BlockContext = (BlockContext); // eslint-disable-next-line react/prop-types
+
+function BlockProvider(props) {
+  var storageKey = props.storageKey,
+      dsls = props.dsls,
+      children = props.children;
+
+  var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey, toolbox/* NEW_PROJET_XML */.Uz),
+      storedXml = _useLocalStorage[0],
+      setStoredXml = _useLocalStorage[1];
+
+  var roleManager = useRoleManager();
+
+  var _useState = (0,react.useState)(undefined),
+      workspace = _useState[0],
+      setWorkspace = _useState[1];
+
+  var _useState2 = (0,react.useState)(storedXml),
+      workspaceXml = _useState2[0],
+      _setWorkspaceXml = _useState2[1];
+
+  var _useState3 = (0,react.useState)(undefined),
+      workspaceJSON = _useState3[0],
+      setWorkspaceJSON = _useState3[1];
+
+  var _useState4 = (0,react.useState)([]),
+      warnings = _useState4[0],
+      setWarnings = _useState4[1];
+
+  var setWorkspaceXml = function setWorkspaceXml(xml) {
+    setStoredXml(xml);
+
+    _setWorkspaceXml(xml);
+  };
+
+  var toolboxConfiguration = useToolbox(dsls, workspaceJSON); // plugins
+
+  useBlocklyPlugins(workspace);
+  useBlocklyEvents(workspace);
+  useToolboxButtons(workspace, toolboxConfiguration); // role manager
+
+  (0,react.useEffect)(function () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var ws = workspace;
+    var services = ws === null || ws === void 0 ? void 0 : ws.jacdacServices;
+    if (services) services.roleManager = roleManager;
+  }, [workspace, roleManager]);
+  (0,react.useEffect)(function () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var wws = workspace;
+
+    if (wws && !wws.jacdacServices) {
+      wws.jacdacServices = new WorkspaceContext/* WorkspaceServices */.yq();
+      wws.jacdacServices.roleManager = roleManager;
+    }
+  }, [workspace]);
+  (0,react.useEffect)(function () {
+    if (!workspace || workspace.isDragging()) return;
+    var newWorkspaceJSON = domToJSON(workspace, dsls);
+
+    if (JSON.stringify(newWorkspaceJSON) !== JSON.stringify(workspaceJSON)) {
+      setWorkspaceJSON(newWorkspaceJSON);
+    }
+  }, [dsls, workspace, workspaceXml]); // apply errors
+
+  (0,react.useEffect)(function () {
+    if (!workspace) return;
+    var allErrors = (0,utils/* toMap */.qL)(warnings || [], function (e) {
+      return e.blockId;
+    }, function (e) {
+      return e.message;
+    });
+    workspace.getAllBlocks(false).forEach(function (b) {
+      return b.setWarningText(allErrors[b.id] || null);
+    });
+  }, [workspace, warnings]);
+  return /*#__PURE__*/react.createElement(BlockContext.Provider, {
+    value: {
+      dsls: dsls,
+      workspace: workspace,
+      workspaceXml: workspaceXml,
+      workspaceJSON: workspaceJSON,
+      toolboxConfiguration: toolboxConfiguration,
+      roleManager: roleManager,
+      setWarnings: setWarnings,
+      setWorkspace: setWorkspace,
+      setWorkspaceXml: setWorkspaceXml
+    }
+  }, children);
+}
+
+/***/ }),
+
+/***/ 85105:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ BlockEditor; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/react-blockly/dist/index.js
+var dist = __webpack_require__(691);
+// EXTERNAL MODULE: ./node_modules/blockly/core-browser.js
+var core_browser = __webpack_require__(90888);
+var core_browser_default = /*#__PURE__*/__webpack_require__.n(core_browser);
+;// CONCATENATED MODULE: ./node_modules/@blockly/theme-modern/src/index.js
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Modern theme.
+ */
+
+/* harmony default export */ var src = (core_browser_default().Theme.defineTheme('modern', {
+  'base': (core_browser_default()).Themes.Classic,
+  'blockStyles': {
+    'colour_blocks': {
+      'colourPrimary': '#a5745b',
+      'colourSecondary': '#dbc7bd',
+      'colourTertiary': '#845d49'
+    },
+    'list_blocks': {
+      'colourPrimary': '#745ba5',
+      'colourSecondary': '#c7bddb',
+      'colourTertiary': '#5d4984'
+    },
+    'logic_blocks': {
+      'colourPrimary': '#5b80a5',
+      'colourSecondary': '#bdccdb',
+      'colourTertiary': '#496684'
+    },
+    'loop_blocks': {
+      'colourPrimary': '#5ba55b',
+      'colourSecondary': '#bddbbd',
+      'colourTertiary': '#498449'
+    },
+    'math_blocks': {
+      'colourPrimary': '#5b67a5',
+      'colourSecondary': '#bdc2db',
+      'colourTertiary': '#495284'
+    },
+    'procedure_blocks': {
+      'colourPrimary': '#995ba5',
+      'colourSecondary': '#d6bddb',
+      'colourTertiary': '#7a4984'
+    },
+    'text_blocks': {
+      'colourPrimary': '#5ba58c',
+      'colourSecondary': '#bddbd1',
+      'colourTertiary': '#498470'
+    },
+    'variable_blocks': {
+      'colourPrimary': '#a55b99',
+      'colourSecondary': '#dbbdd6',
+      'colourTertiary': '#84497a'
+    },
+    'variable_dynamic_blocks': {
+      'colourPrimary': '#a55b99',
+      'colourSecondary': '#dbbdd6',
+      'colourTertiary': '#84497a'
+    },
+    'hat_blocks': {
+      'colourPrimary': '#a55b99',
+      'colourSecondary': '#dbbdd6',
+      'colourTertiary': '#84497a',
+      'hat': 'cap'
+    }
+  },
+  'categoryStyles': {
+    'colour_category': {
+      'colour': '#a5745b'
+    },
+    'list_category': {
+      'colour': '#745ba5'
+    },
+    'logic_category': {
+      'colour': '#5b80a5'
+    },
+    'loop_category': {
+      'colour': '#5ba55b'
+    },
+    'math_category': {
+      'colour': '#5b67a5'
+    },
+    'procedure_category': {
+      'colour': '#995ba5'
+    },
+    'text_category': {
+      'colour': '#5ba58c'
+    },
+    'variable_category': {
+      'colour': '#a55b99'
+    },
+    'variable_dynamic_category': {
+      'colour': '#a55b99'
+    }
+  },
+  'componentStyles': {},
+  'fontStyle': {},
+  'startHats': null
+}));
+;// CONCATENATED MODULE: ./node_modules/@blockly/theme-dark/src/index.js
+/**
+ * @license
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/**
+ * @fileoverview Dark theme.
+ */
+
+/**
+ * Dark theme.
+ */
+
+/* harmony default export */ var theme_dark_src = (core_browser_default().Theme.defineTheme('theme_dark', {
+  'base': (core_browser_default()).Themes.Classic,
+  'componentStyles': {
+    'workspaceBackgroundColour': '#1e1e1e',
+    'toolboxBackgroundColour': 'blackBackground',
+    'toolboxForegroundColour': '#fff',
+    'flyoutBackgroundColour': '#252526',
+    'flyoutForegroundColour': '#ccc',
+    'flyoutOpacity': 1,
+    'scrollbarColour': '#797979',
+    'insertionMarkerColour': '#fff',
+    'insertionMarkerOpacity': 0.3,
+    'scrollbarOpacity': 0.4,
+    'cursorColour': '#d0d0d0',
+    'blackBackground': '#333'
+  }
+}));
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
+var Dialog = __webpack_require__(52468);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
+var DialogContent = __webpack_require__(65733);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
+var DialogContentText = __webpack_require__(32253);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
+var TextField = __webpack_require__(1059);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
+var DialogActions = __webpack_require__(89952);
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+;// CONCATENATED MODULE: ./src/components/blockly/BlocklyModalDialogs.tsx
+
+
+
+
+
+function BlocklyModalDialogs() {
+  var _useState = (0,react.useState)(),
+      dialogType = _useState[0],
+      setDialogType = _useState[1];
+
+  var _useState2 = (0,react.useState)(""),
+      message = _useState2[0],
+      setMessage = _useState2[1];
+
+  var _useState3 = (0,react.useState)(""),
+      value = _useState3[0],
+      setValue = _useState3[1];
+
+  var valueId = (0,react_use_id_hook_esm/* useId */.Me)(); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var callback = (0,react.useRef)();
+  var showDialog = !!dialogType;
+  (0,react.useEffect)(function () {
+    // store older
+    var previous = {
+      alert: (blockly_default()).alert,
+      confirm: (blockly_default()).confirm,
+      prompt: (blockly_default()).prompt
+    }; // replace
+
+    (blockly_default()).alert = function (message, cb) {
+      setMessage(message);
+      callback.current = cb;
+      setDialogType("alert");
+    };
+
+    (blockly_default()).confirm = function (message, cb) {
+      setMessage(message);
+      callback.current = cb;
+      setDialogType("confirm");
+    };
+
+    (blockly_default()).prompt = function (message, defaultValue, cb) {
+      setMessage(message);
+      setValue(defaultValue);
+      callback.current = cb;
+      setDialogType("prompt");
+    }; // cleanup
+
+
+    return function () {
+      console.log("cleanup");
+      (blockly_default()).alert = previous.alert;
+      (blockly_default()).confirm = previous.confirm;
+      (blockly_default()).prompt = previous.prompt;
+    };
+  }, []);
+
+  var handleCloseConfirm = function handleCloseConfirm() {
+    return setDialogType(undefined);
+  };
+
+  var handleCancel = function handleCancel() {
+    var _callback$current;
+
+    (_callback$current = callback.current) === null || _callback$current === void 0 ? void 0 : _callback$current.call(callback, undefined);
+    setDialogType(undefined);
+  };
+
+  var handleOk = function handleOk() {
+    var _callback$current2;
+
+    switch (dialogType) {
+      case "alert":
+        (_callback$current2 = callback.current) === null || _callback$current2 === void 0 ? void 0 : _callback$current2.call(callback);
+        break;
+
+      case "confirm":
+        callback.current(true);
+        break;
+
+      case "prompt":
+        callback.current(value);
+        break;
+    }
+
+    setDialogType(undefined);
+  };
+
+  var handleValueChange = function handleValueChange(event) {
+    setValue(event.target.value);
+  };
+
+  return /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
+    open: showDialog,
+    onClose: handleCloseConfirm
+  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, message), dialogType === "prompt" && /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: valueId,
+    value: value,
+    label: "Value",
+    fullWidth: true,
+    onChange: handleValueChange
+  })), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, dialogType !== "alert" && /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "contained",
+    onClick: handleCancel
+  }, "Cancel"), /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "contained",
+    color: "primary",
+    onClick: handleOk
+  }, "Ok")));
+}
+// EXTERNAL MODULE: ./src/components/ui/DarkModeContext.tsx
+var DarkModeContext = __webpack_require__(91350);
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
+var makeStyles = __webpack_require__(10920);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
+var createStyles = __webpack_require__(70274);
+// EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
+var clsx_m = __webpack_require__(85505);
+// EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
+var gatsby_browser_entry = __webpack_require__(35313);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
+var flags = __webpack_require__(21258);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
+var BlockContext = __webpack_require__(85379);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockEditor.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
+  return (0,createStyles/* default */.Z)({
+    editor: {
+      height: "calc(100vh - " + (flags/* default.diagnostics */.Z.diagnostics ? 15 : 10) + "rem)",
+      "& .blocklyTreeLabel": {
+        fontFamily: theme.typography.fontFamily
+      },
+      "& .blocklyText": {
+        fontWeight: "normal !important",
+        fontFamily: theme.typography.fontFamily + " !important"
+      }
+    }
+  });
+});
+function BlockEditor(props) {
+  var className = props.className;
+
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      toolboxConfiguration = _useContext.toolboxConfiguration,
+      workspaceXml = _useContext.workspaceXml,
+      setWorkspace = _useContext.setWorkspace,
+      setWorkspaceXml = _useContext.setWorkspaceXml;
+
+  var classes = useStyles();
+
+  var _useContext2 = (0,react.useContext)(DarkModeContext/* default */.Z),
+      darkMode = _useContext2.darkMode;
+
+  var _useContext3 = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext3.setError;
+
+  var theme = darkMode === "dark" ? theme_dark_src : src;
+  var gridColor = darkMode === "dark" ? "#555" : "#ccc"; // ReactBlockly
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var blocklyRef = (0,react.useRef)(null);
+
+  var _ref = (0,dist/* useBlocklyWorkspace */.JP)({
+    ref: blocklyRef,
+    toolboxConfiguration: toolboxConfiguration,
+    workspaceConfiguration: {
+      collapse: false,
+      disable: false,
+      comments: false,
+      css: true,
+      trashcan: false,
+      sounds: false,
+      grid: {
+        spacing: 25,
+        length: 1,
+        colour: gridColor,
+        snap: true
+      },
+      renderer: "zelos",
+      theme: theme,
+      oneBasedIndex: false,
+      move: {
+        scrollbars: {
+          vertical: true,
+          horizontal: true
+        }
+      },
+      media: (0,gatsby_browser_entry.withPrefix)("blockly/media/"),
+      zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 3,
+        minScale: 0.1,
+        scaleSpeed: 1.2,
+        pinch: true
+      }
+    },
+    initialXml: workspaceXml,
+    onImportXmlError: function onImportXmlError() {
+      return setError("Error loading blocks...");
+    }
+  }),
+      workspace = _ref.workspace,
+      xml = _ref.xml; // store ref
+
+
+  (0,react.useEffect)(function () {
+    return setWorkspace(workspace);
+  }, [workspace]);
+  (0,react.useEffect)(function () {
+    return setWorkspaceXml(xml);
+  }, [xml]); // resize blockly
+
+  (0,react.useEffect)(function () {
+    var observer = new ResizeObserver(function () {
+      return workspace === null || workspace === void 0 ? void 0 : workspace.resize();
+    });
+    observer.observe(blocklyRef.current);
+    return function () {
+      return observer.disconnect();
+    };
+  }, [workspace, blocklyRef.current]);
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
+    className: (0,clsx_m/* default */.Z)(classes.editor, className),
+    ref: blocklyRef
+  }), /*#__PURE__*/react.createElement(BlocklyModalDialogs, null));
+}
+
+/***/ }),
+
+/***/ 89801:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "yq": function() { return /* binding */ WorkspaceServices; },
+/* harmony export */   "W5": function() { return /* binding */ WorkspaceProvider; }
+/* harmony export */ });
+/* unused harmony export WorkspaceContext */
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54774);
+
+
+
+
+
+
+
+var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WorkspaceServices, _JDEventSource);
+
+  function WorkspaceServices() {
+    return _JDEventSource.call(this) || this;
+  }
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WorkspaceServices, [{
+    key: "runner",
+    get: function get() {
+      return this._runner;
+    },
+    set: function set(value) {
+      if (this._runner !== value) {
+        this._runner = value;
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+      }
+    }
+  }, {
+    key: "roleManager",
+    get: function get() {
+      return this._roleManager;
+    },
+    set: function set(value) {
+      if (this._roleManager !== value) {
+        this._roleManager = value;
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+      }
+    }
+  }]);
+
+  return WorkspaceServices;
+}(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
+var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
+  workspace: undefined,
+  flyout: false,
+  sourceId: undefined,
+  services: undefined,
+  role: undefined,
+  roleServiceShortId: undefined,
+  roleService: undefined,
+  runner: undefined
+});
+WorkspaceContext.displayName = "Workspace";
+/* harmony default export */ __webpack_exports__["ZP"] = (WorkspaceContext);
+function WorkspaceProvider(props) {
+  var field = props.field,
+      children = props.children;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(field === null || field === void 0 ? void 0 : field.getSourceBlock()),
+      sourceBlock = _useState[0],
+      setSourceBlock = _useState[1];
+
+  var sourceId = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.id;
+  var workspace = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.workspace;
+  var services = workspace === null || workspace === void 0 ? void 0 : workspace.jacdacServices;
+  var roleManager = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roleManager;
+  });
+  var runner = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.runner;
+  });
+
+  var resolveRole = function resolveRole() {
+    var newSourceBlock = field.getSourceBlock();
+    var roleInput = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : newSourceBlock.inputList[0];
+    var roleField = roleInput === null || roleInput === void 0 ? void 0 : roleInput.fieldRow.find(function (f) {
+      return f.name === "role" && f instanceof blockly__WEBPACK_IMPORTED_MODULE_0__.FieldVariable;
+    });
+
+    if (roleField) {
+      var _roleField$getVariabl;
+
+      var xml = document.createElement("xml");
+      roleField === null || roleField === void 0 ? void 0 : roleField.toXml(xml);
+      var newRole = roleField === null || roleField === void 0 ? void 0 : (_roleField$getVariabl = roleField.getVariable()) === null || _roleField$getVariabl === void 0 ? void 0 : _roleField$getVariabl.name;
+      return newRole;
+    }
+
+    return undefined;
+  };
+
+  var resolveRoleService = function resolveRoleService() {
+    var newRoleService = role && (roleManager === null || roleManager === void 0 ? void 0 : roleManager.getService(role));
+    return newRoleService;
+  };
+
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRole()),
+      role = _useState2[0],
+      setRole = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRoleService()),
+      roleService = _useState3[0],
+      setRoleService = _useState3[1];
+
+  var roleServiceShortId = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(roleManager, function (_) {
+    var _$roles$find;
+
+    return _ === null || _ === void 0 ? void 0 : (_$roles$find = _.roles.find(function (r) {
+      return r.role === role;
+    })) === null || _$roles$find === void 0 ? void 0 : _$roles$find.serviceShortId;
+  });
+
+  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
+      flyout = _useState4[0],
+      setFlyout = _useState4[1]; // resolve role
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    return field === null || field === void 0 ? void 0 : field.events.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
+      var newSourceBlock = field.getSourceBlock();
+      console.log("field change", {
+        newSourceBlock: newSourceBlock
+      });
+      setSourceBlock(newSourceBlock);
+      setRole(resolveRole());
+      setFlyout(!!(newSourceBlock !== null && newSourceBlock !== void 0 && newSourceBlock.isInFlyout));
+    });
+  }, [field, workspace, runner]); // resolve current role service
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setRoleService(resolveRoleService());
+    return roleManager === null || roleManager === void 0 ? void 0 : roleManager.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
+      return setRoleService(resolveRoleService());
+    });
+  }, [role, runner]);
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line react/react-in-jsx-scope
+    react__WEBPACK_IMPORTED_MODULE_1__.createElement(WorkspaceContext.Provider, {
+      value: {
+        sourceId: sourceId,
+        services: services,
+        role: role,
+        roleServiceShortId: roleServiceShortId,
+        roleService: roleService,
+        runner: runner,
+        flyout: flyout
+      }
+    }, children)
+  );
+}
+
+/***/ }),
+
+/***/ 96958:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(90293);
+/* harmony import */ var _fields_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29434);
+
+
+var builtins = {
+  jacdac_on_off: function jacdac_on_off(block) {
+    return block.getFieldValue("value") === "on";
+  },
+  jacdac_yes_no: function jacdac_yes_no(block) {
+    return block.getFieldValue("value") === "on";
+  },
+  jacdac_time_picker: function jacdac_time_picker(block) {
+    return Number(block.getFieldValue("value") || "0");
+  },
+  jacdac_angle: function jacdac_angle(block) {
+    return Number(block.getFieldValue("value") || "0");
+  },
+  jacdac_percent: function jacdac_percent(block) {
+    return Number(block.getFieldValue("value") || "0");
+  },
+  jacdac_ratio: function jacdac_ratio(block) {
+    return Number(block.getFieldValue("value") || "0");
+  }
+};
+var shadowDsl = {
+  id: "shadow",
+  createBlocks: function createBlocks() {
+    return [].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)((0,_fields_fields__WEBPACK_IMPORTED_MODULE_0__/* .fieldShadows */ .w)()), [{
+      kind: "block",
+      type: "jacdac_on_off",
+      message0: "%1",
+      args0: [{
+        type: "field_dropdown",
+        name: "value",
+        options: [["enabled", "on"], ["disabled", "off"]]
+      }],
+      style: "logic_blocks",
+      output: "Boolean"
+    }, {
+      kind: "block",
+      type: "jacdac_yes_no",
+      message0: "%1",
+      args0: [{
+        type: "field_dropdown",
+        name: "value",
+        options: [["yes", "on"], ["no", "off"]]
+      }],
+      style: "logic_blocks",
+      output: "Boolean"
+    }, {
+      kind: "block",
+      type: "jacdac_time_picker",
+      message0: "%1",
+      args0: [{
+        type: "field_dropdown",
+        name: "value",
+        options: [["0.1", "0.1"], ["1", "1"], ["5", "5"], ["30", "30"], ["60", "60"]]
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_angle",
+      message0: "%1",
+      args0: [{
+        type: "field_angle",
+        name: "value",
+        min: 0,
+        max: 360,
+        precision: 10
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_percent",
+      message0: "%1",
+      args0: [{
+        type: "field_slider",
+        name: "value",
+        min: 0,
+        max: 100,
+        precision: 1
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_byte",
+      message0: "%1",
+      args0: [{
+        type: "field_slider",
+        name: "value",
+        min: 0,
+        max: 255,
+        precision: 1
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_ratio",
+      message0: "%1",
+      args0: [{
+        type: "field_slider",
+        name: "value",
+        min: 0,
+        max: 1,
+        precision: 0.1
+      }],
+      style: "math_blocks",
+      output: "Number"
+    }, {
+      kind: "block",
+      type: "jacdac_color",
+      message0: "%1",
+      args0: [{
+        type: "field_colour",
+        name: "col",
+        colour: "#ff0000",
+        colourOptions: ["#ff0000", "#ff8000", "#ffff00", "#ff9da5", "#00ff00", "#b09eff", "#00ffff", "#007fff", "#65471f", "#0000ff", "#7f00ff", "#ff0080", "#ff00ff", "#ffffff", "#999999", "#000000"],
+        columns: 4
+      }],
+      style: "math_blocks",
+      output: "Color"
+    }]);
+  },
+  blockToValue: function blockToValue(block) {
+    var _builtins$block$type;
+
+    return (_builtins$block$type = builtins[block.type]) === null || _builtins$block$type === void 0 ? void 0 : _builtins$block$type.call(builtins, block);
+  }
+};
+/* harmony default export */ __webpack_exports__["Z"] = (shadowDsl);
+
+/***/ }),
+
+/***/ 86947:
+/***/ (function(__unused_webpack_module, __webpack_exports__) {
+
+"use strict";
+var variablesDsl = {
+  id: "variables",
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Variables",
+      colour: "%{BKY_VARIABLES_HUE}",
+      custom: "VARIABLE"
+    }];
+  }
+};
+/* harmony default export */ __webpack_exports__["Z"] = (variablesDsl);
+
+/***/ }),
+
+/***/ 90263:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ JDomTreeField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69672);
+/* harmony import */ var _NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42825);
+
+
+
+
+
+
+var JDomServiceTreeView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(272)]).then(__webpack_require__.bind(__webpack_require__, 60272));
+});
+
+function JDomTreeWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      roleService = _useContext.roleService,
+      flyout = _useContext.flyout;
+
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  if (flyout) return null;
+  if (!roleService) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      minWidth: "12rem",
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, roleService && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(JDomServiceTreeView, {
+    service: roleService,
+    defaultExpanded: [roleService.id]
+  })));
+}
+
+var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(JDomTreeField, _ReactInlineField);
+
+  JDomTreeField.fromJson = function fromJson(options) {
+    return new JDomTreeField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function JDomTreeField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = JDomTreeField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(JDomTreeWidget, null);
+  };
+
+  return JDomTreeField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+JDomTreeField.KEY = "jacdac_jdom_service_tree";
+JDomTreeField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 90422:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ KeyboardKeyField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(77576);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69672);
+/* harmony import */ var _jacdac_ts_src_servers_hidkeyboardserver__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41577);
+
+
+
+
+
+
+var KeyboardKeyInput = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(2860)]).then(__webpack_require__.bind(__webpack_require__, 82860));
+});
+
+var KeyboardKeyField = /*#__PURE__*/function (_ReactField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(KeyboardKeyField, _ReactField);
+
+  function KeyboardKeyField() {
+    return _ReactField.apply(this, arguments) || this;
+  }
+
+  KeyboardKeyField.fromJson = function fromJson(options) {
+    return new KeyboardKeyField(options === null || options === void 0 ? void 0 : options.value, undefined, options);
+  };
+
+  var _proto = KeyboardKeyField.prototype;
+
+  _proto.getText_ = function getText_() {
+    var _this$value = this.value,
+        selector = _this$value.selector,
+        modifiers = _this$value.modifiers;
+    return (0,_jacdac_ts_src_servers_hidkeyboardserver__WEBPACK_IMPORTED_MODULE_3__/* .renderKeyboardKey */ .OJ)(selector, modifiers, true);
+  };
+
+  _proto.renderField = function renderField() {
+    var _this = this;
+
+    var _this$value2 = this.value,
+        selector = _this$value2.selector,
+        modifiers = _this$value2.modifiers;
+
+    var handleChange = function handleChange(newSelector, newModifiers) {
+      _this.value = {
+        selector: newSelector,
+        modifiers: newModifiers
+      };
+    };
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(KeyboardKeyInput, {
+      initialSelector: selector,
+      initialModifiers: modifiers,
+      onChange: handleChange
+    }));
+  };
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(KeyboardKeyField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {
+        selector: 4,
+        modifiers: 0
+      };
+    }
+  }]);
+
+  return KeyboardKeyField;
+}(_ReactField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP);
+
+KeyboardKeyField.KEY = "jacdac_field_keyboard_key";
+
+
+/***/ }),
+
+/***/ 68514:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ LEDColorField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69672);
+/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(77576);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
+/* harmony import */ var _widgets_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41173);
+/* harmony import */ var _ValueContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(86415);
+
+
+
+
+
+
+
+var LEDWidget = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 56931));
+});
+
+function LEDColorFieldWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_ValueContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP),
+      value = _useContext.value,
+      onValueChange = _useContext.onValueChange;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(LEDWidget, {
+    ledColor: value,
+    onLedColorChange: onValueChange,
+    ledCount: 3,
+    color: "secondary"
+  }));
+}
+
+var LEDColorField = /*#__PURE__*/function (_ReactField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LEDColorField, _ReactField);
+
+  LEDColorField.fromJson = function fromJson(options) {
+    return new LEDColorField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function LEDColorField(options) {
+    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
+      width: 28,
+      height: 28
+    }) || this;
+  }
+
+  var _proto = LEDColorField.prototype;
+
+  _proto.initCustomView = function initCustomView() {
+    var width = this.size_.width;
+    var r = width >> 1;
+    return (0,_widgets_svg__WEBPACK_IMPORTED_MODULE_6__/* .child */ .iU)(this.fieldGroup_, "circle", {
+      r: width >> 1,
+      cx: r,
+      cy: r,
+      strokeWidth: 2,
+      stroke: "#777"
+    });
+  };
+
+  _proto.updateView = function updateView() {
+    var c = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .rgbToHtmlColor */ .b)(this.value);
+    var circle = this.view;
+
+    if (c) {
+      circle === null || circle === void 0 ? void 0 : circle.setAttribute("fill", c);
+    }
+  };
+
+  _proto.getText_ = function getText_() {
+    return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .rgbToHtmlColor */ .b)(this.value);
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(LEDColorFieldWidget, null);
+  };
+
+  return LEDColorField;
+}(_ReactField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP);
+
+LEDColorField.KEY = "jacdac_field_led_color";
+LEDColorField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_2__/* .toShadowDefinition */ ._t)(LEDColorField);
+
+
+/***/ }),
+
+/***/ 11772:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ LEDMatrixField; }
+});
+
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(53719);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(85413);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
+var Suspense = __webpack_require__(69672);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ReactField.tsx
+var ReactField = __webpack_require__(77576);
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
+// EXTERNAL MODULE: ./src/components/widgets/svg.ts
+var svg = __webpack_require__(41173);
+;// CONCATENATED MODULE: ./src/components/blockly/fields/ReactImageField.tsx
+
+
+
+
+
+var ReactImageField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(ReactImageField, _ReactField);
+
+  function ReactImageField(value, width, height) {
+    if (width === void 0) {
+      width = 32;
+    }
+
+    if (height === void 0) {
+      height = 32;
+    }
+
+    return _ReactField.call(this, value, undefined, undefined, {
+      width: width,
+      height: height
+    }) || this;
+  }
+
+  var _proto = ReactImageField.prototype;
+
+  _proto.setSize = function setSize(width, height) {
+    this.size_ = new (blockly_default()).utils.Size(width, height);
+    var img = this.view;
+
+    if (img) {
+      img.setAttribute("width", width + "");
+      img.setAttribute("height", height + "");
+    }
+  };
+
+  _proto.updateView = function updateView() {
+    var imgUri = this.renderValue();
+    var img = this.view;
+
+    if (imgUri) {
+      img === null || img === void 0 ? void 0 : img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", imgUri);
+      img === null || img === void 0 ? void 0 : img.setAttribute("alt", this.getText());
+    }
+  }
+  /**
+   * Renders the value to a data uri string
+   */
+  ;
+
+  _proto.renderValue = function renderValue() {
+    return undefined;
+  };
+
+  _proto.initCustomView = function initCustomView() {
+    var _this$size_ = this.size_,
+        width = _this$size_.width,
+        height = _this$size_.height;
+    return (0,svg/* child */.iU)(this.fieldGroup_, "image", {
+      height: height,
+      width: width,
+      alt: this.getText()
+    });
+  };
+
+  return ReactImageField;
+}(ReactField/* default */.ZP);
+
+
+;// CONCATENATED MODULE: ./src/components/blockly/fields/LEDMatrixField.tsx
+
+
+
+
+
+
+
+var LEDMatrixWidget = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 71598));
+});
+
+var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
+  (0,inheritsLoose/* default */.Z)(LEDMatrixField, _ReactImageField);
+
+  function LEDMatrixField(value) {
+    var _this;
+
+    _this = _ReactImageField.call(this, value) || this;
+
+    _this.events.on(ReactField/* VALUE_CHANGE */.Z8, function () {
+      var _this$value = _this.value,
+          rows = _this$value.rows,
+          columns = _this$value.columns;
+
+      _this.setSize(32, 32 / columns * rows);
+    });
+
+    return _this;
+  }
+
+  LEDMatrixField.fromJson = function fromJson(options) {
+    return new LEDMatrixField(options === null || options === void 0 ? void 0 : options.value);
+  };
+
+  var _proto = LEDMatrixField.prototype;
+
+  _proto.getText_ = function getText_() {
+    var _this$value2 = this.value,
+        leds = _this$value2.leds,
+        rows = _this$value2.rows,
+        columns = _this$value2.columns;
+    return leds + " (" + rows + "x" + columns + ")";
+  };
+
+  _proto.renderValue = function renderValue() {
+    var _this$value3 = this.value,
+        leds = _this$value3.leds,
+        rows = _this$value3.rows,
+        columns = _this$value3.columns; // render current state to LEDmatrix field
+
+    var columnspadded = columns + (8 - columns % 8);
+    var ledsBytes = (0,utils/* fromHex */.H_)(leds);
+    var cvs = document.createElement("canvas");
+    var b = 3;
+    var pw = 8;
+    var ph = 8;
+    var w = rows * pw + (rows - 1) * b;
+    var h = columns * ph + (columns - 1) * b;
+    cvs.width = w + 2 * b;
+    cvs.height = h + 2 * b;
+    var ctx = cvs.getContext("2d");
+    ctx.fillStyle = "#444";
+    ctx.fillRect(b, b, w, h);
+    ctx.fillStyle = "blue";
+
+    for (var x = 0; x < columns; ++x) {
+      for (var y = 0; y < rows; ++y) {
+        var bitindex = y * columnspadded + x;
+        var byte = ledsBytes[bitindex >> 3];
+        var bit = bitindex % 8;
+        var on = 1 === (byte >> bit & 1);
+        ctx.fillStyle = on ? "#ffc400" : "#000";
+        ctx.fillRect(x * (pw + b) + b, y * (ph + b) + b, pw, ph);
+      }
+    }
+
+    var dataUri = cvs.toDataURL("image/png");
+    return dataUri;
+  };
+
+  _proto.renderField = function renderField() {
+    var _this2 = this;
+
+    var _this$value4 = this.value,
+        leds = _this$value4.leds,
+        rows = _this$value4.rows,
+        columns = _this$value4.columns;
+    var ledsBytes = (0,utils/* fromHex */.H_)(leds);
+    console.log("led bytes", {
+      leds: leds,
+      ledsBytes: ledsBytes
+    });
+
+    var onChange = function onChange(newLeds) {
+      return _this2.value = {
+        leds: (0,utils/* toHex */.NC)(newLeds),
+        rows: rows,
+        columns: columns
+      };
+    };
+
+    return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(LEDMatrixWidget, {
+      color: "secondary",
+      brightness: 1,
+      leds: ledsBytes,
+      rows: rows,
+      columns: columns,
+      onChange: onChange
+    }));
+  };
+
+  (0,createClass/* default */.Z)(LEDMatrixField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {
+        leds: (0,utils/* toHex */.NC)(new Uint8Array(0)),
+        rows: 5,
+        columns: 5
+      };
+    }
+  }]);
+
+  return LEDMatrixField;
+}(ReactImageField);
+
+LEDMatrixField.KEY = "jacdac_field_led_matrix";
+
+
+/***/ }),
+
+/***/ 42825:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ NoServiceAlert; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(83332);
+/* harmony import */ var _material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(88880);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10595);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20392);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(89801);
+/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13173);
+/* harmony import */ var _material_ui_lab__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6809);
+
+
+
+
+
+
+
+
+function NoServiceAlert() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
+      roleService = _useContext2.roleService,
+      roleServiceShortId = _useContext2.roleServiceShortId,
+      flyout = _useContext2.flyout;
+
+  var spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__/* .serviceSpecificationFromName */ .kB)(roleServiceShortId);
+
+  var handleStartSimulator = function handleStartSimulator() {
+    return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .startServiceProviderFromServiceClass */ .V6)(bus, spec.classIdentifier);
+  }; // nothing to do here
+
+
+  if (roleService || flyout) return null; // unresolved, unknown service
+
+  if (!roleService && !roleServiceShortId) return null; // unknown spec
+
+  if (!spec) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    severity: "warning"
+  }, "Unknown service");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    variant: "outlined",
+    color: "default",
+    startIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null),
+    onClick: handleStartSimulator
+  }, "start ", spec.name);
+}
+
+/***/ }),
+
+/***/ 50585:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ NoteField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+/* harmony import */ var _hooks_toneContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(66775);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69672);
+/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77576);
+
+
+
+
+
+
+
+
+var PianoWidget = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(8937)]).then(__webpack_require__.bind(__webpack_require__, 28937));
+});
+
+var NoteField = /*#__PURE__*/function (_ReactField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(NoteField, _ReactField);
+
+  NoteField.fromJson = function fromJson(options) {
+    return new NoteField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function NoteField(options) {
+    var _this;
+
+    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
+
+    _this.events.on(_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .UNMOUNT */ .lo, function () {
+      var _this$toneContext;
+
+      (_this$toneContext = _this.toneContext) === null || _this$toneContext === void 0 ? void 0 : _this$toneContext.close();
+      _this.toneContext = undefined;
+    });
+
+    return _this;
+  }
+
+  var _proto = NoteField.prototype;
+
+  _proto.getText_ = function getText_() {
+    return (this.value | 0) + "";
+  };
+
+  _proto.renderField = function renderField() {
+    var _this2 = this;
+
+    var handlePlayTone = /*#__PURE__*/function () {
+      var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(newFrequency) {
+        var _this2$toneContext;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this2.value = newFrequency;
+                if (!_this2.toneContext) _this2.toneContext = (0,_hooks_toneContext__WEBPACK_IMPORTED_MODULE_6__/* .createToneContext */ .W)();
+                (_this2$toneContext = _this2.toneContext) === null || _this2$toneContext === void 0 ? void 0 : _this2$toneContext.playTone(newFrequency, 400);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function handlePlayTone(_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(PianoWidget, {
+      playTone: handlePlayTone
+    }));
+  };
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(NoteField, [{
+    key: "defaultValue",
+    get: function get() {
+      return 440;
+    }
+  }]);
+
+  return NoteField;
+}(_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP);
+
+NoteField.KEY = "jacdac_field_note";
+NoteField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .toShadowDefinition */ ._t)(NoteField);
+
+
+/***/ }),
+
+/***/ 77298:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "A": function() { return /* binding */ PointerBoundary; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+function PointerBoundary(props) {
+  var className = props.className,
+      children = props.children;
+
+  var onPointerStopPropagation = function onPointerStopPropagation(event) {
+    // make sure blockly does not handle drags when interacting with UI
+    event.stopPropagation();
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: className,
+    style: {
+      cursor: "inherit"
+    },
+    onPointerDown: onPointerStopPropagation,
+    onPointerUp: onPointerStopPropagation,
+    onPointerMove: onPointerStopPropagation
+  }, children);
+}
+
+/***/ }),
+
+/***/ 77576:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z8": function() { return /* binding */ VALUE_CHANGE; },
+/* harmony export */   "lo": function() { return /* binding */ UNMOUNT; },
+/* harmony export */   "ZP": function() { return /* binding */ ReactField; },
+/* harmony export */   "_t": function() { return /* binding */ toShadowDefinition; }
+/* harmony export */ });
+/* unused harmony exports SOURCE_BLOCK_CHANGE, MOUNT */
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73935);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(727);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
+/* harmony import */ var _ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7796);
+/* harmony import */ var _ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25853);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8266);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
+/* harmony import */ var _ValueContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(86415);
+/* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(45484);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(71815);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(89801);
+
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
+
+
+
+
+
+
+
+
+
+
+
+var SOURCE_BLOCK_CHANGE = "sourceBlockChange";
+var VALUE_CHANGE = "valueChange";
+var MOUNT = "mount";
+var UNMOUNT = "unmount";
+
+var ReactField = /*#__PURE__*/function (_Blockly$Field) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(ReactField, _Blockly$Field);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function ReactField(value, validator, options, size) {
+    var _this;
+
+    _this = _Blockly$Field.call(this, value, validator, options) || this;
+    _this.SERIALIZABLE = true;
+    _this.events = new _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_9__/* .JDEventSource */ .a();
+    if (size) _this.size_ = new (blockly__WEBPACK_IMPORTED_MODULE_2___default().utils.Size)(size.width, size.height);
+    return _this;
+  }
+
+  var _proto = ReactField.prototype;
+
+  // override to support custom view
+  _proto.initCustomView = function initCustomView() {
+    return null;
+  } // override to update view
+  ;
+
+  _proto.updateView = function updateView() {};
+
+  _proto.getText_ = function getText_() {
+    return JSON.stringify(this.value);
+  };
+
+  _proto.toXml = function toXml(fieldElement) {
+    fieldElement.textContent = JSON.stringify(this.value);
+    return fieldElement;
+  };
+
+  _proto.fromXml = function fromXml(fieldElement) {
+    try {
+      var v = JSON.parse(fieldElement.textContent);
+      this.value = v;
+    } catch (e) {
+      console.log(e, {
+        text: fieldElement.textContent
+      });
+      this.value = undefined;
+    }
+  };
+
+  _proto.emitChange = function emitChange() {
+    this.events.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_10__/* .CHANGE */ .Ver);
+  };
+
+  _proto.setSourceBlock = function setSourceBlock(block) {
+    var changed = block !== this.sourceBlock_;
+
+    _Blockly$Field.prototype.setSourceBlock.call(this, block);
+
+    if (changed) {
+      this.events.emit(SOURCE_BLOCK_CHANGE, block);
+      this.emitChange();
+    }
+  };
+
+  _proto.initView = function initView() {
+    this.view = this.initCustomView();
+    if (this.view) this.updateView();else _Blockly$Field.prototype.initView.call(this);
+  };
+
+  _proto.updateSize_ = function updateSize_() {
+    if (!this.view) _Blockly$Field.prototype.updateSize_.call(this);
+  };
+
+  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    var change = this.value_ !== newValue;
+
+    if (this.view) {
+      this.value_ = newValue;
+      this.updateView();
+    } else _Blockly$Field.prototype.doValueUpdate_.call(this, newValue);
+
+    if (change) {
+      this.events.emit(VALUE_CHANGE, this.value);
+      this.emitChange();
+    }
+  };
+
+  _proto.showEditor_ = function showEditor_() {
+    var _this2 = this;
+
+    this.div_ = blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.getContentDiv();
+    react_dom__WEBPACK_IMPORTED_MODULE_1__.render(this.render(), this.div_);
+    var border = this.sourceBlock_.getColourTertiary();
+    blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.setColour(this.sourceBlock_.getColour(), border); // the div_ size has not been computed yet, so let the browse handle this
+
+    setTimeout(function () {
+      blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.showPositionedByField(_this2, _this2.dropdownDispose_.bind(_this2));
+
+      _this2.events.emit(MOUNT);
+    }, 200);
+  };
+
+  _proto.hide = function hide() {
+    blockly__WEBPACK_IMPORTED_MODULE_2___default().DropDownDiv.hideIfOwner(this, true);
+  };
+
+  _proto.dropdownDispose_ = function dropdownDispose_() {
+    // this blows on hot reloads
+    try {
+      this.events.emit(UNMOUNT);
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.unmountComponentAtNode(this.div_);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this3 = this;
+
+    var onValueChange = function onValueChange(newValue) {
+      return _this3.value = newValue;
+    };
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_11__/* .WorkspaceProvider */ .W5, {
+      field: this
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+      fixedDarkMode: "dark"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ValueContext__WEBPACK_IMPORTED_MODULE_8__/* .ValueProvider */ .Lt, {
+      value: this.value,
+      onValueChange: onValueChange
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+      m: 0.5,
+      borderRadius: "0.25rem",
+      bgcolor: "background.paper"
+    }, this.renderField())))))));
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "not implemented");
+  };
+
+  _proto.dispose = function dispose() {
+    this.view = undefined;
+
+    _Blockly$Field.prototype.dispose.call(this);
+  };
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(ReactField, [{
+    key: "defaultValue",
+    get: function get() {
+      return {};
+    }
+  }, {
+    key: "value",
+    get: function get() {
+      try {
+        var v = JSON.parse(this.getValue());
+        return v || this.defaultValue;
+      } catch (e) {
+        console.warn(e);
+        return this.defaultValue;
+      }
+    },
+    set: function set(v) {
+      this.setValue(JSON.stringify(v));
+    }
+  }]);
+
+  return ReactField;
+}((blockly__WEBPACK_IMPORTED_MODULE_2___default().Field)); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+
+function toShadowDefinition(fieldType) {
+  (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .assert */ .hu)(!!fieldType.KEY);
+  var type = fieldType.KEY + "_shadow";
+  return {
+    kind: "block",
+    type: type,
+    message0: "%1",
+    args0: [{
+      type: fieldType.KEY,
+      name: "value"
+    }],
+    style: "math_blocks",
+    output: "Number",
+    template: "shadow"
+  };
+}
+
+/***/ }),
+
+/***/ 12702:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ReactInlineField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73935);
+/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(77576);
+/* harmony import */ var _widgets_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(41173);
+/* harmony import */ var _ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7796);
+/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
+/* harmony import */ var _jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(727);
+/* harmony import */ var _ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25853);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(89801);
+
+
+
+
+
+
+
+
+
+
+
+
+var ReactInlineField = /*#__PURE__*/function (_ReactField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(ReactInlineField, _ReactField);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function ReactInlineField(options) {
+    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options, {
+      width: 1,
+      height: 1
+    }) || this;
+  }
+
+  var _proto = ReactInlineField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "inline-block";
+    c.style.minWidth = "14rem";
+    return c;
+  };
+
+  _proto.initCustomView = function initCustomView() {
+    var _this = this;
+
+    var _this$size_ = this.size_,
+        width = _this$size_.width,
+        height = _this$size_.height;
+    var fo = (0,_widgets_svg__WEBPACK_IMPORTED_MODULE_10__/* .child */ .iU)(this.fieldGroup_, "foreignObject", {
+      x: 0,
+      y: 0,
+      width: width,
+      height: height
+    });
+    this.container = this.createContainer();
+    fo.appendChild(this.container);
+    this.resizeObserver = new ResizeObserver(function (entries) {
+      var entry = entries[0];
+      var contentRect = entry.contentRect;
+      _this.size_.width = contentRect.width;
+      _this.size_.height = contentRect.height;
+      fo.setAttribute("width", _this.size_.width + "");
+      fo.setAttribute("height", _this.size_.height + "");
+
+      _this.forceRerender();
+    });
+    this.resizeObserver.observe(this.container);
+    react_dom__WEBPACK_IMPORTED_MODULE_1__.render(this.renderBlock(), this.container);
+    return fo;
+  };
+
+  _proto.dispose = function dispose() {
+    if (this.container) {
+      react_dom__WEBPACK_IMPORTED_MODULE_1__.unmountComponentAtNode(this.container);
+      this.container = undefined;
+    }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
+    }
+
+    _ReactField.prototype.dispose.call(this);
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "not used");
+  };
+
+  _proto.renderInlineField = function renderInlineField() {
+    return null;
+  };
+
+  _proto.renderBlock = function renderBlock() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_8__/* .WorkspaceProvider */ .W5, {
+      field: this
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+      fixedDarkMode: "dark"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, this.renderInlineField())))));
+  };
+
+  _proto.getText_ = function getText_() {
+    return "...";
+  } // don't bind any mouse event
+  ;
+
+  _proto.bindEvents_ = function bindEvents_() {
+    blockly__WEBPACK_IMPORTED_MODULE_7___default().Tooltip.bindMouseEvents(this.getClickTarget_());
+  };
+
+  return ReactInlineField;
+}(_ReactField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP);
+
+
+
+/***/ }),
+
+/***/ 891:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ ServoAngleField; }
+});
+
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(85413);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(53719);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(73108);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(42656);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slider/Slider.js + 1 modules
+var Slider = __webpack_require__(50514);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ReactField.tsx
+var ReactField = __webpack_require__(77576);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ValueContext.tsx
+var ValueContext = __webpack_require__(86415);
+;// CONCATENATED MODULE: ./src/components/blockly/fields/SliderField.tsx
+
+
+
+
+
+
+
+
+
+function FieldWithSlider(props) {
+  var children = props.children;
+
+  var _useContext = (0,react.useContext)(ValueContext/* default */.ZP),
+      value = _useContext.value,
+      onValueChange = _useContext.onValueChange;
+
+  var handleChange = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(ev, nv) {
+      var newValue;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              newValue = nv;
+              onValueChange(newValue);
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleChange(_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, children), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(Slider/* default */.Z, {
+    color: "secondary",
+    valueLabelDisplay: "auto",
+    valueLabelFormat: Math.round(value) + "\xB0",
+    min: -90,
+    max: 90,
+    step: 5,
+    value: value,
+    onChange: handleChange,
+    "aria-label": "angle"
+  })));
+}
+
+var SliderField = /*#__PURE__*/function (_ReactField) {
+  (0,inheritsLoose/* default */.Z)(SliderField, _ReactField);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function SliderField(value, options) {
+    return _ReactField.call(this, value, undefined, options) || this;
+  }
+
+  var _proto = SliderField.prototype;
+
+  _proto.getText_ = function getText_() {
+    return this.value + "";
+  };
+
+  _proto.renderField = function renderField() {
+    return /*#__PURE__*/react.createElement(FieldWithSlider, null, this.renderWidget());
+  };
+
+  _proto.renderWidget = function renderWidget() {
+    return null;
+  };
+
+  (0,createClass/* default */.Z)(SliderField, [{
+    key: "defaultValue",
+    get: function get() {
+      return 0;
+    }
+  }]);
+
+  return SliderField;
+}(ReactField/* default */.ZP);
+
+
+// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
+var Suspense = __webpack_require__(69672);
+;// CONCATENATED MODULE: ./src/components/blockly/fields/ServoAngleField.tsx
+
+
+
+
+
+
+var ServoWidget = /*#__PURE__*/(0,react.lazy)(function () {
+  return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 9422));
+});
+
+function ServiceFieldWidget() {
+  var _useContext = (0,react.useContext)(ValueContext/* default */.ZP),
+      value = _useContext.value;
+
+  return /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ServoWidget, {
+    angle: value,
+    offset: 0,
+    color: "secondary",
+    enabled: true
+  }));
+}
+
+var ServoAngleField = /*#__PURE__*/function (_SliderField) {
+  (0,inheritsLoose/* default */.Z)(ServoAngleField, _SliderField);
+
+  function ServoAngleField() {
+    return _SliderField.apply(this, arguments) || this;
+  }
+
+  ServoAngleField.fromJson = function fromJson(options) {
+    return new ServoAngleField(options === null || options === void 0 ? void 0 : options.value, options);
+  };
+
+  var _proto = ServoAngleField.prototype;
+
+  _proto.getText_ = function getText_() {
+    return this.value + "°";
+  };
+
+  _proto.renderWidget = function renderWidget() {
+    return /*#__PURE__*/react.createElement(ServiceFieldWidget, null);
+  };
+
+  return ServoAngleField;
+}(SliderField);
+
+ServoAngleField.KEY = "jacdac_field_servo_angle";
+ServoAngleField.SHADOW = (0,ReactField/* toShadowDefinition */._t)(ServoAngleField);
+
+
+/***/ }),
+
+/***/ 35361:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ TwinField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80838);
+/* harmony import */ var _dashboard_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73205);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12702);
+/* harmony import */ var _NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42825);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
+
+
+
+
+
+
+
+
+
+function TwinWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP),
+      roleService = _useContext.roleService,
+      flyout = _useContext.flyout;
+
+  if (flyout) return null;
+  if (!roleService) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_NoServiceAlert__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    container: true,
+    alignItems: "center",
+    alignContent: "center",
+    justify: "center",
+    spacing: 1
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_dashboard_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP, {
+    service: roleService,
+    visible: true,
+    variant: "icon"
+  }))));
+}
+
+var TwinField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(TwinField, _ReactInlineField);
+
+  TwinField.fromJson = function fromJson(options) {
+    return new TwinField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function TwinField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = TwinField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TwinWidget, null);
+  };
+
+  return TwinField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
+
+TwinField.KEY = "jacdac_field_twin";
+TwinField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 86415:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Lt": function() { return /* binding */ ValueProvider; }
+/* harmony export */ });
+/* unused harmony export ValueContext */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+var ValueContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  value: undefined,
+  onValueChange: undefined
+});
+ValueContext.displayName = "Value";
+/* harmony default export */ __webpack_exports__["ZP"] = (ValueContext);
+function ValueProvider(props) {
+  var children = props.children,
+      initialValue = props.value,
+      onFieldValueChange = props.onValueChange;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialValue),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  var onValueChange = function onValueChange(newValue) {
+    setValue(newValue);
+    onFieldValueChange === null || onFieldValueChange === void 0 ? void 0 : onFieldValueChange(newValue);
+  };
+
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line react/react-in-jsx-scope
+    react__WEBPACK_IMPORTED_MODULE_0__.createElement(ValueContext.Provider, {
+      value: {
+        value: value,
+        onValueChange: onValueChange
+      }
+    }, children)
+  );
+}
+
+/***/ }),
+
+/***/ 6978:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ WatchValueField; }
+});
+
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(85413);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__(59355);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
+var Box = __webpack_require__(8266);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
+var Switch = __webpack_require__(76544);
+// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
+var WorkspaceContext = __webpack_require__(89801);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ReactInlineField.tsx
+var ReactInlineField = __webpack_require__(12702);
+// EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
+var PointerBoundary = __webpack_require__(77298);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/events.ts
+var events = __webpack_require__(59448);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
+var makeStyles = __webpack_require__(10920);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
+var createStyles = __webpack_require__(70274);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+;// CONCATENATED MODULE: ./src/components/TrendChart.tsx
+
+
+
+
+var useStyles = (0,makeStyles/* default */.Z)(function () {
+  return (0,createStyles/* default */.Z)({
+    mini: {
+      display: "inline-block",
+      width: "10rem"
+    }
+  });
+});
+function useTrendChartData(maxLength) {
+  if (maxLength === void 0) {
+    maxLength = 25;
+  }
+
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var _useState = (0,react.useState)([]),
+      trendData = _useState[0],
+      setTrendData = _useState[1];
+
+  var addTrendValue = function addTrendValue(value) {
+    if (isNaN(value)) return;
+    var timestamp = bus.timestamp;
+    var entry = [timestamp, value];
+    setTrendData(function (trendData) {
+      return [].concat((0,toConsumableArray/* default */.Z)(trendData.slice(-(maxLength - 1))), [entry]);
+    });
+  };
+
+  return {
+    trendData: trendData,
+    addTrendValue: addTrendValue
+  };
+}
+function TrendChart(props) {
+  var useGradient = props.useGradient,
+      data = props.data,
+      unit = props.unit,
+      _props$width = props.width,
+      width = _props$width === void 0 ? 80 : _props$width,
+      _props$height = props.height,
+      height = _props$height === void 0 ? 15 : _props$height,
+      dot = props.dot,
+      mini = props.mini;
+  var theme = (0,useTheme/* default */.Z)();
+  var classes = useStyles(); // nothing to show for
+
+  if ((data === null || data === void 0 ? void 0 : data.length) < 2) return null;
+  var vpw = width;
+  var vph = height;
+  var color = theme.palette.secondary.main;
+  var shape = unit === "#" ? "step" : "line";
+  var symmetric = unit === "g" ? true : false;
+  var values = data.map(function (r) {
+    return r[1];
+  });
+  var mint = data[0][0];
+  var maxt = data[data.length - 1][0];
+  var minv = unit === "/" ? 0 : Math.min.apply(null, values);
+  var maxv = unit === "/" ? 1 : Math.max.apply(null, values);
+  var opposite = unit !== "/" && Math.sign(minv) != Math.sign(maxv);
+
+  if (isNaN(minv) && isNaN(maxv)) {
+    minv = 0;
+    maxv = 1;
+  }
+
+  if (symmetric) {
+    maxv = Math.max(Math.abs(minv), Math.abs(maxv));
+    minv = -maxv;
+  }
+
+  var rv = maxv - minv;
+  var margin = 2;
+  var h = maxv - minv || 10;
+  var w = maxt - mint || 10;
+  var strokeWidth = 0.25;
+  var axisWidth = 0.2;
+  var axisColor = "#ccc";
+  var pointRadius = strokeWidth * 1.5;
+  var toffset = -pointRadius * 3;
+
+  var x = function x(t) {
+    return (t - mint) / w * vpw;
+  };
+
+  var y = function y(v) {
+    if (v === undefined || isNaN(v)) v = minv; // adding random for lineragradient bug workaround
+    // which does not render perfectly
+    // horizontal lines
+
+    return (Math.random() * 0.0001 * rv - (v - minv)) / h * (vph - 2 * margin);
+  };
+
+  var lastRow = data[data.length - 1];
+  var path = shape == "step" ? data.map(function (row, ri) {
+    return ri == 0 ? "M " + x(row[0]) + " " + y(row[1]) : "H " + x(row[0]) + " V " + y(row[1]);
+  }).join(" ") : data.map(function (row, ri) {
+    return (ri == 0 ? "M" : "L") + " " + x(row[0]) + " " + y(row[1]);
+  }).join(" ");
+  return /*#__PURE__*/react.createElement("div", {
+    className: mini ? classes.mini : undefined
+  }, /*#__PURE__*/react.createElement("svg", {
+    viewBox: "0 0 " + vpw + " " + vph,
+    style: {
+      maxHeight: mini ? "5vh" : "10vh",
+      maxWidth: "100%"
+    }
+  }, useGradient && /*#__PURE__*/react.createElement("defs", null, /*#__PURE__*/react.createElement("linearGradient", {
+    key: "gradaxis",
+    id: "gradientaxis",
+    x1: "0%",
+    y1: "0%",
+    x2: "100%",
+    y2: "0%"
+  }, /*#__PURE__*/react.createElement("stop", {
+    offset: "0%",
+    stopOpacity: "0",
+    stopColor: axisColor
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "5%",
+    stopOpacity: "0",
+    stopColor: axisColor
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "40%",
+    stopOpacity: "1",
+    stopColor: axisColor
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "100%",
+    stopOpacity: "1",
+    stopColor: axisColor
+  })), useGradient && /*#__PURE__*/react.createElement("linearGradient", {
+    id: "gradient0",
+    x1: "0%",
+    y1: "0%",
+    x2: "100%",
+    y2: "0%"
+  }, /*#__PURE__*/react.createElement("stop", {
+    offset: "0%",
+    stopOpacity: "0",
+    stopColor: color
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "5%",
+    stopOpacity: "0",
+    stopColor: color
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "40%",
+    stopOpacity: "1",
+    stopColor: color
+  }), /*#__PURE__*/react.createElement("stop", {
+    offset: "100%",
+    stopOpacity: "1",
+    stopColor: color
+  }))), /*#__PURE__*/react.createElement("g", {
+    transform: "translate(" + toffset + ", " + (vph - margin) + ")"
+  }, opposite && /*#__PURE__*/react.createElement("line", {
+    x1: x(mint),
+    x2: x(maxt),
+    y1: y(0),
+    y2: y(0),
+    strokeWidth: axisWidth,
+    stroke: useGradient ? "url(#gradientaxis)" : axisColor
+  }), /*#__PURE__*/react.createElement("g", null, /*#__PURE__*/react.createElement("path", {
+    d: path,
+    fill: "none",
+    stroke: useGradient ? "url(#gradient0)" : color,
+    strokeWidth: strokeWidth,
+    strokeLinejoin: "round"
+  }), dot && /*#__PURE__*/react.createElement("circle", {
+    cx: x(lastRow[0]),
+    cy: y(lastRow[1]),
+    r: pointRadius,
+    fill: color
+  })))));
+}
+;// CONCATENATED MODULE: ./src/components/blockly/fields/WatchValueField.tsx
+
+
+
+
+
+
+
+
+
+
+function WatchValueWidget() {
+  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
+      runner = _useContext.runner,
+      sourceId = _useContext.sourceId;
+
+  var theme = (0,useTheme/* default */.Z)(); // track changes
+
+  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  var _useTrendChartData = useTrendChartData(),
+      trendData = _useTrendChartData.trendData,
+      addTrendValue = _useTrendChartData.addTrendValue;
+
+  (0,react.useEffect)(function () {
+    setValue(undefined);
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, watchSourceId) {
+      if (code === events/* VMCode.WatchChange */.H.WatchChange && watchSourceId === sourceId) {
+        var newValue = runner.lookupWatch(sourceId);
+        setValue(newValue);
+        addTrendValue(newValue);
+      }
+    });
+  }, [runner, sourceId]);
+  var valueNumber = typeof value === "number" ? value : undefined;
+
+  if (!isNaN(valueNumber)) {
+    var step = Math.ceil(Math.abs(valueNumber)) / 10;
+    var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
+    valueNumber = (0,utils/* roundWithPrecision */.JI)(valueNumber, precision);
+  }
+
+  return /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    bgcolor: theme.palette.background.paper,
+    borderRadius: theme.spacing(1),
+    color: theme.palette.text.primary
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    alignItems: "flex-end",
+    alignContent: "center",
+    justify: "center",
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, !isNaN(valueNumber) ? /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "body1"
+  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react.createElement(Switch/* default */.Z, {
+    value: !!value
+  }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "body1"
+  }, value === undefined ? "..." : value + ""))), !isNaN(valueNumber) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, /*#__PURE__*/react.createElement(TrendChart, {
+    data: trendData,
+    mini: true,
+    dot: 2,
+    useGradient: true
+  })))));
+}
+
+var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,inheritsLoose/* default */.Z)(WatchValueField, _ReactInlineField);
+
+  WatchValueField.fromJson = function fromJson(options) {
+    return new WatchValueField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function WatchValueField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = WatchValueField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "inline-block";
+    c.style.minWidth = "4rem";
+    return c;
+  };
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react.createElement(WatchValueWidget, null);
+  };
+
+  return WatchValueField;
+}(ReactInlineField/* default */.Z);
+
+WatchValueField.KEY = "jacdac_watch_value";
+WatchValueField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 29434:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "k": function() { return /* binding */ registerFields; },
+/* harmony export */   "w": function() { return /* binding */ fieldShadows; }
+/* harmony export */ });
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _NoteField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50585);
+/* harmony import */ var _KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(90422);
+/* harmony import */ var _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11772);
+/* harmony import */ var _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(891);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(81794);
+/* harmony import */ var _LEDColorField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(68514);
+/* harmony import */ var _TwinField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(35361);
+/* harmony import */ var _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(90263);
+/* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6978);
+
+
+
+
+
+
+
+
+
+
+var reactFieldShadows;
+function registerFields() {
+  if (reactFieldShadows) return;
+  reactFieldShadows = []; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var registerType = function registerType(fieldType) {
+    var key = fieldType.KEY;
+    (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .assert */ .hu)(!!key);
+
+    try {
+      blockly__WEBPACK_IMPORTED_MODULE_0___default().fieldRegistry.unregister(key); // hot reload issues
+    } catch (e) {// ignore hot reload issues
+    }
+
+    blockly__WEBPACK_IMPORTED_MODULE_0___default().fieldRegistry.register(key, fieldType);
+    if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
+  };
+
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z];
+  fieldTypes.forEach(registerType);
+}
+function fieldShadows() {
+  registerFields();
+  return reactFieldShadows.slice(0);
+}
+
+/***/ }),
+
+/***/ 16582:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
+/* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
+/* harmony export */   "sX": function() { return /* binding */ WAIT_BLOCK; },
+/* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
+/* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
+/* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
+/* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
+/* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
+/* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
+/* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
+/* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
+/* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
+/* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
+/* harmony export */ });
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+
+var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+function resolveServiceBlockDefinition(type) {
+  var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
+  return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
+}
+var WAIT_BLOCK = "jacdac_wait";
+var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+var TWIN_BLOCK = "jacdac_twin";
+var INSPECT_BLOCK = "jacdac_inspect";
+var WATCH_BLOCK = "jacdac_watch";
+var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
+var CONNECTION_BLOCK = "jacdac_connection";
+var CONNECTED_BLOCK = "jacdac_connected";
+var PRIMITIVE_TYPES = ["String", "Boolean", "Number"];
+var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
+var CODE_STATEMENT_TYPE = "Code";
+
+/***/ }),
+
+/***/ 66775:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "W": function() { return /* binding */ createToneContext; }
+/* harmony export */ });
+var VOLUME_GAIN = 0.4;
+function createToneContext(defaultVolume) {
+  try {
+    console.log("create tone context");
+    var ctx = new (window.AudioContext || // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    window.webkitAudioContext)(); // play silence sound within onlick to unlock it
+
+    var buffer = ctx.createBuffer(1, 1, 22050);
+    var source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(ctx.destination);
+    source.start(); // output node with volume
+
+    var volume = ctx.createGain();
+    volume.connect(ctx.destination);
+    volume.gain.value = (defaultVolume !== undefined ? defaultVolume : 0.2) * VOLUME_GAIN;
+
+    var setVolume = function setVolume(v) {
+      if (volume && !isNaN(v)) {
+        volume.gain.value = v * VOLUME_GAIN;
+      }
+    };
+
+    var playTone = function playTone(frequency, duration) {
+      try {
+        var tone = ctx.createOscillator();
+        tone.type = "sawtooth";
+        tone.connect(volume);
+        tone.frequency.value = frequency; // update frequency
+
+        tone.start(); // start and stop
+
+        tone.stop(ctx.currentTime + duration / 1000);
+      } catch (e) {
+        console.debug(e);
+      }
+    };
+
+    var close = function close() {
+      try {
+        if (ctx.state === "running") ctx.close();
+      } catch (e) {
+        console.warn(e);
+      }
+    };
+
+    console.log("tone context created");
+    return {
+      setVolume: setVolume,
+      playTone: playTone,
+      close: close
+    };
+  } catch (e) {
+    return undefined;
+  }
+}
+
+/***/ }),
+
+/***/ 2928:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useServices; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20392);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
+
+
+
+function useServices(options) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var services = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(bus, function (b) {
+    return b.services(options);
+  }, [JSON.stringify(options)]);
+  return services;
+}
+
+/***/ }),
+
+/***/ 25853:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ AppTheme; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81864);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23581);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(87761);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _DarkModeContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91350);
+
+
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+function AppTheme(props) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
+      darkMode = _useContext.darkMode;
+
+  var isDark = darkMode === "dark";
+  var themeDef = {
+    palette: {
+      primary: {
+        main: isDark ? "#56d364" : "#2e7d32"
+      },
+      secondary: {
+        main: "#ffc400"
+      },
+      contrastThreshold: isDark ? 5.1 : 3.1,
+      type: darkMode
+    }
+  };
+  var rawTheme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(themeDef);
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(rawTheme);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, Object.assign({
+    theme: theme
+  }, props));
+}
+
+/***/ }),
+
+/***/ 41173:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "iU": function() { return /* binding */ child; }
+/* harmony export */ });
+/* unused harmony exports title, hydrate, elt */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+function mkTitle(txt) {
+  var t = elt("title");
+  t.textContent = txt;
+  return t;
+}
+
+function title(el, txt) {
+  var t = mkTitle(txt);
+  el.appendChild(t);
+  return t;
+}
+function hydrate(el, props) {
+  for (var k in props) {
+    if (k == "title") {
+      title(el, props[k]);
+    } else el.setAttributeNS(null, k, props[k]);
+  }
+}
+function elt(name, props) {
+  var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+  if (props) hydrate(el, props);
+  return el;
+}
+function child(parent, name, props) {
+  var el = elt(name, props);
+  parent.appendChild(el);
+  return el;
+}
 
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-6effaa6cb8645b5d0ad8.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-828211e55b04c3f65906.js.map

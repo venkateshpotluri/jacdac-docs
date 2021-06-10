@@ -157,7 +157,7 @@ var useRegister = __webpack_require__(82677);
 
 
 var PianoWidget = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(317)]).then(__webpack_require__.bind(__webpack_require__, 28937));
+  return Promise.all(/* import() */[__webpack_require__.e(532), __webpack_require__.e(8937)]).then(__webpack_require__.bind(__webpack_require__, 28937));
 });
 function DashboardBuzzer(props) {
   var service = props.service;
@@ -337,4 +337,4 @@ function createToneContext(defaultVolume) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5769-dc7d0a14849460fd1223.js.map
+//# sourceMappingURL=5769-c5bfce81b7f0b925d58e.js.map
