@@ -7259,7 +7259,7 @@ function BlockProvider(props) {
   (0,react.useEffect)(function () {
     if (!workspace) return;
     var allErrors = (0,utils/* toMap */.qL)(warnings || [], function (e) {
-      return e.blockId;
+      return e.sourceId || "";
     }, function (e) {
       return e.message;
     });
@@ -10049,4 +10049,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-9b01e129d4fa724f5b76.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-52248c575f8c06703f42.js.map

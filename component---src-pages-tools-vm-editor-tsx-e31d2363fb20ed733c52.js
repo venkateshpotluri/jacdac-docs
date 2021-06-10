@@ -4312,15 +4312,15 @@ function workspaceJSONToVMProgram(workspace, dsls) {
               dslRes.errors = processErrors(block, dslRes.errors);
               return dslRes;
             }
-
-            console.warn("unsupported block " + type, {
-              block: block
-            });
-            return {
-              cmd: undefined,
-              errors: []
-            };
           }
+
+          console.warn("unsupported block " + type, {
+            block: block
+          });
+          return {
+            cmd: undefined,
+            errors: []
+          };
         }
     }
   };
@@ -5901,6 +5901,7 @@ var BlockEditor = __webpack_require__(85105);
 
 
 
+
 var VM_SOURCE_STORAGE_KEY = "tools:vmeditor";
 
 function VMEditorWithContext() {
@@ -5908,7 +5909,8 @@ function VMEditorWithContext() {
       dsls = _useContext.dsls,
       workspace = _useContext.workspace,
       workspaceJSON = _useContext.workspaceJSON,
-      roleManager = _useContext.roleManager;
+      roleManager = _useContext.roleManager,
+      setWarnings = _useContext.setWarnings;
 
   var _useState = (0,react.useState)(),
       program = _useState[0],
@@ -5933,6 +5935,11 @@ function VMEditorWithContext() {
   (0,react.useEffect)(function () {
     return program && (roleManager === null || roleManager === void 0 ? void 0 : roleManager.setRoles(program.roles));
   }, [roleManager, program]);
+  (0,react.useEffect)(function () {
+    return setWarnings((0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
+      return h.errors;
+    })));
+  }, [program]);
   (0,react.useEffect)(function () {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var ws = workspace;
@@ -5982,4 +5989,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-672f8ad4859268e84f3a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-e31d2363fb20ed733c52.js.map
