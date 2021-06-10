@@ -9811,6 +9811,10 @@ function fieldShadows() {
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
+/* harmony export */   "oj": function() { return /* binding */ JSON_TYPE; },
+/* harmony export */   "jt": function() { return /* binding */ STRING_TYPE; },
+/* harmony export */   "lu": function() { return /* binding */ BOOLEAN_TYPE; },
+/* harmony export */   "sS": function() { return /* binding */ NUMBER_TYPE; },
 /* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
 /* harmony export */ });
@@ -9832,7 +9836,11 @@ var ON_START_BLOCK = "jacdac_start";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
-var PRIMITIVE_TYPES = ["String", "Boolean", "Number"];
+var JSON_TYPE = "JSON";
+var STRING_TYPE = "String";
+var BOOLEAN_TYPE = "Boolean";
+var NUMBER_TYPE = "Number";
+var PRIMITIVE_TYPES = [STRING_TYPE, BOOLEAN_TYPE, NUMBER_TYPE];
 var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
 var CODE_STATEMENT_TYPE = "Code";
 
@@ -10049,4 +10057,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-52248c575f8c06703f42.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-b902273cc1ea4afab3f0.js.map

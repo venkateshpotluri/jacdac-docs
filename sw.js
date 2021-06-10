@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-35fe6eaffacb66bf92ac.js"
+    "url": "webpack-runtime-6a42b81797c67c828156.js"
   },
   {
     "url": "styles.54f173d29386e0921fd0.css"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "fde258d4073735dc31432fb285d2847b"
+    "revision": "51968d59ac6aad01fcc68cf5c3424ea1"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "9d1e6404e5f948649c355bbadf42c196"
+    "revision": "4f9938b17d6d7d047b713a518648fd59"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "316d9c9af201f4bac79fa7157079a36b"
+    "revision": "d3d72027cec4dd19bc0de7018991dc1f"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "52e07b5d82ac663a1fdd63814b511dc5"
+    "revision": "a3199b11ab625cee4c1eec2cab9eb094"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "da9392ccdbf917d7a2a4a9e1dfb1f6f3"
+    "revision": "fde7f02a9d2055f9ec35f01b27e90f68"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -1317,7 +1317,7 @@ self.__precacheManifest = [
     "url": "d711c980-e3349b089621d98aa2a2.js"
   },
   {
-    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-52248c575f8c06703f42.js"
+    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-b902273cc1ea4afab3f0.js"
   },
   {
     "url": "component---src-pages-tools-data-science-editor-tsx-e016e276eed6f2ac8146.js"
@@ -1456,7 +1456,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-10f64f311ef9cffb8ae4.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-ee14d1d7dade2b89577a.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1556,7 +1556,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-71acb562f4207ceec39e.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-e8e595ce8a6bcbb41cc6.js`))) {
     return await fetch(event.request)
   }
 

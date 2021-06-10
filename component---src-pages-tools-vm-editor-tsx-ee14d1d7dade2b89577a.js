@@ -1091,7 +1091,7 @@ function ImportButton(props) {
 
 /***/ }),
 
-/***/ 89263:
+/***/ 49574:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4569,7 +4569,7 @@ function isStringField(field) {
 }
 
 function toBlocklyType(field) {
-  return isBooleanField(field) ? "Boolean" : isStringField(field) ? "String" : (0,jdspec/* isNumericType */.FV)(field) ? "Number" : undefined;
+  return isBooleanField(field) ? toolbox/* BOOLEAN_TYPE */.lu : isStringField(field) ? field.encoding === "JSON" ? toolbox/* JSON_TYPE */.oj : toolbox/* STRING_TYPE */.jt : (0,jdspec/* isNumericType */.FV)(field) ? toolbox/* NUMBER_TYPE */.sS : undefined;
 }
 
 function enumInfo(srv, field) {
@@ -5984,7 +5984,67 @@ var shadowdsl = __webpack_require__(96958);
 var fieldsdsl = __webpack_require__(76658);
 // EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
 var BlockEditor = __webpack_require__(85105);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/jsondsl.ts
+
+var jsondsl_colour = "#654321";
+var JSON_FIELD_TYPE = "JSONField";
+var JSON_OBJECT_BLOCK = "json_object";
+var jsonDSL = {
+  id: "json",
+  createBlocks: function createBlocks() {
+    return [{
+      kind: "block",
+      type: JSON_OBJECT_BLOCK,
+      message0: "{ %1 %2 }",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: "input_statement",
+        name: "fields",
+        check: JSON_FIELD_TYPE
+      }],
+      output: toolbox/* JSON_TYPE */.oj,
+      colour: jsondsl_colour
+    }, {
+      kind: "block",
+      type: "json_field",
+      message0: "%1: %2",
+      args0: [{
+        type: "field_input",
+        name: "name"
+      }, {
+        type: "input_value",
+        name: "value"
+      }],
+      values: {
+        value: {
+          kind: "block",
+          type: "math_number"
+        }
+      },
+      previousStatement: JSON_FIELD_TYPE,
+      nextStatement: JSON_FIELD_TYPE,
+      colour: jsondsl_colour
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "JSON",
+      colour: jsondsl_colour,
+      contents: [{
+        kind: "block",
+        type: JSON_OBJECT_BLOCK
+      }, {
+        kind: "block",
+        type: "json_field"
+      }]
+    }];
+  }
+};
+/* harmony default export */ var jsondsl = (jsonDSL);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
+
 
 
 
@@ -6072,9 +6132,7 @@ function VMEditorWithContext() {
 
 function VMEditor() {
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, //azureIoTHubDSL,
-    //deviceTwinDSL,
-    toolsdsl, loopsdsl, logicdsl, mathdsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+    return [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: VM_SOURCE_STORAGE_KEY,
@@ -6091,4 +6149,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-10f64f311ef9cffb8ae4.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ee14d1d7dade2b89577a.js.map
