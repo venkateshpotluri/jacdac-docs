@@ -5486,6 +5486,8 @@ var toolsDSL = {
   },
   createCategory: function createCategory() {
     return [{
+      kind: "sep"
+    }, {
       kind: "category",
       name: "Tools",
       colour: colour,
@@ -6233,4 +6235,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d6c9ef95bf6826d9b7bc.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-eaf4ec166af50527fb01.js.map
