@@ -5550,6 +5550,16 @@ var loopsDsl = {
       helpUrl: ""
     }, {
       kind: "block",
+      type: toolbox/* ON_START_BLOCK */.w8,
+      message0: "on start",
+      args0: [],
+      colour: loopsdsl_colour,
+      inputsInline: true,
+      tooltip: "Runs code when the device starts",
+      helpUrl: "",
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
+    }, {
+      kind: "block",
       type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
       message0: "repeat every %1s",
       args0: [{
@@ -5569,8 +5579,7 @@ var loopsDsl = {
       kind: "sep"
     }, {
       kind: "category",
-      name: "Commands",
-      order: 4,
+      name: "Events",
       colour: loopsdsl_colour,
       contents: [{
         kind: "block",
@@ -5581,6 +5590,9 @@ var loopsDsl = {
             type: "jacdac_time_picker"
           }
         }
+      }, {
+        kind: "block",
+        type: toolbox/* ON_START_BLOCK */.w8
       }, {
         kind: "block",
         type: toolbox/* WAIT_BLOCK */.sX,
@@ -5600,7 +5612,10 @@ var loopsDsl = {
         blockToExpression = _ref.blockToExpression;
     var type = block.type;
 
-    if (type === toolbox/* REPEAT_EVERY_BLOCK */.BB) {
+    if (type === toolbox/* ON_START_BLOCK */.w8) {
+      // TODO
+      return undefined;
+    } else if (type === toolbox/* REPEAT_EVERY_BLOCK */.BB) {
       var inputs = block.inputs;
 
       var _blockToExpression = blockToExpression(undefined, inputs[0].child),
@@ -5967,4 +5982,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a4a31c880092afb2ff9f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-672f8ad4859268e84f3a.js.map

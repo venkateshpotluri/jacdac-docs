@@ -9807,6 +9807,7 @@ function fieldShadows() {
 /* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
 /* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
 /* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
+/* harmony export */   "w8": function() { return /* binding */ ON_START_BLOCK; },
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
@@ -9827,6 +9828,7 @@ var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var TWIN_BLOCK = "jacdac_twin";
 var INSPECT_BLOCK = "jacdac_inspect";
 var WATCH_BLOCK = "jacdac_watch";
+var ON_START_BLOCK = "jacdac_start";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var CONNECTION_BLOCK = "jacdac_connection";
 var CONNECTED_BLOCK = "jacdac_connected";
@@ -10047,4 +10049,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-6f6ac5fe63624a09e4a0.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-9b01e129d4fa724f5b76.js.map
