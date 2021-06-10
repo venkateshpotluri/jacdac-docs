@@ -1279,7 +1279,10 @@ var Markdown = __webpack_require__(98784);
 var CheckCircle = __webpack_require__(39545);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/makecode.ts + 1 modules
 var jdom_makecode = __webpack_require__(93127);
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
+var jdutils = __webpack_require__(30055);
 ;// CONCATENATED MODULE: ./src/components/ServiceSpecificationList.tsx
+
 
 
 
@@ -1310,6 +1313,7 @@ function ServiceSpecificatinListItem(props) {
   var simulator = (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(classIdentifier);
   var device = !!((_deviceSpecifications = (0,jdom_spec/* deviceSpecificationsForService */.zn)(classIdentifier)) !== null && _deviceSpecifications !== void 0 && _deviceSpecifications.length);
   var test = (0,testspec/* serviceTestFromServiceClass */.H)(classIdentifier);
+  var mixin = (0,jdutils/* isMixinService */.fh)(classIdentifier);
   return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     to: "/services/" + shortId,
     style: {
@@ -1326,6 +1330,12 @@ function ServiceSpecificatinListItem(props) {
         size: "small",
         label: tag
       });
+    }), mixin && /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+      icon: /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
+        kind: constants/* SERVICE_MIXIN_NODE_NAME */.mLn
+      }),
+      size: "small",
+      label: "mixin"
     }), simulator && /*#__PURE__*/react.createElement(Chip/* default */.Z, {
       icon: /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
         kind: constants/* VIRTUAL_DEVICE_NODE_NAME */.UX7
@@ -1423,6 +1433,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+
 function FilterChip(props) {
   var label = props.label,
       value = props.value,
@@ -1454,6 +1465,7 @@ function ServiceCatalog() {
   var query = filter.query,
       tag = filter.tag,
       makeCode = filter.makeCode,
+      mixin = filter.mixin,
       simulators = filter.simulators,
       devices = filter.devices,
       sensors = filter.sensors,
@@ -1487,6 +1499,9 @@ function ServiceCatalog() {
 
     if (makeCode) r = r.filter(function (srv) {
       return !!(0,jdom_makecode/* resolveMakecodeServiceFromClassIdentifier */.WB)(srv.classIdentifier);
+    });
+    if (mixin) r = r.filter(function (srv) {
+      return (0,jdutils/* isMixinService */.fh)(srv.classIdentifier);
     });
     if (simulators) r = r.filter(function (srv) {
       return !!(0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(srv.classIdentifier);
@@ -1522,6 +1537,12 @@ function ServiceCatalog() {
   var handleMakeCodeClick = function handleMakeCodeClick() {
     return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
       makeCode: !makeCode
+    }));
+  };
+
+  var handleMixinClick = function handleMixinClick() {
+    return setFilter(_objectSpread(_objectSpread({}, filter), {}, {
+      mixin: !mixin
     }));
   };
 
@@ -1601,6 +1622,13 @@ function ServiceCatalog() {
     onClick: handleDevicesClick,
     value: devices
   }), /*#__PURE__*/react.createElement(FilterChip, {
+    label: "Mixin",
+    icon: /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
+      kind: constants/* SERVICE_MIXIN_NODE_NAME */.mLn
+    }),
+    value: mixin,
+    onClick: handleMixinClick
+  }), /*#__PURE__*/react.createElement(FilterChip, {
     label: "MakeCode",
     icon: /*#__PURE__*/react.createElement(MakeCodeIcon/* default */.Z, null),
     value: makeCode,
@@ -1657,4 +1685,4 @@ function ServiceCatalog() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-services-tsx-737c35b4b3e0c860b6f3.js.map
+//# sourceMappingURL=component---src-pages-services-tsx-76d8ec1001937cae3c54.js.map

@@ -4304,6 +4304,65 @@ var UvIndexReg;
      */
     UvIndexReg[UvIndexReg["Variant"] = 263] = "Variant";
 })(UvIndexReg || (UvIndexReg = {}));
+var VerifiedTelemetryFingerprintTemplateConfidence;
+(function (VerifiedTelemetryFingerprintTemplateConfidence) {
+    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["High"] = 100] = "High";
+    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Medium"] = 50] = "Medium";
+    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Low"] = 0] = "Low";
+})(VerifiedTelemetryFingerprintTemplateConfidence || (VerifiedTelemetryFingerprintTemplateConfidence = {}));
+var VerifiedTelemetryFingerprintType;
+(function (VerifiedTelemetryFingerprintType) {
+    VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["FallCurve"] = 1] = "FallCurve";
+    VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["CurrentSense"] = 2] = "CurrentSense";
+    VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["Custom"] = 3] = "Custom";
+})(VerifiedTelemetryFingerprintType || (VerifiedTelemetryFingerprintType = {}));
+var VerifiedTelemetryReg;
+(function (VerifiedTelemetryReg) {
+    /**
+     * Reads the telemetry working status, where ``true`` is working and ``false`` is faulty.
+     *
+     * ```
+     * const [status, confidence] = jdunpack<[number, VerifiedTelemetryFingerprintTemplateConfidence]>(buf, "u8 u8")
+     * ```
+     */
+    VerifiedTelemetryReg[VerifiedTelemetryReg["Telemetry"] = 384] = "Telemetry";
+    /**
+     * Read-write ms uint32_t. Specifies the interval between computing the fingerprint information.
+     *
+     * ```
+     * const [telemetryStatusInterval] = jdunpack<[number]>(buf, "u32")
+     * ```
+     */
+    VerifiedTelemetryReg[VerifiedTelemetryReg["TelemetryStatusInterval"] = 128] = "TelemetryStatusInterval";
+    /**
+     * Constant FingerprintType (uint8_t). Type of the fingerprint.
+     *
+     * ```
+     * const [fingerprintType] = jdunpack<[VerifiedTelemetryFingerprintType]>(buf, "u8")
+     * ```
+     */
+    VerifiedTelemetryReg[VerifiedTelemetryReg["FingerprintType"] = 385] = "FingerprintType";
+    /**
+     * Template Fingerprint information of a working sensor.
+     *
+     * ```
+     * const [rest] = jdunpack<[([string, string])[]]>(buf, "r: z z")
+     * const [property, value] = rest[0]
+     * ```
+     */
+    VerifiedTelemetryReg[VerifiedTelemetryReg["FingerprintTemplate"] = 386] = "FingerprintTemplate";
+})(VerifiedTelemetryReg || (VerifiedTelemetryReg = {}));
+var VerifiedTelemetryCmd;
+(function (VerifiedTelemetryCmd) {
+    /**
+     * No args. This command will clear the template fingerprint of a sensor and collect a new template fingerprint of the attached sensor.
+     */
+    VerifiedTelemetryCmd[VerifiedTelemetryCmd["ResetFingerprintTemplate"] = 128] = "ResetFingerprintTemplate";
+    /**
+     * No args. This command will append a new template fingerprint to the `fingerprintTemplate`. Appending more fingerprints will increase the accuracy in detecting the telemetry status.
+     */
+    VerifiedTelemetryCmd[VerifiedTelemetryCmd["RetrainFingerprintTemplate"] = 129] = "RetrainFingerprintTemplate";
+})(VerifiedTelemetryCmd || (VerifiedTelemetryCmd = {}));
 var VibrationMotorReg;
 (function (VibrationMotorReg) {
     /**
