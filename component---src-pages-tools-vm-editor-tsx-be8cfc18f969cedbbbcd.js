@@ -5997,6 +5997,7 @@ var jsondsl_colour = "#654321";
 var JSON_FIELD_TYPE = "JSONField";
 var JSON_OBJECT_BLOCK = "json_object";
 var JSON_FIELD_SET = "json_field_set";
+var JSON_FIELD_VALUE_TYPE = [].concat((0,toConsumableArray/* default */.Z)(toolbox/* PRIMITIVE_TYPES */.eg), [toolbox/* JSON_TYPE */.oj]);
 var jsonDSL = {
   id: "json",
   createBlocks: function createBlocks() {
@@ -6022,7 +6023,8 @@ var jsonDSL = {
         name: "name"
       }, {
         type: "input_value",
-        name: "value"
+        name: "value",
+        check: JSON_FIELD_VALUE_TYPE
       }],
       previousStatement: JSON_FIELD_TYPE,
       nextStatement: JSON_FIELD_TYPE,
@@ -6186,4 +6188,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f4998987d6710066d56e.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-be8cfc18f969cedbbbcd.js.map
