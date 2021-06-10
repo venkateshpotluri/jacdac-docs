@@ -59203,6 +59203,8 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
     _this.deviceToCloudMessages = [];
     _this.cloudToDeviceMessages = [];
     _this.autoConnect = true;
+    _this.cdCounter = 0;
+    _this.dcCounter = 0;
 
     var _ref = options || {},
         _ref$hubName = _ref.hubName,
@@ -59250,6 +59252,7 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
     }
 
     this.cloudToDeviceMessages.unshift({
+      counter: this.cdCounter++,
       timestamp: this.device.bus.timestamp,
       body: body
     });
@@ -59272,6 +59275,7 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
         body = _pkt$jdunpack[0];
 
     this.deviceToCloudMessages.unshift({
+      counter: this.dcCounter++,
       timestamp: this.device.bus.timestamp,
       body: body
     });
@@ -69682,7 +69686,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "5efdbf63ed4fbc35e9a6e268f367026c6a2421c8";
+  var sha = "40d8989d62bba7f7d30304f8193255be9bbf9ff1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -78712,7 +78716,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.66"};
+var package_namespaceObject = {"i8":"1.13.67"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -86750,4 +86754,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-913251ce6f754b453d43.js.map
+//# sourceMappingURL=app-92b338f7370791675ce9.js.map

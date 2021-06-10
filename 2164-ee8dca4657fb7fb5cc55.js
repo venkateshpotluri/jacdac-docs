@@ -749,7 +749,7 @@ function DashboardAzureIoTHub(props) {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("pre", null, cdMessages === null || cdMessages === void 0 ? void 0 : cdMessages.map(function (m) {
-    return m.body;
+    return m.counter + ": " + m.body;
   }).join("\n"))), deviceToCloudMessages && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_GridHeader__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
     title: "device to cloud",
     action: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_CmdButton__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
@@ -762,7 +762,7 @@ function DashboardAzureIoTHub(props) {
     item: true,
     xs: 12
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("pre", null, deviceToCloudMessages.map(function (m) {
-    return m.body;
+    return m.counter + ": " + m.body;
   }).join("\n")))));
 }
 
@@ -840,4 +840,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2164-c1fcfae68b3ded11c041.js.map
+//# sourceMappingURL=2164-ee8dca4657fb7fb5cc55.js.map
