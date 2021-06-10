@@ -5994,7 +5994,8 @@ var BlockEditor = __webpack_require__(85105);
 var jsondsl_colour = "#654321";
 var JSON_FIELD_TYPE = "JSONField";
 var JSON_OBJECT_BLOCK = "json_object";
-var JSON_FIELD_SET = "json_field_set";
+var JSON_FIELD_SET_BLOCK = "json_field_set";
+var JSON_FIELD_GET_TEMPLATE = "jsonFieldGet";
 var JSON_FIELD_VALUE_TYPE = [].concat((0,toConsumableArray/* default */.Z)(toolbox/* PRIMITIVE_TYPES */.eg), [toolbox/* JSON_TYPE */.oj]);
 var jsonDSL = {
   id: "json",
@@ -6014,7 +6015,7 @@ var jsonDSL = {
       colour: jsondsl_colour
     }, {
       kind: "block",
-      type: JSON_FIELD_SET,
+      type: JSON_FIELD_SET_BLOCK,
       message0: "%1: %2",
       args0: [{
         type: "field_input",
@@ -6042,7 +6043,7 @@ var jsonDSL = {
         }],
         output: output,
         colour: jsondsl_colour,
-        template: "jsonFieldGet"
+        template: JSON_FIELD_GET_TEMPLATE
       };
     })));
   },
@@ -6056,7 +6057,7 @@ var jsonDSL = {
         type: JSON_OBJECT_BLOCK
       }, {
         kind: "block",
-        type: JSON_FIELD_SET,
+        type: JSON_FIELD_SET_BLOCK,
         values: {
           value: {
             kind: "block",
@@ -6077,6 +6078,30 @@ var jsonDSL = {
         };
       })))
     }];
+  },
+  compileExpressionToVM: function compileExpressionToVM(options) {
+    var event = options.event,
+        block = options.block,
+        definition = options.definition,
+        blockToExpressionInner = options.blockToExpressionInner;
+    var type = block.type;
+    var template = definition.template;
+
+    if (type === JSON_OBJECT_BLOCK) {// TODO
+    } else if (type === JSON_FIELD_SET_BLOCK) {// TODO
+    } else if (template === JSON_FIELD_GET_TEMPLATE) {
+      // TODO: genearte JSON
+      console.log("json expr", {
+        event: event,
+        block: block,
+        definition: definition,
+        blockToExpressionInner: blockToExpressionInner
+      });
+      return undefined;
+    } // don't know
+
+
+    return undefined;
   }
 };
 /* harmony default export */ var jsondsl = (jsonDSL);
@@ -6186,4 +6211,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0354927f8215b7a603d7.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f4b667bb7821b15ec7a8.js.map
