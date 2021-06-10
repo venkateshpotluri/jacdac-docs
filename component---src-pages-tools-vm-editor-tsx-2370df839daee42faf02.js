@@ -1018,51 +1018,6 @@ addToUnscopables('flatMap');
 
 /***/ }),
 
-/***/ 2864:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
-/* harmony export */   "Jg": function() { return /* binding */ escapeName; },
-/* harmony export */   "d0": function() { return /* binding */ DTDLUnits; }
-/* harmony export */ });
-/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, escapeDisplayName */
-/***
- *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
- */
-var DTDL_REFERENCE_URL = "https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md";
-var DTDL_NAME = "Digital Twins Definition Language";
-var DTDL_CONTEXT = "dtmi:dtdl:context;2"; // warps fields into an object
-
-function objectSchema(schemas) {
-  return {
-    "@type": "Object",
-    fields: schemas
-  };
-} // wraps a schema into an array
-
-function arraySchema(schema) {
-  return {
-    "@type": "Array",
-    elementSchema: schema
-  };
-}
-function escapeName(name) {
-  name = name.trim().replace(/[^a-zA-Z0-9_]/g, "_");
-  if (!/^[a-zA-Z]/.test(name)) name = "a" + name;
-  name = name[0].toLowerCase() + name.slice(1);
-  return name.slice(0, 64);
-}
-function escapeDisplayName(name) {
-  return name.slice(0, 64);
-}
-function DTDLUnits() {
-  return ["metrePerSecondSquared", "centimetrePerSecondSquared", "gForce", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radianPerSecondSquared", "radianPerSecond", "degreePerSecond", "revolutionPerSecond", "revolutionPerMinute", "squareMetre", "squareCentimetre", "squareMillimetre", "squareKilometre", "hectare", "squareFoot", "squareInch", "acre", "farad", "millifarad", "microfarad", "nanofarad", "picofarad", "ampere", "microampere", "milliampere", "bitPerSecond", "kibibitPerSecond", "mebibitPerSecond", "gibibitPerSecond", "tebibitPerSecond", "exbibitPerSecond", "zebibitPerSecond", "yobibitPerSecond", "bytePerSecond", "kibibytePerSecond", "mebibytePerSecond", "gibibytePerSecond", "tebibytePerSecond", "exbibytePerSecond", "zebibytePerSecond", "yobibytePerSecond", "bit", "kibibit", "mebibit", "gibibit", "tebibit", "exbibit", "zebibit", "yobibit", "byte", "kibibyte", "mebibyte", "gibibyte", "tebibyte", "exbibyte", "zebibyte", "yobibyte", "kilogramPerCubicMetre", "gramPerCubicMetre", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "coulomb", "joule", "kilojoule", "megajoule", "gigajoule", "electronvolt", "megaelectronvolt", "kilowattHour", "newton", "pound", "ounce", "ton", "hertz", "kilohertz", "megahertz", "gigahertz", "kilogramPerCubicMetre", "gramPerCubicMetre", "lux", "footcandle", "henry", "millihenry", "microhenry", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "candelaPerSquareMetre", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "lumen", "candela", "weber", "maxwell", "tesla", "kilogram", "gram", "milligram", "microgram", "tonne", "slug", "gramPerSecond", "kilogramPerSecond", "gramPerHour", "kilogramPerHour", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "pascal", "kilopascal", "bar", "millibar", "millimetresOfMercury", "poundPerSquareInch", "inchesOfMercury", "inchesOfWater", "unity percent", "ohm", "milliohm", "kiloohm", "megaohm", "decibel", "bel", "kelvin", "degreeCelsius", "degreeFahrenheit", "newton", "pound", "ounce", "ton", "second", "millisecond", "microsecond", "nanosecond", "minute", "hour", "day", "year", "newtonMetre", "metrePerSecond", "centimetrePerSecond", "kilometrePerSecond", "metrePerHour", "kilometrePerHour", "milePerHour", "milePerSecond", "knot", "volt", "millivolt", "microvolt", "kilovolt", "megavolt", "cubicMetre", "cubicCentimetre", "litre", "millilitre", "cubicFoot", "cubicInch", "fluidOunce", "gallon", "litrePerSecond", "millilitrePerSecond", "litrePerHour", "millilitrePerHour"].sort();
-}
-
-/***/ }),
-
 /***/ 20119:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1136,7 +1091,7 @@ function ImportButton(props) {
 
 /***/ }),
 
-/***/ 89388:
+/***/ 89263:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5430,218 +5385,6 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 }();
 var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 /* harmony default export */ var servicesdsl = (servicesDSL);
-;// CONCATENATED MODULE: ./src/components/blockly/dsl/azureiothubdsl.ts
-
-
-var colour = "#8a57c2";
-
-var AzureIoTHubBlockDomainSpecificLanguage = /*#__PURE__*/function () {
-  function AzureIoTHubBlockDomainSpecificLanguage() {
-    this.id = "azureiothub";
-  }
-
-  var _proto = AzureIoTHubBlockDomainSpecificLanguage.prototype;
-
-  _proto.createBlocks = function createBlocks() {
-    return this._blocks = [{
-      kind: "block",
-      type: "azureiothub_receive_telemetry",
-      message0: "on receive cloud-to-device message",
-      args0: [],
-      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      colour: colour
-    }, {
-      kind: "block",
-      type: "azureiothub_receive_telemetry_number",
-      message0: "received number %1",
-      args0: [{
-        type: "field_input",
-        name: "name",
-        text: "value"
-      }],
-      output: "Number",
-      colour: colour
-    }, {
-      kind: "block",
-      type: "azureiothub_receive_telemetry_string",
-      message0: "received string %1",
-      args0: [{
-        type: "field_input",
-        name: "name",
-        text: "value"
-      }],
-      output: "String",
-      colour: colour
-    }, {
-      kind: "block",
-      type: "azureiothub_send_telemetry",
-      message0: "send device-to-cloud message %1 %2",
-      args0: [{
-        type: "input_dummy"
-      }, {
-        type: "input_statement",
-        name: "fields"
-      }],
-      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      colour: colour
-    }, {
-      kind: "block",
-      type: "azureiothub_send_telemetry_value",
-      message0: "with %1 = %2",
-      args0: [{
-        type: "field_input",
-        name: "name",
-        text: "value"
-      }, {
-        type: "input_value",
-        name: "value",
-        check: toolbox/* PRIMITIVE_TYPES */.eg
-      }],
-      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      colour: colour
-    }];
-  };
-
-  _proto.createCategory = function createCategory() {
-    return [{
-      kind: "category",
-      name: "Azure IoT Hub",
-      colour: colour,
-      contents: (0,toConsumableArray/* default */.Z)(this._blocks.map(function (_ref) {
-        var type = _ref.type;
-        return {
-          kind: "block",
-          type: type
-        };
-      }))
-    }];
-  };
-
-  return AzureIoTHubBlockDomainSpecificLanguage;
-}();
-
-var azureIoTHubDSL = new AzureIoTHubBlockDomainSpecificLanguage();
-/* harmony default export */ var azureiothubdsl = (azureIoTHubDSL);
-// EXTERNAL MODULE: ./jacdac-ts/src/azure-iot/dtdl.ts
-var dtdl = __webpack_require__(2864);
-;// CONCATENATED MODULE: ./src/components/blockly/dsl/devicetwindsl.ts
-
-
-
-var DEVICE_TWIN_SEND_TELEMETRY = "device_twin_send_telemetry";
-var DEVICE_TWIN_DEFINITION_BLOCK = "device_twin_definition";
-var DEVICE_TWIN_PROPERTY_BLOCK = "device_twin_property";
-var DEVICE_TWIN_PROPERTY_TYPE = "DeviceTwinProperty";
-var DEVICE_TWIN_VALUE_TYPE = "DeviceTwinValue";
-var devicetwindsl_colour = "#843ed0";
-var deviceTwinContentType = "DeviceTwinContent";
-var deviceTwinCommonOptionType = "DeviceTwinCommonOption";
-var deviceTwinPropertyOptionType = "DeviceTwinPropertyOption";
-var deviceTwinStatementType = [deviceTwinContentType];
-var deviceTwinCommonOptionStatementType = [deviceTwinCommonOptionType];
-var deviceTwinPropertyOptionStatementType = [deviceTwinPropertyOptionType].concat(deviceTwinCommonOptionStatementType);
-
-var DeviceTwinBlockDomainSpecificLanguage = /*#__PURE__*/function () {
-  function DeviceTwinBlockDomainSpecificLanguage() {
-    this.id = "devicetwin";
-  }
-
-  var _proto = DeviceTwinBlockDomainSpecificLanguage.prototype;
-
-  _proto.createBlocks = function createBlocks() {
-    return this._blocks = [{
-      kind: "block",
-      type: DEVICE_TWIN_DEFINITION_BLOCK,
-      message0: "device twin",
-      args0: [],
-      inputsInline: true,
-      nextStatement: deviceTwinStatementType,
-      colour: devicetwindsl_colour
-    }, {
-      kind: "block",
-      type: DEVICE_TWIN_PROPERTY_BLOCK,
-      message0: "property %1 %2 %3",
-      args0: [{
-        type: "field_variable",
-        name: "name",
-        variable: "property 1",
-        variableTypes: [DEVICE_TWIN_PROPERTY_TYPE],
-        defaultType: DEVICE_TWIN_PROPERTY_TYPE
-      }, {
-        type: "input_dummy"
-      }, {
-        type: "input_statement",
-        name: "options",
-        check: deviceTwinPropertyOptionStatementType
-      }],
-      previousStatement: deviceTwinStatementType,
-      nextStatement: deviceTwinStatementType,
-      colour: devicetwindsl_colour,
-      inputsInline: false
-    }, // options
-    {
-      kind: "block",
-      type: "device_twin_option_property_field",
-      message0: "field %1 %2 %3",
-      args0: [{
-        type: "field_variable",
-        name: "variable",
-        variable: "value 1",
-        variableTypes: [DEVICE_TWIN_VALUE_TYPE],
-        defaultType: DEVICE_TWIN_VALUE_TYPE
-      }, {
-        type: "field_dropdown",
-        name: "unit",
-        options: (0,dtdl/* DTDLUnits */.d0)().map(function (unit) {
-          return [unit, unit];
-        })
-      }, {
-        type: "input_value",
-        name: "value"
-      }],
-      previousStatement: deviceTwinCommonOptionStatementType,
-      nextStatement: deviceTwinCommonOptionStatementType,
-      colour: devicetwindsl_colour,
-      inputsInline: false
-    }, // events
-    {
-      kind: "block",
-      type: "device_twin_property_change",
-      message0: "on property %1 change",
-      args0: [{
-        type: "field_variable",
-        name: "name",
-        variable: "property 1",
-        variableTypes: [DEVICE_TWIN_PROPERTY_TYPE],
-        defaultType: DEVICE_TWIN_PROPERTY_TYPE
-      }],
-      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-      colour: devicetwindsl_colour
-    }];
-  };
-
-  _proto.createCategory = function createCategory() {
-    return [{
-      kind: "category",
-      name: "Device Twin",
-      colour: devicetwindsl_colour,
-      contents: (0,toConsumableArray/* default */.Z)(this._blocks.map(function (_ref) {
-        var type = _ref.type;
-        return {
-          kind: "block",
-          type: type
-        };
-      }))
-    }];
-  };
-
-  return DeviceTwinBlockDomainSpecificLanguage;
-}();
-
-var deviceTwinDSL = new DeviceTwinBlockDomainSpecificLanguage();
-/* harmony default export */ var devicetwindsl = (deviceTwinDSL);
 // EXTERNAL MODULE: ./src/components/blockly/fields/JDomTreeField.tsx
 var JDomTreeField = __webpack_require__(90263);
 // EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
@@ -5656,7 +5399,7 @@ var WatchValueField = __webpack_require__(6978);
 
 
 
-var toolsdsl_colour = "#888";
+var colour = "#888";
 var toolsDSL = {
   id: "tools",
   createBlocks: function createBlocks() {
@@ -5678,7 +5421,7 @@ var toolsDSL = {
         type: TwinField/* default.KEY */.Z.KEY,
         name: "twin"
       }],
-      colour: toolsdsl_colour,
+      colour: colour,
       inputsInline: false,
       tooltip: "Twin of the selected service",
       helpUrl: "",
@@ -5701,7 +5444,7 @@ var toolsDSL = {
         type: JDomTreeField/* default.KEY */.Z.KEY,
         name: "twin"
       }],
-      colour: toolsdsl_colour,
+      colour: colour,
       inputsInline: false,
       tooltip: "Inspect a service",
       helpUrl: "",
@@ -5718,7 +5461,7 @@ var toolsDSL = {
         type: WatchValueField/* default.KEY */.Z.KEY,
         name: "watch"
       }],
-      colour: toolsdsl_colour,
+      colour: colour,
       inputsInline: true,
       tooltip: "Watch a value in the editor",
       helpUrl: ""
@@ -5728,7 +5471,7 @@ var toolsDSL = {
     return [{
       kind: "category",
       name: "Tools",
-      colour: toolsdsl_colour,
+      colour: colour,
       contents: [{
         kind: "block",
         type: toolbox/* WATCH_BLOCK */.HN
@@ -6129,8 +5872,6 @@ var BlockEditor = __webpack_require__(85105);
 
 
 
-
-
 var VM_SOURCE_STORAGE_KEY = "tools:vmeditor";
 
 function VMEditorWithContext() {
@@ -6193,7 +5934,9 @@ function VMEditorWithContext() {
 
 function VMEditor() {
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, azureiothubdsl, devicetwindsl, toolsdsl, loopsdsl, logicdsl, mathdsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+    return [servicesdsl, //azureIoTHubDSL,
+    //deviceTwinDSL,
+    toolsdsl, loopsdsl, logicdsl, mathdsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: VM_SOURCE_STORAGE_KEY,
@@ -6210,4 +5953,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-cd8d34167ed647398c3f.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2370df839daee42faf02.js.map

@@ -118,10 +118,9 @@ exports.Z = _default;
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
-/* harmony export */   "Jg": function() { return /* binding */ escapeName; },
-/* harmony export */   "d0": function() { return /* binding */ DTDLUnits; }
+/* harmony export */   "Jg": function() { return /* binding */ escapeName; }
 /* harmony export */ });
-/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, escapeDisplayName */
+/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, escapeDisplayName, DTDLUnits */
 /***
  *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
  */
@@ -1095,4 +1094,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-78e35abb3e97d578d422.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-478427965a8d65977f6c.js.map

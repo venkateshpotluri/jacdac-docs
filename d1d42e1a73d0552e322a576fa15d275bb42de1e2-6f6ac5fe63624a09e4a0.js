@@ -9810,10 +9810,10 @@ function fieldShadows() {
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
 /* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
-/* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
 /* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
 /* harmony export */ });
+/* unused harmony export PRIMITIVE_TYPES */
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -10047,4 +10047,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-d8e005db919d65ab723f.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-6f6ac5fe63624a09e4a0.js.map

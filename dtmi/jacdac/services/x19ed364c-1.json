@@ -26,21 +26,31 @@
       "schema": "string"
     },
     {
-      "@type": [
-        "Telemetry",
-        "Event"
-      ],
-      "name": "change",
-      "@id": "dtmi:jacdac:x19ed364c:event:change;1",
-      "description": "Raised when the connection status changes.",
-      "schema": "dtmi:jacdac:x19ed364c:event;1"
-    },
-    {
       "@type": "Telemetry",
       "name": "message",
       "@id": "dtmi:jacdac:x19ed364c:event:message;1",
       "description": "This event is emitted upon reception of a cloud to device message, that is a string\n(doesn't contain NUL bytes) and fits in a single event packet.",
       "schema": "string"
+    },
+    {
+      "@type": [
+        "Telemetry",
+        "Event"
+      ],
+      "name": "connected",
+      "@id": "dtmi:jacdac:x19ed364c:event:connected;1",
+      "description": "Raised when the device is connected to the hub.",
+      "schema": "dtmi:jacdac:x19ed364c:event;1"
+    },
+    {
+      "@type": [
+        "Telemetry",
+        "Event"
+      ],
+      "name": "disconnected",
+      "@id": "dtmi:jacdac:x19ed364c:event:disconnected;1",
+      "description": "Raised when the device is disconnected to the hub. ``connection_status`` may contain information about the error.",
+      "schema": "dtmi:jacdac:x19ed364c:event;1"
     }
   ],
   "extends": [
