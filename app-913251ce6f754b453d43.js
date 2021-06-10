@@ -59190,8 +59190,6 @@ var hidmouseserver = __webpack_require__(72191);
 
 
 
-
-
 var AzureIoTHubMessage = function AzureIoTHubMessage() {};
 
 var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
@@ -59204,6 +59202,7 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
     _this.maxMessages = 10;
     _this.deviceToCloudMessages = [];
     _this.cloudToDeviceMessages = [];
+    _this.autoConnect = true;
 
     var _ref = options || {},
         _ref$hubName = _ref.hubName,
@@ -59217,9 +59216,9 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
 
     _this.addCommand(constants/* AzureIotHubCmd.SendMessage */.r8S.SendMessage, _this.handleSendMessage.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
-    _this.addCommand(constants/* AzureIotHubCmd.Connect */.r8S.Connect, _this.handleConnect.bind((0,assertThisInitialized/* default */.Z)(_this)));
+    _this.addCommand(constants/* AzureIotHubCmd.Connect */.r8S.Connect, _this.connect.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
-    _this.addCommand(constants/* AzureIotHubCmd.Disconnect */.r8S.Disconnect, _this.handleDisconnect.bind((0,assertThisInitialized/* default */.Z)(_this))); // send change event when status changes
+    _this.addCommand(constants/* AzureIotHubCmd.Disconnect */.r8S.Disconnect, _this.disconnect.bind((0,assertThisInitialized/* default */.Z)(_this))); // send change event when status changes
 
 
     _this.connectionStatus.on(constants/* CHANGE */.Ver, function () {
@@ -59234,8 +59233,22 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
 
   var _proto = AzureIoTHubServer.prototype;
 
+  _proto.connect = function connect() {
+    this.autoConnect = true;
+    this.connectionStatus.setValues(["ok"]);
+  };
+
+  _proto.disconnect = function disconnect() {
+    this.autoConnect = false;
+    this.connectionStatus.setValues([""]);
+  };
+
   _proto.emitMessage = function emitMessage(body) {
-    if (!this.connected) return;
+    if (!this.connected) {
+      if (this.autoConnect) this.connect();
+      if (!this.connected) return;
+    }
+
     this.cloudToDeviceMessages.unshift({
       timestamp: this.device.bus.timestamp,
       body: body
@@ -59249,35 +59262,11 @@ var AzureIoTHubServer = /*#__PURE__*/function (_JDServiceServer) {
     this.sendEvent(constants/* AzureIotHubEvent.Message */.ogr.Message, (0,pack/* jdpack */.AV)("s", [body]));
   };
 
-  _proto.handleConnect = /*#__PURE__*/function () {
-    var _handleConnect = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              this.connectionStatus.setValues(["ok"]);
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function handleConnect() {
-      return _handleConnect.apply(this, arguments);
-    }
-
-    return handleConnect;
-  }();
-
-  _proto.handleDisconnect = function handleDisconnect() {
-    this.connectionStatus.setValues([""]);
-  };
-
   _proto.handleSendMessage = function handleSendMessage(pkt) {
-    if (!this.connected) return;
+    if (!this.connected) {
+      if (this.autoConnect) this.connect();
+      if (!this.connected) return;
+    }
 
     var _pkt$jdunpack = pkt.jdunpack("s"),
         body = _pkt$jdunpack[0];
@@ -69693,7 +69682,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "aee9c72504097738db827e031e4be9983ff2cea0";
+  var sha = "5efdbf63ed4fbc35e9a6e268f367026c6a2421c8";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -86761,4 +86750,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7d5660264b138eabb375.js.map
+//# sourceMappingURL=app-913251ce6f754b453d43.js.map
