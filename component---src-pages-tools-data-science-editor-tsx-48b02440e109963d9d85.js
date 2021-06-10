@@ -85,7 +85,16 @@ var DataScienceBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 }();
 var dataDsl = new DataScienceBlockDomainSpecificLanguage();
 /* harmony default export */ var datadsl = (dataDsl);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/fieldsdsl.ts
+var fieldsdsl = __webpack_require__(76658);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
+var flags = __webpack_require__(21258);
+// EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
+var BlockDiagnostics = __webpack_require__(9370);
 ;// CONCATENATED MODULE: ./src/components/data-science/DSBlockEditor.tsx
+
+
+
 
 
 
@@ -96,12 +105,12 @@ var dataDsl = new DataScienceBlockDomainSpecificLanguage();
 var DS_SOURCE_STORAGE_KEY = "data-science-blockly-xml";
 function VMEditor() {
   var dsls = (0,react.useMemo)(function () {
-    return [datadsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z];
+    return [datadsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: DS_SOURCE_STORAGE_KEY,
     dsls: dsls
-  }, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, null)));
+  }, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, null), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(BlockDiagnostics/* default */.Z, null)));
 }
 ;// CONCATENATED MODULE: ./src/pages/tools/data-science-editor.tsx
 
@@ -113,4 +122,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-04fccdcecf2cbb0379bb.js.map
+//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-48b02440e109963d9d85.js.map
