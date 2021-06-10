@@ -1,9 +1,9 @@
 {
   "name": "Azure IoT Hub",
   "status": "experimental",
-  "shortId": "iothub",
-  "camelName": "iotHub",
-  "shortName": "iotHub",
+  "shortId": "azureiothub",
+  "camelName": "azureIotHub",
+  "shortName": "azureIotHub",
   "extends": [
     "_base"
   ],
@@ -88,7 +88,7 @@
       "kind": "command",
       "name": "connect",
       "identifier": 128,
-      "description": "Try connecting using currently set `connection_string`.\nThe service normally preiodically tries to connect automatically.",
+      "description": "Try connecting using currently set `connection_string`.\nThe service normally periodically tries to connect automatically.",
       "fields": []
     },
     {
@@ -100,414 +100,34 @@
     },
     {
       "kind": "command",
-      "name": "send_string_msg",
+      "name": "send_message",
       "identifier": 130,
-      "description": "Sends a short message in string format (it's typically JSON-encoded). Multiple properties can be attached.",
+      "description": "Sends a short message in string format (it's typically JSON-encoded).",
       "fields": [
         {
-          "name": "msg",
+          "name": "body",
           "unit": "",
-          "type": "string0",
-          "storage": 0
-        },
-        {
-          "name": "property_name",
-          "unit": "",
-          "type": "string0",
-          "storage": 0,
-          "startRepeats": true
-        },
-        {
-          "name": "property_value",
-          "unit": "",
-          "type": "string0",
+          "type": "string",
           "storage": 0
         }
       ],
+      "lowLevel": true,
       "hasReport": true,
-      "packFormat": "z r: z z"
+      "packFormat": "s"
     },
     {
       "kind": "report",
-      "name": "send_string_msg",
+      "name": "send_message",
       "identifier": 130,
-      "description": "Sends a short message in string format (it's typically JSON-encoded). Multiple properties can be attached.",
+      "description": "Sends a short message in string format (it's typically JSON-encoded).",
       "fields": [],
       "secondary": true
-    },
-    {
-      "kind": "command",
-      "name": "send_msg_ext",
-      "identifier": 131,
-      "description": "Sends an arbitrary, possibly binary, message. The size is only limited by RAM on the module.",
-      "fields": [],
-      "hasReport": true
-    },
-    {
-      "kind": "report",
-      "name": "send_msg_ext",
-      "identifier": 131,
-      "description": "Sends an arbitrary, possibly binary, message. The size is only limited by RAM on the module.",
-      "fields": [
-        {
-          "name": "message",
-          "unit": "",
-          "type": "pipe_port",
-          "storage": 2
-        }
-      ],
-      "secondary": true,
-      "pipeType": "send_msg_ext",
-      "packFormat": "u16"
-    },
-    {
-      "kind": "pipe_command",
-      "name": "message",
-      "identifier": 0,
-      "description": "Part of the body of the message.",
-      "fields": [
-        {
-          "name": "body",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "send_msg_ext",
-      "packFormat": "b"
-    },
-    {
-      "kind": "meta_pipe_command",
-      "name": "properties",
-      "identifier": 1,
-      "description": "Set properties on the message. Can be repeated multiple times.",
-      "fields": [
-        {
-          "name": "property_name",
-          "unit": "",
-          "type": "string0",
-          "storage": 0,
-          "startRepeats": true
-        },
-        {
-          "name": "property_value",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        }
-      ],
-      "pipeType": "send_msg_ext",
-      "packFormat": "r: z z"
-    },
-    {
-      "kind": "command",
-      "name": "subscribe",
-      "identifier": 132,
-      "description": "Subscribes for cloud to device messages, which will be sent over the specified pipe.",
-      "fields": [
-        {
-          "name": "devicebound",
-          "unit": "",
-          "type": "pipe",
-          "storage": 12
-        }
-      ],
-      "pipeType": "subscribe",
-      "packFormat": "b[12]"
-    },
-    {
-      "kind": "meta_pipe_report",
-      "name": "devicebound_properties",
-      "identifier": 1,
-      "description": "If there are any properties, this meta-report is send one or more times.\nAll properties of a given message are always sent before the body.",
-      "fields": [
-        {
-          "name": "property_name",
-          "unit": "",
-          "type": "string0",
-          "storage": 0,
-          "startRepeats": true
-        },
-        {
-          "name": "property_value",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        }
-      ],
-      "pipeType": "subscribe",
-      "packFormat": "r: z z"
-    },
-    {
-      "kind": "pipe_report",
-      "name": "devicebound",
-      "identifier": 0,
-      "description": "For every message, the body is sent in one or more reports like this.",
-      "fields": [
-        {
-          "name": "body",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "multiSegmented": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "subscribe",
-      "packFormat": "b"
-    },
-    {
-      "kind": "command",
-      "name": "get_twin",
-      "identifier": 133,
-      "description": "Ask for current device digital twin.",
-      "fields": [
-        {
-          "name": "twin_result",
-          "unit": "",
-          "type": "pipe",
-          "storage": 12
-        }
-      ],
-      "pipeType": "get_twin",
-      "packFormat": "b[12]"
-    },
-    {
-      "kind": "pipe_report",
-      "name": "twin_json",
-      "identifier": 0,
-      "description": "The JSON-encoded twin. This is typically something like:\n`{ \"desired\": { \"foo\": 1, \"$version\": 12 }, \"reported\": { \"foo\": 1, \"bar\" 2, \"$version\": 123 } }`",
-      "fields": [
-        {
-          "name": "json",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "get_twin",
-      "packFormat": "b"
-    },
-    {
-      "kind": "meta_pipe_report",
-      "name": "twin_error",
-      "identifier": 1,
-      "description": "This emitted if status is not 200.",
-      "fields": [
-        {
-          "name": "status_code",
-          "unit": "",
-          "type": "u32",
-          "storage": 4,
-          "isSimpleType": true
-        }
-      ],
-      "pipeType": "get_twin",
-      "packFormat": "u32"
-    },
-    {
-      "kind": "command",
-      "name": "subscribe_twin",
-      "identifier": 135,
-      "description": "Subscribe to updates to our twin.",
-      "fields": [
-        {
-          "name": "twin_updates",
-          "unit": "",
-          "type": "pipe",
-          "storage": 12
-        }
-      ],
-      "pipeType": "subscribe_twin",
-      "packFormat": "b[12]"
-    },
-    {
-      "kind": "pipe_report",
-      "name": "twin_update_json",
-      "identifier": 0,
-      "description": "First, the current value of the twin is sent (this includes desired and reported properties).\nNext updates done by the back-end are streamed as they arrive (they only include the desired properties).",
-      "fields": [
-        {
-          "name": "json",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "multiSegmented": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "subscribe_twin",
-      "packFormat": "b"
-    },
-    {
-      "kind": "command",
-      "name": "patch_twin",
-      "identifier": 134,
-      "description": "Start twin update.",
-      "fields": [],
-      "hasReport": true
-    },
-    {
-      "kind": "report",
-      "name": "patch_twin",
-      "identifier": 134,
-      "description": "Start twin update.",
-      "fields": [
-        {
-          "name": "patch_port",
-          "unit": "",
-          "type": "pipe_port",
-          "storage": 2
-        }
-      ],
-      "secondary": true,
-      "pipeType": "patch_twin",
-      "packFormat": "u16"
-    },
-    {
-      "kind": "pipe_command",
-      "name": "twin_patch_json",
-      "identifier": 0,
-      "description": "The JSON-encoded twin update. The pipe should be closed when the last packet is sent.\nYou just send updates for `reported` field, like this:\n`{ \"bar\": 3, \"baz\": null }` (skip `\"$version\"` and no `\"reported\": { ... }`).",
-      "fields": [
-        {
-          "name": "json",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "patch_twin",
-      "packFormat": "b"
-    },
-    {
-      "kind": "command",
-      "name": "subscribe_method",
-      "identifier": 136,
-      "description": "Subscribe to direct method calls.",
-      "fields": [
-        {
-          "name": "method_call",
-          "unit": "",
-          "type": "pipe",
-          "storage": 12
-        }
-      ],
-      "pipeType": "subscribe_method",
-      "packFormat": "b[12]"
-    },
-    {
-      "kind": "pipe_report",
-      "name": "method_call_body",
-      "identifier": 0,
-      "description": "The method call body is sent using these packets.\nIf the body is empty, a single empty `method_call_body` is sent.",
-      "fields": [
-        {
-          "name": "json",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "multiSegmented": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "subscribe_method",
-      "packFormat": "b"
-    },
-    {
-      "kind": "meta_pipe_report",
-      "name": "method_call",
-      "identifier": 1,
-      "description": "This is sent after the last part of the `method_call_body`.",
-      "fields": [
-        {
-          "name": "method_name",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        },
-        {
-          "name": "request_id",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        }
-      ],
-      "pipeType": "subscribe_method",
-      "packFormat": "z z"
-    },
-    {
-      "kind": "command",
-      "name": "respond_to_method",
-      "identifier": 137,
-      "description": "Respond to a direct method call (`request_id` comes from `subscribe_method` pipe).",
-      "fields": [
-        {
-          "name": "status",
-          "unit": "",
-          "type": "u32",
-          "storage": 4,
-          "isSimpleType": true
-        },
-        {
-          "name": "request_id",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        }
-      ],
-      "hasReport": true,
-      "packFormat": "u32 z"
-    },
-    {
-      "kind": "report",
-      "name": "respond_to_method",
-      "identifier": 137,
-      "description": "Respond to a direct method call (`request_id` comes from `subscribe_method` pipe).",
-      "fields": [
-        {
-          "name": "response_body",
-          "unit": "",
-          "type": "pipe_port",
-          "storage": 2
-        }
-      ],
-      "secondary": true,
-      "pipeType": "respond_to_method",
-      "packFormat": "u16"
-    },
-    {
-      "kind": "pipe_command",
-      "name": "method_response",
-      "identifier": 0,
-      "description": "The pipe should be closed when the last packet of response body is sent.",
-      "fields": [
-        {
-          "name": "json",
-          "unit": "",
-          "type": "bytes",
-          "storage": 0,
-          "isSimpleType": true,
-          "segmented": true
-        }
-      ],
-      "pipeType": "respond_to_method",
-      "packFormat": "b"
     },
     {
       "kind": "ro",
       "name": "connection_status",
       "identifier": 384,
-      "description": "Returns `\"ok\"` when connected, and an error description otherwise.",
+      "description": "Returns `\"ok\"` when connected, empty `\"\"` when disconnected, and an error description otherwise.",
       "fields": [
         {
           "name": "_",
@@ -519,25 +139,10 @@
       "packFormat": "s"
     },
     {
-      "kind": "rw",
-      "name": "connection_string",
-      "identifier": 128,
-      "description": "Connection string typically looks something like \n`HostName=my-iot-hub.azure-devices.net;DeviceId=my-dev-007;SharedAccessKey=xyz+base64key`.\nYou can get it in `Shared access policies -> iothubowner -> Connection string-primary key` in the Azure Portal.\nThis register is write-only.\nYou can use `hub_name` and `device_id` to check if connection string is set, but you cannot get the shared access key.",
-      "fields": [
-        {
-          "name": "_",
-          "unit": "",
-          "type": "string",
-          "storage": 0
-        }
-      ],
-      "packFormat": "s"
-    },
-    {
-      "kind": "ro",
+      "kind": "const",
       "name": "hub_name",
       "identifier": 385,
-      "description": "Something like `my-iot-hub.azure-devices.net`; empty string when `connection_string` is not set.",
+      "description": "Something like `my-iot-hub.azure-devices.net`; empty string when not properly configured",
       "fields": [
         {
           "name": "_",
@@ -549,7 +154,7 @@
       "packFormat": "s"
     },
     {
-      "kind": "ro",
+      "kind": "const",
       "name": "device_id",
       "identifier": 386,
       "description": "Something like `my-dev-007`; empty string when `connection_string` is not set.",
@@ -565,53 +170,27 @@
     },
     {
       "kind": "event",
-      "name": "connected",
-      "identifier": 128,
-      "description": "Emitted upon successful connection.",
-      "fields": []
+      "name": "change",
+      "identifier": 3,
+      "description": "Raised when the connection status changes.",
+      "fields": [],
+      "identifierName": "change"
     },
     {
       "kind": "event",
-      "name": "connection_error",
-      "identifier": 129,
-      "description": "Emitted when connection was lost.",
+      "name": "message",
+      "identifier": 130,
+      "description": "This event is emitted upon reception of a cloud to device message, that is a string\n(doesn't contain NUL bytes) and fits in a single event packet.",
       "fields": [
         {
-          "name": "reason",
+          "name": "body",
           "unit": "",
           "type": "string",
           "storage": 0
         }
       ],
+      "lowLevel": true,
       "packFormat": "s"
-    },
-    {
-      "kind": "event",
-      "name": "devicebound_str",
-      "identifier": 130,
-      "description": "This event is emitted upon reception of a cloud to device message, that is a string\n(doesn't contain NUL bytes) and fits in a single event packet.\nFor reliable reception, use the `subscribe` command above.",
-      "fields": [
-        {
-          "name": "msg",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        },
-        {
-          "name": "property_name",
-          "unit": "",
-          "type": "string0",
-          "storage": 0,
-          "startRepeats": true
-        },
-        {
-          "name": "property_value",
-          "unit": "",
-          "type": "string0",
-          "storage": 0
-        }
-      ],
-      "packFormat": "z r: z z"
     }
   ],
   "tags": [],

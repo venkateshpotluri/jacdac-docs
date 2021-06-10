@@ -894,6 +894,70 @@ var ArcadeSoundReg;
      */
     ArcadeSoundReg[ArcadeSoundReg["BufferPending"] = 385] = "BufferPending";
 })(ArcadeSoundReg || (ArcadeSoundReg = {}));
+var AzureIotHubCmd;
+(function (AzureIotHubCmd) {
+    /**
+     * No args. Try connecting using currently set `connection_string`.
+     * The service normally periodically tries to connect automatically.
+     */
+    AzureIotHubCmd[AzureIotHubCmd["Connect"] = 128] = "Connect";
+    /**
+     * No args. Disconnect from current Hub if any.
+     * This disables auto-connect behavior, until a `connect` command is issued.
+     */
+    AzureIotHubCmd[AzureIotHubCmd["Disconnect"] = 129] = "Disconnect";
+    /**
+     * Argument: body string (bytes). Sends a short message in string format (it's typically JSON-encoded).
+     *
+     * ```
+     * const [body] = jdunpack<[string]>(buf, "s")
+     * ```
+     */
+    AzureIotHubCmd[AzureIotHubCmd["SendMessage"] = 130] = "SendMessage";
+})(AzureIotHubCmd || (AzureIotHubCmd = {}));
+var AzureIotHubReg;
+(function (AzureIotHubReg) {
+    /**
+     * Read-only string (bytes). Returns `"ok"` when connected, empty `""` when disconnected, and an error description otherwise.
+     *
+     * ```
+     * const [connectionStatus] = jdunpack<[string]>(buf, "s")
+     * ```
+     */
+    AzureIotHubReg[AzureIotHubReg["ConnectionStatus"] = 384] = "ConnectionStatus";
+    /**
+     * Constant string (bytes). Something like `my-iot-hub.azure-devices.net`; empty string when not properly configured
+     *
+     * ```
+     * const [hubName] = jdunpack<[string]>(buf, "s")
+     * ```
+     */
+    AzureIotHubReg[AzureIotHubReg["HubName"] = 385] = "HubName";
+    /**
+     * Constant string (bytes). Something like `my-dev-007`; empty string when `connection_string` is not set.
+     *
+     * ```
+     * const [deviceId] = jdunpack<[string]>(buf, "s")
+     * ```
+     */
+    AzureIotHubReg[AzureIotHubReg["DeviceId"] = 386] = "DeviceId";
+})(AzureIotHubReg || (AzureIotHubReg = {}));
+var AzureIotHubEvent;
+(function (AzureIotHubEvent) {
+    /**
+     * Raised when the connection status changes.
+     */
+    AzureIotHubEvent[AzureIotHubEvent["Change"] = 3] = "Change";
+    /**
+     * Argument: body string (bytes). This event is emitted upon reception of a cloud to device message, that is a string
+     * (doesn't contain NUL bytes) and fits in a single event packet.
+     *
+     * ```
+     * const [body] = jdunpack<[string]>(buf, "s")
+     * ```
+     */
+    AzureIotHubEvent[AzureIotHubEvent["Message"] = 130] = "Message";
+})(AzureIotHubEvent || (AzureIotHubEvent = {}));
 var BarcodeReaderFormat;
 (function (BarcodeReaderFormat) {
     BarcodeReaderFormat[BarcodeReaderFormat["Aztec"] = 1] = "Aztec";
@@ -1909,239 +1973,6 @@ var IndexedScreenReg;
      */
     IndexedScreenReg[IndexedScreenReg["Rotation"] = 131] = "Rotation";
 })(IndexedScreenReg || (IndexedScreenReg = {}));
-var IotHubCmd;
-(function (IotHubCmd) {
-    /**
-     * No args. Try connecting using currently set `connection_string`.
-     * The service normally preiodically tries to connect automatically.
-     */
-    IotHubCmd[IotHubCmd["Connect"] = 128] = "Connect";
-    /**
-     * No args. Disconnect from current Hub if any.
-     * This disables auto-connect behavior, until a `connect` command is issued.
-     */
-    IotHubCmd[IotHubCmd["Disconnect"] = 129] = "Disconnect";
-    /**
-     * Sends a short message in string format (it's typically JSON-encoded). Multiple properties can be attached.
-     *
-     * ```
-     * const [msg, rest] = jdunpack<[string, ([string, string])[]]>(buf, "z r: z z")
-     * const [propertyName, propertyValue] = rest[0]
-     * ```
-     */
-    IotHubCmd[IotHubCmd["SendStringMsg"] = 130] = "SendStringMsg";
-    /**
-     * No args. Sends an arbitrary, possibly binary, message. The size is only limited by RAM on the module.
-     */
-    IotHubCmd[IotHubCmd["SendMsgExt"] = 131] = "SendMsgExt";
-    /**
-     * report SendMsgExt
-     * ```
-     * const [message] = jdunpack<[number]>(buf, "u16")
-     * ```
-     */
-    /**
-     * Argument: devicebound pipe (bytes). Subscribes for cloud to device messages, which will be sent over the specified pipe.
-     *
-     * ```
-     * const [devicebound] = jdunpack<[Uint8Array]>(buf, "b[12]")
-     * ```
-     */
-    IotHubCmd[IotHubCmd["Subscribe"] = 132] = "Subscribe";
-    /**
-     * Argument: twin_result pipe (bytes). Ask for current device digital twin.
-     *
-     * ```
-     * const [twinResult] = jdunpack<[Uint8Array]>(buf, "b[12]")
-     * ```
-     */
-    IotHubCmd[IotHubCmd["GetTwin"] = 133] = "GetTwin";
-    /**
-     * Argument: twin_updates pipe (bytes). Subscribe to updates to our twin.
-     *
-     * ```
-     * const [twinUpdates] = jdunpack<[Uint8Array]>(buf, "b[12]")
-     * ```
-     */
-    IotHubCmd[IotHubCmd["SubscribeTwin"] = 135] = "SubscribeTwin";
-    /**
-     * No args. Start twin update.
-     */
-    IotHubCmd[IotHubCmd["PatchTwin"] = 134] = "PatchTwin";
-    /**
-     * report PatchTwin
-     * ```
-     * const [patchPort] = jdunpack<[number]>(buf, "u16")
-     * ```
-     */
-    /**
-     * Argument: method_call pipe (bytes). Subscribe to direct method calls.
-     *
-     * ```
-     * const [methodCall] = jdunpack<[Uint8Array]>(buf, "b[12]")
-     * ```
-     */
-    IotHubCmd[IotHubCmd["SubscribeMethod"] = 136] = "SubscribeMethod";
-    /**
-     * Respond to a direct method call (`request_id` comes from `subscribe_method` pipe).
-     *
-     * ```
-     * const [status, requestId] = jdunpack<[number, string]>(buf, "u32 z")
-     * ```
-     */
-    IotHubCmd[IotHubCmd["RespondToMethod"] = 137] = "RespondToMethod";
-    /**
-     * report RespondToMethod
-     * ```
-     * const [responseBody] = jdunpack<[number]>(buf, "u16")
-     * ```
-     */
-})(IotHubCmd || (IotHubCmd = {}));
-/**
- * pipe_command Message
- * ```
- * const [body] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-/**
- * pipe_report Devicebound
- * ```
- * const [body] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-/**
- * pipe_report TwinJson
- * ```
- * const [json] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-/**
- * pipe_report TwinUpdateJson
- * ```
- * const [json] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-/**
- * pipe_command TwinPatchJson
- * ```
- * const [json] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-/**
- * pipe_report MethodCallBody
- * ```
- * const [json] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-/**
- * pipe_command MethodResponse
- * ```
- * const [json] = jdunpack<[Uint8Array]>(buf, "b")
- * ```
- */
-var IotHubPipeCmd;
-(function (IotHubPipeCmd) {
-    /**
-     * Set properties on the message. Can be repeated multiple times.
-     *
-     * ```
-     * const [rest] = jdunpack<[([string, string])[]]>(buf, "r: z z")
-     * const [propertyName, propertyValue] = rest[0]
-     * ```
-     */
-    IotHubPipeCmd[IotHubPipeCmd["Properties"] = 1] = "Properties";
-    /**
-     * If there are any properties, this meta-report is send one or more times.
-     * All properties of a given message are always sent before the body.
-     *
-     * ```
-     * const [rest] = jdunpack<[([string, string])[]]>(buf, "r: z z")
-     * const [propertyName, propertyValue] = rest[0]
-     * ```
-     */
-    IotHubPipeCmd[IotHubPipeCmd["DeviceboundProperties"] = 1] = "DeviceboundProperties";
-    /**
-     * Argument: status_code uint32_t. This emitted if status is not 200.
-     *
-     * ```
-     * const [statusCode] = jdunpack<[number]>(buf, "u32")
-     * ```
-     */
-    IotHubPipeCmd[IotHubPipeCmd["TwinError"] = 1] = "TwinError";
-    /**
-     * This is sent after the last part of the `method_call_body`.
-     *
-     * ```
-     * const [methodName, requestId] = jdunpack<[string, string]>(buf, "z z")
-     * ```
-     */
-    IotHubPipeCmd[IotHubPipeCmd["MethodCall"] = 1] = "MethodCall";
-})(IotHubPipeCmd || (IotHubPipeCmd = {}));
-var IotHubReg;
-(function (IotHubReg) {
-    /**
-     * Read-only string (bytes). Returns `"ok"` when connected, and an error description otherwise.
-     *
-     * ```
-     * const [connectionStatus] = jdunpack<[string]>(buf, "s")
-     * ```
-     */
-    IotHubReg[IotHubReg["ConnectionStatus"] = 384] = "ConnectionStatus";
-    /**
-     * Read-write string (bytes). Connection string typically looks something like
-     * `HostName=my-iot-hub.azure-devices.net;DeviceId=my-dev-007;SharedAccessKey=xyz+base64key`.
-     * You can get it in `Shared access policies -> iothubowner -> Connection string-primary key` in the Azure Portal.
-     * This register is write-only.
-     * You can use `hub_name` and `device_id` to check if connection string is set, but you cannot get the shared access key.
-     *
-     * ```
-     * const [connectionString] = jdunpack<[string]>(buf, "s")
-     * ```
-     */
-    IotHubReg[IotHubReg["ConnectionString"] = 128] = "ConnectionString";
-    /**
-     * Read-only string (bytes). Something like `my-iot-hub.azure-devices.net`; empty string when `connection_string` is not set.
-     *
-     * ```
-     * const [hubName] = jdunpack<[string]>(buf, "s")
-     * ```
-     */
-    IotHubReg[IotHubReg["HubName"] = 385] = "HubName";
-    /**
-     * Read-only string (bytes). Something like `my-dev-007`; empty string when `connection_string` is not set.
-     *
-     * ```
-     * const [deviceId] = jdunpack<[string]>(buf, "s")
-     * ```
-     */
-    IotHubReg[IotHubReg["DeviceId"] = 386] = "DeviceId";
-})(IotHubReg || (IotHubReg = {}));
-var IotHubEvent;
-(function (IotHubEvent) {
-    /**
-     * Emitted upon successful connection.
-     */
-    IotHubEvent[IotHubEvent["Connected"] = 128] = "Connected";
-    /**
-     * Argument: reason string (bytes). Emitted when connection was lost.
-     *
-     * ```
-     * const [reason] = jdunpack<[string]>(buf, "s")
-     * ```
-     */
-    IotHubEvent[IotHubEvent["ConnectionError"] = 129] = "ConnectionError";
-    /**
-     * This event is emitted upon reception of a cloud to device message, that is a string
-     * (doesn't contain NUL bytes) and fits in a single event packet.
-     * For reliable reception, use the `subscribe` command above.
-     *
-     * ```
-     * const [msg, rest] = jdunpack<[string, ([string, string])[]]>(buf, "z r: z z")
-     * const [propertyName, propertyValue] = rest[0]
-     * ```
-     */
-    IotHubEvent[IotHubEvent["DeviceboundStr"] = 130] = "DeviceboundStr";
-})(IotHubEvent || (IotHubEvent = {}));
 var JoystickButtons;
 (function (JoystickButtons) {
     JoystickButtons[JoystickButtons["Left"] = 1] = "Left";
