@@ -4811,8 +4811,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
           },
           speed: {
             kind: "block",
-            type: "jacdac_ratio",
-            shadow: true
+            type: "jacdac_ratio"
           }
         },
         colour: serviceColor(service),
@@ -5098,14 +5097,21 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     });
     this._serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
     var eventFieldGroups = [{
-      output: "Number",
+      output: toolbox/* NUMBER_TYPE */.sS,
       filter: jdspec/* isNumericType */.FV
     }, {
-      output: "Boolean",
+      output: toolbox/* BOOLEAN_TYPE */.lu,
       filter: isBooleanField
     }, {
-      output: "String",
-      filter: isStringField
+      output: toolbox/* STRING_TYPE */.jt,
+      filter: function filter(f) {
+        return isStringField(f) && f.encoding !== "JSON";
+      }
+    }, {
+      output: toolbox/* JSON_TYPE */.oj,
+      filter: function filter(f) {
+        return isStringField(f) && f.encoding === "JSON";
+      }
     }]; // generate accessor blocks for event data with numbers
 
     this._eventFieldBlocks = (0,utils/* arrayConcatMany */.ue)((0,utils/* arrayConcatMany */.ue)(eventFieldGroups.map(function (_ref17) {
@@ -5986,9 +5992,11 @@ var fieldsdsl = __webpack_require__(76658);
 var BlockEditor = __webpack_require__(85105);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/jsondsl.ts
 
+
 var jsondsl_colour = "#654321";
 var JSON_FIELD_TYPE = "JSONField";
 var JSON_OBJECT_BLOCK = "json_object";
+var JSON_FIELD_SET = "json_field_set";
 var jsonDSL = {
   id: "json",
   createBlocks: function createBlocks() {
@@ -6007,7 +6015,7 @@ var jsonDSL = {
       colour: jsondsl_colour
     }, {
       kind: "block",
-      type: "json_field",
+      type: JSON_FIELD_SET,
       message0: "%1: %2",
       args0: [{
         type: "field_input",
@@ -6016,16 +6024,27 @@ var jsonDSL = {
         type: "input_value",
         name: "value"
       }],
-      values: {
-        value: {
-          kind: "block",
-          type: "math_number"
-        }
-      },
       previousStatement: JSON_FIELD_TYPE,
       nextStatement: JSON_FIELD_TYPE,
       colour: jsondsl_colour
-    }];
+    }].concat((0,toConsumableArray/* default */.Z)(toolbox/* PRIMITIVE_TYPES.map */.eg.map(function (output) {
+      return {
+        kind: "block",
+        type: "json_field_get_as_" + output.toLowerCase(),
+        message0: "%1 [ %2 ] as " + output.toLowerCase(),
+        args0: [{
+          type: "input_value",
+          name: "value",
+          check: toolbox/* JSON_TYPE */.oj
+        }, {
+          type: "field_input",
+          name: "name"
+        }],
+        output: output,
+        colour: jsondsl_colour,
+        template: "jsonFieldGet"
+      };
+    })));
   },
   createCategory: function createCategory() {
     return [{
@@ -6037,8 +6056,26 @@ var jsonDSL = {
         type: JSON_OBJECT_BLOCK
       }, {
         kind: "block",
-        type: "json_field"
-      }]
+        type: JSON_FIELD_SET,
+        values: {
+          value: {
+            kind: "block",
+            type: "math_number"
+          }
+        }
+      }].concat((0,toConsumableArray/* default */.Z)(toolbox/* PRIMITIVE_TYPES.map */.eg.map(function (output) {
+        return {
+          kind: "block",
+          type: "json_field_get_as_" + output.toLowerCase(),
+          values: {
+            value: {
+              kind: "block",
+              type: "variables_get",
+              check: toolbox/* JSON_TYPE */.oj
+            }
+          }
+        };
+      })))
     }];
   }
 };
@@ -6149,4 +6186,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-ee14d1d7dade2b89577a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f4998987d6710066d56e.js.map

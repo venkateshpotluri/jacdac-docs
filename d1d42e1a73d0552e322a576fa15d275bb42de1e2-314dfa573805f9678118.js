@@ -7109,7 +7109,8 @@ function patchCategoryJSONtoXML(cat) {
     // yup, this suck but we have to go through it
     block.blockxml = "<block type=\"" + block.type + "\">" + Object.keys(block.values).map(function (name) {
       var type = block.values[name].type;
-      return "<value name=\"" + name + "\"><shadow type=\"" + type + "\" /></value>";
+      var shadow = type !== "variables_get";
+      return "<value name=\"" + name + "\"><" + (shadow ? "shadow" : "field") + " type=\"" + type + "\" /></value>";
     }).join("\n") + "</block>";
     delete block.type;
   });
@@ -9815,10 +9816,10 @@ function fieldShadows() {
 /* harmony export */   "jt": function() { return /* binding */ STRING_TYPE; },
 /* harmony export */   "lu": function() { return /* binding */ BOOLEAN_TYPE; },
 /* harmony export */   "sS": function() { return /* binding */ NUMBER_TYPE; },
+/* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
 /* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
 /* harmony export */ });
-/* unused harmony export PRIMITIVE_TYPES */
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -10057,4 +10058,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-b902273cc1ea4afab3f0.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-314dfa573805f9678118.js.map
