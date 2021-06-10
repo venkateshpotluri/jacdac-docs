@@ -8067,6 +8067,7 @@ var shadowDsl = {
 "use strict";
 var variablesDsl = {
   id: "variables",
+  types: ["variables_get", "variables_set"],
   createCategory: function createCategory() {
     return [{
       kind: "category",
@@ -8081,7 +8082,9 @@ var variablesDsl = {
         blockToExpressionInner = _ref.blockToExpressionInner;
     var type = block.type;
 
-    if (type === "variables_get") {// TODO compile variables_get
+    if (type === "variables_get") {
+      // TODO compile variables_get
+      console.log("todo variables_get");
     }
 
     return undefined;
@@ -8093,7 +8096,9 @@ var variablesDsl = {
         blockToExpression = _ref2.blockToExpression;
     var type = block.type;
 
-    if (type === "variables_set") {// TODO
+    if (type === "variables_set") {
+      // TODO
+      console.log("todo variables_get");
     }
 
     return undefined;
@@ -10081,4 +10086,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-2c6586aa62ed65642f9a.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-48966d71cd1737509769.js.map

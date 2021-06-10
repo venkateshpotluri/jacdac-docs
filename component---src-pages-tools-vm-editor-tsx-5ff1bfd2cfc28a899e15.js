@@ -4094,7 +4094,6 @@ var ServoAngleField = __webpack_require__(891);
 
 
 
-
 var makeVMBase = function makeVMBase(block, command) {
   return {
     sourceId: block.id,
@@ -4116,6 +4115,23 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     dsls: dsls
   });
   if (!workspace) return undefined;
+
+  var resolveDsl = function resolveDsl(type) {
+    var dsl = dsls.find(function (dsl) {
+      var _dsl$types;
+
+      return ((_dsl$types = dsl.types) === null || _dsl$types === void 0 ? void 0 : _dsl$types.indexOf(type)) > -1;
+    });
+    if (dsl) return dsl;
+
+    var _resolveServiceBlockD = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type),
+        dslName = _resolveServiceBlockD.dsl;
+
+    return dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
+      return dsl.id === dslName;
+    });
+  };
+
   var roles = workspace.variables.filter(function (v) {
     return toolbox/* BUILTIN_TYPES.indexOf */.Nd.indexOf(v.type) < 0;
   }).map(function (v) {
@@ -4159,23 +4175,24 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           value: value,
           raw: value + ""
         };
-      var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+      var dsl = resolveDsl(type);
 
-      if (!definition) {
+      if (!dsl) {
         console.warn("unknown block " + type, {
           type: type,
           ev: ev,
           block: block,
           d: (blockly_default()).Blocks[type]
         });
+        errors.push({
+          sourceId: block.id,
+          message: "unknown block " + type
+        });
       } else {
         var _dsl$compileExpressio;
 
-        var dslName = definition.dsl;
-        var dsl = dsls.find(function (d) {
-          return d.id === dslName;
-        });
-        var res = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
+        var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+        var res = (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
           event: ev,
           definition: definition,
           block: block,
@@ -4295,16 +4312,13 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
       default:
         {
-          var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+          var dsl = resolveDsl(type);
 
-          if (definition) {
+          if (dsl) {
             var _dsl$compileCommandTo;
 
-            var dslName = definition.dsl;
-            var dsl = dsls.find(function (dsl) {
-              return dsl.id === dslName;
-            });
-            var dslRes = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileCommandTo = dsl.compileCommandToVM) === null || _dsl$compileCommandTo === void 0 ? void 0 : _dsl$compileCommandTo.call(dsl, {
+            var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
+            var dslRes = (_dsl$compileCommandTo = dsl.compileCommandToVM) === null || _dsl$compileCommandTo === void 0 ? void 0 : _dsl$compileCommandTo.call(dsl, {
               event: event,
               block: block,
               definition: definition,
@@ -4372,16 +4386,12 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     var topEvent;
     var topErrors;
     var topMeta = false;
-    var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-    (0,utils/* assert */.hu)(!!definition);
-    var template = definition.template,
-        dslName = definition.dsl;
-    var dsl = dslName && (dsls === null || dsls === void 0 ? void 0 : dsls.find(function (d) {
-      return d.id === dslName;
-    }));
 
     try {
       var _dsl$compileEventToVM, _topErrors;
+
+      var dsl = resolveDsl(type);
+      var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
 
       var _ref = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
         block: top,
@@ -4397,6 +4407,9 @@ function workspaceJSONToVMProgram(workspace, dsls) {
       topErrors = errors;
       topEvent = event;
       topMeta = meta; // if dsl didn't compile anything try again
+
+      var _ref2 = definition || {},
+          template = _ref2.template;
 
       if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
         switch (template) {
@@ -6246,4 +6259,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-111b152306f8910efea3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5ff1bfd2cfc28a899e15.js.map
