@@ -9810,8 +9810,8 @@ function fieldShadows() {
 /* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
 /* harmony export */   "w8": function() { return /* binding */ ON_START_BLOCK; },
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
-/* harmony export */   "CW": function() { return /* binding */ CONNECTION_BLOCK; },
-/* harmony export */   "rF": function() { return /* binding */ CONNECTED_BLOCK; },
+/* harmony export */   "C8": function() { return /* binding */ ROLE_BOUND_EVENT_BLOCK; },
+/* harmony export */   "Y1": function() { return /* binding */ ROLE_BOUND_BLOCK; },
 /* harmony export */   "oj": function() { return /* binding */ JSON_TYPE; },
 /* harmony export */   "jt": function() { return /* binding */ STRING_TYPE; },
 /* harmony export */   "lu": function() { return /* binding */ BOOLEAN_TYPE; },
@@ -9835,8 +9835,8 @@ var INSPECT_BLOCK = "jacdac_inspect";
 var WATCH_BLOCK = "jacdac_watch";
 var ON_START_BLOCK = "jacdac_start";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
-var CONNECTION_BLOCK = "jacdac_connection";
-var CONNECTED_BLOCK = "jacdac_connected";
+var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
+var ROLE_BOUND_BLOCK = "jacdac_role_bound";
 var JSON_TYPE = "JSON";
 var STRING_TYPE = "String";
 var BOOLEAN_TYPE = "Boolean";
@@ -10058,4 +10058,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-314dfa573805f9678118.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-1f2f61c3f46425b463f9.js.map

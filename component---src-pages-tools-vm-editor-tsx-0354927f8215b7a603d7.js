@@ -4569,7 +4569,7 @@ function isStringField(field) {
 }
 
 function toBlocklyType(field) {
-  return isBooleanField(field) ? toolbox/* BOOLEAN_TYPE */.lu : isStringField(field) ? field.encoding === "JSON" ? toolbox/* JSON_TYPE */.oj : toolbox/* STRING_TYPE */.jt : (0,jdspec/* isNumericType */.FV)(field) ? toolbox/* NUMBER_TYPE */.sS : undefined;
+  return field.encoding === "JSON" ? toolbox/* JSON_TYPE */.oj : isBooleanField(field) ? toolbox/* BOOLEAN_TYPE */.lu : isStringField(field) ? toolbox/* STRING_TYPE */.jt : (0,jdspec/* isNumericType */.FV)(field) ? toolbox/* NUMBER_TYPE */.sS : undefined;
 }
 
 function enumInfo(srv, field) {
@@ -5155,7 +5155,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     })));
     this._runtimeBlocks = [{
       kind: "block",
-      type: toolbox/* CONNECTION_BLOCK */.CW,
+      type: toolbox/* ROLE_BOUND_EVENT_BLOCK */.C8,
       message0: "on %1 %2",
       args0: [{
         type: "field_variable",
@@ -5168,18 +5168,18 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       }, {
         type: "field_dropdown",
         name: "event",
-        options: [["connected", "connected"], ["disconnected", "disconnected"]]
+        options: [["bound", "bound"], ["unbound", "unbound"]]
       }],
       inputsInline: true,
       nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       colour: commandColor,
       tooltip: "Runs code when a role is connected or disconnected",
       helpUrl: "",
-      template: "connection"
+      template: "role_binding_event"
     }, {
       kind: "block",
-      type: toolbox/* CONNECTED_BLOCK */.rF,
-      message0: "%1 connected",
+      type: toolbox/* ROLE_BOUND_BLOCK */.Y1,
+      message0: "%1 bound",
       args0: [{
         type: "field_variable",
         name: "role",
@@ -5194,7 +5194,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       colour: commandColor,
       tooltip: "Runs code when a role is connected or disconnected",
       helpUrl: "",
-      template: "connected"
+      template: "role_bound"
     }, {
       kind: "block",
       type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
@@ -5329,14 +5329,14 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     });
     var commonCategory = {
       kind: "category",
-      name: "Services",
+      name: "Roles",
       colour: commandColor,
       contents: [{
         kind: "block",
-        type: toolbox/* CONNECTION_BLOCK */.CW
+        type: toolbox/* ROLE_BOUND_EVENT_BLOCK */.C8
       }, {
         kind: "block",
-        type: toolbox/* CONNECTED_BLOCK */.rF
+        type: toolbox/* ROLE_BOUND_BLOCK */.Y1
       }, {
         kind: "block",
         type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
@@ -5348,9 +5348,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         }
       }]
     };
-    return [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [commonCategory, {
-      kind: "sep"
-    }]);
+    return [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [commonCategory]);
   };
 
   _proto.compileEventToVM = function compileEventToVM(options) {
@@ -6188,4 +6186,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-be8cfc18f969cedbbbcd.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-0354927f8215b7a603d7.js.map
