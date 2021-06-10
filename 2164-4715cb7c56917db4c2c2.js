@@ -572,6 +572,7 @@ function DashboardAzureIoTHub(props) {
   var service = props.service;
   var connectId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__/* .useId */ .Me)();
   var cdMessageId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__/* .useId */ .Me)();
+  var cdMessageCounter = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(0);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(JSON.stringify({
     message: "hello from the cloud"
@@ -618,6 +619,7 @@ function DashboardAzureIoTHub(props) {
       setCDMessages(function (prevMsgs) {
         var newMsgs = prevMsgs.slice(0, HORIZON - 1);
         newMsgs.unshift({
+          counter: cdMessageCounter.current++,
           timestamp: timestamp,
           body: body
         });
@@ -840,4 +842,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2164-ee8dca4657fb7fb5cc55.js.map
+//# sourceMappingURL=2164-4715cb7c56917db4c2c2.js.map
