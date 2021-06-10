@@ -4407,7 +4407,11 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
           default:
             {
-              console.warn("unsupported handler template " + template + " for " + type, {
+              topErrors = [{
+                sourceId: top.id,
+                message: "unsupported block " + type
+              }];
+              console.debug("unsupported handler template " + template + " for " + type, {
                 top: top
               });
               break;
@@ -6242,4 +6246,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-1f215505df5d02afa936.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5da7fd310af7d0acb774.js.map
