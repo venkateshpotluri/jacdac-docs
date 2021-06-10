@@ -4104,11 +4104,7 @@ var ops = {
   GT: ">",
   LTE: "<=",
   GTE: ">=",
-  NEG: "-",
-  ADD: "+",
-  MULTIPLY: "*",
-  DIVIDE: "/",
-  MINUS: "-"
+  NEG: "-"
 };
 var makeVMBase = function makeVMBase(block, command) {
   return {
@@ -4176,59 +4172,26 @@ function workspaceJSONToVMProgram(workspace, dsls) {
         };
 
       switch (type) {
-        case "math_single": // built-in blockly
-
-        case "jacdac_math_single":
-          {
-            var argument = blockToExpressionInner(ev, inputs[0].child);
-            var op = inputs[0].fields["op"].value;
-            return {
-              type: "UnaryExpression",
-              operator: ops[op] || op,
-              argument: argument,
-              prefix: false // TODO:?
-
-            };
-          }
-
-        case "math_arithmetic": // built-in blockly
-
-        case "jacdac_math_arithmetic":
+        case "logic_operation":
           {
             var left = blockToExpressionInner(ev, inputs[0].child);
             var right = blockToExpressionInner(ev, inputs[1].child);
-            var _op = inputs[1].fields["op"].value;
+            var op = inputs[1].fields["op"].value;
             return {
-              type: "BinaryExpression",
-              operator: ops[_op] || _op,
+              type: "LogicalExpression",
+              operator: ops[op] || op,
               left: left,
               right: right
             };
           }
 
-        case "logic_operation":
-          {
-            var _left = blockToExpressionInner(ev, inputs[0].child);
-
-            var _right = blockToExpressionInner(ev, inputs[1].child);
-
-            var _op2 = inputs[1].fields["op"].value;
-            return {
-              type: "LogicalExpression",
-              operator: ops[_op2] || _op2,
-              left: _left,
-              right: _right
-            };
-          }
-
         case "logic_negate":
           {
-            var _argument = blockToExpressionInner(ev, inputs[0].child);
-
+            var argument = blockToExpressionInner(ev, inputs[0].child);
             return {
               type: "UnaryExpression",
               operator: "!",
-              argument: _argument,
+              argument: argument,
               prefix: false // TODO:?
 
             };
@@ -4236,16 +4199,16 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
         case "logic_compare":
           {
-            var _left2 = blockToExpressionInner(ev, inputs[0].child);
+            var _left = blockToExpressionInner(ev, inputs[0].child);
 
-            var _right2 = blockToExpressionInner(ev, inputs[1].child);
+            var _right = blockToExpressionInner(ev, inputs[1].child);
 
-            var _op3 = inputs[1].fields["op"].value;
+            var _op = inputs[1].fields["op"].value;
             return {
               type: "BinaryExpression",
-              operator: ops[_op3] || _op3,
-              left: _left2,
-              right: _right2
+              operator: ops[_op] || _op,
+              left: _left,
+              right: _right
             };
           }
 
@@ -5823,6 +5786,13 @@ var logicDsl = {
 };
 /* harmony default export */ var logicdsl = (logicDsl);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/mathdsl.ts
+var mathdsl_ops = {
+  NEG: "-",
+  ADD: "+",
+  MULTIPLY: "*",
+  DIVIDE: "/",
+  MINUS: "-"
+};
 var mathDSL = {
   id: "jacdacmath",
   createBlocks: function createBlocks() {
@@ -5977,6 +5947,53 @@ var mathDSL = {
         type: "math_number"
       }]
     }];
+  },
+  compileExpressionToVM: function compileExpressionToVM(_ref) {
+    var event = _ref.event,
+        block = _ref.block,
+        blockToExpressionInner = _ref.blockToExpressionInner;
+    var type = block.type,
+        inputs = block.inputs;
+
+    switch (type) {
+      case "math_single": // built-in blockly
+
+      case "jacdac_math_single":
+        {
+          var argument = blockToExpressionInner(event, inputs[0].child);
+          var op = inputs[0].fields["op"].value;
+          return {
+            expr: {
+              type: "UnaryExpression",
+              operator: mathdsl_ops[op] || op,
+              argument: argument,
+              prefix: false // TODO:?
+
+            },
+            errors: []
+          };
+        }
+
+      case "math_arithmetic": // built-in blockly
+
+      case "jacdac_math_arithmetic":
+        {
+          var left = blockToExpressionInner(event, inputs[0].child);
+          var right = blockToExpressionInner(event, inputs[1].child);
+          var _op = inputs[1].fields["op"].value;
+          return {
+            expr: {
+              type: "BinaryExpression",
+              operator: mathdsl_ops[_op] || _op,
+              left: left,
+              right: right
+            },
+            errors: []
+          };
+        }
+    }
+
+    return undefined;
   }
 };
 /* harmony default export */ var mathdsl = (mathDSL);
@@ -6211,4 +6228,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f4b667bb7821b15ec7a8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-08b67b0cd2acb419f20b.js.map
