@@ -5908,9 +5908,9 @@ function domToJSON(workspace, dsls) {
     if (flags/* default.diagnostics */.Z.diagnostics) j["xml"] = xml.outerHTML; // dump attributes
 
     for (var _iterator = jsongenerator_createForOfIteratorHelperLoose(xml.getAttributeNames()), _step; !(_step = _iterator()).done;) {
-      var _name = _step.value;
-      var v = xml.getAttribute(_name);
-      j[_name.toLowerCase()] = v;
+      var name = _step.value;
+      var v = xml.getAttribute(name);
+      j[name.toLowerCase()] = v;
     }
 
     for (var _iterator2 = jsongenerator_createForOfIteratorHelperLoose(xml.childNodes), _step2; !(_step2 = _iterator2()).done;) {
@@ -6034,43 +6034,6 @@ function domToJSON(workspace, dsls) {
     console.error(e);
     return undefined;
   }
-}
-function visitBlock(block, visitor) {
-  var _visitor$visitBlock;
-
-  if (!block) return;
-  (_visitor$visitBlock = visitor.visitBlock) === null || _visitor$visitBlock === void 0 ? void 0 : _visitor$visitBlock.call(visitor, block);
-  var inputs = block.inputs,
-      children = block.children;
-  inputs === null || inputs === void 0 ? void 0 : inputs.forEach(function (input) {
-    return visitInput(input, visitor);
-  });
-  children === null || children === void 0 ? void 0 : children.forEach(function (child) {
-    return visitBlock(child, visitor);
-  });
-}
-function visitInput(input, visitor) {
-  var _visitor$visitInput;
-
-  if (!input) return;
-  (_visitor$visitInput = visitor.visitInput) === null || _visitor$visitInput === void 0 ? void 0 : _visitor$visitInput.call(visitor, input);
-  var fields = input.fields,
-      child = input.child;
-  if (fields) Object.keys(fields).map(function (k) {
-    return visitField(k, fields[k], visitor);
-  });
-  visitBlock(child, visitor);
-}
-function visitField(name, field, visitor) {
-  var _visitor$visitField;
-
-  if (!field) return;
-  (_visitor$visitField = visitor.visitField) === null || _visitor$visitField === void 0 ? void 0 : _visitor$visitField.call(visitor, name, field);
-}
-function visitWorkspace(workspace, visitor) {
-  workspace.blocks.forEach(function (block) {
-    return visitBlock(block, visitor);
-  });
 }
 ;// CONCATENATED MODULE: ./src/components/blockly/useBlocklyEvents.ts
 
@@ -10084,4 +10047,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-40d7c44df164d3aca9b4.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-d8e005db919d65ab723f.js.map

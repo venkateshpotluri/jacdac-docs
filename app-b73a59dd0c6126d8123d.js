@@ -69598,7 +69598,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ee6fb703491449461b9247dc776b0fe3e41c9eae";
+  var sha = "062e797befb8f63bd56393a9274de2f31b0c647c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81005,7 +81005,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(5018), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
   },
   "component---src-pages-tools-data-science-editor-tsx": function componentSrcPagesToolsDataScienceEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(5917), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 24116));
+    return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(5917), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 29870));
   },
   "component---src-pages-tools-device-registration-tsx": function componentSrcPagesToolsDeviceRegistrationTsx() {
     return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(5018), __webpack_require__.e(7788), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));
@@ -86666,4 +86666,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-079b42baba3f2abd024f.js.map
+//# sourceMappingURL=app-b73a59dd0c6126d8123d.js.map

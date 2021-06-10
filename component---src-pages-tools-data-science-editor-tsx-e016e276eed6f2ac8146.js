@@ -23,7 +23,7 @@ var VMCode;
 
 /***/ }),
 
-/***/ 24116:
+/***/ 29870:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59,6 +59,14 @@ var DataScienceBlockDomainSpecificLanguage = /*#__PURE__*/function () {
   _proto.createBlocks = function createBlocks() {
     var blocks = [{
       kind: "block",
+      type: "ds_some_event",
+      message0: "some event",
+      args0: [],
+      inputsInline: true,
+      nextStatement: null,
+      colour: colour
+    }, {
+      kind: "block",
       type: "ds_some_block",
       message0: "some block data",
       args0: [],
@@ -76,6 +84,9 @@ var DataScienceBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       colour: colour,
       contents: [{
         kind: "block",
+        type: "ds_some_event"
+      }, {
+        kind: "block",
         type: "ds_some_block"
       }]
     }];
@@ -91,6 +102,44 @@ var fieldsdsl = __webpack_require__(76658);
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
 var BlockDiagnostics = __webpack_require__(9370);
+;// CONCATENATED MODULE: ./src/components/blockly/jsonvisitor.ts
+function visitBlock(block, visitor) {
+  var _visitor$visitBlock;
+
+  if (!block) return;
+  (_visitor$visitBlock = visitor.visitBlock) === null || _visitor$visitBlock === void 0 ? void 0 : _visitor$visitBlock.call(visitor, block);
+  var inputs = block.inputs,
+      children = block.children;
+  inputs === null || inputs === void 0 ? void 0 : inputs.forEach(function (input) {
+    return visitInput(input, visitor);
+  });
+  children === null || children === void 0 ? void 0 : children.forEach(function (child) {
+    return visitBlock(child, visitor);
+  });
+}
+function visitInput(input, visitor) {
+  var _visitor$visitInput;
+
+  if (!input) return;
+  (_visitor$visitInput = visitor.visitInput) === null || _visitor$visitInput === void 0 ? void 0 : _visitor$visitInput.call(visitor, input);
+  var fields = input.fields,
+      child = input.child;
+  if (fields) Object.keys(fields).map(function (k) {
+    return visitField(k, fields[k], visitor);
+  });
+  visitBlock(child, visitor);
+}
+function visitField(name, field, visitor) {
+  var _visitor$visitField;
+
+  if (!field) return;
+  (_visitor$visitField = visitor.visitField) === null || _visitor$visitField === void 0 ? void 0 : _visitor$visitField.call(visitor, name, field);
+}
+function visitWorkspace(workspace, visitor) {
+  workspace === null || workspace === void 0 ? void 0 : workspace.blocks.forEach(function (block) {
+    return visitBlock(block, visitor);
+  });
+}
 ;// CONCATENATED MODULE: ./src/components/data-science/DSBlockEditor.tsx
 
 
@@ -102,24 +151,54 @@ var BlockDiagnostics = __webpack_require__(9370);
 
 
 
+
 var DS_SOURCE_STORAGE_KEY = "data-science-blockly-xml";
-function VMEditor() {
+
+function DSEditorWithContext() {
+  // block context handles hosting blockly
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspaceJSON = _useContext.workspaceJSON; // run this when workspaceJSON changes
+
+
+  (0,react.useEffect)(function () {
+    visitWorkspace(workspaceJSON, {
+      visitBlock: function visitBlock(block) {
+        return console.log("block " + block.type, {
+          block: block
+        });
+      },
+      visitInput: function visitInput(input) {
+        return console.log("input " + input.name, {
+          input: input
+        });
+      },
+      visitField: function visitField(name, field) {
+        return console.log("field " + name + ": " + field.value, {
+          field: field
+        });
+      }
+    });
+  }, [workspaceJSON]);
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, null), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(BlockDiagnostics/* default */.Z, null));
+}
+
+function DScienceEditor() {
   var dsls = (0,react.useMemo)(function () {
     return [datadsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: DS_SOURCE_STORAGE_KEY,
     dsls: dsls
-  }, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, null), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(BlockDiagnostics/* default */.Z, null)));
+  }, /*#__PURE__*/react.createElement(DSEditorWithContext, null)));
 }
 ;// CONCATENATED MODULE: ./src/pages/tools/data-science-editor.tsx
 
 
 function Page() {
-  return /*#__PURE__*/react.createElement(VMEditor, null);
+  return /*#__PURE__*/react.createElement(DScienceEditor, null);
 }
 
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-48b02440e109963d9d85.js.map
+//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-e016e276eed6f2ac8146.js.map
