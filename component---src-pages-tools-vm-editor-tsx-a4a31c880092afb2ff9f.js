@@ -4994,43 +4994,57 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         template: "command"
       };
     });
-    this._serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks)); // generate accessor blocks for event data with numbers
+    this._serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
+    var eventFieldGroups = [{
+      output: "Number",
+      filter: jdspec/* isNumericType */.FV
+    }, {
+      output: "Boolean",
+      filter: isBooleanField
+    }, {
+      output: "String",
+      filter: isStringField
+    }]; // generate accessor blocks for event data with numbers
 
-    this._eventFieldBlocks = (0,utils/* arrayConcatMany */.ue)(events.map(function (_ref17) {
-      var service = _ref17.service,
-          events = _ref17.events;
-      return events.filter(function (event) {
-        return event.fields.filter(jdspec/* isNumericType */.FV).length > 0;
-      }).map(function (event) {
-        return {
-          service: service,
-          event: event
-        };
-      }).map(function (_ref18) {
+    this._eventFieldBlocks = (0,utils/* arrayConcatMany */.ue)((0,utils/* arrayConcatMany */.ue)(eventFieldGroups.map(function (_ref17) {
+      var output = _ref17.output,
+          filter = _ref17.filter;
+      return events.map(function (_ref18) {
         var service = _ref18.service,
-            event = _ref18.event;
-        return {
-          kind: "block",
-          type: "jacdac_event_field_" + service.shortId + "_" + event.name,
-          message0: event.name + " %1",
-          args0: [{
-            type: "field_dropdown",
-            name: "field",
-            options: event.fields.map(function (field) {
-              return [(0,jdspec/* humanify */.lW)(field.name), field.name];
-            })
-          }],
-          colour: serviceColor(service),
-          inputsInline: true,
-          tooltip: "Data fields of the " + event.name + " event",
-          helpUrl: serviceHelp(service),
-          service: service,
-          event: event,
-          output: "Number",
-          template: "event_field"
-        };
+            events = _ref18.events;
+        return events.filter(function (event) {
+          return event.fields.filter(filter).length > 0;
+        }).map(function (event) {
+          return {
+            service: service,
+            event: event
+          };
+        }).map(function (_ref19) {
+          var service = _ref19.service,
+              event = _ref19.event;
+          return {
+            kind: "block",
+            type: "jacdac_event_field_" + output.toLowerCase() + "_" + service.shortId + "_" + event.name,
+            message0: event.name + " %1",
+            args0: [{
+              type: "field_dropdown",
+              name: "field",
+              options: event.fields.map(function (field) {
+                return [(0,jdspec/* humanify */.lW)(field.name), field.name];
+              })
+            }],
+            colour: serviceColor(service),
+            inputsInline: true,
+            tooltip: "Data fields of the " + event.name + " event",
+            helpUrl: serviceHelp(service),
+            service: service,
+            event: event,
+            output: output,
+            template: "event_field"
+          };
+        });
       });
-    }));
+    })));
     this._runtimeBlocks = [{
       kind: "block",
       type: toolbox/* CONNECTION_BLOCK */.CW,
@@ -5124,12 +5138,12 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         block: block,
         definition: (0,toolbox/* resolveServiceBlockDefinition */.yn)(block.type)
       };
-    }).filter(function (_ref19) {
-      var definition = _ref19.definition;
+    }).filter(function (_ref20) {
+      var definition = _ref20.definition;
       return definition.template === "event";
-    }).map(function (_ref20) {
-      var block = _ref20.block,
-          definition = _ref20.definition;
+    }).map(function (_ref21) {
+      var block = _ref21.block,
+          definition = _ref21.definition;
       var eventName = block.inputs[0].fields["event"].value;
       return definition.events.find(function (ev) {
         return ev.name === eventName;
@@ -5171,9 +5185,9 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
           return block.service === service;
         })
       };
-    }).map(function (_ref21) {
-      var service = _ref21.service,
-          serviceBlocks = _ref21.serviceBlocks;
+    }).map(function (_ref22) {
+      var service = _ref22.service,
+          serviceBlocks = _ref22.serviceBlocks;
       return {
         kind: "category",
         name: service.name,
@@ -5259,8 +5273,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       case "register_change_event":
         {
           var _role = inputs[0].fields["role"].value;
-          var _ref22 = definition,
-              register = _ref22.register;
+          var _ref23 = definition,
+              register = _ref23.register;
 
           var _blockToExpression = blockToExpression(undefined, inputs[0].child),
               expr = _blockToExpression.expr,
@@ -5291,8 +5305,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     switch (template) {
       case "register_get":
         {
-          var _ref23 = definition,
-              register = _ref23.register;
+          var _ref24 = definition,
+              register = _ref24.register;
           var role = inputs[0].fields["role"].value;
           var field = inputs[0].fields["field"];
           return {
@@ -5303,8 +5317,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 
       case "event_field":
         {
-          var _ref24 = definition,
-              eventInfo = _ref24.event;
+          var _ref25 = definition,
+              eventInfo = _ref25.event;
           var errors = [];
 
           if (event.event !== eventInfo.name) {
@@ -5337,8 +5351,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     switch (template) {
       case "register_set":
         {
-          var _ref25 = definition,
-              register = _ref25.register;
+          var _ref26 = definition,
+              register = _ref26.register;
 
           var _blockToExpression2 = blockToExpression(event, inputs[0].child),
               expr = _blockToExpression2.expr,
@@ -5357,8 +5371,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 
       case "command":
         {
-          var _ref26 = definition,
-              serviceCommand = _ref26.command;
+          var _ref27 = definition,
+              serviceCommand = _ref27.command;
           var _role2 = inputs[0].fields.role.value;
           var exprsErrors = inputs.map(function (a) {
             return blockToExpression(event, a.child);
@@ -5953,4 +5967,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-2370df839daee42faf02.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a4a31c880092afb2ff9f.js.map
