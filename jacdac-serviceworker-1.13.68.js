@@ -1333,6 +1333,21 @@ var CharacterScreenReg;
      */
     CharacterScreenReg[CharacterScreenReg["Columns"] = 385] = "Columns";
 })(CharacterScreenReg || (CharacterScreenReg = {}));
+var CharacterScreenCmd;
+(function (CharacterScreenCmd) {
+    /**
+     * Overrides the content of a single line at a 0-based index.
+     *
+     * ```
+     * const [index, message] = jdunpack<[number, string]>(buf, "u16 s")
+     * ```
+     */
+    CharacterScreenCmd[CharacterScreenCmd["SetLine"] = 128] = "SetLine";
+    /**
+     * No args. Clears all text from the display.
+     */
+    CharacterScreenCmd[CharacterScreenCmd["Clear"] = 129] = "Clear";
+})(CharacterScreenCmd || (CharacterScreenCmd = {}));
 var ColorReg;
 (function (ColorReg) {
     /**

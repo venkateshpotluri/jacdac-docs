@@ -3513,7 +3513,7 @@ var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
 var DeviceAvatar = __webpack_require__(4726);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
-var servers = __webpack_require__(10595);
+var servers = __webpack_require__(48363);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
@@ -6246,4 +6246,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-5da7fd310af7d0acb774.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-111b152306f8910efea3.js.map

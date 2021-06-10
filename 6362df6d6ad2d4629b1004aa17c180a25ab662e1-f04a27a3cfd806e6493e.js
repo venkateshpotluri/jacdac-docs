@@ -592,7 +592,7 @@ function CodeBlock(props) {
 /* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36176);
 /* harmony import */ var _ui_Markdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(98784);
 /* harmony import */ var _ServiceSpecificationStatusAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(49102);
-/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10595);
+/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(48363);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(20392);
 /* harmony import */ var _KindIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(50048);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(71815);
@@ -699,4 +699,4 @@ function PaperBox(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=6362df6d6ad2d4629b1004aa17c180a25ab662e1-790920f327a55c7dde7d.js.map
+//# sourceMappingURL=6362df6d6ad2d4629b1004aa17c180a25ab662e1-f04a27a3cfd806e6493e.js.map
