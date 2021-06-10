@@ -491,34 +491,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 42070:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(8580);
-
-var _interopRequireWildcard = __webpack_require__(1022);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
-}), 'ArrowUpward');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 72164:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -545,11 +517,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CmdButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(82613);
 /* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(91635);
 /* harmony import */ var _material_ui_icons_ArrowDownward__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(57198);
-/* harmony import */ var _material_ui_icons_ArrowUpward__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(42070);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(71815);
 /* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(60650);
 /* harmony import */ var _ui_GridHeader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(95393);
-
 
 
 
@@ -681,31 +651,6 @@ function DashboardAzureIoTHub(props) {
     };
   }();
 
-  var handleSendDeviceMessage = /*#__PURE__*/function () {
-    var _ref3 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return service.sendCmdAsync(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubCmd.SendMessage */ .r8S.SendMessage, (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__/* .jdpack */ .AV)("s", [JSON.stringify({
-                timestamp: service.device.bus.timestamp,
-                message: "hello from device"
-              })]));
-
-            case 2:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-
-    return function handleSendDeviceMessage() {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
   var handleCDMessageChange = function handleCDMessageChange(ev) {
     setCDMessage(ev.target.value || "");
   };
@@ -753,13 +698,7 @@ function DashboardAzureIoTHub(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("pre", null, cdMessages === null || cdMessages === void 0 ? void 0 : cdMessages.map(function (m) {
     return m.counter + ": " + m.body;
   }).join("\n"))), deviceToCloudMessages && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_GridHeader__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-    title: "device to cloud",
-    action: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_CmdButton__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
-      title: "Send device to cloud message",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_icons_ArrowUpward__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, null),
-      onClick: handleSendDeviceMessage,
-      disabled: !connected
-    })
+    title: "device to cloud"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
     item: true,
     xs: 12
@@ -842,4 +781,4 @@ function GridHeader(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2164-4715cb7c56917db4c2c2.js.map
+//# sourceMappingURL=2164-708a587cd96d50f3f2ac.js.map

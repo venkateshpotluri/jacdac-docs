@@ -8074,6 +8074,29 @@ var variablesDsl = {
       colour: "%{BKY_VARIABLES_HUE}",
       custom: "VARIABLE"
     }];
+  },
+  compileExpressionToVM: function compileExpressionToVM(_ref) {
+    var block = _ref.block,
+        definition = _ref.definition,
+        blockToExpressionInner = _ref.blockToExpressionInner;
+    var type = block.type;
+
+    if (type === "variables_get") {// TODO compile variables_get
+    }
+
+    return undefined;
+  },
+  compileCommandToVM: function compileCommandToVM(_ref2) {
+    var event = _ref2.event,
+        block = _ref2.block,
+        definition = _ref2.definition,
+        blockToExpression = _ref2.blockToExpression;
+    var type = block.type;
+
+    if (type === "variables_set") {// TODO
+    }
+
+    return undefined;
   }
 };
 /* harmony default export */ __webpack_exports__["Z"] = (variablesDsl);
@@ -10058,4 +10081,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-1f2f61c3f46425b463f9.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-56bdc93c9c451188329e.js.map
