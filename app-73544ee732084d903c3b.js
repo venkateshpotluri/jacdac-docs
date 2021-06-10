@@ -48600,7 +48600,6 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "fjv": function() { return /* binding */ PACKET_DATA_NORMALIZE; },
 /* harmony export */   "Gb8": function() { return /* binding */ REPORT_RECEIVE; },
 /* harmony export */   "rGZ": function() { return /* binding */ REPORT_UPDATE; },
-/* harmony export */   "R76": function() { return /* binding */ COMMAND_RECEIVE; },
 /* harmony export */   "pnR": function() { return /* binding */ ERROR; },
 /* harmony export */   "jes": function() { return /* binding */ TRACE; },
 /* harmony export */   "LXI": function() { return /* binding */ TIMEOUT; },
@@ -48817,7 +48816,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "wrj": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.wrj; },
 /* harmony export */   "EPs": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.EPs; }
 /* harmony export */ });
-/* unused harmony exports JD_ADVERTISEMENT_0_ACK_SUPPORTED, PACKET_INVALID_CRC, PACKET_KIND_EVENT, BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC, ROLE_HAS_NO_SERVICE */
+/* unused harmony exports JD_ADVERTISEMENT_0_ACK_SUPPORTED, PACKET_INVALID_CRC, COMMAND_RECEIVE, PACKET_KIND_EVENT, BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC, ROLE_HAS_NO_SERVICE */
 /* harmony import */ var _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73512);
 // Registers 0x001-0x07f - r/w common to all services
 // Registers 0x080-0x0ff - r/w defined per-service
@@ -69736,7 +69735,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a6f0fce77d3c0944cc954df2be59ecee003afb94";
+  var sha = "f29f091584b19ad21272c4e52f220e1b3e965463";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72777,9 +72776,11 @@ var JDService = /*#__PURE__*/function (_JDNode) {
               return pkt.sendCmdAsync(this.device);
 
             case 10:
-              this.emit(constants/* PACKET_SEND */.RaS, pkt);
+              this.emit(constants/* PACKET_SEND */.RaS, pkt); // invalid register after a command call to refresh their values asap
 
-            case 11:
+              if (pkt.isCommand) this.invalidateRegisterValues();
+
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -72858,18 +72859,16 @@ var JDService = /*#__PURE__*/function (_JDNode) {
       var _reg = this.register(_id);
 
       if (_reg) _reg.processPacket(pkt);
-    } else if (pkt.isCommand) {
-      this.emitPropagated(constants/* COMMAND_RECEIVE */.R76, pkt); // invalidate registers
-
-      console.log("invalid register get", {
-        service: this
-      });
-      this.registers().filter(function (r) {
-        return r.specification && !(0,jdom_spec/* isConstRegister */.n6)(r.specification);
-      }).forEach(function (r) {
-        return r.clearGetTimestamp();
-      });
     }
+  };
+
+  _proto.invalidateRegisterValues = function invalidateRegisterValues() {
+    console.log("clearing register get timestamp");
+    this.registers().filter(function (r) {
+      return r.specification && !(0,jdom_spec/* isConstRegister */.n6)(r.specification);
+    }).forEach(function (r) {
+      return r.clearGetTimestamp();
+    });
   };
 
   _proto.compareTo = function compareTo(b) {
@@ -86819,4 +86818,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-63e242895d1c1092bacc.js.map
+//# sourceMappingURL=app-73544ee732084d903c3b.js.map
