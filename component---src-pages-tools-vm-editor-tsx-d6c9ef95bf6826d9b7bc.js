@@ -4095,17 +4095,6 @@ var ServoAngleField = __webpack_require__(891);
 
 
 
-var ops = {
-  AND: "&&",
-  OR: "||",
-  EQ: "===",
-  NEQ: "!==",
-  LT: "<",
-  GT: ">",
-  LTE: "<=",
-  GTE: ">=",
-  NEG: "-"
-};
 var makeVMBase = function makeVMBase(block, command) {
   return {
     sourceId: block.id,
@@ -4170,108 +4159,53 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           value: value,
           raw: value + ""
         };
+      var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
 
-      switch (type) {
-        case "logic_operation":
-          {
-            var left = blockToExpressionInner(ev, inputs[0].child);
-            var right = blockToExpressionInner(ev, inputs[1].child);
-            var op = inputs[1].fields["op"].value;
-            return {
-              type: "LogicalExpression",
-              operator: ops[op] || op,
-              left: left,
-              right: right
-            };
-          }
+      if (!definition) {
+        console.warn("unknown block " + type, {
+          type: type,
+          ev: ev,
+          block: block,
+          d: (blockly_default()).Blocks[type]
+        });
+      } else {
+        var _dsl$compileExpressio;
 
-        case "logic_negate":
-          {
-            var argument = blockToExpressionInner(ev, inputs[0].child);
-            return {
-              type: "UnaryExpression",
-              operator: "!",
-              argument: argument,
-              prefix: false // TODO:?
+        var dslName = definition.dsl;
+        var dsl = dsls.find(function (d) {
+          return d.id === dslName;
+        });
+        var res = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
+          event: ev,
+          definition: definition,
+          block: block,
+          blockToExpressionInner: blockToExpressionInner
+        });
 
-            };
-          }
+        if (res) {
+          if (res.errors) res.errors.forEach(function (e) {
+            return errors.push(e);
+          });
+          return res.expr;
+        }
 
-        case "logic_compare":
-          {
-            var _left = blockToExpressionInner(ev, inputs[0].child);
+        var template = definition.template;
 
-            var _right = blockToExpressionInner(ev, inputs[1].child);
+        if (template === "shadow") {
+          var field = inputs[0].fields["value"];
+          var v = field.value;
+          return {
+            type: "Literal",
+            value: v,
+            raw: v + ""
+          };
+        }
 
-            var _op = inputs[1].fields["op"].value;
-            return {
-              type: "BinaryExpression",
-              operator: ops[_op] || _op,
-              left: _left,
-              right: _right
-            };
-          }
-
-        default:
-          {
-            var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-
-            if (!definition) {
-              console.warn("unknown block " + type, {
-                type: type,
-                ev: ev,
-                block: block,
-                d: (blockly_default()).Blocks[type]
-              });
-            } else {
-              var _dsl$compileExpressio;
-
-              // try any DSL
-              var dslName = definition.dsl;
-              var dsl = dsls.find(function (d) {
-                return d.id === dslName;
-              });
-              var res = dsl === null || dsl === void 0 ? void 0 : (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
-                event: ev,
-                definition: definition,
-                block: block,
-                blockToExpressionInner: blockToExpressionInner
-              });
-
-              if (res) {
-                if (res.errors) res.errors.forEach(function (e) {
-                  return errors.push(e);
-                });
-                return res.expr;
-              }
-
-              var template = definition.template;
-
-              switch (template) {
-                case "shadow":
-                  {
-                    var field = inputs[0].fields["value"];
-                    var v = field.value;
-                    return {
-                      type: "Literal",
-                      value: v,
-                      raw: v + ""
-                    };
-                  }
-
-                default:
-                  {
-                    console.warn("unsupported block template " + template + " for " + type, {
-                      ev: ev,
-                      block: block
-                    });
-                    break;
-                  }
-              }
-
-              break;
-            }
-          }
+        console.warn("unsupported block template " + template + " for " + type, {
+          ev: ev,
+          block: block,
+          definition: definition
+        });
       }
 
       throw new EmptyExpression();
@@ -5732,6 +5666,17 @@ var loopsDsl = {
 };
 /* harmony default export */ var loopsdsl = (loopsDsl);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/logicdsl.ts
+var ops = {
+  AND: "&&",
+  OR: "||",
+  EQ: "===",
+  NEQ: "!==",
+  LT: "<",
+  GT: ">",
+  LTE: "<=",
+  GTE: ">=",
+  NEG: "-"
+};
 var logicDsl = {
   id: "logic",
   createCategory: function createCategory() {
@@ -5782,6 +5727,66 @@ var logicDsl = {
         type: "logic_boolean"
       }]
     }];
+  },
+  compileExpressionToVM: function compileExpressionToVM(_ref) {
+    var event = _ref.event,
+        block = _ref.block,
+        blockToExpressionInner = _ref.blockToExpressionInner;
+    var type = block.type,
+        inputs = block.inputs;
+
+    switch (type) {
+      case "logic_operation":
+        {
+          var left = blockToExpressionInner(event, inputs[0].child);
+          var right = blockToExpressionInner(event, inputs[1].child);
+          var op = inputs[1].fields["op"].value;
+          return {
+            expr: {
+              type: "LogicalExpression",
+              operator: ops[op] || op,
+              left: left,
+              right: right
+            },
+            errors: []
+          };
+        }
+
+      case "logic_negate":
+        {
+          var argument = blockToExpressionInner(event, inputs[0].child);
+          return {
+            expr: {
+              type: "UnaryExpression",
+              operator: "!",
+              argument: argument,
+              prefix: false // TODO:?
+
+            },
+            errors: []
+          };
+        }
+
+      case "logic_compare":
+        {
+          var _left = blockToExpressionInner(event, inputs[0].child);
+
+          var _right = blockToExpressionInner(event, inputs[1].child);
+
+          var _op = inputs[1].fields["op"].value;
+          return {
+            expr: {
+              type: "BinaryExpression",
+              operator: ops[_op] || _op,
+              left: _left,
+              right: _right
+            },
+            errors: []
+          };
+        }
+    }
+
+    return undefined;
   }
 };
 /* harmony default export */ var logicdsl = (logicDsl);
@@ -6228,4 +6233,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-08b67b0cd2acb419f20b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d6c9ef95bf6826d9b7bc.js.map
