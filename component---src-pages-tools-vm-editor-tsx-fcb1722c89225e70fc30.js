@@ -1270,8 +1270,8 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
     }, context));
   };
 
-  _proto.evalExpression = /*#__PURE__*/function () {
-    var _evalExpression = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(e) {
+  _proto.evalExpressionAsync = /*#__PURE__*/function () {
+    var _evalExpressionAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(e) {
       var _this3 = this;
 
       var expr;
@@ -1317,21 +1317,21 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
       }, _callee2);
     }));
 
-    function evalExpression(_x) {
-      return _evalExpression.apply(this, arguments);
+    function evalExpressionAsync(_x) {
+      return _evalExpressionAsync.apply(this, arguments);
     }
 
-    return evalExpression;
+    return evalExpressionAsync;
   }();
 
-  _proto.checkExpression = /*#__PURE__*/function () {
-    var _checkExpression = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(e) {
+  _proto.checkExpressionAsync = /*#__PURE__*/function () {
+    var _checkExpressionAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(e) {
       return regenerator_default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return this.evalExpression(e);
+              return this.evalExpressionAsync(e);
 
             case 2:
               if (!_context3.sent) {
@@ -1357,15 +1357,15 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
       }, _callee3, this);
     }));
 
-    function checkExpression(_x3) {
-      return _checkExpression.apply(this, arguments);
+    function checkExpressionAsync(_x3) {
+      return _checkExpressionAsync.apply(this, arguments);
     }
 
-    return checkExpression;
+    return checkExpressionAsync;
   }();
 
-  _proto.start = /*#__PURE__*/function () {
-    var _start = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+  _proto.startAsync = /*#__PURE__*/function () {
+    var _startAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
       var args;
       return regenerator_default().wrap(function _callee4$(_context4) {
         while (1) {
@@ -1379,7 +1379,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               // need to capture register value for awaitChange/awaitRegister
               args = this.gc.command.arguments;
               _context4.next = 4;
-              return this.evalExpression(args[0]);
+              return this.evalExpressionAsync(args[0]);
 
             case 4:
               this._regSaved = _context4.sent;
@@ -1390,7 +1390,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               }
 
               _context4.next = 8;
-              return this.evalExpression(args[1]);
+              return this.evalExpressionAsync(args[1]);
 
             case 8:
               this._changeSaved = _context4.sent;
@@ -1409,11 +1409,11 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
       }, _callee4, this);
     }));
 
-    function start() {
-      return _start.apply(this, arguments);
+    function startAsync() {
+      return _startAsync.apply(this, arguments);
     }
 
-    return start;
+    return startAsync;
   }();
 
   _proto.evaluate = /*#__PURE__*/function () {
@@ -1427,25 +1427,29 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
           switch (_context7.prev = _context7.next) {
             case 0:
               if (this._started) {
-                _context7.next = 5;
+                _context7.next = 7;
                 break;
               }
 
-              neededStart = this.start();
+              _context7.next = 3;
+              return this.startAsync();
+
+            case 3:
+              neededStart = _context7.sent;
               this._started = true;
 
               if (!neededStart) {
-                _context7.next = 5;
+                _context7.next = 7;
                 break;
               }
 
               return _context7.abrupt("return", VMInternalStatus.Running);
 
-            case 5:
+            case 7:
               args = this.gc.command.arguments;
 
               if (!(this.gc.command.callee.type === "MemberExpression")) {
-                _context7.next = 22;
+                _context7.next = 24;
                 break;
               }
 
@@ -1478,91 +1482,129 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               _values = [];
               _iterator = _createForOfIteratorHelperLoose(this.gc.command.arguments);
 
-            case 10:
+            case 12:
               if ((_step = _iterator()).done) {
-                _context7.next = 19;
+                _context7.next = 21;
                 break;
               }
 
               a = _step.value;
               _context7.t0 = _values;
-              _context7.next = 15;
+              _context7.next = 17;
               return expr.evalAsync(a);
 
-            case 15:
+            case 17:
               _context7.t1 = _context7.sent;
 
               _context7.t0.push.call(_context7.t0, _context7.t1);
 
-            case 17:
-              _context7.next = 10;
-              break;
-
             case 19:
-              _context7.next = 21;
-              return this.env.sendCommandAsync(this.gc.command.callee, _values);
+              _context7.next = 12;
+              break;
 
             case 21:
+              _context7.next = 23;
+              return this.env.sendCommandAsync(this.gc.command.callee, _values);
+
+            case 23:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 22:
+            case 24:
               _context7.t2 = this.inst;
-              _context7.next = _context7.t2 === "branchOnCondition" ? 25 : _context7.t2 === "jump" ? 29 : _context7.t2 === "label" ? 30 : _context7.t2 === "awaitEvent" ? 31 : _context7.t2 === "awaitCondition" ? 35 : _context7.t2 === "awaitChange" ? 36 : _context7.t2 === "awaitRegister" ? 36 : _context7.t2 === "writeRegister" ? 42 : _context7.t2 === "writeLocal" ? 42 : _context7.t2 === "watch" ? 56 : _context7.t2 === "log" ? 62 : _context7.t2 === "halt" ? 69 : _context7.t2 === "nop" ? 70 : _context7.t2 === "wait" ? 71 : _context7.t2 === "onRoleConnected" ? 76 : _context7.t2 === "onRoleDisonnected" ? 77 : 78;
+              _context7.next = _context7.t2 === "branchOnCondition" ? 27 : _context7.t2 === "jump" ? 33 : _context7.t2 === "label" ? 34 : _context7.t2 === "awaitEvent" ? 35 : _context7.t2 === "awaitCondition" ? 46 : _context7.t2 === "awaitChange" ? 54 : _context7.t2 === "awaitRegister" ? 54 : _context7.t2 === "writeRegister" ? 60 : _context7.t2 === "writeLocal" ? 60 : _context7.t2 === "watch" ? 74 : _context7.t2 === "log" ? 80 : _context7.t2 === "halt" ? 87 : _context7.t2 === "nop" ? 88 : _context7.t2 === "wait" ? 89 : _context7.t2 === "onRoleConnected" ? 94 : _context7.t2 === "onRoleDisonnected" ? 95 : 96;
               break;
 
-            case 25:
-              _expr = this.checkExpression(args[0]);
+            case 27:
+              _context7.next = 29;
+              return this.checkExpressionAsync(args[0]);
+
+            case 29:
+              _expr = _context7.sent;
 
               if (!_expr) {
-                _context7.next = 28;
+                _context7.next = 32;
                 break;
               }
 
               throw new VMJumpException(args[1].name);
 
-            case 28:
+            case 32:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 29:
+            case 33:
               throw new VMJumpException(args[0].name);
 
-            case 30:
+            case 34:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 31:
+            case 35:
               event = args[0];
 
               if (!this.env.hasEvent(event)) {
-                _context7.next = 34;
+                _context7.next = 45;
                 break;
               }
 
-              return _context7.abrupt("return", this.checkExpression(args[1]) ? VMInternalStatus.Completed : VMInternalStatus.Running);
+              _context7.next = 39;
+              return this.checkExpressionAsync(args[1]);
 
-            case 34:
+            case 39:
+              if (!_context7.sent) {
+                _context7.next = 43;
+                break;
+              }
+
+              _context7.t3 = VMInternalStatus.Completed;
+              _context7.next = 44;
+              break;
+
+            case 43:
+              _context7.t3 = VMInternalStatus.Running;
+
+            case 44:
+              return _context7.abrupt("return", _context7.t3);
+
+            case 45:
               return _context7.abrupt("return", VMInternalStatus.Running);
 
-            case 35:
-              return _context7.abrupt("return", this.checkExpression(args[0]) ? VMInternalStatus.Completed : VMInternalStatus.Running);
+            case 46:
+              _context7.next = 48;
+              return this.checkExpressionAsync(args[0]);
 
-            case 36:
-              _context7.next = 38;
-              return this.evalExpression(args[0]);
+            case 48:
+              if (!_context7.sent) {
+                _context7.next = 52;
+                break;
+              }
 
-            case 38:
+              _context7.t4 = VMInternalStatus.Completed;
+              _context7.next = 53;
+              break;
+
+            case 52:
+              _context7.t4 = VMInternalStatus.Running;
+
+            case 53:
+              return _context7.abrupt("return", _context7.t4);
+
+            case 54:
+              _context7.next = 56;
+              return this.evalExpressionAsync(args[0]);
+
+            case 56:
               regValue = _context7.sent;
 
               if (!(this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (this._changeSaved === 0 && regValue !== this._regSaved || this._changeSaved < 0 && regValue <= this._regSaved + this._changeSaved || this._changeSaved > 0 && regValue >= this._regSaved + this._changeSaved))) {
-                _context7.next = 41;
+                _context7.next = 59;
                 break;
               }
 
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 41:
+            case 59:
               return _context7.abrupt("return", VMInternalStatus.Running);
 
-            case 42:
+            case 60:
               _expr2 = new vm_expr/* VMExprEvaluator */.W( /*#__PURE__*/function () {
                 var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee6(e) {
                   return regenerator_default().wrap(function _callee6$(_context6) {
@@ -1583,10 +1625,10 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
                   return _ref3.apply(this, arguments);
                 };
               }(), undefined);
-              _context7.next = 45;
+              _context7.next = 63;
               return _expr2.evalAsync(args[1]);
 
-            case 45:
+            case 63:
               ev = _context7.sent;
               this.trace("eval-end", {
                 expr: (0,vm_expr/* unparse */.Z)(args[1])
@@ -1594,79 +1636,79 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               reg = args[0];
 
               if (!(this.inst === "writeRegister")) {
-                _context7.next = 54;
+                _context7.next = 72;
                 break;
               }
 
-              _context7.next = 51;
+              _context7.next = 69;
               return this.env.writeRegisterAsync(reg, ev);
 
-            case 51:
+            case 69:
               this.trace("write-after-wait", {
                 reg: (0,vm_expr/* unparse */.Z)(reg),
                 expr: ev
               });
-              _context7.next = 55;
+              _context7.next = 73;
               break;
 
-            case 54:
+            case 72:
               this.env.writeGlobal(reg, ev);
 
-            case 55:
+            case 73:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 56:
+            case 74:
               _expr3 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this4.env.lookupAsync(e);
               }, undefined);
-              _context7.next = 59;
+              _context7.next = 77;
               return _expr3.evalAsync(args[0]);
 
-            case 59:
+            case 77:
               _ev = _context7.sent;
               this.parent.watch((_this$gc = this.gc) === null || _this$gc === void 0 ? void 0 : _this$gc.sourceId, _ev);
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 62:
+            case 80:
               _expr4 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this4.env.lookupAsync(e);
               }, undefined);
-              _context7.next = 65;
+              _context7.next = 83;
               return _expr4.evalAsync(args[0]);
 
-            case 65:
+            case 83:
               _ev2 = _context7.sent;
               evString = _ev2 + "";
               this.parent.writeLog((_this$gc2 = this.gc) === null || _this$gc2 === void 0 ? void 0 : _this$gc2.sourceId, evString);
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 69:
+            case 87:
               return _context7.abrupt("return", VMInternalStatus.Stopped);
 
-            case 70:
+            case 88:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 71:
+            case 89:
               _expr5 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this4.env.lookupAsync(e);
               }, undefined);
-              _context7.next = 74;
+              _context7.next = 92;
               return _expr5.evalAsync(args[0]);
 
-            case 74:
+            case 92:
               _ev3 = _context7.sent;
               throw new VMTimerException(_ev3 * 1000);
 
-            case 76:
+            case 94:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 77:
+            case 95:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 78:
+            case 96:
               throw new environment/* VMException */.nt(environment/* VMExceptionCode.InternalError */.S8.InternalError, "Unknown instruction " + this.inst);
 
-            case 79:
+            case 97:
             case "end":
               return _context7.stop();
           }
@@ -2468,7 +2510,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   }();
 
   _proto4.startAsync = /*#__PURE__*/function () {
-    var _startAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee22() {
+    var _startAsync2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee22() {
       var _this11 = this;
 
       return regenerator_default().wrap(function _callee22$(_context22) {
@@ -2531,26 +2573,25 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               this.clearBreakpointsAsync();
               this.setStatus(VMStatus.Running);
               this.waitingToRunning();
-              this.runAsync();
-              _context22.next = 17;
+              _context22.next = 16;
               break;
 
-            case 13:
-              _context22.prev = 13;
+            case 12:
+              _context22.prev = 12;
               _context22.t0 = _context22["catch"](3);
               console.debug(_context22.t0);
               this.emit(vm_events/* VM_INTERNAL_ERROR */.c2, _context22.t0);
 
-            case 17:
+            case 16:
             case "end":
               return _context22.stop();
           }
         }
-      }, _callee22, this, [[3, 13]]);
+      }, _callee22, this, [[3, 12]]);
     }));
 
     function startAsync() {
-      return _startAsync.apply(this, arguments);
+      return _startAsync2.apply(this, arguments);
     }
 
     return startAsync;
@@ -2890,6 +2931,8 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         moveToWait = h.status === VMInternalStatus.Ready;
 
                         if (moveToWait && !isEveryHandler(h.handler)) {
+                          console.log("WAIT");
+
                           _this13._waitQueue.push(done);
 
                           done = undefined;
@@ -2973,7 +3016,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
           switch (_context35.prev = _context35.next) {
             case 0:
               if (!(this.status !== VMStatus.Stopped)) {
-                _context35.next = 21;
+                _context35.next = 22;
                 break;
               }
 
@@ -3027,16 +3070,19 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         return _this14.runHandlerAsync(h, true);
 
                       case 3:
+                        console.log("STATUS", h.status, h.atTop);
+
                         if (h.status === VMInternalStatus.Sleeping) {
                           sleepingRunners.push(h);
                         } else if (!h.atTop && handlersStarted.findIndex(function (hs) {
                           return hs === h.handler;
                         }) === -1) {
+                          console.log("PUSH");
                           newRunners.push(h);
                           handlersStarted.push(h.handler);
                         }
 
-                      case 4:
+                      case 5:
                       case "end":
                         return _context34.stop();
                     }
@@ -3086,11 +3132,13 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               })));
 
             case 19:
-              this._env.consumeEvent();
-
-              this.runAsync();
+              _context35.next = 21;
+              return this.runAsync();
 
             case 21:
+              this._env.consumeEvent();
+
+            case 22:
             case "end":
               return _context35.stop();
           }
@@ -6011,4 +6059,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d1d4c1c4c4c509b42bf8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fcb1722c89225e70fc30.js.map
