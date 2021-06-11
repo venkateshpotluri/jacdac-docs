@@ -47767,6 +47767,7 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
       };
     } else if (this.check(e, "MemberExpression") && this.check(e.object, "Identifier") && this.role2spec) {
       var obj = e.object;
+      if (obj.name === "$") return undefined;
 
       if (!this.role2spec(obj.name)) {
         this.error("no specification found for " + obj.name);
@@ -47804,10 +47805,11 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   _proto.lookupEvent = function lookupEvent(e) {
     var _spec$packets;
 
-    var _this$specResolve = this.specResolve(e),
-        role = _this$specResolve.role,
-        spec = _this$specResolve.spec,
-        rest = _this$specResolve.rest;
+    var resolve = this.specResolve(e);
+    if (!resolve) return;
+    var role = resolve.role,
+        spec = resolve.spec,
+        rest = resolve.rest;
 
     var _this$destructAccessP = this.destructAccessPath(rest, true),
         id = _this$destructAccessP[0],
@@ -47831,10 +47833,11 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   };
 
   _proto.lookupRegister = function lookupRegister(e) {
-    var _this$specResolve2 = this.specResolve(e),
-        role = _this$specResolve2.role,
-        spec = _this$specResolve2.spec,
-        rest = _this$specResolve2.rest;
+    var resolve = this.specResolve(e);
+    if (!resolve) return;
+    var role = resolve.role,
+        spec = resolve.spec,
+        rest = resolve.rest;
 
     var _this$destructAccessP2 = this.destructAccessPath(rest),
         root = _this$destructAccessP2[0],
@@ -47872,10 +47875,11 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
   };
 
   _proto.lookup = function lookup(events, parent, child) {
-    var _this$specResolve3 = this.specResolve(child),
-        role = _this$specResolve3.role,
-        spec = _this$specResolve3.spec,
-        rest = _this$specResolve3.rest;
+    var resolve = this.specResolve(child);
+    if (!resolve) return;
+    var role = resolve.role,
+        spec = resolve.spec,
+        rest = resolve.rest;
 
     var _this$destructAccessP3 = this.destructAccessPath(rest),
         root = _this$destructAccessP3[0],
@@ -48091,7 +48095,6 @@ var VMChecker = /*#__PURE__*/function () {
     }
 
     exprVisitor(root, arg, function (p, c) {
-      // TODO
       if (p.type !== "MemberExpression" && c.type === "Identifier") {
         _this4.resolver.lookupReplace(eventSymTable, p, c);
       } else if (c.type === "ArrayExpression") {
@@ -69735,7 +69738,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ed72523ed7d876470e317584856f0ae30b6f0da8";
+  var sha = "761944d8cea3a17b38b865c5929b686d99e0135c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81217,7 +81220,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(4793), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 49574));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 13847));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -86818,4 +86821,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-478d58899c12ad29cd3e.js.map
+//# sourceMappingURL=app-8f25d9524cb18bdc557e.js.map

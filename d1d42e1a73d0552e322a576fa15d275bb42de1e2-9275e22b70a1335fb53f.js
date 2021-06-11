@@ -5027,6 +5027,346 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 
+/***/ 79973:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "i_": function() { return /* binding */ checkProgram; },
+  "IJ": function() { return /* binding */ compileProgram; },
+  "EB": function() { return /* binding */ toIdentifier; },
+  "vf": function() { return /* binding */ toMemberExpression; }
+});
+
+// UNUSED EXPORTS: getServiceFromRole
+
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/ir.ts
+var VMFunctions = [{
+  id: "label",
+  args: ["Identifier"],
+  prompt: "label target {1}",
+  context: "command"
+}, {
+  id: "jump",
+  args: ["Identifier"],
+  prompt: "jump to label {1}",
+  context: "command"
+}, {
+  id: "branchOnCondition",
+  args: ["boolean", "Identifier"],
+  prompt: "if {1} then jump to label {2}",
+  context: "command"
+}, {
+  id: "awaitRegister",
+  args: ["register"],
+  prompt: "wait on register {1} to change value",
+  context: "command"
+}, {
+  id: "awaitChange",
+  args: ["register", "number"],
+  prompt: "wait for register {1} to change by {2}",
+  context: "command"
+}, {
+  id: "wait",
+  args: ["number"],
+  prompt: "wait for {1} milliseconds",
+  context: "command"
+}, {
+  id: "watch",
+  args: ["number"],
+  prompt: "watch expression {1}",
+  context: "command"
+}, {
+  id: "awaitEvent",
+  args: ["event", ["boolean", true]],
+  prompt: "wait for event {1} and then check {2} (other events ignored)",
+  context: "command"
+}, {
+  id: "awaitCondition",
+  args: ["boolean"],
+  prompt: "wait for condition {1}",
+  context: "command"
+}, {
+  id: "writeRegister",
+  args: ["register", "number"],
+  prompt: "write value {2:val} to {1}",
+  context: "command"
+}, {
+  id: "writeLocal",
+  args: ["register", "number"],
+  prompt: "write value {2:val} to {1}",
+  context: "command"
+}, {
+  id: "halt",
+  args: [],
+  prompt: "terminates the current handler",
+  context: "command"
+}, {
+  id: "nop",
+  args: [],
+  prompt: "no operation",
+  context: "command"
+}, {
+  id: "onRoleConnected",
+  args: ["Identifier"],
+  prompt: "fires when a role is connected",
+  context: "command"
+}, {
+  id: "onRoleDisconnected",
+  args: ["Identifier"],
+  prompt: "fires when a role is disconnected",
+  context: "command"
+}];
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
+var jdutils = __webpack_require__(30055);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/compile.ts
+
+
+
+
+function toIdentifier(id) {
+  return {
+    type: "Identifier",
+    name: id
+  };
+}
+function toMemberExpression(root, field) {
+  return {
+    type: "MemberExpression",
+    object: toIdentifier(root),
+    property: typeof field === "string" ? toIdentifier(field) : field,
+    computed: false
+  };
+}
+
+function handlerVisitor(handler, visitITE, visitCommand) {
+  handler.commands.forEach(visitBase);
+
+  function visitBase(base) {
+    switch (base.type) {
+      case "cmd":
+        {
+          if (visitCommand) visitCommand(base);
+          break;
+        }
+
+      case "ite":
+        {
+          var _ite$else, _ite$then;
+
+          var _ite = base;
+          if (visitITE) visitITE(_ite, 0);
+          _ite === null || _ite === void 0 ? void 0 : (_ite$else = _ite.else) === null || _ite$else === void 0 ? void 0 : _ite$else.forEach(visitBase);
+          if (visitITE) visitITE(_ite, 1);
+          _ite === null || _ite === void 0 ? void 0 : (_ite$then = _ite.then) === null || _ite$then === void 0 ? void 0 : _ite$then.forEach(visitBase);
+          if (visitITE) visitITE(_ite, 2);
+        }
+    }
+  }
+}
+
+function compileProgram(prog) {
+  var newProgram = {
+    roles: prog.roles.slice(0),
+    handlers: []
+  };
+  newProgram.handlers = prog.handlers.map(function (h) {
+    return {
+      commands: removeIfThenElse(h),
+      errors: h === null || h === void 0 ? void 0 : h.errors
+    };
+  });
+  return newProgram;
+}
+
+function removeIfThenElse(handler) {
+  var newSequence = [];
+  var labels = [];
+  var labelId = 1;
+  handlerVisitor(handler, function (ite, time) {
+    switch (time) {
+      case 0:
+        {
+          // create the labels and branch instruction
+          var then = "then_" + labelId;
+          var end = "end_" + labelId;
+          labels.push({
+            then: then,
+            end: end
+          });
+          labelId++;
+          newSequence.push({
+            type: "cmd",
+            command: {
+              type: "CallExpression",
+              callee: toIdentifier("branchOnCondition"),
+              arguments: [ite.expr, toIdentifier(then)]
+            }
+          });
+          break;
+        }
+
+      case 1:
+        {
+          // insert the jump and then label
+          var _labels = labels[labels.length - 1],
+              _then = _labels.then,
+              _end = _labels.end;
+          newSequence.push({
+            type: "cmd",
+            command: {
+              type: "CallExpression",
+              callee: toIdentifier("jump"),
+              arguments: [toIdentifier(_end)]
+            }
+          });
+          newSequence.push({
+            type: "cmd",
+            command: {
+              type: "CallExpression",
+              callee: toIdentifier("label"),
+              arguments: [toIdentifier(_then)]
+            }
+          });
+          break;
+        }
+
+      case 2:
+        {
+          (0,utils/* assert */.hu)(labels.length > 0);
+          var _end2 = labels[labels.length - 1].end;
+          newSequence.push({
+            type: "cmd",
+            command: {
+              type: "CallExpression",
+              callee: toIdentifier("label"),
+              arguments: [toIdentifier(_end2)]
+            }
+          });
+          labels.pop();
+        }
+    }
+  }, function (cmd) {
+    newSequence.push(cmd);
+  });
+  return newSequence;
+}
+
+var getServiceFromRole = function getServiceFromRole(info) {
+  return function (role) {
+    // lookup in roles first
+    var shortId = info.roles.find(function (pair) {
+      return pair.role === role;
+    });
+
+    if (shortId) {
+      // must succeed
+      var def = (0,spec/* serviceSpecificationFromName */.kB)(shortId.serviceShortId);
+      (0,utils/* assert */.hu)(!!def, "service " + shortId.serviceShortId + " not resolved");
+      return def;
+    } else {
+      var service = (0,spec/* serviceSpecificationFromName */.kB)(role);
+      return service;
+    }
+  };
+};
+function checkProgram(prog) {
+  var allErrors = [];
+  var goodHandlers = [];
+
+  var errorFun = function errorFun(e) {
+    allErrors.push({
+      sourceId: undefined,
+      message: e
+    });
+  };
+
+  var symbolResolver = new jdutils/* SpecSymbolResolver */.ll(undefined, getServiceFromRole(prog), errorFun);
+  var checker = new jdutils/* VMChecker */.Ys(symbolResolver, function (_) {
+    return true;
+  }, errorFun);
+  prog.handlers.forEach(function (h) {
+    if (h !== null && h !== void 0 && h.errors.length) {
+      h === null || h === void 0 ? void 0 : h.errors.forEach(function (e) {
+        return allErrors.push(e);
+      });
+      return;
+    }
+
+    var errorCount = allErrors.length;
+    symbolResolver.roles = [];
+    handlerVisitor(h, undefined, function (c) {
+      return checker.checkCommand(c.command, VMFunctions);
+    });
+
+    if ((h === null || h === void 0 ? void 0 : h.errors.length) === 0 && allErrors.length === errorCount) {
+      h.roles = symbolResolver.roles;
+      goodHandlers.push(h);
+    } else {
+      h === null || h === void 0 ? void 0 : h.errors.forEach(function (e) {
+        return allErrors.push(e);
+      });
+    }
+  });
+  prog.handlers = goodHandlers;
+  return {
+    registers: symbolResolver.registers.map(function (s) {
+      var _s$split = s.split("."),
+          root = _s$split[0],
+          fld = _s$split[1];
+
+      return {
+        role: root,
+        register: fld
+      };
+    }),
+    events: symbolResolver.events.map(function (e) {
+      var _e$split = e.split("."),
+          root = _e$split[0],
+          fld = _e$split[1];
+
+      return {
+        role: root,
+        event: fld
+      };
+    }),
+    errors: allErrors
+  };
+}
+
+/***/ }),
+
+/***/ 59448:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "J": function() { return /* binding */ VM_EVENT; },
+/* harmony export */   "H": function() { return /* binding */ VMCode; }
+/* harmony export */ });
+var VM_EVENT = "vmEvent";
+var VMCode;
+
+(function (VMCode) {
+  VMCode["WatchChange"] = "vmWatchChange";
+  VMCode["Breakpoint"] = "vmBreakpoint";
+  VMCode["CommandStarted"] = "vmCommandStarted";
+  VMCode["CommandCompleted"] = "vmCommandCompleted";
+  VMCode["CommandFailed"] = "vmCommandFailed";
+  VMCode["RoleMissing"] = "vmRoleMissing";
+  VMCode["VariableValueChange"] = "vmVariableChanged";
+  VMCode["DynamicTypeError"] = "vmDynamicTypeError";
+  VMCode["InternalError"] = "vmInternalError";
+})(VMCode || (VMCode = {}));
+
+/***/ }),
+
 /***/ 50274:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -8062,9 +8402,13 @@ var shadowDsl = {
 /***/ }),
 
 /***/ 86947:
-/***/ (function(__unused_webpack_module, __webpack_exports__) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var _jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(79973);
+/* harmony import */ var _vm_VMgenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15056);
+
+
 var variablesDsl = {
   id: "variables",
   types: ["variables_get", "variables_set"],
@@ -8077,14 +8421,18 @@ var variablesDsl = {
     }];
   },
   compileExpressionToVM: function compileExpressionToVM(_ref) {
-    var block = _ref.block,
-        definition = _ref.definition,
-        blockToExpressionInner = _ref.blockToExpressionInner;
-    var type = block.type;
+    var block = _ref.block;
+    var type = block.type,
+        inputs = block.inputs;
 
     if (type === "variables_get") {
-      // TODO compile variables_get
-      console.log("todo variables_get");
+      var variable = inputs[0].fields.var.value;
+      var ret = {
+        expr: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()),
+        errors: []
+      };
+      console.log(ret);
+      return ret;
     }
 
     return undefined;
@@ -8092,13 +8440,24 @@ var variablesDsl = {
   compileCommandToVM: function compileCommandToVM(_ref2) {
     var event = _ref2.event,
         block = _ref2.block,
-        definition = _ref2.definition,
         blockToExpression = _ref2.blockToExpression;
-    var type = block.type;
+    var type = block.type,
+        inputs = block.inputs;
 
     if (type === "variables_set") {
-      // TODO
-      console.log("todo variables_get");
+      var _blockToExpression = blockToExpression(event, inputs[0].child),
+          expr = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
+
+      var variable = inputs[0].fields.var.value;
+      return {
+        cmd: (0,_vm_VMgenerator__WEBPACK_IMPORTED_MODULE_1__/* .makeVMBase */ .IZ)(block, {
+          type: "CallExpression",
+          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()), expr],
+          callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toIdentifier */ .EB)("writeLocal")
+        }),
+        errors: errors
+      };
     }
 
     return undefined;
@@ -10045,6 +10404,399 @@ function PaperBox(props) {
 
 /***/ }),
 
+/***/ 15056:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "IZ": function() { return /* binding */ makeVMBase; },
+/* harmony export */   "cC": function() { return /* binding */ processErrors; },
+/* harmony export */   "ZP": function() { return /* binding */ workspaceJSONToVMProgram; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(90293);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(83001);
+/* harmony import */ var _jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(79973);
+/* harmony import */ var _blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16582);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+
+
+var makeVMBase = function makeVMBase(block, command) {
+  return {
+    sourceId: block.id,
+    type: "cmd",
+    command: command
+  };
+};
+var processErrors = function processErrors(block, errors) {
+  return errors.map(function (e) {
+    return {
+      sourceId: e.sourceId ? e.sourceId : block.id,
+      message: e.message
+    };
+  });
+};
+function workspaceJSONToVMProgram(workspace, dsls) {
+  console.debug("compile vm", {
+    workspace: workspace,
+    dsls: dsls
+  });
+  if (!workspace) return undefined;
+
+  var resolveDsl = function resolveDsl(type) {
+    var dsl = dsls.find(function (dsl) {
+      var _dsl$types;
+
+      return ((_dsl$types = dsl.types) === null || _dsl$types === void 0 ? void 0 : _dsl$types.indexOf(type)) > -1;
+    });
+    if (dsl) return dsl;
+
+    var _resolveServiceBlockD = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type),
+        dslName = _resolveServiceBlockD.dsl;
+
+    return dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
+      return dsl.id === dslName;
+    });
+  };
+
+  var roles = workspace.variables.filter(function (v) {
+    return _blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .BUILTIN_TYPES.indexOf */ .Nd.indexOf(v.type) < 0;
+  }).map(function (v) {
+    return {
+      role: v.name,
+      serviceShortId: v.type
+    };
+  });
+
+  var EmptyExpression = /*#__PURE__*/function (_Error) {
+    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EmptyExpression, _Error);
+
+    function EmptyExpression() {
+      return _Error.apply(this, arguments) || this;
+    }
+
+    return EmptyExpression;
+  }( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Error));
+
+  var blockToExpression = function blockToExpression(ev, blockIn) {
+    var errors = [];
+
+    var blockToExpressionInner = function blockToExpressionInner(ev, block) {
+      if (!block) {
+        throw new EmptyExpression();
+      }
+
+      var type = block.type,
+          value = block.value,
+          inputs = block.inputs;
+      console.log("block2e", {
+        ev: ev,
+        block: block,
+        type: type,
+        value: value,
+        inputs: inputs
+      });
+      if (value !== undefined) // literal
+        return {
+          type: "Literal",
+          value: value,
+          raw: value + ""
+        };
+      var dsl = resolveDsl(type);
+
+      if (!dsl) {
+        console.warn("unknown block " + type, {
+          type: type,
+          ev: ev,
+          block: block,
+          d: (blockly__WEBPACK_IMPORTED_MODULE_2___default().Blocks)[type]
+        });
+        errors.push({
+          sourceId: block.id,
+          message: "unknown block " + type
+        });
+      } else {
+        var _dsl$compileExpressio;
+
+        var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
+        var res = (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
+          event: ev,
+          definition: definition,
+          block: block,
+          blockToExpressionInner: blockToExpressionInner
+        });
+
+        if (res) {
+          if (res.errors) res.errors.forEach(function (e) {
+            return errors.push(e);
+          });
+          return res.expr;
+        }
+
+        var template = definition.template;
+
+        if (template === "shadow") {
+          var field = inputs[0].fields["value"];
+          var v = field.value;
+          return {
+            type: "Literal",
+            value: v,
+            raw: v + ""
+          };
+        }
+
+        errors.push({
+          sourceId: block.id,
+          message: "unknown block " + type
+        });
+        console.warn("unsupported block " + type, {
+          ev: ev,
+          block: block,
+          definition: definition
+        });
+      }
+
+      throw new EmptyExpression();
+    };
+
+    return {
+      expr: blockToExpressionInner(ev, blockIn),
+      errors: errors
+    };
+  };
+
+  var blockToCommand = function blockToCommand(event, block) {
+    var type = block.type,
+        inputs = block.inputs;
+    console.debug("block2c", {
+      event: event,
+      type: type,
+      block: block,
+      inputs: inputs
+    });
+
+    switch (type) {
+      case "dynamic_if":
+        {
+          var _inputs$, _inputs$2;
+
+          var thenHandler = {
+            commands: [],
+            errors: []
+          };
+          var elseHandler = {
+            commands: [],
+            errors: []
+          };
+          var t = (_inputs$ = inputs[1]) === null || _inputs$ === void 0 ? void 0 : _inputs$.child;
+          var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
+
+          if (t) {
+            addCommands(event, [t].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(t.children ? t.children : [])), thenHandler);
+          }
+
+          if (e) {
+            addCommands(event, [e].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(e.children ? e.children : [])), elseHandler);
+          }
+
+          var exprErrors = undefined;
+
+          try {
+            var _inputs$3;
+
+            exprErrors = blockToExpression(event, (_inputs$3 = inputs[0]) === null || _inputs$3 === void 0 ? void 0 : _inputs$3.child);
+          } catch (e) {
+            if (e instanceof EmptyExpression) {
+              exprErrors = {
+                expr: {
+                  type: "Literal",
+                  value: false,
+                  raw: "false "
+                },
+                errors: []
+              };
+            } else {
+              throw e;
+            }
+          }
+
+          var _exprErrors = exprErrors,
+              expr = _exprErrors.expr,
+              errors = _exprErrors.errors;
+          var ifThenElse = {
+            sourceId: block.id,
+            type: "ite",
+            expr: expr,
+            then: thenHandler.commands,
+            else: elseHandler.commands
+          };
+          return {
+            cmd: ifThenElse,
+            errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
+          };
+        }
+      // more builts
+
+      default:
+        {
+          var dsl = resolveDsl(type);
+
+          if (dsl) {
+            var _dsl$compileCommandTo;
+
+            var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
+            var dslRes = (_dsl$compileCommandTo = dsl.compileCommandToVM) === null || _dsl$compileCommandTo === void 0 ? void 0 : _dsl$compileCommandTo.call(dsl, {
+              event: event,
+              block: block,
+              definition: definition,
+              blockToExpression: blockToExpression
+            });
+
+            if (dslRes) {
+              dslRes.errors = processErrors(block, dslRes.errors);
+              return dslRes;
+            }
+          }
+
+          console.warn("unsupported block " + type, {
+            block: block
+          });
+          return {
+            cmd: undefined,
+            errors: [{
+              sourceId: block.id,
+              message: "unsupported block " + type
+            }]
+          };
+        }
+    }
+  };
+
+  var nop = {
+    type: "CallExpression",
+    arguments: [],
+    callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toIdentifier */ .EB)("nop")
+  };
+
+  var addCommands = function addCommands(event, blocks, handler) {
+    blocks === null || blocks === void 0 ? void 0 : blocks.filter(function (child) {
+      return !!child;
+    }).forEach(function (child) {
+      try {
+        var _blockToCommand = blockToCommand(event, child),
+            cmd = _blockToCommand.cmd,
+            errors = _blockToCommand.errors;
+
+        if (cmd) handler.commands.push(cmd);
+        errors.forEach(function (e) {
+          return handler.errors.push(e);
+        });
+      } catch (e) {
+        if (e instanceof EmptyExpression) {
+          handler.commands.push({
+            sourceId: child.id,
+            type: "cmd",
+            command: nop
+          });
+        } else {
+          console.debug(e);
+        }
+      }
+    });
+  };
+
+  var handlers = workspace.blocks.map(function (top) {
+    var _topErrors2;
+
+    var type = top.type;
+    var command;
+    var topEvent;
+    var topErrors;
+    var topMeta = false;
+
+    try {
+      var _dsl$compileEventToVM, _topErrors;
+
+      var dsl = resolveDsl(type);
+      var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
+
+      var _ref = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
+        block: top,
+        definition: definition,
+        blockToExpression: blockToExpression
+      })) || {},
+          expression = _ref.expression,
+          errors = _ref.errors,
+          event = _ref.event,
+          meta = _ref.meta;
+
+      command = expression;
+      topErrors = errors;
+      topEvent = event;
+      topMeta = meta; // if dsl didn't compile anything try again
+
+      var _ref2 = definition || {},
+          template = _ref2.template;
+
+      if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
+        switch (template) {
+          case "meta":
+            {
+              break;
+            }
+
+          default:
+            {
+              topErrors = [{
+                sourceId: top.id,
+                message: "unsupported block " + type
+              }];
+              console.debug("unsupported handler template " + template + " for " + type, {
+                top: top
+              });
+              break;
+            }
+        }
+      }
+    } catch (e) {
+      console.debug(e);
+
+      if (e instanceof EmptyExpression) {
+        return undefined;
+      } else {
+        throw e;
+      }
+    } // nothing to compile here
+
+
+    if (!command && !((_topErrors2 = topErrors) !== null && _topErrors2 !== void 0 && _topErrors2.length)) return undefined;
+    var handler = {
+      commands: [{
+        sourceId: top.id,
+        type: "cmd",
+        command: command
+      }],
+      errors: topErrors || [],
+      meta: !!topMeta
+    };
+    addCommands(topEvent, top.children, handler);
+    return handler;
+  }).filter(function (handler) {
+    return !!handler;
+  });
+  return {
+    roles: roles,
+    handlers: handlers
+  };
+}
+
+/***/ }),
+
 /***/ 41173:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -10086,4 +10838,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-48966d71cd1737509769.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-9275e22b70a1335fb53f.js.map

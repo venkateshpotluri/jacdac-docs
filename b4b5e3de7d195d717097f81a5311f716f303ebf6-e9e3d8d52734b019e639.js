@@ -5,7 +5,8 @@
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "iq": function() { return /* binding */ VMRoleNoServiceException; },
+/* harmony export */   "Is": function() { return /* binding */ VMEnvironmentCode; },
+/* harmony export */   "ok": function() { return /* binding */ VMEnvironmentException; },
 /* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
 /* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
@@ -28,18 +29,26 @@
 
 
 
-var VMRoleNoServiceException = /*#__PURE__*/function (_Error) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMRoleNoServiceException, _Error);
+var VMEnvironmentCode;
 
-  function VMRoleNoServiceException(role) {
+(function (VMEnvironmentCode) {
+  VMEnvironmentCode["RoleNoService"] = "vmEnvRoleNoService";
+  VMEnvironmentCode["TypeMismatch"] = "vmEnvTypeMismatch";
+})(VMEnvironmentCode || (VMEnvironmentCode = {}));
+
+var VMEnvironmentException = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMEnvironmentException, _Error);
+
+  function VMEnvironmentException(code, data) {
     var _this;
 
     _this = _Error.call(this) || this;
-    _this.role = role;
+    _this.code = code;
+    _this.data = data;
     return _this;
   }
 
-  return VMRoleNoServiceException;
+  return VMEnvironmentException;
 }( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(Error));
 var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
@@ -116,12 +125,9 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     }
 
     return sendCommandAsync;
-  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
+  }();
 
-  _proto.writeRegisterAsync =
-  /*#__PURE__*/
-  function () {
+  _proto.writeRegisterAsync = /*#__PURE__*/function () {
     var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, ev) {
       var register;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -214,10 +220,9 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     }
 
     return setEnabled;
-  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
+  }();
 
-  _proto.lookup = function lookup(e) {
+  _proto.lookupRegister = function lookupRegister(e) {
     var root = typeof e === "string" ? e : e.type === "Identifier" ? e.name : e.object.name;
     var fld = typeof e === "string" ? undefined : e.type === "Identifier" ? undefined : e.property.name;
 
@@ -294,7 +299,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     _this3 = _JDEventSource.call(this) || this;
     _this3._currentEvent = undefined;
     _this3._envs = {};
-    _this3._locals = {};
+    _this3._globals = {};
     _this3.registers = registers;
     _this3.events = events;
     return _this3;
@@ -365,7 +370,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     var s = this._envs[root];
 
     if (!s) {
-      throw new VMRoleNoServiceException(root);
+      throw new VMEnvironmentException(VMEnvironmentCode.RoleNoService, root);
     }
 
     return s;
@@ -439,8 +444,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     return sendCommandAsync;
-  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
+  }();
 
   _proto2.lookup = function lookup(e) {
     var roleName = this.getRootName(e);
@@ -449,8 +453,10 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       var _me = e;
 
       if (_me.property.type === "Identifier") {
+        var _this$_globals$local;
+
         var local = _me.property.name;
-        return this._locals[local];
+        return (_this$_globals$local = this._globals[local]) === null || _this$_globals$local === void 0 ? void 0 : _this$_globals$local.value;
       }
 
       return undefined;
@@ -458,7 +464,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
     var serviceEnv = this.getService(e);
     var me = e;
-    return serviceEnv.lookup(me.property);
+    return serviceEnv.lookupRegister(me.property);
   };
 
   _proto2.writeRegisterAsync = /*#__PURE__*/function () {
@@ -495,14 +501,35 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     return writeRegisterAsync;
   }();
 
-  _proto2.writeLocal = function writeLocal(e, ev) {
+  _proto2.writeLocal = function writeLocal(e, value) {
     var roleName = this.getRootName(e);
     if (!roleName || roleName !== "$") return undefined;
     var me = e;
 
     if (me.property.type === "Identifier") {
       var local = me.property.name;
-      this._locals[local] = ev;
+
+      if (this._globals[local]) {
+        var firstType = this._globals[local].type;
+
+        if (firstType !== typeof value) {
+          throw new VMEnvironmentException(VMEnvironmentCode.TypeMismatch, "variable " + local + " has first type " + firstType + "; trying to assign " + value.toString());
+        }
+
+        this._globals[local].value = value;
+      } else {
+        var _firstType = typeof value;
+
+        if (_firstType !== "string" && _firstType !== "boolean" && _firstType !== "number") {
+          throw new VMEnvironmentException(VMEnvironmentCode.TypeMismatch, "Value of type " + _firstType + " not supported");
+        }
+
+        this._globals[local] = {
+          type: _firstType,
+          value: value
+        };
+      }
+
       return true;
     }
 
@@ -537,29 +564,6 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
 /***/ }),
 
-/***/ 59448:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "J": function() { return /* binding */ VM_EVENT; },
-/* harmony export */   "H": function() { return /* binding */ VMCode; }
-/* harmony export */ });
-var VM_EVENT = "vmEvent";
-var VMCode;
-
-(function (VMCode) {
-  VMCode["WatchChange"] = "vmWatchChange";
-  VMCode["Breakpoint"] = "vmBreakpoint";
-  VMCode["CommandStarted"] = "vmCommandStarted";
-  VMCode["CommandCompleted"] = "vmCommandCompleted";
-  VMCode["CommandFailed"] = "vmCommandFailed";
-  VMCode["RoleMissing"] = "vmRoleMissing";
-  VMCode["InternalError"] = "vmInternalError";
-})(VMCode || (VMCode = {}));
-
-/***/ }),
-
 /***/ 18108:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -568,10 +572,7 @@ var VMCode;
 /* harmony export */   "Z": function() { return /* binding */ unparse; },
 /* harmony export */   "W": function() { return /* binding */ VMExprEvaluator; }
 /* harmony export */ });
-/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59448);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(94624);
-
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function unparse(e) {
   switch (e.type) {
     case "ArrayExpression":
@@ -806,11 +807,9 @@ var VMExprEvaluator = /*#__PURE__*/function () {
         {
           // for now, we don't support evaluation of obj or prop
           // of obj.prop
-          var val = this.env(e);
-
-          if (val === undefined) {
-            throw new _utils__WEBPACK_IMPORTED_MODULE_1__/* .VMError */ .L1(_events__WEBPACK_IMPORTED_MODULE_0__/* .VMCode.InternalError */ .H.InternalError, "lookup of " + unparse(e) + " failed");
-          }
+          var val = this.env(e); //if (val === undefined) {
+          //    throw new VMError(VMCode.InternalError, `lookup of ${unparse(e)} failed`)
+          //}
 
           this.exprStack.push(val);
           return;
@@ -820,9 +819,10 @@ var VMExprEvaluator = /*#__PURE__*/function () {
         {
           var id = e;
 
-          var _val = this.env(id.name);
+          var _val = this.env(id.name); // if (val === undefined)
+          //    throw new VMError(VMCode.InternalError, `lookup of ${id.name} failed`)
 
-          if (_val === undefined) throw new _utils__WEBPACK_IMPORTED_MODULE_1__/* .VMError */ .L1(_events__WEBPACK_IMPORTED_MODULE_0__/* .VMCode.InternalError */ .H.InternalError, "lookup of " + id.name + " failed");
+
           this.exprStack.push(_val);
           return;
         }
@@ -841,75 +841,7 @@ var VMExprEvaluator = /*#__PURE__*/function () {
   return VMExprEvaluator;
 }();
 
-/***/ }),
-
-/***/ 94624:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "L1": function() { return /* binding */ VMError; },
-/* harmony export */   "WU": function() { return /* binding */ Mutex; }
-/* harmony export */ });
-/* unused harmony export default */
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(85413);
-/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83001);
-
-
-var VMError = /*#__PURE__*/function (_Error) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(VMError, _Error);
-
-  function VMError(name, message, jacdacName) {
-    var _this;
-
-    _this = _Error.call(this, message) || this;
-    _this.message = message;
-    _this.jacdacName = jacdacName;
-    _this.name = name;
-    return _this;
-  }
-
-  return VMError;
-}( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Error));
-function errorPath(e) {
-  return e === null || e === void 0 ? void 0 : e.jacdacName;
-}
-var Mutex = /*#__PURE__*/function () {
-  function Mutex() {
-    this.promises = [];
-  }
-
-  var _proto = Mutex.prototype;
-
-  _proto.shift = function shift() {
-    this.promises.shift();
-    if (this.promises[0]) this.promises[0]();
-  };
-
-  _proto.acquire = function acquire(f) {
-    var _this2 = this;
-
-    return new Promise(function (resolve, reject) {
-      _this2.promises.push(function () {
-        return f().then(function (v) {
-          _this2.shift();
-
-          resolve(v);
-        }, function (e) {
-          _this2.shift();
-
-          reject(e);
-        });
-      });
-
-      if (_this2.promises.length == 1) _this2.promises[0]();
-    });
-  };
-
-  return Mutex;
-}();
-
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-3a91a121ff4769548c08.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-e9e3d8d52734b019e639.js.map

@@ -1506,7 +1506,7 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
   ;
 
   _proto4.lookup = function lookup(e) {
-    return this._env.lookup(e);
+    return this._env.lookupRegister(e);
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ;
 
@@ -1973,4 +1973,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-5cd9a04aef6fb624014d.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-f7e35c7a94a722e4def8.js.map
