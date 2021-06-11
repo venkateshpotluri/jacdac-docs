@@ -8485,8 +8485,7 @@ var variablesDsl = {
     var type = block.type,
         inputs = block.inputs;
 
-    if (type === "math_change") {// TODO change by
-    } else if (type === "variables_set") {
+    if (type === "math_change" || type === "variables_set") {
       var _blockToExpression = blockToExpression(event, inputs[0].child),
           expr = _blockToExpression.expr,
           errors = _blockToExpression.errors;
@@ -8495,7 +8494,12 @@ var variablesDsl = {
       return {
         cmd: (0,_vm_VMgenerator__WEBPACK_IMPORTED_MODULE_1__/* .makeVMBase */ .IZ)(block, {
           type: "CallExpression",
-          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()), expr],
+          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()), type === "variables_set" ? expr : {
+            type: "BinaryExpression",
+            operator: "+",
+            left: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()),
+            right: expr
+          }],
           callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toIdentifier */ .EB)("writeLocal")
         }),
         errors: errors
@@ -9018,10 +9022,11 @@ function LogViewWidget() {
       setLogs = _useState[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VM_EVENT */ .J, function (code) {
+    setLogs([]);
+    runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VM_EVENT */ .J, function (code) {
       if (code === _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VMCode.LogEntry */ .H.LogEntry) setLogs((runner === null || runner === void 0 ? void 0 : runner.logData) || []);
     });
-  });
+  }, [runner]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("pre", {
     style: {
       padding: "0",
@@ -10945,4 +10950,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-f19fbbf06315d7227d50.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-17e47b77515ad54c12b5.js.map
