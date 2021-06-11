@@ -31545,10 +31545,10 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     (0,esm_defineProperty/* default */.Z)((0,assertThisInitialized/* default */.Z)(_this), "autoRotateSpeed", 2.0);
 
     (0,esm_defineProperty/* default */.Z)((0,assertThisInitialized/* default */.Z)(_this), "keys", {
-      LEFT: 37,
-      UP: 38,
-      RIGHT: 39,
-      BOTTOM: 40
+      LEFT: 'ArrowLeft',
+      UP: 'ArrowUp',
+      RIGHT: 'ArrowRight',
+      BOTTOM: 'ArrowDown'
     });
 
     (0,esm_defineProperty/* default */.Z)((0,assertThisInitialized/* default */.Z)(_this), "mouseButtons", {
@@ -31951,7 +31951,7 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     function handleKeyDown(event) {
       var needsUpdate = false;
 
-      switch (event.keyCode) {
+      switch (event.code) {
         case scope.keys.UP:
           pan(0, scope.keyPanSpeed);
           needsUpdate = true;
@@ -35261,7 +35261,7 @@ var Symbol = __webpack_require__(62705),
     Uint8Array = __webpack_require__(11149),
     eq = __webpack_require__(77813),
     equalArrays = __webpack_require__(67114),
-    mapToArray = __webpack_require__(68776),
+    mapToArray = __webpack_require__(22485),
     setToArray = __webpack_require__(21814);
 
 /** Used to compose bitmasks for value comparisons. */
@@ -36595,7 +36595,7 @@ module.exports = mapCacheSet;
 
 /***/ }),
 
-/***/ 68776:
+/***/ 22485:
 /***/ (function(module) {
 
 /**
@@ -38286,4 +38286,4 @@ module.exports = toString;
 /***/ })
 
 }]);
-//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-1c644d7b9b30b0a2b58e.js.map
+//# sourceMappingURL=c8f7fe3b0e41be846d5687592cf2018ff6e22687-b33f9361e8b42dbc4ad8.js.map

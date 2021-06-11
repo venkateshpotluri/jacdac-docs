@@ -3590,8 +3590,12 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       return {
         kind: "block",
         type: "key",
-        message0: "send %1 key %2",
+        message0: "%1 %2 key %3",
         args0: [fieldVariable(service), {
+          type: "field_dropdown",
+          name: "action",
+          options: [["press", "press"], ["down", "down"], ["up", "up"]]
+        }, {
           type: KeyboardKeyField/* default.KEY */.Z.KEY,
           name: "combo"
         }],
@@ -3602,7 +3606,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         tooltip: "Send a keyboard key combo",
         helpUrl: serviceHelp(service),
         service: service,
-        expression: "role.key(combo.selectors, combo.modifiers)",
+        expression: "role.key(combo.selectors, combo.modifiers, action)",
         template: "custom"
       };
     })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_LED */.i04).map(function (service) {
@@ -5757,4 +5761,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-af7d487485a86b4d1477.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d9223deb0230540b154b.js.map

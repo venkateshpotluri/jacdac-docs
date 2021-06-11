@@ -67165,7 +67165,7 @@ function CenterGrid(props) {
 /* harmony export */   "Z": function() { return /* binding */ Connector; }
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(43217);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(66802);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CarouselGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30043);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(83580);
@@ -67478,7 +67478,7 @@ function FeatureItem(props) {
 /* harmony export */   "Z": function() { return /* binding */ Protocol; }
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(43217);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(66802);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CarouselGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30043);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(83580);
@@ -67647,7 +67647,7 @@ function Protocol() {
 /* harmony export */   "Z": function() { return /* binding */ Home; }
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(43217);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(66802);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CarouselGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30043);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(83580);
@@ -67918,7 +67918,7 @@ function Home() {
 /* harmony export */   "Z": function() { return /* binding */ Protocol; }
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(43217);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(66802);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _DeviceSpecificationList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24239);
 /* harmony import */ var _CarouselGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30043);
@@ -68070,7 +68070,7 @@ function Protocol() {
 /* harmony export */   "Z": function() { return /* binding */ Software; }
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(43217);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(66802);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83580);
 /* harmony import */ var _SplitGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72587);
@@ -68291,7 +68291,7 @@ function SplitGrid(props) {
 /* harmony export */   "Z": function() { return /* binding */ Tools; }
 /* harmony export */ });
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(80838);
-/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(43217);
+/* harmony import */ var gatsby_plugin_image__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(66802);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CenterGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83580);
 /* harmony import */ var _SplitGrid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72587);
@@ -69738,7 +69738,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "43a39d430deb6d5adecd343ec2d3e12cb9eca352";
+  var sha = "133f4f8d2ec25fafa1302ce2e3ca6d04e157cfad";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -78783,7 +78783,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.71"};
+var package_namespaceObject = {"i8":"1.13.72"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -79664,20 +79664,20 @@ exports.onClientEntry = function (_, pluginOptions) {
 
 /***/ }),
 
-/***/ 43217:
+/***/ 66802:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "L": function() { return /* binding */ B; },
-/* harmony export */   "M": function() { return /* binding */ Z; },
-/* harmony export */   "P": function() { return /* binding */ X; },
-/* harmony export */   "S": function() { return /* binding */ re; },
+/* harmony export */   "L": function() { return /* binding */ X; },
+/* harmony export */   "M": function() { return /* binding */ ae; },
+/* harmony export */   "P": function() { return /* binding */ te; },
+/* harmony export */   "S": function() { return /* binding */ he; },
 /* harmony export */   "_": function() { return /* binding */ v; },
 /* harmony export */   "a": function() { return /* binding */ f; },
-/* harmony export */   "b": function() { return /* binding */ A; },
-/* harmony export */   "c": function() { return /* binding */ ne; },
-/* harmony export */   "g": function() { return /* binding */ F; }
+/* harmony export */   "b": function() { return /* binding */ G; },
+/* harmony export */   "c": function() { return /* binding */ pe; },
+/* harmony export */   "g": function() { return /* binding */ V; }
 /* harmony export */ });
 /* unused harmony exports G, d, e, f, h, i, j, w */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
@@ -80033,24 +80033,26 @@ function N(e, t) {
   };
 }
 
-var x = new Set(),
-    W = function W() {
+var x = (/* unused pure expression or super */ null && (["baseUrl", "urlBuilder", "sourceWidth", "sourceHeight", "pluginName", "formats", "breakpoints", "options"])),
+    W = (/* unused pure expression or super */ null && (["images", "placeholder"])),
+    z = new Set(),
+    T = function T() {
   return "undefined" != typeof HTMLImageElement && "loading" in HTMLImageElement.prototype;
 };
 
-function z() {
+function P() {
   return  true && true;
 }
 
-function T(e) {
-  e && x.add(e);
+function H(e) {
+  e && z.add(e);
 }
 
-function P(e) {
-  return x.has(e);
+function D(e) {
+  return z.has(e);
 }
 
-var H = function H(e) {
+var C = function C(e) {
   var t;
   return function (e) {
     var t, a;
@@ -80059,16 +80061,16 @@ var H = function H(e) {
     return Boolean(null == e ? void 0 : e.gatsbyImageData);
   }(e) ? e.gatsbyImageData : null == e || null == (t = e.childImageSharp) ? void 0 : t.gatsbyImageData;
 },
-    D = function D(e) {
+    q = function q(e) {
   var t, a, i;
-  return null == (t = H(e)) || null == (a = t.images) || null == (i = a.fallback) ? void 0 : i.src;
+  return null == (t = C(e)) || null == (a = t.images) || null == (i = a.fallback) ? void 0 : i.src;
 },
-    C = function C(e) {
+    A = function A(e) {
   var t, a, i;
-  return null == (t = H(e)) || null == (a = t.images) || null == (i = a.fallback) ? void 0 : i.srcSet;
+  return null == (t = C(e)) || null == (a = t.images) || null == (i = a.fallback) ? void 0 : i.srcSet;
 };
 
-function q(e) {
+function F(e) {
   var t,
       a = e.baseUrl,
       i = e.urlBuilder,
@@ -80080,7 +80082,7 @@ function q(e) {
       d = void 0 === l ? ["auto"] : l,
       u = e.breakpoints,
       c = e.options,
-      h = v(e, ["baseUrl", "urlBuilder", "sourceWidth", "sourceHeight", "pluginName", "formats", "breakpoints", "options"]);
+      h = v(e, x);
   return null != (t = u) && t.length || "fullWidth" !== h.layout && "FULL_WIDTH" !== h.layout || (u = E), R(f({}, h, {
     pluginName: s,
     generateImageSource: function generateImageSource(e, t, a, r) {
@@ -80108,7 +80110,7 @@ function q(e) {
   }));
 }
 
-function A(e, t, a, i, r, n, o, s) {
+function G(e, t, a, i, r, n, o, s) {
   var l, d;
   return void 0 === s && (s = {}), null != o && o.current && !("objectFit" in document.documentElement.style) && (o.current.dataset.objectFit = null != (l = s.objectFit) ? l : "cover", o.current.dataset.objectPosition = "" + (null != (d = s.objectPosition) ? d : "50% 50%"), function (e) {
     try {
@@ -80123,7 +80125,7 @@ function A(e, t, a, i, r, n, o, s) {
     } catch (e) {
       return Promise.reject(e);
     }
-  }(o)), z() || (s = f({
+  }(o)), P() || (s = f({
     height: "100%",
     left: 0,
     position: "absolute",
@@ -80141,7 +80143,7 @@ function A(e, t, a, i, r, n, o, s) {
     }),
     onLoad: function onLoad(e) {
       if (!t) {
-        T(n);
+        H(n);
         var a = e.currentTarget,
             i = new Image();
         i.src = a.currentSrc, i.decode ? i.decode().catch(function () {}).then(function () {
@@ -80153,7 +80155,7 @@ function A(e, t, a, i, r, n, o, s) {
   });
 }
 
-function F(e, t, a, i, r, n, o, s) {
+function V(e, t, a, i, r, n, o, s) {
   var l = {};
   n && (l.backgroundColor = n, "fixed" === a ? (l.width = i, l.height = r, l.backgroundColor = n, l.position = "relative") : ("constrained" === a || "fullWidth" === a) && (l.position = "absolute", l.top = 0, l.left = 0, l.bottom = 0, l.right = 0)), o && (l.objectFit = o), s && (l.objectPosition = s);
   var d = f({}, e, {
@@ -80164,7 +80166,7 @@ function F(e, t, a, i, r, n, o, s) {
       transition: "opacity 500ms linear"
     }, l)
   });
-  return z() || (d.style = {
+  return P() || (d.style = {
     height: "100%",
     left: 0,
     position: "absolute",
@@ -80173,13 +80175,13 @@ function F(e, t, a, i, r, n, o, s) {
   }), d;
 }
 
-function G(e, t) {
+function U(e, t) {
   var a,
       i,
       r,
       n = e.images,
       o = e.placeholder,
-      s = f({}, v(e, ["images", "placeholder"]), {
+      s = f({}, v(e, W), {
     images: f({}, n, {
       sources: []
     }),
@@ -80205,8 +80207,9 @@ function G(e, t) {
   }), (a = s.images.sources).push.apply(a, n.sources), null != o && o.sources && (null == (i = s.placeholder) || (r = i.sources).push.apply(r, o.sources)), s;
 }
 
-var V,
-    U = function U(t) {
+var B,
+    J = ["children"],
+    Y = function Y(t) {
   var a = t.layout,
       i = t.width,
       r = t.height;
@@ -80232,12 +80235,14 @@ var V,
     }
   })) : null;
 },
-    B = function B(a) {
+    X = function X(a) {
   var i = a.children,
-      r = v(a, ["children"]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(U, Object.assign({}, r)), i, !1);
+      r = v(a, J);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Y, Object.assign({}, r)), i, !1);
 },
-    J = function J(t) {
+    Z = ["src", "srcSet", "loading", "alt", "shouldLoad", "innerRef"],
+    K = ["fallback", "sources", "shouldLoad"],
+    Q = function Q(t) {
   var a = t.src,
       i = t.srcSet,
       r = t.loading,
@@ -80245,7 +80250,7 @@ var V,
       o = void 0 === n ? "" : n,
       s = t.shouldLoad,
       l = t.innerRef,
-      d = v(t, ["src", "srcSet", "loading", "alt", "shouldLoad", "innerRef"]);
+      d = v(t, Z);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", Object.assign({}, d, {
     decoding: "async",
     loading: r,
@@ -80257,15 +80262,15 @@ var V,
     ref: l
   }));
 },
-    Y = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (t, a) {
+    $ = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (t, a) {
   var i = t.fallback,
       r = t.sources,
       n = void 0 === r ? [] : r,
       o = t.shouldLoad,
       s = void 0 === o || o,
-      l = v(t, ["fallback", "sources", "shouldLoad"]),
+      l = v(t, K),
       d = l.sizes || (null == i ? void 0 : i.sizes),
-      u = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(J, Object.assign({}, l, i, {
+      u = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Q, Object.assign({}, l, i, {
     sizes: d,
     shouldLoad: s,
     innerRef: a
@@ -80285,13 +80290,13 @@ var V,
   }), u) : u;
 });
 
-J.propTypes = {
+Q.propTypes = {
   src: prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,
   alt: prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,
   sizes: prop_types__WEBPACK_IMPORTED_MODULE_3__.string,
   srcSet: prop_types__WEBPACK_IMPORTED_MODULE_3__.string,
   shouldLoad: prop_types__WEBPACK_IMPORTED_MODULE_3__.bool
-}, Y.displayName = "Picture", Y.propTypes = {
+}, $.displayName = "Picture", $.propTypes = {
   alt: prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,
   shouldLoad: prop_types__WEBPACK_IMPORTED_MODULE_3__.bool,
   fallback: (0,prop_types__WEBPACK_IMPORTED_MODULE_3__.exact)({
@@ -80312,10 +80317,11 @@ J.propTypes = {
   })]))
 };
 
-var X = function X(t) {
+var ee = ["fallback"],
+    te = function te(t) {
   var a = t.fallback,
-      i = v(t, ["fallback"]);
-  return a ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Y, Object.assign({}, i, {
+      i = v(t, ee);
+  return a ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement($, Object.assign({}, i, {
     fallback: {
       src: a
     },
@@ -80324,30 +80330,31 @@ var X = function X(t) {
   })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", Object.assign({}, i));
 };
 
-X.displayName = "Placeholder", X.propTypes = {
+te.displayName = "Placeholder", te.propTypes = {
   fallback: prop_types__WEBPACK_IMPORTED_MODULE_3__.string,
-  sources: null == (V = Y.propTypes) ? void 0 : V.sources,
+  sources: null == (B = $.propTypes) ? void 0 : B.sources,
   alt: function alt(e, t, a) {
     return e[t] ? new Error("Invalid prop `" + t + "` supplied to `" + a + "`. Validation failed.") : null;
   }
 };
-var Z = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (t, a) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Y, Object.assign({
+var ae = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (t, a) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement($, Object.assign({
     ref: a
-  }, t)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("noscript", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Y, Object.assign({}, t, {
+  }, t)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("noscript", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement($, Object.assign({}, t, {
     shouldLoad: !0
   }))));
 });
-Z.displayName = "MainImage", Z.propTypes = Y.propTypes;
+ae.displayName = "MainImage", ae.propTypes = $.propTypes;
 
-var K = function K(e, t, a) {
+var ie = function ie(e, t, a) {
   return e.alt || "" === e.alt ? prop_types__WEBPACK_IMPORTED_MODULE_3___default().string.apply((prop_types__WEBPACK_IMPORTED_MODULE_3___default()), [e, t, a].concat([].slice.call(arguments, 3))) : new Error('The "alt" prop is required in ' + a + '. If the image is purely presentational then pass an empty string: e.g. alt="". Learn more: https://a11y-style-guide.com/style-guide/section-media.html');
 },
-    Q = {
+    re = {
   image: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object.isRequired),
-  alt: K
+  alt: ie
 },
-    $ = function (t) {
+    ne = ["style", "className"],
+    oe = function (t) {
   var a, r;
 
   function n(e) {
@@ -80357,7 +80364,7 @@ var K = function K(e, t, a) {
     }, a.forceRender = {
       current: "development" === "production"
     }, a.lazyHydrator = null, a.ref = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createRef)(), a.state = {
-      isLoading: W(),
+      isLoading: T(),
       isLoaded: !1
     }, a;
   }
@@ -80367,7 +80374,7 @@ var K = function K(e, t, a) {
   return o._lazyHydrate = function (e, t) {
     var a = this,
         i = this.root.current.querySelector("[data-gatsby-image-ssr]");
-    return W() && i && !this.hydrated.current ? (this.hydrated.current = !0, Promise.resolve()) : __webpack_require__.e(/* import() */ 8470).then(__webpack_require__.bind(__webpack_require__, 48470)).then(function (i) {
+    return T() && i && !this.hydrated.current ? (this.hydrated.current = !0, Promise.resolve()) : __webpack_require__.e(/* import() */ 8776).then(__webpack_require__.bind(__webpack_require__, 68776)).then(function (i) {
       a.lazyHydrator = (0, i.lazyHydrate)(f({
         image: e.image.images,
         isLoading: t.isLoading,
@@ -80387,10 +80394,10 @@ var K = function K(e, t, a) {
         if (t.root.current) {
           var a = JSON.stringify(t.props.image.images);
           null == t.props.onStartLoad || t.props.onStartLoad({
-            wasCached: e && P(a)
+            wasCached: e && D(a)
           }), t.setState({
             isLoading: !0,
-            isLoaded: e && P(a)
+            isLoaded: e && D(a)
           });
         }
       });
@@ -80410,18 +80417,18 @@ var K = function K(e, t, a) {
       var e = this.root.current.querySelector("[data-gatsby-image-ssr]"),
           t = JSON.stringify(this.props.image.images);
 
-      if (W() && e && z()) {
+      if (T() && e && P()) {
         var a, i;
 
         if (null == (a = (i = this.props).onStartLoad) || a.call(i, {
           wasCached: !1
         }), e.complete) {
           var r, n;
-          null == (r = (n = this.props).onLoad) || r.call(n), T(t);
+          null == (r = (n = this.props).onLoad) || r.call(n), H(t);
         } else {
           var o = this;
           e.addEventListener("load", function a() {
-            e.removeEventListener("load", a), null == o.props.onLoad || o.props.onLoad(), T(t);
+            e.removeEventListener("load", a), null == o.props.onLoad || o.props.onLoad(), H(t);
           });
         }
 
@@ -80441,7 +80448,7 @@ var K = function K(e, t, a) {
         o = function (e, t, a) {
       var i = {},
           r = "gatsby-image-wrapper";
-      return z() || (i.position = "relative", i.overflow = "hidden"), "fixed" === a ? (i.width = e, i.height = t) : "constrained" === a && (z() || (i.display = "inline-block", i.verticalAlign = "top"), r = "gatsby-image-wrapper gatsby-image-wrapper-constrained"), {
+      return P() || (i.position = "relative", i.overflow = "hidden"), "fixed" === a ? (i.width = e, i.height = t) : "constrained" === a && (P() || (i.display = "inline-block", i.verticalAlign = "top"), r = "gatsby-image-wrapper gatsby-image-wrapper-constrained"), {
         className: r,
         "data-gatsby-image-wrapper": "",
         style: i
@@ -80449,7 +80456,7 @@ var K = function K(e, t, a) {
     }(i, r, n),
         s = o.style,
         l = o.className,
-        d = v(o, ["style", "className"]),
+        d = v(o, ne),
         u = this.props.className;
 
     this.props.class && (u = this.props.class);
@@ -80472,52 +80479,53 @@ var K = function K(e, t, a) {
     }));
   }, n;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component),
-    ee = function ee(t) {
+    se = function se(t) {
   if (!t.image) return  false && 0, null;
-  z() || console.error('[gatsby-plugin-image] You\'re missing out on some cool performance features. Please add "gatsby-plugin-image" to your gatsby-config.js');
+  P() || console.error('[gatsby-plugin-image] You\'re missing out on some cool performance features. Please add "gatsby-plugin-image" to your gatsby-config.js');
   var a = t.image,
       i = JSON.stringify([a.width, a.height, a.layout, t.className, t.class, t.backgroundColor]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement($, Object.assign({
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(oe, Object.assign({
     key: i
   }, t));
 };
 
-ee.propTypes = Q, ee.displayName = "GatsbyImage";
+se.propTypes = re, se.displayName = "GatsbyImage";
 
-var te = function te(e, t) {
+var le = ["src", "__imageData", "__error", "width", "height", "aspectRatio", "tracedSVGOptions", "placeholder", "formats", "quality", "transformOptions", "jpgOptions", "pngOptions", "webpOptions", "avifOptions", "blurredOptions"],
+    de = function de(e, t) {
   return "fullWidth" !== e.layout || "width" !== t && "height" !== t || !e[t] ? prop_types__WEBPACK_IMPORTED_MODULE_3___default().number.apply((prop_types__WEBPACK_IMPORTED_MODULE_3___default()), [e, t].concat([].slice.call(arguments, 2))) : new Error('"' + t + '" ' + e[t] + " may not be passed when layout is fullWidth.");
 },
-    ae = new Set(["fixed", "fullWidth", "constrained"]),
-    ie = {
+    ue = new Set(["fixed", "fullWidth", "constrained"]),
+    ce = {
   src: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string.isRequired),
-  alt: K,
-  width: te,
-  height: te,
+  alt: ie,
+  width: de,
+  height: de,
   sizes: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
   layout: function layout(e) {
-    if (void 0 !== e.layout && !ae.has(e.layout)) return new Error("Invalid value " + e.layout + '" provided for prop "layout". Defaulting to "constrained". Valid values are "fixed", "fullWidth" or "constrained".');
+    if (void 0 !== e.layout && !ue.has(e.layout)) return new Error("Invalid value " + e.layout + '" provided for prop "layout". Defaulting to "constrained". Valid values are "fixed", "fullWidth" or "constrained".');
   }
 },
-    re = function (t) {
+    he = function (t) {
   return function (a) {
     var i = a.src,
         r = a.__imageData,
         n = a.__error,
-        o = v(a, ["src", "__imageData", "__error", "width", "height", "aspectRatio", "tracedSVGOptions", "placeholder", "formats", "quality", "transformOptions", "jpgOptions", "pngOptions", "webpOptions", "avifOptions", "blurredOptions"]);
+        o = v(a, le);
     return n && console.warn(n), r ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(t, Object.assign({
       image: r
     }, o)) : (console.warn("Image not loaded", i), n || "development" !== "production" || console.warn('Please ensure that "gatsby-plugin-image" is included in the plugins array in gatsby-config.js, and that your version of gatsby is at least 2.24.78'), null);
   };
-}(ee);
+}(se);
 
-function ne(e) {
+function pe(e) {
   var t = e.children;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    __webpack_require__.e(/* import() */ 8470).then(__webpack_require__.bind(__webpack_require__, 48470));
+    __webpack_require__.e(/* import() */ 8776).then(__webpack_require__.bind(__webpack_require__, 68776));
   }, []), t;
 }
 
-re.displayName = "StaticImage", re.propTypes = ie;
+he.displayName = "StaticImage", he.propTypes = ce;
 
 
 /***/ }),
@@ -80531,7 +80539,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "wrapRootElement": function() { return /* binding */ wrapRootElement; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43217);
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(66802);
 
 
 function wrapRootElement(_ref) {
@@ -86821,4 +86829,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9c690e4cbf2e6d856ddd.js.map
+//# sourceMappingURL=app-0f1e05b41922a270b365.js.map
