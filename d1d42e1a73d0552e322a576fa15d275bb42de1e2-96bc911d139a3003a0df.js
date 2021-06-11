@@ -8417,7 +8417,7 @@ var shadowDsl = {
 
 var variablesDsl = {
   id: "variables",
-  types: ["variables_get", "variables_set"],
+  types: ["variables_get", "variables_set", "math_change"],
   createCategory: function createCategory() {
     return [{
       kind: "category",
@@ -8450,7 +8450,8 @@ var variablesDsl = {
     var type = block.type,
         inputs = block.inputs;
 
-    if (type === "variables_set") {
+    if (type === "math_change") {// TODO change by
+    } else if (type === "variables_set") {
       var _blockToExpression = blockToExpression(event, inputs[0].child),
           expr = _blockToExpression.expr,
           errors = _blockToExpression.errors;
@@ -10525,6 +10526,11 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     var _resolveServiceBlockD = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type),
         dslName = _resolveServiceBlockD.dsl;
 
+    if (!dslName) {
+      console.warn("unknown dsl for " + type);
+      return undefined;
+    }
+
     return dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
       return dsl.id === dslName;
     });
@@ -10904,4 +10910,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-bc789eacb8f822a5bf33.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-96bc911d139a3003a0df.js.map
