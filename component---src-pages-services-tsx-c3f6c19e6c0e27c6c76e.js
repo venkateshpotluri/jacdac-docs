@@ -1254,10 +1254,10 @@ var createStyles = __webpack_require__(70274);
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     root: {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      flexWrap: 'wrap',
-      '& > *': {
+      display: "flex",
+      justifyContent: "flex-start",
+      flexWrap: "wrap",
+      "& > *": {
         margin: theme.spacing(0.5)
       }
     }
@@ -1266,7 +1266,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function ChipList(props) {
   var children = props.children;
   var classes = useStyles();
-  if (!(children !== null && children !== void 0 && children.length)) return null;
+  if (!children) return null;
   return /*#__PURE__*/react.createElement("span", {
     className: classes.root
   }, children);
@@ -1685,4 +1685,4 @@ function ServiceCatalog() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-services-tsx-f97554e65e34e019b91a.js.map
+//# sourceMappingURL=component---src-pages-services-tsx-c3f6c19e6c0e27c6c76e.js.map
