@@ -10660,7 +10660,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
   if (!workspace) return undefined;
 
   var resolveDsl = function resolveDsl(type) {
-    var dsl = dsls.find(function (dsl) {
+    var dsl = dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
       var _dsl$types;
 
       return ((_dsl$types = dsl.types) === null || _dsl$types === void 0 ? void 0 : _dsl$types.indexOf(type)) > -1;
@@ -11054,4 +11054,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-06c70d41604134008d5e.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-589a780670f3c5896885.js.map
