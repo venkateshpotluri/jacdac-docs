@@ -8051,8 +8051,7 @@ function BlockEditor(props) {
   var _useContext3 = (0,react.useContext)(AppContext/* default */.ZP),
       setError = _useContext3.setError;
 
-  var theme = darkMode === "dark" ? theme_dark_src : src;
-  var gridColor = darkMode === "dark" ? "#555" : "#ccc"; // ReactBlockly
+  var theme = darkMode === "dark" ? theme_dark_src : src; // ReactBlockly
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   var blocklyRef = (0,react.useRef)(null);
@@ -8067,12 +8066,6 @@ function BlockEditor(props) {
       css: true,
       trashcan: false,
       sounds: false,
-      grid: {
-        spacing: 25,
-        length: 1,
-        colour: gridColor,
-        snap: true
-      },
       renderer: "zelos",
       theme: theme,
       oneBasedIndex: false,
@@ -11042,4 +11035,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-7b9a2ba3b22a52ea1a20.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-535f75fcf28ed4d655cc.js.map

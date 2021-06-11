@@ -4478,7 +4478,7 @@ var toolsDSL = {
         type: WATCH_BLOCK
       }, {
         kind: "label",
-        text: "Dashboard"
+        text: "Roles"
       }, {
         kind: "block",
         type: TWIN_BLOCK
@@ -5832,4 +5832,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c726e0226b224bec99f5.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3eced7e0052e3c776f53.js.map
