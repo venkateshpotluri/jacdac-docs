@@ -5383,23 +5383,10 @@ var mathDSL = {
       message0: "random",
       args0: [],
       output: "Number",
-      style: "math_blocks"
-    }, {
-      kind: "block",
-      type: "jacdac_math_random_range",
-      message0: "random from %1 to %2",
-      args0: [{
-        type: "input_value",
-        name: "min",
-        check: "Number"
-      }, {
-        type: "input_value",
-        name: "max",
-        check: "Number"
-      }],
-      output: "Number",
       style: "math_blocks",
-      inputsInline: true
+      vm: function vm() {
+        return Math.random();
+      }
     }, {
       kind: "block",
       type: "jacdac_math_clamp",
@@ -5418,7 +5405,10 @@ var mathDSL = {
         check: "Number"
       }],
       output: "Number",
-      style: "math_blocks"
+      style: "math_blocks",
+      vm: function vm(value, minInclusive, maxInclusive) {
+        return value < minInclusive ? minInclusive : value > maxInclusive ? maxInclusive : value;
+      }
     }, {
       kind: "block",
       type: "jacdac_math_map",
@@ -5478,9 +5468,6 @@ var mathDSL = {
       }, {
         kind: "block",
         type: "jacdac_math_random"
-      }, {
-        kind: "block",
-        type: "jacdac_math_random_range"
       }, {
         kind: "block",
         type: "jacdac_math_map"
@@ -5770,4 +5757,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-76fea76d101deecabe0c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-af7d487485a86b4d1477.js.map
