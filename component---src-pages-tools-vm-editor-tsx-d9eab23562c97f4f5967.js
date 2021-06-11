@@ -5147,8 +5147,14 @@ var loopsDsl = {
     var type = block.type;
 
     if (type === ON_START_BLOCK) {
-      // TODO
-      return undefined;
+      return {
+        expression: (0,VMgenerator/* makeVMBase */.IZ)(block, {
+          type: "CallExpression",
+          arguments: [],
+          callee: (0,compile/* toIdentifier */.EB)("start")
+        }).command,
+        errors: (0,VMgenerator/* processErrors */.cC)(block, [])
+      };
     } else if (type === REPEAT_EVERY_BLOCK) {
       var inputs = block.inputs;
 
@@ -5764,4 +5770,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c32e125ec5a1401fb05c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d9eab23562c97f4f5967.js.map
