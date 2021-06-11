@@ -5258,6 +5258,7 @@ var ops = {
 };
 var logicDsl = {
   id: "logic",
+  types: ["variable_if", "logic_compare", "logic_operation", "logic_negate", "logic_boolean"],
   createCategory: function createCategory() {
     return [{
       kind: "category",
@@ -5831,4 +5832,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a04f0ae608315e8746bb.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f81e1b9a264ce4108c58.js.map

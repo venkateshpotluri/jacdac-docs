@@ -10667,8 +10667,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     });
     if (dsl) return dsl;
 
-    var _resolveServiceBlockD = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type),
-        dslName = _resolveServiceBlockD.dsl;
+    var _ref = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type) || {},
+        dslName = _ref.dsl;
 
     if (!dslName) {
       console.warn("unknown dsl for " + type);
@@ -10851,6 +10851,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
             then: thenHandler.commands,
             else: elseHandler.commands
           };
+          console.log("dynamic if");
           return {
             cmd: ifThenElse,
             errors: processErrors(block, errors.concat(thenHandler.errors).concat(elseHandler.errors))
@@ -10941,23 +10942,23 @@ function workspaceJSONToVMProgram(workspace, dsls) {
       var dsl = resolveDsl(type);
       var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
 
-      var _ref = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
+      var _ref2 = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
         block: top,
         definition: definition,
         blockToExpression: blockToExpression
       })) || {},
-          expression = _ref.expression,
-          errors = _ref.errors,
-          event = _ref.event,
-          meta = _ref.meta;
+          expression = _ref2.expression,
+          errors = _ref2.errors,
+          event = _ref2.event,
+          meta = _ref2.meta;
 
       command = expression;
       topErrors = errors;
       topEvent = event;
       topMeta = meta; // if dsl didn't compile anything try again
 
-      var _ref2 = definition || {},
-          template = _ref2.template;
+      var _ref3 = definition || {},
+          template = _ref3.template;
 
       if (!command && !((_topErrors = topErrors) !== null && _topErrors !== void 0 && _topErrors.length)) {
         switch (template) {
@@ -11054,4 +11055,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-589a780670f3c5896885.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-5430a743a3e4a26ba70b.js.map
