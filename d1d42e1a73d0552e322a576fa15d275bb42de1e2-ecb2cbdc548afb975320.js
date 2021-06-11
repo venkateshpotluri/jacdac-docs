@@ -10192,9 +10192,6 @@ function fieldShadows() {
 /* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
 /* harmony export */   "sX": function() { return /* binding */ WAIT_BLOCK; },
 /* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
-/* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
-/* harmony export */   "Xd": function() { return /* binding */ INSPECT_BLOCK; },
-/* harmony export */   "HN": function() { return /* binding */ WATCH_BLOCK; },
 /* harmony export */   "w8": function() { return /* binding */ ON_START_BLOCK; },
 /* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
 /* harmony export */   "C8": function() { return /* binding */ ROLE_BOUND_EVENT_BLOCK; },
@@ -10217,9 +10214,6 @@ function resolveServiceBlockDefinition(type) {
 }
 var WAIT_BLOCK = "jacdac_wait";
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
-var TWIN_BLOCK = "jacdac_twin";
-var INSPECT_BLOCK = "jacdac_inspect";
-var WATCH_BLOCK = "jacdac_watch";
 var ON_START_BLOCK = "jacdac_start";
 var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
@@ -10838,4 +10832,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-9275e22b70a1335fb53f.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-ecb2cbdc548afb975320.js.map

@@ -3327,13 +3327,13 @@ function RoleChip(props) {
       var twinBlock = workspace.getTopBlocks(false).find(function (b) {
         var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
 
-        return b.type === toolbox/* TWIN_BLOCK */.Zt && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
+        return b.type === toolbox.TWIN_BLOCK && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
           return f.name === "role";
         })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
       });
 
       if (!twinBlock) {
-        twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
+        twinBlock = workspace.newBlock(toolbox.TWIN_BLOCK);
         var variable = workspace.getVariable(role, serviceShortId);
         var field = twinBlock.inputList[0].fieldRow.find(function (f) {
           return f.name === "role";
@@ -4830,12 +4830,16 @@ var WatchValueField = __webpack_require__(6978);
 
 
 var colour = "#888";
+var TWIN_BLOCK = "jacdac_tools_twin";
+var INSPECT_BLOCK = "jacdac_tools_inspect";
+var WATCH_BLOCK = "jacdac_tools_watch";
+var LOG_BLOCK = "jacdac_tools_log";
 var toolsDSL = {
   id: "tools",
   createBlocks: function createBlocks() {
     return [{
       kind: "block",
-      type: toolbox/* TWIN_BLOCK */.Zt,
+      type: TWIN_BLOCK,
       message0: "view %1 %2 %3",
       args0: [{
         type: "field_variable",
@@ -4858,7 +4862,7 @@ var toolsDSL = {
       template: "meta"
     }, {
       kind: "block",
-      type: toolbox/* INSPECT_BLOCK */.Xd,
+      type: INSPECT_BLOCK,
       message0: "inspect %1 %2 %3",
       args0: [{
         type: "field_variable",
@@ -4881,12 +4885,11 @@ var toolsDSL = {
       template: "meta"
     }, {
       kind: "block",
-      type: toolbox/* WATCH_BLOCK */.HN,
+      type: WATCH_BLOCK,
       message0: "watch %1 %2",
       args0: [{
         type: "input_value",
-        name: "value",
-        check: ["Number", "Boolean", "String"]
+        name: "value"
       }, {
         type: WatchValueField/* default.KEY */.Z.KEY,
         name: "watch"
@@ -4894,6 +4897,20 @@ var toolsDSL = {
       colour: colour,
       inputsInline: true,
       tooltip: "Watch a value in the editor",
+      helpUrl: ""
+    }, {
+      kind: "block",
+      type: LOG_BLOCK,
+      message0: "log %1",
+      args0: [{
+        type: "input_value",
+        name: "value"
+      }],
+      colour: colour,
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Log an entry to the console",
       helpUrl: ""
     }];
   },
@@ -4906,27 +4923,60 @@ var toolsDSL = {
       colour: colour,
       contents: [{
         kind: "block",
-        type: toolbox/* WATCH_BLOCK */.HN
+        type: WATCH_BLOCK
       }, {
         kind: "block",
-        type: toolbox/* TWIN_BLOCK */.Zt
+        type: LOG_BLOCK,
+        values: {
+          value: {
+            kind: "block",
+            type: "text"
+          }
+        }
       }, {
         kind: "block",
-        type: toolbox/* INSPECT_BLOCK */.Xd
+        type: TWIN_BLOCK
+      }, {
+        kind: "block",
+        type: INSPECT_BLOCK
       }]
     }];
   },
-  compileEventToVM: function compileEventToVM(_ref) {
+  compileCommandToVM: function compileCommandToVM(_ref) {
     var block = _ref.block,
         blockToExpression = _ref.blockToExpression;
     var type = block.type;
 
-    if (type === toolbox/* WATCH_BLOCK */.HN) {
+    if (type === LOG_BLOCK) {
       var inputs = block.inputs;
 
       var _blockToExpression = blockToExpression(undefined, inputs[0].child),
           expr = _blockToExpression.expr,
           errors = _blockToExpression.errors;
+
+      return {
+        cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
+          type: "CallExpression",
+          arguments: [expr],
+          callee: (0,compile/* toIdentifier */.EB)("log")
+        }),
+        errors: errors
+      };
+    }
+
+    return undefined;
+  },
+  compileEventToVM: function compileEventToVM(_ref2) {
+    var block = _ref2.block,
+        blockToExpression = _ref2.blockToExpression;
+    var type = block.type;
+
+    if (type === WATCH_BLOCK) {
+      var inputs = block.inputs;
+
+      var _blockToExpression2 = blockToExpression(undefined, inputs[0].child),
+          expr = _blockToExpression2.expr,
+          errors = _blockToExpression2.errors;
 
       return {
         expression: {
@@ -5648,4 +5698,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3a10bb214a9e0f58b93a.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-b51272020db2bace3319.js.map
