@@ -8988,6 +8988,9 @@ function LogViewWidget() {
   });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("pre", {
     style: {
+      padding: "0",
+      marginBottom: "0",
+      background: "none",
       color: theme.palette.text.primary,
       maxHeight: "80vh",
       overflowY: "auto"
@@ -10901,4 +10904,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-27da032c6384e73648a3.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-bc789eacb8f822a5bf33.js.map
