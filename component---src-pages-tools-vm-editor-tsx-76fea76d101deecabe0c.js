@@ -4063,7 +4063,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       };
     }).filter(function (_ref20) {
       var definition = _ref20.definition;
-      return definition.template === "event";
+      return (definition === null || definition === void 0 ? void 0 : definition.template) === "event";
     }).map(function (_ref21) {
       var block = _ref21.block,
           definition = _ref21.definition;
@@ -5770,4 +5770,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f70f995a624eaab5abb3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-76fea76d101deecabe0c.js.map

@@ -8485,8 +8485,7 @@ var variablesDsl = {
     var type = block.type,
         inputs = block.inputs;
 
-    if (type === "math_change") {// TODO change by
-    } else if (type === "variables_set") {
+    if (type === "math_change" || type === "variables_set") {
       var _blockToExpression = blockToExpression(event, inputs[0].child),
           expr = _blockToExpression.expr,
           errors = _blockToExpression.errors;
@@ -8495,7 +8494,12 @@ var variablesDsl = {
       return {
         cmd: (0,_vm_VMgenerator__WEBPACK_IMPORTED_MODULE_1__/* .makeVMBase */ .IZ)(block, {
           type: "CallExpression",
-          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()), expr],
+          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()), type === "variables_set" ? expr : {
+            type: "BinaryExpression",
+            operator: "+",
+            left: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()),
+            right: expr
+          }],
           callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toIdentifier */ .EB)("writeLocal")
         }),
         errors: errors
@@ -10945,4 +10949,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-f19fbbf06315d7227d50.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-563c118c96e6a61a326b.js.map
