@@ -9946,7 +9946,7 @@ function ValueProvider(props) {
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59355);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54774);
+/* harmony import */ var _jacdac_ts_src_vm_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(96699);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12702);
 
@@ -9961,9 +9961,16 @@ function VariablesWidget() {
       runner = _useContext.runner;
 
   var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)();
-  var variables = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(runner, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.globals();
-  });
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(runner === null || runner === void 0 ? void 0 : runner.globals()),
+      variables = _useState[0],
+      setVariables = _useState[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_environment__WEBPACK_IMPORTED_MODULE_1__/* .GLOBAL_CHANGE */ .pO, function () {
+      return setVariables(runner.globals());
+    });
+  }, [runner]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
     style: {
       color: theme.palette.text.primary
@@ -11035,4 +11042,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-4a4471787ce48fb23469.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-c4b1fbe7312aea8f4277.js.map

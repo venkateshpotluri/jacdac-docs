@@ -1137,7 +1137,7 @@ var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/compile.ts + 1 modules
 var compile = __webpack_require__(79973);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/events.ts
-var events = __webpack_require__(59448);
+var vm_events = __webpack_require__(59448);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/utils.ts
 
 
@@ -1484,7 +1484,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context.abrupt("return", VMInternalStatus.Completed);
 
             case 59:
-              throw new VMError(events/* VMCode.InternalError */.H.InternalError, "Unknown instruction " + this.inst);
+              throw new VMError(vm_events/* VMCode.InternalError */.H.InternalError, "Unknown instruction " + this.inst);
 
             case 60:
             case "end":
@@ -1772,7 +1772,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     var cmd = this.handler.commands[this._commandIndex];
 
     if (cmd.type === "ite") {
-      throw new VMError(events/* VMCode.InternalError */.H.InternalError, "ite not compiled away");
+      throw new VMError(vm_events/* VMCode.InternalError */.H.InternalError, "ite not compiled away");
     }
 
     return cmd;
@@ -1846,7 +1846,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
           switch (_context5.prev = _context5.next) {
             case 0:
               sid = this._currentCommand.gc.sourceId;
-              this.parent.emit(events/* VM_EVENT */.J, events/* VMCode.CommandStarted */.H.CommandStarted, sid);
+              this.parent.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.CommandStarted */.H.CommandStarted, sid);
               _context5.prev = 2;
               _context5.next = 5;
               return this._currentCommand.stepAsync();
@@ -1887,11 +1887,11 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               break;
 
             case 23:
-              this.emit(events/* VM_EVENT */.J, events/* VMCode.CommandFailed */.H.CommandFailed, this._currentCommand.gc.sourceId);
+              this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.CommandFailed */.H.CommandFailed, this._currentCommand.gc.sourceId);
               throw _context5.t0;
 
             case 25:
-              if (this._currentCommand.status === VMInternalStatus.Completed) this.parent.emit(events/* VM_EVENT */.J, events/* VMCode.CommandCompleted */.H.CommandCompleted, this._currentCommand.gc.sourceId);
+              if (this._currentCommand.status === VMInternalStatus.Completed) this.parent.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.CommandCompleted */.H.CommandCompleted, this._currentCommand.gc.sourceId);
               if (this._currentCommand.status === VMInternalStatus.Stopped) this.stopped = true;
 
             case 27:
@@ -2018,7 +2018,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     }));
 
     _this6.mount(_this6._env.subscribe(environment/* GLOBAL_CHANGE */.pO, function (name) {
-      return _this6.emit(environment/* GLOBAL_CHANGE */.pO, name);
+      return _this6.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.VariableValueChange */.H.VariableValueChange, name);
     }));
 
     _this6.mount(_this6.subscribe(VM_WAKE_SLEEPER, /*#__PURE__*/function () {
@@ -2083,7 +2083,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.watch = function watch(sourceId, value) {
     this._watch[sourceId] = value;
-    this.emit(events/* VM_EVENT */.J, events/* VMCode.WatchChange */.H.WatchChange, sourceId);
+    this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.WatchChange */.H.WatchChange, sourceId);
   };
 
   _proto4.writeLog = function writeLog(sourceId, value) {
@@ -2098,7 +2098,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       this._log.shift();
     }
 
-    this.emit(events/* VM_EVENT */.J, events/* VMCode.LogEntry */.H.LogEntry, sourceId);
+    this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.LogEntry */.H.LogEntry, sourceId);
   };
 
   _proto4.lookupWatch = function lookupWatch(sourceId) {
@@ -2361,7 +2361,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               _context16.prev = 13;
               _context16.t0 = _context16["catch"](3);
               console.debug(_context16.t0);
-              this.emit(events/* VM_EVENT */.J, events/* VMCode.InternalError */.H.InternalError, _context16.t0);
+              this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.InternalError */.H.InternalError, _context16.t0);
 
             case 17:
             case "end":
@@ -2601,7 +2601,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               _context21.prev = 25;
               _context21.t1 = _context21["catch"](6);
               console.debug(_context21.t1);
-              this.emit(events/* VM_EVENT */.J, events/* VMCode.InternalError */.H.InternalError, _context21.t1);
+              this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.InternalError */.H.InternalError, _context21.t1);
 
             case 29:
               this._in_run = false;
@@ -2625,7 +2625,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   _proto4.emitBreakpoint = function emitBreakpoint(h) {
     var _h$command$gc;
 
-    this.emit(events/* VM_EVENT */.J, events/* VMCode.Breakpoint */.H.Breakpoint, h, h.status === VMInternalStatus.Completed ? "" : (_h$command$gc = h.command.gc) === null || _h$command$gc === void 0 ? void 0 : _h$command$gc.sourceId);
+    this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.Breakpoint */.H.Breakpoint, h, h.status === VMInternalStatus.Completed ? "" : (_h$command$gc = h.command.gc) === null || _h$command$gc === void 0 ? void 0 : _h$command$gc.sourceId);
   };
 
   _proto4.runHandlerAsync = /*#__PURE__*/function () {
@@ -2664,10 +2664,10 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
               if (_context22.t0 instanceof environment/* VMEnvironmentException */.ok) {
                 ex = _context22.t0;
-                if (ex.code === environment/* VMEnvironmentCode.RoleNoService */.Is.RoleNoService) this.emit(events/* VM_EVENT */.J, events/* VMCode.RoleMissing */.H.RoleMissing, _context22.t0.data);
+                if (ex.code === environment/* VMEnvironmentCode.RoleNoService */.Is.RoleNoService) this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.RoleMissing */.H.RoleMissing, _context22.t0.data);
               } else {
                 console.debug(_context22.t0);
-                this.emit(events/* VM_EVENT */.J, events/* VMCode.InternalError */.H.InternalError, _context22.t0);
+                this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.InternalError */.H.InternalError, _context22.t0);
               } // on handler error, reset the handler
 
 
@@ -3099,7 +3099,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               _context34.prev = 21;
               _context34.t2 = _context34["catch"](0);
               console.debug(_context34.t2);
-              this.emit(events/* VM_EVENT */.J, events/* VMCode.InternalError */.H.InternalError, _context34.t2);
+              this.emit(vm_events/* VM_EVENT */.J, vm_events/* VMCode.InternalError */.H.InternalError, _context34.t2);
 
             case 25:
             case "end":
@@ -4895,8 +4895,8 @@ function VMRunnerButtons(props) {
 
 
   (0,react.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, _, sourceId) {
-      if (code === events/* VMCode.Breakpoint */.H.Breakpoint) {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_events/* VM_EVENT */.J, function (code, _, sourceId) {
+      if (code === vm_events/* VMCode.Breakpoint */.H.Breakpoint) {
         if (mounted()) setBreakpoint(sourceId);
       }
     });
@@ -5835,4 +5835,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4120428d4fd0c93ba0d9.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c18ac80934e8c7b0a681.js.map
