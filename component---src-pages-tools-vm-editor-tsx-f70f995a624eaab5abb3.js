@@ -2686,7 +2686,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         while (1) {
           switch (_context25.prev = _context25.next) {
             case 0:
-              if (!(h.status === VMInternalStatus.Ready || h.status === VMInternalStatus.Sleeping)) {
+              if (!(h.status === VMInternalStatus.Ready || h.status === VMInternalStatus.Sleeping || h.status === VMInternalStatus.Stopped)) {
                 _context25.next = 13;
                 break;
               }
@@ -5770,4 +5770,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d9eab23562c97f4f5967.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-f70f995a624eaab5abb3.js.map

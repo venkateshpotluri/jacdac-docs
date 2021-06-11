@@ -5125,6 +5125,11 @@ var VMFunctions = [{
   args: ["Identifier"],
   prompt: "fires when a role is disconnected",
   context: "command"
+}, {
+  id: "start",
+  args: [],
+  prompt: "start block",
+  context: "command"
 }];
 // EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdutils.ts
 var jdutils = __webpack_require__(30055);
@@ -5180,7 +5185,10 @@ function compileProgram(prog) {
   var newProgram = {
     roles: prog.roles.slice(0),
     handlers: []
-  };
+  }; // process start blocks
+
+  prog.handlers.forEach(startBlock); // remove if-then-else
+
   newProgram.handlers = prog.handlers.map(function (h) {
     return {
       commands: removeIfThenElse(h),
@@ -5188,6 +5196,33 @@ function compileProgram(prog) {
     };
   });
   return newProgram;
+}
+
+function checkCall(cmd, id) {
+  if (cmd.type === "cmd") {
+    var callee = cmd.command.callee;
+
+    if (callee.type === "Identifier") {
+      var cid = callee.name;
+      return id === cid;
+    }
+  }
+
+  return undefined;
+}
+
+function startBlock(handler) {
+  if (handler.commands.length && checkCall(handler.commands[0], "start")) {
+    handler.commands.shift();
+    handler.commands.push({
+      type: "cmd",
+      command: {
+        type: "CallExpression",
+        callee: toIdentifier("halt"),
+        arguments: []
+      }
+    });
+  }
 }
 
 function removeIfThenElse(handler) {
@@ -10910,4 +10945,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-96bc911d139a3003a0df.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-f19fbbf06315d7227d50.js.map
