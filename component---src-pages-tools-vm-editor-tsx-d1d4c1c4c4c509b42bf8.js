@@ -1507,7 +1507,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 22:
               _context7.t2 = this.inst;
-              _context7.next = _context7.t2 === "branchOnCondition" ? 25 : _context7.t2 === "jump" ? 29 : _context7.t2 === "label" ? 30 : _context7.t2 === "awaitEvent" ? 31 : _context7.t2 === "awaitCondition" ? 35 : _context7.t2 === "awaitChange" ? 36 : _context7.t2 === "awaitRegister" ? 36 : _context7.t2 === "writeRegister" ? 42 : _context7.t2 === "writeLocal" ? 42 : _context7.t2 === "watch" ? 56 : _context7.t2 === "log" ? 62 : _context7.t2 === "halt" ? 70 : _context7.t2 === "nop" ? 71 : _context7.t2 === "wait" ? 72 : _context7.t2 === "onRoleConnected" ? 77 : _context7.t2 === "onRoleDisonnected" ? 78 : 79;
+              _context7.next = _context7.t2 === "branchOnCondition" ? 25 : _context7.t2 === "jump" ? 29 : _context7.t2 === "label" ? 30 : _context7.t2 === "awaitEvent" ? 31 : _context7.t2 === "awaitCondition" ? 35 : _context7.t2 === "awaitChange" ? 36 : _context7.t2 === "awaitRegister" ? 36 : _context7.t2 === "writeRegister" ? 42 : _context7.t2 === "writeLocal" ? 42 : _context7.t2 === "watch" ? 56 : _context7.t2 === "log" ? 62 : _context7.t2 === "halt" ? 69 : _context7.t2 === "nop" ? 70 : _context7.t2 === "wait" ? 71 : _context7.t2 === "onRoleConnected" ? 76 : _context7.t2 === "onRoleDisonnected" ? 77 : 78;
               break;
 
             case 25:
@@ -1638,36 +1638,35 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               _ev2 = _context7.sent;
               evString = _ev2 + "";
               this.parent.writeLog((_this$gc2 = this.gc) === null || _this$gc2 === void 0 ? void 0 : _this$gc2.sourceId, evString);
-              console.log(evString);
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 70:
+            case 69:
               return _context7.abrupt("return", VMInternalStatus.Stopped);
 
-            case 71:
+            case 70:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
-            case 72:
+            case 71:
               _expr5 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this4.env.lookupAsync(e);
               }, undefined);
-              _context7.next = 75;
+              _context7.next = 74;
               return _expr5.evalAsync(args[0]);
 
-            case 75:
+            case 74:
               _ev3 = _context7.sent;
               throw new VMTimerException(_ev3 * 1000);
+
+            case 76:
+              return _context7.abrupt("return", VMInternalStatus.Completed);
 
             case 77:
               return _context7.abrupt("return", VMInternalStatus.Completed);
 
             case 78:
-              return _context7.abrupt("return", VMInternalStatus.Completed);
-
-            case 79:
               throw new environment/* VMException */.nt(environment/* VMExceptionCode.InternalError */.S8.InternalError, "Unknown instruction " + this.inst);
 
-            case 80:
+            case 79:
             case "end":
               return _context7.stop();
           }
@@ -5941,7 +5940,7 @@ function VMEditorWithContext() {
       program = _useState[0],
       setProgram = _useState[1];
 
-  var autoStart = true;
+  var autoStart = false;
 
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
       runner = _useVMRunner.runner,
@@ -6012,4 +6011,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-68df6c54e82b1f30b8e8.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d1d4c1c4c4c509b42bf8.js.map

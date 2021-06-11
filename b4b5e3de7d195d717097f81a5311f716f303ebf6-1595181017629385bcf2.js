@@ -345,8 +345,6 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     try {
       var serviceEnv = this.getService(role);
       serviceEnv.registerRegister(reg, function () {
-        console.log("HERE");
-
         _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     } catch (e) {// nothing
@@ -922,4 +920,4 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-4596fbdc45b360d65282.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-1595181017629385bcf2.js.map
