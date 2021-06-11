@@ -2052,7 +2052,14 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   var _proto4 = VMProgramRunner.prototype;
 
   _proto4.globals = function globals() {
-    return this._env.globals();
+    var g = this._env.globals();
+
+    return Object.keys(g).map(function (k) {
+      return {
+        name: k,
+        value: g[k].value
+      };
+    });
   };
 
   _proto4.setStatus = function setStatus(s) {
@@ -5828,4 +5835,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-259b3a6ca354c5a1f29c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-4120428d4fd0c93ba0d9.js.map

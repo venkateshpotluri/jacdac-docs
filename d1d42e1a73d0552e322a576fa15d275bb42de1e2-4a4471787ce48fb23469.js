@@ -9962,19 +9962,19 @@ function VariablesWidget() {
 
   var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)();
   var variables = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(runner, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.globals(true);
+    return _ === null || _ === void 0 ? void 0 : _.globals();
   });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, variables && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
     style: {
       color: theme.palette.text.primary
     }
-  }, variables.map(function (_ref) {
+  }, variables === null || variables === void 0 ? void 0 : variables.map(function (_ref) {
     var name = _ref.name,
         value = _ref.value;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
       key: name
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, value));
-  })));
+  }));
 }
 
 var VariablesField = /*#__PURE__*/function (_ReactInlineField) {
@@ -11035,4 +11035,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-535f75fcf28ed4d655cc.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-4a4471787ce48fb23469.js.map
