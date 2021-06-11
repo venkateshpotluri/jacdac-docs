@@ -604,7 +604,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
             var args = caller.arguments;
             var goal = getStartVal(args[1]);
             var error = getStartVal(args[2]);
-            ee.visitExpression(args[0]);
+            ee.visitExpressionAsync(args[0]);
             var ev = ee.pop();
             return ev >= goal - error && ev <= goal + error;
           }
@@ -692,7 +692,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
 
         _this._startExpressions.push({
           e: child,
-          v: exprEval.eval(child)
+          v: exprEval.evalAsync(child)
         });
       }
     });
@@ -726,7 +726,7 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
 
   _proto.checkExpression = function checkExpression(e) {
     var expr = new vm_expr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
-    return expr.eval(e) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
+    return expr.evalAsync(e) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
   };
 
   _proto.getStart = function getStart(e) {
@@ -752,27 +752,31 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
               this._status = JDTestCommandStatus.Active;
               this._progress = "";
               _context.t0 = testFun.id;
-              _context.next = _context.t0 === "ask" ? 8 : _context.t0 === "check" ? 10 : _context.t0 === "closeTo" ? 12 : _context.t0 === "changes" ? 19 : _context.t0 === "increases" ? 19 : _context.t0 === "decreases" ? 19 : _context.t0 === "increasesBy" ? 25 : _context.t0 === "decreasesBy" ? 25 : _context.t0 === "stepsUpTo" ? 30 : _context.t0 === "stepsDownTo" ? 30 : _context.t0 === "events" ? 37 : _context.t0 === "awaitEvent" ? 39 : _context.t0 === "nextEvent" ? 39 : _context.t0 === "assign" ? 43 : 50;
+              _context.next = _context.t0 === "ask" ? 8 : _context.t0 === "check" ? 10 : _context.t0 === "closeTo" ? 12 : _context.t0 === "changes" ? 21 : _context.t0 === "increases" ? 21 : _context.t0 === "decreases" ? 21 : _context.t0 === "increasesBy" ? 27 : _context.t0 === "decreasesBy" ? 27 : _context.t0 === "stepsUpTo" ? 32 : _context.t0 === "stepsDownTo" ? 32 : _context.t0 === "events" ? 39 : _context.t0 === "awaitEvent" ? 41 : _context.t0 === "nextEvent" ? 41 : _context.t0 === "assign" ? 45 : 52;
               break;
 
             case 8:
               this._status = JDTestCommandStatus.RequiresUserInput;
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
             case 10:
               this._status = this.checkExpression(args[0]);
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
             case 12:
               goal = this.getStart(args[1]);
               error = this.getStart(args[2]);
               expr = new vm_expr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
-              ev = expr.eval(args[0]);
+              _context.next = 17;
+              return expr.evalAsync(args[0]);
+
+            case 17:
+              ev = _context.sent;
               if (Math.abs(ev - goal.v) <= error.v) this._status = JDTestCommandStatus.Passed;
               this._progress = "current: " + pretify(ev) + "; goal: " + pretify(goal.v) + "; error: " + pretify(error.v);
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
-            case 19:
+            case 21:
               regSaved = this._startExpressions.find(function (r) {
                 return r.e === args[0];
               });
@@ -780,9 +784,9 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
               status = regValue && regSaved.v && (testFun.id === "changes" && regValue !== regSaved.v || testFun.id === "increases" && regValue > regSaved.v || testFun.id === "decreases" && regValue < regSaved.v) ? JDTestCommandStatus.Passed : JDTestCommandStatus.Active;
               this._status = status;
               regSaved.v = regValue;
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
-            case 25:
+            case 27:
               _regSaved = this.getStart(args[0]);
               amtSaved = this.getStart(args[1]);
               _regValue = this.env((0,vm_expr/* unparse */.Z)(args[0]));
@@ -808,9 +812,9 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
                 }
               }
 
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
-            case 30:
+            case 32:
               this._status = JDTestCommandStatus.Active;
               _regValue2 = this.env((0,vm_expr/* unparse */.Z)(args[0]));
               beginSaved = this.getStart(args[0]);
@@ -830,9 +834,9 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
                 this._progress = testFun.id == "stepsUpTo" ? "from " + pretify(beginSaved.v) + " up to " + pretify(this._rangeComplete) : "from " + pretify(beginSaved.v) + " down to " + pretify(this._rangeComplete);
               }
 
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
-            case 37:
+            case 39:
               if (this.testRunner.hasEvent) {
                 _ev = this.testRunner.consumeEvent();
 
@@ -849,9 +853,9 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
                 this._progress = "no events received; remaining = [" + this._eventsComplete + "]";
               }
 
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
-            case 39:
+            case 41:
               event = args[0];
               this._progress = "waiting for event " + event.name;
 
@@ -868,20 +872,20 @@ var JDCommandEvaluator = /*#__PURE__*/function () {
                 this._progress = "no events received; " + this._progress;
               }
 
-              return _context.abrupt("break", 50);
+              return _context.abrupt("break", 52);
 
-            case 43:
+            case 45:
               _expr = new vm_expr/* VMExprEvaluator */.W(this.env, this.callEval(this._startExpressions));
-              _ev3 = _expr.eval(args[1]);
+              _ev3 = _expr.evalAsync(args[1]);
               reg = args[0];
-              _context.next = 48;
+              _context.next = 50;
               return this.testRunner.serviceTestRunner.writeRegisterAsync(reg.name, _ev3);
 
-            case 48:
+            case 50:
               this._status = JDTestCommandStatus.Passed;
               this._progress = "wrote " + _ev3 + " to register " + reg.name;
 
-            case 50:
+            case 52:
             case "end":
               return _context.stop();
           }
@@ -1184,10 +1188,8 @@ var JDTestRunner = /*#__PURE__*/function (_JDEventSource2) {
               this.reset();
               this.status = JDTestStatus.Active;
               this._commandIndex = 0;
-              _context6.next = 5;
-              return this.serviceTestRunner.refreshEnvironmentAsync();
 
-            case 5:
+            case 3:
             case "end":
               return _context6.stop();
           }
@@ -1476,18 +1478,26 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
     _this6.start();
 
     return _this6;
-  }
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 
   var _proto4 = JDServiceTestRunner.prototype;
 
-  _proto4.refreshEnvironmentAsync = /*#__PURE__*/function () {
-    var _refreshEnvironmentAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee13() {
+  _proto4.lookup = function lookup(e) {
+    return this._env.lookupRegisterAsync(e);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  _proto4.writeRegisterAsync =
+  /*#__PURE__*/
+  function () {
+    var _writeRegisterAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee13(regName, val) {
       return regenerator_default().wrap(function _callee13$(_context13) {
         while (1) {
           switch (_context13.prev = _context13.next) {
             case 0:
               _context13.next = 2;
-              return this._env.refreshRegistersAsync();
+              return this._env.writeRegisterAsync(regName, val);
 
             case 2:
             case "end":
@@ -1495,38 +1505,6 @@ var JDServiceTestRunner = /*#__PURE__*/function (_JDServiceClient) {
           }
         }
       }, _callee13, this);
-    }));
-
-    function refreshEnvironmentAsync() {
-      return _refreshEnvironmentAsync.apply(this, arguments);
-    }
-
-    return refreshEnvironmentAsync;
-  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
-
-  _proto4.lookup = function lookup(e) {
-    return this._env.lookupRegister(e);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
-
-  _proto4.writeRegisterAsync =
-  /*#__PURE__*/
-  function () {
-    var _writeRegisterAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee14(regName, val) {
-      return regenerator_default().wrap(function _callee14$(_context14) {
-        while (1) {
-          switch (_context14.prev = _context14.next) {
-            case 0:
-              _context14.next = 2;
-              return this._env.writeRegisterAsync(regName, val);
-
-            case 2:
-            case "end":
-              return _context14.stop();
-          }
-        }
-      }, _callee14, this);
     }));
 
     function writeRegisterAsync(_x4, _x5) {
@@ -1973,4 +1951,4 @@ function useServiceClient(service, factory, deps) {
 /***/ })
 
 }]);
-//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-f7e35c7a94a722e4def8.js.map
+//# sourceMappingURL=859a83de993caea7524bf57c2975f3be6812c8c3-51a41dbadf242b5dd861.js.map

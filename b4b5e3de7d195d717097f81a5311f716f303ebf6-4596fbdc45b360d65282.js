@@ -225,58 +225,59 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
     return setEnabled;
   }();
 
-  _proto.lookupRegister = function lookupRegister(e) {
-    var root = typeof e === "string" ? e : e.type === "Identifier" ? e.name : e.object.name;
-    var fld = typeof e === "string" ? undefined : e.type === "Identifier" ? undefined : e.property.name;
+  _proto.lookupRegisterAsync = /*#__PURE__*/function () {
+    var _lookupRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e) {
+      var root, fld, _register$unpackedVal, register, field, _this$_events$root$fi, _field;
 
-    if (root in this._registers) {
-      var _this$_registers$root;
-
-      if (!fld) return (_this$_registers$root = this._registers[root].unpackedValue) === null || _this$_registers$root === void 0 ? void 0 : _this$_registers$root[0];else {
-        var field = this._registers[root].fields.find(function (f) {
-          return f.name === fld;
-        });
-
-        return field === null || field === void 0 ? void 0 : field.value;
-      }
-    } else if (root in this._events) {
-      var _this$_events$root$fi;
-
-      var _field = (_this$_events$root$fi = this._events[root].fields) === null || _this$_events$root$fi === void 0 ? void 0 : _this$_events$root$fi.find(function (f) {
-        return f.name === fld;
-      });
-
-      return _field === null || _field === void 0 ? void 0 : _field.value;
-    }
-
-    return undefined;
-  };
-
-  _proto.refreshRegistersAsync = /*#__PURE__*/function () {
-    var _refreshRegistersAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-      var k, register;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              _context5.t0 = _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().keys(this._registers);
+              root = typeof e === "string" ? e : e.type === "Identifier" ? e.name : e.object.name;
+              fld = typeof e === "string" ? undefined : e.type === "Identifier" ? undefined : e.property.name;
 
-            case 1:
-              if ((_context5.t1 = _context5.t0()).done) {
-                _context5.next = 8;
+              if (!(root in this._registers)) {
+                _context5.next = 14;
                 break;
               }
 
-              k = _context5.t1.value;
-              register = this._registers[k];
+              register = this._registers[root];
               _context5.next = 6;
               return register.refresh();
 
             case 6:
-              _context5.next = 1;
+              if (fld) {
+                _context5.next = 10;
+                break;
+              }
+
+              return _context5.abrupt("return", (_register$unpackedVal = register.unpackedValue) === null || _register$unpackedVal === void 0 ? void 0 : _register$unpackedVal[0]);
+
+            case 10:
+              field = register.fields.find(function (f) {
+                return f.name === fld;
+              });
+              return _context5.abrupt("return", field === null || field === void 0 ? void 0 : field.value);
+
+            case 12:
+              _context5.next = 17;
               break;
 
-            case 8:
+            case 14:
+              if (!(root in this._events)) {
+                _context5.next = 17;
+                break;
+              }
+
+              _field = (_this$_events$root$fi = this._events[root].fields) === null || _this$_events$root$fi === void 0 ? void 0 : _this$_events$root$fi.find(function (f) {
+                return f.name === fld;
+              });
+              return _context5.abrupt("return", _field === null || _field === void 0 ? void 0 : _field.value);
+
+            case 17:
+              return _context5.abrupt("return", undefined);
+
+            case 18:
             case "end":
               return _context5.stop();
           }
@@ -284,11 +285,11 @@ var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
       }, _callee5, this);
     }));
 
-    function refreshRegistersAsync() {
-      return _refreshRegistersAsync.apply(this, arguments);
+    function lookupRegisterAsync(_x7) {
+      return _lookupRegisterAsync.apply(this, arguments);
     }
 
-    return refreshRegistersAsync;
+    return lookupRegisterAsync;
   }();
 
   return VMServiceEnvironment;
@@ -344,6 +345,8 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     try {
       var serviceEnv = this.getService(role);
       serviceEnv.registerRegister(reg, function () {
+        console.log("HERE");
+
         _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       });
     } catch (e) {// nothing
@@ -381,34 +384,24 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     return s;
-  };
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
 
-  _proto2.refreshRegistersAsync = /*#__PURE__*/function () {
-    var _refreshRegistersAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
-      var _i, _Object$values, s;
-
+  _proto2.sendCommandAsync =
+  /*#__PURE__*/
+  function () {
+    var _sendCommandAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e, values) {
+      var serviceEnv;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              _i = 0, _Object$values = Object.values(this._envs);
+              serviceEnv = this.getService(e); // TODO: need to raise alert if service undefined
 
-            case 1:
-              if (!(_i < _Object$values.length)) {
-                _context6.next = 8;
-                break;
-              }
+              _context6.next = 3;
+              return serviceEnv === null || serviceEnv === void 0 ? void 0 : serviceEnv.sendCommandAsync(e.property, values);
 
-              s = _Object$values[_i];
-              _context6.next = 5;
-              return s === null || s === void 0 ? void 0 : s.refreshRegistersAsync();
-
-            case 5:
-              _i++;
-              _context6.next = 1;
-              break;
-
-            case 8:
+            case 3:
             case "end":
               return _context6.stop();
           }
@@ -416,29 +409,51 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       }, _callee6, this);
     }));
 
-    function refreshRegistersAsync() {
-      return _refreshRegistersAsync2.apply(this, arguments);
+    function sendCommandAsync(_x8, _x9) {
+      return _sendCommandAsync2.apply(this, arguments);
     }
 
-    return refreshRegistersAsync;
-  }() // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
+    return sendCommandAsync;
+  }();
 
-  _proto2.sendCommandAsync =
-  /*#__PURE__*/
-  function () {
-    var _sendCommandAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e, values) {
-      var serviceEnv;
+  _proto2.lookupAsync = /*#__PURE__*/function () {
+    var _lookupAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e) {
+      var roleName, _me, _this$_globals$local, local, serviceEnv, me;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              serviceEnv = this.getService(e); // TODO: need to raise alert if service undefined
+              roleName = this.getRootName(e);
 
-              _context7.next = 3;
-              return serviceEnv === null || serviceEnv === void 0 ? void 0 : serviceEnv.sendCommandAsync(e.property, values);
+              if (!(roleName === "$")) {
+                _context7.next = 7;
+                break;
+              }
 
-            case 3:
+              _me = e;
+
+              if (!(_me.property.type === "Identifier")) {
+                _context7.next = 6;
+                break;
+              }
+
+              local = _me.property.name;
+              return _context7.abrupt("return", (_this$_globals$local = this._globals[local]) === null || _this$_globals$local === void 0 ? void 0 : _this$_globals$local.value);
+
+            case 6:
+              return _context7.abrupt("return", undefined);
+
+            case 7:
+              serviceEnv = this.getService(e);
+              me = e;
+              _context7.next = 11;
+              return serviceEnv.lookupRegisterAsync(me.property);
+
+            case 11:
+              return _context7.abrupt("return", _context7.sent);
+
+            case 12:
             case "end":
               return _context7.stop();
           }
@@ -446,33 +461,12 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       }, _callee7, this);
     }));
 
-    function sendCommandAsync(_x7, _x8) {
-      return _sendCommandAsync2.apply(this, arguments);
+    function lookupAsync(_x10) {
+      return _lookupAsync.apply(this, arguments);
     }
 
-    return sendCommandAsync;
+    return lookupAsync;
   }();
-
-  _proto2.lookup = function lookup(e) {
-    var roleName = this.getRootName(e);
-
-    if (roleName === "$") {
-      var _me = e;
-
-      if (_me.property.type === "Identifier") {
-        var _this$_globals$local;
-
-        var local = _me.property.name;
-        return (_this$_globals$local = this._globals[local]) === null || _this$_globals$local === void 0 ? void 0 : _this$_globals$local.value;
-      }
-
-      return undefined;
-    }
-
-    var serviceEnv = this.getService(e);
-    var me = e;
-    return serviceEnv.lookupRegister(me.property);
-  };
 
   _proto2.writeRegisterAsync = /*#__PURE__*/function () {
     var _writeRegisterAsync2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(e, ev) {
@@ -501,7 +495,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       }, _callee8, this);
     }));
 
-    function writeRegisterAsync(_x9, _x10) {
+    function writeRegisterAsync(_x11, _x12) {
       return _writeRegisterAsync2.apply(this, arguments);
     }
 
@@ -564,8 +558,8 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto2.unsubscribe = function unsubscribe() {
-    for (var _i2 = 0, _Object$values2 = Object.values(this._envs); _i2 < _Object$values2.length; _i2++) {
-      var vs = _Object$values2[_i2];
+    for (var _i = 0, _Object$values = Object.values(this._envs); _i < _Object$values.length; _i++) {
+      var vs = _Object$values[_i];
       vs.unmount();
     }
   };
@@ -583,6 +577,11 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "Z": function() { return /* binding */ unparse; },
 /* harmony export */   "W": function() { return /* binding */ VMExprEvaluator; }
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function unparse(e) {
   switch (e.type) {
@@ -650,204 +649,272 @@ var VMExprEvaluator = /*#__PURE__*/function () {
     return this.exprStack.pop();
   };
 
-  _proto.eval = function _eval(e) {
-    this.exprStack = [];
-    this.visitExpression(e);
-    return this.exprStack.pop();
-  };
+  _proto.evalAsync = /*#__PURE__*/function () {
+    var _evalAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              this.exprStack = [];
+              _context.next = 3;
+              return this.visitExpressionAsync(e);
 
-  _proto.visitExpression = function visitExpression(e) {
-    switch (e.type) {
-      case "ArrayExpression":
-        {
-          // nothing to do here yet (only used for event function)
-          break;
-        }
+            case 3:
+              return _context.abrupt("return", this.exprStack.pop());
 
-      case "CallExpression":
-        {
-          if (this.callEval) {
-            var ret = this.callEval(e, this);
-            this.exprStack.push(ret);
-          } else this.exprStack.push(undefined);
-
-          break;
-        }
-
-      case "BinaryExpression":
-        {
-          var be = e;
-          this.visitExpression(be.left);
-          this.visitExpression(be.right);
-          var right = this.exprStack.pop();
-          var left = this.exprStack.pop();
-
-          switch (be.operator) {
-            case "+":
-              this.exprStack.push(left + right);
-              return;
-
-            case "-":
-              this.exprStack.push(left - right);
-              return;
-
-            case "/":
-              this.exprStack.push(left / right);
-              return;
-
-            case "*":
-              this.exprStack.push(left * right);
-              return;
-
-            case "%":
-              this.exprStack.push(left % right);
-              return;
-
-            case ">>":
-              this.exprStack.push(left >> right);
-              return;
-
-            case ">>>":
-              this.exprStack.push(left >>> right);
-              return;
-
-            case "<<":
-              this.exprStack.push(left << right);
-              return;
-
-            case "|":
-              this.exprStack.push(left | right);
-              return;
-
-            case "&":
-              this.exprStack.push(left & right);
-              return;
-
-            case "^":
-              this.exprStack.push(left ^ right);
-              return;
-
-            case "==":
-              this.exprStack.push(left == right);
-              return;
-
-            case "!=":
-              this.exprStack.push(left != right);
-              return;
-
-            case "===":
-              this.exprStack.push(left === right);
-              return;
-
-            case "!==":
-              this.exprStack.push(left !== right);
-              return;
-
-            case "<":
-              this.exprStack.push(left < right);
-              return;
-
-            case ">":
-              this.exprStack.push(left > right);
-              return;
-
-            case "<=":
-              this.exprStack.push(left <= right);
-              return;
-
-            case ">=":
-              this.exprStack.push(left >= right);
-              return;
+            case 4:
+            case "end":
+              return _context.stop();
           }
-
-          break;
         }
+      }, _callee, this);
+    }));
 
-      case "UnaryExpression":
-        {
-          var ue = e;
-          this.visitExpression(ue.argument);
-          var top = this.exprStack.pop();
-
-          switch (ue.operator) {
-            case "ABS":
-              this.exprStack.push(Math.abs(top));
-              return;
-
-            case "!":
-              this.exprStack.push(!top);
-              return;
-
-            case "~":
-              this.exprStack.push(~top);
-              return;
-
-            case "-":
-              this.exprStack.push(-top);
-              return;
-
-            case "+":
-              this.exprStack.push(+top);
-              return;
-          }
-
-          break;
-        }
-
-      case "LogicalExpression":
-        {
-          var le = e;
-          this.visitExpression(le.left);
-
-          switch (le.operator) {
-            case "||":
-              if (this.tos()) return;else this.visitExpression(le.right);
-              return;
-
-            case "&&":
-              if (!this.tos()) return;else this.visitExpression(le.right);
-              return;
-
-            default:
-          }
-
-          break;
-        }
-
-      case "MemberExpression":
-        {
-          // for now, we don't support evaluation of obj or prop
-          // of obj.prop
-          var val = this.env(e); //if (val === undefined) {
-          //    throw new VMError(VMCode.InternalError, `lookup of ${unparse(e)} failed`)
-          //}
-
-          this.exprStack.push(val);
-          return;
-        }
-
-      case "Identifier":
-        {
-          var id = e;
-
-          var _val = this.env(id.name); // if (val === undefined)
-          //    throw new VMError(VMCode.InternalError, `lookup of ${id.name} failed`)
-
-
-          this.exprStack.push(_val);
-          return;
-        }
-
-      case "Literal":
-        {
-          var lit = e;
-          this.exprStack.push(lit.value);
-          return;
-        }
-
-      default:
+    function evalAsync(_x) {
+      return _evalAsync.apply(this, arguments);
     }
-  };
+
+    return evalAsync;
+  }();
+
+  _proto.visitExpressionAsync = /*#__PURE__*/function () {
+    var _visitExpressionAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+      var ret, be, right, left, ue, top, le, val, id, _val, lit;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.t0 = e.type;
+              _context2.next = _context2.t0 === "ArrayExpression" ? 3 : _context2.t0 === "CallExpression" ? 4 : _context2.t0 === "BinaryExpression" ? 6 : _context2.t0 === "UnaryExpression" ? 55 : _context2.t0 === "LogicalExpression" ? 73 : _context2.t0 === "MemberExpression" ? 94 : _context2.t0 === "Identifier" ? 99 : _context2.t0 === "Literal" ? 105 : 108;
+              break;
+
+            case 3:
+              return _context2.abrupt("break", 108);
+
+            case 4:
+              if (this.callEval) {
+                ret = this.callEval(e, this);
+                this.exprStack.push(ret);
+              } else this.exprStack.push(undefined);
+
+              return _context2.abrupt("break", 108);
+
+            case 6:
+              be = e;
+              _context2.next = 9;
+              return this.visitExpressionAsync(be.left);
+
+            case 9:
+              _context2.next = 11;
+              return this.visitExpressionAsync(be.right);
+
+            case 11:
+              right = this.exprStack.pop();
+              left = this.exprStack.pop();
+              _context2.t1 = be.operator;
+              _context2.next = _context2.t1 === "+" ? 16 : _context2.t1 === "-" ? 18 : _context2.t1 === "/" ? 20 : _context2.t1 === "*" ? 22 : _context2.t1 === "%" ? 24 : _context2.t1 === ">>" ? 26 : _context2.t1 === ">>>" ? 28 : _context2.t1 === "<<" ? 30 : _context2.t1 === "|" ? 32 : _context2.t1 === "&" ? 34 : _context2.t1 === "^" ? 36 : _context2.t1 === "==" ? 38 : _context2.t1 === "!=" ? 40 : _context2.t1 === "===" ? 42 : _context2.t1 === "!==" ? 44 : _context2.t1 === "<" ? 46 : _context2.t1 === ">" ? 48 : _context2.t1 === "<=" ? 50 : _context2.t1 === ">=" ? 52 : 54;
+              break;
+
+            case 16:
+              this.exprStack.push(left + right);
+              return _context2.abrupt("return");
+
+            case 18:
+              this.exprStack.push(left - right);
+              return _context2.abrupt("return");
+
+            case 20:
+              this.exprStack.push(left / right);
+              return _context2.abrupt("return");
+
+            case 22:
+              this.exprStack.push(left * right);
+              return _context2.abrupt("return");
+
+            case 24:
+              this.exprStack.push(left % right);
+              return _context2.abrupt("return");
+
+            case 26:
+              this.exprStack.push(left >> right);
+              return _context2.abrupt("return");
+
+            case 28:
+              this.exprStack.push(left >>> right);
+              return _context2.abrupt("return");
+
+            case 30:
+              this.exprStack.push(left << right);
+              return _context2.abrupt("return");
+
+            case 32:
+              this.exprStack.push(left | right);
+              return _context2.abrupt("return");
+
+            case 34:
+              this.exprStack.push(left & right);
+              return _context2.abrupt("return");
+
+            case 36:
+              this.exprStack.push(left ^ right);
+              return _context2.abrupt("return");
+
+            case 38:
+              this.exprStack.push(left == right);
+              return _context2.abrupt("return");
+
+            case 40:
+              this.exprStack.push(left != right);
+              return _context2.abrupt("return");
+
+            case 42:
+              this.exprStack.push(left === right);
+              return _context2.abrupt("return");
+
+            case 44:
+              this.exprStack.push(left !== right);
+              return _context2.abrupt("return");
+
+            case 46:
+              this.exprStack.push(left < right);
+              return _context2.abrupt("return");
+
+            case 48:
+              this.exprStack.push(left > right);
+              return _context2.abrupt("return");
+
+            case 50:
+              this.exprStack.push(left <= right);
+              return _context2.abrupt("return");
+
+            case 52:
+              this.exprStack.push(left >= right);
+              return _context2.abrupt("return");
+
+            case 54:
+              return _context2.abrupt("break", 108);
+
+            case 55:
+              ue = e;
+              _context2.next = 58;
+              return this.visitExpressionAsync(ue.argument);
+
+            case 58:
+              top = this.exprStack.pop();
+              _context2.t2 = ue.operator;
+              _context2.next = _context2.t2 === "ABS" ? 62 : _context2.t2 === "!" ? 64 : _context2.t2 === "~" ? 66 : _context2.t2 === "-" ? 68 : _context2.t2 === "+" ? 70 : 72;
+              break;
+
+            case 62:
+              this.exprStack.push(Math.abs(top));
+              return _context2.abrupt("return");
+
+            case 64:
+              this.exprStack.push(!top);
+              return _context2.abrupt("return");
+
+            case 66:
+              this.exprStack.push(~top);
+              return _context2.abrupt("return");
+
+            case 68:
+              this.exprStack.push(-top);
+              return _context2.abrupt("return");
+
+            case 70:
+              this.exprStack.push(+top);
+              return _context2.abrupt("return");
+
+            case 72:
+              return _context2.abrupt("break", 108);
+
+            case 73:
+              le = e;
+              _context2.next = 76;
+              return this.visitExpressionAsync(le.left);
+
+            case 76:
+              _context2.t3 = le.operator;
+              _context2.next = _context2.t3 === "||" ? 79 : _context2.t3 === "&&" ? 86 : 93;
+              break;
+
+            case 79:
+              if (!this.tos()) {
+                _context2.next = 83;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 83:
+              _context2.next = 85;
+              return this.visitExpressionAsync(le.right);
+
+            case 85:
+              return _context2.abrupt("return");
+
+            case 86:
+              if (this.tos()) {
+                _context2.next = 90;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 90:
+              _context2.next = 92;
+              return this.visitExpressionAsync(le.right);
+
+            case 92:
+              return _context2.abrupt("return");
+
+            case 93:
+              return _context2.abrupt("break", 108);
+
+            case 94:
+              _context2.next = 96;
+              return this.env(e);
+
+            case 96:
+              val = _context2.sent;
+              //if (val === undefined) {
+              //    throw new VMError(VMCode.InternalError, `lookup of ${unparse(e)} failed`)
+              //}
+              this.exprStack.push(val);
+              return _context2.abrupt("return");
+
+            case 99:
+              id = e;
+              _context2.next = 102;
+              return this.env(id.name);
+
+            case 102:
+              _val = _context2.sent;
+              // if (val === undefined)
+              //    throw new VMError(VMCode.InternalError, `lookup of ${id.name} failed`)
+              this.exprStack.push(_val);
+              return _context2.abrupt("return");
+
+            case 105:
+              lit = e;
+              this.exprStack.push(lit.value);
+              return _context2.abrupt("return");
+
+            case 108:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function visitExpressionAsync(_x2) {
+      return _visitExpressionAsync.apply(this, arguments);
+    }
+
+    return visitExpressionAsync;
+  }();
 
   return VMExprEvaluator;
 }();
@@ -855,4 +922,4 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-daf7d34e80c8dae34191.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-4596fbdc45b360d65282.js.map
