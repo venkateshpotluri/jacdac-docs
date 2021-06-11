@@ -7636,7 +7636,13 @@ function BlockProvider(props) {
     if (JSON.stringify(newWorkspaceJSON) !== JSON.stringify(workspaceJSON)) {
       setWorkspaceJSON(newWorkspaceJSON);
     }
-  }, [dsls, workspace, workspaceXml]); // apply errors
+  }, [dsls, workspace, workspaceXml]);
+  (0,react.useEffect)(function () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var ws = workspace;
+    var services = ws === null || ws === void 0 ? void 0 : ws.jacdacServices;
+    if (services) services.workspaceJSON = workspaceJSON;
+  }, [workspace, workspaceJSON]); // apply errors
 
   (0,react.useEffect)(function () {
     if (!workspace) return;
@@ -8152,6 +8158,15 @@ var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
   }
 
   (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WorkspaceServices, [{
+    key: "workspaceJSON",
+    get: function get() {
+      return this._workspaceJSON;
+    },
+    set: function set(value) {
+      this._workspaceJSON = value;
+      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+    }
+  }, {
     key: "runner",
     get: function get() {
       return this._runner;
@@ -8179,6 +8194,7 @@ var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
 var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
   workspace: undefined,
+  workspaceJSON: undefined,
   sourceBlock: undefined,
   flyout: false,
   sourceId: undefined,
@@ -8206,6 +8222,9 @@ function WorkspaceProvider(props) {
   });
   var runner = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(services, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.runner;
+  });
+  var workspaceJSON = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.workspaceJSON;
   });
 
   var resolveRole = function resolveRole() {
@@ -8277,6 +8296,7 @@ function WorkspaceProvider(props) {
     react__WEBPACK_IMPORTED_MODULE_1__.createElement(WorkspaceContext.Provider, {
       value: {
         sourceBlock: sourceBlock,
+        workspaceJSON: workspaceJSON,
         sourceId: sourceId,
         services: services,
         role: role,
@@ -8585,7 +8605,7 @@ var JDomTreeField = /*#__PURE__*/function (_ReactInlineField) {
   return JDomTreeField;
 }(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
 
-JDomTreeField.KEY = "jacdac_jdom_service_tree";
+JDomTreeField.KEY = "jacdac_field_jdom_service_tree";
 JDomTreeField.EDITABLE = false;
 
 
@@ -9064,7 +9084,7 @@ var LogViewField = /*#__PURE__*/function (_ReactInlineField) {
   return LogViewField;
 }(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
 
-LogViewField.KEY = "jacdac_log_view";
+LogViewField.KEY = "jacdac_field_log_view";
 LogViewField.EDITABLE = false;
 
 
@@ -9923,6 +9943,74 @@ function ValueProvider(props) {
 
 /***/ }),
 
+/***/ 15757:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ VariablesField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59355);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54774);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12702);
+
+
+
+
+
+
+
+function VariablesWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP),
+      runner = _useContext.runner;
+
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)();
+  var variables = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(runner, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.globals(true);
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, variables && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+    style: {
+      color: theme.palette.text.primary
+    }
+  }, variables.map(function (_ref) {
+    var name = _ref.name,
+        value = _ref.value;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
+      key: name
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, value));
+  })));
+}
+
+var VariablesField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VariablesField, _ReactInlineField);
+
+  VariablesField.fromJson = function fromJson(options) {
+    return new VariablesField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function VariablesField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = VariablesField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(VariablesWidget, null);
+  };
+
+  return VariablesField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
+
+VariablesField.KEY = "jacdac_field_variables_view";
+VariablesField.EDITABLE = false;
+
+
+/***/ }),
+
 /***/ 6978:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -10245,7 +10333,7 @@ var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
   return WatchValueField;
 }(ReactInlineField/* default */.Z);
 
-WatchValueField.KEY = "jacdac_watch_value";
+WatchValueField.KEY = "jacdac_field_watch_value";
 WatchValueField.EDITABLE = false;
 
 
@@ -10271,6 +10359,8 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(90263);
 /* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6978);
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
+/* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
+
 
 
 
@@ -10300,7 +10390,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -10952,4 +11042,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-e4e9f7490613d16559c2.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-7b9a2ba3b22a52ea1a20.js.map

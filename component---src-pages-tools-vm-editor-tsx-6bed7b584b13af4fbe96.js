@@ -1993,11 +1993,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         errors = _checkProgram.errors;
 
     _this6._roles = compiled.roles;
-
-    if (errors.length) {
-      console.warn("ERRORS", errors);
-    } // data structures for running program
-
+    if (errors !== null && errors !== void 0 && errors.length) console.debug("ERRORS", errors); // data structures for running program
 
     _this6._status = VMStatus.Stopped;
     _this6._env = new environment/* VMEnvironment */.uH(registers, events);
@@ -2019,6 +2015,10 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     _this6.mount(_this6._env.subscribe(constants/* CHANGE */.Ver, function () {
       _this6.waitingToRunning();
+    }));
+
+    _this6.mount(_this6._env.subscribe(environment.GLOBAL_CHANGE, function (name) {
+      return _this6.emit(environment.GLOBAL_CHANGE, name);
     }));
 
     _this6.mount(_this6.subscribe(VM_WAKE_SLEEPER, /*#__PURE__*/function () {
@@ -2050,6 +2050,14 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
 
   var _proto4 = VMProgramRunner.prototype;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _proto4.globals = function globals(ignoreRoles) {
+    return [{
+      name: "dummy",
+      value: 123
+    }];
+  };
 
   _proto4.setStatus = function setStatus(s) {
     if (s !== this._status) {
@@ -3331,6 +3339,8 @@ var JDomTreeField = __webpack_require__(90263);
 var LogViewField = __webpack_require__(86899);
 // EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
 var TwinField = __webpack_require__(35361);
+// EXTERNAL MODULE: ./src/components/blockly/fields/VariablesFields.tsx
+var VariablesFields = __webpack_require__(15757);
 // EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx + 1 modules
 var WatchValueField = __webpack_require__(6978);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
@@ -4333,11 +4343,13 @@ var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 
 
 
+
 var colour = "#888";
 var INSPECT_BLOCK = "jacdac_tools_inspect";
 var WATCH_BLOCK = "jacdac_tools_watch";
 var LOG_BLOCK = "jacdac_tools_log";
 var VIEW_LOG_BLOCK = "jacdac_tools_log_view";
+var VARIABLES_BLOCK = "jacdac_variables_view";
 var TWIN_BLOCK = "jacdac_tools_twin";
 var toolsDSL = {
   id: "tools",
@@ -4386,6 +4398,21 @@ var toolsDSL = {
       colour: colour,
       inputsInline: false,
       tooltip: "Inspect a service",
+      helpUrl: "",
+      template: "meta"
+    }, {
+      kind: "block",
+      type: VARIABLES_BLOCK,
+      message0: "variables %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: VariablesFields/* default.KEY */.Z.KEY,
+        name: "variables"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "Watch variables values",
       helpUrl: "",
       template: "meta"
     }, {
@@ -4441,14 +4468,26 @@ var toolsDSL = {
       name: "Tools",
       colour: colour,
       contents: [{
+        kind: "label",
+        text: "Variables"
+      }, {
+        kind: "block",
+        type: VARIABLES_BLOCK
+      }, {
         kind: "block",
         type: WATCH_BLOCK
+      }, {
+        kind: "label",
+        text: "Dashboard"
       }, {
         kind: "block",
         type: TWIN_BLOCK
       }, {
         kind: "block",
         type: INSPECT_BLOCK
+      }, {
+        kind: "label",
+        text: "Logging"
       }, {
         kind: "block",
         type: LOG_BLOCK,
@@ -5761,4 +5800,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d9223deb0230540b154b.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6bed7b584b13af4fbe96.js.map
