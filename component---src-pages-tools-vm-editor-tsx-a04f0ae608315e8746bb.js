@@ -2016,7 +2016,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     }));
 
     _this6.mount(_this6._env.subscribe(environment/* GLOBAL_CHANGE */.pO, function (name) {
-      return _this6.emit(vm_events/* VM_GLOBAL_CHANGED */.ZC, name);
+      return _this6.emit(vm_events/* VM_GLOBAL_CHANGE */.b4, name);
     }));
 
     _this6.mount(_this6.subscribe(VM_WAKE_SLEEPER, /*#__PURE__*/function () {
@@ -5831,4 +5831,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6c9da5308c962460acd3.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-a04f0ae608315e8746bb.js.map

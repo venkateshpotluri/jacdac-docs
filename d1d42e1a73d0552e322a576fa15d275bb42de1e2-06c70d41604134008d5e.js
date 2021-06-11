@@ -5391,7 +5391,7 @@ function checkProgram(prog) {
 /* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
 /* harmony export */   "ai": function() { return /* binding */ VM_COMMAND_FAILED; },
 /* harmony export */   "XD": function() { return /* binding */ VM_ROLE_MISSING; },
-/* harmony export */   "ZC": function() { return /* binding */ VM_GLOBAL_CHANGED; },
+/* harmony export */   "b4": function() { return /* binding */ VM_GLOBAL_CHANGE; },
 /* harmony export */   "c2": function() { return /* binding */ VM_INTERNAL_ERROR; },
 /* harmony export */   "aG": function() { return /* binding */ VM_LOG_ENTRY; }
 /* harmony export */ });
@@ -5400,7 +5400,7 @@ var VM_WATCH_CHANGE = "vmWatchChange";
 var VM_BREAKPOINT = "vmBreakpoint";
 var VM_COMMAND_FAILED = "vmCommandFailed";
 var VM_ROLE_MISSING = "vmRoleMissing";
-var VM_GLOBAL_CHANGED = "vmVariableChanged";
+var VM_GLOBAL_CHANGE = "vmVariableChange";
 var VM_GLOBAL_TYPE_MISMATCH = "vmDynamicTypeError";
 var VM_INTERNAL_ERROR = "vmInternalError";
 var VM_LOG_ENTRY = "vmLogEntry";
@@ -9942,49 +9942,62 @@ function ValueProvider(props) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ VariablesField; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59355);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(85413);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70274);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_vm_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(96699);
-/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89801);
-/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12702);
+/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(59448);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 
 
 
 
 
 
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)({
+    table: {
+      padding: 0,
+      margin: 0,
+      fontSize: "0.9rem",
+      lineHeight: "1rem",
+      color: theme.palette.text.primary,
+      "& td": {
+        borderColor: "#ccc"
+      }
+    }
+  });
+});
 
 function VariablesWidget() {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
       runner = _useContext.runner;
 
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)();
+  var classes = useStyles();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(runner === null || runner === void 0 ? void 0 : runner.globals()),
       variables = _useState[0],
       setVariables = _useState[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_environment__WEBPACK_IMPORTED_MODULE_1__/* .GLOBAL_CHANGE */ .pO, function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_5__/* .VM_GLOBAL_CHANGE */ .b4, function () {
       return setVariables(runner.globals());
     });
   }, [runner]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
-    style: {
-      color: theme.palette.text.primary
-    }
-  }, variables === null || variables === void 0 ? void 0 : variables.map(function (_ref) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, variables && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+    className: classes.table
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, variables === null || variables === void 0 ? void 0 : variables.map(function (_ref) {
     var name = _ref.name,
         value = _ref.value;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
       key: name
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, value));
-  }));
+  }))));
 }
 
 var VariablesField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VariablesField, _ReactInlineField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VariablesField, _ReactInlineField);
 
   VariablesField.fromJson = function fromJson(options) {
     return new VariablesField(options);
@@ -10002,7 +10015,7 @@ var VariablesField = /*#__PURE__*/function (_ReactInlineField) {
   };
 
   return VariablesField;
-}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
 
 VariablesField.KEY = "jacdac_field_variables_view";
 VariablesField.EDITABLE = false;
@@ -11041,4 +11054,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-0839caf6e8edfa37022f.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-06c70d41604134008d5e.js.map
