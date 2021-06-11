@@ -4478,7 +4478,7 @@ var toolsDSL = {
         type: WATCH_BLOCK
       }, {
         kind: "label",
-        text: "Dashboard"
+        text: "Roles"
       }, {
         kind: "block",
         type: TWIN_BLOCK
@@ -5586,6 +5586,7 @@ var JSON_OBJECT_BLOCK = "json_object";
 var JSON_FIELD_SET_BLOCK = "json_field_set";
 var JSON_FIELD_GET_TEMPLATE = "jsonFieldGet";
 var JSON_FIELD_VALUE_TYPE = [].concat((0,toConsumableArray/* default */.Z)(toolbox/* PRIMITIVE_TYPES */.eg), [toolbox/* JSON_TYPE */.oj]);
+var JSON_FIELD_HAS_BLOCK = "json_field_has";
 var jsonDSL = {
   id: "json",
   createBlocks: function createBlocks() {
@@ -5632,9 +5633,31 @@ var jsonDSL = {
         }],
         output: output,
         colour: jsondsl_colour,
-        template: JSON_FIELD_GET_TEMPLATE
+        template: JSON_FIELD_GET_TEMPLATE,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        vm: function vm(value, name) {
+          return value === null || value === void 0 ? void 0 : value[name];
+        }
       };
-    })));
+    })), [{
+      kind: "block",
+      type: JSON_FIELD_HAS_BLOCK,
+      message0: "has %1 [ %2 ]",
+      args0: [{
+        type: "input_value",
+        name: "value",
+        check: toolbox/* JSON_TYPE */.oj
+      }, {
+        type: "field_input",
+        name: "name"
+      }],
+      output: toolbox/* BOOLEAN_TYPE */.lu,
+      colour: jsondsl_colour,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      vm: function vm(value, name) {
+        return !!(value !== null && value !== void 0 && value[name]);
+      }
+    }]);
   },
   createCategory: function createCategory() {
     return [{
@@ -5642,6 +5665,9 @@ var jsonDSL = {
       name: "JSON",
       colour: jsondsl_colour,
       contents: [{
+        kind: "label",
+        text: "Create"
+      }, {
         kind: "block",
         type: JSON_OBJECT_BLOCK
       }, {
@@ -5653,6 +5679,9 @@ var jsonDSL = {
             type: "math_number"
           }
         }
+      }, {
+        kind: "label",
+        text: "Read"
       }].concat((0,toConsumableArray/* default */.Z)(toolbox/* PRIMITIVE_TYPES.map */.eg.map(function (output) {
         return {
           kind: "block",
@@ -5665,7 +5694,10 @@ var jsonDSL = {
             }
           }
         };
-      })))
+      })), [{
+        kind: "block",
+        type: JSON_FIELD_HAS_BLOCK
+      }])
     }];
   },
   compileExpressionToVM: function compileExpressionToVM(options) {
@@ -5800,4 +5832,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-6bed7b584b13af4fbe96.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3eced7e0052e3c776f53.js.map
