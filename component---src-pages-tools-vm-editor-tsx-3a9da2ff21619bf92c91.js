@@ -1319,7 +1319,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
     var _evaluate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
       var _this4 = this;
 
-      var neededStart, args, expr, _values, _expr, event, regValue, _expr2, ev, reg, _this$gc, _expr3, _ev, _this$gc2, _expr4, _ev2, _expr5, _ev3;
+      var neededStart, args, expr, _values, _expr, event, regValue, _expr2, ev, reg, _this$gc, _expr3, _ev, _this$gc2, _expr4, _ev2, evString, _expr5, _ev3;
 
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
@@ -1363,7 +1363,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 12:
               _context.t0 = this.inst;
-              _context.next = _context.t0 === "branchOnCondition" ? 15 : _context.t0 === "jump" ? 19 : _context.t0 === "label" ? 20 : _context.t0 === "awaitEvent" ? 21 : _context.t0 === "awaitCondition" ? 25 : _context.t0 === "awaitChange" ? 26 : _context.t0 === "awaitRegister" ? 26 : _context.t0 === "writeRegister" ? 30 : _context.t0 === "writeLocal" ? 30 : _context.t0 === "watch" ? 42 : _context.t0 === "log" ? 46 : _context.t0 === "halt" ? 51 : _context.t0 === "nop" ? 52 : _context.t0 === "wait" ? 53 : _context.t0 === "onRoleConnected" ? 56 : _context.t0 === "onRoleDisonnected" ? 57 : 58;
+              _context.next = _context.t0 === "branchOnCondition" ? 15 : _context.t0 === "jump" ? 19 : _context.t0 === "label" ? 20 : _context.t0 === "awaitEvent" ? 21 : _context.t0 === "awaitCondition" ? 25 : _context.t0 === "awaitChange" ? 26 : _context.t0 === "awaitRegister" ? 26 : _context.t0 === "writeRegister" ? 30 : _context.t0 === "writeLocal" ? 30 : _context.t0 === "watch" ? 42 : _context.t0 === "log" ? 46 : _context.t0 === "halt" ? 52 : _context.t0 === "nop" ? 53 : _context.t0 === "wait" ? 54 : _context.t0 === "onRoleConnected" ? 57 : _context.t0 === "onRoleDisonnected" ? 58 : 59;
               break;
 
             case 15:
@@ -1459,36 +1459,34 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
                 return _this4.env.lookup(e);
               }, undefined);
               _ev2 = _expr4.eval(args[0]);
-              this.parent.writeLog((_this$gc2 = this.gc) === null || _this$gc2 === void 0 ? void 0 : _this$gc2.sourceId, _ev2);
-              console.log("vm log", {
-                expr: _expr4,
-                ev: _ev2
-              });
+              evString = _ev2 + "";
+              this.parent.writeLog((_this$gc2 = this.gc) === null || _this$gc2 === void 0 ? void 0 : _this$gc2.sourceId, evString);
+              console.log(evString);
               return _context.abrupt("return", VMInternalStatus.Completed);
-
-            case 51:
-              return _context.abrupt("return", VMInternalStatus.Stopped);
 
             case 52:
-              return _context.abrupt("return", VMInternalStatus.Completed);
+              return _context.abrupt("return", VMInternalStatus.Stopped);
 
             case 53:
+              return _context.abrupt("return", VMInternalStatus.Completed);
+
+            case 54:
               _expr5 = new vm_expr/* VMExprEvaluator */.W(function (e) {
                 return _this4.env.lookup(e);
               }, undefined);
               _ev3 = _expr5.eval(args[0]);
               throw new VMTimerException(_ev3 * 1000);
 
-            case 56:
-              return _context.abrupt("return", VMInternalStatus.Completed);
-
             case 57:
               return _context.abrupt("return", VMInternalStatus.Completed);
 
             case 58:
-              throw new VMError(events/* VMCode.InternalError */.H.InternalError, "Unknown instruction " + this.inst);
+              return _context.abrupt("return", VMInternalStatus.Completed);
 
             case 59:
+              throw new VMError(events/* VMCode.InternalError */.H.InternalError, "Unknown instruction " + this.inst);
+
+            case 60:
             case "end":
               return _context.stop();
           }
@@ -5735,4 +5733,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-9ba3028616e7de96f49c.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3a9da2ff21619bf92c91.js.map
