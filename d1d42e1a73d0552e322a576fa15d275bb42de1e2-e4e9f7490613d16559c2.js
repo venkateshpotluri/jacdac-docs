@@ -8179,6 +8179,7 @@ var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
 var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
   workspace: undefined,
+  sourceBlock: undefined,
   flyout: false,
   sourceId: undefined,
   services: undefined,
@@ -8275,6 +8276,7 @@ function WorkspaceProvider(props) {
     // eslint-disable-next-line react/react-in-jsx-scope
     react__WEBPACK_IMPORTED_MODULE_1__.createElement(WorkspaceContext.Provider, {
       value: {
+        sourceBlock: sourceBlock,
         sourceId: sourceId,
         services: services,
         role: role,
@@ -10950,4 +10952,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-17e47b77515ad54c12b5.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-e4e9f7490613d16559c2.js.map
