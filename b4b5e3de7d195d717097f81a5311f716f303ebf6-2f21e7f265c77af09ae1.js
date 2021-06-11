@@ -6,6 +6,8 @@
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "pO": function() { return /* binding */ GLOBAL_CHANGE; },
+/* harmony export */   "nI": function() { return /* binding */ REGISTER_CHANGE; },
+/* harmony export */   "KT": function() { return /* binding */ EVENT_CHANGE; },
 /* harmony export */   "S8": function() { return /* binding */ VMExceptionCode; },
 /* harmony export */   "nt": function() { return /* binding */ VMException; },
 /* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
@@ -30,7 +32,9 @@
 
 
 
-var GLOBAL_CHANGE = "vmEnvglobalChange";
+var GLOBAL_CHANGE = "vmEnvGlobalChange";
+var REGISTER_CHANGE = "vmEnvRegisterChange";
+var EVENT_CHANGE = "vmEnvEventChange";
 var VMExceptionCode;
 
 (function (VMExceptionCode) {
@@ -345,7 +349,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     try {
       var serviceEnv = this.getService(role);
       serviceEnv.registerRegister(reg, function () {
-        _this5.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+        _this5.emit(REGISTER_CHANGE, reg);
       });
     } catch (e) {// nothing
     }
@@ -359,7 +363,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       serviceEnv.registerEvent(ev, function () {
         _this6._currentEvent = role + "." + ev;
 
-        _this6.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+        _this6.emit(EVENT_CHANGE, _this6._currentEvent);
       });
     } catch (e) {// nothing
     }
@@ -920,4 +924,4 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-1595181017629385bcf2.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-2f21e7f265c77af09ae1.js.map

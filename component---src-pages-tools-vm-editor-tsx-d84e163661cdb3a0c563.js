@@ -2231,13 +2231,18 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
     _this6._waitRunMutex = new Mutex();
     _this6._breaksMutex = new Mutex();
-    _this6._sleepMutex = new Mutex(); // run on any change to environment
+    _this6._sleepMutex = new Mutex(); // TODO: only try to wake handlers that are waiting on change to reg or event
 
-    _this6.mount(_this6._env.subscribe(constants/* CHANGE */.Ver, function () {
+    _this6.mount(_this6._env.subscribe(environment/* REGISTER_CHANGE */.nI, function (reg) {
       _this6.waitingToRunning();
     }));
 
-    _this6.mount(_this6._env.subscribe(environment/* GLOBAL_CHANGE */.pO, function (name) {
+    _this6.mount(_this6._env.subscribe(environment/* EVENT_CHANGE */.KT, function (event) {
+      _this6.waitingToRunning();
+    }));
+
+    _this6.mount( // TODO: if a handler is waiting on variable???
+    _this6._env.subscribe(environment/* GLOBAL_CHANGE */.pO, function (name) {
       return _this6.emit(vm_events/* VM_GLOBAL_CHANGE */.b4, name);
     }));
 
@@ -2931,8 +2936,6 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         moveToWait = h.status === VMInternalStatus.Ready;
 
                         if (moveToWait && !isEveryHandler(h.handler)) {
-                          console.log("WAIT");
-
                           _this13._waitQueue.push(done);
 
                           done = undefined;
@@ -3070,19 +3073,16 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         return _this14.runHandlerAsync(h, true);
 
                       case 3:
-                        console.log("STATUS", h.status, h.atTop);
-
                         if (h.status === VMInternalStatus.Sleeping) {
                           sleepingRunners.push(h);
                         } else if (!h.atTop && handlersStarted.findIndex(function (hs) {
                           return hs === h.handler;
                         }) === -1) {
-                          console.log("PUSH");
                           newRunners.push(h);
                           handlersStarted.push(h.handler);
                         }
 
-                      case 5:
+                      case 4:
                       case "end":
                         return _context34.stop();
                     }
@@ -6059,4 +6059,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fcb1722c89225e70fc30.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d84e163661cdb3a0c563.js.map
