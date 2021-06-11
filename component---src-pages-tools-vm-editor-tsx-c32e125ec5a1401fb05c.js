@@ -2071,12 +2071,8 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   };
 
   _proto4.watch = function watch(sourceId, value) {
-    var oldValue = this._watch[sourceId];
-
-    if (oldValue !== value) {
-      this._watch[sourceId] = value;
-      this.emit(events/* VM_EVENT */.J, events/* VMCode.WatchChange */.H.WatchChange, sourceId);
-    }
+    this._watch[sourceId] = value;
+    this.emit(events/* VM_EVENT */.J, events/* VMCode.WatchChange */.H.WatchChange, sourceId);
   };
 
   _proto4.writeLog = function writeLog(sourceId, value) {
@@ -5768,4 +5764,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fc9a0d3eda3419e937a0.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-c32e125ec5a1401fb05c.js.map
