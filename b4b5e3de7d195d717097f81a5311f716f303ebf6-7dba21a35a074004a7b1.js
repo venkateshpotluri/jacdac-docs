@@ -5,6 +5,7 @@
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "pO": function() { return /* binding */ GLOBAL_CHANGE; },
 /* harmony export */   "Is": function() { return /* binding */ VMEnvironmentCode; },
 /* harmony export */   "ok": function() { return /* binding */ VMEnvironmentException; },
 /* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
@@ -29,6 +30,7 @@
 
 
 
+var GLOBAL_CHANGE = "vmEnvglobalChange";
 var VMEnvironmentCode;
 
 (function (VMEnvironmentCode) {
@@ -307,6 +309,10 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
   var _proto2 = VMEnvironment.prototype;
 
+  _proto2.globals = function globals() {
+    return this._globals;
+  };
+
   _proto2.serviceChanged = function serviceChanged(role, service) {
     var _this4 = this;
 
@@ -501,7 +507,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     return writeRegisterAsync;
   }();
 
-  _proto2.writeLocal = function writeLocal(e, value) {
+  _proto2.writeGlobal = function writeGlobal(e, value) {
     var roleName = this.getRootName(e);
     if (!roleName || roleName !== "$") return undefined;
     var me = e;
@@ -518,7 +524,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
         if (value !== this._globals[local].value) {
           this._globals[local].value = value;
-          this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+          this.emit(GLOBAL_CHANGE);
         }
       } else {
         var _firstType = typeof value;
@@ -531,7 +537,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
           type: _firstType,
           value: value
         };
-        this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+        this.emit(GLOBAL_CHANGE);
       }
 
       return true;
@@ -848,4 +854,4 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-05592073df025fe96efb.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-7dba21a35a074004a7b1.js.map

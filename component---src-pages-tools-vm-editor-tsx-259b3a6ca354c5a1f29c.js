@@ -1441,7 +1441,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               break;
 
             case 40:
-              this.env.writeLocal(reg, ev);
+              this.env.writeGlobal(reg, ev);
 
             case 41:
               return _context.abrupt("return", VMInternalStatus.Completed);
@@ -2017,8 +2017,8 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       _this6.waitingToRunning();
     }));
 
-    _this6.mount(_this6._env.subscribe(environment.GLOBAL_CHANGE, function (name) {
-      return _this6.emit(environment.GLOBAL_CHANGE, name);
+    _this6.mount(_this6._env.subscribe(environment/* GLOBAL_CHANGE */.pO, function (name) {
+      return _this6.emit(environment/* GLOBAL_CHANGE */.pO, name);
     }));
 
     _this6.mount(_this6.subscribe(VM_WAKE_SLEEPER, /*#__PURE__*/function () {
@@ -2051,12 +2051,8 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   var _proto4 = VMProgramRunner.prototype;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  _proto4.globals = function globals(ignoreRoles) {
-    return [{
-      name: "dummy",
-      value: 123
-    }];
+  _proto4.globals = function globals() {
+    return this._env.globals();
   };
 
   _proto4.setStatus = function setStatus(s) {
@@ -5832,4 +5828,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3eced7e0052e3c776f53.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-259b3a6ca354c5a1f29c.js.map
