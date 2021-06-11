@@ -1962,7 +1962,7 @@ var VMStatus;
   VMStatus["Paused"] = "paused";
 })(VMStatus || (VMStatus = {}));
 
-var MAX_LOG = 1000;
+var MAX_LOG = 100;
 var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   (0,inheritsLoose/* default */.Z)(VMProgramRunner, _JDClient);
 
@@ -2080,7 +2080,12 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   };
 
   _proto4.writeLog = function writeLog(sourceId, value) {
-    this._log.push(value + "");
+    var s = value + "";
+    var last = this._log[this._log.length - 1];
+    if ((last === null || last === void 0 ? void 0 : last.text) === s) last.count++;else this._log.push({
+      text: value + "",
+      count: 1
+    });
 
     while (this._log.length > MAX_LOG) {
       this._log.shift();
@@ -3314,558 +3319,24 @@ var spec = __webpack_require__(13173);
 var servers = __webpack_require__(48363);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
-// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
-var toolbox = __webpack_require__(16582);
 // EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
 var useServiceServer = __webpack_require__(49013);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Cancel.js
 var Cancel = __webpack_require__(30263);
 // EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
 var BlockContext = __webpack_require__(85379);
-;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
-
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
-
-
-
-
-
-
-
-
-
-function RoleChip(props) {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var role = props.role,
-      service = props.service,
-      serviceShortId = props.serviceShortId;
-
-  var _useContext2 = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext2.bus;
-
-  var server = (0,useServiceServer/* default */.Z)(service);
-
-  var handleRoleClick = function handleRoleClick() {
-    // spin off simulator
-    if (!service) {
-      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
-      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
-    } // add twin block
-
-
-    if (workspace) {
-      // try to find existing twin block
-      var twinBlock = workspace.getTopBlocks(false).find(function (b) {
-        var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
-
-        return b.type === toolbox.TWIN_BLOCK && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
-          return f.name === "role";
-        })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
-      });
-
-      if (!twinBlock) {
-        twinBlock = workspace.newBlock(toolbox.TWIN_BLOCK);
-        var variable = workspace.getVariable(role, serviceShortId);
-        var field = twinBlock.inputList[0].fieldRow.find(function (f) {
-          return f.name === "role";
-        });
-        field.setValue(variable.getId());
-        var m = workspace.getMetrics();
-        twinBlock.moveBy(m.viewWidth / 2, m.viewHeight / 3);
-        twinBlock.initSvg();
-        twinBlock.render(false);
-      }
-
-      workspace.centerOnBlock(twinBlock.id);
-    }
-  };
-
-  var handleDelete = function handleDelete() {
-    return bus.removeServiceProvider(server.device);
-  };
-
-  return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-    label: role,
-    variant: service ? "default" : "outlined",
-    avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
-      device: service.device
-    }),
-    onClick: handleRoleClick,
-    onDelete: server ? handleDelete : undefined,
-    deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: "stop simulator"
-    }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
-  });
-}
-
-function BlockRoles() {
-  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
-      roleManager = _useContext3.roleManager;
-
-  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.roles;
-  });
-  return /*#__PURE__*/react.createElement(react.Fragment, null, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
-    var role = _ref.role,
-        service = _ref.service,
-        serviceShortId = _ref.serviceShortId;
-    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-      item: true,
-      key: role
-    }, /*#__PURE__*/react.createElement(RoleChip, {
-      role: role,
-      service: service,
-      serviceShortId: serviceShortId
-    }));
-  }));
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
-var PlayArrow = __webpack_require__(42404);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
-var Stop = __webpack_require__(34257);
-// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
-var IconButtonWithTooltip = __webpack_require__(79885);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
-var Pause = __webpack_require__(66601);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
-var PlayForWork = __webpack_require__(34264);
-// EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
-var useMounted = __webpack_require__(72179);
-// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
-var IconButtonWithProgress = __webpack_require__(16845);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/BugReport.js
-var BugReport = __webpack_require__(62481);
-;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
-
-
-
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function useWorkspaceBreakpoints(program) {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var breakpoints = (0,react.useMemo)(function () {
-    var _arrayConcatMany, _program$handlers;
-
-    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.filter(function (h) {
-      return !h.meta;
-    }) // don't debug watch statements
-    . // don't debug watch statements
-    map(function (h) {
-      return h.commands.map(function (cmd) {
-        return cmd.sourceId;
-      });
-    }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
-      return !!id;
-    })) || [];
-  }, [program]);
-
-  var setBreakpointHighlight = function setBreakpointHighlight(sourceId) {
-    workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
-  };
-
-  return {
-    breakpoints: breakpoints,
-    setBreakpointHighlight: setBreakpointHighlight
-  };
-}
-
-function VMRunnerButtons(props) {
-  var runner = props.runner,
-      run = props.run,
-      cancel = props.cancel;
-  var status = (0,useChange/* default */.Z)(runner, function (t) {
-    return t === null || t === void 0 ? void 0 : t.status;
-  });
-  var stopped = !status || status === VMStatus.Stopped;
-  var program = runner === null || runner === void 0 ? void 0 : runner.program;
-
-  var _useState = (0,react.useState)(false),
-      indeterminate = _useState[0],
-      setIndeterminate = _useState[1];
-
-  var _useState2 = (0,react.useState)(undefined),
-      breakpoint = _useState2[0],
-      setBreakpoint = _useState2[1];
-
-  var pausing = breakpoint === "";
-  var paused = !!(breakpoint !== null && breakpoint !== void 0 && breakpoint.length);
-  var mounted = (0,useMounted/* default */.Z)();
-  var disabled = indeterminate || !runner;
-
-  var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program),
-      breakpoints = _useWorkspaceBreakpoi.breakpoints,
-      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight; //console.log("runner status", status)
-
-
-  var handleRun = /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              setIndeterminate(true);
-              setBreakpoint(undefined);
-              _context.next = 5;
-              return run();
-
-            case 5:
-              _context.prev = 5;
-              if (mounted()) setIndeterminate(false);
-              return _context.finish(5);
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[0,, 5, 8]]);
-    }));
-
-    return function handleRun() {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var handleCancel = /*#__PURE__*/function () {
-    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
-      return regenerator_default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.prev = 0;
-              setIndeterminate(true);
-              _context2.next = 4;
-              return runner.clearBreakpointsAsync();
-
-            case 4:
-              setBreakpoint(undefined);
-              _context2.next = 7;
-              return cancel();
-
-            case 7:
-              _context2.prev = 7;
-              if (mounted()) setIndeterminate(false);
-              return _context2.finish(7);
-
-            case 10:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[0,, 7, 10]]);
-    }));
-
-    return function handleCancel() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  var handleResume = /*#__PURE__*/function () {
-    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
-      return regenerator_default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              setIndeterminate(true);
-              setBreakpoint(undefined);
-              _context3.next = 5;
-              return runner.clearBreakpointsAsync();
-
-            case 5:
-              _context3.next = 7;
-              return runner.resumeAsync();
-
-            case 7:
-              _context3.prev = 7;
-              if (mounted()) setIndeterminate(false);
-              return _context3.finish(7);
-
-            case 10:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0,, 7, 10]]);
-    }));
-
-    return function handleResume() {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  var handlePause = /*#__PURE__*/function () {
-    var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
-      return regenerator_default().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.prev = 0;
-              setIndeterminate(true);
-              _context4.next = 4;
-              return runner.setBreakpointsAsync(breakpoints);
-
-            case 4:
-              _context4.next = 6;
-              return runner.resumeAsync();
-
-            case 6:
-              setBreakpoint("");
-
-            case 7:
-              _context4.prev = 7;
-              if (mounted()) setIndeterminate(false);
-              return _context4.finish(7);
-
-            case 10:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[0,, 7, 10]]);
-    }));
-
-    return function handlePause() {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
-  var handleStep = function handleStep() {
-    return runner.stepAsync();
-  }; // register breakpoint handler
-
-
-  (0,react.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, _, sourceId) {
-      if (code === events/* VMCode.Breakpoint */.H.Breakpoint) {
-        if (mounted()) setBreakpoint(sourceId);
-      }
-    });
-  }, [runner]); // setting blockly breakpoint
-
-  (0,react.useEffect)(function () {
-    setBreakpointHighlight(breakpoint);
-    return function () {
-      return setBreakpointHighlight(undefined);
-    };
-  }, [breakpoint]); // reset breakpoint in ui when runner, paused mode changes
-
-  (0,react.useEffect)(function () {
-    return setBreakpoint(undefined);
-  }, [runner]);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: paused ? "resume" : stopped ? "start" : "stop",
-    disabled: disabled,
-    color: stopped ? "primary" : "default",
-    onClick: paused ? handleResume : stopped ? handleRun : handleCancel
-  }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, {
-    title: pausing ? "cancel pause" : paused ? "step" : "pause",
-    disabled: disabled,
-    indeterminate: pausing,
-    onClick: pausing ? handleResume : paused ? handleStep : handlePause
-  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), (pausing || paused) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-    icon: /*#__PURE__*/react.createElement(BugReport/* default */.Z, null),
-    label: pausing ? "pausing" : "paused",
-    color: "secondary"
-  })));
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
-;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
-
-
-
-
-
-function VMStartSimulatorButton() {
-  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
-
-  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "start simulator",
-    onClick: toggleShowDeviceHostsDialog
-  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null));
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
-var Save = __webpack_require__(8567);
-// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
-var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./src/components/ImportButton.tsx
-var ImportButton = __webpack_require__(20119);
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-;// CONCATENATED MODULE: ./src/components/blockly/BlockFileButtons.tsx
-
-
-
-
-
-
-
-
-
-
-
-function LoadButton() {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      setError = _useContext2.setError;
-
-  var disabled = !workspace;
-
-  var handleFiles = /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(files) {
-      var file, text, jsfile, xml, dom;
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              file = files === null || files === void 0 ? void 0 : files[0];
-
-              if (file) {
-                _context.next = 3;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 3:
-              _context.prev = 3;
-              _context.next = 6;
-              return file.text();
-
-            case 6:
-              text = _context.sent;
-              jsfile = JSON.parse(text);
-              console.debug("imported file", jsfile);
-              xml = jsfile === null || jsfile === void 0 ? void 0 : jsfile.xml;
-
-              if (!(typeof xml !== "string")) {
-                _context.next = 12;
-                break;
-              }
-
-              throw new Error("Invalid file format");
-
-            case 12:
-              // try loading xml into a dummy blockly workspace
-              dom = blockly.Xml.textToDom(xml); // all good, load in workspace
-
-              workspace.clear();
-              blockly.Xml.domToWorkspace(dom, workspace);
-              _context.next = 20;
-              break;
-
-            case 17:
-              _context.prev = 17;
-              _context.t0 = _context["catch"](3);
-              setError(_context.t0);
-
-            case 20:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[3, 17]]);
-    }));
-
-    return function handleFiles(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  return /*#__PURE__*/react.createElement(ImportButton.default, {
-    text: "Open...",
-    icon: true,
-    disabled: disabled,
-    acceptedFiles: ["application/json"],
-    onFilesUploaded: handleFiles,
-    filesLimit: 1
-  });
-}
-
-function SaveButton() {
-  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
-      workspaceXml = _useContext3.workspaceXml; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
-  var json = {
-    xml: workspaceXml
-  };
-  var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
-  return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
-    download: "jacdac-blocks.json",
-    href: url
-  }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-    title: "Save"
-  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
-}
-
-function BlockFileButtons() {
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(SaveButton, null)), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(LoadButton, null)));
-}
-;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
-
-
-
-
-
-
-function VMToolbar(props) {
-  var runner = props.runner,
-      run = props.run,
-      cancel = props.cancel;
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    direction: "row",
-    spacing: 1,
-    alignItems: "center",
-    alignContent: "center"
-  }, /*#__PURE__*/react.createElement(BlockFileButtons, null), /*#__PURE__*/react.createElement(VMRunnerButtons, {
-    runner: runner,
-    run: run,
-    cancel: cancel
-  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(BlockRoles, null));
-}
-// EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
-var BlockDiagnostics = __webpack_require__(9370);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(90293);
+// EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
+var VMgenerator = __webpack_require__(15056);
+// EXTERNAL MODULE: ./src/components/blockly/fields/JDomTreeField.tsx
+var JDomTreeField = __webpack_require__(90263);
+// EXTERNAL MODULE: ./src/components/blockly/fields/LogViewField.tsx
+var LogViewField = __webpack_require__(86899);
+// EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
+var TwinField = __webpack_require__(35361);
+// EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx + 1 modules
+var WatchValueField = __webpack_require__(6978);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
 var es_array_flat_map = __webpack_require__(86535);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
@@ -3884,8 +3355,8 @@ var LEDMatrixField = __webpack_require__(11772);
 var NoteField = __webpack_require__(50585);
 // EXTERNAL MODULE: ./src/components/blockly/fields/ServoAngleField.tsx + 1 modules
 var ServoAngleField = __webpack_require__(891);
-// EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
-var VMgenerator = __webpack_require__(15056);
+// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
+var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/servicesdsl.ts
 
 
@@ -3904,6 +3375,9 @@ var VMgenerator = __webpack_require__(15056);
 
 
 
+var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
+var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
+var ROLE_BOUND_BLOCK = "jacdac_role_bound";
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -4500,7 +3974,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     })));
     this._runtimeBlocks = [{
       kind: "block",
-      type: toolbox/* ROLE_BOUND_EVENT_BLOCK */.C8,
+      type: ROLE_BOUND_EVENT_BLOCK,
       message0: "on %1 %2",
       args0: [{
         type: "field_variable",
@@ -4523,7 +3997,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       template: "role_binding_event"
     }, {
       kind: "block",
-      type: toolbox/* ROLE_BOUND_BLOCK */.Y1,
+      type: ROLE_BOUND_BLOCK,
       message0: "%1 bound",
       args0: [{
         type: "field_variable",
@@ -4542,7 +4016,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       template: "role_bound"
     }, {
       kind: "block",
-      type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
+      type: SET_STATUS_LIGHT_BLOCK,
       message0: "set %1 status light to %2",
       args0: [{
         type: "field_variable",
@@ -4678,13 +4152,13 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       colour: commandColor,
       contents: [{
         kind: "block",
-        type: toolbox/* ROLE_BOUND_EVENT_BLOCK */.C8
+        type: ROLE_BOUND_EVENT_BLOCK
       }, {
         kind: "block",
-        type: toolbox/* ROLE_BOUND_BLOCK */.Y1
+        type: ROLE_BOUND_BLOCK
       }, {
         kind: "block",
-        type: toolbox/* SET_STATUS_LIGHT_BLOCK */.OU,
+        type: SET_STATUS_LIGHT_BLOCK,
         values: {
           color: {
             kind: "block",
@@ -4850,12 +4324,6 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 }();
 var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 /* harmony default export */ var servicesdsl = (servicesDSL);
-// EXTERNAL MODULE: ./src/components/blockly/fields/JDomTreeField.tsx
-var JDomTreeField = __webpack_require__(90263);
-// EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
-var TwinField = __webpack_require__(35361);
-// EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx + 1 modules
-var WatchValueField = __webpack_require__(6978);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/toolsdsl.ts
 
 
@@ -4864,11 +4332,13 @@ var WatchValueField = __webpack_require__(6978);
 
 
 
+
 var colour = "#888";
-var TWIN_BLOCK = "jacdac_tools_twin";
 var INSPECT_BLOCK = "jacdac_tools_inspect";
 var WATCH_BLOCK = "jacdac_tools_watch";
 var LOG_BLOCK = "jacdac_tools_log";
+var VIEW_LOG_BLOCK = "jacdac_tools_log_view";
+var TWIN_BLOCK = "jacdac_tools_twin";
 var toolsDSL = {
   id: "tools",
   createBlocks: function createBlocks() {
@@ -4947,6 +4417,20 @@ var toolsDSL = {
       nextStatement: null,
       tooltip: "Log an entry to the console",
       helpUrl: ""
+    }, {
+      kind: "block",
+      type: VIEW_LOG_BLOCK,
+      message0: "console %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: LogViewField/* default.KEY */.Z.KEY,
+        name: "watch"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "View console content",
+      template: "meta"
     }];
   },
   createCategory: function createCategory() {
@@ -4961,6 +4445,12 @@ var toolsDSL = {
         type: WATCH_BLOCK
       }, {
         kind: "block",
+        type: TWIN_BLOCK
+      }, {
+        kind: "block",
+        type: INSPECT_BLOCK
+      }, {
+        kind: "block",
         type: LOG_BLOCK,
         values: {
           value: {
@@ -4970,10 +4460,7 @@ var toolsDSL = {
         }
       }, {
         kind: "block",
-        type: TWIN_BLOCK
-      }, {
-        kind: "block",
-        type: INSPECT_BLOCK
+        type: VIEW_LOG_BLOCK
       }]
     }];
   },
@@ -5028,17 +4515,565 @@ var toolsDSL = {
   }
 };
 /* harmony default export */ var toolsdsl = (toolsDSL);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
+
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
+
+
+
+
+
+
+
+
+function RoleChip(props) {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspace = _useContext.workspace;
+
+  var role = props.role,
+      service = props.service,
+      serviceShortId = props.serviceShortId;
+
+  var _useContext2 = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext2.bus;
+
+  var server = (0,useServiceServer/* default */.Z)(service);
+
+  var handleRoleClick = function handleRoleClick() {
+    // spin off simulator
+    if (!service) {
+      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+    } // add twin block
+
+
+    if (workspace) {
+      // try to find existing twin block
+      var twinBlock = workspace.getTopBlocks(false).find(function (b) {
+        var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
+
+        return b.type === TWIN_BLOCK && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
+          return f.name === "role";
+        })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
+      });
+
+      if (!twinBlock) {
+        twinBlock = workspace.newBlock(TWIN_BLOCK);
+        var variable = workspace.getVariable(role, serviceShortId);
+        console.log("new twin", {
+          twinBlock: twinBlock
+        });
+        var field = twinBlock.inputList[0].fieldRow.find(function (f) {
+          return f.name === "role";
+        });
+        field.setValue(variable.getId());
+        var m = workspace.getMetrics();
+        twinBlock.moveBy(m.viewWidth / 2, m.viewHeight / 3);
+        twinBlock.initSvg();
+        twinBlock.render(false);
+      }
+
+      workspace.centerOnBlock(twinBlock.id);
+    }
+  };
+
+  var handleDelete = function handleDelete() {
+    return bus.removeServiceProvider(server.device);
+  };
+
+  return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    label: role,
+    variant: service ? "default" : "outlined",
+    avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+      device: service.device
+    }),
+    onClick: handleRoleClick,
+    onDelete: server ? handleDelete : undefined,
+    deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+      title: "stop simulator"
+    }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
+  });
+}
+
+function BlockRoles() {
+  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
+      roleManager = _useContext3.roleManager;
+
+  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roles;
+  });
+  return /*#__PURE__*/react.createElement(react.Fragment, null, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
+    var role = _ref.role,
+        service = _ref.service,
+        serviceShortId = _ref.serviceShortId;
+    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+      item: true,
+      key: role
+    }, /*#__PURE__*/react.createElement(RoleChip, {
+      role: role,
+      service: service,
+      serviceShortId: serviceShortId
+    }));
+  }));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
+var PlayArrow = __webpack_require__(42404);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
+var Stop = __webpack_require__(34257);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__(79885);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
+var Pause = __webpack_require__(66601);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
+var PlayForWork = __webpack_require__(34264);
+// EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
+var useMounted = __webpack_require__(72179);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
+var IconButtonWithProgress = __webpack_require__(16845);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/BugReport.js
+var BugReport = __webpack_require__(62481);
+;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
+
+
+
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function useWorkspaceBreakpoints(program) {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspace = _useContext.workspace;
+
+  var breakpoints = (0,react.useMemo)(function () {
+    var _arrayConcatMany, _program$handlers;
+
+    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.filter(function (h) {
+      return !h.meta;
+    }) // don't debug watch statements
+    . // don't debug watch statements
+    map(function (h) {
+      return h.commands.map(function (cmd) {
+        return cmd.sourceId;
+      });
+    }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
+      return !!id;
+    })) || [];
+  }, [program]);
+
+  var setBreakpointHighlight = function setBreakpointHighlight(sourceId) {
+    workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
+  };
+
+  return {
+    breakpoints: breakpoints,
+    setBreakpointHighlight: setBreakpointHighlight
+  };
+}
+
+function VMRunnerButtons(props) {
+  var runner = props.runner,
+      run = props.run,
+      cancel = props.cancel;
+  var status = (0,useChange/* default */.Z)(runner, function (t) {
+    return t === null || t === void 0 ? void 0 : t.status;
+  });
+  var stopped = !status || status === VMStatus.Stopped;
+  var program = runner === null || runner === void 0 ? void 0 : runner.program;
+
+  var _useState = (0,react.useState)(false),
+      indeterminate = _useState[0],
+      setIndeterminate = _useState[1];
+
+  var _useState2 = (0,react.useState)(undefined),
+      breakpoint = _useState2[0],
+      setBreakpoint = _useState2[1];
+
+  var pausing = breakpoint === "";
+  var paused = !!(breakpoint !== null && breakpoint !== void 0 && breakpoint.length);
+  var mounted = (0,useMounted/* default */.Z)();
+  var disabled = indeterminate || !runner;
+
+  var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program),
+      breakpoints = _useWorkspaceBreakpoi.breakpoints,
+      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight; //console.log("runner status", status)
+
+
+  var handleRun = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              setIndeterminate(true);
+              setBreakpoint(undefined);
+              _context.next = 5;
+              return run();
+
+            case 5:
+              _context.prev = 5;
+              if (mounted()) setIndeterminate(false);
+              return _context.finish(5);
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0,, 5, 8]]);
+    }));
+
+    return function handleRun() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var handleCancel = /*#__PURE__*/function () {
+    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              setIndeterminate(true);
+              _context2.next = 4;
+              return runner.clearBreakpointsAsync();
+
+            case 4:
+              setBreakpoint(undefined);
+              _context2.next = 7;
+              return cancel();
+
+            case 7:
+              _context2.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context2.finish(7);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0,, 7, 10]]);
+    }));
+
+    return function handleCancel() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var handleResume = /*#__PURE__*/function () {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              setIndeterminate(true);
+              setBreakpoint(undefined);
+              _context3.next = 5;
+              return runner.clearBreakpointsAsync();
+
+            case 5:
+              _context3.next = 7;
+              return runner.resumeAsync();
+
+            case 7:
+              _context3.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context3.finish(7);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0,, 7, 10]]);
+    }));
+
+    return function handleResume() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var handlePause = /*#__PURE__*/function () {
+    var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              setIndeterminate(true);
+              _context4.next = 4;
+              return runner.setBreakpointsAsync(breakpoints);
+
+            case 4:
+              _context4.next = 6;
+              return runner.resumeAsync();
+
+            case 6:
+              setBreakpoint("");
+
+            case 7:
+              _context4.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context4.finish(7);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0,, 7, 10]]);
+    }));
+
+    return function handlePause() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  var handleStep = function handleStep() {
+    return runner.stepAsync();
+  }; // register breakpoint handler
+
+
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, _, sourceId) {
+      if (code === events/* VMCode.Breakpoint */.H.Breakpoint) {
+        if (mounted()) setBreakpoint(sourceId);
+      }
+    });
+  }, [runner]); // setting blockly breakpoint
+
+  (0,react.useEffect)(function () {
+    setBreakpointHighlight(breakpoint);
+    return function () {
+      return setBreakpointHighlight(undefined);
+    };
+  }, [breakpoint]); // reset breakpoint in ui when runner, paused mode changes
+
+  (0,react.useEffect)(function () {
+    return setBreakpoint(undefined);
+  }, [runner]);
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: paused ? "resume" : stopped ? "start" : "stop",
+    disabled: disabled,
+    color: stopped ? "primary" : "default",
+    onClick: paused ? handleResume : stopped ? handleRun : handleCancel
+  }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, {
+    title: pausing ? "cancel pause" : paused ? "step" : "pause",
+    disabled: disabled,
+    indeterminate: pausing,
+    onClick: pausing ? handleResume : paused ? handleStep : handlePause
+  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), (pausing || paused) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    icon: /*#__PURE__*/react.createElement(BugReport/* default */.Z, null),
+    label: pausing ? "pausing" : "paused",
+    color: "secondary"
+  })));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
+;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
+
+
+
+
+
+function VMStartSimulatorButton() {
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
+
+  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
+var Save = __webpack_require__(8567);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./src/components/ImportButton.tsx
+var ImportButton = __webpack_require__(20119);
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockFileButtons.tsx
+
+
+
+
+
+
+
+
+
+
+
+function LoadButton() {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspace = _useContext.workspace;
+
+  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext2.setError;
+
+  var disabled = !workspace;
+
+  var handleFiles = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(files) {
+      var file, text, jsfile, xml, dom;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              file = files === null || files === void 0 ? void 0 : files[0];
+
+              if (file) {
+                _context.next = 3;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 3:
+              _context.prev = 3;
+              _context.next = 6;
+              return file.text();
+
+            case 6:
+              text = _context.sent;
+              jsfile = JSON.parse(text);
+              console.debug("imported file", jsfile);
+              xml = jsfile === null || jsfile === void 0 ? void 0 : jsfile.xml;
+
+              if (!(typeof xml !== "string")) {
+                _context.next = 12;
+                break;
+              }
+
+              throw new Error("Invalid file format");
+
+            case 12:
+              // try loading xml into a dummy blockly workspace
+              dom = blockly.Xml.textToDom(xml); // all good, load in workspace
+
+              workspace.clear();
+              blockly.Xml.domToWorkspace(dom, workspace);
+              _context.next = 20;
+              break;
+
+            case 17:
+              _context.prev = 17;
+              _context.t0 = _context["catch"](3);
+              setError(_context.t0);
+
+            case 20:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 17]]);
+    }));
+
+    return function handleFiles(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react.createElement(ImportButton.default, {
+    text: "Open...",
+    icon: true,
+    disabled: disabled,
+    acceptedFiles: ["application/json"],
+    onFilesUploaded: handleFiles,
+    filesLimit: 1
+  });
+}
+
+function SaveButton() {
+  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
+      workspaceXml = _useContext3.workspaceXml; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var json = {
+    xml: workspaceXml
+  };
+  var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
+  return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+    download: "jacdac-blocks.json",
+    href: url
+  }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+    title: "Save"
+  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
+}
+
+function BlockFileButtons() {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(SaveButton, null)), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(LoadButton, null)));
+}
+;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
+
+
+
+
+
+
+function VMToolbar(props) {
+  var runner = props.runner,
+      run = props.run,
+      cancel = props.cancel;
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    direction: "row",
+    spacing: 1,
+    alignItems: "center",
+    alignContent: "center"
+  }, /*#__PURE__*/react.createElement(BlockFileButtons, null), /*#__PURE__*/react.createElement(VMRunnerButtons, {
+    runner: runner,
+    run: run,
+    cancel: cancel
+  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(BlockRoles, null));
+}
+// EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
+var BlockDiagnostics = __webpack_require__(9370);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/loopsdsl.ts
 
 
 
+var WAIT_BLOCK = "jacdac_wait";
+var ON_START_BLOCK = "jacdac_start";
+var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
 var loopsdsl_colour = "#4fbac9";
 var loopsDsl = {
   id: "loops",
   createBlocks: function createBlocks() {
     return [{
       kind: "block",
-      type: toolbox/* WAIT_BLOCK */.sX,
+      type: WAIT_BLOCK,
       message0: "wait %1 s",
       args0: [{
         type: "input_value",
@@ -5053,7 +5088,7 @@ var loopsDsl = {
       helpUrl: ""
     }, {
       kind: "block",
-      type: toolbox/* ON_START_BLOCK */.w8,
+      type: ON_START_BLOCK,
       message0: "on start",
       args0: [],
       colour: loopsdsl_colour,
@@ -5063,7 +5098,7 @@ var loopsDsl = {
       nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL
     }, {
       kind: "block",
-      type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
+      type: REPEAT_EVERY_BLOCK,
       message0: "repeat every %1s",
       args0: [{
         type: "input_value",
@@ -5086,7 +5121,7 @@ var loopsDsl = {
       colour: loopsdsl_colour,
       contents: [{
         kind: "block",
-        type: toolbox/* REPEAT_EVERY_BLOCK */.BB,
+        type: REPEAT_EVERY_BLOCK,
         values: {
           interval: {
             kind: "block",
@@ -5095,10 +5130,10 @@ var loopsDsl = {
         }
       }, {
         kind: "block",
-        type: toolbox/* ON_START_BLOCK */.w8
+        type: ON_START_BLOCK
       }, {
         kind: "block",
-        type: toolbox/* WAIT_BLOCK */.sX,
+        type: WAIT_BLOCK,
         values: {
           time: {
             kind: "block",
@@ -5115,10 +5150,10 @@ var loopsDsl = {
         blockToExpression = _ref.blockToExpression;
     var type = block.type;
 
-    if (type === toolbox/* ON_START_BLOCK */.w8) {
+    if (type === ON_START_BLOCK) {
       // TODO
       return undefined;
-    } else if (type === toolbox/* REPEAT_EVERY_BLOCK */.BB) {
+    } else if (type === REPEAT_EVERY_BLOCK) {
       var inputs = block.inputs;
 
       var _blockToExpression = blockToExpression(undefined, inputs[0].child),
@@ -5143,7 +5178,7 @@ var loopsDsl = {
         blockToExpression = _ref2.blockToExpression;
     var type = block.type;
 
-    if (type === toolbox/* WAIT_BLOCK */.sX) {
+    if (type === WAIT_BLOCK) {
       var inputs = block.inputs;
       {
         var _blockToExpression2 = blockToExpression(event, inputs[0].child),
@@ -5733,4 +5768,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-3a9da2ff21619bf92c91.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-fc9a0d3eda3419e937a0.js.map

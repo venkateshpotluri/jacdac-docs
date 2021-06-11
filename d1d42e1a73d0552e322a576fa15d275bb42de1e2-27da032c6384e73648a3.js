@@ -8951,6 +8951,79 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
 /***/ }),
 
+/***/ 86899:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ LogViewField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59355);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59448);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12702);
+
+
+
+
+
+
+
+function LogViewWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP),
+      runner = _useContext.runner;
+
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)();
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      logs = _useState[0],
+      setLogs = _useState[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VM_EVENT */ .J, function (code) {
+      if (code === _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VMCode.LogEntry */ .H.LogEntry) setLogs((runner === null || runner === void 0 ? void 0 : runner.logData) || []);
+    });
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("pre", {
+    style: {
+      color: theme.palette.text.primary,
+      maxHeight: "80vh",
+      overflowY: "auto"
+    }
+  }, logs.slice(-20).map(function (l) {
+    return "" + (l.count > 1 ? l.count + ": " : "") + l.text;
+  }).join("\n"));
+}
+
+var LogViewField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LogViewField, _ReactInlineField);
+
+  LogViewField.fromJson = function fromJson(options) {
+    return new LogViewField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function LogViewField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = LogViewField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(LogViewWidget, null);
+  };
+
+  return LogViewField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
+
+LogViewField.KEY = "jacdac_log_view";
+LogViewField.EDITABLE = false;
+
+
+/***/ }),
+
 /***/ 42825:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -10151,6 +10224,8 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _TwinField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(35361);
 /* harmony import */ var _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(90263);
 /* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6978);
+/* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
+
 
 
 
@@ -10179,7 +10254,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -10196,12 +10271,6 @@ function fieldShadows() {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
 /* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
-/* harmony export */   "sX": function() { return /* binding */ WAIT_BLOCK; },
-/* harmony export */   "OU": function() { return /* binding */ SET_STATUS_LIGHT_BLOCK; },
-/* harmony export */   "w8": function() { return /* binding */ ON_START_BLOCK; },
-/* harmony export */   "BB": function() { return /* binding */ REPEAT_EVERY_BLOCK; },
-/* harmony export */   "C8": function() { return /* binding */ ROLE_BOUND_EVENT_BLOCK; },
-/* harmony export */   "Y1": function() { return /* binding */ ROLE_BOUND_BLOCK; },
 /* harmony export */   "oj": function() { return /* binding */ JSON_TYPE; },
 /* harmony export */   "jt": function() { return /* binding */ STRING_TYPE; },
 /* harmony export */   "lu": function() { return /* binding */ BOOLEAN_TYPE; },
@@ -10218,12 +10287,6 @@ function resolveServiceBlockDefinition(type) {
   var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
   return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
 }
-var WAIT_BLOCK = "jacdac_wait";
-var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
-var ON_START_BLOCK = "jacdac_start";
-var REPEAT_EVERY_BLOCK = "jacdac_repeat_every";
-var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
-var ROLE_BOUND_BLOCK = "jacdac_role_bound";
 var JSON_TYPE = "JSON";
 var STRING_TYPE = "String";
 var BOOLEAN_TYPE = "Boolean";
@@ -10838,4 +10901,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-320d1fcc754b6a88914b.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-27da032c6384e73648a3.js.map

@@ -516,7 +516,10 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
           throw new VMEnvironmentException(VMEnvironmentCode.TypeMismatch, "variable " + local + " has first type " + firstType + "; trying to assign " + value.toString());
         }
 
-        this._globals[local].value = value;
+        if (value !== this._globals[local].value) {
+          this._globals[local].value = value;
+          this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
+        }
       } else {
         var _firstType = typeof value;
 
@@ -528,6 +531,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
           type: _firstType,
           value: value
         };
+        this.emit(_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .CHANGE */ .Ver);
       }
 
       return true;
@@ -844,4 +848,4 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-e9e3d8d52734b019e639.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-05592073df025fe96efb.js.map

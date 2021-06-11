@@ -69738,7 +69738,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "3b4e2805da15640ab4880ec3ce08ab5cde800e05";
+  var sha = "b41ed07e85c90c4e3acb8b6d5f52b03725dbe780";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72781,7 +72781,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
             case 10:
               this.emit(constants/* PACKET_SEND */.RaS, pkt); // invalid register after a command call to refresh their values asap
 
-              if (pkt.isCommand) this.invalidateRegisterValues();
+              if (pkt.isCommand && !pkt.isRegisterGet && !pkt.isRegisterSet) this.invalidateRegisterValues(pkt);
 
             case 12:
             case "end":
@@ -72865,8 +72865,8 @@ var JDService = /*#__PURE__*/function (_JDNode) {
     }
   };
 
-  _proto.invalidateRegisterValues = function invalidateRegisterValues() {
-    console.log("clearing register get timestamp");
+  _proto.invalidateRegisterValues = function invalidateRegisterValues(pkt) {
+    console.log("clearing register get timestamp", pkt);
     this.registers().filter(function (r) {
       return r.specification && !(0,jdom_spec/* isConstRegister */.n6)(r.specification);
     }).forEach(function (r) {
@@ -86821,4 +86821,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-1baa7f5f13d5ef21fa63.js.map
+//# sourceMappingURL=app-d656258d81fd2513a6ae.js.map

@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-2b6ffa1264b42b6aaabd.js"
+    "url": "webpack-runtime-6fa6223e57b0a5121f8b.js"
   },
   {
     "url": "styles.54f173d29386e0921fd0.css"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "f4336490b30d7ae2639651a95a60e5ef"
+    "revision": "39c4f0685a7da8c3ce0855bfc76d9c1a"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "fb0d4fe7b27c5bc8707880a605a4b43c"
+    "revision": "6b105f545b0ed607304ebcf1ae5c03d5"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "5a9da253d99d3453da9fb7da41ac7722"
+    "revision": "e446d219160c354c1a0fded500e885a1"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "84972cdabfeb18142ef605b9417f0eb4"
+    "revision": "4fc3b99fc92174f0f7e85bbd686a72b5"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "fe7a04dd951f3e1474457098a7031a9b"
+    "revision": "48d8c3369bc5b9b5a76cff4412d785eb"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -242,7 +242,7 @@ self.__precacheManifest = [
     "revision": "94c0c51ebd7c3297856570ca01b7365f"
   },
   {
-    "url": "b4b5e3de7d195d717097f81a5311f716f303ebf6-e9e3d8d52734b019e639.js"
+    "url": "b4b5e3de7d195d717097f81a5311f716f303ebf6-05592073df025fe96efb.js"
   },
   {
     "url": "859a83de993caea7524bf57c2975f3be6812c8c3-f7e35c7a94a722e4def8.js"
@@ -1317,7 +1317,7 @@ self.__precacheManifest = [
     "url": "d711c980-e3349b089621d98aa2a2.js"
   },
   {
-    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-320d1fcc754b6a88914b.js"
+    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-27da032c6384e73648a3.js"
   },
   {
     "url": "component---src-pages-tools-data-science-editor-tsx-bcb18fa5bdea3e01884f.js"
@@ -1456,7 +1456,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-3a9da2ff21619bf92c91.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-fc9a0d3eda3419e937a0.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1556,7 +1556,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-1baa7f5f13d5ef21fa63.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-d656258d81fd2513a6ae.js`))) {
     return await fetch(event.request)
   }
 
