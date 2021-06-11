@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1323],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[3],{
 
 /***/ 96699:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -6,8 +6,8 @@
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "pO": function() { return /* binding */ GLOBAL_CHANGE; },
-/* harmony export */   "Is": function() { return /* binding */ VMEnvironmentCode; },
-/* harmony export */   "ok": function() { return /* binding */ VMEnvironmentException; },
+/* harmony export */   "S8": function() { return /* binding */ VMExceptionCode; },
+/* harmony export */   "nt": function() { return /* binding */ VMException; },
 /* harmony export */   "Kx": function() { return /* binding */ VMServiceEnvironment; },
 /* harmony export */   "uH": function() { return /* binding */ VMEnvironment; }
 /* harmony export */ });
@@ -31,17 +31,18 @@
 
 
 var GLOBAL_CHANGE = "vmEnvglobalChange";
-var VMEnvironmentCode;
+var VMExceptionCode;
 
-(function (VMEnvironmentCode) {
-  VMEnvironmentCode["RoleNoService"] = "vmEnvRoleNoService";
-  VMEnvironmentCode["TypeMismatch"] = "vmEnvTypeMismatch";
-})(VMEnvironmentCode || (VMEnvironmentCode = {}));
+(function (VMExceptionCode) {
+  VMExceptionCode["RoleNoService"] = "vmEnvRoleNoService";
+  VMExceptionCode["TypeMismatch"] = "vmEnvTypeMismatch";
+  VMExceptionCode["InternalError"] = "vmInternalError";
+})(VMExceptionCode || (VMExceptionCode = {}));
 
-var VMEnvironmentException = /*#__PURE__*/function (_Error) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMEnvironmentException, _Error);
+var VMException = /*#__PURE__*/function (_Error) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMException, _Error);
 
-  function VMEnvironmentException(code, data) {
+  function VMException(code, data) {
     var _this;
 
     _this = _Error.call(this) || this;
@@ -50,7 +51,7 @@ var VMEnvironmentException = /*#__PURE__*/function (_Error) {
     return _this;
   }
 
-  return VMEnvironmentException;
+  return VMException;
 }( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(Error));
 var VMServiceEnvironment = /*#__PURE__*/function (_JDServiceClient) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VMServiceEnvironment, _JDServiceClient);
@@ -376,7 +377,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     var s = this._envs[root];
 
     if (!s) {
-      throw new VMEnvironmentException(VMEnvironmentCode.RoleNoService, root);
+      throw new VMException(VMExceptionCode.RoleNoService, root);
     }
 
     return s;
@@ -519,7 +520,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
         var firstType = this._globals[local].type;
 
         if (firstType !== typeof value) {
-          throw new VMEnvironmentException(VMEnvironmentCode.TypeMismatch, "variable " + local + " has first type " + firstType + "; trying to assign " + value.toString());
+          throw new VMException(VMExceptionCode.TypeMismatch, "variable " + local + " has first type " + firstType + "; trying to assign " + value.toString());
         }
 
         if (value !== this._globals[local].value) {
@@ -530,7 +531,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
         var _firstType = typeof value;
 
         if (_firstType !== "string" && _firstType !== "boolean" && _firstType !== "number") {
-          throw new VMEnvironmentException(VMEnvironmentCode.TypeMismatch, "Value of type " + _firstType + " not supported");
+          throw new VMException(VMExceptionCode.TypeMismatch, "Value of type " + _firstType + " not supported");
         }
 
         this._globals[local] = {
@@ -574,182 +575,284 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
 /***/ }),
 
-/***/ 29870:
+/***/ 18108:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ unparse; },
+/* harmony export */   "W": function() { return /* binding */ VMExprEvaluator; }
+/* harmony export */ });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function unparse(e) {
+  switch (e.type) {
+    case "ArrayExpression":
+      {
+        var ae = e;
+        return "[" + ae.elements.map(unparse).join(", ") + "]";
+      }
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": function() { return /* binding */ Page; }
-});
+    case "CallExpression":
+      {
+        var caller = e;
+        return unparse(caller.callee) + "(" + caller.arguments.map(unparse).join(", ") + ")";
+      }
 
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
-var NoSsr = __webpack_require__(42862);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
-var BlockContext = __webpack_require__(85379);
-// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
-var BlockEditor = __webpack_require__(85105);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/variablesdsl.ts
-var variablesdsl = __webpack_require__(86947);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/shadowdsl.ts
-var shadowdsl = __webpack_require__(96958);
-;// CONCATENATED MODULE: ./src/components/data-science/datadsl.ts
-var colour = "#123456";
-var DataScienceBlockDomainSpecificLanguage = /*#__PURE__*/function () {
-  function DataScienceBlockDomainSpecificLanguage() {
-    this.id = "dataScience";
+    case "MemberExpression":
+      {
+        var root = e;
+        return root.computed ? unparse(root.object) + "[" + unparse(root.property) + "]" : unparse(root.object) + "." + unparse(root.property);
+      }
+
+    case "BinaryExpression":
+    case "LogicalExpression":
+      {
+        var be = e;
+        return "(" + unparse(be.left) + " " + be.operator + " " + unparse(be.right) + ")";
+      }
+
+    case "UnaryExpression":
+      {
+        var ue = e;
+        return "" + ue.operator + unparse(ue.argument);
+      }
+
+    case "Identifier":
+      {
+        return e.name;
+      }
+
+    case "Literal":
+      {
+        return e.raw;
+      }
+
+    default:
+      return "TODO";
+  }
+}
+var VMExprEvaluator = /*#__PURE__*/function () {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function VMExprEvaluator(env, callEval) {
+    this.exprStack = [];
+    this.env = env;
+    this.callEval = callEval;
   }
 
-  var _proto = DataScienceBlockDomainSpecificLanguage.prototype;
+  var _proto = VMExprEvaluator.prototype;
 
-  _proto.createBlocks = function createBlocks() {
-    var blocks = [{
-      kind: "block",
-      type: "ds_some_event",
-      message0: "some event",
-      args0: [],
-      inputsInline: true,
-      nextStatement: null,
-      colour: colour
-    }, {
-      kind: "block",
-      type: "ds_some_block",
-      message0: "some block data",
-      args0: [],
-      inputsInline: true,
-      output: "Number",
-      colour: colour
-    }];
-    return blocks;
+  _proto.tos = function tos() {
+    return this.exprStack[this.exprStack.length - 1];
   };
 
-  _proto.createCategory = function createCategory() {
-    return [{
-      kind: "category",
-      name: "Data Science",
-      colour: colour,
-      contents: [{
-        kind: "block",
-        type: "ds_some_event"
-      }, {
-        kind: "block",
-        type: "ds_some_block"
-      }]
-    }];
+  _proto.pop = function pop() {
+    return this.exprStack.pop();
   };
 
-  return DataScienceBlockDomainSpecificLanguage;
+  _proto.eval = function _eval(e) {
+    this.exprStack = [];
+    this.visitExpression(e);
+    return this.exprStack.pop();
+  };
+
+  _proto.visitExpression = function visitExpression(e) {
+    switch (e.type) {
+      case "ArrayExpression":
+        {
+          // nothing to do here yet (only used for event function)
+          break;
+        }
+
+      case "CallExpression":
+        {
+          if (this.callEval) {
+            var ret = this.callEval(e, this);
+            this.exprStack.push(ret);
+          } else this.exprStack.push(undefined);
+
+          break;
+        }
+
+      case "BinaryExpression":
+        {
+          var be = e;
+          this.visitExpression(be.left);
+          this.visitExpression(be.right);
+          var right = this.exprStack.pop();
+          var left = this.exprStack.pop();
+
+          switch (be.operator) {
+            case "+":
+              this.exprStack.push(left + right);
+              return;
+
+            case "-":
+              this.exprStack.push(left - right);
+              return;
+
+            case "/":
+              this.exprStack.push(left / right);
+              return;
+
+            case "*":
+              this.exprStack.push(left * right);
+              return;
+
+            case "%":
+              this.exprStack.push(left % right);
+              return;
+
+            case ">>":
+              this.exprStack.push(left >> right);
+              return;
+
+            case ">>>":
+              this.exprStack.push(left >>> right);
+              return;
+
+            case "<<":
+              this.exprStack.push(left << right);
+              return;
+
+            case "|":
+              this.exprStack.push(left | right);
+              return;
+
+            case "&":
+              this.exprStack.push(left & right);
+              return;
+
+            case "^":
+              this.exprStack.push(left ^ right);
+              return;
+
+            case "==":
+              this.exprStack.push(left == right);
+              return;
+
+            case "!=":
+              this.exprStack.push(left != right);
+              return;
+
+            case "===":
+              this.exprStack.push(left === right);
+              return;
+
+            case "!==":
+              this.exprStack.push(left !== right);
+              return;
+
+            case "<":
+              this.exprStack.push(left < right);
+              return;
+
+            case ">":
+              this.exprStack.push(left > right);
+              return;
+
+            case "<=":
+              this.exprStack.push(left <= right);
+              return;
+
+            case ">=":
+              this.exprStack.push(left >= right);
+              return;
+          }
+
+          break;
+        }
+
+      case "UnaryExpression":
+        {
+          var ue = e;
+          this.visitExpression(ue.argument);
+          var top = this.exprStack.pop();
+
+          switch (ue.operator) {
+            case "ABS":
+              this.exprStack.push(Math.abs(top));
+              return;
+
+            case "!":
+              this.exprStack.push(!top);
+              return;
+
+            case "~":
+              this.exprStack.push(~top);
+              return;
+
+            case "-":
+              this.exprStack.push(-top);
+              return;
+
+            case "+":
+              this.exprStack.push(+top);
+              return;
+          }
+
+          break;
+        }
+
+      case "LogicalExpression":
+        {
+          var le = e;
+          this.visitExpression(le.left);
+
+          switch (le.operator) {
+            case "||":
+              if (this.tos()) return;else this.visitExpression(le.right);
+              return;
+
+            case "&&":
+              if (!this.tos()) return;else this.visitExpression(le.right);
+              return;
+
+            default:
+          }
+
+          break;
+        }
+
+      case "MemberExpression":
+        {
+          // for now, we don't support evaluation of obj or prop
+          // of obj.prop
+          var val = this.env(e); //if (val === undefined) {
+          //    throw new VMError(VMCode.InternalError, `lookup of ${unparse(e)} failed`)
+          //}
+
+          this.exprStack.push(val);
+          return;
+        }
+
+      case "Identifier":
+        {
+          var id = e;
+
+          var _val = this.env(id.name); // if (val === undefined)
+          //    throw new VMError(VMCode.InternalError, `lookup of ${id.name} failed`)
+
+
+          this.exprStack.push(_val);
+          return;
+        }
+
+      case "Literal":
+        {
+          var lit = e;
+          this.exprStack.push(lit.value);
+          return;
+        }
+
+      default:
+    }
+  };
+
+  return VMExprEvaluator;
 }();
-var dataDsl = new DataScienceBlockDomainSpecificLanguage();
-/* harmony default export */ var datadsl = (dataDsl);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/fieldsdsl.ts
-var fieldsdsl = __webpack_require__(76658);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
-var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
-var BlockDiagnostics = __webpack_require__(9370);
-;// CONCATENATED MODULE: ./src/components/blockly/jsonvisitor.ts
-function visitBlock(block, visitor) {
-  var _visitor$visitBlock;
-
-  if (!block) return;
-  (_visitor$visitBlock = visitor.visitBlock) === null || _visitor$visitBlock === void 0 ? void 0 : _visitor$visitBlock.call(visitor, block);
-  var inputs = block.inputs,
-      children = block.children;
-  inputs === null || inputs === void 0 ? void 0 : inputs.forEach(function (input) {
-    return visitInput(input, visitor);
-  });
-  children === null || children === void 0 ? void 0 : children.forEach(function (child) {
-    return visitBlock(child, visitor);
-  });
-}
-function visitInput(input, visitor) {
-  var _visitor$visitInput;
-
-  if (!input) return;
-  (_visitor$visitInput = visitor.visitInput) === null || _visitor$visitInput === void 0 ? void 0 : _visitor$visitInput.call(visitor, input);
-  var fields = input.fields,
-      child = input.child;
-  if (fields) Object.keys(fields).map(function (k) {
-    return visitField(k, fields[k], visitor);
-  });
-  visitBlock(child, visitor);
-}
-function visitField(name, field, visitor) {
-  var _visitor$visitField;
-
-  if (!field) return;
-  (_visitor$visitField = visitor.visitField) === null || _visitor$visitField === void 0 ? void 0 : _visitor$visitField.call(visitor, name, field);
-}
-function visitWorkspace(workspace, visitor) {
-  workspace === null || workspace === void 0 ? void 0 : workspace.blocks.forEach(function (block) {
-    return visitBlock(block, visitor);
-  });
-}
-;// CONCATENATED MODULE: ./src/components/data-science/DSBlockEditor.tsx
-
-
-
-
-
-
-
-
-
-
-
-var DS_SOURCE_STORAGE_KEY = "data-science-blockly-xml";
-
-function DSEditorWithContext() {
-  // block context handles hosting blockly
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspaceJSON = _useContext.workspaceJSON; // run this when workspaceJSON changes
-
-
-  (0,react.useEffect)(function () {
-    visitWorkspace(workspaceJSON, {
-      visitBlock: function visitBlock(block) {
-        return console.log("block " + block.type, {
-          block: block
-        });
-      },
-      visitInput: function visitInput(input) {
-        return console.log("input " + input.name, {
-          input: input
-        });
-      },
-      visitField: function visitField(name, field) {
-        return console.log("field " + name + ": " + field.value, {
-          field: field
-        });
-      }
-    });
-  }, [workspaceJSON]);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, null), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(BlockDiagnostics/* default */.Z, null));
-}
-
-function DScienceEditor() {
-  var dsls = (0,react.useMemo)(function () {
-    return [datadsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
-  }, []);
-  return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
-    storageKey: DS_SOURCE_STORAGE_KEY,
-    dsls: dsls
-  }, /*#__PURE__*/react.createElement(DSEditorWithContext, null)));
-}
-;// CONCATENATED MODULE: ./src/pages/tools/data-science-editor.tsx
-
-
-function Page() {
-  return /*#__PURE__*/react.createElement(DScienceEditor, null);
-}
 
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-334194696871a148f8f2.js.map
+//# sourceMappingURL=b4b5e3de7d195d717097f81a5311f716f303ebf6-daf7d34e80c8dae34191.js.map

@@ -5387,24 +5387,23 @@ function checkProgram(prog) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "J": function() { return /* binding */ VM_EVENT; },
-/* harmony export */   "H": function() { return /* binding */ VMCode; }
+/* harmony export */   "UM": function() { return /* binding */ VM_WATCH_CHANGE; },
+/* harmony export */   "Di": function() { return /* binding */ VM_BREAKPOINT; },
+/* harmony export */   "ai": function() { return /* binding */ VM_COMMAND_FAILED; },
+/* harmony export */   "XD": function() { return /* binding */ VM_ROLE_MISSING; },
+/* harmony export */   "ZC": function() { return /* binding */ VM_GLOBAL_CHANGED; },
+/* harmony export */   "c2": function() { return /* binding */ VM_INTERNAL_ERROR; },
+/* harmony export */   "aG": function() { return /* binding */ VM_LOG_ENTRY; }
 /* harmony export */ });
-var VM_EVENT = "vmEvent";
-var VMCode;
-
-(function (VMCode) {
-  VMCode["WatchChange"] = "vmWatchChange";
-  VMCode["Breakpoint"] = "vmBreakpoint";
-  VMCode["CommandStarted"] = "vmCommandStarted";
-  VMCode["CommandCompleted"] = "vmCommandCompleted";
-  VMCode["CommandFailed"] = "vmCommandFailed";
-  VMCode["RoleMissing"] = "vmRoleMissing";
-  VMCode["VariableValueChange"] = "vmVariableChanged";
-  VMCode["DynamicTypeError"] = "vmDynamicTypeError";
-  VMCode["InternalError"] = "vmInternalError";
-  VMCode["LogEntry"] = "vmLogEntry";
-})(VMCode || (VMCode = {}));
+/* unused harmony export VM_GLOBAL_TYPE_MISMATCH */
+var VM_WATCH_CHANGE = "vmWatchChange";
+var VM_BREAKPOINT = "vmBreakpoint";
+var VM_COMMAND_FAILED = "vmCommandFailed";
+var VM_ROLE_MISSING = "vmRoleMissing";
+var VM_GLOBAL_CHANGED = "vmVariableChanged";
+var VM_GLOBAL_TYPE_MISMATCH = "vmDynamicTypeError";
+var VM_INTERNAL_ERROR = "vmInternalError";
+var VM_LOG_ENTRY = "vmLogEntry";
 
 /***/ }),
 
@@ -9014,11 +9013,11 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 /* harmony export */   "Z": function() { return /* binding */ LogViewField; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59355);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59355);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59448);
-/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(89801);
-/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12702);
+/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(59448);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 
 
 
@@ -9027,10 +9026,10 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
 
 function LogViewWidget() {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_2__/* .default */ .ZP),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
       runner = _useContext.runner;
 
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)();
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       logs = _useState[0],
@@ -9038,8 +9037,8 @@ function LogViewWidget() {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setLogs([]);
-    runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VM_EVENT */ .J, function (code) {
-      if (code === _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_1__/* .VMCode.LogEntry */ .H.LogEntry) setLogs((runner === null || runner === void 0 ? void 0 : runner.logData) || []);
+    runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_4__/* .VM_LOG_ENTRY */ .aG, function () {
+      setLogs((runner === null || runner === void 0 ? void 0 : runner.logData) || []);
     });
   }, [runner]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("pre", {
@@ -9075,7 +9074,7 @@ var LogViewField = /*#__PURE__*/function (_ReactInlineField) {
   };
 
   return LogViewField;
-}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z);
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
 
 LogViewField.KEY = "jacdac_field_log_view";
 LogViewField.EDITABLE = false;
@@ -10261,8 +10260,8 @@ function WatchValueWidget() {
 
   (0,react.useEffect)(function () {
     setValue(undefined);
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_EVENT */.J, function (code, watchSourceId) {
-      if (code === events/* VMCode.WatchChange */.H.WatchChange && watchSourceId === sourceId) {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
+      if (watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
         addTrendValue(newValue);
@@ -11042,4 +11041,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-c4b1fbe7312aea8f4277.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-0839caf6e8edfa37022f.js.map
