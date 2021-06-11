@@ -5081,6 +5081,11 @@ var VMFunctions = [{
   prompt: "watch expression {1}",
   context: "command"
 }, {
+  id: "log",
+  args: ["number"],
+  prompt: "not used",
+  context: "command"
+}, {
   id: "awaitEvent",
   args: ["event", ["boolean", true]],
   prompt: "wait for event {1} and then check {2} (other events ignored)",
@@ -5363,6 +5368,7 @@ var VMCode;
   VMCode["VariableValueChange"] = "vmVariableChanged";
   VMCode["DynamicTypeError"] = "vmDynamicTypeError";
   VMCode["InternalError"] = "vmInternalError";
+  VMCode["LogEntry"] = "vmLogEntry";
 })(VMCode || (VMCode = {}));
 
 /***/ }),
@@ -10832,4 +10838,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-ecb2cbdc548afb975320.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-320d1fcc754b6a88914b.js.map
