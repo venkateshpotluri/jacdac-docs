@@ -12605,7 +12605,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
 /***/ }),
 
-/***/ 18773:
+/***/ 12415:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12648,33 +12648,21 @@ function useBlockChartProps(block, initialChartProps) {
 }
 // EXTERNAL MODULE: ./src/components/blockly/useBlockData.ts
 var useBlockData = __webpack_require__(21006);
-// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 22 modules
-var es = __webpack_require__(35215);
 // EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
 var PointerBoundary = __webpack_require__(77298);
 // EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
 var Suspense = __webpack_require__(69672);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
 var NoSsr = __webpack_require__(42862);
+// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 22 modules
+var es = __webpack_require__(35215);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
-;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
+;// CONCATENATED MODULE: ./src/components/blockly/fields/nivo.ts
 
 
-
-
-
-
-
-
-
-
-
-var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 8604).then(__webpack_require__.bind(__webpack_require__, 98604));
-}); // eslint-disable-next-line @typescript-eslint/ban-types
-
-function toNivo(data, columns, toColumns) {
+function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
+data, columns, toColumns) {
   var headers = Object.keys((data === null || data === void 0 ? void 0 : data[0]) || {});
   var k = 0;
   var renaming = (0,utils/* toMap */.qL)(columns, function (c, i) {
@@ -12700,6 +12688,20 @@ function toNivo(data, columns, toColumns) {
     labels: labels
   };
 }
+;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
+
+
+
+
+
+
+
+
+
+
+var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 8604).then(__webpack_require__.bind(__webpack_require__, 98604));
+});
 
 function ChartWidget() {
   var _chartProps$data, _chartProps$data$0$da;
@@ -12714,9 +12716,9 @@ function ChartWidget() {
   var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
   var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
 
-  var _toNivo = toNivo(data, [x, y], ["x", "y"]),
-      series = _toNivo.series,
-      labels = _toNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  var _tidyToNivo = tidyToNivo(data, [x, y], ["x", "y"]),
+      series = _tidyToNivo.series,
+      labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
   var _useBlockChartProps = useBlockChartProps(sourceBlock, {
@@ -13344,7 +13346,7 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
 /* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
-/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(18773);
+/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(12415);
 
 
 
