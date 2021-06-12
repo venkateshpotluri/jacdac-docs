@@ -7744,7 +7744,22 @@ function BlockProvider(props) {
     return function () {
       return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleNewBlock);
     };
-  }, [workspace]);
+  }, [workspace]); // mounting dsts
+
+  (0,react.useEffect)(function () {
+    var unmounnts = dsls.map(function (dsl) {
+      var _dsl$mount;
+
+      return (_dsl$mount = dsl.mount) === null || _dsl$mount === void 0 ? void 0 : _dsl$mount.call(dsl);
+    }).filter(function (u) {
+      return !!u;
+    });
+    return function () {
+      return unmounnts.forEach(function (u) {
+        return u();
+      });
+    };
+  }, []);
   return /*#__PURE__*/react.createElement(BlockContext.Provider, {
     value: {
       dsls: dsls,
@@ -11146,4 +11161,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-47e3ca6c94a0724cad9b.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-9bf014de7b4ef8598f9a.js.map
