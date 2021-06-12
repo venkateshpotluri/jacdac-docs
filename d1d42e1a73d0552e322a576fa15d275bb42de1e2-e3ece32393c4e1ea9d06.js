@@ -11382,184 +11382,6 @@ var variablesDsl = {
 
 /***/ }),
 
-/***/ 26888:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ ChartField; }
-});
-
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(85413);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
-var WorkspaceContext = __webpack_require__(89801);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ReactInlineField.tsx
-var ReactInlineField = __webpack_require__(12702);
-// EXTERNAL MODULE: ./src/jacdac/useChange.ts
-var useChange = __webpack_require__(54774);
-;// CONCATENATED MODULE: ./src/components/blockly/useBlockChartProps.ts
-
-
-function useBlockChartProps(block, initialChartProps) {
-  var services = block === null || block === void 0 ? void 0 : block.jacdacServices; // data on the current node
-
-  var chartProps = (0,useChange/* default */.Z)(services, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.chartProps;
-  });
-  var setChartProps = (0,react.useCallback)(function (value) {
-    if (services) services.chartProps = value;
-  }, [services]); // set initial value
-
-  (0,react.useEffect)(function () {
-    if (services && initialChartProps !== undefined && services.chartProps === undefined) services.chartProps = initialChartProps;
-  }, [services]);
-  return {
-    chartProps: chartProps,
-    setChartProps: setChartProps
-  };
-}
-// EXTERNAL MODULE: ./src/components/blockly/useBlockData.ts
-var useBlockData = __webpack_require__(21006);
-// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 22 modules
-var es = __webpack_require__(35215);
-// EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
-var PointerBoundary = __webpack_require__(77298);
-// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
-var Suspense = __webpack_require__(69672);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
-var NoSsr = __webpack_require__(42862);
-;// CONCATENATED MODULE: ./src/components/blockly/fields/ChartField.tsx
-
-
-
-
-
-
-
-
-
-
-var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 8604).then(__webpack_require__.bind(__webpack_require__, 98604));
-});
-
-function ChartWidget() {
-  var _chartProps$data, _chartProps$data$0$da;
-
-  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
-      sourceBlock = _useContext.sourceBlock;
-
-  var _useBlockData = (0,useBlockData/* default */.Z)(sourceBlock),
-      data = _useBlockData.data;
-
-  var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
-  var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
-  var renaming = {};
-  renaming[x] = "x";
-  renaming[y] = "y"; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // todo handle time
-
-  var _index = 0;
-  var tidied = data ? (0,es/* tidy */.lu)(data, (0,es/* mutate */.JG)({
-    index: function index() {
-      return _index++;
-    }
-  }), (0,es/* select */.Ys)([x, y]), (0,es/* rename */.PQ)(renaming)) : [];
-  var series = [{
-    id: "data",
-    data: tidied
-  }]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-  var _useBlockChartProps = useBlockChartProps(sourceBlock, {
-    colors: {
-      scheme: "category10"
-    },
-    data: series,
-    margin: {
-      top: 8,
-      right: 8,
-      bottom: 38,
-      left: 64
-    },
-    xScale: {
-      type: "linear",
-      min: "auto",
-      max: "auto"
-    },
-    yScale: {
-      type: "linear",
-      min: "auto",
-      max: "auto"
-    },
-    axisTop: null,
-    axisRight: null,
-    axisBottom: {
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      legend: x,
-      legendPosition: "middle",
-      legendOffset: 34
-    },
-    axisLeft: {
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      legend: y,
-      legendPosition: "middle",
-      legendOffset: -32
-    }
-  }),
-      chartProps = _useBlockChartProps.chartProps;
-
-  if (chartProps) chartProps.data = series;
-  var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
-  if (!hasData) return null;
-  chartProps.axisBottom.legend = x;
-  chartProps.axisLeft.legend = y;
-  return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
-    style: {
-      background: "#fff",
-      borderRadius: "0.5rem"
-    }
-  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ScatterPlot, Object.assign({
-    width: 400,
-    height: 400
-  }, chartProps))))));
-}
-
-var ChartField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,inheritsLoose/* default */.Z)(ChartField, _ReactInlineField);
-
-  ChartField.fromJson = function fromJson(options) {
-    return new ChartField(options);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;
-
-  function ChartField(options) {
-    return _ReactInlineField.call(this, options) || this;
-  }
-
-  var _proto = ChartField.prototype;
-
-  _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(ChartWidget, null);
-  };
-
-  return ChartField;
-}(ReactInlineField/* default */.Z);
-
-ChartField.KEY = "jacdac_field_chart";
-ChartField.EDITABLE = false;
-
-
-/***/ }),
-
 /***/ 54741:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -12776,6 +12598,184 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
 /***/ }),
 
+/***/ 18773:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ ScatterPlotField; }
+});
+
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(85413);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
+var WorkspaceContext = __webpack_require__(89801);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ReactInlineField.tsx
+var ReactInlineField = __webpack_require__(12702);
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__(54774);
+;// CONCATENATED MODULE: ./src/components/blockly/useBlockChartProps.ts
+
+
+function useBlockChartProps(block, initialChartProps) {
+  var services = block === null || block === void 0 ? void 0 : block.jacdacServices; // data on the current node
+
+  var chartProps = (0,useChange/* default */.Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.chartProps;
+  });
+  var setChartProps = (0,react.useCallback)(function (value) {
+    if (services) services.chartProps = value;
+  }, [services]); // set initial value
+
+  (0,react.useEffect)(function () {
+    if (services && initialChartProps !== undefined && services.chartProps === undefined) services.chartProps = initialChartProps;
+  }, [services]);
+  return {
+    chartProps: chartProps,
+    setChartProps: setChartProps
+  };
+}
+// EXTERNAL MODULE: ./src/components/blockly/useBlockData.ts
+var useBlockData = __webpack_require__(21006);
+// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 22 modules
+var es = __webpack_require__(35215);
+// EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
+var PointerBoundary = __webpack_require__(77298);
+// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
+var Suspense = __webpack_require__(69672);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
+var NoSsr = __webpack_require__(42862);
+;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
+
+
+
+
+
+
+
+
+
+
+var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 8604).then(__webpack_require__.bind(__webpack_require__, 98604));
+});
+
+function ChartWidget() {
+  var _chartProps$data, _chartProps$data$0$da;
+
+  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
+      sourceBlock = _useContext.sourceBlock;
+
+  var _useBlockData = (0,useBlockData/* default */.Z)(sourceBlock),
+      data = _useBlockData.data;
+
+  var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
+  var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
+  var renaming = {};
+  renaming[x] = "x";
+  renaming[y] = "y"; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // todo handle time
+
+  var _index = 0;
+  var tidied = data ? (0,es/* tidy */.lu)(data, (0,es/* mutate */.JG)({
+    index: function index() {
+      return _index++;
+    }
+  }), (0,es/* select */.Ys)([x, y]), (0,es/* rename */.PQ)(renaming)) : [];
+  var series = [{
+    id: "data",
+    data: tidied
+  }]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var _useBlockChartProps = useBlockChartProps(sourceBlock, {
+    colors: {
+      scheme: "category10"
+    },
+    data: series,
+    margin: {
+      top: 8,
+      right: 8,
+      bottom: 38,
+      left: 64
+    },
+    xScale: {
+      type: "linear",
+      min: "auto",
+      max: "auto"
+    },
+    yScale: {
+      type: "linear",
+      min: "auto",
+      max: "auto"
+    },
+    axisTop: null,
+    axisRight: null,
+    axisBottom: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: x,
+      legendPosition: "middle",
+      legendOffset: 34
+    },
+    axisLeft: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: y,
+      legendPosition: "middle",
+      legendOffset: -32
+    }
+  }),
+      chartProps = _useBlockChartProps.chartProps;
+
+  if (chartProps) chartProps.data = series;
+  var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
+  if (!hasData) return null;
+  chartProps.axisBottom.legend = x;
+  chartProps.axisLeft.legend = y;
+  return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: "0.5rem"
+    }
+  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ScatterPlot, Object.assign({
+    width: 400,
+    height: 400
+  }, chartProps))))));
+}
+
+var ScatterPlotField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,inheritsLoose/* default */.Z)(ScatterPlotField, _ReactInlineField);
+
+  ScatterPlotField.fromJson = function fromJson(options) {
+    return new ScatterPlotField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function ScatterPlotField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = ScatterPlotField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react.createElement(ChartWidget, null);
+  };
+
+  return ScatterPlotField;
+}(ReactInlineField/* default */.Z);
+
+ScatterPlotField.KEY = "jacdac_field_scatter_plot";
+ScatterPlotField.EDITABLE = false;
+
+
+/***/ }),
+
 /***/ 891:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -13316,7 +13316,7 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
 /* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
-/* harmony import */ var _ChartField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(26888);
+/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(18773);
 
 
 
@@ -13349,7 +13349,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ChartField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {

@@ -5625,8 +5625,8 @@ var jsonDSL = {
   }
 };
 /* harmony default export */ var jsondsl = (jsonDSL);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ChartField.tsx + 1 modules
-var ChartField = __webpack_require__(26888);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx + 1 modules
+var ScatterPlotField = __webpack_require__(18773);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataTableField.tsx
 var DataTableField = __webpack_require__(54741);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
@@ -5668,7 +5668,7 @@ var chartDSL = {
       }, {
         type: "input_dummy"
       }, {
-        type: ChartField/* default.KEY */.Z.KEY,
+        type: ScatterPlotField/* default.KEY */.Z.KEY,
         name: "plot"
       }],
       previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
