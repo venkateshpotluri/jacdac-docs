@@ -5627,11 +5627,14 @@ var jsonDSL = {
   }
 };
 /* harmony default export */ var jsondsl = (jsonDSL);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx + 2 modules
-var ScatterPlotField = __webpack_require__(12415);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx + 1 modules
+var ScatterPlotField = __webpack_require__(18773);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataTableField.tsx
 var DataTableField = __webpack_require__(54741);
+// EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.tsx
+var DataColumnChooserField = __webpack_require__(12456);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
+
 
 
 
@@ -5662,10 +5665,10 @@ var chartDSL = {
       type: SCATTERPLOT_BLOCK,
       message0: "scatterplot x %1 y %2 %3 %4",
       args0: [{
-        type: "field_input",
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
         name: "x"
       }, {
-        type: "field_input",
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
         name: "y"
       }, {
         type: "input_dummy"

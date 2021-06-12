@@ -11018,6 +11018,8 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ datadsl; }
 });
 
+// EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.tsx
+var DataColumnChooserField = __webpack_require__(12456);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
@@ -11075,6 +11077,7 @@ function _transformData() {
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datadsl.ts
 
 
+
 var DATA_SCIENCE_ARRANGE_BLOCK = "data_science_arrange";
 var colour = "#777";
 var dataDsl = {
@@ -11086,7 +11089,7 @@ var dataDsl = {
       message0: "arrange %1 %2",
       colour: colour,
       args0: [{
-        type: "field_input",
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
         name: "column"
       }, {
         type: "field_dropdown",
@@ -11379,6 +11382,57 @@ var variablesDsl = {
   }
 };
 /* harmony default export */ __webpack_exports__["Z"] = (variablesDsl);
+
+/***/ }),
+
+/***/ 12456:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ DataColumnChooserField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85413);
+/* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8844);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(DataColumnChooserField, _FieldDropdown);
+
+  DataColumnChooserField.fromJson = function fromJson(options) {
+    return new DataColumnChooserField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function DataColumnChooserField(options) {
+    return _FieldDropdown.call(this, [["", ""]], undefined, options) || this;
+  }
+
+  var _proto = DataColumnChooserField.prototype;
+
+  _proto.getOptions = function getOptions() {
+    var sourceBlock = this.getSourceBlock();
+    var services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
+    var data = services === null || services === void 0 ? void 0 : services.data;
+    var headers = (0,_nivo__WEBPACK_IMPORTED_MODULE_0__/* .tidyHeaders */ .P)(data);
+    var options = (headers === null || headers === void 0 ? void 0 : headers.map(function (h) {
+      return [h, h];
+    })) || [];
+    console.log({
+      options: options
+    });
+    return options.length < 1 ? [["", ""]] : options;
+  };
+
+  return DataColumnChooserField;
+}(blockly__WEBPACK_IMPORTED_MODULE_1__.FieldDropdown);
+
+DataColumnChooserField.KEY = "jacdac_field_data_column_chooser";
+
 
 /***/ }),
 
@@ -12605,7 +12659,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
 /***/ }),
 
-/***/ 12415:
+/***/ 18773:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12654,40 +12708,8 @@ var PointerBoundary = __webpack_require__(77298);
 var Suspense = __webpack_require__(69672);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
 var NoSsr = __webpack_require__(42862);
-// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 22 modules
-var es = __webpack_require__(35215);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
-;// CONCATENATED MODULE: ./src/components/blockly/fields/nivo.ts
-
-
-function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
-data, columns, toColumns) {
-  var headers = Object.keys((data === null || data === void 0 ? void 0 : data[0]) || {});
-  var k = 0;
-  var renaming = (0,utils/* toMap */.qL)(columns, function (c, i) {
-    return columns[i] || (headers === null || headers === void 0 ? void 0 : headers[k++]);
-  }, function (c, i) {
-    return toColumns[i];
-  });
-  var labels = Object.keys(renaming); // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // todo handle time
-
-  var _index = 0;
-  var tidied = data ? (0,es/* tidy */.lu)(data, (0,es/* mutate */.JG)({
-    index: function index() {
-      return _index++;
-    }
-  }), (0,es/* select */.Ys)(labels), (0,es/* rename */.PQ)(renaming)) : [];
-  var series = [{
-    id: "data",
-    data: tidied
-  }];
-  return {
-    series: series,
-    labels: labels
-  };
-}
+// EXTERNAL MODULE: ./src/components/blockly/fields/nivo.ts
+var nivo = __webpack_require__(8844);
 ;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
 
 
@@ -12716,7 +12738,7 @@ function ChartWidget() {
   var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
   var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
 
-  var _tidyToNivo = tidyToNivo(data, [x, y], ["x", "y"]),
+  var _tidyToNivo = (0,nivo/* tidyToNivo */.t)(data, [x, y], ["x", "y"]),
       series = _tidyToNivo.series,
       labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -13396,7 +13418,9 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
 /* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
-/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(12415);
+/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(18773);
+/* harmony import */ var _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(12456);
+
 
 
 
@@ -13429,12 +13453,59 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
   registerFields();
   return reactFieldShadows.slice(0);
+}
+
+/***/ }),
+
+/***/ 8844:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "P": function() { return /* binding */ tidyHeaders; },
+/* harmony export */   "t": function() { return /* binding */ tidyToNivo; }
+/* harmony export */ });
+/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35215);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+
+ // eslint-disable-next-line @typescript-eslint/ban-types
+
+function tidyHeaders(data) {
+  var headers = Object.keys((data === null || data === void 0 ? void 0 : data[0]) || {});
+  return headers;
+}
+function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
+data, columns, toColumns) {
+  var headers = tidyHeaders(data);
+  var k = 0;
+  var renaming = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .toMap */ .qL)(columns, function (c, i) {
+    return columns[i] || (headers === null || headers === void 0 ? void 0 : headers[k++]);
+  }, function (c, i) {
+    return toColumns[i];
+  });
+  var labels = Object.keys(renaming); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // todo handle time
+
+  var _index = 0;
+  var tidied = data ? (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__/* .tidy */ .lu)(data, (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__/* .mutate */ .JG)({
+    index: function index() {
+      return _index++;
+    }
+  }), (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__/* .select */ .Ys)(labels), (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__/* .rename */ .PQ)(renaming)) : [];
+  var series = [{
+    id: "data",
+    data: tidied
+  }];
+  return {
+    series: series,
+    labels: labels
+  };
 }
 
 /***/ }),
