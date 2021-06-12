@@ -118,9 +118,10 @@ exports.Z = _default;
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
-/* harmony export */   "Jg": function() { return /* binding */ escapeName; }
+/* harmony export */   "Jg": function() { return /* binding */ escapeName; },
+/* harmony export */   "n": function() { return /* binding */ escapeDisplayName; }
 /* harmony export */ });
-/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, escapeDisplayName, DTDLUnits */
+/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, DTDLUnits */
 /***
  *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
  */
@@ -893,33 +894,423 @@ function Snippet(props) {
 
 /***/ }),
 
-/***/ 95522:
+/***/ 47574:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ AzureDeviceTwinDesigner; }
-/* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(80838);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(1059);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
-/* harmony import */ var _components_useLocalStorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(86581);
-/* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(94500);
-/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13173);
-/* harmony import */ var _components_AddServiceIconButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27498);
-/* harmony import */ var _components_ServiceSpecificationSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(14247);
-/* harmony import */ var _jacdac_ts_src_azure_iot_dtdl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(2864);
-/* harmony import */ var _components_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(79885);
-/* harmony import */ var _components_ui_Snippet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(34276);
-/* harmony import */ var _components_ui_PaperBox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(79739);
-/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(19640);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(36176);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ AzureDeviceTwinDesigner; }
+});
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
+var TextField = __webpack_require__(1059);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Delete.js
+var Delete = __webpack_require__(94500);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var spec = __webpack_require__(13173);
+// EXTERNAL MODULE: ./src/components/AddServiceIconButton.tsx
+var AddServiceIconButton = __webpack_require__(27498);
+// EXTERNAL MODULE: ./src/components/ServiceSpecificationSelect.tsx
+var ServiceSpecificationSelect = __webpack_require__(14247);
+// EXTERNAL MODULE: ./jacdac-ts/src/azure-iot/dtdl.ts
+var azure_iot_dtdl = __webpack_require__(2864);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__(79885);
+// EXTERNAL MODULE: ./src/components/ui/Snippet.tsx
+var Snippet = __webpack_require__(34276);
+// EXTERNAL MODULE: ./src/components/ui/PaperBox.tsx
+var PaperBox = __webpack_require__(79739);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
+;// CONCATENATED MODULE: ./jacdac-ts/src/azure-iot/dtdlspec.ts
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/***
+ * Jacdac service/device specification to DTDL
+ *
+ *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
+ */
+
+
+ // https://github.com/Azure/digital-twin-model-identifier
+// ^dtmi:(?:_+[A-Za-z0-9]|[A-Za-z])(?:[A-Za-z0-9_]*[A-Za-z0-9])?(?::(?:_+[A-Za-z0-9]|[A-Za-z])(?:[A-Za-z0-9_]*[A-Za-z0-9])?)*;[1-9][0-9]{0,8}$
+
+function toDTMI(segments, version) {
+  return ("dtmi:jacdac:" + (0,toConsumableArray/* default */.Z)(segments).map(function (seg) {
+    return seg === undefined ? "???" : typeof seg === "string" ? seg : "x" + seg.toString(16);
+  }).map(function (seg) {
+    return seg.replace(/(-|_)/g, "");
+  }).join(":") + ";" + (version !== undefined ? version : 1)).toLowerCase();
+}
+
+function toUnit(pkt) {
+  if (pkt.fields.length !== 1) return undefined;
+  var field = pkt.fields[0];
+  if (!field.unit) return undefined;
+  /**
+   *     type Unit = "m" | "kg" | "g" | "s" | "A" | "K" | "cd" | "mol" | "Hz" | "rad" | "sr" | "N" | "Pa" | "J" | "W" | "C" | "V" | "F" | "Ohm"
+      | "S" | "Wb" | "T" | "H" | "Cel" | "lm" | "lx" | "Bq" | "Gy" | "Sv" | "kat" | "m2" | "m3" | "l" | "m/s" | "m/s2" | "m3/s" | "l/s"
+      | "W/m2" | "cd/m2" | "bit" | "bit/s" | "lat" | "lon" | "pH" | "dB" | "dBW" | "Bspl" | "count" | "/" | "%RH" | "%EL" | "EL"
+      | "1/s" | "1/min" | "beat/min" | "beats" | "S/m" | "B" | "VA" | "VAs" | "var" | "vars" | "J/m" | "kg/m3" | "deg";
+   type SecondaryUnit = "ms" | "min" | "h" | "MHz" | "kW" | "kVA" | "kvar" | "Ah" | "Wh" | "kWh"
+      | "varh" | "kvarh" | "kVAh" | "Wh/km" | "KiB" | "GB" | "Mbit/s" | "B/s" | "MB/s" | "mV" | "mA" | "dBm" | "ug/m3"
+      | "mm/h" | "m/h" | "ppm" | "/100" | "/1000" | "hPa" | "mm" | "cm" | "km" | "km/h";
+   */
+
+  var units = {
+    "m/s2": {
+      semantic: "Acceleration",
+      unit: "metrePerSecondSquared"
+    },
+    rad: {
+      semantic: "Angle",
+      unit: "radian"
+    },
+    "rad/s": {
+      semantic: "AngularVelocity",
+      unit: "radianPerSecond"
+    },
+    "rad/s2": {
+      semantic: "AngularAcceleration",
+      unit: "radianPerSecondSquared"
+    },
+    m: {
+      semantic: "Length",
+      unit: "metre"
+    },
+    m2: {
+      semantic: "Area",
+      unit: "squareMetre"
+    },
+    s: {
+      semantic: "TimeSpan",
+      unit: "second"
+    },
+    ms: {
+      semantic: "TimeSpan",
+      unit: "millisecond"
+    },
+    us: {
+      semantic: "TimeSpan",
+      unit: "microsecond"
+    },
+    K: {
+      semantic: "Temperature",
+      unit: "kelvin"
+    },
+    C: {
+      semantic: "Temperature",
+      unit: "degreeCelsius"
+    },
+    F: {
+      semantic: "Temperature",
+      unit: "degreeFahrenheit"
+    },
+    g: {
+      semantic: "Acceleration",
+      unit: "gForce"
+    },
+    mA: {
+      semantic: "Current",
+      unit: "milliampere"
+    },
+    uA: {
+      semantic: "Current",
+      unit: "microampere"
+    },
+    A: {
+      semantic: "Current",
+      unit: "ampere"
+    },
+    mV: {
+      semantic: "Voltage",
+      unit: "millivolt"
+    },
+    uV: {
+      semantic: "Voltage",
+      unit: "microvolt"
+    },
+    V: {
+      semantic: "Voltage",
+      unit: "volt"
+    }
+  };
+  var unit = units[field.unit];
+  if (unit) return unit; // ignoring some known units
+
+  if (["#", "/"].indexOf(field.unit) > -1) return undefined; //console.warn(`unsupported unit ${field.unit}`)
+
+  return undefined;
+} // https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md#primitive-schemas
+
+
+function enumDTDI(srv, en) {
+  return toDTMI([srv.classIdentifier, en.name]);
+}
+
+function enumSchema(srv, en) {
+  var dtdl = {
+    "@type": "Enum",
+    "@id": enumDTDI(srv, en),
+    valueSchema: "integer",
+    enumValues: Object.keys(en.members).map(function (k) {
+      return {
+        name: escapeName(k),
+        displayName: k,
+        enumValue: en.members[k]
+      };
+    })
+  };
+  return dtdl;
+}
+
+function fieldType(srv, pkt, field) {
+  var type;
+  if (field.type == "bool") type = "boolean";else if (field.isFloat) type = "float";else if (field.isSimpleType) {
+    if (/^(u|i)/.test(field.type)) type = "integer";else if (field.type === "B") // base64 encoded binary data
+      type = "string";
+  } else if (field.type === "string" || field.type == "string0") type = "string";else if (field.shift && /^(u|i)/.test(field.type)) type = "float"; // decimal type
+  else {
+      var en = srv.enums[field.type];
+      if (en) type = enumDTDI(srv, en);
+    } //if (!type)
+  //    console.warn(`unknown field type ${field.type}`, field)
+
+  return {
+    name: field.name == "_" ? pkt.name : field.name,
+    type: type
+  };
+} // converts JADAC pkt data layout into a DTDL schema
+
+
+function toSchema(srv, pkt, supportsArray) {
+  var fields = pkt.fields.map(function (field) {
+    return fieldType(srv, pkt, field);
+  });
+  if (!fields.length) return undefined; // a single data entry
+
+  if (fields.length === 1 && !pkt.fields[0].startRepeats) return fields[0].type; // map fields into schema
+
+  var schemas = fields.map(function (field) {
+    return {
+      name: field.name,
+      schema: field.type
+    };
+  }); // is there an array?
+
+  var repeatIndex = pkt.fields.findIndex(function (field) {
+    return field.startRepeats;
+  });
+
+  if (repeatIndex < 0) {
+    // no array
+    // wrap schemas into an object
+    return objectSchema(schemas);
+  } // check if arrays are supported
+
+
+  if (!supportsArray) {
+    //console.warn(`arrays not supported in ${srv.shortName}.${pkt.name}`)
+    return undefined;
+  }
+
+  if (repeatIndex == 0) {
+    // the whole structure is an array
+    return arraySchema(objectSchema(schemas));
+  } else {
+    // split fields into prelude and array data
+    var nonRepeat = schemas.slice(0, repeatIndex);
+    var repeats = schemas.slice(repeatIndex);
+    return objectSchema([].concat(_toConsumableArray(nonRepeat), [{
+      name: "repeat",
+      schema: arraySchema(repeats.length > 1 ? objectSchema(repeats) : repeats[0])
+    }]));
+  }
+}
+
+function packetToDTDL(srv, pkt) {
+  var types = {
+    const: "Property",
+    rw: "Property",
+    ro: "Telemetry",
+    event: "Telemetry"
+  }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var dtdl = {
+    "@type": types[pkt.kind] || "Unsupported" + pkt.kind,
+    name: pkt.name,
+    "@id": toDTMI([srv.classIdentifier, pkt.kind, pkt.name]),
+    description: pkt.description
+  };
+
+  switch (pkt.kind) {
+    case "report":
+    case "command":
+      // https://docs.microsoft.com/en-us/azure/digital-twins/concepts-models#azure-digital-twins-dtdl-implementation-specifics
+      return undefined;
+
+    case "const":
+    case "rw":
+    case "ro":
+    case "event":
+      {
+        var unit = toUnit(pkt);
+
+        if (unit) {
+          dtdl.unit = unit.unit;
+        }
+
+        dtdl.schema = toSchema(srv, pkt, false);
+        if (pkt.kind === "rw") dtdl.writable = true;
+
+        if (!dtdl.schema && pkt.kind === "event") {
+          // keep a count of the events
+          dtdl["@type"] = [dtdl["@type"], "Event"];
+          dtdl.schema = toDTMI([srv.classIdentifier, "event"]);
+        } else if (unit && unit.semantic) dtdl["@type"] = [dtdl["@type"], unit.semantic];
+
+        break;
+      }
+
+    default:
+      //console.log(`unknown packet kind ${pkt.kind}`)
+      break;
+  }
+
+  if (!dtdl.schema) {
+    //console.log(`unknown schema for ${srv.name}.${pkt.name}`);
+    return undefined;
+  }
+
+  return dtdl;
+}
+
+function serviceSpecificationToDTDL(srv) {
+  var dtdl = {
+    "@type": "Interface",
+    "@id": serviceSpecificationDTMI(srv),
+    displayName: escapeDisplayName(srv.name),
+    description: srv.notes["short"],
+    contents: srv.packets.filter(function (pkt) {
+      return !pkt.derived && !pkt.internal;
+    }).map(function (pkt) {
+      try {
+        return packetToDTDL(srv, pkt);
+      } catch (e) {
+        console.log("failed to generate DTDL for " + srv.name, e);
+        return undefined;
+      }
+    }).filter(function (c) {
+      return !!c;
+    })
+  };
+  if (srv.extends.length) dtdl.extends = srv.extends.map(function (id) {
+    return serviceSpecificationDTMI(serviceSpecificationFromName(id));
+  });
+  var hasEvents = srv.packets.find(function (pkt) {
+    return pkt.kind === "event";
+  });
+  var hasEnums = Object.keys(srv.enums).length;
+
+  if (hasEvents || hasEnums) {
+    dtdl.schemas = [];
+    if (hasEvents) dtdl.schemas.push({
+      "@id": toDTMI([srv.classIdentifier, "event"]),
+      "@type": "Object",
+      fields: [{
+        name: "count",
+        schema: "integer"
+      }]
+    });
+    if (hasEnums) dtdl.schemas = dtdl.schemas.concat(Object.keys(srv.enums).map(function (en) {
+      return enumSchema(srv, srv.enums[en]);
+    }));
+  }
+
+  dtdl["@context"] = DTDL_CONTEXT;
+  return dtdl;
+}
+function serviceSpecificationToComponent(srv, name) {
+  var dtdl = {
+    "@type": "Component",
+    name: name,
+    displayName: (0,azure_iot_dtdl/* escapeDisplayName */.n)(srv.name),
+    schema: serviceSpecificationDTMI(srv)
+  };
+  return dtdl;
+}
+function serviceSpecificationDTMI(srv) {
+  return toDTMI(["services", srv.classIdentifier]);
+}
+function deviceSpecificationDTMI(dev) {
+  return toDTMI(["devices", dev.id.replace(/-/g, ":")]);
+}
+function DTMIToRoute(dtmi) {
+  var route = dtmi.toLowerCase().replace(/;/, "-").replace(/:/g, "/") + ".json";
+  return route;
+}
+function deviceSpecificationToDTDL(dev, options) {
+  var services = dev.services.map(function (srv) {
+    return serviceSpecificationFromClassIdentifier(srv);
+  });
+  var uniqueServices = uniqueMap(services, function (srv) {
+    return srv.classIdentifier.toString();
+  }, function (srv) {
+    return srv;
+  });
+  var schemas = uniqueServices.map(function (srv) {
+    return serviceSpecificationToDTDL(srv);
+  }); // allocate names
+
+  var names = [];
+  services.forEach(function (srv) {
+    var name = escapeName(srv.shortId || srv.shortName);
+    if (names.indexOf(name) < 0) names.push(name);else {
+      var count = 2;
+
+      while (names.indexOf(name + count) > -1) {
+        count++;
+      }
+
+      names.push(name + count);
+    }
+  });
+  var dtdl = {
+    "@type": "Interface",
+    "@id": deviceSpecificationDTMI(dev),
+    displayName: escapeDisplayName(dev.name),
+    description: dev.description,
+    contents: services.map(function (srv, i) {
+      return serviceSpecificationToComponent(srv, names[i]);
+    }),
+    "@context": DTDL_CONTEXT
+  };
+  if (options !== null && options !== void 0 && options.inlineServices) return [dtdl].concat(_toConsumableArray(schemas));else return dtdl;
+}
+;// CONCATENATED MODULE: ./src/pages/tools/azure-device-twin-designer.tsx
 
 
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -939,21 +1330,21 @@ function ComponentRow(props) {
   var name = component.name,
       service = component.service;
 
-  var _useMemo = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+  var _useMemo = (0,react.useMemo)(function () {
     return validateTwinComponent(twin, component);
   }, [twin, component]),
       nameError = _useMemo.nameError,
       serviceError = _useMemo.serviceError;
 
-  var nameId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_9__/* .useId */ .Me)();
+  var nameId = (0,react_use_id_hook_esm/* useId */.Me)();
 
   var handleComponentNameChange = function handleComponentNameChange(ev) {
-    component.name = (0,_jacdac_ts_src_azure_iot_dtdl__WEBPACK_IMPORTED_MODULE_11__/* .escapeName */ .Jg)(ev.target.value);
+    component.name = (0,azure_iot_dtdl/* escapeName */.Jg)(ev.target.value);
     onUpdate();
   };
 
   var handleSetService = function handleSetService(serviceClass) {
-    component.service = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_3__/* .serviceSpecificationFromClassIdentifier */ .d5)(serviceClass);
+    component.service = (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
     onUpdate();
   };
 
@@ -962,16 +1353,16 @@ function ComponentRow(props) {
     onUpdate();
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     spacing: 2
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 6
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
     id: nameId,
     fullWidth: true,
     error: !!nameError,
@@ -980,20 +1371,20 @@ function ComponentRow(props) {
     helperText: nameError,
     value: name,
     onChange: handleComponentNameChange
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ServiceSpecificationSelect__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(ServiceSpecificationSelect/* default */.Z, {
     variant: "outlined",
     label: "service",
     serviceClass: service.classIdentifier,
     setServiceClass: handleSetService,
     error: serviceError
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "Remove service",
     onClick: handleComponentDelete
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, null)))));
+  }, /*#__PURE__*/react.createElement(Delete/* default */.Z, null)))));
 }
 
 function validateTwinComponent(twin, component) {
@@ -1012,7 +1403,7 @@ function validateTwinComponent(twin, component) {
 function AzureDeviceTwinDesigner() {
   var variant = "outlined";
 
-  var _useLocalStorage = (0,_components_useLocalStorage__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)("jacdac:digitaltwin;1", {
+  var _useLocalStorage = (0,useLocalStorage/* default */.Z)("jacdac:digitaltwin;1", {
     displayName: "mydesigner",
     components: []
   }),
@@ -1021,17 +1412,17 @@ function AzureDeviceTwinDesigner() {
 
   var dtdl = {
     "@type": "Interface",
-    "@id": "dtmi:jacdac:devices:" + (0,_jacdac_ts_src_azure_iot_dtdl__WEBPACK_IMPORTED_MODULE_11__/* .escapeName */ .Jg)(twin.displayName) + ",1",
+    "@id": "dtmi:jacdac:devices:" + (0,azure_iot_dtdl/* escapeName */.Jg)(twin.displayName) + ",1",
     displayName: twin.displayName,
     contents: twin.components.map(function (c) {
-      return (0,_jacdac_ts_src_azure_iot_dtdl__WEBPACK_IMPORTED_MODULE_11__.serviceSpecificationToComponent)(c.service, c.name);
+      return serviceSpecificationToComponent(c.service, c.name);
     }),
-    "@context": _jacdac_ts_src_azure_iot_dtdl__WEBPACK_IMPORTED_MODULE_11__/* .DTDL_CONTEXT */ .LM
+    "@context": azure_iot_dtdl/* DTDL_CONTEXT */.LM
   };
   var dtdlSource = JSON.stringify(dtdl, null, 2);
 
   var update = function update() {
-    setTwin((0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .clone */ .d9)(twin));
+    setTwin((0,utils/* clone */.d9)(twin));
   };
 
   var handleDisplayNameChange = function handleDisplayNameChange(ev) {
@@ -1044,24 +1435,24 @@ function AzureDeviceTwinDesigner() {
       return c.name;
     });
     twin.components.push({
-      name: (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .uniqueName */ .yZ)(names, service.shortId),
+      name: (0,utils/* uniqueName */.yZ)(names, service.shortId),
       service: service
     });
     update();
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Azure Device Twin Designer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "An", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_10__.Link, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h1", null, "Azure Device Twin Designer"), /*#__PURE__*/react.createElement("p", null, "An", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://github.com/Azure/opendigitaltwins-dtdl/"
-  }, "device twin"), " ", "is to be used in IoT solutions such as with Azure IoT Hubs, Azure IoT Plug And Play. The repository of", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_10__.Link, {
+  }, "device twin"), " ", "is to be used in IoT solutions such as with Azure IoT Hubs, Azure IoT Plug And Play. The repository of", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     to: "/dtmi/"
-  }, "Azure IoT Plug And Play models"), " for services can be used to resolve models."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }, "Azure IoT Plug And Play models"), " for services can be used to resolve models."), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "row",
     spacing: 2
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
     required: true,
     fullWidth: true,
     label: "Display name",
@@ -1070,21 +1461,21 @@ function AzureDeviceTwinDesigner() {
     onChange: handleDisplayNameChange,
     variant: variant
   })), twin.components.map(function (c, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ComponentRow, {
+    return /*#__PURE__*/react.createElement(ComponentRow, {
       key: c.name,
       twin: twin,
       component: c,
       onUpdate: update
     });
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_AddServiceIconButton__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(AddServiceIconButton/* default */.Z, {
     onAdd: handleAddService
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ui_PaperBox__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ui_Snippet__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(PaperBox/* default */.Z, null, /*#__PURE__*/react.createElement(Snippet/* default */.Z, {
     value: dtdlSource,
     mode: "json",
     download: "model"
@@ -1094,4 +1485,4 @@ function AzureDeviceTwinDesigner() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-478427965a8d65977f6c.js.map
+//# sourceMappingURL=component---src-pages-tools-azure-device-twin-designer-tsx-e5b4fb4babf57f7eef2b.js.map

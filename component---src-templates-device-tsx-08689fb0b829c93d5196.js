@@ -518,9 +518,10 @@ var Chip = /*#__PURE__*/react.forwardRef(function Chip(props, ref) {
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
-/* harmony export */   "Jg": function() { return /* binding */ escapeName; }
+/* harmony export */   "Jg": function() { return /* binding */ escapeName; },
+/* harmony export */   "n": function() { return /* binding */ escapeDisplayName; }
 /* harmony export */ });
-/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, escapeDisplayName, DTDLUnits */
+/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, DTDLUnits */
 /***
  *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
  */
@@ -916,4 +917,4 @@ function Page(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-device-tsx-c7082c783d16d3d96d05.js.map
+//# sourceMappingURL=component---src-templates-device-tsx-08689fb0b829c93d5196.js.map

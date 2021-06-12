@@ -69738,7 +69738,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "1d1b43ede486f14a5021721d96a856b2d50f17b2";
+  var sha = "3848e3495c26f375fa5b579e49063ec002e33d11";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81162,7 +81162,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-software-mdx */ 8307).then(__webpack_require__.bind(__webpack_require__, 46690));
   },
   "component---src-pages-tools-azure-device-twin-designer-tsx": function componentSrcPagesToolsAzureDeviceTwinDesignerTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));
+    return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 47574));
   },
   "component---src-pages-tools-collector-tsx": function componentSrcPagesToolsCollectorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(5018), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
@@ -86829,4 +86829,4 @@ try {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-9612246389ce1ba667d1.js.map
+//# sourceMappingURL=app-3729024d0a569acd415d.js.map

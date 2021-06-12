@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-e60ef9bb28ebb2590cc6.js"
+    "url": "webpack-runtime-69a1eb3cd875fdfd8a72.js"
   },
   {
     "url": "styles.144acc30a296f455da44.css"
@@ -37,7 +37,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "a5d5bdc4b8daeedfdce4438b0eb824a0"
+    "revision": "1787d9e07b61f9a5337be49e5375c2e1"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "ef97f67656eb035bc470a4fa436ba146"
+    "revision": "681dbcf3699f1dc8d3b16708a2223bf8"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "11abddf2f0b1bf00e20d8d06a5dc6edc"
+    "revision": "3be550601bd9693fe804b47aeac5effc"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "27a8f4a9d79a4162fc49a57ea5c28897"
+    "revision": "449d9e4d1cde66215dac3b16e7b8a813"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "a7349b2f687e8fe754573852213d0ac6"
+    "revision": "ca5474ade3088f2998701b66d85a6902"
   },
   {
     "url": "polyfill-963c963924ca4e59ffb6.js"
@@ -1225,7 +1225,7 @@ self.__precacheManifest = [
     "url": "6362df6d6ad2d4629b1004aa17c180a25ab662e1-f04a27a3cfd806e6493e.js"
   },
   {
-    "url": "component---src-templates-device-tsx-c7082c783d16d3d96d05.js"
+    "url": "component---src-templates-device-tsx-08689fb0b829c93d5196.js"
   },
   {
     "url": "page-data/devices/microsoft/research/jmaccv2/page-data.json",
@@ -1300,7 +1300,7 @@ self.__precacheManifest = [
     "revision": "fc8bd57726b1df41cc0ec5cd57f20d3e"
   },
   {
-    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-478427965a8d65977f6c.js"
+    "url": "component---src-pages-tools-azure-device-twin-designer-tsx-e5b4fb4babf57f7eef2b.js"
   },
   {
     "url": "page-data/tools/azure-device-twin-designer/page-data.json",
@@ -1368,7 +1368,7 @@ self.__precacheManifest = [
     "revision": "4a751e68e828ee7cd8ac85ce4b16fa03"
   },
   {
-    "url": "component---src-pages-tools-makecode-editor-extension-tsx-16e885e9441b27070a06.js"
+    "url": "component---src-pages-tools-makecode-editor-extension-tsx-686bbcdd4f97e6fe573b.js"
   },
   {
     "url": "page-data/tools/makecode-editor-extension/page-data.json",
@@ -1556,7 +1556,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-9612246389ce1ba667d1.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-3729024d0a569acd415d.js`))) {
     return await fetch(event.request)
   }
 
