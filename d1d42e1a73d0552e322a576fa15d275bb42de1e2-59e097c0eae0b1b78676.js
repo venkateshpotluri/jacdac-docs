@@ -5935,8 +5935,13 @@ __webpack_require__.d(__webpack_exports__, {
   "C": function() { return /* binding */ blockly_BlockContext; }
 });
 
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
@@ -5951,8 +5956,6 @@ var assertThisInitialized = __webpack_require__(25342);
 var inheritsLoose = __webpack_require__(85413);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
-var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/servers/rolemanager.ts
@@ -6220,15 +6223,12 @@ function useRoleManager() {
 }
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/dsl.ts
+var dsl_dsl = __webpack_require__(94113);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/blockly/fields/ReactField.tsx
 var ReactField = __webpack_require__(77576);
-// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
-var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./src/components/blockly/jsongenerator.ts
 function jsongenerator_createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = jsongenerator_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
@@ -6359,10 +6359,7 @@ function domToJSON(workspace, dsls) {
       if (value === undefined) {
         var _dsl$blockToValue;
 
-        var definition = (0,toolbox/* resolveServiceBlockDefinition */.yn)(type);
-        var dsl = (definition === null || definition === void 0 ? void 0 : definition.dsl) && dsls.find(function (d) {
-          return d.id === definition.dsl;
-        });
+        var dsl = (0,dsl_dsl/* resolveDsl */.u)(dsls, type);
         value = dsl === null || dsl === void 0 ? void 0 : (_dsl$blockToValue = dsl.blockToValue) === null || _dsl$blockToValue === void 0 ? void 0 : _dsl$blockToValue.call(dsl, block);
       }
 
@@ -6415,6 +6412,8 @@ function domToJSON(workspace, dsls) {
     return undefined;
   }
 }
+// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
+var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./src/components/blockly/useBlocklyEvents.ts
 
 
@@ -7560,6 +7559,9 @@ var WorkspaceContext = __webpack_require__(89801);
 
 
 
+
+
+
 var BlockContext = /*#__PURE__*/(0,react.createContext)({
   dsls: [],
   workspace: undefined,
@@ -7607,7 +7609,55 @@ function BlockProvider(props) {
     _setWorkspaceXml(xml);
   };
 
-  var toolboxConfiguration = useToolbox(dsls, workspaceJSON); // plugins
+  var toolboxConfiguration = useToolbox(dsls, workspaceJSON);
+
+  var initializeBlockServices = function initializeBlockServices(block) {
+    var _block$jacdacServices, _dsl$onBlockCreated;
+
+    if ((_block$jacdacServices = block.jacdacServices) !== null && _block$jacdacServices !== void 0 && _block$jacdacServices.initialized) return;
+    var services = block.jacdacServices || (block.jacdacServices = new WorkspaceContext/* BlockServices */.LL());
+    services.initialized = true; // register data transforms
+
+    var _ref = (0,toolbox/* resolveBlockDefinition */.Pq)(block.type) || {},
+        transformData = _ref.transformData;
+
+    if (transformData) {
+      services.on(constants/* CHANGE */.Ver, function () {
+        var _block$nextConnection, _block$childBlocks_;
+
+        var next = ((_block$nextConnection = block.nextConnection) === null || _block$nextConnection === void 0 ? void 0 : _block$nextConnection.targetBlock()) || ((_block$childBlocks_ = block.childBlocks_) === null || _block$childBlocks_ === void 0 ? void 0 : _block$childBlocks_[0]);
+        var nextServices = next === null || next === void 0 ? void 0 : next.jacdacServices;
+
+        if (nextServices) {
+          var newData = transformData(block, services.data);
+          nextServices.data = newData;
+        }
+      });
+    } // notify dsl
+
+
+    var dsl = (0,dsl_dsl/* resolveDsl */.u)(dsls, block.type);
+    dsl === null || dsl === void 0 ? void 0 : (_dsl$onBlockCreated = dsl.onBlockCreated) === null || _dsl$onBlockCreated === void 0 ? void 0 : _dsl$onBlockCreated.call(dsl, block);
+  };
+
+  var handleNewBlock = function handleNewBlock(event) {
+    var type = event.type,
+        workspaceId = event.workspaceId;
+    if (workspaceId !== workspace.id) return;
+    console.log("blockly event " + type);
+
+    if (type === (blockly_default()).Events.FINISHED_LOADING) {
+      console.log("register blocks");
+      workspace.getAllBlocks(false).forEach(function (b) {
+        return initializeBlockServices(b);
+      });
+    } else if (type === (blockly_default()).Events.BLOCK_CREATE) {
+      var bev = event;
+      var block = workspace.getBlockById(bev.blockId);
+      initializeBlockServices(block);
+    }
+  }; // plugins
+
 
   useBlocklyPlugins(workspace);
   useBlocklyEvents(workspace);
@@ -7653,7 +7703,14 @@ function BlockProvider(props) {
     workspace.getAllBlocks(false).forEach(function (b) {
       return b.setWarningText(allErrors[b.id] || null);
     });
-  }, [workspace, warnings]);
+  }, [workspace, warnings]); // register block creation
+
+  (0,react.useEffect)(function () {
+    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleNewBlock);
+    return function () {
+      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleNewBlock);
+    };
+  }, [workspace]);
   return /*#__PURE__*/react.createElement(BlockContext.Provider, {
     value: {
       dsls: dsls,
@@ -8124,6 +8181,7 @@ function BlockEditor(props) {
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "yq": function() { return /* binding */ WorkspaceServices; },
+/* harmony export */   "LL": function() { return /* binding */ BlockServices; },
 /* harmony export */   "W5": function() { return /* binding */ WorkspaceProvider; }
 /* harmony export */ });
 /* unused harmony export WorkspaceContext */
@@ -8183,6 +8241,51 @@ var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
   }]);
 
   return WorkspaceServices;
+}(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
+var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BlockServices, _JDEventSource2);
+
+  function BlockServices() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _JDEventSource2.call.apply(_JDEventSource2, [this].concat(args)) || this;
+    _this.initialized = false;
+    return _this;
+  }
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BlockServices, [{
+    key: "data",
+    get: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function get() {
+      return this._data;
+    } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ,
+    set: function set(value) {
+      if (this._data !== value) {
+        this._data = value;
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+      }
+    }
+  }, {
+    key: "chart",
+    get: function get() {
+      return this._chart;
+    } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ,
+    set: function set(value) {
+      if (this._chart !== value) {
+        this._chart = value;
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
+      }
+    }
+  }]);
+
+  return BlockServices;
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
 var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
   workspace: undefined,
@@ -8299,6 +8402,38 @@ function WorkspaceProvider(props) {
       }
     }, children)
   );
+}
+
+/***/ }),
+
+/***/ 94113:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "u": function() { return /* binding */ resolveDsl; }
+/* harmony export */ });
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(16582);
+
+function resolveDsl(dsls, type) {
+  var dsl = dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
+    var _dsl$types;
+
+    return ((_dsl$types = dsl.types) === null || _dsl$types === void 0 ? void 0 : _dsl$types.indexOf(type)) > -1;
+  });
+  if (dsl) return dsl;
+
+  var _ref = (0,_toolbox__WEBPACK_IMPORTED_MODULE_0__/* .resolveBlockDefinition */ .Pq)(type) || {},
+      dslName = _ref.dsl;
+
+  if (!dslName) {
+    console.warn("unknown dsl for " + type);
+    return undefined;
+  }
+
+  return dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
+    return dsl.id === dslName;
+  });
 }
 
 /***/ }),
@@ -8524,6 +8659,109 @@ var variablesDsl = {
   }
 };
 /* harmony default export */ __webpack_exports__["Z"] = (variablesDsl);
+
+/***/ }),
+
+/***/ 54741:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ DataTableField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(21006);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70274);
+
+
+
+
+
+
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(function (theme) {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)({
+    table: {
+      padding: 0,
+      margin: 0,
+      fontSize: "0.8rem",
+      lineHeight: "1rem",
+      color: theme.palette.text.primary,
+      "& th": {
+        fontWeight: "normal"
+      },
+      "& td": {
+        borderColor: "#ccc",
+        borderRightStyle: "solid 1px"
+      }
+    }
+  });
+});
+
+function DataTableWidget() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      sourceBlock = _useContext.sourceBlock; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock),
+      data = _useBlockData.data;
+
+  var classes = useStyles();
+  if (!(data !== null && data !== void 0 && data.length)) return null;
+  var columns = Object.keys(data[0] || {});
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+    className: classes.table
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, columns.map(function (c) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
+      key: c
+    }, c);
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, data.map(function (r, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
+      key: r.id || i
+    }, columns.map(function (c) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+        key: c
+      }, r[c]);
+    }));
+  })));
+}
+
+var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTableField, _ReactInlineField);
+
+  DataTableField.fromJson = function fromJson(options) {
+    return new DataTableField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function DataTableField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = DataTableField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.display = "block";
+    c.style.minWidth = "14rem";
+    c.style.maxHeight = "60vh";
+    c.style.overflowY = "auto";
+    return c;
+  };
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(DataTableWidget, null);
+  };
+
+  return DataTableField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+DataTableField.KEY = "jacdac_field_data_table";
+DataTableField.EDITABLE = false;
+
 
 /***/ }),
 
@@ -9379,6 +9617,8 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     _Blockly$Field.prototype.setSourceBlock.call(this, block);
 
     if (changed) {
+      var bs = block;
+      if (!bs.jacdacServices) bs.jacdacServices = new _WorkspaceContext__WEBPACK_IMPORTED_MODULE_11__/* .BlockServices */ .LL();
       this.events.emit(SOURCE_BLOCK_CHANGE, block);
       this.emitChange();
     }
@@ -10023,229 +10263,27 @@ VariablesField.EDITABLE = false;
 
 /***/ }),
 
-/***/ 6978:
+/***/ 2006:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ WatchValueField; }
-});
-
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(85413);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
-var useTheme = __webpack_require__(59355);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
-var Box = __webpack_require__(8266);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
-var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
-var Typography = __webpack_require__(80453);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
-var Switch = __webpack_require__(76544);
-// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
-var WorkspaceContext = __webpack_require__(89801);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ReactInlineField.tsx
-var ReactInlineField = __webpack_require__(12702);
-// EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
-var PointerBoundary = __webpack_require__(77298);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/events.ts
-var events = __webpack_require__(59448);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(90293);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/makeStyles.js
-var makeStyles = __webpack_require__(10920);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/createStyles.js
-var createStyles = __webpack_require__(70274);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
-;// CONCATENATED MODULE: ./src/components/TrendChart.tsx
-
-
-
-
-var useStyles = (0,makeStyles/* default */.Z)(function () {
-  return (0,createStyles/* default */.Z)({
-    mini: {
-      display: "inline-block",
-      width: "10rem"
-    }
-  });
-});
-function useTrendChartData(maxLength) {
-  if (maxLength === void 0) {
-    maxLength = 25;
-  }
-
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var _useState = (0,react.useState)([]),
-      trendData = _useState[0],
-      setTrendData = _useState[1];
-
-  var addTrendValue = function addTrendValue(value) {
-    if (isNaN(value)) return;
-    var timestamp = bus.timestamp;
-    var entry = [timestamp, value];
-    setTrendData(function (trendData) {
-      return [].concat((0,toConsumableArray/* default */.Z)(trendData.slice(-(maxLength - 1))), [entry]);
-    });
-  };
-
-  return {
-    trendData: trendData,
-    addTrendValue: addTrendValue
-  };
-}
-function TrendChart(props) {
-  var useGradient = props.useGradient,
-      data = props.data,
-      unit = props.unit,
-      _props$width = props.width,
-      width = _props$width === void 0 ? 80 : _props$width,
-      _props$height = props.height,
-      height = _props$height === void 0 ? 15 : _props$height,
-      dot = props.dot,
-      mini = props.mini;
-  var theme = (0,useTheme/* default */.Z)();
-  var classes = useStyles(); // nothing to show for
-
-  if ((data === null || data === void 0 ? void 0 : data.length) < 2) return null;
-  var vpw = width;
-  var vph = height;
-  var color = theme.palette.secondary.main;
-  var shape = unit === "#" ? "step" : "line";
-  var symmetric = unit === "g" ? true : false;
-  var values = data.map(function (r) {
-    return r[1];
-  });
-  var mint = data[0][0];
-  var maxt = data[data.length - 1][0];
-  var minv = unit === "/" ? 0 : Math.min.apply(null, values);
-  var maxv = unit === "/" ? 1 : Math.max.apply(null, values);
-  var opposite = unit !== "/" && Math.sign(minv) != Math.sign(maxv);
-
-  if (isNaN(minv) && isNaN(maxv)) {
-    minv = 0;
-    maxv = 1;
-  }
-
-  if (symmetric) {
-    maxv = Math.max(Math.abs(minv), Math.abs(maxv));
-    minv = -maxv;
-  }
-
-  var rv = maxv - minv;
-  var margin = 2;
-  var h = maxv - minv || 10;
-  var w = maxt - mint || 10;
-  var strokeWidth = 0.25;
-  var axisWidth = 0.2;
-  var axisColor = "#ccc";
-  var pointRadius = strokeWidth * 1.5;
-  var toffset = -pointRadius * 3;
-
-  var x = function x(t) {
-    return (t - mint) / w * vpw;
-  };
-
-  var y = function y(v) {
-    if (v === undefined || isNaN(v)) v = minv; // adding random for lineragradient bug workaround
-    // which does not render perfectly
-    // horizontal lines
-
-    return (Math.random() * 0.0001 * rv - (v - minv)) / h * (vph - 2 * margin);
-  };
-
-  var lastRow = data[data.length - 1];
-  var path = shape == "step" ? data.map(function (row, ri) {
-    return ri == 0 ? "M " + x(row[0]) + " " + y(row[1]) : "H " + x(row[0]) + " V " + y(row[1]);
-  }).join(" ") : data.map(function (row, ri) {
-    return (ri == 0 ? "M" : "L") + " " + x(row[0]) + " " + y(row[1]);
-  }).join(" ");
-  return /*#__PURE__*/react.createElement("div", {
-    className: mini ? classes.mini : undefined
-  }, /*#__PURE__*/react.createElement("svg", {
-    viewBox: "0 0 " + vpw + " " + vph,
-    style: {
-      maxHeight: mini ? "5vh" : "10vh",
-      maxWidth: "100%"
-    }
-  }, useGradient && /*#__PURE__*/react.createElement("defs", null, /*#__PURE__*/react.createElement("linearGradient", {
-    key: "gradaxis",
-    id: "gradientaxis",
-    x1: "0%",
-    y1: "0%",
-    x2: "100%",
-    y2: "0%"
-  }, /*#__PURE__*/react.createElement("stop", {
-    offset: "0%",
-    stopOpacity: "0",
-    stopColor: axisColor
-  }), /*#__PURE__*/react.createElement("stop", {
-    offset: "5%",
-    stopOpacity: "0",
-    stopColor: axisColor
-  }), /*#__PURE__*/react.createElement("stop", {
-    offset: "40%",
-    stopOpacity: "1",
-    stopColor: axisColor
-  }), /*#__PURE__*/react.createElement("stop", {
-    offset: "100%",
-    stopOpacity: "1",
-    stopColor: axisColor
-  })), useGradient && /*#__PURE__*/react.createElement("linearGradient", {
-    id: "gradient0",
-    x1: "0%",
-    y1: "0%",
-    x2: "100%",
-    y2: "0%"
-  }, /*#__PURE__*/react.createElement("stop", {
-    offset: "0%",
-    stopOpacity: "0",
-    stopColor: color
-  }), /*#__PURE__*/react.createElement("stop", {
-    offset: "5%",
-    stopOpacity: "0",
-    stopColor: color
-  }), /*#__PURE__*/react.createElement("stop", {
-    offset: "40%",
-    stopOpacity: "1",
-    stopColor: color
-  }), /*#__PURE__*/react.createElement("stop", {
-    offset: "100%",
-    stopOpacity: "1",
-    stopColor: color
-  }))), /*#__PURE__*/react.createElement("g", {
-    transform: "translate(" + toffset + ", " + (vph - margin) + ")"
-  }, opposite && /*#__PURE__*/react.createElement("line", {
-    x1: x(mint),
-    x2: x(maxt),
-    y1: y(0),
-    y2: y(0),
-    strokeWidth: axisWidth,
-    stroke: useGradient ? "url(#gradientaxis)" : axisColor
-  }), /*#__PURE__*/react.createElement("g", null, /*#__PURE__*/react.createElement("path", {
-    d: path,
-    fill: "none",
-    stroke: useGradient ? "url(#gradient0)" : color,
-    strokeWidth: strokeWidth,
-    strokeLinejoin: "round"
-  }), dot && /*#__PURE__*/react.createElement("circle", {
-    cx: x(lastRow[0]),
-    cy: y(lastRow[1]),
-    r: pointRadius,
-    fill: color
-  })))));
-}
-;// CONCATENATED MODULE: ./src/components/blockly/fields/WatchValueField.tsx
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ WatchValueField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(90293);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(59355);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8266);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(80453);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(76544);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77298);
+/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59448);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81794);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(21006);
 
 
 
@@ -10255,70 +10293,71 @@ function TrendChart(props) {
 
 
 
+
+var HORIZON = 10;
 
 function WatchValueWidget() {
-  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
       runner = _useContext.runner,
-      sourceId = _useContext.sourceId;
+      sourceId = _useContext.sourceId,
+      sourceBlock = _useContext.sourceBlock;
 
-  var theme = (0,useTheme/* default */.Z)(); // track changes
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(sourceBlock, []),
+      data = _useBlockData.data,
+      setData = _useBlockData.setData;
 
-  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
+  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(); // track changes
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
       value = _useState[0],
       setValue = _useState[1];
 
-  var _useTrendChartData = useTrendChartData(),
-      trendData = _useTrendChartData.trendData,
-      addTrendValue = _useTrendChartData.addTrendValue;
-
-  (0,react.useEffect)(function () {
-    setValue(undefined);
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_7__/* .VM_WATCH_CHANGE */ .UM, function (watchSourceId) {
       if (watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
-        addTrendValue(newValue);
+
+        if (!isNaN(newValue)) {
+          var newData = [].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(data || []), [{
+            value: newValue
+          }]).slice(-HORIZON);
+          setData(newData);
+        }
       }
     });
-  }, [runner, sourceId]);
+  }, [runner, sourceId, data]);
   var valueNumber = typeof value === "number" ? value : undefined;
 
   if (!isNaN(valueNumber)) {
     var step = Math.ceil(Math.abs(valueNumber)) / 10;
     var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
-    valueNumber = (0,utils/* roundWithPrecision */.JI)(valueNumber, precision);
+    valueNumber = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .roundWithPrecision */ .JI)(valueNumber, precision);
   }
 
-  return /*#__PURE__*/react.createElement(Box/* default */.Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     bgcolor: theme.palette.background.paper,
     borderRadius: theme.spacing(1),
     color: theme.palette.text.primary
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
     container: true,
     alignItems: "flex-end",
     alignContent: "center",
     justify: "center",
     spacing: 1
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, !isNaN(valueNumber) ? /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_3__/* .PointerBoundary */ .A, null, !isNaN(valueNumber) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, {
     variant: "body1"
-  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react.createElement(Switch/* default */.Z, {
+  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
     value: !!value
-  }) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, {
     variant: "body1"
-  }, value === undefined ? "..." : value + ""))), !isNaN(valueNumber) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, /*#__PURE__*/react.createElement(TrendChart, {
-    data: trendData,
-    mini: true,
-    dot: 2,
-    useGradient: true
-  })))));
+  }, value === undefined ? "..." : value + "")))));
 }
 
 var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,inheritsLoose/* default */.Z)(WatchValueField, _ReactInlineField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(WatchValueField, _ReactInlineField);
 
   WatchValueField.fromJson = function fromJson(options) {
     return new WatchValueField(options);
@@ -10339,11 +10378,11 @@ var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
   };
 
   _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(WatchValueWidget, null);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WatchValueWidget, null);
   };
 
   return WatchValueField;
-}(ReactInlineField/* default */.Z);
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
 
 WatchValueField.KEY = "jacdac_field_watch_value";
 WatchValueField.EDITABLE = false;
@@ -10369,9 +10408,11 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LEDColorField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(68514);
 /* harmony import */ var _TwinField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(35361);
 /* harmony import */ var _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(90263);
-/* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6978);
+/* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(2006);
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
+/* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
+
 
 
 
@@ -10402,7 +10443,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -10418,20 +10459,21 @@ function fieldShadows() {
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
-/* harmony export */   "yn": function() { return /* binding */ resolveServiceBlockDefinition; },
+/* harmony export */   "Pq": function() { return /* binding */ resolveBlockDefinition; },
 /* harmony export */   "oj": function() { return /* binding */ JSON_TYPE; },
 /* harmony export */   "jt": function() { return /* binding */ STRING_TYPE; },
 /* harmony export */   "lu": function() { return /* binding */ BOOLEAN_TYPE; },
 /* harmony export */   "sS": function() { return /* binding */ NUMBER_TYPE; },
 /* harmony export */   "eg": function() { return /* binding */ PRIMITIVE_TYPES; },
 /* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
-/* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; }
+/* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; },
+/* harmony export */   "zN": function() { return /* binding */ DATA_SCIENCE_STATEMENT_TYPE; }
 /* harmony export */ });
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
-function resolveServiceBlockDefinition(type) {
+function resolveBlockDefinition(type) {
   var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
   return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
 }
@@ -10442,6 +10484,39 @@ var NUMBER_TYPE = "Number";
 var PRIMITIVE_TYPES = [STRING_TYPE, BOOLEAN_TYPE, NUMBER_TYPE];
 var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
 var CODE_STATEMENT_TYPE = "Code";
+var DATA_SCIENCE_STATEMENT_TYPE = "DataScienceStatement";
+
+/***/ }),
+
+/***/ 21006:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useBlockData; }
+/* harmony export */ });
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54774);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+
+
+function useBlockData(block, initialValue) {
+  var services = block === null || block === void 0 ? void 0 : block.jacdacServices; // data on the current node
+
+  var data = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.data;
+  });
+  var setData = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(function (value) {
+    if (services) services.data = value;
+  }, [services]); // set initial value
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (services && initialValue !== undefined && services.data === undefined) services.data = initialValue;
+  }, [services]);
+  return {
+    data: data,
+    setData: setData
+  };
+}
 
 /***/ }),
 
@@ -10624,13 +10699,15 @@ function PaperBox(props) {
 /* harmony export */   "cC": function() { return /* binding */ processErrors; },
 /* harmony export */   "ZP": function() { return /* binding */ workspaceJSONToVMProgram; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(90293);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85413);
-/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(83001);
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(90293);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(83001);
 /* harmony import */ var _jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(79973);
 /* harmony import */ var _blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16582);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _blockly_dsl_dsl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(94113);
+
 
 
 
@@ -10658,28 +10735,6 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     dsls: dsls
   });
   if (!workspace) return undefined;
-
-  var resolveDsl = function resolveDsl(type) {
-    var dsl = dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
-      var _dsl$types;
-
-      return ((_dsl$types = dsl.types) === null || _dsl$types === void 0 ? void 0 : _dsl$types.indexOf(type)) > -1;
-    });
-    if (dsl) return dsl;
-
-    var _ref = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type) || {},
-        dslName = _ref.dsl;
-
-    if (!dslName) {
-      console.warn("unknown dsl for " + type);
-      return undefined;
-    }
-
-    return dsls === null || dsls === void 0 ? void 0 : dsls.find(function (dsl) {
-      return dsl.id === dslName;
-    });
-  };
-
   var roles = workspace.variables.filter(function (v) {
     return _blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .BUILTIN_TYPES.indexOf */ .Nd.indexOf(v.type) < 0;
   }).map(function (v) {
@@ -10690,14 +10745,14 @@ function workspaceJSONToVMProgram(workspace, dsls) {
   });
 
   var EmptyExpression = /*#__PURE__*/function (_Error) {
-    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EmptyExpression, _Error);
+    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(EmptyExpression, _Error);
 
     function EmptyExpression() {
       return _Error.apply(this, arguments) || this;
     }
 
     return EmptyExpression;
-  }( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(Error));
+  }( /*#__PURE__*/(0,_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Error));
 
   var blockToExpression = function blockToExpression(ev, blockIn) {
     var errors = [];
@@ -10723,7 +10778,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           value: value,
           raw: value + ""
         };
-      var dsl = resolveDsl(type);
+      var dsl = (0,_blockly_dsl_dsl__WEBPACK_IMPORTED_MODULE_3__/* .resolveDsl */ .u)(dsls, type);
 
       if (!dsl) {
         console.warn("unknown block " + type, {
@@ -10739,7 +10794,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
       } else {
         var _dsl$compileExpressio;
 
-        var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
+        var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveBlockDefinition */ .Pq)(type);
         var res = (_dsl$compileExpressio = dsl.compileExpressionToVM) === null || _dsl$compileExpressio === void 0 ? void 0 : _dsl$compileExpressio.call(dsl, {
           event: ev,
           definition: definition,
@@ -10770,7 +10825,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           sourceId: block.id,
           message: "unknown block " + type
         });
-        console.warn("unsupported block " + type, {
+        console.warn("unsupported expression block " + type, {
           ev: ev,
           block: block,
           definition: definition
@@ -10813,11 +10868,11 @@ function workspaceJSONToVMProgram(workspace, dsls) {
           var e = (_inputs$2 = inputs[2]) === null || _inputs$2 === void 0 ? void 0 : _inputs$2.child;
 
           if (t) {
-            addCommands(event, [t].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(t.children ? t.children : [])), thenHandler);
+            addCommands(event, [t].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(t.children ? t.children : [])), thenHandler);
           }
 
           if (e) {
-            addCommands(event, [e].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(e.children ? e.children : [])), elseHandler);
+            addCommands(event, [e].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(e.children ? e.children : [])), elseHandler);
           }
 
           var exprErrors = undefined;
@@ -10861,12 +10916,14 @@ function workspaceJSONToVMProgram(workspace, dsls) {
 
       default:
         {
-          var dsl = resolveDsl(type);
+          var dsl = (0,_blockly_dsl_dsl__WEBPACK_IMPORTED_MODULE_3__/* .resolveDsl */ .u)(dsls, type);
 
           if (dsl) {
             var _dsl$compileCommandTo;
 
-            var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
+            var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveBlockDefinition */ .Pq)(type);
+            var template = definition === null || definition === void 0 ? void 0 : definition.template;
+            if (template === "meta") return undefined;
             var dslRes = (_dsl$compileCommandTo = dsl.compileCommandToVM) === null || _dsl$compileCommandTo === void 0 ? void 0 : _dsl$compileCommandTo.call(dsl, {
               event: event,
               block: block,
@@ -10880,14 +10937,14 @@ function workspaceJSONToVMProgram(workspace, dsls) {
             }
           }
 
-          console.warn("unsupported block " + type, {
+          console.warn("unsupported command block " + type, {
             block: block
           });
           return {
             cmd: undefined,
             errors: [{
               sourceId: block.id,
-              message: "unsupported block " + type
+              message: "unsupported command block " + type
             }]
           };
         }
@@ -10905,12 +10962,12 @@ function workspaceJSONToVMProgram(workspace, dsls) {
       return !!child;
     }).forEach(function (child) {
       try {
-        var _blockToCommand = blockToCommand(event, child),
-            cmd = _blockToCommand.cmd,
-            errors = _blockToCommand.errors;
+        var _ref = blockToCommand(event, child) || {},
+            cmd = _ref.cmd,
+            errors = _ref.errors;
 
         if (cmd) handler.commands.push(cmd);
-        errors.forEach(function (e) {
+        errors === null || errors === void 0 ? void 0 : errors.forEach(function (e) {
           return handler.errors.push(e);
         });
       } catch (e) {
@@ -10939,8 +10996,8 @@ function workspaceJSONToVMProgram(workspace, dsls) {
     try {
       var _dsl$compileEventToVM, _topErrors;
 
-      var dsl = resolveDsl(type);
-      var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveServiceBlockDefinition */ .yn)(type);
+      var dsl = (0,_blockly_dsl_dsl__WEBPACK_IMPORTED_MODULE_3__/* .resolveDsl */ .u)(dsls, type);
+      var definition = (0,_blockly_toolbox__WEBPACK_IMPORTED_MODULE_1__/* .resolveBlockDefinition */ .Pq)(type);
 
       var _ref2 = (dsl === null || dsl === void 0 ? void 0 : (_dsl$compileEventToVM = dsl.compileEventToVM) === null || _dsl$compileEventToVM === void 0 ? void 0 : _dsl$compileEventToVM.call(dsl, {
         block: top,
@@ -10971,7 +11028,7 @@ function workspaceJSONToVMProgram(workspace, dsls) {
             {
               topErrors = [{
                 sourceId: top.id,
-                message: "unsupported block " + type
+                message: "unsupported handler block " + type
               }];
               console.debug("unsupported handler template " + template + " for " + type, {
                 top: top
@@ -11055,4 +11112,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-5430a743a3e4a26ba70b.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-59e097c0eae0b1b78676.js.map

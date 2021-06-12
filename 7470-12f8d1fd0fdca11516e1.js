@@ -37,7 +37,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CanvasWidget = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(3737), __webpack_require__.e(317)]).then(__webpack_require__.bind(__webpack_require__, 6341));
+  return Promise.all(/* import() */[__webpack_require__.e(3737), __webpack_require__.e(317)]).then(__webpack_require__.bind(__webpack_require__, 82560));
 });
 
 var valueDisplay = function valueDisplay(v) {
@@ -266,4 +266,4 @@ function SliderWithLabel(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7470-ba3442523b6bece28d14.js.map
+//# sourceMappingURL=7470-12f8d1fd0fdca11516e1.js.map
