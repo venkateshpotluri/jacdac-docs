@@ -12656,7 +12656,10 @@ var PointerBoundary = __webpack_require__(77298);
 var Suspense = __webpack_require__(69672);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
 var NoSsr = __webpack_require__(42862);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
 ;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
+
 
 
 
@@ -12669,7 +12672,34 @@ var NoSsr = __webpack_require__(42862);
 
 var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 8604).then(__webpack_require__.bind(__webpack_require__, 98604));
-});
+}); // eslint-disable-next-line @typescript-eslint/ban-types
+
+function toNivo(data, columns, toColumns) {
+  var headers = Object.keys((data === null || data === void 0 ? void 0 : data[0]) || {});
+  var k = 0;
+  var renaming = (0,utils/* toMap */.qL)(columns, function (c, i) {
+    return columns[i] || (headers === null || headers === void 0 ? void 0 : headers[k++]);
+  }, function (c, i) {
+    return toColumns[i];
+  });
+  var labels = Object.keys(renaming); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // todo handle time
+
+  var _index = 0;
+  var tidied = data ? (0,es/* tidy */.lu)(data, (0,es/* mutate */.JG)({
+    index: function index() {
+      return _index++;
+    }
+  }), (0,es/* select */.Ys)(labels), (0,es/* rename */.PQ)(renaming)) : [];
+  var series = [{
+    id: "data",
+    data: tidied
+  }];
+  return {
+    series: series,
+    labels: labels
+  };
+}
 
 function ChartWidget() {
   var _chartProps$data, _chartProps$data$0$da;
@@ -12678,25 +12708,16 @@ function ChartWidget() {
       sourceBlock = _useContext.sourceBlock;
 
   var _useBlockData = (0,useBlockData/* default */.Z)(sourceBlock),
-      data = _useBlockData.data;
+      data = _useBlockData.data; // need to map data to nivo
+
 
   var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
   var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
-  var renaming = {};
-  renaming[x] = "x";
-  renaming[y] = "y"; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // todo handle time
 
-  var _index = 0;
-  var tidied = data ? (0,es/* tidy */.lu)(data, (0,es/* mutate */.JG)({
-    index: function index() {
-      return _index++;
-    }
-  }), (0,es/* select */.Ys)([x, y]), (0,es/* rename */.PQ)(renaming)) : [];
-  var series = [{
-    id: "data",
-    data: tidied
-  }]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  var _toNivo = toNivo(data, [x, y], ["x", "y"]),
+      series = _toNivo.series,
+      labels = _toNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 
   var _useBlockChartProps = useBlockChartProps(sourceBlock, {
     colors: {
@@ -12743,8 +12764,8 @@ function ChartWidget() {
   if (chartProps) chartProps.data = series;
   var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
   if (!hasData) return null;
-  chartProps.axisBottom.legend = x;
-  chartProps.axisLeft.legend = y;
+  chartProps.axisBottom.legend = labels[0];
+  chartProps.axisLeft.legend = labels[1];
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
     style: {
       background: "#fff",
