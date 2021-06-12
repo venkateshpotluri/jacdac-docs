@@ -11406,13 +11406,21 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
   DataColumnChooserField.fromJson = function fromJson(options) {
     return new DataColumnChooserField(options);
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // the first argument is a dummy and never used
   ;
 
   function DataColumnChooserField(options) {
-    return _FieldDropdown.call(this, [["", ""]], undefined, options) || this;
+    return _FieldDropdown.call(this, function () {
+      return [["", ""]];
+    }, undefined, options) || this;
   }
 
   var _proto = DataColumnChooserField.prototype;
+
+  _proto.fromXml = function fromXml(fieldElement) {
+    console.log("fromXml", fieldElement);
+    this.setValue(fieldElement.textContent);
+  };
 
   _proto.getOptions = function getOptions() {
     var sourceBlock = this.getSourceBlock();
@@ -11422,10 +11430,15 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
     var options = (headers === null || headers === void 0 ? void 0 : headers.map(function (h) {
       return [h, h];
     })) || [];
-    console.log({
-      options: options
+    var value = this.getValue();
+    return options.length < 1 ? [[value, value]] : options;
+  };
+
+  _proto.doClassValidation_ = function doClassValidation_(newValue) {
+    console.log("validate", {
+      newValue: newValue
     });
-    return options.length < 1 ? [["", ""]] : options;
+    return newValue;
   };
 
   return DataColumnChooserField;
