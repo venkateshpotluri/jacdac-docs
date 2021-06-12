@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[5244,274],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[2460,274],{
 
 /***/ 52377:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -53,6 +53,435 @@ var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("pa
 }), 'Launch');
 
 exports.Z = _default;
+
+/***/ }),
+
+/***/ 2864:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
+/* harmony export */   "d_": function() { return /* binding */ objectSchema; },
+/* harmony export */   "yP": function() { return /* binding */ arraySchema; },
+/* harmony export */   "Jg": function() { return /* binding */ escapeName; },
+/* harmony export */   "n": function() { return /* binding */ escapeDisplayName; }
+/* harmony export */ });
+/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, DTDLUnits */
+/***
+ *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
+ */
+var DTDL_REFERENCE_URL = "https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md";
+var DTDL_NAME = "Digital Twins Definition Language";
+var DTDL_CONTEXT = "dtmi:dtdl:context;2"; // warps fields into an object
+
+function objectSchema(schemas) {
+  return {
+    "@type": "Object",
+    fields: schemas
+  };
+} // wraps a schema into an array
+
+function arraySchema(schema) {
+  return {
+    "@type": "Array",
+    elementSchema: schema
+  };
+}
+function escapeName(name) {
+  name = name.trim().replace(/[^a-zA-Z0-9_]/g, "_");
+  if (!/^[a-zA-Z]/.test(name)) name = "a" + name;
+  name = name[0].toLowerCase() + name.slice(1);
+  return name.slice(0, 64);
+}
+function escapeDisplayName(name) {
+  return name.slice(0, 64);
+}
+function DTDLUnits() {
+  return ["metrePerSecondSquared", "centimetrePerSecondSquared", "gForce", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radianPerSecondSquared", "radianPerSecond", "degreePerSecond", "revolutionPerSecond", "revolutionPerMinute", "squareMetre", "squareCentimetre", "squareMillimetre", "squareKilometre", "hectare", "squareFoot", "squareInch", "acre", "farad", "millifarad", "microfarad", "nanofarad", "picofarad", "ampere", "microampere", "milliampere", "bitPerSecond", "kibibitPerSecond", "mebibitPerSecond", "gibibitPerSecond", "tebibitPerSecond", "exbibitPerSecond", "zebibitPerSecond", "yobibitPerSecond", "bytePerSecond", "kibibytePerSecond", "mebibytePerSecond", "gibibytePerSecond", "tebibytePerSecond", "exbibytePerSecond", "zebibytePerSecond", "yobibytePerSecond", "bit", "kibibit", "mebibit", "gibibit", "tebibit", "exbibit", "zebibit", "yobibit", "byte", "kibibyte", "mebibyte", "gibibyte", "tebibyte", "exbibyte", "zebibyte", "yobibyte", "kilogramPerCubicMetre", "gramPerCubicMetre", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "coulomb", "joule", "kilojoule", "megajoule", "gigajoule", "electronvolt", "megaelectronvolt", "kilowattHour", "newton", "pound", "ounce", "ton", "hertz", "kilohertz", "megahertz", "gigahertz", "kilogramPerCubicMetre", "gramPerCubicMetre", "lux", "footcandle", "henry", "millihenry", "microhenry", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "radian", "degreeOfArc", "minuteOfArc", "secondOfArc", "turn", "metre", "centimetre", "millimetre", "micrometre", "nanometre", "kilometre", "foot", "inch", "mile", "nauticalMile", "astronomicalUnit", "candelaPerSquareMetre", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "lumen", "candela", "weber", "maxwell", "tesla", "kilogram", "gram", "milligram", "microgram", "tonne", "slug", "gramPerSecond", "kilogramPerSecond", "gramPerHour", "kilogramPerHour", "watt", "microwatt", "milliwatt", "kilowatt", "megawatt", "gigawatt", "horsepower", "kilowattHourPerYear", "pascal", "kilopascal", "bar", "millibar", "millimetresOfMercury", "poundPerSquareInch", "inchesOfMercury", "inchesOfWater", "unity percent", "ohm", "milliohm", "kiloohm", "megaohm", "decibel", "bel", "kelvin", "degreeCelsius", "degreeFahrenheit", "newton", "pound", "ounce", "ton", "second", "millisecond", "microsecond", "nanosecond", "minute", "hour", "day", "year", "newtonMetre", "metrePerSecond", "centimetrePerSecond", "kilometrePerSecond", "metrePerHour", "kilometrePerHour", "milePerHour", "milePerSecond", "knot", "volt", "millivolt", "microvolt", "kilovolt", "megavolt", "cubicMetre", "cubicCentimetre", "litre", "millilitre", "cubicFoot", "cubicInch", "fluidOunce", "gallon", "litrePerSecond", "millilitrePerSecond", "litrePerHour", "millilitrePerHour"].sort();
+}
+
+/***/ }),
+
+/***/ 5443:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "xA": function() { return /* binding */ serviceSpecificationToComponent; },
+/* harmony export */   "__": function() { return /* binding */ deviceSpecificationToDTDL; }
+/* harmony export */ });
+/* unused harmony exports serviceSpecificationToDTDL, serviceSpecificationDTMI, deviceSpecificationDTMI, DTMIToRoute */
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(90293);
+/* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13173);
+/* harmony import */ var _jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+/* harmony import */ var _dtdl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2864);
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/***
+ * Jacdac service/device specification to DTDL
+ *
+ *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
+ */
+
+
+ // https://github.com/Azure/digital-twin-model-identifier
+// ^dtmi:(?:_+[A-Za-z0-9]|[A-Za-z])(?:[A-Za-z0-9_]*[A-Za-z0-9])?(?::(?:_+[A-Za-z0-9]|[A-Za-z])(?:[A-Za-z0-9_]*[A-Za-z0-9])?)*;[1-9][0-9]{0,8}$
+
+function toDTMI(segments, version) {
+  return ("dtmi:jacdac:" + (0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(segments).map(function (seg) {
+    return seg === undefined ? "???" : typeof seg === "string" ? seg : "x" + seg.toString(16);
+  }).map(function (seg) {
+    return seg.replace(/(-|_)/g, "");
+  }).join(":") + ";" + (version !== undefined ? version : 1)).toLowerCase();
+}
+
+function toUnit(pkt) {
+  if (pkt.fields.length !== 1) return undefined;
+  var field = pkt.fields[0];
+  if (!field.unit) return undefined;
+  /**
+   *     type Unit = "m" | "kg" | "g" | "s" | "A" | "K" | "cd" | "mol" | "Hz" | "rad" | "sr" | "N" | "Pa" | "J" | "W" | "C" | "V" | "F" | "Ohm"
+      | "S" | "Wb" | "T" | "H" | "Cel" | "lm" | "lx" | "Bq" | "Gy" | "Sv" | "kat" | "m2" | "m3" | "l" | "m/s" | "m/s2" | "m3/s" | "l/s"
+      | "W/m2" | "cd/m2" | "bit" | "bit/s" | "lat" | "lon" | "pH" | "dB" | "dBW" | "Bspl" | "count" | "/" | "%RH" | "%EL" | "EL"
+      | "1/s" | "1/min" | "beat/min" | "beats" | "S/m" | "B" | "VA" | "VAs" | "var" | "vars" | "J/m" | "kg/m3" | "deg";
+   type SecondaryUnit = "ms" | "min" | "h" | "MHz" | "kW" | "kVA" | "kvar" | "Ah" | "Wh" | "kWh"
+      | "varh" | "kvarh" | "kVAh" | "Wh/km" | "KiB" | "GB" | "Mbit/s" | "B/s" | "MB/s" | "mV" | "mA" | "dBm" | "ug/m3"
+      | "mm/h" | "m/h" | "ppm" | "/100" | "/1000" | "hPa" | "mm" | "cm" | "km" | "km/h";
+   */
+
+  var units = {
+    "m/s2": {
+      semantic: "Acceleration",
+      unit: "metrePerSecondSquared"
+    },
+    rad: {
+      semantic: "Angle",
+      unit: "radian"
+    },
+    "rad/s": {
+      semantic: "AngularVelocity",
+      unit: "radianPerSecond"
+    },
+    "rad/s2": {
+      semantic: "AngularAcceleration",
+      unit: "radianPerSecondSquared"
+    },
+    m: {
+      semantic: "Length",
+      unit: "metre"
+    },
+    m2: {
+      semantic: "Area",
+      unit: "squareMetre"
+    },
+    s: {
+      semantic: "TimeSpan",
+      unit: "second"
+    },
+    ms: {
+      semantic: "TimeSpan",
+      unit: "millisecond"
+    },
+    us: {
+      semantic: "TimeSpan",
+      unit: "microsecond"
+    },
+    K: {
+      semantic: "Temperature",
+      unit: "kelvin"
+    },
+    C: {
+      semantic: "Temperature",
+      unit: "degreeCelsius"
+    },
+    F: {
+      semantic: "Temperature",
+      unit: "degreeFahrenheit"
+    },
+    g: {
+      semantic: "Acceleration",
+      unit: "gForce"
+    },
+    mA: {
+      semantic: "Current",
+      unit: "milliampere"
+    },
+    uA: {
+      semantic: "Current",
+      unit: "microampere"
+    },
+    A: {
+      semantic: "Current",
+      unit: "ampere"
+    },
+    mV: {
+      semantic: "Voltage",
+      unit: "millivolt"
+    },
+    uV: {
+      semantic: "Voltage",
+      unit: "microvolt"
+    },
+    V: {
+      semantic: "Voltage",
+      unit: "volt"
+    }
+  };
+  var unit = units[field.unit];
+  if (unit) return unit; // ignoring some known units
+
+  if (["#", "/"].indexOf(field.unit) > -1) return undefined; //console.warn(`unsupported unit ${field.unit}`)
+
+  return undefined;
+} // https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md#primitive-schemas
+
+
+function enumDTDI(srv, en) {
+  return toDTMI([srv.classIdentifier, en.name]);
+}
+
+function enumSchema(srv, en) {
+  var dtdl = {
+    "@type": "Enum",
+    "@id": enumDTDI(srv, en),
+    valueSchema: "integer",
+    enumValues: Object.keys(en.members).map(function (k) {
+      return {
+        name: (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .escapeName */ .Jg)(k),
+        displayName: k,
+        enumValue: en.members[k]
+      };
+    })
+  };
+  return dtdl;
+}
+
+function fieldType(srv, pkt, field) {
+  var type;
+  if (field.type == "bool") type = "boolean";else if (field.isFloat) type = "float";else if (field.isSimpleType) {
+    if (/^(u|i)/.test(field.type)) type = "integer";else if (field.type === "B") // base64 encoded binary data
+      type = "string";
+  } else if (field.type === "string" || field.type == "string0") type = "string";else if (field.shift && /^(u|i)/.test(field.type)) type = "float"; // decimal type
+  else {
+      var en = srv.enums[field.type];
+      if (en) type = enumDTDI(srv, en);
+    } //if (!type)
+  //    console.warn(`unknown field type ${field.type}`, field)
+
+  return {
+    name: field.name == "_" ? pkt.name : field.name,
+    type: type
+  };
+} // converts JADAC pkt data layout into a DTDL schema
+
+
+function toSchema(srv, pkt, supportsArray) {
+  var fields = pkt.fields.map(function (field) {
+    return fieldType(srv, pkt, field);
+  });
+  if (!fields.length) return undefined; // a single data entry
+
+  if (fields.length === 1 && !pkt.fields[0].startRepeats) return fields[0].type; // map fields into schema
+
+  var schemas = fields.map(function (field) {
+    return {
+      name: field.name,
+      schema: field.type
+    };
+  }); // is there an array?
+
+  var repeatIndex = pkt.fields.findIndex(function (field) {
+    return field.startRepeats;
+  });
+
+  if (repeatIndex < 0) {
+    // no array
+    // wrap schemas into an object
+    return (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .objectSchema */ .d_)(schemas);
+  } // check if arrays are supported
+
+
+  if (!supportsArray) {
+    //console.warn(`arrays not supported in ${srv.shortName}.${pkt.name}`)
+    return undefined;
+  }
+
+  if (repeatIndex == 0) {
+    // the whole structure is an array
+    return (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .arraySchema */ .yP)((0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .objectSchema */ .d_)(schemas));
+  } else {
+    // split fields into prelude and array data
+    var nonRepeat = schemas.slice(0, repeatIndex);
+    var repeats = schemas.slice(repeatIndex);
+    return (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .objectSchema */ .d_)([].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(nonRepeat), [{
+      name: "repeat",
+      schema: (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .arraySchema */ .yP)(repeats.length > 1 ? (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .objectSchema */ .d_)(repeats) : repeats[0])
+    }]));
+  }
+}
+
+function packetToDTDL(srv, pkt) {
+  var types = {
+    const: "Property",
+    rw: "Property",
+    ro: "Telemetry",
+    event: "Telemetry"
+  }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var dtdl = {
+    "@type": types[pkt.kind] || "Unsupported" + pkt.kind,
+    name: pkt.name,
+    "@id": toDTMI([srv.classIdentifier, pkt.kind, pkt.name]),
+    description: pkt.description
+  };
+
+  switch (pkt.kind) {
+    case "report":
+    case "command":
+      // https://docs.microsoft.com/en-us/azure/digital-twins/concepts-models#azure-digital-twins-dtdl-implementation-specifics
+      return undefined;
+
+    case "const":
+    case "rw":
+    case "ro":
+    case "event":
+      {
+        var unit = toUnit(pkt);
+
+        if (unit) {
+          dtdl.unit = unit.unit;
+        }
+
+        dtdl.schema = toSchema(srv, pkt, false);
+        if (pkt.kind === "rw") dtdl.writable = true;
+
+        if (!dtdl.schema && pkt.kind === "event") {
+          // keep a count of the events
+          dtdl["@type"] = [dtdl["@type"], "Event"];
+          dtdl.schema = toDTMI([srv.classIdentifier, "event"]);
+        } else if (unit && unit.semantic) dtdl["@type"] = [dtdl["@type"], unit.semantic];
+
+        break;
+      }
+
+    default:
+      //console.log(`unknown packet kind ${pkt.kind}`)
+      break;
+  }
+
+  if (!dtdl.schema) {
+    //console.log(`unknown schema for ${srv.name}.${pkt.name}`);
+    return undefined;
+  }
+
+  return dtdl;
+}
+
+function serviceSpecificationToDTDL(srv) {
+  var dtdl = {
+    "@type": "Interface",
+    "@id": serviceSpecificationDTMI(srv),
+    displayName: (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .escapeDisplayName */ .n)(srv.name),
+    description: srv.notes["short"],
+    contents: srv.packets.filter(function (pkt) {
+      return !pkt.derived && !pkt.internal;
+    }).map(function (pkt) {
+      try {
+        return packetToDTDL(srv, pkt);
+      } catch (e) {
+        console.log("failed to generate DTDL for " + srv.name, e);
+        return undefined;
+      }
+    }).filter(function (c) {
+      return !!c;
+    })
+  };
+  if (srv.extends.length) dtdl.extends = srv.extends.map(function (id) {
+    return serviceSpecificationDTMI((0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromName */ .kB)(id));
+  });
+  var hasEvents = srv.packets.find(function (pkt) {
+    return pkt.kind === "event";
+  });
+  var hasEnums = Object.keys(srv.enums).length;
+
+  if (hasEvents || hasEnums) {
+    dtdl.schemas = [];
+    if (hasEvents) dtdl.schemas.push({
+      "@id": toDTMI([srv.classIdentifier, "event"]),
+      "@type": "Object",
+      fields: [{
+        name: "count",
+        schema: "integer"
+      }]
+    });
+    if (hasEnums) dtdl.schemas = dtdl.schemas.concat(Object.keys(srv.enums).map(function (en) {
+      return enumSchema(srv, srv.enums[en]);
+    }));
+  }
+
+  dtdl["@context"] = _dtdl__WEBPACK_IMPORTED_MODULE_3__/* .DTDL_CONTEXT */ .LM;
+  return dtdl;
+}
+function serviceSpecificationToComponent(srv, name) {
+  var dtdl = {
+    "@type": "Component",
+    name: name,
+    displayName: (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .escapeDisplayName */ .n)(srv.name),
+    schema: serviceSpecificationDTMI(srv)
+  };
+  return dtdl;
+}
+function serviceSpecificationDTMI(srv) {
+  return toDTMI(["services", srv.classIdentifier]);
+}
+function deviceSpecificationDTMI(dev) {
+  return toDTMI(["devices", dev.id.replace(/-/g, ":")]);
+}
+function DTMIToRoute(dtmi) {
+  var route = dtmi.toLowerCase().replace(/;/, "-").replace(/:/g, "/") + ".json";
+  return route;
+}
+function deviceSpecificationToDTDL(dev, options) {
+  var services = dev.services.map(function (srv) {
+    return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_0__/* .serviceSpecificationFromClassIdentifier */ .d5)(srv);
+  });
+  var uniqueServices = (0,_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .uniqueMap */ .EM)(services, function (srv) {
+    return srv.classIdentifier.toString();
+  }, function (srv) {
+    return srv;
+  });
+  var schemas = uniqueServices.map(function (srv) {
+    return serviceSpecificationToDTDL(srv);
+  }); // allocate names
+
+  var names = [];
+  services.forEach(function (srv) {
+    var name = (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .escapeName */ .Jg)(srv.shortId || srv.shortName);
+    if (names.indexOf(name) < 0) names.push(name);else {
+      var count = 2;
+
+      while (names.indexOf(name + count) > -1) {
+        count++;
+      }
+
+      names.push(name + count);
+    }
+  });
+  var dtdl = {
+    "@type": "Interface",
+    "@id": deviceSpecificationDTMI(dev),
+    displayName: (0,_dtdl__WEBPACK_IMPORTED_MODULE_3__/* .escapeDisplayName */ .n)(dev.name),
+    description: dev.description,
+    contents: services.map(function (srv, i) {
+      return serviceSpecificationToComponent(srv, names[i]);
+    }),
+    "@context": _dtdl__WEBPACK_IMPORTED_MODULE_3__/* .DTDL_CONTEXT */ .LM
+  };
+  if (options !== null && options !== void 0 && options.inlineServices) return [dtdl].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(schemas));else return dtdl;
+}
 
 /***/ }),
 
@@ -573,94 +1002,6 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 31921:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ ServiceSpecificationCard; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(85420);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(95823);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(4998);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(29114);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(80453);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(31186);
-/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
-/* harmony import */ var _IDChip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(92681);
-/* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36176);
-/* harmony import */ var _ui_Markdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(98784);
-/* harmony import */ var _ServiceSpecificationStatusAlert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(49102);
-/* harmony import */ var _jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(48363);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(20392);
-/* harmony import */ var _KindIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(50048);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(71815);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(35313);
-
-
-
-
-
-
-
-
-
-
-
-
-function ServiceSpecificationCard(props) {
-  var _spec, _spec2, _spec3, _spec4, _spec5;
-
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z),
-      bus = _useContext.bus;
-
-  var serviceClass = props.serviceClass,
-      specification = props.specification,
-      showReleaseStatus = props.showReleaseStatus,
-      showServiceClass = props.showServiceClass;
-  var spec = specification;
-  if (!spec && serviceClass !== undefined) spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .serviceSpecificationFromClassIdentifier */ .d5)(serviceClass);
-  var sc = ((_spec = spec) === null || _spec === void 0 ? void 0 : _spec.classIdentifier) || serviceClass;
-  var srv = ((_spec2 = spec) === null || _spec2 === void 0 ? void 0 : _spec2.shortId) || (sc === null || sc === void 0 ? void 0 : sc.toString(16));
-  var hostDefinition = (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__/* .serviceProviderDefinitionFromServiceClass */ .vd)(sc);
-
-  var handleSimulatorClick = function handleSimulatorClick() {
-    (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_6__/* .addServiceProvider */ .Q6)(bus, hostDefinition);
-    (0,gatsby__WEBPACK_IMPORTED_MODULE_10__.navigate)("/dashboard/");
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
-    title: ((_spec3 = spec) === null || _spec3 === void 0 ? void 0 : _spec3.name) || "???",
-    subheader: showServiceClass && srv && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_IDChip__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
-      id: sc,
-      filter: "srv:" + srv
-    }),
-    action: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, hostDefinition && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-      size: "small",
-      onClick: handleSimulatorClick,
-      avatar: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_KindIcon__WEBPACK_IMPORTED_MODULE_8__/* .default */ .ZP, {
-        kind: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_9__/* .VIRTUAL_DEVICE_NODE_NAME */ .UX7
-      }),
-      "aria-label": "start simulator and open dashboard",
-      label: "simulator"
-    }))
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, null, ((_spec4 = spec) === null || _spec4 === void 0 ? void 0 : _spec4.notes["short"]) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
-    variant: "body2",
-    component: "div"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Markdown__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    source: ((_spec5 = spec) === null || _spec5 === void 0 ? void 0 : _spec5.notes["short"].split(".", 1)[0]) + "."
-  })), showReleaseStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ServiceSpecificationStatusAlert__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    specification: spec
-  })), spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "outlined",
-    "aria-label": "open service " + spec.shortId + " page",
-    to: "/services/" + spec.shortId + "/"
-  }, "More...")));
-}
-
-/***/ }),
-
 /***/ 79739:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -696,7 +1037,40 @@ function PaperBox(props) {
   }, children), padding === 0 && children));
 }
 
+/***/ }),
+
+/***/ 34276:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ Snippet; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(80453);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50274);
+
+
+
+function Snippet(props) {
+  var value = props.value,
+      mode = props.mode,
+      download = props.download,
+      url = props.url,
+      caption = props.caption;
+  var v = typeof value === "function" ? value() : value;
+  var className = mode && "language-" + (mode === "sts" ? "ts" : mode);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CodeBlock__WEBPACK_IMPORTED_MODULE_1__.default, {
+    className: className,
+    downloadName: download,
+    downloadText: download && v,
+    url: url
+  }, v), caption && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    variant: "caption"
+  }, caption));
+}
+
 /***/ })
 
 }]);
-//# sourceMappingURL=6362df6d6ad2d4629b1004aa17c180a25ab662e1-f04a27a3cfd806e6493e.js.map
+//# sourceMappingURL=96c2ed7eaf42f8923b2efb4d892f0c3892eddf0e-15a7d1920deaee04af3f.js.map

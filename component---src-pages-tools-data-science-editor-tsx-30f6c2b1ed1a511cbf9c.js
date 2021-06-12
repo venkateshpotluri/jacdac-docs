@@ -1,6 +1,6 @@
 (self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1323],{
 
-/***/ 29870:
+/***/ 67807:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20,59 +20,12 @@ var NoSsr = __webpack_require__(42862);
 var BlockContext = __webpack_require__(85379);
 // EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
 var BlockEditor = __webpack_require__(85105);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 19 modules
+var datadsl = __webpack_require__(15941);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/variablesdsl.ts
 var variablesdsl = __webpack_require__(86947);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/shadowdsl.ts
 var shadowdsl = __webpack_require__(96958);
-;// CONCATENATED MODULE: ./src/components/data-science/datadsl.ts
-var colour = "#123456";
-var DataScienceBlockDomainSpecificLanguage = /*#__PURE__*/function () {
-  function DataScienceBlockDomainSpecificLanguage() {
-    this.id = "dataScience";
-  }
-
-  var _proto = DataScienceBlockDomainSpecificLanguage.prototype;
-
-  _proto.createBlocks = function createBlocks() {
-    var blocks = [{
-      kind: "block",
-      type: "ds_some_event",
-      message0: "some event",
-      args0: [],
-      inputsInline: true,
-      nextStatement: null,
-      colour: colour
-    }, {
-      kind: "block",
-      type: "ds_some_block",
-      message0: "some block data",
-      args0: [],
-      inputsInline: true,
-      output: "Number",
-      colour: colour
-    }];
-    return blocks;
-  };
-
-  _proto.createCategory = function createCategory() {
-    return [{
-      kind: "category",
-      name: "Data Science",
-      colour: colour,
-      contents: [{
-        kind: "block",
-        type: "ds_some_event"
-      }, {
-        kind: "block",
-        type: "ds_some_block"
-      }]
-    }];
-  };
-
-  return DataScienceBlockDomainSpecificLanguage;
-}();
-var dataDsl = new DataScienceBlockDomainSpecificLanguage();
-/* harmony default export */ var datadsl = (dataDsl);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/fieldsdsl.ts
 var fieldsdsl = __webpack_require__(76658);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
@@ -161,7 +114,7 @@ function DSEditorWithContext() {
 
 function DScienceEditor() {
   var dsls = (0,react.useMemo)(function () {
-    return [datadsl, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+    return [datadsl/* default */.Z, variablesdsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: DS_SOURCE_STORAGE_KEY,
@@ -178,4 +131,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-bcb18fa5bdea3e01884f.js.map
+//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-30f6c2b1ed1a511cbf9c.js.map

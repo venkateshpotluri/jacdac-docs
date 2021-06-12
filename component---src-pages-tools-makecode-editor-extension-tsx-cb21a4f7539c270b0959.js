@@ -90,10 +90,12 @@ exports.Z = _default;
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LM": function() { return /* binding */ DTDL_CONTEXT; },
+/* harmony export */   "d_": function() { return /* binding */ objectSchema; },
+/* harmony export */   "yP": function() { return /* binding */ arraySchema; },
 /* harmony export */   "Jg": function() { return /* binding */ escapeName; },
 /* harmony export */   "n": function() { return /* binding */ escapeDisplayName; }
 /* harmony export */ });
-/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, objectSchema, arraySchema, DTDLUnits */
+/* unused harmony exports DTDL_REFERENCE_URL, DTDL_NAME, DTDLUnits */
 /***
  *  DTDL specification: https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md.
  */
@@ -1174,4 +1176,4 @@ function MakeCodeEditorExtensionPage() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-686bbcdd4f97e6fe573b.js.map
+//# sourceMappingURL=component---src-pages-tools-makecode-editor-extension-tsx-cb21a4f7539c270b0959.js.map
