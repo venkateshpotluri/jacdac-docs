@@ -11402,14 +11402,19 @@ var variablesDsl = {
 
 
 
-var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(function (theme) {
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(function () {
   return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)({
+    root: {
+      paddingLeft: "0.5rem",
+      paddingRight: "0.5rem",
+      background: "#fff",
+      color: "#000",
+      borderRadius: "0.25rem"
+    },
     table: {
-      padding: 0,
       margin: 0,
       fontSize: "0.8rem",
       lineHeight: "1rem",
-      color: theme.palette.text.primary,
       "& th": {
         fontWeight: "normal"
       },
@@ -11432,7 +11437,9 @@ function DataTableWidget() {
   var classes = useStyles();
   if (!(data !== null && data !== void 0 && data.length)) return null;
   var columns = Object.keys(data[0] || {});
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: classes.root
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
     className: classes.table
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", null, columns.map(function (c) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
@@ -11446,7 +11453,7 @@ function DataTableWidget() {
         key: c
       }, r[c]);
     }));
-  })));
+  }))));
 }
 
 var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
@@ -12741,11 +12748,11 @@ function ChartWidget() {
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
     style: {
       background: "#fff",
-      borderRadius: "0.5rem"
+      borderRadius: "0.25rem"
     }
   }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ScatterPlot, Object.assign({
-    width: 400,
-    height: 400
+    width: 388,
+    height: 240
   }, chartProps))))));
 }
 
