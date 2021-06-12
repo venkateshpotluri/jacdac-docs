@@ -11449,7 +11449,7 @@ var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
 });
 
 function ChartWidget() {
-  var _chartProps$data;
+  var _chartProps$data, _chartProps$data$0$da;
 
   var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
       sourceBlock = _useContext.sourceBlock;
@@ -11518,7 +11518,8 @@ function ChartWidget() {
       chartProps = _useBlockChartProps.chartProps;
 
   if (chartProps) chartProps.data = series;
-  if (!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && _chartProps$data.length)) return null;
+  var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
+  if (!hasData) return null;
   chartProps.axisBottom.legend = x;
   chartProps.axisLeft.legend = y;
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
