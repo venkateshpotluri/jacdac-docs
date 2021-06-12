@@ -11431,7 +11431,7 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
       return [h, h];
     })) || [];
     var value = this.getValue();
-    return options.length < 1 ? [[value, value]] : options;
+    return options.length < 1 ? [[value || "", value || ""]] : options;
   };
 
   _proto.doClassValidation_ = function doClassValidation_(newValue) {
@@ -12033,6 +12033,142 @@ var LEDMatrixField = /*#__PURE__*/function (_ReactImageField) {
 }(ReactImageField);
 
 LEDMatrixField.KEY = "jacdac_field_led_matrix";
+
+
+/***/ }),
+
+/***/ 70659:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ LinePlotField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21006);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
+/* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8844);
+
+
+
+
+
+
+
+
+
+
+var Line = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(1996)]).then(__webpack_require__.bind(__webpack_require__, 61996));
+});
+
+function LineChartWidget() {
+  var _chartProps$data, _chartProps$data$0$da;
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      sourceBlock = _useContext.sourceBlock;
+
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
+      data = _useBlockData.data; // need to map data to nivo
+
+
+  var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
+  var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
+
+  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .t)(data, [x, y], ["x", "y"]),
+      series = _tidyToNivo.series,
+      labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _useBlockChartProps = (0,_useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock, {
+    colors: {
+      scheme: "category10"
+    },
+    data: series,
+    margin: {
+      top: 8,
+      right: 8,
+      bottom: 38,
+      left: 64
+    },
+    xScale: {
+      type: "linear",
+      min: "auto",
+      max: "auto"
+    },
+    yScale: {
+      type: "linear",
+      min: "auto",
+      max: "auto"
+    },
+    axisTop: null,
+    axisRight: null,
+    axisBottom: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: x,
+      legendPosition: "middle",
+      legendOffset: 34
+    },
+    axisLeft: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: y,
+      legendPosition: "middle",
+      legendOffset: -32
+    }
+  }),
+      chartProps = _useBlockChartProps.chartProps;
+
+  if (chartProps) chartProps.data = series;
+  var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
+  if (!hasData) return null; // avoid using same column, creates rendering issues
+
+  if (x === y && x) return null;
+  chartProps.axisBottom.legend = labels[0];
+  chartProps.axisLeft.legend = labels[1];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: "0.25rem"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Line, Object.assign({
+    width: 388,
+    height: 240
+  }, chartProps))))));
+}
+
+var LinePlotField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(LinePlotField, _ReactInlineField);
+
+  LinePlotField.fromJson = function fromJson(options) {
+    return new LinePlotField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function LinePlotField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = LinePlotField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(LineChartWidget, null);
+  };
+
+  return LinePlotField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+LinePlotField.KEY = "jacdac_field_line_plot";
+LinePlotField.EDITABLE = false;
 
 
 /***/ }),
@@ -12672,91 +12808,56 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
 /***/ }),
 
-/***/ 18773:
+/***/ 97884:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ScatterPlotField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21006);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
+/* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8844);
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ ScatterPlotField; }
+
+
+
+
+
+
+
+
+
+var ScatterPlot = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(2850)]).then(__webpack_require__.bind(__webpack_require__, 72850));
 });
 
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(85413);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
-var WorkspaceContext = __webpack_require__(89801);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ReactInlineField.tsx
-var ReactInlineField = __webpack_require__(12702);
-// EXTERNAL MODULE: ./src/jacdac/useChange.ts
-var useChange = __webpack_require__(54774);
-;// CONCATENATED MODULE: ./src/components/blockly/useBlockChartProps.ts
-
-
-function useBlockChartProps(block, initialChartProps) {
-  var services = block === null || block === void 0 ? void 0 : block.jacdacServices; // data on the current node
-
-  var chartProps = (0,useChange/* default */.Z)(services, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.chartProps;
-  });
-  var setChartProps = (0,react.useCallback)(function (value) {
-    if (services) services.chartProps = value;
-  }, [services]); // set initial value
-
-  (0,react.useEffect)(function () {
-    if (services && initialChartProps !== undefined && services.chartProps === undefined) services.chartProps = initialChartProps;
-  }, [services]);
-  return {
-    chartProps: chartProps,
-    setChartProps: setChartProps
-  };
-}
-// EXTERNAL MODULE: ./src/components/blockly/useBlockData.ts
-var useBlockData = __webpack_require__(21006);
-// EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
-var PointerBoundary = __webpack_require__(77298);
-// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
-var Suspense = __webpack_require__(69672);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
-var NoSsr = __webpack_require__(42862);
-// EXTERNAL MODULE: ./src/components/blockly/fields/nivo.ts
-var nivo = __webpack_require__(8844);
-;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
-
-
-
-
-
-
-
-
-
-
-var ScatterPlot = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 8604).then(__webpack_require__.bind(__webpack_require__, 98604));
-});
-
-function ChartWidget() {
+function ScatterChartWidget() {
   var _chartProps$data, _chartProps$data$0$da;
 
-  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
       sourceBlock = _useContext.sourceBlock;
 
-  var _useBlockData = (0,useBlockData/* default */.Z)(sourceBlock),
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
       data = _useBlockData.data; // need to map data to nivo
 
 
   var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
   var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
 
-  var _tidyToNivo = (0,nivo/* tidyToNivo */.t)(data, [x, y], ["x", "y"]),
+  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .t)(data, [x, y], ["x", "y"]),
       series = _tidyToNivo.series,
       labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
-  var _useBlockChartProps = useBlockChartProps(sourceBlock, {
+  var _useBlockChartProps = (0,_useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock, {
     colors: {
       scheme: "category10"
     },
@@ -12803,19 +12904,19 @@ function ChartWidget() {
   if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
   chartProps.axisLeft.legend = labels[1];
-  return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: {
       background: "#fff",
       borderRadius: "0.25rem"
     }
-  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ScatterPlot, Object.assign({
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScatterPlot, Object.assign({
     width: 388,
     height: 240
   }, chartProps))))));
 }
 
 var ScatterPlotField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,inheritsLoose/* default */.Z)(ScatterPlotField, _ReactInlineField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(ScatterPlotField, _ReactInlineField);
 
   ScatterPlotField.fromJson = function fromJson(options) {
     return new ScatterPlotField(options);
@@ -12829,11 +12930,11 @@ var ScatterPlotField = /*#__PURE__*/function (_ReactInlineField) {
   var _proto = ScatterPlotField.prototype;
 
   _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react.createElement(ChartWidget, null);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScatterChartWidget, null);
   };
 
   return ScatterPlotField;
-}(ReactInlineField/* default */.Z);
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
 
 ScatterPlotField.KEY = "jacdac_field_scatter_plot";
 ScatterPlotField.EDITABLE = false;
@@ -13431,8 +13532,10 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
 /* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
-/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(18773);
+/* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(97884);
 /* harmony import */ var _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(12456);
+/* harmony import */ var _LinePlotField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(70659);
+
 
 
 
@@ -13466,7 +13569,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -13495,6 +13598,8 @@ function tidyHeaders(data) {
 }
 function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
 data, columns, toColumns) {
+  // avoid duplicates in column
+  columns = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .unique */ .Tw)(columns);
   var headers = tidyHeaders(data);
   var k = 0;
   var renaming = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .toMap */ .qL)(columns, function (c, i) {
@@ -13582,6 +13687,38 @@ var PRIMITIVE_TYPES = [STRING_TYPE, BOOLEAN_TYPE, NUMBER_TYPE];
 var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
 var CODE_STATEMENT_TYPE = "Code";
 var DATA_SCIENCE_STATEMENT_TYPE = "DataScienceStatement";
+
+/***/ }),
+
+/***/ 53333:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useBlockChartProps; }
+/* harmony export */ });
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54774);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+
+
+function useBlockChartProps(block, initialChartProps) {
+  var services = block === null || block === void 0 ? void 0 : block.jacdacServices; // data on the current node
+
+  var chartProps = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(services, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.chartProps;
+  });
+  var setChartProps = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(function (value) {
+    if (services) services.chartProps = value;
+  }, [services]); // set initial value
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    if (services && initialChartProps !== undefined && services.chartProps === undefined) services.chartProps = initialChartProps;
+  }, [services]);
+  return {
+    chartProps: chartProps,
+    setChartProps: setChartProps
+  };
+}
 
 /***/ }),
 

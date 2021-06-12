@@ -5627,19 +5627,23 @@ var jsonDSL = {
   }
 };
 /* harmony default export */ var jsondsl = (jsonDSL);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx + 1 modules
-var ScatterPlotField = __webpack_require__(18773);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
+var ScatterPlotField = __webpack_require__(97884);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataTableField.tsx
 var DataTableField = __webpack_require__(54741);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.tsx
 var DataColumnChooserField = __webpack_require__(12456);
+// EXTERNAL MODULE: ./src/components/blockly/fields/LinePlotField.tsx
+var LinePlotField = __webpack_require__(70659);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
+
 
 
 
 
 var SHOW_TABLE_BLOCK = "chart_show_table";
 var SCATTERPLOT_BLOCK = "chart_scatterplot";
+var LINEPLOT_BLOCK = "chart_lineplot";
 var chartdsl_colour = "#999";
 var chartDSL = {
   id: "chart",
@@ -5682,6 +5686,28 @@ var chartDSL = {
       template: "meta",
       inputsInline: false,
       transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: LINEPLOT_BLOCK,
+      message0: "line x %1 y %2 %3 %4",
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "x"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "y"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: LinePlotField/* default.KEY */.Z.KEY,
+        name: "plot"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: chartdsl_colour,
+      template: "meta",
+      inputsInline: false,
+      transformData: toolbox/* identityTransformData */.FW
     }];
   },
   createCategory: function createCategory() {
@@ -5694,6 +5720,9 @@ var chartDSL = {
       }, {
         kind: "block",
         type: SCATTERPLOT_BLOCK
+      }, {
+        kind: "block",
+        type: LINEPLOT_BLOCK
       }],
       colour: chartdsl_colour
     }];
