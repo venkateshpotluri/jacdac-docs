@@ -20,8 +20,8 @@ var NoSsr = __webpack_require__(42862);
 var BlockContext = __webpack_require__(85379);
 // EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
 var BlockEditor = __webpack_require__(85105);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 19 modules
-var datadsl = __webpack_require__(15941);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 20 modules
+var datadsl = __webpack_require__(59954);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/variablesdsl.ts
 var variablesdsl = __webpack_require__(86947);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/shadowdsl.ts
@@ -131,4 +131,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-30f6c2b1ed1a511cbf9c.js.map
+//# sourceMappingURL=component---src-pages-tools-data-science-editor-tsx-1b7f467f174d5a895de1.js.map

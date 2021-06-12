@@ -9328,7 +9328,7 @@ function WorkspaceProvider(props) {
 
 /***/ }),
 
-/***/ 15941:
+/***/ 59954:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9343,6 +9343,8 @@ var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
+var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/dist/es/tidy.js
 function tidy_tidy(items) {
   if (typeof items === "function") {
@@ -10811,8 +10813,46 @@ function complete(expandKeys, replaceNullySpec) {
 
 
 
-// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
-var toolbox = __webpack_require__(16582);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/data.worker.ts
+
+
+
+/* eslint-disable @typescript-eslint/ban-types */
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+var handlers = {
+  arrange: function arrange(props) {
+    var column = props.column,
+        descending = props.descending,
+        data = props.data;
+    return tidy_tidy(data, arrange_arrange(descending ? arrange_desc(column) : column));
+  }
+};
+function data_worker_transformData(_x) {
+  return _transformData.apply(this, arguments);
+}
+
+function _transformData() {
+  _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(message) {
+    var handler;
+    return regenerator_default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // TODO move to web worker
+            handler = handlers[message.type];
+            return _context.abrupt("return", handler === null || handler === void 0 ? void 0 : handler(message));
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _transformData.apply(this, arguments);
+}
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datadsl.ts
 
 
@@ -10840,19 +10880,23 @@ var dataDsl = {
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transformData: function () {
-        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
-          var column, order, sort, newData;
+        var _transformData2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
+          var column, order, descending;
           return regenerator_default().wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
                   column = b.getFieldValue("column");
                   order = b.getFieldValue("order");
-                  sort = order === "descending" ? arrange_desc(column) : column;
-                  newData = tidy_tidy(data, arrange_arrange(sort));
-                  return _context.abrupt("return", newData);
+                  descending = order === "descending";
+                  return _context.abrupt("return", data_worker_transformData({
+                    type: "arrange",
+                    column: column,
+                    descending: descending,
+                    data: data
+                  }));
 
-                case 5:
+                case 4:
                 case "end":
                   return _context.stop();
               }
@@ -10861,7 +10905,7 @@ var dataDsl = {
         }));
 
         function transformData(_x, _x2) {
-          return _transformData.apply(this, arguments);
+          return _transformData2.apply(this, arguments);
         }
 
         return transformData;
@@ -12938,6 +12982,7 @@ function fieldShadows() {
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Uz": function() { return /* binding */ NEW_PROJET_XML; },
+/* harmony export */   "FW": function() { return /* binding */ identityTransformData; },
 /* harmony export */   "Pq": function() { return /* binding */ resolveBlockDefinition; },
 /* harmony export */   "oj": function() { return /* binding */ JSON_TYPE; },
 /* harmony export */   "jt": function() { return /* binding */ STRING_TYPE; },
@@ -12948,12 +12993,38 @@ function fieldShadows() {
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; },
 /* harmony export */   "zN": function() { return /* binding */ DATA_SCIENCE_STATEMENT_TYPE; }
 /* harmony export */ });
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
-/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_1__);
+
+
 
 var NEW_PROJET_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
+// eslint-disable-next-line @typescript-eslint/ban-types
+var identityTransformData = /*#__PURE__*/function () {
+  var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(block, data) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", data);
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function identityTransformData(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
 function resolveBlockDefinition(type) {
-  var b = (blockly__WEBPACK_IMPORTED_MODULE_0___default().Blocks)[type];
+  var b = (blockly__WEBPACK_IMPORTED_MODULE_1___default().Blocks)[type];
   return b === null || b === void 0 ? void 0 : b.jacdacDefinition;
 }
 var JSON_TYPE = "JSON";
@@ -13591,4 +13662,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-7aca080768c761eefc65.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-aac4eef8be9e9bd3f977.js.map

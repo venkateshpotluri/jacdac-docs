@@ -4242,8 +4242,6 @@ var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 
 
 
-
-
 var colour = "#888";
 var INSPECT_BLOCK = "jacdac_tools_inspect";
 var WATCH_BLOCK = "jacdac_tools_watch";
@@ -4331,28 +4329,7 @@ var toolsDSL = {
       tooltip: "Watch a value in the editor",
       helpUrl: "",
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      transformData: function () {
-        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
-          return regenerator_default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  return _context.abrupt("return", data);
-
-                case 1:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        function transformData(_x, _x2) {
-          return _transformData.apply(this, arguments);
-        }
-
-        return transformData;
-      }()
+      transformData: toolbox/* identityTransformData */.FW
     }, {
       kind: "block",
       type: LOG_BLOCK,
@@ -5653,8 +5630,6 @@ var DataTableField = __webpack_require__(54741);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
 
 
-
-
 var SHOW_TABLE_BLOCK = "chart_show_table";
 var chartdsl_colour = "#999";
 var chartDSL = {
@@ -5675,28 +5650,7 @@ var chartDSL = {
       colour: chartdsl_colour,
       template: "meta",
       inputsInline: false,
-      transformData: function () {
-        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
-          return regenerator_default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  return _context.abrupt("return", data);
-
-                case 1:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
-        }));
-
-        function transformData(_x, _x2) {
-          return _transformData.apply(this, arguments);
-        }
-
-        return transformData;
-      }()
+      transformData: toolbox/* identityTransformData */.FW
     }];
   },
   createCategory: function createCategory() {
@@ -5712,8 +5666,8 @@ var chartDSL = {
   }
 };
 /* harmony default export */ var chartdsl = (chartDSL);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 19 modules
-var datadsl = __webpack_require__(15941);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 20 modules
+var datadsl = __webpack_require__(59954);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
 
@@ -5822,4 +5776,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-834e0fb528149e37a853.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-11b69be9c02371291ed1.js.map
