@@ -5675,7 +5675,8 @@ var chartDSL = {
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       colour: chartdsl_colour,
       template: "meta",
-      inputsInline: true
+      inputsInline: false,
+      transformData: toolbox/* identityTransformData */.FW
     }];
   },
   createCategory: function createCategory() {
