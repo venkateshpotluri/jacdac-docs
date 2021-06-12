@@ -4273,8 +4273,10 @@ var toolsDSL = {
       colour: colour,
       inputsInline: false,
       tooltip: "Twin of the selected service",
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       helpUrl: "",
-      template: "meta"
+      template: "meta",
+      transformData: toolbox/* identityTransformData */.FW
     }, {
       kind: "block",
       type: INSPECT_BLOCK,

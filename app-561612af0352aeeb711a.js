@@ -68313,7 +68313,7 @@ function SplitGrid(props) {
 
 
 var JDomTreeView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(188)]).then(__webpack_require__.bind(__webpack_require__, 10188));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(4084)]).then(__webpack_require__.bind(__webpack_require__, 10188));
 });
 var PacketView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8590)]).then(__webpack_require__.bind(__webpack_require__, 3189));
@@ -68628,14 +68628,9 @@ function useMounted() {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 
 function useRegister(service, identifier) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(service === null || service === void 0 ? void 0 : service.register(identifier)),
-      register = _useState[0],
-      setRegister = _useState[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return setRegister(service === null || service === void 0 ? void 0 : service.register(identifier));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return service === null || service === void 0 ? void 0 : service.register(identifier);
   }, [service, identifier]);
-  return register;
 }
 
 /***/ }),
@@ -69738,7 +69733,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "d26f3c8e2d1e1eddae0763b1a6cf5881e6df6f46";
+  var sha = "09d87936a56523d72502af4df9727e2c2621453a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

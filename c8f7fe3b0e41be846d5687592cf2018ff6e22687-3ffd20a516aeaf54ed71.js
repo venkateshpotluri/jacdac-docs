@@ -26070,10 +26070,10 @@ function StyledTreeItem(props) {
 }
 // EXTERNAL MODULE: ./src/components/hooks/useMediaQueries.tsx
 var useMediaQueries = __webpack_require__(20509);
-// EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
-var useRegister = __webpack_require__(82677);
 // EXTERNAL MODULE: ./src/components/services/useInstanceName.ts
 var useInstanceName = __webpack_require__(20563);
+// EXTERNAL MODULE: ./src/components/hooks/useBestRegister.ts
+var useBestRegister = __webpack_require__(39687);
 ;// CONCATENATED MODULE: ./src/components/tools/JDomTreeViewItems.tsx
 
 var JDomTreeViewItems_excluded = ["device", "serviceFilter"],
@@ -26227,7 +26227,7 @@ function ServiceTreeItem(props) {
       id = _useMemo3.id;
 
   var instanceName = (0,useInstanceName/* default */.Z)(service);
-  var readingRegister = (0,useRegister/* default */.Z)(service, constants/* SystemReg.Reading */.ZJq.Reading);
+  var readingRegister = (0,useBestRegister/* default */.Z)(service);
   var reading = (0,useRegisterValue/* useRegisterHumanValue */.e_)(readingRegister);
   var labelText = name + (instanceName ? " " + instanceName : "");
   return /*#__PURE__*/react.createElement(StyledTreeItem, {
