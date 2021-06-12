@@ -5115,6 +5115,8 @@ var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 
 
 
+
+
 var colour = "#888";
 var INSPECT_BLOCK = "jacdac_tools_inspect";
 var WATCH_BLOCK = "jacdac_tools_watch";
@@ -5202,9 +5204,28 @@ var toolsDSL = {
       tooltip: "Watch a value in the editor",
       helpUrl: "",
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      transformData: function transformData(b, data) {
-        return data;
-      }
+      transformData: function () {
+        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
+          return regenerator_default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  return _context.abrupt("return", data);
+
+                case 1:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function transformData(_x, _x2) {
+          return _transformData.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
     }, {
       kind: "block",
       type: LOG_BLOCK,
@@ -6505,6 +6526,8 @@ var DataTableField = __webpack_require__(54741);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
 
 
+
+
 var SHOW_TABLE_BLOCK = "chart_show_table";
 var chartdsl_colour = "#999";
 var chartDSL = {
@@ -6525,9 +6548,28 @@ var chartDSL = {
       colour: chartdsl_colour,
       template: "meta",
       inputsInline: false,
-      transformData: function transformData(b, data) {
-        return data;
-      }
+      transformData: function () {
+        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
+          return regenerator_default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  return _context.abrupt("return", data);
+
+                case 1:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function transformData(_x, _x2) {
+          return _transformData.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
     }];
   },
   createCategory: function createCategory() {
@@ -8010,6 +8052,8 @@ function complete(expandKeys, replaceNullySpec) {
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datadsl.ts
 
 
+
+
 var DATA_SCIENCE_ARRANGE_BLOCK = "data_science_arrange";
 var datadsl_colour = "#777";
 var dataScienceDSL = {
@@ -8031,13 +8075,33 @@ var dataScienceDSL = {
       previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      transformData: function transformData(b, data) {
-        var column = b.getFieldValue("column");
-        var order = b.getFieldValue("order");
-        var sort = order === "descending" ? arrange_desc(column) : column;
-        var newData = tidy_tidy(data, arrange_arrange(sort));
-        return newData;
-      },
+      transformData: function () {
+        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(b, data) {
+          var column, order, sort, newData;
+          return regenerator_default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  column = b.getFieldValue("column");
+                  order = b.getFieldValue("order");
+                  sort = order === "descending" ? arrange_desc(column) : column;
+                  newData = tidy_tidy(data, arrange_arrange(sort));
+                  return _context.abrupt("return", newData);
+
+                case 5:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function transformData(_x, _x2) {
+          return _transformData.apply(this, arguments);
+        }
+
+        return transformData;
+      }(),
       template: "meta"
     }];
   },
@@ -8162,4 +8226,4 @@ function Page() {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-d3f289f876618a7b8b57.js.map
+//# sourceMappingURL=component---src-pages-tools-vm-editor-tsx-89b55c05bdb7260233ea.js.map

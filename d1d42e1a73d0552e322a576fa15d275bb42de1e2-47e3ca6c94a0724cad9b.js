@@ -5935,6 +5935,11 @@ __webpack_require__.d(__webpack_exports__, {
   "C": function() { return /* binding */ blockly_BlockContext; }
 });
 
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(73108);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(42656);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
@@ -7562,6 +7567,8 @@ var WorkspaceContext = __webpack_require__(89801);
 
 
 
+
+
 var BlockContext = /*#__PURE__*/(0,react.createContext)({
   dsls: [],
   workspace: undefined,
@@ -7622,17 +7629,44 @@ function BlockProvider(props) {
         transformData = _ref.transformData;
 
     if (transformData) {
-      services.on(constants/* CHANGE */.Ver, function () {
+      services.on(constants/* CHANGE */.Ver, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
         var _block$nextConnection, _block$childBlocks_;
 
-        var next = ((_block$nextConnection = block.nextConnection) === null || _block$nextConnection === void 0 ? void 0 : _block$nextConnection.targetBlock()) || ((_block$childBlocks_ = block.childBlocks_) === null || _block$childBlocks_ === void 0 ? void 0 : _block$childBlocks_[0]);
-        var nextServices = next === null || next === void 0 ? void 0 : next.jacdacServices;
+        var next, nextServices, newData;
+        return regenerator_default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                next = ((_block$nextConnection = block.nextConnection) === null || _block$nextConnection === void 0 ? void 0 : _block$nextConnection.targetBlock()) || ((_block$childBlocks_ = block.childBlocks_) === null || _block$childBlocks_ === void 0 ? void 0 : _block$childBlocks_[0]);
+                nextServices = next === null || next === void 0 ? void 0 : next.jacdacServices;
 
-        if (nextServices) {
-          var newData = transformData(block, services.data);
-          nextServices.data = newData;
-        }
-      });
+                if (!nextServices) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.prev = 3;
+                _context.next = 6;
+                return transformData(block, services.data);
+
+              case 6:
+                newData = _context.sent;
+                nextServices.data = newData;
+                _context.next = 13;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](3);
+                console.debug(_context.t0);
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 10]]);
+      })));
     } // notify dsl
 
 
@@ -11112,4 +11146,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-59e097c0eae0b1b78676.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-47e3ca6c94a0724cad9b.js.map
