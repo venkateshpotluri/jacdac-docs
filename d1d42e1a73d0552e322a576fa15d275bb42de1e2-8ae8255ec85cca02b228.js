@@ -10839,17 +10839,22 @@ function _transformData() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            _context.prev = 0;
             // TODO move to web worker
             handler = handlers[message.type];
             return _context.abrupt("return", handler === null || handler === void 0 ? void 0 : handler(message));
 
-          case 2:
+          case 5:
+            _context.prev = 5;
+            _context.t0 = _context["catch"](0);
+            console.debug(_context.t0);
+
+          case 8:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[0, 5]]);
   }));
   return _transformData.apply(this, arguments);
 }
@@ -13662,4 +13667,4 @@ function child(parent, name, props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-aac4eef8be9e9bd3f977.js.map
+//# sourceMappingURL=d1d42e1a73d0552e322a576fa15d275bb42de1e2-8ae8255ec85cca02b228.js.map
