@@ -12320,25 +12320,44 @@ function WorkspaceProvider(props) {
 "use strict";
 /* harmony import */ var _fields_BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69223);
 /* harmony import */ var _fields_DataColumnChooserField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12456);
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16582);
-/* harmony import */ var _workers_data_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5221);
+/* harmony import */ var _fields_DataTableField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54741);
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16582);
+/* harmony import */ var _workers_data_worker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5221);
 
 
 
 
-var DATA_SCIENCE_ARRANGE_BLOCK = "data_science_arrange";
-var DATA_SCIENCE_ADD_VARIABLE_CALLBACK = "data_science_add_variable";
-var DATA_SCIENCE_DATAVARIABLE_READ_BLOCK = "data_science_dataset_read";
-var DATA_SCIENCE_DATAVARIABLE_WRITE_BLOCK = "data_science_dataset_write";
-var DATA_SCIENCE_DATASET_BUILTIN_BLOCK = "data_science_dataset_builtin";
+
+var DATA_ARRANGE_BLOCK = "data_arrange";
+var DATA_ADD_VARIABLE_CALLBACK = "data_add_variable";
+var DATA_DATAVARIABLE_READ_BLOCK = "data_dataset_read";
+var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
+var DATA_DATASET_BUILTIN_BLOCK = "data_dataset_builtin";
 var DATA_TABLE_TYPE = "DataTable";
+var DATA_SHOW_TABLE_BLOCK = "data_show_table";
 var colour = "#777";
 var dataDsl = {
   id: "dataScience",
   createBlocks: function createBlocks() {
     return [{
       kind: "block",
-      type: "data_science_arrange",
+      type: DATA_SHOW_TABLE_BLOCK,
+      message0: "show table %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: _fields_DataTableField__WEBPACK_IMPORTED_MODULE_2__/* .default.KEY */ .Z.KEY,
+        name: "table"
+      }],
+      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      colour: colour,
+      template: "meta",
+      inputsInline: false,
+      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .identityTransformData */ .FW
+    }, {
+      kind: "block",
+      type: DATA_ARRANGE_BLOCK,
       message0: "arrange %1 %2",
       colour: colour,
       args0: [{
@@ -12349,14 +12368,14 @@ var dataDsl = {
         name: "order",
         options: [["ascending", "ascending"], ["descending", "descending"]]
       }],
-      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transformData: function transformData(b, data) {
         var column = b.getFieldValue("column");
         var order = b.getFieldValue("order");
         var descending = order === "descending";
-        return (0,_workers_data_worker__WEBPACK_IMPORTED_MODULE_3__/* .postTransformData */ .L)({
+        return (0,_workers_data_worker__WEBPACK_IMPORTED_MODULE_4__/* .postTransformData */ .L)({
           type: "arrange",
           column: column,
           descending: descending,
@@ -12366,20 +12385,20 @@ var dataDsl = {
       template: "meta"
     }, {
       kind: "block",
-      type: DATA_SCIENCE_DATASET_BUILTIN_BLOCK,
+      type: DATA_DATASET_BUILTIN_BLOCK,
       message0: "dataset %1",
       args0: [{
         type: _fields_BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_0__/* .default.KEY */ .Z.KEY,
         name: "dateset"
       }],
       inputsInline: false,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta",
-      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .identityTransformData */ .FW
+      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .identityTransformData */ .FW
     }, {
       kind: "block",
-      type: DATA_SCIENCE_DATAVARIABLE_READ_BLOCK,
+      type: DATA_DATAVARIABLE_READ_BLOCK,
       message0: "data table %1",
       args0: [{
         type: "field_variable",
@@ -12389,13 +12408,13 @@ var dataDsl = {
         defaultType: DATA_TABLE_TYPE
       }],
       inputsInline: false,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta"
     }, // only 1 allowed to prevent cycles
     {
       kind: "block",
-      type: DATA_SCIENCE_DATAVARIABLE_WRITE_BLOCK,
+      type: DATA_DATAVARIABLE_WRITE_BLOCK,
       message0: "store in data table %1",
       args0: [{
         type: "field_variable",
@@ -12405,8 +12424,8 @@ var dataDsl = {
         defaultType: DATA_TABLE_TYPE
       }],
       inputsInline: false,
-      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_2__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta"
     }];
@@ -12414,27 +12433,36 @@ var dataDsl = {
   createCategory: function createCategory() {
     return [{
       kind: "category",
-      name: "Data Science",
+      name: "Data",
       colour: colour,
       contents: [{
-        kind: "block",
-        type: DATA_SCIENCE_DATASET_BUILTIN_BLOCK
+        kind: "label",
+        text: "Data sets"
       }, {
         kind: "block",
-        type: DATA_SCIENCE_ARRANGE_BLOCK
+        type: DATA_DATASET_BUILTIN_BLOCK
       }, {
         kind: "label",
-        text: "DataSets"
+        text: "Operators"
+      }, {
+        kind: "block",
+        type: DATA_SHOW_TABLE_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_ARRANGE_BLOCK
+      }, {
+        kind: "label",
+        text: "Data variables"
       }, {
         kind: "button",
         text: "Add dataset variable",
-        callbackKey: DATA_SCIENCE_ADD_VARIABLE_CALLBACK
+        callbackKey: DATA_ADD_VARIABLE_CALLBACK
       }, {
         kind: "block",
-        type: DATA_SCIENCE_DATAVARIABLE_READ_BLOCK
+        type: DATA_DATAVARIABLE_READ_BLOCK
       }, {
         kind: "block",
-        type: DATA_SCIENCE_DATAVARIABLE_WRITE_BLOCK
+        type: DATA_DATAVARIABLE_WRITE_BLOCK
       }]
     }];
   }

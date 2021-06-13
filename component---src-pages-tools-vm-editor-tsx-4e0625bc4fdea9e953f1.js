@@ -5629,8 +5629,6 @@ var jsonDSL = {
 /* harmony default export */ var jsondsl = (jsonDSL);
 // EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
 var ScatterPlotField = __webpack_require__(97884);
-// EXTERNAL MODULE: ./src/components/blockly/fields/DataTableField.tsx
-var DataTableField = __webpack_require__(54741);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.tsx
 var DataColumnChooserField = __webpack_require__(12456);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LinePlotField.tsx
@@ -5643,8 +5641,6 @@ var GaugeWidgetField = __webpack_require__(61162);
 
 
 
-
-var SHOW_TABLE_BLOCK = "chart_show_table";
 var SCATTERPLOT_BLOCK = "chart_scatterplot";
 var LINEPLOT_BLOCK = "chart_lineplot";
 var DASHBOARD_GAUGE_BLOCK = "jacdac_dashboard_gauge";
@@ -5653,22 +5649,6 @@ var chartDSL = {
   id: "chart",
   createBlocks: function createBlocks() {
     return [{
-      kind: "block",
-      type: SHOW_TABLE_BLOCK,
-      message0: "show table %1 %2",
-      args0: [{
-        type: "input_dummy"
-      }, {
-        type: DataTableField/* default.KEY */.Z.KEY,
-        name: "table"
-      }],
-      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      colour: chartdsl_colour,
-      template: "meta",
-      inputsInline: false,
-      transformData: toolbox/* identityTransformData */.FW
-    }, {
       kind: "block",
       type: SCATTERPLOT_BLOCK,
       message0: "scatterplot x %1 y %2 %3 %4",
@@ -5745,9 +5725,6 @@ var chartDSL = {
       kind: "category",
       name: "Charts",
       contents: [{
-        kind: "block",
-        type: SHOW_TABLE_BLOCK
-      }, {
         kind: "block",
         type: SCATTERPLOT_BLOCK
       }, {
