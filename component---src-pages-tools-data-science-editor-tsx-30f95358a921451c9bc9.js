@@ -20,8 +20,8 @@ var NoSsr = __webpack_require__(42862);
 var BlockContext = __webpack_require__(85379);
 // EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
 var BlockEditor = __webpack_require__(85105);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 1 modules
-var datadsl = __webpack_require__(39535);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts
+var datadsl = __webpack_require__(73595);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/variablesdsl.ts
 var variablesdsl = __webpack_require__(86947);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/shadowdsl.ts
