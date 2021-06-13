@@ -63553,8 +63553,8 @@ var react = __webpack_require__(67294);
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
-// EXTERNAL MODULE: ./src/components/fields/MembersInput.tsx + 5 modules
-var MembersInput = __webpack_require__(49456);
+// EXTERNAL MODULE: ./src/components/fields/MembersInput.tsx + 4 modules
+var MembersInput = __webpack_require__(52150);
 // EXTERNAL MODULE: ./src/components/RegisterTrend.tsx
 var RegisterTrend = __webpack_require__(88251);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
@@ -66340,7 +66340,7 @@ function useDeviceName(device, includeShortId) {
 
 /***/ }),
 
-/***/ 49456:
+/***/ 52150:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66496,160 +66496,12 @@ var spec = __webpack_require__(13173);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/widgets/ButtonWidget.tsx
 var ButtonWidget = __webpack_require__(43746);
-// EXTERNAL MODULE: ./src/components/widgets/useWidgetTheme.ts
-var useWidgetTheme = __webpack_require__(60650);
-// EXTERNAL MODULE: ./src/components/widgets/SvgWidget.tsx
-var SvgWidget = __webpack_require__(48059);
-// EXTERNAL MODULE: ./src/components/hooks/useThrottledValue.ts
-var useThrottledValue = __webpack_require__(72901);
-// EXTERNAL MODULE: ./src/components/widgets/svgutils.ts
-var svgutils = __webpack_require__(92526);
-// EXTERNAL MODULE: ./src/components/widgets/PowerButton.tsx
-var PowerButton = __webpack_require__(2250);
-;// CONCATENATED MODULE: ./src/components/widgets/GaugeWidget.tsx
-
-
-
-
-
-
-
-function GaugeWidget(props) {
-  var value = props.value,
-      color = props.color,
-      size = props.size,
-      min = props.min,
-      max = props.max,
-      step = props.step,
-      variant = props.variant,
-      valueLabel = props.valueLabel,
-      off = props.off,
-      toggleOff = props.toggleOff,
-      onChange = props.onChange,
-      tabIndex = props.tabIndex;
-
-  var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
-      background = _useWidgetTheme.background,
-      active = _useWidgetTheme.active,
-      textProps = _useWidgetTheme.textProps;
-
-  var sliderPathRef = (0,react.useRef)();
-  var w = 120;
-  var h = 120;
-  var m = 8;
-  var roff = 30;
-  var riff = 10;
-  var sw = m << 1;
-  var cx = w >> 1;
-  var cy = h >> 1;
-  var r = (w >> 1) - m;
-  var sa = -135;
-  var ea = 135;
-
-  var _step = step || (max - min) / 10;
-
-  var displayValue = (0,useThrottledValue/* default */.Z)(value, (max - min) * 2);
-
-  var computeArc = function computeArc(v) {
-    if (variant === "fountain") {
-      var mid = (ea + sa) / 2;
-      var fraction = v / (max - min) * (ea - sa);
-      if (fraction < 0) return (0,svgutils/* describeArc */.x8)(cx, cy, r, mid + fraction, mid);else return (0,svgutils/* describeArc */.x8)(cx, cy, r, mid, mid + fraction);
-    } else {
-      var _fraction = (v - min) / (max - min);
-
-      var va = sa + _fraction * (ea - sa);
-      return (0,svgutils/* describeArc */.x8)(cx, cy, r, sa, va);
-    }
-  };
-
-  var db = (0,svgutils/* describeArc */.x8)(cx, cy, r, sa, ea);
-  var dvalue = computeArc(value);
-  var dactual = computeArc(displayValue);
-  var lineCap = "round";
-  var tvalue = valueLabel(value);
-  var clickeable = !!onChange;
-
-  var handlePointerDown = function handlePointerDown(ev) {
-    ev.preventDefault();
-    if (!ev.buttons) return;
-    var svg = sliderPathRef.current.ownerSVGElement;
-    var pos = (0,svgutils/* svgPointerPoint */.PW)(svg, ev);
-    var closest = (0,svgutils/* closestPoint */.JI)(sliderPathRef.current, _step, pos);
-    onChange(ev, min + (1 - closest) * (max - min));
-  };
-
-  var pointerStyle = clickeable && {
-    cursor: "pointer"
-  };
-  var pathProps = {
-    onPointerDown: clickeable ? handlePointerDown : undefined,
-    onPointerMove: clickeable ? handlePointerDown : undefined,
-    style: clickeable ? pointerStyle : undefined
-  };
-
-  var handleSliderChange = function handleSliderChange(ev, newValue) {
-    onChange(ev, newValue);
-  };
-
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    direction: "column"
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(SvgWidget/* default */.Z, {
-    tabIndex: tabIndex,
-    width: w,
-    height: h,
-    size: size
-  }, /*#__PURE__*/react.createElement("path", Object.assign({
-    ref: sliderPathRef,
-    strokeWidth: sw,
-    stroke: background,
-    d: db,
-    strokeLinecap: lineCap,
-    fill: "transparent"
-  }, pathProps)), !off && /*#__PURE__*/react.createElement("path", Object.assign({
-    strokeWidth: sw,
-    stroke: active,
-    strokeLinecap: lineCap,
-    d: dvalue,
-    opacity: 0.2,
-    fill: "transparent"
-  }, pathProps)), !off && /*#__PURE__*/react.createElement("path", Object.assign({
-    strokeWidth: sw,
-    stroke: active,
-    strokeLinecap: lineCap,
-    d: dactual,
-    fill: "transparent"
-  }, pathProps)), off !== undefined ? /*#__PURE__*/react.createElement(PowerButton/* default */.Z, {
-    off: off,
-    label: tvalue,
-    cx: cx,
-    cy: cy,
-    r: roff,
-    ri: riff,
-    color: color,
-    onClick: toggleOff
-  }) : /*#__PURE__*/react.createElement("text", Object.assign({}, textProps, {
-    x: cx,
-    y: cy,
-    "aria-label": tvalue
-  }), tvalue))), clickeable && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(Slider/* default */.Z, {
-    disabled: off,
-    color: color,
-    min: min,
-    max: max,
-    step: _step,
-    valueLabelDisplay: "off",
-    value: value,
-    onChange: handleSliderChange
-  })));
-}
+// EXTERNAL MODULE: ./src/components/widgets/GaugeWidget.tsx
+var GaugeWidget = __webpack_require__(10719);
 // EXTERNAL MODULE: ./src/components/widgets/useWidgetSize.ts
 var useWidgetSize = __webpack_require__(8584);
+// EXTERNAL MODULE: ./src/components/widgets/useWidgetTheme.ts
+var useWidgetTheme = __webpack_require__(60650);
 ;// CONCATENATED MODULE: ./src/components/widgets/ValueWithUnitWidget.tsx
 
 
@@ -66937,7 +66789,7 @@ function MemberInput(props) {
 
     var _max = 1;
     var step = resolution !== undefined ? resolution : 0.01;
-    if (isWidget) return /*#__PURE__*/react.createElement(GaugeWidget, {
+    if (isWidget) return /*#__PURE__*/react.createElement(GaugeWidget.default, {
       tabIndex: 0,
       label: label,
       value: value,
@@ -69733,7 +69585,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b8fbab784143504ac9bd65730abf3db8ff234d3e";
+  var sha = "8a2c2b3c2eadc6e0cfa5b385e0038175ee47289f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71649,6 +71501,166 @@ function ButtonWidget(props) {
     "aria-live": "polite",
     fill: checked ? active : controlBackground
   }, buttonProps)));
+}
+
+/***/ }),
+
+/***/ 10719:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ GaugeWidget; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _useWidgetTheme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(60650);
+/* harmony import */ var _SvgWidget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48059);
+/* harmony import */ var _hooks_useThrottledValue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(72901);
+/* harmony import */ var _svgutils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92526);
+/* harmony import */ var _PowerButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2250);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(50514);
+
+
+
+
+
+
+
+function GaugeWidget(props) {
+  var value = props.value,
+      color = props.color,
+      size = props.size,
+      min = props.min,
+      max = props.max,
+      step = props.step,
+      variant = props.variant,
+      valueLabel = props.valueLabel,
+      off = props.off,
+      toggleOff = props.toggleOff,
+      onChange = props.onChange,
+      tabIndex = props.tabIndex;
+
+  var _useWidgetTheme = (0,_useWidgetTheme__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(color),
+      background = _useWidgetTheme.background,
+      active = _useWidgetTheme.active,
+      textProps = _useWidgetTheme.textProps;
+
+  var sliderPathRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var w = 120;
+  var h = 120;
+  var m = 8;
+  var roff = 30;
+  var riff = 10;
+  var sw = m << 1;
+  var cx = w >> 1;
+  var cy = h >> 1;
+  var r = (w >> 1) - m;
+  var sa = -135;
+  var ea = 135;
+
+  var _step = step || (max - min) / 10;
+
+  var displayValue = (0,_hooks_useThrottledValue__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(value, (max - min) * 2);
+
+  var computeArc = function computeArc(v) {
+    if (variant === "fountain") {
+      var mid = (ea + sa) / 2;
+      var fraction = v / (max - min) * (ea - sa);
+      if (fraction < 0) return (0,_svgutils__WEBPACK_IMPORTED_MODULE_5__/* .describeArc */ .x8)(cx, cy, r, mid + fraction, mid);else return (0,_svgutils__WEBPACK_IMPORTED_MODULE_5__/* .describeArc */ .x8)(cx, cy, r, mid, mid + fraction);
+    } else {
+      var _fraction = (v - min) / (max - min);
+
+      var va = sa + _fraction * (ea - sa);
+      return (0,_svgutils__WEBPACK_IMPORTED_MODULE_5__/* .describeArc */ .x8)(cx, cy, r, sa, va);
+    }
+  };
+
+  var db = (0,_svgutils__WEBPACK_IMPORTED_MODULE_5__/* .describeArc */ .x8)(cx, cy, r, sa, ea);
+  var dvalue = computeArc(value);
+  var dactual = computeArc(displayValue);
+  var lineCap = "round";
+  var tvalue = valueLabel !== undefined ? valueLabel(value) : value === undefined ? "" : value + "";
+  var clickeable = !!onChange;
+
+  var handlePointerDown = function handlePointerDown(ev) {
+    ev.preventDefault();
+    if (!ev.buttons) return;
+    var svg = sliderPathRef.current.ownerSVGElement;
+    var pos = (0,_svgutils__WEBPACK_IMPORTED_MODULE_5__/* .svgPointerPoint */ .PW)(svg, ev);
+    var closest = (0,_svgutils__WEBPACK_IMPORTED_MODULE_5__/* .closestPoint */ .JI)(sliderPathRef.current, _step, pos);
+    onChange(ev, min + (1 - closest) * (max - min));
+  };
+
+  var pointerStyle = clickeable && {
+    cursor: "pointer"
+  };
+  var pathProps = {
+    onPointerDown: clickeable ? handlePointerDown : undefined,
+    onPointerMove: clickeable ? handlePointerDown : undefined,
+    style: clickeable ? pointerStyle : undefined
+  };
+
+  var handleSliderChange = function handleSliderChange(ev, newValue) {
+    onChange(ev, newValue);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    container: true,
+    direction: "column"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_SvgWidget__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    tabIndex: tabIndex,
+    width: w,
+    height: h,
+    size: size
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", Object.assign({
+    ref: sliderPathRef,
+    strokeWidth: sw,
+    stroke: background,
+    d: db,
+    strokeLinecap: lineCap,
+    fill: "transparent"
+  }, pathProps)), !off && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", Object.assign({
+    strokeWidth: sw,
+    stroke: active,
+    strokeLinecap: lineCap,
+    d: dvalue,
+    opacity: 0.2,
+    fill: "transparent"
+  }, pathProps)), !off && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", Object.assign({
+    strokeWidth: sw,
+    stroke: active,
+    strokeLinecap: lineCap,
+    d: dactual,
+    fill: "transparent"
+  }, pathProps)), off !== undefined ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PowerButton__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+    off: off,
+    label: tvalue,
+    cx: cx,
+    cy: cy,
+    r: roff,
+    ri: riff,
+    color: color,
+    onClick: toggleOff
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", Object.assign({}, textProps, {
+    x: cx,
+    y: cy,
+    "aria-label": tvalue
+  }), tvalue))), clickeable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    disabled: off,
+    color: color,
+    min: min,
+    max: max,
+    step: _step,
+    valueLabelDisplay: "off",
+    value: value,
+    onChange: handleSliderChange
+  })));
 }
 
 /***/ }),
@@ -78778,7 +78790,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.73"};
+var package_namespaceObject = {"i8":"1.13.74"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 

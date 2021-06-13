@@ -5406,7 +5406,7 @@ async function handleCommand(resp, handler) {
         handleError(resp, e);
     }
 }
-onmessage = async (event) => {
+async function handleMessage(event) {
     const { data } = event;
     const { type, payload } = data;
     //console.debug(`jdsw, onmessage ${type}`, data)
@@ -5432,6 +5432,7 @@ onmessage = async (event) => {
             }
             break;
     }
-};
+}
+self.addEventListener("message", handleMessage);
 debug(`jdsw: ready...`);
 //# sourceMappingURL=jacdac-serviceworker.js.map

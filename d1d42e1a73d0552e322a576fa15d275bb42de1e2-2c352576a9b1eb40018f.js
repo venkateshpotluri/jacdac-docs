@@ -118,7 +118,7 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 35215:
+/***/ 40344:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -127,13 +127,16 @@ exports.Z = _default;
 __webpack_require__.d(__webpack_exports__, {
   "Di": function() { return /* reexport */ arrange_arrange; },
   "C8": function() { return /* reexport */ arrange_desc; },
+  "Fp": function() { return /* reexport */ max_max; },
+  "VV": function() { return /* reexport */ min_min; },
   "JG": function() { return /* reexport */ mutate; },
   "PQ": function() { return /* reexport */ rename; },
   "Ys": function() { return /* reexport */ select_select; },
+  "Iz": function() { return /* reexport */ summarize; },
   "lu": function() { return /* reexport */ tidy_tidy; }
 });
 
-// UNUSED EXPORTS: TMath, addItems, addRows, asc, complete, contains, count, cumsum, debug, deviation, distinct, endsWith, everything, expand, fill, filter, first, fixedOrder, fullJoin, fullSeq, fullSeqDate, fullSeqDateISOString, groupBy, innerJoin, lag, last, lead, leftJoin, map, matches, max, mean, meanRate, median, min, mutateWithSummary, n, nDistinct, negate, numRange, pick, pivotLonger, pivotWider, rate, replaceNully, roll, slice, sliceHead, sliceMax, sliceMin, sliceSample, sliceTail, sort, startsWith, sum, summarize, summarizeAll, summarizeAt, summarizeIf, tally, total, totalAll, totalAt, totalIf, transmute, variance, vectorSeq, vectorSeqDate, when
+// UNUSED EXPORTS: TMath, addItems, addRows, asc, complete, contains, count, cumsum, debug, deviation, distinct, endsWith, everything, expand, fill, filter, first, fixedOrder, fullJoin, fullSeq, fullSeqDate, fullSeqDateISOString, groupBy, innerJoin, lag, last, lead, leftJoin, map, matches, mean, meanRate, median, mutateWithSummary, n, nDistinct, negate, numRange, pick, pivotLonger, pivotWider, rate, replaceNully, roll, slice, sliceHead, sliceMax, sliceMin, sliceSample, sliceTail, sort, startsWith, sum, summarizeAll, summarizeAt, summarizeIf, tally, total, totalAll, totalAt, totalIf, transmute, variance, vectorSeq, vectorSeqDate, when
 
 ;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/dist/es/tidy.js
 function tidy_tidy(items) {
@@ -162,7 +165,7 @@ function tidy_tidy(items) {
 // EXTERNAL MODULE: ./node_modules/d3-array/src/ascending.js
 var ascending = __webpack_require__(70684);
 ;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/dist/es/helpers/singleOrArray.js
-function singleOrArray(d) {
+function singleOrArray_singleOrArray(d) {
   return d == null ? [] : Array.isArray(d) ? d : [d];
 }
 
@@ -179,7 +182,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 function arrange_arrange(comparators) {
   var _arrange = function _arrange(items) {
-    var comparatorFns = singleOrArray(comparators).map(function (comp) {
+    var comparatorFns = singleOrArray_singleOrArray(comparators).map(function (comp) {
       return typeof comp === "function" ? comp : asc(comp);
     });
     return items.slice().sort(function (a, b) {
@@ -284,6 +287,139 @@ function emptyAwareComparator(aInput, bInput, desc2) {
 
 function isEmpty(value) {
   return value == null || value !== value;
+}
+
+
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/dist/es/summarize.js
+
+
+function summarize_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = summarize_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function summarize_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return summarize_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return summarize_arrayLikeToArray(o, minLen); }
+
+function summarize_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+function summarize(summarizeSpec, options) {
+  var _summarize = function _summarize(items) {
+    options = options != null ? options : {};
+    var summarized = {};
+    var keys = Object.keys(summarizeSpec);
+
+    for (var _i = 0, _keys = keys; _i < _keys.length; _i++) {
+      var key = _keys[_i];
+      summarized[key] = summarizeSpec[key](items);
+    }
+
+    if (options.rest && items.length) {
+      var objectKeys = Object.keys(items[0]);
+
+      for (var _i2 = 0, _objectKeys = objectKeys; _i2 < _objectKeys.length; _i2++) {
+        var objKey = _objectKeys[_i2];
+
+        if (keys.includes(objKey)) {
+          continue;
+        }
+
+        summarized[objKey] = options.rest(objKey)(items);
+      }
+    }
+
+    return [summarized];
+  };
+
+  return _summarize;
+}
+
+function _summarizeHelper(items, summaryFn, predicateFn, keys) {
+  if (!items.length) return [];
+  var summarized = {};
+  var keysArr;
+
+  if (keys == null) {
+    keysArr = Object.keys(items[0]);
+  } else {
+    keysArr = [];
+
+    var _iterator = summarize_createForOfIteratorHelper(singleOrArray(keys)),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var keyInput = _step.value;
+
+        if (typeof keyInput === "function") {
+          var _keysArr;
+
+          (_keysArr = keysArr).push.apply(_keysArr, _toConsumableArray(keyInput(items)));
+        } else {
+          keysArr.push(keyInput);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+
+  var _iterator2 = summarize_createForOfIteratorHelper(keysArr),
+      _step2;
+
+  try {
+    var _loop = function _loop() {
+      var key = _step2.value;
+
+      if (predicateFn) {
+        var vector = items.map(function (d) {
+          return d[key];
+        });
+
+        if (!predicateFn(vector)) {
+          return "continue";
+        }
+      }
+
+      summarized[key] = summaryFn(key)(items);
+    };
+
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var _ret = _loop();
+
+      if (_ret === "continue") continue;
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  return [summarized];
+}
+
+function summarizeAll(summaryFn) {
+  var _summarizeAll = function _summarizeAll(items) {
+    return _summarizeHelper(items, summaryFn);
+  };
+
+  return _summarizeAll;
+}
+
+function summarizeIf(predicateFn, summaryFn) {
+  var _summarizeIf = function _summarizeIf(items) {
+    return _summarizeHelper(items, summaryFn, predicateFn);
+  };
+
+  return _summarizeIf;
+}
+
+function summarizeAt(keys, summaryFn) {
+  var _summarizeAt = function _summarizeAt(items) {
+    return _summarizeHelper(items, summaryFn, void 0, keys);
+  };
+
+  return _summarizeAt;
 }
 
 
@@ -849,7 +985,7 @@ function runFlow(items, fns, addGroupKeys) {
 }
 
 function makeGrouped(items, groupKeys) {
-  var groupKeyFns = singleOrArray(groupKeys).map(function (key, i) {
+  var groupKeyFns = singleOrArray_singleOrArray(groupKeys).map(function (key, i) {
     var keyFn = typeof key === "function" ? key : function (d) {
       return d[key];
     };
@@ -1419,7 +1555,7 @@ function select_arrayLikeToArray(arr, len) { if (len == null || len > arr.length
 function processSelectors(items, selectKeys) {
   var processedSelectKeys = [];
 
-  var _iterator = select_createForOfIteratorHelper(singleOrArray(selectKeys)),
+  var _iterator = select_createForOfIteratorHelper(singleOrArray_singleOrArray(selectKeys)),
       _step;
 
   try {
@@ -1723,6 +1859,132 @@ function complete(expandKeys, replaceNullySpec) {
   };
 
   return _complete;
+}
+
+
+;// CONCATENATED MODULE: ./node_modules/d3-array/src/min.js
+function min_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = min_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function min_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return min_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return min_arrayLikeToArray(o, minLen); }
+
+function min_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function min(values, valueof) {
+  var min;
+
+  if (valueof === undefined) {
+    var _iterator = min_createForOfIteratorHelper(values),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var value = _step.value;
+
+        if (value != null && (min > value || min === undefined && value >= value)) {
+          min = value;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  } else {
+    var index = -1;
+
+    var _iterator2 = min_createForOfIteratorHelper(values),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _value = _step2.value;
+
+        if ((_value = valueof(_value, ++index, values)) != null && (min > _value || min === undefined && _value >= _value)) {
+          min = _value;
+        }
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  }
+
+  return min;
+}
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/dist/es/summary/min.js
+
+
+function min_min(key) {
+  var keyFn = typeof key === "function" ? key : function (d) {
+    return d[key];
+  };
+  return function (items) {
+    return min(items, keyFn);
+  };
+}
+
+
+;// CONCATENATED MODULE: ./node_modules/d3-array/src/max.js
+function max_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = max_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function max_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return max_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return max_arrayLikeToArray(o, minLen); }
+
+function max_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function max(values, valueof) {
+  var max;
+
+  if (valueof === undefined) {
+    var _iterator = max_createForOfIteratorHelper(values),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var value = _step.value;
+
+        if (value != null && (max < value || max === undefined && value >= value)) {
+          max = value;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  } else {
+    var index = -1;
+
+    var _iterator2 = max_createForOfIteratorHelper(values),
+        _step2;
+
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _value = _step2.value;
+
+        if ((_value = valueof(_value, ++index, values)) != null && (max < _value || max === undefined && _value >= _value)) {
+          max = _value;
+        }
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  }
+
+  return max;
+}
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/dist/es/summary/max.js
+
+
+function max_max(key) {
+  var keyFn = typeof key === "function" ? key : function (d) {
+    return d[key];
+  };
+  return function (items) {
+    return max(items, keyFn);
+  };
 }
 
 
@@ -11267,8 +11529,8 @@ var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 22 modules
-var es = __webpack_require__(35215);
+// EXTERNAL MODULE: ./node_modules/@tidyjs/tidy/dist/es/index.js + 27 modules
+var es = __webpack_require__(40344);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/data.worker.ts
 
 
@@ -11716,7 +11978,7 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
     var sourceBlock = this.getSourceBlock();
     var services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
     var data = services === null || services === void 0 ? void 0 : services.data;
-    var headers = (0,_nivo__WEBPACK_IMPORTED_MODULE_0__/* .tidyHeaders */ .P)(data);
+    var headers = (0,_nivo__WEBPACK_IMPORTED_MODULE_0__/* .tidyHeaders */ .P2)(data);
     var options = (headers === null || headers === void 0 ? void 0 : headers.map(function (h) {
       return [h, h];
     })) || [];
@@ -11845,6 +12107,116 @@ var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
 
 DataTableField.KEY = "jacdac_field_data_table";
 DataTableField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 61162:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ GaugeWidgetField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(51586);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69672);
+/* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8844);
+/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(40344);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(80838);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
+
+
+
+
+
+
+
+
+
+
+var GaugeWidget = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.resolve(/* import() */).then(__webpack_require__.bind(__webpack_require__, 10719));
+});
+
+function GaugeWidgetView() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      sourceBlock = _useContext.sourceBlock; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock),
+      data = _useBlockData.data;
+
+  if (!(data !== null && data !== void 0 && data.length)) return null;
+  var field = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("field");
+  var value = (0,_nivo__WEBPACK_IMPORTED_MODULE_5__/* .tidyFindLastValue */ .pc)(data, field);
+  if (value === undefined) return null;
+  var min = Number(sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("min"));
+  var max = Number(sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("max"));
+
+  if (min === max) {
+    min = undefined;
+    max = undefined;
+  }
+
+  if (isNaN(min)) min = (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__/* .tidy */ .lu)(data, (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__/* .summarize */ .Iz)({
+    min: (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__/* .min */ .VV)(field)
+  }))[0].min;
+  if (isNaN(max)) max = (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__/* .tidy */ .lu)(data, (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__/* .summarize */ .Iz)({
+    max: (0,_tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__/* .max */ .Fp)(field)
+  }))[0].max; // round with precision
+
+  var step = Math.ceil(Math.abs(value)) / 10;
+  var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
+  value = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .roundWithPrecision */ .JI)(value, precision); // clamp values
+
+  value = Math.min(max, Math.max(min, value));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+    container: true,
+    justify: "center",
+    alignContent: "center",
+    alignItems: "center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(GaugeWidget, {
+    value: value,
+    min: min,
+    max: max
+  }))));
+}
+
+var GaugeWidgetField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(GaugeWidgetField, _ReactInlineField);
+
+  GaugeWidgetField.fromJson = function fromJson(options) {
+    return new GaugeWidgetField(options);
+  };
+
+  var _proto = GaugeWidgetField.prototype;
+
+  _proto.createContainer = function createContainer() {
+    var c = document.createElement("div");
+    c.style.width = "20rem";
+    return c;
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function GaugeWidgetField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(GaugeWidgetView, null);
+  };
+
+  return GaugeWidgetField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+GaugeWidgetField.KEY = "jacdac_field_gauge_widget";
+GaugeWidgetField.EDITABLE = false;
 
 
 /***/ }),
@@ -12371,7 +12743,7 @@ function LineChartWidget() {
   var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
   var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
 
-  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .t)(data, [x, y], ["x", "y"]),
+  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .tL)(data, [x, y], ["x", "y"]),
       series = _tidyToNivo.series,
       labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -13144,7 +13516,7 @@ function ScatterChartWidget() {
   var x = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("x");
   var y = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("y");
 
-  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .t)(data, [x, y], ["x", "y"]),
+  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .tL)(data, [x, y], ["x", "y"]),
       series = _tidyToNivo.series,
       labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -13827,6 +14199,8 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(97884);
 /* harmony import */ var _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(12456);
 /* harmony import */ var _LinePlotField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(70659);
+/* harmony import */ var _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(61162);
+
 
 
 
@@ -13861,7 +14235,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {
@@ -13876,17 +14250,22 @@ function fieldShadows() {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "P": function() { return /* binding */ tidyHeaders; },
-/* harmony export */   "t": function() { return /* binding */ tidyToNivo; }
+/* harmony export */   "P2": function() { return /* binding */ tidyHeaders; },
+/* harmony export */   "pc": function() { return /* binding */ tidyFindLastValue; },
+/* harmony export */   "tL": function() { return /* binding */ tidyToNivo; }
 /* harmony export */ });
-/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35215);
+/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(40344);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+/* eslint-disable @typescript-eslint/ban-types */
 
- // eslint-disable-next-line @typescript-eslint/ban-types
 
 function tidyHeaders(data) {
   var headers = Object.keys((data === null || data === void 0 ? void 0 : data[0]) || {});
   return headers;
+}
+function tidyFindLastValue(data, column) {
+  if (!(data !== null && data !== void 0 && data.length)) return undefined;
+  return data[data.length - 1][column];
 }
 function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
 data, columns, toColumns) {
