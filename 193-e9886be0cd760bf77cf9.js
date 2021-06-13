@@ -101,7 +101,9 @@ function DashbaordWaterLevel(props) {
     key: "text",
     x: w >> 1,
     y: mty >> 1
-  }, textProps), tvalue))), server && hasValue && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
+  }, textProps, {
+    fill: "#fff"
+  }), tvalue))), server && hasValue && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
     item: true,
     xs: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {

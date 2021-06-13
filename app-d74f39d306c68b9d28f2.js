@@ -69585,7 +69585,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8a2c2b3c2eadc6e0cfa5b385e0038175ee47289f";
+  var sha = "1b3cb4085c2f88b641842d67640ac49fc15b071e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -77933,7 +77933,9 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
     _this.type = type;
     _this.worker = worker;
     _this.options = options;
-    _this.worker.onmessage = _this.handleMessage.bind((0,assertThisInitialized/* default */.Z)(_this));
+
+    _this.worker.addEventListener("message", _this.handleMessage.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
     return _this;
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -77959,7 +77961,10 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
     var data = ev.data;
 
     var _ref = data || {},
+        jacdac = _ref.jacdac,
         type = _ref.type;
+
+    if (!jacdac) return; // not our message
 
     switch (type) {
       case "packet":
@@ -78020,6 +78025,7 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
               // don't wait
               buf = p.toBuffer();
               this.worker.postMessage({
+                jacdac: true,
                 type: "packet",
                 payload: buf
               });
@@ -78060,6 +78066,7 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
             case 4:
               _context2.next = 6;
               return this.postMessageAsync({
+                jacdac: true,
                 type: "connect",
                 deviceId: deviceId,
                 background: background
@@ -78082,6 +78089,7 @@ var WorkerTransport = /*#__PURE__*/function (_JDTransport) {
 
   _proto.transportDisconnectAsync = function transportDisconnectAsync(background) {
     return this.postMessageAsync({
+      jacdac: true,
       type: "disconnect",
       background: background
     });

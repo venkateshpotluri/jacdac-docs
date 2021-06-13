@@ -5350,18 +5350,21 @@ class USBTransportProxy {
         io.onError = e => {
             debug$1(`jdsw: error`, e);
             postMessage({
+                jacdac: true,
                 type: "error",
                 error: {
                     message: e.message,
                     stack: e.stack,
                     name: e.name,
-                    jacdacName: e.name === JACDAC_ERROR ? e.jacdacName : undefined,
+                    jacdacName: e.name === JACDAC_ERROR
+                        ? e.jacdacName
+                        : undefined,
                 },
             });
         };
         const onJDMessage = (buf) => {
-            //debug(`jdsw: frame`, buf)
             postMessage({
+                jacdac: true,
                 type: "frame",
                 payload: buf,
             });
@@ -5408,8 +5411,9 @@ async function handleCommand(resp, handler) {
 }
 async function handleMessage(event) {
     const { data } = event;
-    const { type, payload } = data;
-    //console.debug(`jdsw, onmessage ${type}`, data)
+    const { jacdac, type, payload } = data;
+    if (!jacdac)
+        return; // someone else's message
     switch (type) {
         case "connect": {
             if (proxy)
