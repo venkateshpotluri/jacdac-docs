@@ -5635,7 +5635,10 @@ var DataColumnChooserField = __webpack_require__(12456);
 var LinePlotField = __webpack_require__(70659);
 // EXTERNAL MODULE: ./src/components/blockly/fields/GaugeWidgetField.tsx
 var GaugeWidgetField = __webpack_require__(61162);
+// EXTERNAL MODULE: ./src/components/blockly/fields/BarField.tsx
+var BarField = __webpack_require__(9950);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
+
 
 
 
@@ -5643,6 +5646,7 @@ var GaugeWidgetField = __webpack_require__(61162);
 
 var SCATTERPLOT_BLOCK = "chart_scatterplot";
 var LINEPLOT_BLOCK = "chart_lineplot";
+var BARCHART_BLOCK = "chart_bar";
 var DASHBOARD_GAUGE_BLOCK = "jacdac_dashboard_gauge";
 var chartdsl_colour = "#999";
 var chartDSL = {
@@ -5662,6 +5666,28 @@ var chartDSL = {
         type: "input_dummy"
       }, {
         type: ScatterPlotField/* default.KEY */.Z.KEY,
+        name: "plot"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: chartdsl_colour,
+      template: "meta",
+      inputsInline: false,
+      transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: BARCHART_BLOCK,
+      message0: "bar index %1 value %2 %3 %4",
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "index"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "value"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: BarField/* default.KEY */.Z.KEY,
         name: "plot"
       }],
       previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
@@ -5727,6 +5753,9 @@ var chartDSL = {
       contents: [{
         kind: "block",
         type: SCATTERPLOT_BLOCK
+      }, {
+        kind: "block",
+        type: BARCHART_BLOCK
       }, {
         kind: "block",
         type: LINEPLOT_BLOCK

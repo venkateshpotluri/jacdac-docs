@@ -2132,6 +2132,767 @@ if (false) {}
 
 /***/ }),
 
+/***/ 80480:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "q6": function() { return /* binding */ Annotation; },
+/* harmony export */   "IV": function() { return /* binding */ annotationSpecPropType; },
+/* harmony export */   "dS": function() { return /* binding */ renderAnnotationsToCanvas; },
+/* harmony export */   "O2": function() { return /* binding */ useAnnotations; }
+/* harmony export */ });
+/* unused harmony exports bindAnnotations, computeAnnotation, defaultProps, getLinkAngle, useComputedAnnotation, useComputedAnnotations */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(45697);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68630);
+/* harmony import */ var lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(63105);
+/* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57557);
+/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(31205);
+/* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9514);
+
+
+
+
+
+
+
+var annotationSpecPropType = prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
+  match: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object)]).isRequired,
+  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOf(['circle', 'rect', 'dot']).isRequired,
+  noteX: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().number), prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
+    abs: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired)
+  })]).isRequired,
+  noteY: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().number), prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
+    abs: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired)
+  })]).isRequired,
+  noteWidth: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+  noteTextOffset: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+  note: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().node), (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func)]).isRequired,
+  offset: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number)
+});
+var defaultProps = {
+  noteWidth: 120,
+  noteTextOffset: 8,
+  animate: true,
+  motionStiffness: 90,
+  motionDamping: 13
+};
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+var defaultPositionAccessor = function defaultPositionAccessor(item) {
+  return {
+    x: item.x,
+    y: item.y
+  };
+};
+
+var bindAnnotations = function bindAnnotations(_ref) {
+  var items = _ref.items,
+      annotations = _ref.annotations,
+      _ref$getPosition = _ref.getPosition,
+      getPosition = _ref$getPosition === void 0 ? defaultPositionAccessor : _ref$getPosition,
+      getDimensions = _ref.getDimensions;
+  return annotations.reduce(function (acc, annotation) {
+    lodash_filter__WEBPACK_IMPORTED_MODULE_3___default()(items, annotation.match).forEach(function (item) {
+      var position = getPosition(item);
+      var dimensions = getDimensions(item, annotation.offset || 0);
+      acc.push(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, lodash_omit__WEBPACK_IMPORTED_MODULE_4___default()(annotation, ['match', 'offset'])), position), dimensions), {}, {
+        datum: item,
+        size: annotation.size || dimensions.size
+      }));
+    });
+    return acc;
+  }, []);
+};
+
+var getLinkAngle = function getLinkAngle(sourceX, sourceY, targetX, targetY) {
+  var angle = Math.atan2(targetY - sourceY, targetX - sourceX);
+  return (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .absoluteAngleDegrees */ .bt)((0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .radiansToDegrees */ .vi)(angle));
+};
+
+var computeAnnotation = function computeAnnotation(_ref2) {
+  var type = _ref2.type,
+      x = _ref2.x,
+      y = _ref2.y,
+      size = _ref2.size,
+      width = _ref2.width,
+      height = _ref2.height,
+      noteX = _ref2.noteX,
+      noteY = _ref2.noteY,
+      _ref2$noteWidth = _ref2.noteWidth,
+      noteWidth = _ref2$noteWidth === void 0 ? defaultProps.noteWidth : _ref2$noteWidth,
+      _ref2$noteTextOffset = _ref2.noteTextOffset,
+      noteTextOffset = _ref2$noteTextOffset === void 0 ? defaultProps.noteTextOffset : _ref2$noteTextOffset;
+  var computedNoteX;
+  var computedNoteY;
+
+  if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2___default()(noteX)) {
+    if (noteX.abs !== undefined) {
+      computedNoteX = noteX.abs;
+    }
+  } else {
+    computedNoteX = x + noteX;
+  }
+
+  if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2___default()(noteY)) {
+    if (noteY.abs !== undefined) {
+      computedNoteY = noteY.abs;
+    }
+  } else {
+    computedNoteY = y + noteY;
+  }
+
+  var computedX = x;
+  var computedY = y;
+  var angle = getLinkAngle(x, y, computedNoteX, computedNoteY);
+
+  if (type === 'circle') {
+    var position = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .positionFromAngle */ .re)((0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .degreesToRadians */ .Ht)(angle), size / 2);
+    computedX += position.x;
+    computedY += position.y;
+  }
+
+  if (type === 'rect') {
+    var eighth = Math.round((angle + 90) / 45) % 8;
+
+    if (eighth === 0) {
+      computedY -= height / 2;
+    }
+
+    if (eighth === 1) {
+      computedX += width / 2;
+      computedY -= height / 2;
+    }
+
+    if (eighth === 2) {
+      computedX += width / 2;
+    }
+
+    if (eighth === 3) {
+      computedX += width / 2;
+      computedY += height / 2;
+    }
+
+    if (eighth === 4) {
+      computedY += height / 2;
+    }
+
+    if (eighth === 5) {
+      computedX -= width / 2;
+      computedY += height / 2;
+    }
+
+    if (eighth === 6) {
+      computedX -= width / 2;
+    }
+
+    if (eighth === 7) {
+      computedX -= width / 2;
+      computedY -= height / 2;
+    }
+  }
+
+  var textX = computedNoteX;
+  var textY = computedNoteY - noteTextOffset;
+  var noteLineX = computedNoteX;
+  var noteLineY = computedNoteY;
+
+  if ((angle + 90) % 360 > 180) {
+    textX -= noteWidth;
+    noteLineX -= noteWidth;
+  } else {
+    noteLineX += noteWidth;
+  }
+
+  return {
+    points: [[computedX, computedY], [computedNoteX, computedNoteY], [noteLineX, noteLineY]],
+    text: [textX, textY],
+    angle: angle + 90
+  };
+};
+
+var useAnnotations = function useAnnotations(_ref) {
+  var items = _ref.items,
+      annotations = _ref.annotations,
+      getPosition = _ref.getPosition,
+      getDimensions = _ref.getDimensions;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return bindAnnotations({
+      items: items,
+      annotations: annotations,
+      getPosition: getPosition,
+      getDimensions: getDimensions
+    });
+  }, [items, annotations, getPosition, getDimensions]);
+};
+
+var useComputedAnnotations = function useComputedAnnotations(_ref2) {
+  var annotations = _ref2.annotations,
+      containerWidth = _ref2.containerWidth,
+      containerHeight = _ref2.containerHeight;
+  return useMemo(function () {
+    return annotations.map(function (annotation) {
+      return _objectSpread2(_objectSpread2({}, annotation), {}, {
+        computed: computeAnnotation(_objectSpread2({
+          containerWidth: containerWidth,
+          containerHeight: containerHeight
+        }, annotation))
+      });
+    });
+  }, [annotations, containerWidth, containerHeight]);
+};
+
+var useComputedAnnotation = function useComputedAnnotation(_ref3) {
+  var type = _ref3.type,
+      containerWidth = _ref3.containerWidth,
+      containerHeight = _ref3.containerHeight,
+      x = _ref3.x,
+      y = _ref3.y,
+      size = _ref3.size,
+      width = _ref3.width,
+      height = _ref3.height,
+      noteX = _ref3.noteX,
+      noteY = _ref3.noteY,
+      noteWidth = _ref3.noteWidth,
+      noteTextOffset = _ref3.noteTextOffset;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return computeAnnotation({
+      type: type,
+      containerWidth: containerWidth,
+      containerHeight: containerHeight,
+      x: x,
+      y: y,
+      size: size,
+      width: width,
+      height: height,
+      noteX: noteX,
+      noteY: noteY,
+      noteWidth: noteWidth,
+      noteTextOffset: noteTextOffset
+    });
+  }, [type, containerWidth, containerHeight, x, y, size, width, height, noteX, noteY, noteWidth, noteTextOffset]);
+};
+
+var AnnotationNote = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+  var datum = _ref.datum,
+      x = _ref.x,
+      y = _ref.y,
+      note = _ref.note;
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+      animate = _useMotionConfig.animate,
+      springConfiig = _useMotionConfig.config;
+
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+    x: x,
+    y: y,
+    config: springConfiig,
+    immediate: !animate
+  });
+
+  if (typeof note === 'function') {
+    return note({
+      x: x,
+      y: y,
+      datum: datum
+    });
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.text.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.text */ .q.text, {
+    x: animatedProps.x,
+    y: animatedProps.y,
+    style: _objectSpread2(_objectSpread2({}, theme.annotations.text), {}, {
+      strokeLinejoin: 'round',
+      strokeWidth: theme.annotations.text.outlineWidth * 2,
+      stroke: theme.annotations.text.outlineColor
+    })
+  }, note), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.text */ .q.text, {
+    x: animatedProps.x,
+    y: animatedProps.y,
+    style: lodash_omit__WEBPACK_IMPORTED_MODULE_4___default()(theme.annotations.text, ['outlineWidth', 'outlineColor'])
+  }, note));
+});
+AnnotationNote.displayName = 'AnnotationNote';
+AnnotationNote.defaultProps = {};
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _toArray(arr) {
+  return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest();
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+var AnnotationLink = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+  var isOutline = _ref.isOutline,
+      props = _objectWithoutProperties(_ref, ["isOutline"]);
+
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+
+  var _props$points = _toArray(props.points),
+      point = _props$points[0],
+      points = _props$points.slice(1);
+
+  var path = points.reduce(function (acc, _ref2) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        x = _ref3[0],
+        y = _ref3[1];
+
+    return "".concat(acc, " L").concat(x, ",").concat(y);
+  }, "M".concat(point[0], ",").concat(point[1]));
+  var animatedPath = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useAnimatedPath */ .NS)(path);
+
+  if (isOutline && theme.annotations.link.outlineWidth <= 0) {
+    return null;
+  }
+
+  var style = _objectSpread2({}, theme.annotations.link);
+
+  if (isOutline) {
+    style.strokeLinecap = 'square';
+    style.strokeWidth = theme.annotations.link.strokeWidth + theme.annotations.link.outlineWidth * 2;
+    style.stroke = theme.annotations.link.outlineColor;
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.path */ .q.path, {
+    fill: "none",
+    d: animatedPath,
+    style: style
+  });
+});
+AnnotationLink.displayName = 'AnnotationLink';
+AnnotationLink.defaultProps = {
+  isOutline: false
+};
+var CircleAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+  var x = _ref.x,
+      y = _ref.y,
+      size = _ref.size;
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+      animate = _useMotionConfig.animate,
+      springConfig = _useMotionConfig.config;
+
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+    x: x,
+    y: y,
+    radius: size / 2,
+    config: springConfig,
+    immediate: !animate
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+    cx: animatedProps.x,
+    cy: animatedProps.y,
+    r: animatedProps.radius,
+    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
+      fill: 'none',
+      strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
+      stroke: theme.annotations.outline.outlineColor
+    })
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+    cx: animatedProps.x,
+    cy: animatedProps.y,
+    r: animatedProps.radius,
+    style: theme.annotations.outline
+  }));
+});
+CircleAnnotationOutline.displayName = 'CircleAnnotationOutline';
+var DotAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+  var x = _ref.x,
+      y = _ref.y,
+      size = _ref.size;
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+      animate = _useMotionConfig.animate,
+      springConfig = _useMotionConfig.config;
+
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+    x: x,
+    y: y,
+    radius: size / 2,
+    config: springConfig,
+    immediate: !animate
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+    cx: animatedProps.x,
+    cy: animatedProps.y,
+    r: animatedProps.radius,
+    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
+      fill: 'none',
+      strokeWidth: theme.annotations.outline.outlineWidth * 2,
+      stroke: theme.annotations.outline.outlineColor
+    })
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+    cx: animatedProps.x,
+    cy: animatedProps.y,
+    r: animatedProps.radius,
+    style: theme.annotations.symbol
+  }));
+});
+DotAnnotationOutline.displayName = 'DotAnnotationOutline';
+DotAnnotationOutline.defaultProps = {
+  size: 4
+};
+var RectAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+  var x = _ref.x,
+      y = _ref.y,
+      width = _ref.width,
+      height = _ref.height;
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+      animate = _useMotionConfig.animate,
+      springConfig = _useMotionConfig.config;
+
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+    x: x - width / 2,
+    y: y - height / 2,
+    width: width,
+    height: height,
+    config: springConfig,
+    immediate: !animate
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.rect */ .q.rect, {
+    x: animatedProps.x,
+    y: animatedProps.y,
+    width: animatedProps.width,
+    height: animatedProps.height,
+    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
+      fill: 'none',
+      strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
+      stroke: theme.annotations.outline.outlineColor
+    })
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.rect */ .q.rect, {
+    x: animatedProps.x,
+    y: animatedProps.y,
+    width: animatedProps.width,
+    height: animatedProps.height,
+    style: theme.annotations.outline
+  }));
+});
+RectAnnotationOutline.displayName = 'RectAnnotationOutline';
+var Annotation = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+  var datum = _ref.datum,
+      type = _ref.type,
+      containerWidth = _ref.containerWidth,
+      containerHeight = _ref.containerHeight,
+      x = _ref.x,
+      y = _ref.y,
+      size = _ref.size,
+      width = _ref.width,
+      height = _ref.height,
+      noteX = _ref.noteX,
+      noteY = _ref.noteY,
+      noteWidth = _ref.noteWidth,
+      noteTextOffset = _ref.noteTextOffset,
+      note = _ref.note;
+  var computed = useComputedAnnotation({
+    type: type,
+    containerWidth: containerWidth,
+    containerHeight: containerHeight,
+    x: x,
+    y: y,
+    size: size,
+    width: width,
+    height: height,
+    noteX: noteX,
+    noteY: noteY,
+    noteWidth: noteWidth,
+    noteTextOffset: noteTextOffset
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationLink, {
+    points: computed.points,
+    isOutline: true
+  }), type === 'circle' && react__WEBPACK_IMPORTED_MODULE_0__.createElement(CircleAnnotationOutline, {
+    x: x,
+    y: y,
+    size: size
+  }), type === 'dot' && react__WEBPACK_IMPORTED_MODULE_0__.createElement(DotAnnotationOutline, {
+    x: x,
+    y: y,
+    size: size
+  }), type === 'rect' && react__WEBPACK_IMPORTED_MODULE_0__.createElement(RectAnnotationOutline, {
+    x: x,
+    y: y,
+    width: width,
+    height: height
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationLink, {
+    points: computed.points
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationNote, {
+    datum: datum,
+    x: computed.text[0],
+    y: computed.text[1],
+    note: note
+  }));
+});
+Annotation.displayName = 'Annotation';
+Annotation.defaultProps = {
+  noteWidth: defaultProps.noteWidth,
+  noteTextOffset: defaultProps.noteTextOffset
+};
+
+var drawPoints = function drawPoints(ctx, points) {
+  points.forEach(function (_ref, index) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        x = _ref2[0],
+        y = _ref2[1];
+
+    if (index === 0) {
+      ctx.moveTo(x, y);
+    } else {
+      ctx.lineTo(x, y);
+    }
+  });
+};
+
+var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
+  var annotations = _ref3.annotations,
+      theme = _ref3.theme;
+  if (annotations.length === 0) return;
+  ctx.save();
+  annotations.forEach(function (annotation) {
+    if (theme.annotations.link.outlineWidth > 0) {
+      ctx.lineCap = 'square';
+      ctx.strokeStyle = theme.annotations.link.outlineColor;
+      ctx.lineWidth = theme.annotations.link.strokeWidth + theme.annotations.link.outlineWidth * 2;
+      ctx.beginPath();
+      drawPoints(ctx, annotation.computed.points);
+      ctx.stroke();
+      ctx.lineCap = 'butt';
+    }
+
+    if (annotation.type === 'circle' && theme.annotations.outline.outlineWidth > 0) {
+      ctx.strokeStyle = theme.annotations.outline.outlineColor;
+      ctx.lineWidth = theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2;
+      ctx.beginPath();
+      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+
+    if (annotation.type === 'dot' && theme.annotations.symbol.outlineWidth > 0) {
+      ctx.strokeStyle = theme.annotations.symbol.outlineColor;
+      ctx.lineWidth = theme.annotations.symbol.outlineWidth * 2;
+      ctx.beginPath();
+      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+
+    if (annotation.type === 'rect' && theme.annotations.outline.outlineWidth > 0) {
+      ctx.strokeStyle = theme.annotations.outline.outlineColor;
+      ctx.lineWidth = theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2;
+      ctx.beginPath();
+      ctx.rect(annotation.x - annotation.width / 2, annotation.y - annotation.height / 2, annotation.width, annotation.height);
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = theme.annotations.link.stroke;
+    ctx.lineWidth = theme.annotations.link.strokeWidth;
+    ctx.beginPath();
+    drawPoints(ctx, annotation.computed.points);
+    ctx.stroke();
+
+    if (annotation.type === 'circle') {
+      ctx.strokeStyle = theme.annotations.outline.stroke;
+      ctx.lineWidth = theme.annotations.outline.strokeWidth;
+      ctx.beginPath();
+      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+
+    if (annotation.type === 'dot') {
+      ctx.fillStyle = theme.annotations.symbol.fill;
+      ctx.beginPath();
+      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+
+    if (annotation.type === 'rect') {
+      ctx.strokeStyle = theme.annotations.outline.stroke;
+      ctx.lineWidth = theme.annotations.outline.strokeWidth;
+      ctx.beginPath();
+      ctx.rect(annotation.x - annotation.width / 2, annotation.y - annotation.height / 2, annotation.width, annotation.height);
+      ctx.stroke();
+    }
+
+    if (typeof annotation.note === 'function') {
+      annotation.note(ctx, {
+        datum: annotation.datum,
+        x: annotation.computed.text[0],
+        y: annotation.computed.text[1],
+        theme: theme
+      });
+    } else {
+      ctx.font = "".concat(theme.annotations.text.fontSize, "px ").concat(theme.annotations.text.fontFamily);
+      ctx.fillStyle = theme.annotations.text.fill;
+      ctx.strokeStyle = theme.annotations.text.outlineColor;
+      ctx.lineWidth = theme.annotations.text.outlineWidth * 2;
+
+      if (theme.annotations.text.outlineWidth > 0) {
+        ctx.lineJoin = 'round';
+        ctx.strokeText(annotation.note, annotation.computed.text[0], annotation.computed.text[1]);
+        ctx.lineJoin = 'miter';
+      }
+
+      ctx.fillText(annotation.note, annotation.computed.text[0], annotation.computed.text[1]);
+    }
+  });
+  ctx.restore();
+};
+
+
+
+/***/ }),
+
 /***/ 33048:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -2152,8 +2913,8 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
 var web = __webpack_require__(9514);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 34 modules
-var nivo_core_es = __webpack_require__(24715);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(31205);
 // EXTERNAL MODULE: ./node_modules/d3-time/src/interval.js
 var interval = __webpack_require__(94666);
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/millisecond.js
@@ -3141,12 +3902,16 @@ var renderGridLinesToCanvas = function renderGridLinesToCanvas(ctx, _ref3) {
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  "t": function() { return /* binding */ colorPropertyAccessorPropType; },
+  "B3": function() { return /* binding */ getInheritedColorGenerator; },
+  "Kc": function() { return /* binding */ getOrdinalColorScale; },
+  "UO": function() { return /* binding */ inheritedColorPropType; },
   "qi": function() { return /* binding */ ordinalColorsPropType; },
   "Bf": function() { return /* binding */ useInheritedColor; },
   "U": function() { return /* binding */ useOrdinalColorScale; }
 });
 
-// UNUSED EXPORTS: categoricalColorSchemeIds, categoricalColorSchemes, colorInterpolatorIds, colorInterpolators, colorPropertyAccessorPropType, colorSchemeIds, colorSchemes, cyclicalColorInterpolators, divergingColorInterpolators, divergingColorSchemeIds, divergingColorSchemes, getInheritedColorGenerator, getInterpolatedColor, getOrdinalColorScale, inheritedColorPropType, interpolateColor, isCategoricalColorScheme, isDivergingColorScheme, isSequentialColorScheme, sequentialColorInterpolators, sequentialColorSchemeIds, sequentialColorSchemes
+// UNUSED EXPORTS: categoricalColorSchemeIds, categoricalColorSchemes, colorInterpolatorIds, colorInterpolators, colorSchemeIds, colorSchemes, cyclicalColorInterpolators, divergingColorInterpolators, divergingColorSchemeIds, divergingColorSchemes, getInterpolatedColor, interpolateColor, isCategoricalColorScheme, isDivergingColorScheme, isSequentialColorScheme, sequentialColorInterpolators, sequentialColorSchemeIds, sequentialColorSchemes
 
 ;// CONCATENATED MODULE: ./node_modules/d3-scale-chromatic/src/sequential-multi/turbo.js
 /* harmony default export */ function turbo(t) {
@@ -3778,7 +4543,7 @@ var inheritedColorPropType = prop_types_default().oneOfType([(prop_types_default
 
 /***/ }),
 
-/***/ 24715:
+/***/ 31205:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3787,6 +4552,7 @@ var inheritedColorPropType = prop_types_default().oneOfType([(prop_types_default
 __webpack_require__.d(__webpack_exports__, {
   "TL": function() { return /* binding */ CartesianMarkers$1; },
   "F_": function() { return /* binding */ DotsItem$1; },
+  "Qf": function() { return /* binding */ LegacyContainer; },
   "d": function() { return /* binding */ ResponsiveWrapper; },
   "tM": function() { return /* binding */ SvgWrapper; },
   "bt": function() { return /* binding */ absoluteAngleDegrees; },
@@ -3796,10 +4562,12 @@ __webpack_require__.d(__webpack_exports__, {
   "_U": function() { return /* binding */ defsPropTypes; },
   "Ht": function() { return /* binding */ degreesToRadians; },
   "ji": function() { return /* binding */ getLabelGenerator; },
+  "Xc": function() { return /* binding */ getPropertyAccessor; },
   "P6": function() { return /* binding */ getRelativeCursor; },
   "zn": function() { return /* binding */ isCursorInRect; },
   "VZ": function() { return /* binding */ lineCurvePropType; },
   "w$": function() { return /* binding */ motionPropTypes; },
+  "ZT": function() { return /* binding */ nivo_core_es_noop; },
   "re": function() { return /* binding */ positionFromAngle; },
   "vi": function() { return /* binding */ radiansToDegrees; },
   "a6": function() { return /* binding */ textPropsByEngine; },
@@ -3809,10 +4577,13 @@ __webpack_require__.d(__webpack_exports__, {
   "tf": function() { return /* binding */ useMotionConfig; },
   "Fg": function() { return /* binding */ useTheme; },
   "O_": function() { return /* binding */ useValueFormatter; },
-  "li": function() { return /* binding */ withContainer; }
+  "li": function() { return /* binding */ withContainer; },
+  "U6": function() { return /* binding */ withDimensions; },
+  "Gt": function() { return /* binding */ withMotion; },
+  "Zz": function() { return /* binding */ withTheme; }
 });
 
-// UNUSED EXPORTS: CartesianMarkersItem, Container, Defs, DotsItemDefaultProps, LegacyContainer, LinearGradient, MotionConfigProvider, PatternDots, PatternLines, PatternSquares, TWO_PI, ThemeProvider, absoluteAngleRadians, alignBox, annotationsPropType, areaCurvePropKeys, areaCurvePropType, axisThemePropType, blendModes, boxAlignments, closedCurvePropKeys, closedCurvePropType, colorInterpolatorIds, colorInterpolators, colorSchemeIds, crosshairPropType, curvePropKeys, curvePropMapping, curvePropType, defaultAnimate, defaultCategoricalColors, defaultColorRange, defaultMargin, defaultMotionDamping, defaultMotionStiffness, defaultTheme, dotsThemePropType, extendDefaultTheme, getAngle, getColorScale, getDistance, getPolarLabelProps, getPropertyAccessor, getValueFormatter, gradientTypes, gridThemePropType, guessQuantizeColorScale, isMatchingDef, labelsThemePropType, legendsThemePropType, lineCurvePropKeys, linearGradientDef, marginPropType, markersThemePropType, midAngle, motionConfigContext, motionDefaultProps, nivoCategoricalColors, noop, patternDotsDef, patternLinesDef, patternSquaresDef, patternTypes, quantizeColorScalePropType, quantizeColorScales, quantizeColorScalesKeys, stackOffsetFromProp, stackOffsetPropKeys, stackOffsetPropMapping, stackOffsetPropType, stackOrderFromProp, stackOrderPropKeys, stackOrderPropMapping, stackOrderPropType, themeContext, themePropType, treeMapTileFromProp, treeMapTilePropKeys, treeMapTilePropMapping, treeMapTilePropType, useCurveInterpolation, usePartialTheme, usePropertyAccessor, withCurve, withDimensions, withHierarchy, withMotion, withTheme
+// UNUSED EXPORTS: CartesianMarkersItem, Container, Defs, DotsItemDefaultProps, LinearGradient, MotionConfigProvider, PatternDots, PatternLines, PatternSquares, TWO_PI, ThemeProvider, absoluteAngleRadians, alignBox, annotationsPropType, areaCurvePropKeys, areaCurvePropType, axisThemePropType, blendModes, boxAlignments, closedCurvePropKeys, closedCurvePropType, colorInterpolatorIds, colorInterpolators, colorSchemeIds, crosshairPropType, curvePropKeys, curvePropMapping, curvePropType, defaultAnimate, defaultCategoricalColors, defaultColorRange, defaultMargin, defaultMotionDamping, defaultMotionStiffness, defaultTheme, dotsThemePropType, extendDefaultTheme, getAngle, getColorScale, getDistance, getPolarLabelProps, getValueFormatter, gradientTypes, gridThemePropType, guessQuantizeColorScale, isMatchingDef, labelsThemePropType, legendsThemePropType, lineCurvePropKeys, linearGradientDef, marginPropType, markersThemePropType, midAngle, motionConfigContext, motionDefaultProps, nivoCategoricalColors, patternDotsDef, patternLinesDef, patternSquaresDef, patternTypes, quantizeColorScalePropType, quantizeColorScales, quantizeColorScalesKeys, stackOffsetFromProp, stackOffsetPropKeys, stackOffsetPropMapping, stackOffsetPropType, stackOrderFromProp, stackOrderPropKeys, stackOrderPropMapping, stackOrderPropType, themeContext, themePropType, treeMapTileFromProp, treeMapTilePropKeys, treeMapTilePropMapping, treeMapTilePropType, useCurveInterpolation, usePartialTheme, usePropertyAccessor, withCurve, withHierarchy
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
@@ -3825,8 +4596,8 @@ var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 var merge = __webpack_require__(82492);
 var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
 // EXTERNAL MODULE: ./node_modules/lodash/get.js
-var lodash_get = __webpack_require__(27361);
-var get_default = /*#__PURE__*/__webpack_require__.n(lodash_get);
+var get = __webpack_require__(27361);
+var get_default = /*#__PURE__*/__webpack_require__.n(get);
 // EXTERNAL MODULE: ./node_modules/lodash/set.js
 var set = __webpack_require__(36968);
 var set_default = /*#__PURE__*/__webpack_require__.n(set);
@@ -5021,22 +5792,13 @@ function stepBefore(context) {
 function stepAfter(context) {
   return new Step(context, 1);
 }
-;// CONCATENATED MODULE: ./node_modules/d3-shape/src/order/none.js
-/* harmony default export */ function none(series) {
-  var n = series.length,
-      o = new Array(n);
-
-  while (--n >= 0) {
-    o[n] = n;
-  }
-
-  return o;
-}
+// EXTERNAL MODULE: ./node_modules/d3-shape/src/order/none.js
+var none = __webpack_require__(4775);
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/order/ascending.js
 
 /* harmony default export */ function ascending(series) {
   var sums = series.map(sum);
-  return none(series).sort(function (a, b) {
+  return (0,none/* default */.Z)(series).sort(function (a, b) {
     return sums[a] - sums[b];
   });
 }
@@ -5061,7 +5823,7 @@ function sum(series) {
 
 /* harmony default export */ function appearance(series) {
   var peaks = series.map(peak);
-  return none(series).sort(function (a, b) {
+  return (0,none/* default */.Z)(series).sort(function (a, b) {
     return peaks[a] - peaks[b];
   });
 }
@@ -5110,20 +5872,10 @@ function peak(series) {
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/order/reverse.js
 
 /* harmony default export */ function reverse(series) {
-  return none(series).reverse();
+  return (0,none/* default */.Z)(series).reverse();
 }
-;// CONCATENATED MODULE: ./node_modules/d3-shape/src/offset/none.js
-/* harmony default export */ function offset_none(series, order) {
-  if (!((n = series.length) > 1)) return;
-
-  for (var i = 1, j, s0, s1 = series[order[0]], n, m = s1.length; i < n; ++i) {
-    s0 = s1, s1 = series[order[i]];
-
-    for (j = 0; j < m; ++j) {
-      s1[j][1] += s1[j][0] = isNaN(s0[j][1]) ? s0[j][0] : s0[j][1];
-    }
-  }
-}
+// EXTERNAL MODULE: ./node_modules/d3-shape/src/offset/none.js
+var offset_none = __webpack_require__(91662);
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/offset/expand.js
 
 /* harmony default export */ function expand(series, order) {
@@ -5139,23 +5891,7 @@ function peak(series) {
     }
   }
 
-  offset_none(series, order);
-}
-;// CONCATENATED MODULE: ./node_modules/d3-shape/src/offset/diverging.js
-/* harmony default export */ function diverging(series, order) {
-  if (!((n = series.length) > 0)) return;
-
-  for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
-    for (yp = yn = 0, i = 0; i < n; ++i) {
-      if ((dy = (d = series[order[i]][j])[1] - d[0]) > 0) {
-        d[0] = yp, d[1] = yp += dy;
-      } else if (dy < 0) {
-        d[1] = yn, d[0] = yn += dy;
-      } else {
-        d[0] = 0, d[1] = dy;
-      }
-    }
-  }
+  (0,offset_none/* default */.Z)(series, order);
 }
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/offset/silhouette.js
 
@@ -5170,7 +5906,7 @@ function peak(series) {
     s0[j][1] += s0[j][0] = -y / 2;
   }
 
-  offset_none(series, order);
+  (0,offset_none/* default */.Z)(series, order);
 }
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/offset/wiggle.js
 
@@ -5199,10 +5935,12 @@ function peak(series) {
   }
 
   s0[j - 1][1] += s0[j - 1][0] = y;
-  offset_none(series, order);
+  (0,offset_none/* default */.Z)(series, order);
 }
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/curve/linear.js
 var linear = __webpack_require__(42431);
+// EXTERNAL MODULE: ./node_modules/d3-shape/src/offset/diverging.js
+var diverging = __webpack_require__(69279);
 ;// CONCATENATED MODULE: ./node_modules/d3-hierarchy/src/treemap/binary.js
 /* harmony default export */ function binary(parent, x0, y0, x1, y1) {
   var nodes = parent.children,
@@ -5397,248 +6135,41 @@ function squarifyRatio(ratio, parent, x0, y0, x1, y1) {
 var defaultLocale = __webpack_require__(61270);
 // EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 1 modules
 var src_defaultLocale = __webpack_require__(38987);
-// EXTERNAL MODULE: ./.cache/react-lifecycles-compat.js
-var react_lifecycles_compat = __webpack_require__(11507);
-;// CONCATENATED MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
+// EXTERNAL MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
+var nivo_recompose_es = __webpack_require__(21566);
+// EXTERNAL MODULE: ./node_modules/lodash/isEqual.js
+var isEqual = __webpack_require__(18446);
+var isEqual_default = /*#__PURE__*/__webpack_require__.n(isEqual);
+// EXTERNAL MODULE: ./node_modules/lodash/isPlainObject.js
+var isPlainObject = __webpack_require__(68630);
+var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
+// EXTERNAL MODULE: ./node_modules/lodash/pick.js
+var pick = __webpack_require__(78718);
+var pick_default = /*#__PURE__*/__webpack_require__.n(pick);
+;// CONCATENATED MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js
 
 
 
-var getDisplayName = function getDisplayName(component) {
-  if (typeof component === 'string') {
-    return component;
-  }
 
-  if (!component) {
-    return undefined;
-  }
 
-  return component.displayName || component.name || 'Component';
-};
 
-var setStatic = function setStatic(key, value) {
-  return function (BaseComponent) {
-    BaseComponent[key] = value;
-    return BaseComponent;
-  };
-};
 
-var setDisplayName = function setDisplayName(displayName) {
-  return setStatic('displayName', displayName);
-};
 
-var nivo_recompose_es_hasOwnProperty = Object.prototype.hasOwnProperty;
 
-function is(x, y) {
-  if (x === y) {
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  }
 
-  return x !== x && y !== y;
-}
 
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
 
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
 
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
 
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
 
-  for (var i = 0; i < keysA.length; i++) {
-    if (!nivo_recompose_es_hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
 
-  return true;
-}
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
 
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
 
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
 
-  return _setPrototypeOf(o, p);
-}
 
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
 
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-
-  try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _createSuper(Derived) {
-  return function () {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (_isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
-
-var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
-  return "".concat(hocName, "(").concat(getDisplayName(BaseComponent), ")");
-};
-
-var shouldUpdate = function shouldUpdate(test) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-
-    var ShouldUpdate = function (_Component) {
-      _inherits(ShouldUpdate, _Component);
-
-      var _super = _createSuper(ShouldUpdate);
-
-      function ShouldUpdate() {
-        _classCallCheck(this, ShouldUpdate);
-
-        return _super.apply(this, arguments);
-      }
-
-      _createClass(ShouldUpdate, [{
-        key: "shouldComponentUpdate",
-        value: function shouldComponentUpdate(nextProps) {
-          return test(this.props, nextProps);
-        }
-      }, {
-        key: "render",
-        value: function render() {
-          return factory(this.props);
-        }
-      }]);
-
-      return ShouldUpdate;
-    }(Component);
-
-    if (false) {}
-
-    return ShouldUpdate;
-  };
-};
-
-var pure = function pure(component) {
-  var hoc = shouldUpdate(function (props, nextProps) {
-    return !shallowEqual(props, nextProps);
-  });
-
-  if (false) {}
-
-  return hoc(component);
-};
-
-var nivo_recompose_es_compose = function compose() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.reduce(function (a, b) {
-    return function () {
-      return a(b.apply(void 0, arguments));
-    };
-  }, function (arg) {
-    return arg;
-  });
-};
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -5689,262 +6220,6 @@ function _objectSpread2(target) {
   return target;
 }
 
-var pick = function pick(obj, keys) {
-  var result = {};
-
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-
-    if (obj.hasOwnProperty(key)) {
-      result[key] = obj[key];
-    }
-  }
-
-  return result;
-};
-
-var nivo_recompose_es_withPropsOnChange = function withPropsOnChange(shouldMapOrKeys, propsMapper) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-    var shouldMap = typeof shouldMapOrKeys === 'function' ? shouldMapOrKeys : function (props, nextProps) {
-      return !shallowEqual(pick(props, shouldMapOrKeys), pick(nextProps, shouldMapOrKeys));
-    };
-
-    var WithPropsOnChange = function (_Component) {
-      _inherits(WithPropsOnChange, _Component);
-
-      var _super = _createSuper(WithPropsOnChange);
-
-      function WithPropsOnChange() {
-        var _this;
-
-        _classCallCheck(this, WithPropsOnChange);
-
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this = _super.call.apply(_super, [this].concat(args));
-        _this.state = {
-          computedProps: propsMapper(_this.props),
-          prevProps: _this.props
-        };
-        return _this;
-      }
-
-      _createClass(WithPropsOnChange, [{
-        key: "render",
-        value: function render() {
-          return factory(_objectSpread2(_objectSpread2({}, this.props), this.state.computedProps));
-        }
-      }], [{
-        key: "getDerivedStateFromProps",
-        value: function getDerivedStateFromProps(nextProps, prevState) {
-          if (shouldMap(prevState.prevProps, nextProps)) {
-            return {
-              computedProps: propsMapper(nextProps),
-              prevProps: nextProps
-            };
-          }
-
-          return {
-            prevProps: nextProps
-          };
-        }
-      }]);
-
-      return WithPropsOnChange;
-    }(Component);
-
-    polyfill(WithPropsOnChange);
-
-    if (false) {}
-
-    return WithPropsOnChange;
-  };
-};
-
-var nivo_recompose_es_defaultProps = function defaultProps(props) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-
-    var DefaultProps = function DefaultProps(ownerProps) {
-      return factory(ownerProps);
-    };
-
-    DefaultProps.defaultProps = props;
-
-    if (false) {}
-
-    return DefaultProps;
-  };
-};
-
-var mapProps = function mapProps(propsMapper) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-
-    var MapProps = function MapProps(props) {
-      return factory(propsMapper(props));
-    };
-
-    if (false) {}
-
-    return MapProps;
-  };
-};
-
-var nivo_recompose_es_withProps = function withProps(createProps) {
-  var hoc = mapProps(function (props) {
-    return _objectSpread2(_objectSpread2({}, props), typeof createProps === 'function' ? createProps(props) : createProps);
-  });
-
-  if (false) {}
-
-  return hoc;
-};
-
-var nivo_recompose_es_setPropTypes = function setPropTypes(propTypes) {
-  return setStatic('propTypes', propTypes);
-};
-
-var withState = function withState(stateName, stateUpdaterName, initialState) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-
-    var WithState = function (_Component) {
-      _inherits(WithState, _Component);
-
-      var _super = _createSuper(WithState);
-
-      function WithState() {
-        var _this;
-
-        _classCallCheck(this, WithState);
-
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this = _super.call.apply(_super, [this].concat(args));
-        _this.state = {
-          stateValue: typeof initialState === 'function' ? initialState(_this.props) : initialState
-        };
-
-        _this.updateStateValue = function (updateFn, callback) {
-          return _this.setState(function (_ref) {
-            var stateValue = _ref.stateValue;
-            return {
-              stateValue: typeof updateFn === 'function' ? updateFn(stateValue) : updateFn
-            };
-          }, callback);
-        };
-
-        return _this;
-      }
-
-      _createClass(WithState, [{
-        key: "render",
-        value: function render() {
-          var _objectSpread2$1;
-
-          return factory(_objectSpread2(_objectSpread2({}, this.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, stateName, this.state.stateValue), _defineProperty(_objectSpread2$1, stateUpdaterName, this.updateStateValue), _objectSpread2$1)));
-        }
-      }]);
-
-      return WithState;
-    }(Component);
-
-    if (false) {}
-
-    return WithState;
-  };
-};
-
-
-// EXTERNAL MODULE: ./node_modules/lodash/isEqual.js
-var lodash_isEqual = __webpack_require__(18446);
-var isEqual_default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual);
-// EXTERNAL MODULE: ./node_modules/lodash/isPlainObject.js
-var isPlainObject = __webpack_require__(68630);
-var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
-// EXTERNAL MODULE: ./node_modules/lodash/pick.js
-var lodash_pick = __webpack_require__(78718);
-var pick_default = /*#__PURE__*/__webpack_require__.n(lodash_pick);
-;// CONCATENATED MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function nivo_core_es_defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function nivo_core_es_ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function nivo_core_es_objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      nivo_core_es_ownKeys(Object(source), true).forEach(function (key) {
-        nivo_core_es_defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      nivo_core_es_ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
 var textProps = {
   fill: (prop_types_default()).string,
   fontSize: (prop_types_default()).number,
@@ -5964,10 +6239,10 @@ var axisThemePropType = prop_types_default().shape({
       strokeWidth: (prop_types_default()).number.isRequired,
       strokeDasharray: (prop_types_default()).string
     }).isRequired,
-    text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
+    text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
   }).isRequired,
   legend: prop_types_default().shape({
-    text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
+    text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
   }).isRequired
 });
 var gridThemePropType = prop_types_default().shape({
@@ -5978,16 +6253,16 @@ var gridThemePropType = prop_types_default().shape({
   }).isRequired
 });
 var legendsThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
 });
 var labelsThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
 });
 var dotsThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
 });
 var markersThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
 });
 var crosshairPropType = prop_types_default().shape({
   line: prop_types_default().shape({
@@ -5997,7 +6272,7 @@ var crosshairPropType = prop_types_default().shape({
   }).isRequired
 });
 var annotationsPropType = prop_types_default().shape({
-  text: prop_types_default().shape(nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, textProps), {}, {
+  text: prop_types_default().shape(_objectSpread2(_objectSpread2({}, textProps), {}, {
     outlineWidth: (prop_types_default()).number.isRequired,
     outlineColor: (prop_types_default()).string.isRequired
   })).isRequired,
@@ -6464,7 +6739,7 @@ var stackOrderPropMapping = {
   ascending: ascending,
   descending: descending,
   insideOut: insideOut,
-  none: none,
+  none: none/* default */.Z,
   reverse: reverse
 };
 var stackOrderPropKeys = Object.keys(stackOrderPropMapping);
@@ -6476,8 +6751,8 @@ var stackOrderFromProp = function stackOrderFromProp(prop) {
 
 var stackOffsetPropMapping = {
   expand: expand,
-  diverging: diverging,
-  none: offset_none,
+  diverging: diverging/* default */.Z,
+  none: offset_none/* default */.Z,
   silhouette: silhouette,
   wiggle: wiggle
 };
@@ -6533,7 +6808,7 @@ var defaultMargin = {
 var useDimensions = function useDimensions(width, height) {
   var partialMargin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   return (0,react.useMemo)(function () {
-    var margin = nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, defaultMargin), partialMargin);
+    var margin = _objectSpread2(_objectSpread2({}, defaultMargin), partialMargin);
 
     return {
       margin: margin,
@@ -7357,39 +7632,39 @@ var LegacyContainer = function LegacyContainer(_ref) {
       motionStiffness = _ref.motionStiffness,
       motionDamping = _ref.motionDamping,
       motionConfig = _ref.motionConfig;
-  var container = useRef(null);
+  var container = (0,react.useRef)(null);
 
-  var _useTooltipHandlers = useTooltipHandlers(container),
+  var _useTooltipHandlers = (0,nivo_tooltip_es/* useTooltipHandlers */._0)(container),
       tooltipActions = _useTooltipHandlers.actions,
       tooltipState = _useTooltipHandlers.state;
 
-  var showTooltip = useCallback(function (content, event) {
+  var showTooltip = (0,react.useCallback)(function (content, event) {
     return tooltipActions.showTooltipFromEvent(content, event);
   }, [tooltipActions.showTooltipFromEvent]);
-  var handlers = useMemo(function () {
+  var handlers = (0,react.useMemo)(function () {
     return {
       showTooltip: isInteractive ? showTooltip : nivo_core_es_noop,
       hideTooltip: isInteractive ? tooltipActions.hideTooltip : nivo_core_es_noop
     };
   }, [tooltipActions.hideTooltip, isInteractive, showTooltip]);
-  return React.createElement(ThemeProvider, {
+  return react.createElement(ThemeProvider, {
     theme: theme
-  }, React.createElement(MotionConfigProvider, {
+  }, react.createElement(MotionConfigProvider, {
     animate: animate,
     stiffness: motionStiffness,
     damping: motionDamping,
     config: motionConfig
-  }, React.createElement(TooltipActionsContext.Provider, {
+  }, react.createElement(nivo_tooltip_es/* TooltipActionsContext.Provider */.Zb.Provider, {
     value: tooltipActions
-  }, React.createElement(TooltipStateContext.Provider, {
+  }, react.createElement(nivo_tooltip_es/* TooltipStateContext.Provider */.L8.Provider, {
     value: tooltipState
-  }, React.createElement(ConditionalWrapper, {
+  }, react.createElement(ConditionalWrapper, {
     condition: renderWrapper,
-    wrapper: React.createElement("div", {
+    wrapper: react.createElement("div", {
       style: containerStyle$1,
       ref: container
     })
-  }, children(handlers), isInteractive && React.createElement(Tooltip, null))))));
+  }, children(handlers), isInteractive && react.createElement(nivo_tooltip_es/* Tooltip */.u, null))))));
 };
 
 var ResponsiveWrapper = function ResponsiveWrapper(_ref) {
@@ -7437,7 +7712,7 @@ var LinearGradient = function LinearGradient(_ref) {
 
 var linearGradientDef = function linearGradientDef(id, colors) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return nivo_core_es_objectSpread2({
+  return _objectSpread2({
     id: id,
     type: 'linearGradient',
     colors: colors
@@ -7494,7 +7769,7 @@ PatternDots.defaultProps = {
 
 var patternDotsDef = function patternDotsDef(id) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return nivo_core_es_objectSpread2({
+  return _objectSpread2({
     id: id,
     type: 'patternDots'
   }, options);
@@ -7661,7 +7936,7 @@ PatternLines.defaultProps = {
 
 var patternLinesDef = function patternLinesDef(id) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return nivo_core_es_objectSpread2({
+  return _objectSpread2({
     id: id,
     type: 'patternLines'
   }, options);
@@ -7715,7 +7990,7 @@ PatternSquares.defaultProps = {
 
 var patternSquaresDef = function patternSquaresDef(id) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return nivo_core_es_objectSpread2({
+  return _objectSpread2({
     id: id,
     type: 'patternSquares'
   }, options);
@@ -7763,7 +8038,7 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-var defsMapping = nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, gradientTypes), patternTypes);
+var defsMapping = _objectSpread2(_objectSpread2({}, gradientTypes), patternTypes);
 
 var Defs = function Defs(_ref) {
   var definitions = _ref.defs;
@@ -7772,7 +8047,7 @@ var Defs = function Defs(_ref) {
     var type = _ref2.type,
         def = _objectWithoutProperties(_ref2, ["type"]);
 
-    if (defsMapping[type]) return react.createElement(defsMapping[type], nivo_core_es_objectSpread2({
+    if (defsMapping[type]) return react.createElement(defsMapping[type], _objectSpread2({
       key: def.id
     }, def));
     return null;
@@ -8159,19 +8434,19 @@ var withCurve = function withCurve() {
       destKey = _ref$destKey === void 0 ? 'curveInterpolator' : _ref$destKey;
 
   return withProps(function (props) {
-    return nivo_core_es_defineProperty({}, destKey, curveFromProp(props[srcKey]));
+    return _defineProperty({}, destKey, curveFromProp(props[srcKey]));
   });
 };
 
 var withDimensions = function withDimensions() {
-  return compose(defaultProps({
+  return (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* defaultProps */.lG)({
     margin: defaultMargin
-  }), setPropTypes({
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
+  }), (0,nivo_recompose_es/* setPropTypes */.BH)({
+    width: (prop_types_default()).number.isRequired,
+    height: (prop_types_default()).number.isRequired,
     margin: marginPropType
-  }), withPropsOnChange(function (props, nextProps) {
-    return props.width !== nextProps.width || props.height !== nextProps.height || !isEqual(props.margin, nextProps.margin);
+  }), (0,nivo_recompose_es/* withPropsOnChange */.x3)(function (props, nextProps) {
+    return props.width !== nextProps.width || props.height !== nextProps.height || !isEqual_default()(props.margin, nextProps.margin);
   }, function (props) {
     var margin = Object.assign({}, defaultMargin, props.margin);
     return {
@@ -8201,8 +8476,8 @@ var getLabelGenerator = function getLabelGenerator(_label, labelFormat) {
 };
 
 var getPropertyAccessor = function getPropertyAccessor(accessor) {
-  return isFunction(accessor) ? accessor : function (d) {
-    return get(d, accessor);
+  return isFunction_default()(accessor) ? accessor : function (d) {
+    return get_default()(d, accessor);
   };
 };
 
@@ -8225,13 +8500,13 @@ var withHierarchy = function withHierarchy() {
       _ref$valueDefault = _ref.valueDefault,
       valueDefault = _ref$valueDefault === void 0 ? 'value' : _ref$valueDefault;
 
-  return compose(defaultProps(nivo_core_es_defineProperty({}, valueKey, valueDefault)), setPropTypes((_setPropTypes = {}, nivo_core_es_defineProperty(_setPropTypes, srcKey, PropTypes.object.isRequired), nivo_core_es_defineProperty(_setPropTypes, valueKey, PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired), _setPropTypes)), withPropsOnChange([srcKey, valueKey], function (props) {
-    return nivo_core_es_defineProperty({}, destKey, hierarchy(props[srcKey]).sum(getPropertyAccessor(props[valueKey])));
+  return compose(defaultProps(_defineProperty({}, valueKey, valueDefault)), setPropTypes((_setPropTypes = {}, _defineProperty(_setPropTypes, srcKey, PropTypes.object.isRequired), _defineProperty(_setPropTypes, valueKey, PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired), _setPropTypes)), withPropsOnChange([srcKey, valueKey], function (props) {
+    return _defineProperty({}, destKey, hierarchy(props[srcKey]).sum(getPropertyAccessor(props[valueKey])));
   }));
 };
 
 var withMotion = function withMotion() {
-  return compose(setPropTypes(motionPropTypes), defaultProps({
+  return (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* setPropTypes */.BH)(motionPropTypes), (0,nivo_recompose_es/* defaultProps */.lG)({
     animate: defaultAnimate,
     motionDamping: defaultMotionDamping,
     motionStiffness: defaultMotionStiffness
@@ -8245,18 +8520,18 @@ var withTheme = function withTheme() {
       _ref$destKey = _ref.destKey,
       destKey = _ref$destKey === void 0 ? 'theme' : _ref$destKey;
 
-  return compose(setPropTypes(nivo_core_es_defineProperty({}, srcKey, PropTypes.object)), withPropsOnChange([srcKey], function (props) {
-    return nivo_core_es_defineProperty({}, destKey, extendDefaultTheme(defaultTheme, props[srcKey]));
+  return (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* setPropTypes */.BH)(_defineProperty({}, srcKey, (prop_types_default()).object)), (0,nivo_recompose_es/* withPropsOnChange */.x3)([srcKey], function (props) {
+    return _defineProperty({}, destKey, extendDefaultTheme(defaultTheme, props[srcKey]));
   }));
 };
 
-function nivo_core_es_classCallCheck(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
 
-function nivo_core_es_defineProperties(target, props) {
+function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -8266,22 +8541,22 @@ function nivo_core_es_defineProperties(target, props) {
   }
 }
 
-function nivo_core_es_createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) nivo_core_es_defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) nivo_core_es_defineProperties(Constructor, staticProps);
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
 }
 
-function nivo_core_es_setPrototypeOf(o, p) {
-  nivo_core_es_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
     o.__proto__ = p;
     return o;
   };
 
-  return nivo_core_es_setPrototypeOf(o, p);
+  return _setPrototypeOf(o, p);
 }
 
-function nivo_core_es_inherits(subClass, superClass) {
+function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
@@ -8293,17 +8568,17 @@ function nivo_core_es_inherits(subClass, superClass) {
       configurable: true
     }
   });
-  if (superClass) nivo_core_es_setPrototypeOf(subClass, superClass);
+  if (superClass) _setPrototypeOf(subClass, superClass);
 }
 
-function nivo_core_es_getPrototypeOf(o) {
-  nivo_core_es_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
-  return nivo_core_es_getPrototypeOf(o);
+  return _getPrototypeOf(o);
 }
 
-function nivo_core_es_isNativeReflectConstruct() {
+function _isNativeReflectConstruct() {
   if (typeof Reflect === "undefined" || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
@@ -8316,23 +8591,23 @@ function nivo_core_es_isNativeReflectConstruct() {
   }
 }
 
-function nivo_core_es_typeof(obj) {
+function _typeof(obj) {
   "@babel/helpers - typeof";
 
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    nivo_core_es_typeof = function _typeof(obj) {
+    _typeof = function _typeof(obj) {
       return typeof obj;
     };
   } else {
-    nivo_core_es_typeof = function _typeof(obj) {
+    _typeof = function _typeof(obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
   }
 
-  return nivo_core_es_typeof(obj);
+  return _typeof(obj);
 }
 
-function nivo_core_es_assertThisInitialized(self) {
+function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
@@ -8340,44 +8615,44 @@ function nivo_core_es_assertThisInitialized(self) {
   return self;
 }
 
-function nivo_core_es_possibleConstructorReturn(self, call) {
-  if (call && (nivo_core_es_typeof(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
   }
 
-  return nivo_core_es_assertThisInitialized(self);
+  return _assertThisInitialized(self);
 }
 
-function nivo_core_es_createSuper(Derived) {
+function _createSuper(Derived) {
   return function () {
-    var Super = nivo_core_es_getPrototypeOf(Derived),
+    var Super = _getPrototypeOf(Derived),
         result;
 
-    if (nivo_core_es_isNativeReflectConstruct()) {
-      var NewTarget = nivo_core_es_getPrototypeOf(this).constructor;
+    if (_isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
 
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
       result = Super.apply(this, arguments);
     }
 
-    return nivo_core_es_possibleConstructorReturn(this, result);
+    return _possibleConstructorReturn(this, result);
   };
 }
 
 var withContainer = function withContainer(WrappedComponent) {
   return function (_Component) {
-    nivo_core_es_inherits(_class, _Component);
+    _inherits(_class, _Component);
 
-    var _super = nivo_core_es_createSuper(_class);
+    var _super = _createSuper(_class);
 
     function _class() {
-      nivo_core_es_classCallCheck(this, _class);
+      _classCallCheck(this, _class);
 
       return _super.apply(this, arguments);
     }
 
-    nivo_core_es_createClass(_class, [{
+    _createClass(_class, [{
       key: "render",
       value: function render() {
         var _this$props = this.props,
@@ -8554,7 +8829,7 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
                 set_default()(node, targetKey, "url(#".concat(inheritedId, ")"));
 
                 if (!generatedIds[inheritedId]) {
-                  boundDefs.push(nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, def), {}, {
+                  boundDefs.push(_objectSpread2(_objectSpread2({}, def), {}, {
                     id: inheritedId,
                     background: background,
                     color: color
@@ -8575,11 +8850,11 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
 
                 var _inheritedId = id;
 
-                var inheritedDef = nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, def), {}, {
+                var inheritedDef = _objectSpread2(_objectSpread2({}, def), {}, {
                   colors: def.colors.map(function (colorStop, i) {
                     if (colorStop.color !== 'inherit') return colorStop;
                     _inheritedId = "".concat(_inheritedId, ".").concat(i, ".").concat(_nodeColor);
-                    return nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, colorStop), {}, {
+                    return _objectSpread2(_objectSpread2({}, colorStop), {}, {
                       color: colorStop.color === 'inherit' ? _nodeColor : colorStop.color
                     });
                   })
@@ -8628,7 +8903,7 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
 /* harmony export */ });
 /* unused harmony exports LegendSvg, LegendSvgItem, useQuantizeColorScaleLegendData */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(24715);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31205);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45697);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 
@@ -9480,18 +9755,500 @@ var LegendPropShape = {
 
 /***/ }),
 
-/***/ 59774:
+/***/ 21566:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "qC": function() { return /* binding */ compose; },
+/* harmony export */   "lG": function() { return /* binding */ defaultProps; },
+/* harmony export */   "Le": function() { return /* binding */ pure; },
+/* harmony export */   "hC": function() { return /* binding */ setDisplayName; },
+/* harmony export */   "BH": function() { return /* binding */ setPropTypes; },
+/* harmony export */   "x3": function() { return /* binding */ withPropsOnChange; }
+/* harmony export */ });
+/* unused harmony exports getDisplayName, setStatic, shallowEqual, shouldUpdate, withProps, withState, wrapDisplayName */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11507);
+
+
+
+var getDisplayName = function getDisplayName(component) {
+  if (typeof component === 'string') {
+    return component;
+  }
+
+  if (!component) {
+    return undefined;
+  }
+
+  return component.displayName || component.name || 'Component';
+};
+
+var setStatic = function setStatic(key, value) {
+  return function (BaseComponent) {
+    BaseComponent[key] = value;
+    return BaseComponent;
+  };
+};
+
+var setDisplayName = function setDisplayName(displayName) {
+  return setStatic('displayName', displayName);
+};
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+function is(x, y) {
+  if (x === y) {
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  }
+
+  return x !== x && y !== y;
+}
+
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _createSuper(Derived) {
+  return function () {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (_isNativeReflectConstruct()) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
+  return "".concat(hocName, "(").concat(getDisplayName(BaseComponent), ")");
+};
+
+var shouldUpdate = function shouldUpdate(test) {
+  return function (BaseComponent) {
+    var factory = (0,react__WEBPACK_IMPORTED_MODULE_0__.createFactory)(BaseComponent);
+
+    var ShouldUpdate = function (_Component) {
+      _inherits(ShouldUpdate, _Component);
+
+      var _super = _createSuper(ShouldUpdate);
+
+      function ShouldUpdate() {
+        _classCallCheck(this, ShouldUpdate);
+
+        return _super.apply(this, arguments);
+      }
+
+      _createClass(ShouldUpdate, [{
+        key: "shouldComponentUpdate",
+        value: function shouldComponentUpdate(nextProps) {
+          return test(this.props, nextProps);
+        }
+      }, {
+        key: "render",
+        value: function render() {
+          return factory(this.props);
+        }
+      }]);
+
+      return ShouldUpdate;
+    }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+    if (false) {}
+
+    return ShouldUpdate;
+  };
+};
+
+var pure = function pure(component) {
+  var hoc = shouldUpdate(function (props, nextProps) {
+    return !shallowEqual(props, nextProps);
+  });
+
+  if (false) {}
+
+  return hoc(component);
+};
+
+var compose = function compose() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  return funcs.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(void 0, arguments));
+    };
+  }, function (arg) {
+    return arg;
+  });
+};
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+var pick = function pick(obj, keys) {
+  var result = {};
+
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+
+    if (obj.hasOwnProperty(key)) {
+      result[key] = obj[key];
+    }
+  }
+
+  return result;
+};
+
+var withPropsOnChange = function withPropsOnChange(shouldMapOrKeys, propsMapper) {
+  return function (BaseComponent) {
+    var factory = (0,react__WEBPACK_IMPORTED_MODULE_0__.createFactory)(BaseComponent);
+    var shouldMap = typeof shouldMapOrKeys === 'function' ? shouldMapOrKeys : function (props, nextProps) {
+      return !shallowEqual(pick(props, shouldMapOrKeys), pick(nextProps, shouldMapOrKeys));
+    };
+
+    var WithPropsOnChange = function (_Component) {
+      _inherits(WithPropsOnChange, _Component);
+
+      var _super = _createSuper(WithPropsOnChange);
+
+      function WithPropsOnChange() {
+        var _this;
+
+        _classCallCheck(this, WithPropsOnChange);
+
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        _this = _super.call.apply(_super, [this].concat(args));
+        _this.state = {
+          computedProps: propsMapper(_this.props),
+          prevProps: _this.props
+        };
+        return _this;
+      }
+
+      _createClass(WithPropsOnChange, [{
+        key: "render",
+        value: function render() {
+          return factory(_objectSpread2(_objectSpread2({}, this.props), this.state.computedProps));
+        }
+      }], [{
+        key: "getDerivedStateFromProps",
+        value: function getDerivedStateFromProps(nextProps, prevState) {
+          if (shouldMap(prevState.prevProps, nextProps)) {
+            return {
+              computedProps: propsMapper(nextProps),
+              prevProps: nextProps
+            };
+          }
+
+          return {
+            prevProps: nextProps
+          };
+        }
+      }]);
+
+      return WithPropsOnChange;
+    }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+    (0,react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__/* .polyfill */ .O)(WithPropsOnChange);
+
+    if (false) {}
+
+    return WithPropsOnChange;
+  };
+};
+
+var defaultProps = function defaultProps(props) {
+  return function (BaseComponent) {
+    var factory = (0,react__WEBPACK_IMPORTED_MODULE_0__.createFactory)(BaseComponent);
+
+    var DefaultProps = function DefaultProps(ownerProps) {
+      return factory(ownerProps);
+    };
+
+    DefaultProps.defaultProps = props;
+
+    if (false) {}
+
+    return DefaultProps;
+  };
+};
+
+var mapProps = function mapProps(propsMapper) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+
+    var MapProps = function MapProps(props) {
+      return factory(propsMapper(props));
+    };
+
+    if (false) {}
+
+    return MapProps;
+  };
+};
+
+var withProps = function withProps(createProps) {
+  var hoc = mapProps(function (props) {
+    return _objectSpread2(_objectSpread2({}, props), typeof createProps === 'function' ? createProps(props) : createProps);
+  });
+
+  if (false) {}
+
+  return hoc;
+};
+
+var setPropTypes = function setPropTypes(propTypes) {
+  return setStatic('propTypes', propTypes);
+};
+
+var withState = function withState(stateName, stateUpdaterName, initialState) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+
+    var WithState = function (_Component) {
+      _inherits(WithState, _Component);
+
+      var _super = _createSuper(WithState);
+
+      function WithState() {
+        var _this;
+
+        _classCallCheck(this, WithState);
+
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        _this = _super.call.apply(_super, [this].concat(args));
+        _this.state = {
+          stateValue: typeof initialState === 'function' ? initialState(_this.props) : initialState
+        };
+
+        _this.updateStateValue = function (updateFn, callback) {
+          return _this.setState(function (_ref) {
+            var stateValue = _ref.stateValue;
+            return {
+              stateValue: typeof updateFn === 'function' ? updateFn(stateValue) : updateFn
+            };
+          }, callback);
+        };
+
+        return _this;
+      }
+
+      _createClass(WithState, [{
+        key: "render",
+        value: function render() {
+          var _objectSpread2$1;
+
+          return factory(_objectSpread2(_objectSpread2({}, this.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, stateName, this.state.stateValue), _defineProperty(_objectSpread2$1, stateUpdaterName, this.updateStateValue), _objectSpread2$1)));
+        }
+      }]);
+
+      return WithState;
+    }(Component);
+
+    if (false) {}
+
+    return WithState;
+  };
+};
+
+
+
+/***/ }),
+
+/***/ 30982:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  "bo": function() { return /* binding */ bandScalePropTypes; },
+  "ZN": function() { return /* binding */ computeScale; },
   "Gi": function() { return /* binding */ computeXYScalesForSeries; },
   "t4": function() { return /* binding */ scalePropType; }
 });
 
-// UNUSED EXPORTS: TIME_PRECISION_DAY, TIME_PRECISION_HOUR, TIME_PRECISION_MILLISECOND, TIME_PRECISION_MINUTE, TIME_PRECISION_MONTH, TIME_PRECISION_SECOND, TIME_PRECISION_YEAR, bandScalePropTypes, compareDateValues, compareValues, computeAxisSlices, computeScale, computeXSlices, computeYSlices, createDateNormalizer, createPrecisionMethod, generateSeriesAxis, generateSeriesXY, getOtherAxis, linearScale, linearScalePropTypes, logScale, logScalePropTypes, pointScale, pointScalePropTypes, precisionCutOffs, precisionCutOffsByType, stackAxis, stackX, stackY, symLogScalePropTypes, symlogScale, timePrecisions, timeScale, timeScalePropTypes
+// UNUSED EXPORTS: TIME_PRECISION_DAY, TIME_PRECISION_HOUR, TIME_PRECISION_MILLISECOND, TIME_PRECISION_MINUTE, TIME_PRECISION_MONTH, TIME_PRECISION_SECOND, TIME_PRECISION_YEAR, compareDateValues, compareValues, computeAxisSlices, computeXSlices, computeYSlices, createDateNormalizer, createPrecisionMethod, generateSeriesAxis, generateSeriesXY, getOtherAxis, linearScale, linearScalePropTypes, logScale, logScalePropTypes, pointScale, pointScalePropTypes, precisionCutOffs, precisionCutOffsByType, stackAxis, stackX, stackY, symLogScalePropTypes, symlogScale, timePrecisions, timeScale, timeScalePropTypes
 
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(45697);
@@ -9711,123 +10468,6 @@ function symlog() {
 }
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
 var slicedToArray = __webpack_require__(15892);
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/range.js
-/* harmony default export */ function range(start, stop, step) {
-  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
-  var i = -1,
-      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
-      range = new Array(n);
-
-  while (++i < n) {
-    range[i] = start + i * step;
-  }
-
-  return range;
-}
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/ordinal.js
-var ordinal = __webpack_require__(34096);
-;// CONCATENATED MODULE: ./node_modules/d3-scale/src/band.js
-
-
-
-
-function band() {
-  var scale = (0,ordinal/* default */.Z)().unknown(undefined),
-      domain = scale.domain,
-      ordinalRange = scale.range,
-      r0 = 0,
-      r1 = 1,
-      step,
-      bandwidth,
-      round = false,
-      paddingInner = 0,
-      paddingOuter = 0,
-      align = 0.5;
-  delete scale.unknown;
-
-  function rescale() {
-    var n = domain().length,
-        reverse = r1 < r0,
-        start = reverse ? r1 : r0,
-        stop = reverse ? r0 : r1;
-    step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
-    if (round) step = Math.floor(step);
-    start += (stop - start - step * (n - paddingInner)) * align;
-    bandwidth = step * (1 - paddingInner);
-    if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
-    var values = range(n).map(function (i) {
-      return start + step * i;
-    });
-    return ordinalRange(reverse ? values.reverse() : values);
-  }
-
-  scale.domain = function (_) {
-    return arguments.length ? (domain(_), rescale()) : domain();
-  };
-
-  scale.range = function (_) {
-    var _ref, _ref2;
-
-    return arguments.length ? ((_ref = _, _ref2 = (0,slicedToArray/* default */.Z)(_ref, 2), r0 = _ref2[0], r1 = _ref2[1], _ref), r0 = +r0, r1 = +r1, rescale()) : [r0, r1];
-  };
-
-  scale.rangeRound = function (_) {
-    var _ref3, _ref4;
-
-    return (_ref3 = _, _ref4 = (0,slicedToArray/* default */.Z)(_ref3, 2), r0 = _ref4[0], r1 = _ref4[1], _ref3), r0 = +r0, r1 = +r1, round = true, rescale();
-  };
-
-  scale.bandwidth = function () {
-    return bandwidth;
-  };
-
-  scale.step = function () {
-    return step;
-  };
-
-  scale.round = function (_) {
-    return arguments.length ? (round = !!_, rescale()) : round;
-  };
-
-  scale.padding = function (_) {
-    return arguments.length ? (paddingInner = Math.min(1, paddingOuter = +_), rescale()) : paddingInner;
-  };
-
-  scale.paddingInner = function (_) {
-    return arguments.length ? (paddingInner = Math.min(1, _), rescale()) : paddingInner;
-  };
-
-  scale.paddingOuter = function (_) {
-    return arguments.length ? (paddingOuter = +_, rescale()) : paddingOuter;
-  };
-
-  scale.align = function (_) {
-    return arguments.length ? (align = Math.max(0, Math.min(1, _)), rescale()) : align;
-  };
-
-  scale.copy = function () {
-    return band(domain(), [r0, r1]).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
-  };
-
-  return init/* initRange.apply */.o.apply(rescale(), arguments);
-}
-
-function pointish(scale) {
-  var copy = scale.copy;
-  scale.padding = scale.paddingOuter;
-  delete scale.paddingInner;
-  delete scale.paddingOuter;
-
-  scale.copy = function () {
-    return pointish(copy());
-  };
-
-  return scale;
-}
-
-function point() {
-  return pointish(band.apply(null, arguments).paddingInner(1));
-}
 // EXTERNAL MODULE: ./node_modules/d3-array/src/bisector.js
 var bisector = __webpack_require__(99579);
 ;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-time/src/duration.js
@@ -11047,6 +11687,8 @@ function time() {
 function utcTime() {
   return init/* initRange.apply */.o.apply(calendar(utcTicks, utcTickInterval, src_utcYear, src_utcMonth, utcSunday, src_utcDay, src_utcHour, src_utcMinute, src_second, utcFormat).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]), arguments);
 }
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/band.js + 1 modules
+var band = __webpack_require__(87286);
 // EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 1 modules
 var src_defaultLocale = __webpack_require__(38987);
 // EXTERNAL MODULE: ./node_modules/lodash/uniq.js
@@ -11214,7 +11856,7 @@ var pointScale = function pointScale(_ref, xy, width, height) {
   var axis = _ref.axis;
   var values = xy[axis];
   var size = axis === 'x' ? width : height;
-  var scale = point().range([0, size]).domain(values.all);
+  var scale = (0,band/* point */.x)().range([0, size]).domain(values.all);
   scale.type = 'point';
   return scale;
 };
@@ -11638,13 +12280,16 @@ var scalePropType = prop_types_default().oneOfType([prop_types_default().shape(l
 /* harmony export */   "YS": function() { return /* binding */ Crosshair; },
 /* harmony export */   "zI": function() { return /* binding */ TableTooltip; },
 /* harmony export */   "u": function() { return /* binding */ Tooltip; },
+/* harmony export */   "Zb": function() { return /* binding */ TooltipActionsContext; },
 /* harmony export */   "pn": function() { return /* binding */ TooltipProvider; },
-/* harmony export */   "lL": function() { return /* binding */ useTooltip; }
+/* harmony export */   "L8": function() { return /* binding */ TooltipStateContext; },
+/* harmony export */   "lL": function() { return /* binding */ useTooltip; },
+/* harmony export */   "_0": function() { return /* binding */ useTooltipHandlers; }
 /* harmony export */ });
-/* unused harmony exports TooltipActionsContext, TooltipStateContext, TooltipWrapper, hiddenTooltipState, isVisibleTooltipState, useTooltipHandlers, useTooltipState */
+/* unused harmony exports TooltipWrapper, hiddenTooltipState, isVisibleTooltipState, useTooltipState */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9514);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24715);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(31205);
 
 
 
@@ -12221,8 +12866,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 34 modules
-var nivo_core_es = __webpack_require__(24715);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(31205);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(32738);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
@@ -21790,6 +22435,141 @@ FormatSpecifier.prototype.toString = function () {
 
 /***/ }),
 
+/***/ 87286:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ band; },
+  "x": function() { return /* binding */ point; }
+});
+
+// EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
+var slicedToArray = __webpack_require__(15892);
+;// CONCATENATED MODULE: ./node_modules/d3-array/src/range.js
+/* harmony default export */ function range(start, stop, step) {
+  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+  var i = -1,
+      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+      range = new Array(n);
+
+  while (++i < n) {
+    range[i] = start + i * step;
+  }
+
+  return range;
+}
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/init.js
+var init = __webpack_require__(39632);
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/ordinal.js
+var ordinal = __webpack_require__(34096);
+;// CONCATENATED MODULE: ./node_modules/d3-scale/src/band.js
+
+
+
+
+function band() {
+  var scale = (0,ordinal/* default */.Z)().unknown(undefined),
+      domain = scale.domain,
+      ordinalRange = scale.range,
+      r0 = 0,
+      r1 = 1,
+      step,
+      bandwidth,
+      round = false,
+      paddingInner = 0,
+      paddingOuter = 0,
+      align = 0.5;
+  delete scale.unknown;
+
+  function rescale() {
+    var n = domain().length,
+        reverse = r1 < r0,
+        start = reverse ? r1 : r0,
+        stop = reverse ? r0 : r1;
+    step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
+    if (round) step = Math.floor(step);
+    start += (stop - start - step * (n - paddingInner)) * align;
+    bandwidth = step * (1 - paddingInner);
+    if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
+    var values = range(n).map(function (i) {
+      return start + step * i;
+    });
+    return ordinalRange(reverse ? values.reverse() : values);
+  }
+
+  scale.domain = function (_) {
+    return arguments.length ? (domain(_), rescale()) : domain();
+  };
+
+  scale.range = function (_) {
+    var _ref, _ref2;
+
+    return arguments.length ? ((_ref = _, _ref2 = (0,slicedToArray/* default */.Z)(_ref, 2), r0 = _ref2[0], r1 = _ref2[1], _ref), r0 = +r0, r1 = +r1, rescale()) : [r0, r1];
+  };
+
+  scale.rangeRound = function (_) {
+    var _ref3, _ref4;
+
+    return (_ref3 = _, _ref4 = (0,slicedToArray/* default */.Z)(_ref3, 2), r0 = _ref4[0], r1 = _ref4[1], _ref3), r0 = +r0, r1 = +r1, round = true, rescale();
+  };
+
+  scale.bandwidth = function () {
+    return bandwidth;
+  };
+
+  scale.step = function () {
+    return step;
+  };
+
+  scale.round = function (_) {
+    return arguments.length ? (round = !!_, rescale()) : round;
+  };
+
+  scale.padding = function (_) {
+    return arguments.length ? (paddingInner = Math.min(1, paddingOuter = +_), rescale()) : paddingInner;
+  };
+
+  scale.paddingInner = function (_) {
+    return arguments.length ? (paddingInner = Math.min(1, _), rescale()) : paddingInner;
+  };
+
+  scale.paddingOuter = function (_) {
+    return arguments.length ? (paddingOuter = +_, rescale()) : paddingOuter;
+  };
+
+  scale.align = function (_) {
+    return arguments.length ? (align = Math.max(0, Math.min(1, _)), rescale()) : align;
+  };
+
+  scale.copy = function () {
+    return band(domain(), [r0, r1]).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
+  };
+
+  return init/* initRange.apply */.o.apply(rescale(), arguments);
+}
+
+function pointish(scale) {
+  var copy = scale.copy;
+  scale.padding = scale.paddingOuter;
+  delete scale.paddingInner;
+  delete scale.paddingOuter;
+
+  scale.copy = function () {
+    return pointish(copy());
+  };
+
+  return scale;
+}
+
+function point() {
+  return pointish(band.apply(null, arguments).paddingInner(1));
+}
+
+/***/ }),
+
 /***/ 99737:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -22458,6 +23238,21 @@ function ordinal() {
 
 /***/ }),
 
+/***/ 21235:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(x) {
+  return function constant() {
+    return x;
+  };
+}
+
+/***/ }),
+
 /***/ 42431:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -22505,6 +23300,72 @@ Linear.prototype = {
 };
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(context) {
   return new Linear(context);
+}
+
+/***/ }),
+
+/***/ 69279:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(series, order) {
+  if (!((n = series.length) > 0)) return;
+
+  for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
+    for (yp = yn = 0, i = 0; i < n; ++i) {
+      if ((dy = (d = series[order[i]][j])[1] - d[0]) > 0) {
+        d[0] = yp, d[1] = yp += dy;
+      } else if (dy < 0) {
+        d[1] = yn, d[0] = yn += dy;
+      } else {
+        d[0] = 0, d[1] = dy;
+      }
+    }
+  }
+}
+
+/***/ }),
+
+/***/ 91662:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(series, order) {
+  if (!((n = series.length) > 1)) return;
+
+  for (var i = 1, j, s0, s1 = series[order[0]], n, m = s1.length; i < n; ++i) {
+    s0 = s1, s1 = series[order[i]];
+
+    for (j = 0; j < m; ++j) {
+      s1[j][1] += s1[j][0] = isNaN(s0[j][1]) ? s0[j][0] : s0[j][1];
+    }
+  }
+}
+
+/***/ }),
+
+/***/ 4775:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(series) {
+  var n = series.length,
+      o = new Array(n);
+
+  while (--n >= 0) {
+    o[n] = n;
+  }
+
+  return o;
 }
 
 /***/ }),
@@ -59669,6 +60530,34 @@ module.exports = baseEach;
 
 /***/ }),
 
+/***/ 80760:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseEach = __webpack_require__(89881);
+
+/**
+ * The base implementation of `_.filter` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ */
+function baseFilter(collection, predicate) {
+  var result = [];
+  baseEach(collection, function(value, index, collection) {
+    if (predicate(value, index, collection)) {
+      result.push(value);
+    }
+  });
+  return result;
+}
+
+module.exports = baseFilter;
+
+
+/***/ }),
+
 /***/ 41848:
 /***/ (function(module) {
 
@@ -61002,6 +61891,44 @@ module.exports = baseSetToString;
 
 /***/ }),
 
+/***/ 14259:
+/***/ (function(module) {
+
+/**
+ * The base implementation of `_.slice` without an iteratee call guard.
+ *
+ * @private
+ * @param {Array} array The array to slice.
+ * @param {number} [start=0] The start position.
+ * @param {number} [end=array.length] The end position.
+ * @returns {Array} Returns the slice of `array`.
+ */
+function baseSlice(array, start, end) {
+  var index = -1,
+      length = array.length;
+
+  if (start < 0) {
+    start = -start > length ? 0 : (length + start);
+  }
+  end = end > length ? length : end;
+  if (end < 0) {
+    end += length;
+  }
+  length = start > end ? 0 : ((end - start) >>> 0);
+  start >>>= 0;
+
+  var result = Array(length);
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+  return result;
+}
+
+module.exports = baseSlice;
+
+
+/***/ }),
+
 /***/ 71131:
 /***/ (function(module) {
 
@@ -61197,6 +62124,33 @@ function baseUniq(array, iteratee, comparator) {
 }
 
 module.exports = baseUniq;
+
+
+/***/ }),
+
+/***/ 57406:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var castPath = __webpack_require__(71811),
+    last = __webpack_require__(10928),
+    parent = __webpack_require__(40292),
+    toKey = __webpack_require__(40327);
+
+/**
+ * The base implementation of `_.unset`.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {Array|string} path The property path to unset.
+ * @returns {boolean} Returns `true` if the property is deleted, else `false`.
+ */
+function baseUnset(object, path) {
+  path = castPath(path, object);
+  object = parent(object, path);
+  return object == null || delete object[toKey(last(path))];
+}
+
+module.exports = baseUnset;
 
 
 /***/ }),
@@ -61800,6 +62754,29 @@ var createSet = !(Set && (1 / setToArray(new Set([,-0]))[1]) == INFINITY) ? noop
 };
 
 module.exports = createSet;
+
+
+/***/ }),
+
+/***/ 60696:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var isPlainObject = __webpack_require__(68630);
+
+/**
+ * Used by `_.omit` to customize its `_.cloneDeep` use to only clone plain
+ * objects.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {string} key The key of the property to inspect.
+ * @returns {*} Returns the uncloned value or `undefined` to defer cloning to `_.cloneDeep`.
+ */
+function customOmitClone(value) {
+  return isPlainObject(value) ? undefined : value;
+}
+
+module.exports = customOmitClone;
 
 
 /***/ }),
@@ -63611,6 +64588,29 @@ module.exports = overRest;
 
 /***/ }),
 
+/***/ 40292:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseGet = __webpack_require__(97786),
+    baseSlice = __webpack_require__(14259);
+
+/**
+ * Gets the parent value at `path` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array} path The path to get the parent value of.
+ * @returns {*} Returns the parent value.
+ */
+function parent(object, path) {
+  return path.length < 2 ? object : baseGet(object, baseSlice(path, 0, -1));
+}
+
+module.exports = parent;
+
+
+/***/ }),
+
 /***/ 55639:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -64156,6 +65156,65 @@ function eq(value, other) {
 }
 
 module.exports = eq;
+
+
+/***/ }),
+
+/***/ 63105:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayFilter = __webpack_require__(34963),
+    baseFilter = __webpack_require__(80760),
+    baseIteratee = __webpack_require__(67206),
+    isArray = __webpack_require__(1469);
+
+/**
+ * Iterates over elements of `collection`, returning an array of all elements
+ * `predicate` returns truthy for. The predicate is invoked with three
+ * arguments: (value, index|key, collection).
+ *
+ * **Note:** Unlike `_.remove`, this method returns a new array.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [predicate=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ * @see _.reject
+ * @example
+ *
+ * var users = [
+ *   { 'user': 'barney', 'age': 36, 'active': true },
+ *   { 'user': 'fred',   'age': 40, 'active': false }
+ * ];
+ *
+ * _.filter(users, function(o) { return !o.active; });
+ * // => objects for ['fred']
+ *
+ * // The `_.matches` iteratee shorthand.
+ * _.filter(users, { 'age': 36, 'active': true });
+ * // => objects for ['barney']
+ *
+ * // The `_.matchesProperty` iteratee shorthand.
+ * _.filter(users, ['active', false]);
+ * // => objects for ['fred']
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.filter(users, 'active');
+ * // => objects for ['barney']
+ *
+ * // Combining several predicates using `_.overEvery` or `_.overSome`.
+ * _.filter(users, _.overSome([{ 'age': 36 }, ['age', 40]]));
+ * // => objects for ['fred', 'barney']
+ */
+function filter(collection, predicate) {
+  var func = isArray(collection) ? arrayFilter : baseFilter;
+  return func(collection, baseIteratee(predicate, 3));
+}
+
+module.exports = filter;
 
 
 /***/ }),
@@ -65339,6 +66398,70 @@ function noop() {
 }
 
 module.exports = noop;
+
+
+/***/ }),
+
+/***/ 57557:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayMap = __webpack_require__(29932),
+    baseClone = __webpack_require__(85990),
+    baseUnset = __webpack_require__(57406),
+    castPath = __webpack_require__(71811),
+    copyObject = __webpack_require__(98363),
+    customOmitClone = __webpack_require__(60696),
+    flatRest = __webpack_require__(99021),
+    getAllKeysIn = __webpack_require__(46904);
+
+/** Used to compose bitmasks for cloning. */
+var CLONE_DEEP_FLAG = 1,
+    CLONE_FLAT_FLAG = 2,
+    CLONE_SYMBOLS_FLAG = 4;
+
+/**
+ * The opposite of `_.pick`; this method creates an object composed of the
+ * own and inherited enumerable property paths of `object` that are not omitted.
+ *
+ * **Note:** This method is considerably slower than `_.pick`.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The source object.
+ * @param {...(string|string[])} [paths] The property paths to omit.
+ * @returns {Object} Returns the new object.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': '2', 'c': 3 };
+ *
+ * _.omit(object, ['a', 'c']);
+ * // => { 'b': '2' }
+ */
+var omit = flatRest(function(object, paths) {
+  var result = {};
+  if (object == null) {
+    return result;
+  }
+  var isDeep = false;
+  paths = arrayMap(paths, function(path) {
+    path = castPath(path, object);
+    isDeep || (isDeep = path.length > 1);
+    return path;
+  });
+  copyObject(object, getAllKeysIn(object), result);
+  if (isDeep) {
+    result = baseClone(result, CLONE_DEEP_FLAG | CLONE_FLAT_FLAG | CLONE_SYMBOLS_FLAG, customOmitClone);
+  }
+  var length = paths.length;
+  while (length--) {
+    baseUnset(result, paths[length]);
+  }
+  return result;
+});
+
+module.exports = omit;
 
 
 /***/ }),

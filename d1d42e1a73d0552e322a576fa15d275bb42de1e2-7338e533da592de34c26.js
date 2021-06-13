@@ -11521,8 +11521,7 @@ function BlockProvider(props) {
   var handleWorkspaceEvent = function handleWorkspaceEvent(event) {
     var type = event.type,
         workspaceId = event.workspaceId;
-    if (workspaceId !== workspace.id) return;
-    console.log("blockly event " + type, event);
+    if (workspaceId !== workspace.id) return; //console.log(`blockly event ${type}`, event)
 
     if (type === (blockly_default()).Events.FINISHED_LOADING) {
       workspace.getAllBlocks(false).forEach(function (b) {
@@ -12278,9 +12277,6 @@ function WorkspaceProvider(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     return field === null || field === void 0 ? void 0 : field.events.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
       var newSourceBlock = field.getSourceBlock();
-      console.log("field change", {
-        newSourceBlock: newSourceBlock
-      });
       setSourceBlock(newSourceBlock);
       setRole(resolveRole());
       setFlyout(!!(newSourceBlock !== null && newSourceBlock !== void 0 && newSourceBlock.isInFlyout));
@@ -12811,6 +12807,131 @@ function postLoadCSV(url) {
 
 /***/ }),
 
+/***/ 9950:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ BarChartField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51586);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
+/* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8844);
+
+
+
+
+
+
+
+
+
+
+var Bar = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8029)]).then(__webpack_require__.bind(__webpack_require__, 78029));
+});
+
+function BarChartWidget() {
+  var _series$, _series$2, _series$3, _series$3$data;
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      sourceBlock = _useContext.sourceBlock;
+
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
+      data = _useBlockData.data; // need to map data to nivo
+
+
+  var index = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("index");
+  var value = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("value");
+
+  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .tL)(data, [index, value], ["index", "value"]),
+      series = _tidyToNivo.series,
+      labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _useBlockChartProps = (0,_useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock, {
+    colors: {
+      scheme: "category10"
+    },
+    data: series === null || series === void 0 ? void 0 : (_series$ = series[0]) === null || _series$ === void 0 ? void 0 : _series$.data,
+    margin: {
+      top: 8,
+      right: 8,
+      bottom: 38,
+      left: 64
+    },
+    indexBy: "index",
+    axisTop: null,
+    axisRight: null,
+    axisBottom: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: index,
+      legendPosition: "middle",
+      legendOffset: 34
+    },
+    axisLeft: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      legend: value,
+      legendPosition: "middle",
+      legendOffset: -32
+    }
+  }),
+      chartProps = _useBlockChartProps.chartProps;
+
+  if (chartProps) chartProps.data = series === null || series === void 0 ? void 0 : (_series$2 = series[0]) === null || _series$2 === void 0 ? void 0 : _series$2.data;
+  var hasData = !!(series !== null && series !== void 0 && (_series$3 = series[0]) !== null && _series$3 !== void 0 && (_series$3$data = _series$3.data) !== null && _series$3$data !== void 0 && _series$3$data.length);
+  if (!hasData) return null;
+  chartProps.axisBottom.legend = labels[0];
+  chartProps.axisLeft.legend = labels[1];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: "0.25rem"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Bar, Object.assign({
+    width: 388,
+    height: 240
+  }, chartProps))))));
+}
+
+var BarChartField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(BarChartField, _ReactInlineField);
+
+  BarChartField.fromJson = function fromJson(options) {
+    return new BarChartField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function BarChartField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = BarChartField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(BarChartWidget, null);
+  };
+
+  return BarChartField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+BarChartField.KEY = "jacdac_field_bar_chart";
+BarChartField.EDITABLE = false;
+
+
+/***/ }),
+
 /***/ 69223:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -12856,14 +12977,9 @@ var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
 
     var sourceBlock = this.getSourceBlock();
     var services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
-    console.log("update data", {
-      sourceBlock: sourceBlock,
-      services: services
-    });
     if (!services) return;
     if (services.cache[BuiltinDataSetField.KEY] === url) return; // already downloaded
 
-    console.log("downloading " + url);
     (0,_dsl_workers_data_worker__WEBPACK_IMPORTED_MODULE_2__/* .postLoadCSV */ .N)(url).then(function (_ref) {
       var data = _ref.data,
           errors = _ref.errors;
@@ -12889,7 +13005,6 @@ var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
   };
 
   _proto.notifyServicesChanged = function notifyServicesChanged() {
-    console.log("services changed");
     this.updateData();
   };
 
@@ -12950,9 +13065,7 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
   };
 
   _proto.doClassValidation_ = function doClassValidation_(newValue) {
-    console.log("validate", {
-      newValue: newValue
-    });
+    // skip super class validationervices chan
     return newValue;
   };
 
@@ -13687,7 +13800,7 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
 
 var Line = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(1996)]).then(__webpack_require__.bind(__webpack_require__, 61996));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(5942)]).then(__webpack_require__.bind(__webpack_require__, 55942));
 });
 
 function LineChartWidget() {
@@ -14475,7 +14588,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
 
 var ScatterPlot = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(2850)]).then(__webpack_require__.bind(__webpack_require__, 72850));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(6471)]).then(__webpack_require__.bind(__webpack_require__, 66471));
 });
 
 function ScatterChartWidget() {
@@ -15176,6 +15289,8 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LinePlotField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(70659);
 /* harmony import */ var _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(61162);
 /* harmony import */ var _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(69223);
+/* harmony import */ var _BarField__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(9950);
+
 
 
 
@@ -15212,7 +15327,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, _BarField__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {

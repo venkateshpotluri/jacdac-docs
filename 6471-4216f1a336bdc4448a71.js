@@ -1,6 +1,6 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[2850],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[6471],{
 
-/***/ 72850:
+/***/ 66471:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14,31 +14,42 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 34 modules
-var nivo_core_es = __webpack_require__(24715);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(31205);
 // EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 8 modules
 var nivo_axes_es = __webpack_require__(33048);
 // EXTERNAL MODULE: ./node_modules/@nivo/legends/dist/nivo-legends.es.js
 var nivo_legends_es = __webpack_require__(26729);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
-// EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 26 modules
-var nivo_scales_es = __webpack_require__(59774);
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(45697);
-var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 24 modules
+var nivo_scales_es = __webpack_require__(30982);
+// EXTERNAL MODULE: ./node_modules/@nivo/annotations/dist/nivo-annotations.es.js
+var nivo_annotations_es = __webpack_require__(80480);
+// EXTERNAL MODULE: ./node_modules/lodash/get.js
+var get = __webpack_require__(27361);
+var get_default = /*#__PURE__*/__webpack_require__.n(get);
+// EXTERNAL MODULE: ./node_modules/lodash/isString.js
+var isString = __webpack_require__(47037);
+var isString_default = /*#__PURE__*/__webpack_require__.n(isString);
+// EXTERNAL MODULE: ./node_modules/lodash/isNumber.js
+var isNumber = __webpack_require__(81763);
+var isNumber_default = /*#__PURE__*/__webpack_require__.n(isNumber);
 // EXTERNAL MODULE: ./node_modules/lodash/isPlainObject.js
 var isPlainObject = __webpack_require__(68630);
 var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
-// EXTERNAL MODULE: ./node_modules/lodash/filter.js
-var filter = __webpack_require__(63105);
-var filter_default = /*#__PURE__*/__webpack_require__.n(filter);
-// EXTERNAL MODULE: ./node_modules/lodash/omit.js
-var omit = __webpack_require__(57557);
-var omit_default = /*#__PURE__*/__webpack_require__.n(omit);
-// EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
-var web = __webpack_require__(9514);
-;// CONCATENATED MODULE: ./node_modules/@nivo/annotations/dist/nivo-annotations.es.js
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/linear.js + 4 modules
+var linear = __webpack_require__(44076);
+// EXTERNAL MODULE: ./node_modules/prop-types/index.js
+var prop_types = __webpack_require__(45697);
+var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/@nivo/tooltip/dist/nivo-tooltip.es.js
+var nivo_tooltip_es = __webpack_require__(62529);
+// EXTERNAL MODULE: ./node_modules/react-motion/lib/react-motion.js
+var react_motion = __webpack_require__(44235);
+// EXTERNAL MODULE: ./node_modules/@nivo/voronoi/dist/nivo-voronoi.es.js + 5 modules
+var nivo_voronoi_es = __webpack_require__(8374);
+;// CONCATENATED MODULE: ./node_modules/@nivo/scatterplot/dist/nivo-scatterplot.es.js
 
 
 
@@ -46,27 +57,15 @@ var web = __webpack_require__(9514);
 
 
 
-var annotationSpecPropType = prop_types_default().shape({
-  match: prop_types_default().oneOfType([(prop_types_default()).func, (prop_types_default()).object]).isRequired,
-  type: prop_types_default().oneOf(['circle', 'rect', 'dot']).isRequired,
-  noteX: prop_types_default().oneOfType([(prop_types_default()).number, prop_types_default().shape({
-    abs: (prop_types_default()).number.isRequired
-  })]).isRequired,
-  noteY: prop_types_default().oneOfType([(prop_types_default()).number, prop_types_default().shape({
-    abs: (prop_types_default()).number.isRequired
-  })]).isRequired,
-  noteWidth: (prop_types_default()).number,
-  noteTextOffset: (prop_types_default()).number,
-  note: prop_types_default().oneOfType([(prop_types_default()).node, (prop_types_default()).func]).isRequired,
-  offset: (prop_types_default()).number
-});
-var defaultProps = {
-  noteWidth: 120,
-  noteTextOffset: 8,
-  animate: true,
-  motionStiffness: 90,
-  motionDamping: 13
-};
+
+
+
+
+
+
+
+
+
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -117,274 +116,6 @@ function _objectSpread2(target) {
   return target;
 }
 
-var defaultPositionAccessor = function defaultPositionAccessor(item) {
-  return {
-    x: item.x,
-    y: item.y
-  };
-};
-
-var bindAnnotations = function bindAnnotations(_ref) {
-  var items = _ref.items,
-      annotations = _ref.annotations,
-      _ref$getPosition = _ref.getPosition,
-      getPosition = _ref$getPosition === void 0 ? defaultPositionAccessor : _ref$getPosition,
-      getDimensions = _ref.getDimensions;
-  return annotations.reduce(function (acc, annotation) {
-    filter_default()(items, annotation.match).forEach(function (item) {
-      var position = getPosition(item);
-      var dimensions = getDimensions(item, annotation.offset || 0);
-      acc.push(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, omit_default()(annotation, ['match', 'offset'])), position), dimensions), {}, {
-        datum: item,
-        size: annotation.size || dimensions.size
-      }));
-    });
-    return acc;
-  }, []);
-};
-
-var getLinkAngle = function getLinkAngle(sourceX, sourceY, targetX, targetY) {
-  var angle = Math.atan2(targetY - sourceY, targetX - sourceX);
-  return (0,nivo_core_es/* absoluteAngleDegrees */.bt)((0,nivo_core_es/* radiansToDegrees */.vi)(angle));
-};
-
-var computeAnnotation = function computeAnnotation(_ref2) {
-  var type = _ref2.type,
-      x = _ref2.x,
-      y = _ref2.y,
-      size = _ref2.size,
-      width = _ref2.width,
-      height = _ref2.height,
-      noteX = _ref2.noteX,
-      noteY = _ref2.noteY,
-      _ref2$noteWidth = _ref2.noteWidth,
-      noteWidth = _ref2$noteWidth === void 0 ? defaultProps.noteWidth : _ref2$noteWidth,
-      _ref2$noteTextOffset = _ref2.noteTextOffset,
-      noteTextOffset = _ref2$noteTextOffset === void 0 ? defaultProps.noteTextOffset : _ref2$noteTextOffset;
-  var computedNoteX;
-  var computedNoteY;
-
-  if (isPlainObject_default()(noteX)) {
-    if (noteX.abs !== undefined) {
-      computedNoteX = noteX.abs;
-    }
-  } else {
-    computedNoteX = x + noteX;
-  }
-
-  if (isPlainObject_default()(noteY)) {
-    if (noteY.abs !== undefined) {
-      computedNoteY = noteY.abs;
-    }
-  } else {
-    computedNoteY = y + noteY;
-  }
-
-  var computedX = x;
-  var computedY = y;
-  var angle = getLinkAngle(x, y, computedNoteX, computedNoteY);
-
-  if (type === 'circle') {
-    var position = (0,nivo_core_es/* positionFromAngle */.re)((0,nivo_core_es/* degreesToRadians */.Ht)(angle), size / 2);
-    computedX += position.x;
-    computedY += position.y;
-  }
-
-  if (type === 'rect') {
-    var eighth = Math.round((angle + 90) / 45) % 8;
-
-    if (eighth === 0) {
-      computedY -= height / 2;
-    }
-
-    if (eighth === 1) {
-      computedX += width / 2;
-      computedY -= height / 2;
-    }
-
-    if (eighth === 2) {
-      computedX += width / 2;
-    }
-
-    if (eighth === 3) {
-      computedX += width / 2;
-      computedY += height / 2;
-    }
-
-    if (eighth === 4) {
-      computedY += height / 2;
-    }
-
-    if (eighth === 5) {
-      computedX -= width / 2;
-      computedY += height / 2;
-    }
-
-    if (eighth === 6) {
-      computedX -= width / 2;
-    }
-
-    if (eighth === 7) {
-      computedX -= width / 2;
-      computedY -= height / 2;
-    }
-  }
-
-  var textX = computedNoteX;
-  var textY = computedNoteY - noteTextOffset;
-  var noteLineX = computedNoteX;
-  var noteLineY = computedNoteY;
-
-  if ((angle + 90) % 360 > 180) {
-    textX -= noteWidth;
-    noteLineX -= noteWidth;
-  } else {
-    noteLineX += noteWidth;
-  }
-
-  return {
-    points: [[computedX, computedY], [computedNoteX, computedNoteY], [noteLineX, noteLineY]],
-    text: [textX, textY],
-    angle: angle + 90
-  };
-};
-
-var useAnnotations = function useAnnotations(_ref) {
-  var items = _ref.items,
-      annotations = _ref.annotations,
-      getPosition = _ref.getPosition,
-      getDimensions = _ref.getDimensions;
-  return (0,react.useMemo)(function () {
-    return bindAnnotations({
-      items: items,
-      annotations: annotations,
-      getPosition: getPosition,
-      getDimensions: getDimensions
-    });
-  }, [items, annotations, getPosition, getDimensions]);
-};
-
-var useComputedAnnotations = function useComputedAnnotations(_ref2) {
-  var annotations = _ref2.annotations,
-      containerWidth = _ref2.containerWidth,
-      containerHeight = _ref2.containerHeight;
-  return useMemo(function () {
-    return annotations.map(function (annotation) {
-      return _objectSpread2(_objectSpread2({}, annotation), {}, {
-        computed: computeAnnotation(_objectSpread2({
-          containerWidth: containerWidth,
-          containerHeight: containerHeight
-        }, annotation))
-      });
-    });
-  }, [annotations, containerWidth, containerHeight]);
-};
-
-var useComputedAnnotation = function useComputedAnnotation(_ref3) {
-  var type = _ref3.type,
-      containerWidth = _ref3.containerWidth,
-      containerHeight = _ref3.containerHeight,
-      x = _ref3.x,
-      y = _ref3.y,
-      size = _ref3.size,
-      width = _ref3.width,
-      height = _ref3.height,
-      noteX = _ref3.noteX,
-      noteY = _ref3.noteY,
-      noteWidth = _ref3.noteWidth,
-      noteTextOffset = _ref3.noteTextOffset;
-  return (0,react.useMemo)(function () {
-    return computeAnnotation({
-      type: type,
-      containerWidth: containerWidth,
-      containerHeight: containerHeight,
-      x: x,
-      y: y,
-      size: size,
-      width: width,
-      height: height,
-      noteX: noteX,
-      noteY: noteY,
-      noteWidth: noteWidth,
-      noteTextOffset: noteTextOffset
-    });
-  }, [type, containerWidth, containerHeight, x, y, size, width, height, noteX, noteY, noteWidth, noteTextOffset]);
-};
-
-var AnnotationNote = (0,react.memo)(function (_ref) {
-  var datum = _ref.datum,
-      x = _ref.x,
-      y = _ref.y,
-      note = _ref.note;
-  var theme = (0,nivo_core_es/* useTheme */.Fg)();
-
-  var _useMotionConfig = (0,nivo_core_es/* useMotionConfig */.tf)(),
-      animate = _useMotionConfig.animate,
-      springConfiig = _useMotionConfig.config;
-
-  var animatedProps = (0,web.useSpring)({
-    x: x,
-    y: y,
-    config: springConfiig,
-    immediate: !animate
-  });
-
-  if (typeof note === 'function') {
-    return note({
-      x: x,
-      y: y,
-      datum: datum
-    });
-  }
-
-  return react.createElement(react.Fragment, null, theme.annotations.text.outlineWidth > 0 && react.createElement(web/* animated.text */.q.text, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.text), {}, {
-      strokeLinejoin: 'round',
-      strokeWidth: theme.annotations.text.outlineWidth * 2,
-      stroke: theme.annotations.text.outlineColor
-    })
-  }, note), react.createElement(web/* animated.text */.q.text, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    style: omit_default()(theme.annotations.text, ['outlineWidth', 'outlineColor'])
-  }, note));
-});
-AnnotationNote.displayName = 'AnnotationNote';
-AnnotationNote.defaultProps = {};
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
 
@@ -393,6 +124,14 @@ function _arrayLikeToArray(arr, len) {
   }
 
   return arr2;
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
 
 function _unsupportedIterableToArray(o, minLen) {
@@ -404,494 +143,12 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-function _toArray(arr) {
-  return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest();
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
-
-var AnnotationLink = (0,react.memo)(function (_ref) {
-  var isOutline = _ref.isOutline,
-      props = _objectWithoutProperties(_ref, ["isOutline"]);
-
-  var theme = (0,nivo_core_es/* useTheme */.Fg)();
-
-  var _props$points = _toArray(props.points),
-      point = _props$points[0],
-      points = _props$points.slice(1);
-
-  var path = points.reduce(function (acc, _ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        x = _ref3[0],
-        y = _ref3[1];
-
-    return "".concat(acc, " L").concat(x, ",").concat(y);
-  }, "M".concat(point[0], ",").concat(point[1]));
-  var animatedPath = (0,nivo_core_es/* useAnimatedPath */.NS)(path);
-
-  if (isOutline && theme.annotations.link.outlineWidth <= 0) {
-    return null;
-  }
-
-  var style = _objectSpread2({}, theme.annotations.link);
-
-  if (isOutline) {
-    style.strokeLinecap = 'square';
-    style.strokeWidth = theme.annotations.link.strokeWidth + theme.annotations.link.outlineWidth * 2;
-    style.stroke = theme.annotations.link.outlineColor;
-  }
-
-  return react.createElement(web/* animated.path */.q.path, {
-    fill: "none",
-    d: animatedPath,
-    style: style
-  });
-});
-AnnotationLink.displayName = 'AnnotationLink';
-AnnotationLink.defaultProps = {
-  isOutline: false
-};
-var CircleAnnotationOutline = (0,react.memo)(function (_ref) {
-  var x = _ref.x,
-      y = _ref.y,
-      size = _ref.size;
-  var theme = (0,nivo_core_es/* useTheme */.Fg)();
-
-  var _useMotionConfig = (0,nivo_core_es/* useMotionConfig */.tf)(),
-      animate = _useMotionConfig.animate,
-      springConfig = _useMotionConfig.config;
-
-  var animatedProps = (0,web.useSpring)({
-    x: x,
-    y: y,
-    radius: size / 2,
-    config: springConfig,
-    immediate: !animate
-  });
-  return react.createElement(react.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react.createElement(web/* animated.circle */.q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
-      fill: 'none',
-      strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
-      stroke: theme.annotations.outline.outlineColor
-    })
-  }), react.createElement(web/* animated.circle */.q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: theme.annotations.outline
-  }));
-});
-CircleAnnotationOutline.displayName = 'CircleAnnotationOutline';
-var DotAnnotationOutline = (0,react.memo)(function (_ref) {
-  var x = _ref.x,
-      y = _ref.y,
-      size = _ref.size;
-  var theme = (0,nivo_core_es/* useTheme */.Fg)();
-
-  var _useMotionConfig = (0,nivo_core_es/* useMotionConfig */.tf)(),
-      animate = _useMotionConfig.animate,
-      springConfig = _useMotionConfig.config;
-
-  var animatedProps = (0,web.useSpring)({
-    x: x,
-    y: y,
-    radius: size / 2,
-    config: springConfig,
-    immediate: !animate
-  });
-  return react.createElement(react.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react.createElement(web/* animated.circle */.q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
-      fill: 'none',
-      strokeWidth: theme.annotations.outline.outlineWidth * 2,
-      stroke: theme.annotations.outline.outlineColor
-    })
-  }), react.createElement(web/* animated.circle */.q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: theme.annotations.symbol
-  }));
-});
-DotAnnotationOutline.displayName = 'DotAnnotationOutline';
-DotAnnotationOutline.defaultProps = {
-  size: 4
-};
-var RectAnnotationOutline = (0,react.memo)(function (_ref) {
-  var x = _ref.x,
-      y = _ref.y,
-      width = _ref.width,
-      height = _ref.height;
-  var theme = (0,nivo_core_es/* useTheme */.Fg)();
-
-  var _useMotionConfig = (0,nivo_core_es/* useMotionConfig */.tf)(),
-      animate = _useMotionConfig.animate,
-      springConfig = _useMotionConfig.config;
-
-  var animatedProps = (0,web.useSpring)({
-    x: x - width / 2,
-    y: y - height / 2,
-    width: width,
-    height: height,
-    config: springConfig,
-    immediate: !animate
-  });
-  return react.createElement(react.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react.createElement(web/* animated.rect */.q.rect, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    width: animatedProps.width,
-    height: animatedProps.height,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
-      fill: 'none',
-      strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
-      stroke: theme.annotations.outline.outlineColor
-    })
-  }), react.createElement(web/* animated.rect */.q.rect, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    width: animatedProps.width,
-    height: animatedProps.height,
-    style: theme.annotations.outline
-  }));
-});
-RectAnnotationOutline.displayName = 'RectAnnotationOutline';
-var Annotation = (0,react.memo)(function (_ref) {
-  var datum = _ref.datum,
-      type = _ref.type,
-      containerWidth = _ref.containerWidth,
-      containerHeight = _ref.containerHeight,
-      x = _ref.x,
-      y = _ref.y,
-      size = _ref.size,
-      width = _ref.width,
-      height = _ref.height,
-      noteX = _ref.noteX,
-      noteY = _ref.noteY,
-      noteWidth = _ref.noteWidth,
-      noteTextOffset = _ref.noteTextOffset,
-      note = _ref.note;
-  var computed = useComputedAnnotation({
-    type: type,
-    containerWidth: containerWidth,
-    containerHeight: containerHeight,
-    x: x,
-    y: y,
-    size: size,
-    width: width,
-    height: height,
-    noteX: noteX,
-    noteY: noteY,
-    noteWidth: noteWidth,
-    noteTextOffset: noteTextOffset
-  });
-  return react.createElement(react.Fragment, null, react.createElement(AnnotationLink, {
-    points: computed.points,
-    isOutline: true
-  }), type === 'circle' && react.createElement(CircleAnnotationOutline, {
-    x: x,
-    y: y,
-    size: size
-  }), type === 'dot' && react.createElement(DotAnnotationOutline, {
-    x: x,
-    y: y,
-    size: size
-  }), type === 'rect' && react.createElement(RectAnnotationOutline, {
-    x: x,
-    y: y,
-    width: width,
-    height: height
-  }), react.createElement(AnnotationLink, {
-    points: computed.points
-  }), react.createElement(AnnotationNote, {
-    datum: datum,
-    x: computed.text[0],
-    y: computed.text[1],
-    note: note
-  }));
-});
-Annotation.displayName = 'Annotation';
-Annotation.defaultProps = {
-  noteWidth: defaultProps.noteWidth,
-  noteTextOffset: defaultProps.noteTextOffset
-};
-
-var drawPoints = function drawPoints(ctx, points) {
-  points.forEach(function (_ref, index) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        x = _ref2[0],
-        y = _ref2[1];
-
-    if (index === 0) {
-      ctx.moveTo(x, y);
-    } else {
-      ctx.lineTo(x, y);
-    }
-  });
-};
-
-var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
-  var annotations = _ref3.annotations,
-      theme = _ref3.theme;
-  if (annotations.length === 0) return;
-  ctx.save();
-  annotations.forEach(function (annotation) {
-    if (theme.annotations.link.outlineWidth > 0) {
-      ctx.lineCap = 'square';
-      ctx.strokeStyle = theme.annotations.link.outlineColor;
-      ctx.lineWidth = theme.annotations.link.strokeWidth + theme.annotations.link.outlineWidth * 2;
-      ctx.beginPath();
-      drawPoints(ctx, annotation.computed.points);
-      ctx.stroke();
-      ctx.lineCap = 'butt';
-    }
-
-    if (annotation.type === 'circle' && theme.annotations.outline.outlineWidth > 0) {
-      ctx.strokeStyle = theme.annotations.outline.outlineColor;
-      ctx.lineWidth = theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2;
-      ctx.beginPath();
-      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
-      ctx.stroke();
-    }
-
-    if (annotation.type === 'dot' && theme.annotations.symbol.outlineWidth > 0) {
-      ctx.strokeStyle = theme.annotations.symbol.outlineColor;
-      ctx.lineWidth = theme.annotations.symbol.outlineWidth * 2;
-      ctx.beginPath();
-      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
-      ctx.stroke();
-    }
-
-    if (annotation.type === 'rect' && theme.annotations.outline.outlineWidth > 0) {
-      ctx.strokeStyle = theme.annotations.outline.outlineColor;
-      ctx.lineWidth = theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2;
-      ctx.beginPath();
-      ctx.rect(annotation.x - annotation.width / 2, annotation.y - annotation.height / 2, annotation.width, annotation.height);
-      ctx.stroke();
-    }
-
-    ctx.strokeStyle = theme.annotations.link.stroke;
-    ctx.lineWidth = theme.annotations.link.strokeWidth;
-    ctx.beginPath();
-    drawPoints(ctx, annotation.computed.points);
-    ctx.stroke();
-
-    if (annotation.type === 'circle') {
-      ctx.strokeStyle = theme.annotations.outline.stroke;
-      ctx.lineWidth = theme.annotations.outline.strokeWidth;
-      ctx.beginPath();
-      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
-      ctx.stroke();
-    }
-
-    if (annotation.type === 'dot') {
-      ctx.fillStyle = theme.annotations.symbol.fill;
-      ctx.beginPath();
-      ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
-      ctx.fill();
-    }
-
-    if (annotation.type === 'rect') {
-      ctx.strokeStyle = theme.annotations.outline.stroke;
-      ctx.lineWidth = theme.annotations.outline.strokeWidth;
-      ctx.beginPath();
-      ctx.rect(annotation.x - annotation.width / 2, annotation.y - annotation.height / 2, annotation.width, annotation.height);
-      ctx.stroke();
-    }
-
-    if (typeof annotation.note === 'function') {
-      annotation.note(ctx, {
-        datum: annotation.datum,
-        x: annotation.computed.text[0],
-        y: annotation.computed.text[1],
-        theme: theme
-      });
-    } else {
-      ctx.font = "".concat(theme.annotations.text.fontSize, "px ").concat(theme.annotations.text.fontFamily);
-      ctx.fillStyle = theme.annotations.text.fill;
-      ctx.strokeStyle = theme.annotations.text.outlineColor;
-      ctx.lineWidth = theme.annotations.text.outlineWidth * 2;
-
-      if (theme.annotations.text.outlineWidth > 0) {
-        ctx.lineJoin = 'round';
-        ctx.strokeText(annotation.note, annotation.computed.text[0], annotation.computed.text[1]);
-        ctx.lineJoin = 'miter';
-      }
-
-      ctx.fillText(annotation.note, annotation.computed.text[0], annotation.computed.text[1]);
-    }
-  });
-  ctx.restore();
-};
-
-
-// EXTERNAL MODULE: ./node_modules/lodash/get.js
-var get = __webpack_require__(27361);
-var get_default = /*#__PURE__*/__webpack_require__.n(get);
-// EXTERNAL MODULE: ./node_modules/lodash/isString.js
-var isString = __webpack_require__(47037);
-var isString_default = /*#__PURE__*/__webpack_require__.n(isString);
-// EXTERNAL MODULE: ./node_modules/lodash/isNumber.js
-var isNumber = __webpack_require__(81763);
-var isNumber_default = /*#__PURE__*/__webpack_require__.n(isNumber);
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/linear.js + 4 modules
-var linear = __webpack_require__(44076);
-// EXTERNAL MODULE: ./node_modules/@nivo/tooltip/dist/nivo-tooltip.es.js
-var nivo_tooltip_es = __webpack_require__(62529);
-// EXTERNAL MODULE: ./node_modules/react-motion/lib/react-motion.js
-var react_motion = __webpack_require__(44235);
-// EXTERNAL MODULE: ./node_modules/@nivo/voronoi/dist/nivo-voronoi.es.js + 5 modules
-var nivo_voronoi_es = __webpack_require__(8374);
-;// CONCATENATED MODULE: ./node_modules/@nivo/scatterplot/dist/nivo-scatterplot.es.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function nivo_scatterplot_es_defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function nivo_scatterplot_es_ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function nivo_scatterplot_es_objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      nivo_scatterplot_es_ownKeys(Object(source), true).forEach(function (key) {
-        nivo_scatterplot_es_defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      nivo_scatterplot_es_ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-function nivo_scatterplot_es_arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return nivo_scatterplot_es_arrayLikeToArray(arr);
-}
-
-function nivo_scatterplot_es_iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-function nivo_scatterplot_es_unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return nivo_scatterplot_es_arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nivo_scatterplot_es_arrayLikeToArray(o, minLen);
-}
-
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || nivo_scatterplot_es_iterableToArray(arr) || nivo_scatterplot_es_unsupportedIterableToArray(arr) || _nonIterableSpread();
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
 var getNodeSizeGenerator = function getNodeSizeGenerator(size) {
@@ -933,7 +190,7 @@ var computePoints = function computePoints(_ref) {
         id: "".concat(serie.id, ".").concat(i),
         x: d.position.x,
         y: d.position.y,
-        data: nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, d.data), {}, {
+        data: _objectSpread2(_objectSpread2({}, d.data), {}, {
           id: "".concat(serie.id, ".").concat(i),
           serieId: serie.id,
           formattedX: formatX(d.data.x),
@@ -981,7 +238,7 @@ var useScatterPlot = function useScatterPlot(_ref) {
   var getColor = (0,nivo_colors_es/* useOrdinalColorScale */.U)(colors, 'serieId');
   var nodes = (0,react.useMemo)(function () {
     return rawNodes.map(function (rawNode) {
-      return nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, rawNode), {}, {
+      return _objectSpread2(_objectSpread2({}, rawNode), {}, {
         size: getNodeSize(rawNode.data),
         style: {
           color: getColor(rawNode.data)
@@ -1009,7 +266,7 @@ var useScatterPlot = function useScatterPlot(_ref) {
 };
 
 var useScatterPlotAnnotations = function useScatterPlotAnnotations(items, annotations) {
-  return useAnnotations({
+  return (0,nivo_annotations_es/* useAnnotations */.O2)({
     items: items,
     annotations: annotations,
     getDimensions: function getDimensions(node, offset) {
@@ -1080,7 +337,7 @@ var commonPropTypes = {
   axisRight: nivo_axes_es/* axisPropType */.VT,
   axisBottom: nivo_axes_es/* axisPropType */.VT,
   axisLeft: nivo_axes_es/* axisPropType */.VT,
-  annotations: prop_types_default().arrayOf(annotationSpecPropType).isRequired,
+  annotations: prop_types_default().arrayOf(nivo_annotations_es/* annotationSpecPropType */.IV).isRequired,
   nodeSize: prop_types_default().oneOfType([(prop_types_default()).number, prop_types_default().shape({
     key: (prop_types_default()).string.isRequired,
     values: prop_types_default().arrayOf((prop_types_default()).number).isRequired,
@@ -1104,12 +361,12 @@ var commonPropTypes = {
   legends: prop_types_default().arrayOf(prop_types_default().shape(nivo_legends_es/* LegendPropShape */.iQ)).isRequired
 };
 
-var ScatterPlotPropTypes = nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, commonPropTypes), {}, {
+var ScatterPlotPropTypes = _objectSpread2(_objectSpread2({}, commonPropTypes), {}, {
   role: (prop_types_default()).string.isRequired,
   useMesh: (prop_types_default()).bool.isRequired
 }, nivo_core_es/* motionPropTypes */.w$);
 
-var ScatterPlotCanvasPropTypes = nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, commonPropTypes), {}, {
+var ScatterPlotCanvasPropTypes = _objectSpread2(_objectSpread2({}, commonPropTypes), {}, {
   pixelRatio: (prop_types_default()).number.isRequired
 });
 
@@ -1142,7 +399,7 @@ var commonDefaultProps = {
   annotations: []
 };
 
-var ScatterPlotDefaultProps = nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, commonDefaultProps), {}, {
+var ScatterPlotDefaultProps = _objectSpread2(_objectSpread2({}, commonDefaultProps), {}, {
   layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations'],
   role: 'img',
   useMesh: true,
@@ -1151,7 +408,7 @@ var ScatterPlotDefaultProps = nivo_scatterplot_es_objectSpread2(nivo_scatterplot
   motionDamping: 15
 });
 
-var ScatterPlotCanvasDefaultProps = nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, commonDefaultProps), {}, {
+var ScatterPlotCanvasDefaultProps = _objectSpread2(_objectSpread2({}, commonDefaultProps), {}, {
   layers: ['grid', 'axes', 'nodes', 'mesh', 'legends', 'annotations'],
   pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
 });
@@ -1288,7 +545,7 @@ var ScatterPlotAnnotations = function ScatterPlotAnnotations(_ref) {
       innerHeight = _ref.innerHeight;
   var boundAnnotations = useScatterPlotAnnotations(nodes, annotations);
   return boundAnnotations.map(function (annotation, i) {
-    return react.createElement(Annotation, Object.assign({
+    return react.createElement(nivo_annotations_es/* Annotation */.q6, Object.assign({
       key: i
     }, annotation, {
       containerWidth: innerWidth,
@@ -1441,7 +698,7 @@ var ScatterPlot = function ScatterPlot(props) {
       legendData = _useScatterPlot.legendData;
 
   var customLayerProps = (0,react.useMemo)(function () {
-    return nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, props), {}, {
+    return _objectSpread2(_objectSpread2({}, props), {}, {
       xScale: xScale,
       yScale: yScale,
       nodes: nodes,
@@ -1565,11 +822,11 @@ var ResponsiveScatterPlot = function ResponsiveScatterPlot(props) {
   });
 };
 
-function nivo_scatterplot_es_arrayWithHoles(arr) {
+function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
 
-function nivo_scatterplot_es_iterableToArrayLimit(arr, i) {
+function _iterableToArrayLimit(arr, i) {
   if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
@@ -1596,12 +853,12 @@ function nivo_scatterplot_es_iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
-function nivo_scatterplot_es_nonIterableRest() {
+function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function nivo_scatterplot_es_slicedToArray(arr, i) {
-  return nivo_scatterplot_es_arrayWithHoles(arr) || nivo_scatterplot_es_iterableToArrayLimit(arr, i) || nivo_scatterplot_es_unsupportedIterableToArray(arr, i) || nivo_scatterplot_es_nonIterableRest();
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
@@ -1639,7 +896,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
 
   var _useState = (0,react.useState)(null),
-      _useState2 = nivo_scatterplot_es_slicedToArray(_useState, 2),
+      _useState2 = _slicedToArray(_useState, 2),
       currentNode = _useState2[0],
       setCurrentNode = _useState2[1];
 
@@ -1678,7 +935,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
       voronoi = _useVoronoiMesh.voronoi;
 
   var customLayerProps = (0,react.useMemo)(function () {
-    return nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, props), {}, {
+    return _objectSpread2(_objectSpread2({}, props), {}, {
       xScale: xScale,
       yScale: yScale,
       nodes: nodes,
@@ -1716,7 +973,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
           values: gridYValues
         });
       } else if (layer === 'annotations') {
-        renderAnnotationsToCanvas(ctx, {
+        (0,nivo_annotations_es/* renderAnnotationsToCanvas */.dS)(ctx, {
           annotations: boundAnnotations,
           theme: theme
         });
@@ -1746,7 +1003,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
         }
       } else if (layer === 'legends') {
         legends.forEach(function (legend) {
-          (0,nivo_legends_es/* renderLegendToCanvas */.as)(ctx, nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, legend), {}, {
+          (0,nivo_legends_es/* renderLegendToCanvas */.as)(ctx, _objectSpread2(_objectSpread2({}, legend), {}, {
             data: legendData,
             containerWidth: innerWidth,
             containerHeight: innerHeight,
@@ -1767,7 +1024,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
 
   var getNodeFromMouseEvent = (0,react.useCallback)(function (event) {
     var _getRelativeCursor = (0,nivo_core_es/* getRelativeCursor */.P6)(canvasEl.current, event),
-        _getRelativeCursor2 = nivo_scatterplot_es_slicedToArray(_getRelativeCursor, 2),
+        _getRelativeCursor2 = _slicedToArray(_getRelativeCursor, 2),
         x = _getRelativeCursor2[0],
         y = _getRelativeCursor2[1];
 
@@ -1826,7 +1083,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
   });
 };
 
-ScatterPlotCanvas.defaultProps = nivo_scatterplot_es_objectSpread2(nivo_scatterplot_es_objectSpread2({}, ScatterPlotCanvasDefaultProps), {}, {
+ScatterPlotCanvas.defaultProps = _objectSpread2(_objectSpread2({}, ScatterPlotCanvasDefaultProps), {}, {
   renderNode: function renderNode(ctx, node) {
     ctx.beginPath();
     ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI);
@@ -1851,204 +1108,6 @@ var ResponsiveScatterPlotCanvas = function ResponsiveScatterPlotCanvas(props) {
 ;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlot.tsx
 
 /* harmony default export */ var fields_ScatterPlot = (ScatterPlot$1);
-
-/***/ }),
-
-/***/ 80760:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var baseEach = __webpack_require__(89881);
-
-/**
- * The base implementation of `_.filter` without support for iteratee shorthands.
- *
- * @private
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function baseFilter(collection, predicate) {
-  var result = [];
-  baseEach(collection, function(value, index, collection) {
-    if (predicate(value, index, collection)) {
-      result.push(value);
-    }
-  });
-  return result;
-}
-
-module.exports = baseFilter;
-
-
-/***/ }),
-
-/***/ 14259:
-/***/ (function(module) {
-
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
-
-  if (start < 0) {
-    start = -start > length ? 0 : (length + start);
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : ((end - start) >>> 0);
-  start >>>= 0;
-
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
-
-module.exports = baseSlice;
-
-
-/***/ }),
-
-/***/ 57406:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var castPath = __webpack_require__(71811),
-    last = __webpack_require__(10928),
-    parent = __webpack_require__(40292),
-    toKey = __webpack_require__(40327);
-
-/**
- * The base implementation of `_.unset`.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {Array|string} path The property path to unset.
- * @returns {boolean} Returns `true` if the property is deleted, else `false`.
- */
-function baseUnset(object, path) {
-  path = castPath(path, object);
-  object = parent(object, path);
-  return object == null || delete object[toKey(last(path))];
-}
-
-module.exports = baseUnset;
-
-
-/***/ }),
-
-/***/ 60696:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var isPlainObject = __webpack_require__(68630);
-
-/**
- * Used by `_.omit` to customize its `_.cloneDeep` use to only clone plain
- * objects.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {string} key The key of the property to inspect.
- * @returns {*} Returns the uncloned value or `undefined` to defer cloning to `_.cloneDeep`.
- */
-function customOmitClone(value) {
-  return isPlainObject(value) ? undefined : value;
-}
-
-module.exports = customOmitClone;
-
-
-/***/ }),
-
-/***/ 40292:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var baseGet = __webpack_require__(97786),
-    baseSlice = __webpack_require__(14259);
-
-/**
- * Gets the parent value at `path` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array} path The path to get the parent value of.
- * @returns {*} Returns the parent value.
- */
-function parent(object, path) {
-  return path.length < 2 ? object : baseGet(object, baseSlice(path, 0, -1));
-}
-
-module.exports = parent;
-
-
-/***/ }),
-
-/***/ 63105:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var arrayFilter = __webpack_require__(34963),
-    baseFilter = __webpack_require__(80760),
-    baseIteratee = __webpack_require__(67206),
-    isArray = __webpack_require__(1469);
-
-/**
- * Iterates over elements of `collection`, returning an array of all elements
- * `predicate` returns truthy for. The predicate is invoked with three
- * arguments: (value, index|key, collection).
- *
- * **Note:** Unlike `_.remove`, this method returns a new array.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object} collection The collection to iterate over.
- * @param {Function} [predicate=_.identity] The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- * @see _.reject
- * @example
- *
- * var users = [
- *   { 'user': 'barney', 'age': 36, 'active': true },
- *   { 'user': 'fred',   'age': 40, 'active': false }
- * ];
- *
- * _.filter(users, function(o) { return !o.active; });
- * // => objects for ['fred']
- *
- * // The `_.matches` iteratee shorthand.
- * _.filter(users, { 'age': 36, 'active': true });
- * // => objects for ['barney']
- *
- * // The `_.matchesProperty` iteratee shorthand.
- * _.filter(users, ['active', false]);
- * // => objects for ['fred']
- *
- * // The `_.property` iteratee shorthand.
- * _.filter(users, 'active');
- * // => objects for ['barney']
- *
- * // Combining several predicates using `_.overEvery` or `_.overSome`.
- * _.filter(users, _.overSome([{ 'age': 36 }, ['age', 40]]));
- * // => objects for ['fred', 'barney']
- */
-function filter(collection, predicate) {
-  var func = isArray(collection) ? arrayFilter : baseFilter;
-  return func(collection, baseIteratee(predicate, 3));
-}
-
-module.exports = filter;
-
 
 /***/ }),
 
@@ -2093,70 +1152,6 @@ function isNumber(value) {
 }
 
 module.exports = isNumber;
-
-
-/***/ }),
-
-/***/ 57557:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(29932),
-    baseClone = __webpack_require__(85990),
-    baseUnset = __webpack_require__(57406),
-    castPath = __webpack_require__(71811),
-    copyObject = __webpack_require__(98363),
-    customOmitClone = __webpack_require__(60696),
-    flatRest = __webpack_require__(99021),
-    getAllKeysIn = __webpack_require__(46904);
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_FLAT_FLAG = 2,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * The opposite of `_.pick`; this method creates an object composed of the
- * own and inherited enumerable property paths of `object` that are not omitted.
- *
- * **Note:** This method is considerably slower than `_.pick`.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The source object.
- * @param {...(string|string[])} [paths] The property paths to omit.
- * @returns {Object} Returns the new object.
- * @example
- *
- * var object = { 'a': 1, 'b': '2', 'c': 3 };
- *
- * _.omit(object, ['a', 'c']);
- * // => { 'b': '2' }
- */
-var omit = flatRest(function(object, paths) {
-  var result = {};
-  if (object == null) {
-    return result;
-  }
-  var isDeep = false;
-  paths = arrayMap(paths, function(path) {
-    path = castPath(path, object);
-    isDeep || (isDeep = path.length > 1);
-    return path;
-  });
-  copyObject(object, getAllKeysIn(object), result);
-  if (isDeep) {
-    result = baseClone(result, CLONE_DEEP_FLAG | CLONE_FLAT_FLAG | CLONE_SYMBOLS_FLAG, customOmitClone);
-  }
-  var length = paths.length;
-  while (length--) {
-    baseUnset(result, paths[length]);
-  }
-  return result;
-});
-
-module.exports = omit;
 
 
 /***/ })
