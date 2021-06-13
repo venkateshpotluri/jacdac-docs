@@ -12773,6 +12773,10 @@ function _postLoadCSV() {
               papaparse__WEBPACK_IMPORTED_MODULE_2___default().parse(url, {
                 download: true,
                 header: true,
+                dynamicTyping: true,
+                transformHeader: function transformHeader(h) {
+                  return h.trim().toLocaleLowerCase();
+                },
                 complete: function complete(r) {
                   return resolve(r);
                 }
