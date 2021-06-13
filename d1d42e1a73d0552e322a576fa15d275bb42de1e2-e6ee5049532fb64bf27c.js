@@ -11521,7 +11521,8 @@ function BlockProvider(props) {
   var handleWorkspaceEvent = function handleWorkspaceEvent(event) {
     var type = event.type,
         workspaceId = event.workspaceId;
-    if (workspaceId !== workspace.id) return; //console.log(`blockly event ${type}`, event)
+    if (workspaceId !== workspace.id) return;
+    console.log("blockly event " + type, event);
 
     if (type === (blockly_default()).Events.FINISHED_LOADING) {
       workspace.getAllBlocks(false).forEach(function (b) {
@@ -12277,6 +12278,9 @@ function WorkspaceProvider(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     return field === null || field === void 0 ? void 0 : field.events.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
       var newSourceBlock = field.getSourceBlock();
+      console.log("field change", {
+        newSourceBlock: newSourceBlock
+      });
       setSourceBlock(newSourceBlock);
       setRole(resolveRole());
       setFlyout(!!(newSourceBlock !== null && newSourceBlock !== void 0 && newSourceBlock.isInFlyout));
@@ -12894,6 +12898,7 @@ function BarChartWidget() {
   if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
   chartProps.axisLeft.legend = labels[1];
+  console.log("bar", chartProps);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: {
       background: "#fff",
@@ -12977,9 +12982,14 @@ var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
 
     var sourceBlock = this.getSourceBlock();
     var services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
+    console.log("update data", {
+      sourceBlock: sourceBlock,
+      services: services
+    });
     if (!services) return;
     if (services.cache[BuiltinDataSetField.KEY] === url) return; // already downloaded
 
+    console.log("downloading " + url);
     (0,_dsl_workers_data_worker__WEBPACK_IMPORTED_MODULE_2__/* .postLoadCSV */ .N)(url).then(function (_ref) {
       var data = _ref.data,
           errors = _ref.errors;
@@ -13005,6 +13015,7 @@ var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
   };
 
   _proto.notifyServicesChanged = function notifyServicesChanged() {
+    console.log("services changed");
     this.updateData();
   };
 
@@ -13065,7 +13076,9 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
   };
 
   _proto.doClassValidation_ = function doClassValidation_(newValue) {
-    // skip super class validationervices chan
+    console.log("validate", {
+      newValue: newValue
+    });
     return newValue;
   };
 
