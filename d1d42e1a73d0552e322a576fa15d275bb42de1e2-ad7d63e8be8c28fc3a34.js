@@ -9749,6 +9749,8 @@ __webpack_require__.d(__webpack_exports__, {
   "C": function() { return /* binding */ blockly_BlockContext; }
 });
 
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
@@ -10042,10 +10044,10 @@ function useRoleManager() {
 }
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/dsl.ts
-var dsl_dsl = __webpack_require__(94113);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/dsl.ts
+var dsl_dsl = __webpack_require__(94113);
 // EXTERNAL MODULE: ./src/components/blockly/fields/ReactField.tsx
 var ReactField = __webpack_require__(77576);
 ;// CONCATENATED MODULE: ./src/components/blockly/jsongenerator.ts
@@ -11433,7 +11435,7 @@ function BlockProvider(props) {
   var toolboxConfiguration = useToolbox(dsls, workspaceJSON);
 
   var initializeBlockServices = function initializeBlockServices(block) {
-    var _block$jacdacServices, _dsl$onBlockCreated;
+    var _block$jacdacServices;
 
     if ((_block$jacdacServices = block.jacdacServices) !== null && _block$jacdacServices !== void 0 && _block$jacdacServices.initialized) return;
     var services = block.jacdacServices;
@@ -11505,11 +11507,7 @@ function BlockProvider(props) {
           }
         }, _callee, null, [[5, 12]]);
       })));
-    } // notify dsl
-
-
-    var dsl = (0,dsl_dsl/* resolveDsl */.u)(dsls, block.type);
-    dsl === null || dsl === void 0 ? void 0 : (_dsl$onBlockCreated = dsl.onBlockCreated) === null || _dsl$onBlockCreated === void 0 ? void 0 : _dsl$onBlockCreated.call(dsl, block);
+    }
   };
 
   var handleBlockChange = function handleBlockChange(blockId) {
@@ -11599,11 +11597,22 @@ function BlockProvider(props) {
   }, [workspace, warnings]); // register block creation
 
   (0,react.useEffect)(function () {
-    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleWorkspaceEvent);
+    var handlers = [handleWorkspaceEvent].concat((0,toConsumableArray/* default */.Z)(dsls.map(function (dsl) {
+      var _dsl$createWorkspaceC;
+
+      return (_dsl$createWorkspaceC = dsl.createWorkspaceChangeListener) === null || _dsl$createWorkspaceC === void 0 ? void 0 : _dsl$createWorkspaceC.call(dsl, workspace);
+    }))).filter(function (c) {
+      return !!c;
+    });
+    handlers.forEach(function (handler) {
+      return workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handler);
+    });
     return function () {
-      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleWorkspaceEvent);
+      return handlers === null || handlers === void 0 ? void 0 : handlers.forEach(function (handler) {
+        return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handler);
+      });
     };
-  }, [workspace]); // mounting dsts
+  }, [workspace, dsls]); // mounting dsts
 
   (0,react.useEffect)(function () {
     var unmounnts = dsls.map(function (dsl) {
