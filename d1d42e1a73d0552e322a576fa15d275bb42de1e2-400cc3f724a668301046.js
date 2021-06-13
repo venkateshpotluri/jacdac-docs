@@ -11512,14 +11512,19 @@ function BlockProvider(props) {
     dsl === null || dsl === void 0 ? void 0 : (_dsl$onBlockCreated = dsl.onBlockCreated) === null || _dsl$onBlockCreated === void 0 ? void 0 : _dsl$onBlockCreated.call(dsl, block);
   };
 
-  var handleNewBlock = function handleNewBlock(event) {
+  var handleBlockChange = function handleBlockChange(blockId) {
+    var block = workspace.getBlockById(blockId);
+    var services = block === null || block === void 0 ? void 0 : block.jacdacServices;
+    services === null || services === void 0 ? void 0 : services.emit(constants/* CHANGE */.Ver);
+  };
+
+  var handleWorkspaceEvent = function handleWorkspaceEvent(event) {
     var type = event.type,
         workspaceId = event.workspaceId;
     if (workspaceId !== workspace.id) return;
-    console.log("blockly event " + type);
+    console.log("blockly event " + type, event);
 
     if (type === (blockly_default()).Events.FINISHED_LOADING) {
-      console.log("register blocks");
       workspace.getAllBlocks(false).forEach(function (b) {
         return initializeBlockServices(b);
       });
@@ -11527,6 +11532,23 @@ function BlockProvider(props) {
       var bev = event;
       var block = workspace.getBlockById(bev.blockId);
       initializeBlockServices(block);
+    } else if (type === (blockly_default()).Events.BLOCK_MOVE) {
+      var cev = event; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+      var parentId = cev.newParentId;
+
+      if (parentId) {
+        handleBlockChange(parentId);
+      } else {
+        // unplugged, clear data
+        var _block = workspace.getBlockById(cev.blockId);
+
+        var services = _block === null || _block === void 0 ? void 0 : _block.jacdacServices;
+        if (services) services.data = undefined;
+      }
+    } else if (type === (blockly_default()).Events.BLOCK_CHANGE) {
+      var _cev = event;
+      handleBlockChange(_cev.blockId);
     }
   }; // plugins
 
@@ -11578,9 +11600,9 @@ function BlockProvider(props) {
   }, [workspace, warnings]); // register block creation
 
   (0,react.useEffect)(function () {
-    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleNewBlock);
+    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleWorkspaceEvent);
     return function () {
-      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleNewBlock);
+      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleWorkspaceEvent);
     };
   }, [workspace]); // mounting dsts
 
@@ -12955,9 +12977,6 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ 
       margin: 0,
       fontSize: "0.8rem",
       lineHeight: "1rem",
-      "& th": {
-        fontWeight: "normal"
-      },
       "& td": {
         borderColor: "#ccc",
         borderRightStyle: "solid 1px"
