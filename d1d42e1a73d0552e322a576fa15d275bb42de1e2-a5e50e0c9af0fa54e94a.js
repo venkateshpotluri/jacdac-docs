@@ -12323,11 +12323,14 @@ function WorkspaceProvider(props) {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _fields_BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69223);
-/* harmony import */ var _fields_DataColumnChooserField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12456);
-/* harmony import */ var _fields_DataTableField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54741);
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16582);
-/* harmony import */ var _workers_data_worker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5221);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fields_BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69223);
+/* harmony import */ var _fields_DataColumnChooserField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12456);
+/* harmony import */ var _fields_DataTableField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(54741);
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16582);
+/* harmony import */ var _workers_data_worker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5221);
+
 
 
 
@@ -12351,36 +12354,36 @@ var dataDsl = {
       args0: [{
         type: "input_dummy"
       }, {
-        type: _fields_DataTableField__WEBPACK_IMPORTED_MODULE_2__/* .default.KEY */ .Z.KEY,
+        type: _fields_DataTableField__WEBPACK_IMPORTED_MODULE_3__/* .default.KEY */ .Z.KEY,
         name: "table"
       }],
-      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta",
       inputsInline: false,
-      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .identityTransformData */ .FW
+      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .identityTransformData */ .FW
     }, {
       kind: "block",
       type: DATA_ARRANGE_BLOCK,
       message0: "arrange %1 %2",
       colour: colour,
       args0: [{
-        type: _fields_DataColumnChooserField__WEBPACK_IMPORTED_MODULE_1__/* .default.KEY */ .Z.KEY,
+        type: _fields_DataColumnChooserField__WEBPACK_IMPORTED_MODULE_2__/* .default.KEY */ .Z.KEY,
         name: "column"
       }, {
         type: "field_dropdown",
         name: "order",
         options: [["ascending", "ascending"], ["descending", "descending"]]
       }],
-      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transformData: function transformData(b, data) {
         var column = b.getFieldValue("column");
         var order = b.getFieldValue("order");
         var descending = order === "descending";
-        return (0,_workers_data_worker__WEBPACK_IMPORTED_MODULE_4__/* .postTransformData */ .L)({
+        return (0,_workers_data_worker__WEBPACK_IMPORTED_MODULE_5__/* .postTransformData */ .L)({
           type: "arrange",
           column: column,
           descending: descending,
@@ -12393,14 +12396,14 @@ var dataDsl = {
       type: DATA_DATASET_BUILTIN_BLOCK,
       message0: "dataset %1",
       args0: [{
-        type: _fields_BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_0__/* .default.KEY */ .Z.KEY,
+        type: _fields_BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_1__/* .default.KEY */ .Z.KEY,
         name: "dateset"
       }],
       inputsInline: false,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta",
-      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .identityTransformData */ .FW
+      transformData: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .identityTransformData */ .FW
     }, {
       kind: "block",
       type: DATA_DATAVARIABLE_READ_BLOCK,
@@ -12413,7 +12416,7 @@ var dataDsl = {
         defaultType: DATA_TABLE_TYPE
       }],
       inputsInline: false,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta"
     }, // only 1 allowed to prevent cycles
@@ -12429,8 +12432,8 @@ var dataDsl = {
         defaultType: DATA_TABLE_TYPE
       }],
       inputsInline: false,
-      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
-      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_3__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      previousStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
+      nextStatement: _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .DATA_SCIENCE_STATEMENT_TYPE */ .zN,
       colour: colour,
       template: "meta"
     }];
@@ -12470,6 +12473,50 @@ var dataDsl = {
         type: DATA_DATAVARIABLE_WRITE_BLOCK
       }]
     }];
+  },
+  createWorkspaceChangeListener: function createWorkspaceChangeListener() {
+    return function (event) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      var _ref = event,
+          type = _ref.type,
+          blockId = _ref.blockId;
+      var isBlockChange = type === blockly__WEBPACK_IMPORTED_MODULE_0__.Events.BLOCK_CHANGE || type === blockly__WEBPACK_IMPORTED_MODULE_0__.Events.BLOCK_MOVE;
+
+      if (isBlockChange || type === blockly__WEBPACK_IMPORTED_MODULE_0__.Events.FINISHED_LOADING) {
+        var workspace = event.getEventWorkspace_();
+
+        if (isBlockChange) {
+          var block = workspace.getBlockById(blockId);
+          if ((block === null || block === void 0 ? void 0 : block.type) !== DATA_DATAVARIABLE_WRITE_BLOCK) return; // nothing so see here
+        } // collect set variables blocks,
+        // and make sure only 1 of them is enabled
+
+
+        var setvars = workspace.getBlocksByType(DATA_DATAVARIABLE_WRITE_BLOCK, true).filter(function (b) {
+          return b.isEnabled();
+        }); // mark and sweep variables, leaving one 1 enabled per kind
+
+        var marked = {};
+
+        while (setvars.length) {
+          var _block = setvars.shift();
+
+          var variable = _block.getField("data").getVariable();
+
+          if (variable) {
+            var name = variable.name;
+
+            if (marked[name]) {
+              if (_block.isEnabled()) {
+                _block.setEnabled(false);
+
+                _block.unplug(true);
+              }
+            } else marked[name] = true;
+          }
+        }
+      }
+    };
   }
 };
 /* harmony default export */ __webpack_exports__["Z"] = (dataDsl);
