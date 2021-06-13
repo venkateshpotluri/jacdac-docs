@@ -2678,19 +2678,74 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 16414:
+/***/ 33584:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useDebounce; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _useDebouncedCallback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87709);
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ useDebounce; }
-});
 
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-;// CONCATENATED MODULE: ./node_modules/use-debounce/esm/useDebouncedCallback.js
+
+function valueEquality(left, right) {
+  return left === right;
+}
+
+function adjustFunctionValueOfSetState(value) {
+  return typeof value === 'function' ? function () {
+    return value;
+  } : value;
+}
+
+function useStateIgnoreCallback(initialState) {
+  var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(adjustFunctionValueOfSetState(initialState)),
+      state = _a[0],
+      setState = _a[1];
+
+  var setStateIgnoreCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
+    return setState(adjustFunctionValueOfSetState(value));
+  }, []);
+  return [state, setStateIgnoreCallback];
+}
+
+function useDebounce(value, delay, options) {
+  var eq = options && options.equalityFn || valueEquality;
+
+  var _a = useStateIgnoreCallback(value),
+      state = _a[0],
+      dispatch = _a[1];
+
+  var debounced = (0,_useDebouncedCallback__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)((0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
+    return dispatch(value);
+  }, [dispatch]), delay, options);
+  var previousValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // We need to use this condition otherwise we will run debounce timer for the first render (including maxWait option)
+    if (!eq(previousValue.current, value)) {
+      debounced(value);
+      previousValue.current = value;
+    }
+  }, [value, debounced, eq]);
+  return [state, {
+    cancel: debounced.cancel,
+    isPending: debounced.isPending,
+    flush: debounced.flush
+  }];
+}
+
+/***/ }),
+
+/***/ 87709:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useDebouncedCallback; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 
 /**
  * Creates a debounced function that delays invoking `func` until after `wait`
@@ -2758,14 +2813,14 @@ var react = __webpack_require__(67294);
 function useDebouncedCallback(func, wait, options) {
   var _this = this;
 
-  var lastCallTime = (0,react.useRef)(null);
-  var lastInvokeTime = (0,react.useRef)(0);
-  var timerId = (0,react.useRef)(null);
-  var lastArgs = (0,react.useRef)([]);
-  var lastThis = (0,react.useRef)();
-  var result = (0,react.useRef)();
-  var funcRef = (0,react.useRef)(func);
-  var mounted = (0,react.useRef)(true);
+  var lastCallTime = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var lastInvokeTime = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  var timerId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var lastArgs = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
+  var lastThis = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var result = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var funcRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(func);
+  var mounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   funcRef.current = func; // Bypass `requestAnimationFrame` by explicitly setting `wait=0`.
 
   var useRAF = !wait && wait !== 0 && typeof window !== 'undefined';
@@ -2781,7 +2836,7 @@ function useDebouncedCallback(func, wait, options) {
 
   var maxing = ('maxWait' in options);
   var maxWait = maxing ? Math.max(+options.maxWait || 0, wait) : null;
-  (0,react.useEffect)(function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     mounted.current = true;
     return function () {
       mounted.current = false;
@@ -2797,7 +2852,7 @@ function useDebouncedCallback(func, wait, options) {
   // And the last reason, that the code without lots of useCallback with deps is easier to read.
   // You have only one place for that.
 
-  var debounced = (0,react.useMemo)(function () {
+  var debounced = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     var invokeFunc = function invokeFunc(time) {
       var args = lastArgs.current;
       var thisArg = lastThis.current;
@@ -2912,55 +2967,6 @@ function useDebouncedCallback(func, wait, options) {
   }, [leading, maxing, wait, maxWait, trailing, useRAF]);
   return debounced;
 }
-;// CONCATENATED MODULE: ./node_modules/use-debounce/esm/useDebounce.js
-
-
-
-function valueEquality(left, right) {
-  return left === right;
-}
-
-function adjustFunctionValueOfSetState(value) {
-  return typeof value === 'function' ? function () {
-    return value;
-  } : value;
-}
-
-function useStateIgnoreCallback(initialState) {
-  var _a = (0,react.useState)(adjustFunctionValueOfSetState(initialState)),
-      state = _a[0],
-      setState = _a[1];
-
-  var setStateIgnoreCallback = (0,react.useCallback)(function (value) {
-    return setState(adjustFunctionValueOfSetState(value));
-  }, []);
-  return [state, setStateIgnoreCallback];
-}
-
-function useDebounce(value, delay, options) {
-  var eq = options && options.equalityFn || valueEquality;
-
-  var _a = useStateIgnoreCallback(value),
-      state = _a[0],
-      dispatch = _a[1];
-
-  var debounced = useDebouncedCallback((0,react.useCallback)(function (value) {
-    return dispatch(value);
-  }, [dispatch]), delay, options);
-  var previousValue = (0,react.useRef)(value);
-  (0,react.useEffect)(function () {
-    // We need to use this condition otherwise we will run debounce timer for the first render (including maxWait option)
-    if (!eq(previousValue.current, value)) {
-      debounced(value);
-      previousValue.current = value;
-    }
-  }, [value, debounced, eq]);
-  return [state, {
-    cancel: debounced.cancel,
-    isPending: debounced.isPending,
-    flush: debounced.flush
-  }];
-}
 
 /***/ }),
 
@@ -2982,8 +2988,8 @@ var gatsby_theme_material_ui = __webpack_require__(36176);
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
-// EXTERNAL MODULE: ./node_modules/use-debounce/esm/useDebounce.js + 1 modules
-var useDebounce = __webpack_require__(16414);
+// EXTERNAL MODULE: ./node_modules/use-debounce/esm/useDebounce.js
+var useDebounce = __webpack_require__(33584);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
