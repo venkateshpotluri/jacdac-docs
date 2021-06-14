@@ -47673,7 +47673,7 @@ function isNumericType(field) {
 /* harmony export */ });
 /* unused harmony export packetsToRegisters */
 function isMixinService(serviceClass) {
-  return (serviceClass & 0x20000000) == 0x20000000;
+  return (serviceClass & 0x20000000) === 0x20000000;
 }
 function packetsToRegisters(packets) {
   return packets.filter(function (pkt) {
@@ -47765,9 +47765,11 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
         spec: this.spec,
         rest: e
       };
+    } else if (e.type === "Identifier") {
+      return undefined;
     } else if (this.check(e, "MemberExpression") && this.check(e.object, "Identifier") && this.role2spec) {
       var obj = e.object;
-      if (obj.name === "$") return undefined;
+      if (obj.name.startsWith("$")) return undefined;
 
       if (!this.role2spec(obj.name)) {
         this.error("no specification found for " + obj.name);
@@ -47816,7 +47818,7 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
         _ = _this$destructAccessP[1];
 
     var events = (_spec$packets = spec.packets) === null || _spec$packets === void 0 ? void 0 : _spec$packets.filter(function (pkt) {
-      return pkt.kind == "event";
+      return pkt.kind === "event";
     });
     var pkt = events.find(function (p) {
       return p.name === id;
@@ -47944,7 +47946,7 @@ var VMChecker = /*#__PURE__*/function () {
 
     var callee = (_root$callee = root.callee) === null || _root$callee === void 0 ? void 0 : _root$callee.name;
     var cmdIndex = funs.findIndex(function (r) {
-      return callee == r.id;
+      return callee === r.id;
     });
     var theCommand = undefined;
 
@@ -47975,7 +47977,7 @@ var VMChecker = /*#__PURE__*/function () {
 
           if (!theCommand) {
             this.error("cannot find command named " + command + " in spec " + _spec.shortName);
-          } else return this.processCommandFunction(root, theCommand);
+          } else return this.processSpecCommandFunction(root, theCommand);
         }
       } else {
         if (callee) this.error(callee + " is not a registered function.");else this.error("command does not conform to expected call expression");
@@ -47986,7 +47988,7 @@ var VMChecker = /*#__PURE__*/function () {
     return undefined;
   };
 
-  _proto2.processCommandFunction = function processCommandFunction(root, command) {
+  _proto2.processSpecCommandFunction = function processSpecCommandFunction(root, command) {
     var _command$fields,
         _this2 = this;
 
@@ -48059,8 +48061,8 @@ var VMChecker = /*#__PURE__*/function () {
       var argType = command.args[a];
       if (typeof argType === "object") argType = command.args[a][0];
 
-      if (argType === "register" || argType === "event" || argType == "Identifier") {
-        if (argType == "Identifier") {
+      if (argType === "register" || argType === "event" || argType === "Identifier") {
+        if (argType === "Identifier") {
           _this3.resolver.check(arg, "Identifier");
         } else if (argType === "event" && a === 0) {
           var pkt = _this3.resolver.lookupEvent(arg);
@@ -48119,7 +48121,7 @@ function isBoolOrNumericFormat(fmt) {
 }
 
 function isRegister(pkt) {
-  return pkt && (pkt.kind == "const" || pkt.kind == "ro" || pkt.kind == "rw");
+  return pkt && (pkt.kind === "const" || pkt.kind === "ro" || pkt.kind === "rw");
 }
 
 function lookupRegister(spec, id) {
@@ -69585,7 +69587,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ae2e8a9b5b57b78960a42fd734545630068f0b1d";
+  var sha = "3640d1f86d473d2bc79f49915996ef39e2798020";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

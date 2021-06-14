@@ -8905,6 +8905,16 @@ var VMFunctions = [{
   prompt: "wait for event {1} and then check {2} (other events ignored)",
   context: "command"
 }, {
+  id: "roleBound",
+  args: ["Identifier", "Identifier"],
+  prompt: "role {1} {2}",
+  context: "command"
+}, {
+  id: "roleBoundExpression",
+  args: ["Identifier"],
+  prompt: "is role {1} bound?",
+  context: "expression"
+}, {
   id: "awaitCondition",
   args: ["boolean"],
   prompt: "wait for condition {1}",
@@ -12735,7 +12745,7 @@ var variablesDsl = {
     if (type === "variables_get") {
       var variable = inputs[0].fields.var.value;
       var ret = {
-        expr: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()),
+        expr: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$var", variable.toString()),
         errors: []
       };
       console.log(ret);
@@ -12760,10 +12770,10 @@ var variablesDsl = {
       return {
         cmd: (0,_vm_VMgenerator__WEBPACK_IMPORTED_MODULE_1__/* .makeVMBase */ .IZ)(block, {
           type: "CallExpression",
-          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()), type === "variables_set" ? expr : {
+          arguments: [(0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$var", variable.toString()), type === "variables_set" ? expr : {
             type: "BinaryExpression",
             operator: "+",
-            left: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$", variable.toString()),
+            left: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toMemberExpression */ .vf)("$var", variable.toString()),
             right: expr
           }],
           callee: (0,_jacdac_ts_src_vm_compile__WEBPACK_IMPORTED_MODULE_0__/* .toIdentifier */ .EB)("writeLocal")

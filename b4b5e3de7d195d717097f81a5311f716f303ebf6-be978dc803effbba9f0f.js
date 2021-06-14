@@ -308,6 +308,8 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     _this3._currentEvent = undefined;
     _this3._envs = {};
     _this3._globals = {};
+    _this3._rolesBound = [];
+    _this3._rolesUnbound = [];
     _this3.registers = registers;
     _this3.events = events;
     return _this3;
@@ -328,7 +330,9 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       this._envs[role] = undefined;
     }
 
-    if (service) {
+    if (!service) this._rolesUnbound.push(role);else {
+      this._rolesBound.push(role);
+
       this._envs[role] = new VMServiceEnvironment(service);
       this.registers.forEach(function (r) {
         if (r.role === role) {
@@ -341,6 +345,10 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
         }
       });
     }
+  };
+
+  _proto2.roleBound = function roleBound(role) {
+    return !!this._envs[role];
   };
 
   _proto2.registerRegister = function registerRegister(role, reg) {
@@ -428,7 +436,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
             case 0:
               roleName = this.getRootName(e);
 
-              if (!(roleName === "$")) {
+              if (!roleName.startsWith("$var")) {
                 _context7.next = 7;
                 break;
               }
@@ -543,8 +551,9 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     return false;
   };
 
-  _proto2.consumeEvent = function consumeEvent() {
+  _proto2.clearEvents = function clearEvents() {
     this._currentEvent = undefined;
+    this.rolesReset();
   };
 
   _proto2.hasEvent = function hasEvent(e) {
@@ -557,6 +566,28 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     }
 
     return false;
+  } // role events
+  ;
+
+  _proto2.rolesReset = function rolesReset() {
+    this._rolesBound = [];
+    this._rolesUnbound = [];
+  };
+
+  _proto2.initRoles = function initRoles() {
+    this._rolesBound = Object.keys(this._envs).slice(0);
+  };
+
+  _proto2.roleTransition = function roleTransition(role, event) {
+    if (event === "bound") {
+      return !!this._rolesBound.find(function (r) {
+        return role === "any" || r === role;
+      });
+    } else {
+      return !!this._rolesUnbound.find(function (r) {
+        return role === "any" || r === role;
+      });
+    }
   };
 
   _proto2.unsubscribe = function unsubscribe() {
