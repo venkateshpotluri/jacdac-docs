@@ -760,7 +760,7 @@ function ImportButton(props) {
 
 /***/ }),
 
-/***/ 46599:
+/***/ 80428:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5013,6 +5013,8 @@ function VMToolbar(props) {
 }
 // EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
 var BlockDiagnostics = __webpack_require__(9370);
+// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
+var BlockEditor = __webpack_require__(85105);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/loopsdsl.ts
 
 
@@ -5490,8 +5492,6 @@ var variablesdsl = __webpack_require__(86947);
 var shadowdsl = __webpack_require__(96958);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/fieldsdsl.ts
 var fieldsdsl = __webpack_require__(76658);
-// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
-var BlockEditor = __webpack_require__(85105);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/jsondsl.ts
 
 
@@ -5784,17 +5784,20 @@ var chartDSL = {
 /* harmony default export */ var chartdsl = (chartDSL);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 1 modules
 var datadsl = __webpack_require__(79018);
+;// CONCATENATED MODULE: ./src/components/vm/vmdsls.ts
+
+
+
+
+
+
+
+
+
+
+
+var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -5875,7 +5878,7 @@ function VMEditorWithContext() {
 
 function VMEditor() {
   var dsls = (0,react.useMemo)(function () {
-    return [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+    return vmDsls;
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: VM_SOURCE_STORAGE_KEY,
