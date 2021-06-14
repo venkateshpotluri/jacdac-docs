@@ -4316,12 +4316,6 @@ var VerifiedTelemetryFingerprintType;
     VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["CurrentSense"] = 2] = "CurrentSense";
     VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["Custom"] = 3] = "Custom";
 })(VerifiedTelemetryFingerprintType || (VerifiedTelemetryFingerprintType = {}));
-var VerifiedTelemetryFingerprintTemplateConfidence;
-(function (VerifiedTelemetryFingerprintTemplateConfidence) {
-    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["High"] = 100] = "High";
-    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Medium"] = 50] = "Medium";
-    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Low"] = 0] = "Low";
-})(VerifiedTelemetryFingerprintTemplateConfidence || (VerifiedTelemetryFingerprintTemplateConfidence = {}));
 var VerifiedTelemetryReg;
 (function (VerifiedTelemetryReg) {
     /**
@@ -4352,7 +4346,7 @@ var VerifiedTelemetryReg;
      * Template Fingerprint information of a working sensor.
      *
      * ```
-     * const [confidence, template] = jdunpack<[VerifiedTelemetryFingerprintTemplateConfidence, Uint8Array]>(buf, "u16 b")
+     * const [confidence, template] = jdunpack<[number, Uint8Array]>(buf, "u16 b")
      * ```
      */
     VerifiedTelemetryReg[VerifiedTelemetryReg["FingerprintTemplate"] = 386] = "FingerprintTemplate";

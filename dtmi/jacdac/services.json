@@ -5379,7 +5379,7 @@
           "fields": [
             {
               "name": "confidence",
-              "schema": "dtmi:jacdac:x2194841f:fingerprinttemplateconfidence;1"
+              "schema": "integer"
             },
             {
               "name": "template"
@@ -5460,28 +5460,6 @@
             "name": "custom",
             "displayName": "Custom",
             "enumValue": 3
-          }
-        ]
-      },
-      {
-        "@type": "Enum",
-        "@id": "dtmi:jacdac:x2194841f:fingerprinttemplateconfidence;1",
-        "valueSchema": "integer",
-        "enumValues": [
-          {
-            "name": "high",
-            "displayName": "High",
-            "enumValue": 100
-          },
-          {
-            "name": "medium",
-            "displayName": "Medium",
-            "enumValue": 50
-          },
-          {
-            "name": "low",
-            "displayName": "Low",
-            "enumValue": 0
           }
         ]
       }
