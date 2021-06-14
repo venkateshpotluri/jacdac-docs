@@ -13120,10 +13120,8 @@ function LineChartWidget() {
       chartProps = _useBlockChartProps.chartProps;
 
   if (chartProps) chartProps.data = series;
-  var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
-  if (!hasData) return null; // avoid using same column, creates rendering issues
-
-  if (x === y && x) return null;
+  var hasData = (labels === null || labels === void 0 ? void 0 : labels.length) === 2 && labels[0] !== labels[1] && !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
+  if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
   chartProps.axisLeft.legend = labels[1];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -13906,11 +13904,7 @@ function ScatterChartWidget() {
       chartProps = _useBlockChartProps.chartProps;
 
   if (chartProps) chartProps.data = series;
-  var hasData = (labels === null || labels === void 0 ? void 0 : labels.length) === 2 && !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
-  console.log("chart props", {
-    chartProps: chartProps,
-    hasData: hasData
-  });
+  var hasData = (labels === null || labels === void 0 ? void 0 : labels.length) === 2 && labels[0] !== labels[1] && !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
   if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
   chartProps.axisLeft.legend = labels[1];
