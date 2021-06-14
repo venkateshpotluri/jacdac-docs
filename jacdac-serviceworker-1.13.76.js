@@ -1558,25 +1558,6 @@ var ControlReg;
      */
     ControlReg[ControlReg["FirmwareUrl"] = 392] = "FirmwareUrl";
 })(ControlReg || (ControlReg = {}));
-var DependableSensorReg;
-(function (DependableSensorReg) {
-    /**
-     * Read-only bytes. Reads the computed fingerprint of the sensor. When the module computes a new value for the fingerprint, it may also send a packet with the updated value.
-     *
-     * ```
-     * const [fingerprint] = jdunpack<[Uint8Array]>(buf, "b")
-     * ```
-     */
-    DependableSensorReg[DependableSensorReg["Fingerprint"] = 384] = "Fingerprint";
-    /**
-     * Read-write ms uint32_t. Specifies the interval between computing the fingerprint information.
-     *
-     * ```
-     * const [fingerprintInterval] = jdunpack<[number]>(buf, "u32")
-     * ```
-     */
-    DependableSensorReg[DependableSensorReg["FingerprintInterval"] = 128] = "FingerprintInterval";
-})(DependableSensorReg || (DependableSensorReg = {}));
 var DistanceVariant;
 (function (DistanceVariant) {
     DistanceVariant[DistanceVariant["Ultrasonic"] = 1] = "Ultrasonic";
@@ -4323,28 +4304,34 @@ var UvIndexReg;
      */
     UvIndexReg[UvIndexReg["Variant"] = 263] = "Variant";
 })(UvIndexReg || (UvIndexReg = {}));
-var VerifiedTelemetryFingerprintTemplateConfidence;
-(function (VerifiedTelemetryFingerprintTemplateConfidence) {
-    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["High"] = 100] = "High";
-    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Medium"] = 50] = "Medium";
-    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Low"] = 0] = "Low";
-})(VerifiedTelemetryFingerprintTemplateConfidence || (VerifiedTelemetryFingerprintTemplateConfidence = {}));
+var VerifiedTelemetryStatus;
+(function (VerifiedTelemetryStatus) {
+    VerifiedTelemetryStatus[VerifiedTelemetryStatus["Unknown"] = 0] = "Unknown";
+    VerifiedTelemetryStatus[VerifiedTelemetryStatus["Working"] = 1] = "Working";
+    VerifiedTelemetryStatus[VerifiedTelemetryStatus["Faulty"] = 2] = "Faulty";
+})(VerifiedTelemetryStatus || (VerifiedTelemetryStatus = {}));
 var VerifiedTelemetryFingerprintType;
 (function (VerifiedTelemetryFingerprintType) {
     VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["FallCurve"] = 1] = "FallCurve";
     VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["CurrentSense"] = 2] = "CurrentSense";
     VerifiedTelemetryFingerprintType[VerifiedTelemetryFingerprintType["Custom"] = 3] = "Custom";
 })(VerifiedTelemetryFingerprintType || (VerifiedTelemetryFingerprintType = {}));
+var VerifiedTelemetryFingerprintTemplateConfidence;
+(function (VerifiedTelemetryFingerprintTemplateConfidence) {
+    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["High"] = 100] = "High";
+    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Medium"] = 50] = "Medium";
+    VerifiedTelemetryFingerprintTemplateConfidence[VerifiedTelemetryFingerprintTemplateConfidence["Low"] = 0] = "Low";
+})(VerifiedTelemetryFingerprintTemplateConfidence || (VerifiedTelemetryFingerprintTemplateConfidence = {}));
 var VerifiedTelemetryReg;
 (function (VerifiedTelemetryReg) {
     /**
-     * Reads the telemetry working status, where ``true`` is working and ``false`` is faulty.
+     * Read-only Status (uint8_t). Reads the telemetry working status, where ``true`` is working and ``false`` is faulty.
      *
      * ```
-     * const [status, confidence] = jdunpack<[number, VerifiedTelemetryFingerprintTemplateConfidence]>(buf, "u8 u8")
+     * const [telemetryStatus] = jdunpack<[VerifiedTelemetryStatus]>(buf, "u8")
      * ```
      */
-    VerifiedTelemetryReg[VerifiedTelemetryReg["Telemetry"] = 384] = "Telemetry";
+    VerifiedTelemetryReg[VerifiedTelemetryReg["TelemetryStatus"] = 384] = "TelemetryStatus";
     /**
      * Read-write ms uint32_t. Specifies the interval between computing the fingerprint information.
      *
@@ -4365,8 +4352,7 @@ var VerifiedTelemetryReg;
      * Template Fingerprint information of a working sensor.
      *
      * ```
-     * const [rest] = jdunpack<[([string, string])[]]>(buf, "r: z z")
-     * const [property, value] = rest[0]
+     * const [confidence, template] = jdunpack<[VerifiedTelemetryFingerprintTemplateConfidence, Uint8Array]>(buf, "u16 b")
      * ```
      */
     VerifiedTelemetryReg[VerifiedTelemetryReg["FingerprintTemplate"] = 386] = "FingerprintTemplate";
@@ -4382,6 +4368,21 @@ var VerifiedTelemetryCmd;
      */
     VerifiedTelemetryCmd[VerifiedTelemetryCmd["RetrainFingerprintTemplate"] = 129] = "RetrainFingerprintTemplate";
 })(VerifiedTelemetryCmd || (VerifiedTelemetryCmd = {}));
+var VerifiedTelemetryEvent;
+(function (VerifiedTelemetryEvent) {
+    /**
+     * Argument: telemetry_status Status (uint8_t). The telemetry status of the device was updated.
+     *
+     * ```
+     * const [telemetryStatus] = jdunpack<[VerifiedTelemetryStatus]>(buf, "u8")
+     * ```
+     */
+    VerifiedTelemetryEvent[VerifiedTelemetryEvent["TelemetryStatusChange"] = 3] = "TelemetryStatusChange";
+    /**
+     * The fingerprint template was updated
+     */
+    VerifiedTelemetryEvent[VerifiedTelemetryEvent["FingerprintTemplateChange"] = 128] = "FingerprintTemplateChange";
+})(VerifiedTelemetryEvent || (VerifiedTelemetryEvent = {}));
 var VibrationMotorReg;
 (function (VibrationMotorReg) {
     /**

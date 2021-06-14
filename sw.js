@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "86d859f9bd33498b50f4fa97e2fc05bc"
+    "revision": "63ec5d9d04b5fab78e7bfb5203186ae3"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,11 +60,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "34c3f4c04047b84ea2ceff062b85de9e"
+    "revision": "17e1f0f6972b7cd6aee3077bad7b9f82"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "447f55a931b5a4b75e7724ff310797f8"
+    "revision": "56937917cafedee6401eba663b117d3f"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -72,7 +72,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "4ade8f9e465682016789871c7699a33a"
+    "revision": "ee311f74d2c4f8e525d8d427e7620151"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -80,7 +80,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "b568b9fa04b57a3d44993b2500c80923"
+    "revision": "9550cda951870e00ba48243f4fb16cfc"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -460,18 +460,6 @@ self.__precacheManifest = [
   {
     "url": "page-data/services/control/test/page-data.json",
     "revision": "482d3fa5d4f4a0eb5a77cc72c0b65ed8"
-  },
-  {
-    "url": "page-data/services/dependablesensor/page-data.json",
-    "revision": "44f0a7bcf4d3ee3cfb3e9c3ace2a888f"
-  },
-  {
-    "url": "page-data/services/dependablesensor/playground/page-data.json",
-    "revision": "102a750ad6e14f913797108525c25ed3"
-  },
-  {
-    "url": "page-data/services/dependablesensor/test/page-data.json",
-    "revision": "5de17e475d043cf8d67b8a4510909dc5"
   },
   {
     "url": "page-data/services/distance/page-data.json",
@@ -1123,7 +1111,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/services/verifiedtelemetrysensor/page-data.json",
-    "revision": "1fd77d8712f2a1836a36128688fb3ff9"
+    "revision": "cf28c743732384325ce8cf1b0de9c330"
   },
   {
     "url": "page-data/services/verifiedtelemetrysensor/playground/page-data.json",
@@ -1559,7 +1547,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-4b592e32a996c0822470.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-79db5a3350e779d2db75.js`))) {
     return await fetch(event.request)
   }
 

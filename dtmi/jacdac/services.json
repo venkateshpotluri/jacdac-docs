@@ -1296,42 +1296,6 @@
   },
   {
     "@type": "Interface",
-    "@id": "dtmi:jacdac:services:x2e6692c5;1",
-    "displayName": "Dependable Sensor",
-    "description": "A mixin service that exposes the computed dependable fingerprint of a sensor.",
-    "contents": [
-      {
-        "@type": [
-          "Property",
-          "TimeSpan"
-        ],
-        "name": "fingerprint_interval",
-        "@id": "dtmi:jacdac:x2e6692c5:rw:fingerprintinterval;1",
-        "description": "Specifies the interval between computing the fingerprint information.",
-        "unit": "millisecond",
-        "schema": "integer",
-        "writable": true
-      }
-    ],
-    "extends": [
-      "dtmi:jacdac:services:x1ffffff3;1"
-    ],
-    "schemas": [
-      {
-        "@id": "dtmi:jacdac:x2e6692c5:event;1",
-        "@type": "Object",
-        "fields": [
-          {
-            "name": "count",
-            "schema": "integer"
-          }
-        ]
-      }
-    ],
-    "@context": "dtmi:dtdl:context;2"
-  },
-  {
-    "@type": "Interface",
     "@id": "dtmi:jacdac:services:x141a6b8a;1",
     "displayName": "Distance",
     "description": "A sensor that determines the distance of an object without any physical contact involved.",
@@ -5381,22 +5345,10 @@
     "contents": [
       {
         "@type": "Telemetry",
-        "name": "telemetry",
-        "@id": "dtmi:jacdac:x2194841f:ro:telemetry;1",
+        "name": "telemetry_status",
+        "@id": "dtmi:jacdac:x2194841f:ro:telemetrystatus;1",
         "description": "Reads the telemetry working status, where ``true`` is working and ``false`` is faulty.",
-        "schema": {
-          "@type": "Object",
-          "fields": [
-            {
-              "name": "status",
-              "schema": "boolean"
-            },
-            {
-              "name": "confidence",
-              "schema": "dtmi:jacdac:x2194841f:fingerprinttemplateconfidence;1"
-            }
-          ]
-        }
+        "schema": "dtmi:jacdac:x2194841f:status;1"
       },
       {
         "@type": [
@@ -5416,6 +5368,41 @@
         "@id": "dtmi:jacdac:x2194841f:const:fingerprinttype;1",
         "description": "Type of the fingerprint.",
         "schema": "dtmi:jacdac:x2194841f:fingerprinttype;1"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "fingerprint_template",
+        "@id": "dtmi:jacdac:x2194841f:ro:fingerprinttemplate;1",
+        "description": "Template Fingerprint information of a working sensor.",
+        "schema": {
+          "@type": "Object",
+          "fields": [
+            {
+              "name": "confidence",
+              "schema": "dtmi:jacdac:x2194841f:fingerprinttemplateconfidence;1"
+            },
+            {
+              "name": "template"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "Telemetry",
+        "name": "telemetry_status_change",
+        "@id": "dtmi:jacdac:x2194841f:event:telemetrystatuschange;1",
+        "description": "The telemetry status of the device was updated.",
+        "schema": "dtmi:jacdac:x2194841f:status;1"
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "Event"
+        ],
+        "name": "fingerprint_template_change",
+        "@id": "dtmi:jacdac:x2194841f:event:fingerprinttemplatechange;1",
+        "description": "The fingerprint template was updated",
+        "schema": "dtmi:jacdac:x2194841f:event;1"
       }
     ],
     "extends": [
@@ -5434,23 +5421,23 @@
       },
       {
         "@type": "Enum",
-        "@id": "dtmi:jacdac:x2194841f:fingerprinttemplateconfidence;1",
+        "@id": "dtmi:jacdac:x2194841f:status;1",
         "valueSchema": "integer",
         "enumValues": [
           {
-            "name": "high",
-            "displayName": "High",
-            "enumValue": 100
-          },
-          {
-            "name": "medium",
-            "displayName": "Medium",
-            "enumValue": 50
-          },
-          {
-            "name": "low",
-            "displayName": "Low",
+            "name": "unknown",
+            "displayName": "Unknown",
             "enumValue": 0
+          },
+          {
+            "name": "working",
+            "displayName": "Working",
+            "enumValue": 1
+          },
+          {
+            "name": "faulty",
+            "displayName": "Faulty",
+            "enumValue": 2
           }
         ]
       },
@@ -5473,6 +5460,28 @@
             "name": "custom",
             "displayName": "Custom",
             "enumValue": 3
+          }
+        ]
+      },
+      {
+        "@type": "Enum",
+        "@id": "dtmi:jacdac:x2194841f:fingerprinttemplateconfidence;1",
+        "valueSchema": "integer",
+        "enumValues": [
+          {
+            "name": "high",
+            "displayName": "High",
+            "enumValue": 100
+          },
+          {
+            "name": "medium",
+            "displayName": "Medium",
+            "enumValue": 50
+          },
+          {
+            "name": "low",
+            "displayName": "Low",
+            "enumValue": 0
           }
         ]
       }
