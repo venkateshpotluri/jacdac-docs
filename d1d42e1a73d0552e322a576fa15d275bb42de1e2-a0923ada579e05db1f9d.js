@@ -11523,12 +11523,16 @@ function BlockProvider(props) {
   var handleBlockChange = function handleBlockChange(blockId) {
     var block = workspace.getBlockById(blockId);
     var services = block === null || block === void 0 ? void 0 : block.jacdacServices;
-    services === null || services === void 0 ? void 0 : services.emit(constants/* CHANGE */.Ver);
+
+    if (block && !block.isEnabled()) {
+      services === null || services === void 0 ? void 0 : services.clearData();
+    } else services === null || services === void 0 ? void 0 : services.emit(constants/* CHANGE */.Ver);
   };
 
   var handleWorkspaceEvent = function handleWorkspaceEvent(event) {
     var type = event.type,
         workspaceId = event.workspaceId;
+    console.log("blockly: " + type, event);
     if (workspaceId !== workspace.id) return; //console.log(`blockly event ${type}`, event)
 
     if (type === (blockly_default()).Events.FINISHED_LOADING) {
@@ -11543,16 +11547,7 @@ function BlockProvider(props) {
       var cev = event; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
       var parentId = cev.newParentId;
-
-      if (parentId) {
-        handleBlockChange(parentId);
-      } else {
-        // unplugged, clear data
-        var _block = workspace.getBlockById(cev.blockId);
-
-        var services = _block === null || _block === void 0 ? void 0 : _block.jacdacServices;
-        if (services) services.data = undefined;
-      }
+      if (parentId) handleBlockChange(parentId);
     } else if (type === (blockly_default()).Events.BLOCK_CHANGE) {
       var _cev = event;
       handleBlockChange(_cev.blockId);
@@ -12187,13 +12182,19 @@ var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
     return _this;
   }
 
+  var _proto = BlockServices.prototype;
+
+  _proto.clearData = function clearData() {
+    this.data = undefined;
+  };
+
   (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BlockServices, [{
     key: "data",
     get: function get() {
       return this._data;
     },
     set: function set(value) {
-      if (this._data !== value) {
+      if (JSON.stringify(this._data) !== JSON.stringify(value)) {
         this._data = value;
         this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
       }
