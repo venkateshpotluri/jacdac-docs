@@ -13906,7 +13906,11 @@ function ScatterChartWidget() {
       chartProps = _useBlockChartProps.chartProps;
 
   if (chartProps) chartProps.data = series;
-  var hasData = !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
+  var hasData = (labels === null || labels === void 0 ? void 0 : labels.length) === 2 && !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
+  console.log("chart props", {
+    chartProps: chartProps,
+    hasData: hasData
+  });
   if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
   chartProps.axisLeft.legend = labels[1];
