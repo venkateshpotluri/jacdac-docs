@@ -5797,6 +5797,7 @@ var datadsl = __webpack_require__(79018);
 
 
 var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+/* harmony default export */ var vmdsls = (vmDsls);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
 
@@ -5878,7 +5879,7 @@ function VMEditorWithContext() {
 
 function VMEditor() {
   var dsls = (0,react.useMemo)(function () {
-    return vmDsls;
+    return vmdsls;
   }, []);
   return /*#__PURE__*/react.createElement(NoSsr/* default */.Z, null, /*#__PURE__*/react.createElement(BlockContext/* BlockProvider */.Z, {
     storageKey: VM_SOURCE_STORAGE_KEY,
