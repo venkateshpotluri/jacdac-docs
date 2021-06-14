@@ -149,7 +149,7 @@ function isEmpty(value) {
   return value == null || value !== value;
 }
 
-var _excluded = ["jacdacdata", "data"];
+var _excluded = ["worker", "data"];
 var handlers = {
   arrange: function arrange(props) {
     var column = props.column,
@@ -175,16 +175,16 @@ function handleMessage$1(_x) {
 
 function _handleMessage$() {
   _handleMessage$ = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(event) {
-    var message, jacdacdata, rest, newData, resp;
+    var message, worker, rest, newData, resp;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             message = event.data; // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-            jacdacdata = message.jacdacdata, rest = _objectWithoutPropertiesLoose(message, _excluded);
+            worker = message.worker, rest = _objectWithoutPropertiesLoose(message, _excluded);
 
-            if (jacdacdata) {
+            if (!(worker !== "data")) {
               _context.next = 4;
               break;
             }
@@ -1015,22 +1015,22 @@ function handleMessage(_x2) {
 
 function _handleMessage() {
   _handleMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee2(event) {
-    var message, url, file;
+    var message, worker, url, file;
     return _regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             message = event.data;
+            worker = message.worker, url = message.url;
 
-            if (message.jacdaccsv) {
-              _context2.next = 3;
+            if (!(worker !== "csv")) {
+              _context2.next = 4;
               break;
             }
 
             return _context2.abrupt("return");
 
-          case 3:
-            url = message.url;
+          case 4:
             _context2.next = 6;
             return downloadCSV(url);
 
@@ -1038,6 +1038,7 @@ function _handleMessage() {
             file = _context2.sent;
             self.postMessage({
               id: message.id,
+              worker: "csv",
               file: file
             });
 

@@ -5643,8 +5643,8 @@ var jsonDSL = {
 /* harmony default export */ var jsondsl = (jsonDSL);
 // EXTERNAL MODULE: ./src/components/blockly/fields/ScatterPlotField.tsx
 var ScatterPlotField = __webpack_require__(97884);
-// EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.tsx
-var DataColumnChooserField = __webpack_require__(12456);
+// EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.ts
+var DataColumnChooserField = __webpack_require__(44393);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LinePlotField.tsx
 var LinePlotField = __webpack_require__(70659);
 // EXTERNAL MODULE: ./src/components/blockly/fields/GaugeWidgetField.tsx

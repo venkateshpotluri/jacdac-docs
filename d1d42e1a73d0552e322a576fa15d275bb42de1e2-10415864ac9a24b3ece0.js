@@ -11290,7 +11290,7 @@ var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
       return this._data;
     },
     set: function set(value) {
-      if (JSON.stringify(this._data) !== JSON.stringify(value)) {
+      if (this._data !== value) {
         this._data = value;
         this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
       }
@@ -11440,8 +11440,8 @@ __webpack_require__.d(__webpack_exports__, {
 var blockly = __webpack_require__(74640);
 // EXTERNAL MODULE: ./src/components/blockly/fields/BuiltinDataSetField.tsx + 1 modules
 var BuiltinDataSetField = __webpack_require__(90319);
-// EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.tsx
-var DataColumnChooserField = __webpack_require__(12456);
+// EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.ts
+var DataColumnChooserField = __webpack_require__(44393);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataTableField.tsx
 var DataTableField = __webpack_require__(54741);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
@@ -11477,7 +11477,7 @@ function _postTransformData() {
 
           case 2:
             ws = (0,proxy/* default */.Z)();
-            message.jacdacdata = true;
+            message.worker = "data";
             _context.next = 6;
             return ws.postMessage(message);
 
@@ -12179,7 +12179,7 @@ function _downloadCSV() {
             ws = (0,proxy/* default */.Z)();
             _context.next = 4;
             return ws.postMessage({
-              jacdaccsv: true,
+              worker: "csv",
               url: url
             });
 
@@ -12270,7 +12270,7 @@ BuiltinDataSetField.KEY = "jacdac_field_data_builtin_dataset";
 
 /***/ }),
 
-/***/ 12456:
+/***/ 44393:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14537,7 +14537,7 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
 /* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
 /* harmony import */ var _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(97884);
-/* harmony import */ var _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(12456);
+/* harmony import */ var _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(44393);
 /* harmony import */ var _LinePlotField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(70659);
 /* harmony import */ var _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(61162);
 /* harmony import */ var _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(90319);
