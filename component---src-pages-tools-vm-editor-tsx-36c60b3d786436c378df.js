@@ -5782,8 +5782,8 @@ var chartDSL = {
   }
 };
 /* harmony default export */ var chartdsl = (chartDSL);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts
-var datadsl = __webpack_require__(73595);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 1 modules
+var datadsl = __webpack_require__(79018);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
 

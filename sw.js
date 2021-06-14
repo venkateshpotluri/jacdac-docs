@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-ab0cf2ce574cadd76ee3.js"
+    "url": "webpack-runtime-bd7a928b301fec0e9bc4.js"
   },
   {
     "url": "styles.144acc30a296f455da44.css"
@@ -36,8 +36,11 @@ self.__precacheManifest = [
     "url": "framework-a5eee3f9a501b0f26ed6.js"
   },
   {
+    "url": "8c94476aecfffef8bb188161ebc5955ec9aac41a-886400c938f70d96aeed.js"
+  },
+  {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "b1fc98329f5889d7df749b82f2aa6e95"
+    "revision": "2299ce9e0218690cbc4dc2bb5efa6c4b"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -57,11 +60,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "bb9af6629c9963e7c6eca60df9be6ced"
+    "revision": "f1ac4a88dc6707e2fc2fb57c2c3e4528"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "e1e0139586a363c73cf4045d34259f1c"
+    "revision": "ed421933abe8db15a30709b49a7500a9"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -69,7 +72,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "4316c7f3fb3818bf3fe4bd5dc4a998e6"
+    "revision": "dcbcf2436676811ef52369ed7b329541"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -77,7 +80,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "c1dc654f75c9941632d694b47be672cb"
+    "revision": "2055cc171a2b5067b1004b9aedc53595"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -1317,10 +1320,10 @@ self.__precacheManifest = [
     "url": "d711c980-0b20d62360802b84b46d.js"
   },
   {
-    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-a0923ada579e05db1f9d.js"
+    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-5277bbd3493358720558.js"
   },
   {
-    "url": "component---src-pages-tools-data-science-editor-tsx-30f95358a921451c9bc9.js"
+    "url": "component---src-pages-tools-data-science-editor-tsx-db2b8900d8511439195e.js"
   },
   {
     "url": "page-data/tools/data-science-editor/page-data.json",
@@ -1456,7 +1459,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-67de74b3c9dd9c7bb323.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-36c60b3d786436c378df.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1556,7 +1559,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-efbfc278dabbcc124791.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-10f81172d08729268cba.js`))) {
     return await fetch(event.request)
   }
 
