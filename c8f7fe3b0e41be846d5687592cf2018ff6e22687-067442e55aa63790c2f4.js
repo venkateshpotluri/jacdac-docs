@@ -47015,8 +47015,6 @@ var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./src/components/useDbValue.ts
-var useDbValue = __webpack_require__(73550);
 // EXTERNAL MODULE: ./src/components/useEffectAsync.ts
 var useEffectAsync = __webpack_require__(7751);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
@@ -47089,6 +47087,8 @@ var CheckCircleOutline = __webpack_require__(41212);
 var notistack_esm = __webpack_require__(70076);
 // EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
 var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./src/components/hooks/useSecret.ts
+var useSecret = __webpack_require__(31066);
 ;// CONCATENATED MODULE: ./src/components/ApiKeyAccordion.tsx
 
 
@@ -47096,10 +47096,10 @@ var react_use_id_hook_esm = __webpack_require__(19640);
 
 
 
-
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -47110,9 +47110,9 @@ function ApiKeyAccordion(props) {
       instructions = props.instructions,
       title = props.title;
 
-  var _useDbValue = (0,useDbValue/* default */.Z)(apiName, ""),
-      apiKey = _useDbValue.value,
-      setApiKey = _useDbValue.setValue;
+  var _useSecret = (0,useSecret/* useSecret */.$)(apiName),
+      apiKey = _useSecret.value,
+      setApiKey = _useSecret.setValue;
 
   var apiKeyId = (0,react_use_id_hook_esm/* useId */.Me)();
 
@@ -49511,8 +49511,6 @@ var DialogActions = __webpack_require__(89952);
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./src/components/github.ts + 2 modules
 var github = __webpack_require__(99819);
-// EXTERNAL MODULE: ./src/components/useDbValue.ts
-var useDbValue = __webpack_require__(73550);
 // EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
 var notistack_esm = __webpack_require__(70076);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/GitHub.js
@@ -49527,6 +49525,8 @@ var LoadingProgress = __webpack_require__(2285);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
 var random = __webpack_require__(80303);
+// EXTERNAL MODULE: ./src/components/hooks/useSecret.ts
+var useSecret = __webpack_require__(31066);
 ;// CONCATENATED MODULE: ./src/components/buttons/GithubPullRequestButton.tsx
 
 
@@ -49553,8 +49553,8 @@ function GithubPullRequestButton(props) {
       description = props.description,
       head = props.head;
 
-  var _useDbValue = (0,useDbValue/* default */.Z)(github/* GITHUB_API_KEY */.nJ, ""),
-      token = _useDbValue.value;
+  var _useSecret = (0,useSecret/* useSecret */.$)(github/* GITHUB_API_KEY */.nJ),
+      token = _useSecret.value;
 
   var _useState = (0,react.useState)(undefined),
       setResponse = _useState[1];
@@ -49635,11 +49635,11 @@ function GithubPullRequestButton(props) {
                 id = result.data.number;
                 enqueueSnackbar( /*#__PURE__*/react.createElement(Typography/* default */.Z, {
                   component: "span"
-                }, "Pull Request ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+                }, "Pull Request", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
                   target: "_blank",
                   rel: "no-referrer no-follower",
                   href: url
-                }, "#", id), " created..."), {
+                }, "#", id), " ", "created..."), {
                   variant: "success"
                 });
               } else {
@@ -49699,20 +49699,20 @@ function GithubPullRequestButton(props) {
   }, label))), /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
     open: confirmDialog,
     onClose: handleCloseConfirm
-  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, "We will open a new Pull Request in ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, "We will open a new Pull Request in", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     href: "https://github.com/microsoft/jacdac",
     rel: "noreferrer nofollower"
-  }, "microsoft/jacdac"), " with your files. If needed, we will fork ", /*#__PURE__*/react.createElement("code", null, "microsoft/jacdac"), " under your account and create a Pull Request in that repository."), /*#__PURE__*/react.createElement(ApiKeyAccordion/* default */.Z, {
+  }, "microsoft/jacdac"), " ", "with your files. If needed, we will fork", " ", /*#__PURE__*/react.createElement("code", null, "microsoft/jacdac"), " under your account and create a Pull Request in that repository."), /*#__PURE__*/react.createElement(ApiKeyAccordion/* default */.Z, {
     apiName: github/* GITHUB_API_KEY */.nJ,
     title: "GitHub Developer Token",
     instructions: /*#__PURE__*/react.createElement(Typography/* default */.Z, {
       component: "span",
       variant: "caption"
-    }, "Open ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+    }, "Open", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
       target: "_blank",
       href: "https://github.com/settings/tokens/new",
       rel: "noreferrer nofollower"
-    }, "https://github.com/settings/tokens/new"), " and generate a new personal access token with **repo** scope.")
+    }, "https://github.com/settings/tokens/new"), " ", "and generate a new personal access token with **repo** scope.")
   })), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
     variant: "contained",
     color: "primary",
@@ -49982,6 +49982,29 @@ function useKeyboardNavigationProps(parentRef, vertical) {
   });
   return {
     onKeyDown: parentRef && onKeyDown
+  };
+}
+
+/***/ }),
+
+/***/ 31066:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "$": function() { return /* binding */ useSecret; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+function useSecret(id) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  return {
+    value: value,
+    setValue: setValue
   };
 }
 

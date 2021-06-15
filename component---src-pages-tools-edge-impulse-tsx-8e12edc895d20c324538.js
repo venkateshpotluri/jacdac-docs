@@ -528,8 +528,6 @@ var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./src/components/useDbValue.ts
-var useDbValue = __webpack_require__(73550);
 // EXTERNAL MODULE: ./src/components/useEffectAsync.ts
 var useEffectAsync = __webpack_require__(7751);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
@@ -602,6 +600,8 @@ var CheckCircleOutline = __webpack_require__(41212);
 var notistack_esm = __webpack_require__(70076);
 // EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
 var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./src/components/hooks/useSecret.ts
+var useSecret = __webpack_require__(31066);
 ;// CONCATENATED MODULE: ./src/components/ApiKeyAccordion.tsx
 
 
@@ -609,10 +609,10 @@ var react_use_id_hook_esm = __webpack_require__(19640);
 
 
 
-
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
 
 
 
@@ -623,9 +623,9 @@ function ApiKeyAccordion(props) {
       instructions = props.instructions,
       title = props.title;
 
-  var _useDbValue = (0,useDbValue/* default */.Z)(apiName, ""),
-      apiKey = _useDbValue.value,
-      setApiKey = _useDbValue.setValue;
+  var _useSecret = (0,useSecret/* useSecret */.$)(apiName),
+      apiKey = _useSecret.value,
+      setApiKey = _useSecret.setValue;
 
   var apiKeyId = (0,react_use_id_hook_esm/* useId */.Me)();
 
@@ -873,6 +873,29 @@ function ReadingFieldGrid(props) {
 
 /***/ }),
 
+/***/ 31066:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "$": function() { return /* binding */ useSecret; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+function useSecret(id) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  return {
+    value: value,
+    setValue: setValue
+  };
+}
+
+/***/ }),
+
 /***/ 2649:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -904,32 +927,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(80453);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(80838);
 /* harmony import */ var gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36176);
-/* harmony import */ var _components_useDbValue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(73550);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20392);
-/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(54774);
-/* harmony import */ var _components_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7746);
-/* harmony import */ var _jacdac_ts_src_jdom_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(47235);
-/* harmony import */ var _components_DeviceCardHeader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(31477);
-/* harmony import */ var _components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(95453);
-/* harmony import */ var _components_useEffectAsync__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(7751);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(71815);
-/* harmony import */ var _components_FieldDataSet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(64616);
-/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(13173);
-/* harmony import */ var _components_ui_CircularProgressWithLabel__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(29177);
-/* harmony import */ var _components_Trend__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(25090);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(20392);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54774);
+/* harmony import */ var _components_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7746);
+/* harmony import */ var _jacdac_ts_src_jdom_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(47235);
+/* harmony import */ var _components_DeviceCardHeader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(31477);
+/* harmony import */ var _components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(95453);
+/* harmony import */ var _components_useEffectAsync__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(7751);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(71815);
+/* harmony import */ var _components_FieldDataSet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(64616);
+/* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(13173);
+/* harmony import */ var _components_ui_CircularProgressWithLabel__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(29177);
+/* harmony import */ var _components_Trend__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(25090);
 /* harmony import */ var _material_ui_icons_GetApp__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(52377);
-/* harmony import */ var _components_ServiceList__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(15548);
-/* harmony import */ var _model_uploader__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(46905);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(81794);
+/* harmony import */ var _components_ServiceList__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(15548);
+/* harmony import */ var _model_uploader__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(46905);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(81794);
 /* harmony import */ var _components_devices_useDeviceName__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(5738);
-/* harmony import */ var _components_ReadingFieldGrid__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(29065);
-/* harmony import */ var _components_useChartPalette__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(74039);
-/* harmony import */ var _jacdac_ts_src_jdom_sensoraggregatorclient__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(84264);
+/* harmony import */ var _components_ReadingFieldGrid__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(29065);
+/* harmony import */ var _components_useChartPalette__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(74039);
+/* harmony import */ var _jacdac_ts_src_jdom_sensoraggregatorclient__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(84264);
 /* harmony import */ var _material_ui_lab__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(99330);
-/* harmony import */ var _jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(10913);
-/* harmony import */ var _components_alert_ConnectAlert__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(94431);
-/* harmony import */ var _components_ApiKeyAccordion__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(42495);
-
+/* harmony import */ var _jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(10913);
+/* harmony import */ var _components_alert_ConnectAlert__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(94431);
+/* harmony import */ var _components_ApiKeyAccordion__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(42495);
+/* harmony import */ var _components_hooks_useSecret__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(31066);
 
 
 
@@ -965,6 +987,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var EDGE_IMPULSE_API_KEY = "edgeimpulseapikey";
 var IDLE = "idle";
 var STARTING = "starting";
@@ -983,7 +1006,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
     var _this;
 
     _this = _JDClient.call(this) || this;
-    _this.connectionState = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .DISCONNECT */ .PYu;
+    _this.connectionState = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .DISCONNECT */ .PYu;
     _this.samplingState = IDLE;
     _this.apiKey = apiKey;
     _this.aggregator = aggregator;
@@ -994,7 +1017,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
     _this.handleError = _this.handleError.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_27__/* .default */ .Z)(_this));
     _this.handleReport = _this.handleReport.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_27__/* .default */ .Z)(_this));
     _this.handlePing = _this.handlePing.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_27__/* .default */ .Z)(_this));
-    _this.aggregatorClient = new _jacdac_ts_src_jdom_sensoraggregatorclient__WEBPACK_IMPORTED_MODULE_22__/* .SensorAggregatorClient */ .F(_this.aggregator);
+    _this.aggregatorClient = new _jacdac_ts_src_jdom_sensoraggregatorclient__WEBPACK_IMPORTED_MODULE_21__/* .SensorAggregatorClient */ .F(_this.aggregator);
 
     _this.aggregatorClient.subscribeSample(_this.handleReport);
 
@@ -1029,7 +1052,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
       } catch (e) {
         console.debug(e);
       } finally {
-        this.setConnectionState(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .DISCONNECT */ .PYu);
+        this.setConnectionState(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .DISCONNECT */ .PYu);
       }
     }
   };
@@ -1037,7 +1060,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
   _proto.setConnectionState = function setConnectionState(state) {
     if (this.connectionState !== state) {
       this.connectionState = state;
-      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CONNECTION_STATE */ .pzj, this.connectionState);
+      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CONNECTION_STATE */ .pzj, this.connectionState);
       console.log("ei: connection state changed", this.connectionState);
     }
   };
@@ -1046,7 +1069,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
     if (this.samplingState !== state) {
       this.samplingState = state;
       this.emit(SAMPLING_STATE, this.samplingState);
-      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CHANGE */ .Ver);
+      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CHANGE */ .Ver);
       console.log("ei: sampling state changed", this.samplingState);
     }
   };
@@ -1073,7 +1096,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
 
             case 5:
               firmwareIdentifier = _context.sent;
-              deviceSpec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_14__/* .deviceSpecificationFromFirmwareIdentifier */ .IL)(firmwareIdentifier);
+              deviceSpec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_13__/* .deviceSpecificationFromFirmwareIdentifier */ .IL)(firmwareIdentifier);
               this._hello = {
                 version: 2,
                 apiKey: this.apiKey,
@@ -1083,7 +1106,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
                 // direct connection
                 sensors: [{
                   name: this.inputRegisters.map(function (reg) {
-                    return (0,_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_23__/* .serviceName */ .HV)(reg.service.serviceClass);
+                    return (0,_jacdac_ts_src_jdom_pretty__WEBPACK_IMPORTED_MODULE_22__/* .serviceName */ .HV)(reg.service.serviceClass);
                   }).join(","),
                   maxSampleLengthS: 10000,
                   frequencies: [50, 30, 20, 10]
@@ -1127,10 +1150,10 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
       var hello = data;
 
       if (!hello.hello) {
-        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .ERROR */ .pnR, hello.err);
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .ERROR */ .pnR, hello.err);
         this.disconnect();
       } else {
-        this.setConnectionState(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CONNECT */ .JD8);
+        this.setConnectionState(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CONNECT */ .JD8);
       }
     } else if (data.sample) {
       var sample = data.sample;
@@ -1161,18 +1184,18 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
     if (this.samplingState == SAMPLING) {
       var ds = this.dataSet;
       ds.addRow(row);
-      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .REPORT_RECEIVE */ .Gb8); // debounced progress update
+      this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .REPORT_RECEIVE */ .Gb8); // debounced progress update
 
       if (timestamp - this._sample.lastProgressTimestamp > 100) {
         this._sample.lastProgressTimestamp = timestamp;
-        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .PROGRESS */ .ad7, this.progress);
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .PROGRESS */ .ad7, this.progress);
       }
 
       if (timestamp - this._sample.startTimestamp >= this._sample.length) {
         // first stop the sampling
         this.stopSampling(); // we're done!
 
-        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .PROGRESS */ .ad7, this.progress); // and upload...
+        this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .PROGRESS */ .ad7, this.progress); // and upload...
 
         this.uploadData();
       }
@@ -1252,7 +1275,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
   };
 
   _proto.handleError = function handleError(ev) {
-    this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .ERROR */ .pnR, ev);
+    this.emit(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .ERROR */ .pnR, ev);
     this.reconnect();
   };
 
@@ -1263,7 +1286,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
           switch (_context3.prev = _context3.next) {
             case 0:
               this._sample = sample;
-              this._sample.dataSet = _components_FieldDataSet__WEBPACK_IMPORTED_MODULE_13__/* .default.create */ .Z.create(this.aggregator.device.bus, this.inputRegisters, "sample", this.palette);
+              this._sample.dataSet = _components_FieldDataSet__WEBPACK_IMPORTED_MODULE_12__/* .default.create */ .Z.create(this.aggregator.device.bus, this.inputRegisters, "sample", this.palette);
               this._sample.unsubscribers = [];
               this.send({
                 sample: true
@@ -1334,7 +1357,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
     if (this._ws) return; // already connected
 
     console.log("ei: connect");
-    this.setConnectionState(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CONNECTING */ .BS3);
+    this.setConnectionState(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CONNECTING */ .BS3);
     this._ws = new WebSocket("wss://remote-mgmt.edgeimpulse.com");
     this._ws.onmessage = this.handleMessage;
     this._ws.onopen = this.handleOpen;
@@ -1568,7 +1591,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
   }, {
     key: "connected",
     get: function get() {
-      return this.connectionState === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CONNECT */ .JD8;
+      return this.connectionState === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CONNECT */ .JD8;
     }
   }, {
     key: "sampling",
@@ -1598,7 +1621,7 @@ var EdgeImpulseClient = /*#__PURE__*/function (_JDClient) {
   }]);
 
   return EdgeImpulseClient;
-}(_jacdac_ts_src_jdom_client__WEBPACK_IMPORTED_MODULE_8__/* .JDClient */ .z);
+}(_jacdac_ts_src_jdom_client__WEBPACK_IMPORTED_MODULE_7__/* .JDClient */ .z);
 
 function ApiKeyManager() {
   var validateKey = /*#__PURE__*/function () {
@@ -1630,7 +1653,7 @@ function ApiKeyManager() {
     };
   }();
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ApiKeyAccordion__WEBPACK_IMPORTED_MODULE_25__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ApiKeyAccordion__WEBPACK_IMPORTED_MODULE_24__/* .default */ .Z, {
     apiName: EDGE_IMPULSE_API_KEY,
     validateKey: validateKey,
     instructions: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "To get an ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("b", null, "API key"), ", navigate to \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__.Link, {
@@ -1645,7 +1668,7 @@ function useEdgeImpulseProjectInfo(apiKey) {
       info = _useState[0],
       setInfo = _useState[1];
 
-  (0,_components_useEffectAsync__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)( /*#__PURE__*/function () {
+  (0,_components_useEffectAsync__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/function () {
     var _ref3 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_28__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee9(mounted) {
       var r;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee9$(_context9) {
@@ -1746,7 +1769,7 @@ function ModelDownloadButton(props) {
             case 8:
               res = _context10.sent;
               _context10.next = 11;
-              return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_19__/* .readBlobToUint8Array */ .Lg)(res);
+              return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_18__/* .readBlobToUint8Array */ .Lg)(res);
 
             case 11:
               bytes = _context10.sent;
@@ -1776,7 +1799,7 @@ function ModelDownloadButton(props) {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_36__/* .default */ .Z, {
     mb: 1
-  }, error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }, error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "error"
   }, error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_34__/* .default */ .Z, {
     variant: "contained",
@@ -1798,7 +1821,7 @@ function AggregatorCard(props) {
     return onChecked();
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_30__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_DeviceCardHeader__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_30__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_DeviceCardHeader__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
     device: device,
     showMedia: true
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_39__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_40__/* .default */ .Z, {
@@ -1822,7 +1845,7 @@ function Acquisition(props) {
       error = _useState5[0],
       setError = _useState5[1];
 
-  var _useState6 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .DISCONNECT */ .PYu),
+  var _useState6 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .DISCONNECT */ .PYu),
       connectionState = _useState6[0],
       setConnectionState = _useState6[1];
 
@@ -1840,8 +1863,8 @@ function Acquisition(props) {
   var deviceId = device.deviceId;
   var deviceName = (0,_components_devices_useDeviceName__WEBPACK_IMPORTED_MODULE_41__/* .default */ .Z)(device, false);
   var projectId = info === null || info === void 0 ? void 0 : info.id;
-  var palette = (0,_components_useChartPalette__WEBPACK_IMPORTED_MODULE_21__/* .default */ .Z)();
-  var connected = connectionState === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CONNECT */ .JD8;
+  var palette = (0,_components_useChartPalette__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z)();
+  var connected = connectionState === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CONNECT */ .JD8;
   var sampling = samplingState !== IDLE;
   var dataSet = client === null || client === void 0 ? void 0 : client.dataSet;
   var generatedSampleName = client === null || client === void 0 ? void 0 : client.generatedSampleName;
@@ -1866,7 +1889,7 @@ function Acquisition(props) {
   }).join(",")]); // subscribe to client changes
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    return client === null || client === void 0 ? void 0 : client.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .CONNECTION_STATE */ .pzj, function (v) {
+    return client === null || client === void 0 ? void 0 : client.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .CONNECTION_STATE */ .pzj, function (v) {
       return setConnectionState(v);
     });
   }, [client]); // subscribe to client changes
@@ -1878,18 +1901,18 @@ function Acquisition(props) {
   }, [client]); // listen to errors
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    return client === null || client === void 0 ? void 0 : client.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .ERROR */ .pnR, function (e) {
+    return client === null || client === void 0 ? void 0 : client.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .ERROR */ .pnR, function (e) {
       return setError(e);
     });
   }, [client]); // progress
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    return client === null || client === void 0 ? void 0 : client.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .PROGRESS */ .ad7, function (p) {
+    return client === null || client === void 0 ? void 0 : client.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .PROGRESS */ .ad7, function (p) {
       return setSamplingProgress(p * 100);
     });
   }, [client]); // name checking
 
-  (0,_components_useEffectAsync__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_28__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee11() {
+  (0,_components_useEffectAsync__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_28__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee11() {
     var resp, _info, rename;
 
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee11$(_context11) {
@@ -1944,15 +1967,15 @@ function Acquisition(props) {
       }
     }, _callee11);
   })), [apiKey, projectId, deviceName]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_36__/* .default */ .Z, null, connected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_36__/* .default */ .Z, null, connected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "success"
-  }, "Connected to EdgeImpulse"), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }, "Connected to EdgeImpulse"), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "error"
-  }, error), sampling && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }, error), sampling && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "info"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_42__/* .default */ .Z, null, "Sampling..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_CircularProgressWithLabel__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_42__/* .default */ .Z, null, "Sampling..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_CircularProgressWithLabel__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
     value: samplingProgress
-  })), !!dataSet && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_Trend__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
+  })), !!dataSet && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_Trend__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
     dataSet: dataSet
   }), generatedSampleName && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_43__/* .default */ .Z, {
     variant: "body2"
@@ -1960,10 +1983,10 @@ function Acquisition(props) {
 }
 
 function EdgeImpulse() {
-  var _useDbValue = (0,_components_useDbValue__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(EDGE_IMPULSE_API_KEY, ""),
-      apiKey = _useDbValue.value;
+  var _useSecret = (0,_components_hooks_useSecret__WEBPACK_IMPORTED_MODULE_25__/* .useSecret */ .$)(EDGE_IMPULSE_API_KEY),
+      apiKey = _useSecret.value;
 
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z),
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z),
       bus = _useContext.bus;
 
   var _useState10 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
@@ -1978,22 +2001,22 @@ function EdgeImpulse() {
       aggregatorId = _useState12[0],
       setAggregatorId = _useState12[1];
 
-  var gridBreakPoints = (0,_components_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)();
+  var gridBreakPoints = (0,_components_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)();
   var info = useEdgeImpulseProjectInfo(apiKey);
-  var aggregators = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(bus, function (bus) {
+  var aggregators = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(bus, function (bus) {
     return bus.services({
-      serviceClass: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .SRV_SENSOR_AGGREGATOR */ .x12
+      serviceClass: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .SRV_SENSOR_AGGREGATOR */ .x12
     });
   });
   var currentAggregator = aggregators.find(function (srv) {
     return srv.id == aggregatorId;
   }) || aggregators[0];
-  var readingRegisters = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(bus, function (bus) {
+  var readingRegisters = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(bus, function (bus) {
     return bus.devices().map(function (device) {
       var _device$services$find;
 
       return (_device$services$find = device.services().find(function (srv) {
-        return (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_14__/* .isSensor */ .rq)(srv.specification);
+        return (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_13__/* .isSensor */ .rq)(srv.specification);
       })) === null || _device$services$find === void 0 ? void 0 : _device$services$find.readingRegister;
     }).filter(function (reg) {
       return !!reg;
@@ -2019,17 +2042,17 @@ function EdgeImpulse() {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h1", null, "Edge Impulse"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("p", null, "Use Jacdac to inject data and download models into", " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(gatsby_theme_material_ui__WEBPACK_IMPORTED_MODULE_3__.Link, {
     href: "https://studio.edgeimpulse.com"
-  }, "https://studio.edgeimpulse.com"), "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_alert_ConnectAlert__WEBPACK_IMPORTED_MODULE_24__/* .default */ .Z, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ApiKeyManager, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_36__/* .default */ .Z, {
+  }, "https://studio.edgeimpulse.com"), "."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_alert_ConnectAlert__WEBPACK_IMPORTED_MODULE_23__/* .default */ .Z, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ApiKeyManager, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_36__/* .default */ .Z, {
     mb: 1
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ProjectInfo, {
     info: info
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h3", null, "Data"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "Select Sensors"), !(readingRegisters !== null && readingRegisters !== void 0 && readingRegisters.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h3", null, "Data"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "Select Sensors"), !(readingRegisters !== null && readingRegisters !== void 0 && readingRegisters.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "info"
-  }, "No sensor found..."), !!readingRegisters.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ReadingFieldGrid__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, {
+  }, "No sensor found..."), !!readingRegisters.length && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ReadingFieldGrid__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z, {
     readingRegisters: readingRegisters,
     registerIdsChecked: registerIdsChecked,
     handleRegisterCheck: handleRegisterCheck
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "Select Sensor Aggregator"), !(aggregators !== null && aggregators !== void 0 && aggregators.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "Select Sensor Aggregator"), !(aggregators !== null && aggregators !== void 0 && aggregators.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "info"
   }, "No data aggregator found..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_45__/* .default */ .Z, {
     container: true,
@@ -2043,9 +2066,9 @@ function EdgeImpulse() {
       selected: currentAggregator === aggregator,
       onChecked: handleAggregatorChecked(aggregator)
     }));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "Acquisition status"), !currentAggregator && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h4", null, "Acquisition status"), !currentAggregator && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "info"
-  }, "No data aggregator selected..."), !(inputs !== null && inputs !== void 0 && inputs.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }, "No data aggregator selected..."), !(inputs !== null && inputs !== void 0 && inputs.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "info"
   }, "Select sensors to collect data from..."), currentAggregator && !!(inputs !== null && inputs !== void 0 && inputs.length) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Acquisition, {
     aggregator: currentAggregator,
@@ -2054,21 +2077,21 @@ function EdgeImpulse() {
     info: info === null || info === void 0 ? void 0 : info.project
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h3", null, "Deployment"), model && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_36__/* .default */ .Z, {
     mb: 1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ui_Alert__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
     severity: "success"
   }, "Model downloaded!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(ModelDownloadButton, {
     apiKey: apiKey,
     info: info,
     setModel: setModel
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ServiceList__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
-    serviceClass: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_12__/* .SRV_MODEL_RUNNER */ .kVm,
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_components_ServiceList__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
+    serviceClass: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .SRV_MODEL_RUNNER */ .kVm,
     content: function content(service) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_model_uploader__WEBPACK_IMPORTED_MODULE_18__.ModelContent, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_model_uploader__WEBPACK_IMPORTED_MODULE_17__.ModelContent, {
         service: service
       });
     },
     actions: function actions(service) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_model_uploader__WEBPACK_IMPORTED_MODULE_18__.ModelActions, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_model_uploader__WEBPACK_IMPORTED_MODULE_17__.ModelActions, {
         service: service,
         model: model
       });
