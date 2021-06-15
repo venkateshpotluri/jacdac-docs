@@ -11494,6 +11494,7 @@ function _postTransformData() {
   return _postTransformData.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datadsl.ts
+/* eslint-disable @typescript-eslint/ban-types */
 
 
 
@@ -11596,7 +11597,7 @@ var dataDsl = {
     }, {
       kind: "block",
       type: DATA_DATAVARIABLE_READ_BLOCK,
-      message0: "data variable %1",
+      message0: "dataset variable %1",
       args0: [{
         type: "field_variable",
         name: "data",
@@ -11607,12 +11608,16 @@ var dataDsl = {
       inputsInline: false,
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       colour: colour,
-      template: "meta"
-    }, // only 1 allowed to prevent cycles
-    {
+      template: "meta",
+      transformData: function transformData(block) {
+        var services = block.jacdacServices;
+        var data = services === null || services === void 0 ? void 0 : services.data;
+        return Promise.resolve(data);
+      }
+    }, {
       kind: "block",
       type: DATA_DATAVARIABLE_WRITE_BLOCK,
-      message0: "store in data variable %1",
+      message0: "store in dataset variable %1",
       args0: [{
         type: "field_variable",
         name: "data",
@@ -11624,7 +11629,25 @@ var dataDsl = {
       previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       colour: colour,
-      template: "meta"
+      template: "meta",
+      transformData: function transformData(block, data) {
+        // grab the variable from the block
+        var variable = block.getFieldValue("data");
+        if (!variable) return Promise.resolve(undefined);
+        var readBlocks = block.workspace.getBlocksByType(DATA_DATAVARIABLE_READ_BLOCK, false);
+        readBlocks.filter(function (b) {
+          return b.isEnabled();
+        }).filter(function (b) {
+          return b.getFieldValue("data") === variable;
+        }).map(function (b) {
+          return b.jacdacServices;
+        }).filter(function (services) {
+          return !!services;
+        }).forEach(function (services) {
+          return services.data = data;
+        });
+        return Promise.resolve(data);
+      }
     }];
   },
   createCategory: function createCategory() {
