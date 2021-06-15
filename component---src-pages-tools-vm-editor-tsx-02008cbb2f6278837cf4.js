@@ -772,6 +772,13 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ Page; }
 });
 
+// NAMESPACE OBJECT: ./src/components/blockly/dsl/toolsdsl.ts
+var toolsdsl_namespaceObject = {};
+__webpack_require__.r(toolsdsl_namespaceObject);
+__webpack_require__.d(toolsdsl_namespaceObject, {
+  "Z": function() { return toolsdsl; }
+});
+
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
@@ -3190,22 +3197,725 @@ var useServiceServer = __webpack_require__(49013);
 var Cancel = __webpack_require__(30263);
 // EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
 var BlockContext = __webpack_require__(85379);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
 var VMgenerator = __webpack_require__(15056);
-// EXTERNAL MODULE: ./src/components/blockly/fields/JDomTreeField.tsx
-var JDomTreeField = __webpack_require__(90263);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LogViewField.tsx
 var LogViewField = __webpack_require__(86899);
-// EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
-var TwinField = __webpack_require__(35361);
 // EXTERNAL MODULE: ./src/components/blockly/fields/VariablesFields.tsx
 var VariablesFields = __webpack_require__(15757);
 // EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx
 var WatchValueField = __webpack_require__(2006);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/toolsdsl.ts
+
+
+
+
+
+
+var WATCH_BLOCK = "jacdac_tools_watch";
+var LOG_BLOCK = "jacdac_tools_log";
+var VIEW_LOG_BLOCK = "jacdac_tools_log_view";
+var VARIABLES_BLOCK = "jacdac_variables_view";
+var colour = toolbox/* toolsColour */.FR;
+var toolsDSL = {
+  id: "tools",
+  createBlocks: function createBlocks() {
+    return [{
+      kind: "block",
+      type: VARIABLES_BLOCK,
+      message0: "variables %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: VariablesFields/* default.KEY */.Z.KEY,
+        name: "variables"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "Watch variables values",
+      helpUrl: "",
+      template: "meta"
+    }, {
+      kind: "block",
+      type: WATCH_BLOCK,
+      message0: "watch %1 %2",
+      args0: [{
+        type: "input_value",
+        name: "value"
+      }, {
+        type: WatchValueField/* default.KEY */.Z.KEY,
+        name: "watch"
+      }],
+      colour: colour,
+      inputsInline: true,
+      tooltip: "Watch a value in the editor",
+      helpUrl: "",
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: LOG_BLOCK,
+      message0: "log %1",
+      args0: [{
+        type: "input_value",
+        name: "value"
+      }],
+      colour: colour,
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Log an entry to the console",
+      helpUrl: ""
+    }, {
+      kind: "block",
+      type: VIEW_LOG_BLOCK,
+      message0: "console %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: LogViewField/* default.KEY */.Z.KEY,
+        name: "watch"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "View console content",
+      template: "meta"
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Debugger",
+      colour: colour,
+      contents: [{
+        kind: "label",
+        text: "Variables"
+      }, {
+        kind: "block",
+        type: VARIABLES_BLOCK
+      }, {
+        kind: "block",
+        type: WATCH_BLOCK
+      }, {
+        kind: "label",
+        text: "Logging"
+      }, {
+        kind: "block",
+        type: LOG_BLOCK,
+        values: {
+          value: {
+            kind: "block",
+            type: "text"
+          }
+        }
+      }, {
+        kind: "block",
+        type: VIEW_LOG_BLOCK
+      }]
+    }, {
+      kind: "sep"
+    }];
+  },
+  compileCommandToVM: function compileCommandToVM(_ref) {
+    var block = _ref.block,
+        blockToExpression = _ref.blockToExpression;
+    var type = block.type;
+
+    if (type === LOG_BLOCK) {
+      var inputs = block.inputs;
+
+      var _blockToExpression = blockToExpression(undefined, inputs[0].child),
+          expr = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
+
+      return {
+        cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
+          type: "CallExpression",
+          arguments: [expr],
+          callee: (0,compile/* toIdentifier */.EB)("log")
+        }),
+        errors: errors
+      };
+    }
+
+    return undefined;
+  },
+  compileEventToVM: function compileEventToVM(_ref2) {
+    var block = _ref2.block,
+        blockToExpression = _ref2.blockToExpression;
+    var type = block.type;
+
+    if (type === WATCH_BLOCK) {
+      var inputs = block.inputs;
+
+      var _blockToExpression2 = blockToExpression(undefined, inputs[0].child),
+          expr = _blockToExpression2.expr,
+          errors = _blockToExpression2.errors;
+
+      return {
+        expression: {
+          type: "CallExpression",
+          arguments: [expr],
+          callee: (0,compile/* toIdentifier */.EB)("watch")
+        },
+        errors: errors,
+        meta: true
+      };
+    }
+
+    return undefined;
+  }
+};
+/* harmony default export */ var toolsdsl = (toolsDSL);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
+
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
+
+
+
+
+
+
+
+
+function RoleChip(props) {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspace = _useContext.workspace;
+
+  var role = props.role,
+      service = props.service,
+      serviceShortId = props.serviceShortId;
+
+  var _useContext2 = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext2.bus;
+
+  var server = (0,useServiceServer/* default */.Z)(service);
+
+  var handleRoleClick = function handleRoleClick() {
+    // spin off simulator
+    if (!service) {
+      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+    } // add twin block
+
+
+    if (workspace) {
+      // try to find existing twin block
+      var twinBlock = workspace.getTopBlocks(false).find(function (b) {
+        var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
+
+        return b.type === toolsdsl_namespaceObject.TWIN_BLOCK && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
+          return f.name === "role";
+        })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
+      });
+
+      if (!twinBlock) {
+        twinBlock = workspace.newBlock(toolsdsl_namespaceObject.TWIN_BLOCK);
+        var variable = workspace.getVariable(role, serviceShortId);
+        console.log("new twin", {
+          twinBlock: twinBlock
+        });
+        var field = twinBlock.inputList[0].fieldRow.find(function (f) {
+          return f.name === "role";
+        });
+        field.setValue(variable.getId());
+        var m = workspace.getMetrics();
+        twinBlock.moveBy(m.viewWidth / 2, m.viewHeight / 3);
+        twinBlock.initSvg();
+        twinBlock.render(false);
+      }
+
+      workspace.centerOnBlock(twinBlock.id);
+    }
+  };
+
+  var handleDelete = function handleDelete() {
+    return bus.removeServiceProvider(server.device);
+  };
+
+  return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    label: role,
+    variant: service ? "default" : "outlined",
+    avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
+      device: service.device
+    }),
+    onClick: handleRoleClick,
+    onDelete: server ? handleDelete : undefined,
+    deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+      title: "stop simulator"
+    }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
+  });
+}
+
+function BlockRoles() {
+  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
+      roleManager = _useContext3.roleManager;
+
+  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
+    return _ === null || _ === void 0 ? void 0 : _.roles;
+  });
+  return /*#__PURE__*/react.createElement(react.Fragment, null, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
+    var role = _ref.role,
+        service = _ref.service,
+        serviceShortId = _ref.serviceShortId;
+    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+      item: true,
+      key: role
+    }, /*#__PURE__*/react.createElement(RoleChip, {
+      role: role,
+      service: service,
+      serviceShortId: serviceShortId
+    }));
+  }));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
+var PlayArrow = __webpack_require__(42404);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
+var Stop = __webpack_require__(34257);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__(79885);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
+var Pause = __webpack_require__(66601);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
+var PlayForWork = __webpack_require__(34264);
+// EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
+var useMounted = __webpack_require__(72179);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
+var IconButtonWithProgress = __webpack_require__(16845);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/BugReport.js
+var BugReport = __webpack_require__(62481);
+;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
+
+
+
+ // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function useWorkspaceBreakpoints(program) {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspace = _useContext.workspace;
+
+  var breakpoints = (0,react.useMemo)(function () {
+    var _arrayConcatMany, _program$handlers;
+
+    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.filter(function (h) {
+      return !h.meta;
+    }) // don't debug watch statements
+    . // don't debug watch statements
+    map(function (h) {
+      return h.commands.map(function (cmd) {
+        return cmd.sourceId;
+      });
+    }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
+      return !!id;
+    })) || [];
+  }, [program]);
+
+  var setBreakpointHighlight = function setBreakpointHighlight(sourceId) {
+    workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
+  };
+
+  return {
+    breakpoints: breakpoints,
+    setBreakpointHighlight: setBreakpointHighlight
+  };
+}
+
+function VMRunnerButtons(props) {
+  var runner = props.runner,
+      run = props.run,
+      cancel = props.cancel;
+  var status = (0,useChange/* default */.Z)(runner, function (t) {
+    return t === null || t === void 0 ? void 0 : t.status;
+  });
+  var stopped = !status || status === VMStatus.Stopped;
+  var program = runner === null || runner === void 0 ? void 0 : runner.program;
+
+  var _useState = (0,react.useState)(false),
+      indeterminate = _useState[0],
+      setIndeterminate = _useState[1];
+
+  var _useState2 = (0,react.useState)(undefined),
+      breakpoint = _useState2[0],
+      setBreakpoint = _useState2[1];
+
+  var pausing = breakpoint === "";
+  var paused = !!(breakpoint !== null && breakpoint !== void 0 && breakpoint.length);
+  var mounted = (0,useMounted/* default */.Z)();
+  var disabled = indeterminate || !runner;
+
+  var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program),
+      breakpoints = _useWorkspaceBreakpoi.breakpoints,
+      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight; //console.log("runner status", status)
+
+
+  var handleRun = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              setIndeterminate(true);
+              setBreakpoint(undefined);
+              _context.next = 5;
+              return run();
+
+            case 5:
+              _context.prev = 5;
+              if (mounted()) setIndeterminate(false);
+              return _context.finish(5);
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0,, 5, 8]]);
+    }));
+
+    return function handleRun() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var handleCancel = /*#__PURE__*/function () {
+    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              setIndeterminate(true);
+              _context2.next = 4;
+              return runner.clearBreakpointsAsync();
+
+            case 4:
+              setBreakpoint(undefined);
+              _context2.next = 7;
+              return cancel();
+
+            case 7:
+              _context2.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context2.finish(7);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0,, 7, 10]]);
+    }));
+
+    return function handleCancel() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var handleResume = /*#__PURE__*/function () {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              setIndeterminate(true);
+              setBreakpoint(undefined);
+              _context3.next = 5;
+              return runner.clearBreakpointsAsync();
+
+            case 5:
+              _context3.next = 7;
+              return runner.resumeAsync();
+
+            case 7:
+              _context3.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context3.finish(7);
+
+            case 10:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0,, 7, 10]]);
+    }));
+
+    return function handleResume() {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var handlePause = /*#__PURE__*/function () {
+    var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              setIndeterminate(true);
+              _context4.next = 4;
+              return runner.setBreakpointsAsync(breakpoints);
+
+            case 4:
+              _context4.next = 6;
+              return runner.resumeAsync();
+
+            case 6:
+              setBreakpoint("");
+
+            case 7:
+              _context4.prev = 7;
+              if (mounted()) setIndeterminate(false);
+              return _context4.finish(7);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0,, 7, 10]]);
+    }));
+
+    return function handlePause() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  var handleStep = function handleStep() {
+    return runner.stepAsync();
+  }; // register breakpoint handler
+
+
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_events/* VM_BREAKPOINT */.Di, function (_, sourceId) {
+      if (mounted()) setBreakpoint(sourceId);
+    });
+  }, [runner]); // setting blockly breakpoint
+
+  (0,react.useEffect)(function () {
+    setBreakpointHighlight(breakpoint);
+    return function () {
+      return setBreakpointHighlight(undefined);
+    };
+  }, [breakpoint]); // reset breakpoint in ui when runner, paused mode changes
+
+  (0,react.useEffect)(function () {
+    return setBreakpoint(undefined);
+  }, [runner]);
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: paused ? "resume" : stopped ? "start" : "stop",
+    disabled: disabled,
+    color: stopped ? "primary" : "default",
+    onClick: paused ? handleResume : stopped ? handleRun : handleCancel
+  }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, {
+    title: pausing ? "cancel pause" : paused ? "step" : "pause",
+    disabled: disabled,
+    indeterminate: pausing,
+    onClick: pausing ? handleResume : paused ? handleStep : handlePause
+  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), (pausing || paused) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    icon: /*#__PURE__*/react.createElement(BugReport/* default */.Z, null),
+    label: pausing ? "pausing" : "paused",
+    color: "secondary"
+  })));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
+;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
+
+
+
+
+
+function VMStartSimulatorButton() {
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
+
+  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null));
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
+var Save = __webpack_require__(8567);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./src/components/ImportButton.tsx
+var ImportButton = __webpack_require__(20119);
+// EXTERNAL MODULE: ./node_modules/blockly/index.js
+var blockly = __webpack_require__(74640);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockFileButtons.tsx
+
+
+
+
+
+
+
+
+
+
+
+function LoadButton() {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      workspace = _useContext.workspace;
+
+  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext2.setError;
+
+  var disabled = !workspace;
+
+  var handleFiles = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(files) {
+      var file, text, jsfile, xml, dom;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              file = files === null || files === void 0 ? void 0 : files[0];
+
+              if (file) {
+                _context.next = 3;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 3:
+              _context.prev = 3;
+              _context.next = 6;
+              return file.text();
+
+            case 6:
+              text = _context.sent;
+              jsfile = JSON.parse(text);
+              console.debug("imported file", jsfile);
+              xml = jsfile === null || jsfile === void 0 ? void 0 : jsfile.xml;
+
+              if (!(typeof xml !== "string")) {
+                _context.next = 12;
+                break;
+              }
+
+              throw new Error("Invalid file format");
+
+            case 12:
+              // try loading xml into a dummy blockly workspace
+              dom = blockly.Xml.textToDom(xml); // all good, load in workspace
+
+              workspace.clear();
+              blockly.Xml.domToWorkspace(dom, workspace);
+              _context.next = 20;
+              break;
+
+            case 17:
+              _context.prev = 17;
+              _context.t0 = _context["catch"](3);
+              setError(_context.t0);
+
+            case 20:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 17]]);
+    }));
+
+    return function handleFiles(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/react.createElement(ImportButton.default, {
+    text: "Open...",
+    icon: true,
+    disabled: disabled,
+    acceptedFiles: ["application/json"],
+    onFilesUploaded: handleFiles,
+    filesLimit: 1
+  });
+}
+
+function SaveButton() {
+  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
+      workspaceXml = _useContext3.workspaceXml; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var json = {
+    xml: workspaceXml
+  };
+  var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
+  return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+    download: "jacdac-blocks.json",
+    href: url
+  }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
+    title: "Save"
+  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
+}
+
+function BlockFileButtons() {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(SaveButton, null)), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(LoadButton, null)));
+}
+;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
+
+
+
+
+
+
+function VMToolbar(props) {
+  var runner = props.runner,
+      run = props.run,
+      cancel = props.cancel;
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    direction: "row",
+    spacing: 1,
+    alignItems: "center",
+    alignContent: "center"
+  }, /*#__PURE__*/react.createElement(BlockFileButtons, null), /*#__PURE__*/react.createElement(VMRunnerButtons, {
+    runner: runner,
+    run: run,
+    cancel: cancel
+  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(BlockRoles, null));
+}
+// EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
+var BlockDiagnostics = __webpack_require__(9370);
+// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
+var BlockEditor = __webpack_require__(85105);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
 var es_array_flat_map = __webpack_require__(86535);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
@@ -3224,7 +3934,13 @@ var LEDMatrixField = __webpack_require__(11772);
 var NoteField = __webpack_require__(50585);
 // EXTERNAL MODULE: ./src/components/blockly/fields/ServoAngleField.tsx + 1 modules
 var ServoAngleField = __webpack_require__(891);
+// EXTERNAL MODULE: ./src/components/blockly/fields/JDomTreeField.tsx
+var JDomTreeField = __webpack_require__(90263);
+// EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
+var TwinField = __webpack_require__(35361);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/servicesdsl.ts
+
+
 
 
 
@@ -3245,6 +3961,8 @@ var ServoAngleField = __webpack_require__(891);
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
 var ROLE_BOUND_BLOCK = "jacdac_role_bound";
+var INSPECT_BLOCK = "jacdac_tools_inspect";
+var TWIN_BLOCK = "jacdac_tools_twin";
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -3915,7 +4633,56 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       tooltip: "Sets the color on the status light",
       helpUrl: ""
     }];
-    return [].concat((0,toConsumableArray/* default */.Z)(this._serviceBlocks), (0,toConsumableArray/* default */.Z)(this._eventFieldBlocks), (0,toConsumableArray/* default */.Z)(this._runtimeBlocks));
+    var toolsBlocks = [{
+      kind: "block",
+      type: TWIN_BLOCK,
+      message0: "view %1 %2 %3",
+      args0: [{
+        type: "field_variable",
+        name: "role",
+        variable: "none",
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(servicesDSL.supportedServices.map(function (service) {
+          return service.shortId;
+        }))),
+        defaultType: "client"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: TwinField/* default.KEY */.Z.KEY,
+        name: "twin"
+      }],
+      colour: toolbox/* toolsColour */.FR,
+      inputsInline: false,
+      tooltip: "Twin of the selected service",
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      helpUrl: "",
+      template: "meta",
+      transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: INSPECT_BLOCK,
+      message0: "inspect %1 %2 %3",
+      args0: [{
+        type: "field_variable",
+        name: "role",
+        variable: "none",
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(servicesDSL.supportedServices.map(function (service) {
+          return service.shortId;
+        }))),
+        defaultType: "client"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: JDomTreeField/* default.KEY */.Z.KEY,
+        name: "twin"
+      }],
+      colour: toolbox/* toolsColour */.FR,
+      inputsInline: false,
+      tooltip: "Inspect a service",
+      helpUrl: "",
+      template: "meta"
+    }];
+    return [].concat((0,toConsumableArray/* default */.Z)(this._serviceBlocks), (0,toConsumableArray/* default */.Z)(this._eventFieldBlocks), (0,toConsumableArray/* default */.Z)(this._runtimeBlocks), toolsBlocks);
   };
 
   _proto.createCategory = function createCategory(options) {
@@ -4038,7 +4805,19 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         }
       }]
     };
-    return [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [commonCategory]);
+    var toolsCategory = {
+      kind: "category",
+      name: "Tools",
+      colour: toolbox/* toolsColour */.FR,
+      contents: [{
+        kind: "block",
+        type: TWIN_BLOCK
+      }, {
+        kind: "block",
+        type: INSPECT_BLOCK
+      }]
+    };
+    return [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [commonCategory, toolsCategory]);
   };
 
   _proto.compileEventToVM = function compileEventToVM(options) {
@@ -4245,776 +5024,6 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 }();
 var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 /* harmony default export */ var servicesdsl = (servicesDSL);
-;// CONCATENATED MODULE: ./src/components/blockly/dsl/toolsdsl.ts
-
-
-
-
-
-
-
-
-
-
-var colour = "#888";
-var INSPECT_BLOCK = "jacdac_tools_inspect";
-var WATCH_BLOCK = "jacdac_tools_watch";
-var LOG_BLOCK = "jacdac_tools_log";
-var VIEW_LOG_BLOCK = "jacdac_tools_log_view";
-var VARIABLES_BLOCK = "jacdac_variables_view";
-var TWIN_BLOCK = "jacdac_tools_twin";
-var toolsDSL = {
-  id: "tools",
-  createBlocks: function createBlocks() {
-    return [{
-      kind: "block",
-      type: TWIN_BLOCK,
-      message0: "view %1 %2 %3",
-      args0: [{
-        type: "field_variable",
-        name: "role",
-        variable: "none",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(servicesdsl.supportedServices.map(function (service) {
-          return service.shortId;
-        }))),
-        defaultType: "client"
-      }, {
-        type: "input_dummy"
-      }, {
-        type: TwinField/* default.KEY */.Z.KEY,
-        name: "twin"
-      }],
-      colour: colour,
-      inputsInline: false,
-      tooltip: "Twin of the selected service",
-      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      helpUrl: "",
-      template: "meta",
-      transformData: toolbox/* identityTransformData */.FW
-    }, {
-      kind: "block",
-      type: INSPECT_BLOCK,
-      message0: "inspect %1 %2 %3",
-      args0: [{
-        type: "field_variable",
-        name: "role",
-        variable: "none",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(servicesdsl.supportedServices.map(function (service) {
-          return service.shortId;
-        }))),
-        defaultType: "client"
-      }, {
-        type: "input_dummy"
-      }, {
-        type: JDomTreeField/* default.KEY */.Z.KEY,
-        name: "twin"
-      }],
-      colour: colour,
-      inputsInline: false,
-      tooltip: "Inspect a service",
-      helpUrl: "",
-      template: "meta"
-    }, {
-      kind: "block",
-      type: VARIABLES_BLOCK,
-      message0: "variables %1 %2",
-      args0: [{
-        type: "input_dummy"
-      }, {
-        type: VariablesFields/* default.KEY */.Z.KEY,
-        name: "variables"
-      }],
-      colour: colour,
-      inputsInline: false,
-      tooltip: "Watch variables values",
-      helpUrl: "",
-      template: "meta"
-    }, {
-      kind: "block",
-      type: WATCH_BLOCK,
-      message0: "watch %1 %2",
-      args0: [{
-        type: "input_value",
-        name: "value"
-      }, {
-        type: WatchValueField/* default.KEY */.Z.KEY,
-        name: "watch"
-      }],
-      colour: colour,
-      inputsInline: true,
-      tooltip: "Watch a value in the editor",
-      helpUrl: "",
-      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      transformData: toolbox/* identityTransformData */.FW
-    }, {
-      kind: "block",
-      type: LOG_BLOCK,
-      message0: "log %1",
-      args0: [{
-        type: "input_value",
-        name: "value"
-      }],
-      colour: colour,
-      inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
-      tooltip: "Log an entry to the console",
-      helpUrl: ""
-    }, {
-      kind: "block",
-      type: VIEW_LOG_BLOCK,
-      message0: "console %1 %2",
-      args0: [{
-        type: "input_dummy"
-      }, {
-        type: LogViewField/* default.KEY */.Z.KEY,
-        name: "watch"
-      }],
-      colour: colour,
-      inputsInline: false,
-      tooltip: "View console content",
-      template: "meta"
-    }];
-  },
-  createCategory: function createCategory() {
-    return [{
-      kind: "sep"
-    }, {
-      kind: "category",
-      name: "Tools",
-      colour: colour,
-      contents: [{
-        kind: "label",
-        text: "Variables"
-      }, {
-        kind: "block",
-        type: VARIABLES_BLOCK
-      }, {
-        kind: "block",
-        type: WATCH_BLOCK
-      }, {
-        kind: "label",
-        text: "Roles"
-      }, {
-        kind: "block",
-        type: TWIN_BLOCK
-      }, {
-        kind: "block",
-        type: INSPECT_BLOCK
-      }, {
-        kind: "label",
-        text: "Logging"
-      }, {
-        kind: "block",
-        type: LOG_BLOCK,
-        values: {
-          value: {
-            kind: "block",
-            type: "text"
-          }
-        }
-      }, {
-        kind: "block",
-        type: VIEW_LOG_BLOCK
-      }]
-    }];
-  },
-  compileCommandToVM: function compileCommandToVM(_ref) {
-    var block = _ref.block,
-        blockToExpression = _ref.blockToExpression;
-    var type = block.type;
-
-    if (type === LOG_BLOCK) {
-      var inputs = block.inputs;
-
-      var _blockToExpression = blockToExpression(undefined, inputs[0].child),
-          expr = _blockToExpression.expr,
-          errors = _blockToExpression.errors;
-
-      return {
-        cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
-          type: "CallExpression",
-          arguments: [expr],
-          callee: (0,compile/* toIdentifier */.EB)("log")
-        }),
-        errors: errors
-      };
-    }
-
-    return undefined;
-  },
-  compileEventToVM: function compileEventToVM(_ref2) {
-    var block = _ref2.block,
-        blockToExpression = _ref2.blockToExpression;
-    var type = block.type;
-
-    if (type === WATCH_BLOCK) {
-      var inputs = block.inputs;
-
-      var _blockToExpression2 = blockToExpression(undefined, inputs[0].child),
-          expr = _blockToExpression2.expr,
-          errors = _blockToExpression2.errors;
-
-      return {
-        expression: {
-          type: "CallExpression",
-          arguments: [expr],
-          callee: (0,compile/* toIdentifier */.EB)("watch")
-        },
-        errors: errors,
-        meta: true
-      };
-    }
-
-    return undefined;
-  }
-};
-/* harmony default export */ var toolsdsl = (toolsDSL);
-;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
-
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
-
-
-
-
-
-
-
-
-
-function RoleChip(props) {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var role = props.role,
-      service = props.service,
-      serviceShortId = props.serviceShortId;
-
-  var _useContext2 = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext2.bus;
-
-  var server = (0,useServiceServer/* default */.Z)(service);
-
-  var handleRoleClick = function handleRoleClick() {
-    // spin off simulator
-    if (!service) {
-      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
-      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
-    } // add twin block
-
-
-    if (workspace) {
-      // try to find existing twin block
-      var twinBlock = workspace.getTopBlocks(false).find(function (b) {
-        var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
-
-        return b.type === TWIN_BLOCK && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
-          return f.name === "role";
-        })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
-      });
-
-      if (!twinBlock) {
-        twinBlock = workspace.newBlock(TWIN_BLOCK);
-        var variable = workspace.getVariable(role, serviceShortId);
-        console.log("new twin", {
-          twinBlock: twinBlock
-        });
-        var field = twinBlock.inputList[0].fieldRow.find(function (f) {
-          return f.name === "role";
-        });
-        field.setValue(variable.getId());
-        var m = workspace.getMetrics();
-        twinBlock.moveBy(m.viewWidth / 2, m.viewHeight / 3);
-        twinBlock.initSvg();
-        twinBlock.render(false);
-      }
-
-      workspace.centerOnBlock(twinBlock.id);
-    }
-  };
-
-  var handleDelete = function handleDelete() {
-    return bus.removeServiceProvider(server.device);
-  };
-
-  return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-    label: role,
-    variant: service ? "default" : "outlined",
-    avatar: service && /*#__PURE__*/react.createElement(DeviceAvatar/* default */.Z, {
-      device: service.device
-    }),
-    onClick: handleRoleClick,
-    onDelete: server ? handleDelete : undefined,
-    deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-      title: "stop simulator"
-    }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
-  });
-}
-
-function BlockRoles() {
-  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
-      roleManager = _useContext3.roleManager;
-
-  var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.roles;
-  });
-  return /*#__PURE__*/react.createElement(react.Fragment, null, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
-    var role = _ref.role,
-        service = _ref.service,
-        serviceShortId = _ref.serviceShortId;
-    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-      item: true,
-      key: role
-    }, /*#__PURE__*/react.createElement(RoleChip, {
-      role: role,
-      service: service,
-      serviceShortId: serviceShortId
-    }));
-  }));
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
-var PlayArrow = __webpack_require__(42404);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
-var Stop = __webpack_require__(34257);
-// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
-var IconButtonWithTooltip = __webpack_require__(79885);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
-var Pause = __webpack_require__(66601);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayForWork.js
-var PlayForWork = __webpack_require__(34264);
-// EXTERNAL MODULE: ./src/components/hooks/useMounted.ts
-var useMounted = __webpack_require__(72179);
-// EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
-var IconButtonWithProgress = __webpack_require__(16845);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/BugReport.js
-var BugReport = __webpack_require__(62481);
-;// CONCATENATED MODULE: ./src/components/vm/VMRunnerButtons.tsx
-
-
-
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function useWorkspaceBreakpoints(program) {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var breakpoints = (0,react.useMemo)(function () {
-    var _arrayConcatMany, _program$handlers;
-
-    return ((_arrayConcatMany = (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : (_program$handlers = program.handlers) === null || _program$handlers === void 0 ? void 0 : _program$handlers.filter(function (h) {
-      return !h.meta;
-    }) // don't debug watch statements
-    . // don't debug watch statements
-    map(function (h) {
-      return h.commands.map(function (cmd) {
-        return cmd.sourceId;
-      });
-    }))) === null || _arrayConcatMany === void 0 ? void 0 : _arrayConcatMany.filter(function (id) {
-      return !!id;
-    })) || [];
-  }, [program]);
-
-  var setBreakpointHighlight = function setBreakpointHighlight(sourceId) {
-    workspace === null || workspace === void 0 ? void 0 : workspace.highlightBlock(sourceId);
-  };
-
-  return {
-    breakpoints: breakpoints,
-    setBreakpointHighlight: setBreakpointHighlight
-  };
-}
-
-function VMRunnerButtons(props) {
-  var runner = props.runner,
-      run = props.run,
-      cancel = props.cancel;
-  var status = (0,useChange/* default */.Z)(runner, function (t) {
-    return t === null || t === void 0 ? void 0 : t.status;
-  });
-  var stopped = !status || status === VMStatus.Stopped;
-  var program = runner === null || runner === void 0 ? void 0 : runner.program;
-
-  var _useState = (0,react.useState)(false),
-      indeterminate = _useState[0],
-      setIndeterminate = _useState[1];
-
-  var _useState2 = (0,react.useState)(undefined),
-      breakpoint = _useState2[0],
-      setBreakpoint = _useState2[1];
-
-  var pausing = breakpoint === "";
-  var paused = !!(breakpoint !== null && breakpoint !== void 0 && breakpoint.length);
-  var mounted = (0,useMounted/* default */.Z)();
-  var disabled = indeterminate || !runner;
-
-  var _useWorkspaceBreakpoi = useWorkspaceBreakpoints(program),
-      breakpoints = _useWorkspaceBreakpoi.breakpoints,
-      setBreakpointHighlight = _useWorkspaceBreakpoi.setBreakpointHighlight; //console.log("runner status", status)
-
-
-  var handleRun = /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              setIndeterminate(true);
-              setBreakpoint(undefined);
-              _context.next = 5;
-              return run();
-
-            case 5:
-              _context.prev = 5;
-              if (mounted()) setIndeterminate(false);
-              return _context.finish(5);
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[0,, 5, 8]]);
-    }));
-
-    return function handleRun() {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var handleCancel = /*#__PURE__*/function () {
-    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
-      return regenerator_default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.prev = 0;
-              setIndeterminate(true);
-              _context2.next = 4;
-              return runner.clearBreakpointsAsync();
-
-            case 4:
-              setBreakpoint(undefined);
-              _context2.next = 7;
-              return cancel();
-
-            case 7:
-              _context2.prev = 7;
-              if (mounted()) setIndeterminate(false);
-              return _context2.finish(7);
-
-            case 10:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[0,, 7, 10]]);
-    }));
-
-    return function handleCancel() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  var handleResume = /*#__PURE__*/function () {
-    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
-      return regenerator_default().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              setIndeterminate(true);
-              setBreakpoint(undefined);
-              _context3.next = 5;
-              return runner.clearBreakpointsAsync();
-
-            case 5:
-              _context3.next = 7;
-              return runner.resumeAsync();
-
-            case 7:
-              _context3.prev = 7;
-              if (mounted()) setIndeterminate(false);
-              return _context3.finish(7);
-
-            case 10:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0,, 7, 10]]);
-    }));
-
-    return function handleResume() {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-
-  var handlePause = /*#__PURE__*/function () {
-    var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
-      return regenerator_default().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.prev = 0;
-              setIndeterminate(true);
-              _context4.next = 4;
-              return runner.setBreakpointsAsync(breakpoints);
-
-            case 4:
-              _context4.next = 6;
-              return runner.resumeAsync();
-
-            case 6:
-              setBreakpoint("");
-
-            case 7:
-              _context4.prev = 7;
-              if (mounted()) setIndeterminate(false);
-              return _context4.finish(7);
-
-            case 10:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[0,, 7, 10]]);
-    }));
-
-    return function handlePause() {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
-  var handleStep = function handleStep() {
-    return runner.stepAsync();
-  }; // register breakpoint handler
-
-
-  (0,react.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(vm_events/* VM_BREAKPOINT */.Di, function (_, sourceId) {
-      if (mounted()) setBreakpoint(sourceId);
-    });
-  }, [runner]); // setting blockly breakpoint
-
-  (0,react.useEffect)(function () {
-    setBreakpointHighlight(breakpoint);
-    return function () {
-      return setBreakpointHighlight(undefined);
-    };
-  }, [breakpoint]); // reset breakpoint in ui when runner, paused mode changes
-
-  (0,react.useEffect)(function () {
-    return setBreakpoint(undefined);
-  }, [runner]);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: paused ? "resume" : stopped ? "start" : "stop",
-    disabled: disabled,
-    color: stopped ? "primary" : "default",
-    onClick: paused ? handleResume : stopped ? handleRun : handleCancel
-  }, paused || stopped ? /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null) : /*#__PURE__*/react.createElement(Stop/* default */.Z, null)), " "), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, {
-    title: pausing ? "cancel pause" : paused ? "step" : "pause",
-    disabled: disabled,
-    indeterminate: pausing,
-    onClick: pausing ? handleResume : paused ? handleStep : handlePause
-  }, paused ? /*#__PURE__*/react.createElement(PlayForWork/* default */.Z, null) : /*#__PURE__*/react.createElement(Pause/* default */.Z, null))), (pausing || paused) && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
-    icon: /*#__PURE__*/react.createElement(BugReport/* default */.Z, null),
-    label: pausing ? "pausing" : "paused",
-    color: "secondary"
-  })));
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
-var Add = __webpack_require__(88880);
-;// CONCATENATED MODULE: ./src/components/vm/VMStartSimulatorButton.tsx
-
-
-
-
-
-function VMStartSimulatorButton() {
-  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
-      toggleShowDeviceHostsDialog = _useContext.toggleShowDeviceHostsDialog;
-
-  return /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "start simulator",
-    onClick: toggleShowDeviceHostsDialog
-  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null));
-}
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
-var Save = __webpack_require__(8567);
-// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
-var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./src/components/ImportButton.tsx
-var ImportButton = __webpack_require__(20119);
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-;// CONCATENATED MODULE: ./src/components/blockly/BlockFileButtons.tsx
-
-
-
-
-
-
-
-
-
-
-
-function LoadButton() {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      setError = _useContext2.setError;
-
-  var disabled = !workspace;
-
-  var handleFiles = /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(files) {
-      var file, text, jsfile, xml, dom;
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              file = files === null || files === void 0 ? void 0 : files[0];
-
-              if (file) {
-                _context.next = 3;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 3:
-              _context.prev = 3;
-              _context.next = 6;
-              return file.text();
-
-            case 6:
-              text = _context.sent;
-              jsfile = JSON.parse(text);
-              console.debug("imported file", jsfile);
-              xml = jsfile === null || jsfile === void 0 ? void 0 : jsfile.xml;
-
-              if (!(typeof xml !== "string")) {
-                _context.next = 12;
-                break;
-              }
-
-              throw new Error("Invalid file format");
-
-            case 12:
-              // try loading xml into a dummy blockly workspace
-              dom = blockly.Xml.textToDom(xml); // all good, load in workspace
-
-              workspace.clear();
-              blockly.Xml.domToWorkspace(dom, workspace);
-              _context.next = 20;
-              break;
-
-            case 17:
-              _context.prev = 17;
-              _context.t0 = _context["catch"](3);
-              setError(_context.t0);
-
-            case 20:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[3, 17]]);
-    }));
-
-    return function handleFiles(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  return /*#__PURE__*/react.createElement(ImportButton.default, {
-    text: "Open...",
-    icon: true,
-    disabled: disabled,
-    acceptedFiles: ["application/json"],
-    onFilesUploaded: handleFiles,
-    filesLimit: 1
-  });
-}
-
-function SaveButton() {
-  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
-      workspaceXml = _useContext3.workspaceXml; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
-  var json = {
-    xml: workspaceXml
-  };
-  var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
-  return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
-    download: "jacdac-blocks.json",
-    href: url
-  }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-    title: "Save"
-  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
-}
-
-function BlockFileButtons() {
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(SaveButton, null)), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(LoadButton, null)));
-}
-;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
-
-
-
-
-
-
-function VMToolbar(props) {
-  var runner = props.runner,
-      run = props.run,
-      cancel = props.cancel;
-  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    direction: "row",
-    spacing: 1,
-    alignItems: "center",
-    alignContent: "center"
-  }, /*#__PURE__*/react.createElement(BlockFileButtons, null), /*#__PURE__*/react.createElement(VMRunnerButtons, {
-    runner: runner,
-    run: run,
-    cancel: cancel
-  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(BlockRoles, null));
-}
-// EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
-var BlockDiagnostics = __webpack_require__(9370);
-// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
-var BlockEditor = __webpack_require__(85105);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/loopsdsl.ts
 
 
