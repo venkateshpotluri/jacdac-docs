@@ -347,7 +347,7 @@ function LightStripWidget(props) {
     var n = numPixels - (isJewel ? 1 : 0);
     var neoperimeter = n * (2.7 * neoradius);
     var margin = 2 * neoradius;
-    var ringradius = neoperimeter / (2 * Math.PI);
+    var ringradius = 1.5 * neoperimeter / (2 * Math.PI);
     width = 2 * (margin + ringradius);
     height = width;
     var wm = width - 2 * margin;
