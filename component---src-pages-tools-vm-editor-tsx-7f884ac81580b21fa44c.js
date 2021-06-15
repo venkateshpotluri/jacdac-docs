@@ -772,13 +772,6 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ Page; }
 });
 
-// NAMESPACE OBJECT: ./src/components/blockly/dsl/toolsdsl.ts
-var toolsdsl_namespaceObject = {};
-__webpack_require__.r(toolsdsl_namespaceObject);
-__webpack_require__.d(toolsdsl_namespaceObject, {
-  "Z": function() { return toolsdsl; }
-});
-
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
@@ -3197,178 +3190,8 @@ var useServiceServer = __webpack_require__(49013);
 var Cancel = __webpack_require__(30263);
 // EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
 var BlockContext = __webpack_require__(85379);
-// EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
-var VMgenerator = __webpack_require__(15056);
-// EXTERNAL MODULE: ./src/components/blockly/fields/LogViewField.tsx
-var LogViewField = __webpack_require__(86899);
-// EXTERNAL MODULE: ./src/components/blockly/fields/VariablesFields.tsx
-var VariablesFields = __webpack_require__(15757);
-// EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx
-var WatchValueField = __webpack_require__(2006);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
-;// CONCATENATED MODULE: ./src/components/blockly/dsl/toolsdsl.ts
-
-
-
-
-
-
-var WATCH_BLOCK = "jacdac_tools_watch";
-var LOG_BLOCK = "jacdac_tools_log";
-var VIEW_LOG_BLOCK = "jacdac_tools_log_view";
-var VARIABLES_BLOCK = "jacdac_variables_view";
-var colour = toolbox/* toolsColour */.FR;
-var toolsDSL = {
-  id: "tools",
-  createBlocks: function createBlocks() {
-    return [{
-      kind: "block",
-      type: VARIABLES_BLOCK,
-      message0: "variables %1 %2",
-      args0: [{
-        type: "input_dummy"
-      }, {
-        type: VariablesFields/* default.KEY */.Z.KEY,
-        name: "variables"
-      }],
-      colour: colour,
-      inputsInline: false,
-      tooltip: "Watch variables values",
-      helpUrl: "",
-      template: "meta"
-    }, {
-      kind: "block",
-      type: WATCH_BLOCK,
-      message0: "watch %1 %2",
-      args0: [{
-        type: "input_value",
-        name: "value"
-      }, {
-        type: WatchValueField/* default.KEY */.Z.KEY,
-        name: "watch"
-      }],
-      colour: colour,
-      inputsInline: true,
-      tooltip: "Watch a value in the editor",
-      helpUrl: "",
-      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      transformData: toolbox/* identityTransformData */.FW
-    }, {
-      kind: "block",
-      type: LOG_BLOCK,
-      message0: "log %1",
-      args0: [{
-        type: "input_value",
-        name: "value"
-      }],
-      colour: colour,
-      inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
-      tooltip: "Log an entry to the console",
-      helpUrl: ""
-    }, {
-      kind: "block",
-      type: VIEW_LOG_BLOCK,
-      message0: "console %1 %2",
-      args0: [{
-        type: "input_dummy"
-      }, {
-        type: LogViewField/* default.KEY */.Z.KEY,
-        name: "watch"
-      }],
-      colour: colour,
-      inputsInline: false,
-      tooltip: "View console content",
-      template: "meta"
-    }];
-  },
-  createCategory: function createCategory() {
-    return [{
-      kind: "category",
-      name: "Debugger",
-      colour: colour,
-      contents: [{
-        kind: "label",
-        text: "Variables"
-      }, {
-        kind: "block",
-        type: VARIABLES_BLOCK
-      }, {
-        kind: "block",
-        type: WATCH_BLOCK
-      }, {
-        kind: "label",
-        text: "Logging"
-      }, {
-        kind: "block",
-        type: LOG_BLOCK,
-        values: {
-          value: {
-            kind: "block",
-            type: "text"
-          }
-        }
-      }, {
-        kind: "block",
-        type: VIEW_LOG_BLOCK
-      }]
-    }, {
-      kind: "sep"
-    }];
-  },
-  compileCommandToVM: function compileCommandToVM(_ref) {
-    var block = _ref.block,
-        blockToExpression = _ref.blockToExpression;
-    var type = block.type;
-
-    if (type === LOG_BLOCK) {
-      var inputs = block.inputs;
-
-      var _blockToExpression = blockToExpression(undefined, inputs[0].child),
-          expr = _blockToExpression.expr,
-          errors = _blockToExpression.errors;
-
-      return {
-        cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
-          type: "CallExpression",
-          arguments: [expr],
-          callee: (0,compile/* toIdentifier */.EB)("log")
-        }),
-        errors: errors
-      };
-    }
-
-    return undefined;
-  },
-  compileEventToVM: function compileEventToVM(_ref2) {
-    var block = _ref2.block,
-        blockToExpression = _ref2.blockToExpression;
-    var type = block.type;
-
-    if (type === WATCH_BLOCK) {
-      var inputs = block.inputs;
-
-      var _blockToExpression2 = blockToExpression(undefined, inputs[0].child),
-          expr = _blockToExpression2.expr,
-          errors = _blockToExpression2.errors;
-
-      return {
-        expression: {
-          type: "CallExpression",
-          arguments: [expr],
-          callee: (0,compile/* toIdentifier */.EB)("watch")
-        },
-        errors: errors,
-        meta: true
-      };
-    }
-
-    return undefined;
-  }
-};
-/* harmony default export */ var toolsdsl = (toolsDSL);
 ;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
@@ -3409,13 +3232,13 @@ function RoleChip(props) {
       var twinBlock = workspace.getTopBlocks(false).find(function (b) {
         var _b$inputList$0$fieldR, _b$inputList$0$fieldR2;
 
-        return b.type === toolsdsl_namespaceObject.TWIN_BLOCK && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
+        return b.type === toolbox/* TWIN_BLOCK */.Zt && ((_b$inputList$0$fieldR = b.inputList[0].fieldRow.find(function (f) {
           return f.name === "role";
         })) === null || _b$inputList$0$fieldR === void 0 ? void 0 : (_b$inputList$0$fieldR2 = _b$inputList$0$fieldR.getVariable()) === null || _b$inputList$0$fieldR2 === void 0 ? void 0 : _b$inputList$0$fieldR2.name) === role;
       });
 
       if (!twinBlock) {
-        twinBlock = workspace.newBlock(toolsdsl_namespaceObject.TWIN_BLOCK);
+        twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
         var variable = workspace.getVariable(role, serviceShortId);
         console.log("new twin", {
           twinBlock: twinBlock
@@ -3912,6 +3735,8 @@ function VMToolbar(props) {
 }
 // EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
 var BlockDiagnostics = __webpack_require__(9370);
+// EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
+var VMgenerator = __webpack_require__(15056);
 // EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
 var BlockEditor = __webpack_require__(85105);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
@@ -3962,7 +3787,6 @@ var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
 var ROLE_BOUND_BLOCK = "jacdac_role_bound";
 var INSPECT_BLOCK = "jacdac_tools_inspect";
-var TWIN_BLOCK = "jacdac_tools_twin";
 
 function isBooleanField(field) {
   return field.type === "bool";
@@ -4635,7 +4459,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
     }];
     var toolsBlocks = [{
       kind: "block",
-      type: TWIN_BLOCK,
+      type: toolbox/* TWIN_BLOCK */.Zt,
       message0: "view %1 %2 %3",
       args0: [{
         type: "field_variable",
@@ -4811,7 +4635,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       colour: toolbox/* toolsColour */.FR,
       contents: [{
         kind: "block",
-        type: TWIN_BLOCK
+        type: toolbox/* TWIN_BLOCK */.Zt
       }, {
         kind: "block",
         type: INSPECT_BLOCK
@@ -5024,6 +4848,174 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
 }();
 var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 /* harmony default export */ var servicesdsl = (servicesDSL);
+// EXTERNAL MODULE: ./src/components/blockly/fields/LogViewField.tsx
+var LogViewField = __webpack_require__(86899);
+// EXTERNAL MODULE: ./src/components/blockly/fields/VariablesFields.tsx
+var VariablesFields = __webpack_require__(15757);
+// EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx
+var WatchValueField = __webpack_require__(2006);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/toolsdsl.ts
+
+
+
+
+
+
+var WATCH_BLOCK = "jacdac_tools_watch";
+var LOG_BLOCK = "jacdac_tools_log";
+var VIEW_LOG_BLOCK = "jacdac_tools_log_view";
+var VARIABLES_BLOCK = "jacdac_variables_view";
+var colour = toolbox/* toolsColour */.FR;
+var toolsDSL = {
+  id: "tools",
+  createBlocks: function createBlocks() {
+    return [{
+      kind: "block",
+      type: VARIABLES_BLOCK,
+      message0: "variables %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: VariablesFields/* default.KEY */.Z.KEY,
+        name: "variables"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "Watch variables values",
+      helpUrl: "",
+      template: "meta"
+    }, {
+      kind: "block",
+      type: WATCH_BLOCK,
+      message0: "watch %1 %2",
+      args0: [{
+        type: "input_value",
+        name: "value"
+      }, {
+        type: WatchValueField/* default.KEY */.Z.KEY,
+        name: "watch"
+      }],
+      colour: colour,
+      inputsInline: true,
+      tooltip: "Watch a value in the editor",
+      helpUrl: "",
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: LOG_BLOCK,
+      message0: "log %1",
+      args0: [{
+        type: "input_value",
+        name: "value"
+      }],
+      colour: colour,
+      inputsInline: true,
+      previousStatement: null,
+      nextStatement: null,
+      tooltip: "Log an entry to the console",
+      helpUrl: ""
+    }, {
+      kind: "block",
+      type: VIEW_LOG_BLOCK,
+      message0: "console %1 %2",
+      args0: [{
+        type: "input_dummy"
+      }, {
+        type: LogViewField/* default.KEY */.Z.KEY,
+        name: "watch"
+      }],
+      colour: colour,
+      inputsInline: false,
+      tooltip: "View console content",
+      template: "meta"
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Debugger",
+      colour: colour,
+      contents: [{
+        kind: "label",
+        text: "Variables"
+      }, {
+        kind: "block",
+        type: VARIABLES_BLOCK
+      }, {
+        kind: "block",
+        type: WATCH_BLOCK
+      }, {
+        kind: "label",
+        text: "Logging"
+      }, {
+        kind: "block",
+        type: LOG_BLOCK,
+        values: {
+          value: {
+            kind: "block",
+            type: "text"
+          }
+        }
+      }, {
+        kind: "block",
+        type: VIEW_LOG_BLOCK
+      }]
+    }, {
+      kind: "sep"
+    }];
+  },
+  compileCommandToVM: function compileCommandToVM(_ref) {
+    var block = _ref.block,
+        blockToExpression = _ref.blockToExpression;
+    var type = block.type;
+
+    if (type === LOG_BLOCK) {
+      var inputs = block.inputs;
+
+      var _blockToExpression = blockToExpression(undefined, inputs[0].child),
+          expr = _blockToExpression.expr,
+          errors = _blockToExpression.errors;
+
+      return {
+        cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
+          type: "CallExpression",
+          arguments: [expr],
+          callee: (0,compile/* toIdentifier */.EB)("log")
+        }),
+        errors: errors
+      };
+    }
+
+    return undefined;
+  },
+  compileEventToVM: function compileEventToVM(_ref2) {
+    var block = _ref2.block,
+        blockToExpression = _ref2.blockToExpression;
+    var type = block.type;
+
+    if (type === WATCH_BLOCK) {
+      var inputs = block.inputs;
+
+      var _blockToExpression2 = blockToExpression(undefined, inputs[0].child),
+          expr = _blockToExpression2.expr,
+          errors = _blockToExpression2.errors;
+
+      return {
+        expression: {
+          type: "CallExpression",
+          arguments: [expr],
+          callee: (0,compile/* toIdentifier */.EB)("watch")
+        },
+        errors: errors,
+        meta: true
+      };
+    }
+
+    return undefined;
+  }
+};
+/* harmony default export */ var toolsdsl = (toolsDSL);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/loopsdsl.ts
 
 

@@ -14808,6 +14808,7 @@ data, columns, toColumns) {
 /* harmony export */   "Nd": function() { return /* binding */ BUILTIN_TYPES; },
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; },
 /* harmony export */   "zN": function() { return /* binding */ DATA_SCIENCE_STATEMENT_TYPE; },
+/* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
 /* harmony export */   "FR": function() { return /* binding */ toolsColour; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73108);
@@ -14852,6 +14853,7 @@ var PRIMITIVE_TYPES = [STRING_TYPE, BOOLEAN_TYPE, NUMBER_TYPE];
 var BUILTIN_TYPES = [""].concat(PRIMITIVE_TYPES);
 var CODE_STATEMENT_TYPE = "Code";
 var DATA_SCIENCE_STATEMENT_TYPE = "DataScienceStatement";
+var TWIN_BLOCK = "jacdac_tools_twin";
 var toolsColour = "#888";
 
 /***/ }),
