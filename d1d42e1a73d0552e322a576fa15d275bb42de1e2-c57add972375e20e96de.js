@@ -14187,22 +14187,26 @@ function TwinWidget() {
 
 
   var register = (0,_hooks_useBestRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(roleService);
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    return register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_8__/* .REPORT_UPDATE */ .rGZ, function () {
-      var newValue = register.unpackedValue;
 
-      if (newValue !== undefined) {
-        var newRow = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_11__/* .toMap */ .qL)(register.fields, function (f) {
-          return f.name;
-        }, function (f, i) {
-          return newValue[i];
-        });
-        var newData = [].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(data || []), [_objectSpread(_objectSpread({}, {
-          time: bus.timestamp / 1000
-        }), newRow)]).slice(-HORIZON);
-        setData(newData);
-      }
-    });
+  var setRegisterData = function setRegisterData() {
+    var newValue = register === null || register === void 0 ? void 0 : register.unpackedValue;
+
+    if (newValue !== undefined) {
+      var newRow = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_11__/* .toMap */ .qL)(register.fields, function (f) {
+        return f.name;
+      }, function (f, i) {
+        return newValue[i];
+      });
+      var newData = [].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(data || []), [_objectSpread(_objectSpread({}, {
+        time: bus.timestamp / 1000
+      }), newRow)]).slice(-HORIZON);
+      setData(newData);
+    }
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    setRegisterData();
+    return register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_8__/* .REPORT_UPDATE */ .rGZ, setRegisterData);
   }, [register, sourceId, data]);
   if (flyout) return null;
   if (!roleService) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_NoServiceAlert__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null);
