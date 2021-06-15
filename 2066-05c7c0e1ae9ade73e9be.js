@@ -8,6 +8,8 @@ var _regeneratorRuntime = __webpack_require__(22917);
 
 var _asyncToGenerator = __webpack_require__(50358);
 
+var _toConsumableArray = __webpack_require__(30063);
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -149,6 +151,98 @@ function isEmpty(value) {
   return value == null || value !== value;
 }
 
+function keysFromItems(items) {
+  if (items.length < 1) return [];
+  var keys = Object.keys(items[0]);
+  return keys;
+}
+
+function everything() {
+  return function (items) {
+    var keys = keysFromItems(items);
+    return keys;
+  };
+}
+
+function processSelectors(items, selectKeys) {
+  var processedSelectKeys = [];
+
+  var _iterator2 = _createForOfIteratorHelper(singleOrArray(selectKeys)),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var keyInput = _step2.value;
+
+      if (typeof keyInput === "function") {
+        var _processedSelectKeys;
+
+        (_processedSelectKeys = processedSelectKeys).push.apply(_processedSelectKeys, _toConsumableArray(keyInput(items)));
+      } else {
+        processedSelectKeys.push(keyInput);
+      }
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  if (processedSelectKeys.length && processedSelectKeys[0][0] === "-") {
+    processedSelectKeys = [].concat(_toConsumableArray(everything()(items)), _toConsumableArray(processedSelectKeys));
+  }
+
+  var negationMap = {};
+  var keysWithoutNegations = [];
+
+  for (var k = processedSelectKeys.length - 1; k >= 0; k--) {
+    var key = processedSelectKeys[k];
+
+    if (key[0] === "-") {
+      negationMap[key.substring(1)] = true;
+      continue;
+    }
+
+    if (negationMap[key]) {
+      negationMap[key] = false;
+      continue;
+    }
+
+    keysWithoutNegations.unshift(key);
+  }
+
+  processedSelectKeys = Array.from(new Set(keysWithoutNegations));
+  return processedSelectKeys;
+}
+
+function select(selectKeys) {
+  var _select = function _select(items) {
+    var processedSelectKeys = processSelectors(items, selectKeys);
+    if (!processedSelectKeys.length) return items;
+    return items.map(function (d) {
+      var mapped = {};
+
+      var _iterator3 = _createForOfIteratorHelper(processedSelectKeys),
+          _step3;
+
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var key = _step3.value;
+          mapped[key] = d[key];
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+
+      return mapped;
+    });
+  };
+
+  return _select;
+}
+
 var _excluded = ["worker", "data"];
 var handlers = {
   arrange: function arrange(props) {
@@ -156,6 +250,11 @@ var handlers = {
         descending = props.descending,
         data = props.data;
     return tidy(data, _arrange2(descending ? desc(column) : column));
+  },
+  drop: function drop(props) {
+    var column = props.column,
+        data = props.data;
+    if (!column) return data;else return tidy(data, select(["-".concat(column)]));
   }
 };
 
@@ -192,19 +291,25 @@ function _handleMessage() {
             return _context.abrupt("return");
 
           case 4:
-            _context.next = 6;
+            console.debug("Jacdac data in:", {
+              message: message
+            });
+            _context.next = 7;
             return transformData(message);
 
-          case 6:
+          case 7:
             newData = _context.sent;
+            console.debug("Jacdac data out:", {
+              message: message
+            });
             resp = _extends({
-              jacdacdata: true
+              worker: worker
             }, rest, {
               data: newData
             });
             self.postMessage(resp);
 
-          case 9:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -216,6 +321,38 @@ function _handleMessage() {
 
 self.addEventListener("message", handleMessage);
 console.debug("jacdac data: worker registered");
+
+/***/ }),
+
+/***/ 67481:
+/***/ (function(module) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 27413:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(67481);
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -259,6 +396,69 @@ function _asyncToGenerator(fn) {
 }
 
 module.exports = _asyncToGenerator;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 4677:
+/***/ (function(module) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 81577:
+/***/ (function(module) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 30063:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(27413);
+
+var iterableToArray = __webpack_require__(4677);
+
+var unsupportedIterableToArray = __webpack_require__(78593);
+
+var nonIterableSpread = __webpack_require__(81577);
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 78593:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(67481);
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),

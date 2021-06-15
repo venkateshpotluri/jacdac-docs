@@ -11501,6 +11501,7 @@ function _postTransformData() {
 
 
 var DATA_ARRANGE_BLOCK = "data_arrange";
+var DATA_DROP_BLOCK = "data_drop";
 var DATA_ADD_VARIABLE_CALLBACK = "data_add_variable";
 var DATA_DATAVARIABLE_READ_BLOCK = "data_dataset_read";
 var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
@@ -11551,6 +11552,30 @@ var dataDsl = {
           type: "arrange",
           column: column,
           descending: descending,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_DROP_BLOCK,
+      message0: "drop %1",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var column = b.getFieldValue("column");
+        console.log("Drop: ", {
+          column: column
+        });
+        return postTransformData({
+          type: "drop",
+          column: column,
           data: data
         });
       },
@@ -11622,6 +11647,9 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_ARRANGE_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_DROP_BLOCK
       }, {
         kind: "label",
         text: "Data variables"
