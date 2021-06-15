@@ -11463,7 +11463,7 @@ function postTransformData(_x) {
 
 function _postTransformData() {
   _postTransformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(message) {
-    var ws, res;
+    var worker, res;
     return regenerator_default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -11476,16 +11476,15 @@ function _postTransformData() {
             return _context.abrupt("return", undefined);
 
           case 2:
-            ws = (0,proxy/* default */.Z)();
-            message.worker = "data";
-            _context.next = 6;
-            return ws.postMessage(message);
+            worker = (0,proxy/* default */.Z)("data");
+            _context.next = 5;
+            return worker.postMessage(message);
 
-          case 6:
+          case 5:
             res = _context.sent;
             return _context.abrupt("return", res === null || res === void 0 ? void 0 : res.data);
 
-          case 8:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -11956,10 +11955,17 @@ __webpack_require__.d(__webpack_exports__, {
 
 // UNUSED EXPORTS: WorkerProxy
 
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/workerloader.js
-function createWorker() {
+function createCsvWorker() {
   return typeof Window !== "undefined" && new Worker(new URL( // gatsby fast-refresh ignores files with node_modules in path
-  /* worker import */ __webpack_require__.p + __webpack_require__.u(9840), __webpack_require__.b // syntax not supported in typescript
+  /* worker import */ __webpack_require__.p + __webpack_require__.u(8213), __webpack_require__.b // syntax not supported in typescript
+  ));
+}
+function createDataWorker() {
+  return typeof Window !== "undefined" && new Worker(new URL( // gatsby fast-refresh ignores files with node_modules in path
+  /* worker import */ __webpack_require__.p + __webpack_require__.u(2066), __webpack_require__.b // syntax not supported in typescript
   ));
 }
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/proxy.ts
@@ -11967,10 +11973,12 @@ function createWorker() {
 
 /* eslint-disable @typescript-eslint/ban-types */
 
+
 var WorkerProxy = /*#__PURE__*/function () {
-  function WorkerProxy(worker) {
+  function WorkerProxy(worker, workerid) {
     this.pendings = {};
     this.worker = worker;
+    this.workerid = workerid;
     this.worker.addEventListener("message", this.handleMessage.bind(this));
   }
 
@@ -11978,15 +11986,21 @@ var WorkerProxy = /*#__PURE__*/function () {
 
   _proto.handleMessage = function handleMessage(event) {
     var message = event.data;
-    var id = message.id;
+    var id = message.id,
+        worker = message.worker;
     var pending = this.pendings[id];
-    if (pending) pending.resolve(message);
+
+    if (pending) {
+      (0,utils/* assert */.hu)(worker === message.worker);
+      pending.resolve(message);
+    }
   };
 
   _proto.postMessage = function postMessage(message) {
     var _this = this;
 
     message.id = message.id || Math.random() + "";
+    message.worker = this.workerid;
     return new Promise(function (resolve, reject) {
       _this.pendings[message.id] = {
         resolve: resolve,
@@ -11999,12 +12013,14 @@ var WorkerProxy = /*#__PURE__*/function () {
 
   return WorkerProxy;
 }();
-
-var _worker;
-
-function workerProxy() {
-  if (!_worker) _worker = new WorkerProxy(createWorker());
-  return _worker;
+var _workers = {};
+var loaders = {
+  data: createDataWorker,
+  csv: createCsvWorker
+};
+function workerProxy(workerid) {
+  var worker = _workers[workerid] || (_workers[workerid] = new WorkerProxy(loaders[workerid](), workerid));
+  return worker;
 }
 
 /***/ }),
@@ -12167,7 +12183,7 @@ function downloadCSV(_x) {
 
 function _downloadCSV() {
   _downloadCSV = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(url) {
-    var ws, res;
+    var worker, res;
     return regenerator_default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -12175,9 +12191,9 @@ function _downloadCSV() {
             console.log("download csv", {
               url: url
             });
-            ws = (0,proxy/* default */.Z)();
+            worker = (0,proxy/* default */.Z)("csv");
             _context.next = 4;
-            return ws.postMessage({
+            return worker.postMessage({
               worker: "csv",
               url: url
             });

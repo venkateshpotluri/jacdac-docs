@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-074c1e758352ee2b2a71.js"
+    "url": "webpack-runtime-9d313d42df122adf153d.js"
   },
   {
     "url": "styles.84142170d21443bb8d14.css"
@@ -36,11 +36,11 @@ self.__precacheManifest = [
     "url": "framework-a5eee3f9a501b0f26ed6.js"
   },
   {
-    "url": "8c94476aecfffef8bb188161ebc5955ec9aac41a-886400c938f70d96aeed.js"
+    "url": "2192cc19e677c429cb4f2592426c774329598203-fc67f4889a54b8728daa.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "6c58472d575daf66ed83661c18d1e163"
+    "revision": "00073b7263886e8d21f6c84293a8fd14"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,11 +60,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "bcd3cb946cd2a76bee4478ffedc5efcc"
+    "revision": "c70f29fa2728c8f9864710c7ce5dadd7"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "336a93b2fe990771b95bf7ee715b5469"
+    "revision": "b1b380135a9d045de891dbdf10fd5e76"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -72,7 +72,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "7505249d8f6bb8439408969c42e53ef2"
+    "revision": "9ee9cee21f3a35cf72834a3c996640ba"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -80,7 +80,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "400f6504cf17fe3736bf9177a683e180"
+    "revision": "c269682e795fb12efb0988c5ded46472"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -1308,7 +1308,7 @@ self.__precacheManifest = [
     "url": "d711c980-0b20d62360802b84b46d.js"
   },
   {
-    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-699f8027be6a16345539.js"
+    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-e96fc85ce9bb3e259ad8.js"
   },
   {
     "url": "component---src-pages-tools-data-science-editor-tsx-db2b8900d8511439195e.js"
@@ -1547,7 +1547,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-0e89a49940ecf9ca475e.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-0195840d0bc439c28769.js`))) {
     return await fetch(event.request)
   }
 
