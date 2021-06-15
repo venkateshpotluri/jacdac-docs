@@ -11451,8 +11451,8 @@ var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 1 modules
-var proxy = __webpack_require__(66070);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 2 modules
+var proxy = __webpack_require__(88430);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/data.proxy.ts
 
 
@@ -11943,7 +11943,7 @@ var variablesDsl = {
 
 /***/ }),
 
-/***/ 66070:
+/***/ 88430:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11957,12 +11957,13 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
-;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/workerloader.js
+;// CONCATENATED MODULE: ./src/workers/csv/workerloader.js
 function createCsvWorker() {
   return typeof Window !== "undefined" && new Worker(new URL( // gatsby fast-refresh ignores files with node_modules in path
   /* worker import */ __webpack_require__.p + __webpack_require__.u(8213), __webpack_require__.b // syntax not supported in typescript
   ));
 }
+;// CONCATENATED MODULE: ./src/workers/data/workerloader.js
 function createDataWorker() {
   return typeof Window !== "undefined" && new Worker(new URL( // gatsby fast-refresh ignores files with node_modules in path
   /* worker import */ __webpack_require__.p + __webpack_require__.u(2066), __webpack_require__.b // syntax not supported in typescript
@@ -11972,6 +11973,7 @@ function createDataWorker() {
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/ban-types */
+
 
 
 var WorkerProxy = /*#__PURE__*/function () {
@@ -12171,8 +12173,8 @@ var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 1 modules
-var proxy = __webpack_require__(66070);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 2 modules
+var proxy = __webpack_require__(88430);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/csv.proxy.ts
 
 
