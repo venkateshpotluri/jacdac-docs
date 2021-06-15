@@ -12203,7 +12203,8 @@ function _downloadCSV() {
 
 
 var builtins = {
-  dummy: (0,gatsby_browser_entry.withPrefix)("/datasets/dummy.csv")
+  dummy: (0,gatsby_browser_entry.withPrefix)("/datasets/dummy.csv"),
+  mt: (0,gatsby_browser_entry.withPrefix)("/datasets/mt.csv")
 };
 
 var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
@@ -12419,7 +12420,8 @@ var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
   _proto.createContainer = function createContainer() {
     var c = document.createElement("div");
     c.style.display = "block";
-    c.style.minWidth = "14rem";
+    c.style.minWidth = "388px";
+    c.style.maxWidth = "80vh";
     c.style.maxHeight = "60vh";
     c.style.overflowY = "auto";
     return c;
