@@ -1,6 +1,6 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[5942],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[4973],{
 
-/***/ 55942:
+/***/ 64973:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14,8 +14,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
-var nivo_core_es = __webpack_require__(31205);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
+var nivo_core_es = __webpack_require__(50928);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
 // EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 8 modules
@@ -24,185 +24,16 @@ var nivo_axes_es = __webpack_require__(33048);
 var nivo_legends_es = __webpack_require__(26729);
 // EXTERNAL MODULE: ./node_modules/@nivo/tooltip/dist/nivo-tooltip.es.js
 var nivo_tooltip_es = __webpack_require__(62529);
-;// CONCATENATED MODULE: ./node_modules/d3-path/src/path.js
-var pi = Math.PI,
-    tau = 2 * pi,
-    epsilon = 1e-6,
-    tauEpsilon = tau - epsilon;
-
-function Path() {
-  this._x0 = this._y0 = // start of current subpath
-  this._x1 = this._y1 = null; // end of current subpath
-
-  this._ = "";
-}
-
-function path() {
-  return new Path();
-}
-
-Path.prototype = path.prototype = {
-  constructor: Path,
-  moveTo: function moveTo(x, y) {
-    this._ += "M" + (this._x0 = this._x1 = +x) + "," + (this._y0 = this._y1 = +y);
-  },
-  closePath: function closePath() {
-    if (this._x1 !== null) {
-      this._x1 = this._x0, this._y1 = this._y0;
-      this._ += "Z";
-    }
-  },
-  lineTo: function lineTo(x, y) {
-    this._ += "L" + (this._x1 = +x) + "," + (this._y1 = +y);
-  },
-  quadraticCurveTo: function quadraticCurveTo(x1, y1, x, y) {
-    this._ += "Q" + +x1 + "," + +y1 + "," + (this._x1 = +x) + "," + (this._y1 = +y);
-  },
-  bezierCurveTo: function bezierCurveTo(x1, y1, x2, y2, x, y) {
-    this._ += "C" + +x1 + "," + +y1 + "," + +x2 + "," + +y2 + "," + (this._x1 = +x) + "," + (this._y1 = +y);
-  },
-  arcTo: function arcTo(x1, y1, x2, y2, r) {
-    x1 = +x1, y1 = +y1, x2 = +x2, y2 = +y2, r = +r;
-    var x0 = this._x1,
-        y0 = this._y1,
-        x21 = x2 - x1,
-        y21 = y2 - y1,
-        x01 = x0 - x1,
-        y01 = y0 - y1,
-        l01_2 = x01 * x01 + y01 * y01; // Is the radius negative? Error.
-
-    if (r < 0) throw new Error("negative radius: " + r); // Is this path empty? Move to (x1,y1).
-
-    if (this._x1 === null) {
-      this._ += "M" + (this._x1 = x1) + "," + (this._y1 = y1);
-    } // Or, is (x1,y1) coincident with (x0,y0)? Do nothing.
-    else if (!(l01_2 > epsilon)) ; // Or, are (x0,y0), (x1,y1) and (x2,y2) collinear?
-      // Equivalently, is (x1,y1) coincident with (x2,y2)?
-      // Or, is the radius zero? Line to (x1,y1).
-      else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon) || !r) {
-          this._ += "L" + (this._x1 = x1) + "," + (this._y1 = y1);
-        } // Otherwise, draw an arc!
-        else {
-            var x20 = x2 - x0,
-                y20 = y2 - y0,
-                l21_2 = x21 * x21 + y21 * y21,
-                l20_2 = x20 * x20 + y20 * y20,
-                l21 = Math.sqrt(l21_2),
-                l01 = Math.sqrt(l01_2),
-                l = r * Math.tan((pi - Math.acos((l21_2 + l01_2 - l20_2) / (2 * l21 * l01))) / 2),
-                t01 = l / l01,
-                t21 = l / l21; // If the start tangent is not coincident with (x0,y0), line to.
-
-            if (Math.abs(t01 - 1) > epsilon) {
-              this._ += "L" + (x1 + t01 * x01) + "," + (y1 + t01 * y01);
-            }
-
-            this._ += "A" + r + "," + r + ",0,0," + +(y01 * x20 > x01 * y20) + "," + (this._x1 = x1 + t21 * x21) + "," + (this._y1 = y1 + t21 * y21);
-          }
-  },
-  arc: function arc(x, y, r, a0, a1, ccw) {
-    x = +x, y = +y, r = +r, ccw = !!ccw;
-    var dx = r * Math.cos(a0),
-        dy = r * Math.sin(a0),
-        x0 = x + dx,
-        y0 = y + dy,
-        cw = 1 ^ ccw,
-        da = ccw ? a0 - a1 : a1 - a0; // Is the radius negative? Error.
-
-    if (r < 0) throw new Error("negative radius: " + r); // Is this path empty? Move to (x0,y0).
-
-    if (this._x1 === null) {
-      this._ += "M" + x0 + "," + y0;
-    } // Or, is (x0,y0) not coincident with the previous point? Line to (x0,y0).
-    else if (Math.abs(this._x1 - x0) > epsilon || Math.abs(this._y1 - y0) > epsilon) {
-        this._ += "L" + x0 + "," + y0;
-      } // Is this arc empty? We’re done.
-
-
-    if (!r) return; // Does the angle go the wrong way? Flip the direction.
-
-    if (da < 0) da = da % tau + tau; // Is this a complete circle? Draw two arcs to complete the circle.
-
-    if (da > tauEpsilon) {
-      this._ += "A" + r + "," + r + ",0,1," + cw + "," + (x - dx) + "," + (y - dy) + "A" + r + "," + r + ",0,1," + cw + "," + (this._x1 = x0) + "," + (this._y1 = y0);
-    } // Is this arc non-empty? Draw an arc!
-    else if (da > epsilon) {
-        this._ += "A" + r + "," + r + ",0," + +(da >= pi) + "," + cw + "," + (this._x1 = x + r * Math.cos(a1)) + "," + (this._y1 = y + r * Math.sin(a1));
-      }
-  },
-  rect: function rect(x, y, w, h) {
-    this._ += "M" + (this._x0 = this._x1 = +x) + "," + (this._y0 = this._y1 = +y) + "h" + +w + "v" + +h + "h" + -w + "Z";
-  },
-  toString: function toString() {
-    return this._;
-  }
-};
-/* harmony default export */ var src_path = (path);
+// EXTERNAL MODULE: ./node_modules/d3-shape/src/line.js
+var line = __webpack_require__(84887);
+// EXTERNAL MODULE: ./node_modules/d3-path/src/path.js
+var path = __webpack_require__(56940);
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/constant.js
 var constant = __webpack_require__(21235);
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/curve/linear.js
 var linear = __webpack_require__(42431);
-;// CONCATENATED MODULE: ./node_modules/d3-shape/src/point.js
-function point_x(p) {
-  return p[0];
-}
-function point_y(p) {
-  return p[1];
-}
-;// CONCATENATED MODULE: ./node_modules/d3-shape/src/line.js
-
-
-
-
-/* harmony default export */ function line() {
-  var x = point_x,
-      y = point_y,
-      defined = (0,constant/* default */.Z)(true),
-      context = null,
-      curve = linear/* default */.Z,
-      output = null;
-
-  function line(data) {
-    var i,
-        n = data.length,
-        d,
-        defined0 = false,
-        buffer;
-    if (context == null) output = curve(buffer = src_path());
-
-    for (i = 0; i <= n; ++i) {
-      if (!(i < n && defined(d = data[i], i, data)) === defined0) {
-        if (defined0 = !defined0) output.lineStart();else output.lineEnd();
-      }
-
-      if (defined0) output.point(+x(d, i, data), +y(d, i, data));
-    }
-
-    if (buffer) return output = null, buffer + "" || null;
-  }
-
-  line.x = function (_) {
-    return arguments.length ? (x = typeof _ === "function" ? _ : (0,constant/* default */.Z)(+_), line) : x;
-  };
-
-  line.y = function (_) {
-    return arguments.length ? (y = typeof _ === "function" ? _ : (0,constant/* default */.Z)(+_), line) : y;
-  };
-
-  line.defined = function (_) {
-    return arguments.length ? (defined = typeof _ === "function" ? _ : (0,constant/* default */.Z)(!!_), line) : defined;
-  };
-
-  line.curve = function (_) {
-    return arguments.length ? (curve = _, context != null && (output = curve(context)), line) : curve;
-  };
-
-  line.context = function (_) {
-    return arguments.length ? (_ == null ? context = output = null : output = curve(context = _), line) : context;
-  };
-
-  return line;
-}
+// EXTERNAL MODULE: ./node_modules/d3-shape/src/point.js
+var point = __webpack_require__(94882);
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/area.js
 
 
@@ -210,10 +41,10 @@ function point_y(p) {
 
 
 /* harmony default export */ function src_area() {
-  var x0 = point_x,
+  var x0 = point.x,
       x1 = null,
       y0 = (0,constant/* default */.Z)(0),
-      y1 = point_y,
+      y1 = point.y,
       defined = (0,constant/* default */.Z)(true),
       context = null,
       curve = linear/* default */.Z,
@@ -229,7 +60,7 @@ function point_y(p) {
         buffer,
         x0z = new Array(n),
         y0z = new Array(n);
-    if (context == null) output = curve(buffer = src_path());
+    if (context == null) output = curve(buffer = (0,path/* default */.Z)());
 
     for (i = 0; i <= n; ++i) {
       if (!(i < n && defined(d = data[i], i, data)) === defined0) {
@@ -260,7 +91,7 @@ function point_y(p) {
   }
 
   function arealine() {
-    return line().defined(defined).curve(curve).context(context);
+    return (0,line/* default */.Z)().defined(defined).curve(curve).context(context);
   }
 
   area.x = function (_) {
@@ -613,7 +444,7 @@ var LineCanvasDefaultProps = _objectSpread2(_objectSpread2({}, commonDefaultProp
 var useLineGenerator = function useLineGenerator(_ref) {
   var curve = _ref.curve;
   return (0,react.useMemo)(function () {
-    return line().defined(function (d) {
+    return (0,line/* default */.Z)().defined(function (d) {
       return d.x !== null && d.y !== null;
     }).x(function (d) {
       return d.x;

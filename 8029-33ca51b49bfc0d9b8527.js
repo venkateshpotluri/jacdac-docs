@@ -16,8 +16,8 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/react-motion/lib/react-motion.js
 var react_motion = __webpack_require__(44235);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
-var nivo_core_es = __webpack_require__(31205);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
+var nivo_core_es = __webpack_require__(50928);
 // EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 8 modules
 var nivo_axes_es = __webpack_require__(33048);
 // EXTERNAL MODULE: ./node_modules/@nivo/legends/dist/nivo-legends.es.js

@@ -13056,7 +13056,7 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
 
 var Line = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(5942)]).then(__webpack_require__.bind(__webpack_require__, 55942));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(4973)]).then(__webpack_require__.bind(__webpack_require__, 64973));
 });
 
 function LineChartWidget() {
@@ -13399,6 +13399,130 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
 
 NoteField.KEY = "jacdac_field_note";
 NoteField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .toShadowDefinition */ ._t)(NoteField);
+
+
+/***/ }),
+
+/***/ 37505:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ PiePlotField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
+/* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51586);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
+/* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8844);
+
+
+
+
+
+
+
+
+
+
+var Pie = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8423)]).then(__webpack_require__.bind(__webpack_require__, 28423));
+});
+
+function PieChartWidget() {
+  var _series$, _chartProps$data;
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      sourceBlock = _useContext.sourceBlock;
+
+  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
+      data = _useBlockData.data; // need to map data to nivo
+
+
+  var id = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("id");
+  var value = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.getFieldValue("value");
+
+  var _tidyToNivo = (0,_nivo__WEBPACK_IMPORTED_MODULE_7__/* .tidyToNivo */ .tL)(data, [id, value], ["id", "value"]),
+      series = _tidyToNivo.series,
+      labels = _tidyToNivo.labels; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+
+  var _useBlockChartProps = (0,_useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock, {
+    data: series,
+    margin: {
+      top: 40,
+      right: 96,
+      bottom: 40,
+      left: 96
+    },
+    innerRadius: 0.3,
+    padAngle: 0.7,
+    cornerRadius: 3,
+    sortByValue: false,
+    activeOuterRadiusOffset: 8,
+    borderWidth: 1,
+    borderColor: {
+      from: "color",
+      modifiers: [["darker", 0.2]]
+    },
+    arcLinkLabelsSkipAngle: 10,
+    arcLinkLabelsTextColor: "#333333",
+    arcLinkLabelsThickness: 2,
+    arcLinkLabelsColor: {
+      from: "color"
+    },
+    arcLabelsSkipAngle: 10,
+    arcLabelsTextColor: {
+      from: "color",
+      modifiers: [["darker", 2]]
+    },
+    arcLinkLabelsStraightLength: 12,
+    arcLinkLabelsDiagonalLength: 6
+  }),
+      chartProps = _useBlockChartProps.chartProps;
+
+  if (chartProps) chartProps.data = series === null || series === void 0 ? void 0 : (_series$ = series[0]) === null || _series$ === void 0 ? void 0 : _series$.data;
+  var hasData = (labels === null || labels === void 0 ? void 0 : labels.length) === 2 && labels[0] !== labels[1] && !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && _chartProps$data.length);
+  if (!hasData) return null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      background: "#fff",
+      borderRadius: "0.25rem"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Pie, Object.assign({
+    width: 388,
+    height: 240
+  }, chartProps))))));
+}
+
+var PiePlotField = /*#__PURE__*/function (_ReactInlineField) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(PiePlotField, _ReactInlineField);
+
+  PiePlotField.fromJson = function fromJson(options) {
+    return new PiePlotField(options);
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  function PiePlotField(options) {
+    return _ReactInlineField.call(this, options) || this;
+  }
+
+  var _proto = PiePlotField.prototype;
+
+  _proto.renderInlineField = function renderInlineField() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PieChartWidget, null);
+  };
+
+  return PiePlotField;
+}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+
+PiePlotField.KEY = "jacdac_field_pie_plot";
+PiePlotField.EDITABLE = false;
 
 
 /***/ }),
@@ -14548,6 +14672,8 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(61162);
 /* harmony import */ var _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(90319);
 /* harmony import */ var _BarField__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(9950);
+/* harmony import */ var _PieField__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(37505);
+
 
 
 
@@ -14585,7 +14711,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, _BarField__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, _BarField__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, _PieField__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {

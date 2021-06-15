@@ -2152,7 +2152,7 @@ if (false) {}
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57557);
 /* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(31205);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(50928);
 /* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9514);
 
 
@@ -2913,8 +2913,8 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
 var web = __webpack_require__(9514);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
-var nivo_core_es = __webpack_require__(31205);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
+var nivo_core_es = __webpack_require__(50928);
 // EXTERNAL MODULE: ./node_modules/d3-time/src/interval.js
 var interval = __webpack_require__(94666);
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/millisecond.js
@@ -4543,7 +4543,7 @@ var inheritedColorPropType = prop_types_default().oneOfType([(prop_types_default
 
 /***/ }),
 
-/***/ 31205:
+/***/ 50928:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4551,6 +4551,7 @@ var inheritedColorPropType = prop_types_default().oneOfType([(prop_types_default
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "TL": function() { return /* binding */ CartesianMarkers$1; },
+  "W2": function() { return /* binding */ Container; },
   "F_": function() { return /* binding */ DotsItem$1; },
   "Qf": function() { return /* binding */ LegacyContainer; },
   "d": function() { return /* binding */ ResponsiveWrapper; },
@@ -4566,6 +4567,7 @@ __webpack_require__.d(__webpack_exports__, {
   "P6": function() { return /* binding */ getRelativeCursor; },
   "zn": function() { return /* binding */ isCursorInRect; },
   "VZ": function() { return /* binding */ lineCurvePropType; },
+  "Vp": function() { return /* binding */ midAngle; },
   "w$": function() { return /* binding */ motionPropTypes; },
   "ZT": function() { return /* binding */ nivo_core_es_noop; },
   "re": function() { return /* binding */ positionFromAngle; },
@@ -4575,6 +4577,7 @@ __webpack_require__.d(__webpack_exports__, {
   "Bs": function() { return /* binding */ useDimensions; },
   "xE": function() { return /* binding */ useMeasure; },
   "tf": function() { return /* binding */ useMotionConfig; },
+  "LR": function() { return /* binding */ usePropertyAccessor; },
   "Fg": function() { return /* binding */ useTheme; },
   "O_": function() { return /* binding */ useValueFormatter; },
   "li": function() { return /* binding */ withContainer; },
@@ -4583,7 +4586,7 @@ __webpack_require__.d(__webpack_exports__, {
   "Zz": function() { return /* binding */ withTheme; }
 });
 
-// UNUSED EXPORTS: CartesianMarkersItem, Container, Defs, DotsItemDefaultProps, LinearGradient, MotionConfigProvider, PatternDots, PatternLines, PatternSquares, TWO_PI, ThemeProvider, absoluteAngleRadians, alignBox, annotationsPropType, areaCurvePropKeys, areaCurvePropType, axisThemePropType, blendModes, boxAlignments, closedCurvePropKeys, closedCurvePropType, colorInterpolatorIds, colorInterpolators, colorSchemeIds, crosshairPropType, curvePropKeys, curvePropMapping, curvePropType, defaultAnimate, defaultCategoricalColors, defaultColorRange, defaultMargin, defaultMotionDamping, defaultMotionStiffness, defaultTheme, dotsThemePropType, extendDefaultTheme, getAngle, getColorScale, getDistance, getPolarLabelProps, getValueFormatter, gradientTypes, gridThemePropType, guessQuantizeColorScale, isMatchingDef, labelsThemePropType, legendsThemePropType, lineCurvePropKeys, linearGradientDef, marginPropType, markersThemePropType, midAngle, motionConfigContext, motionDefaultProps, nivoCategoricalColors, patternDotsDef, patternLinesDef, patternSquaresDef, patternTypes, quantizeColorScalePropType, quantizeColorScales, quantizeColorScalesKeys, stackOffsetFromProp, stackOffsetPropKeys, stackOffsetPropMapping, stackOffsetPropType, stackOrderFromProp, stackOrderPropKeys, stackOrderPropMapping, stackOrderPropType, themeContext, themePropType, treeMapTileFromProp, treeMapTilePropKeys, treeMapTilePropMapping, treeMapTilePropType, useCurveInterpolation, usePartialTheme, usePropertyAccessor, withCurve, withHierarchy
+// UNUSED EXPORTS: CartesianMarkersItem, Defs, DotsItemDefaultProps, LinearGradient, MotionConfigProvider, PatternDots, PatternLines, PatternSquares, TWO_PI, ThemeProvider, absoluteAngleRadians, alignBox, annotationsPropType, areaCurvePropKeys, areaCurvePropType, axisThemePropType, blendModes, boxAlignments, closedCurvePropKeys, closedCurvePropType, colorInterpolatorIds, colorInterpolators, colorSchemeIds, crosshairPropType, curvePropKeys, curvePropMapping, curvePropType, defaultAnimate, defaultCategoricalColors, defaultColorRange, defaultMargin, defaultMotionDamping, defaultMotionStiffness, defaultTheme, dotsThemePropType, extendDefaultTheme, getAngle, getColorScale, getDistance, getPolarLabelProps, getValueFormatter, gradientTypes, gridThemePropType, guessQuantizeColorScale, isMatchingDef, labelsThemePropType, legendsThemePropType, lineCurvePropKeys, linearGradientDef, marginPropType, markersThemePropType, motionConfigContext, motionDefaultProps, nivoCategoricalColors, patternDotsDef, patternLinesDef, patternSquaresDef, patternTypes, quantizeColorScalePropType, quantizeColorScales, quantizeColorScalesKeys, stackOffsetFromProp, stackOffsetPropKeys, stackOffsetPropMapping, stackOffsetPropType, stackOrderFromProp, stackOrderPropKeys, stackOrderPropMapping, stackOrderPropType, themeContext, themePropType, treeMapTileFromProp, treeMapTilePropKeys, treeMapTilePropMapping, treeMapTilePropType, useCurveInterpolation, usePartialTheme, withCurve, withHierarchy
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
@@ -5191,24 +5194,8 @@ CardinalOpen.prototype = {
 
   return cardinal;
 })(0));
-;// CONCATENATED MODULE: ./node_modules/d3-shape/src/math.js
-var abs = Math.abs;
-var atan2 = Math.atan2;
-var cos = Math.cos;
-var max = Math.max;
-var min = Math.min;
-var sin = Math.sin;
-var sqrt = Math.sqrt;
-var epsilon = 1e-12;
-var pi = Math.PI;
-var halfPi = pi / 2;
-var tau = 2 * pi;
-function acos(x) {
-  return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);
-}
-function asin(x) {
-  return x >= 1 ? halfPi : x <= -1 ? -halfPi : Math.asin(x);
-}
+// EXTERNAL MODULE: ./node_modules/d3-shape/src/math.js
+var math = __webpack_require__(33841);
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/curve/catmullRom.js
 
 
@@ -5219,14 +5206,14 @@ function catmullRom_point(that, x, y) {
       x2 = that._x2,
       y2 = that._y2;
 
-  if (that._l01_a > epsilon) {
+  if (that._l01_a > math/* epsilon */.Ho) {
     var a = 2 * that._l01_2a + 3 * that._l01_a * that._l12_a + that._l12_2a,
         n = 3 * that._l01_a * (that._l01_a + that._l12_a);
     x1 = (x1 * a - that._x0 * that._l12_2a + that._x2 * that._l01_2a) / n;
     y1 = (y1 * a - that._y0 * that._l12_2a + that._y2 * that._l01_2a) / n;
   }
 
-  if (that._l23_a > epsilon) {
+  if (that._l23_a > math/* epsilon */.Ho) {
     var b = 2 * that._l23_2a + 3 * that._l23_a * that._l12_a + that._l12_2a,
         m = 3 * that._l23_a * (that._l23_a + that._l12_a);
     x2 = (x2 * b + that._x1 * that._l23_2a - x * that._l12_2a) / m;
@@ -8482,7 +8469,7 @@ var getPropertyAccessor = function getPropertyAccessor(accessor) {
 };
 
 var usePropertyAccessor = function usePropertyAccessor(accessor) {
-  return useMemo(function () {
+  return (0,react.useMemo)(function () {
     return getPropertyAccessor(accessor);
   }, [accessor]);
 };
@@ -8903,7 +8890,7 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
 /* harmony export */ });
 /* unused harmony exports LegendSvg, LegendSvgItem, useQuantizeColorScaleLegendData */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31205);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50928);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45697);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
 
@@ -12289,7 +12276,7 @@ var scalePropType = prop_types_default().oneOfType([prop_types_default().shape(l
 /* unused harmony exports TooltipWrapper, hiddenTooltipState, isVisibleTooltipState, useTooltipState */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9514);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(31205);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50928);
 
 
 
@@ -12866,8 +12853,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
-var nivo_core_es = __webpack_require__(31205);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
+var nivo_core_es = __webpack_require__(50928);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(32738);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
@@ -21423,6 +21410,126 @@ function one(b) {
 
 /***/ }),
 
+/***/ 56940:
+/***/ (function(__unused_webpack_module, __webpack_exports__) {
+
+"use strict";
+var pi = Math.PI,
+    tau = 2 * pi,
+    epsilon = 1e-6,
+    tauEpsilon = tau - epsilon;
+
+function Path() {
+  this._x0 = this._y0 = // start of current subpath
+  this._x1 = this._y1 = null; // end of current subpath
+
+  this._ = "";
+}
+
+function path() {
+  return new Path();
+}
+
+Path.prototype = path.prototype = {
+  constructor: Path,
+  moveTo: function moveTo(x, y) {
+    this._ += "M" + (this._x0 = this._x1 = +x) + "," + (this._y0 = this._y1 = +y);
+  },
+  closePath: function closePath() {
+    if (this._x1 !== null) {
+      this._x1 = this._x0, this._y1 = this._y0;
+      this._ += "Z";
+    }
+  },
+  lineTo: function lineTo(x, y) {
+    this._ += "L" + (this._x1 = +x) + "," + (this._y1 = +y);
+  },
+  quadraticCurveTo: function quadraticCurveTo(x1, y1, x, y) {
+    this._ += "Q" + +x1 + "," + +y1 + "," + (this._x1 = +x) + "," + (this._y1 = +y);
+  },
+  bezierCurveTo: function bezierCurveTo(x1, y1, x2, y2, x, y) {
+    this._ += "C" + +x1 + "," + +y1 + "," + +x2 + "," + +y2 + "," + (this._x1 = +x) + "," + (this._y1 = +y);
+  },
+  arcTo: function arcTo(x1, y1, x2, y2, r) {
+    x1 = +x1, y1 = +y1, x2 = +x2, y2 = +y2, r = +r;
+    var x0 = this._x1,
+        y0 = this._y1,
+        x21 = x2 - x1,
+        y21 = y2 - y1,
+        x01 = x0 - x1,
+        y01 = y0 - y1,
+        l01_2 = x01 * x01 + y01 * y01; // Is the radius negative? Error.
+
+    if (r < 0) throw new Error("negative radius: " + r); // Is this path empty? Move to (x1,y1).
+
+    if (this._x1 === null) {
+      this._ += "M" + (this._x1 = x1) + "," + (this._y1 = y1);
+    } // Or, is (x1,y1) coincident with (x0,y0)? Do nothing.
+    else if (!(l01_2 > epsilon)) ; // Or, are (x0,y0), (x1,y1) and (x2,y2) collinear?
+      // Equivalently, is (x1,y1) coincident with (x2,y2)?
+      // Or, is the radius zero? Line to (x1,y1).
+      else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon) || !r) {
+          this._ += "L" + (this._x1 = x1) + "," + (this._y1 = y1);
+        } // Otherwise, draw an arc!
+        else {
+            var x20 = x2 - x0,
+                y20 = y2 - y0,
+                l21_2 = x21 * x21 + y21 * y21,
+                l20_2 = x20 * x20 + y20 * y20,
+                l21 = Math.sqrt(l21_2),
+                l01 = Math.sqrt(l01_2),
+                l = r * Math.tan((pi - Math.acos((l21_2 + l01_2 - l20_2) / (2 * l21 * l01))) / 2),
+                t01 = l / l01,
+                t21 = l / l21; // If the start tangent is not coincident with (x0,y0), line to.
+
+            if (Math.abs(t01 - 1) > epsilon) {
+              this._ += "L" + (x1 + t01 * x01) + "," + (y1 + t01 * y01);
+            }
+
+            this._ += "A" + r + "," + r + ",0,0," + +(y01 * x20 > x01 * y20) + "," + (this._x1 = x1 + t21 * x21) + "," + (this._y1 = y1 + t21 * y21);
+          }
+  },
+  arc: function arc(x, y, r, a0, a1, ccw) {
+    x = +x, y = +y, r = +r, ccw = !!ccw;
+    var dx = r * Math.cos(a0),
+        dy = r * Math.sin(a0),
+        x0 = x + dx,
+        y0 = y + dy,
+        cw = 1 ^ ccw,
+        da = ccw ? a0 - a1 : a1 - a0; // Is the radius negative? Error.
+
+    if (r < 0) throw new Error("negative radius: " + r); // Is this path empty? Move to (x0,y0).
+
+    if (this._x1 === null) {
+      this._ += "M" + x0 + "," + y0;
+    } // Or, is (x0,y0) not coincident with the previous point? Line to (x0,y0).
+    else if (Math.abs(this._x1 - x0) > epsilon || Math.abs(this._y1 - y0) > epsilon) {
+        this._ += "L" + x0 + "," + y0;
+      } // Is this arc empty? We’re done.
+
+
+    if (!r) return; // Does the angle go the wrong way? Flip the direction.
+
+    if (da < 0) da = da % tau + tau; // Is this a complete circle? Draw two arcs to complete the circle.
+
+    if (da > tauEpsilon) {
+      this._ += "A" + r + "," + r + ",0,1," + cw + "," + (x - dx) + "," + (y - dy) + "A" + r + "," + r + ",0,1," + cw + "," + (this._x1 = x0) + "," + (this._y1 = y0);
+    } // Is this arc non-empty? Draw an arc!
+    else if (da > epsilon) {
+        this._ += "A" + r + "," + r + ",0," + +(da >= pi) + "," + cw + "," + (this._x1 = x + r * Math.cos(a1)) + "," + (this._y1 = y + r * Math.sin(a1));
+      }
+  },
+  rect: function rect(x, y, w, h) {
+    this._ += "M" + (this._x0 = this._x1 = +x) + "," + (this._y0 = this._y1 = +y) + "h" + +w + "v" + +h + "h" + -w + "Z";
+  },
+  toString: function toString() {
+    return this._;
+  }
+};
+/* harmony default export */ __webpack_exports__["Z"] = (path);
+
+/***/ }),
+
 /***/ 27644:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -23317,6 +23424,112 @@ Linear.prototype = {
 
 /***/ }),
 
+/***/ 84887:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony import */ var d3_path__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(56940);
+/* harmony import */ var _constant_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(21235);
+/* harmony import */ var _curve_linear_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42431);
+/* harmony import */ var _point_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94882);
+
+
+
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
+  var x = _point_js__WEBPACK_IMPORTED_MODULE_0__.x,
+      y = _point_js__WEBPACK_IMPORTED_MODULE_0__.y,
+      defined = (0,_constant_js__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(true),
+      context = null,
+      curve = _curve_linear_js__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z,
+      output = null;
+
+  function line(data) {
+    var i,
+        n = data.length,
+        d,
+        defined0 = false,
+        buffer;
+    if (context == null) output = curve(buffer = (0,d3_path__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)());
+
+    for (i = 0; i <= n; ++i) {
+      if (!(i < n && defined(d = data[i], i, data)) === defined0) {
+        if (defined0 = !defined0) output.lineStart();else output.lineEnd();
+      }
+
+      if (defined0) output.point(+x(d, i, data), +y(d, i, data));
+    }
+
+    if (buffer) return output = null, buffer + "" || null;
+  }
+
+  line.x = function (_) {
+    return arguments.length ? (x = typeof _ === "function" ? _ : (0,_constant_js__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(+_), line) : x;
+  };
+
+  line.y = function (_) {
+    return arguments.length ? (y = typeof _ === "function" ? _ : (0,_constant_js__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(+_), line) : y;
+  };
+
+  line.defined = function (_) {
+    return arguments.length ? (defined = typeof _ === "function" ? _ : (0,_constant_js__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(!!_), line) : defined;
+  };
+
+  line.curve = function (_) {
+    return arguments.length ? (curve = _, context != null && (output = curve(context)), line) : curve;
+  };
+
+  line.context = function (_) {
+    return arguments.length ? (_ == null ? context = output = null : output = curve(context = _), line) : context;
+  };
+
+  return line;
+}
+
+/***/ }),
+
+/***/ 33841:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Wn": function() { return /* binding */ abs; },
+/* harmony export */   "fv": function() { return /* binding */ atan2; },
+/* harmony export */   "mC": function() { return /* binding */ cos; },
+/* harmony export */   "Fp": function() { return /* binding */ max; },
+/* harmony export */   "VV": function() { return /* binding */ min; },
+/* harmony export */   "O$": function() { return /* binding */ sin; },
+/* harmony export */   "_b": function() { return /* binding */ sqrt; },
+/* harmony export */   "Ho": function() { return /* binding */ epsilon; },
+/* harmony export */   "pi": function() { return /* binding */ pi; },
+/* harmony export */   "ou": function() { return /* binding */ halfPi; },
+/* harmony export */   "BZ": function() { return /* binding */ tau; },
+/* harmony export */   "Kh": function() { return /* binding */ acos; },
+/* harmony export */   "ZR": function() { return /* binding */ asin; }
+/* harmony export */ });
+var abs = Math.abs;
+var atan2 = Math.atan2;
+var cos = Math.cos;
+var max = Math.max;
+var min = Math.min;
+var sin = Math.sin;
+var sqrt = Math.sqrt;
+var epsilon = 1e-12;
+var pi = Math.PI;
+var halfPi = pi / 2;
+var tau = 2 * pi;
+function acos(x) {
+  return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);
+}
+function asin(x) {
+  return x >= 1 ? halfPi : x <= -1 ? -halfPi : Math.asin(x);
+}
+
+/***/ }),
+
 /***/ 69279:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -23379,6 +23592,23 @@ Linear.prototype = {
   }
 
   return o;
+}
+
+/***/ }),
+
+/***/ 94882:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "x": function() { return /* binding */ x; },
+/* harmony export */   "y": function() { return /* binding */ y; }
+/* harmony export */ });
+function x(p) {
+  return p[0];
+}
+function y(p) {
+  return p[1];
 }
 
 /***/ }),

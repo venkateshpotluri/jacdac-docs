@@ -5658,7 +5658,10 @@ var DataColumnChooserField = __webpack_require__(44393);
 var LinePlotField = __webpack_require__(70659);
 // EXTERNAL MODULE: ./src/components/blockly/fields/BarField.tsx
 var BarField = __webpack_require__(9950);
+// EXTERNAL MODULE: ./src/components/blockly/fields/PieField.tsx
+var PieField = __webpack_require__(37505);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
+
 
 
 
@@ -5666,6 +5669,7 @@ var BarField = __webpack_require__(9950);
 
 var SCATTERPLOT_BLOCK = "chart_scatterplot";
 var LINEPLOT_BLOCK = "chart_lineplot";
+var PIEPLOT_BLOCK = "chart_pieplot";
 var BARCHART_BLOCK = "chart_bar";
 var chartdsl_colour = "#999";
 var chartDSL = {
@@ -5737,6 +5741,28 @@ var chartDSL = {
       template: "meta",
       inputsInline: false,
       transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: PIEPLOT_BLOCK,
+      message0: "pie name %1 value %2 %3 %4",
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "id"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "value"
+      }, {
+        type: "input_dummy"
+      }, {
+        type: PieField/* default.KEY */.Z.KEY,
+        name: "plot"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: chartdsl_colour,
+      template: "meta",
+      inputsInline: false,
+      transformData: toolbox/* identityTransformData */.FW
     }];
   },
   createCategory: function createCategory() {
@@ -5752,6 +5778,9 @@ var chartDSL = {
       }, {
         kind: "block",
         type: LINEPLOT_BLOCK
+      }, {
+        kind: "block",
+        type: PIEPLOT_BLOCK
       }],
       colour: chartdsl_colour
     }];
