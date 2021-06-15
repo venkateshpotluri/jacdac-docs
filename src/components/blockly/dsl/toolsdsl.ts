@@ -1,11 +1,13 @@
 import { toIdentifier } from "../../../../jacdac-ts/src/vm/compile"
 import { CmdWithErrors, makeVMBase } from "../../vm/VMgenerator"
 import LogViewField from "../fields/LogViewField"
+import MarkdownField from "../fields/MarkdownFieldEditor"
 import VariablesField from "../fields/VariablesFields"
 import WatchValueField from "../fields/WatchValueField"
 import {
     BlockReference,
     DATA_SCIENCE_STATEMENT_TYPE,
+    DummyInputDefinition,
     identityTransformData,
     InputDefinition,
     LabelDefinition,
@@ -17,6 +19,7 @@ const WATCH_BLOCK = "jacdac_tools_watch"
 const LOG_BLOCK = "jacdac_tools_log"
 const VIEW_LOG_BLOCK = "jacdac_tools_log_view"
 const VARIABLES_BLOCK = "jacdac_variables_view"
+const COMMENT_BLOCK = "jacdac_comment"
 const colour = toolsColour
 
 const toolsDSL: BlockDomainSpecificLanguage = {
@@ -97,6 +100,23 @@ const toolsDSL: BlockDomainSpecificLanguage = {
             tooltip: `View console content`,
             template: "meta",
         },
+        {
+            kind: "block",
+            type: COMMENT_BLOCK,
+            message0: "comment %1 %2",
+            args0: [
+                <DummyInputDefinition>{
+                    type: "input_dummy",
+                },
+                {
+                    type: MarkdownField.KEY,
+                    name: "text",
+                },
+            ],
+            colour,
+            inputsInline: false,
+            template: "meta",
+        },
     ],
     createCategory: () => [
         {
@@ -131,6 +151,7 @@ const toolsDSL: BlockDomainSpecificLanguage = {
                     kind: "block",
                     type: VIEW_LOG_BLOCK,
                 },
+                { kind: "block", type: COMMENT_BLOCK },
             ],
         },
         {

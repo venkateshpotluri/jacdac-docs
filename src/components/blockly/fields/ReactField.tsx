@@ -149,10 +149,10 @@ export default class ReactField<T> extends Blockly.Field {
 
         // the div_ size has not been computed yet, so let the browse handle this
         setTimeout(() => {
-            Blockly.DropDownDiv.showPositionedByField(
-                this,
-                this.dropdownDispose_.bind(this)
-            )
+            Blockly.DropDownDiv.showPositionedByField(this, () => {
+                this.dropdownDispose_()
+                this.events.emit(UNMOUNT)
+            })
             this.events.emit(MOUNT)
         }, 200)
     }

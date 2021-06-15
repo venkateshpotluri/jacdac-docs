@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import ReactDOM from "react-dom"
-import ReactField from "./ReactField"
+import ReactField, { UNMOUNT } from "./ReactField"
 import { child } from "../../widgets/svg"
 import DarkModeProvider from "../../ui/DarkModeProvider"
 import { IdProvider } from "react-use-id-hook"
@@ -8,14 +8,18 @@ import JacdacProvider from "../../../jacdac/Provider"
 import AppTheme from "../../ui/AppTheme"
 import Blockly from "blockly"
 import { WorkspaceProvider } from "../WorkspaceContext"
+import { ValueProvider } from "./ValueContext"
 
-export default class ReactInlineField extends ReactField<unknown> {
+export default class ReactInlineField<T = unknown> extends ReactField<T> {
     protected container: HTMLDivElement
     protected resizeObserver: ResizeObserver
+    protected blocklyBindEvents = false
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(options?: any) {
         super(options?.value, undefined, options, { width: 1, height: 1 })
+
+        this.events.on(UNMOUNT, () => this.updateView())
     }
 
     protected createContainer(): HTMLDivElement {
@@ -75,12 +79,19 @@ export default class ReactInlineField extends ReactField<unknown> {
     }
 
     renderBlock(): ReactNode {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const onValueChange = (newValue: any) => (this.value = newValue)
         return (
             <WorkspaceProvider field={this}>
                 <DarkModeProvider fixedDarkMode="dark">
                     <IdProvider>
                         <JacdacProvider>
-                            <AppTheme>{this.renderInlineField()}</AppTheme>
+                            <ValueProvider
+                                value={this.value}
+                                onValueChange={onValueChange}
+                            >
+                                <AppTheme>{this.renderInlineField()}</AppTheme>
+                            </ValueProvider>
                         </JacdacProvider>
                     </IdProvider>
                 </DarkModeProvider>
@@ -94,6 +105,7 @@ export default class ReactInlineField extends ReactField<unknown> {
 
     // don't bind any mouse event
     bindEvents_() {
-        Blockly.Tooltip.bindMouseEvents(this.getClickTarget_())
+        if (this.blocklyBindEvents) super.bindEvents_()
+        else Blockly.Tooltip.bindMouseEvents(this.getClickTarget_())
     }
 }
