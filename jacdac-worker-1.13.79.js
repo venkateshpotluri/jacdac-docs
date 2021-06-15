@@ -5434,4 +5434,4 @@ async function handleMessage(event) {
 }
 self.addEventListener("message", handleMessage);
 debug(`jdsw: ready...`);
-//# sourceMappingURL=jacdac-serviceworker.js.map
+//# sourceMappingURL=jacdac-worker.js.map

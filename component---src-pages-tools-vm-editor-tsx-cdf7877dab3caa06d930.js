@@ -5883,7 +5883,7 @@ function VMEditorWithContext() {
       program = _useState[0],
       setProgram = _useState[1];
 
-  var autoStart = false;
+  var autoStart = true;
 
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
       runner = _useVMRunner.runner,
