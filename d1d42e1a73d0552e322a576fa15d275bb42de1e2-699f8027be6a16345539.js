@@ -11549,7 +11549,6 @@ var dataDsl = {
         var order = b.getFieldValue("order");
         var descending = order === "descending";
         return postTransformData({
-          jacdacdata: true,
           type: "arrange",
           column: column,
           descending: descending,
