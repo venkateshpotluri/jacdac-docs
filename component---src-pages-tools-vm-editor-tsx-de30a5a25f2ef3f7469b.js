@@ -760,7 +760,7 @@ function ImportButton(props) {
 
 /***/ }),
 
-/***/ 80428:
+/***/ 961:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5656,8 +5656,6 @@ var ScatterPlotField = __webpack_require__(97884);
 var DataColumnChooserField = __webpack_require__(44393);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LinePlotField.tsx
 var LinePlotField = __webpack_require__(70659);
-// EXTERNAL MODULE: ./src/components/blockly/fields/GaugeWidgetField.tsx
-var GaugeWidgetField = __webpack_require__(61162);
 // EXTERNAL MODULE: ./src/components/blockly/fields/BarField.tsx
 var BarField = __webpack_require__(9950);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/chartdsl.ts
@@ -5666,11 +5664,9 @@ var BarField = __webpack_require__(9950);
 
 
 
-
 var SCATTERPLOT_BLOCK = "chart_scatterplot";
 var LINEPLOT_BLOCK = "chart_lineplot";
 var BARCHART_BLOCK = "chart_bar";
-var DASHBOARD_GAUGE_BLOCK = "jacdac_dashboard_gauge";
 var chartdsl_colour = "#999";
 var chartDSL = {
   id: "chart",
@@ -5741,7 +5737,41 @@ var chartDSL = {
       template: "meta",
       inputsInline: false,
       transformData: toolbox/* identityTransformData */.FW
-    }, {
+    }];
+  },
+  createCategory: function createCategory() {
+    return [{
+      kind: "category",
+      name: "Charts",
+      contents: [{
+        kind: "block",
+        type: SCATTERPLOT_BLOCK
+      }, {
+        kind: "block",
+        type: BARCHART_BLOCK
+      }, {
+        kind: "block",
+        type: LINEPLOT_BLOCK
+      }],
+      colour: chartdsl_colour
+    }];
+  }
+};
+/* harmony default export */ var chartdsl = (chartDSL);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 1 modules
+var datadsl = __webpack_require__(79018);
+// EXTERNAL MODULE: ./src/components/blockly/fields/GaugeWidgetField.tsx
+var GaugeWidgetField = __webpack_require__(61162);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/widgetdsl.ts
+
+
+
+var DASHBOARD_GAUGE_BLOCK = "jacdac_widget_gauge";
+var widgetdsl_colour = "#999";
+var widgetDSL = {
+  id: "widget",
+  createBlocks: function createBlocks() {
+    return [{
       kind: "block",
       type: DASHBOARD_GAUGE_BLOCK,
       message0: "gauge min %1 max %2 %3 %4 %5",
@@ -5763,7 +5793,7 @@ var chartDSL = {
       }],
       previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
-      colour: chartdsl_colour,
+      colour: widgetdsl_colour,
       template: "meta",
       inputsInline: false,
       transformData: toolbox/* identityTransformData */.FW
@@ -5772,27 +5802,16 @@ var chartDSL = {
   createCategory: function createCategory() {
     return [{
       kind: "category",
-      name: "Charts",
+      name: "Widgets",
       contents: [{
-        kind: "block",
-        type: SCATTERPLOT_BLOCK
-      }, {
-        kind: "block",
-        type: BARCHART_BLOCK
-      }, {
-        kind: "block",
-        type: LINEPLOT_BLOCK
-      }, {
         kind: "block",
         type: DASHBOARD_GAUGE_BLOCK
       }],
-      colour: chartdsl_colour
+      colour: widgetdsl_colour
     }];
   }
 };
-/* harmony default export */ var chartdsl = (chartDSL);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 1 modules
-var datadsl = __webpack_require__(79018);
+/* harmony default export */ var widgetdsl = (widgetDSL);
 ;// CONCATENATED MODULE: ./src/components/vm/vmdsls.ts
 
 
@@ -5805,7 +5824,8 @@ var datadsl = __webpack_require__(79018);
 
 
 
-var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+
+var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, widgetdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
 /* harmony default export */ var vmdsls = (vmDsls);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
