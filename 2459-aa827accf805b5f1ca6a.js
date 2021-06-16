@@ -79,9 +79,11 @@ function SoilMoistureWidget(props) {
   }), /*#__PURE__*/react.createElement("text", Object.assign({
     x: w / 2,
     y: "1.4",
-    fontSize: "1.058",
+    fontSize: "1",
     strokeWidth: ".026"
-  }, textProps), tvalue));
+  }, textProps, {
+    fill: "#fff"
+  }), tvalue));
 }
 // EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
 var useRegister = __webpack_require__(82677);
