@@ -58565,6 +58565,53 @@ function CanvasWidget(props) {
 
 /***/ }),
 
+/***/ 99531:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ColorButtons; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23729);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(95067);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+
+
+
+
+function ColorButtons(props) {
+  var DEFAULT_COLORS = [0xff0000, 0xff00ff, 0x0000ff, 0x00ff00, 0xffff00, 0x020202];
+  var _props$colors = props.colors,
+      colors = _props$colors === void 0 ? DEFAULT_COLORS : _props$colors,
+      onColorChange = props.onColorChange;
+
+  var handleSetColor = function handleSetColor(col) {
+    return function () {
+      return onColorChange(col);
+    };
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    container: true,
+    spacing: 1
+  }, colors.map(function (col) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+      key: col,
+      item: true,
+      xs: colors.length === 2 ? 4 : 2
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+      style: {
+        color: (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .rgbToHtmlColor */ .b)(col)
+      },
+      onClick: handleSetColor(col)
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null)));
+  }));
+}
+
+/***/ }),
+
 /***/ 71598:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -58747,12 +58794,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _widgets_SvgWidget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(48059);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(80838);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(23729);
 /* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(60650);
-/* harmony import */ var _material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(95067);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
-/* harmony import */ var _ui_SliderWithLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(23461);
-
+/* harmony import */ var _ui_SliderWithLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23461);
+/* harmony import */ var _ColorButtons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(99531);
 
 
 
@@ -58835,13 +58879,7 @@ function LEDWidget(props) {
   var b = ledColor >> 0 & 0xff;
 
   var _useWidgetTheme = (0,_widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(color),
-      active = _useWidgetTheme.active;
-
-  var handleSetColor = function handleSetColor(col) {
-    return function () {
-      return onLedColorChange(col);
-    };
-  }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      active = _useWidgetTheme.active; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
   var handleSpeedChange = function handleSpeedChange(event, newSpeed) {
@@ -58927,21 +58965,17 @@ function LEDWidget(props) {
       fill: "#fff",
       d: "M2.6 3.2C1.5 4.3.9 5.8.9 7.4v10.3l1.9 1.5V8.8c-.9-2.8-.3-4.2.7-5.2-.3-.1-.6-.2-.9-.4zm7.3-1.6l-.3.9c1.5.7 2.6 2.1 2.8 3.7h1c-.3-2-1.6-3.7-3.5-4.6z"
     }));
-  }))), onLedColorChange && buttonColors.map(function (col) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-      key: col,
-      item: true,
-      xs: buttonColors.length === 2 ? 4 : 2
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
-      style: {
-        color: (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_3__/* .rgbToHtmlColor */ .b)(col)
-      },
-      onClick: handleSetColor(col)
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null)));
-  }), onSpeedChange && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+  }))), onLedColorChange && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_SliderWithLabel__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ColorButtons__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+    colors: buttonColors,
+    color: ledColor,
+    onColorChange: onLedColorChange
+  })), onSpeedChange && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_SliderWithLabel__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     label: "speed",
     min: 0,
     step: 5,

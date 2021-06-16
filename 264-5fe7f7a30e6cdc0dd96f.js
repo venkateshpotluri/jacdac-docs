@@ -192,7 +192,10 @@ var useRegisterValue = __webpack_require__(89196);
 var LoadingProgress = __webpack_require__(2285);
 // EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
 var useRegister = __webpack_require__(82677);
+// EXTERNAL MODULE: ./src/components/hooks/useFireKey.ts
+var useFireKey = __webpack_require__(8966);
 ;// CONCATENATED MODULE: ./src/components/widgets/LightWidget.tsx
+
 
 
 
@@ -257,7 +260,8 @@ function LightStripWidget(props) {
       numPixels = props.numPixels,
       actualBrightness = props.actualBrightness,
       server = props.server,
-      widgetSize = props.widgetSize;
+      widgetSize = props.widgetSize,
+      onLedClick = props.onLedClick;
 
   var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(),
       background = _useWidgetTheme.background,
@@ -269,7 +273,14 @@ function LightStripWidget(props) {
   var neocircleradius = neoradius + 1;
   var sw = neoradius * 2.8;
   var isJewel = lightVariant === constants/* LedPixelVariant.Jewel */.dQg.Jewel;
-  var isRing = lightVariant === constants/* LedPixelVariant.Ring */.dQg.Ring; // paint svg via dom
+  var isRing = lightVariant === constants/* LedPixelVariant.Ring */.dQg.Ring;
+
+  var handleLedClick = function handleLedClick(index) {
+    return onLedClick ? function () {
+      return onLedClick(index);
+    } : undefined;
+  }; // paint svg via dom
+
 
   var paint = function paint() {
     //console.log('paint')
@@ -371,14 +382,20 @@ function LightStripWidget(props) {
     ref: pixelsRef,
     opacity: opacity
   }, Array(numPixels).fill(0).map(function (_, i) {
+    var handleClick = handleLedClick(i);
+    var fireClick = (0,useFireKey/* default */.Z)(handleClick);
     return /*#__PURE__*/react.createElement("circle", {
+      className: "clickeable",
       key: "pixel" + i,
       r: neocircleradius,
       cx: width >> 1,
       cy: height >> 1,
       stroke: controlBackground,
       strokeWidth: 1,
-      "aria-label": "pixel " + i
+      "aria-label": "pixel " + i,
+      onPointerDown: handleClick,
+      onPointerEnter: handleClick,
+      onKeyDown: fireClick
     }, /*#__PURE__*/react.createElement("title", null, "pixel ", i));
   }))));
 }
@@ -387,7 +404,8 @@ function LightMatrixWidget(props) {
   var columns = props.columns,
       rows = props.rows,
       server = props.server,
-      widgetSize = props.widgetSize;
+      widgetSize = props.widgetSize,
+      onLedClick = props.onLedClick;
 
   var _useWidgetTheme2 = (0,useWidgetTheme/* default */.Z)(),
       background = _useWidgetTheme2.background,
@@ -401,7 +419,14 @@ function LightMatrixWidget(props) {
   var pr = 1;
   var m = 2;
   var w = columns * pw + (columns + 1) * m;
-  var h = rows * ph + (rows + 1) * m; // paint svg via dom
+  var h = rows * ph + (rows + 1) * m;
+
+  var handleLedClick = function handleLedClick(index) {
+    return onLedClick ? function () {
+      return onLedClick(index);
+    } : undefined;
+  }; // paint svg via dom
+
 
   var paint = function paint() {
     return setRgbLeds(widgetRef.current, server === null || server === void 0 ? void 0 : server.colors);
@@ -416,9 +441,13 @@ function LightMatrixWidget(props) {
       var x = m;
 
       for (var col = 0; col < columns; col++) {
-        var index = row * columns + col;
-        var label = "pixel " + index + " at " + row + "," + col;
+        var _index = row * columns + col;
+
+        var label = "pixel " + _index + " at " + row + "," + col;
+        var handleClick = handleLedClick(_index);
+        var fireClick = (0,useFireKey/* default */.Z)(handleClick);
         ledEls.push( /*#__PURE__*/react.createElement("rect", {
+          className: "clickeable",
           key: "l" + row + "-" + col,
           x: x,
           y: y,
@@ -429,7 +458,10 @@ function LightMatrixWidget(props) {
           fill: controlBackground,
           stroke: "none",
           strokeWidth: ps,
-          "aria-label": label
+          "aria-label": label,
+          onPointerDown: handleClick,
+          onPointerEnter: handleClick,
+          onKeyDown: fireClick
         }, /*#__PURE__*/react.createElement("title", null, label)));
         x += pw + m;
       }
@@ -465,7 +497,8 @@ function LightMatrixWidget(props) {
 
 function LightWidget(props) {
   var service = props.service,
-      server = props.server;
+      server = props.server,
+      onLedClick = props.onLedClick;
   var numPixelsRegister = (0,useRegister/* default */.Z)(service, constants/* LedPixelReg.NumPixels */.k9u.NumPixels);
   var variantRegister = (0,useRegister/* default */.Z)(service, constants/* LedPixelReg.Variant */.k9u.Variant);
   var actualBrightnessRegister = (0,useRegister/* default */.Z)(service, constants/* LedPixelReg.ActualBrightness */.k9u.ActualBrightness);
@@ -495,15 +528,19 @@ function LightWidget(props) {
       actualBrightness: actualBrightness,
       server: server,
       columns: columns,
-      rows: rows
+      rows: rows,
+      onLedClick: onLedClick
     });
   } else return /*#__PURE__*/react.createElement(LightStripWidget, {
     numPixels: numPixels,
     lightVariant: lightVariant,
     actualBrightness: actualBrightness,
-    server: server
+    server: server,
+    onLedClick: onLedClick
   });
 }
+// EXTERNAL MODULE: ./src/components/widgets/ColorButtons.tsx
+var ColorButtons = __webpack_require__(99531);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardLEDPixel.tsx
 
 
@@ -517,6 +554,7 @@ function LightWidget(props) {
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -826,13 +864,51 @@ function DashboardLEDPixel(props) {
   var service = props.service,
       services = props.services,
       expanded = props.expanded;
+
+  var _useState7 = (0,react.useState)(0x020202),
+      penColor = _useState7[0],
+      setPenColor = _useState7[1];
+
   var server = (0,useServiceServer/* default */.Z)(service, function () {
     return new ledpixelserver/* default */.Z();
   });
+
+  var handleColorChange = function handleColorChange(newColor) {
+    return setPenColor(newColor);
+  };
+
+  var handleLedClick = /*#__PURE__*/function () {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(index) {
+      var encoded;
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              encoded = (0,light/* lightEncode */._S)("setone % #\nshow 20", [index, penColor]);
+              _context3.next = 3;
+              return service === null || service === void 0 ? void 0 : service.sendCmdAsync(constants/* LedPixelCmd.Run */.yB$.Run, encoded);
+
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleLedClick(_x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
   return /*#__PURE__*/react.createElement(react.Fragment, null, server && /*#__PURE__*/react.createElement(LightWidget, Object.assign({
     server: server,
-    widgetCount: services.length
-  }, props)), expanded && /*#__PURE__*/react.createElement(LightCommand, {
+    widgetCount: services.length,
+    onLedClick: handleLedClick
+  }, props)), /*#__PURE__*/react.createElement(ColorButtons/* default */.Z, {
+    color: penColor,
+    onColorChange: handleColorChange
+  }), expanded && /*#__PURE__*/react.createElement(LightCommand, {
     service: service,
     expanded: expanded
   }));
