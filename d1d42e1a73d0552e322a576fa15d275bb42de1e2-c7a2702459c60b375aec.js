@@ -11451,8 +11451,8 @@ var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 2 modules
-var proxy = __webpack_require__(88430);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 3 modules
+var proxy = __webpack_require__(51805);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/data.proxy.ts
 
 
@@ -12035,7 +12035,7 @@ var variablesDsl = {
 
 /***/ }),
 
-/***/ 88430:
+/***/ 51805:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12061,10 +12061,17 @@ function createDataWorker() {
   /* worker import */ __webpack_require__.p + __webpack_require__.u(2066), __webpack_require__.b // syntax not supported in typescript
   ));
 }
+;// CONCATENATED MODULE: ./src/workers/vm/workerloader.js
+function createVMWorker() {
+  return typeof Window !== "undefined" && new Worker(new URL( // gatsby fast-refresh ignores files with node_modules in path
+  /* worker import */ __webpack_require__.p + __webpack_require__.u(9798), __webpack_require__.b // syntax not supported in typescript
+  ));
+}
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/proxy.ts
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/ban-types */
+
 
 
 
@@ -12110,7 +12117,8 @@ var WorkerProxy = /*#__PURE__*/function () {
 var _workers = {};
 var loaders = {
   data: createDataWorker,
-  csv: createCsvWorker
+  csv: createCsvWorker,
+  vm: createVMWorker
 };
 function workerProxy(workerid) {
   var worker = _workers[workerid] || (_workers[workerid] = new WorkerProxy(loaders[workerid](), workerid));
@@ -12265,8 +12273,8 @@ var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 2 modules
-var proxy = __webpack_require__(88430);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 3 modules
+var proxy = __webpack_require__(51805);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/csv.proxy.ts
 
 
