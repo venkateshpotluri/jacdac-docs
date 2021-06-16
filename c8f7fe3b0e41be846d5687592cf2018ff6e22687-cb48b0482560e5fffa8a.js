@@ -1219,36 +1219,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 95067:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(8580);
-
-var _interopRequireWildcard = __webpack_require__(1022);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("circle", {
-  cx: "12",
-  cy: "12",
-  r: "8"
-}), 'FiberManualRecord');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 65215:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1414,6 +1384,62 @@ var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement(Rea
 }), /*#__PURE__*/React.createElement("path", {
   d: "M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"
 })), 'QueryBuilder');
+
+exports.Z = _default;
+
+/***/ }),
+
+/***/ 32832:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(8580);
+
+var _interopRequireWildcard = __webpack_require__(1022);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+}), 'RadioButtonChecked');
+
+exports.Z = _default;
+
+/***/ }),
+
+/***/ 52935:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(8580);
+
+var _interopRequireWildcard = __webpack_require__(1022);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+}), 'RadioButtonUnchecked');
 
 exports.Z = _default;
 
@@ -58575,8 +58601,10 @@ function CanvasWidget(props) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(80838);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23729);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(95067);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+/* harmony import */ var _material_ui_icons_RadioButtonChecked__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32832);
+/* harmony import */ var _material_ui_icons_RadioButtonUnchecked__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(52935);
+
 
 
 
@@ -58585,6 +58613,7 @@ function ColorButtons(props) {
   var DEFAULT_COLORS = [0xff0000, 0xff00ff, 0x0000ff, 0x00ff00, 0xffff00, 0x020202];
   var _props$colors = props.colors,
       colors = _props$colors === void 0 ? DEFAULT_COLORS : _props$colors,
+      color = props.color,
       onColorChange = props.onColorChange;
 
   var handleSetColor = function handleSetColor(col) {
@@ -58606,7 +58635,7 @@ function ColorButtons(props) {
         color: (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .rgbToHtmlColor */ .b)(col)
       },
       onClick: handleSetColor(col)
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null)));
+    }, col !== color ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_RadioButtonUnchecked__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_RadioButtonChecked__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null)));
   }));
 }
 
