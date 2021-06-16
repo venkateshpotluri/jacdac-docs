@@ -8,6 +8,8 @@ var _regeneratorRuntime = __webpack_require__(22917);
 
 var _asyncToGenerator = __webpack_require__(50358);
 
+var _slicedToArray = __webpack_require__(72458);
+
 var _toConsumableArray = __webpack_require__(30063);
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -69,6 +71,14 @@ function tidy(items) {
   }
 
   return result;
+}
+
+function filter(filterFn) {
+  var _filter = function _filter(items) {
+    return items.filter(filterFn);
+  };
+
+  return _filter;
 }
 
 function singleOrArray(d) {
@@ -252,9 +262,57 @@ var handlers = {
     return tidy(data, _arrange2(descending ? desc(column) : column));
   },
   drop: function drop(props) {
-    var column = props.column,
+    var columns = props.columns,
         data = props.data;
-    if (!column) return data;else return tidy(data, select(["-".concat(column)]));
+    if (!columns) return data;else return tidy(data, select(columns.map(function (column) {
+      return "-".concat(column);
+    })));
+  },
+  filter_columns: function filter_columns(props) {
+    var columns = props.columns,
+        logic = props.logic,
+        data = props.data;
+
+    var _columns = _slicedToArray(columns, 2),
+        left = _columns[0],
+        right = _columns[1];
+
+    if (!left || !right) return data;
+
+    switch (logic) {
+      case "gt":
+        return tidy(data, filter(function (d) {
+          return d[columns[0]] > d[columns[1]];
+        }));
+
+      case "lt":
+        return tidy(data, filter(function (d) {
+          return d[columns[0]] < d[columns[1]];
+        }));
+
+      case "ge":
+        return tidy(data, filter(function (d) {
+          return d[columns[0]] >= d[columns[1]];
+        }));
+
+      case "le":
+        return tidy(data, filter(function (d) {
+          return d[columns[0]] <= d[columns[1]];
+        }));
+
+      case "eq":
+        return tidy(data, filter(function (d) {
+          return d[columns[0]] === d[columns[1]];
+        }));
+
+      case "ne":
+        return tidy(data, filter(function (d) {
+          return d[columns[0]] !== d[columns[1]];
+        }));
+
+      default:
+        return data;
+    }
   }
 };
 
@@ -342,6 +400,18 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ 91597:
+/***/ (function(module) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ 27413:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -412,6 +482,56 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ 37470:
+/***/ (function(module) {
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]);
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 36640:
+/***/ (function(module) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ 81577:
 /***/ (function(module) {
 
@@ -420,6 +540,26 @@ function _nonIterableSpread() {
 }
 
 module.exports = _nonIterableSpread;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 72458:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(91597);
+
+var iterableToArrayLimit = __webpack_require__(37470);
+
+var unsupportedIterableToArray = __webpack_require__(78593);
+
+var nonIterableRest = __webpack_require__(36640);
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
 module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),

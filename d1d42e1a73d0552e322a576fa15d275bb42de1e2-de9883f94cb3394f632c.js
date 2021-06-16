@@ -11503,6 +11503,7 @@ function _postTransformData() {
 
 var DATA_ARRANGE_BLOCK = "data_arrange";
 var DATA_DROP_BLOCK = "data_drop";
+var DATA_FILTER_COLUMNS_BLOCK = "data_filter_columns";
 var DATA_ADD_VARIABLE_CALLBACK = "data_add_variable";
 var DATA_DATAVARIABLE_READ_BLOCK = "data_dataset_read";
 var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
@@ -11560,23 +11561,60 @@ var dataDsl = {
     }, {
       kind: "block",
       type: DATA_DROP_BLOCK,
-      message0: "drop %1",
+      message0: "drop %1 %2 %3",
       colour: colour,
       args0: [{
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "column"
+        name: "column1"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column2"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column3"
       }],
       previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transformData: function transformData(b, data) {
-        var column = b.getFieldValue("column");
-        console.log("Drop: ", {
-          column: column
+        var columns = [1, 2, 3].map(function (column) {
+          return b.getFieldValue("column" + column);
         });
         return postTransformData({
           type: "drop",
-          column: column,
+          columns: columns,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_FILTER_COLUMNS_BLOCK,
+      message0: "filter %1 %2 %3",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column1"
+      }, {
+        type: "field_dropdown",
+        name: "logic",
+        options: [[">", "gt"], ["<", "lt"], [">=", "ge"], ["<=", "le"], ["==", "eq"], ["!=", "ne"]]
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column2"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var columns = [1, 2].map(function (column) {
+          return b.getFieldValue("column" + column);
+        });
+        var logic = b.getFieldValue("logic");
+        return postTransformData({
+          type: "filter_columns",
+          columns: columns,
+          logic: logic,
           data: data
         });
       },
@@ -11673,6 +11711,9 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_DROP_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_FILTER_COLUMNS_BLOCK
       }, {
         kind: "label",
         text: "Data variables"
@@ -12271,7 +12312,8 @@ function _downloadCSV() {
 
 
 var builtins = {
-  dummy: (0,gatsby_browser_entry.withPrefix)("/datasets/dummy.csv"),
+  cereal: (0,gatsby_browser_entry.withPrefix)("/datasets/cereal.csv"),
+  penguins: (0,gatsby_browser_entry.withPrefix)("/datasets/penguins.csv"),
   mt: (0,gatsby_browser_entry.withPrefix)("/datasets/mt.csv")
 };
 

@@ -50557,12 +50557,12 @@ function lightEncode(format, args) {
 
         var _v = args.shift();
 
-        if (typeof _v === "number") colors.push(_v);else if (Array.isArray(_v)) {
+        if (typeof _v == "number") colors.push(_v);else {
           for (var _iterator2 = _createForOfIteratorHelperLoose(_v), _step2; !(_step2 = _iterator2()).done;) {
             var vv = _step2.value;
             colors.push(vv);
           }
-        } else throw Error("invalid number " + _v);
+        }
       } else {
         if (token.length == 7) {
           var b = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .fromHex */ .H_)(token.slice(1));
@@ -69586,7 +69586,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "a5a51a7c4c09dae33754a29511607adec2217a00";
+  var sha = "e27f390a2e194647676548f85680780c12e6cf44";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
