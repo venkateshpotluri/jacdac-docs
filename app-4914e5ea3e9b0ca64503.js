@@ -69586,7 +69586,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "71d4aa27a43621ced7cbe91cc6226af081007aee";
+  var sha = "01ec5e7e315dacd75333bc0fb5c163e3b26e9f2a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
