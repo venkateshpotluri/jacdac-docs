@@ -234,7 +234,7 @@ function DeviceQRCodeGenerator(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
       button: true,
       key: vanityname,
-      onClick: handleVanity(vanity)
+      onClick: handleVanity(vanityname)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
       primary: designid + ": " + modulename + " v" + revision,
       secondary: "aka.ms/" + vanityname
