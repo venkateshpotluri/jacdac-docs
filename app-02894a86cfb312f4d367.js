@@ -69586,7 +69586,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "6b7f7e4d2ecffe6a38f053185ad73524a8e05fe3";
+  var sha = "035723049f3711581da55661ffbf7099948b2013";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81088,6 +81088,9 @@ exports.components = {
   },
   "component---src-pages-tools-prototest-tsx": function componentSrcPagesToolsPrototestTsx() {
     return Promise.all(/* import() | component---src-pages-tools-prototest-tsx */[__webpack_require__.e(9448), __webpack_require__.e(4793), __webpack_require__.e(5437)]).then(__webpack_require__.bind(__webpack_require__, 50381));
+  },
+  "component---src-pages-tools-qr-silk-tsx": function componentSrcPagesToolsQrSilkTsx() {
+    return __webpack_require__.e(/* import() | component---src-pages-tools-qr-silk-tsx */ 4602).then(__webpack_require__.bind(__webpack_require__, 93081));
   },
   "component---src-pages-tools-release-assets-tsx": function componentSrcPagesToolsReleaseAssetsTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-release-assets-tsx */ 9225).then(__webpack_require__.bind(__webpack_require__, 71044));
