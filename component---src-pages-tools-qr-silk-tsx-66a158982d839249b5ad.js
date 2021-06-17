@@ -177,7 +177,7 @@ function DeviceQRCodeGenerator(props) {
 
   var handleVanity = function handleVanity(vanityname) {
     return function () {
-      return setVanity(vanityname);
+      return setVanity(vanityname.toUpperCase());
     };
   };
 
