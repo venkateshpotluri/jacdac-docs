@@ -5,7 +5,7 @@
 
 /*!
  * 
- *   react-simple-keyboard v3.1.45
+ *   react-simple-keyboard v3.1.53
  *   https://github.com/hodgef/react-simple-keyboard
  *
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -155,7 +155,7 @@
       86: function _(t) {
         /*!
          * 
-         *   simple-keyboard v3.1.37
+         *   simple-keyboard v3.1.42
          *   https://github.com/hodgef/simple-keyboard
          *
          *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
