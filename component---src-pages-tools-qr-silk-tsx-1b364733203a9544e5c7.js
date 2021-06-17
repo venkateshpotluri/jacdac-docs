@@ -227,6 +227,7 @@ function DeviceQRCodeGenerator(props) {
     return !!designid;
   }).map(function (_ref4) {
     var vanityname = _ref4.vanityname,
+        modulename = _ref4.modulename,
         designid = _ref4.designid,
         revision = _ref4.revision;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
@@ -234,8 +235,8 @@ function DeviceQRCodeGenerator(props) {
       key: vanityname,
       onClick: handleVanity(vanity)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
-      primary: vanityname + " v" + revision,
-      secondary: designid
+      primary: designid + ": " + modulename + " v" + revision,
+      secondary: "aka.ms/" + vanityname
     }));
   })));
 }
