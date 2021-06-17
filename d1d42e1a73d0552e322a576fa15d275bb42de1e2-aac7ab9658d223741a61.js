@@ -10498,6 +10498,7 @@ var BlockContext = /*#__PURE__*/(0,react.createContext)({
   workspaceJSON: undefined,
   toolboxConfiguration: undefined,
   roleManager: undefined,
+  dragging: false,
   setWarnings: function setWarnings() {},
   setWorkspace: function setWorkspace() {},
   setWorkspaceXml: function setWorkspaceXml() {}
@@ -10531,6 +10532,10 @@ function BlockProvider(props) {
   var _useState4 = (0,react.useState)([]),
       warnings = _useState4[0],
       setWarnings = _useState4[1];
+
+  var _useState5 = (0,react.useState)(false),
+      dragging = _useState5[0],
+      setDragging = _useState5[1];
 
   var setWorkspaceXml = function setWorkspaceXml(xml) {
     setStoredXml(xml);
@@ -10628,23 +10633,26 @@ function BlockProvider(props) {
   var handleWorkspaceEvent = function handleWorkspaceEvent(event) {
     var type = event.type,
         workspaceId = event.workspaceId;
+    if (workspaceId !== workspace.id) return;
     console.log("blockly: " + type, event);
-    if (workspaceId !== workspace.id) return; //console.log(`blockly event ${type}`, event)
 
-    if (type === (blockly_default()).Events.FINISHED_LOADING) {
+    if (type === blockly.Events.BLOCK_DRAG) {
+      var dragEvent = event;
+      setDragging(!!dragEvent.isStart);
+    } else if (type === blockly.Events.FINISHED_LOADING) {
       workspace.getAllBlocks(false).forEach(function (b) {
         return initializeBlockServices(b);
       });
-    } else if (type === (blockly_default()).Events.BLOCK_CREATE) {
+    } else if (type === blockly.Events.BLOCK_CREATE) {
       var bev = event;
       var block = workspace.getBlockById(bev.blockId);
       initializeBlockServices(block);
-    } else if (type === (blockly_default()).Events.BLOCK_MOVE) {
+    } else if (type === blockly.Events.BLOCK_MOVE) {
       var cev = event; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
       var parentId = cev.newParentId;
       if (parentId) handleBlockChange(parentId);
-    } else if (type === (blockly_default()).Events.BLOCK_CHANGE) {
+    } else if (type === blockly.Events.BLOCK_CHANGE) {
       var _cev = event;
       handleBlockChange(_cev.blockId);
     }
@@ -10671,13 +10679,13 @@ function BlockProvider(props) {
     }
   }, [workspace]);
   (0,react.useEffect)(function () {
-    if (!workspace || workspace.isDragging()) return;
+    if (!workspace || dragging) return;
     var newWorkspaceJSON = domToJSON(workspace, dsls);
 
     if (JSON.stringify(newWorkspaceJSON) !== JSON.stringify(workspaceJSON)) {
       setWorkspaceJSON(newWorkspaceJSON);
     }
-  }, [dsls, workspace, workspaceXml]);
+  }, [dsls, workspace, dragging, workspaceXml]);
   (0,react.useEffect)(function () {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var ws = workspace;
@@ -10737,6 +10745,7 @@ function BlockProvider(props) {
       workspaceJSON: workspaceJSON,
       toolboxConfiguration: toolboxConfiguration,
       roleManager: roleManager,
+      dragging: dragging,
       setWarnings: setWarnings,
       setWorkspace: setWorkspace,
       setWorkspaceXml: setWorkspaceXml

@@ -5861,6 +5861,7 @@ var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* 
 
 
 
+
 var VM_SOURCE_STORAGE_KEY = "tools:vmeditor";
 
 function VMEditorWithContext() {
@@ -5869,7 +5870,8 @@ function VMEditorWithContext() {
       workspace = _useContext.workspace,
       workspaceJSON = _useContext.workspaceJSON,
       roleManager = _useContext.roleManager,
-      setWarnings = _useContext.setWarnings;
+      setWarnings = _useContext.setWarnings,
+      dragging = _useContext.dragging;
 
   var _useState = (0,react.useState)(),
       program = _useState[0],
@@ -5880,8 +5882,12 @@ function VMEditorWithContext() {
   var _useVMRunner = useVMRunner(roleManager, program, autoStart),
       runner = _useVMRunner.runner,
       run = _useVMRunner.run,
-      cancel = _useVMRunner.cancel;
+      cancel = _useVMRunner.cancel; // don't run the VM while dragging as it glitches the Ui
 
+
+  (0,react.useEffect)(function () {
+    if ((runner === null || runner === void 0 ? void 0 : runner.status) === VMStatus.Running) cancel();
+  }, [runner, dragging]);
   (0,react.useEffect)(function () {
     try {
       var newProgram = (0,VMgenerator/* default */.ZP)(workspaceJSON, dsls);
