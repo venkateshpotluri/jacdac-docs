@@ -12549,27 +12549,34 @@ DataColumnChooserField.KEY = "jacdac_field_data_column_chooser";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ DataTableField; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(85413);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 /* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53851);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10920);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70274);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(10920);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(70274);
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16582);
+/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
 
 
 
 
 
 
-var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(function () {
-  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)({
+
+
+var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(function () {
+  return (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)({
     root: {
       paddingLeft: "0.5rem",
       paddingRight: "0.5rem",
       background: "#fff",
       color: "#000",
-      borderRadius: "0.25rem"
+      borderRadius: "0.25rem",
+      width: "calc(" + _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .TABLE_WIDTH */ .KH + "px - 0.25rem)",
+      height: "calc(" + _toolbox__WEBPACK_IMPORTED_MODULE_4__/* .TABLE_HEIGHT */ .U2 + "px - 0.25rem)",
+      overflow: "auto"
     },
     table: {
       margin: 0,
@@ -12594,7 +12601,7 @@ function DataTableWidget() {
   var classes = useStyles();
   if (!(data !== null && data !== void 0 && data.length)) return null;
   var columns = Object.keys(data[0] || {});
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, {
     className: classes.root
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
     className: classes.table
@@ -12614,7 +12621,7 @@ function DataTableWidget() {
 }
 
 var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTableField, _ReactInlineField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(DataTableField, _ReactInlineField);
 
   DataTableField.fromJson = function fromJson(options) {
     return new DataTableField(options);
@@ -12633,7 +12640,6 @@ var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
     c.style.minWidth = "388px";
     c.style.maxWidth = "80vh";
     c.style.maxHeight = "60vh";
-    c.style.overflowY = "auto";
     return c;
   };
 
@@ -14160,7 +14166,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ ScatterPlotField; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(85413);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
@@ -14168,8 +14174,10 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 /* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53851);
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(42862);
 /* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8844);
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(16582);
+
 
 
 
@@ -14252,19 +14260,25 @@ function ScatterChartWidget() {
   if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
   chartProps.axisLeft.legend = labels[1];
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  console.log("scatter", {
+    x: x,
+    y: y,
+    series: series,
+    chartProps: chartProps
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: {
       background: "#fff",
       borderRadius: "0.25rem"
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ScatterPlot, Object.assign({
-    width: 388,
-    height: 240
+    width: _toolbox__WEBPACK_IMPORTED_MODULE_8__/* .CHART_WIDTH */ .xx,
+    height: _toolbox__WEBPACK_IMPORTED_MODULE_8__/* .CHART_HEIGHT */ .Fh
   }, chartProps))))));
 }
 
 var ScatterPlotField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(ScatterPlotField, _ReactInlineField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(ScatterPlotField, _ReactInlineField);
 
   ScatterPlotField.fromJson = function fromJson(options) {
     return new ScatterPlotField(options);
@@ -15010,7 +15024,11 @@ data, columns, toColumns) {
 /* harmony export */   "lL": function() { return /* binding */ CODE_STATEMENT_TYPE; },
 /* harmony export */   "zN": function() { return /* binding */ DATA_SCIENCE_STATEMENT_TYPE; },
 /* harmony export */   "Zt": function() { return /* binding */ TWIN_BLOCK; },
-/* harmony export */   "FR": function() { return /* binding */ toolsColour; }
+/* harmony export */   "FR": function() { return /* binding */ toolsColour; },
+/* harmony export */   "xx": function() { return /* binding */ CHART_WIDTH; },
+/* harmony export */   "Fh": function() { return /* binding */ CHART_HEIGHT; },
+/* harmony export */   "KH": function() { return /* binding */ TABLE_WIDTH; },
+/* harmony export */   "U2": function() { return /* binding */ TABLE_HEIGHT; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73108);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
@@ -15056,6 +15074,10 @@ var CODE_STATEMENT_TYPE = "Code";
 var DATA_SCIENCE_STATEMENT_TYPE = "DataScienceStatement";
 var TWIN_BLOCK = "jacdac_tools_twin";
 var toolsColour = "#888";
+var CHART_WIDTH = 388;
+var CHART_HEIGHT = 240;
+var TABLE_WIDTH = CHART_WIDTH;
+var TABLE_HEIGHT = 480;
 
 /***/ }),
 
