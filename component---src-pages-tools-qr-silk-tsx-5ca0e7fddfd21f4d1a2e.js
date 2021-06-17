@@ -142,7 +142,7 @@ function DeviceQRCodeGenerator(props) {
       vanity = _useState[0],
       setVanity = _useState[1];
 
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       mirror = _useState2[0],
       setMirror = _useState2[1];
 
