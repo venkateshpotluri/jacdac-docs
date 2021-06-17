@@ -4911,8 +4911,8 @@ var toolsDSL = {
       }],
       colour: colour,
       inputsInline: true,
-      previousStatement: null,
-      nextStatement: null,
+      previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+      nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
       tooltip: "Log an entry to the console",
       helpUrl: ""
     }, {
