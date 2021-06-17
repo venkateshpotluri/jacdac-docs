@@ -6648,6 +6648,66 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ 33584:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useDebounce; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _useDebouncedCallback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87709);
+
+
+
+function valueEquality(left, right) {
+  return left === right;
+}
+
+function adjustFunctionValueOfSetState(value) {
+  return typeof value === 'function' ? function () {
+    return value;
+  } : value;
+}
+
+function useStateIgnoreCallback(initialState) {
+  var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(adjustFunctionValueOfSetState(initialState)),
+      state = _a[0],
+      setState = _a[1];
+
+  var setStateIgnoreCallback = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
+    return setState(adjustFunctionValueOfSetState(value));
+  }, []);
+  return [state, setStateIgnoreCallback];
+}
+
+function useDebounce(value, delay, options) {
+  var eq = options && options.equalityFn || valueEquality;
+
+  var _a = useStateIgnoreCallback(value),
+      state = _a[0],
+      dispatch = _a[1];
+
+  var debounced = (0,_useDebouncedCallback__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)((0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (value) {
+    return dispatch(value);
+  }, [dispatch]), delay, options);
+  var previousValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // We need to use this condition otherwise we will run debounce timer for the first render (including maxWait option)
+    if (!eq(previousValue.current, value)) {
+      debounced(value);
+      previousValue.current = value;
+    }
+  }, [value, debounced, eq]);
+  return [state, {
+    cancel: debounced.cancel,
+    isPending: debounced.isPending,
+    flush: debounced.flush
+  }];
+}
+
+/***/ }),
+
 /***/ 87709:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -9341,12 +9401,15 @@ function domToJSON(workspace, dsls) {
 }
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
+// EXTERNAL MODULE: ./src/components/blockly/useWorkspaceEvent.ts
+var useWorkspaceEvent = __webpack_require__(34148);
 ;// CONCATENATED MODULE: ./src/components/blockly/useBlocklyEvents.ts
 
 
-// do not use block context
+ // do not use block context
+
 function useBlocklyEvents(workspace) {
-  var handleChange = function handleChange(event) {
+  var handleChange = (0,react.useCallback)(function (event) {
     var type = event.type;
 
     switch (type) {
@@ -9365,15 +9428,8 @@ function useBlocklyEvents(workspace) {
           break;
         }
     }
-  }; // register hook
-
-
-  (0,react.useEffect)(function () {
-    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handleChange);
-    return function () {
-      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handleChange);
-    };
   }, [workspace]);
+  (0,useWorkspaceEvent/* default */.Z)(workspace, handleChange);
 }
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(32738);
@@ -11212,14 +11268,15 @@ function BlockEditor(props) {
 /* harmony export */   "W5": function() { return /* binding */ WorkspaceProvider; }
 /* harmony export */ });
 /* unused harmony export WorkspaceContext */
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(53719);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(85413);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
 /* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(54774);
+/* harmony import */ var _useWorkspaceEvent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(34148);
 
 
 
@@ -11229,14 +11286,15 @@ function BlockEditor(props) {
 
 
 
+
 var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(WorkspaceServices, _JDEventSource);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WorkspaceServices, _JDEventSource);
 
   function WorkspaceServices() {
     return _JDEventSource.call(this) || this;
   }
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WorkspaceServices, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(WorkspaceServices, [{
     key: "workspaceJSON",
     get: function get() {
       return this._workspaceJSON;
@@ -11272,7 +11330,7 @@ var WorkspaceServices = /*#__PURE__*/function (_JDEventSource) {
   return WorkspaceServices;
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
 var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BlockServices, _JDEventSource2);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BlockServices, _JDEventSource2);
 
   function BlockServices() {
     var _this;
@@ -11293,7 +11351,7 @@ var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
     this.data = undefined;
   };
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BlockServices, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(BlockServices, [{
     key: "data",
     get: function get() {
       return this._data;
@@ -11322,6 +11380,7 @@ var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
 var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)({
   workspace: undefined,
   workspaceJSON: undefined,
+  dragging: false,
   sourceBlock: undefined,
   flyout: false,
   sourceId: undefined,
@@ -11354,6 +11413,10 @@ function WorkspaceProvider(props) {
     return _ === null || _ === void 0 ? void 0 : _.workspaceJSON;
   });
 
+  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(!!(workspace !== null && workspace !== void 0 && workspace.isDragging())),
+      dragging = _useState2[0],
+      setDragging = _useState2[1];
+
   var resolveRole = function resolveRole() {
     var newSourceBlock = field.getSourceBlock();
     var roleInput = newSourceBlock === null || newSourceBlock === void 0 ? void 0 : newSourceBlock.inputList[0];
@@ -11378,13 +11441,13 @@ function WorkspaceProvider(props) {
     return newRoleService;
   };
 
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRole()),
-      role = _useState2[0],
-      setRole = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRole()),
+      role = _useState3[0],
+      setRole = _useState3[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRoleService()),
-      roleService = _useState3[0],
-      setRoleService = _useState3[1];
+  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(resolveRoleService()),
+      roleService = _useState4[0],
+      setRoleService = _useState4[1];
 
   var roleServiceShortId = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(roleManager, function (_) {
     var _$roles$find;
@@ -11394,9 +11457,9 @@ function WorkspaceProvider(props) {
     })) === null || _$roles$find === void 0 ? void 0 : _$roles$find.serviceShortId;
   });
 
-  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
-      flyout = _useState4[0],
-      setFlyout = _useState4[1]; // resolve role
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
+      flyout = _useState5[0],
+      setFlyout = _useState5[1]; // resolve role
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
@@ -11414,13 +11477,26 @@ function WorkspaceProvider(props) {
       return setRoleService(resolveRoleService());
     });
   }, [role, runner]);
+  var handleWorkspaceEvent = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(function (event) {
+    var workspaceId = event.workspaceId,
+        type = event.type;
+    if (workspaceId !== (workspace === null || workspace === void 0 ? void 0 : workspace.id)) return;
+
+    if (type === blockly__WEBPACK_IMPORTED_MODULE_0__.Events.BLOCK_DRAG) {
+      var drag = event;
+      setDragging(!!(drag !== null && drag !== void 0 && drag.isStart));
+    }
+  }, [workspace]);
+  (0,_useWorkspaceEvent__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(workspace, handleWorkspaceEvent);
   return (
     /*#__PURE__*/
     // eslint-disable-next-line react/react-in-jsx-scope
     react__WEBPACK_IMPORTED_MODULE_1__.createElement(WorkspaceContext.Provider, {
       value: {
         sourceBlock: sourceBlock,
+        workspace: workspace,
         workspaceJSON: workspaceJSON,
+        dragging: dragging,
         sourceId: sourceId,
         services: services,
         role: role,
@@ -12148,7 +12224,7 @@ function workerProxy(workerid) {
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 /* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53851);
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
@@ -12470,7 +12546,7 @@ DataColumnChooserField.KEY = "jacdac_field_data_column_chooser";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53851);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10920);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70274);
 
@@ -12578,7 +12654,7 @@ DataTableField.EDITABLE = false;
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53851);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69672);
 /* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8844);
 /* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93259);
@@ -13167,7 +13243,7 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 /* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53851);
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
@@ -13542,7 +13618,7 @@ NoteField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .toShadowDefini
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 /* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53851);
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
@@ -14077,7 +14153,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
 /* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
 /* harmony import */ var _useBlockChartProps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53333);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(53851);
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77298);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(69672);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(42862);
@@ -14397,7 +14473,7 @@ ServoAngleField.SHADOW = (0,ReactField/* toShadowDefinition */._t)(ServoAngleFie
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(77298);
 /* harmony import */ var _hooks_useBestRegister__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(39687);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(71815);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(53851);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(20392);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(81794);
 
@@ -14658,7 +14734,7 @@ VariablesField.EDITABLE = false;
 /* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77298);
 /* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(59448);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81794);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(51586);
+/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(53851);
 /* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20392);
 
 
@@ -15000,7 +15076,7 @@ function useBlockChartProps(block, initialChartProps) {
 
 /***/ }),
 
-/***/ 51586:
+/***/ 53851:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15103,7 +15179,34 @@ function useChangeThrottled(node, query, time, deps) {
   }, [node].concat((0,toConsumableArray/* default */.Z)(deps || [])));
   return value;
 }
+// EXTERNAL MODULE: ./node_modules/use-debounce/esm/useDebounce.js
+var useDebounce = __webpack_require__(33584);
+// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
+var WorkspaceContext = __webpack_require__(89801);
+;// CONCATENATED MODULE: ./src/components/blockly/useDragDebounce.ts
+
+
+
+function useDragDebounce(value, delay) {
+  var _useContext = (0,react.useContext)(WorkspaceContext/* default */.ZP),
+      dragging = _useContext.dragging;
+
+  var _useDebounce = (0,useDebounce/* default */.Z)(value, delay),
+      debounced = _useDebounce[0];
+
+  var _useState = (0,react.useState)(debounced),
+      valueAtDragging = _useState[0],
+      setValueAtDragging = _useState[1]; // record value when starting to drag
+
+
+  (0,react.useEffect)(function () {
+    if (dragging) setValueAtDragging(value);
+  }, [dragging]); // return value at dragging until drag is completed
+
+  return dragging ? valueAtDragging : debounced;
+}
 ;// CONCATENATED MODULE: ./src/components/blockly/useBlockData.ts
+
 
  // eslint-disable-next-line @typescript-eslint/ban-types
 
@@ -15119,11 +15222,34 @@ function useBlockData(block, initialValue) {
 
   (0,react.useEffect)(function () {
     if (services && initialValue !== undefined && services.data === undefined) services.data = initialValue;
-  }, [services]);
+  }, [services]); // debounce with dragging
+
+  var debounced = useDragDebounce(data);
   return {
-    data: data,
+    data: debounced,
     setData: setData
   };
+}
+
+/***/ }),
+
+/***/ 34148:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useWorkspaceEvent; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+function useWorkspaceEvent(workspace, handler) {
+  // register hook
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    workspace === null || workspace === void 0 ? void 0 : workspace.addChangeListener(handler);
+    return function () {
+      return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handler);
+    };
+  }, [workspace, handler]);
 }
 
 /***/ }),
