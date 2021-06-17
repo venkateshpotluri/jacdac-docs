@@ -5510,22 +5510,14 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
               setError(undefined);
               _context.prev = 3;
 
-              frame = function _frame(x0, y0, x1, y1) {
-                var q = function q(n) {
-                  return (n * (_numBlocks * size / 2 + 0.0001)).toFixed(4);
-                };
-
-                _kicad += "(fp_line (start " + q(x0) + " " + q(y0) + ") " + ("(end " + q(x1) + " " + q(y1) + ") ") + "(layer F.CrtYd) (width 0.05))\n";
-              };
-
               if (mounted()) {
-                _context.next = 7;
+                _context.next = 6;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 7:
+            case 6:
               qr = qrcode__WEBPACK_IMPORTED_MODULE_1__.create(url, {
                 errorCorrectionLevel: "medium"
               });
@@ -5541,7 +5533,7 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
               }
 
               setNumBlocks(_numBlocks);
-              _context.next = 15;
+              _context.next = 14;
               return qrcode__WEBPACK_IMPORTED_MODULE_1__.toString(url, {
                 margin: 1,
                 scale: 1,
@@ -5549,8 +5541,17 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
                 type: "utf8"
               });
 
-            case 15:
+            case 14:
               utfcode = _context.sent;
+
+              if (mounted()) {
+                _context.next = 17;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 17:
               setImage(utfcode);
 
               f = function f(v) {
@@ -5607,6 +5608,14 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
                 }
               }
 
+              frame = function frame(x0, y0, x1, y1) {
+                var q = function q(n) {
+                  return (n * (_numBlocks * size / 2 + 0.0001)).toFixed(4);
+                };
+
+                _kicad += "(fp_line (start " + q(x0) + " " + q(y0) + ") " + ("(end " + q(x1) + " " + q(y1) + ") ") + "(layer F.CrtYd) (width 0.05))\n";
+              };
+
               frame(-1, -1, -1, 1);
               frame(-1, -1, 1, -1);
               frame(1, 1, -1, 1);
@@ -5621,23 +5630,23 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
               setScr(_scr);
               setKicad(_kicad);
               setAltium(_altium);
-              _context.next = 46;
+              _context.next = 48;
               break;
 
-            case 43:
-              _context.prev = 43;
+            case 45:
+              _context.prev = 45;
               _context.t0 = _context["catch"](3);
 
               if (mounted()) {
                 setError(_context.t0 + "");
               }
 
-            case 46:
+            case 48:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[3, 43]]);
+      }, _callee, null, [[3, 45]]);
     }));
 
     return function (_x) {
