@@ -221,7 +221,7 @@ function DeviceQRCodeGenerator(props) {
       height: "14rem",
       border: "none"
     },
-    src: url,
+    src: url === null || url === void 0 ? void 0 : url.replace(/^http:/i, "HTTPS:"),
     sandbox: "allow-scripts"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Known devices"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null, nodes.filter(function (_ref3) {
     var designid = _ref3.designid;
