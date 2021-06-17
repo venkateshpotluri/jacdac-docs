@@ -5469,10 +5469,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function useQRCodeSCR(url, layer, size, mirror, margin) {
-  var fmt = function fmt(v) {
-    return v.toFixed(3);
-  };
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
       image = _useState[0],
       setImage = _useState[1];
@@ -5482,8 +5478,20 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
       setScr = _useState2[1];
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
-      error = _useState3[0],
-      setError = _useState3[1];
+      kicad = _useState3[0],
+      setKicad = _useState3[1];
+
+  var _useState4 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
+      altium = _useState4[0],
+      setAltium = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
+      numBlocks = _useState5[0],
+      setNumBlocks = _useState5[1];
+
+  var _useState6 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(undefined),
+      error = _useState6[0],
+      setError = _useState6[1];
 
   var deps = [url, layer, size, mirror, margin];
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
@@ -5491,7 +5499,7 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
   }, deps);
   (0,_useEffectAsync__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/function () {
     var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(mounted) {
-      var utfcode, lines, sz, code, y, line, x, ch, upper, lower, xx, _scr, _y, _x2, xe, max_x, max_y;
+      var qr, _numBlocks, ptr, code, y, x, xx, utfcode, f, _scr, kicadTimestamp, _kicad, _altium, mid, _y, _x2, xe, x0, y0, x1, y1, alt, kx0, ky0, kx1, ky1, frame, max_x, max_y;
 
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
@@ -5501,141 +5509,135 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
               setScr(undefined);
               setError(undefined);
               _context.prev = 3;
-              _context.next = 6;
-              return qrcode__WEBPACK_IMPORTED_MODULE_1__.toString(url, {
-                margin: 0,
-                scale: 1,
-                errorCorrectionLevel: "medium",
-                type: "utf8"
-              });
 
-            case 6:
-              utfcode = _context.sent;
+              frame = function _frame(x0, y0, x1, y1) {
+                var q = function q(n) {
+                  return (n * (_numBlocks * size / 2 + 0.0001)).toFixed(4);
+                };
+
+                _kicad += "(fp_line (start " + q(x0) + " " + q(y0) + ") " + ("(end " + q(x1) + " " + q(y1) + ") ") + "(layer F.CrtYd) (width 0.05))\n";
+              };
 
               if (mounted()) {
-                _context.next = 9;
+                _context.next = 7;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 9:
-              setImage(utfcode);
-              console.debug("utfcode", {
-                utfcode: utfcode
+            case 7:
+              qr = qrcode__WEBPACK_IMPORTED_MODULE_1__.create(url, {
+                errorCorrectionLevel: "medium"
               });
-              lines = utfcode.split(/\n/).filter(function (s) {
-                return !!s;
-              });
-              sz = lines[0].length;
+              _numBlocks = qr.modules.size;
+              ptr = 0;
               code = {};
-              y = 0;
+
+              for (y = 0; y < _numBlocks; ++y) {
+                for (x = 0; x < _numBlocks; ++x) {
+                  xx = !mirror ? _numBlocks - x - 1 : x;
+                  code[xx + margin + "," + (_numBlocks - y - 1 + margin)] = !!qr.modules.data[ptr++];
+                }
+              }
+
+              setNumBlocks(_numBlocks);
+              _context.next = 15;
+              return qrcode__WEBPACK_IMPORTED_MODULE_1__.toString(url, {
+                margin: 1,
+                scale: 1,
+                errorCorrectionLevel: "medium",
+                type: "utf8"
+              });
 
             case 15:
-              if (!(y < sz)) {
-                _context.next = 42;
-                break;
-              }
+              utfcode = _context.sent;
+              setImage(utfcode);
 
-              line = lines[y >> 1];
-              x = 0;
+              f = function f(v) {
+                return v.toFixed(3);
+              };
 
-            case 18:
-              if (!(x < sz)) {
-                _context.next = 39;
-                break;
-              }
-
-              ch = line.charCodeAt(x);
-              upper = false, lower = false;
-              _context.t0 = ch;
-              _context.next = _context.t0 === 32 ? 24 : _context.t0 === 9600 ? 25 : _context.t0 === 9604 ? 27 : _context.t0 === 9608 ? 29 : 32;
-              break;
-
-            case 24:
-              return _context.abrupt("break", 33);
-
-            case 25:
-              upper = true;
-              return _context.abrupt("break", 33);
-
-            case 27:
-              lower = true;
-              return _context.abrupt("break", 33);
-
-            case 29:
-              upper = true;
-              lower = true;
-              return _context.abrupt("break", 33);
-
-            case 32:
-              throw new Error("bad char: " + ch);
-
-            case 33:
-              xx = !mirror ? sz - x - 1 : x;
-              code[xx + margin + "," + (sz - y - 1 + margin)] = upper;
-              code[xx + margin + "," + (sz - y - 2 + margin)] = lower;
-
-            case 36:
-              ++x;
-              _context.next = 18;
-              break;
-
-            case 39:
-              y += 2;
-              _context.next = 15;
-              break;
-
-            case 42:
-              _scr = "# QRCode for " + url + " (" + sz + "x" + sz + " at " + size + "mm)\n";
+              _scr = "# QRCode for " + url + " (" + _numBlocks + "x" + _numBlocks + " at " + size + "mm)\n";
               _scr += "LAYER " + layer + ";\n";
               _scr += "GRID mm;\n";
-              sz += 2 * margin;
+              kicadTimestamp = (Date.now() / 1000 | 0).toString(16).toUpperCase();
+              _kicad = "(module QrCode (layer F.Cu) (tedit " + kicadTimestamp + ")\n";
+              _altium = "Object Kind\tLayer\tNet\tX1\tY1\tX2\tY2\tKeepout\tLocked\tRotation\tSolder Mask Expansion\tSolder Mask Expansion Mode\tPaste Mask Expansion\tPaste Mask Expansion Mode\r\n";
+              _numBlocks += 2 * margin;
+              mid = _numBlocks * size / 2;
+              /*
+              kicad +=
+                  `(fp_text reference QR***** (at 0 ${f(
+                      mid
+                  )}) (layer F.SilkS) hide\n` +
+                  `(effects (font (size 1 1) (thickness 0.15))))\n` +
+                  `(fp_text value QrCode (at 0 ${f(
+                      -mid
+                  )}) (layer F.SilkS) hide\n` +
+                  `(effects (font (size 1 1) (thickness 0.15))))\n`
+                  */
 
-              for (_y = 0; _y < sz; _y++) {
+              for (_y = 0; _y < _numBlocks; _y++) {
                 _x2 = 0;
 
-                while (_x2 < sz) {
+                while (_x2 < _numBlocks) {
                   while (code[_x2 + "," + _y]) {
                     _x2++;
                   }
 
                   xe = _x2;
 
-                  while (xe < sz && !code[xe + "," + _y]) {
+                  while (xe < _numBlocks && !code[xe + "," + _y]) {
                     xe++;
                   }
 
-                  _scr += "RECT (R " + fmt(_x2 * size) + " " + fmt(_y * size) + ") (R " + fmt(xe * size) + " " + fmt((_y + 1) * size) + ")\n";
+                  x0 = _x2 * size;
+                  y0 = _y * size;
+                  x1 = xe * size;
+                  y1 = (_y + 1) * size;
+                  _scr += "RECT (R " + f(x0) + " " + f(y0) + ") (R " + f(x1) + " " + f(y1) + ")\n";
+                  alt = ["Fill", mirror ? "TopOverlay" : "BottomOverlay", "No Net", f(x0), f(y0), f(x1), f(y1), "false", "false", "0.0", "0", "none", "0", "none"];
+                  _altium += alt.join("\t") + "\r\n";
+                  kx0 = f(x0 - mid);
+                  ky0 = f(-(y0 - mid));
+                  kx1 = f(x1 - mid);
+                  ky1 = f(-(y1 - mid));
+                  _kicad += "(fp_poly (pts (xy " + kx0 + " " + ky0 + ") (xy " + kx0 + " " + ky1 + ") (xy " + kx1 + " " + ky1 + ") (xy " + kx1 + " " + ky0 + ")) (layer F.SilkS) (width 0))\n";
                   _x2 = xe;
                 }
               }
 
-              max_x = fmt(sz * size);
-              max_y = fmt(sz * size);
+              frame(-1, -1, -1, 1);
+              frame(-1, -1, 1, -1);
+              frame(1, 1, -1, 1);
+              frame(1, 1, 1, -1);
+              _kicad += ")\n";
+              max_x = f(_numBlocks * size);
+              max_y = f(_numBlocks * size);
               _scr += "GRID LAST;\n";
               _scr += "DISPLAY NONE ?? " + layer + ";\n";
               _scr += "GROUP (0 0) (" + max_x + " 0) (" + max_x + " " + max_y + ") (0 " + max_y + ") (> 0 0);\n";
               _scr += "DISPLAY LAST;\n";
-              console.log("scr", _scr);
               setScr(_scr);
-              _context.next = 60;
+              setKicad(_kicad);
+              setAltium(_altium);
+              _context.next = 46;
               break;
 
-            case 57:
-              _context.prev = 57;
-              _context.t1 = _context["catch"](3);
+            case 43:
+              _context.prev = 43;
+              _context.t0 = _context["catch"](3);
 
               if (mounted()) {
-                setError(_context.t1 + "");
+                setError(_context.t0 + "");
               }
 
-            case 60:
+            case 46:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[3, 57]]);
+      }, _callee, null, [[3, 43]]);
     }));
 
     return function (_x) {
@@ -5643,31 +5645,39 @@ function useQRCodeSCR(url, layer, size, mirror, margin) {
     };
   }(), deps);
   return {
+    altium: altium,
+    kicad: kicad,
     scr: scr,
     image: image,
-    error: error
+    error: error,
+    numBlocks: numBlocks
   };
 }
 
 function SilkQRCode(props) {
   var url = props.url,
-      _props$layer = props.layer,
-      layer = _props$layer === void 0 ? 22 : _props$layer,
+      layer = props.layer,
       _props$mirror = props.mirror,
       mirror = _props$mirror === void 0 ? true : _props$mirror,
       _props$size = props.size,
-      size = _props$size === void 0 ? 3 : _props$size,
+      size = _props$size === void 0 ? 0.3 : _props$size,
       _props$margin = props.margin,
       margin = _props$margin === void 0 ? 1 : _props$margin;
+  var eagleLayer = (layer !== null && layer !== void 0 ? layer : mirror) ? 22 : 21;
 
-  var _useQRCodeSCR = useQRCodeSCR(url, layer, size, mirror, margin),
+  var _useQRCodeSCR = useQRCodeSCR(url, eagleLayer, size, mirror, margin),
+      altium = _useQRCodeSCR.altium,
+      kicad = _useQRCodeSCR.kicad,
       scr = _useQRCodeSCR.scr,
       image = _useQRCodeSCR.image,
-      error = _useQRCodeSCR.error;
+      error = _useQRCodeSCR.error,
+      numBlocks = _useQRCodeSCR.numBlocks;
 
   if (!url) return null;
   var imageUri = image && "data:image/svg+xml;utf8," + encodeURIComponent(image);
   var scrUri = scr && "data:text/plain;charset=UTF-8," + encodeURIComponent(scr);
+  var kicadUri = kicad && "data:text/plain;charset=UTF-8," + encodeURIComponent(kicad);
+  var altiumUri = altium && "data:text/plain;charset=UTF-8," + encodeURIComponent(altium);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     severity: "warning"
   }, error), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
@@ -5685,10 +5695,22 @@ function SilkQRCode(props) {
     href: scrUri,
     variant: "outlined",
     download: "qrcode.scr"
-  }, "Download SCR"))), image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h3", null, "Original size"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("img", {
+  }, "Download SCR for Eagle")), kicad && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    href: kicadUri,
+    variant: "outlined",
+    download: "QrCode.kicad_mod"
+  }, "Download kicad_mod")), altium && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    item: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, {
+    href: altiumUri,
+    variant: "outlined",
+    download: "QrCode.txt"
+  }, "Download CSV for Altium"))), image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("h3", null, "Original size"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("img", {
     className: "pixelated",
     style: {
-      width: size + "mm"
+      width: size * numBlocks + "mm"
     },
     src: imageUri,
     alt: "QR code of " + url

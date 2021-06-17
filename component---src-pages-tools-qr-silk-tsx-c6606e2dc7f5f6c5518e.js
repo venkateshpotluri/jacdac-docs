@@ -146,7 +146,7 @@ function DeviceQRCodeGenerator(props) {
       mirror = _useState2[0],
       setMirror = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(3),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0.3),
       size = _useState3[0],
       setSize = _useState3[1];
 
@@ -197,7 +197,7 @@ function DeviceQRCodeGenerator(props) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    label: "size (mm)",
+    label: "block size (mm)",
     type: "number",
     value: size,
     onChange: handleSizeChange
@@ -213,7 +213,8 @@ function DeviceQRCodeGenerator(props) {
     href: url
   }, url)), known && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Existing device entry"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, designid, ": ", modulename, " v", revision)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "QR codes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_ui_Suspense__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(SilkQRCode, {
     url: url,
-    mirror: mirror
+    mirror: mirror,
+    size: size
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Preview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "If you see bing.com for aka.ms links, it\"s likely to be free."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("iframe", {
     style: {
       width: "100%",
