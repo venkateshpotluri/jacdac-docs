@@ -48638,6 +48638,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "cXd": function() { return /* binding */ STREAMING_DEFAULT_INTERVAL; },
 /* harmony export */   "Cot": function() { return /* binding */ PING_LOGGERS_POLL; },
 /* harmony export */   "k0Y": function() { return /* binding */ ROLE_MANAGER_POLL; },
+/* harmony export */   "vnD": function() { return /* binding */ REFRESH_REGISTER_POLL; },
 /* harmony export */   "W3h": function() { return /* binding */ USB_TRANSPORT; },
 /* harmony export */   "HZx": function() { return /* binding */ BLUETOOTH_TRANSPORT; },
 /* harmony export */   "GII": function() { return /* binding */ PACKETIO_TRANSPORT; },
@@ -48962,6 +48963,7 @@ var REGISTER_OPTIONAL_POLL_COUNT = 3;
 var STREAMING_DEFAULT_INTERVAL = 50;
 var PING_LOGGERS_POLL = 2400;
 var ROLE_MANAGER_POLL = 1500;
+var REFRESH_REGISTER_POLL = 50;
 var USB_TRANSPORT = "USB";
 var BLUETOOTH_TRANSPORT = "Bluetooth";
 var PACKETIO_TRANSPORT = "packetio";
@@ -69586,7 +69588,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "afb6e033f6b99f0cee100941f8f5d563ee8283a4";
+  var sha = "424f3423f5c0c355cfcfb107c90c31128a847437";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -74515,7 +74517,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     if (!this._announceInterval) this._announceInterval = setInterval(function () {
       return _this4.emit(constants/* SELF_ANNOUNCE */.Pbc);
     }, 499);
-    if (!this._refreshRegistersInterval) this._refreshRegistersInterval = setInterval(this.refreshRegisters.bind(this), 50);
+    this.backgroundRefreshRegisters = true;
     if (!this._gcInterval) this._gcInterval = setInterval(function () {
       return _this4.gcDevices();
     }, constants/* JD_DEVICE_DISCONNECTED_DELAY */.SkZ);
@@ -74537,11 +74539,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
               }
 
               this.safeBoot = false;
-
-              if (this._refreshRegistersInterval) {
-                clearInterval(this._refreshRegistersInterval);
-                this._refreshRegistersInterval = undefined;
-              }
+              this.backgroundRefreshRegisters = false;
 
               if (this._gcInterval) {
                 clearInterval(this._gcInterval);
@@ -75125,13 +75123,12 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     this._lastResetInTime = this.timestamp;
     var rst = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn, "u32", [constants/* RESET_IN_TIME_US */._$y]);
     rst.sendAsMultiCommandAsync(this, specconstants/* SRV_CONTROL */.gm9);
-  }
+  };
+
   /**
    * Cycles through all known registers and refreshes the once that have REPORT_UPDATE registered
    */
-  ;
-
-  _proto.refreshRegisters = function refreshRegisters() {
+  _proto.handleRefreshRegisters = function handleRefreshRegisters() {
     var devices = this._devices.filter(function (device) {
       return device.announced && !device.lost;
     }); // don't try lost devices or devices flashing
@@ -75401,6 +75398,21 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     key: "selfDevice",
     get: function get() {
       return this.device(this.selfDeviceId);
+    }
+  }, {
+    key: "backgroundRefreshRegisters",
+    get: function get() {
+      return !!this._refreshRegistersInterval;
+    },
+    set: function set(value) {
+      if (!!value !== this.backgroundRefreshRegisters) {
+        if (!value) {
+          if (this._refreshRegistersInterval) clearInterval(this._refreshRegistersInterval);
+          this._refreshRegistersInterval = undefined;
+        } else {
+          this._refreshRegistersInterval = setInterval(this.handleRefreshRegisters.bind(this), constants/* REFRESH_REGISTER_POLL */.vnD);
+        }
+      }
     }
   }]);
 
@@ -78663,7 +78675,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.79"};
+var package_namespaceObject = {"i8":"1.13.80"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 

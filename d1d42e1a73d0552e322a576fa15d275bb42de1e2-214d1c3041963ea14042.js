@@ -8931,6 +8931,8 @@ var react = __webpack_require__(67294);
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 22 modules
+var providerbus = __webpack_require__(70590);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/defineProperty.js
@@ -10547,6 +10549,7 @@ var WorkspaceContext = __webpack_require__(89801);
 
 
 
+
 var BlockContext = /*#__PURE__*/(0,react.createContext)({
   dsls: [],
   workspace: undefined,
@@ -10777,7 +10780,11 @@ function BlockProvider(props) {
         return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handler);
       });
     };
-  }, [workspace, dsls]); // mounting dsts
+  }, [workspace, dsls]); // don't refresh registers while dragging
+
+  (0,react.useEffect)(function () {
+    providerbus/* default.backgroundRefreshRegisters */.Z.backgroundRefreshRegisters = !dragging;
+  }, [dragging]); // mounting dsts
 
   (0,react.useEffect)(function () {
     var unmounnts = dsls.map(function (dsl) {
@@ -13266,7 +13273,8 @@ function LineChartWidget() {
   var _chartProps$data, _chartProps$data$0$da;
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
-      sourceBlock = _useContext.sourceBlock;
+      sourceBlock = _useContext.sourceBlock,
+      dragging = _useContext.dragging;
 
   var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
       data = _useBlockData.data; // need to map data to nivo
@@ -13304,7 +13312,8 @@ function LineChartWidget() {
     axisTop: null,
     axisRight: null,
     enablePoints: false,
-    isInteractive: false,
+    animate: !dragging,
+    isInteractive: !dragging,
     axisBottom: {
       tickSize: 5,
       tickPadding: 5,
@@ -13641,7 +13650,8 @@ function PieChartWidget() {
   var _series$, _chartProps$data;
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
-      sourceBlock = _useContext.sourceBlock;
+      sourceBlock = _useContext.sourceBlock,
+      dragging = _useContext.dragging;
 
   var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
       data = _useBlockData.data; // need to map data to nivo
@@ -13667,6 +13677,8 @@ function PieChartWidget() {
     padAngle: 0.7,
     cornerRadius: 3,
     sortByValue: false,
+    animate: !dragging,
+    isInteractive: !dragging,
     activeOuterRadiusOffset: 8,
     borderWidth: 1,
     borderColor: {
@@ -14176,7 +14188,8 @@ function ScatterChartWidget() {
   var _chartProps$data, _chartProps$data$0$da;
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
-      sourceBlock = _useContext.sourceBlock;
+      sourceBlock = _useContext.sourceBlock,
+      dragging = _useContext.dragging;
 
   var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(sourceBlock),
       data = _useBlockData.data; // need to map data to nivo
@@ -14213,6 +14226,8 @@ function ScatterChartWidget() {
     },
     axisTop: null,
     axisRight: null,
+    animate: !dragging,
+    isInteractive: !dragging,
     axisBottom: {
       tickSize: 5,
       tickPadding: 5,
