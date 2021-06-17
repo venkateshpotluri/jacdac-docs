@@ -197,7 +197,7 @@ function DeviceQRCodeGenerator(props) {
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    label: "block size (mm)",
+    label: "block size (cm)",
     type: "number",
     value: size,
     onChange: handleSizeChange
