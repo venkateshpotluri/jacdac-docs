@@ -5673,10 +5673,12 @@ var chartDSL = {
       message0: "scatterplot x %1 y %2 %3 %4",
       args0: [{
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "x"
+        name: "x",
+        dataType: "number"
       }, {
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "y"
+        name: "y",
+        dataType: "number"
       }, {
         type: "input_dummy"
       }, {
@@ -5695,10 +5697,12 @@ var chartDSL = {
       message0: "bar index %1 value %2 %3 %4",
       args0: [{
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "index"
+        name: "index",
+        dataType: "number"
       }, {
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "value"
+        name: "value",
+        dataType: "number"
       }, {
         type: "input_dummy"
       }, {
@@ -5717,10 +5721,12 @@ var chartDSL = {
       message0: "line x %1 y %2 %3 %4",
       args0: [{
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "x"
+        name: "x",
+        dataType: "number"
       }, {
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "y"
+        name: "y",
+        dataType: "number"
       }, {
         type: "input_dummy"
       }, {
@@ -5739,10 +5745,12 @@ var chartDSL = {
       message0: "pie name %1 value %2 %3 %4",
       args0: [{
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "id"
+        name: "id",
+        dataType: "string"
       }, {
         type: DataColumnChooserField/* default.KEY */.Z.KEY,
-        name: "value"
+        name: "value",
+        dataType: "number"
       }, {
         type: "input_dummy"
       }, {

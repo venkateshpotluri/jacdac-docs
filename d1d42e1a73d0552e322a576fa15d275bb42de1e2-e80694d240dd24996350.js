@@ -12501,14 +12501,18 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
 
   DataColumnChooserField.fromJson = function fromJson(options) {
     return new DataColumnChooserField(options);
-  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // the first argument is a dummy and never used
-  ;
+  };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // the first argument is a dummy and never used
   function DataColumnChooserField(options) {
-    return _FieldDropdown.call(this, function () {
+    var _this;
+
+    _this = _FieldDropdown.call(this, function () {
       return [["", ""]];
     }, undefined, options) || this;
+    _this.dataType = options === null || options === void 0 ? void 0 : options.dataType;
+    return _this;
   }
 
   var _proto = DataColumnChooserField.prototype;
@@ -12518,13 +12522,21 @@ var DataColumnChooserField = /*#__PURE__*/function (_FieldDropdown) {
   };
 
   _proto.getOptions = function getOptions() {
+    var _this2 = this;
+
     var sourceBlock = this.getSourceBlock();
     var services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
     var data = services === null || services === void 0 ? void 0 : services.data;
-    var headers = (0,_nivo__WEBPACK_IMPORTED_MODULE_0__/* .tidyHeaders */ .P2)(data);
-    var options = (headers === null || headers === void 0 ? void 0 : headers.map(function (h) {
+
+    var _tidyHeaders = (0,_nivo__WEBPACK_IMPORTED_MODULE_0__/* .tidyHeaders */ .P2)(data),
+        headers = _tidyHeaders.headers,
+        types = _tidyHeaders.types;
+
+    var options = headers.filter(function (h, i) {
+      return !_this2.dataType || types[i] === _this2.dataType;
+    }).map(function (h) {
       return [h, h];
-    })) || [];
+    }) || [];
     var value = this.getValue();
     return options.length < 1 ? [[value || "", value || ""]] : options;
   };
@@ -14973,8 +14985,15 @@ function fieldShadows() {
 
 
 function tidyHeaders(data) {
-  var headers = Object.keys((data === null || data === void 0 ? void 0 : data[0]) || {});
-  return headers;
+  var row = (data === null || data === void 0 ? void 0 : data[0]) || {};
+  var headers = Object.keys(row);
+  var types = headers.map(function (header) {
+    return typeof row[header];
+  });
+  return {
+    headers: headers,
+    types: types
+  };
 }
 function tidyFindLastValue(data, column) {
   if (!(data !== null && data !== void 0 && data.length)) return undefined;
@@ -14984,7 +15003,10 @@ function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
 data, columns, toColumns) {
   // avoid duplicates in column
   columns = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .unique */ .Tw)(columns);
-  var headers = tidyHeaders(data);
+
+  var _tidyHeaders = tidyHeaders(data),
+      headers = _tidyHeaders.headers;
+
   var k = 0;
   var renaming = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .toMap */ .qL)(columns, function (c, i) {
     return columns[i] || (headers === null || headers === void 0 ? void 0 : headers[k++]);
