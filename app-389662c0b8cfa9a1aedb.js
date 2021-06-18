@@ -53547,7 +53547,7 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
         changed = true;
       }
 
-      this.lastSetTime = this.service.device.bus.timestamp;
+      this.lastSetTime = this.service.timestamp;
       this.emit(constants/* REPORT_RECEIVE */.Gb8);
       if (changed) this.emit(constants/* CHANGE */.Ver);
     }
@@ -53913,6 +53913,14 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
     key: "registers",
     get: function get() {
       return this._registers.slice(0);
+    }
+  }, {
+    key: "timestamp",
+    get: function get() {
+      var _this$device, _this$_twin, _this$_twin$device;
+
+      var bus = ((_this$device = this.device) === null || _this$device === void 0 ? void 0 : _this$device.bus) || ((_this$_twin = this._twin) === null || _this$_twin === void 0 ? void 0 : (_this$_twin$device = _this$_twin.device) === null || _this$_twin$device === void 0 ? void 0 : _this$_twin$device.bus);
+      return bus === null || bus === void 0 ? void 0 : bus.timestamp;
     }
   }]);
 
@@ -69590,7 +69598,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "9bba227e52e157a3169cbcafae115580cb98c851";
+  var sha = "fc2527fe1a1407bb602a712ce2e05dd1384968f9";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -72742,10 +72750,11 @@ var JDService = /*#__PURE__*/function (_JDNode) {
 
       if (_reg) _reg.processPacket(pkt);
     }
-  };
+  } // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ;
 
   _proto.invalidateRegisterValues = function invalidateRegisterValues(pkt) {
-    console.log("clearing register get timestamp", pkt);
+    //console.log(`clearing register get timestamp`, pkt)
     this.registers().filter(function (r) {
       return r.specification && !(0,jdom_spec/* isConstRegister */.n6)(r.specification);
     }).forEach(function (r) {
@@ -78680,7 +78689,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.80"};
+var package_namespaceObject = {"i8":"1.13.81"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
