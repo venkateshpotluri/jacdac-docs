@@ -367,17 +367,12 @@ function _handleMessage() {
             return _context.abrupt("return");
 
           case 4:
-            console.debug("Jacdac data in:", {
-              message: message
-            });
-            _context.next = 7;
+            _context.next = 6;
             return transformData(message);
 
-          case 7:
+          case 6:
             newData = _context.sent;
-            console.debug("Jacdac data out:", {
-              message: message
-            });
+            //console.debug("Jacdac data out:", { message })
             resp = _extends({
               worker: worker
             }, rest, {
@@ -385,7 +380,7 @@ function _handleMessage() {
             });
             self.postMessage(resp);
 
-          case 11:
+          case 9:
           case "end":
             return _context.stop();
         }
