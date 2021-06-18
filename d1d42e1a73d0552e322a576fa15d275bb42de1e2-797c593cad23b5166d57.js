@@ -10657,7 +10657,7 @@ function BlockProvider(props) {
 
                 _context.prev = 5;
                 _context.next = 8;
-                return transformData(block, services.data);
+                return transformData(block, services.data, nextServices.data);
 
               case 8:
                 newData = _context.sent;
@@ -11528,6 +11528,11 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ datadsl; }
 });
 
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(73108);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(42656);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 // EXTERNAL MODULE: ./src/components/blockly/fields/BuiltinDataSetField.tsx + 1 modules
@@ -11538,11 +11543,6 @@ var DataColumnChooserField = __webpack_require__(44393);
 var DataTableField = __webpack_require__(54741);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(73108);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(42656);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 3 modules
 var proxy = __webpack_require__(51805);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/data.proxy.ts
@@ -11586,6 +11586,9 @@ function _postTransformData() {
   return _postTransformData.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datadsl.ts
+
+
+
 /* eslint-disable @typescript-eslint/ban-types */
 
 
@@ -11602,6 +11605,7 @@ var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
 var DATA_DATASET_BUILTIN_BLOCK = "data_dataset_builtin";
 var DATA_TABLE_TYPE = "DataTable";
 var DATA_SHOW_TABLE_BLOCK = "data_show_table";
+var DATA_RECORD_WINDOW_BLOCK = "data_record_window_block";
 var colour = "#777";
 var dataDsl = {
   id: "dataScience",
@@ -11778,6 +11782,49 @@ var dataDsl = {
         });
         return Promise.resolve(data);
       }
+    }, {
+      kind: "block",
+      type: DATA_RECORD_WINDOW_BLOCK,
+      message0: "record last %1 s",
+      args0: [{
+        type: "field_number",
+        name: "horizon",
+        value: 10
+      }],
+      inputsInline: false,
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: colour,
+      template: "meta",
+      transformData: function () {
+        var _transformData = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(block, data, previousData) {
+          var horizon;
+          return regenerator_default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  horizon = block.getFieldValue("horizon") || 10;
+                  return _context.abrupt("return", postTransformData({
+                    type: "recordwindow",
+                    data: data,
+                    previousData: previousData,
+                    horizon: horizon
+                  }));
+
+                case 2:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        function transformData(_x, _x2, _x3) {
+          return _transformData.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
     }];
   },
   createCategory: function createCategory() {
@@ -11806,6 +11853,12 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_FILTER_COLUMNS_BLOCK
+      }, {
+        kind: "label",
+        text: "Live"
+      }, {
+        kind: "block",
+        type: DATA_RECORD_WINDOW_BLOCK
       }, {
         kind: "label",
         text: "Data variables"

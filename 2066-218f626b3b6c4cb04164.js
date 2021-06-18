@@ -253,7 +253,7 @@ function select(selectKeys) {
   return _select;
 }
 
-var _excluded = ["worker", "data"];
+var _excluded = ["worker", "data", "previousData"];
 var handlers = {
   arrange: function arrange(props) {
     var column = props.column,
@@ -313,6 +313,24 @@ var handlers = {
       default:
         return data;
     }
+  },
+  recordwindow: function recordwindow(props) {
+    var _previousData;
+
+    var data = props.data,
+        previousData = props.previousData,
+        horizon = props.horizon;
+    if (!(data != null && data.length)) return data;
+    var now = data[data.length - 1].time;
+    var previousNow = previousData == null ? void 0 : (_previousData = previousData[(previousData == null ? void 0 : previousData.length) - 1]) == null ? void 0 : _previousData.time;
+    if (now === undefined || previousNow === undefined) return data.filter(function (r) {
+      return now - r.time < horizon;
+    });
+    return [].concat(_toConsumableArray(previousData.filter(function (r) {
+      return now - r.time < horizon;
+    })), _toConsumableArray(data.filter(function (r) {
+      return now - r.time < horizon && r.time > previousNow;
+    })));
   }
 };
 
