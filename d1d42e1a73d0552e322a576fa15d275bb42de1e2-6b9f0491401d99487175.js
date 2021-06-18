@@ -13773,24 +13773,29 @@ PiePlotField.EDITABLE = false;
 /* harmony export */   "A": function() { return /* binding */ PointerBoundary; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
+
 
 function PointerBoundary(props) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+      dragging = _useContext.dragging;
+
   var className = props.className,
       children = props.children;
 
   var onPointerStopPropagation = function onPointerStopPropagation(event) {
     // make sure blockly does not handle drags when interacting with UI
-    event.stopPropagation();
+    if (!dragging) event.stopPropagation();
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: className,
-    style: {
+    style: dragging ? undefined : {
       cursor: "inherit"
     },
-    onPointerDown: onPointerStopPropagation,
-    onPointerUp: onPointerStopPropagation,
-    onPointerMove: onPointerStopPropagation
+    onPointerDown: dragging ? undefined : onPointerStopPropagation,
+    onPointerUp: dragging ? undefined : onPointerStopPropagation,
+    onPointerMove: dragging ? undefined : onPointerStopPropagation
   }, children);
 }
 
@@ -14251,8 +14256,7 @@ function ScatterChartWidget() {
     },
     axisTop: null,
     axisRight: null,
-    animate: !dragging,
-    isInteractive: !dragging,
+    isInteractive: false,
     axisBottom: {
       tickSize: 5,
       tickPadding: 5,
@@ -14272,7 +14276,11 @@ function ScatterChartWidget() {
   }),
       chartProps = _useBlockChartProps.chartProps;
 
-  if (chartProps) chartProps.data = series;
+  if (chartProps) {
+    chartProps.animate = !dragging;
+    chartProps.data = series;
+  }
+
   var hasData = (labels === null || labels === void 0 ? void 0 : labels.length) === 2 && labels[0] !== labels[1] && !!(chartProps !== null && chartProps !== void 0 && (_chartProps$data = chartProps.data) !== null && _chartProps$data !== void 0 && (_chartProps$data$0$da = _chartProps$data[0].data) !== null && _chartProps$data$0$da !== void 0 && _chartProps$data$0$da.length);
   if (!hasData) return null;
   chartProps.axisBottom.legend = labels[0];
@@ -15118,6 +15126,7 @@ var TABLE_HEIGHT = 480;
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(54774);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 
+ // eslint-disable-next-line @typescript-eslint/ban-types
 
 function useBlockChartProps(block, initialChartProps) {
   var services = block === null || block === void 0 ? void 0 : block.jacdacServices; // data on the current node
