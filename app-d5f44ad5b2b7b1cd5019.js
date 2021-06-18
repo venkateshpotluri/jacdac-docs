@@ -44013,6 +44013,7 @@ function useScrollRestoration(identifier) {
 /* harmony export */   "GQv": function() { return /* binding */ SRV_POTENTIOMETER; },
 /* harmony export */   "cmA": function() { return /* binding */ PotentiometerVariant; },
 /* harmony export */   "mQG": function() { return /* binding */ SRV_POWER; },
+/* harmony export */   "p6N": function() { return /* binding */ PowerPowerStatus; },
 /* harmony export */   "$xp": function() { return /* binding */ PowerReg; },
 /* harmony export */   "$Bn": function() { return /* binding */ SRV_PROTO_TEST; },
 /* harmony export */   "M7y": function() { return /* binding */ ProtoTestReg; },
@@ -44085,7 +44086,7 @@ function useScrollRestoration(identifier) {
 /* harmony export */   "qvJ": function() { return /* binding */ SRV_WIND_SPEED; },
 /* harmony export */   "EPs": function() { return /* binding */ WindSpeedReg; }
 /* harmony export */ });
-/* unused harmony exports ANNOUNCE_INTERVAL, AccelerometerEvent, SRV_ARCADE_GAMEPAD, ArcadeGamepadButton, ArcadeGamepadReg, ArcadeGamepadEvent, SRV_ARCADE_SOUND, ArcadeSoundCmd, ArcadeSoundReg, SRV_BARCODE_READER, BarcodeReaderFormat, BarcodeReaderReg, BarcodeReaderEvent, BarometerReg, CapacitiveButtonCmd, CompassCmd, DistanceReg, DmxReg, ECO2Reg, HeartRateReg, HumidityReg, IlluminanceReg, SRV_INDEXED_SCREEN, IndexedScreenCmd, IndexedScreenReg, JoystickEvent, LightLevelReg, SRV_MAGNETOMETER, MagnetometerReg, MagnetometerCmd, MatrixKeypadVariant, MatrixKeypadEvent, SRV_MICROPHONE, MicrophoneCmd, MicrophoneReg, SRV_MIDI_OUTPUT, MidiOutputReg, MidiOutputCmd, ModelRunnerModelFormat, MotionVariant, MotionEvent, SRV_MULTITOUCH, MultitouchReg, MultitouchEvent, PotentiometerReg, PowerPowerStatus, PowerCmd, PowerEvent, SRV_PRESSURE_BUTTON, PressureButtonReg, PulseOximeterReg, ReflectedLightEvent, RelayEvent, RoleManagerEvent, SRV_ROVER, RoverReg, SevenSegmentDisplayCmd, SoilMoistureVariant, SolenoidVariant, SoundLevelEvent, SRV_TCP, TcpTcpError, TcpCmd, TcpPipeCmd, ThermocoupleReg, ThermometerReg, TvocReg, UvIndexVariant, UvIndexReg, SRV_VERIFIED_TELEMETRY, VerifiedTelemetryStatus, VerifiedTelemetryFingerprintType, VerifiedTelemetryReg, VerifiedTelemetryCmd, VerifiedTelemetryEvent, VibrationMotorReg, VibrationMotorCmd, WaterLevelVariant, WeightScaleReg, WeightScaleCmd, SRV_WIFI, WifiAPFlags, WifiCmd, WifiReg, WifiEvent */
+/* unused harmony exports ANNOUNCE_INTERVAL, AccelerometerEvent, SRV_ARCADE_GAMEPAD, ArcadeGamepadButton, ArcadeGamepadReg, ArcadeGamepadEvent, SRV_ARCADE_SOUND, ArcadeSoundCmd, ArcadeSoundReg, SRV_BARCODE_READER, BarcodeReaderFormat, BarcodeReaderReg, BarcodeReaderEvent, BarometerReg, CapacitiveButtonCmd, CompassCmd, DistanceReg, DmxReg, ECO2Reg, HeartRateReg, HumidityReg, IlluminanceReg, SRV_INDEXED_SCREEN, IndexedScreenCmd, IndexedScreenReg, JoystickEvent, LightLevelReg, SRV_MAGNETOMETER, MagnetometerReg, MagnetometerCmd, MatrixKeypadVariant, MatrixKeypadEvent, SRV_MICROPHONE, MicrophoneCmd, MicrophoneReg, SRV_MIDI_OUTPUT, MidiOutputReg, MidiOutputCmd, ModelRunnerModelFormat, MotionVariant, MotionEvent, SRV_MULTITOUCH, MultitouchReg, MultitouchEvent, PotentiometerReg, PowerCmd, PowerEvent, SRV_PRESSURE_BUTTON, PressureButtonReg, PulseOximeterReg, ReflectedLightEvent, RelayEvent, RoleManagerEvent, SRV_ROVER, RoverReg, SevenSegmentDisplayCmd, SoilMoistureVariant, SolenoidVariant, SoundLevelEvent, SRV_TCP, TcpTcpError, TcpCmd, TcpPipeCmd, ThermocoupleReg, ThermometerReg, TvocReg, UvIndexVariant, UvIndexReg, SRV_VERIFIED_TELEMETRY, VerifiedTelemetryStatus, VerifiedTelemetryFingerprintType, VerifiedTelemetryReg, VerifiedTelemetryCmd, VerifiedTelemetryEvent, VibrationMotorReg, VibrationMotorCmd, WaterLevelVariant, WeightScaleReg, WeightScaleCmd, SRV_WIFI, WifiAPFlags, WifiCmd, WifiReg, WifiEvent */
 // Service: Common registers and commands
 var ANNOUNCE_INTERVAL = 0x1f4;
 var SystemReadingThreshold;
@@ -48713,6 +48714,7 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "xW$": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.xW$; },
 /* harmony export */   "Xjv": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.Xjv; },
 /* harmony export */   "cmA": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.cmA; },
+/* harmony export */   "p6N": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.p6N; },
 /* harmony export */   "$xp": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.$xp; },
 /* harmony export */   "PZz": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.PZz; },
 /* harmony export */   "ZRA": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.ZRA; },
@@ -69588,7 +69590,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "6a3c6a0b2ef82ada1717a6f76818ee3027ece3e2";
+  var sha = "9bba227e52e157a3169cbcafae115580cb98c851";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71570,16 +71572,17 @@ function PowerButton(props) {
   var btnlabel = off ? "turn on" : "turn off";
   var buttonProps = (0,_hooks_useSvgButtonProps__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(btnlabel, onClick);
   var sw = strokeWidth || 3;
-  var disabled = !onClick;
-  var iconStroke = disabled || !off ? background : active;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("title", null, btnlabel), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("circle", Object.assign({
+  var iconStroke = off ? background : active;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
+    "aria-label": label
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("title", null, btnlabel), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("circle", Object.assign({
     cx: cx,
     cy: cy,
     r: r,
     fill: controlBackground,
     strokeWidth: sw,
     stroke: borderStroke || background
-  }, buttonProps)), (off || !label) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
+  }, buttonProps)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
     transform: "rotate(180, " + cx + ", " + cy + ")"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
     d: d,
@@ -71603,11 +71606,13 @@ function PowerButton(props) {
       userSelect: "none",
       pointerEvents: "none"
     }
-  })), !off && label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", Object.assign({
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", Object.assign({
     "aria-label": label,
     x: cx,
-    y: cy
-  }, textProps), label));
+    y: cy + r + 8
+  }, textProps, {
+    fontSize: "80%"
+  }), label));
 }
 
 /***/ }),

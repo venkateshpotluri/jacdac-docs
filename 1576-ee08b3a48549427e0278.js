@@ -16,6 +16,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _widgets_PowerButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2250);
 /* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(60650);
 /* harmony import */ var _hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(82677);
+/* harmony import */ var _ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(2285);
+/* harmony import */ var _jacdac_ts_jacdac_spec_spectool_jdspec__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(13996);
+
+
 
 
 
@@ -25,15 +29,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function DashboardPower(props) {
-  var service = props.service;
-  var enabledRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerReg.Enabled */ .$xp.Enabled);
-  var overloadRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerReg.Overload */ .$xp.Overload);
-  var batteryChargeRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerReg.BatteryCharge */ .$xp.BatteryCharge);
-  var enabled = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterBoolValue */ .I8)(enabledRegister, props);
-  var overload = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterBoolValue */ .I8)(overloadRegister, props);
+  var _PowerPowerStatus$pow;
 
-  var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterUnpackedValue */ .Pf)(batteryChargeRegister, props),
-      batteryCharge = _useRegisterUnpackedV[0];
+  var service = props.service;
+  var allowedRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerReg.Allowed */ .$xp.Allowed);
+  var powerStatusRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerReg.PowerStatus */ .$xp.PowerStatus);
+  var batteryChargeRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerReg.BatteryCharge */ .$xp.BatteryCharge);
+  var allowed = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterBoolValue */ .I8)(allowedRegister, props);
+
+  var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterUnpackedValue */ .Pf)(powerStatusRegister, props),
+      powerStatus = _useRegisterUnpackedV[0];
+
+  var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_2__/* .useRegisterUnpackedValue */ .Pf)(batteryChargeRegister, props),
+      batteryCharge = _useRegisterUnpackedV2[0];
 
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
@@ -43,19 +51,21 @@ function DashboardPower(props) {
       active = _useWidgetTheme.active,
       textProps = _useWidgetTheme.textProps;
 
+  if (powerStatus === undefined) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_LoadingProgress__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null);
   var w = 64;
-  var h = w;
-  var r = h - 4 >> 1;
+  var h = w + 16;
+  var r = w - 4 >> 1;
   var ro = r - 4;
   var ri = ro - 8;
-  var label = overload ? "overload" : enabled ? "on" : "off";
+  var off = powerStatus === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerPowerStatus.Disallowed */ .p6N.Disallowed;
+  var label = off ? "off" : (0,_jacdac_ts_jacdac_spec_spectool_jdspec__WEBPACK_IMPORTED_MODULE_9__/* .humanify */ .lW)((_PowerPowerStatus$pow = _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerPowerStatus */ .p6N[powerStatus]) === null || _PowerPowerStatus$pow === void 0 ? void 0 : _PowerPowerStatus$pow.toLowerCase());
   var mw = 2;
   var bw = 12;
   var hw = 4;
   var rw = mw / 2;
 
   var toggleEnabled = function toggleEnabled() {
-    return enabledRegister.sendSetBoolAsync(!enabled, true);
+    return allowedRegister.sendSetBoolAsync(!allowed, true);
   };
 
   var widgetSize = "clamp(3rem, 10vw, 16vw)";
@@ -65,13 +75,13 @@ function DashboardPower(props) {
     size: widgetSize
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_PowerButton__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     cx: w / 2,
-    cy: h / 2,
+    cy: w / 2,
     r: ro,
     ri: ri,
-    off: !enabled,
+    off: off,
     color: color,
-    "aria-label": label,
-    borderStroke: !!overload && "red",
+    label: label,
+    borderStroke: (powerStatus === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerPowerStatus.Overload */ .p6N.Overload || powerStatus === _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .PowerPowerStatus.Overprovision */ .p6N.Overprovision) && "red",
     onClick: toggleEnabled
   }), batteryCharge !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("title", null, "battery charge " + Math.floor(batteryCharge * 100) + "%"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("rect", {
     x: w - bw - mw,
