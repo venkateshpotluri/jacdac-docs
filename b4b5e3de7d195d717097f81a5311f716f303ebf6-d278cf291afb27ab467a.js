@@ -514,7 +514,7 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
 
   _proto2.writeGlobal = function writeGlobal(e, value) {
     var roleName = this.getRootName(e);
-    if (!roleName || roleName !== "$") return undefined;
+    if (!roleName || !roleName.startsWith("$var")) return undefined;
     var me = e;
 
     if (me.property.type === "Identifier") {
