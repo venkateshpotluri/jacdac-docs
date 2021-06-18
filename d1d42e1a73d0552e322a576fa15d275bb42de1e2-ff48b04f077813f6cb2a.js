@@ -15010,7 +15010,14 @@ function tidyFindLastValue(data, column) {
 function tidyToNivo( // eslint-disable-next-line @typescript-eslint/ban-types
 data, columns, toColumns) {
   // avoid duplicates in column
-  columns = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .unique */ .Tw)(columns);
+  columns = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .unique */ .Tw)(columns); // missing data
+
+  if (columns.some(function (c) {
+    return !c;
+  })) return {
+    series: undefined,
+    labels: undefined
+  };
 
   var _tidyHeaders = tidyHeaders(data),
       headers = _tidyHeaders.headers;
