@@ -2813,7 +2813,6 @@ var PowerPowerStatus;
     PowerPowerStatus[PowerPowerStatus["Powering"] = 1] = "Powering";
     PowerPowerStatus[PowerPowerStatus["Overload"] = 2] = "Overload";
     PowerPowerStatus[PowerPowerStatus["Overprovision"] = 3] = "Overprovision";
-    PowerPowerStatus[PowerPowerStatus["Startup"] = 4] = "Startup";
 })(PowerPowerStatus || (PowerPowerStatus = {}));
 var PowerReg;
 (function (PowerReg) {
@@ -2839,7 +2838,6 @@ var PowerReg;
     /**
      * Read-only PowerStatus (uint8_t). Indicates whether the power provider is currently providing power (`Powering` state), and if not, why not.
      * `Overprovision` means there was another power provider, and we stopped not to overprovision the bus.
-     * The `Startup` status is used during the initial 0-300ms delay.
      *
      * ```
      * const [powerStatus] = jdunpack<[PowerPowerStatus]>(buf, "u8")

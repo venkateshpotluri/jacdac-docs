@@ -3207,7 +3207,7 @@
         "@type": "Telemetry",
         "name": "power_status",
         "@id": "dtmi:jacdac:x1fa4c95a:ro:powerstatus;1",
-        "description": "Indicates whether the power provider is currently providing power (`Powering` state), and if not, why not.\n`Overprovision` means there was another power provider, and we stopped not to overprovision the bus.\nThe `Startup` status is used during the initial 0-300ms delay.",
+        "description": "Indicates whether the power provider is currently providing power (`Powering` state), and if not, why not.\n`Overprovision` means there was another power provider, and we stopped not to overprovision the bus.",
         "schema": "dtmi:jacdac:x1fa4c95a:powerstatus;1"
       },
       {
@@ -3316,11 +3316,6 @@
             "name": "overprovision",
             "displayName": "Overprovision",
             "enumValue": 3
-          },
-          {
-            "name": "startup",
-            "displayName": "Startup",
-            "enumValue": 4
           }
         ]
       }
