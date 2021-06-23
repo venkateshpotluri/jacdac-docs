@@ -12647,6 +12647,10 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ 
       margin: 0,
       fontSize: "0.8rem",
       lineHeight: "1rem",
+      "& th, td": {
+        backgroundClip: "padding-box",
+        "scroll-snap-align": "start"
+      },
       "& th": {
         position: "sticky",
         top: 0,
