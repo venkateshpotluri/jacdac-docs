@@ -69597,7 +69597,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c8b3a78d40ed0408bbf0313979febbad2d983812";
+  var sha = "cc6e34cd3bf00ada6187e61362c8c25cbcfadc70";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71715,7 +71715,8 @@ function SvgWidget(props) {
       role = props.role,
       title = props.title,
       viewBox = props.viewBox,
-      tabIndex = props.tabIndex;
+      tabIndex = props.tabIndex,
+      svgRef = props.svgRef;
   var h = height || width;
   var aspectRatio = width / height;
   var vertical = aspectRatio < 1;
@@ -71726,6 +71727,7 @@ function SvgWidget(props) {
       width: vertical ? undefined : size
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
+    ref: svgRef,
     xmlns: "http://www.w3.org/2000/svg",
     tabIndex: tabIndex,
     viewBox: viewBox || "0 0 " + width + " " + h,

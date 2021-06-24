@@ -3737,8 +3737,8 @@ function VMToolbar(props) {
 var BlockDiagnostics = __webpack_require__(9370);
 // EXTERNAL MODULE: ./src/components/vm/VMgenerator.ts
 var VMgenerator = __webpack_require__(15056);
-// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
-var BlockEditor = __webpack_require__(85105);
+// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 4 modules
+var BlockEditor = __webpack_require__(81753);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js

@@ -10860,7 +10860,7 @@ function BlockDiagnostics() {
 
 /***/ }),
 
-/***/ 85105:
+/***/ 81753:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11153,7 +11153,299 @@ var gatsby_browser_entry = __webpack_require__(35313);
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
 var BlockContext = __webpack_require__(85379);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__(59355);
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(73935);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/components/widgets/svgutils.ts
+var svgutils = __webpack_require__(92526);
+// EXTERNAL MODULE: ./src/components/blockly/useWorkspaceEvent.ts
+var useWorkspaceEvent = __webpack_require__(34148);
+;// CONCATENATED MODULE: ./src/components/blockly/BlockMinimap.tsx
+
+
+
+
+
+
+
+
+var MINI_RADIUS = 8;
+var MARGIN_VERTICAL_ = 20;
+var MARGIN_HORIZONTAL_ = 20;
+var MIN_SCALE = 0.05;
+var MAX_WIDTH = 200;
+var MAX_HEIGHT = 96;
+
+function MiniBlock(props) {
+  var x = props.x,
+      y = props.y,
+      width = props.width,
+      height = props.height,
+      color = props.color;
+  return /*#__PURE__*/react.createElement("rect", {
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    fill: color,
+    rx: MINI_RADIUS,
+    ry: MINI_RADIUS
+  });
+}
+
+function MiniViewport(props) {
+  var view = props.view;
+  var top = view.top,
+      left = view.left,
+      width = view.width,
+      height = view.height;
+
+  var _useTheme = (0,useTheme/* default */.Z)(),
+      palette = _useTheme.palette;
+
+  var vx = left;
+  var vy = top;
+  return /*#__PURE__*/react.createElement("rect", {
+    x: vx,
+    y: vy,
+    width: width,
+    height: height,
+    strokeWidth: MINI_RADIUS >> 1,
+    stroke: palette.text.primary,
+    fill: palette.text.secondary,
+    opacity: 0.2,
+    rx: MINI_RADIUS,
+    ry: MINI_RADIUS
+  });
+}
+
+function BlockMiniMap(props) {
+  var workspace = props.workspace,
+      onSizeUpdate = props.onSizeUpdate;
+  var svgRef = (0,react.useRef)();
+
+  var _useState = (0,react.useState)(),
+      metrics = _useState[0],
+      setMetrics = _useState[1];
+
+  var _useState2 = (0,react.useState)(),
+      view = _useState2[0],
+      setView = _useState2[1];
+
+  var handleMetrics = function handleMetrics() {
+    var metricsManager = workspace.getMetricsManager();
+    var view = metricsManager.getViewMetrics(true);
+    var contents = metricsManager.getContentMetrics(true);
+    var scroll = metricsManager.getScrollMetrics(true, view, contents);
+    var tops = (0,utils/* arrayConcatMany */.ue)(workspace.getTopBlocks(false).map(function (top) {
+      return [top].concat((0,toConsumableArray/* default */.Z)(top.childBlocks_));
+    }));
+    var blocks = tops.map(function (b) {
+      return {
+        blockId: b.id,
+        rect: b.getBoundingRectangle(),
+        color: b.getColour()
+      };
+    });
+    setMetrics({
+      scroll: scroll,
+      contents: contents,
+      blocks: blocks
+    });
+    setView(view);
+    onSizeUpdate(scroll.width, scroll.height);
+  };
+
+  var handleView = function handleView() {
+    var metricsManager = workspace.getMetricsManager();
+    var view = metricsManager.getViewMetrics(true);
+    setView(view);
+  };
+
+  var handleChange = (0,react.useCallback)(function (event) {
+    var type = event.type;
+
+    switch (type) {
+      case blockly.Events.BLOCK_CREATE:
+      case blockly.Events.BLOCK_DELETE:
+      case blockly.Events.BLOCK_MOVE:
+      case blockly.Events.BLOCK_CHANGE:
+      case blockly.Events.FINISHED_LOADING:
+        handleMetrics();
+        break;
+
+      case blockly.Events.VIEWPORT_CHANGE:
+        handleView();
+        break;
+    }
+  }, [workspace]);
+  (0,useWorkspaceEvent/* default */.Z)(workspace, handleChange);
+
+  var handleCenterView = function handleCenterView(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.buttons < 1) return;
+    var pos = (0,svgutils/* svgPointerPoint */.PW)(svgRef.current, event); // viewHeight and viewWidth are in pixels.
+
+    var halfViewWidth = view.width / 2;
+    var halfViewHeight = view.height / 2; // Put the block in the center of the visible workspace instead.
+
+    var scrollToCenterX = pos.x - halfViewWidth + scroll.left;
+    var scrollToCenterY = pos.y - halfViewHeight + scroll.top; // Convert from workspace directions to canvas directions.
+    // move to center of view
+
+    var x = -scrollToCenterX;
+    var y = -scrollToCenterY;
+    workspace.scroll(x, y);
+  }; // nothing to see
+
+
+  if (!metrics || !view) return null;
+  var scroll = metrics.scroll,
+      contents = metrics.contents,
+      blocks = metrics.blocks;
+  var cleft = scroll.left;
+  var ctop = scroll.top;
+  var cwidth = scroll.width;
+  var cheight = scroll.height; // all blocks visible
+
+  if (contents.left >= view.left && contents.top >= view.top && contents.left + contents.width <= view.left + view.width && contents.top + contents.height <= view.top + view.height) return null;
+  return /*#__PURE__*/react.createElement("svg", {
+    ref: svgRef,
+    viewBox: "0 0 " + cwidth + " " + cheight,
+    width: cwidth,
+    height: cheight
+  }, /*#__PURE__*/react.createElement("g", {
+    transform: "translate(" + -cleft + "," + -ctop + ")"
+  }, blocks === null || blocks === void 0 ? void 0 : blocks.map(function (_ref) {
+    var blockId = _ref.blockId,
+        rect = _ref.rect,
+        color = _ref.color;
+    return /*#__PURE__*/react.createElement(MiniBlock, {
+      key: blockId,
+      x: rect.left,
+      y: rect.top,
+      width: rect.right - rect.left,
+      height: rect.bottom - rect.top,
+      color: color
+    });
+  }), view && /*#__PURE__*/react.createElement(MiniViewport, {
+    scroll: scroll,
+    view: view
+  })), /*#__PURE__*/react.createElement("rect", {
+    x: 0,
+    y: 0,
+    width: cwidth,
+    height: cheight,
+    fill: "transparent",
+    stroke: "#aaa",
+    strokeWidth: 24,
+    onPointerDown: handleCenterView,
+    onPointerMove: handleCenterView
+  }));
+}
+
+var MinimapPlugin = /*#__PURE__*/function () {
+  function MinimapPlugin(workspace_) {
+    this.top_ = 0;
+    this.left_ = 0;
+    this.width_ = MAX_WIDTH;
+    this.height_ = MAX_HEIGHT;
+    this.scale_ = MIN_SCALE;
+    this.workspace_ = workspace_;
+    this.init();
+  }
+
+  var _proto = MinimapPlugin.prototype;
+
+  _proto.init = function init() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var pluginManager = this.workspace_.getPluginManager();
+    pluginManager.addPlugin({
+      id: "minimap",
+      plugin: this,
+      weight: 2,
+      types: [blockly.PluginManager.Type.POSITIONABLE]
+    });
+    this.createDom_();
+    this.workspace_.resize();
+  };
+
+  _proto.createDom_ = function createDom_() {
+    this.svgGroup_ = blockly.utils.dom.createSvgElement(blockly.utils.Svg.G, {
+      class: "minimap"
+    });
+    blockly.utils.dom.insertAfter(this.svgGroup_, this.workspace_.getBubbleCanvas());
+    react_dom.render(this.render(), this.svgGroup_);
+  };
+
+  _proto.render = function render() {
+    return /*#__PURE__*/react.createElement(BlockMiniMap, {
+      workspace: this.workspace_,
+      onSizeUpdate: this.handleSizeUpdate.bind(this)
+    });
+  };
+
+  _proto.position = function position(metrics) {
+    var hasVerticalScrollbars = this.workspace_.scrollbar && this.workspace_.scrollbar.canScrollHorizontally();
+
+    if (metrics.toolboxMetrics.position === blockly.TOOLBOX_AT_LEFT || this.workspace_.horizontalLayout && !this.workspace_.RTL) {
+      // Right corner placement.
+      this.left_ = metrics.absoluteMetrics.left + metrics.viewMetrics.width - this.width_ - MARGIN_HORIZONTAL_;
+
+      if (hasVerticalScrollbars && !this.workspace_.RTL) {
+        this.left_ -= blockly.Scrollbar.scrollbarThickness;
+      }
+    } else {
+      // Left corner placement.
+      this.left_ = MARGIN_HORIZONTAL_;
+
+      if (hasVerticalScrollbars && this.workspace_.RTL) {
+        this.left_ += blockly.Scrollbar.scrollbarThickness;
+      }
+    } // Upper corner placement
+
+
+    this.top_ = metrics.absoluteMetrics.top + MARGIN_VERTICAL_;
+    this.positionSvgGroup();
+  };
+
+  _proto.positionSvgGroup = function positionSvgGroup() {
+    this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ") scale(" + this.scale_ + ")");
+  };
+
+  _proto.getBoundingRectangle = function getBoundingRectangle() {
+    return new blockly.utils.Rect(this.top_, this.top_ + this.height_, this.left_, this.left_ + this.width_);
+  };
+
+  _proto.handleSizeUpdate = function handleSizeUpdate(width, height) {
+    if (width !== this.width_ || height !== this.height_) {
+      this.scale_ = Math.min(MIN_SCALE, Math.min(MAX_HEIGHT / height, MAX_WIDTH / width));
+      var dw = width * this.scale_ - this.width_;
+      this.width_ = width * this.scale_;
+      this.height_ = height * this.scale_;
+      this.left_ -= dw;
+      this.positionSvgGroup();
+    }
+  };
+
+  return MinimapPlugin;
+}();
+
+function useBlockMinimap(workspace) {
+  (0,react.useEffect)(function () {
+    if (workspace) {
+      new MinimapPlugin(workspace);
+    }
+  }, [workspace]);
+}
 ;// CONCATENATED MODULE: ./src/components/blockly/BlockEditor.tsx
+
 
 
 
@@ -11224,11 +11516,11 @@ function BlockEditor(props) {
       media: (0,gatsby_browser_entry.withPrefix)("blockly/media/"),
       zoom: {
         controls: true,
-        wheel: true,
+        wheel: false,
         startScale: 1.0,
         maxScale: 3,
-        minScale: 0.1,
-        scaleSpeed: 1.2,
+        minScale: 0.08,
+        scaleSpeed: 1.1,
         pinch: true
       }
     },
@@ -11256,8 +11548,10 @@ function BlockEditor(props) {
     return function () {
       return observer.disconnect();
     };
-  }, [workspace, blocklyRef.current]);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("div", {
+  }, [workspace, blocklyRef.current]); // minimap 
+
+  useBlockMinimap(workspace);
+  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),
     ref: blocklyRef
   }), /*#__PURE__*/react.createElement(BlocklyModalDialogs, null));
@@ -14186,6 +14480,14 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
       fo.setAttribute("height", _this.size_.height + "");
 
       _this.forceRerender();
+
+      var b = _this.sourceBlock_;
+
+      if (b !== null && b !== void 0 && b.workspace) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        var ev = new (blockly__WEBPACK_IMPORTED_MODULE_7__.Events.get(blockly__WEBPACK_IMPORTED_MODULE_7__.Events.BLOCK_MOVE))(b);
+        blockly__WEBPACK_IMPORTED_MODULE_7__.Events.fire(ev);
+      }
     });
     this.resizeObserver.observe(this.container);
     react_dom__WEBPACK_IMPORTED_MODULE_1__.render(this.renderBlock(), this.container);

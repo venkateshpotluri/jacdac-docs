@@ -18,8 +18,8 @@ var react = __webpack_require__(67294);
 var NoSsr = __webpack_require__(42862);
 // EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
 var BlockContext = __webpack_require__(85379);
-// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 3 modules
-var BlockEditor = __webpack_require__(85105);
+// EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 4 modules
+var BlockEditor = __webpack_require__(81753);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/datadsl.ts + 1 modules
 var datadsl = __webpack_require__(79018);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/variablesdsl.ts
