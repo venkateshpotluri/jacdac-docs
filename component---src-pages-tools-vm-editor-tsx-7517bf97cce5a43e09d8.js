@@ -3188,8 +3188,8 @@ var useChange = __webpack_require__(54774);
 var useServiceServer = __webpack_require__(49013);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Cancel.js
 var Cancel = __webpack_require__(30263);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
-var BlockContext = __webpack_require__(85379);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 15 modules
+var BlockContext = __webpack_require__(46431);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
@@ -5870,6 +5870,7 @@ var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* 
 
 
 
+
 var VM_SOURCE_STORAGE_KEY = "tools:vmeditor";
 
 function VMEditorWithContext() {
@@ -5909,7 +5910,7 @@ function VMEditorWithContext() {
     return program && (roleManager === null || roleManager === void 0 ? void 0 : roleManager.setRoles(program.roles));
   }, [roleManager, program]);
   (0,react.useEffect)(function () {
-    return setWarnings((0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
+    return setWarnings(toolbox/* VM_WARNINGS_CATEGORY */.nY, (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
       return h.errors;
     })));
   }, [program]);

@@ -8904,7 +8904,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 85379:
+/***/ 46431:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8915,10 +8915,10 @@ __webpack_require__.d(__webpack_exports__, {
   "C": function() { return /* binding */ blockly_BlockContext; }
 });
 
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(73108);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
@@ -9212,6 +9212,22 @@ function useRoleManager() {
 }
 // EXTERNAL MODULE: ./src/components/useLocalStorage.ts
 var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/blockly/jsonvisitor.ts
+var jsonvisitor = __webpack_require__(32641);
+;// CONCATENATED MODULE: ./src/components/blockly/blockwarning.ts
+
+function collectWarnings(workspace) {
+  var warnings = [];
+  (0,jsonvisitor/* visitWorkspace */.R1)(workspace, {
+    visitBlock: function visitBlock(b) {
+      if (b.warning) warnings.push({
+        sourceId: b.id,
+        message: b.warning
+      });
+    }
+  });
+  return warnings;
+}
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/dsl.ts
@@ -9395,6 +9411,11 @@ function domToJSON(workspace, dsls) {
         return !!b;
       })
     };
+    dsls.forEach(function (dsl) {
+      var _dsl$visitWorkspaceJS;
+
+      return (_dsl$visitWorkspaceJS = dsl.visitWorkspaceJSON) === null || _dsl$visitWorkspaceJS === void 0 ? void 0 : _dsl$visitWorkspaceJS.call(dsl, workspace, json);
+    });
     return json;
   } catch (e) {
     console.error(e);
@@ -10550,6 +10571,7 @@ var WorkspaceContext = __webpack_require__(89801);
 
 
 
+
 var BlockContext = /*#__PURE__*/(0,react.createContext)({
   dsls: [],
   workspace: undefined,
@@ -10590,7 +10612,7 @@ function BlockProvider(props) {
 
   var _useState4 = (0,react.useState)([]),
       warnings = _useState4[0],
-      setWarnings = _useState4[1];
+      _setWarnings = _useState4[1];
 
   var _useState5 = (0,react.useState)(false),
       dragging = _useState5[0],
@@ -10600,6 +10622,17 @@ function BlockProvider(props) {
     setStoredXml(xml);
 
     _setWorkspaceXml(xml);
+  };
+
+  var setWarnings = function setWarnings(category, entries) {
+    var i = warnings.findIndex(function (w) {
+      return w.category === category;
+    });
+
+    _setWarnings([].concat((0,toConsumableArray/* default */.Z)(warnings.slice(0, i)), [{
+      category: category,
+      entries: entries
+    }], (0,toConsumableArray/* default */.Z)(warnings.slice(i + 1))));
   };
 
   var toolboxConfiguration = useToolbox(dsls, workspaceJSON);
@@ -10743,6 +10776,8 @@ function BlockProvider(props) {
 
     if (JSON.stringify(newWorkspaceJSON) !== JSON.stringify(workspaceJSON)) {
       setWorkspaceJSON(newWorkspaceJSON);
+      var newWarnings = collectWarnings(newWorkspaceJSON);
+      setWarnings(toolbox/* JSON_WARNINGS_CATEGORY */.FD, newWarnings);
     }
   }, [dsls, workspace, dragging, workspaceXml]);
   (0,react.useEffect)(function () {
@@ -10754,7 +10789,11 @@ function BlockProvider(props) {
 
   (0,react.useEffect)(function () {
     if (!workspace) return;
-    var allErrors = (0,utils/* toMap */.qL)(warnings || [], function (e) {
+    var allErrors = (0,utils/* toMap */.qL)((0,utils/* arrayConcatMany */.ue)(warnings.map(function (w) {
+      return w.entries;
+    }).filter(function (entries) {
+      return !!(entries !== null && entries !== void 0 && entries.length);
+    })), function (e) {
       return e.sourceId || "";
     }, function (e) {
       return e.message;
@@ -10829,7 +10868,7 @@ function BlockProvider(props) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(80453);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50274);
-/* harmony import */ var _BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85379);
+/* harmony import */ var _BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(46431);
 
 
 
@@ -11151,8 +11190,8 @@ var clsx_m = __webpack_require__(85505);
 var gatsby_browser_entry = __webpack_require__(35313);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 14 modules
-var BlockContext = __webpack_require__(85379);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 15 modules
+var BlockContext = __webpack_require__(46431);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
@@ -15408,6 +15447,56 @@ data, columns, toColumns) {
 
 /***/ }),
 
+/***/ 32641:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "R1": function() { return /* binding */ visitWorkspace; }
+/* harmony export */ });
+/* unused harmony exports visitBlock, visitInput, visitField */
+function visitBlock(block, visitor) {
+  var _visitor$visitBlock;
+
+  if (!block) return;
+  (_visitor$visitBlock = visitor.visitBlock) === null || _visitor$visitBlock === void 0 ? void 0 : _visitor$visitBlock.call(visitor, block);
+  var inputs = block.inputs,
+      children = block.children;
+  inputs === null || inputs === void 0 ? void 0 : inputs.forEach(function (input) {
+    return visitInput(input, visitor);
+  });
+  children === null || children === void 0 ? void 0 : children.forEach(function (child) {
+    return visitBlock(child, visitor);
+  });
+}
+function visitInput(input, visitor) {
+  var _visitor$visitInput;
+
+  if (!input) return;
+  (_visitor$visitInput = visitor.visitInput) === null || _visitor$visitInput === void 0 ? void 0 : _visitor$visitInput.call(visitor, input);
+  var fields = input.fields,
+      child = input.child;
+  if (fields) Object.keys(fields).map(function (k) {
+    return visitField(k, fields[k], visitor);
+  });
+  visitBlock(child, visitor);
+}
+function visitField(name, field, visitor) {
+  var _visitor$visitField;
+
+  if (!field) return;
+  (_visitor$visitField = visitor.visitField) === null || _visitor$visitField === void 0 ? void 0 : _visitor$visitField.call(visitor, name, field);
+}
+function visitWorkspace(workspace, visitor) {
+  var _workspace$blocks;
+
+  workspace === null || workspace === void 0 ? void 0 : (_workspace$blocks = workspace.blocks) === null || _workspace$blocks === void 0 ? void 0 : _workspace$blocks.forEach(function (block) {
+    return visitBlock(block, visitor);
+  });
+}
+
+/***/ }),
+
 /***/ 16582:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -15429,7 +15518,9 @@ data, columns, toColumns) {
 /* harmony export */   "xx": function() { return /* binding */ CHART_WIDTH; },
 /* harmony export */   "Fh": function() { return /* binding */ CHART_HEIGHT; },
 /* harmony export */   "KH": function() { return /* binding */ TABLE_WIDTH; },
-/* harmony export */   "U2": function() { return /* binding */ TABLE_HEIGHT; }
+/* harmony export */   "U2": function() { return /* binding */ TABLE_HEIGHT; },
+/* harmony export */   "nY": function() { return /* binding */ VM_WARNINGS_CATEGORY; },
+/* harmony export */   "FD": function() { return /* binding */ JSON_WARNINGS_CATEGORY; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73108);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
@@ -15479,6 +15570,8 @@ var CHART_WIDTH = 388;
 var CHART_HEIGHT = 240;
 var TABLE_WIDTH = CHART_WIDTH;
 var TABLE_HEIGHT = 480;
+var VM_WARNINGS_CATEGORY = "vm";
+var JSON_WARNINGS_CATEGORY = "json";
 
 /***/ }),
 
