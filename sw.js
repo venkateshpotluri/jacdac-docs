@@ -40,7 +40,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "9ab9a79a248a2c5cf84d7c0b319d78f2"
+    "revision": "a5794551eae4da8619fe76e29db7fb85"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -60,11 +60,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "7793afb209d240016cef700b31403828"
+    "revision": "cf190c469f1db3ff3eb0d565164994df"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "8b81696c24c794c84f2e34d22888e742"
+    "revision": "10fcf0f2d4a75cb897302bb496837f75"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -72,7 +72,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "b5a000b0031ec8c5eff9e9664fb2c948"
+    "revision": "05d06ff59e9096930a816c54e9e483bc"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -80,7 +80,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "5d641c01a5be5b82495e58aa4e03c15f"
+    "revision": "60e22ea36d40381ddfc1e53322ce5b98"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -1409,7 +1409,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/tools/qr-silk/page-data.json",
-    "revision": "6299db561c27332680beadc3701c1f52"
+    "revision": "b562355ecb20d7854c3cf774512b2f1f"
   },
   {
     "url": "component---src-pages-tools-release-assets-tsx-afeeefd828746198f59e.js"
@@ -1554,7 +1554,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-6b8e2ddab7310f829953.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-83dd6cc067c9e65fbde9.js`))) {
     return await fetch(event.request)
   }
 
