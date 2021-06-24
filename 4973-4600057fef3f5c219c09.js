@@ -18,8 +18,8 @@ var react = __webpack_require__(67294);
 var nivo_core_es = __webpack_require__(50928);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
-// EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 8 modules
-var nivo_axes_es = __webpack_require__(33048);
+// EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 14 modules
+var nivo_axes_es = __webpack_require__(21100);
 // EXTERNAL MODULE: ./node_modules/@nivo/legends/dist/nivo-legends.es.js
 var nivo_legends_es = __webpack_require__(26729);
 // EXTERNAL MODULE: ./node_modules/@nivo/tooltip/dist/nivo-tooltip.es.js
@@ -145,12 +145,12 @@ var point = __webpack_require__(94882);
   return area;
 }
 // EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 24 modules
-var nivo_scales_es = __webpack_require__(30982);
+var nivo_scales_es = __webpack_require__(4189);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(45697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
-// EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
-var web = __webpack_require__(9514);
+// EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
+var react_spring_web_esm = __webpack_require__(85468);
 // EXTERNAL MODULE: ./node_modules/@nivo/voronoi/dist/nivo-voronoi.es.js + 5 modules
 var nivo_voronoi_es = __webpack_require__(8374);
 ;// CONCATENATED MODULE: ./node_modules/@nivo/line/dist/nivo-line.es.js
@@ -328,9 +328,9 @@ var commonPropTypes = {
       y: prop_types_default().oneOfType([(prop_types_default()).number, (prop_types_default()).string, prop_types_default().instanceOf(Date)])
     })).isRequired
   })).isRequired,
-  xScale: nivo_scales_es/* scalePropType.isRequired */.t4.isRequired,
+  xScale: (prop_types_default()).object.isRequired,
   xFormat: prop_types_default().oneOfType([(prop_types_default()).func, (prop_types_default()).string]),
-  yScale: nivo_scales_es/* scalePropType.isRequired */.t4.isRequired,
+  yScale: (prop_types_default()).object.isRequired,
   yFormat: prop_types_default().oneOfType([(prop_types_default()).func, (prop_types_default()).string]),
   layers: prop_types_default().arrayOf(prop_types_default().oneOfType([prop_types_default().oneOf(['grid', 'markers', 'axes', 'areas', 'crosshair', 'lines', 'slices', 'points', 'mesh', 'legends']), (prop_types_default()).func])).isRequired,
   curve: nivo_core_es/* lineCurvePropType.isRequired */.VZ.isRequired,
@@ -602,20 +602,59 @@ var useLine = function useLine(_ref9) {
   var getPointColor = (0,nivo_colors_es/* useInheritedColor */.Bf)(pointColor, theme);
   var getPointBorderColor = (0,nivo_colors_es/* useInheritedColor */.Bf)(pointBorderColor, theme);
 
+  var _useState = (0,react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      hiddenIds = _useState2[0],
+      setHiddenIds = _useState2[1];
+
   var _useMemo = (0,react.useMemo)(function () {
-    return (0,nivo_scales_es/* computeXYScalesForSeries */.Gi)(data, xScaleSpec, yScaleSpec, width, height);
-  }, [data, xScaleSpec, yScaleSpec, width, height]),
+    return (0,nivo_scales_es/* computeXYScalesForSeries */.Gi)(data.filter(function (item) {
+      return hiddenIds.indexOf(item.id) === -1;
+    }), xScaleSpec, yScaleSpec, width, height);
+  }, [data, hiddenIds, xScaleSpec, yScaleSpec, width, height]),
       xScale = _useMemo.xScale,
       yScale = _useMemo.yScale,
       rawSeries = _useMemo.series;
 
-  var series = (0,react.useMemo)(function () {
-    return rawSeries.map(function (serie) {
-      return _objectSpread2(_objectSpread2({}, serie), {}, {
-        color: getColor(serie)
-      });
+  var _useMemo2 = (0,react.useMemo)(function () {
+    var dataWithColor = data.map(function (line) {
+      return {
+        id: line.id,
+        label: line.id,
+        color: getColor(line)
+      };
     });
-  }, [rawSeries, getColor]);
+    var series = dataWithColor.map(function (datum) {
+      return _objectSpread2(_objectSpread2({}, rawSeries.find(function (serie) {
+        return serie.id === datum.id;
+      })), {}, {
+        color: datum.color
+      });
+    }).filter(function (item) {
+      return Boolean(item.id);
+    });
+    var legendData = dataWithColor.map(function (item) {
+      return _objectSpread2(_objectSpread2({}, item), {}, {
+        hidden: !series.find(function (serie) {
+          return serie.id === item.id;
+        })
+      });
+    }).reverse();
+    return {
+      legendData: legendData,
+      series: series
+    };
+  }, [data, rawSeries, getColor]),
+      legendData = _useMemo2.legendData,
+      series = _useMemo2.series;
+
+  var toggleSerie = (0,react.useCallback)(function (id) {
+    setHiddenIds(function (state) {
+      return state.indexOf(id) > -1 ? state.filter(function (item) {
+        return item !== id;
+      }) : [].concat(_toConsumableArray(state), [id]);
+    });
+  }, []);
   var points = usePoints({
     series: series,
     getPointColor: getPointColor,
@@ -638,6 +677,8 @@ var useLine = function useLine(_ref9) {
     areaBaselineValue: areaBaselineValue
   });
   return {
+    legendData: legendData,
+    toggleSerie: toggleSerie,
     lineGenerator: lineGenerator,
     areaGenerator: areaGenerator,
     getColor: getColor,
@@ -661,12 +702,12 @@ var AreaPath = function AreaPath(_ref) {
       springConfig = _useMotionConfig.config;
 
   var animatedPath = (0,nivo_core_es/* useAnimatedPath */.NS)(path);
-  var animatedProps = (0,web.useSpring)({
+  var animatedProps = (0,react_spring_web_esm.useSpring)({
     color: color,
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement(web/* animated.path */.q.path, {
+  return react.createElement(react_spring_web_esm/* animated.path */.q.path, {
     d: animatedPath,
     fill: fill ? fill : animatedProps.color,
     fillOpacity: areaOpacity,
@@ -707,7 +748,7 @@ var LinesItem = function LinesItem(_ref) {
     return lineGenerator(points);
   }, [lineGenerator, points]);
   var animatedPath = (0,nivo_core_es/* useAnimatedPath */.NS)(path);
-  return react.createElement(web/* animated.path */.q.path, {
+  return react.createElement(react_spring_web_esm/* animated.path */.q.path, {
     d: animatedPath,
     fill: "none",
     strokeWidth: thickness,
@@ -981,6 +1022,8 @@ var Line = function Line(props) {
     pointBorderColor: pointBorderColor,
     enableSlices: enableSlices
   }),
+      legendData = _useLine.legendData,
+      toggleSerie = _useLine.toggleSerie,
       lineGenerator = _useLine.lineGenerator,
       areaGenerator = _useLine.areaGenerator,
       series = _useLine.series,
@@ -1003,15 +1046,6 @@ var Line = function Line(props) {
       currentSlice = _useState4[0],
       setCurrentSlice = _useState4[1];
 
-  var legendData = (0,react.useMemo)(function () {
-    return series.map(function (line) {
-      return {
-        id: line.id,
-        label: line.id,
-        color: line.color
-      };
-    }).reverse();
-  }, [series]);
   var layerById = {
     grid: react.createElement(nivo_axes_es/* Grid */.rj, {
       key: "grid",
@@ -1062,7 +1096,8 @@ var Line = function Line(props) {
         containerWidth: innerWidth,
         containerHeight: innerHeight,
         data: legend.data || legendData,
-        theme: theme
+        theme: theme,
+        toggleSerie: legend.toggleSerie ? toggleSerie : undefined
       }));
     })
   };

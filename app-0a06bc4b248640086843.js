@@ -264,50 +264,6 @@ module.exports = JSON.parse('{"layout":"constrained","backgroundColor":"#f8f8f8"
 
 /***/ }),
 
-/***/ 49228:
-/***/ (function(module) {
-
-/*!
- * domready (c) Dustin Diaz 2014 - License MIT
- * ie10 fix - Mikael Kristiansson 2019
- */
-!(function(name, definition) {
-  if (true) module.exports = definition();
-  else {}
-})("domready", function() {
-  var ie10 = false;
-  if (navigator.appVersion.indexOf("MSIE 10") !== -1) {
-    ie10 = true;
-  }
-
-  var fns = [],
-    listener,
-    doc = typeof document === "object" && document,
-    hack = ie10
-      ? doc.documentElement.doScroll("left")
-      : doc.documentElement.doScroll,
-    domContentLoaded = "DOMContentLoaded",
-    loaded =
-      doc && (hack ? /^loaded|^c/ : /^loaded|^i|^c/).test(doc.readyState);
-
-  if (!loaded && doc)
-    doc.addEventListener(
-      domContentLoaded,
-      (listener = function() {
-        doc.removeEventListener(domContentLoaded, listener);
-        loaded = 1;
-        while ((listener = fns.shift())) listener();
-      })
-    );
-
-  return function(fn) {
-    loaded ? setTimeout(fn, 0) : fns.push(fn);
-  };
-});
-
-
-/***/ }),
-
 /***/ 22393:
 /***/ (function(__unused_webpack_module, exports) {
 
@@ -69597,7 +69553,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "eaf03d03e64a6fb1500f82bc9df28612789a9af7";
+  var sha = "e3e3d3fbc10a2111641a0cdfc940f1c474b011d0";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -82616,9 +82572,6 @@ var react_dom = __webpack_require__(73935);
 var es = __webpack_require__(29499);
 // EXTERNAL MODULE: ./node_modules/gatsby-react-router-scroll/index.js
 var gatsby_react_router_scroll = __webpack_require__(19679);
-// EXTERNAL MODULE: ./node_modules/@mikaelkristiansson/domready/ready.js
-var ready = __webpack_require__(49228);
-var ready_default = /*#__PURE__*/__webpack_require__.n(ready);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(35313);
 // EXTERNAL MODULE: ./.cache/loader.js + 1 modules
@@ -83121,7 +83074,6 @@ var match_paths_namespaceObject = [];
 
 
 
-
  // Generated during bootstrap
 
 
@@ -83280,17 +83232,37 @@ init();
     };
 
     var renderer = (0,api_runner_browser/* apiRunner */.h)("replaceHydrateFunction", undefined, react_dom.createRoot ? react_dom.createRoot : react_dom.hydrate)[0];
-    ready_default()(function () {
-      var container = typeof window !== "undefined" ? document.getElementById("___gatsby") : null;
+
+    function runRender() {
+      var rootElement = typeof window !== "undefined" ? document.getElementById("___gatsby") : null;
 
       if (renderer === react_dom.createRoot) {
-        renderer(container, {
+        renderer(rootElement, {
           hydrate: true
         }).render( /*#__PURE__*/react.createElement(App, null));
       } else {
-        renderer( /*#__PURE__*/react.createElement(App, null), container);
+        renderer( /*#__PURE__*/react.createElement(App, null), rootElement);
       }
-    });
+    } // https://github.com/madrobby/zepto/blob/b5ed8d607f67724788ec9ff492be297f64d47dfc/src/zepto.js#L439-L450
+    // TODO remove IE 10 support
+
+
+    var doc = document;
+
+    if (doc.readyState === "complete" || doc.readyState !== "loading" && !doc.documentElement.doScroll) {
+      setTimeout(function () {
+        runRender();
+      }, 0);
+    } else {
+      var handler = function handler() {
+        doc.removeEventListener("DOMContentLoaded", handler, false);
+        window.removeEventListener("load", handler, false);
+        runRender();
+      };
+
+      doc.addEventListener("DOMContentLoaded", handler, false);
+      window.addEventListener("load", handler, false);
+    }
   });
 });
 

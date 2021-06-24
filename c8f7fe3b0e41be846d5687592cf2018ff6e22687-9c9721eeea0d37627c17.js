@@ -2164,50 +2164,25 @@ if (false) {}
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "q6": function() { return /* binding */ Annotation; },
-/* harmony export */   "IV": function() { return /* binding */ annotationSpecPropType; },
 /* harmony export */   "dS": function() { return /* binding */ renderAnnotationsToCanvas; },
 /* harmony export */   "O2": function() { return /* binding */ useAnnotations; }
 /* harmony export */ });
-/* unused harmony exports bindAnnotations, computeAnnotation, defaultProps, getLinkAngle, useComputedAnnotation, useComputedAnnotations */
+/* unused harmony exports bindAnnotations, computeAnnotation, defaultProps, getLinkAngle, isCanvasNote, isCircleAnnotation, isDotAnnotation, isRectAnnotation, isSvgNote, useComputedAnnotation, useComputedAnnotations */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(45697);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68630);
-/* harmony import */ var lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57557);
+/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(81763);
+/* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_isNumber__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(63105);
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57557);
-/* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(50928);
-/* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9514);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50928);
+/* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85468);
 
 
 
 
 
 
-
-var annotationSpecPropType = prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
-  match: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object)]).isRequired,
-  type: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOf(['circle', 'rect', 'dot']).isRequired,
-  noteX: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().number), prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
-    abs: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired)
-  })]).isRequired,
-  noteY: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().number), prop_types__WEBPACK_IMPORTED_MODULE_1___default().shape({
-    abs: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number.isRequired)
-  })]).isRequired,
-  noteWidth: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
-  noteTextOffset: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
-  note: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().node), (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func)]).isRequired,
-  offset: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number)
-});
-var defaultProps = {
-  noteWidth: 120,
-  noteTextOffset: 8,
-  animate: true,
-  motionStiffness: 90,
-  motionDamping: 13
-};
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -2258,116 +2233,177 @@ function _objectSpread2(target) {
   return target;
 }
 
-var defaultPositionAccessor = function defaultPositionAccessor(item) {
-  return {
-    x: item.x,
-    y: item.y
-  };
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
+var defaultProps = {
+  dotSize: 4,
+  noteWidth: 120,
+  noteTextOffset: 8,
+  animate: true,
+  motionStiffness: 90,
+  motionDamping: 13
+};
+
+var isSvgNote = function isSvgNote(note) {
+  var noteType = typeof note;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(note) || noteType === 'string' || noteType === 'function' || noteType === 'object';
+};
+
+var isCanvasNote = function isCanvasNote(note) {
+  var noteType = typeof note;
+  return noteType === 'string' || noteType === 'function';
+};
+
+var isCircleAnnotation = function isCircleAnnotation(annotationSpec) {
+  return annotationSpec.type === 'circle';
+};
+
+var isDotAnnotation = function isDotAnnotation(annotationSpec) {
+  return annotationSpec.type === 'dot';
+};
+
+var isRectAnnotation = function isRectAnnotation(annotationSpec) {
+  return annotationSpec.type === 'rect';
 };
 
 var bindAnnotations = function bindAnnotations(_ref) {
-  var items = _ref.items,
+  var data = _ref.data,
       annotations = _ref.annotations,
-      _ref$getPosition = _ref.getPosition,
-      getPosition = _ref$getPosition === void 0 ? defaultPositionAccessor : _ref$getPosition,
+      getPosition = _ref.getPosition,
       getDimensions = _ref.getDimensions;
   return annotations.reduce(function (acc, annotation) {
-    lodash_filter__WEBPACK_IMPORTED_MODULE_3___default()(items, annotation.match).forEach(function (item) {
-      var position = getPosition(item);
-      var dimensions = getDimensions(item, annotation.offset || 0);
-      acc.push(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, lodash_omit__WEBPACK_IMPORTED_MODULE_4___default()(annotation, ['match', 'offset'])), position), dimensions), {}, {
-        datum: item,
-        size: annotation.size || dimensions.size
-      }));
-    });
-    return acc;
+    var offset = annotation.offset || 0;
+    return [].concat(_toConsumableArray(acc), _toConsumableArray(lodash_filter__WEBPACK_IMPORTED_MODULE_3___default()(data, annotation.match).map(function (datum) {
+      var position = getPosition(datum);
+      var dimensions = getDimensions(datum);
+
+      if (isCircleAnnotation(annotation) || isRectAnnotation(annotation)) {
+        dimensions.size = dimensions.size + offset * 2;
+        dimensions.width = dimensions.width + offset * 2;
+        dimensions.height = dimensions.height + offset * 2;
+      }
+
+      return _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, lodash_omit__WEBPACK_IMPORTED_MODULE_1___default()(annotation, ['match', 'offset'])), position), dimensions), {}, {
+        size: annotation.size || dimensions.size,
+        datum: datum
+      });
+    })));
   }, []);
 };
 
 var getLinkAngle = function getLinkAngle(sourceX, sourceY, targetX, targetY) {
   var angle = Math.atan2(targetY - sourceY, targetX - sourceX);
-  return (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .absoluteAngleDegrees */ .bt)((0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .radiansToDegrees */ .vi)(angle));
+  return (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .absoluteAngleDegrees */ .bt)((0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .radiansToDegrees */ .vi)(angle));
 };
 
-var computeAnnotation = function computeAnnotation(_ref2) {
-  var type = _ref2.type,
-      x = _ref2.x,
-      y = _ref2.y,
-      size = _ref2.size,
-      width = _ref2.width,
-      height = _ref2.height,
-      noteX = _ref2.noteX,
-      noteY = _ref2.noteY,
-      _ref2$noteWidth = _ref2.noteWidth,
-      noteWidth = _ref2$noteWidth === void 0 ? defaultProps.noteWidth : _ref2$noteWidth,
-      _ref2$noteTextOffset = _ref2.noteTextOffset,
-      noteTextOffset = _ref2$noteTextOffset === void 0 ? defaultProps.noteTextOffset : _ref2$noteTextOffset;
+var computeAnnotation = function computeAnnotation(annotation) {
+  var x = annotation.x,
+      y = annotation.y,
+      noteX = annotation.noteX,
+      noteY = annotation.noteY,
+      _annotation$noteWidth = annotation.noteWidth,
+      noteWidth = _annotation$noteWidth === void 0 ? defaultProps.noteWidth : _annotation$noteWidth,
+      _annotation$noteTextO = annotation.noteTextOffset,
+      noteTextOffset = _annotation$noteTextO === void 0 ? defaultProps.noteTextOffset : _annotation$noteTextO;
   var computedNoteX;
   var computedNoteY;
 
-  if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2___default()(noteX)) {
-    if (noteX.abs !== undefined) {
-      computedNoteX = noteX.abs;
-    }
-  } else {
+  if (lodash_isNumber__WEBPACK_IMPORTED_MODULE_2___default()(noteX)) {
     computedNoteX = x + noteX;
+  } else if (noteX.abs !== undefined) {
+    computedNoteX = noteX.abs;
+  } else {
+    throw new Error("noteX should be either a number or an object containing an 'abs' property");
   }
 
-  if (lodash_isPlainObject__WEBPACK_IMPORTED_MODULE_2___default()(noteY)) {
-    if (noteY.abs !== undefined) {
-      computedNoteY = noteY.abs;
-    }
-  } else {
+  if (lodash_isNumber__WEBPACK_IMPORTED_MODULE_2___default()(noteY)) {
     computedNoteY = y + noteY;
+  } else if (noteY.abs !== undefined) {
+    computedNoteY = noteY.abs;
+  } else {
+    throw new Error("noteY should be either a number or an object containing an 'abs' property");
   }
 
   var computedX = x;
   var computedY = y;
   var angle = getLinkAngle(x, y, computedNoteX, computedNoteY);
 
-  if (type === 'circle') {
-    var position = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .positionFromAngle */ .re)((0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .degreesToRadians */ .Ht)(angle), size / 2);
+  if (isCircleAnnotation(annotation)) {
+    var position = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .positionFromAngle */ .re)((0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .degreesToRadians */ .Ht)(angle), annotation.size / 2);
     computedX += position.x;
     computedY += position.y;
   }
 
-  if (type === 'rect') {
+  if (isRectAnnotation(annotation)) {
     var eighth = Math.round((angle + 90) / 45) % 8;
 
     if (eighth === 0) {
-      computedY -= height / 2;
+      computedY -= annotation.height / 2;
     }
 
     if (eighth === 1) {
-      computedX += width / 2;
-      computedY -= height / 2;
+      computedX += annotation.width / 2;
+      computedY -= annotation.height / 2;
     }
 
     if (eighth === 2) {
-      computedX += width / 2;
+      computedX += annotation.width / 2;
     }
 
     if (eighth === 3) {
-      computedX += width / 2;
-      computedY += height / 2;
+      computedX += annotation.width / 2;
+      computedY += annotation.height / 2;
     }
 
     if (eighth === 4) {
-      computedY += height / 2;
+      computedY += annotation.height / 2;
     }
 
     if (eighth === 5) {
-      computedX -= width / 2;
-      computedY += height / 2;
+      computedX -= annotation.width / 2;
+      computedY += annotation.height / 2;
     }
 
     if (eighth === 6) {
-      computedX -= width / 2;
+      computedX -= annotation.width / 2;
     }
 
     if (eighth === 7) {
-      computedX -= width / 2;
-      computedY -= height / 2;
+      computedX -= annotation.width / 2;
+      computedY -= annotation.height / 2;
     }
   }
 
@@ -2391,94 +2427,64 @@ var computeAnnotation = function computeAnnotation(_ref2) {
 };
 
 var useAnnotations = function useAnnotations(_ref) {
-  var items = _ref.items,
+  var data = _ref.data,
       annotations = _ref.annotations,
       getPosition = _ref.getPosition,
       getDimensions = _ref.getDimensions;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     return bindAnnotations({
-      items: items,
+      data: data,
       annotations: annotations,
       getPosition: getPosition,
       getDimensions: getDimensions
     });
-  }, [items, annotations, getPosition, getDimensions]);
+  }, [data, annotations, getPosition, getDimensions]);
 };
 
 var useComputedAnnotations = function useComputedAnnotations(_ref2) {
-  var annotations = _ref2.annotations,
-      containerWidth = _ref2.containerWidth,
-      containerHeight = _ref2.containerHeight;
+  var annotations = _ref2.annotations;
   return useMemo(function () {
     return annotations.map(function (annotation) {
       return _objectSpread2(_objectSpread2({}, annotation), {}, {
-        computed: computeAnnotation(_objectSpread2({
-          containerWidth: containerWidth,
-          containerHeight: containerHeight
-        }, annotation))
+        computed: computeAnnotation(_objectSpread2({}, annotation))
       });
     });
-  }, [annotations, containerWidth, containerHeight]);
+  }, [annotations]);
 };
 
-var useComputedAnnotation = function useComputedAnnotation(_ref3) {
-  var type = _ref3.type,
-      containerWidth = _ref3.containerWidth,
-      containerHeight = _ref3.containerHeight,
-      x = _ref3.x,
-      y = _ref3.y,
-      size = _ref3.size,
-      width = _ref3.width,
-      height = _ref3.height,
-      noteX = _ref3.noteX,
-      noteY = _ref3.noteY,
-      noteWidth = _ref3.noteWidth,
-      noteTextOffset = _ref3.noteTextOffset;
+var useComputedAnnotation = function useComputedAnnotation(annotation) {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-    return computeAnnotation({
-      type: type,
-      containerWidth: containerWidth,
-      containerHeight: containerHeight,
-      x: x,
-      y: y,
-      size: size,
-      width: width,
-      height: height,
-      noteX: noteX,
-      noteY: noteY,
-      noteWidth: noteWidth,
-      noteTextOffset: noteTextOffset
-    });
-  }, [type, containerWidth, containerHeight, x, y, size, width, height, noteX, noteY, noteWidth, noteTextOffset]);
+    return computeAnnotation(annotation);
+  }, [annotation]);
 };
 
-var AnnotationNote = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+var AnnotationNote = function AnnotationNote(_ref) {
   var datum = _ref.datum,
       x = _ref.x,
       y = _ref.y,
       note = _ref.note;
-  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useTheme */ .Fg)();
 
-  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useMotionConfig */ .tf)(),
       animate = _useMotionConfig.animate,
-      springConfiig = _useMotionConfig.config;
+      springConfig = _useMotionConfig.config;
 
-  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_5__.useSpring)({
     x: x,
     y: y,
-    config: springConfiig,
+    config: springConfig,
     immediate: !animate
   });
 
   if (typeof note === 'function') {
-    return note({
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(note, {
       x: x,
       y: y,
       datum: datum
     });
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.text.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.text */ .q.text, {
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.text.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.text */ .q.text, {
     x: animatedProps.x,
     y: animatedProps.y,
     style: _objectSpread2(_objectSpread2({}, theme.annotations.text), {}, {
@@ -2486,14 +2492,12 @@ var AnnotationNote = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref)
       strokeWidth: theme.annotations.text.outlineWidth * 2,
       stroke: theme.annotations.text.outlineColor
     })
-  }, note), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.text */ .q.text, {
+  }, note), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.text */ .q.text, {
     x: animatedProps.x,
     y: animatedProps.y,
-    style: lodash_omit__WEBPACK_IMPORTED_MODULE_4___default()(theme.annotations.text, ['outlineWidth', 'outlineColor'])
+    style: lodash_omit__WEBPACK_IMPORTED_MODULE_1___default()(theme.annotations.text, ['outlineWidth', 'outlineColor'])
   }, note));
-});
-AnnotationNote.displayName = 'AnnotationNote';
-AnnotationNote.defaultProps = {};
+};
 
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
@@ -2526,25 +2530,6 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
@@ -2553,68 +2538,29 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
 function _toArray(arr) {
   return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest();
 }
 
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
+var AnnotationLink = function AnnotationLink(_ref) {
+  var points = _ref.points,
+      _ref$isOutline = _ref.isOutline,
+      isOutline = _ref$isOutline === void 0 ? false : _ref$isOutline;
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useTheme */ .Fg)();
+  var path = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    var _points = _toArray(points),
+        firstPoint = _points[0],
+        otherPoints = _points.slice(1);
 
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
+    return otherPoints.reduce(function (acc, _ref2) {
+      var _ref3 = _slicedToArray(_ref2, 2),
+          x = _ref3[0],
+          y = _ref3[1];
 
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
-
-var AnnotationLink = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
-  var isOutline = _ref.isOutline,
-      props = _objectWithoutProperties(_ref, ["isOutline"]);
-
-  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
-
-  var _props$points = _toArray(props.points),
-      point = _props$points[0],
-      points = _props$points.slice(1);
-
-  var path = points.reduce(function (acc, _ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        x = _ref3[0],
-        y = _ref3[1];
-
-    return "".concat(acc, " L").concat(x, ",").concat(y);
-  }, "M".concat(point[0], ",").concat(point[1]));
-  var animatedPath = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useAnimatedPath */ .NS)(path);
+      return "".concat(acc, " L").concat(x, ",").concat(y);
+    }, "M".concat(firstPoint[0], ",").concat(firstPoint[1]));
+  }, [points]);
+  var animatedPath = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useAnimatedPath */ .NS)(path);
 
   if (isOutline && theme.annotations.link.outlineWidth <= 0) {
     return null;
@@ -2628,34 +2574,31 @@ var AnnotationLink = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref)
     style.stroke = theme.annotations.link.outlineColor;
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.path */ .q.path, {
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.path */ .q.path, {
     fill: "none",
     d: animatedPath,
     style: style
   });
-});
-AnnotationLink.displayName = 'AnnotationLink';
-AnnotationLink.defaultProps = {
-  isOutline: false
 };
-var CircleAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+
+var CircleAnnotationOutline = function CircleAnnotationOutline(_ref) {
   var x = _ref.x,
       y = _ref.y,
       size = _ref.size;
-  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useTheme */ .Fg)();
 
-  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useMotionConfig */ .tf)(),
       animate = _useMotionConfig.animate,
       springConfig = _useMotionConfig.config;
 
-  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_5__.useSpring)({
     x: x,
     y: y,
     radius: size / 2,
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
     cx: animatedProps.x,
     cy: animatedProps.y,
     r: animatedProps.radius,
@@ -2664,32 +2607,33 @@ var CircleAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(functi
       strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
       stroke: theme.annotations.outline.outlineColor
     })
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
     cx: animatedProps.x,
     cy: animatedProps.y,
     r: animatedProps.radius,
     style: theme.annotations.outline
   }));
-});
-CircleAnnotationOutline.displayName = 'CircleAnnotationOutline';
-var DotAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+};
+
+var DotAnnotationOutline = function DotAnnotationOutline(_ref) {
   var x = _ref.x,
       y = _ref.y,
-      size = _ref.size;
-  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? defaultProps.dotSize : _ref$size;
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useTheme */ .Fg)();
 
-  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useMotionConfig */ .tf)(),
       animate = _useMotionConfig.animate,
       springConfig = _useMotionConfig.config;
 
-  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_5__.useSpring)({
     x: x,
     y: y,
     radius: size / 2,
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
     cx: animatedProps.x,
     cy: animatedProps.y,
     r: animatedProps.radius,
@@ -2698,29 +2642,26 @@ var DotAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function 
       strokeWidth: theme.annotations.outline.outlineWidth * 2,
       stroke: theme.annotations.outline.outlineColor
     })
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.circle */ .q.circle, {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
     cx: animatedProps.x,
     cy: animatedProps.y,
     r: animatedProps.radius,
     style: theme.annotations.symbol
   }));
-});
-DotAnnotationOutline.displayName = 'DotAnnotationOutline';
-DotAnnotationOutline.defaultProps = {
-  size: 4
 };
-var RectAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
+
+var RectAnnotationOutline = function RectAnnotationOutline(_ref) {
   var x = _ref.x,
       y = _ref.y,
       width = _ref.width,
       height = _ref.height;
-  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useTheme */ .Fg)();
+  var theme = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useTheme */ .Fg)();
 
-  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_5__/* .useMotionConfig */ .tf)(),
+  var _useMotionConfig = (0,_nivo_core__WEBPACK_IMPORTED_MODULE_4__/* .useMotionConfig */ .tf)(),
       animate = _useMotionConfig.animate,
       springConfig = _useMotionConfig.config;
 
-  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_6__.useSpring)({
+  var animatedProps = (0,_react_spring_web__WEBPACK_IMPORTED_MODULE_5__.useSpring)({
     x: x - width / 2,
     y: y - height / 2,
     width: width,
@@ -2728,7 +2669,7 @@ var RectAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.rect */ .q.rect, {
+  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.rect */ .q.rect, {
     x: animatedProps.x,
     y: animatedProps.y,
     width: animatedProps.width,
@@ -2738,60 +2679,42 @@ var RectAnnotationOutline = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function
       strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
       stroke: theme.annotations.outline.outlineColor
     })
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_6__/* .animated.rect */ .q.rect, {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.rect */ .q.rect, {
     x: animatedProps.x,
     y: animatedProps.y,
     width: animatedProps.width,
     height: animatedProps.height,
     style: theme.annotations.outline
   }));
-});
-RectAnnotationOutline.displayName = 'RectAnnotationOutline';
-var Annotation = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
-  var datum = _ref.datum,
-      type = _ref.type,
-      containerWidth = _ref.containerWidth,
-      containerHeight = _ref.containerHeight,
-      x = _ref.x,
-      y = _ref.y,
-      size = _ref.size,
-      width = _ref.width,
-      height = _ref.height,
-      noteX = _ref.noteX,
-      noteY = _ref.noteY,
-      noteWidth = _ref.noteWidth,
-      noteTextOffset = _ref.noteTextOffset,
-      note = _ref.note;
-  var computed = useComputedAnnotation({
-    type: type,
-    containerWidth: containerWidth,
-    containerHeight: containerHeight,
-    x: x,
-    y: y,
-    size: size,
-    width: width,
-    height: height,
-    noteX: noteX,
-    noteY: noteY,
-    noteWidth: noteWidth,
-    noteTextOffset: noteTextOffset
-  });
+};
+
+var Annotation = function Annotation(annotation) {
+  var datum = annotation.datum,
+      x = annotation.x,
+      y = annotation.y,
+      note = annotation.note;
+  var computed = useComputedAnnotation(annotation);
+
+  if (!isSvgNote(note)) {
+    throw new Error('note should be a valid react element');
+  }
+
   return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationLink, {
     points: computed.points,
     isOutline: true
-  }), type === 'circle' && react__WEBPACK_IMPORTED_MODULE_0__.createElement(CircleAnnotationOutline, {
+  }), isCircleAnnotation(annotation) && react__WEBPACK_IMPORTED_MODULE_0__.createElement(CircleAnnotationOutline, {
     x: x,
     y: y,
-    size: size
-  }), type === 'dot' && react__WEBPACK_IMPORTED_MODULE_0__.createElement(DotAnnotationOutline, {
+    size: annotation.size
+  }), isDotAnnotation(annotation) && react__WEBPACK_IMPORTED_MODULE_0__.createElement(DotAnnotationOutline, {
     x: x,
     y: y,
-    size: size
-  }), type === 'rect' && react__WEBPACK_IMPORTED_MODULE_0__.createElement(RectAnnotationOutline, {
+    size: annotation.size
+  }), isRectAnnotation(annotation) && react__WEBPACK_IMPORTED_MODULE_0__.createElement(RectAnnotationOutline, {
     x: x,
     y: y,
-    width: width,
-    height: height
+    width: annotation.width,
+    height: annotation.height
   }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationLink, {
     points: computed.points
   }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationNote, {
@@ -2800,11 +2723,6 @@ var Annotation = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
     y: computed.text[1],
     note: note
   }));
-});
-Annotation.displayName = 'Annotation';
-Annotation.defaultProps = {
-  noteWidth: defaultProps.noteWidth,
-  noteTextOffset: defaultProps.noteTextOffset
 };
 
 var drawPoints = function drawPoints(ctx, points) {
@@ -2827,6 +2745,10 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
   if (annotations.length === 0) return;
   ctx.save();
   annotations.forEach(function (annotation) {
+    if (!isCanvasNote(annotation.note)) {
+      throw new Error('note is invalid for canvas implementation');
+    }
+
     if (theme.annotations.link.outlineWidth > 0) {
       ctx.lineCap = 'square';
       ctx.strokeStyle = theme.annotations.link.outlineColor;
@@ -2837,7 +2759,7 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
       ctx.lineCap = 'butt';
     }
 
-    if (annotation.type === 'circle' && theme.annotations.outline.outlineWidth > 0) {
+    if (isCircleAnnotation(annotation) && theme.annotations.outline.outlineWidth > 0) {
       ctx.strokeStyle = theme.annotations.outline.outlineColor;
       ctx.lineWidth = theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2;
       ctx.beginPath();
@@ -2845,7 +2767,7 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
       ctx.stroke();
     }
 
-    if (annotation.type === 'dot' && theme.annotations.symbol.outlineWidth > 0) {
+    if (isDotAnnotation(annotation) && theme.annotations.symbol.outlineWidth > 0) {
       ctx.strokeStyle = theme.annotations.symbol.outlineColor;
       ctx.lineWidth = theme.annotations.symbol.outlineWidth * 2;
       ctx.beginPath();
@@ -2853,7 +2775,7 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
       ctx.stroke();
     }
 
-    if (annotation.type === 'rect' && theme.annotations.outline.outlineWidth > 0) {
+    if (isRectAnnotation(annotation) && theme.annotations.outline.outlineWidth > 0) {
       ctx.strokeStyle = theme.annotations.outline.outlineColor;
       ctx.lineWidth = theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2;
       ctx.beginPath();
@@ -2867,7 +2789,7 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
     drawPoints(ctx, annotation.computed.points);
     ctx.stroke();
 
-    if (annotation.type === 'circle') {
+    if (isCircleAnnotation(annotation)) {
       ctx.strokeStyle = theme.annotations.outline.stroke;
       ctx.lineWidth = theme.annotations.outline.strokeWidth;
       ctx.beginPath();
@@ -2875,14 +2797,14 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
       ctx.stroke();
     }
 
-    if (annotation.type === 'dot') {
+    if (isDotAnnotation(annotation)) {
       ctx.fillStyle = theme.annotations.symbol.fill;
       ctx.beginPath();
       ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI);
       ctx.fill();
     }
 
-    if (annotation.type === 'rect') {
+    if (isRectAnnotation(annotation)) {
       ctx.strokeStyle = theme.annotations.outline.stroke;
       ctx.lineWidth = theme.annotations.outline.strokeWidth;
       ctx.beginPath();
@@ -2919,7 +2841,7 @@ var renderAnnotationsToCanvas = function renderAnnotationsToCanvas(ctx, _ref3) {
 
 /***/ }),
 
-/***/ 33048:
+/***/ 21100:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2937,15 +2859,90 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
-var web = __webpack_require__(9514);
+// EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
+var react_spring_web_esm = __webpack_require__(85468);
 // EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
 var nivo_core_es = __webpack_require__(50928);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/interval.js
-var interval = __webpack_require__(94666);
+;// CONCATENATED MODULE: ./node_modules/d3-time/src/interval.js
+var t0 = new Date(),
+    t1 = new Date();
+function newInterval(floori, offseti, count, field) {
+  function interval(date) {
+    return floori(date = arguments.length === 0 ? new Date() : new Date(+date)), date;
+  }
+
+  interval.floor = function (date) {
+    return floori(date = new Date(+date)), date;
+  };
+
+  interval.ceil = function (date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function (date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function (date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function (start, stop, step) {
+    var range = [],
+        previous;
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+
+    do {
+      range.push(previous = new Date(+start)), offseti(start, step), floori(start);
+    } while (previous < start && start < stop);
+
+    return range;
+  };
+
+  interval.filter = function (test) {
+    return newInterval(function (date) {
+      if (date >= date) while (floori(date), !test(date)) {
+        date.setTime(date - 1);
+      }
+    }, function (date, step) {
+      if (date >= date) {
+        if (step < 0) while (++step <= 0) {
+          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
+
+        } else while (--step >= 0) {
+          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+
+        }
+      }
+    });
+  };
+
+  if (count) {
+    interval.count = function (start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function (step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval : interval.filter(field ? function (d) {
+        return field(d) % step === 0;
+      } : function (d) {
+        return interval.count(0, d) % step === 0;
+      });
+    };
+  }
+
+  return interval;
+}
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/millisecond.js
 
-var millisecond = (0,interval/* default */.Z)(function () {// noop
+var millisecond = newInterval(function () {// noop
 }, function (date, step) {
   date.setTime(+date + step);
 }, function (start, end) {
@@ -2956,7 +2953,7 @@ millisecond.every = function (k) {
   k = Math.floor(k);
   if (!isFinite(k) || !(k > 0)) return null;
   if (!(k > 1)) return millisecond;
-  return (0,interval/* default */.Z)(function (date) {
+  return newInterval(function (date) {
     date.setTime(Math.floor(date / k) * k);
   }, function (date, step) {
     date.setTime(+date + step * k);
@@ -2967,17 +2964,21 @@ millisecond.every = function (k) {
 
 /* harmony default export */ var src_millisecond = (millisecond);
 var milliseconds = millisecond.range;
-// EXTERNAL MODULE: ./node_modules/d3-time/src/duration.js
-var duration = __webpack_require__(29493);
+;// CONCATENATED MODULE: ./node_modules/d3-time/src/duration.js
+var durationSecond = 1e3;
+var durationMinute = 6e4;
+var durationHour = 36e5;
+var durationDay = 864e5;
+var durationWeek = 6048e5;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/second.js
 
 
-var second = (0,interval/* default */.Z)(function (date) {
+var second = newInterval(function (date) {
   date.setTime(date - date.getMilliseconds());
 }, function (date, step) {
-  date.setTime(+date + step * duration/* durationSecond */.Ym);
+  date.setTime(+date + step * durationSecond);
 }, function (start, end) {
-  return (end - start) / duration/* durationSecond */.Ym;
+  return (end - start) / durationSecond;
 }, function (date) {
   return date.getUTCSeconds();
 });
@@ -2986,12 +2987,12 @@ var seconds = second.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/minute.js
 
 
-var minute = (0,interval/* default */.Z)(function (date) {
-  date.setTime(date - date.getMilliseconds() - date.getSeconds() * duration/* durationSecond */.Ym);
+var minute = newInterval(function (date) {
+  date.setTime(date - date.getMilliseconds() - date.getSeconds() * durationSecond);
 }, function (date, step) {
-  date.setTime(+date + step * duration/* durationMinute */.yB);
+  date.setTime(+date + step * durationMinute);
 }, function (start, end) {
-  return (end - start) / duration/* durationMinute */.yB;
+  return (end - start) / durationMinute;
 }, function (date) {
   return date.getMinutes();
 });
@@ -3000,12 +3001,12 @@ var minutes = minute.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/utcMinute.js
 
 
-var utcMinute = (0,interval/* default */.Z)(function (date) {
+var utcMinute = newInterval(function (date) {
   date.setUTCSeconds(0, 0);
 }, function (date, step) {
-  date.setTime(+date + step * duration/* durationMinute */.yB);
+  date.setTime(+date + step * durationMinute);
 }, function (start, end) {
-  return (end - start) / duration/* durationMinute */.yB;
+  return (end - start) / durationMinute;
 }, function (date) {
   return date.getUTCMinutes();
 });
@@ -3014,12 +3015,12 @@ var utcMinutes = utcMinute.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/hour.js
 
 
-var hour = (0,interval/* default */.Z)(function (date) {
-  date.setTime(date - date.getMilliseconds() - date.getSeconds() * duration/* durationSecond */.Ym - date.getMinutes() * duration/* durationMinute */.yB);
+var hour = newInterval(function (date) {
+  date.setTime(date - date.getMilliseconds() - date.getSeconds() * durationSecond - date.getMinutes() * durationMinute);
 }, function (date, step) {
-  date.setTime(+date + step * duration/* durationHour */.Y2);
+  date.setTime(+date + step * durationHour);
 }, function (start, end) {
-  return (end - start) / duration/* durationHour */.Y2;
+  return (end - start) / durationHour;
 }, function (date) {
   return date.getHours();
 });
@@ -3028,20 +3029,78 @@ var hours = hour.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/utcHour.js
 
 
-var utcHour = (0,interval/* default */.Z)(function (date) {
+var utcHour = newInterval(function (date) {
   date.setUTCMinutes(0, 0, 0);
 }, function (date, step) {
-  date.setTime(+date + step * duration/* durationHour */.Y2);
+  date.setTime(+date + step * durationHour);
 }, function (start, end) {
-  return (end - start) / duration/* durationHour */.Y2;
+  return (end - start) / durationHour;
 }, function (date) {
   return date.getUTCHours();
 });
 /* harmony default export */ var src_utcHour = (utcHour);
 var utcHours = utcHour.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time/src/week.js
+
+
+
+function weekday(i) {
+  return newInterval(function (date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function (start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+  });
+}
+
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+var sundays = sunday.range;
+var mondays = monday.range;
+var tuesdays = tuesday.range;
+var wednesdays = wednesday.range;
+var thursdays = thursday.range;
+var fridays = friday.range;
+var saturdays = saturday.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time/src/utcWeek.js
+
+
+
+function utcWeekday(i) {
+  return newInterval(function (date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function (start, end) {
+    return (end - start) / durationWeek;
+  });
+}
+
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+var utcSundays = utcSunday.range;
+var utcMondays = utcMonday.range;
+var utcTuesdays = utcTuesday.range;
+var utcWednesdays = utcWednesday.range;
+var utcThursdays = utcThursday.range;
+var utcFridays = utcFriday.range;
+var utcSaturdays = utcSaturday.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/month.js
 
-var month = (0,interval/* default */.Z)(function (date) {
+var month = newInterval(function (date) {
   date.setDate(1);
   date.setHours(0, 0, 0, 0);
 }, function (date, step) {
@@ -3055,7 +3114,7 @@ var month = (0,interval/* default */.Z)(function (date) {
 var months = month.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/utcMonth.js
 
-var utcMonth = (0,interval/* default */.Z)(function (date) {
+var utcMonth = newInterval(function (date) {
   date.setUTCDate(1);
   date.setUTCHours(0, 0, 0, 0);
 }, function (date, step) {
@@ -3067,20 +3126,58 @@ var utcMonth = (0,interval/* default */.Z)(function (date) {
 });
 /* harmony default export */ var src_utcMonth = (utcMonth);
 var utcMonths = utcMonth.range;
-// EXTERNAL MODULE: ./node_modules/d3-time/src/day.js
-var day = __webpack_require__(70018);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/utcDay.js
-var utcDay = __webpack_require__(81898);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/week.js
-var week = __webpack_require__(3001);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/utcWeek.js
-var utcWeek = __webpack_require__(77653);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/year.js
-var year = __webpack_require__(83706);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/utcYear.js
-var utcYear = __webpack_require__(75805);
-// EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 1 modules
-var defaultLocale = __webpack_require__(38987);
+;// CONCATENATED MODULE: ./node_modules/d3-time/src/year.js
+
+var year = newInterval(function (date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function (start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function (date) {
+  return date.getFullYear();
+}); // An optimized implementation for this simple case.
+
+year.every = function (k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function (date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+/* harmony default export */ var src_year = (year);
+var years = year.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time/src/utcYear.js
+
+var utcYear = newInterval(function (date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function (start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function (date) {
+  return date.getUTCFullYear();
+}); // An optimized implementation for this simple case.
+
+utcYear.every = function (k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function (date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+/* harmony default export */ var src_utcYear = (utcYear);
+var utcYears = utcYear.range;
+// EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 9 modules
+var defaultLocale = __webpack_require__(12439);
 // EXTERNAL MODULE: ./node_modules/d3-format/src/defaultLocale.js + 11 modules
 var src_defaultLocale = __webpack_require__(61270);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
@@ -3144,6 +3241,64 @@ function _objectSpread2(target) {
   return target;
 }
 
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
 var centerScale = function centerScale(scale) {
   var bandwidth = scale.bandwidth();
   if (bandwidth === 0) return scale;
@@ -3160,22 +3315,40 @@ var centerScale = function centerScale(scale) {
   };
 };
 
+var timeDay = newInterval(function (date) {
+  return date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  return date.setDate(date.getDate() + step);
+}, function (start, end) {
+  return (end.getTime() - start.getTime()) / 864e5;
+}, function (date) {
+  return Math.floor(date.getTime() / 864e5);
+});
+var utcDay = newInterval(function (date) {
+  return date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  return date.setUTCDate(date.getUTCDate() + step);
+}, function (start, end) {
+  return (end.getTime() - start.getTime()) / 864e5;
+}, function (date) {
+  return Math.floor(date.getTime() / 864e5);
+});
 var timeByType = {
   millisecond: [src_millisecond, src_millisecond],
   second: [src_second, src_second],
   minute: [src_minute, src_utcMinute],
   hour: [src_hour, src_utcHour],
-  day: [day/* default */.Z, utcDay/* default */.Z],
-  week: [week/* sunday */.OM, utcWeek/* utcSunday */.Ox],
-  sunday: [week/* sunday */.OM, utcWeek/* utcSunday */.Ox],
-  monday: [week/* monday */.wA, utcWeek/* utcMonday */.l6],
-  tuesday: [week/* tuesday */.sy, utcWeek/* utcTuesday */.J1],
-  wednesday: [week/* wednesday */.zg, utcWeek/* utcWednesday */.b3],
-  thursday: [week/* thursday */.bL, utcWeek/* utcThursday */.hB],
-  friday: [week/* friday */.mC, utcWeek/* utcFriday */.QQ],
-  saturday: [week/* saturday */.EY, utcWeek/* utcSaturday */.g4],
+  day: [timeDay, utcDay],
+  week: [sunday, utcSunday],
+  sunday: [sunday, utcSunday],
+  monday: [monday, utcMonday],
+  tuesday: [tuesday, utcTuesday],
+  wednesday: [wednesday, utcWednesday],
+  thursday: [thursday, utcThursday],
+  friday: [friday, utcFriday],
+  saturday: [saturday, utcSaturday],
   month: [src_month, src_utcMonth],
-  year: [year/* default */.Z, utcYear/* default */.Z]
+  year: [src_year, src_utcYear]
 };
 var timeTypes = Object.keys(timeByType);
 var timeIntervalRegexp = new RegExp("^every\\s*(\\d+)?\\s*(".concat(timeTypes.join('|'), ")s?$"), 'i');
@@ -3193,6 +3366,43 @@ var getScaleTicks = function getScaleTicks(scale, spec) {
     return spec;
   }
 
+  if (typeof spec === 'string' && 'useUTC' in scale) {
+    var matches = spec.match(timeIntervalRegexp);
+
+    if (matches) {
+      var _matches = _slicedToArray(matches, 3),
+          amount = _matches[1],
+          type = _matches[2];
+
+      var timeType = timeByType[type][scale.useUTC ? 1 : 0];
+
+      if (type === 'day') {
+        var _timeType$every$range, _timeType$every;
+
+        var _scale$domain = scale.domain(),
+            _scale$domain2 = _slicedToArray(_scale$domain, 2),
+            start = _scale$domain2[0],
+            originalStop = _scale$domain2[1];
+
+        var stop = new Date(originalStop);
+        stop.setDate(stop.getDate() + 1);
+        return (_timeType$every$range = (_timeType$every = timeType.every(Number(amount !== null && amount !== void 0 ? amount : 1))) === null || _timeType$every === void 0 ? void 0 : _timeType$every.range(start, stop)) !== null && _timeType$every$range !== void 0 ? _timeType$every$range : [];
+      }
+
+      if (amount === undefined) {
+        return scale.ticks(timeType);
+      }
+
+      var interval = timeType.every(Number(amount));
+
+      if (interval) {
+        return scale.ticks(interval);
+      }
+    }
+
+    throw new Error("Invalid tickValues: ".concat(spec));
+  }
+
   if ('ticks' in scale) {
     if (spec === undefined) {
       return scale.ticks();
@@ -3200,26 +3410,6 @@ var getScaleTicks = function getScaleTicks(scale, spec) {
 
     if (isInteger(spec)) {
       return scale.ticks(spec);
-    }
-
-    if (typeof spec === 'string' && 'useUTC' in scale) {
-      var matches = spec.match(timeIntervalRegexp);
-
-      if (matches) {
-        var timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0];
-
-        if (matches[1] === undefined) {
-          return scale.ticks(timeType);
-        }
-
-        var interval = timeType.every(Number(matches[1]));
-
-        if (interval) {
-          return scale.ticks(interval);
-        }
-      }
-
-      throw new Error("Invalid tickValues: ".concat(spec));
     }
   }
 
@@ -3333,8 +3523,7 @@ var computeGridLines = function computeGridLines(_ref2) {
       axis = _ref2.axis,
       _values = _ref2.values;
   var lineValues = isArray(_values) ? _values : undefined;
-  var lineCount = isInteger(_values) ? _values : undefined;
-  var values = lineValues || getScaleTicks(scale, lineCount);
+  var values = lineValues || getScaleTicks(scale, _values);
   var position = 'bandwidth' in scale ? centerScale(scale) : scale;
   var lines = axis === 'x' ? values.map(function (value) {
     var _position3, _position4;
@@ -3393,7 +3582,7 @@ var AxisTick = function AxisTick(_ref) {
       }
     };
   }, [animatedProps.opacity, _onClick, value]);
-  return react.createElement(web/* animated.g */.q.g, Object.assign({
+  return react.createElement(react_spring_web_esm/* animated.g */.q.g, Object.assign({
     transform: animatedProps.transform
   }, props), react.createElement("line", {
     x1: 0,
@@ -3401,7 +3590,7 @@ var AxisTick = function AxisTick(_ref) {
     y1: 0,
     y2: lineY,
     style: theme.axis.ticks.line
-  }), react.createElement(web/* animated.text */.q.text, {
+  }), react.createElement(react_spring_web_esm/* animated.text */.q.text, {
     dominantBaseline: textBaseline,
     textAnchor: textAnchor,
     transform: animatedProps.textTransform,
@@ -3503,14 +3692,14 @@ var Axis = function Axis(_ref) {
       animate = _useMotionConfig.animate,
       springConfig = _useMotionConfig.config;
 
-  var animatedProps = (0,web.useSpring)({
+  var animatedProps = (0,react_spring_web_esm.useSpring)({
     transform: "translate(".concat(x, ",").concat(y, ")"),
     lineX2: axis === 'x' ? length : 0,
     lineY2: axis === 'x' ? 0 : length,
     config: springConfig,
     immediate: !animate
   });
-  var transition = (0,web.useTransition)(ticks, {
+  var transition = (0,react_spring_web_esm.useTransition)(ticks, {
     keys: function keys(tick) {
       return tick.key;
     },
@@ -3548,7 +3737,7 @@ var Axis = function Axis(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement(web/* animated.g */.q.g, {
+  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
     transform: animatedProps.transform,
     "aria-hidden": ariaHidden
   }, transition(function (transitionProps, tick, _state, tickIndex) {
@@ -3562,7 +3751,7 @@ var Axis = function Axis(_ref) {
     }, tick), onClick ? {
       onClick: onClick
     } : {}));
-  }), react.createElement(web/* animated.line */.q.line, {
+  }), react.createElement(react_spring_web_esm/* animated.line */.q.line, {
     style: theme.axis.domain.line,
     x1: 0,
     x2: animatedProps.lineX2,
@@ -3622,7 +3811,7 @@ var Axes = (0,react.memo)(function (_ref) {
 var GridLine = (0,react.memo)(function (_ref) {
   var animatedProps = _ref.animatedProps;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
-  return react.createElement(web/* animated.line */.q.line, Object.assign({}, animatedProps, theme.grid.line));
+  return react.createElement(react_spring_web_esm/* animated.line */.q.line, Object.assign({}, animatedProps, theme.grid.line));
 });
 var GridLines = (0,react.memo)(function (_ref) {
   var lines = _ref.lines;
@@ -3631,7 +3820,7 @@ var GridLines = (0,react.memo)(function (_ref) {
       animate = _useMotionConfig.animate,
       springConfig = _useMotionConfig.config;
 
-  var transition = (0,web.useTransition)(lines, {
+  var transition = (0,react_spring_web_esm.useTransition)(lines, {
     keys: function keys(line) {
       return line.key;
     },
@@ -4632,8 +4821,8 @@ var set = __webpack_require__(36968);
 var set_default = /*#__PURE__*/__webpack_require__.n(set);
 // EXTERNAL MODULE: ./node_modules/d3-interpolate/src/string.js
 var string = __webpack_require__(95147);
-// EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
-var web = __webpack_require__(9514);
+// EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
+var react_spring_web_esm = __webpack_require__(85468);
 // EXTERNAL MODULE: ./node_modules/lodash/isString.js
 var isString = __webpack_require__(47037);
 var isString_default = /*#__PURE__*/__webpack_require__.n(isString);
@@ -6146,8 +6335,8 @@ function squarifyRatio(ratio, parent, x0, y0, x1, y1) {
 })(phi));
 // EXTERNAL MODULE: ./node_modules/d3-format/src/defaultLocale.js + 11 modules
 var defaultLocale = __webpack_require__(61270);
-// EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 1 modules
-var src_defaultLocale = __webpack_require__(38987);
+// EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 9 modules
+var src_defaultLocale = __webpack_require__(12439);
 // EXTERNAL MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
 var nivo_recompose_es = __webpack_require__(21566);
 // EXTERNAL MODULE: ./node_modules/lodash/isEqual.js
@@ -6266,6 +6455,15 @@ var gridThemePropType = prop_types_default().shape({
   }).isRequired
 });
 var legendsThemePropType = prop_types_default().shape({
+  hidden: prop_types_default().shape({
+    symbol: prop_types_default().shape({
+      fill: (prop_types_default()).string.isRequired,
+      opacity: (prop_types_default()).number
+    }).isRequired,
+    text: prop_types_default().shape(_objectSpread2(_objectSpread2({}, textProps), {}, {
+      opacity: (prop_types_default()).number
+    })).isRequired
+  }).isRequired,
   text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
 });
 var labelsThemePropType = prop_types_default().shape({
@@ -6353,6 +6551,16 @@ var defaultTheme = {
     }
   },
   legends: {
+    hidden: {
+      symbol: {
+        fill: '#333333',
+        opacity: 0.6
+      },
+      text: {
+        fill: '#333333',
+        opacity: 0.6
+      }
+    },
     text: {}
   },
   labels: {
@@ -6454,7 +6662,7 @@ var MotionConfigProvider = function MotionConfigProvider(_ref) {
       damping = _ref.damping,
       config$1 = _ref.config;
   var value = (0,react.useMemo)(function () {
-    var reactSpringConfig = isString_default()(config$1) ? web.config[config$1] : config$1;
+    var reactSpringConfig = isString_default()(config$1) ? react_spring_web_esm.config[config$1] : config$1;
     return {
       animate: animate,
       springConfig: {
@@ -6473,7 +6681,7 @@ var motionPropTypes = {
   animate: (prop_types_default()).bool,
   motionStiffness: (prop_types_default()).number,
   motionDamping: (prop_types_default()).number,
-  motionConfig: prop_types_default().oneOfType([prop_types_default().oneOf(Object.keys(web.config)), prop_types_default().shape({
+  motionConfig: prop_types_default().oneOfType([prop_types_default().oneOf(Object.keys(react_spring_web_esm.config)), prop_types_default().shape({
     mass: (prop_types_default()).number,
     tension: (prop_types_default()).number,
     friction: (prop_types_default()).number,
@@ -6514,7 +6722,7 @@ var useAnimatedPath = function useAnimatedPath(path) {
     return (0,string/* default */.Z)(previousPath, path);
   }, [previousPath, path]);
 
-  var _useSpring = (0,web.useSpring)({
+  var _useSpring = (0,react_spring_web_esm.useSpring)({
     from: {
       value: 0
     },
@@ -6527,7 +6735,7 @@ var useAnimatedPath = function useAnimatedPath(path) {
   }),
       value = _useSpring.value;
 
-  return (0,web.to)(value, interpolator);
+  return (0,react_spring_web_esm.to)(value, interpolator);
 };
 
 var quantizeColorScales = {
@@ -7500,7 +7708,6 @@ var index = function () {
 
 var useMeasure = function useMeasure() {
   var measureRef = (0,react.useRef)(null);
-  var animationFrameId = (0,react.useRef)(null);
 
   var _useState = (0,react.useState)({
     left: 0,
@@ -7517,9 +7724,7 @@ var useMeasure = function useMeasure() {
       var _ref2 = _slicedToArray(_ref, 1),
           entry = _ref2[0];
 
-      animationFrameId.current = requestAnimationFrame(function () {
-        setBounds(entry.contentRect);
-      });
+      return setBounds(entry.contentRect);
     });
   }),
       _useState4 = _slicedToArray(_useState3, 1),
@@ -7531,11 +7736,7 @@ var useMeasure = function useMeasure() {
     }
 
     return function () {
-      if (animationFrameId.current) {
-        cancelAnimationFrame(animationFrameId.current);
-      }
-
-      observer.disconnect();
+      return observer.disconnect();
     };
   }, []);
   return [measureRef, bounds];
@@ -8129,12 +8330,12 @@ var DotsItem = function DotsItem(_ref) {
       animate = _useMotionConfig.animate,
       springConfig = _useMotionConfig.config;
 
-  var animatedProps = (0,web.useSpring)({
+  var animatedProps = (0,react_spring_web_esm.useSpring)({
     transform: "translate(".concat(x, ", ").concat(y, ")"),
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement(web/* animated.g */.q.g, {
+  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
     transform: animatedProps.transform,
     style: {
       pointerEvents: 'none'
@@ -9228,6 +9429,8 @@ var SymbolCircle = function SymbolCircle(_ref) {
       y = _ref.y,
       size = _ref.size,
       fill = _ref.fill,
+      _ref$opacity = _ref.opacity,
+      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
       _ref$borderWidth = _ref.borderWidth,
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
@@ -9237,6 +9440,7 @@ var SymbolCircle = function SymbolCircle(_ref) {
     cx: x + size / 2,
     cy: y + size / 2,
     fill: fill,
+    opacity: opacity,
     strokeWidth: borderWidth,
     stroke: borderColor,
     style: {
@@ -9250,6 +9454,8 @@ var SymbolDiamond = function SymbolDiamond(_ref) {
       y = _ref.y,
       size = _ref.size,
       fill = _ref.fill,
+      _ref$opacity = _ref.opacity,
+      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
       _ref$borderWidth = _ref.borderWidth,
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
@@ -9259,6 +9465,7 @@ var SymbolDiamond = function SymbolDiamond(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
     d: "\n                    M".concat(size / 2, " 0\n                    L").concat(size * 0.8, " ").concat(size / 2, "\n                    L").concat(size / 2, " ").concat(size, "\n                    L").concat(size * 0.2, " ").concat(size / 2, "\n                    L").concat(size / 2, " 0\n                "),
     fill: fill,
+    opacity: opacity,
     strokeWidth: borderWidth,
     stroke: borderColor,
     style: {
@@ -9272,6 +9479,8 @@ var SymbolSquare = function SymbolSquare(_ref) {
       y = _ref.y,
       size = _ref.size,
       fill = _ref.fill,
+      _ref$opacity = _ref.opacity,
+      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
       _ref$borderWidth = _ref.borderWidth,
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
@@ -9280,6 +9489,7 @@ var SymbolSquare = function SymbolSquare(_ref) {
     x: x,
     y: y,
     fill: fill,
+    opacity: opacity,
     strokeWidth: borderWidth,
     stroke: borderColor,
     width: size,
@@ -9295,6 +9505,8 @@ var SymbolTriangle = function SymbolTriangle(_ref) {
       y = _ref.y,
       size = _ref.size,
       fill = _ref.fill,
+      _ref$opacity = _ref.opacity,
+      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
       _ref$borderWidth = _ref.borderWidth,
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
@@ -9304,6 +9516,7 @@ var SymbolTriangle = function SymbolTriangle(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
     d: "\n                M".concat(size / 2, " 0\n                L").concat(size, " ").concat(size, "\n                L0 ").concat(size, "\n                L").concat(size / 2, " 0\n            "),
     fill: fill,
+    opacity: opacity,
     strokeWidth: borderWidth,
     stroke: borderColor,
     style: {
@@ -9349,6 +9562,7 @@ var LegendSvgItem = function LegendSvgItem(_ref) {
       _onClick = _ref.onClick,
       onMouseEnter = _ref.onMouseEnter,
       onMouseLeave = _ref.onMouseLeave,
+      toggleSerie = _ref.toggleSerie,
       effects = _ref.effects;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
@@ -9405,7 +9619,7 @@ var LegendSvgItem = function LegendSvgItem(_ref) {
       labelAnchor = _computeItemLayout.labelAnchor,
       labelAlignment = _computeItemLayout.labelAlignment;
 
-  var isInteractive = [_onClick, onMouseEnter, onMouseLeave].some(function (handler) {
+  var isInteractive = [_onClick, onMouseEnter, onMouseLeave, toggleSerie].some(function (handler) {
     return handler !== undefined;
   });
   var SymbolShape = typeof symbolShape === 'function' ? symbolShape : symbolByShape[symbolShape];
@@ -9423,10 +9637,11 @@ var LegendSvgItem = function LegendSvgItem(_ref) {
     },
     onClick: function onClick(event) {
       _onClick === null || _onClick === void 0 ? void 0 : _onClick(data, event);
+      toggleSerie === null || toggleSerie === void 0 ? void 0 : toggleSerie(data.id);
     },
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(SymbolShape, {
+  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(SymbolShape, _objectSpread2({
     id: data.id,
     x: symbolX,
     y: symbolY,
@@ -9434,14 +9649,14 @@ var LegendSvgItem = function LegendSvgItem(_ref) {
     fill: (_ref4 = (_data$fill = data.fill) !== null && _data$fill !== void 0 ? _data$fill : data.color) !== null && _ref4 !== void 0 ? _ref4 : 'black',
     borderWidth: (_style$symbolBorderWi = style.symbolBorderWidth) !== null && _style$symbolBorderWi !== void 0 ? _style$symbolBorderWi : symbolBorderWidth,
     borderColor: (_style$symbolBorderCo = style.symbolBorderColor) !== null && _style$symbolBorderCo !== void 0 ? _style$symbolBorderCo : symbolBorderColor
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", {
+  }, data.hidden ? theme.legends.hidden.symbol : undefined)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", {
     textAnchor: labelAnchor,
     style: _objectSpread2(_objectSpread2({}, theme.legends.text), {}, {
       fill: (_ref5 = (_ref6 = (_style$itemTextColor = style.itemTextColor) !== null && _style$itemTextColor !== void 0 ? _style$itemTextColor : textColor) !== null && _ref6 !== void 0 ? _ref6 : theme.legends.text.fill) !== null && _ref5 !== void 0 ? _ref5 : 'black',
       dominantBaseline: labelAlignment,
       pointerEvents: 'none',
       userSelect: 'none'
-    }),
+    }, data.hidden ? theme.legends.hidden.text : undefined),
     x: labelX,
     y: labelY
   }, data.label));
@@ -9474,7 +9689,8 @@ var LegendSvg = function LegendSvg(_ref) {
       symbolBorderColor = _ref.symbolBorderColor,
       onClick = _ref.onClick,
       onMouseEnter = _ref.onMouseEnter,
-      onMouseLeave = _ref.onMouseLeave;
+      onMouseLeave = _ref.onMouseLeave,
+      toggleSerie = _ref.toggleSerie;
 
   var _computeDimensions = computeDimensions({
     itemCount: data.length,
@@ -9511,7 +9727,8 @@ var LegendSvg = function LegendSvg(_ref) {
       symbolBorderColor: symbolBorderColor,
       onClick: onClick,
       onMouseEnter: onMouseEnter,
-      onMouseLeave: onMouseLeave
+      onMouseLeave: onMouseLeave,
+      toggleSerie: toggleSerie
     });
   }));
 };
@@ -9545,6 +9762,7 @@ var BoxLegendSvg = function BoxLegendSvg(_ref) {
       onClick = _ref.onClick,
       onMouseEnter = _ref.onMouseEnter,
       onMouseLeave = _ref.onMouseLeave,
+      toggleSerie = _ref.toggleSerie,
       effects = _ref.effects;
 
   var _computeDimensions = computeDimensions({
@@ -9592,7 +9810,8 @@ var BoxLegendSvg = function BoxLegendSvg(_ref) {
     symbolBorderColor: symbolBorderColor,
     onClick: onClick,
     onMouseEnter: onMouseEnter,
-    onMouseLeave: onMouseLeave
+    onMouseLeave: onMouseLeave,
+    toggleSerie: typeof toggleSerie === 'boolean' ? undefined : toggleSerie
   });
 };
 
@@ -9727,12 +9946,7 @@ var useQuantizeColorScaleLegendData = function useQuantizeColorScaleLegendData(_
 };
 
 var LegendPropShape = {
-  data: prop_types__WEBPACK_IMPORTED_MODULE_2___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default().shape({
-    id: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number)]).isRequired,
-    label: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number)]).isRequired,
-    color: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-    fill: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)
-  })),
+  data: prop_types__WEBPACK_IMPORTED_MODULE_2___default().arrayOf((prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)),
   anchor: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['top', 'top-right', 'right', 'bottom-right', 'bottom', 'bottom-left', 'left', 'top-left', 'center']).isRequired,
   translateX: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
   translateY: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
@@ -10248,241 +10462,161 @@ var withState = function withState(stateName, stateUpdaterName, initialState) {
 
 /***/ }),
 
-/***/ 30982:
+/***/ 4189:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "bo": function() { return /* binding */ bandScalePropTypes; },
   "ZN": function() { return /* binding */ computeScale; },
-  "Gi": function() { return /* binding */ computeXYScalesForSeries; },
-  "t4": function() { return /* binding */ scalePropType; }
+  "Gi": function() { return /* binding */ computeXYScalesForSeries; }
 });
 
-// UNUSED EXPORTS: TIME_PRECISION_DAY, TIME_PRECISION_HOUR, TIME_PRECISION_MILLISECOND, TIME_PRECISION_MINUTE, TIME_PRECISION_MONTH, TIME_PRECISION_SECOND, TIME_PRECISION_YEAR, compareDateValues, compareValues, computeAxisSlices, computeXSlices, computeYSlices, createDateNormalizer, createPrecisionMethod, generateSeriesAxis, generateSeriesXY, getOtherAxis, linearScale, linearScalePropTypes, logScale, logScalePropTypes, pointScale, pointScalePropTypes, precisionCutOffs, precisionCutOffsByType, stackAxis, stackX, stackY, symLogScalePropTypes, symlogScale, timePrecisions, timeScale, timeScalePropTypes
+// UNUSED EXPORTS: compareDateValues, compareValues, createBandScale, createDateNormalizer, createLinearScale, createLogScale, createPointScale, createPrecisionMethod, createSymlogScale, createTimeScale, generateSeriesAxis, generateSeriesXY, getOtherAxis, precisionCutOffs, precisionCutOffsByType, stackAxis, timePrecisions
 
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(45697);
-var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
-// EXTERNAL MODULE: ./node_modules/d3-array/src/ticks.js
-var src_ticks = __webpack_require__(75436);
-// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-format/src/defaultLocale.js + 8 modules
-var defaultLocale = __webpack_require__(64162);
-;// CONCATENATED MODULE: ./node_modules/d3-scale/src/nice.js
-function nice(domain, interval) {
-  domain = domain.slice();
-  var i0 = 0,
-      i1 = domain.length - 1,
-      x0 = domain[i0],
-      x1 = domain[i1],
-      t;
+// EXTERNAL MODULE: ./node_modules/lodash/uniq.js
+var uniq = __webpack_require__(44908);
+var uniq_default = /*#__PURE__*/__webpack_require__.n(uniq);
+// EXTERNAL MODULE: ./node_modules/lodash/uniqBy.js
+var uniqBy = __webpack_require__(45578);
+var uniqBy_default = /*#__PURE__*/__webpack_require__.n(uniqBy);
+// EXTERNAL MODULE: ./node_modules/lodash/sortBy.js
+var sortBy = __webpack_require__(89734);
+var sortBy_default = /*#__PURE__*/__webpack_require__.n(sortBy);
+// EXTERNAL MODULE: ./node_modules/lodash/last.js
+var last = __webpack_require__(10928);
+var last_default = /*#__PURE__*/__webpack_require__.n(last);
+// EXTERNAL MODULE: ./node_modules/lodash/isDate.js
+var isDate = __webpack_require__(47960);
+var isDate_default = /*#__PURE__*/__webpack_require__.n(isDate);
+// EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 9 modules
+var defaultLocale = __webpack_require__(12439);
+// EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
+var slicedToArray = __webpack_require__(15892);
+;// CONCATENATED MODULE: ./node_modules/d3-array/src/range.js
+/* harmony default export */ function range(start, stop, step) {
+  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+  var i = -1,
+      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+      range = new Array(n);
 
-  if (x1 < x0) {
-    t = i0, i0 = i1, i1 = t;
-    t = x0, x0 = x1, x1 = t;
+  while (++i < n) {
+    range[i] = start + i * step;
   }
 
-  domain[i0] = interval.floor(x0);
-  domain[i1] = interval.ceil(x1);
-  return domain;
+  return range;
 }
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/continuous.js + 10 modules
-var continuous = __webpack_require__(99737);
 // EXTERNAL MODULE: ./node_modules/d3-scale/src/init.js
 var init = __webpack_require__(39632);
-;// CONCATENATED MODULE: ./node_modules/d3-scale/src/log.js
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/ordinal.js
+var ordinal = __webpack_require__(34096);
+;// CONCATENATED MODULE: ./node_modules/d3-scale/src/band.js
 
 
 
 
-
-
-function transformLog(x) {
-  return Math.log(x);
-}
-
-function transformExp(x) {
-  return Math.exp(x);
-}
-
-function transformLogn(x) {
-  return -Math.log(-x);
-}
-
-function transformExpn(x) {
-  return -Math.exp(-x);
-}
-
-function pow10(x) {
-  return isFinite(x) ? +("1e" + x) : x < 0 ? 0 : x;
-}
-
-function powp(base) {
-  return base === 10 ? pow10 : base === Math.E ? Math.exp : function (x) {
-    return Math.pow(base, x);
-  };
-}
-
-function logp(base) {
-  return base === Math.E ? Math.log : base === 10 && Math.log10 || base === 2 && Math.log2 || (base = Math.log(base), function (x) {
-    return Math.log(x) / base;
-  });
-}
-
-function reflect(f) {
-  return function (x) {
-    return -f(-x);
-  };
-}
-
-function loggish(transform) {
-  var scale = transform(transformLog, transformExp),
+function band() {
+  var scale = (0,ordinal/* default */.Z)().unknown(undefined),
       domain = scale.domain,
-      base = 10,
-      logs,
-      pows;
+      ordinalRange = scale.range,
+      r0 = 0,
+      r1 = 1,
+      step,
+      bandwidth,
+      round = false,
+      paddingInner = 0,
+      paddingOuter = 0,
+      align = 0.5;
+  delete scale.unknown;
 
   function rescale() {
-    logs = logp(base), pows = powp(base);
-
-    if (domain()[0] < 0) {
-      logs = reflect(logs), pows = reflect(pows);
-      transform(transformLogn, transformExpn);
-    } else {
-      transform(transformLog, transformExp);
-    }
-
-    return scale;
+    var n = domain().length,
+        reverse = r1 < r0,
+        start = reverse ? r1 : r0,
+        stop = reverse ? r0 : r1;
+    step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
+    if (round) step = Math.floor(step);
+    start += (stop - start - step * (n - paddingInner)) * align;
+    bandwidth = step * (1 - paddingInner);
+    if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
+    var values = range(n).map(function (i) {
+      return start + step * i;
+    });
+    return ordinalRange(reverse ? values.reverse() : values);
   }
-
-  scale.base = function (_) {
-    return arguments.length ? (base = +_, rescale()) : base;
-  };
 
   scale.domain = function (_) {
     return arguments.length ? (domain(_), rescale()) : domain();
   };
 
-  scale.ticks = function (count) {
-    var d = domain(),
-        u = d[0],
-        v = d[d.length - 1],
-        r;
-    if (r = v < u) i = u, u = v, v = i;
-    var i = logs(u),
-        j = logs(v),
-        p,
-        k,
-        t,
-        n = count == null ? 10 : +count,
-        z = [];
+  scale.range = function (_) {
+    var _ref, _ref2;
 
-    if (!(base % 1) && j - i < n) {
-      i = Math.floor(i), j = Math.ceil(j);
-      if (u > 0) for (; i <= j; ++i) {
-        for (k = 1, p = pows(i); k < base; ++k) {
-          t = p * k;
-          if (t < u) continue;
-          if (t > v) break;
-          z.push(t);
-        }
-      } else for (; i <= j; ++i) {
-        for (k = base - 1, p = pows(i); k >= 1; --k) {
-          t = p * k;
-          if (t < u) continue;
-          if (t > v) break;
-          z.push(t);
-        }
-      }
-      if (z.length * 2 < n) z = (0,src_ticks/* default */.ZP)(u, v, n);
-    } else {
-      z = (0,src_ticks/* default */.ZP)(i, j, Math.min(j - i, n)).map(pows);
-    }
-
-    return r ? z.reverse() : z;
+    return arguments.length ? ((_ref = _, _ref2 = (0,slicedToArray/* default */.Z)(_ref, 2), r0 = _ref2[0], r1 = _ref2[1], _ref), r0 = +r0, r1 = +r1, rescale()) : [r0, r1];
   };
 
-  scale.tickFormat = function (count, specifier) {
-    if (specifier == null) specifier = base === 10 ? ".0e" : ",";
-    if (typeof specifier !== "function") specifier = (0,defaultLocale/* format */.WU)(specifier);
-    if (count === Infinity) return specifier;
-    if (count == null) count = 10;
-    var k = Math.max(1, base * count / scale.ticks().length); // TODO fast estimate?
+  scale.rangeRound = function (_) {
+    var _ref3, _ref4;
 
-    return function (d) {
-      var i = d / pows(Math.round(logs(d)));
-      if (i * base < base - 0.5) i *= base;
-      return i <= k ? specifier(d) : "";
-    };
+    return (_ref3 = _, _ref4 = (0,slicedToArray/* default */.Z)(_ref3, 2), r0 = _ref4[0], r1 = _ref4[1], _ref3), r0 = +r0, r1 = +r1, round = true, rescale();
   };
 
-  scale.nice = function () {
-    return domain(nice(domain(), {
-      floor: function floor(x) {
-        return pows(Math.floor(logs(x)));
-      },
-      ceil: function ceil(x) {
-        return pows(Math.ceil(logs(x)));
-      }
-    }));
+  scale.bandwidth = function () {
+    return bandwidth;
+  };
+
+  scale.step = function () {
+    return step;
+  };
+
+  scale.round = function (_) {
+    return arguments.length ? (round = !!_, rescale()) : round;
+  };
+
+  scale.padding = function (_) {
+    return arguments.length ? (paddingInner = Math.min(1, paddingOuter = +_), rescale()) : paddingInner;
+  };
+
+  scale.paddingInner = function (_) {
+    return arguments.length ? (paddingInner = Math.min(1, _), rescale()) : paddingInner;
+  };
+
+  scale.paddingOuter = function (_) {
+    return arguments.length ? (paddingOuter = +_, rescale()) : paddingOuter;
+  };
+
+  scale.align = function (_) {
+    return arguments.length ? (align = Math.max(0, Math.min(1, _)), rescale()) : align;
+  };
+
+  scale.copy = function () {
+    return band(domain(), [r0, r1]).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
+  };
+
+  return init/* initRange.apply */.o.apply(rescale(), arguments);
+}
+
+function pointish(scale) {
+  var copy = scale.copy;
+  scale.padding = scale.paddingOuter;
+  delete scale.paddingInner;
+  delete scale.paddingOuter;
+
+  scale.copy = function () {
+    return pointish(copy());
   };
 
   return scale;
 }
-function log() {
-  var scale = loggish((0,continuous/* transformer */.l4)()).domain([1, 10]);
 
-  scale.copy = function () {
-    return (0,continuous/* copy */.JG)(scale, log()).base(scale.base());
-  };
-
-  init/* initRange.apply */.o.apply(scale, arguments);
-  return scale;
+function point() {
+  return pointish(band.apply(null, arguments).paddingInner(1));
 }
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/linear.js + 4 modules
-var linear = __webpack_require__(44076);
-;// CONCATENATED MODULE: ./node_modules/d3-scale/src/symlog.js
-
-
-
-
-function transformSymlog(c) {
-  return function (x) {
-    return Math.sign(x) * Math.log1p(Math.abs(x / c));
-  };
-}
-
-function transformSymexp(c) {
-  return function (x) {
-    return Math.sign(x) * Math.expm1(Math.abs(x)) * c;
-  };
-}
-
-function symlogish(transform) {
-  var c = 1,
-      scale = transform(transformSymlog(c), transformSymexp(c));
-
-  scale.constant = function (_) {
-    return arguments.length ? transform(transformSymlog(c = +_), transformSymexp(c)) : c;
-  };
-
-  return (0,linear/* linearish */.Q)(scale);
-}
-function symlog() {
-  var scale = symlogish((0,continuous/* transformer */.l4)());
-
-  scale.copy = function () {
-    return (0,continuous/* copy */.JG)(scale, symlog()).constant(scale.constant());
-  };
-
-  return init/* initRange.apply */.o.apply(scale, arguments);
-}
-// EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
-var slicedToArray = __webpack_require__(15892);
 // EXTERNAL MODULE: ./node_modules/d3-array/src/bisector.js
 var bisector = __webpack_require__(99579);
+// EXTERNAL MODULE: ./node_modules/d3-array/src/ticks.js
+var src_ticks = __webpack_require__(75436);
 ;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-time/src/duration.js
 var durationSecond = 1000;
 var durationMinute = durationSecond * 60;
@@ -10895,738 +11029,25 @@ var _ticker3 = ticker(src_year, src_month, sunday, src_day, src_hour, src_minute
     timeTickInterval = _ticker4[1];
 
 
-;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-time-format/src/locale.js
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/continuous.js + 10 modules
+var continuous = __webpack_require__(99737);
+;// CONCATENATED MODULE: ./node_modules/d3-scale/src/nice.js
+function nice(domain, interval) {
+  domain = domain.slice();
+  var i0 = 0,
+      i1 = domain.length - 1,
+      x0 = domain[i0],
+      x1 = domain[i1],
+      t;
 
-
-function localDate(d) {
-  if (0 <= d.y && d.y < 100) {
-    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
-    date.setFullYear(d.y);
-    return date;
+  if (x1 < x0) {
+    t = i0, i0 = i1, i1 = t;
+    t = x0, x0 = x1, x1 = t;
   }
 
-  return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
-}
-
-function utcDate(d) {
-  if (0 <= d.y && d.y < 100) {
-    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
-    date.setUTCFullYear(d.y);
-    return date;
-  }
-
-  return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
-}
-
-function newDate(y, m, d) {
-  return {
-    y: y,
-    m: m,
-    d: d,
-    H: 0,
-    M: 0,
-    S: 0,
-    L: 0
-  };
-}
-
-function formatLocale(locale) {
-  var locale_dateTime = locale.dateTime,
-      locale_date = locale.date,
-      locale_time = locale.time,
-      locale_periods = locale.periods,
-      locale_weekdays = locale.days,
-      locale_shortWeekdays = locale.shortDays,
-      locale_months = locale.months,
-      locale_shortMonths = locale.shortMonths;
-  var periodRe = formatRe(locale_periods),
-      periodLookup = formatLookup(locale_periods),
-      weekdayRe = formatRe(locale_weekdays),
-      weekdayLookup = formatLookup(locale_weekdays),
-      shortWeekdayRe = formatRe(locale_shortWeekdays),
-      shortWeekdayLookup = formatLookup(locale_shortWeekdays),
-      monthRe = formatRe(locale_months),
-      monthLookup = formatLookup(locale_months),
-      shortMonthRe = formatRe(locale_shortMonths),
-      shortMonthLookup = formatLookup(locale_shortMonths);
-  var formats = {
-    "a": formatShortWeekday,
-    "A": formatWeekday,
-    "b": formatShortMonth,
-    "B": formatMonth,
-    "c": null,
-    "d": formatDayOfMonth,
-    "e": formatDayOfMonth,
-    "f": formatMicroseconds,
-    "g": formatYearISO,
-    "G": formatFullYearISO,
-    "H": formatHour24,
-    "I": formatHour12,
-    "j": formatDayOfYear,
-    "L": formatMilliseconds,
-    "m": formatMonthNumber,
-    "M": formatMinutes,
-    "p": formatPeriod,
-    "q": formatQuarter,
-    "Q": formatUnixTimestamp,
-    "s": formatUnixTimestampSeconds,
-    "S": formatSeconds,
-    "u": formatWeekdayNumberMonday,
-    "U": formatWeekNumberSunday,
-    "V": formatWeekNumberISO,
-    "w": formatWeekdayNumberSunday,
-    "W": formatWeekNumberMonday,
-    "x": null,
-    "X": null,
-    "y": formatYear,
-    "Y": formatFullYear,
-    "Z": formatZone,
-    "%": formatLiteralPercent
-  };
-  var utcFormats = {
-    "a": formatUTCShortWeekday,
-    "A": formatUTCWeekday,
-    "b": formatUTCShortMonth,
-    "B": formatUTCMonth,
-    "c": null,
-    "d": formatUTCDayOfMonth,
-    "e": formatUTCDayOfMonth,
-    "f": formatUTCMicroseconds,
-    "g": formatUTCYearISO,
-    "G": formatUTCFullYearISO,
-    "H": formatUTCHour24,
-    "I": formatUTCHour12,
-    "j": formatUTCDayOfYear,
-    "L": formatUTCMilliseconds,
-    "m": formatUTCMonthNumber,
-    "M": formatUTCMinutes,
-    "p": formatUTCPeriod,
-    "q": formatUTCQuarter,
-    "Q": formatUnixTimestamp,
-    "s": formatUnixTimestampSeconds,
-    "S": formatUTCSeconds,
-    "u": formatUTCWeekdayNumberMonday,
-    "U": formatUTCWeekNumberSunday,
-    "V": formatUTCWeekNumberISO,
-    "w": formatUTCWeekdayNumberSunday,
-    "W": formatUTCWeekNumberMonday,
-    "x": null,
-    "X": null,
-    "y": formatUTCYear,
-    "Y": formatUTCFullYear,
-    "Z": formatUTCZone,
-    "%": formatLiteralPercent
-  };
-  var parses = {
-    "a": parseShortWeekday,
-    "A": parseWeekday,
-    "b": parseShortMonth,
-    "B": parseMonth,
-    "c": parseLocaleDateTime,
-    "d": parseDayOfMonth,
-    "e": parseDayOfMonth,
-    "f": parseMicroseconds,
-    "g": parseYear,
-    "G": parseFullYear,
-    "H": parseHour24,
-    "I": parseHour24,
-    "j": parseDayOfYear,
-    "L": parseMilliseconds,
-    "m": parseMonthNumber,
-    "M": parseMinutes,
-    "p": parsePeriod,
-    "q": parseQuarter,
-    "Q": parseUnixTimestamp,
-    "s": parseUnixTimestampSeconds,
-    "S": parseSeconds,
-    "u": parseWeekdayNumberMonday,
-    "U": parseWeekNumberSunday,
-    "V": parseWeekNumberISO,
-    "w": parseWeekdayNumberSunday,
-    "W": parseWeekNumberMonday,
-    "x": parseLocaleDate,
-    "X": parseLocaleTime,
-    "y": parseYear,
-    "Y": parseFullYear,
-    "Z": parseZone,
-    "%": parseLiteralPercent
-  }; // These recursive directive definitions must be deferred.
-
-  formats.x = newFormat(locale_date, formats);
-  formats.X = newFormat(locale_time, formats);
-  formats.c = newFormat(locale_dateTime, formats);
-  utcFormats.x = newFormat(locale_date, utcFormats);
-  utcFormats.X = newFormat(locale_time, utcFormats);
-  utcFormats.c = newFormat(locale_dateTime, utcFormats);
-
-  function newFormat(specifier, formats) {
-    return function (date) {
-      var string = [],
-          i = -1,
-          j = 0,
-          n = specifier.length,
-          c,
-          pad,
-          format;
-      if (!(date instanceof Date)) date = new Date(+date);
-
-      while (++i < n) {
-        if (specifier.charCodeAt(i) === 37) {
-          string.push(specifier.slice(j, i));
-          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);else pad = c === "e" ? " " : "0";
-          if (format = formats[c]) c = format(date, pad);
-          string.push(c);
-          j = i + 1;
-        }
-      }
-
-      string.push(specifier.slice(j, i));
-      return string.join("");
-    };
-  }
-
-  function newParse(specifier, Z) {
-    return function (string) {
-      var d = newDate(1900, undefined, 1),
-          i = parseSpecifier(d, specifier, string += "", 0),
-          week,
-          day;
-      if (i != string.length) return null; // If a UNIX timestamp is specified, return it.
-
-      if ("Q" in d) return new Date(d.Q);
-      if ("s" in d) return new Date(d.s * 1000 + ("L" in d ? d.L : 0)); // If this is utcParse, never use the local timezone.
-
-      if (Z && !("Z" in d)) d.Z = 0; // The am-pm flag is 0 for AM, and 1 for PM.
-
-      if ("p" in d) d.H = d.H % 12 + d.p * 12; // If the month was not specified, inherit from the quarter.
-
-      if (d.m === undefined) d.m = "q" in d ? d.q : 0; // Convert day-of-week and week-of-year to day-of-year.
-
-      if ("V" in d) {
-        if (d.V < 1 || d.V > 53) return null;
-        if (!("w" in d)) d.w = 1;
-
-        if ("Z" in d) {
-          week = utcDate(newDate(d.y, 0, 1)), day = week.getUTCDay();
-          week = day > 4 || day === 0 ? utcMonday.ceil(week) : utcMonday(week);
-          week = src_utcDay.offset(week, (d.V - 1) * 7);
-          d.y = week.getUTCFullYear();
-          d.m = week.getUTCMonth();
-          d.d = week.getUTCDate() + (d.w + 6) % 7;
-        } else {
-          week = localDate(newDate(d.y, 0, 1)), day = week.getDay();
-          week = day > 4 || day === 0 ? monday.ceil(week) : monday(week);
-          week = src_day.offset(week, (d.V - 1) * 7);
-          d.y = week.getFullYear();
-          d.m = week.getMonth();
-          d.d = week.getDate() + (d.w + 6) % 7;
-        }
-      } else if ("W" in d || "U" in d) {
-        if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
-        day = "Z" in d ? utcDate(newDate(d.y, 0, 1)).getUTCDay() : localDate(newDate(d.y, 0, 1)).getDay();
-        d.m = 0;
-        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
-      } // If a time zone is specified, all fields are interpreted as UTC and then
-      // offset according to the specified time zone.
-
-
-      if ("Z" in d) {
-        d.H += d.Z / 100 | 0;
-        d.M += d.Z % 100;
-        return utcDate(d);
-      } // Otherwise, all fields are in local time.
-
-
-      return localDate(d);
-    };
-  }
-
-  function parseSpecifier(d, specifier, string, j) {
-    var i = 0,
-        n = specifier.length,
-        m = string.length,
-        c,
-        parse;
-
-    while (i < n) {
-      if (j >= m) return -1;
-      c = specifier.charCodeAt(i++);
-
-      if (c === 37) {
-        c = specifier.charAt(i++);
-        parse = parses[c in pads ? specifier.charAt(i++) : c];
-        if (!parse || (j = parse(d, string, j)) < 0) return -1;
-      } else if (c != string.charCodeAt(j++)) {
-        return -1;
-      }
-    }
-
-    return j;
-  }
-
-  function parsePeriod(d, string, i) {
-    var n = periodRe.exec(string.slice(i));
-    return n ? (d.p = periodLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
-  }
-
-  function parseShortWeekday(d, string, i) {
-    var n = shortWeekdayRe.exec(string.slice(i));
-    return n ? (d.w = shortWeekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
-  }
-
-  function parseWeekday(d, string, i) {
-    var n = weekdayRe.exec(string.slice(i));
-    return n ? (d.w = weekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
-  }
-
-  function parseShortMonth(d, string, i) {
-    var n = shortMonthRe.exec(string.slice(i));
-    return n ? (d.m = shortMonthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
-  }
-
-  function parseMonth(d, string, i) {
-    var n = monthRe.exec(string.slice(i));
-    return n ? (d.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
-  }
-
-  function parseLocaleDateTime(d, string, i) {
-    return parseSpecifier(d, locale_dateTime, string, i);
-  }
-
-  function parseLocaleDate(d, string, i) {
-    return parseSpecifier(d, locale_date, string, i);
-  }
-
-  function parseLocaleTime(d, string, i) {
-    return parseSpecifier(d, locale_time, string, i);
-  }
-
-  function formatShortWeekday(d) {
-    return locale_shortWeekdays[d.getDay()];
-  }
-
-  function formatWeekday(d) {
-    return locale_weekdays[d.getDay()];
-  }
-
-  function formatShortMonth(d) {
-    return locale_shortMonths[d.getMonth()];
-  }
-
-  function formatMonth(d) {
-    return locale_months[d.getMonth()];
-  }
-
-  function formatPeriod(d) {
-    return locale_periods[+(d.getHours() >= 12)];
-  }
-
-  function formatQuarter(d) {
-    return 1 + ~~(d.getMonth() / 3);
-  }
-
-  function formatUTCShortWeekday(d) {
-    return locale_shortWeekdays[d.getUTCDay()];
-  }
-
-  function formatUTCWeekday(d) {
-    return locale_weekdays[d.getUTCDay()];
-  }
-
-  function formatUTCShortMonth(d) {
-    return locale_shortMonths[d.getUTCMonth()];
-  }
-
-  function formatUTCMonth(d) {
-    return locale_months[d.getUTCMonth()];
-  }
-
-  function formatUTCPeriod(d) {
-    return locale_periods[+(d.getUTCHours() >= 12)];
-  }
-
-  function formatUTCQuarter(d) {
-    return 1 + ~~(d.getUTCMonth() / 3);
-  }
-
-  return {
-    format: function format(specifier) {
-      var f = newFormat(specifier += "", formats);
-
-      f.toString = function () {
-        return specifier;
-      };
-
-      return f;
-    },
-    parse: function parse(specifier) {
-      var p = newParse(specifier += "", false);
-
-      p.toString = function () {
-        return specifier;
-      };
-
-      return p;
-    },
-    utcFormat: function utcFormat(specifier) {
-      var f = newFormat(specifier += "", utcFormats);
-
-      f.toString = function () {
-        return specifier;
-      };
-
-      return f;
-    },
-    utcParse: function utcParse(specifier) {
-      var p = newParse(specifier += "", true);
-
-      p.toString = function () {
-        return specifier;
-      };
-
-      return p;
-    }
-  };
-}
-var pads = {
-  "-": "",
-  "_": " ",
-  "0": "0"
-},
-    numberRe = /^\s*\d+/,
-    // note: ignores next directive
-percentRe = /^%/,
-    requoteRe = /[\\^$*+?|[\]().{}]/g;
-
-function pad(value, fill, width) {
-  var sign = value < 0 ? "-" : "",
-      string = (sign ? -value : value) + "",
-      length = string.length;
-  return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
-}
-
-function requote(s) {
-  return s.replace(requoteRe, "\\$&");
-}
-
-function formatRe(names) {
-  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
-}
-
-function formatLookup(names) {
-  return new Map(names.map(function (name, i) {
-    return [name.toLowerCase(), i];
-  }));
-}
-
-function parseWeekdayNumberSunday(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 1));
-  return n ? (d.w = +n[0], i + n[0].length) : -1;
-}
-
-function parseWeekdayNumberMonday(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 1));
-  return n ? (d.u = +n[0], i + n[0].length) : -1;
-}
-
-function parseWeekNumberSunday(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.U = +n[0], i + n[0].length) : -1;
-}
-
-function parseWeekNumberISO(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.V = +n[0], i + n[0].length) : -1;
-}
-
-function parseWeekNumberMonday(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.W = +n[0], i + n[0].length) : -1;
-}
-
-function parseFullYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 4));
-  return n ? (d.y = +n[0], i + n[0].length) : -1;
-}
-
-function parseYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
-}
-
-function parseZone(d, string, i) {
-  var n = /^(Z)|([+-]\d\d)(?::?(\d\d))?/.exec(string.slice(i, i + 6));
-  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
-}
-
-function parseQuarter(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 1));
-  return n ? (d.q = n[0] * 3 - 3, i + n[0].length) : -1;
-}
-
-function parseMonthNumber(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
-}
-
-function parseDayOfMonth(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.d = +n[0], i + n[0].length) : -1;
-}
-
-function parseDayOfYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 3));
-  return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
-}
-
-function parseHour24(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.H = +n[0], i + n[0].length) : -1;
-}
-
-function parseMinutes(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.M = +n[0], i + n[0].length) : -1;
-}
-
-function parseSeconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (d.S = +n[0], i + n[0].length) : -1;
-}
-
-function parseMilliseconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 3));
-  return n ? (d.L = +n[0], i + n[0].length) : -1;
-}
-
-function parseMicroseconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 6));
-  return n ? (d.L = Math.floor(n[0] / 1000), i + n[0].length) : -1;
-}
-
-function parseLiteralPercent(d, string, i) {
-  var n = percentRe.exec(string.slice(i, i + 1));
-  return n ? i + n[0].length : -1;
-}
-
-function parseUnixTimestamp(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
-  return n ? (d.Q = +n[0], i + n[0].length) : -1;
-}
-
-function parseUnixTimestampSeconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
-  return n ? (d.s = +n[0], i + n[0].length) : -1;
-}
-
-function formatDayOfMonth(d, p) {
-  return pad(d.getDate(), p, 2);
-}
-
-function formatHour24(d, p) {
-  return pad(d.getHours(), p, 2);
-}
-
-function formatHour12(d, p) {
-  return pad(d.getHours() % 12 || 12, p, 2);
-}
-
-function formatDayOfYear(d, p) {
-  return pad(1 + src_day.count(src_year(d), d), p, 3);
-}
-
-function formatMilliseconds(d, p) {
-  return pad(d.getMilliseconds(), p, 3);
-}
-
-function formatMicroseconds(d, p) {
-  return formatMilliseconds(d, p) + "000";
-}
-
-function formatMonthNumber(d, p) {
-  return pad(d.getMonth() + 1, p, 2);
-}
-
-function formatMinutes(d, p) {
-  return pad(d.getMinutes(), p, 2);
-}
-
-function formatSeconds(d, p) {
-  return pad(d.getSeconds(), p, 2);
-}
-
-function formatWeekdayNumberMonday(d) {
-  var day = d.getDay();
-  return day === 0 ? 7 : day;
-}
-
-function formatWeekNumberSunday(d, p) {
-  return pad(sunday.count(src_year(d) - 1, d), p, 2);
-}
-
-function dISO(d) {
-  var day = d.getDay();
-  return day >= 4 || day === 0 ? thursday(d) : thursday.ceil(d);
-}
-
-function formatWeekNumberISO(d, p) {
-  d = dISO(d);
-  return pad(thursday.count(src_year(d), d) + (src_year(d).getDay() === 4), p, 2);
-}
-
-function formatWeekdayNumberSunday(d) {
-  return d.getDay();
-}
-
-function formatWeekNumberMonday(d, p) {
-  return pad(monday.count(src_year(d) - 1, d), p, 2);
-}
-
-function formatYear(d, p) {
-  return pad(d.getFullYear() % 100, p, 2);
-}
-
-function formatYearISO(d, p) {
-  d = dISO(d);
-  return pad(d.getFullYear() % 100, p, 2);
-}
-
-function formatFullYear(d, p) {
-  return pad(d.getFullYear() % 10000, p, 4);
-}
-
-function formatFullYearISO(d, p) {
-  var day = d.getDay();
-  d = day >= 4 || day === 0 ? thursday(d) : thursday.ceil(d);
-  return pad(d.getFullYear() % 10000, p, 4);
-}
-
-function formatZone(d) {
-  var z = d.getTimezoneOffset();
-  return (z > 0 ? "-" : (z *= -1, "+")) + pad(z / 60 | 0, "0", 2) + pad(z % 60, "0", 2);
-}
-
-function formatUTCDayOfMonth(d, p) {
-  return pad(d.getUTCDate(), p, 2);
-}
-
-function formatUTCHour24(d, p) {
-  return pad(d.getUTCHours(), p, 2);
-}
-
-function formatUTCHour12(d, p) {
-  return pad(d.getUTCHours() % 12 || 12, p, 2);
-}
-
-function formatUTCDayOfYear(d, p) {
-  return pad(1 + src_utcDay.count(src_utcYear(d), d), p, 3);
-}
-
-function formatUTCMilliseconds(d, p) {
-  return pad(d.getUTCMilliseconds(), p, 3);
-}
-
-function formatUTCMicroseconds(d, p) {
-  return formatUTCMilliseconds(d, p) + "000";
-}
-
-function formatUTCMonthNumber(d, p) {
-  return pad(d.getUTCMonth() + 1, p, 2);
-}
-
-function formatUTCMinutes(d, p) {
-  return pad(d.getUTCMinutes(), p, 2);
-}
-
-function formatUTCSeconds(d, p) {
-  return pad(d.getUTCSeconds(), p, 2);
-}
-
-function formatUTCWeekdayNumberMonday(d) {
-  var dow = d.getUTCDay();
-  return dow === 0 ? 7 : dow;
-}
-
-function formatUTCWeekNumberSunday(d, p) {
-  return pad(utcSunday.count(src_utcYear(d) - 1, d), p, 2);
-}
-
-function UTCdISO(d) {
-  var day = d.getUTCDay();
-  return day >= 4 || day === 0 ? utcThursday(d) : utcThursday.ceil(d);
-}
-
-function formatUTCWeekNumberISO(d, p) {
-  d = UTCdISO(d);
-  return pad(utcThursday.count(src_utcYear(d), d) + (src_utcYear(d).getUTCDay() === 4), p, 2);
-}
-
-function formatUTCWeekdayNumberSunday(d) {
-  return d.getUTCDay();
-}
-
-function formatUTCWeekNumberMonday(d, p) {
-  return pad(utcMonday.count(src_utcYear(d) - 1, d), p, 2);
-}
-
-function formatUTCYear(d, p) {
-  return pad(d.getUTCFullYear() % 100, p, 2);
-}
-
-function formatUTCYearISO(d, p) {
-  d = UTCdISO(d);
-  return pad(d.getUTCFullYear() % 100, p, 2);
-}
-
-function formatUTCFullYear(d, p) {
-  return pad(d.getUTCFullYear() % 10000, p, 4);
-}
-
-function formatUTCFullYearISO(d, p) {
-  var day = d.getUTCDay();
-  d = day >= 4 || day === 0 ? utcThursday(d) : utcThursday.ceil(d);
-  return pad(d.getUTCFullYear() % 10000, p, 4);
-}
-
-function formatUTCZone() {
-  return "+0000";
-}
-
-function formatLiteralPercent() {
-  return "%";
-}
-
-function formatUnixTimestamp(d) {
-  return +d;
-}
-
-function formatUnixTimestampSeconds(d) {
-  return Math.floor(+d / 1000);
-}
-;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-time-format/src/defaultLocale.js
-
-var locale;
-var timeFormat;
-var timeParse;
-var utcFormat;
-var utcParse;
-defaultLocale_defaultLocale({
-  dateTime: "%x, %X",
-  date: "%-m/%-d/%Y",
-  time: "%-I:%M:%S %p",
-  periods: ["AM", "PM"],
-  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-});
-function defaultLocale_defaultLocale(definition) {
-  locale = formatLocale(definition);
-  timeFormat = locale.format;
-  timeParse = locale.parse;
-  utcFormat = locale.utcFormat;
-  utcParse = locale.utcParse;
-  return locale;
+  domain[i0] = interval.floor(x0);
+  domain[i1] = interval.ceil(x1);
+  return domain;
 }
 ;// CONCATENATED MODULE: ./node_modules/d3-scale/src/time.js
 
@@ -11690,7 +11111,7 @@ function calendar(ticks, tickInterval, year, month, week, day, hour, minute, sec
   return scale;
 }
 function time() {
-  return init/* initRange.apply */.o.apply(calendar(timeTicks, timeTickInterval, src_year, src_month, sunday, src_day, src_hour, src_minute, src_second, timeFormat).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]), arguments);
+  return init/* initRange.apply */.o.apply(calendar(timeTicks, timeTickInterval, src_year, src_month, sunday, src_day, src_hour, src_minute, src_second, defaultLocale/* timeFormat */.i$).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]), arguments);
 }
 ;// CONCATENATED MODULE: ./node_modules/d3-scale/src/utcTime.js
 
@@ -11698,27 +11119,197 @@ function time() {
 
 
 function utcTime() {
-  return init/* initRange.apply */.o.apply(calendar(utcTicks, utcTickInterval, src_utcYear, src_utcMonth, utcSunday, src_utcDay, src_utcHour, src_utcMinute, src_second, utcFormat).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]), arguments);
+  return init/* initRange.apply */.o.apply(calendar(utcTicks, utcTickInterval, src_utcYear, src_utcMonth, utcSunday, src_utcDay, src_utcHour, src_utcMinute, src_second, defaultLocale/* utcFormat */.g0).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]), arguments);
 }
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/band.js + 1 modules
-var band = __webpack_require__(87286);
-// EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 1 modules
-var src_defaultLocale = __webpack_require__(38987);
-// EXTERNAL MODULE: ./node_modules/lodash/uniq.js
-var uniq = __webpack_require__(44908);
-var uniq_default = /*#__PURE__*/__webpack_require__.n(uniq);
-// EXTERNAL MODULE: ./node_modules/lodash/uniqBy.js
-var uniqBy = __webpack_require__(45578);
-var uniqBy_default = /*#__PURE__*/__webpack_require__.n(uniqBy);
-// EXTERNAL MODULE: ./node_modules/lodash/sortBy.js
-var sortBy = __webpack_require__(89734);
-var sortBy_default = /*#__PURE__*/__webpack_require__.n(sortBy);
-// EXTERNAL MODULE: ./node_modules/lodash/last.js
-var last = __webpack_require__(10928);
-var last_default = /*#__PURE__*/__webpack_require__.n(last);
-// EXTERNAL MODULE: ./node_modules/lodash/isDate.js
-var lodash_isDate = __webpack_require__(47960);
-var isDate_default = /*#__PURE__*/__webpack_require__.n(lodash_isDate);
+// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-format/src/defaultLocale.js + 8 modules
+var src_defaultLocale = __webpack_require__(64162);
+;// CONCATENATED MODULE: ./node_modules/d3-scale/src/log.js
+
+
+
+
+
+
+function transformLog(x) {
+  return Math.log(x);
+}
+
+function transformExp(x) {
+  return Math.exp(x);
+}
+
+function transformLogn(x) {
+  return -Math.log(-x);
+}
+
+function transformExpn(x) {
+  return -Math.exp(-x);
+}
+
+function pow10(x) {
+  return isFinite(x) ? +("1e" + x) : x < 0 ? 0 : x;
+}
+
+function powp(base) {
+  return base === 10 ? pow10 : base === Math.E ? Math.exp : function (x) {
+    return Math.pow(base, x);
+  };
+}
+
+function logp(base) {
+  return base === Math.E ? Math.log : base === 10 && Math.log10 || base === 2 && Math.log2 || (base = Math.log(base), function (x) {
+    return Math.log(x) / base;
+  });
+}
+
+function reflect(f) {
+  return function (x) {
+    return -f(-x);
+  };
+}
+
+function loggish(transform) {
+  var scale = transform(transformLog, transformExp),
+      domain = scale.domain,
+      base = 10,
+      logs,
+      pows;
+
+  function rescale() {
+    logs = logp(base), pows = powp(base);
+
+    if (domain()[0] < 0) {
+      logs = reflect(logs), pows = reflect(pows);
+      transform(transformLogn, transformExpn);
+    } else {
+      transform(transformLog, transformExp);
+    }
+
+    return scale;
+  }
+
+  scale.base = function (_) {
+    return arguments.length ? (base = +_, rescale()) : base;
+  };
+
+  scale.domain = function (_) {
+    return arguments.length ? (domain(_), rescale()) : domain();
+  };
+
+  scale.ticks = function (count) {
+    var d = domain(),
+        u = d[0],
+        v = d[d.length - 1],
+        r;
+    if (r = v < u) i = u, u = v, v = i;
+    var i = logs(u),
+        j = logs(v),
+        p,
+        k,
+        t,
+        n = count == null ? 10 : +count,
+        z = [];
+
+    if (!(base % 1) && j - i < n) {
+      i = Math.floor(i), j = Math.ceil(j);
+      if (u > 0) for (; i <= j; ++i) {
+        for (k = 1, p = pows(i); k < base; ++k) {
+          t = p * k;
+          if (t < u) continue;
+          if (t > v) break;
+          z.push(t);
+        }
+      } else for (; i <= j; ++i) {
+        for (k = base - 1, p = pows(i); k >= 1; --k) {
+          t = p * k;
+          if (t < u) continue;
+          if (t > v) break;
+          z.push(t);
+        }
+      }
+      if (z.length * 2 < n) z = (0,src_ticks/* default */.ZP)(u, v, n);
+    } else {
+      z = (0,src_ticks/* default */.ZP)(i, j, Math.min(j - i, n)).map(pows);
+    }
+
+    return r ? z.reverse() : z;
+  };
+
+  scale.tickFormat = function (count, specifier) {
+    if (specifier == null) specifier = base === 10 ? ".0e" : ",";
+    if (typeof specifier !== "function") specifier = (0,src_defaultLocale/* format */.WU)(specifier);
+    if (count === Infinity) return specifier;
+    if (count == null) count = 10;
+    var k = Math.max(1, base * count / scale.ticks().length); // TODO fast estimate?
+
+    return function (d) {
+      var i = d / pows(Math.round(logs(d)));
+      if (i * base < base - 0.5) i *= base;
+      return i <= k ? specifier(d) : "";
+    };
+  };
+
+  scale.nice = function () {
+    return domain(nice(domain(), {
+      floor: function floor(x) {
+        return pows(Math.floor(logs(x)));
+      },
+      ceil: function ceil(x) {
+        return pows(Math.ceil(logs(x)));
+      }
+    }));
+  };
+
+  return scale;
+}
+function log() {
+  var scale = loggish((0,continuous/* transformer */.l4)()).domain([1, 10]);
+
+  scale.copy = function () {
+    return (0,continuous/* copy */.JG)(scale, log()).base(scale.base());
+  };
+
+  init/* initRange.apply */.o.apply(scale, arguments);
+  return scale;
+}
+// EXTERNAL MODULE: ./node_modules/d3-scale/src/linear.js + 4 modules
+var linear = __webpack_require__(44076);
+;// CONCATENATED MODULE: ./node_modules/d3-scale/src/symlog.js
+
+
+
+
+function transformSymlog(c) {
+  return function (x) {
+    return Math.sign(x) * Math.log1p(Math.abs(x / c));
+  };
+}
+
+function transformSymexp(c) {
+  return function (x) {
+    return Math.sign(x) * Math.expm1(Math.abs(x)) * c;
+  };
+}
+
+function symlogish(transform) {
+  var c = 1,
+      scale = transform(transformSymlog(c), transformSymexp(c));
+
+  scale.constant = function (_) {
+    return arguments.length ? transform(transformSymlog(c = +_), transformSymexp(c)) : c;
+  };
+
+  return (0,linear/* linearish */.Q)(scale);
+}
+function symlog() {
+  var scale = symlogish((0,continuous/* transformer */.l4)());
+
+  scale.copy = function () {
+    return (0,continuous/* copy */.JG)(scale, symlog()).constant(scale.constant());
+  };
+
+  return init/* initRange.apply */.o.apply(scale, arguments);
+}
 ;// CONCATENATED MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js
 
 
@@ -11727,278 +11318,6 @@ var isDate_default = /*#__PURE__*/__webpack_require__.n(lodash_isDate);
 
 
 
-
-
-var linearScale = function linearScale(_ref, xy, width, height) {
-  var axis = _ref.axis,
-      _ref$min = _ref.min,
-      min = _ref$min === void 0 ? 0 : _ref$min,
-      _ref$max = _ref.max,
-      max = _ref$max === void 0 ? 'auto' : _ref$max,
-      _ref$stacked = _ref.stacked,
-      stacked = _ref$stacked === void 0 ? false : _ref$stacked,
-      _ref$reverse = _ref.reverse,
-      reverse = _ref$reverse === void 0 ? false : _ref$reverse,
-      _ref$clamp = _ref.clamp,
-      clamp = _ref$clamp === void 0 ? false : _ref$clamp,
-      _ref$nice = _ref.nice,
-      nice = _ref$nice === void 0 ? false : _ref$nice;
-  var values = xy[axis];
-  var size = axis === 'x' ? width : height;
-  var minValue = min;
-
-  if (min === 'auto') {
-    minValue = stacked === true ? values.minStacked : values.min;
-  }
-
-  var maxValue = max;
-
-  if (max === 'auto') {
-    maxValue = stacked === true ? values.maxStacked : values.max;
-  }
-
-  var scale = (0,linear/* default */.Z)().rangeRound(axis === 'x' ? [0, size] : [size, 0]);
-  if (reverse === true) scale.domain([maxValue, minValue]);else scale.domain([minValue, maxValue]);
-  if (nice === true) scale.nice();else if (typeof nice === 'number') scale.nice(nice);
-  scale.type = 'linear';
-  scale.stacked = stacked;
-  scale.clamp(clamp);
-  return scale;
-};
-
-var linearScalePropTypes = {
-  type: prop_types_default().oneOf(['linear']).isRequired,
-  min: prop_types_default().oneOfType([prop_types_default().oneOf(['auto']), (prop_types_default()).number]),
-  max: prop_types_default().oneOfType([prop_types_default().oneOf(['auto']), (prop_types_default()).number]),
-  stacked: (prop_types_default()).bool,
-  reverse: (prop_types_default()).bool,
-  clamp: (prop_types_default()).bool,
-  nice: prop_types_default().oneOfType([(prop_types_default()).number, (prop_types_default()).bool])
-};
-
-var logScale = function logScale(_ref, xy, width, height) {
-  var axis = _ref.axis,
-      _ref$base = _ref.base,
-      base = _ref$base === void 0 ? 10 : _ref$base,
-      _ref$min = _ref.min,
-      min = _ref$min === void 0 ? 'auto' : _ref$min,
-      _ref$max = _ref.max,
-      max = _ref$max === void 0 ? 'auto' : _ref$max;
-  var values = xy[axis];
-  var size = axis === 'x' ? width : height;
-  var hasZero = values.all.some(function (v) {
-    return v === 0;
-  });
-  var sign;
-  var hasMixedSign = false;
-  values.all.filter(function (v) {
-    return v != null;
-  }).forEach(function (v) {
-    if (hasMixedSign === true) return;
-
-    if (sign === undefined) {
-      sign = Math.sign(v);
-    } else if (Math.sign(v) !== sign) {
-      hasMixedSign = true;
-    }
-  });
-
-  if (hasZero || hasMixedSign) {
-    throw new Error(["a log scale domain must be strictly-positive or strictly-negative,", "and must not include or cross zero."].join('\n'));
-  }
-
-  var minValue = min;
-
-  if (min === 'auto') {
-    minValue = values.min;
-  }
-
-  var maxValue = max;
-
-  if (max === 'auto') {
-    maxValue = values.max;
-  }
-
-  var scale = log().domain([minValue, maxValue]).rangeRound(axis === 'x' ? [0, size] : [size, 0]).base(base).nice();
-  scale.type = 'log';
-  return scale;
-};
-
-var logScalePropTypes = {
-  type: prop_types_default().oneOf(['log']).isRequired,
-  base: (prop_types_default()).number,
-  min: prop_types_default().oneOfType([prop_types_default().oneOf(['auto']), (prop_types_default()).number]),
-  max: prop_types_default().oneOfType([prop_types_default().oneOf(['auto']), (prop_types_default()).number])
-};
-
-var symlogScale = function symlogScale(_ref, xy, width, height) {
-  var axis = _ref.axis,
-      _ref$constant = _ref.constant,
-      constant = _ref$constant === void 0 ? 1 : _ref$constant,
-      _ref$min = _ref.min,
-      min = _ref$min === void 0 ? 'auto' : _ref$min,
-      _ref$max = _ref.max,
-      max = _ref$max === void 0 ? 'auto' : _ref$max;
-  var values = xy[axis];
-  var size = axis === 'x' ? width : height;
-  var minValue = min;
-
-  if (min === 'auto') {
-    minValue = values.min;
-  }
-
-  var maxValue = max;
-
-  if (max === 'auto') {
-    maxValue = values.max;
-  }
-
-  var scale = symlog().domain([minValue, maxValue]).constant(constant).rangeRound(axis === 'x' ? [0, size] : [size, 0]).nice();
-  scale.type = 'symlog';
-  return scale;
-};
-
-var symLogScalePropTypes = {
-  type: prop_types_default().oneOf(['symlog']).isRequired,
-  constant: (prop_types_default()).number,
-  min: prop_types_default().oneOfType([prop_types_default().oneOf(['auto']), (prop_types_default()).number]),
-  max: prop_types_default().oneOfType([prop_types_default().oneOf(['auto']), (prop_types_default()).number])
-};
-
-var pointScale = function pointScale(_ref, xy, width, height) {
-  var axis = _ref.axis;
-  var values = xy[axis];
-  var size = axis === 'x' ? width : height;
-  var scale = (0,band/* point */.x)().range([0, size]).domain(values.all);
-  scale.type = 'point';
-  return scale;
-};
-
-var pointScalePropTypes = {
-  type: prop_types_default().oneOf(['point']).isRequired
-};
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-var _precisionCutOffsByTy;
-
-var TIME_PRECISION_MILLISECOND = 'millisecond';
-var TIME_PRECISION_SECOND = 'second';
-var TIME_PRECISION_MINUTE = 'minute';
-var TIME_PRECISION_HOUR = 'hour';
-var TIME_PRECISION_DAY = 'day';
-var TIME_PRECISION_MONTH = 'month';
-var TIME_PRECISION_YEAR = 'year';
-var timePrecisions = [TIME_PRECISION_MILLISECOND, TIME_PRECISION_SECOND, TIME_PRECISION_MINUTE, TIME_PRECISION_HOUR, TIME_PRECISION_DAY, TIME_PRECISION_MONTH, TIME_PRECISION_YEAR];
-var precisionCutOffs = [function (date) {
-  return date.setMilliseconds(0);
-}, function (date) {
-  return date.setSeconds(0);
-}, function (date) {
-  return date.setMinutes(0);
-}, function (date) {
-  return date.setHours(0);
-}, function (date) {
-  return date.setDate(1);
-}, function (date) {
-  return date.setMonth(0);
-}];
-var precisionCutOffsByType = (_precisionCutOffsByTy = {}, _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_MILLISECOND, []), _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_SECOND, precisionCutOffs.slice(0, 1)), _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_MINUTE, precisionCutOffs.slice(0, 2)), _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_HOUR, precisionCutOffs.slice(0, 3)), _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_DAY, precisionCutOffs.slice(0, 4)), _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_MONTH, precisionCutOffs.slice(0, 5)), _defineProperty(_precisionCutOffsByTy, TIME_PRECISION_YEAR, precisionCutOffs.slice(0, 6)), _precisionCutOffsByTy);
-
-var createPrecisionMethod = function createPrecisionMethod(precision) {
-  return function (date) {
-    precisionCutOffsByType[precision].forEach(function (cutOff) {
-      cutOff(date);
-    });
-    return date;
-  };
-};
-
-var createDateNormalizer = function createDateNormalizer(_ref) {
-  var _ref$format = _ref.format,
-      format = _ref$format === void 0 ? 'native' : _ref$format,
-      _ref$precision = _ref.precision,
-      precision = _ref$precision === void 0 ? 'millisecond' : _ref$precision,
-      _ref$useUTC = _ref.useUTC,
-      useUTC = _ref$useUTC === void 0 ? true : _ref$useUTC;
-  var precisionFn = createPrecisionMethod(precision);
-  if (format === 'native') return function (v) {
-    return precisionFn(v);
-  };
-  var parseTime = useUTC ? (0,src_defaultLocale/* utcParse */.wp)(format) : (0,src_defaultLocale/* timeParse */.Z1)(format);
-  return function (v) {
-    return precisionFn(parseTime(v));
-  };
-};
-
-var timeScale = function timeScale(_ref, xy, width, height) {
-  var axis = _ref.axis,
-      _ref$format = _ref.format,
-      format = _ref$format === void 0 ? 'native' : _ref$format,
-      _ref$precision = _ref.precision,
-      precision = _ref$precision === void 0 ? TIME_PRECISION_MILLISECOND : _ref$precision,
-      _ref$min = _ref.min,
-      min = _ref$min === void 0 ? 'auto' : _ref$min,
-      _ref$max = _ref.max,
-      max = _ref$max === void 0 ? 'auto' : _ref$max,
-      _ref$useUTC = _ref.useUTC,
-      useUTC = _ref$useUTC === void 0 ? true : _ref$useUTC,
-      _ref$nice = _ref.nice,
-      nice = _ref$nice === void 0 ? false : _ref$nice;
-  var values = xy[axis];
-  var size = axis === 'x' ? width : height;
-  var normalize = createDateNormalizer({
-    format: format,
-    precision: precision,
-    useUTC: useUTC
-  });
-  var minValue = min;
-
-  if (min === 'auto') {
-    minValue = values.min;
-  } else if (format !== 'native') {
-    minValue = normalize(min);
-  }
-
-  var maxValue = max;
-
-  if (max === 'auto') {
-    maxValue = values.max;
-  } else if (format !== 'native') {
-    maxValue = normalize(max);
-  }
-
-  var scale = useUTC ? utcTime() : time();
-  scale.domain([minValue, maxValue]).range([0, size]);
-  if (nice === true) scale.nice();else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice);
-  scale.type = 'time';
-  scale.useUTC = useUTC;
-  return scale;
-};
-
-var timeScalePropTypes = {
-  type: prop_types_default().oneOf(['time']).isRequired,
-  format: (prop_types_default()).string,
-  precision: prop_types_default().oneOf(timePrecisions),
-  nice: prop_types_default().oneOfType([(prop_types_default()).bool, (prop_types_default()).number, (prop_types_default()).object])
-};
-var bandScalePropTypes = {
-  type: prop_types_default().oneOf(['band']).isRequired,
-  round: (prop_types_default()).bool
-};
 
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
@@ -12035,6 +11354,21 @@ function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
 
@@ -12069,6 +11403,248 @@ function _objectSpread2(target) {
   return target;
 }
 
+var timePrecisions = (/* unused pure expression or super */ null && (['millisecond', 'second', 'minute', 'hour', 'day', 'month', 'year']));
+var precisionCutOffs = [function (date) {
+  return date.setMilliseconds(0);
+}, function (date) {
+  return date.setSeconds(0);
+}, function (date) {
+  return date.setMinutes(0);
+}, function (date) {
+  return date.setHours(0);
+}, function (date) {
+  return date.setDate(1);
+}, function (date) {
+  return date.setMonth(0);
+}];
+var precisionCutOffsByType = {
+  millisecond: [],
+  second: precisionCutOffs.slice(0, 1),
+  minute: precisionCutOffs.slice(0, 2),
+  hour: precisionCutOffs.slice(0, 3),
+  day: precisionCutOffs.slice(0, 4),
+  month: precisionCutOffs.slice(0, 5),
+  year: precisionCutOffs.slice(0, 6)
+};
+
+var createPrecisionMethod = function createPrecisionMethod(precision) {
+  return function (date) {
+    precisionCutOffsByType[precision].forEach(function (cutOff) {
+      cutOff(date);
+    });
+    return date;
+  };
+};
+
+var createDateNormalizer = function createDateNormalizer(_ref) {
+  var _ref$format = _ref.format,
+      format = _ref$format === void 0 ? 'native' : _ref$format,
+      _ref$precision = _ref.precision,
+      precision = _ref$precision === void 0 ? 'millisecond' : _ref$precision,
+      _ref$useUTC = _ref.useUTC,
+      useUTC = _ref$useUTC === void 0 ? true : _ref$useUTC;
+  var precisionFn = createPrecisionMethod(precision);
+  return function (value) {
+    if (format === 'native' || value instanceof Date) {
+      return precisionFn(value);
+    }
+
+    var parseTime = useUTC ? (0,defaultLocale/* utcParse */.wp)(format) : (0,defaultLocale/* timeParse */.Z1)(format);
+    return precisionFn(parseTime(value));
+  };
+};
+
+var createLinearScale = function createLinearScale(_ref, data, size, axis) {
+  var _ref$min = _ref.min,
+      min = _ref$min === void 0 ? 0 : _ref$min,
+      _ref$max = _ref.max,
+      max = _ref$max === void 0 ? 'auto' : _ref$max,
+      _ref$stacked = _ref.stacked,
+      stacked = _ref$stacked === void 0 ? false : _ref$stacked,
+      _ref$reverse = _ref.reverse,
+      reverse = _ref$reverse === void 0 ? false : _ref$reverse,
+      _ref$clamp = _ref.clamp,
+      clamp = _ref$clamp === void 0 ? false : _ref$clamp,
+      _ref$nice = _ref.nice,
+      nice = _ref$nice === void 0 ? false : _ref$nice;
+  var minValue;
+
+  if (min === 'auto') {
+    var _data$minStacked;
+
+    minValue = stacked === true ? (_data$minStacked = data.minStacked) !== null && _data$minStacked !== void 0 ? _data$minStacked : 0 : data.min;
+  } else {
+    minValue = min;
+  }
+
+  var maxValue;
+
+  if (max === 'auto') {
+    var _data$maxStacked;
+
+    maxValue = stacked === true ? (_data$maxStacked = data.maxStacked) !== null && _data$maxStacked !== void 0 ? _data$maxStacked : 0 : data.max;
+  } else {
+    maxValue = max;
+  }
+
+  var scale = (0,linear/* default */.Z)().rangeRound(axis === 'x' ? [0, size] : [size, 0]).domain(reverse ? [maxValue, minValue] : [minValue, maxValue]).clamp(clamp);
+  if (nice === true) scale.nice();else if (typeof nice === 'number') scale.nice(nice);
+  var typedScale = scale;
+  typedScale.type = 'linear';
+  typedScale.stacked = stacked;
+  return typedScale;
+};
+
+var createPointScale = function createPointScale(_spec, data, size) {
+  var scale = point().range([0, size]).domain(data.all);
+  var typedScale = scale;
+  typedScale.type = 'point';
+  return typedScale;
+};
+
+var createBandScale = function createBandScale(_ref, data, size, axis) {
+  var _ref$round = _ref.round,
+      round = _ref$round === void 0 ? true : _ref$round;
+  var scale = band().range(axis === 'x' ? [0, size] : [size, 0]).domain(data.all).round(round);
+  var typedScale = scale;
+  typedScale.type = 'band';
+  return typedScale;
+};
+
+var createTimeScale = function createTimeScale(_ref, data, size) {
+  var _ref$format = _ref.format,
+      format = _ref$format === void 0 ? 'native' : _ref$format,
+      _ref$precision = _ref.precision,
+      precision = _ref$precision === void 0 ? 'millisecond' : _ref$precision,
+      _ref$min = _ref.min,
+      min = _ref$min === void 0 ? 'auto' : _ref$min,
+      _ref$max = _ref.max,
+      max = _ref$max === void 0 ? 'auto' : _ref$max,
+      _ref$useUTC = _ref.useUTC,
+      useUTC = _ref$useUTC === void 0 ? true : _ref$useUTC,
+      _ref$nice = _ref.nice,
+      nice = _ref$nice === void 0 ? false : _ref$nice;
+  var normalize = createDateNormalizer({
+    format: format,
+    precision: precision,
+    useUTC: useUTC
+  });
+  var minValue;
+
+  if (min === 'auto') {
+    minValue = normalize(data.min);
+  } else if (format !== 'native') {
+    minValue = normalize(min);
+  } else {
+    minValue = min;
+  }
+
+  var maxValue;
+
+  if (max === 'auto') {
+    maxValue = normalize(data.max);
+  } else if (format !== 'native') {
+    maxValue = normalize(max);
+  } else {
+    maxValue = max;
+  }
+
+  var scale = useUTC ? utcTime() : time();
+  scale.domain([minValue, maxValue]).range([0, size]);
+  if (nice === true) scale.nice();else if (typeof nice === 'object' || typeof nice === 'number') scale.nice(nice);
+  var typedScale = scale;
+  typedScale.type = 'time';
+  typedScale.useUTC = useUTC;
+  return typedScale;
+};
+
+var createLogScale = function createLogScale(_ref, data, size, axis) {
+  var _ref$base = _ref.base,
+      base = _ref$base === void 0 ? 10 : _ref$base,
+      _ref$min = _ref.min,
+      min = _ref$min === void 0 ? 'auto' : _ref$min,
+      _ref$max = _ref.max,
+      max = _ref$max === void 0 ? 'auto' : _ref$max;
+  var hasZero = data.all.some(function (v) {
+    return v === 0;
+  });
+
+  if (hasZero) {
+    throw new Error("a log scale domain must not include or cross zero");
+  }
+
+  var sign;
+  var hasMixedSign = false;
+  data.all.filter(function (v) {
+    return v != null;
+  }).forEach(function (v) {
+    if (hasMixedSign) return;
+
+    if (sign === undefined) {
+      sign = Math.sign(v);
+    } else if (Math.sign(v) !== sign) {
+      hasMixedSign = true;
+    }
+  });
+
+  if (hasMixedSign) {
+    throw new Error("a log scale domain must be strictly-positive or strictly-negative");
+  }
+
+  var minValue;
+
+  if (min === 'auto') {
+    minValue = data.min;
+  } else {
+    minValue = min;
+  }
+
+  var maxValue;
+
+  if (max === 'auto') {
+    maxValue = data.max;
+  } else {
+    maxValue = max;
+  }
+
+  var scale = log().domain([minValue, maxValue]).rangeRound(axis === 'x' ? [0, size] : [size, 0]).base(base).nice();
+  var typedScale = scale;
+  typedScale.type = 'log';
+  return scale;
+};
+
+var createSymlogScale = function createSymlogScale(_ref, data, size, axis) {
+  var _ref$constant = _ref.constant,
+      constant = _ref$constant === void 0 ? 1 : _ref$constant,
+      _ref$min = _ref.min,
+      min = _ref$min === void 0 ? 'auto' : _ref$min,
+      _ref$max = _ref.max,
+      max = _ref$max === void 0 ? 'auto' : _ref$max,
+      _ref$reverse = _ref.reverse,
+      reverse = _ref$reverse === void 0 ? false : _ref$reverse;
+  var minValue;
+
+  if (min === 'auto') {
+    minValue = data.min;
+  } else {
+    minValue = min;
+  }
+
+  var maxValue;
+
+  if (max === 'auto') {
+    maxValue = data.max;
+  } else {
+    maxValue = max;
+  }
+
+  var scale = symlog().constant(constant).rangeRound(axis === 'x' ? [0, size] : [size, 0]).nice();
+  if (reverse === true) scale.domain([maxValue, minValue]);else scale.domain([minValue, maxValue]);
+  var typedScale = scale;
+  typedScale.type = 'symlog';
+  return typedScale;
+};
+
 var getOtherAxis = function getOtherAxis(axis) {
   return axis === 'x' ? 'y' : 'x';
 };
@@ -12080,6 +11656,31 @@ var compareValues = function compareValues(a, b) {
 var compareDateValues = function compareDateValues(a, b) {
   return a.getTime() === b.getTime();
 };
+
+function computeScale(spec, data, size, axis) {
+  switch (spec.type) {
+    case 'linear':
+      return createLinearScale(spec, data, size, axis);
+
+    case 'point':
+      return createPointScale(spec, data, size);
+
+    case 'band':
+      return createBandScale(spec, data, size, axis);
+
+    case 'time':
+      return createTimeScale(spec, data, size);
+
+    case 'log':
+      return createLogScale(spec, data, size, axis);
+
+    case 'symlog':
+      return createSymlogScale(spec, data, size, axis);
+
+    default:
+      throw new Error('invalid scale spec');
+  }
+}
 
 var computeXYScalesForSeries = function computeXYScalesForSeries(_series, xScaleSpec, yScaleSpec, width, height) {
   var series = _series.map(function (serie) {
@@ -12094,25 +11695,23 @@ var computeXYScalesForSeries = function computeXYScalesForSeries(_series, xScale
 
   var xy = generateSeriesXY(series, xScaleSpec, yScaleSpec);
 
-  if (xScaleSpec.stacked === true) {
-    stackX(yScaleSpec.type, xy, series);
+  if ('stacked' in xScaleSpec && xScaleSpec.stacked === true) {
+    stackX(xy, series);
   }
 
-  if (yScaleSpec.stacked === true) {
-    stackY(xScaleSpec.type, xy, series);
+  if ('stacked' in yScaleSpec && yScaleSpec.stacked === true) {
+    stackY(xy, series);
   }
 
-  var xScale = computeScale(_objectSpread2(_objectSpread2({}, xScaleSpec), {}, {
-    axis: 'x'
-  }), xy, width, height);
-  var yScale = computeScale(_objectSpread2(_objectSpread2({}, yScaleSpec), {}, {
-    axis: 'y'
-  }), xy, width, height);
+  var xScale = computeScale(xScaleSpec, xy.x, width, 'x');
+  var yScale = computeScale(yScaleSpec, xy.y, height, 'y');
   series.forEach(function (serie) {
     serie.data.forEach(function (d) {
+      var _xScale, _yScale;
+
       d.position = {
-        x: xScale.stacked === true ? d.data.xStacked === null ? null : xScale(d.data.xStacked) : d.data.x === null ? null : xScale(d.data.x),
-        y: yScale.stacked === true ? d.data.yStacked === null ? null : yScale(d.data.yStacked) : d.data.y === null ? null : yScale(d.data.y)
+        x: 'stacked' in xScale && xScale.stacked === true ? d.data.xStacked === null ? null : xScale(d.data.xStacked) : d.data.x === null ? null : (_xScale = xScale(d.data.x)) !== null && _xScale !== void 0 ? _xScale : null,
+        y: 'stacked' in yScale && yScale.stacked === true ? d.data.yStacked === null ? null : yScale(d.data.yStacked) : d.data.y === null ? null : (_yScale = yScale(d.data.y)) !== null && _yScale !== void 0 ? _yScale : null
       };
     });
   });
@@ -12121,10 +11720,6 @@ var computeXYScalesForSeries = function computeXYScalesForSeries(_series, xScale
     xScale: xScale,
     yScale: yScale
   });
-};
-
-var computeScale = function computeScale(spec, xy, width, height) {
-  if (spec.type === 'linear') return linearScale(spec, xy, width, height);else if (spec.type === 'point') return pointScale(spec, xy, width, height);else if (spec.type === 'time') return timeScale(spec, xy, width, height);else if (spec.type === 'log') return logScale(spec, xy, width, height);else if (spec.type === 'symlog') return symlogScale(spec, xy, width, height);
 };
 
 var generateSeriesXY = function generateSeriesXY(series, xScaleSpec, yScaleSpec) {
@@ -12148,56 +11743,75 @@ var generateSeriesAxis = function generateSeriesAxis(series, axis, scaleSpec) {
   if (scaleSpec.type === 'linear') {
     series.forEach(function (serie) {
       serie.data.forEach(function (d) {
-        setValue(d, getValue(d) === null ? null : parseFloat(getValue(d)));
+        var value = getValue(d);
+
+        if (value) {
+          setValue(d, parseFloat(String(value)));
+        }
       });
     });
   } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
     var parseTime = createDateNormalizer(scaleSpec);
     series.forEach(function (serie) {
       serie.data.forEach(function (d) {
-        setValue(d, getValue(d) === null ? null : parseTime(getValue(d)));
+        var value = getValue(d);
+
+        if (value) {
+          setValue(d, parseTime(value));
+        }
       });
     });
   }
 
-  var all = [];
+  var values = [];
   series.forEach(function (serie) {
     serie.data.forEach(function (d) {
-      all.push(getValue(d));
+      values.push(getValue(d));
     });
   });
-  var min, max;
 
-  if (scaleSpec.type === 'linear') {
-    all = uniq_default()(all);
-    all = sortBy_default()(all, function (v) {
-      return v;
-    });
-    min = Math.min.apply(Math, _toConsumableArray(all));
-    max = Math.max.apply(Math, _toConsumableArray(all));
-  } else if (scaleSpec.type === 'time') {
-    all = uniqBy_default()(all, function (v) {
-      return v.getTime();
-    });
-    all = all.slice(0).sort(function (a, b) {
-      return b - a;
-    }).reverse();
-    min = all[0];
-    max = last_default()(all);
-  } else {
-    all = uniq_default()(all);
-    min = all[0];
-    max = last_default()(all);
+  switch (scaleSpec.type) {
+    case 'linear':
+      {
+        var all = sortBy_default()(uniq_default()(values), function (v) {
+          return v;
+        });
+        return {
+          all: all,
+          min: Math.min.apply(Math, _toConsumableArray(all)),
+          max: Math.max.apply(Math, _toConsumableArray(all))
+        };
+      }
+
+    case 'time':
+      {
+        var _all = uniqBy_default()(values, function (v) {
+          return v.getTime();
+        }).slice(0).sort(function (a, b) {
+          return b.getTime() - a.getTime();
+        }).reverse();
+
+        return {
+          all: _all,
+          min: _all[0],
+          max: last_default()(_all)
+        };
+      }
+
+    default:
+      {
+        var _all2 = uniq_default()(values);
+
+        return {
+          all: _all2,
+          min: _all2[0],
+          max: last_default()(_all2)
+        };
+      }
   }
-
-  return {
-    all: all,
-    min: min,
-    max: max
-  };
 };
 
-var stackAxis = function stackAxis(axis, otherType, xy, series) {
+var stackAxis = function stackAxis(axis, xy, series) {
   var otherAxis = getOtherAxis(axis);
   var all = [];
   xy[otherAxis].all.forEach(function (v) {
@@ -12227,58 +11841,24 @@ var stackAxis = function stackAxis(axis, otherType, xy, series) {
       }
 
       stack.push(stackValue);
-      all.push(stackValue);
-    });
-  });
-  all = all.filter(function (v) {
-    return v !== null;
-  });
-  xy[axis].minStacked = Math.min.apply(Math, _toConsumableArray(all));
-  xy[axis].maxStacked = Math.max.apply(Math, _toConsumableArray(all));
-};
 
-var stackX = function stackX(xy, otherType, series) {
-  return stackAxis('x', xy, otherType, series);
-};
-
-var stackY = function stackY(xy, otherType, series) {
-  return stackAxis('y', xy, otherType, series);
-};
-
-var computeAxisSlices = function computeAxisSlices(axis, data) {
-  var otherAxis = getOtherAxis(axis);
-  return data[otherAxis].all.map(function (v) {
-    var _slice;
-
-    var slice = (_slice = {
-      id: v
-    }, _defineProperty(_slice, otherAxis, data["".concat(otherAxis, "Scale")](v)), _defineProperty(_slice, "data", []), _slice);
-    var compare = isDate(v) ? compareDateValues : compareValues;
-    data.series.forEach(function (serie) {
-      var datum = serie.data.find(function (d) {
-        return compare(d.data[otherAxis], v);
-      });
-
-      if (datum !== undefined) {
-        slice.data.push(_objectSpread2(_objectSpread2({}, datum), {}, {
-          serie: serie
-        }));
+      if (stackValue !== null) {
+        all.push(stackValue);
       }
     });
-    slice.data.reverse();
-    return slice;
   });
+  xy[axis].minStacked = Math.min.apply(Math, all);
+  xy[axis].maxStacked = Math.max.apply(Math, all);
 };
 
-var computeXSlices = function computeXSlices(data) {
-  return computeAxisSlices('x', data);
+var stackX = function stackX(xy, series) {
+  return stackAxis('x', xy, series);
 };
 
-var computeYSlices = function computeYSlices(data) {
-  return computeAxisSlices('y', data);
+var stackY = function stackY(xy, series) {
+  return stackAxis('y', xy, series);
 };
 
-var scalePropType = prop_types_default().oneOfType([prop_types_default().shape(linearScalePropTypes), prop_types_default().shape(pointScalePropTypes), prop_types_default().shape(timeScalePropTypes), prop_types_default().shape(logScalePropTypes), prop_types_default().shape(symLogScalePropTypes), prop_types_default().shape(bandScalePropTypes)]);
 
 
 /***/ }),
@@ -12301,7 +11881,7 @@ var scalePropType = prop_types_default().oneOfType([prop_types_default().shape(l
 /* harmony export */ });
 /* unused harmony exports TooltipWrapper, hiddenTooltipState, isVisibleTooltipState, useTooltipState */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9514);
+/* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(85468);
 /* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50928);
 
 
@@ -15118,7 +14698,7 @@ var renderVoronoiCellToCanvas = function renderVoronoiCellToCanvas(ctx, voronoi,
 
 /***/ }),
 
-/***/ 58392:
+/***/ 66027:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15133,16 +14713,15 @@ var renderVoronoiCellToCanvas = function renderVoronoiCellToCanvas(ctx, voronoi,
 /* harmony export */   "f3": function() { return /* binding */ setAnimated; }
 /* harmony export */ });
 /* unused harmony exports Animated, AnimatedArray, isAnimated */
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(66475);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(15892);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(44005);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(72094);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15892);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(44005);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(72094);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(44524);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12426);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32738);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25008);
-/* harmony import */ var _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(31950);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67294);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12426);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(32738);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(25008);
+/* harmony import */ var _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(33907);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67294);
 
 
 
@@ -15151,18 +14730,14 @@ var renderVoronoiCellToCanvas = function renderVoronoiCellToCanvas(ctx, voronoi,
 
 
 
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(this, result); }; }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 
 
-var $node = Symbol.for("Animated:node");
+
+var $node = Symbol.for('Animated:node');
 
 var isAnimated = function isAnimated(value) {
   return !!value && value[$node] === value;
@@ -15173,7 +14748,7 @@ var getAnimated = function getAnimated(owner) {
 };
 
 var setAnimated = function setAnimated(owner, node) {
-  return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .defineHidden */ .dE)(owner, $node, node);
+  return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .defineHidden */ .dE)(owner, $node, node);
 };
 
 var getPayload = function getPayload(owner) {
@@ -15182,12 +14757,13 @@ var getPayload = function getPayload(owner) {
 
 var Animated = /*#__PURE__*/function () {
   function Animated() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(this, Animated);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Animated);
 
+    this.payload = void 0;
     setAnimated(this, this);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(Animated, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Animated, [{
     key: "getPayload",
     value: function getPayload() {
       return this.payload || [];
@@ -15198,28 +14774,32 @@ var Animated = /*#__PURE__*/function () {
 }();
 
 var AnimatedValue = /*#__PURE__*/function (_Animated) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(AnimatedValue, _Animated);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedValue, _Animated);
 
   var _super = _createSuper(AnimatedValue);
 
   function AnimatedValue(_value) {
     var _this;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(this, AnimatedValue);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimatedValue);
 
     _this = _super.call(this);
-    _this._value = _value;
     _this.done = true;
+    _this.elapsedTime = void 0;
+    _this.lastPosition = void 0;
+    _this.lastVelocity = void 0;
+    _this.v0 = void 0;
     _this.durationProgress = 0;
+    _this._value = _value;
 
-    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.num(_this._value)) {
+    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.num(_this._value)) {
       _this.lastPosition = _this._value;
     }
 
     return _this;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedValue, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimatedValue, [{
     key: "getPayload",
     value: function getPayload() {
       return [this];
@@ -15232,7 +14812,7 @@ var AnimatedValue = /*#__PURE__*/function (_Animated) {
   }, {
     key: "setValue",
     value: function setValue(value, step) {
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.num(value)) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.num(value)) {
         this.lastPosition = value;
 
         if (step) {
@@ -15257,7 +14837,7 @@ var AnimatedValue = /*#__PURE__*/function (_Animated) {
       var done = this.done;
       this.done = false;
 
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.num(this._value)) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.num(this._value)) {
         this.elapsedTime = 0;
         this.durationProgress = 0;
         this.lastPosition = this._value;
@@ -15276,24 +14856,25 @@ var AnimatedValue = /*#__PURE__*/function (_Animated) {
 }(Animated);
 
 var AnimatedString = /*#__PURE__*/function (_AnimatedValue) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(AnimatedString, _AnimatedValue);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedString, _AnimatedValue);
 
   var _super2 = _createSuper(AnimatedString);
 
   function AnimatedString(value) {
     var _this2;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(this, AnimatedString);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimatedString);
 
     _this2 = _super2.call(this, 0);
     _this2._string = null;
-    _this2._toString = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .createInterpolator */ .mD)({
+    _this2._toString = void 0;
+    _this2._toString = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .createInterpolator */ .mD)({
       output: [value, value]
     });
     return _this2;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedString, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimatedString, [{
     key: "getValue",
     value: function getValue() {
       var value = this._string;
@@ -15302,14 +14883,14 @@ var AnimatedString = /*#__PURE__*/function (_AnimatedValue) {
   }, {
     key: "setValue",
     value: function setValue(value) {
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.str(value)) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.str(value)) {
         if (value == this._string) {
           return false;
         }
 
         this._string = value;
         this._value = 1;
-      } else if ((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(AnimatedString.prototype), "setValue", this).call(this, value)) {
+      } else if ((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(AnimatedString.prototype), "setValue", this).call(this, value)) {
         this._string = null;
       } else {
         return false;
@@ -15321,14 +14902,14 @@ var AnimatedString = /*#__PURE__*/function (_AnimatedValue) {
     key: "reset",
     value: function reset(goal) {
       if (goal) {
-        this._toString = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .createInterpolator */ .mD)({
+        this._toString = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .createInterpolator */ .mD)({
           output: [this.getValue(), goal]
         });
       }
 
       this._value = 0;
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(AnimatedString.prototype), "reset", this).call(this);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(AnimatedString.prototype), "reset", this).call(this);
     }
   }], [{
     key: "create",
@@ -15345,14 +14926,14 @@ var TreeContext = {
 };
 
 var AnimatedObject = /*#__PURE__*/function (_Animated2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(AnimatedObject, _Animated2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedObject, _Animated2);
 
   var _super3 = _createSuper(AnimatedObject);
 
   function AnimatedObject(source) {
     var _this3;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(this, AnimatedObject);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimatedObject);
 
     _this3 = _super3.call(this);
     _this3.source = source;
@@ -15362,15 +14943,15 @@ var AnimatedObject = /*#__PURE__*/function (_Animated2) {
     return _this3;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedObject, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimatedObject, [{
     key: "getValue",
     value: function getValue(animated) {
       var values = {};
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(this.source, function (source, key) {
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .eachProp */ .rU)(this.source, function (source, key) {
         if (isAnimated(source)) {
           values[key] = source.getValue(animated);
-        } else if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(source)) {
-          values[key] = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(source);
+        } else if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .hasFluidValue */ .j$)(source)) {
+          values[key] = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .getFluidValue */ .je)(source);
         } else if (!animated) {
           values[key] = source;
         }
@@ -15387,7 +14968,7 @@ var AnimatedObject = /*#__PURE__*/function (_Animated2) {
     key: "reset",
     value: function reset() {
       if (this.payload) {
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(this.payload, function (node) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .each */ .S6)(this.payload, function (node) {
           return node.reset();
         });
       }
@@ -15397,7 +14978,7 @@ var AnimatedObject = /*#__PURE__*/function (_Animated2) {
     value: function _makePayload(source) {
       if (source) {
         var payload = new Set();
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(source, this._addToPayload, payload);
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .eachProp */ .rU)(source, this._addToPayload, payload);
         return Array.from(payload);
       }
     }
@@ -15406,14 +14987,14 @@ var AnimatedObject = /*#__PURE__*/function (_Animated2) {
     value: function _addToPayload(source) {
       var _this4 = this;
 
-      if (TreeContext.dependencies && (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(source)) {
+      if (TreeContext.dependencies && (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .hasFluidValue */ .j$)(source)) {
         TreeContext.dependencies.add(source);
       }
 
       var payload = getPayload(source);
 
       if (payload) {
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(payload, function (node) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .each */ .S6)(payload, function (node) {
           return _this4.add(node);
         });
       }
@@ -15424,17 +15005,17 @@ var AnimatedObject = /*#__PURE__*/function (_Animated2) {
 }(Animated);
 
 var AnimatedArray = /*#__PURE__*/function (_AnimatedObject) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(AnimatedArray, _AnimatedObject);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedArray, _AnimatedObject);
 
   var _super4 = _createSuper(AnimatedArray);
 
   function AnimatedArray(source) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(this, AnimatedArray);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimatedArray);
 
     return _super4.call(this, source);
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedArray, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimatedArray, [{
     key: "getValue",
     value: function getValue() {
       return this.source.map(function (node) {
@@ -15447,12 +15028,12 @@ var AnimatedArray = /*#__PURE__*/function (_AnimatedObject) {
       var payload = this.getPayload();
 
       if (source.length == payload.length) {
-        return payload.some(function (node, i) {
+        return payload.map(function (node, i) {
           return node.setValue(source[i]);
-        });
+        }).some(Boolean);
       }
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(AnimatedArray.prototype), "setValue", this).call(this, source.map(makeAnimated));
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(AnimatedArray.prototype), "setValue", this).call(this, source.map(makeAnimated));
 
       return true;
     }
@@ -15467,29 +15048,47 @@ var AnimatedArray = /*#__PURE__*/function (_AnimatedObject) {
 }(AnimatedObject);
 
 function makeAnimated(value) {
-  var nodeType = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isAnimatedString */ .Df)(value) ? AnimatedString : AnimatedValue;
+  var nodeType = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .isAnimatedString */ .Df)(value) ? AnimatedString : AnimatedValue;
   return nodeType.create(value);
 }
 
 function getAnimatedType(value) {
   var parentNode = getAnimated(value);
-  return parentNode ? parentNode.constructor : _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(value) ? AnimatedArray : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isAnimatedString */ .Df)(value) ? AnimatedString : AnimatedValue;
+  return parentNode ? parentNode.constructor : _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.arr(value) ? AnimatedArray : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .isAnimatedString */ .Df)(value) ? AnimatedString : AnimatedValue;
+}
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
 }
 
 var withAnimated = function withAnimated(Component, host) {
-  var hasInstance = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(Component) || Component.prototype && Component.prototype.isReactComponent;
-  return (0,react__WEBPACK_IMPORTED_MODULE_4__.forwardRef)(function (givenProps, givenRef) {
-    var instanceRef = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(null);
-    var ref = hasInstance && (0,react__WEBPACK_IMPORTED_MODULE_4__.useCallback)(function (value) {
+  var hasInstance = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.fun(Component) || Component.prototype && Component.prototype.isReactComponent;
+  return (0,react__WEBPACK_IMPORTED_MODULE_3__.forwardRef)(function (givenProps, givenRef) {
+    var instanceRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+    var ref = hasInstance && (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)(function (value) {
       instanceRef.current = updateRef(givenRef, value);
     }, [givenRef]);
 
     var _getAnimatedState = getAnimatedState(givenProps, host),
-        _getAnimatedState2 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_getAnimatedState, 2),
+        _getAnimatedState2 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_getAnimatedState, 2),
         props = _getAnimatedState2[0],
         deps = _getAnimatedState2[1];
 
-    var forceUpdate = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useForceUpdate */ .NW)();
+    var forceUpdate = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .useForceUpdate */ .NW)();
 
     var callback = function callback() {
       var instance = instanceRef.current;
@@ -15506,32 +15105,32 @@ var withAnimated = function withAnimated(Component, host) {
     };
 
     var observer = new PropsObserver(callback, deps);
-    var observerRef = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)();
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useLayoutEffect */ .bt)(function () {
+    var observerRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .useLayoutEffect */ .bt)(function () {
       var lastObserver = observerRef.current;
       observerRef.current = observer;
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(deps, function (dep) {
-        return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .addFluidObserver */ .UI)(dep, observer);
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .each */ .S6)(deps, function (dep) {
+        return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .addFluidObserver */ .UI)(dep, observer);
       });
 
       if (lastObserver) {
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(lastObserver.deps, function (dep) {
-          return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .removeFluidObserver */ .iL)(dep, lastObserver);
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .each */ .S6)(lastObserver.deps, function (dep) {
+          return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .removeFluidObserver */ .iL)(dep, lastObserver);
         });
-        _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.cancel */ .Wn.cancel(lastObserver.update);
+        _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .raf.cancel */ .Wn.cancel(lastObserver.update);
       }
     });
-    (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(callback, []);
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useOnce */ .tf)(function () {
+    (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(callback, []);
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .useOnce */ .tf)(function () {
       return function () {
-        var observer2 = observerRef.current;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(observer2.deps, function (dep) {
-          return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .removeFluidObserver */ .iL)(dep, observer2);
+        var observer = observerRef.current;
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .each */ .S6)(observer.deps, function (dep) {
+          return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .removeFluidObserver */ .iL)(dep, observer);
         });
       };
     });
     var usedProps = host.getComponentProps(props.getValue());
-    return /* @__PURE__ */(0,react__WEBPACK_IMPORTED_MODULE_4__.createElement)(Component, _objectSpread(_objectSpread({}, usedProps), {}, {
+    return react__WEBPACK_IMPORTED_MODULE_3__.createElement(Component, _extends({}, usedProps, {
       ref: ref
     }));
   });
@@ -15539,17 +15138,17 @@ var withAnimated = function withAnimated(Component, host) {
 
 var PropsObserver = /*#__PURE__*/function () {
   function PropsObserver(update, deps) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(this, PropsObserver);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, PropsObserver);
 
     this.update = update;
     this.deps = deps;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(PropsObserver, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PropsObserver, [{
     key: "eventObserved",
     value: function eventObserved(event) {
-      if (event.type == "change") {
-        _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.write */ .Wn.write(this.update);
+      if (event.type == 'change') {
+        _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .raf.write */ .Wn.write(this.update);
       }
     }
   }]);
@@ -15560,7 +15159,7 @@ var PropsObserver = /*#__PURE__*/function () {
 function getAnimatedState(props, host) {
   var dependencies = new Set();
   TreeContext.dependencies = dependencies;
-  if (props.style) props = _objectSpread(_objectSpread({}, props), {}, {
+  if (props.style) props = _extends({}, props, {
     style: host.createAnimatedStyle(props.style)
   });
   props = new AnimatedObject(props);
@@ -15570,39 +15169,39 @@ function getAnimatedState(props, host) {
 
 function updateRef(ref, value) {
   if (ref) {
-    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(ref)) ref(value);else ref.current = value;
+    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.fun(ref)) ref(value);else ref.current = value;
   }
 
   return value;
 }
 
-var cacheKey = Symbol.for("AnimatedComponent");
+var cacheKey = Symbol.for('AnimatedComponent');
 
 var createHost = function createHost(components) {
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       _ref$applyAnimatedVal = _ref.applyAnimatedValues,
-      applyAnimatedValues = _ref$applyAnimatedVal === void 0 ? function () {
+      _applyAnimatedValues = _ref$applyAnimatedVal === void 0 ? function () {
     return false;
   } : _ref$applyAnimatedVal,
       _ref$createAnimatedSt = _ref.createAnimatedStyle,
-      createAnimatedStyle = _ref$createAnimatedSt === void 0 ? function (style) {
+      _createAnimatedStyle = _ref$createAnimatedSt === void 0 ? function (style) {
     return new AnimatedObject(style);
   } : _ref$createAnimatedSt,
       _ref$getComponentProp = _ref.getComponentProps,
-      getComponentProps = _ref$getComponentProp === void 0 ? function (props) {
+      _getComponentProps = _ref$getComponentProp === void 0 ? function (props) {
     return props;
   } : _ref$getComponentProp;
 
   var hostConfig = {
-    applyAnimatedValues: applyAnimatedValues,
-    createAnimatedStyle: createAnimatedStyle,
-    getComponentProps: getComponentProps
+    applyAnimatedValues: _applyAnimatedValues,
+    createAnimatedStyle: _createAnimatedStyle,
+    getComponentProps: _getComponentProps
   };
 
   var animated = function animated(Component) {
-    var displayName = getDisplayName(Component) || "Anonymous";
+    var displayName = getDisplayName(Component) || 'Anonymous';
 
-    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.str(Component)) {
+    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.str(Component)) {
       Component = animated[Component] || (animated[Component] = withAnimated(Component, hostConfig));
     } else {
       Component = Component[cacheKey] || (Component[cacheKey] = withAnimated(Component, hostConfig));
@@ -15612,8 +15211,8 @@ var createHost = function createHost(components) {
     return Component;
   };
 
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(components, function (Component, key) {
-    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(components)) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__/* .eachProp */ .rU)(components, function (Component, key) {
+    if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.arr(components)) {
       key = getDisplayName(Component);
     }
 
@@ -15625,43 +15224,41 @@ var createHost = function createHost(components) {
 };
 
 var getDisplayName = function getDisplayName(arg) {
-  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.str(arg) ? arg : arg && _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.str(arg.displayName) ? arg.displayName : _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(arg) && arg.name || null;
+  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.str(arg) ? arg : arg && _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.str(arg.displayName) ? arg.displayName : _react_spring_shared__WEBPACK_IMPORTED_MODULE_2__.is.fun(arg) && arg.name || null;
 };
 
 
 
 /***/ }),
 
-/***/ 25145:
+/***/ 15363:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "OH": function() { return /* reexport safe */ _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.OH; },
+/* harmony export */   "OH": function() { return /* reexport safe */ _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.OH; },
 /* harmony export */   "vc": function() { return /* binding */ config; },
 /* harmony export */   "to": function() { return /* binding */ to; },
 /* harmony export */   "q_": function() { return /* binding */ useSpring; },
 /* harmony export */   "Yz": function() { return /* binding */ useTransition; }
 /* harmony export */ });
 /* unused harmony exports BailSignal, Controller, FrameValue, Interpolation, Spring, SpringContext, SpringRef, SpringValue, Trail, Transition, inferTo, interpolate, update, useChain, useSpringRef, useSprings, useTrail */
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(22128);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(8452);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(41568);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(15892);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(44005);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(25008);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(72094);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(22128);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8452);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(15892);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(44005);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(25008);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(72094);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(44524);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12426);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(9502);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(59176);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(32738);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(66475);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(9502);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59176);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(32738);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22917);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(31950);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(67294);
-/* harmony import */ var _react_spring_animated__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(58392);
+/* harmony import */ var _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33907);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67294);
+/* harmony import */ var _react_spring_animated__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(66027);
 
 
 
@@ -15673,22 +15270,12 @@ var getDisplayName = function getDisplayName(arg) {
 
 
 
-
-
-var _excluded = ["children"],
-    _excluded2 = (/* unused pure expression or super */ null && (["children"])),
-    _excluded3 = (/* unused pure expression or super */ null && (["items", "children"])),
-    _excluded4 = (/* unused pure expression or super */ null && (["items", "children"]));
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -15703,24 +15290,43 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
 function callProp(value) {
   for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
   }
 
-  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(value) ? value.apply(void 0, args) : value;
+  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(value) ? value.apply(void 0, args) : value;
 }
 
 var matchProp = function matchProp(value, key) {
-  return value === true || !!(key && value && (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(value) ? value(key) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(value).includes(key)));
+  return value === true || !!(key && value && (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(value) ? value(key) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(value).includes(key)));
 };
 
 var resolveProp = function resolveProp(prop, key) {
-  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(prop) ? key && prop[key] : prop;
+  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(prop) ? key && prop[key] : prop;
 };
 
 var getDefaultProp = function getDefaultProp(props, key) {
-  return props.default === true ? props[key] : props.default ? props.default[key] : void 0;
+  return props.default === true ? props[key] : props.default ? props.default[key] : undefined;
 };
 
 var noopTransform = function noopTransform(value) {
@@ -15746,7 +15352,7 @@ var getDefaultProps = function getDefaultProps(props) {
       var key = _step.value;
       var value = transform(props[key], key);
 
-      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(value)) {
+      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(value)) {
         defaults[key] = value;
       }
     }
@@ -15759,7 +15365,7 @@ var getDefaultProps = function getDefaultProps(props) {
   return defaults;
 };
 
-var DEFAULT_PROPS = ["config", "onProps", "onStart", "onChange", "onPause", "onResume", "onRest"];
+var DEFAULT_PROPS = ['config', 'onProps', 'onStart', 'onChange', 'onPause', 'onResume', 'onRest'];
 var RESERVED_PROPS = {
   config: 1,
   from: 1,
@@ -15798,7 +15404,7 @@ var RESERVED_PROPS = {
 function getForwardProps(props) {
   var forward = {};
   var count = 0;
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(props, function (value, prop) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(props, function (value, prop) {
     if (!RESERVED_PROPS[prop]) {
       forward[prop] = value;
       count++;
@@ -15817,18 +15423,18 @@ function inferTo(props) {
     var out = {
       to: to
     };
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(props, function (val, key) {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(props, function (val, key) {
       return key in to || (out[key] = val);
     });
     return out;
   }
 
-  return _objectSpread({}, props);
+  return _extends({}, props);
 }
 
 function computeGoal(value) {
-  value = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(value);
-  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(value) ? value.map(computeGoal) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isAnimatedString */ .Df)(value) ? _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.createStringInterpolator */ .OH.createStringInterpolator({
+  value = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(value);
+  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(value) ? value.map(computeGoal) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isAnimatedString */ .Df)(value) ? _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.createStringInterpolator */ .OH.createStringInterpolator({
     range: [0, 1],
     output: [value, value]
   })(1) : value;
@@ -15843,28 +15449,28 @@ function hasProps(props) {
 }
 
 function isAsyncTo(to) {
-  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(to) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(to) && _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(to[0]);
+  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(to) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(to) && _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(to[0]);
 }
 
 function detachRefs(ctrl, ref) {
-  var _a;
+  var _ctrl$ref;
 
-  (_a = ctrl.ref) == null ? void 0 : _a.delete(ctrl);
+  (_ctrl$ref = ctrl.ref) == null ? void 0 : _ctrl$ref.delete(ctrl);
   ref == null ? void 0 : ref.delete(ctrl);
 }
 
 function replaceRef(ctrl, ref) {
-  var _a;
-
   if (ref && ctrl.ref !== ref) {
-    (_a = ctrl.ref) == null ? void 0 : _a.delete(ctrl);
+    var _ctrl$ref2;
+
+    (_ctrl$ref2 = ctrl.ref) == null ? void 0 : _ctrl$ref2.delete(ctrl);
     ref.add(ctrl);
     ctrl.ref = ref;
   }
 }
 
 function useChain(refs, timeSteps) {
-  var timeFrame = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1e3;
+  var timeFrame = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
   useLayoutEffect(function () {
     if (timeSteps) {
       var prevDelay = 0;
@@ -15942,7 +15548,7 @@ var linear = function linear(t) {
   return t;
 };
 
-var defaults = _objectSpread(_objectSpread({}, config.default), {}, {
+var defaults = _extends({}, config.default, {
   mass: 1,
   damping: 1,
   easing: linear,
@@ -15950,17 +15556,31 @@ var defaults = _objectSpread(_objectSpread({}, config.default), {}, {
 });
 
 var AnimationConfig = function AnimationConfig() {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, AnimationConfig);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, AnimationConfig);
 
+  this.tension = void 0;
+  this.friction = void 0;
+  this.frequency = void 0;
+  this.damping = void 0;
+  this.mass = void 0;
   this.velocity = 0;
+  this.restVelocity = void 0;
+  this.precision = void 0;
+  this.progress = void 0;
+  this.duration = void 0;
+  this.easing = void 0;
+  this.clamp = void 0;
+  this.bounce = void 0;
+  this.decay = void 0;
+  this.round = void 0;
   Object.assign(this, defaults);
 };
 
 function mergeConfig(config, newConfig, defaultConfig) {
   if (defaultConfig) {
-    defaultConfig = _objectSpread({}, defaultConfig);
+    defaultConfig = _extends({}, defaultConfig);
     sanitizeConfig(defaultConfig, newConfig);
-    newConfig = _objectSpread(_objectSpread({}, defaultConfig), newConfig);
+    newConfig = _extends({}, defaultConfig, newConfig);
   }
 
   sanitizeConfig(config, newConfig);
@@ -15976,7 +15596,7 @@ function mergeConfig(config, newConfig, defaultConfig) {
       frequency = config.frequency,
       damping = config.damping;
 
-  if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(frequency)) {
+  if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(frequency)) {
     if (frequency < 0.01) frequency = 0.01;
     if (damping < 0) damping = 0;
     config.tension = Math.pow(2 * Math.PI / frequency, 2) * mass;
@@ -15987,18 +15607,18 @@ function mergeConfig(config, newConfig, defaultConfig) {
 }
 
 function sanitizeConfig(config, props) {
-  if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.decay)) {
-    config.duration = void 0;
+  if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.decay)) {
+    config.duration = undefined;
   } else {
-    var isTensionConfig = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.tension) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.friction);
+    var isTensionConfig = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.tension) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.friction);
 
-    if (isTensionConfig || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.frequency) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.damping) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.mass)) {
-      config.duration = void 0;
-      config.decay = void 0;
+    if (isTensionConfig || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.frequency) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.damping) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.mass)) {
+      config.duration = undefined;
+      config.decay = undefined;
     }
 
     if (isTensionConfig) {
-      config.frequency = void 0;
+      config.frequency = undefined;
     }
   }
 }
@@ -16006,33 +15626,35 @@ function sanitizeConfig(config, props) {
 var emptyArray = [];
 
 var Animation = function Animation() {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, Animation);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, Animation);
 
   this.changed = false;
   this.values = emptyArray;
   this.toValues = null;
   this.fromValues = emptyArray;
+  this.to = void 0;
+  this.from = void 0;
   this.config = new AnimationConfig();
   this.immediate = false;
 };
 
-function scheduleProps(callId, _ref) {
-  var key = _ref.key,
-      props = _ref.props,
-      defaultProps = _ref.defaultProps,
-      state = _ref.state,
-      actions = _ref.actions;
+function scheduleProps(callId, _ref2) {
+  var key = _ref2.key,
+      props = _ref2.props,
+      defaultProps = _ref2.defaultProps,
+      state = _ref2.state,
+      actions = _ref2.actions;
   return new Promise(function (resolve, reject) {
-    var _a;
+    var _props$cancel;
 
     var delay;
     var timeout;
-    var cancel = matchProp((_a = props.cancel) != null ? _a : defaultProps == null ? void 0 : defaultProps.cancel, key);
+    var cancel = matchProp((_props$cancel = props.cancel) != null ? _props$cancel : defaultProps == null ? void 0 : defaultProps.cancel, key);
 
     if (cancel) {
       onStart();
     } else {
-      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.pause)) {
+      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.pause)) {
         state.paused = matchProp(props.pause, key);
       }
 
@@ -16057,12 +15679,12 @@ function scheduleProps(callId, _ref) {
       state.resumeQueue.add(onResume);
       state.timeouts.delete(timeout);
       timeout.cancel();
-      delay = timeout.time - _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.now */ .Wn.now();
+      delay = timeout.time - _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.now */ .Wn.now();
     }
 
     function onResume() {
       if (delay > 0) {
-        timeout = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.setTimeout */ .Wn.setTimeout(onStart, delay);
+        timeout = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.setTimeout */ .Wn.setTimeout(onStart, delay);
         state.pauseQueue.add(onPause);
         state.timeouts.add(timeout);
       } else {
@@ -16079,7 +15701,7 @@ function scheduleProps(callId, _ref) {
       }
 
       try {
-        actions.start(_objectSpread(_objectSpread({}, props), {}, {
+        actions.start(_extends({}, props, {
           callId: callId,
           cancel: cancel
         }), resolve);
@@ -16137,7 +15759,7 @@ function runAsync(to, props, state, target) {
     return prevPromise;
   }
 
-  return state.promise = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee3() {
+  return state.promise = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee3() {
     var defaultProps, preventBail, bail, bailPromise, bailIfEnded, animate, result, animating;
     return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee3$(_context3) {
       while (1) {
@@ -16146,7 +15768,7 @@ function runAsync(to, props, state, target) {
             state.asyncId = callId;
             state.asyncTo = to;
             defaultProps = getDefaultProps(props, function (value, key) {
-              return key === "onRest" ? void 0 : value;
+              return key === 'onRest' ? undefined : value;
             });
             bailPromise = new Promise(function (resolve, reject) {
               return preventBail = resolve, bail = reject;
@@ -16165,13 +15787,13 @@ function runAsync(to, props, state, target) {
             animate = function animate(arg1, arg2) {
               var bailSignal = new BailSignal();
               var skipAnimationSignal = new SkipAniamtionSignal();
-              return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
-                var props2, result2;
+              return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
+                var props, result;
                 return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.skipAnimation */ .OH.skipAnimation) {
+                        if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.skipAnimation */ .OH.skipAnimation) {
                           _context.next = 5;
                           break;
                         }
@@ -16183,20 +15805,20 @@ function runAsync(to, props, state, target) {
 
                       case 5:
                         bailIfEnded(bailSignal);
-                        props2 = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(arg1) ? _objectSpread({}, arg1) : _objectSpread(_objectSpread({}, arg2), {}, {
+                        props = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(arg1) ? _extends({}, arg1) : _extends({}, arg2, {
                           to: arg1
                         });
-                        props2.parentId = callId;
-                        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(defaultProps, function (value, key) {
-                          if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props2[key])) {
-                            props2[key] = value;
+                        props.parentId = callId;
+                        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(defaultProps, function (value, key) {
+                          if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props[key])) {
+                            props[key] = value;
                           }
                         });
                         _context.next = 11;
-                        return target.start(props2);
+                        return target.start(props);
 
                       case 11:
-                        result2 = _context.sent;
+                        result = _context.sent;
                         bailIfEnded(bailSignal);
 
                         if (!state.paused) {
@@ -16210,7 +15832,7 @@ function runAsync(to, props, state, target) {
                         });
 
                       case 16:
-                        return _context.abrupt("return", result2);
+                        return _context.abrupt("return", result);
 
                       case 17:
                       case "end":
@@ -16221,7 +15843,7 @@ function runAsync(to, props, state, target) {
               }))();
             };
 
-            if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.skipAnimation */ .OH.skipAnimation) {
+            if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.skipAnimation */ .OH.skipAnimation) {
               _context3.next = 9;
               break;
             }
@@ -16232,10 +15854,10 @@ function runAsync(to, props, state, target) {
           case 9:
             _context3.prev = 9;
 
-            if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(to)) {
+            if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(to)) {
               animating = function () {
-                var _ref4 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2(queue) {
-                  var _iterator2, _step2, props2;
+                var _ref5 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2(queue) {
+                  var _iterator2, _step2, _props;
 
                   return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee2$(_context2) {
                     while (1) {
@@ -16252,9 +15874,9 @@ function runAsync(to, props, state, target) {
                             break;
                           }
 
-                          props2 = _step2.value;
+                          _props = _step2.value;
                           _context2.next = 7;
-                          return animate(props2);
+                          return animate(_props);
 
                         case 7:
                           _context2.next = 3;
@@ -16286,7 +15908,7 @@ function runAsync(to, props, state, target) {
                 }));
 
                 return function (_x) {
-                  return _ref4.apply(this, arguments);
+                  return _ref5.apply(this, arguments);
                 };
               }()(to);
             } else {
@@ -16332,15 +15954,15 @@ function runAsync(to, props, state, target) {
 
             if (callId == state.asyncId) {
               state.asyncId = parentId;
-              state.asyncTo = parentId ? prevTo : void 0;
-              state.promise = parentId ? prevPromise : void 0;
+              state.asyncTo = parentId ? prevTo : undefined;
+              state.promise = parentId ? prevPromise : undefined;
             }
 
             return _context3.finish(27);
 
           case 30:
-            if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(onRest)) {
-              _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+            if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(onRest)) {
+              _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
                 onRest(result, target, target.item);
               });
             }
@@ -16357,66 +15979,79 @@ function runAsync(to, props, state, target) {
 }
 
 function stopAsync(state, cancelId) {
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flush */ .yl)(state.timeouts, function (t) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flush */ .yl)(state.timeouts, function (t) {
     return t.cancel();
   });
   state.pauseQueue.clear();
   state.resumeQueue.clear();
-  state.asyncId = state.asyncTo = state.promise = void 0;
+  state.asyncId = state.asyncTo = state.promise = undefined;
   if (cancelId) state.cancelId = cancelId;
 }
 
 var BailSignal = /*#__PURE__*/function (_Error) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(BailSignal, _Error);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(BailSignal, _Error);
 
   var _super = _createSuper(BailSignal);
 
   function BailSignal() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, BailSignal);
+    var _this;
 
-    return _super.call(this, "An async animation has been interrupted. You see this error because you forgot to use `await` or `.catch(...)` on its returned promise.");
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, BailSignal);
+
+    _this = _super.call(this, 'An async animation has been interrupted. You see this error because you ' + 'forgot to use `await` or `.catch(...)` on its returned promise.');
+    _this.result = void 0;
+    return _this;
   }
 
   return BailSignal;
-}( /*#__PURE__*/(0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(Error));
+}( /*#__PURE__*/(0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(Error));
 
 var SkipAniamtionSignal = /*#__PURE__*/function (_Error2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(SkipAniamtionSignal, _Error2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(SkipAniamtionSignal, _Error2);
 
   var _super2 = _createSuper(SkipAniamtionSignal);
 
   function SkipAniamtionSignal() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, SkipAniamtionSignal);
+    var _this2;
 
-    return _super2.call(this, "SkipAnimationSignal");
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, SkipAniamtionSignal);
+
+    _this2 = _super2.call(this, 'SkipAnimationSignal');
+    _this2.result = void 0;
+    return _this2;
   }
 
   return SkipAniamtionSignal;
-}( /*#__PURE__*/(0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(Error));
+}( /*#__PURE__*/(0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(Error));
 
 var isFrameValue = function isFrameValue(value) {
   return value instanceof FrameValue;
 };
 
-var nextId = 1;
+var nextId$1 = 1;
 
 var FrameValue = /*#__PURE__*/function (_FluidValue) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(FrameValue, _FluidValue);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(FrameValue, _FluidValue);
 
   var _super3 = _createSuper(FrameValue);
 
   function FrameValue() {
-    var _this;
+    var _this3;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, FrameValue);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, FrameValue);
 
-    _this = _super3.apply(this, arguments);
-    _this.id = nextId++;
-    _this._priority = 0;
-    return _this;
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    _this3 = _super3.call.apply(_super3, [this].concat(args));
+    _this3.id = nextId$1++;
+    _this3.key = void 0;
+    _this3._priority = 0;
+    return _this3;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(FrameValue, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(FrameValue, [{
     key: "priority",
     get: function get() {
       return this._priority;
@@ -16431,28 +16066,28 @@ var FrameValue = /*#__PURE__*/function (_FluidValue) {
   }, {
     key: "get",
     value: function get() {
-      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this);
+      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this);
       return node && node.getValue();
     }
   }, {
     key: "to",
     value: function to() {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.to */ .OH.to(this, args);
-    }
-  }, {
-    key: "interpolate",
-    value: function interpolate() {
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .deprecateInterpolate */ .LW)();
-
       for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
         args[_key3] = arguments[_key3];
       }
 
-      return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.to */ .OH.to(this, args);
+      return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.to */ .OH.to(this, args);
+    }
+  }, {
+    key: "interpolate",
+    value: function interpolate() {
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .deprecateInterpolate */ .LW)();
+
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.to */ .OH.to(this, args);
     }
   }, {
     key: "toJSON",
@@ -16479,8 +16114,8 @@ var FrameValue = /*#__PURE__*/function (_FluidValue) {
     key: "_onChange",
     value: function _onChange(value) {
       var idle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .callFluidObservers */ .k0)(this, {
-        type: "change",
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .callFluidObservers */ .k0)(this, {
+        type: 'change',
         parent: this,
         value: value,
         idle: idle
@@ -16490,11 +16125,11 @@ var FrameValue = /*#__PURE__*/function (_FluidValue) {
     key: "_onPriorityChange",
     value: function _onPriorityChange(priority) {
       if (!this.idle) {
-        _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .frameLoop.sort */ .fT.sort(this);
+        _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .frameLoop.sort */ .fT.sort(this);
       }
 
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .callFluidObservers */ .k0)(this, {
-        type: "priority",
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .callFluidObservers */ .k0)(this, {
+        type: 'priority',
         parent: this,
         priority: priority
       });
@@ -16502,9 +16137,9 @@ var FrameValue = /*#__PURE__*/function (_FluidValue) {
   }]);
 
   return FrameValue;
-}(_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .FluidValue */ .B0);
+}(_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .FluidValue */ .B0);
 
-var $P = Symbol.for("SpringPhase");
+var $P = Symbol.for('SpringPhase');
 var HAS_ANIMATED = 1;
 var IS_ANIMATING = 2;
 var IS_PAUSED = 4;
@@ -16530,45 +16165,47 @@ var setPausedBit = function setPausedBit(target, paused) {
 };
 
 var SpringValue = /*#__PURE__*/function (_FrameValue) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(SpringValue, _FrameValue);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(SpringValue, _FrameValue);
 
   var _super4 = _createSuper(SpringValue);
 
   function SpringValue(arg1, arg2) {
-    var _this2;
+    var _this4;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, SpringValue);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, SpringValue);
 
-    _this2 = _super4.call(this);
-    _this2.animation = new Animation();
-    _this2.defaultProps = {};
-    _this2._state = {
+    _this4 = _super4.call(this);
+    _this4.key = void 0;
+    _this4.animation = new Animation();
+    _this4.queue = void 0;
+    _this4.defaultProps = {};
+    _this4._state = {
       paused: false,
       pauseQueue: new Set(),
       resumeQueue: new Set(),
       timeouts: new Set()
     };
-    _this2._pendingCalls = new Set();
-    _this2._lastCallId = 0;
-    _this2._lastToId = 0;
-    _this2._memoizedDuration = 0;
+    _this4._pendingCalls = new Set();
+    _this4._lastCallId = 0;
+    _this4._lastToId = 0;
+    _this4._memoizedDuration = 0;
 
-    if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(arg1) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(arg2)) {
-      var props = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(arg1) ? _objectSpread({}, arg1) : _objectSpread(_objectSpread({}, arg2), {}, {
+    if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(arg1) || !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(arg2)) {
+      var props = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(arg1) ? _extends({}, arg1) : _extends({}, arg2, {
         from: arg1
       });
 
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.default)) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.default)) {
         props.default = true;
       }
 
-      _this2.start(props);
+      _this4.start(props);
     }
 
-    return _this2;
+    return _this4;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(SpringValue, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(SpringValue, [{
     key: "idle",
     get: function get() {
       return !(isAnimating(this) || this._state.asyncTo) || isPaused(this);
@@ -16576,14 +16213,14 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "goal",
     get: function get() {
-      return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(this.animation.to);
+      return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(this.animation.to);
     }
   }, {
     key: "velocity",
     get: function get() {
-      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this);
-      return node instanceof _react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .AnimatedValue */ .iG ? node.lastVelocity || 0 : node.getPayload().map(function (node2) {
-        return node2.lastVelocity || 0;
+      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this);
+      return node instanceof _react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .AnimatedValue */ .iG ? node.lastVelocity || 0 : node.getPayload().map(function (node) {
+        return node.lastVelocity || 0;
       });
     }
   }, {
@@ -16604,72 +16241,72 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "advance",
     value: function advance(dt) {
-      var _this3 = this;
+      var _this5 = this;
 
       var idle = true;
       var changed = false;
       var anim = this.animation;
       var config = anim.config,
           toValues = anim.toValues;
-      var payload = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getPayload */ .He)(anim.to);
+      var payload = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getPayload */ .He)(anim.to);
 
-      if (!payload && (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(anim.to)) {
-        toValues = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(anim.to));
+      if (!payload && (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(anim.to)) {
+        toValues = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(anim.to));
       }
 
-      anim.values.forEach(function (node2, i) {
-        if (node2.done) return;
-        var to = node2.constructor == _react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .AnimatedString */ .eC ? 1 : payload ? payload[i].lastPosition : toValues[i];
+      anim.values.forEach(function (node, i) {
+        if (node.done) return;
+        var to = node.constructor == _react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .AnimatedString */ .eC ? 1 : payload ? payload[i].lastPosition : toValues[i];
         var finished = anim.immediate;
         var position = to;
 
         if (!finished) {
-          position = node2.lastPosition;
+          position = node.lastPosition;
 
           if (config.tension <= 0) {
-            node2.done = true;
+            node.done = true;
             return;
           }
 
-          var elapsed = node2.elapsedTime += dt;
+          var elapsed = node.elapsedTime += dt;
           var from = anim.fromValues[i];
-          var v0 = node2.v0 != null ? node2.v0 : node2.v0 = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(config.velocity) ? config.velocity[i] : config.velocity;
+          var v0 = node.v0 != null ? node.v0 : node.v0 = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(config.velocity) ? config.velocity[i] : config.velocity;
           var velocity;
 
-          if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(config.duration)) {
+          if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(config.duration)) {
             var p = 1;
 
             if (config.duration > 0) {
-              if (_this3._memoizedDuration !== config.duration) {
-                _this3._memoizedDuration = config.duration;
+              if (_this5._memoizedDuration !== config.duration) {
+                _this5._memoizedDuration = config.duration;
 
-                if (node2.durationProgress > 0) {
-                  node2.elapsedTime = config.duration * node2.durationProgress;
-                  elapsed = node2.elapsedTime += dt;
+                if (node.durationProgress > 0) {
+                  node.elapsedTime = config.duration * node.durationProgress;
+                  elapsed = node.elapsedTime += dt;
                 }
               }
 
-              p = (config.progress || 0) + elapsed / _this3._memoizedDuration;
+              p = (config.progress || 0) + elapsed / _this5._memoizedDuration;
               p = p > 1 ? 1 : p < 0 ? 0 : p;
-              node2.durationProgress = p;
+              node.durationProgress = p;
             }
 
             position = from + config.easing(p) * (to - from);
-            velocity = (position - node2.lastPosition) / dt;
+            velocity = (position - node.lastPosition) / dt;
             finished = p == 1;
           } else if (config.decay) {
             var decay = config.decay === true ? 0.998 : config.decay;
             var e = Math.exp(-(1 - decay) * elapsed);
             position = from + v0 / (1 - decay) * (1 - e);
-            finished = Math.abs(node2.lastPosition - position) < 0.1;
+            finished = Math.abs(node.lastPosition - position) < 0.1;
             velocity = v0 * e;
           } else {
-            velocity = node2.lastVelocity == null ? v0 : node2.lastVelocity;
-            var precision = config.precision || (from == to ? 5e-3 : Math.min(1, Math.abs(to - from) * 1e-3));
+            velocity = node.lastVelocity == null ? v0 : node.lastVelocity;
+            var precision = config.precision || (from == to ? 0.005 : Math.min(1, Math.abs(to - from) * 0.001));
             var restVelocity = config.restVelocity || precision / 10;
             var bounceFactor = config.clamp ? 0 : config.bounce;
-            var canBounce = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(bounceFactor);
-            var isGrowing = from == to ? node2.v0 > 0 : from < to;
+            var canBounce = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(bounceFactor);
+            var isGrowing = from == to ? node.v0 > 0 : from < to;
             var isMoving;
             var isBouncing = false;
             var step = 1;
@@ -16695,18 +16332,18 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
                 }
               }
 
-              var springForce = -config.tension * 1e-6 * (position - to);
-              var dampingForce = -config.friction * 1e-3 * velocity;
+              var springForce = -config.tension * 0.000001 * (position - to);
+              var dampingForce = -config.friction * 0.001 * velocity;
               var acceleration = (springForce + dampingForce) / config.mass;
               velocity = velocity + acceleration * step;
               position = position + velocity * step;
             }
           }
 
-          node2.lastVelocity = velocity;
+          node.lastVelocity = velocity;
 
           if (Number.isNaN(position)) {
-            console.warn("Got NaN while animating:", _this3);
+            console.warn("Got NaN while animating:", _this5);
             finished = true;
           }
         }
@@ -16716,40 +16353,45 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
         }
 
         if (finished) {
-          node2.done = true;
+          node.done = true;
         } else {
           idle = false;
         }
 
-        if (node2.setValue(position, config.round)) {
+        if (node.setValue(position, config.round)) {
           changed = true;
         }
       });
-      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this);
+      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this);
+      var currVal = node.getValue();
 
       if (idle) {
-        var value = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(anim.to);
+        var finalVal = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(anim.to);
 
-        if (node.setValue(value) || changed) {
-          this._onChange(value);
+        if ((currVal !== finalVal || changed) && !config.decay) {
+          node.setValue(finalVal);
+
+          this._onChange(finalVal);
+        } else if (changed && config.decay) {
+          this._onChange(currVal);
         }
 
         this._stop();
       } else if (changed) {
-        this._onChange(node.getValue());
+        this._onChange(currVal);
       }
     }
   }, {
     key: "set",
     value: function set(value) {
-      var _this4 = this;
+      var _this6 = this;
 
-      _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
-        _this4._stop();
+      _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+        _this6._stop();
 
-        _this4._focus(value);
+        _this6._focus(value);
 
-        _this4._set(value);
+        _this6._set(value);
       });
       return this;
     }
@@ -16770,20 +16412,20 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "finish",
     value: function finish() {
-      var _this5 = this;
+      var _this7 = this;
 
       if (isAnimating(this)) {
         var _this$animation = this.animation,
             _to = _this$animation.to,
             _config = _this$animation.config;
-        _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
-          _this5._onStart();
+        _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+          _this7._onStart();
 
           if (!_config.decay) {
-            _this5._set(_to, false);
+            _this7._set(_to, false);
           }
 
-          _this5._stop();
+          _this7._stop();
         });
       }
 
@@ -16799,12 +16441,12 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "start",
     value: function start(to, arg2) {
-      var _this6 = this;
+      var _this8 = this;
 
       var queue;
 
-      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(to)) {
-        queue = [_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(to) ? to : _objectSpread(_objectSpread({}, arg2), {}, {
+      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(to)) {
+        queue = [_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(to) ? to : _extends({}, arg2, {
           to: to
         })];
       } else {
@@ -16813,23 +16455,23 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
       }
 
       return Promise.all(queue.map(function (props) {
-        return _this6._update(props);
+        return _this8._update(props);
       })).then(function (results) {
-        return getCombinedResult(_this6, results);
+        return getCombinedResult(_this8, results);
       });
     }
   }, {
     key: "stop",
     value: function stop(cancel) {
-      var _this7 = this;
+      var _this9 = this;
 
       var to = this.animation.to;
 
       this._focus(this.get());
 
       stopAsync(this._state, cancel && this._lastCallId);
-      _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
-        return _this7._stop(to, cancel);
+      _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+        return _this9._stop(to, cancel);
       });
       return this;
     }
@@ -16843,28 +16485,28 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "eventObserved",
     value: function eventObserved(event) {
-      if (event.type == "change") {
+      if (event.type == 'change') {
         this._start();
-      } else if (event.type == "priority") {
+      } else if (event.type == 'priority') {
         this.priority = event.priority + 1;
       }
     }
   }, {
     key: "_prepareNode",
     value: function _prepareNode(props) {
-      var key = this.key || "";
+      var key = this.key || '';
       var to = props.to,
           from = props.from;
-      to = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(to) ? to[key] : to;
+      to = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(to) ? to[key] : to;
 
       if (to == null || isAsyncTo(to)) {
-        to = void 0;
+        to = undefined;
       }
 
-      from = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(from) ? from[key] : from;
+      from = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(from) ? from[key] : from;
 
       if (from == null) {
-        from = void 0;
+        from = undefined;
       }
 
       var range = {
@@ -16874,16 +16516,16 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
 
       if (!hasAnimated(this)) {
         if (props.reverse) {
-          var _ref5 = [from, to];
-          to = _ref5[0];
-          from = _ref5[1];
+          var _ref6 = [from, to];
+          to = _ref6[0];
+          from = _ref6[1];
         }
 
-        from = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(from);
+        from = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(from);
 
-        if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(from)) {
+        if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(from)) {
           this._set(from);
-        } else if (!(0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this)) {
+        } else if (!(0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this)) {
           this._set(to);
         }
       }
@@ -16892,22 +16534,23 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
     }
   }, {
     key: "_update",
-    value: function _update(_ref6, isLoop) {
-      var _this8 = this;
+    value: function _update(_ref, isLoop) {
+      var _this10 = this;
 
-      var props = Object.assign({}, _ref6);
+      var props = _extends({}, _ref);
+
       var key = this.key,
           defaultProps = this.defaultProps;
       if (props.default) Object.assign(defaultProps, getDefaultProps(props, function (value, prop) {
         return /^on/.test(prop) ? resolveProp(value, key) : value;
       }));
-      mergeActiveFn(this, props, "onProps");
-      sendEvent(this, "onProps", props, this);
+      mergeActiveFn(this, props, 'onProps');
+      sendEvent(this, 'onProps', props, this);
 
       var range = this._prepareNode(props);
 
       if (Object.isFrozen(this)) {
-        throw Error("Cannot animate a `SpringValue` object that is frozen. Did you forget to pass your component to `animated(...)` before animating its props?");
+        throw Error('Cannot animate a `SpringValue` object that is frozen. ' + 'Did you forget to pass your component to `animated(...)` before animating its props?');
       }
 
       var state = this._state;
@@ -16918,22 +16561,22 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
         state: state,
         actions: {
           pause: function pause() {
-            if (!isPaused(_this8)) {
-              setPausedBit(_this8, true);
-              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flushCalls */ .bl)(state.pauseQueue);
-              sendEvent(_this8, "onPause", getFinishedResult(_this8, checkFinished(_this8, _this8.animation.to)), _this8);
+            if (!isPaused(_this10)) {
+              setPausedBit(_this10, true);
+              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flushCalls */ .bl)(state.pauseQueue);
+              sendEvent(_this10, 'onPause', getFinishedResult(_this10, checkFinished(_this10, _this10.animation.to)), _this10);
             }
           },
           resume: function resume() {
-            if (isPaused(_this8)) {
-              setPausedBit(_this8, false);
+            if (isPaused(_this10)) {
+              setPausedBit(_this10, false);
 
-              if (isAnimating(_this8)) {
-                _this8._resume();
+              if (isAnimating(_this10)) {
+                _this10._resume();
               }
 
-              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flushCalls */ .bl)(state.resumeQueue);
-              sendEvent(_this8, "onResume", getFinishedResult(_this8, checkFinished(_this8, _this8.animation.to)), _this8);
+              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flushCalls */ .bl)(state.resumeQueue);
+              sendEvent(_this10, 'onResume', getFinishedResult(_this10, checkFinished(_this10, _this10.animation.to)), _this10);
             }
           },
           start: this._merge.bind(this, range)
@@ -16943,7 +16586,7 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
           var nextProps = createLoopUpdate(props);
 
           if (nextProps) {
-            return _this8._update(nextProps, true);
+            return _this10._update(nextProps, true);
           }
         }
 
@@ -16953,15 +16596,15 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "_merge",
     value: function _merge(range, props, resolve) {
-      var _this9 = this;
+      var _this11 = this;
 
       if (props.cancel) {
         this.stop(true);
         return resolve(getCancelledResult(this));
       }
 
-      var hasToProp = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(range.to);
-      var hasFromProp = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(range.from);
+      var hasToProp = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(range.to);
+      var hasFromProp = !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(range.from);
 
       if (hasToProp || hasFromProp) {
         if (props.callId > this._lastToId) {
@@ -16981,7 +16624,7 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
           _range$from = range.from,
           from = _range$from === void 0 ? prevFrom : _range$from;
 
-      if (hasFromProp && !hasToProp && (!props.default || _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(to))) {
+      if (hasFromProp && !hasToProp && (!props.default || _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(to))) {
         to = from;
       }
 
@@ -16991,14 +16634,14 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
         from = _ref7[1];
       }
 
-      var hasFromChanged = !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(from, prevFrom);
+      var hasFromChanged = !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(from, prevFrom);
 
       if (hasFromChanged) {
         anim.from = from;
       }
 
-      from = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(from);
-      var hasToChanged = !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(to, prevTo);
+      from = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(from);
+      var hasToChanged = !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(to, prevTo);
 
       if (hasToChanged) {
         this._focus(to);
@@ -17017,20 +16660,20 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
         mergeConfig(config, callProp(props.config, key), props.config !== defaultProps.config ? callProp(defaultProps.config, key) : void 0);
       }
 
-      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this);
+      var node = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this);
 
-      if (!node || _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(to)) {
+      if (!node || _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(to)) {
         return resolve(getFinishedResult(this, true));
       }
 
-      var reset = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.reset) ? hasFromProp && !props.default : !_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(from) && matchProp(props.reset, key);
+      var reset = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.reset) ? hasFromProp && !props.default : !_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(from) && matchProp(props.reset, key);
       var value = reset ? from : this.get();
       var goal = computeGoal(to);
-      var isAnimatable = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.num(goal) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(goal) || (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isAnimatedString */ .Df)(goal);
+      var isAnimatable = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.num(goal) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(goal) || (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isAnimatedString */ .Df)(goal);
       var immediate = !hasAsyncTo && (!isAnimatable || matchProp(defaultProps.immediate || props.immediate, key));
 
       if (hasToChanged) {
-        var nodeType = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimatedType */ .sb)(to);
+        var nodeType = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimatedType */ .sb)(to);
 
         if (nodeType !== node.constructor) {
           if (immediate) {
@@ -17040,18 +16683,18 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
       }
 
       var goalType = node.constructor;
-      var started = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(to);
+      var started = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(to);
       var finished = false;
 
       if (!started) {
         var hasValueChanged = reset || !hasAnimated(this) && hasFromChanged;
 
         if (hasToChanged || hasValueChanged) {
-          finished = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(computeGoal(value), goal);
+          finished = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(computeGoal(value), goal);
           started = !finished;
         }
 
-        if (!(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(config.decay, decay) || !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(config.velocity, velocity)) {
+        if (!(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(anim.immediate, immediate) && !immediate || !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(config.decay, decay) || !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(config.velocity, velocity)) {
           started = true;
         }
       }
@@ -17065,9 +16708,9 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
       }
 
       if (!hasAsyncTo) {
-        if (started || (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(prevTo)) {
+        if (started || (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(prevTo)) {
           anim.values = node.getPayload();
-          anim.toValues = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(to) ? null : goalType == _react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .AnimatedString */ .eC ? [1] : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(goal);
+          anim.toValues = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(to) ? null : goalType == _react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .AnimatedString */ .eC ? [1] : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(goal);
         }
 
         if (anim.immediate != immediate) {
@@ -17080,24 +16723,22 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
 
         if (started) {
           var onRest = anim.onRest;
-          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(ACTIVE_EVENTS, function (type) {
-            return mergeActiveFn(_this9, props, type);
+          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(ACTIVE_EVENTS, function (type) {
+            return mergeActiveFn(_this11, props, type);
           });
           var result = getFinishedResult(this, checkFinished(this, prevTo));
-          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flushCalls */ .bl)(this._pendingCalls, result);
+          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flushCalls */ .bl)(this._pendingCalls, result);
 
           this._pendingCalls.add(resolve);
 
-          if (anim.changed) _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
-            var _a;
-
+          if (anim.changed) _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
             anim.changed = !reset;
-            onRest == null ? void 0 : onRest(result, _this9);
+            onRest == null ? void 0 : onRest(result, _this11);
 
             if (reset) {
               callProp(defaultProps.onRest, result);
             } else {
-              (_a = anim.onStart) == null ? void 0 : _a.call(anim, result, _this9);
+              anim.onStart == null ? void 0 : anim.onStart(result, _this11);
             }
           });
         }
@@ -17123,13 +16764,13 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
       var anim = this.animation;
 
       if (value !== anim.to) {
-        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidObservers */ .Ll)(this)) {
+        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidObservers */ .Ll)(this)) {
           this._detach();
         }
 
         anim.to = value;
 
-        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidObservers */ .Ll)(this)) {
+        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidObservers */ .Ll)(this)) {
           this._attach();
         }
       }
@@ -17140,8 +16781,8 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
       var priority = 0;
       var to = this.animation.to;
 
-      if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(to)) {
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .addFluidObserver */ .UI)(to, this);
+      if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(to)) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .addFluidObserver */ .UI)(to, this);
 
         if (isFrameValue(to)) {
           priority = to.priority + 1;
@@ -17155,39 +16796,39 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
     value: function _detach() {
       var to = this.animation.to;
 
-      if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(to)) {
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .removeFluidObserver */ .iL)(to, this);
+      if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(to)) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .removeFluidObserver */ .iL)(to, this);
       }
     }
   }, {
     key: "_set",
     value: function _set(arg) {
-      var _this10 = this;
+      var _this12 = this;
 
       var idle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var value = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(arg);
+      var value = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(arg);
 
-      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(value)) {
-        var oldNode = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this);
+      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(value)) {
+        var oldNode = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this);
 
-        if (!oldNode || !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(value, oldNode.getValue())) {
-          var nodeType = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimatedType */ .sb)(value);
+        if (!oldNode || !(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(value, oldNode.getValue())) {
+          var nodeType = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimatedType */ .sb)(value);
 
           if (!oldNode || oldNode.constructor != nodeType) {
-            (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .setAnimated */ .f3)(this, nodeType.create(value));
+            (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .setAnimated */ .f3)(this, nodeType.create(value));
           } else {
             oldNode.setValue(value);
           }
 
           if (oldNode) {
-            _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
-              _this10._onChange(value, idle);
+            _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+              _this12._onChange(value, idle);
             });
           }
         }
       }
 
-      return (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this);
+      return (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this);
     }
   }, {
     key: "_onStart",
@@ -17196,7 +16837,7 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
 
       if (!anim.changed) {
         anim.changed = true;
-        sendEvent(this, "onStart", getFinishedResult(this, checkFinished(this, anim.to)), this);
+        sendEvent(this, 'onStart', getFinishedResult(this, checkFinished(this, anim.to)), this);
       }
     }
   }, {
@@ -17210,13 +16851,13 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
 
       callProp(this.defaultProps.onChange, value, this);
 
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(SpringValue.prototype), "_onChange", this).call(this, value, idle);
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(SpringValue.prototype), "_onChange", this).call(this, value, idle);
     }
   }, {
     key: "_start",
     value: function _start() {
       var anim = this.animation;
-      (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this).reset((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(anim.to));
+      (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this).reset((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(anim.to));
 
       if (!anim.immediate) {
         anim.fromValues = anim.values.map(function (node) {
@@ -17235,10 +16876,10 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
   }, {
     key: "_resume",
     value: function _resume() {
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.skipAnimation */ .OH.skipAnimation) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.skipAnimation */ .OH.skipAnimation) {
         this.finish();
       } else {
-        _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .frameLoop.start */ .fT.start(this);
+        _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .frameLoop.start */ .fT.start(this);
       }
     }
   }, {
@@ -17247,24 +16888,24 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
       if (isAnimating(this)) {
         setActiveBit(this, false);
         var anim = this.animation;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(anim.values, function (node) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(anim.values, function (node) {
           node.done = true;
         });
 
         if (anim.toValues) {
-          anim.onChange = anim.onPause = anim.onResume = void 0;
+          anim.onChange = anim.onPause = anim.onResume = undefined;
         }
 
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .callFluidObservers */ .k0)(this, {
-          type: "idle",
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .callFluidObservers */ .k0)(this, {
+          type: 'idle',
           parent: this
         });
         var result = cancel ? getCancelledResult(this.get()) : getFinishedResult(this.get(), checkFinished(this, goal != null ? goal : anim.to));
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flushCalls */ .bl)(this._pendingCalls, result);
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flushCalls */ .bl)(this._pendingCalls, result);
 
         if (anim.changed) {
           anim.changed = false;
-          sendEvent(this, "onRest", result, this);
+          sendEvent(this, 'onRest', result, this);
         }
       }
     }
@@ -17276,7 +16917,7 @@ var SpringValue = /*#__PURE__*/function (_FrameValue) {
 function checkFinished(target, to) {
   var goal = computeGoal(to);
   var value = computeGoal(target.get());
-  return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(value, goal);
+  return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(value, goal);
 }
 
 function createLoopUpdate(props) {
@@ -17288,25 +16929,25 @@ function createLoopUpdate(props) {
     var overrides = loopRet !== true && inferTo(loopRet);
     var reverse = (overrides || props).reverse;
     var reset = !overrides || overrides.reset;
-    return createUpdate(_objectSpread(_objectSpread({}, props), {}, {
+    return createUpdate(_extends({}, props, {
       loop: loop,
       default: false,
-      pause: void 0,
-      to: !reverse || isAsyncTo(to) ? to : void 0,
-      from: reset ? props.from : void 0,
+      pause: undefined,
+      to: !reverse || isAsyncTo(to) ? to : undefined,
+      from: reset ? props.from : undefined,
       reset: reset
     }, overrides));
   }
 }
 
 function createUpdate(props) {
-  var _props = props = inferTo(props),
-      to = _props.to,
-      from = _props.from;
+  var _props2 = props = inferTo(props),
+      to = _props2.to,
+      from = _props2.from;
 
   var keys = new Set();
-  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(to)) findDefined(to, keys);
-  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(from)) findDefined(from, keys);
+  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(to)) findDefined(to, keys);
+  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(from)) findDefined(from, keys);
   props.keys = keys.size ? Array.from(keys) : null;
   return props;
 }
@@ -17314,7 +16955,7 @@ function createUpdate(props) {
 function declareUpdate(props) {
   var update = createUpdate(props);
 
-  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(update.default)) {
+  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(update.default)) {
     update.default = getDefaultProps(update);
   }
 
@@ -17322,44 +16963,48 @@ function declareUpdate(props) {
 }
 
 function findDefined(values, keys) {
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(values, function (value, key) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(values, function (value, key) {
     return value != null && keys.add(key);
   });
 }
 
-var ACTIVE_EVENTS = ["onStart", "onRest", "onChange", "onPause", "onResume"];
+var ACTIVE_EVENTS = ['onStart', 'onRest', 'onChange', 'onPause', 'onResume'];
 
 function mergeActiveFn(target, props, type) {
-  target.animation[type] = props[type] !== getDefaultProp(props, type) ? resolveProp(props[type], target.key) : void 0;
+  target.animation[type] = props[type] !== getDefaultProp(props, type) ? resolveProp(props[type], target.key) : undefined;
 }
 
 function sendEvent(target, type) {
-  var _b2, _d2;
+  var _target$animation$typ2, _target$defaultProps$2;
 
-  var _a, _b, _c, _d;
+  var _target$animation$typ, _target$animation, _target$defaultProps$, _target$defaultProps;
 
-  for (var _len4 = arguments.length, args = new Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
-    args[_key4 - 2] = arguments[_key4];
+  for (var _len5 = arguments.length, args = new Array(_len5 > 2 ? _len5 - 2 : 0), _key5 = 2; _key5 < _len5; _key5++) {
+    args[_key5 - 2] = arguments[_key5];
   }
 
-  (_b = (_a = target.animation)[type]) == null ? void 0 : (_b2 = _b).call.apply(_b2, [_a].concat(args));
-  (_d = (_c = target.defaultProps)[type]) == null ? void 0 : (_d2 = _d).call.apply(_d2, [_c].concat(args));
+  (_target$animation$typ = (_target$animation = target.animation)[type]) == null ? void 0 : (_target$animation$typ2 = _target$animation$typ).call.apply(_target$animation$typ2, [_target$animation].concat(args));
+  (_target$defaultProps$ = (_target$defaultProps = target.defaultProps)[type]) == null ? void 0 : (_target$defaultProps$2 = _target$defaultProps$).call.apply(_target$defaultProps$2, [_target$defaultProps].concat(args));
 }
 
-var BATCHED_EVENTS = ["onStart", "onChange", "onRest"];
-var nextId$1 = 1;
+var BATCHED_EVENTS = ['onStart', 'onChange', 'onRest'];
+var nextId = 1;
 
 var Controller = /*#__PURE__*/function () {
-  function Controller(props, flush2) {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, Controller);
+  function Controller(props, flush) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, Controller);
 
-    this.id = nextId$1++;
+    this.id = nextId++;
     this.springs = {};
     this.queue = [];
+    this.ref = void 0;
+    this._flush = void 0;
+    this._initialProps = void 0;
     this._lastAsyncId = 0;
     this._active = new Set();
     this._changed = new Set();
     this._started = false;
+    this._item = void 0;
     this._state = {
       paused: false,
       pauseQueue: new Set(),
@@ -17373,18 +17018,18 @@ var Controller = /*#__PURE__*/function () {
     };
     this._onFrame = this._onFrame.bind(this);
 
-    if (flush2) {
-      this._flush = flush2;
+    if (flush) {
+      this._flush = flush;
     }
 
     if (props) {
-      this.start(_objectSpread({
+      this.start(_extends({
         default: true
       }, props));
     }
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(Controller, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(Controller, [{
     key: "idle",
     get: function get() {
       return !this._state.asyncTo && Object.values(this.springs).every(function (spring) {
@@ -17414,7 +17059,7 @@ var Controller = /*#__PURE__*/function () {
       for (var key in values) {
         var value = values[key];
 
-        if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(value)) {
+        if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(value)) {
           this.springs[key].set(value);
         }
       }
@@ -17434,7 +17079,7 @@ var Controller = /*#__PURE__*/function () {
       var queue = this.queue;
 
       if (props) {
-        queue = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(props).map(createUpdate);
+        queue = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(props).map(createUpdate);
       } else {
         this.queue = [];
       }
@@ -17455,7 +17100,7 @@ var Controller = /*#__PURE__*/function () {
 
       if (keys) {
         var springs = this.springs;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(keys), function (key) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(keys), function (key) {
           return springs[key].stop(!!arg);
         });
       } else {
@@ -17470,13 +17115,13 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "pause",
     value: function pause(keys) {
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(keys)) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(keys)) {
         this.start({
           pause: true
         });
       } else {
         var springs = this.springs;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(keys), function (key) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(keys), function (key) {
           return springs[key].pause();
         });
       }
@@ -17486,13 +17131,13 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "resume",
     value: function resume(keys) {
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(keys)) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(keys)) {
         this.start({
           pause: false
         });
       } else {
         var springs = this.springs;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(keys), function (key) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(keys), function (key) {
           return springs[key].resume();
         });
       }
@@ -17502,12 +17147,12 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "each",
     value: function each(iterator) {
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(this.springs, iterator);
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(this.springs, iterator);
     }
   }, {
     key: "_onFrame",
     value: function _onFrame() {
-      var _this11 = this;
+      var _this13 = this;
 
       var _this$_events = this._events,
           onStart = _this$_events.onStart,
@@ -17518,13 +17163,13 @@ var Controller = /*#__PURE__*/function () {
 
       if (active && !this._started || changed && !this._started) {
         this._started = true;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flush */ .yl)(onStart, function (_ref8) {
-          var _ref9 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_ref8, 2),
-              onStart2 = _ref9[0],
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flush */ .yl)(onStart, function (_ref8) {
+          var _ref9 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(_ref8, 2),
+              onStart = _ref9[0],
               result = _ref9[1];
 
-          result.value = _this11.get();
-          onStart2(result, _this11, _this11._item);
+          result.value = _this13.get();
+          onStart(result, _this13, _this13._item);
         });
       }
 
@@ -17532,42 +17177,42 @@ var Controller = /*#__PURE__*/function () {
       var values = changed || idle && onRest.size ? this.get() : null;
 
       if (changed && onChange.size) {
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flush */ .yl)(onChange, function (_ref10) {
-          var _ref11 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_ref10, 2),
-              onChange2 = _ref11[0],
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flush */ .yl)(onChange, function (_ref10) {
+          var _ref11 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(_ref10, 2),
+              onChange = _ref11[0],
               result = _ref11[1];
 
           result.value = values;
-          onChange2(result, _this11, _this11._item);
+          onChange(result, _this13, _this13._item);
         });
       }
 
       if (idle) {
         this._started = false;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flush */ .yl)(onRest, function (_ref12) {
-          var _ref13 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_ref12, 2),
-              onRest2 = _ref13[0],
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flush */ .yl)(onRest, function (_ref12) {
+          var _ref13 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(_ref12, 2),
+              onRest = _ref13[0],
               result = _ref13[1];
 
           result.value = values;
-          onRest2(result, _this11, _this11._item);
+          onRest(result, _this13, _this13._item);
         });
       }
     }
   }, {
     key: "eventObserved",
     value: function eventObserved(event) {
-      if (event.type == "change") {
+      if (event.type == 'change') {
         this._changed.add(event.parent);
 
         if (!event.idle) {
           this._active.add(event.parent);
         }
-      } else if (event.type == "idle") {
+      } else if (event.type == 'idle') {
         this._active.delete(event.parent);
       } else return;
 
-      _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.onFrame */ .Wn.onFrame(this._onFrame);
+      _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.onFrame */ .Wn.onFrame(this._onFrame);
     }
   }]);
 
@@ -17587,14 +17232,14 @@ function flushUpdate(_x2, _x3, _x4) {
 }
 
 function _flushUpdate() {
-  _flushUpdate = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee4(ctrl, props, isLoop) {
+  _flushUpdate = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee4(ctrl, props, isLoop) {
     var keys, to, from, loop, onRest, onResolve, defaults, asyncTo, state, promises, cancel, result, nextProps;
     return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             keys = props.keys, to = props.to, from = props.from, loop = props.loop, onRest = props.onRest, onResolve = props.onResolve;
-            defaults = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(props.default) && props.default;
+            defaults = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(props.default) && props.default;
 
             if (loop) {
               props.loop = false;
@@ -17602,30 +17247,30 @@ function _flushUpdate() {
 
             if (to === false) props.to = null;
             if (from === false) props.from = null;
-            asyncTo = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(to) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(to) ? to : void 0;
+            asyncTo = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(to) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(to) ? to : undefined;
 
             if (asyncTo) {
-              props.to = void 0;
-              props.onRest = void 0;
+              props.to = undefined;
+              props.onRest = undefined;
 
               if (defaults) {
-                defaults.onRest = void 0;
+                defaults.onRest = undefined;
               }
             } else {
-              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(BATCHED_EVENTS, function (key) {
+              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(BATCHED_EVENTS, function (key) {
                 var handler = props[key];
 
-                if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(handler)) {
-                  var queue = ctrl["_events"][key];
+                if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(handler)) {
+                  var queue = ctrl['_events'][key];
 
-                  props[key] = function (_ref22) {
-                    var finished = _ref22.finished,
-                        cancelled = _ref22.cancelled;
-                    var result2 = queue.get(handler);
+                  props[key] = function (_ref20) {
+                    var finished = _ref20.finished,
+                        cancelled = _ref20.cancelled;
+                    var result = queue.get(handler);
 
-                    if (result2) {
-                      if (!finished) result2.finished = false;
-                      if (cancelled) result2.cancelled = true;
+                    if (result) {
+                      if (!finished) result.finished = false;
+                      if (cancelled) result.cancelled = true;
                     } else {
                       queue.set(handler, {
                         value: null,
@@ -17642,11 +17287,11 @@ function _flushUpdate() {
               });
             }
 
-            state = ctrl["_state"];
+            state = ctrl['_state'];
 
             if (props.pause === !state.paused) {
               state.paused = props.pause;
-              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .flushCalls */ .bl)(props.pause ? state.pauseQueue : state.resumeQueue);
+              (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .flushCalls */ .bl)(props.pause ? state.pauseQueue : state.resumeQueue);
             } else if (state.paused) {
               props.pause = true;
             }
@@ -17654,22 +17299,22 @@ function _flushUpdate() {
             promises = (keys || Object.keys(ctrl.springs)).map(function (key) {
               return ctrl.springs[key].start(props);
             });
-            cancel = props.cancel === true || getDefaultProp(props, "cancel") === true;
+            cancel = props.cancel === true || getDefaultProp(props, 'cancel') === true;
 
             if (asyncTo || cancel && state.asyncId) {
-              promises.push(scheduleProps(++ctrl["_lastAsyncId"], {
+              promises.push(scheduleProps(++ctrl['_lastAsyncId'], {
                 props: props,
                 state: state,
                 actions: {
-                  pause: _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .noop */ .ZT,
-                  resume: _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .noop */ .ZT,
-                  start: function start(props2, resolve) {
+                  pause: _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .noop */ .ZT,
+                  resume: _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .noop */ .ZT,
+                  start: function start(props, resolve) {
                     if (cancel) {
-                      stopAsync(state, ctrl["_lastAsyncId"]);
+                      stopAsync(state, ctrl['_lastAsyncId']);
                       resolve(getCancelledResult(ctrl));
                     } else {
-                      props2.onRest = onRest;
-                      resolve(runAsync(asyncTo, props2, state, ctrl));
+                      props.onRest = onRest;
+                      resolve(runAsync(asyncTo, props, state, ctrl));
                     }
                   }
                 }
@@ -17713,7 +17358,7 @@ function _flushUpdate() {
 
           case 26:
             if (onResolve) {
-              _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+              _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
                 return onResolve(result, ctrl, ctrl.item);
               });
             }
@@ -17731,34 +17376,35 @@ function _flushUpdate() {
 }
 
 function getSprings(ctrl, props) {
-  var springs = _objectSpread({}, ctrl.springs);
+  var springs = _extends({}, ctrl.springs);
 
   if (props) {
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(props), function (props2) {
-      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props2.keys)) {
-        props2 = createUpdate(props2);
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(props), function (props) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props.keys)) {
+        props = createUpdate(props);
       }
 
-      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(props2.to)) {
-        props2 = _objectSpread(_objectSpread({}, props2), {}, {
-          to: void 0
+      if (!_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(props.to)) {
+        props = _extends({}, props, {
+          to: undefined
         });
       }
 
-      prepareSprings(springs, props2, function (key) {
+      prepareSprings(springs, props, function (key) {
         return createSpring(key);
       });
     });
   }
 
+  setSprings(ctrl, springs);
   return springs;
 }
 
 function setSprings(ctrl, springs) {
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(springs, function (spring, key) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .eachProp */ .rU)(springs, function (spring, key) {
     if (!ctrl.springs[key]) {
       ctrl.springs[key] = spring;
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .addFluidObserver */ .UI)(spring, ctrl);
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .addFluidObserver */ .UI)(spring, ctrl);
     }
   });
 }
@@ -17768,7 +17414,7 @@ function createSpring(key, observer) {
   spring.key = key;
 
   if (observer) {
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .addFluidObserver */ .UI)(spring, observer);
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .addFluidObserver */ .UI)(spring, observer);
   }
 
   return spring;
@@ -17776,36 +17422,53 @@ function createSpring(key, observer) {
 
 function prepareSprings(springs, props, create) {
   if (props.keys) {
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(props.keys, function (key) {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(props.keys, function (key) {
       var spring = springs[key] || (springs[key] = create(key));
-      spring["_prepareNode"](props);
+      spring['_prepareNode'](props);
     });
   }
 }
 
 function prepareKeys(ctrl, queue) {
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(queue, function (props) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(queue, function (props) {
     prepareSprings(ctrl.springs, props, function (key) {
       return createSpring(key, ctrl);
     });
   });
 }
 
-var SpringContext = function SpringContext(_ref14) {
-  var children = _ref14.children,
-      props = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(_ref14, _excluded);
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
 
-  var inherited = (0,react__WEBPACK_IMPORTED_MODULE_5__.useContext)(ctx);
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+var _excluded$3 = ["children"];
+
+var SpringContext = function SpringContext(_ref) {
+  var children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+
+  var inherited = (0,react__WEBPACK_IMPORTED_MODULE_4__.useContext)(ctx);
   var pause = props.pause || !!inherited.pause,
       immediate = props.immediate || !!inherited.immediate;
-  props = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useMemoOne */ .Pr)(function () {
+  props = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useMemoOne */ .Pr)(function () {
     return {
       pause: pause,
       immediate: immediate
     };
   }, [pause, immediate]);
   var Provider = ctx.Provider;
-  return /* @__PURE__ */(0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)(Provider, {
+  return react__WEBPACK_IMPORTED_MODULE_4__.createElement(Provider, {
     value: props
   }, children);
 };
@@ -17815,181 +17478,185 @@ SpringContext.Provider = ctx.Provider;
 SpringContext.Consumer = ctx.Consumer;
 
 function makeContext(target, init) {
-  Object.assign(target, (0,react__WEBPACK_IMPORTED_MODULE_5__.createContext)(init));
+  Object.assign(target, react__WEBPACK_IMPORTED_MODULE_4__.createContext(init));
   target.Provider._context = target;
   target.Consumer._context = target;
   return target;
 }
 
-var SpringRef = /*#__PURE__*/function (_Function) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(SpringRef, _Function);
+var SpringRef = function SpringRef() {
+  var current = [];
 
-  var _super5 = _createSuper(SpringRef);
+  var SpringRef = function SpringRef(props) {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .deprecateDirectCall */ .ZR)();
+    var results = [];
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl, i) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props)) {
+        results.push(ctrl.start());
+      } else {
+        var _update2 = _getProps(props, ctrl, i);
 
-  function SpringRef() {
-    var _this12;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, SpringRef);
-
-    _this12 = _super5.call(this, "return arguments.callee._call.apply(arguments.callee, arguments)");
-    _this12.current = [];
-    return _this12;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(SpringRef, [{
-    key: "_call",
-    value: function _call(props) {
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .deprecateDirectCall */ .ZR)();
-      this.start(props);
-    }
-  }, {
-    key: "set",
-    value: function set(values) {
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(this.current, function (ctrl) {
-        return ctrl.set(values);
-      });
-    }
-  }, {
-    key: "start",
-    value: function start(props) {
-      var _this13 = this;
-
-      var results = [];
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(this.current, function (ctrl, i) {
-        if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props)) {
-          results.push(ctrl.start());
-        } else {
-          var _update2 = _this13._getProps(props, ctrl, i);
-
-          if (_update2) {
-            results.push(ctrl.start(_update2));
-          }
+        if (_update2) {
+          results.push(ctrl.start(_update2));
         }
-      });
-      return results;
-    }
-  }, {
-    key: "update",
-    value: function update(props) {
-      var _this14 = this;
-
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(this.current, function (ctrl, i) {
-        return ctrl.update(_this14._getProps(props, ctrl, i));
-      });
-      return this;
-    }
-  }, {
-    key: "add",
-    value: function add(ctrl) {
-      if (!this.current.includes(ctrl)) {
-        this.current.push(ctrl);
       }
-    }
-  }, {
-    key: "delete",
-    value: function _delete(ctrl) {
-      var i = this.current.indexOf(ctrl);
-      if (~i) this.current.splice(i, 1);
-    }
-  }, {
-    key: "_getProps",
-    value: function _getProps(arg, ctrl, index) {
-      return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(arg) ? arg(index, ctrl) : arg;
-    }
-  }]);
+    });
+    return results;
+  };
 
-  return SpringRef;
-}( /*#__PURE__*/(0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_wrapNativeSuper__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(Function));
+  SpringRef.current = current;
 
-(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(["stop", "pause", "resume"], function (key) {
-  SpringRef.prototype[key] = function () {
+  SpringRef.add = function (ctrl) {
+    if (!current.includes(ctrl)) {
+      current.push(ctrl);
+    }
+  };
+
+  SpringRef.delete = function (ctrl) {
+    var i = current.indexOf(ctrl);
+    if (~i) current.splice(i, 1);
+  };
+
+  SpringRef.pause = function () {
     var _arguments = arguments;
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(this.current, function (ctrl) {
-      return ctrl[key].apply(ctrl, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z)(_arguments));
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl) {
+      return ctrl.pause.apply(ctrl, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_arguments));
     });
     return this;
   };
-});
+
+  SpringRef.resume = function () {
+    var _arguments2 = arguments;
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl) {
+      return ctrl.resume.apply(ctrl, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_arguments2));
+    });
+    return this;
+  };
+
+  SpringRef.set = function (values) {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl) {
+      return ctrl.set(values);
+    });
+  };
+
+  SpringRef.start = function (props) {
+    var _this14 = this;
+
+    var results = [];
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl, i) {
+      if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(props)) {
+        results.push(ctrl.start());
+      } else {
+        var _update3 = _this14._getProps(props, ctrl, i);
+
+        if (_update3) {
+          results.push(ctrl.start(_update3));
+        }
+      }
+    });
+    return results;
+  };
+
+  SpringRef.stop = function () {
+    var _arguments3 = arguments;
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl) {
+      return ctrl.stop.apply(ctrl, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_arguments3));
+    });
+    return this;
+  };
+
+  SpringRef.update = function (props) {
+    var _this15 = this;
+
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(current, function (ctrl, i) {
+      return ctrl.update(_this15._getProps(props, ctrl, i));
+    });
+    return this;
+  };
+
+  var _getProps = function _getProps(arg, ctrl, index) {
+    return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(arg) ? arg(index, ctrl) : arg;
+  };
+
+  SpringRef._getProps = _getProps;
+  return SpringRef;
+};
 
 function useSprings(length, props, deps) {
-  var _arguments2 = arguments;
-  var propsFn = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(props) && props;
+  var _arguments4 = arguments;
+  var propsFn = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(props) && props;
   if (propsFn && !deps) deps = [];
-  var ref = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
-    return propsFn || _arguments2.length == 3 ? new SpringRef() : void 0;
+  var ref = (0,react__WEBPACK_IMPORTED_MODULE_4__.useMemo)(function () {
+    return propsFn || _arguments4.length == 3 ? SpringRef() : void 0;
   }, []);
-  var layoutId = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)(0);
-  var forceUpdate = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useForceUpdate */ .NW)();
-  var state = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
+  var layoutId = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(0);
+  var forceUpdate = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useForceUpdate */ .NW)();
+  var state = (0,react__WEBPACK_IMPORTED_MODULE_4__.useMemo)(function () {
     return {
       ctrls: [],
       queue: [],
-      flush: function flush(ctrl, updates2) {
-        var springs2 = getSprings(ctrl, updates2);
-        var canFlushSync = layoutId.current > 0 && !state.queue.length && !Object.keys(springs2).some(function (key) {
+      flush: function flush(ctrl, updates) {
+        var springs = getSprings(ctrl, updates);
+        var canFlushSync = layoutId.current > 0 && !state.queue.length && !Object.keys(springs).some(function (key) {
           return !ctrl.springs[key];
         });
-        return canFlushSync ? flushUpdateQueue(ctrl, updates2) : new Promise(function (resolve) {
-          setSprings(ctrl, springs2);
+        return canFlushSync ? flushUpdateQueue(ctrl, updates) : new Promise(function (resolve) {
+          setSprings(ctrl, springs);
           state.queue.push(function () {
-            resolve(flushUpdateQueue(ctrl, updates2));
+            resolve(flushUpdateQueue(ctrl, updates));
           });
           forceUpdate();
         });
       }
     };
   }, []);
-
-  var ctrls = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z)(state.ctrls);
-
+  var ctrls = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(state.ctrls));
   var updates = [];
-  var prevLength = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .usePrev */ .zH)(length) || 0;
-  var oldCtrls = ctrls.slice(length, prevLength);
-  (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
-    ctrls.length = length;
+  var prevLength = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .usePrev */ .zH)(length) || 0;
+  var oldCtrls = ctrls.current.slice(length, prevLength);
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useMemo)(function () {
+    ctrls.current.length = length;
     declareUpdates(prevLength, length);
   }, [length]);
-  (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useMemo)(function () {
     declareUpdates(0, Math.min(prevLength, length));
   }, deps);
 
   function declareUpdates(startIndex, endIndex) {
     for (var i = startIndex; i < endIndex; i++) {
-      var ctrl = ctrls[i] || (ctrls[i] = new Controller(null, state.flush));
+      var ctrl = ctrls.current[i] || (ctrls.current[i] = new Controller(null, state.flush));
 
-      var _update3 = propsFn ? propsFn(i, ctrl) : props[i];
+      var _update4 = propsFn ? propsFn(i, ctrl) : props[i];
 
-      if (_update3) {
-        updates[i] = declareUpdate(_update3);
+      if (_update4) {
+        updates[i] = declareUpdate(_update4);
       }
     }
   }
 
-  var springs = ctrls.map(function (ctrl, i) {
+  var springs = ctrls.current.map(function (ctrl, i) {
     return getSprings(ctrl, updates[i]);
   });
-  var context = (0,react__WEBPACK_IMPORTED_MODULE_5__.useContext)(SpringContext);
-  var prevContext = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .usePrev */ .zH)(context);
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_4__.useContext)(SpringContext);
+  var prevContext = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .usePrev */ .zH)(context);
   var hasContext = context !== prevContext && hasProps(context);
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useLayoutEffect */ .bt)(function () {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useLayoutEffect */ .bt)(function () {
     layoutId.current++;
-    state.ctrls = ctrls;
+    state.ctrls = ctrls.current;
     var queue = state.queue;
 
     if (queue.length) {
       state.queue = [];
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(queue, function (cb) {
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(queue, function (cb) {
         return cb();
       });
     }
 
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(oldCtrls, function (ctrl) {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(oldCtrls, function (ctrl) {
       detachRefs(ctrl, ref);
       ctrl.stop(true);
     });
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(ctrls, function (ctrl, i) {
-      var values2 = springs[i];
-      setSprings(ctrl, values2);
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(ctrls.current, function (ctrl, i) {
       ref == null ? void 0 : ref.add(ctrl);
 
       if (hasContext) {
@@ -18011,25 +17678,25 @@ function useSprings(length, props, deps) {
       }
     });
   });
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useOnce */ .tf)(function () {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useOnce */ .tf)(function () {
     return function () {
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(state.ctrls, function (ctrl) {
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(state.ctrls, function (ctrl) {
         return ctrl.stop(true);
       });
     };
   });
   var values = springs.map(function (x) {
-    return _objectSpread({}, x);
+    return _extends({}, x);
   });
   return ref ? [values, ref] : values;
 }
 
 function useSpring(props, deps) {
-  var isFn = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(props);
+  var isFn = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(props);
 
   var _useSprings = useSprings(1, isFn ? props : [props], isFn ? deps || [] : deps),
-      _useSprings2 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_useSprings, 2),
-      _useSprings2$ = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(_useSprings2[0], 1),
+      _useSprings2 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(_useSprings, 2),
+      _useSprings2$ = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(_useSprings2[0], 1),
       values = _useSprings2$[0],
       ref = _useSprings2[1];
 
@@ -18037,7 +17704,7 @@ function useSpring(props, deps) {
 }
 
 var initSpringRef = function initSpringRef() {
-  return new SpringRef();
+  return SpringRef();
 };
 
 var useSpringRef = function useSpringRef() {
@@ -18064,8 +17731,8 @@ function useTrail(length, propsArg, deps) {
   }, deps);
 
   if (propsFn || arguments.length == 3) {
-    ref["_getProps"] = function (propsArg2, ctrl, i) {
-      var props = is.fun(propsArg2) ? propsArg2(i, ctrl) : propsArg2;
+    ref['_getProps'] = function (propsArg, ctrl, i) {
+      var props = is.fun(propsArg) ? propsArg(i, ctrl) : propsArg;
 
       if (props) {
         var parent = ref.current[i + (props.reverse ? 1 : -1)];
@@ -18080,33 +17747,43 @@ function useTrail(length, propsArg, deps) {
   return result[0];
 }
 
-var MOUNT = "mount";
-var ENTER = "enter";
-var UPDATE = "update";
-var LEAVE = "leave";
+var TransitionPhase;
+
+(function (TransitionPhase) {
+  TransitionPhase["MOUNT"] = "mount";
+  TransitionPhase["ENTER"] = "enter";
+  TransitionPhase["UPDATE"] = "update";
+  TransitionPhase["LEAVE"] = "leave";
+})(TransitionPhase || (TransitionPhase = {}));
 
 function useTransition(data, props, deps) {
-  var _arguments3 = arguments;
-  var reset = props.reset,
-      sort = props.sort,
-      _props$trail = props.trail,
-      trail = _props$trail === void 0 ? 0 : _props$trail,
-      _props$expires = props.expires,
-      expires = _props$expires === void 0 ? true : _props$expires,
-      onDestroyed = props.onDestroyed;
-  var ref = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
-    return _arguments3.length == 3 ? new SpringRef() : void 0;
+  var _arguments5 = arguments;
+  var propsFn = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(props) && props;
+
+  var _ref14 = propsFn ? propsFn() : props,
+      reset = _ref14.reset,
+      sort = _ref14.sort,
+      _ref14$trail = _ref14.trail,
+      trail = _ref14$trail === void 0 ? 0 : _ref14$trail,
+      _ref14$expires = _ref14.expires,
+      expires = _ref14$expires === void 0 ? true : _ref14$expires,
+      onDestroyed = _ref14.onDestroyed,
+      propsRef = _ref14.ref,
+      propsConfig = _ref14.config;
+
+  var ref = (0,react__WEBPACK_IMPORTED_MODULE_4__.useMemo)(function () {
+    return propsFn || _arguments5.length == 3 ? SpringRef() : void 0;
   }, []);
-  var items = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(data);
+  var items = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(data);
   var transitions = [];
-  var usedTransitions = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)(null);
+  var usedTransitions = (0,react__WEBPACK_IMPORTED_MODULE_4__.useRef)(null);
   var prevTransitions = reset ? null : usedTransitions.current;
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useLayoutEffect */ .bt)(function () {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useLayoutEffect */ .bt)(function () {
     usedTransitions.current = transitions;
   });
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useOnce */ .tf)(function () {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useOnce */ .tf)(function () {
     return function () {
-      return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(usedTransitions.current, function (t) {
+      return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(usedTransitions.current, function (t) {
         if (t.expired) {
           clearTimeout(t.expirationId);
         }
@@ -18116,10 +17793,10 @@ function useTransition(data, props, deps) {
       });
     };
   });
-  var keys = getKeys(items, props, prevTransitions);
+  var keys = getKeys(items, propsFn ? propsFn() : props, prevTransitions);
   var expired = reset && usedTransitions.current || [];
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useLayoutEffect */ .bt)(function () {
-    return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(expired, function (_ref15) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useLayoutEffect */ .bt)(function () {
+    return (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(expired, function (_ref15) {
       var ctrl = _ref15.ctrl,
           item = _ref15.item,
           key = _ref15.key;
@@ -18128,7 +17805,7 @@ function useTransition(data, props, deps) {
     });
   });
   var reused = [];
-  if (prevTransitions) (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(prevTransitions, function (t, i) {
+  if (prevTransitions) (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(prevTransitions, function (t, i) {
     if (t.expired) {
       clearTimeout(t.expirationId);
       expired.push(t);
@@ -18137,12 +17814,12 @@ function useTransition(data, props, deps) {
       if (~i) transitions[i] = t;
     }
   });
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(items, function (item, i) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(items, function (item, i) {
     if (!transitions[i]) {
       transitions[i] = {
         key: keys[i],
         item: item,
-        phase: MOUNT,
+        phase: TransitionPhase.MOUNT,
         ctrl: new Controller()
       };
       transitions[i].ctrl.item = item;
@@ -18151,73 +17828,84 @@ function useTransition(data, props, deps) {
 
   if (reused.length) {
     var i = -1;
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(reused, function (keyIndex, prevIndex) {
+
+    var _ref16 = propsFn ? propsFn() : props,
+        leave = _ref16.leave;
+
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(reused, function (keyIndex, prevIndex) {
       var t = prevTransitions[prevIndex];
 
       if (~keyIndex) {
         i = transitions.indexOf(t);
-        transitions[i] = _objectSpread(_objectSpread({}, t), {}, {
+        transitions[i] = _extends({}, t, {
           item: items[keyIndex]
         });
-      } else if (props.leave) {
+      } else if (leave) {
         transitions.splice(++i, 0, t);
       }
     });
   }
 
-  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(sort)) {
+  if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(sort)) {
     transitions.sort(function (a, b) {
       return sort(a.item, b.item);
     });
   }
 
   var delay = -trail;
-  var forceUpdate = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useForceUpdate */ .NW)();
+  var forceUpdate = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useForceUpdate */ .NW)();
   var defaultProps = getDefaultProps(props);
   var changes = new Map();
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(transitions, function (t, i) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(transitions, function (t, i) {
     var key = t.key;
     var prevPhase = t.phase;
+    var p = propsFn ? propsFn() : props;
     var to;
     var phase;
+    var propsDelay = callProp(p.delay || 0, key);
 
-    if (prevPhase == MOUNT) {
-      to = props.enter;
-      phase = ENTER;
+    if (prevPhase == TransitionPhase.MOUNT) {
+      to = p.enter;
+      phase = TransitionPhase.ENTER;
     } else {
       var isLeave = keys.indexOf(key) < 0;
 
-      if (prevPhase != LEAVE) {
+      if (prevPhase != TransitionPhase.LEAVE) {
         if (isLeave) {
-          to = props.leave;
-          phase = LEAVE;
-        } else if (to = props.update) {
-          phase = UPDATE;
+          to = p.leave;
+          phase = TransitionPhase.LEAVE;
+        } else if (to = p.update) {
+          phase = TransitionPhase.UPDATE;
         } else return;
       } else if (!isLeave) {
-        to = props.enter;
-        phase = ENTER;
+        to = p.enter;
+        phase = TransitionPhase.ENTER;
       } else return;
     }
 
     to = callProp(to, t.item, i);
-    to = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.obj(to) ? inferTo(to) : {
+    to = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.obj(to) ? inferTo(to) : {
       to: to
     };
 
     if (!to.config) {
-      var _config2 = props.config || defaultProps.config;
+      var _config2 = propsConfig || defaultProps.config;
 
       to.config = callProp(_config2, t.item, i, phase);
     }
 
-    var payload = _objectSpread(_objectSpread({}, defaultProps), {}, {
-      delay: delay += trail,
+    delay += trail;
+
+    var payload = _extends({}, defaultProps, {
+      delay: propsDelay + delay,
+      ref: propsRef,
       reset: false
     }, to);
 
-    if (phase == ENTER && _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(payload.from)) {
-      var from = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(props.initial) || prevTransitions ? props.from : props.initial;
+    if (phase == TransitionPhase.ENTER && _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(payload.from)) {
+      var _p = propsFn ? propsFn() : props;
+
+      var from = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(_p.initial) || prevTransitions ? _p.from : _p.initial;
       payload.from = callProp(from, t.item, i);
     }
 
@@ -18225,37 +17913,37 @@ function useTransition(data, props, deps) {
 
     payload.onResolve = function (result) {
       callProp(onResolve, result);
-      var transitions2 = usedTransitions.current;
-      var t2 = transitions2.find(function (t3) {
-        return t3.key === key;
+      var transitions = usedTransitions.current;
+      var t = transitions.find(function (t) {
+        return t.key === key;
       });
-      if (!t2) return;
+      if (!t) return;
 
-      if (result.cancelled && t2.phase != UPDATE) {
+      if (result.cancelled && t.phase != TransitionPhase.UPDATE) {
         return;
       }
 
-      if (t2.ctrl.idle) {
-        var idle = transitions2.every(function (t3) {
-          return t3.ctrl.idle;
+      if (t.ctrl.idle) {
+        var idle = transitions.every(function (t) {
+          return t.ctrl.idle;
         });
 
-        if (t2.phase == LEAVE) {
-          var expiry = callProp(expires, t2.item);
+        if (t.phase == TransitionPhase.LEAVE) {
+          var expiry = callProp(expires, t.item);
 
           if (expiry !== false) {
             var expiryMs = expiry === true ? 0 : expiry;
-            t2.expired = true;
+            t.expired = true;
 
             if (!idle && expiryMs > 0) {
-              if (expiryMs <= 2147483647) t2.expirationId = setTimeout(forceUpdate, expiryMs);
+              if (expiryMs <= 0x7fffffff) t.expirationId = setTimeout(forceUpdate, expiryMs);
               return;
             }
           }
         }
 
-        if (idle && transitions2.some(function (t3) {
-          return t3.expired;
+        if (idle && transitions.some(function (t) {
+          return t.expired;
         })) {
           forceUpdate();
         }
@@ -18269,45 +17957,50 @@ function useTransition(data, props, deps) {
       payload: payload
     });
   });
-  var context = (0,react__WEBPACK_IMPORTED_MODULE_5__.useContext)(SpringContext);
-  var prevContext = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .usePrev */ .zH)(context);
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_4__.useContext)(SpringContext);
+  var prevContext = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .usePrev */ .zH)(context);
   var hasContext = context !== prevContext && hasProps(context);
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useLayoutEffect */ .bt)(function () {
-    if (hasContext) (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(transitions, function (t) {
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useLayoutEffect */ .bt)(function () {
+    if (hasContext) (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(transitions, function (t) {
       t.ctrl.start({
         default: context
       });
     });
   }, [context]);
-  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .useLayoutEffect */ .bt)(function () {
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(changes, function (_ref16, t) {
-      var phase = _ref16.phase,
-          springs = _ref16.springs,
-          payload = _ref16.payload;
+  (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .useLayoutEffect */ .bt)(function () {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)(changes, function (_ref17, t) {
+      var phase = _ref17.phase,
+          payload = _ref17.payload;
       var ctrl = t.ctrl;
       t.phase = phase;
       ref == null ? void 0 : ref.add(ctrl);
-      replaceRef(ctrl, payload.ref);
-      setSprings(ctrl, springs);
 
-      if (hasContext && phase == ENTER) {
+      if (hasContext && phase == TransitionPhase.ENTER) {
         ctrl.start({
           default: context
         });
       }
 
-      ctrl[ctrl.ref ? "update" : "start"](payload);
+      if (payload) {
+        replaceRef(ctrl, payload.ref);
+
+        if (ctrl.ref) {
+          ctrl.update(payload);
+        } else {
+          ctrl.start(payload);
+        }
+      }
     });
   }, reset ? void 0 : deps);
 
   var renderTransitions = function renderTransitions(render) {
-    return /* @__PURE__ */(0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)(react__WEBPACK_IMPORTED_MODULE_5__.Fragment, null, transitions.map(function (t, i) {
-      var _ref17 = changes.get(t) || t.ctrl,
-          springs = _ref17.springs;
+    return react__WEBPACK_IMPORTED_MODULE_4__.createElement(react__WEBPACK_IMPORTED_MODULE_4__.Fragment, null, transitions.map(function (t, i) {
+      var _ref18 = changes.get(t) || t.ctrl,
+          springs = _ref18.springs;
 
-      var elem = render(_objectSpread({}, springs), t.item, t, i);
-      return elem && elem.type ? /* @__PURE__ */(0,react__WEBPACK_IMPORTED_MODULE_5__.createElement)(elem.type, _objectSpread(_objectSpread({}, elem.props), {}, {
-        key: _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.str(t.key) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.num(t.key) ? t.key : t.ctrl.id,
+      var elem = render(_extends({}, springs), t.item, t, i);
+      return elem && elem.type ? react__WEBPACK_IMPORTED_MODULE_4__.createElement(elem.type, _extends({}, elem.props, {
+        key: _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.str(t.key) || _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.num(t.key) ? t.key : t.ctrl.id,
         ref: elem.ref
       })) : elem;
     }));
@@ -18318,16 +18011,16 @@ function useTransition(data, props, deps) {
 
 var nextKey = 1;
 
-function getKeys(items, _ref18, prevTransitions) {
-  var key = _ref18.key,
-      _ref18$keys = _ref18.keys,
-      keys = _ref18$keys === void 0 ? key : _ref18$keys;
+function getKeys(items, _ref19, prevTransitions) {
+  var key = _ref19.key,
+      _ref19$keys = _ref19.keys,
+      keys = _ref19$keys === void 0 ? key : _ref19$keys;
 
   if (keys === null) {
     var reused = new Set();
     return items.map(function (item) {
-      var t = prevTransitions && prevTransitions.find(function (t2) {
-        return t2.item === item && t2.phase !== LEAVE && !reused.has(t2);
+      var t = prevTransitions && prevTransitions.find(function (t) {
+        return t.item === item && t.phase !== TransitionPhase.LEAVE && !reused.has(t);
       });
 
       if (t) {
@@ -18339,20 +18032,24 @@ function getKeys(items, _ref18, prevTransitions) {
     });
   }
 
-  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(keys) ? items : _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.fun(keys) ? items.map(keys) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(keys);
+  return _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.und(keys) ? items : _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.fun(keys) ? items.map(keys) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(keys);
 }
 
-function Spring(_ref19) {
-  var children = _ref19.children,
-      props = _objectWithoutProperties(_ref19, _excluded2);
+var _excluded$2 = (/* unused pure expression or super */ null && (["children"]));
+
+function Spring(_ref) {
+  var children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   return children(useSpring(props));
 }
 
-function Trail(_ref20) {
-  var items = _ref20.items,
-      children = _ref20.children,
-      props = _objectWithoutProperties(_ref20, _excluded3);
+var _excluded$1 = (/* unused pure expression or super */ null && (["items", "children"]));
+
+function Trail(_ref) {
+  var items = _ref.items,
+      children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var trails = useTrail(items.length, props);
   return items.map(function (item, index) {
@@ -18361,46 +18058,50 @@ function Trail(_ref20) {
   });
 }
 
-function Transition(_ref21) {
-  var items = _ref21.items,
-      children = _ref21.children,
-      props = _objectWithoutProperties(_ref21, _excluded4);
+var _excluded = (/* unused pure expression or super */ null && (["items", "children"]));
+
+function Transition(_ref) {
+  var items = _ref.items,
+      children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   return useTransition(items, props)(children);
 }
 
 var Interpolation = /*#__PURE__*/function (_FrameValue2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(Interpolation, _FrameValue2);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(Interpolation, _FrameValue2);
 
-  var _super6 = _createSuper(Interpolation);
+  var _super5 = _createSuper(Interpolation);
 
   function Interpolation(source, args) {
-    var _this15;
+    var _this16;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, Interpolation);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(this, Interpolation);
 
-    _this15 = _super6.call(this);
-    _this15.source = source;
-    _this15.idle = true;
-    _this15._active = new Set();
-    _this15.calc = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .createInterpolator.apply */ .mD.apply(void 0, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z)(args));
+    _this16 = _super5.call(this);
+    _this16.key = void 0;
+    _this16.idle = true;
+    _this16.calc = void 0;
+    _this16._active = new Set();
+    _this16.source = source;
+    _this16.calc = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .createInterpolator.apply */ .mD.apply(void 0, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(args));
 
-    var value = _this15._get();
+    var value = _this16._get();
 
-    var nodeType = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimatedType */ .sb)(value);
-    (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .setAnimated */ .f3)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z)(_this15), nodeType.create(value));
-    return _this15;
+    var nodeType = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimatedType */ .sb)(value);
+    (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .setAnimated */ .f3)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(_this16), nodeType.create(value));
+    return _this16;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(Interpolation, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(Interpolation, [{
     key: "advance",
     value: function advance(_dt) {
       var value = this._get();
 
       var oldValue = this.get();
 
-      if (!(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .isEqual */ .Xy)(value, oldValue)) {
-        (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getAnimated */ .ys)(this).setValue(value);
+      if (!(0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .isEqual */ .Xy)(value, oldValue)) {
+        (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getAnimated */ .ys)(this).setValue(value);
 
         this._onChange(value, this.idle);
       }
@@ -18412,44 +18113,44 @@ var Interpolation = /*#__PURE__*/function (_FrameValue2) {
   }, {
     key: "_get",
     value: function _get() {
-      var inputs = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(this.source) ? this.source.map(_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(this.source));
-      return this.calc.apply(this, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z)(inputs));
+      var inputs = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__.is.arr(this.source) ? this.source.map(_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je) : (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .getFluidValue */ .je)(this.source));
+      return this.calc.apply(this, (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(inputs));
     }
   }, {
     key: "_start",
     value: function _start() {
-      var _this16 = this;
+      var _this17 = this;
 
       if (this.idle && !checkIdle(this._active)) {
         this.idle = false;
-        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getPayload */ .He)(this), function (node) {
+        (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getPayload */ .He)(this), function (node) {
           node.done = false;
         });
 
-        if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.skipAnimation */ .OH.skipAnimation) {
-          _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
-            return _this16.advance();
+        if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.skipAnimation */ .OH.skipAnimation) {
+          _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .raf.batchedUpdates */ .Wn.batchedUpdates(function () {
+            return _this17.advance();
           });
           becomeIdle(this);
         } else {
-          _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .frameLoop.start */ .fT.start(this);
+          _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .frameLoop.start */ .fT.start(this);
         }
       }
     }
   }, {
     key: "_attach",
     value: function _attach() {
-      var _this17 = this;
+      var _this18 = this;
 
       var priority = 1;
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(this.source), function (source) {
-        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(source)) {
-          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .addFluidObserver */ .UI)(source, _this17);
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(this.source), function (source) {
+        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(source)) {
+          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .addFluidObserver */ .UI)(source, _this18);
         }
 
         if (isFrameValue(source)) {
           if (!source.idle) {
-            _this17._active.add(source);
+            _this18._active.add(source);
           }
 
           priority = Math.max(priority, source.priority + 1);
@@ -18462,11 +18163,11 @@ var Interpolation = /*#__PURE__*/function (_FrameValue2) {
   }, {
     key: "_detach",
     value: function _detach() {
-      var _this18 = this;
+      var _this19 = this;
 
-      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(this.source), function (source) {
-        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .hasFluidValue */ .j$)(source)) {
-          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .removeFluidObserver */ .iL)(source, _this18);
+      (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(this.source), function (source) {
+        if ((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .hasFluidValue */ .j$)(source)) {
+          (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .removeFluidObserver */ .iL)(source, _this19);
         }
       });
 
@@ -18477,7 +18178,7 @@ var Interpolation = /*#__PURE__*/function (_FrameValue2) {
   }, {
     key: "eventObserved",
     value: function eventObserved(event) {
-      if (event.type == "change") {
+      if (event.type == 'change') {
         if (event.idle) {
           this.advance();
         } else {
@@ -18485,10 +18186,10 @@ var Interpolation = /*#__PURE__*/function (_FrameValue2) {
 
           this._start();
         }
-      } else if (event.type == "idle") {
+      } else if (event.type == 'idle') {
         this._active.delete(event.parent);
-      } else if (event.type == "priority") {
-        this.priority = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(this.source).reduce(function (highest, parent) {
+      } else if (event.type == 'priority') {
+        this.priority = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .toArray */ .qo)(this.source).reduce(function (highest, parent) {
           return Math.max(highest, (isFrameValue(parent) ? parent.priority : 0) + 1);
         }, 0);
       }
@@ -18509,44 +18210,44 @@ function checkIdle(active) {
 function becomeIdle(self) {
   if (!self.idle) {
     self.idle = true;
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)((0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_6__/* .getPayload */ .He)(self), function (node) {
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .each */ .S6)((0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .getPayload */ .He)(self), function (node) {
       node.done = true;
     });
-    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .callFluidObservers */ .k0)(self, {
-      type: "idle",
+    (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .callFluidObservers */ .k0)(self, {
+      type: 'idle',
       parent: self
     });
   }
 }
 
 var to = function to(source) {
-  for (var _len5 = arguments.length, args = new Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
-    args[_key5 - 1] = arguments[_key5];
+  for (var _len6 = arguments.length, args = new Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
+    args[_key6 - 1] = arguments[_key6];
   }
 
   return new Interpolation(source, args);
 };
 
 var interpolate = function interpolate(source) {
-  for (var _len6 = arguments.length, args = new Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
-    args[_key6 - 1] = arguments[_key6];
+  for (var _len7 = arguments.length, args = new Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {
+    args[_key7 - 1] = arguments[_key7];
   }
 
   return deprecateInterpolate(), new Interpolation(source, args);
 };
 
-_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .Globals.assign */ .OH.assign({
-  createStringInterpolator: _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .createStringInterpolator */ .qS,
+_react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .Globals.assign */ .OH.assign({
+  createStringInterpolator: _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .createStringInterpolator */ .qS,
   to: function to(source, args) {
     return new Interpolation(source, args);
   }
 });
-var update = _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .frameLoop.advance */ .fT.advance;
+var update = _react_spring_shared__WEBPACK_IMPORTED_MODULE_3__/* .frameLoop.advance */ .fT.advance;
 
 
 /***/ }),
 
-/***/ 31950:
+/***/ 33907:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18557,9 +18258,9 @@ __webpack_require__.d(__webpack_exports__, {
   "OH": function() { return /* binding */ globals; },
   "UI": function() { return /* binding */ addFluidObserver; },
   "k0": function() { return /* binding */ callFluidObservers; },
-  "O9": function() { return /* binding */ colors$1; },
+  "O9": function() { return /* binding */ colors; },
   "mD": function() { return /* binding */ createInterpolator; },
-  "qS": function() { return /* binding */ createStringInterpolator$1; },
+  "qS": function() { return /* binding */ createStringInterpolator; },
   "dE": function() { return /* binding */ defineHidden; },
   "ZR": function() { return /* binding */ deprecateDirectCall; },
   "LW": function() { return /* binding */ deprecateInterpolate; },
@@ -18589,13 +18290,11 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
 var slicedToArray = __webpack_require__(15892);
-// EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(66475);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(32738);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(8452);
-;// CONCATENATED MODULE: ./node_modules/rafz/dist/raf.mjs
+;// CONCATENATED MODULE: ./node_modules/@react-spring/rafz/dist/react-spring-rafz.esm.js
 
 var updateQueue = makeQueue();
 
@@ -18698,13 +18397,13 @@ raf.throttle = function (fn) {
   return throttled;
 };
 
-var nativeRaf = typeof window != "undefined" ? window.requestAnimationFrame : function () {};
+var nativeRaf = typeof window != 'undefined' ? window.requestAnimationFrame : function () {};
 
 raf.use = function (impl) {
   return nativeRaf = impl;
 };
 
-raf.now = typeof performance != "undefined" ? function () {
+raf.now = typeof performance != 'undefined' ? function () {
   return performance.now();
 } : Date.now;
 
@@ -18713,6 +18412,16 @@ raf.batchedUpdates = function (fn) {
 };
 
 raf.catch = console.error;
+raf.frameLoop = 'always';
+
+raf.advance = function () {
+  if (raf.frameLoop !== 'demand') {
+    console.warn('Cannot call the manual advancement of rafz whilst frameLoop is not set as demand');
+  } else {
+    update();
+  }
+};
+
 var ts = -1;
 var sync = false;
 
@@ -18729,7 +18438,10 @@ function schedule(fn, queue) {
 function start() {
   if (ts < 0) {
     ts = 0;
-    nativeRaf(loop);
+
+    if (raf.frameLoop !== 'demand') {
+      nativeRaf(loop);
+    }
   }
 }
 
@@ -18811,14 +18523,9 @@ var __raf = {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-;// CONCATENATED MODULE: ./node_modules/@react-spring/shared/index.js
+;// CONCATENATED MODULE: ./node_modules/@react-spring/shared/dist/react-spring-shared.esm.js
 
 
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 
 
@@ -18837,19 +18544,19 @@ var defineHidden = function defineHidden(obj, key, value) {
 var is = {
   arr: Array.isArray,
   obj: function obj(a) {
-    return !!a && a.constructor.name === "Object";
+    return !!a && a.constructor.name === 'Object';
   },
   fun: function fun(a) {
-    return typeof a === "function";
+    return typeof a === 'function';
   },
   str: function str(a) {
-    return typeof a === "string";
+    return typeof a === 'string';
   },
   num: function num(a) {
-    return typeof a === "number";
+    return typeof a === 'number';
   },
   und: function und(a) {
-    return a === void 0;
+    return a === undefined;
   }
 };
 
@@ -18899,28 +18606,29 @@ var flushCalls = function flushCalls(queue) {
   });
 };
 
-var createStringInterpolator;
+var createStringInterpolator$1;
 var to;
-var colors = null;
+var colors$1 = null;
 var skipAnimation = false;
 var willAdvance = noop;
 
-var shared_assign = function assign(globals) {
+var react_spring_shared_esm_assign = function assign(globals) {
   if (globals.to) to = globals.to;
   if (globals.now) raf.now = globals.now;
-  if (globals.colors !== void 0) colors = globals.colors;
+  if (globals.colors !== undefined) colors$1 = globals.colors;
   if (globals.skipAnimation != null) skipAnimation = globals.skipAnimation;
-  if (globals.createStringInterpolator) createStringInterpolator = globals.createStringInterpolator;
+  if (globals.createStringInterpolator) createStringInterpolator$1 = globals.createStringInterpolator;
   if (globals.requestAnimationFrame) raf.use(globals.requestAnimationFrame);
   if (globals.batchedUpdates) raf.batchedUpdates = globals.batchedUpdates;
   if (globals.willAdvance) willAdvance = globals.willAdvance;
+  if (globals.frameLoop) raf.frameLoop = globals.frameLoop;
 };
 
 var globals = /*#__PURE__*/Object.freeze({
   __proto__: null,
 
   get createStringInterpolator() {
-    return createStringInterpolator;
+    return createStringInterpolator$1;
   },
 
   get to() {
@@ -18928,7 +18636,7 @@ var globals = /*#__PURE__*/Object.freeze({
   },
 
   get colors() {
-    return colors;
+    return colors$1;
   },
 
   get skipAnimation() {
@@ -18939,7 +18647,7 @@ var globals = /*#__PURE__*/Object.freeze({
     return willAdvance;
   },
 
-  assign: shared_assign
+  assign: react_spring_shared_esm_assign
 });
 var startQueue = new Set();
 var currentFrame = [];
@@ -19025,173 +18733,173 @@ function findIndex(arr, test) {
   return index < 0 ? arr.length : index;
 }
 
-var colors$1 = {
-  transparent: 0,
-  aliceblue: 4042850303,
-  antiquewhite: 4209760255,
-  aqua: 16777215,
-  aquamarine: 2147472639,
-  azure: 4043309055,
-  beige: 4126530815,
-  bisque: 4293182719,
-  black: 255,
-  blanchedalmond: 4293643775,
-  blue: 65535,
-  blueviolet: 2318131967,
-  brown: 2771004159,
-  burlywood: 3736635391,
-  burntsienna: 3934150143,
-  cadetblue: 1604231423,
-  chartreuse: 2147418367,
-  chocolate: 3530104575,
-  coral: 4286533887,
-  cornflowerblue: 1687547391,
-  cornsilk: 4294499583,
-  crimson: 3692313855,
-  cyan: 16777215,
-  darkblue: 35839,
-  darkcyan: 9145343,
-  darkgoldenrod: 3095792639,
-  darkgray: 2846468607,
-  darkgreen: 6553855,
-  darkgrey: 2846468607,
-  darkkhaki: 3182914559,
-  darkmagenta: 2332068863,
-  darkolivegreen: 1433087999,
-  darkorange: 4287365375,
-  darkorchid: 2570243327,
-  darkred: 2332033279,
-  darksalmon: 3918953215,
-  darkseagreen: 2411499519,
-  darkslateblue: 1211993087,
-  darkslategray: 793726975,
-  darkslategrey: 793726975,
-  darkturquoise: 13554175,
-  darkviolet: 2483082239,
-  deeppink: 4279538687,
-  deepskyblue: 12582911,
-  dimgray: 1768516095,
-  dimgrey: 1768516095,
-  dodgerblue: 512819199,
-  firebrick: 2988581631,
-  floralwhite: 4294635775,
-  forestgreen: 579543807,
-  fuchsia: 4278255615,
-  gainsboro: 3705462015,
-  ghostwhite: 4177068031,
-  gold: 4292280575,
-  goldenrod: 3668254975,
-  gray: 2155905279,
-  green: 8388863,
-  greenyellow: 2919182335,
-  grey: 2155905279,
-  honeydew: 4043305215,
-  hotpink: 4285117695,
-  indianred: 3445382399,
-  indigo: 1258324735,
-  ivory: 4294963455,
-  khaki: 4041641215,
-  lavender: 3873897215,
-  lavenderblush: 4293981695,
-  lawngreen: 2096890111,
-  lemonchiffon: 4294626815,
-  lightblue: 2916673279,
-  lightcoral: 4034953471,
-  lightcyan: 3774873599,
-  lightgoldenrodyellow: 4210742015,
-  lightgray: 3553874943,
-  lightgreen: 2431553791,
-  lightgrey: 3553874943,
-  lightpink: 4290167295,
-  lightsalmon: 4288707327,
-  lightseagreen: 548580095,
-  lightskyblue: 2278488831,
-  lightslategray: 2005441023,
-  lightslategrey: 2005441023,
-  lightsteelblue: 2965692159,
-  lightyellow: 4294959359,
-  lime: 16711935,
-  limegreen: 852308735,
-  linen: 4210091775,
-  magenta: 4278255615,
-  maroon: 2147483903,
-  mediumaquamarine: 1724754687,
-  mediumblue: 52735,
-  mediumorchid: 3126187007,
-  mediumpurple: 2473647103,
-  mediumseagreen: 1018393087,
-  mediumslateblue: 2070474495,
-  mediumspringgreen: 16423679,
-  mediumturquoise: 1221709055,
-  mediumvioletred: 3340076543,
-  midnightblue: 421097727,
-  mintcream: 4127193855,
-  mistyrose: 4293190143,
-  moccasin: 4293178879,
-  navajowhite: 4292783615,
-  navy: 33023,
-  oldlace: 4260751103,
-  olive: 2155872511,
-  olivedrab: 1804477439,
-  orange: 4289003775,
-  orangered: 4282712319,
-  orchid: 3664828159,
-  palegoldenrod: 4008225535,
-  palegreen: 2566625535,
-  paleturquoise: 2951671551,
-  palevioletred: 3681588223,
-  papayawhip: 4293907967,
-  peachpuff: 4292524543,
-  peru: 3448061951,
-  pink: 4290825215,
-  plum: 3718307327,
-  powderblue: 2967529215,
-  purple: 2147516671,
-  rebeccapurple: 1714657791,
-  red: 4278190335,
-  rosybrown: 3163525119,
-  royalblue: 1097458175,
-  saddlebrown: 2336560127,
-  salmon: 4202722047,
-  sandybrown: 4104413439,
-  seagreen: 780883967,
-  seashell: 4294307583,
-  sienna: 2689740287,
-  silver: 3233857791,
-  skyblue: 2278484991,
-  slateblue: 1784335871,
-  slategray: 1887473919,
-  slategrey: 1887473919,
-  snow: 4294638335,
-  springgreen: 16744447,
-  steelblue: 1182971135,
-  tan: 3535047935,
-  teal: 8421631,
-  thistle: 3636451583,
-  tomato: 4284696575,
-  turquoise: 1088475391,
-  violet: 4001558271,
-  wheat: 4125012991,
-  white: 4294967295,
-  whitesmoke: 4126537215,
-  yellow: 4294902015,
-  yellowgreen: 2597139199
+var colors = {
+  transparent: 0x00000000,
+  aliceblue: 0xf0f8ffff,
+  antiquewhite: 0xfaebd7ff,
+  aqua: 0x00ffffff,
+  aquamarine: 0x7fffd4ff,
+  azure: 0xf0ffffff,
+  beige: 0xf5f5dcff,
+  bisque: 0xffe4c4ff,
+  black: 0x000000ff,
+  blanchedalmond: 0xffebcdff,
+  blue: 0x0000ffff,
+  blueviolet: 0x8a2be2ff,
+  brown: 0xa52a2aff,
+  burlywood: 0xdeb887ff,
+  burntsienna: 0xea7e5dff,
+  cadetblue: 0x5f9ea0ff,
+  chartreuse: 0x7fff00ff,
+  chocolate: 0xd2691eff,
+  coral: 0xff7f50ff,
+  cornflowerblue: 0x6495edff,
+  cornsilk: 0xfff8dcff,
+  crimson: 0xdc143cff,
+  cyan: 0x00ffffff,
+  darkblue: 0x00008bff,
+  darkcyan: 0x008b8bff,
+  darkgoldenrod: 0xb8860bff,
+  darkgray: 0xa9a9a9ff,
+  darkgreen: 0x006400ff,
+  darkgrey: 0xa9a9a9ff,
+  darkkhaki: 0xbdb76bff,
+  darkmagenta: 0x8b008bff,
+  darkolivegreen: 0x556b2fff,
+  darkorange: 0xff8c00ff,
+  darkorchid: 0x9932ccff,
+  darkred: 0x8b0000ff,
+  darksalmon: 0xe9967aff,
+  darkseagreen: 0x8fbc8fff,
+  darkslateblue: 0x483d8bff,
+  darkslategray: 0x2f4f4fff,
+  darkslategrey: 0x2f4f4fff,
+  darkturquoise: 0x00ced1ff,
+  darkviolet: 0x9400d3ff,
+  deeppink: 0xff1493ff,
+  deepskyblue: 0x00bfffff,
+  dimgray: 0x696969ff,
+  dimgrey: 0x696969ff,
+  dodgerblue: 0x1e90ffff,
+  firebrick: 0xb22222ff,
+  floralwhite: 0xfffaf0ff,
+  forestgreen: 0x228b22ff,
+  fuchsia: 0xff00ffff,
+  gainsboro: 0xdcdcdcff,
+  ghostwhite: 0xf8f8ffff,
+  gold: 0xffd700ff,
+  goldenrod: 0xdaa520ff,
+  gray: 0x808080ff,
+  green: 0x008000ff,
+  greenyellow: 0xadff2fff,
+  grey: 0x808080ff,
+  honeydew: 0xf0fff0ff,
+  hotpink: 0xff69b4ff,
+  indianred: 0xcd5c5cff,
+  indigo: 0x4b0082ff,
+  ivory: 0xfffff0ff,
+  khaki: 0xf0e68cff,
+  lavender: 0xe6e6faff,
+  lavenderblush: 0xfff0f5ff,
+  lawngreen: 0x7cfc00ff,
+  lemonchiffon: 0xfffacdff,
+  lightblue: 0xadd8e6ff,
+  lightcoral: 0xf08080ff,
+  lightcyan: 0xe0ffffff,
+  lightgoldenrodyellow: 0xfafad2ff,
+  lightgray: 0xd3d3d3ff,
+  lightgreen: 0x90ee90ff,
+  lightgrey: 0xd3d3d3ff,
+  lightpink: 0xffb6c1ff,
+  lightsalmon: 0xffa07aff,
+  lightseagreen: 0x20b2aaff,
+  lightskyblue: 0x87cefaff,
+  lightslategray: 0x778899ff,
+  lightslategrey: 0x778899ff,
+  lightsteelblue: 0xb0c4deff,
+  lightyellow: 0xffffe0ff,
+  lime: 0x00ff00ff,
+  limegreen: 0x32cd32ff,
+  linen: 0xfaf0e6ff,
+  magenta: 0xff00ffff,
+  maroon: 0x800000ff,
+  mediumaquamarine: 0x66cdaaff,
+  mediumblue: 0x0000cdff,
+  mediumorchid: 0xba55d3ff,
+  mediumpurple: 0x9370dbff,
+  mediumseagreen: 0x3cb371ff,
+  mediumslateblue: 0x7b68eeff,
+  mediumspringgreen: 0x00fa9aff,
+  mediumturquoise: 0x48d1ccff,
+  mediumvioletred: 0xc71585ff,
+  midnightblue: 0x191970ff,
+  mintcream: 0xf5fffaff,
+  mistyrose: 0xffe4e1ff,
+  moccasin: 0xffe4b5ff,
+  navajowhite: 0xffdeadff,
+  navy: 0x000080ff,
+  oldlace: 0xfdf5e6ff,
+  olive: 0x808000ff,
+  olivedrab: 0x6b8e23ff,
+  orange: 0xffa500ff,
+  orangered: 0xff4500ff,
+  orchid: 0xda70d6ff,
+  palegoldenrod: 0xeee8aaff,
+  palegreen: 0x98fb98ff,
+  paleturquoise: 0xafeeeeff,
+  palevioletred: 0xdb7093ff,
+  papayawhip: 0xffefd5ff,
+  peachpuff: 0xffdab9ff,
+  peru: 0xcd853fff,
+  pink: 0xffc0cbff,
+  plum: 0xdda0ddff,
+  powderblue: 0xb0e0e6ff,
+  purple: 0x800080ff,
+  rebeccapurple: 0x663399ff,
+  red: 0xff0000ff,
+  rosybrown: 0xbc8f8fff,
+  royalblue: 0x4169e1ff,
+  saddlebrown: 0x8b4513ff,
+  salmon: 0xfa8072ff,
+  sandybrown: 0xf4a460ff,
+  seagreen: 0x2e8b57ff,
+  seashell: 0xfff5eeff,
+  sienna: 0xa0522dff,
+  silver: 0xc0c0c0ff,
+  skyblue: 0x87ceebff,
+  slateblue: 0x6a5acdff,
+  slategray: 0x708090ff,
+  slategrey: 0x708090ff,
+  snow: 0xfffafaff,
+  springgreen: 0x00ff7fff,
+  steelblue: 0x4682b4ff,
+  tan: 0xd2b48cff,
+  teal: 0x008080ff,
+  thistle: 0xd8bfd8ff,
+  tomato: 0xff6347ff,
+  turquoise: 0x40e0d0ff,
+  violet: 0xee82eeff,
+  wheat: 0xf5deb3ff,
+  white: 0xffffffff,
+  whitesmoke: 0xf5f5f5ff,
+  yellow: 0xffff00ff,
+  yellowgreen: 0x9acd32ff
 };
-var NUMBER = "[-+]?\\d*\\.?\\d+";
-var PERCENTAGE = NUMBER + "%";
+var NUMBER = '[-+]?\\d*\\.?\\d+';
+var PERCENTAGE = NUMBER + '%';
 
 function call() {
   for (var _len2 = arguments.length, parts = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
     parts[_key2] = arguments[_key2];
   }
 
-  return "\\(\\s*(" + parts.join(")\\s*,\\s*(") + ")\\s*\\)";
+  return '\\(\\s*(' + parts.join(')\\s*,\\s*(') + ')\\s*\\)';
 }
 
-var rgb = new RegExp("rgb" + call(NUMBER, NUMBER, NUMBER));
-var rgba = new RegExp("rgba" + call(NUMBER, NUMBER, NUMBER, NUMBER));
-var hsl = new RegExp("hsl" + call(NUMBER, PERCENTAGE, PERCENTAGE));
-var hsla = new RegExp("hsla" + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER));
+var rgb = new RegExp('rgb' + call(NUMBER, NUMBER, NUMBER));
+var rgba = new RegExp('rgba' + call(NUMBER, NUMBER, NUMBER, NUMBER));
+var hsl = new RegExp('hsl' + call(NUMBER, PERCENTAGE, PERCENTAGE));
+var hsla = new RegExp('hsla' + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER));
 var hex3 = /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/;
 var hex4 = /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/;
 var hex6 = /^#([0-9a-fA-F]{6})$/;
@@ -19200,18 +18908,18 @@ var hex8 = /^#([0-9a-fA-F]{8})$/;
 function normalizeColor(color) {
   var match;
 
-  if (typeof color === "number") {
-    return color >>> 0 === color && color >= 0 && color <= 4294967295 ? color : null;
+  if (typeof color === 'number') {
+    return color >>> 0 === color && color >= 0 && color <= 0xffffffff ? color : null;
   }
 
-  if (match = hex6.exec(color)) return parseInt(match[1] + "ff", 16) >>> 0;
+  if (match = hex6.exec(color)) return parseInt(match[1] + 'ff', 16) >>> 0;
 
-  if (colors && colors[color] !== void 0) {
-    return colors[color];
+  if (colors$1 && colors$1[color] !== undefined) {
+    return colors$1[color];
   }
 
   if (match = rgb.exec(color)) {
-    return (parse255(match[1]) << 24 | parse255(match[2]) << 16 | parse255(match[3]) << 8 | 255) >>> 0;
+    return (parse255(match[1]) << 24 | parse255(match[2]) << 16 | parse255(match[3]) << 8 | 0x000000ff) >>> 0;
   }
 
   if (match = rgba.exec(color)) {
@@ -19219,7 +18927,7 @@ function normalizeColor(color) {
   }
 
   if (match = hex3.exec(color)) {
-    return parseInt(match[1] + match[1] + match[2] + match[2] + match[3] + match[3] + "ff", 16) >>> 0;
+    return parseInt(match[1] + match[1] + match[2] + match[2] + match[3] + match[3] + 'ff', 16) >>> 0;
   }
 
   if (match = hex8.exec(color)) return parseInt(match[1], 16) >>> 0;
@@ -19229,7 +18937,7 @@ function normalizeColor(color) {
   }
 
   if (match = hsl.exec(color)) {
-    return (hslToRgb(parse360(match[1]), parsePercentage(match[2]), parsePercentage(match[3])) | 255) >>> 0;
+    return (hslToRgb(parse360(match[1]), parsePercentage(match[2]), parsePercentage(match[3])) | 0x000000ff) >>> 0;
   }
 
   if (match = hsla.exec(color)) {
@@ -19287,10 +18995,10 @@ function colorToRgba(input) {
   var int32Color = normalizeColor(input);
   if (int32Color === null) return input;
   int32Color = int32Color || 0;
-  var r = (int32Color & 4278190080) >>> 24;
-  var g = (int32Color & 16711680) >>> 16;
-  var b = (int32Color & 65280) >>> 8;
-  var a = (int32Color & 255) / 255;
+  var r = (int32Color & 0xff000000) >>> 24;
+  var g = (int32Color & 0x00ff0000) >>> 16;
+  var b = (int32Color & 0x0000ff00) >>> 8;
+  var a = (int32Color & 0x000000ff) / 255;
   return "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", ").concat(a, ")");
 }
 
@@ -19308,22 +19016,22 @@ var createInterpolator = function createInterpolator(range, output, extrapolate)
   }
 
   if (is.str(range.output[0])) {
-    return createStringInterpolator(range);
+    return createStringInterpolator$1(range);
   }
 
   var config = range;
   var outputRange = config.output;
   var inputRange = config.range || [0, 1];
-  var extrapolateLeft = config.extrapolateLeft || config.extrapolate || "extend";
-  var extrapolateRight = config.extrapolateRight || config.extrapolate || "extend";
+  var extrapolateLeft = config.extrapolateLeft || config.extrapolate || 'extend';
+  var extrapolateRight = config.extrapolateRight || config.extrapolate || 'extend';
 
   var easing = config.easing || function (t) {
     return t;
   };
 
   return function (input) {
-    var range2 = findRange(input, inputRange);
-    return interpolate(input, inputRange[range2], inputRange[range2 + 1], outputRange[range2], outputRange[range2 + 1], easing, extrapolateLeft, extrapolateRight, config.map);
+    var range = findRange(input, inputRange);
+    return interpolate(input, inputRange[range], inputRange[range + 1], outputRange[range], outputRange[range + 1], easing, extrapolateLeft, extrapolateRight, config.map);
   };
 };
 
@@ -19331,11 +19039,11 @@ function interpolate(input, inputMin, inputMax, outputMin, outputMax, easing, ex
   var result = map ? map(input) : input;
 
   if (result < inputMin) {
-    if (extrapolateLeft === "identity") return result;else if (extrapolateLeft === "clamp") result = inputMin;
+    if (extrapolateLeft === 'identity') return result;else if (extrapolateLeft === 'clamp') result = inputMin;
   }
 
   if (result > inputMax) {
-    if (extrapolateRight === "identity") return result;else if (extrapolateRight === "clamp") result = inputMax;
+    if (extrapolateRight === 'identity') return result;else if (extrapolateRight === 'clamp') result = inputMax;
   }
 
   if (outputMin === outputMax) return outputMin;
@@ -19354,8 +19062,26 @@ function findRange(input, inputRange) {
   return i - 1;
 }
 
-var $get = Symbol.for("FluidValue.get");
-var $observers = Symbol.for("FluidValue.observers");
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+var $get = Symbol.for('FluidValue.get');
+var $observers = Symbol.for('FluidValue.observers');
 
 var hasFluidValue = function hasFluidValue(arg) {
   return Boolean(arg && arg[$get]);
@@ -19390,8 +19116,11 @@ function callFluidObservers(target, event) {
 var FluidValue = function FluidValue(get) {
   (0,classCallCheck/* default */.Z)(this, FluidValue);
 
+  this[$get] = void 0;
+  this[$observers] = void 0;
+
   if (!get && !(get = this.get)) {
-    throw Error("Unknown getter");
+    throw Error('Unknown getter');
   }
 
   setFluidGetter(this, get);
@@ -19456,8 +19185,8 @@ var rgbaRound = function rgbaRound(_, p1, p2, p3, p4) {
   return "rgba(".concat(Math.round(p1), ", ").concat(Math.round(p2), ", ").concat(Math.round(p3), ", ").concat(p4, ")");
 };
 
-var createStringInterpolator$1 = function createStringInterpolator$1(config) {
-  if (!namedColorRegex) namedColorRegex = colors ? new RegExp("(".concat(Object.keys(colors).join("|"), ")"), "g") : /^\b$/;
+var createStringInterpolator = function createStringInterpolator(config) {
+  if (!namedColorRegex) namedColorRegex = colors$1 ? new RegExp("(".concat(Object.keys(colors$1).join('|'), ")(?!\\w)"), 'g') : /^\b$/;
   var output = config.output.map(function (value) {
     return getFluidValue(value).replace(colorRegex, colorToRgba).replace(namedColorRegex, colorToRgba);
   });
@@ -19473,9 +19202,9 @@ var createStringInterpolator$1 = function createStringInterpolator$1(config) {
       return values[i];
     });
   });
-  var interpolators = outputRanges.map(function (output2) {
-    return createInterpolator(_objectSpread(_objectSpread({}, config), {}, {
-      output: output2
+  var interpolators = outputRanges.map(function (output) {
+    return createInterpolator(_extends({}, config, {
+      output: output
     }));
   });
   return function (input) {
@@ -19486,13 +19215,13 @@ var createStringInterpolator$1 = function createStringInterpolator$1(config) {
   };
 };
 
-var prefix = "react-spring: ";
+var prefix = 'react-spring: ';
 
 var once = function once(fn) {
   var func = fn;
   var called = false;
 
-  if (typeof func != "function") {
+  if (typeof func != 'function') {
     throw new TypeError("".concat(prefix, "once requires a function parameter"));
   }
 
@@ -19513,11 +19242,11 @@ function deprecateInterpolate() {
 var warnDirectCall = once(console.warn);
 
 function deprecateDirectCall() {
-  warnDirectCall("".concat(prefix, "Directly calling start instead of using the api object is deprecated in v9 (use \".start\" instead)"));
+  warnDirectCall("".concat(prefix, "Directly calling start instead of using the api object is deprecated in v9 (use \".start\" instead), this will be removed in later 0.X.0 versions"));
 }
 
 function isAnimatedString(value) {
-  return is.str(value) && (value[0] == "#" || /\d/.test(value) || value in (colors || {}));
+  return is.str(value) && (value[0] == '#' || /\d/.test(value) || value in (colors$1 || {}));
 }
 
 var useOnce = function useOnce(effect) {
@@ -19580,7 +19309,7 @@ function useMemoOne(getResult, inputs) {
     committed.current = cache;
 
     if (prevCache == initial) {
-      initial.inputs = initial.result = void 0;
+      initial.inputs = initial.result = undefined;
     }
   }, [cache]);
   return cache.result;
@@ -19608,12 +19337,12 @@ function usePrev(value) {
   return prevRef.current;
 }
 
-var useLayoutEffect = typeof window !== "undefined" && window.document && window.document.createElement ? react.useLayoutEffect : react.useEffect;
+var useLayoutEffect = typeof window !== 'undefined' && window.document && window.document.createElement ? react.useLayoutEffect : react.useEffect;
 
 
 /***/ }),
 
-/***/ 9514:
+/***/ 85468:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19625,27 +19354,22 @@ var useLayoutEffect = typeof window !== "undefined" && window.document && window
 /* harmony export */   "q": function() { return /* binding */ animated; }
 /* harmony export */ });
 /* unused harmony export a */
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(25008);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(15892);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(32738);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(72094);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(25008);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15892);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(32738);
+/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(72094);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(44524);
 /* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12426);
-/* harmony import */ var _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41568);
-/* harmony import */ var _react_spring_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25145);
+/* harmony import */ var _react_spring_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(15363);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73935);
-/* harmony import */ var _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(31950);
-/* harmony import */ var _react_spring_animated__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(58392);
+/* harmony import */ var _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(33907);
+/* harmony import */ var _react_spring_animated__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(66027);
 
 
 
 
 
 
-
-var _excluded = ["style", "children", "scrollTop", "scrollLeft"],
-    _excluded2 = ["x", "y", "z"],
-    _excluded3 = ["scrollTop", "scrollLeft"];
 
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(this, result); }; }
 
@@ -19656,12 +19380,28 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
 var isCustomPropRE = /^--/;
 
 function dangerousStyleValue(name, value) {
-  if (value == null || typeof value === "boolean" || value === "") return "";
-  if (typeof value === "number" && value !== 0 && !isCustomPropRE.test(name) && !(isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name])) return value + "px";
-  return ("" + value).trim();
+  if (value == null || typeof value === 'boolean' || value === '') return '';
+  if (typeof value === 'number' && value !== 0 && !isCustomPropRE.test(name) && !(isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name])) return value + 'px';
+  return ('' + value).trim();
 }
 
 var attributeCache = {};
@@ -19671,18 +19411,19 @@ function applyAnimatedValues(instance, props) {
     return false;
   }
 
-  var isFilterElement = instance.nodeName === "filter" || instance.parentNode && instance.parentNode.nodeName === "filter";
+  var isFilterElement = instance.nodeName === 'filter' || instance.parentNode && instance.parentNode.nodeName === 'filter';
 
-  var style = props.style,
-      children = props.children,
-      scrollTop = props.scrollTop,
-      scrollLeft = props.scrollLeft,
-      attributes = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(props, _excluded);
+  var _ref = props,
+      style = _ref.style,
+      children = _ref.children,
+      scrollTop = _ref.scrollTop,
+      scrollLeft = _ref.scrollLeft,
+      attributes = _objectWithoutPropertiesLoose(_ref, ["style", "children", "scrollTop", "scrollLeft"]);
 
   var values = Object.values(attributes);
   var names = Object.keys(attributes).map(function (name) {
     return isFilterElement || instance.hasAttribute(name) ? name : attributeCache[name] || (attributeCache[name] = name.replace(/([A-Z])/g, function (n) {
-      return "-" + n.toLowerCase();
+      return '-' + n.toLowerCase();
     }));
   });
 
@@ -19693,7 +19434,7 @@ function applyAnimatedValues(instance, props) {
   for (var name in style) {
     if (style.hasOwnProperty(name)) {
       var value = dangerousStyleValue(name, style[name]);
-      if (name === "float") name = "cssFloat";else if (isCustomPropRE.test(name)) {
+      if (name === 'float') name = 'cssFloat';else if (isCustomPropRE.test(name)) {
         instance.style.setProperty(name, value);
       } else {
         instance.style[name] = value;
@@ -19762,7 +19503,7 @@ var prefixKey = function prefixKey(prefix, key) {
   return prefix + key.charAt(0).toUpperCase() + key.substring(1);
 };
 
-var prefixes = ["Webkit", "Ms", "Moz", "O"];
+var prefixes = ['Webkit', 'Ms', 'Moz', 'O'];
 isUnitlessNumber = Object.keys(isUnitlessNumber).reduce(function (acc, prop) {
   prefixes.forEach(function (prefix) {
     return acc[prefixKey(prefix, prop)] = acc[prop];
@@ -19784,17 +19525,17 @@ var isValueIdentity = function isValueIdentity(value, id) {
 };
 
 var AnimatedStyle = /*#__PURE__*/function (_AnimatedObject) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(AnimatedStyle, _AnimatedObject);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimatedStyle, _AnimatedObject);
 
   var _super = _createSuper(AnimatedStyle);
 
   function AnimatedStyle(_ref) {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, AnimatedStyle);
+
     var x = _ref.x,
         y = _ref.y,
         z = _ref.z,
-        style = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_ref, _excluded2);
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(this, AnimatedStyle);
+        style = _objectWithoutPropertiesLoose(_ref, ["x", "y", "z"]);
 
     var inputs = [];
     var transforms = [];
@@ -19803,34 +19544,34 @@ var AnimatedStyle = /*#__PURE__*/function (_AnimatedObject) {
       inputs.push([x || 0, y || 0, z || 0]);
       transforms.push(function (xyz) {
         return ["translate3d(".concat(xyz.map(function (v) {
-          return addUnit(v, "px");
-        }).join(","), ")"), isValueIdentity(xyz, 0)];
+          return addUnit(v, 'px');
+        }).join(','), ")"), isValueIdentity(xyz, 0)];
       });
     }
 
     (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .eachProp */ .rU)(style, function (value, key) {
-      if (key === "transform") {
-        inputs.push([value || ""]);
+      if (key === 'transform') {
+        inputs.push([value || '']);
         transforms.push(function (transform) {
-          return [transform, transform === ""];
+          return [transform, transform === ''];
         });
       } else if (domTransforms.test(key)) {
         delete style[key];
         if (_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.und(value)) return;
-        var unit = pxTransforms.test(key) ? "px" : degTransforms.test(key) ? "deg" : "";
+        var unit = pxTransforms.test(key) ? 'px' : degTransforms.test(key) ? 'deg' : '';
         inputs.push((0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .toArray */ .qo)(value));
-        transforms.push(key === "rotate3d" ? function (_ref2) {
-          var _ref3 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_ref2, 4),
-              x2 = _ref3[0],
-              y2 = _ref3[1],
-              z2 = _ref3[2],
+        transforms.push(key === 'rotate3d' ? function (_ref2) {
+          var _ref3 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_ref2, 4),
+              x = _ref3[0],
+              y = _ref3[1],
+              z = _ref3[2],
               deg = _ref3[3];
 
-          return ["rotate3d(".concat(x2, ",").concat(y2, ",").concat(z2, ",").concat(addUnit(deg, unit), ")"), isValueIdentity(deg, 0)];
+          return ["rotate3d(".concat(x, ",").concat(y, ",").concat(z, ",").concat(addUnit(deg, unit), ")"), isValueIdentity(deg, 0)];
         } : function (input) {
           return ["".concat(key, "(").concat(input.map(function (v) {
             return addUnit(v, unit);
-          }).join(","), ")"), isValueIdentity(input, key.startsWith("scale") ? 1 : 0)];
+          }).join(','), ")"), isValueIdentity(input, key.startsWith('scale') ? 1 : 0)];
         });
       }
     });
@@ -19846,23 +19587,23 @@ var AnimatedStyle = /*#__PURE__*/function (_AnimatedObject) {
 }(_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .AnimatedObject */ .rS);
 
 var FluidTransform = /*#__PURE__*/function (_FluidValue) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(FluidTransform, _FluidValue);
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(FluidTransform, _FluidValue);
 
   var _super2 = _createSuper(FluidTransform);
 
   function FluidTransform(inputs, transforms) {
     var _this;
 
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(this, FluidTransform);
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(this, FluidTransform);
 
     _this = _super2.call(this);
+    _this._value = null;
     _this.inputs = inputs;
     _this.transforms = transforms;
-    _this._value = null;
     return _this;
   }
 
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(FluidTransform, [{
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(FluidTransform, [{
     key: "get",
     value: function get() {
       return this._value || (this._value = this._get());
@@ -19872,20 +19613,20 @@ var FluidTransform = /*#__PURE__*/function (_FluidValue) {
     value: function _get() {
       var _this2 = this;
 
-      var transform = "";
+      var transform = '';
       var identity = true;
       (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .each */ .S6)(this.inputs, function (input, i) {
         var arg1 = (0,_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)(input[0]);
 
         var _this2$transforms$i = _this2.transforms[i](_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__.is.arr(arg1) ? arg1 : input.map(_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .getFluidValue */ .je)),
-            _this2$transforms$i2 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2$transforms$i, 2),
+            _this2$transforms$i2 = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_this2$transforms$i, 2),
             t = _this2$transforms$i2[0],
             id = _this2$transforms$i2[1];
 
-        transform += " " + t;
+        transform += ' ' + t;
         identity = identity && id;
       });
-      return identity ? "none" : transform;
+      return identity ? 'none' : transform;
     }
   }, {
     key: "observerAdded",
@@ -19912,7 +19653,7 @@ var FluidTransform = /*#__PURE__*/function (_FluidValue) {
   }, {
     key: "eventObserved",
     value: function eventObserved(event) {
-      if (event.type == "change") {
+      if (event.type == 'change') {
         this._value = null;
       }
 
@@ -19923,7 +19664,7 @@ var FluidTransform = /*#__PURE__*/function (_FluidValue) {
   return FluidTransform;
 }(_react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .FluidValue */ .B0);
 
-var primitives = ["a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "big", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "menu", "menuitem", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script", "section", "select", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "u", "ul", "var", "video", "wbr", "circle", "clipPath", "defs", "ellipse", "foreignObject", "g", "image", "line", "linearGradient", "mask", "path", "pattern", "polygon", "polyline", "radialGradient", "rect", "stop", "svg", "text", "tspan"];
+var primitives = ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'circle', 'clipPath', 'defs', 'ellipse', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'svg', 'text', 'tspan'];
 _react_spring_core__WEBPACK_IMPORTED_MODULE_2__/* .Globals.assign */ .OH.assign({
   batchedUpdates: react_dom__WEBPACK_IMPORTED_MODULE_3__.unstable_batchedUpdates,
   createStringInterpolator: _react_spring_shared__WEBPACK_IMPORTED_MODULE_4__/* .createStringInterpolator */ .qS,
@@ -19934,10 +19675,8 @@ var host = (0,_react_spring_animated__WEBPACK_IMPORTED_MODULE_5__/* .createHost 
   createAnimatedStyle: function createAnimatedStyle(style) {
     return new AnimatedStyle(style);
   },
-  getComponentProps: function getComponentProps(_ref4) {
-    var scrollTop = _ref4.scrollTop,
-        scrollLeft = _ref4.scrollLeft,
-        props = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(_ref4, _excluded3);
+  getComponentProps: function getComponentProps(_ref) {
+    var props = _objectWithoutPropertiesLoose(_ref, ["scrollTop", "scrollLeft"]);
 
     return props;
   }
@@ -22581,141 +22320,6 @@ FormatSpecifier.prototype.toString = function () {
 
 /***/ }),
 
-/***/ 87286:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ band; },
-  "x": function() { return /* binding */ point; }
-});
-
-// EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
-var slicedToArray = __webpack_require__(15892);
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/range.js
-/* harmony default export */ function range(start, stop, step) {
-  start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
-  var i = -1,
-      n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
-      range = new Array(n);
-
-  while (++i < n) {
-    range[i] = start + i * step;
-  }
-
-  return range;
-}
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/init.js
-var init = __webpack_require__(39632);
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/ordinal.js
-var ordinal = __webpack_require__(34096);
-;// CONCATENATED MODULE: ./node_modules/d3-scale/src/band.js
-
-
-
-
-function band() {
-  var scale = (0,ordinal/* default */.Z)().unknown(undefined),
-      domain = scale.domain,
-      ordinalRange = scale.range,
-      r0 = 0,
-      r1 = 1,
-      step,
-      bandwidth,
-      round = false,
-      paddingInner = 0,
-      paddingOuter = 0,
-      align = 0.5;
-  delete scale.unknown;
-
-  function rescale() {
-    var n = domain().length,
-        reverse = r1 < r0,
-        start = reverse ? r1 : r0,
-        stop = reverse ? r0 : r1;
-    step = (stop - start) / Math.max(1, n - paddingInner + paddingOuter * 2);
-    if (round) step = Math.floor(step);
-    start += (stop - start - step * (n - paddingInner)) * align;
-    bandwidth = step * (1 - paddingInner);
-    if (round) start = Math.round(start), bandwidth = Math.round(bandwidth);
-    var values = range(n).map(function (i) {
-      return start + step * i;
-    });
-    return ordinalRange(reverse ? values.reverse() : values);
-  }
-
-  scale.domain = function (_) {
-    return arguments.length ? (domain(_), rescale()) : domain();
-  };
-
-  scale.range = function (_) {
-    var _ref, _ref2;
-
-    return arguments.length ? ((_ref = _, _ref2 = (0,slicedToArray/* default */.Z)(_ref, 2), r0 = _ref2[0], r1 = _ref2[1], _ref), r0 = +r0, r1 = +r1, rescale()) : [r0, r1];
-  };
-
-  scale.rangeRound = function (_) {
-    var _ref3, _ref4;
-
-    return (_ref3 = _, _ref4 = (0,slicedToArray/* default */.Z)(_ref3, 2), r0 = _ref4[0], r1 = _ref4[1], _ref3), r0 = +r0, r1 = +r1, round = true, rescale();
-  };
-
-  scale.bandwidth = function () {
-    return bandwidth;
-  };
-
-  scale.step = function () {
-    return step;
-  };
-
-  scale.round = function (_) {
-    return arguments.length ? (round = !!_, rescale()) : round;
-  };
-
-  scale.padding = function (_) {
-    return arguments.length ? (paddingInner = Math.min(1, paddingOuter = +_), rescale()) : paddingInner;
-  };
-
-  scale.paddingInner = function (_) {
-    return arguments.length ? (paddingInner = Math.min(1, _), rescale()) : paddingInner;
-  };
-
-  scale.paddingOuter = function (_) {
-    return arguments.length ? (paddingOuter = +_, rescale()) : paddingOuter;
-  };
-
-  scale.align = function (_) {
-    return arguments.length ? (align = Math.max(0, Math.min(1, _)), rescale()) : align;
-  };
-
-  scale.copy = function () {
-    return band(domain(), [r0, r1]).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
-  };
-
-  return init/* initRange.apply */.o.apply(rescale(), arguments);
-}
-
-function pointish(scale) {
-  var copy = scale.copy;
-  scale.padding = scale.paddingOuter;
-  delete scale.paddingInner;
-  delete scale.paddingOuter;
-
-  scale.copy = function () {
-    return pointish(copy());
-  };
-
-  return scale;
-}
-
-function point() {
-  return pointish(band.apply(null, arguments).paddingInner(1));
-}
-
-/***/ }),
-
 /***/ 99737:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -23639,7 +23243,7 @@ function y(p) {
 
 /***/ }),
 
-/***/ 38987:
+/***/ 12439:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23648,23 +23252,233 @@ function y(p) {
 __webpack_require__.d(__webpack_exports__, {
   "i$": function() { return /* binding */ timeFormat; },
   "Z1": function() { return /* binding */ timeParse; },
+  "g0": function() { return /* binding */ utcFormat; },
   "wp": function() { return /* binding */ utcParse; }
 });
 
-// UNUSED EXPORTS: default, utcFormat
+// UNUSED EXPORTS: default
 
-// EXTERNAL MODULE: ./node_modules/d3-time/src/utcWeek.js
-var utcWeek = __webpack_require__(77653);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/utcDay.js
-var utcDay = __webpack_require__(81898);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/week.js
-var src_week = __webpack_require__(3001);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/day.js
-var src_day = __webpack_require__(70018);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/year.js
-var year = __webpack_require__(83706);
-// EXTERNAL MODULE: ./node_modules/d3-time/src/utcYear.js
-var utcYear = __webpack_require__(75805);
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/interval.js
+var t0 = new Date(),
+    t1 = new Date();
+function newInterval(floori, offseti, count, field) {
+  function interval(date) {
+    return floori(date = arguments.length === 0 ? new Date() : new Date(+date)), date;
+  }
+
+  interval.floor = function (date) {
+    return floori(date = new Date(+date)), date;
+  };
+
+  interval.ceil = function (date) {
+    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+  };
+
+  interval.round = function (date) {
+    var d0 = interval(date),
+        d1 = interval.ceil(date);
+    return date - d0 < d1 - date ? d0 : d1;
+  };
+
+  interval.offset = function (date, step) {
+    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+  };
+
+  interval.range = function (start, stop, step) {
+    var range = [],
+        previous;
+    start = interval.ceil(start);
+    step = step == null ? 1 : Math.floor(step);
+    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+
+    do {
+      range.push(previous = new Date(+start)), offseti(start, step), floori(start);
+    } while (previous < start && start < stop);
+
+    return range;
+  };
+
+  interval.filter = function (test) {
+    return newInterval(function (date) {
+      if (date >= date) while (floori(date), !test(date)) {
+        date.setTime(date - 1);
+      }
+    }, function (date, step) {
+      if (date >= date) {
+        if (step < 0) while (++step <= 0) {
+          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
+
+        } else while (--step >= 0) {
+          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+
+        }
+      }
+    });
+  };
+
+  if (count) {
+    interval.count = function (start, end) {
+      t0.setTime(+start), t1.setTime(+end);
+      floori(t0), floori(t1);
+      return Math.floor(count(t0, t1));
+    };
+
+    interval.every = function (step) {
+      step = Math.floor(step);
+      return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval : interval.filter(field ? function (d) {
+        return field(d) % step === 0;
+      } : function (d) {
+        return interval.count(0, d) % step === 0;
+      });
+    };
+  }
+
+  return interval;
+}
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/duration.js
+var durationSecond = 1000;
+var durationMinute = durationSecond * 60;
+var durationHour = durationMinute * 60;
+var durationDay = durationHour * 24;
+var durationWeek = durationDay * 7;
+var durationMonth = durationDay * 30;
+var durationYear = durationDay * 365;
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/utcWeek.js
+
+
+
+function utcWeekday(i) {
+  return newInterval(function (date) {
+    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setUTCDate(date.getUTCDate() + step * 7);
+  }, function (start, end) {
+    return (end - start) / durationWeek;
+  });
+}
+
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+var utcSundays = utcSunday.range;
+var utcMondays = utcMonday.range;
+var utcTuesdays = utcTuesday.range;
+var utcWednesdays = utcWednesday.range;
+var utcThursdays = utcThursday.range;
+var utcFridays = utcFriday.range;
+var utcSaturdays = utcSaturday.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/utcDay.js
+
+
+var utcDay = newInterval(function (date) {
+  date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setUTCDate(date.getUTCDate() + step);
+}, function (start, end) {
+  return (end - start) / durationDay;
+}, function (date) {
+  return date.getUTCDate() - 1;
+});
+/* harmony default export */ var src_utcDay = (utcDay);
+var utcDays = utcDay.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/week.js
+
+
+
+function weekday(i) {
+  return newInterval(function (date) {
+    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+    date.setHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setDate(date.getDate() + step * 7);
+  }, function (start, end) {
+    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+  });
+}
+
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+var sundays = sunday.range;
+var mondays = monday.range;
+var tuesdays = tuesday.range;
+var wednesdays = wednesday.range;
+var thursdays = thursday.range;
+var fridays = friday.range;
+var saturdays = saturday.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/day.js
+
+
+var day = newInterval(function (date) {
+  return date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  return date.setDate(date.getDate() + step);
+}, function (start, end) {
+  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
+}, function (date) {
+  return date.getDate() - 1;
+});
+/* harmony default export */ var src_day = (day);
+var days = day.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/year.js
+
+var year = newInterval(function (date) {
+  date.setMonth(0, 1);
+  date.setHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setFullYear(date.getFullYear() + step);
+}, function (start, end) {
+  return end.getFullYear() - start.getFullYear();
+}, function (date) {
+  return date.getFullYear();
+}); // An optimized implementation for this simple case.
+
+year.every = function (k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function (date) {
+    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setFullYear(date.getFullYear() + step * k);
+  });
+};
+
+/* harmony default export */ var src_year = (year);
+var years = year.range;
+;// CONCATENATED MODULE: ./node_modules/d3-time-format/node_modules/d3-time/src/utcYear.js
+
+var utcYear = newInterval(function (date) {
+  date.setUTCMonth(0, 1);
+  date.setUTCHours(0, 0, 0, 0);
+}, function (date, step) {
+  date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function (start, end) {
+  return end.getUTCFullYear() - start.getUTCFullYear();
+}, function (date) {
+  return date.getUTCFullYear();
+}); // An optimized implementation for this simple case.
+
+utcYear.every = function (k) {
+  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function (date) {
+    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+  }, function (date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step * k);
+  });
+};
+
+/* harmony default export */ var src_utcYear = (utcYear);
+var utcYears = utcYear.range;
 ;// CONCATENATED MODULE: ./node_modules/d3-time-format/src/locale.js
 
 
@@ -23878,15 +23692,15 @@ function formatLocale(locale) {
 
         if ("Z" in d) {
           week = utcDate(newDate(d.y, 0, 1)), day = week.getUTCDay();
-          week = day > 4 || day === 0 ? utcWeek/* utcMonday.ceil */.l6.ceil(week) : (0,utcWeek/* utcMonday */.l6)(week);
-          week = utcDay/* default.offset */.Z.offset(week, (d.V - 1) * 7);
+          week = day > 4 || day === 0 ? utcMonday.ceil(week) : utcMonday(week);
+          week = src_utcDay.offset(week, (d.V - 1) * 7);
           d.y = week.getUTCFullYear();
           d.m = week.getUTCMonth();
           d.d = week.getUTCDate() + (d.w + 6) % 7;
         } else {
           week = localDate(newDate(d.y, 0, 1)), day = week.getDay();
-          week = day > 4 || day === 0 ? src_week/* monday.ceil */.wA.ceil(week) : (0,src_week/* monday */.wA)(week);
-          week = src_day/* default.offset */.Z.offset(week, (d.V - 1) * 7);
+          week = day > 4 || day === 0 ? monday.ceil(week) : monday(week);
+          week = src_day.offset(week, (d.V - 1) * 7);
           d.y = week.getFullYear();
           d.m = week.getMonth();
           d.d = week.getDate() + (d.w + 6) % 7;
@@ -23936,27 +23750,27 @@ function formatLocale(locale) {
 
   function parsePeriod(d, string, i) {
     var n = periodRe.exec(string.slice(i));
-    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+    return n ? (d.p = periodLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
   function parseShortWeekday(d, string, i) {
     var n = shortWeekdayRe.exec(string.slice(i));
-    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+    return n ? (d.w = shortWeekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
   function parseWeekday(d, string, i) {
     var n = weekdayRe.exec(string.slice(i));
-    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+    return n ? (d.w = weekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
   function parseShortMonth(d, string, i) {
     var n = shortMonthRe.exec(string.slice(i));
-    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+    return n ? (d.m = shortMonthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
   function parseMonth(d, string, i) {
     var n = monthRe.exec(string.slice(i));
-    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+    return n ? (d.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
   function parseLocaleDateTime(d, string, i) {
@@ -24084,15 +23898,9 @@ function formatRe(names) {
 }
 
 function formatLookup(names) {
-  var map = {},
-      i = -1,
-      n = names.length;
-
-  while (++i < n) {
-    map[names[i].toLowerCase()] = i;
-  }
-
-  return map;
+  return new Map(names.map(function (name, i) {
+    return [name.toLowerCase(), i];
+  }));
 }
 
 function parseWeekdayNumberSunday(d, string, i) {
@@ -24208,7 +24016,7 @@ function formatHour12(d, p) {
 }
 
 function formatDayOfYear(d, p) {
-  return pad(1 + src_day/* default.count */.Z.count((0,year/* default */.Z)(d), d), p, 3);
+  return pad(1 + src_day.count(src_year(d), d), p, 3);
 }
 
 function formatMilliseconds(d, p) {
@@ -24237,17 +24045,17 @@ function formatWeekdayNumberMonday(d) {
 }
 
 function formatWeekNumberSunday(d, p) {
-  return pad(src_week/* sunday.count */.OM.count((0,year/* default */.Z)(d) - 1, d), p, 2);
+  return pad(sunday.count(src_year(d) - 1, d), p, 2);
 }
 
 function dISO(d) {
   var day = d.getDay();
-  return day >= 4 || day === 0 ? (0,src_week/* thursday */.bL)(d) : src_week/* thursday.ceil */.bL.ceil(d);
+  return day >= 4 || day === 0 ? thursday(d) : thursday.ceil(d);
 }
 
 function formatWeekNumberISO(d, p) {
   d = dISO(d);
-  return pad(src_week/* thursday.count */.bL.count((0,year/* default */.Z)(d), d) + ((0,year/* default */.Z)(d).getDay() === 4), p, 2);
+  return pad(thursday.count(src_year(d), d) + (src_year(d).getDay() === 4), p, 2);
 }
 
 function formatWeekdayNumberSunday(d) {
@@ -24255,7 +24063,7 @@ function formatWeekdayNumberSunday(d) {
 }
 
 function formatWeekNumberMonday(d, p) {
-  return pad(src_week/* monday.count */.wA.count((0,year/* default */.Z)(d) - 1, d), p, 2);
+  return pad(monday.count(src_year(d) - 1, d), p, 2);
 }
 
 function formatYear(d, p) {
@@ -24273,7 +24081,7 @@ function formatFullYear(d, p) {
 
 function formatFullYearISO(d, p) {
   var day = d.getDay();
-  d = day >= 4 || day === 0 ? (0,src_week/* thursday */.bL)(d) : src_week/* thursday.ceil */.bL.ceil(d);
+  d = day >= 4 || day === 0 ? thursday(d) : thursday.ceil(d);
   return pad(d.getFullYear() % 10000, p, 4);
 }
 
@@ -24295,7 +24103,7 @@ function formatUTCHour12(d, p) {
 }
 
 function formatUTCDayOfYear(d, p) {
-  return pad(1 + utcDay/* default.count */.Z.count((0,utcYear/* default */.Z)(d), d), p, 3);
+  return pad(1 + src_utcDay.count(src_utcYear(d), d), p, 3);
 }
 
 function formatUTCMilliseconds(d, p) {
@@ -24324,17 +24132,17 @@ function formatUTCWeekdayNumberMonday(d) {
 }
 
 function formatUTCWeekNumberSunday(d, p) {
-  return pad(utcWeek/* utcSunday.count */.Ox.count((0,utcYear/* default */.Z)(d) - 1, d), p, 2);
+  return pad(utcSunday.count(src_utcYear(d) - 1, d), p, 2);
 }
 
 function UTCdISO(d) {
   var day = d.getUTCDay();
-  return day >= 4 || day === 0 ? (0,utcWeek/* utcThursday */.hB)(d) : utcWeek/* utcThursday.ceil */.hB.ceil(d);
+  return day >= 4 || day === 0 ? utcThursday(d) : utcThursday.ceil(d);
 }
 
 function formatUTCWeekNumberISO(d, p) {
   d = UTCdISO(d);
-  return pad(utcWeek/* utcThursday.count */.hB.count((0,utcYear/* default */.Z)(d), d) + ((0,utcYear/* default */.Z)(d).getUTCDay() === 4), p, 2);
+  return pad(utcThursday.count(src_utcYear(d), d) + (src_utcYear(d).getUTCDay() === 4), p, 2);
 }
 
 function formatUTCWeekdayNumberSunday(d) {
@@ -24342,7 +24150,7 @@ function formatUTCWeekdayNumberSunday(d) {
 }
 
 function formatUTCWeekNumberMonday(d, p) {
-  return pad(utcWeek/* utcMonday.count */.l6.count((0,utcYear/* default */.Z)(d) - 1, d), p, 2);
+  return pad(utcMonday.count(src_utcYear(d) - 1, d), p, 2);
 }
 
 function formatUTCYear(d, p) {
@@ -24360,7 +24168,7 @@ function formatUTCFullYear(d, p) {
 
 function formatUTCFullYearISO(d, p) {
   var day = d.getUTCDay();
-  d = day >= 4 || day === 0 ? (0,utcWeek/* utcThursday */.hB)(d) : utcWeek/* utcThursday.ceil */.hB.ceil(d);
+  d = day >= 4 || day === 0 ? utcThursday(d) : utcThursday.ceil(d);
   return pad(d.getUTCFullYear() % 10000, p, 4);
 }
 
@@ -24404,317 +24212,6 @@ function defaultLocale(definition) {
   utcParse = locale.utcParse;
   return locale;
 }
-
-/***/ }),
-
-/***/ 70018:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export days */
-/* harmony import */ var _interval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94666);
-/* harmony import */ var _duration_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29493);
-
-
-var day = (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-  date.setHours(0, 0, 0, 0);
-}, function (date, step) {
-  date.setDate(date.getDate() + step);
-}, function (start, end) {
-  return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * _duration_js__WEBPACK_IMPORTED_MODULE_1__/* .durationMinute */ .yB) / _duration_js__WEBPACK_IMPORTED_MODULE_1__/* .durationDay */ .UD;
-}, function (date) {
-  return date.getDate() - 1;
-});
-/* harmony default export */ __webpack_exports__["Z"] = (day);
-var days = day.range;
-
-/***/ }),
-
-/***/ 29493:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Ym": function() { return /* binding */ durationSecond; },
-/* harmony export */   "yB": function() { return /* binding */ durationMinute; },
-/* harmony export */   "Y2": function() { return /* binding */ durationHour; },
-/* harmony export */   "UD": function() { return /* binding */ durationDay; },
-/* harmony export */   "iM": function() { return /* binding */ durationWeek; }
-/* harmony export */ });
-var durationSecond = 1e3;
-var durationMinute = 6e4;
-var durationHour = 36e5;
-var durationDay = 864e5;
-var durationWeek = 6048e5;
-
-/***/ }),
-
-/***/ 94666:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ newInterval; }
-/* harmony export */ });
-var t0 = new Date(),
-    t1 = new Date();
-function newInterval(floori, offseti, count, field) {
-  function interval(date) {
-    return floori(date = arguments.length === 0 ? new Date() : new Date(+date)), date;
-  }
-
-  interval.floor = function (date) {
-    return floori(date = new Date(+date)), date;
-  };
-
-  interval.ceil = function (date) {
-    return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
-  };
-
-  interval.round = function (date) {
-    var d0 = interval(date),
-        d1 = interval.ceil(date);
-    return date - d0 < d1 - date ? d0 : d1;
-  };
-
-  interval.offset = function (date, step) {
-    return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
-  };
-
-  interval.range = function (start, stop, step) {
-    var range = [],
-        previous;
-    start = interval.ceil(start);
-    step = step == null ? 1 : Math.floor(step);
-    if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
-
-    do {
-      range.push(previous = new Date(+start)), offseti(start, step), floori(start);
-    } while (previous < start && start < stop);
-
-    return range;
-  };
-
-  interval.filter = function (test) {
-    return newInterval(function (date) {
-      if (date >= date) while (floori(date), !test(date)) {
-        date.setTime(date - 1);
-      }
-    }, function (date, step) {
-      if (date >= date) {
-        if (step < 0) while (++step <= 0) {
-          while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
-
-        } else while (--step >= 0) {
-          while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
-
-        }
-      }
-    });
-  };
-
-  if (count) {
-    interval.count = function (start, end) {
-      t0.setTime(+start), t1.setTime(+end);
-      floori(t0), floori(t1);
-      return Math.floor(count(t0, t1));
-    };
-
-    interval.every = function (step) {
-      step = Math.floor(step);
-      return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval : interval.filter(field ? function (d) {
-        return field(d) % step === 0;
-      } : function (d) {
-        return interval.count(0, d) % step === 0;
-      });
-    };
-  }
-
-  return interval;
-}
-
-/***/ }),
-
-/***/ 81898:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export utcDays */
-/* harmony import */ var _interval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94666);
-/* harmony import */ var _duration_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29493);
-
-
-var utcDay = (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-  date.setUTCHours(0, 0, 0, 0);
-}, function (date, step) {
-  date.setUTCDate(date.getUTCDate() + step);
-}, function (start, end) {
-  return (end - start) / _duration_js__WEBPACK_IMPORTED_MODULE_1__/* .durationDay */ .UD;
-}, function (date) {
-  return date.getUTCDate() - 1;
-});
-/* harmony default export */ __webpack_exports__["Z"] = (utcDay);
-var utcDays = utcDay.range;
-
-/***/ }),
-
-/***/ 77653:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Ox": function() { return /* binding */ utcSunday; },
-/* harmony export */   "l6": function() { return /* binding */ utcMonday; },
-/* harmony export */   "J1": function() { return /* binding */ utcTuesday; },
-/* harmony export */   "b3": function() { return /* binding */ utcWednesday; },
-/* harmony export */   "hB": function() { return /* binding */ utcThursday; },
-/* harmony export */   "QQ": function() { return /* binding */ utcFriday; },
-/* harmony export */   "g4": function() { return /* binding */ utcSaturday; }
-/* harmony export */ });
-/* unused harmony exports utcSundays, utcMondays, utcTuesdays, utcWednesdays, utcThursdays, utcFridays, utcSaturdays */
-/* harmony import */ var _interval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94666);
-/* harmony import */ var _duration_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29493);
-
-
-
-function utcWeekday(i) {
-  return (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-    date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
-    date.setUTCHours(0, 0, 0, 0);
-  }, function (date, step) {
-    date.setUTCDate(date.getUTCDate() + step * 7);
-  }, function (start, end) {
-    return (end - start) / _duration_js__WEBPACK_IMPORTED_MODULE_1__/* .durationWeek */ .iM;
-  });
-}
-
-var utcSunday = utcWeekday(0);
-var utcMonday = utcWeekday(1);
-var utcTuesday = utcWeekday(2);
-var utcWednesday = utcWeekday(3);
-var utcThursday = utcWeekday(4);
-var utcFriday = utcWeekday(5);
-var utcSaturday = utcWeekday(6);
-var utcSundays = utcSunday.range;
-var utcMondays = utcMonday.range;
-var utcTuesdays = utcTuesday.range;
-var utcWednesdays = utcWednesday.range;
-var utcThursdays = utcThursday.range;
-var utcFridays = utcFriday.range;
-var utcSaturdays = utcSaturday.range;
-
-/***/ }),
-
-/***/ 75805:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export utcYears */
-/* harmony import */ var _interval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94666);
-
-var utcYear = (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-  date.setUTCMonth(0, 1);
-  date.setUTCHours(0, 0, 0, 0);
-}, function (date, step) {
-  date.setUTCFullYear(date.getUTCFullYear() + step);
-}, function (start, end) {
-  return end.getUTCFullYear() - start.getUTCFullYear();
-}, function (date) {
-  return date.getUTCFullYear();
-}); // An optimized implementation for this simple case.
-
-utcYear.every = function (k) {
-  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-    date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
-    date.setUTCMonth(0, 1);
-    date.setUTCHours(0, 0, 0, 0);
-  }, function (date, step) {
-    date.setUTCFullYear(date.getUTCFullYear() + step * k);
-  });
-};
-
-/* harmony default export */ __webpack_exports__["Z"] = (utcYear);
-var utcYears = utcYear.range;
-
-/***/ }),
-
-/***/ 3001:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "OM": function() { return /* binding */ sunday; },
-/* harmony export */   "wA": function() { return /* binding */ monday; },
-/* harmony export */   "sy": function() { return /* binding */ tuesday; },
-/* harmony export */   "zg": function() { return /* binding */ wednesday; },
-/* harmony export */   "bL": function() { return /* binding */ thursday; },
-/* harmony export */   "mC": function() { return /* binding */ friday; },
-/* harmony export */   "EY": function() { return /* binding */ saturday; }
-/* harmony export */ });
-/* unused harmony exports sundays, mondays, tuesdays, wednesdays, thursdays, fridays, saturdays */
-/* harmony import */ var _interval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94666);
-/* harmony import */ var _duration_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29493);
-
-
-
-function weekday(i) {
-  return (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-    date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
-    date.setHours(0, 0, 0, 0);
-  }, function (date, step) {
-    date.setDate(date.getDate() + step * 7);
-  }, function (start, end) {
-    return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * _duration_js__WEBPACK_IMPORTED_MODULE_1__/* .durationMinute */ .yB) / _duration_js__WEBPACK_IMPORTED_MODULE_1__/* .durationWeek */ .iM;
-  });
-}
-
-var sunday = weekday(0);
-var monday = weekday(1);
-var tuesday = weekday(2);
-var wednesday = weekday(3);
-var thursday = weekday(4);
-var friday = weekday(5);
-var saturday = weekday(6);
-var sundays = sunday.range;
-var mondays = monday.range;
-var tuesdays = tuesday.range;
-var wednesdays = wednesday.range;
-var thursdays = thursday.range;
-var fridays = friday.range;
-var saturdays = saturday.range;
-
-/***/ }),
-
-/***/ 83706:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export years */
-/* harmony import */ var _interval_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94666);
-
-var year = (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-  date.setMonth(0, 1);
-  date.setHours(0, 0, 0, 0);
-}, function (date, step) {
-  date.setFullYear(date.getFullYear() + step);
-}, function (start, end) {
-  return end.getFullYear() - start.getFullYear();
-}, function (date) {
-  return date.getFullYear();
-}); // An optimized implementation for this simple case.
-
-year.every = function (k) {
-  return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0,_interval_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (date) {
-    date.setFullYear(Math.floor(date.getFullYear() / k) * k);
-    date.setMonth(0, 1);
-    date.setHours(0, 0, 0, 0);
-  }, function (date, step) {
-    date.setFullYear(date.getFullYear() + step * k);
-  });
-};
-
-/* harmony default export */ __webpack_exports__["Z"] = (year);
-var years = year.range;
 
 /***/ }),
 
@@ -45951,13 +45448,12 @@ function useDebounce(value, delay, options) {
     return dispatch(value);
   }, [dispatch]), delay, options);
   var previousValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // We need to use this condition otherwise we will run debounce timer for the first render (including maxWait option)
-    if (!eq(previousValue.current, value)) {
-      debounced(value);
-      previousValue.current = value;
-    }
-  }, [value, debounced, eq]);
+
+  if (!eq(previousValue.current, value)) {
+    debounced(value);
+    previousValue.current = value;
+  }
+
   return [state, {
     cancel: debounced.cancel,
     isPending: debounced.isPending,
@@ -66511,6 +66007,51 @@ var nodeIsMap = nodeUtil && nodeUtil.isMap;
 var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
 
 module.exports = isMap;
+
+
+/***/ }),
+
+/***/ 81763:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(44239),
+    isObjectLike = __webpack_require__(37005);
+
+/** `Object#toString` result references. */
+var numberTag = '[object Number]';
+
+/**
+ * Checks if `value` is classified as a `Number` primitive or object.
+ *
+ * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are
+ * classified as numbers, use the `_.isFinite` method.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a number, else `false`.
+ * @example
+ *
+ * _.isNumber(3);
+ * // => true
+ *
+ * _.isNumber(Number.MIN_VALUE);
+ * // => true
+ *
+ * _.isNumber(Infinity);
+ * // => true
+ *
+ * _.isNumber('3');
+ * // => false
+ */
+function isNumber(value) {
+  return typeof value == 'number' ||
+    (isObjectLike(value) && baseGetTag(value) == numberTag);
+}
+
+module.exports = isNumber;
 
 
 /***/ }),

@@ -18,8 +18,8 @@ var react = __webpack_require__(67294);
 var nivo_core_es = __webpack_require__(50928);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
-// EXTERNAL MODULE: ./node_modules/@react-spring/web/index.js
-var web = __webpack_require__(9514);
+// EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
+var react_spring_web_esm = __webpack_require__(85468);
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/line.js
 var line = __webpack_require__(84887);
 // EXTERNAL MODULE: ./node_modules/d3-path/src/path.js
@@ -505,7 +505,7 @@ var computeArcCenter = function computeArcCenter(arc, offset) {
 
 var interpolateArcCenter = function interpolateArcCenter(offset) {
   return function (startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue) {
-    return (0,web.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue], function (startAngle, endAngle, innerRadius, outerRadius) {
+    return (0,react_spring_web_esm.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue], function (startAngle, endAngle, innerRadius, outerRadius) {
       var centroid = computeArcCenter({
         startAngle: startAngle,
         endAngle: endAngle,
@@ -527,7 +527,7 @@ var useArcCentersTransition = function useArcCentersTransition(data) {
       springConfig = _useMotionConfig.config;
 
   var phases = useArcTransitionMode(mode, extra);
-  var transition = (0,web.useTransition)(data, {
+  var transition = (0,react_spring_web_esm.useTransition)(data, {
     keys: function keys(datum) {
       return datum.id;
     },
@@ -575,11 +575,11 @@ var ArcLabel = function ArcLabel(_ref) {
   var label = _ref.label,
       style = _ref.style;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
-  return react.createElement(web/* animated.g */.q.g, {
+  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
     transform: style.transform,
     opacity: style.progress,
     style: staticStyle
-  }, react.createElement(web/* animated.text */.q.text, {
+  }, react.createElement(react_spring_web_esm/* animated.text */.q.text, {
     textAnchor: "middle",
     dominantBaseline: "central",
     style: _objectSpread2(_objectSpread2({}, theme.labels.text), {}, {
@@ -762,7 +762,7 @@ var useTransitionPhases = function useTransitionPhases(_ref) {
 };
 
 var interpolateLink = function interpolateLink(startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, offsetValue, diagonalLengthValue, straightLengthValue) {
-  return (0,web.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, offsetValue, diagonalLengthValue, straightLengthValue], function (startAngle, endAngle, innerRadius, outerRadius, offset, diagonalLengthAnimated, straightLengthAnimated) {
+  return (0,react_spring_web_esm.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, offsetValue, diagonalLengthValue, straightLengthValue], function (startAngle, endAngle, innerRadius, outerRadius, offset, diagonalLengthAnimated, straightLengthAnimated) {
     var _computeArcLink = computeArcLink({
       startAngle: startAngle,
       endAngle: endAngle,
@@ -776,7 +776,7 @@ var interpolateLink = function interpolateLink(startAngleValue, endAngleValue, i
 };
 
 var interpolateTextAnchor = function interpolateTextAnchor(startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue) {
-  return (0,web.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue], function (startAngle, endAngle, innerRadius, outerRadius) {
+  return (0,react_spring_web_esm.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue], function (startAngle, endAngle, innerRadius, outerRadius) {
     return computeArcLinkTextAnchor({
       startAngle: startAngle,
       endAngle: endAngle,
@@ -787,7 +787,7 @@ var interpolateTextAnchor = function interpolateTextAnchor(startAngleValue, endA
 };
 
 var interpolateTextPosition = function interpolateTextPosition(startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, offsetValue, diagonalLengthValue, straightLengthValue, textOffsetValue) {
-  return (0,web.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, offsetValue, diagonalLengthValue, straightLengthValue, textOffsetValue], function (startAngle, endAngle, innerRadius, outerRadius, offset, diagonalLengthAnimated, straightLengthAnimated, textOffset) {
+  return (0,react_spring_web_esm.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, offsetValue, diagonalLengthValue, straightLengthValue, textOffsetValue], function (startAngle, endAngle, innerRadius, outerRadius, offset, diagonalLengthAnimated, straightLengthAnimated, textOffset) {
     var _computeArcLink2 = computeArcLink({
       startAngle: startAngle,
       endAngle: endAngle,
@@ -837,7 +837,7 @@ var useArcLinkLabelsTransition = function useArcLinkLabelsTransition(_ref2) {
     getLinkColor: getLinkColor,
     getTextColor: getTextColor
   });
-  var transition = (0,web.useTransition)(filteredData, {
+  var transition = (0,react_spring_web_esm.useTransition)(filteredData, {
     keys: function keys(datum) {
       return datum.id;
     },
@@ -861,14 +861,14 @@ var ArcLinkLabel = function ArcLinkLabel(_ref) {
   var label = _ref.label,
       style = _ref.style;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
-  return react.createElement(web/* animated.g */.q.g, {
+  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
     opacity: style.opacity
-  }, react.createElement(web/* animated.path */.q.path, {
+  }, react.createElement(react_spring_web_esm/* animated.path */.q.path, {
     fill: "none",
     stroke: style.linkColor,
     strokeWidth: style.thickness,
     d: style.path
-  }), react.createElement(web/* animated.text */.q.text, {
+  }), react.createElement(react_spring_web_esm/* animated.text */.q.text, {
     transform: style.textPosition,
     textAnchor: style.textAnchor,
     dominantBaseline: "central",
@@ -1038,7 +1038,7 @@ var ArcShape = function ArcShape(_ref) {
   var handleMouseLeave = (0,react.useCallback)(function (event) {
     return onMouseLeave === null || onMouseLeave === void 0 ? void 0 : onMouseLeave(datum, event);
   }, [onMouseLeave, datum]);
-  return react.createElement(web/* animated.path */.q.path, {
+  return react.createElement(react_spring_web_esm/* animated.path */.q.path, {
     d: style.path,
     opacity: style.opacity,
     fill: datum.fill || style.color,
@@ -1052,7 +1052,7 @@ var ArcShape = function ArcShape(_ref) {
 };
 
 var interpolateArc = function interpolateArc(startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue, arcGenerator) {
-  return (0,web.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue], function (startAngle, endAngle, innerRadius, outerRadius) {
+  return (0,react_spring_web_esm.to)([startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue], function (startAngle, endAngle, innerRadius, outerRadius) {
     return arcGenerator({
       startAngle: startAngle,
       endAngle: endAngle,
@@ -1071,7 +1071,7 @@ var useArcsTransition = function useArcsTransition(data) {
       springConfig = _useMotionConfig.config;
 
   var phases = useArcTransitionMode(mode, extra);
-  var transition = (0,web.useTransition)(data, {
+  var transition = (0,react_spring_web_esm.useTransition)(data, {
     keys: function keys(datum) {
       return datum.id;
     },
@@ -1471,17 +1471,56 @@ var PieLegends = function PieLegends(_ref) {
   var width = _ref.width,
       height = _ref.height,
       legends = _ref.legends,
-      dataWithArc = _ref.dataWithArc;
+      data = _ref.data,
+      toggleSerie = _ref.toggleSerie;
   return react.createElement(react.Fragment, null, legends.map(function (legend, i) {
+    var _legend$data;
+
     return react.createElement(nivo_legends_es/* BoxLegendSvg */.$6, Object.assign({
       key: i
     }, legend, {
       containerWidth: width,
       containerHeight: height,
-      data: dataWithArc
+      data: (_legend$data = legend.data) !== null && _legend$data !== void 0 ? _legend$data : data,
+      toggleSerie: legend.toggleSerie ? toggleSerie : undefined
     }));
   }));
 };
+
+function nivo_pie_es_arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function nivo_pie_es_arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return nivo_pie_es_arrayLikeToArray(arr);
+}
+
+function nivo_pie_es_iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function nivo_pie_es_unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return nivo_pie_es_arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nivo_pie_es_arrayLikeToArray(o, minLen);
+}
+
+function nivo_pie_es_nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function nivo_pie_es_toConsumableArray(arr) {
+  return nivo_pie_es_arrayWithoutHoles(arr) || nivo_pie_es_iterableToArray(arr) || nivo_pie_es_unsupportedIterableToArray(arr) || nivo_pie_es_nonIterableSpread();
+}
 
 function nivo_pie_es_arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
@@ -1512,25 +1551,6 @@ function nivo_pie_es_iterableToArrayLimit(arr, i) {
   }
 
   return _arr;
-}
-
-function nivo_pie_es_arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function nivo_pie_es_unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return nivo_pie_es_arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nivo_pie_es_arrayLikeToArray(o, minLen);
 }
 
 function nivo_pie_es_nonIterableRest() {
@@ -1678,6 +1698,7 @@ var useNormalizedData = function useNormalizedData(_ref) {
       var normalizedDatum = {
         id: datumId,
         label: (_datum$label = datum.label) !== null && _datum$label !== void 0 ? _datum$label : datumId,
+        hidden: false,
         value: datumValue,
         formattedValue: formatValue(datumValue),
         data: datum
@@ -1699,7 +1720,8 @@ var usePieArcs = function usePieArcs(_ref2) {
       sortByValue = _ref2.sortByValue,
       activeId = _ref2.activeId,
       activeInnerRadiusOffset = _ref2.activeInnerRadiusOffset,
-      activeOuterRadiusOffset = _ref2.activeOuterRadiusOffset;
+      activeOuterRadiusOffset = _ref2.activeOuterRadiusOffset,
+      hiddenIds = _ref2.hiddenIds;
   var pie$1 = (0,react.useMemo)(function () {
     var innerPie = pie().value(function (d) {
       return d.value;
@@ -1712,7 +1734,10 @@ var usePieArcs = function usePieArcs(_ref2) {
     return innerPie;
   }, [startAngle, endAngle, padAngle, sortByValue]);
   return (0,react.useMemo)(function () {
-    return pie$1(data).map(function (arc) {
+    var hiddenData = data.filter(function (item) {
+      return !hiddenIds.includes(item.id);
+    });
+    var dataWithArc = pie$1(hiddenData).map(function (arc) {
       var angle = Math.abs(arc.endAngle - arc.startAngle);
       return nivo_pie_es_objectSpread2(nivo_pie_es_objectSpread2({}, arc.data), {}, {
         arc: {
@@ -1728,7 +1753,16 @@ var usePieArcs = function usePieArcs(_ref2) {
         }
       });
     });
-  }, [pie$1, data, innerRadius, outerRadius, activeId, activeInnerRadiusOffset, activeInnerRadiusOffset]);
+    var legendData = data.map(function (item) {
+      return nivo_pie_es_objectSpread2(nivo_pie_es_objectSpread2({}, item), {}, {
+        hidden: hiddenIds.includes(item.id)
+      });
+    });
+    return {
+      dataWithArc: dataWithArc,
+      legendData: legendData
+    };
+  }, [pie$1, data, hiddenIds, activeId, innerRadius, activeInnerRadiusOffset, outerRadius, activeOuterRadiusOffset]);
 };
 
 var usePie = function usePie(_ref3) {
@@ -1755,7 +1789,12 @@ var usePie = function usePie(_ref3) {
       activeId = _useState2[0],
       setActiveId = _useState2[1];
 
-  var dataWithArc = usePieArcs({
+  var _useState3 = useState([]),
+      _useState4 = nivo_pie_es_slicedToArray(_useState3, 2),
+      hiddenIds = _useState4[0],
+      setHiddenIds = _useState4[1];
+
+  var pieArcs = usePieArcs({
     data: data,
     startAngle: startAngle,
     endAngle: endAngle,
@@ -1765,17 +1804,25 @@ var usePie = function usePie(_ref3) {
     sortByValue: sortByValue,
     activeId: activeId,
     activeInnerRadiusOffset: activeInnerRadiusOffset,
-    activeOuterRadiusOffset: activeOuterRadiusOffset
+    activeOuterRadiusOffset: activeOuterRadiusOffset,
+    hiddenIds: hiddenIds
   });
+  var toggleSerie = useCallback(function (id) {
+    setHiddenIds(function (state) {
+      return state.indexOf(id) > -1 ? state.filter(function (item) {
+        return item !== id;
+      }) : [].concat(nivo_pie_es_toConsumableArray(state), [id]);
+    });
+  }, []);
   var arcGenerator = useArcGenerator({
     cornerRadius: cornerRadius,
     padAngle: degreesToRadians(padAngle)
   });
-  return {
-    dataWithArc: dataWithArc,
+  return nivo_pie_es_objectSpread2(nivo_pie_es_objectSpread2({}, pieArcs), {}, {
     arcGenerator: arcGenerator,
-    setActiveId: setActiveId
-  };
+    setActiveId: setActiveId,
+    toggleSerie: toggleSerie
+  });
 };
 
 var usePieFromBox = function usePieFromBox(_ref4) {
@@ -1801,10 +1848,15 @@ var usePieFromBox = function usePieFromBox(_ref4) {
       _ref4$activeOuterRadi = _ref4.activeOuterRadiusOffset,
       activeOuterRadiusOffset = _ref4$activeOuterRadi === void 0 ? defaultProps.activeOuterRadiusOffset : _ref4$activeOuterRadi;
 
-  var _useState3 = (0,react.useState)(null),
-      _useState4 = nivo_pie_es_slicedToArray(_useState3, 2),
-      activeId = _useState4[0],
-      setActiveId = _useState4[1];
+  var _useState5 = (0,react.useState)(null),
+      _useState6 = nivo_pie_es_slicedToArray(_useState5, 2),
+      activeId = _useState6[0],
+      setActiveId = _useState6[1];
+
+  var _useState7 = (0,react.useState)([]),
+      _useState8 = nivo_pie_es_slicedToArray(_useState7, 2),
+      hiddenIds = _useState8[0],
+      setHiddenIds = _useState8[1];
 
   var computedProps = (0,react.useMemo)(function () {
     var radius = Math.min(width, height) / 2;
@@ -1844,7 +1896,7 @@ var usePieFromBox = function usePieFromBox(_ref4) {
       debug: boundingBox
     };
   }, [width, height, innerRadiusRatio, startAngle, endAngle, fit, cornerRadius]);
-  var dataWithArc = usePieArcs({
+  var pieArcs = usePieArcs({
     data: data,
     startAngle: startAngle,
     endAngle: endAngle,
@@ -1854,17 +1906,25 @@ var usePieFromBox = function usePieFromBox(_ref4) {
     sortByValue: sortByValue,
     activeId: activeId,
     activeInnerRadiusOffset: activeInnerRadiusOffset,
-    activeOuterRadiusOffset: activeOuterRadiusOffset
+    activeOuterRadiusOffset: activeOuterRadiusOffset,
+    hiddenIds: hiddenIds
   });
+  var toggleSerie = (0,react.useCallback)(function (id) {
+    setHiddenIds(function (state) {
+      return state.indexOf(id) > -1 ? state.filter(function (item) {
+        return item !== id;
+      }) : [].concat(nivo_pie_es_toConsumableArray(state), [id]);
+    });
+  }, []);
   var arcGenerator = nivo_arcs_es_useArcGenerator({
     cornerRadius: cornerRadius,
     padAngle: (0,nivo_core_es/* degreesToRadians */.Ht)(padAngle)
   });
-  return nivo_pie_es_objectSpread2({
-    dataWithArc: dataWithArc,
+  return nivo_pie_es_objectSpread2(nivo_pie_es_objectSpread2({
     arcGenerator: arcGenerator,
-    setActiveId: setActiveId
-  }, computedProps);
+    setActiveId: setActiveId,
+    toggleSerie: toggleSerie
+  }, pieArcs), computedProps);
 };
 
 var usePieLayerContext = function usePieLayerContext(_ref5) {
@@ -2069,12 +2129,14 @@ var InnerPie = function InnerPie(_ref) {
     activeOuterRadiusOffset: activeOuterRadiusOffset
   }),
       dataWithArc = _usePieFromBox.dataWithArc,
+      legendData = _usePieFromBox.legendData,
       arcGenerator = _usePieFromBox.arcGenerator,
       centerX = _usePieFromBox.centerX,
       centerY = _usePieFromBox.centerY,
       radius = _usePieFromBox.radius,
       innerRadius = _usePieFromBox.innerRadius,
-      setActiveId = _usePieFromBox.setActiveId;
+      setActiveId = _usePieFromBox.setActiveId,
+      toggleSerie = _usePieFromBox.toggleSerie;
 
   var boundDefs = (0,nivo_core_es/* bindDefs */.yU)(defs, dataWithArc, fill);
   var layerById = {
@@ -2140,8 +2202,9 @@ var InnerPie = function InnerPie(_ref) {
       key: "legends",
       width: innerWidth,
       height: innerHeight,
-      dataWithArc: dataWithArc,
-      legends: legends
+      data: legendData,
+      legends: legends,
+      toggleSerie: toggleSerie
     });
   }
 

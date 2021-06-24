@@ -16,14 +16,14 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
 var nivo_core_es = __webpack_require__(50928);
-// EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 8 modules
-var nivo_axes_es = __webpack_require__(33048);
+// EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 14 modules
+var nivo_axes_es = __webpack_require__(21100);
 // EXTERNAL MODULE: ./node_modules/@nivo/legends/dist/nivo-legends.es.js
 var nivo_legends_es = __webpack_require__(26729);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
 // EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 24 modules
-var nivo_scales_es = __webpack_require__(30982);
+var nivo_scales_es = __webpack_require__(4189);
 // EXTERNAL MODULE: ./node_modules/@nivo/annotations/dist/nivo-annotations.es.js
 var nivo_annotations_es = __webpack_require__(80480);
 // EXTERNAL MODULE: ./node_modules/lodash/get.js
@@ -182,16 +182,21 @@ var getNodeSizeGenerator = function getNodeSizeGenerator(size) {
 var computePoints = function computePoints(_ref) {
   var series = _ref.series,
       formatX = _ref.formatX,
-      formatY = _ref.formatY;
+      formatY = _ref.formatY,
+      getNodeId = _ref.getNodeId;
   return series.reduce(function (agg, serie) {
-    return [].concat(_toConsumableArray(agg), _toConsumableArray(serie.data.map(function (d, i) {
+    return [].concat(_toConsumableArray(agg), _toConsumableArray(serie.data.map(function (d, index) {
+      var id = getNodeId(_objectSpread2({
+        serieId: serie.id,
+        index: index
+      }, d.data));
       return {
-        index: agg.length + i,
-        id: "".concat(serie.id, ".").concat(i),
+        index: agg.length + index,
+        id: id,
         x: d.position.x,
         y: d.position.y,
         data: _objectSpread2(_objectSpread2({}, d.data), {}, {
-          id: "".concat(serie.id, ".").concat(i),
+          id: id,
           serieId: serie.id,
           formattedX: formatX(d.data.x),
           formattedY: formatY(d.data.y)
@@ -215,6 +220,7 @@ var useScatterPlot = function useScatterPlot(_ref) {
       yFormat = _ref.yFormat,
       width = _ref.width,
       height = _ref.height,
+      nodeId = _ref.nodeId,
       nodeSize = _ref.nodeSize,
       colors = _ref.colors;
 
@@ -227,13 +233,15 @@ var useScatterPlot = function useScatterPlot(_ref) {
 
   var formatX = (0,nivo_core_es/* useValueFormatter */.O_)(xFormat);
   var formatY = (0,nivo_core_es/* useValueFormatter */.O_)(yFormat);
+  var getNodeId = (0,nivo_core_es/* usePropertyAccessor */.LR)(nodeId);
   var rawNodes = (0,react.useMemo)(function () {
     return computePoints({
       series: series,
       formatX: formatX,
-      formatY: formatY
+      formatY: formatY,
+      getNodeId: getNodeId
     });
-  }, [series, formatX, formatY]);
+  }, [series, formatX, formatY, getNodeId]);
   var getNodeSize = useNodeSize(nodeSize);
   var getColor = (0,nivo_colors_es/* useOrdinalColorScale */.U)(colors, 'serieId');
   var nodes = (0,react.useMemo)(function () {
@@ -267,8 +275,14 @@ var useScatterPlot = function useScatterPlot(_ref) {
 
 var useScatterPlotAnnotations = function useScatterPlotAnnotations(items, annotations) {
   return (0,nivo_annotations_es/* useAnnotations */.O2)({
-    items: items,
+    data: items,
     annotations: annotations,
+    getPosition: function getPosition(node) {
+      return {
+        x: node.x,
+        y: node.y
+      };
+    },
     getDimensions: function getDimensions(node, offset) {
       var size = node.size + offset * 2;
       return {
@@ -326,9 +340,9 @@ var commonPropTypes = {
       y: prop_types_default().oneOfType([(prop_types_default()).number, (prop_types_default()).string, prop_types_default().instanceOf(Date)]).isRequired
     })).isRequired
   })).isRequired,
-  xScale: nivo_scales_es/* scalePropType.isRequired */.t4.isRequired,
+  xScale: (prop_types_default()).object.isRequired,
   xFormat: (prop_types_default()).any,
-  yScale: nivo_scales_es/* scalePropType.isRequired */.t4.isRequired,
+  yScale: (prop_types_default()).object.isRequired,
   yFormat: (prop_types_default()).any,
   layers: prop_types_default().arrayOf(prop_types_default().oneOfType([prop_types_default().oneOf(['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations']), (prop_types_default()).func])).isRequired,
   enableGridX: (prop_types_default()).bool.isRequired,
@@ -337,7 +351,7 @@ var commonPropTypes = {
   axisRight: nivo_axes_es/* axisPropType */.VT,
   axisBottom: nivo_axes_es/* axisPropType */.VT,
   axisLeft: nivo_axes_es/* axisPropType */.VT,
-  annotations: prop_types_default().arrayOf(nivo_annotations_es/* annotationSpecPropType */.IV).isRequired,
+  annotations: prop_types_default().arrayOf((prop_types_default()).object).isRequired,
   nodeSize: prop_types_default().oneOfType([(prop_types_default()).number, prop_types_default().shape({
     key: (prop_types_default()).string.isRequired,
     values: prop_types_default().arrayOf((prop_types_default()).number).isRequired,
@@ -385,6 +399,11 @@ var commonDefaultProps = {
   enableGridY: true,
   axisBottom: {},
   axisLeft: {},
+  nodeId: function nodeId(_ref) {
+    var serieId = _ref.serieId,
+        index = _ref.index;
+    return "".concat(serieId, ".").concat(index);
+  },
   nodeSize: 9,
   renderNode: Node$1,
   colors: {
@@ -540,17 +559,12 @@ var AnimatedNodes$1 = (0,react.memo)(AnimatedNodes);
 
 var ScatterPlotAnnotations = function ScatterPlotAnnotations(_ref) {
   var nodes = _ref.nodes,
-      annotations = _ref.annotations,
-      innerWidth = _ref.innerWidth,
-      innerHeight = _ref.innerHeight;
+      annotations = _ref.annotations;
   var boundAnnotations = useScatterPlotAnnotations(nodes, annotations);
   return boundAnnotations.map(function (annotation, i) {
     return react.createElement(nivo_annotations_es/* Annotation */.q6, Object.assign({
       key: i
-    }, annotation, {
-      containerWidth: innerWidth,
-      containerHeight: innerHeight
-    }));
+    }, annotation));
   });
 };
 
@@ -646,6 +660,7 @@ var ScatterPlot = function ScatterPlot(props) {
       layers = props.layers,
       colors = props.colors,
       blendMode = props.blendMode,
+      nodeId = props.nodeId,
       nodeSize = props.nodeSize,
       renderNode = props.renderNode,
       enableGridX = props.enableGridX,
@@ -689,6 +704,7 @@ var ScatterPlot = function ScatterPlot(props) {
     yFormat: yFormat,
     width: innerWidth,
     height: innerHeight,
+    nodeId: nodeId,
     nodeSize: nodeSize,
     colors: colors
   }),
@@ -1108,51 +1124,6 @@ var ResponsiveScatterPlotCanvas = function ResponsiveScatterPlotCanvas(props) {
 ;// CONCATENATED MODULE: ./src/components/blockly/fields/ScatterPlot.tsx
 
 /* harmony default export */ var fields_ScatterPlot = (ScatterPlot$1);
-
-/***/ }),
-
-/***/ 81763:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(44239),
-    isObjectLike = __webpack_require__(37005);
-
-/** `Object#toString` result references. */
-var numberTag = '[object Number]';
-
-/**
- * Checks if `value` is classified as a `Number` primitive or object.
- *
- * **Note:** To exclude `Infinity`, `-Infinity`, and `NaN`, which are
- * classified as numbers, use the `_.isFinite` method.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a number, else `false`.
- * @example
- *
- * _.isNumber(3);
- * // => true
- *
- * _.isNumber(Number.MIN_VALUE);
- * // => true
- *
- * _.isNumber(Infinity);
- * // => true
- *
- * _.isNumber('3');
- * // => false
- */
-function isNumber(value) {
-  return typeof value == 'number' ||
-    (isObjectLike(value) && baseGetTag(value) == numberTag);
-}
-
-module.exports = isNumber;
-
 
 /***/ })
 

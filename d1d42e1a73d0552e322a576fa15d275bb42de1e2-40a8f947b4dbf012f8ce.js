@@ -6692,13 +6692,12 @@ function useDebounce(value, delay, options) {
     return dispatch(value);
   }, [dispatch]), delay, options);
   var previousValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // We need to use this condition otherwise we will run debounce timer for the first render (including maxWait option)
-    if (!eq(previousValue.current, value)) {
-      debounced(value);
-      previousValue.current = value;
-    }
-  }, [value, debounced, eq]);
+
+  if (!eq(previousValue.current, value)) {
+    debounced(value);
+    previousValue.current = value;
+  }
+
   return [state, {
     cancel: debounced.cancel,
     isPending: debounced.isPending,
@@ -11025,12 +11024,15 @@ var core_browser_default = /*#__PURE__*/__webpack_require__.n(core_browser);
 /**
  * @fileoverview Dark theme.
  */
+ // Temporarily required to ensure there's no conflict with
+// Blockly.Themes.Dark
 
+core_browser_default().registry.unregister('theme', 'dark');
 /**
  * Dark theme.
  */
 
-/* harmony default export */ var theme_dark_src = (core_browser_default().Theme.defineTheme('theme_dark', {
+/* harmony default export */ var theme_dark_src = (core_browser_default().Theme.defineTheme('dark', {
   'base': (core_browser_default()).Themes.Classic,
   'componentStyles': {
     'workspaceBackgroundColour': '#1e1e1e',

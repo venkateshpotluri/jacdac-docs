@@ -18,16 +18,14 @@ var react = __webpack_require__(67294);
 var react_motion = __webpack_require__(44235);
 // EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
 var nivo_core_es = __webpack_require__(50928);
-// EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 8 modules
-var nivo_axes_es = __webpack_require__(33048);
+// EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 14 modules
+var nivo_axes_es = __webpack_require__(21100);
 // EXTERNAL MODULE: ./node_modules/@nivo/legends/dist/nivo-legends.es.js
 var nivo_legends_es = __webpack_require__(26729);
 // EXTERNAL MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
 var nivo_recompose_es = __webpack_require__(21566);
 // EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 24 modules
-var nivo_scales_es = __webpack_require__(30982);
-// EXTERNAL MODULE: ./node_modules/d3-scale/src/band.js + 1 modules
-var band = __webpack_require__(87286);
+var nivo_scales_es = __webpack_require__(4189);
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/array.js
 var slice = Array.prototype.slice;
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/constant.js
@@ -124,7 +122,6 @@ var nivo_annotations_es = __webpack_require__(80480);
 
 
 
-
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -174,6 +171,41 @@ function _objectSpread2(target) {
   return target;
 }
 
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
@@ -203,25 +235,6 @@ function _iterableToArrayLimit(arr, i) {
   }
 
   return _arr;
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
 function _nonIterableRest() {
@@ -268,24 +281,12 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
-
-var getIndexScale = function getIndexScale(data, getIndex, range, padding, indexScale) {
-  return (0,band/* default */.Z)().domain(data.map(getIndex)).range(range).round(Boolean(indexScale.round)).padding(padding);
+var getIndexScale = function getIndexScale(data, getIndex, padding, indexScale, size, axis) {
+  return (0,nivo_scales_es/* computeScale */.ZN)(indexScale, {
+    all: data.map(getIndex),
+    min: 0,
+    max: 0
+  }, size, axis).padding(padding);
 };
 
 var normalizeData = function normalizeData(data, keys) {
@@ -329,6 +330,10 @@ var range = function range(start, end) {
 
 var clampToZero = function clampToZero(value) {
   return gt(value, 0) ? 0 : value;
+};
+
+var zeroIfNotFinite = function zeroIfNotFinite(value) {
+  return isFinite(value) ? value : 0;
 };
 
 var generateVerticalGroupedBars = function generateVerticalGroupedBars(_ref2, barWidth, reverse, yRef) {
@@ -424,7 +429,6 @@ var generateHorizontalGroupedBars = function generateHorizontalGroupedBars(_ref3
 
 var generateGroupedBars = function generateGroupedBars(_ref4) {
   var layout = _ref4.layout,
-      keys = _ref4.keys,
       minValue = _ref4.minValue,
       maxValue = _ref4.maxValue,
       reverse = _ref4.reverse,
@@ -436,19 +440,23 @@ var generateGroupedBars = function generateGroupedBars(_ref4) {
       innerPadding = _ref4$innerPadding === void 0 ? 0 : _ref4$innerPadding,
       valueScale = _ref4.valueScale,
       indexScaleConfig = _ref4.indexScale,
-      props = _objectWithoutProperties(_ref4, ["layout", "keys", "minValue", "maxValue", "reverse", "width", "height", "padding", "innerPadding", "valueScale", "indexScale"]);
+      hiddenIds = _ref4.hiddenIds,
+      props = _objectWithoutProperties(_ref4, ["layout", "minValue", "maxValue", "reverse", "width", "height", "padding", "innerPadding", "valueScale", "indexScale", "hiddenIds"]);
 
+  var keys = props.keys.filter(function (key) {
+    return !hiddenIds.includes(key);
+  });
   var data = normalizeData(props.data, keys);
 
-  var _ref5 = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]],
-      _ref6 = _slicedToArray(_ref5, 2),
+  var _ref5 = layout === 'vertical' ? ['y', 'x', width] : ['x', 'y', height],
+      _ref6 = _slicedToArray(_ref5, 3),
       axis = _ref6[0],
-      range = _ref6[1];
+      otherAxis = _ref6[1],
+      size = _ref6[2];
 
-  var indexScale = getIndexScale(data, props.getIndex, range, padding, indexScaleConfig);
+  var indexScale = getIndexScale(data, props.getIndex, padding, indexScaleConfig, size, otherAxis);
 
   var scaleSpec = _objectSpread2({
-    axis: axis,
     max: maxValue,
     min: minValue,
     reverse: reverse
@@ -463,11 +471,12 @@ var generateGroupedBars = function generateGroupedBars(_ref4) {
     })));
   }, []).filter(Boolean);
   var min = clampMin(Math.min.apply(Math, _toConsumableArray(values)));
-  var max = Math.max.apply(Math, _toConsumableArray(values));
-  var scale = (0,nivo_scales_es/* computeScale */.ZN)(scaleSpec, _defineProperty({}, axis, {
+  var max = zeroIfNotFinite(Math.max.apply(Math, _toConsumableArray(values)));
+  var scale = (0,nivo_scales_es/* computeScale */.ZN)(scaleSpec, {
+    all: values,
     min: min,
     max: max
-  }), width, height);
+  }, axis === 'x' ? width : height, axis);
 
   var _ref7 = layout === 'vertical' ? [indexScale, scale] : [scale, indexScale],
       _ref8 = _slicedToArray(_ref7, 2),
@@ -483,10 +492,25 @@ var generateGroupedBars = function generateGroupedBars(_ref4) {
     yScale: yScale
   }), bandwidth, scaleSpec.reverse, scale(0)];
   var bars = bandwidth > 0 ? layout === 'vertical' ? generateVerticalGroupedBars.apply(void 0, params) : generateHorizontalGroupedBars.apply(void 0, params) : [];
+  var legendData = props.keys.map(function (key) {
+    var bar = bars.find(function (bar) {
+      return bar.data.id === key;
+    }) || {
+      data: {}
+    };
+    return _objectSpread2(_objectSpread2({}, bar), {}, {
+      data: _objectSpread2(_objectSpread2({
+        id: key
+      }, bar.data), {}, {
+        hidden: hiddenIds.includes(key)
+      })
+    });
+  });
   return {
     xScale: xScale,
     yScale: yScale,
-    bars: bars
+    bars: bars,
+    legendData: legendData
   };
 };
 
@@ -585,7 +609,6 @@ var generateHorizontalStackedBars = function generateHorizontalStackedBars(_ref2
 
 var generateStackedBars = function generateStackedBars(_ref3) {
   var data = _ref3.data,
-      keys = _ref3.keys,
       layout = _ref3.layout,
       minValue = _ref3.minValue,
       maxValue = _ref3.maxValue,
@@ -596,19 +619,23 @@ var generateStackedBars = function generateStackedBars(_ref3) {
       padding = _ref3$padding === void 0 ? 0 : _ref3$padding,
       valueScale = _ref3.valueScale,
       indexScaleConfig = _ref3.indexScale,
-      props = _objectWithoutProperties(_ref3, ["data", "keys", "layout", "minValue", "maxValue", "reverse", "width", "height", "padding", "valueScale", "indexScale"]);
+      hiddenIds = _ref3.hiddenIds,
+      props = _objectWithoutProperties(_ref3, ["data", "layout", "minValue", "maxValue", "reverse", "width", "height", "padding", "valueScale", "indexScale", "hiddenIds"]);
 
+  var keys = props.keys.filter(function (key) {
+    return !hiddenIds.includes(key);
+  });
   var stackedData = stack().keys(keys).offset(diverging/* default */.Z)(normalizeData(data, keys));
 
-  var _ref4 = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]],
-      _ref5 = _slicedToArray(_ref4, 2),
+  var _ref4 = layout === 'vertical' ? ['y', 'x', width] : ['x', 'y', height],
+      _ref5 = _slicedToArray(_ref4, 3),
       axis = _ref5[0],
-      range = _ref5[1];
+      otherAxis = _ref5[1],
+      size = _ref5[2];
 
-  var indexScale = getIndexScale(data, props.getIndex, range, padding, indexScaleConfig);
+  var indexScale = getIndexScale(data, props.getIndex, padding, indexScaleConfig, size, otherAxis);
 
   var scaleSpec = _objectSpread2({
-    axis: axis,
     max: maxValue,
     min: minValue,
     reverse: reverse
@@ -617,10 +644,11 @@ var generateStackedBars = function generateStackedBars(_ref3) {
   var values = flattenDeep(stackedData, 2);
   var min = Math.min.apply(Math, _toConsumableArray(values));
   var max = Math.max.apply(Math, _toConsumableArray(values));
-  var scale = (0,nivo_scales_es/* computeScale */.ZN)(scaleSpec, _defineProperty({}, axis, {
+  var scale = (0,nivo_scales_es/* computeScale */.ZN)(scaleSpec, {
+    all: values,
     min: min,
     max: max
-  }), width, height);
+  }, axis === 'x' ? width : height, axis);
 
   var _ref6 = layout === 'vertical' ? [indexScale, scale] : [scale, indexScale],
       _ref7 = _slicedToArray(_ref6, 2),
@@ -636,10 +664,25 @@ var generateStackedBars = function generateStackedBars(_ref3) {
     yScale: yScale
   }), bandwidth, scaleSpec.reverse];
   var bars = bandwidth > 0 ? layout === 'vertical' ? generateVerticalStackedBars.apply(void 0, params) : generateHorizontalStackedBars.apply(void 0, params) : [];
+  var legendData = props.keys.map(function (key) {
+    var bar = bars.find(function (bar) {
+      return bar.data.id === key;
+    }) || {
+      data: {}
+    };
+    return _objectSpread2(_objectSpread2({}, bar), {}, {
+      data: _objectSpread2(_objectSpread2({
+        id: key
+      }, bar.data), {}, {
+        hidden: hiddenIds.includes(key)
+      })
+    });
+  });
   return {
     xScale: xScale,
     yScale: yScale,
-    bars: bars
+    bars: bars,
+    legendData: legendData
   };
 };
 
@@ -648,6 +691,7 @@ var getLegendDataForKeys = function getLegendDataForKeys(bars, layout, direction
     return {
       id: bar.data.id,
       label: bar.data.label || bar.data.id,
+      hidden: bar.data.hidden,
       color: bar.color,
       fill: bar.data.fill
     };
@@ -668,6 +712,7 @@ var getLegendDataForIndexes = function getLegendDataForIndexes(bars) {
     return {
       id: bar.data.indexValue,
       label: bar.data.label || bar.data.indexValue,
+      hidden: bar.data.hidden,
       color: bar.color,
       fill: bar.data.fill
     };
@@ -710,16 +755,26 @@ var BarItem = function BarItem(_ref) {
       onClick = _ref.onClick,
       onMouseEnter = _ref.onMouseEnter,
       onMouseLeave = _ref.onMouseLeave,
+      getTooltipLabel = _ref.getTooltipLabel,
       tooltip = _ref.tooltip,
+      tooltipFormat = _ref.tooltipFormat,
       theme = _ref.theme;
 
   var handleTooltip = function handleTooltip(e) {
-    return showTooltip(tooltip, e);
+    return showTooltip((0,react.createElement)(tooltip, _objectSpread2(_objectSpread2({}, data), {}, {
+      color: color,
+      getTooltipLabel: getTooltipLabel,
+      tooltipFormat: tooltipFormat
+    })), e);
   };
 
   var handleMouseEnter = function handleMouseEnter(e) {
     onMouseEnter(data, e);
-    showTooltip(tooltip, e);
+    showTooltip((0,react.createElement)(tooltip, _objectSpread2(_objectSpread2({}, data), {}, {
+      color: color,
+      getTooltipLabel: getTooltipLabel,
+      tooltipFormat: tooltipFormat
+    })), e);
   };
 
   var handleMouseLeave = function handleMouseLeave(e) {
@@ -764,29 +819,23 @@ var enhance = (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* withP
       }, data), event);
     }
   };
-}), (0,nivo_recompose_es/* withPropsOnChange */.x3)(['data', 'color', 'theme', 'tooltip', 'getTooltipLabel', 'tooltipFormat'], function (_ref3) {
-  var data = _ref3.data,
-      color = _ref3.color,
-      theme = _ref3.theme,
-      tooltip = _ref3.tooltip,
-      getTooltipLabel = _ref3.getTooltipLabel,
-      tooltipFormat = _ref3.tooltipFormat;
-  return {
-    tooltip: react.createElement(nivo_tooltip_es/* BasicTooltip */._5, {
-      id: getTooltipLabel(data),
-      value: data.value,
-      enableChip: true,
-      color: color,
-      theme: theme,
-      format: tooltipFormat,
-      renderContent: typeof tooltip === 'function' ? tooltip.bind(null, _objectSpread2({
-        color: color,
-        theme: theme
-      }, data)) : null
-    })
-  };
 }), nivo_recompose_es/* pure */.Le);
 var BarItem$1 = enhance(BarItem);
+
+var BarTooltip = function BarTooltip(_ref) {
+  var color = _ref.color,
+      getTooltipLabel = _ref.getTooltipLabel,
+      tooltipFormat = _ref.tooltipFormat,
+      data = _objectWithoutProperties(_ref, ["color", "getTooltipLabel", "tooltipFormat"]);
+
+  return react.createElement(nivo_tooltip_es/* BasicTooltip */._5, {
+    id: getTooltipLabel(data),
+    value: data.value,
+    enableChip: true,
+    color: color,
+    format: tooltipFormat
+  });
+};
 
 var BarPropTypes = _objectSpread2(_objectSpread2({
   data: prop_types_default().arrayOf((prop_types_default()).object).isRequired,
@@ -797,8 +846,8 @@ var BarPropTypes = _objectSpread2(_objectSpread2({
   groupMode: prop_types_default().oneOf(['stacked', 'grouped']).isRequired,
   layout: prop_types_default().oneOf(['horizontal', 'vertical']).isRequired,
   reverse: (prop_types_default()).bool.isRequired,
-  valueScale: nivo_scales_es/* scalePropType.isRequired */.t4.isRequired,
-  indexScale: nivo_scales_es/* bandScalePropTypes.isRequired */.bo.isRequired,
+  valueScale: (prop_types_default()).object.isRequired,
+  indexScale: (prop_types_default()).object.isRequired,
   minValue: prop_types_default().oneOfType([(prop_types_default()).number, prop_types_default().oneOf(['auto'])]).isRequired,
   maxValue: prop_types_default().oneOfType([(prop_types_default()).number, prop_types_default().oneOf(['auto'])]).isRequired,
   padding: (prop_types_default()).number.isRequired,
@@ -890,6 +939,7 @@ var BarDefaultProps = {
     from: 'color'
   },
   isInteractive: true,
+  tooltip: BarTooltip,
   onClick: nivo_core_es/* noop */.ZT,
   onMouseEnter: nivo_core_es/* noop */.ZT,
   onMouseLeave: nivo_core_es/* noop */.ZT,
@@ -1094,6 +1144,19 @@ var Bar = function Bar(props) {
       motionDamping = props.motionDamping,
       renderWrapper = props.renderWrapper,
       role = props.role;
+
+  var _useState = (0,react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      hiddenIds = _useState2[0],
+      setHiddenIds = _useState2[1];
+
+  var toggleSerie = (0,react.useCallback)(function (id) {
+    setHiddenIds(function (state) {
+      return state.indexOf(id) > -1 ? state.filter(function (item) {
+        return item !== id;
+      }) : [].concat(_toConsumableArray(state), [id]);
+    });
+  }, []);
   var generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars;
   var result = generateBars({
     layout: layout,
@@ -1109,7 +1172,8 @@ var Bar = function Bar(props) {
     padding: padding,
     innerPadding: innerPadding,
     valueScale: valueScale,
-    indexScale: indexScale
+    indexScale: indexScale,
+    hiddenIds: hiddenIds
   });
   var motionProps = {
     animate: animate,
@@ -1254,7 +1318,7 @@ var Bar = function Bar(props) {
       legends: legends.map(function (legend, i) {
         var legendData = getLegendData({
           from: legend.dataFrom,
-          bars: result.bars,
+          bars: result.legendData,
           layout: layout,
           direction: legend.direction,
           groupMode: groupMode,
@@ -1267,7 +1331,8 @@ var Bar = function Bar(props) {
           containerWidth: width,
           containerHeight: height,
           data: legendData,
-          theme: theme
+          theme: theme,
+          toggleSerie: legend.toggleSerie ? toggleSerie : undefined
         }));
       }),
       annotations: react.createElement(BarAnnotations, Object.assign({
