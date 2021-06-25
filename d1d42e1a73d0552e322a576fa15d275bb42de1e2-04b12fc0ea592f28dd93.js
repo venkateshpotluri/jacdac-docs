@@ -11215,7 +11215,7 @@ var useWorkspaceEvent = __webpack_require__(34148);
 
 
 
-var MINI_RADIUS = 8;
+var MINI_RADIUS = 16;
 var MARGIN_VERTICAL_ = 20;
 var MARGIN_HORIZONTAL_ = 20;
 var MIN_SCALE = 0.05;
@@ -11258,7 +11258,7 @@ function MiniViewport(props) {
     height: height,
     strokeWidth: MINI_RADIUS >> 1,
     stroke: palette.text.primary,
-    fill: palette.text.secondary,
+    fill: palette.grey[400],
     opacity: 0.2,
     rx: MINI_RADIUS,
     ry: MINI_RADIUS
