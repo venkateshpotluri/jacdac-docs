@@ -11932,8 +11932,13 @@ function _postTransformData() {
 
 
 var DATA_ARRANGE_BLOCK = "data_arrange";
+var DATA_SELECT_BLOCK = "data_select";
 var DATA_DROP_BLOCK = "data_drop";
 var DATA_FILTER_COLUMNS_BLOCK = "data_filter_columns";
+var DATA_FILTER_STRING_BLOCK = "data_filter_string";
+var DATA_MUTATE_COLUMNS_BLOCK = "data_mutate_columns";
+var DATA_MUTATE_NUMBER_BLOCK = "data_mutate_number";
+var DATA_SUMMARIZE_BY_GROUP_BLOCK = "data_summarize_by_group";
 var DATA_ADD_VARIABLE_CALLBACK = "data_add_variable";
 var DATA_DATAVARIABLE_READ_BLOCK = "data_dataset_read";
 var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
@@ -12020,6 +12025,35 @@ var dataDsl = {
       template: "meta"
     }, {
       kind: "block",
+      type: DATA_SELECT_BLOCK,
+      message0: "select %1 %2 %3",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column1"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column2"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column3"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var columns = [1, 2, 3].map(function (column) {
+          return b.getFieldValue("column" + column);
+        });
+        return postTransformData({
+          type: "select",
+          columns: columns,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
       type: DATA_FILTER_COLUMNS_BLOCK,
       message0: "filter %1 %2 %3",
       colour: colour,
@@ -12046,6 +12080,144 @@ var dataDsl = {
           type: "filter_columns",
           columns: columns,
           logic: logic,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_FILTER_STRING_BLOCK,
+      message0: "filter %1 %2 %3",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column"
+      }, {
+        type: "field_dropdown",
+        name: "logic",
+        options: [[">", "gt"], ["<", "lt"], [">=", "ge"], ["<=", "le"], ["==", "eq"], ["!=", "ne"]]
+      }, {
+        type: "field_input",
+        name: "rhs"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var column = b.getFieldValue("column");
+        var logic = b.getFieldValue("logic");
+        var rhs = b.getFieldValue("rhs");
+        return postTransformData({
+          type: "filter_string",
+          column: column,
+          logic: logic,
+          rhs: rhs,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_MUTATE_COLUMNS_BLOCK,
+      message0: "mutate %1 %2 %3 %4",
+      colour: colour,
+      args0: [{
+        type: "field_input",
+        name: "newcolumn"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "lhs"
+      }, {
+        type: "field_dropdown",
+        name: "logic",
+        options: [["+", "plus"], ["-", "minus"], ["*", "mult"], ["/", "div"], [">", "gt"], ["<", "lt"], [">=", "ge"], ["<=", "le"], ["==", "eq"], ["!=", "ne"]]
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "rhs"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var newcolumn = b.getFieldValue("newcolumn");
+        var lhs = b.getFieldValue("lhs");
+        var rhs = b.getFieldValue("rhs");
+        var logic = b.getFieldValue("logic");
+        return postTransformData({
+          type: "mutate_columns",
+          newcolumn: newcolumn,
+          lhs: lhs,
+          rhs: rhs,
+          logic: logic,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_MUTATE_NUMBER_BLOCK,
+      message0: "mutate %1 %2 %3 %4",
+      colour: colour,
+      args0: [{
+        type: "field_input",
+        name: "newcolumn"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "lhs"
+      }, {
+        type: "field_dropdown",
+        name: "logic",
+        options: [["+", "plus"], ["-", "minus"], ["*", "mult"], ["/", "div"], [">", "gt"], ["<", "lt"], [">=", "ge"], ["<=", "le"], ["==", "eq"], ["!=", "ne"]]
+      }, {
+        type: "field_number",
+        name: "rhs"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var newcolumn = b.getFieldValue("newcolumn");
+        var lhs = b.getFieldValue("lhs");
+        var rhs = b.getFieldValue("rhs");
+        var logic = b.getFieldValue("logic");
+        return postTransformData({
+          type: "mutate_number",
+          newcolumn: newcolumn,
+          lhs: lhs,
+          rhs: rhs,
+          logic: logic,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_SUMMARIZE_BY_GROUP_BLOCK,
+      message0: "group %1 by %2 calculate %3",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "by"
+      }, {
+        type: "field_dropdown",
+        name: "calc",
+        options: [["Mean", "mean"], ["Median", "med"], ["Min", "min"], ["Max", "max"]]
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var column = b.getFieldValue("column");
+        var by = b.getFieldValue("by");
+        var calc = b.getFieldValue("calc");
+        return postTransformData({
+          type: "summarize_by_group",
+          column: column,
+          by: by,
+          calc: calc,
           data: data
         });
       },
@@ -12184,10 +12356,25 @@ var dataDsl = {
         type: DATA_ARRANGE_BLOCK
       }, {
         kind: "block",
+        type: DATA_SELECT_BLOCK
+      }, {
+        kind: "block",
         type: DATA_DROP_BLOCK
       }, {
         kind: "block",
         type: DATA_FILTER_COLUMNS_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_FILTER_STRING_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_MUTATE_COLUMNS_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_MUTATE_NUMBER_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_SUMMARIZE_BY_GROUP_BLOCK
       }, {
         kind: "label",
         text: "Live"
