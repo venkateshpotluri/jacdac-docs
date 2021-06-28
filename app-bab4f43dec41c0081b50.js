@@ -59621,6 +59621,7 @@ function serviceProviderDefinitions() {
 function addServiceProvider(bus, definition) {
   var _definition$factory;
 
+  if (!definition) return undefined;
   var services = definition.services();
   var options = {
     resetIn: definition.resetIn
@@ -59636,7 +59637,7 @@ function serviceProviderDefinitionFromServiceClass(serviceClass) {
 }
 function startServiceProviderFromServiceClass(bus, serviceClass) {
   var provider = serviceProviderDefinitionFromServiceClass(serviceClass);
-  if (provider) addServiceProvider(bus, provider);
+  return addServiceProvider(bus, provider);
 }
 
 /***/ }),
@@ -68609,7 +68610,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "83cf79733ec56acb4dde1490c352edd6c4cf99c3";
+  var sha = "cee5a1339098556950bed4738a2809a3da9fb06f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
