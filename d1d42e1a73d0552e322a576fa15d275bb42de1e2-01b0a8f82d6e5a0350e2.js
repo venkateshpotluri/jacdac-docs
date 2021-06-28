@@ -10428,6 +10428,7 @@ var fields = __webpack_require__(29434);
 
 
 
+
 // overrides blockly emboss filter for svg elements
 (blockly_default()).BlockSvg.prototype.setHighlighted = function (highlighted) {
   if (!this.rendered) {
@@ -10474,11 +10475,6 @@ function loadBlocks(dsls, theme) {
 
 function patchCategoryJSONtoXML(cat) {
   var _cat$contents;
-
-  if (cat.button) {
-    if (!cat.contents) cat.contents = [];
-    cat.contents.unshift(cat.button);
-  }
 
   (_cat$contents = cat.contents) === null || _cat$contents === void 0 ? void 0 : _cat$contents.filter(function (node) {
     return node.kind === "block";
@@ -10538,17 +10534,24 @@ function useToolboxButtons(workspace, toolboxConfiguration) {
   (0,react.useEffect)(function () {
     if (!workspace) return; // collect buttons
 
-    var buttons = toolboxConfiguration === null || toolboxConfiguration === void 0 ? void 0 : toolboxConfiguration.contents // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map(function (cat) {
-      return cat.button;
-    }).filter(function (btn) {
-      return !!btn;
-    });
-    buttons === null || buttons === void 0 ? void 0 : buttons.forEach(function (button) {
+    var buttons = [];
+    (0,toolbox/* visitToolbox */.j2)(toolboxConfiguration, {
+      visitButton: function visitButton(btn) {
+        return buttons.push(btn);
+      }
+    }); // register buttons
+
+    buttons.forEach(function (button) {
       return workspace.registerButtonCallback(button.callbackKey, function () {
-        return blockly_default().Variables.createVariableButtonHandler(workspace, null, button.service.shortId);
+        return button.callback(workspace);
       });
-    });
+    }); // cleanup
+
+    return function () {
+      return buttons.forEach(function (button) {
+        return workspace.removeButtonCallback(button.callbackKey);
+      });
+    };
   }, [workspace, JSON.stringify(toolboxConfiguration)]);
 }
 // EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
@@ -12387,7 +12390,10 @@ var dataDsl = {
       }, {
         kind: "button",
         text: "Add dataset variable",
-        callbackKey: DATA_ADD_VARIABLE_CALLBACK
+        callbackKey: DATA_ADD_VARIABLE_CALLBACK,
+        callback: function callback(workspace) {
+          return blockly.Variables.createVariableButtonHandler(workspace, null, DATA_TABLE_TYPE);
+        }
       }, {
         kind: "block",
         type: DATA_DATAVARIABLE_READ_BLOCK
@@ -15754,7 +15760,8 @@ function visitWorkspace(workspace, visitor) {
 /* harmony export */   "KH": function() { return /* binding */ TABLE_WIDTH; },
 /* harmony export */   "U2": function() { return /* binding */ TABLE_HEIGHT; },
 /* harmony export */   "nY": function() { return /* binding */ VM_WARNINGS_CATEGORY; },
-/* harmony export */   "FD": function() { return /* binding */ JSON_WARNINGS_CATEGORY; }
+/* harmony export */   "FD": function() { return /* binding */ JSON_WARNINGS_CATEGORY; },
+/* harmony export */   "j2": function() { return /* binding */ visitToolbox; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73108);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
@@ -15806,6 +15813,30 @@ var TABLE_WIDTH = CHART_WIDTH;
 var TABLE_HEIGHT = 480;
 var VM_WARNINGS_CATEGORY = "vm";
 var JSON_WARNINGS_CATEGORY = "json";
+function visitToolbox(node, visitor) {
+  var visitContents = function visitContents(contents) {
+    contents === null || contents === void 0 ? void 0 : contents.forEach(function (content) {
+      var _visitor$visitButton;
+
+      var kind = content.kind;
+
+      switch (kind) {
+        case "button":
+          (_visitor$visitButton = visitor.visitButton) === null || _visitor$visitButton === void 0 ? void 0 : _visitor$visitButton.call(visitor, content);
+          break;
+
+        case "category":
+          {
+            var cat = content;
+            visitContents(cat.contents);
+            break;
+          }
+      }
+    });
+  };
+
+  visitContents(node.contents);
+}
 
 /***/ }),
 

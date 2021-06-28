@@ -3783,6 +3783,7 @@ var TwinField = __webpack_require__(35361);
 
 
 
+
 var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
 var ROLE_BOUND_BLOCK = "jacdac_role_bound";
@@ -4581,7 +4582,14 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         kind: "category",
         name: service.name,
         colour: serviceColor(service),
-        contents: [].concat((0,toConsumableArray/* default */.Z)(serviceBlocks.map(function (block) {
+        contents: [{
+          kind: "button",
+          text: "Add " + service.name + " role",
+          callbackKey: "jacdac_add_role_callback_" + service.shortId,
+          callback: function callback(workspace) {
+            return blockly.Variables.createVariableButtonHandler(workspace, null, service.shortId);
+          }
+        }].concat((0,toConsumableArray/* default */.Z)(serviceBlocks.map(function (block) {
           return {
             kind: "block",
             type: block.type,
@@ -4595,13 +4603,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
             type: block.type,
             values: block.values
           };
-        }))),
-        button: {
-          kind: "button",
-          text: "Add " + service.name + " role",
-          callbackKey: "jacdac_add_role_callback_" + service.shortId,
-          service: service
-        }
+        })))
       };
     }).filter(function (cat) {
       var _cat$contents;
