@@ -8903,7 +8903,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 46431:
+/***/ 82393:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8914,13 +8914,8 @@ __webpack_require__.d(__webpack_exports__, {
   "C": function() { return /* binding */ blockly_BlockContext; }
 });
 
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(90293);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(42656);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
@@ -9227,6 +9222,73 @@ function collectWarnings(workspace) {
   });
   return warnings;
 }
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(73108);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(42656);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
+var toolbox = __webpack_require__(16582);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/datasolver.ts
+
+
+
+
+function registerDataSolver(block) {
+  var services = block.jacdacServices; // register data transforms
+
+  var _ref = (0,toolbox/* resolveBlockDefinition */.Pq)(block.type) || {},
+      transformData = _ref.transformData;
+
+  if (!transformData) return;
+  services.on(constants/* CHANGE */.Ver, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+    var _block$nextConnection, _block$childBlocks_;
+
+    var next, nextServices, newData;
+    return regenerator_default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (block.isEnabled()) {
+              _context.next = 2;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 2:
+            // transfer data
+            next = ((_block$nextConnection = block.nextConnection) === null || _block$nextConnection === void 0 ? void 0 : _block$nextConnection.targetBlock()) || ((_block$childBlocks_ = block.childBlocks_) === null || _block$childBlocks_ === void 0 ? void 0 : _block$childBlocks_[0]);
+            nextServices = next === null || next === void 0 ? void 0 : next.jacdacServices;
+
+            if (!nextServices) {
+              _context.next = 15;
+              break;
+            }
+
+            _context.prev = 5;
+            _context.next = 8;
+            return transformData(block, services.data, nextServices.data);
+
+          case 8:
+            newData = _context.sent;
+            nextServices.data = newData;
+            _context.next = 15;
+            break;
+
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](5);
+            console.debug(_context.t0);
+
+          case 15:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[5, 12]]);
+  })));
+}
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
 // EXTERNAL MODULE: ./src/components/blockly/dsl/dsl.ts
@@ -9421,8 +9483,6 @@ function domToJSON(workspace, dsls) {
     return undefined;
   }
 }
-// EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
-var toolbox = __webpack_require__(16582);
 // EXTERNAL MODULE: ./src/components/blockly/useWorkspaceEvent.ts
 var useWorkspaceEvent = __webpack_require__(34148);
 ;// CONCATENATED MODULE: ./src/components/blockly/useBlocklyEvents.ts
@@ -10588,7 +10648,6 @@ var WorkspaceContext = __webpack_require__(89801);
 
 
 
-
 var BlockContext = /*#__PURE__*/(0,react.createContext)({
   dsls: [],
   workspace: undefined,
@@ -10675,59 +10734,8 @@ function BlockProvider(props) {
       });
     }
 
-    services.initialized = true; // register data transforms
-
-    var _ref2 = (0,toolbox/* resolveBlockDefinition */.Pq)(block.type) || {},
-        transformData = _ref2.transformData;
-
-    if (transformData) {
-      services.on(constants/* CHANGE */.Ver, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-        var _block$nextConnection, _block$childBlocks_;
-
-        var next, nextServices, newData;
-        return regenerator_default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (block.isEnabled()) {
-                  _context.next = 2;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 2:
-                next = ((_block$nextConnection = block.nextConnection) === null || _block$nextConnection === void 0 ? void 0 : _block$nextConnection.targetBlock()) || ((_block$childBlocks_ = block.childBlocks_) === null || _block$childBlocks_ === void 0 ? void 0 : _block$childBlocks_[0]);
-                nextServices = next === null || next === void 0 ? void 0 : next.jacdacServices;
-
-                if (!nextServices) {
-                  _context.next = 15;
-                  break;
-                }
-
-                _context.prev = 5;
-                _context.next = 8;
-                return transformData(block, services.data, nextServices.data);
-
-              case 8:
-                newData = _context.sent;
-                nextServices.data = newData;
-                _context.next = 15;
-                break;
-
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](5);
-                console.debug(_context.t0);
-
-              case 15:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[5, 12]]);
-      })));
-    }
+    services.initialized = true;
+    registerDataSolver(block);
   };
 
   var handleBlockChange = function handleBlockChange(blockId) {
@@ -10884,7 +10892,7 @@ function BlockProvider(props) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(80453);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50274);
-/* harmony import */ var _BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(46431);
+/* harmony import */ var _BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(82393);
 
 
 
@@ -11209,8 +11217,8 @@ var clsx_m = __webpack_require__(85505);
 var gatsby_browser_entry = __webpack_require__(35313);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 15 modules
-var BlockContext = __webpack_require__(46431);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 16 modules
+var BlockContext = __webpack_require__(82393);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
@@ -11880,6 +11888,8 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ datadsl; }
 });
 
+// UNUSED EXPORTS: resolveUsedDataVariables
+
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
@@ -12463,6 +12473,27 @@ var dataDsl = {
   }
 };
 /* harmony default export */ var datadsl = (dataDsl);
+function resolveUsedDataVariables(block) {
+  var type = block.type;
+
+  if (type === DATA_DATAVARIABLE_READ_BLOCK) {
+    var field = block.getField("data");
+    var variable = field.getVariable();
+    if (variable) return {
+      reads: [variable.name]
+    };
+  } else if (type === DATA_DATAVARIABLE_WRITE_BLOCK) {
+    var _field = block.getField("data");
+
+    var _variable = _field.getVariable();
+
+    if (_variable) return {
+      write: _variable.name
+    };
+  }
+
+  return {};
+}
 
 /***/ }),
 

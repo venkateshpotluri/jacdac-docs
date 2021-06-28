@@ -3188,8 +3188,8 @@ var useChange = __webpack_require__(54774);
 var useServiceServer = __webpack_require__(49013);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Cancel.js
 var Cancel = __webpack_require__(30263);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 15 modules
-var BlockContext = __webpack_require__(46431);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 16 modules
+var BlockContext = __webpack_require__(82393);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
