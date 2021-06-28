@@ -57125,7 +57125,11 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     (0,esm_defineProperty/* default */.Z)((0,assertThisInitialized/* default */.Z)(_this), "dispose", void 0);
 
     _this.object = object;
-    _this.domElement = domElement; // for reset
+    _this.domElement = domElement; // disables touch scroll
+    // touch-action needs to be defined for pointer events to work on mobile
+    // https://stackoverflow.com/a/48254578
+
+    _this.domElement && (_this.domElement.style.touchAction = 'none'); // for reset
 
     _this.target0 = _this.target.clone();
     _this.position0 = _this.object.position.clone();
@@ -57305,23 +57309,19 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
       scope.domElement = domElement;
       scope.domElement.addEventListener('contextmenu', onContextMenu);
       scope.domElement.addEventListener('pointerdown', onPointerDown);
+      scope.domElement.addEventListener('pointercancel', onPointerCancel);
       scope.domElement.addEventListener('wheel', onMouseWheel);
-      scope.domElement.addEventListener('touchstart', onTouchStart);
-      scope.domElement.addEventListener('touchend', onTouchEnd);
-      scope.domElement.addEventListener('touchmove', onTouchMove);
     };
 
     _this.dispose = function () {
-      var _scope$domElement, _scope$domElement2, _scope$domElement3, _scope$domElement4, _scope$domElement5, _scope$domElement6, _scope$domElement7, _scope$domElement8;
+      var _scope$domElement, _scope$domElement2, _scope$domElement3, _scope$domElement4, _scope$domElement5, _scope$domElement6;
 
       (_scope$domElement = scope.domElement) === null || _scope$domElement === void 0 ? void 0 : _scope$domElement.removeEventListener('contextmenu', onContextMenu);
       (_scope$domElement2 = scope.domElement) === null || _scope$domElement2 === void 0 ? void 0 : _scope$domElement2.removeEventListener('pointerdown', onPointerDown);
-      (_scope$domElement3 = scope.domElement) === null || _scope$domElement3 === void 0 ? void 0 : _scope$domElement3.removeEventListener('wheel', onMouseWheel);
-      (_scope$domElement4 = scope.domElement) === null || _scope$domElement4 === void 0 ? void 0 : _scope$domElement4.removeEventListener('touchstart', onTouchStart);
-      (_scope$domElement5 = scope.domElement) === null || _scope$domElement5 === void 0 ? void 0 : _scope$domElement5.removeEventListener('touchend', onTouchEnd);
-      (_scope$domElement6 = scope.domElement) === null || _scope$domElement6 === void 0 ? void 0 : _scope$domElement6.removeEventListener('touchmove', onTouchMove);
-      (_scope$domElement7 = scope.domElement) === null || _scope$domElement7 === void 0 ? void 0 : _scope$domElement7.ownerDocument.removeEventListener('pointermove', onPointerMove);
-      (_scope$domElement8 = scope.domElement) === null || _scope$domElement8 === void 0 ? void 0 : _scope$domElement8.ownerDocument.removeEventListener('pointerup', onPointerUp);
+      (_scope$domElement3 = scope.domElement) === null || _scope$domElement3 === void 0 ? void 0 : _scope$domElement3.removeEventListener('pointercancel', onPointerCancel);
+      (_scope$domElement4 = scope.domElement) === null || _scope$domElement4 === void 0 ? void 0 : _scope$domElement4.removeEventListener('wheel', onMouseWheel);
+      (_scope$domElement5 = scope.domElement) === null || _scope$domElement5 === void 0 ? void 0 : _scope$domElement5.ownerDocument.removeEventListener('pointermove', onPointerMove);
+      (_scope$domElement6 = scope.domElement) === null || _scope$domElement6 === void 0 ? void 0 : _scope$domElement6.ownerDocument.removeEventListener('pointerup', onPointerUp);
 
       if (scope._domElementKeyEvents !== null) {
         scope._domElementKeyEvents.removeEventListener('keydown', onKeyDown);
@@ -57370,6 +57370,8 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     var dollyStart = new three_module.Vector2();
     var dollyEnd = new three_module.Vector2();
     var dollyDelta = new three_module.Vector2();
+    var pointers = [];
+    var pointerPositions = {};
 
     function getAutoRotationAngle() {
       return 2 * Math.PI / 60 / 60 * scope.autoRotateSpeed;
@@ -57560,49 +57562,50 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
       }
     }
 
-    function handleTouchStartRotate(event) {
-      if (event.touches.length == 1) {
-        rotateStart.set(event.touches[0].pageX, event.touches[0].pageY);
+    function handleTouchStartRotate() {
+      if (pointers.length == 1) {
+        rotateStart.set(pointers[0].pageX, pointers[0].pageY);
       } else {
-        var x = 0.5 * (event.touches[0].pageX + event.touches[1].pageX);
-        var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
+        var x = 0.5 * (pointers[0].pageX + pointers[1].pageX);
+        var y = 0.5 * (pointers[0].pageY + pointers[1].pageY);
         rotateStart.set(x, y);
       }
     }
 
-    function handleTouchStartPan(event) {
-      if (event.touches.length == 1) {
-        panStart.set(event.touches[0].pageX, event.touches[0].pageY);
+    function handleTouchStartPan() {
+      if (pointers.length == 1) {
+        panStart.set(pointers[0].pageX, pointers[0].pageY);
       } else {
-        var x = 0.5 * (event.touches[0].pageX + event.touches[1].pageX);
-        var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
+        var x = 0.5 * (pointers[0].pageX + pointers[1].pageX);
+        var y = 0.5 * (pointers[0].pageY + pointers[1].pageY);
         panStart.set(x, y);
       }
     }
 
-    function handleTouchStartDolly(event) {
-      var dx = event.touches[0].pageX - event.touches[1].pageX;
-      var dy = event.touches[0].pageY - event.touches[1].pageY;
+    function handleTouchStartDolly() {
+      var dx = pointers[0].pageX - pointers[1].pageX;
+      var dy = pointers[0].pageY - pointers[1].pageY;
       var distance = Math.sqrt(dx * dx + dy * dy);
       dollyStart.set(0, distance);
     }
 
-    function handleTouchStartDollyPan(event) {
-      if (scope.enableZoom) handleTouchStartDolly(event);
-      if (scope.enablePan) handleTouchStartPan(event);
+    function handleTouchStartDollyPan() {
+      if (scope.enableZoom) handleTouchStartDolly();
+      if (scope.enablePan) handleTouchStartPan();
     }
 
-    function handleTouchStartDollyRotate(event) {
-      if (scope.enableZoom) handleTouchStartDolly(event);
-      if (scope.enableRotate) handleTouchStartRotate(event);
+    function handleTouchStartDollyRotate() {
+      if (scope.enableZoom) handleTouchStartDolly();
+      if (scope.enableRotate) handleTouchStartRotate();
     }
 
     function handleTouchMoveRotate(event) {
-      if (event.touches.length == 1) {
-        rotateEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+      if (pointers.length == 1) {
+        rotateEnd.set(event.pageX, event.pageY);
       } else {
-        var x = 0.5 * (event.touches[0].pageX + event.touches[1].pageX);
-        var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
+        var position = getSecondPointerPosition(event);
+        var x = 0.5 * (event.pageX + position.x);
+        var y = 0.5 * (event.pageY + position.y);
         rotateEnd.set(x, y);
       }
 
@@ -57619,11 +57622,12 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     }
 
     function handleTouchMovePan(event) {
-      if (event.touches.length == 1) {
-        panEnd.set(event.touches[0].pageX, event.touches[0].pageY);
+      if (pointers.length == 1) {
+        panEnd.set(event.pageX, event.pageY);
       } else {
-        var x = 0.5 * (event.touches[0].pageX + event.touches[1].pageX);
-        var y = 0.5 * (event.touches[0].pageY + event.touches[1].pageY);
+        var position = getSecondPointerPosition(event);
+        var x = 0.5 * (event.pageX + position.x);
+        var y = 0.5 * (event.pageY + position.y);
         panEnd.set(x, y);
       }
 
@@ -57633,8 +57637,9 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     }
 
     function handleTouchMoveDolly(event) {
-      var dx = event.touches[0].pageX - event.touches[1].pageX;
-      var dy = event.touches[0].pageY - event.touches[1].pageY;
+      var position = getSecondPointerPosition(event);
+      var dx = event.pageX - position.x;
+      var dy = event.pageY - position.y;
       var distance = Math.sqrt(dx * dx + dy * dy);
       dollyEnd.set(0, distance);
       dollyDelta.set(0, Math.pow(dollyEnd.y / dollyStart.y, scope.zoomSpeed));
@@ -57657,35 +57662,53 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     function onPointerDown(event) {
       if (scope.enabled === false) return;
 
-      switch (event.pointerType) {
-        case 'mouse':
-        case 'pen':
-          onMouseDown(event);
-          break;
-        // TODO touch
+      if (pointers.length === 0) {
+        var _scope$domElement7, _scope$domElement8;
+
+        (_scope$domElement7 = scope.domElement) === null || _scope$domElement7 === void 0 ? void 0 : _scope$domElement7.ownerDocument.addEventListener('pointermove', onPointerMove);
+        (_scope$domElement8 = scope.domElement) === null || _scope$domElement8 === void 0 ? void 0 : _scope$domElement8.ownerDocument.addEventListener('pointerup', onPointerUp);
+      }
+
+      addPointer(event);
+
+      if (event.pointerType === 'touch') {
+        onTouchStart(event);
+      } else {
+        onMouseDown(event);
       }
     }
 
     function onPointerMove(event) {
       if (scope.enabled === false) return;
 
-      switch (event.pointerType) {
-        case 'mouse':
-        case 'pen':
-          onMouseMove(event);
-          break;
-        // TODO touch
+      if (event.pointerType === 'touch') {
+        onTouchMove(event);
+      } else {
+        onMouseMove(event);
       }
     }
 
     function onPointerUp(event) {
-      switch (event.pointerType) {
-        case 'mouse':
-        case 'pen':
-          onMouseUp();
-          break;
-        // TODO touch
+      if (scope.enabled === false) return;
+
+      if (event.pointerType === 'touch') {
+        onTouchEnd();
+      } else {
+        onMouseUp();
       }
+
+      removePointer(event);
+
+      if (pointers.length === 0) {
+        var _scope$domElement9, _scope$domElement10;
+
+        (_scope$domElement9 = scope.domElement) === null || _scope$domElement9 === void 0 ? void 0 : _scope$domElement9.ownerDocument.removeEventListener('pointermove', onPointerMove);
+        (_scope$domElement10 = scope.domElement) === null || _scope$domElement10 === void 0 ? void 0 : _scope$domElement10.ownerDocument.removeEventListener('pointerup', onPointerUp);
+      }
+    }
+
+    function onPointerCancel(event) {
+      removePointer(event);
     }
 
     function onMouseDown(event) {
@@ -57746,10 +57769,6 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
       }
 
       if (state !== STATE.NONE) {
-        var _scope$domElement9, _scope$domElement10;
-
-        (_scope$domElement9 = scope.domElement) === null || _scope$domElement9 === void 0 ? void 0 : _scope$domElement9.ownerDocument.addEventListener('pointermove', onPointerMove);
-        (_scope$domElement10 = scope.domElement) === null || _scope$domElement10 === void 0 ? void 0 : _scope$domElement10.ownerDocument.addEventListener('pointerup', onPointerUp);
         scope.dispatchEvent(startEvent);
       }
     }
@@ -57776,11 +57795,6 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     }
 
     function onMouseUp() {
-      var _scope$domElement11, _scope$domElement12;
-
-      (_scope$domElement11 = scope.domElement) === null || _scope$domElement11 === void 0 ? void 0 : _scope$domElement11.ownerDocument.removeEventListener('pointermove', onPointerMove);
-      (_scope$domElement12 = scope.domElement) === null || _scope$domElement12 === void 0 ? void 0 : _scope$domElement12.ownerDocument.removeEventListener('pointerup', onPointerUp);
-      if (scope.enabled === false) return;
       scope.dispatchEvent(endEvent);
       state = STATE.NONE;
     }
@@ -57802,21 +57816,20 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     }
 
     function onTouchStart(event) {
-      if (scope.enabled === false) return;
-      event.preventDefault(); // prevent scrolling
+      trackPointer(event);
 
-      switch (event.touches.length) {
+      switch (pointers.length) {
         case 1:
           switch (scope.touches.ONE) {
             case three_module.TOUCH.ROTATE:
               if (scope.enableRotate === false) return;
-              handleTouchStartRotate(event);
+              handleTouchStartRotate();
               state = STATE.TOUCH_ROTATE;
               break;
 
             case three_module.TOUCH.PAN:
               if (scope.enablePan === false) return;
-              handleTouchStartPan(event);
+              handleTouchStartPan();
               state = STATE.TOUCH_PAN;
               break;
 
@@ -57830,13 +57843,13 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
           switch (scope.touches.TWO) {
             case three_module.TOUCH.DOLLY_PAN:
               if (scope.enableZoom === false && scope.enablePan === false) return;
-              handleTouchStartDollyPan(event);
+              handleTouchStartDollyPan();
               state = STATE.TOUCH_DOLLY_PAN;
               break;
 
             case three_module.TOUCH.DOLLY_ROTATE:
               if (scope.enableZoom === false && scope.enableRotate === false) return;
-              handleTouchStartDollyRotate(event);
+              handleTouchStartDollyRotate();
               state = STATE.TOUCH_DOLLY_ROTATE;
               break;
 
@@ -57856,8 +57869,7 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     }
 
     function onTouchMove(event) {
-      if (scope.enabled === false) return;
-      event.preventDefault(); // prevent scrolling
+      trackPointer(event);
 
       switch (state) {
         case STATE.TOUCH_ROTATE:
@@ -57890,7 +57902,6 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     }
 
     function onTouchEnd() {
-      if (scope.enabled === false) return;
       scope.dispatchEvent(endEvent);
       state = STATE.NONE;
     }
@@ -57898,6 +57909,37 @@ var OrbitControls = /*#__PURE__*/function (_EventDispatcher) {
     function onContextMenu(event) {
       if (scope.enabled === false) return;
       event.preventDefault();
+    }
+
+    function addPointer(event) {
+      pointers.push(event);
+    }
+
+    function removePointer(event) {
+      delete pointerPositions[event.pointerId];
+
+      for (var i = 0; i < pointers.length; i++) {
+        if (pointers[i].pointerId == event.pointerId) {
+          pointers.splice(i, 1);
+          return;
+        }
+      }
+    }
+
+    function trackPointer(event) {
+      var position = pointerPositions[event.pointerId];
+
+      if (position === undefined) {
+        position = new three_module.Vector2();
+        pointerPositions[event.pointerId] = position;
+      }
+
+      position.set(event.pageX, event.pageY);
+    }
+
+    function getSecondPointerPosition(event) {
+      var pointer = event.pointerId === pointers[0].pointerId ? pointers[1] : pointers[0];
+      return pointerPositions[pointer.pointerId];
     } // connect events
 
 

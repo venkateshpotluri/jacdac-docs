@@ -9507,26 +9507,33 @@ var FieldSlider = /*#__PURE__*/function (_Blockly$FieldNumber) {
 
   /**
    * Class for an number slider field.
-   * @param {string|number=} opt_value The initial value of the field. Should
+   * @param {string|number=} value The initial value of the field. Should
    *    cast to a number. Defaults to 0.
-   * @param {?(string|number)=} opt_min Minimum value.
-   * @param {?(string|number)=} opt_max Maximum value.
-   * @param {?(string|number)=} opt_precision Precision for value.
-   * @param {?Function=} opt_validator A function that is called to validate
+   * @param {?(string|number)=} min Minimum value.
+   * @param {?(string|number)=} max Maximum value.
+   * @param {?(string|number)=} precision Precision for value.
+   * @param {?Function=} validator A function that is called to validate
    *    changes to the field's value. Takes in a number & returns a validated
    *    number, or null to abort the change.
-   * @param {Object=} opt_config A map of options used to configure the field.
+   * @param {Object=} config A map of options used to configure the field.
    *    See the [field creation documentation]{@link https://developers.google.com/blockly/guides/create-custom-blocks/fields/built-in-fields/number#creation}
    *    for a list of properties this parameter supports.
    * @extends {Blockly.FieldNumber}
    * @constructor
    */
-  function FieldSlider(opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config) {
+  function FieldSlider() {
     var _this;
+
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+    var min = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+    var max = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+    var precision = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+    var validator = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : undefined;
+    var config = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : undefined;
 
     (0,classCallCheck/* default */.Z)(this, FieldSlider);
 
-    _this = _super.call(this, opt_value, opt_min, opt_max, opt_precision, opt_validator, opt_config);
+    _this = _super.call(this, value, min, max, precision, validator, config);
     /**
      * Array holding info needed to unbind events.
      * Used for disposing.
@@ -9561,17 +9568,21 @@ var FieldSlider = /*#__PURE__*/function (_Blockly$FieldNumber) {
     /**
      * Show the inline free-text editor on top of the text along with the slider
      *    editor.
-     * @param {Event=} opt_e Optional mouse event that triggered the field to
+     * @param {Event=} e Optional mouse event that triggered the field to
      *     open, or undefined if triggered programmatically.
-     * @param {boolean=} _opt_quietInput Quiet input.
+     * @param {boolean=} _quietInput Quiet input.
      * @protected
      * @override
      */
-    function showEditor_(opt_e, _opt_quietInput) {
+    function showEditor_() {
+      var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+      var _quietInput = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+
       // Mobile browsers have issues with in-line textareas (focus & keyboards).
       var noFocus = core_browser.utils.userAgent.MOBILE || core_browser.utils.userAgent.ANDROID || core_browser.utils.userAgent.IPAD;
 
-      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "showEditor_", this).call(this, opt_e, noFocus); // Build the DOM.
+      (0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(FieldSlider.prototype), "showEditor_", this).call(this, e, noFocus); // Build the DOM.
 
 
       var editor = this.dropdownCreate_();

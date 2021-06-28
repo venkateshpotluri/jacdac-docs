@@ -4,7 +4,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- *  howler.js v2.2.1
+ *  howler.js v2.2.2
  *  howlerjs.com
  *
  *  (c) 2013-2020, James Simpson of GoldFire Studios
@@ -254,9 +254,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       var mpegTest = audioTest.canPlayType('audio/mpeg;').replace(/^no$/, ''); // Opera version <33 has mixed MP3 support, so we need to check for and block it.
 
-      var checkOpera = self._navigator && self._navigator.userAgent.match(/OPR\/([0-6].)/g);
-
+      var ua = self._navigator ? self._navigator.userAgent : '';
+      var checkOpera = ua.match(/OPR\/([0-6].)/g);
       var isOldOpera = checkOpera && parseInt(checkOpera[0].split('/')[1], 10) < 33;
+      var checkSafari = ua.indexOf('Safari') !== -1 && ua.indexOf('Chrome') === -1;
+      var isOldSafari = checkSafari && parseInt(ua.match(/Version\/(.*?) /)[1], 10) < 15;
       self._codecs = {
         mp3: !!(!isOldOpera && (mpegTest || audioTest.canPlayType('audio/mp3;').replace(/^no$/, ''))),
         mpeg: !!mpegTest,
@@ -269,8 +271,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         m4a: !!(audioTest.canPlayType('audio/x-m4a;') || audioTest.canPlayType('audio/m4a;') || audioTest.canPlayType('audio/aac;')).replace(/^no$/, ''),
         m4b: !!(audioTest.canPlayType('audio/x-m4b;') || audioTest.canPlayType('audio/m4b;') || audioTest.canPlayType('audio/aac;')).replace(/^no$/, ''),
         mp4: !!(audioTest.canPlayType('audio/x-mp4;') || audioTest.canPlayType('audio/mp4;') || audioTest.canPlayType('audio/aac;')).replace(/^no$/, ''),
-        weba: !!audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, ''),
-        webm: !!audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, ''),
+        weba: !!(!isOldSafari && audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, '')),
+        webm: !!(!isOldSafari && audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, '')),
         dolby: !!audioTest.canPlayType('audio/mp4; codecs="ec-3"').replace(/^no$/, ''),
         flac: !!(audioTest.canPlayType('audio/x-flac;') || audioTest.canPlayType('audio/flac;')).replace(/^no$/, '')
       };
@@ -373,7 +375,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           document.removeEventListener('touchstart', unlock, true);
           document.removeEventListener('touchend', unlock, true);
-          document.removeEventListener('click', unlock, true); // Let all sounds know that audio has been unlocked.
+          document.removeEventListener('click', unlock, true);
+          document.removeEventListener('keydown', unlock, true); // Let all sounds know that audio has been unlocked.
 
           for (var i = 0; i < self._howls.length; i++) {
             self._howls[i]._emit('unlock');
@@ -385,6 +388,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       document.addEventListener('touchstart', unlock, true);
       document.addEventListener('touchend', unlock, true);
       document.addEventListener('click', unlock, true);
+      document.addEventListener('keydown', unlock, true);
       return self;
     },
 
@@ -907,7 +911,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
                 if (!internal) {
                   self._emit('play', sound._id);
-
+                } else {
                   self._loadQueue();
                 }
               }).catch(function () {
@@ -924,8 +928,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
               setParams();
 
               self._emit('play', sound._id);
-
-              self._loadQueue();
             } // Setting rate before playing won't work in IE, so we set it again here.
 
 
@@ -969,9 +971,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           playHtml5();
         } else {
           self._playLock = true;
+          self._state = 'loading';
 
           var listener = function listener() {
-            // Begin playback.
+            self._state = 'loaded'; // Begin playback.
+
             playHtml5(); // Clear this listener.
 
             node.removeEventListener(Howler._canPlayEvent, listener, false);
@@ -1454,7 +1458,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
             if (loop) {
               sound._node.bufferSource.loopStart = sound._start || 0;
-              sound._node.bufferSource.loopEnd = sound._stop;
+              sound._node.bufferSource.loopEnd = sound._stop; // If playing, restart playback to ensure looping updates.
+
+              if (self.playing(ids[i])) {
+                self.pause(ids[i], true);
+                self.play(ids[i], true);
+              }
             }
           }
         }
@@ -1576,7 +1585,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       if (args.length === 0) {
         // We will simply return the current position of the first node.
-        id = self._sounds[0]._id;
+        if (self._sounds.length) {
+          id = self._sounds[0]._id;
+        }
       } else if (args.length === 1) {
         // First check if this is an ID, and if not, assume it is a new seek position.
         var ids = self._getSoundIds();
@@ -1596,7 +1607,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
       if (typeof id === 'undefined') {
-        return self;
+        return 0;
       } // If the sound hasn't loaded, add it to the load queue to seek when capable.
 
 
@@ -1636,12 +1647,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
           var seekAndEmit = function seekAndEmit() {
-            self._emit('seek', id); // Restart the playback if the sound was playing.
-
-
+            // Restart the playback if the sound was playing.
             if (playing) {
               self.play(id, true);
             }
+
+            self._emit('seek', id);
           }; // Wait for the play lock to be unset before emitting (HTML5 Audio).
 
 
@@ -2588,7 +2599,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /*!
  *  Spatial Plugin - Adds support for stereo and 3D audio where Web Audio is supported.
  *  
- *  howler.js v2.2.1
+ *  howler.js v2.2.2
  *  howlerjs.com
  *
  *  (c) 2013-2020, James Simpson of GoldFire Studios
