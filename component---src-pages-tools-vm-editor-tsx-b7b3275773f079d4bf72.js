@@ -4852,8 +4852,8 @@ var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 var LogViewField = __webpack_require__(86899);
 // EXTERNAL MODULE: ./src/components/blockly/fields/VariablesFields.tsx
 var VariablesFields = __webpack_require__(15757);
-// EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx
-var WatchValueField = __webpack_require__(2006);
+// EXTERNAL MODULE: ./src/components/blockly/fields/WatchValueField.tsx + 1 modules
+var WatchValueField = __webpack_require__(5326);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/toolsdsl.ts
 
 

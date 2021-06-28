@@ -13188,15 +13188,19 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ 
 
 function DataTableWidget() {
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
-      sourceBlock = _useContext.sourceBlock; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
+      sourceBlock = _useContext.sourceBlock;
 
   var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(sourceBlock),
       data = _useBlockData.data;
 
   var classes = useStyles();
   if (!(data !== null && data !== void 0 && data.length)) return null;
-  var columns = Object.keys(data[0] || {});
+  var columns = Object.keys(data[0] || {}); // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  var renderCell = function renderCell(v) {
+    return typeof v === "boolean" ? v ? "true" : "false" : v + "";
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_5__/* .PointerBoundary */ .A, {
     className: classes.root
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
@@ -13211,7 +13215,7 @@ function DataTableWidget() {
     }, columns.map(function (c) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
         key: c
-      }, r[c]);
+      }, renderCell(r[c]));
     }));
   }))));
 }
@@ -15148,8 +15152,7 @@ function TwinWidget() {
       roleService = _useContext2.roleService,
       flyout = _useContext2.flyout,
       sourceId = _useContext2.sourceId,
-      sourceBlock = _useContext2.sourceBlock; // eslint-disable-next-line @typescript-eslint/ban-types
-
+      sourceBlock = _useContext2.sourceBlock;
 
   var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(sourceBlock, []),
       data = _useBlockData.data,
@@ -15355,28 +15358,66 @@ VariablesField.EDITABLE = false;
 
 /***/ }),
 
-/***/ 2006:
+/***/ 5326:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ WatchValueField; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(85413);
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(90293);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59355);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(8266);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(80838);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(80453);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(76544);
-/* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(89801);
-/* harmony import */ var _ReactInlineField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12702);
-/* harmony import */ var _PointerBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77298);
-/* harmony import */ var _jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(59448);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(81794);
-/* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(53851);
-/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20392);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ WatchValueField; }
+});
+
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(85413);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
+var useTheme = __webpack_require__(59355);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Box/Box.js + 13 modules
+var Box = __webpack_require__(8266);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
+var WorkspaceContext = __webpack_require__(89801);
+// EXTERNAL MODULE: ./src/components/blockly/fields/ReactInlineField.tsx
+var ReactInlineField = __webpack_require__(12702);
+// EXTERNAL MODULE: ./src/components/blockly/fields/PointerBoundary.tsx
+var PointerBoundary = __webpack_require__(77298);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/events.ts
+var events = __webpack_require__(59448);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/components/blockly/useBlockData.ts + 3 modules
+var useBlockData = __webpack_require__(53851);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+var objectWithoutPropertiesLoose = __webpack_require__(12265);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/FormControlLabel/FormControlLabel.js
+var FormControlLabel = __webpack_require__(48086);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
+var Switch = __webpack_require__(76544);
+;// CONCATENATED MODULE: ./src/components/ui/SwitchWithLabel.tsx
+
+var _excluded = ["label"];
+
+
+function SwitchWithLabel(props) {
+  var label = props.label,
+      rest = (0,objectWithoutPropertiesLoose/* default */.Z)(props, _excluded);
+
+  return /*#__PURE__*/react.createElement(FormControlLabel/* default */.Z, {
+    control: /*#__PURE__*/react.createElement(Switch/* default */.Z, rest),
+    label: label
+  });
+}
+;// CONCATENATED MODULE: ./src/components/blockly/fields/WatchValueField.tsx
+
 
 
 
@@ -15391,32 +15432,32 @@ VariablesField.EDITABLE = false;
 var HORIZON = 10;
 
 function WatchValueWidget() {
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z),
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
+  var _useContext2 = (0,react.useContext)(WorkspaceContext/* default */.ZP),
       runner = _useContext2.runner,
       sourceId = _useContext2.sourceId,
       sourceBlock = _useContext2.sourceBlock;
 
-  var _useBlockData = (0,_useBlockData__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(sourceBlock, []),
+  var _useBlockData = (0,useBlockData/* default */.Z)(sourceBlock, []),
       data = _useBlockData.data,
       setData = _useBlockData.setData;
 
-  var theme = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(); // track changes
+  var theme = (0,useTheme/* default */.Z)(); // track changes
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
+  var _useState = (0,react.useState)(runner === null || runner === void 0 ? void 0 : runner.lookupWatch(sourceId)),
       value = _useState[0],
       setValue = _useState[1];
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return runner === null || runner === void 0 ? void 0 : runner.subscribe(_jacdac_ts_src_vm_events__WEBPACK_IMPORTED_MODULE_8__/* .VM_WATCH_CHANGE */ .UM, function (watchSourceId) {
+  (0,react.useEffect)(function () {
+    return runner === null || runner === void 0 ? void 0 : runner.subscribe(events/* VM_WATCH_CHANGE */.UM, function (watchSourceId) {
       if (watchSourceId === sourceId) {
         var newValue = runner.lookupWatch(sourceId);
         setValue(newValue);
 
         if (!isNaN(newValue)) {
-          var newData = [].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(data || []), [{
+          var newData = [].concat((0,toConsumableArray/* default */.Z)(data || []), [{
             time: bus.timestamp / 1000,
             value: newValue
           }]).slice(-HORIZON);
@@ -15430,32 +15471,36 @@ function WatchValueWidget() {
   if (!isNaN(valueNumber)) {
     var step = Math.ceil(Math.abs(valueNumber)) / 10;
     var precision = step < 1 ? Math.ceil(-Math.log10(step)) : 0;
-    valueNumber = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_4__/* .roundWithPrecision */ .JI)(valueNumber, precision);
+    valueNumber = (0,utils/* roundWithPrecision */.JI)(valueNumber, precision);
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  return /*#__PURE__*/react.createElement(Box/* default */.Z, {
     bgcolor: theme.palette.background.paper,
     borderRadius: theme.spacing(1),
     color: theme.palette.text.primary
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     alignItems: "flex-end",
     alignContent: "center",
     justify: "center",
     spacing: 1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PointerBoundary__WEBPACK_IMPORTED_MODULE_3__/* .PointerBoundary */ .A, null, !isNaN(valueNumber) ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }, /*#__PURE__*/react.createElement(PointerBoundary/* PointerBoundary */.A, null, !isNaN(valueNumber) ? /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body1"
-  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-    value: !!value
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  }, valueNumber) : typeof value === "boolean" ? /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    pl: 1
+  }, /*#__PURE__*/react.createElement(SwitchWithLabel, {
+    readOnly: true,
+    checked: !!value,
+    label: value ? "true" : "false"
+  })) : /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "body1"
   }, value === undefined ? "..." : value + "")))));
 }
 
 var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(WatchValueField, _ReactInlineField);
+  (0,inheritsLoose/* default */.Z)(WatchValueField, _ReactInlineField);
 
   WatchValueField.fromJson = function fromJson(options) {
     return new WatchValueField(options);
@@ -15476,11 +15521,11 @@ var WatchValueField = /*#__PURE__*/function (_ReactInlineField) {
   };
 
   _proto.renderInlineField = function renderInlineField() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WatchValueWidget, null);
+    return /*#__PURE__*/react.createElement(WatchValueWidget, null);
   };
 
   return WatchValueField;
-}(_ReactInlineField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z);
+}(ReactInlineField/* default */.Z);
 
 WatchValueField.KEY = "jacdac_field_watch_value";
 WatchValueField.EDITABLE = false;
@@ -15506,7 +15551,7 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _LEDColorField__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(68514);
 /* harmony import */ var _TwinField__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(35361);
 /* harmony import */ var _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(90263);
-/* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(2006);
+/* harmony import */ var _WatchValueField__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(5326);
 /* harmony import */ var _LogViewField__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86899);
 /* harmony import */ var _VariablesFields__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(15757);
 /* harmony import */ var _DataTableField__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(54741);
