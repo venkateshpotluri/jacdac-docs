@@ -12312,7 +12312,7 @@ var dataDsl = {
                 case 0:
                   horizon = block.getFieldValue("horizon") || 10;
                   return _context.abrupt("return", postTransformData({
-                    type: "recordwindow",
+                    type: "record_window",
                     data: data,
                     previousData: previousData,
                     horizon: horizon

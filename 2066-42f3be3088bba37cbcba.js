@@ -1507,42 +1507,42 @@ var handlers = {
 
       case "gt":
         calc[newcolumn] = function (d) {
-          return (d[lhs] > d[rhs]).toString();
+          return d[lhs] > d[rhs];
         };
 
         return tidy(data, mutate(calc));
 
       case "lt":
         calc[newcolumn] = function (d) {
-          return (d[lhs] < d[rhs]).toString();
+          return d[lhs] < d[rhs];
         };
 
         return tidy(data, mutate(calc));
 
       case "ge":
         calc[newcolumn] = function (d) {
-          return (d[lhs] >= d[rhs]).toString();
+          return d[lhs] >= d[rhs];
         };
 
         return tidy(data, mutate(calc));
 
       case "le":
         calc[newcolumn] = function (d) {
-          return (d[lhs] <= d[rhs]).toString();
+          return d[lhs] <= d[rhs];
         };
 
         return tidy(data, mutate(calc));
 
       case "eq":
         calc[newcolumn] = function (d) {
-          return (d[lhs] == d[rhs]).toString();
+          return d[lhs] == d[rhs];
         };
 
         return tidy(data, mutate(calc));
 
       case "ne":
         calc[newcolumn] = function (d) {
-          return (d[lhs] != d[rhs]).toString();
+          return d[lhs] != d[rhs];
         };
 
         return tidy(data, mutate(calc));
@@ -1591,42 +1591,42 @@ var handlers = {
 
       case "gt":
         calc[newcolumn] = function (d) {
-          return (d[lhs] > rhs).toString();
+          return d[lhs] > rhs;
         };
 
         return tidy(data, mutate(calc));
 
       case "lt":
         calc[newcolumn] = function (d) {
-          return (d[lhs] < rhs).toString();
+          return d[lhs] < rhs;
         };
 
         return tidy(data, mutate(calc));
 
       case "ge":
         calc[newcolumn] = function (d) {
-          return (d[lhs] >= rhs).toString();
+          return d[lhs] >= rhs;
         };
 
         return tidy(data, mutate(calc));
 
       case "le":
         calc[newcolumn] = function (d) {
-          return (d[lhs] <= rhs).toString();
+          return d[lhs] <= rhs;
         };
 
         return tidy(data, mutate(calc));
 
       case "eq":
         calc[newcolumn] = function (d) {
-          return (d[lhs] == rhs).toString();
+          return d[lhs] == rhs;
         };
 
         return tidy(data, mutate(calc));
 
       case "ne":
         calc[newcolumn] = function (d) {
-          return (d[lhs] != rhs).toString();
+          return d[lhs] != rhs;
         };
 
         return tidy(data, mutate(calc));
@@ -1645,13 +1645,15 @@ var handlers = {
     switch (calc) {
       case "mean":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        groupBy(by, [summarize({
+        groupBy(by, [// eslint-disable-next-line @typescript-eslint/no-explicit-any
+        summarize({
           Mean: mean(column)
         })]));
 
       case "med":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        groupBy(by, [summarize({
+        groupBy(by, [// eslint-disable-next-line @typescript-eslint/no-explicit-any
+        summarize({
           Median: median(column)
         })]));
 
@@ -1671,7 +1673,7 @@ var handlers = {
         return data;
     }
   },
-  recordwindow: function recordwindow(props) {
+  record_window: function record_window(props) {
     var _previousData;
 
     var data = props.data,
