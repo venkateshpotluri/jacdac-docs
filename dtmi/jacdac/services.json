@@ -1649,6 +1649,56 @@
   },
   {
     "@type": "Interface",
+    "@id": "dtmi:jacdac:services:x1e5758b5;1",
+    "displayName": "HID Adapter",
+    "description": "A service for configuring how Jacdac device map to HID input events. Users can have multiple configurations and swap between them by writing to `current_configuration`.",
+    "contents": [
+      {
+        "@type": "Property",
+        "name": "num_configurations",
+        "@id": "dtmi:jacdac:x1e5758b5:rw:numconfigurations;1",
+        "description": "The number of configurations stored on the server.",
+        "schema": "integer",
+        "writable": true
+      },
+      {
+        "@type": "Property",
+        "name": "current_configuration",
+        "@id": "dtmi:jacdac:x1e5758b5:rw:currentconfiguration;1",
+        "description": "The current configuration the server is using.",
+        "schema": "integer",
+        "writable": true
+      },
+      {
+        "@type": [
+          "Telemetry",
+          "Event"
+        ],
+        "name": "changed",
+        "@id": "dtmi:jacdac:x1e5758b5:event:changed;1",
+        "description": "Event that notifies clients that the server has swapped to a new configuration or changed key bindings.",
+        "schema": "dtmi:jacdac:x1e5758b5:event;1"
+      }
+    ],
+    "extends": [
+      "dtmi:jacdac:services:x1ffffff3;1"
+    ],
+    "schemas": [
+      {
+        "@id": "dtmi:jacdac:x1e5758b5:event;1",
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "count",
+            "schema": "integer"
+          }
+        ]
+      }
+    ],
+    "@context": "dtmi:dtdl:context;2"
+  },
+  {
+    "@type": "Interface",
     "@id": "dtmi:jacdac:services:x18b05b6a;1",
     "displayName": "HID Keyboard",
     "description": "Control a HID keyboard. \n\nThe codes for the key (selectors) is defined in the [HID Keyboard\nspecification](https://usb.org/sites/default/files/hut1_21.pdf), chapter 10 Keyboard/Keypad Page, page 81.\nModifiers are in page 87.\n\nThe device keeps tracks of the key state and is able to clear it all with the clear command.",

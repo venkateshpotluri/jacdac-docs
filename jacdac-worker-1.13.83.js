@@ -1740,6 +1740,77 @@ var HeartRateReg;
      */
     HeartRateReg[HeartRateReg["Variant"] = 263] = "Variant";
 })(HeartRateReg || (HeartRateReg = {}));
+var HIDAdapterReg;
+(function (HIDAdapterReg) {
+    /**
+     * Read-write uint8_t. The number of configurations stored on the server.
+     *
+     * ```
+     * const [numConfigurations] = jdunpack<[number]>(buf, "u8")
+     * ```
+     */
+    HIDAdapterReg[HIDAdapterReg["NumConfigurations"] = 128] = "NumConfigurations";
+    /**
+     * Read-write uint8_t. The current configuration the server is using.
+     *
+     * ```
+     * const [currentConfiguration] = jdunpack<[number]>(buf, "u8")
+     * ```
+     */
+    HIDAdapterReg[HIDAdapterReg["CurrentConfiguration"] = 129] = "CurrentConfiguration";
+})(HIDAdapterReg || (HIDAdapterReg = {}));
+var HIDAdapterCmd;
+(function (HIDAdapterCmd) {
+    /**
+     * Retrieves a configuration stored on the server. If the configuration does not exist, an empty report will be returned
+     *
+     * ```
+     * const [results, configurationNumber] = jdunpack<[Uint8Array, number]>(buf, "b[12] u8")
+     * ```
+     */
+    HIDAdapterCmd[HIDAdapterCmd["GetConfiguration"] = 128] = "GetConfiguration";
+    /**
+     * Stores the given binding on the server. If a binding exists at this index, the new binding will replace it.
+     *
+     * ```
+     * const [configurationNumber, bindingIndex, deviceId, serviceClass, triggerValue, triggerContext, serviceIndex, selector, modifiers] = jdunpack<[number, number, number, number, number, number, number, number, number]>(buf, "u8 u8 x[2] u64 u32 u32 u8 u8 u16 u16")
+     * ```
+     */
+    HIDAdapterCmd[HIDAdapterCmd["SetBinding"] = 130] = "SetBinding";
+    /**
+     * Clears a specific binding stored on the device.
+     *
+     * ```
+     * const [configurationNumber, bindingIndex] = jdunpack<[number, number]>(buf, "u8 u8")
+     * ```
+     */
+    HIDAdapterCmd[HIDAdapterCmd["ClearBinding"] = 131] = "ClearBinding";
+    /**
+     * Argument: configuration_number uint8_t. Clears a specific configuration stored on the device.
+     *
+     * ```
+     * const [configurationNumber] = jdunpack<[number]>(buf, "u8")
+     * ```
+     */
+    HIDAdapterCmd[HIDAdapterCmd["ClearConfiguration"] = 132] = "ClearConfiguration";
+    /**
+     * No args. Clears all configurations and bindings stored on the device.
+     */
+    HIDAdapterCmd[HIDAdapterCmd["Clear"] = 133] = "Clear";
+})(HIDAdapterCmd || (HIDAdapterCmd = {}));
+/**
+ * pipe_report Configuration
+ * ```
+ * const [configurationNumber, bindingIndex, deviceId, serviceClass, triggerValue, triggerContext, serviceIndex, selector, modifiers] = jdunpack<[number, number, number, number, number, number, number, number, number]>(buf, "u8 u8 x[2] u64 u32 u32 u8 u8 u16 u16")
+ * ```
+ */
+var HIDAdapterEvent;
+(function (HIDAdapterEvent) {
+    /**
+     * Event that notifies clients that the server has swapped to a new configuration or changed key bindings.
+     */
+    HIDAdapterEvent[HIDAdapterEvent["Changed"] = 3] = "Changed";
+})(HIDAdapterEvent || (HIDAdapterEvent = {}));
 var HidKeyboardModifiers;
 (function (HidKeyboardModifiers) {
     HidKeyboardModifiers[HidKeyboardModifiers["None"] = 0] = "None";

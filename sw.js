@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-2783f18e1ced638e0228.js"
+    "url": "webpack-runtime-683a0556b91ee9dcec82.js"
   },
   {
     "url": "styles.44c55f53264b111c45d8.css"
@@ -43,7 +43,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "77fee08c2120b965f0281f5ce39c011f"
+    "revision": "b1789ede38e22d48a9c866bdccb77836"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -63,11 +63,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "62b1624e2e0a6cc44af788c0e603c290"
+    "revision": "93ff682d265823cba4db5e63f600b089"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "e2187fb2bda2392b0ff74d098ae76f39"
+    "revision": "f73a564e1efa2e2929ae2e1d0710d588"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -75,7 +75,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "200a76173bfa5c15ec2b9e624aae1627"
+    "revision": "6e0d9692a4a2cdc15f95b0da6de68a56"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -83,7 +83,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "6c6545441776e549eaec02236fef2724"
+    "revision": "735719ce1ecceb9ec856e8b4c94080ec"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -523,6 +523,18 @@ self.__precacheManifest = [
   {
     "url": "page-data/services/heartrate/test/page-data.json",
     "revision": "2e70767e00164ebf77ce33c9d954ef82"
+  },
+  {
+    "url": "page-data/services/hidadapter/page-data.json",
+    "revision": "f777362d2a25cd5bf1f12ed41a1d5d5f"
+  },
+  {
+    "url": "page-data/services/hidadapter/playground/page-data.json",
+    "revision": "10df80ef89c0db5a8b63e742ee26e0a7"
+  },
+  {
+    "url": "page-data/services/hidadapter/test/page-data.json",
+    "revision": "25988d53bf23786f96a755b5e4832f0f"
   },
   {
     "url": "page-data/services/hidkeyboard/page-data.json",
@@ -1311,7 +1323,7 @@ self.__precacheManifest = [
     "url": "d711c980-0b20d62360802b84b46d.js"
   },
   {
-    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-ec2da9f14097e27ac690.js"
+    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-998a2abd2408761e3e64.js"
   },
   {
     "url": "component---src-pages-tools-data-science-editor-tsx-79f530beb0d7fb0c448c.js"
@@ -1557,7 +1569,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-4f6c00b8a6944e34e2dd.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-944e760d66a83341e208.js`))) {
     return await fetch(event.request)
   }
 

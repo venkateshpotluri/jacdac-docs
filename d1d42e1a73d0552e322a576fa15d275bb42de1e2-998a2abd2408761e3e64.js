@@ -10742,8 +10742,7 @@ function BlockProvider(props) {
   var handleWorkspaceEvent = function handleWorkspaceEvent(event) {
     var type = event.type,
         workspaceId = event.workspaceId;
-    if (workspaceId !== workspace.id) return;
-    console.log("blockly: " + type, event);
+    if (workspaceId !== workspace.id) return; //console.log(`blockly: ${type}`, event)
 
     if (type === blockly.Events.BLOCK_DRAG) {
       var dragEvent = event;
