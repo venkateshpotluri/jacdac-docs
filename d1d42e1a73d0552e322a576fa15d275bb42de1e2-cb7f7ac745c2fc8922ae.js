@@ -10505,27 +10505,31 @@ function useToolbox(dsls, source) {
   (0,react.useMemo)(function () {
     return loadBlocks(dsls, theme);
   }, [theme, dsls]);
-  var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
-    var _dsl$createCategory;
+  var toolboxConfiguration = (0,react.useMemo)(function () {
+    var dslsCategories = (0,utils/* arrayConcatMany */.ue)(dsls.map(function (dsl) {
+      var _dsl$createCategory;
 
-    return dsl === null || dsl === void 0 ? void 0 : (_dsl$createCategory = dsl.createCategory) === null || _dsl$createCategory === void 0 ? void 0 : _dsl$createCategory.call(dsl, {
-      theme: theme,
-      source: source,
-      liveServices: liveServices
-    });
-  })).filter(function (cat) {
-    return !!cat;
-  }).sort(function (l, r) {
-    return -(l.order - r.order);
-  });
-  var toolboxConfiguration = {
-    kind: "categoryToolbox",
-    contents: dslsCategories.filter(function (cat) {
+      return dsl === null || dsl === void 0 ? void 0 : (_dsl$createCategory = dsl.createCategory) === null || _dsl$createCategory === void 0 ? void 0 : _dsl$createCategory.call(dsl, {
+        theme: theme,
+        source: source,
+        liveServices: liveServices
+      });
+    })).filter(function (cat) {
       return !!cat;
-    }).map(function (node) {
-      return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
-    })
-  };
+    }).sort(function (l, r) {
+      return -(l.order - r.order);
+    });
+    return {
+      kind: "categoryToolbox",
+      contents: dslsCategories.filter(function (cat) {
+        return !!cat;
+      }).map(function (node) {
+        return node.kind === "category" ? patchCategoryJSONtoXML(node) : node;
+      })
+    };
+  }, [theme, dsls, source, (liveServices || []).map(function (srv) {
+    return srv.id;
+  }).join(",")]);
   return toolboxConfiguration;
 } // do not use block context
 
@@ -10552,7 +10556,7 @@ function useToolboxButtons(workspace, toolboxConfiguration) {
         return workspace.removeButtonCallback(button.callbackKey);
       });
     };
-  }, [workspace, JSON.stringify(toolboxConfiguration)]);
+  }, [workspace, toolboxConfiguration]);
 }
 // EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
 var WorkspaceContext = __webpack_require__(89801);
