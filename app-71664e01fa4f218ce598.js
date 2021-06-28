@@ -64552,7 +64552,7 @@ var DashboardBuzzer = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5769).then(__webpack_require__.bind(__webpack_require__, 15769));
 });
 var DashboardLEDPixel = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(264)]).then(__webpack_require__.bind(__webpack_require__, 10264));
+  return __webpack_require__.e(/* import() */ 5403).then(__webpack_require__.bind(__webpack_require__, 15403));
 });
 var DashboardRoleManager = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(571)]).then(__webpack_require__.bind(__webpack_require__, 20571));
@@ -64606,7 +64606,7 @@ var DashboardWaterLevel = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 193).then(__webpack_require__.bind(__webpack_require__, 40193));
 });
 var DashboardColor = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(1253)]).then(__webpack_require__.bind(__webpack_require__, 81253));
+  return __webpack_require__.e(/* import() */ 1253).then(__webpack_require__.bind(__webpack_require__, 81253));
 });
 var DashboardSoundPlayer = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 9082).then(__webpack_require__.bind(__webpack_require__, 59082));
@@ -68574,7 +68574,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "7ac6efb508cdb3f8844936aa2f381c1ba0a07347";
+  var sha = "e83ca585f9972424c85af4dfb0a94031e30b0ec5";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

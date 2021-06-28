@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-9035d642eadd85e39a0d.js"
+    "url": "webpack-runtime-8fb6690d518350d5dcf7.js"
   },
   {
     "url": "styles.44c55f53264b111c45d8.css"
@@ -43,7 +43,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "90af83fd759a306b9fd48e469ccaf9d6"
+    "revision": "375741cddc5861b477305372dde222cc"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -63,11 +63,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "53a6e4b0b9db86b95db344d09e111261"
+    "revision": "17acd4bc6484949dc038f728121cdbf3"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "2afaa2a622fd982daaea73e0ab2bce6d"
+    "revision": "98af2fbcf3ba7c49a8f4d28b998d9262"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -75,7 +75,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "bf10d45cb0fcbde28273febd1c3fd0a5"
+    "revision": "d87a6c96d2079be97a06daeef6fab3b3"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -83,7 +83,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "04f9f98f4fe9edc7b577daad019bf9dc"
+    "revision": "c77df25a2769322aab46a79fe28c4065"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -1557,7 +1557,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-5b7e561b6eb1d7bf7dc6.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-71664e01fa4f218ce598.js`))) {
     return await fetch(event.request)
   }
 

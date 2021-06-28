@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[264],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[5403],{
 
 /***/ 88880:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -23,36 +23,6 @@ var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
   d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
 }), 'Add');
-
-exports.Z = _default;
-
-/***/ }),
-
-/***/ 95067:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(8580);
-
-var _interopRequireWildcard = __webpack_require__(1022);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("circle", {
-  cx: "12",
-  cy: "12",
-  r: "8"
-}), 'FiberManualRecord');
 
 exports.Z = _default;
 
@@ -86,6 +56,62 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 32832:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(8580);
+
+var _interopRequireWildcard = __webpack_require__(1022);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+}), 'RadioButtonChecked');
+
+exports.Z = _default;
+
+/***/ }),
+
+/***/ 52935:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(8580);
+
+var _interopRequireWildcard = __webpack_require__(1022);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+}), 'RadioButtonUnchecked');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 14430:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -114,7 +140,7 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 10264:
+/***/ 15403:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -145,59 +171,6 @@ var TextField = __webpack_require__(1059);
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/light.ts
 var light = __webpack_require__(69130);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
-var Dialog = __webpack_require__(52468);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
-var DialogContent = __webpack_require__(65733);
-// EXTERNAL MODULE: ./node_modules/react-color/es/index.js + 211 modules
-var es = __webpack_require__(52803);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/FiberManualRecord.js
-var FiberManualRecord = __webpack_require__(95067);
-// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
-var IconButtonWithTooltip = __webpack_require__(79885);
-;// CONCATENATED MODULE: ./src/components/ui/ColorInput.tsx
-
-
- // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
-
-
-function ColorInput(props) {
-  var value = props.value,
-      onChange = props.onChange;
-
-  var _useState = (0,react.useState)(false),
-      picker = _useState[0],
-      setPicker = _useState[1];
-
-  var handleClick = function handleClick() {
-    return setPicker(!picker);
-  };
-
-  var handleClose = function handleClose() {
-    return setPicker(false);
-  };
-
-  var handleChange = function handleChange(color) {
-    setPicker(false);
-    onChange(color.hex);
-  };
-
-  var colorStyle = {
-    background: value
-  };
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "choose color",
-    style: colorStyle,
-    onClick: handleClick
-  }, /*#__PURE__*/react.createElement(FiberManualRecord/* default */.Z, null)), /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
-    open: picker,
-    onClose: handleClose
-  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(es/* CirclePicker */.iY, {
-    color: value,
-    onChangeComplete: handleChange
-  }))));
-}
 // EXTERNAL MODULE: ./src/components/ui/SelectWithLabel.tsx
 var SelectWithLabel = __webpack_require__(15789);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Remove.js
@@ -206,6 +179,8 @@ var Remove = __webpack_require__(14430);
 var Add = __webpack_require__(88880);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
 var PlayArrow = __webpack_require__(42404);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__(79885);
 // EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
 var useServiceServer = __webpack_require__(49013);
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/ledpixelserver.ts
@@ -571,8 +546,9 @@ function LightWidget(props) {
 }
 // EXTERNAL MODULE: ./src/components/widgets/ColorButtons.tsx
 var ColorButtons = __webpack_require__(99531);
+// EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
+var Suspense = __webpack_require__(69672);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardLEDPixel.tsx
-
 
 
 
@@ -592,6 +568,10 @@ var ColorButtons = __webpack_require__(99531);
 
 
 
+
+var ColorInput = /*#__PURE__*/(0,react.lazy)(function () {
+  return __webpack_require__.e(/* import() */ 2851).then(__webpack_require__.bind(__webpack_require__, 52851));
+});
 /*
 0xD6: range P=0 N=length W=1 S=0- range from pixel P, Npixels long (currently unsupported: every Wpixels skip Spixels)
 */
@@ -863,10 +843,10 @@ function LightCommand(props) {
       item: true,
       xs: true,
       key: i
-    }, /*#__PURE__*/react.createElement(ColorInput, {
+    }, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(ColorInput, {
       value: c,
       onChange: handleColorChange(i)
-    }));
+    })));
   }), args === "C+" && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: true,
@@ -1004,6 +984,56 @@ function SelectWithLabel(props) {
   }, none), children), hasDescr && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
     id: descrId
   }, error || helperText));
+}
+
+/***/ }),
+
+/***/ 99531:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ ColorButtons; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(80838);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23729);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
+/* harmony import */ var _material_ui_icons_RadioButtonChecked__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32832);
+/* harmony import */ var _material_ui_icons_RadioButtonUnchecked__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(52935);
+
+
+
+
+
+function ColorButtons(props) {
+  var DEFAULT_COLORS = [0xff0000, 0xff00ff, 0x0000ff, 0x00ff00, 0xffff00, 0x020202];
+  var _props$colors = props.colors,
+      colors = _props$colors === void 0 ? DEFAULT_COLORS : _props$colors,
+      color = props.color,
+      onColorChange = props.onColorChange;
+
+  var handleSetColor = function handleSetColor(col) {
+    return function () {
+      return onColorChange(col);
+    };
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    container: true,
+    spacing: 1
+  }, colors.map(function (col) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+      key: col,
+      item: true,
+      xs: colors.length === 2 ? 4 : 2
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+      style: {
+        color: (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__/* .rgbToHtmlColor */ .b)(col)
+      },
+      onClick: handleSetColor(col)
+    }, col !== color ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_RadioButtonUnchecked__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_RadioButtonChecked__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null)));
+  }));
 }
 
 /***/ })
