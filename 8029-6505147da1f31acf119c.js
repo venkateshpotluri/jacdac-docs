@@ -25,7 +25,7 @@ var nivo_legends_es = __webpack_require__(26729);
 // EXTERNAL MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
 var nivo_recompose_es = __webpack_require__(21566);
 // EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 24 modules
-var nivo_scales_es = __webpack_require__(4189);
+var nivo_scales_es = __webpack_require__(12685);
 ;// CONCATENATED MODULE: ./node_modules/d3-shape/src/array.js
 var slice = Array.prototype.slice;
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/constant.js

@@ -118,7 +118,7 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 93259:
+/***/ 24469:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -317,7 +317,7 @@ var possibleConstructorReturn = __webpack_require__(44524);
 var getPrototypeOf = __webpack_require__(12426);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 1 modules
 var wrapNativeSuper = __webpack_require__(9502);
-;// CONCATENATED MODULE: ./node_modules/internmap/src/index.js
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/node_modules/internmap/src/index.js
 
 
 
@@ -508,11 +508,11 @@ function intern_delete(_ref3, value) {
 function keyof(value) {
   return value !== null && typeof value === "object" ? value.valueOf() : value;
 }
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/identity.js
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/node_modules/d3-array/src/identity.js
 /* harmony default export */ function src_identity(x) {
   return x;
 }
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/group.js
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/node_modules/d3-array/src/group.js
 
 
 function group_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = group_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
@@ -1738,7 +1738,7 @@ function complete(expandKeys, replaceNullySpec) {
 }
 
 
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/min.js
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/node_modules/d3-array/src/min.js
 function min_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = min_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function min_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return min_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return min_arrayLikeToArray(o, minLen); }
@@ -1801,7 +1801,7 @@ function min_min(key) {
 }
 
 
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/max.js
+;// CONCATENATED MODULE: ./node_modules/@tidyjs/tidy/node_modules/d3-array/src/max.js
 function max_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = max_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function max_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return max_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return max_arrayLikeToArray(o, minLen); }
@@ -11972,6 +11972,7 @@ var DATA_DATASET_BUILTIN_BLOCK = "data_dataset_builtin";
 var DATA_TABLE_TYPE = "DataTable";
 var DATA_SHOW_TABLE_BLOCK = "data_show_table";
 var DATA_RECORD_WINDOW_BLOCK = "data_record_window_block";
+var DATA_BIN_BLOCK = "data_bin_block";
 var colour = "#777";
 var dataDsl = {
   id: "dataScience",
@@ -12254,7 +12255,7 @@ var dataDsl = {
       message0: "dataset %1",
       args0: [{
         type: BuiltinDataSetField/* default.KEY */.Z.KEY,
-        name: "dateset"
+        name: "dataset"
       }],
       inputsInline: false,
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
@@ -12358,6 +12359,47 @@ var dataDsl = {
 
         return transformData;
       }()
+    }, {
+      kind: "block",
+      type: DATA_BIN_BLOCK,
+      message0: "bin %1",
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column"
+      }],
+      inputsInline: false,
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: colour,
+      template: "meta",
+      transformData: function () {
+        var _transformData2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(block, data) {
+          var column;
+          return regenerator_default().wrap(function _callee2$(_context2) {
+            while (1) {
+              switch (_context2.prev = _context2.next) {
+                case 0:
+                  column = block.getFieldValue("column");
+                  return _context2.abrupt("return", postTransformData({
+                    type: "bin",
+                    column: column,
+                    data: data
+                  }));
+
+                case 2:
+                case "end":
+                  return _context2.stop();
+              }
+            }
+          }, _callee2);
+        }));
+
+        function transformData(_x4, _x5) {
+          return _transformData2.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
     }];
   },
   createCategory: function createCategory() {
@@ -12401,6 +12443,9 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_SUMMARIZE_BY_GROUP_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_BIN_BLOCK
       }, {
         kind: "label",
         text: "Live"
@@ -13316,7 +13361,7 @@ DataTableField.EDITABLE = false;
 /* harmony import */ var _useBlockData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53851);
 /* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69672);
 /* harmony import */ var _nivo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8844);
-/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93259);
+/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(24469);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(80838);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
 
@@ -15665,7 +15710,7 @@ function fieldShadows() {
 /* harmony export */   "pc": function() { return /* binding */ tidyFindLastValue; },
 /* harmony export */   "tL": function() { return /* binding */ tidyToNivo; }
 /* harmony export */ });
-/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(93259);
+/* harmony import */ var _tidyjs_tidy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24469);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
 /* eslint-disable @typescript-eslint/ban-types */
 

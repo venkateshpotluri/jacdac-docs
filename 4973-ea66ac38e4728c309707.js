@@ -145,7 +145,7 @@ var point = __webpack_require__(94882);
   return area;
 }
 // EXTERNAL MODULE: ./node_modules/@nivo/scales/dist/nivo-scales.es.js + 24 modules
-var nivo_scales_es = __webpack_require__(4189);
+var nivo_scales_es = __webpack_require__(12685);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(45697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);

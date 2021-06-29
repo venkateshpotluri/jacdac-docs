@@ -10314,7 +10314,7 @@ var withState = function withState(stateName, stateUpdaterName, initialState) {
 
 /***/ }),
 
-/***/ 4189:
+/***/ 12685:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10346,7 +10346,7 @@ var isDate_default = /*#__PURE__*/__webpack_require__.n(isDate);
 var defaultLocale = __webpack_require__(12439);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
 var slicedToArray = __webpack_require__(15892);
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/range.js
+;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/range.js
 /* harmony default export */ function range(start, stop, step) {
   start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
   var i = -1,
@@ -10465,10 +10465,10 @@ function pointish(scale) {
 function point() {
   return pointish(band.apply(null, arguments).paddingInner(1));
 }
-// EXTERNAL MODULE: ./node_modules/d3-array/src/bisector.js
-var bisector = __webpack_require__(99579);
-// EXTERNAL MODULE: ./node_modules/d3-array/src/ticks.js
-var src_ticks = __webpack_require__(75436);
+// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/bisector.js
+var bisector = __webpack_require__(51432);
+// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/ticks.js
+var src_ticks = __webpack_require__(59336);
 ;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-time/src/duration.js
 var durationSecond = 1000;
 var durationMinute = durationSecond * 60;
@@ -10882,7 +10882,7 @@ var _ticker3 = ticker(src_year, src_month, sunday, src_day, src_hour, src_minute
 
 
 // EXTERNAL MODULE: ./node_modules/d3-scale/src/continuous.js + 10 modules
-var continuous = __webpack_require__(99737);
+var continuous = __webpack_require__(14800);
 ;// CONCATENATED MODULE: ./node_modules/d3-scale/src/nice.js
 function nice(domain, interval) {
   domain = domain.slice();
@@ -19768,153 +19768,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 70684:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
-/* harmony export */ });
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(a, b) {
-  return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
-}
-
-/***/ }),
-
-/***/ 99579:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
-/* harmony export */ });
-/* harmony import */ var _ascending_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70684);
-
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(f) {
-  var delta = f;
-  var compare = f;
-
-  if (f.length === 1) {
-    delta = function delta(d, x) {
-      return f(d) - x;
-    };
-
-    compare = ascendingComparator(f);
-  }
-
-  function left(a, x, lo, hi) {
-    if (lo == null) lo = 0;
-    if (hi == null) hi = a.length;
-
-    while (lo < hi) {
-      var mid = lo + hi >>> 1;
-      if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
-    }
-
-    return lo;
-  }
-
-  function right(a, x, lo, hi) {
-    if (lo == null) lo = 0;
-    if (hi == null) hi = a.length;
-
-    while (lo < hi) {
-      var mid = lo + hi >>> 1;
-      if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
-    }
-
-    return lo;
-  }
-
-  function center(a, x, lo, hi) {
-    if (lo == null) lo = 0;
-    if (hi == null) hi = a.length;
-    var i = left(a, x, lo, hi - 1);
-    return i > lo && delta(a[i - 1], x) > -delta(a[i], x) ? i - 1 : i;
-  }
-
-  return {
-    left: left,
-    center: center,
-    right: right
-  };
-}
-
-function ascendingComparator(f) {
-  return function (d, x) {
-    return (0,_ascending_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(f(d), x);
-  };
-}
-
-/***/ }),
-
-/***/ 75436:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ZP": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; },
-/* harmony export */   "G9": function() { return /* binding */ tickIncrement; },
-/* harmony export */   "ly": function() { return /* binding */ tickStep; }
-/* harmony export */ });
-var e10 = Math.sqrt(50),
-    e5 = Math.sqrt(10),
-    e2 = Math.sqrt(2);
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(start, stop, count) {
-  var reverse,
-      i = -1,
-      n,
-      ticks,
-      step;
-  stop = +stop, start = +start, count = +count;
-  if (start === stop && count > 0) return [start];
-  if (reverse = stop < start) n = start, start = stop, stop = n;
-  if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) return [];
-
-  if (step > 0) {
-    var r0 = Math.round(start / step),
-        r1 = Math.round(stop / step);
-    if (r0 * step < start) ++r0;
-    if (r1 * step > stop) --r1;
-    ticks = new Array(n = r1 - r0 + 1);
-
-    while (++i < n) {
-      ticks[i] = (r0 + i) * step;
-    }
-  } else {
-    step = -step;
-
-    var _r = Math.round(start * step),
-        _r2 = Math.round(stop * step);
-
-    if (_r / step < start) ++_r;
-    if (_r2 / step > stop) --_r2;
-    ticks = new Array(n = _r2 - _r + 1);
-
-    while (++i < n) {
-      ticks[i] = (_r + i) / step;
-    }
-  }
-
-  if (reverse) ticks.reverse();
-  return ticks;
-}
-function tickIncrement(start, stop, count) {
-  var step = (stop - start) / Math.max(0, count),
-      power = Math.floor(Math.log(step) / Math.LN10),
-      error = step / Math.pow(10, power);
-  return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
-}
-function tickStep(start, stop, count) {
-  var step0 = Math.abs(stop - start) / Math.max(0, count),
-      step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
-      error = step0 / step1;
-  if (error >= e10) step1 *= 10;else if (error >= e5) step1 *= 5;else if (error >= e2) step1 *= 2;
-  return stop < start ? -step1 : step1;
-}
-
-/***/ }),
-
 /***/ 34627:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -21790,6 +21643,153 @@ var scheme = new Array(3).concat("fee0d2fc9272de2d26", "fee5d9fcae91fb6a4acb181d
 
 /***/ }),
 
+/***/ 4625:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(a, b) {
+  return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+}
+
+/***/ }),
+
+/***/ 51432:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
+/* harmony export */ });
+/* harmony import */ var _ascending_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4625);
+
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(f) {
+  var delta = f;
+  var compare = f;
+
+  if (f.length === 1) {
+    delta = function delta(d, x) {
+      return f(d) - x;
+    };
+
+    compare = ascendingComparator(f);
+  }
+
+  function left(a, x, lo, hi) {
+    if (lo == null) lo = 0;
+    if (hi == null) hi = a.length;
+
+    while (lo < hi) {
+      var mid = lo + hi >>> 1;
+      if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+    }
+
+    return lo;
+  }
+
+  function right(a, x, lo, hi) {
+    if (lo == null) lo = 0;
+    if (hi == null) hi = a.length;
+
+    while (lo < hi) {
+      var mid = lo + hi >>> 1;
+      if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+    }
+
+    return lo;
+  }
+
+  function center(a, x, lo, hi) {
+    if (lo == null) lo = 0;
+    if (hi == null) hi = a.length;
+    var i = left(a, x, lo, hi - 1);
+    return i > lo && delta(a[i - 1], x) > -delta(a[i], x) ? i - 1 : i;
+  }
+
+  return {
+    left: left,
+    center: center,
+    right: right
+  };
+}
+
+function ascendingComparator(f) {
+  return function (d, x) {
+    return (0,_ascending_js__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(f(d), x);
+  };
+}
+
+/***/ }),
+
+/***/ 59336:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ZP": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; },
+/* harmony export */   "G9": function() { return /* binding */ tickIncrement; },
+/* harmony export */   "ly": function() { return /* binding */ tickStep; }
+/* harmony export */ });
+var e10 = Math.sqrt(50),
+    e5 = Math.sqrt(10),
+    e2 = Math.sqrt(2);
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(start, stop, count) {
+  var reverse,
+      i = -1,
+      n,
+      ticks,
+      step;
+  stop = +stop, start = +start, count = +count;
+  if (start === stop && count > 0) return [start];
+  if (reverse = stop < start) n = start, start = stop, stop = n;
+  if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) return [];
+
+  if (step > 0) {
+    var r0 = Math.round(start / step),
+        r1 = Math.round(stop / step);
+    if (r0 * step < start) ++r0;
+    if (r1 * step > stop) --r1;
+    ticks = new Array(n = r1 - r0 + 1);
+
+    while (++i < n) {
+      ticks[i] = (r0 + i) * step;
+    }
+  } else {
+    step = -step;
+
+    var _r = Math.round(start * step),
+        _r2 = Math.round(stop * step);
+
+    if (_r / step < start) ++_r;
+    if (_r2 / step > stop) --_r2;
+    ticks = new Array(n = _r2 - _r + 1);
+
+    while (++i < n) {
+      ticks[i] = (_r + i) / step;
+    }
+  }
+
+  if (reverse) ticks.reverse();
+  return ticks;
+}
+function tickIncrement(start, stop, count) {
+  var step = (stop - start) / Math.max(0, count),
+      power = Math.floor(Math.log(step) / Math.LN10),
+      error = step / Math.pow(10, power);
+  return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+}
+function tickStep(start, stop, count) {
+  var step0 = Math.abs(stop - start) / Math.max(0, count),
+      step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
+      error = step0 / step1;
+  if (error >= e10) step1 *= 10;else if (error >= e5) step1 *= 5;else if (error >= e2) step1 *= 2;
+  return stop < start ? -step1 : step1;
+}
+
+/***/ }),
+
 /***/ 64162:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -22172,7 +22172,7 @@ FormatSpecifier.prototype.toString = function () {
 
 /***/ }),
 
-/***/ 99737:
+/***/ 14800:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22186,14 +22186,14 @@ __webpack_require__.d(__webpack_exports__, {
 
 // UNUSED EXPORTS: identity
 
-// EXTERNAL MODULE: ./node_modules/d3-array/src/ascending.js
-var ascending = __webpack_require__(70684);
-// EXTERNAL MODULE: ./node_modules/d3-array/src/bisector.js
-var bisector = __webpack_require__(99579);
+// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/ascending.js
+var ascending = __webpack_require__(4625);
+// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/bisector.js
+var bisector = __webpack_require__(51432);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(22917);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/number.js
+;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/number.js
 
 
 var _marked = /*#__PURE__*/regenerator_default().mark(numbers);
@@ -22316,7 +22316,7 @@ function numbers(values, valueof) {
     }
   }, _marked, null, [[2, 13, 16, 19], [23, 34, 37, 40]]);
 }
-;// CONCATENATED MODULE: ./node_modules/d3-array/src/bisect.js
+;// CONCATENATED MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/bisect.js
 
 
 
@@ -22628,10 +22628,10 @@ __webpack_require__.d(__webpack_exports__, {
   "Q": function() { return /* binding */ linearish; }
 });
 
-// EXTERNAL MODULE: ./node_modules/d3-array/src/ticks.js
-var ticks = __webpack_require__(75436);
+// EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-array/src/ticks.js
+var ticks = __webpack_require__(59336);
 // EXTERNAL MODULE: ./node_modules/d3-scale/src/continuous.js + 10 modules
-var continuous = __webpack_require__(99737);
+var continuous = __webpack_require__(14800);
 // EXTERNAL MODULE: ./node_modules/d3-scale/src/init.js
 var init = __webpack_require__(39632);
 // EXTERNAL MODULE: ./node_modules/d3-scale/node_modules/d3-format/src/formatSpecifier.js

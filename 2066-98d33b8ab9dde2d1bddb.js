@@ -111,7 +111,7 @@ function singleOrArray(d) {
   return d == null ? [] : Array.isArray(d) ? d : [d];
 }
 
-function ascending(a, b) {
+function ascending$1(a, b) {
   return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
 }
 
@@ -445,7 +445,7 @@ function keyof(value) {
   return value !== null && typeof value === "object" ? value.valueOf() : value;
 }
 
-function identity$1(x) {
+function identity$2(x) {
   return x;
 }
 
@@ -454,7 +454,7 @@ function group(values) {
     keys[_key4 - 1] = arguments[_key4];
   }
 
-  return nest(values, identity$1, identity$1, keys);
+  return nest(values, identity$2, identity$2, keys);
 }
 
 function nest(values, map, reduce, keys) {
@@ -595,7 +595,7 @@ function min$1(values, valueof) {
 function quickselect(array, k) {
   var left = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
   var right = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : array.length - 1;
-  var compare = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : ascending;
+  var compare = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : ascending$1;
 
   while (right > left) {
     if (right - left > 600) {
@@ -723,7 +723,7 @@ function emptyAwareComparator(aInput, bInput, desc2) {
     return desc2 ? 1 : -1;
   }
 
-  return ascending(a, b);
+  return ascending$1(a, b);
 }
 
 function isEmpty(value) {
@@ -852,7 +852,7 @@ function groupMap(grouped, groupFn) {
   return outputGrouped;
 }
 
-var identity = function identity(d) {
+var identity$1 = function identity$1(d) {
   return d;
 };
 
@@ -1010,7 +1010,7 @@ function makeGrouped(items, groupKeys) {
 
 function ungroup(grouped, addGroupKeys) {
   var items = [];
-  groupTraversal(grouped, items, [], identity, function (root, keys, values) {
+  groupTraversal(grouped, items, [], identity$1, function (root, keys, values) {
     var valuesToAdd = values;
 
     if (addGroupKeys !== false) {
@@ -1034,9 +1034,9 @@ function processFromGroupsOptions(options) {
   var flat = options.flat,
       single = options.single,
       _options$mapLeaf = options.mapLeaf,
-      mapLeaf = _options$mapLeaf === void 0 ? identity : _options$mapLeaf,
+      mapLeaf = _options$mapLeaf === void 0 ? identity$1 : _options$mapLeaf,
       _options$mapLeaves = options.mapLeaves,
-      mapLeaves = _options$mapLeaves === void 0 ? identity : _options$mapLeaves,
+      mapLeaves = _options$mapLeaves === void 0 ? identity$1 : _options$mapLeaves,
       addGroupKeys = options.addGroupKeys;
   var compositeKey;
 
@@ -1069,7 +1069,7 @@ function exportLevels(grouped, options) {
       keyFn = _processFromGroupsOpt.keyFn;
 
   var _options$mapEntry = options.mapEntry,
-      mapEntry = _options$mapEntry === void 0 ? identity : _options$mapEntry;
+      mapEntry = _options$mapEntry === void 0 ? identity$1 : _options$mapEntry;
   var _options$levels = options.levels,
       levels = _options$levels === void 0 ? ["entries"] : _options$levels;
   var levelSpecs = [];
@@ -1355,6 +1355,368 @@ function median(key) {
   return function (items) {
     return median$1(items, keyFn);
   };
+}
+
+function ascending(a, b) {
+  return a == null || b == null ? NaN : a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+}
+
+function bisector(f) {
+  var delta = f;
+  var compare = f;
+
+  if (f.length === 1) {
+    delta = function delta(d, x) {
+      return f(d) - x;
+    };
+
+    compare = ascendingComparator(f);
+  }
+
+  function left(a, x, lo, hi) {
+    if (lo == null) lo = 0;
+    if (hi == null) hi = a.length;
+
+    while (lo < hi) {
+      var mid = lo + hi >>> 1;
+      if (compare(a[mid], x) < 0) lo = mid + 1;else hi = mid;
+    }
+
+    return lo;
+  }
+
+  function right(a, x, lo, hi) {
+    if (lo == null) lo = 0;
+    if (hi == null) hi = a.length;
+
+    while (lo < hi) {
+      var mid = lo + hi >>> 1;
+      if (compare(a[mid], x) > 0) hi = mid;else lo = mid + 1;
+    }
+
+    return lo;
+  }
+
+  function center(a, x, lo, hi) {
+    if (lo == null) lo = 0;
+    if (hi == null) hi = a.length;
+    var i = left(a, x, lo, hi - 1);
+    return i > lo && delta(a[i - 1], x) > -delta(a[i], x) ? i - 1 : i;
+  }
+
+  return {
+    left: left,
+    center: center,
+    right: right
+  };
+}
+
+function ascendingComparator(f) {
+  return function (d, x) {
+    return ascending(f(d), x);
+  };
+}
+
+function number(x) {
+  return x === null ? NaN : +x;
+}
+
+var ascendingBisect = bisector(ascending);
+var bisectRight = ascendingBisect.right;
+bisector(number).center;
+
+function count(values, valueof) {
+  var count = 0;
+
+  if (valueof === undefined) {
+    var _iterator19 = _createForOfIteratorHelper(values),
+        _step19;
+
+    try {
+      for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+        var value = _step19.value;
+
+        if (value != null && (value = +value) >= value) {
+          ++count;
+        }
+      }
+    } catch (err) {
+      _iterator19.e(err);
+    } finally {
+      _iterator19.f();
+    }
+  } else {
+    var index = -1;
+
+    var _iterator20 = _createForOfIteratorHelper(values),
+        _step20;
+
+    try {
+      for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+        var _value5 = _step20.value;
+
+        if ((_value5 = valueof(_value5, ++index, values)) != null && (_value5 = +_value5) >= _value5) {
+          ++count;
+        }
+      }
+    } catch (err) {
+      _iterator20.e(err);
+    } finally {
+      _iterator20.f();
+    }
+  }
+
+  return count;
+}
+
+function extent(values, valueof) {
+  var min;
+  var max;
+
+  if (valueof === undefined) {
+    var _iterator21 = _createForOfIteratorHelper(values),
+        _step21;
+
+    try {
+      for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+        var value = _step21.value;
+
+        if (value != null) {
+          if (min === undefined) {
+            if (value >= value) min = max = value;
+          } else {
+            if (min > value) min = value;
+            if (max < value) max = value;
+          }
+        }
+      }
+    } catch (err) {
+      _iterator21.e(err);
+    } finally {
+      _iterator21.f();
+    }
+  } else {
+    var index = -1;
+
+    var _iterator22 = _createForOfIteratorHelper(values),
+        _step22;
+
+    try {
+      for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+        var _value6 = _step22.value;
+
+        if ((_value6 = valueof(_value6, ++index, values)) != null) {
+          if (min === undefined) {
+            if (_value6 >= _value6) min = max = _value6;
+          } else {
+            if (min > _value6) min = _value6;
+            if (max < _value6) max = _value6;
+          }
+        }
+      }
+    } catch (err) {
+      _iterator22.e(err);
+    } finally {
+      _iterator22.f();
+    }
+  }
+
+  return [min, max];
+}
+
+function identity(x) {
+  return x;
+}
+
+var array = Array.prototype;
+var slice = array.slice;
+
+function constant(x) {
+  return function () {
+    return x;
+  };
+}
+
+var e10 = Math.sqrt(50),
+    e5 = Math.sqrt(10),
+    e2 = Math.sqrt(2);
+
+function ticks(start, stop, count) {
+  var reverse,
+      i = -1,
+      n,
+      ticks,
+      step;
+  stop = +stop, start = +start, count = +count;
+  if (start === stop && count > 0) return [start];
+  if (reverse = stop < start) n = start, start = stop, stop = n;
+  if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) return [];
+
+  if (step > 0) {
+    var r0 = Math.round(start / step),
+        r1 = Math.round(stop / step);
+    if (r0 * step < start) ++r0;
+    if (r1 * step > stop) --r1;
+    ticks = new Array(n = r1 - r0 + 1);
+
+    while (++i < n) {
+      ticks[i] = (r0 + i) * step;
+    }
+  } else {
+    step = -step;
+
+    var _r = Math.round(start * step),
+        _r2 = Math.round(stop * step);
+
+    if (_r / step < start) ++_r;
+    if (_r2 / step > stop) --_r2;
+    ticks = new Array(n = _r2 - _r + 1);
+
+    while (++i < n) {
+      ticks[i] = (_r + i) / step;
+    }
+  }
+
+  if (reverse) ticks.reverse();
+  return ticks;
+}
+
+function tickIncrement(start, stop, count) {
+  var step = (stop - start) / Math.max(0, count),
+      power = Math.floor(Math.log(step) / Math.LN10),
+      error = step / Math.pow(10, power);
+  return power >= 0 ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power) : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+}
+
+function nice(start, stop, count) {
+  var prestep;
+
+  while (true) {
+    var step = tickIncrement(start, stop, count);
+
+    if (step === prestep || step === 0 || !isFinite(step)) {
+      return [start, stop];
+    } else if (step > 0) {
+      start = Math.floor(start / step) * step;
+      stop = Math.ceil(stop / step) * step;
+    } else if (step < 0) {
+      start = Math.ceil(start * step) / step;
+      stop = Math.floor(stop * step) / step;
+    }
+
+    prestep = step;
+  }
+}
+
+function sturges(values) {
+  return Math.ceil(Math.log(count(values)) / Math.LN2) + 1;
+}
+
+function _bin() {
+  var value = identity,
+      domain = extent,
+      threshold = sturges;
+
+  function histogram(data) {
+    if (!Array.isArray(data)) data = Array.from(data);
+    var i,
+        n = data.length,
+        x,
+        values = new Array(n);
+
+    for (i = 0; i < n; ++i) {
+      values[i] = value(data[i], i, data);
+    }
+
+    var xz = domain(values),
+        x0 = xz[0],
+        x1 = xz[1],
+        tz = threshold(values, x0, x1); // Convert number of thresholds into uniform thresholds, and nice the
+    // default domain accordingly.
+
+    if (!Array.isArray(tz)) {
+      var _max = x1,
+          tn = +tz;
+
+      if (domain === extent) {
+        var _nice = nice(x0, x1, tn);
+
+        var _nice2 = _slicedToArray(_nice, 2);
+
+        x0 = _nice2[0];
+        x1 = _nice2[1];
+      }
+
+      tz = ticks(x0, x1, tn); // If the last threshold is coincident with the domain’s upper bound, the
+      // last bin will be zero-width. If the default domain is used, and this
+      // last threshold is coincident with the maximum input value, we can
+      // extend the niced upper bound by one tick to ensure uniform bin widths;
+      // otherwise, we simply remove the last threshold. Note that we don’t
+      // coerce values or the domain to numbers, and thus must be careful to
+      // compare order (>=) rather than strict equality (===)!
+
+      if (tz[tz.length - 1] >= x1) {
+        if (_max >= x1 && domain === extent) {
+          var step = tickIncrement(x0, x1, tn);
+
+          if (isFinite(step)) {
+            if (step > 0) {
+              x1 = (Math.floor(x1 / step) + 1) * step;
+            } else if (step < 0) {
+              x1 = (Math.ceil(x1 * -step) + 1) / -step;
+            }
+          }
+        } else {
+          tz.pop();
+        }
+      }
+    } // Remove any thresholds outside the domain.
+
+
+    var m = tz.length;
+
+    while (tz[0] <= x0) {
+      tz.shift(), --m;
+    }
+
+    while (tz[m - 1] > x1) {
+      tz.pop(), --m;
+    }
+
+    var bins = new Array(m + 1),
+        bin; // Initialize bins.
+
+    for (i = 0; i <= m; ++i) {
+      bin = bins[i] = [];
+      bin.x0 = i > 0 ? tz[i - 1] : x0;
+      bin.x1 = i < m ? tz[i] : x1;
+    } // Assign data to bins by value, ignoring any outside the domain.
+
+
+    for (i = 0; i < n; ++i) {
+      x = values[i];
+
+      if (x != null && x0 <= x && x <= x1) {
+        bins[bisectRight(tz, x, 0, m)].push(data[i]);
+      }
+    }
+
+    return bins;
+  }
+
+  histogram.value = function (_) {
+    return arguments.length ? (value = typeof _ === "function" ? _ : constant(_), histogram) : value;
+  };
+
+  histogram.domain = function (_) {
+    return arguments.length ? (domain = typeof _ === "function" ? _ : constant([_[0], _[1]]), histogram) : domain;
+  };
+
+  histogram.thresholds = function (_) {
+    return arguments.length ? (threshold = typeof _ === "function" ? _ : Array.isArray(_) ? constant(slice.call(_)) : constant(_), histogram) : threshold;
+  };
+
+  return histogram;
 }
 
 var _excluded = ["worker", "data", "previousData"];
@@ -1690,6 +2052,24 @@ var handlers = {
     })), _toConsumableArray(data.filter(function (r) {
       return now - r.time < horizon && r.time > previousNow;
     })));
+  },
+  bin: function bin(props) {
+    var data = props.data,
+        column = props.column;
+
+    var binner = _bin().value(function (d) {
+      return d[column];
+    });
+
+    var binned = binner(data); // convert back to objects
+
+    return binned.map(function (b) {
+      return {
+        length: b.length,
+        x0: b.x0,
+        x1: b.x1
+      };
+    });
   }
 };
 
