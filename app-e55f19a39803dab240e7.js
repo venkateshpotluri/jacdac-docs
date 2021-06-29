@@ -68627,7 +68627,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c5a50255d277c7dd89ba393c653104c5b7c1a2d6";
+  var sha = "ff183ff6f54f0bee4f8399db89585514863ef776";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -80059,7 +80059,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));
   },
   "component---src-pages-dashboard-tsx": function componentSrcPagesDashboardTsx() {
-    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(5493), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
+    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(3689), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
   },
   "component---src-pages-devices-tsx": function componentSrcPagesDevicesTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-devices-tsx */ 8524).then(__webpack_require__.bind(__webpack_require__, 17673));
@@ -80103,6 +80103,9 @@ exports.components = {
   "component---src-pages-software-mdx": function componentSrcPagesSoftwareMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-software-mdx */ 8307).then(__webpack_require__.bind(__webpack_require__, 46690));
   },
+  "component---src-pages-tools-accelerometer-theremin-tsx": function componentSrcPagesToolsAccelerometerThereminTsx() {
+    return Promise.all(/* import() | component---src-pages-tools-accelerometer-theremin-tsx */[__webpack_require__.e(3689), __webpack_require__.e(5023)]).then(__webpack_require__.bind(__webpack_require__, 67396));
+  },
   "component---src-pages-tools-azure-device-twin-designer-tsx": function componentSrcPagesToolsAzureDeviceTwinDesignerTsx() {
     return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(2460), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));
   },
@@ -80131,7 +80134,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */ 6456).then(__webpack_require__.bind(__webpack_require__, 25900));
   },
   "component---src-pages-tools-makecode-sim-tsx": function componentSrcPagesToolsMakecodeSimTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(5493), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
+    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(3689), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
   },
   "component---src-pages-tools-mdx": function componentSrcPagesToolsMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));
