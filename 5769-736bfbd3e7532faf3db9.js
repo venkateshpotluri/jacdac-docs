@@ -93,7 +93,12 @@ var toneContext = __webpack_require__(66775);
 
 
 function usePlayTone(defaultVolume) {
-  var context = (0,react.useRef)(); // final cleanup
+  var context = (0,react.useRef)();
+
+  var _useState = (0,react.useState)(false),
+      activated = _useState[0],
+      setActivated = _useState[1]; // final cleanup
+
 
   (0,react.useEffect)(function () {
     return function () {
@@ -108,6 +113,7 @@ function usePlayTone(defaultVolume) {
 
     try {
       context.current = (0,toneContext/* createToneContext */.W)(defaultVolume);
+      setActivated(true);
     } catch (e) {
       console.warn(e);
     }
@@ -128,20 +134,27 @@ function usePlayTone(defaultVolume) {
   return {
     onClickActivateAudioContext: onClickActivateAudioContext,
     setVolume: setVolume,
-    playTone: playTone
+    playTone: playTone,
+    activated: activated
   };
 }
 // EXTERNAL MODULE: ./jacdac-ts/src/servers/buzzerserver.ts
 var buzzerserver = __webpack_require__(69589);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/VolumeDown.js
 var VolumeDown = __webpack_require__(27729);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/VolumeUp.js
-var VolumeUp = __webpack_require__(32377);
 // EXTERNAL MODULE: ./src/components/ui/Suspense.tsx
 var Suspense = __webpack_require__(69672);
 // EXTERNAL MODULE: ./src/components/hooks/useRegister.ts
 var useRegister = __webpack_require__(82677);
+// EXTERNAL MODULE: ./node_modules/@material-ui/lab/esm/Alert/Alert.js + 4 modules
+var Alert = __webpack_require__(6809);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/VolumeUp.js
+var VolumeUp = __webpack_require__(32377);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardBuzzer.tsx
+
+
 
 
 
@@ -171,7 +184,8 @@ function DashboardBuzzer(props) {
   var _usePlayTone = usePlayTone(volume),
       playTone = _usePlayTone.playTone,
       setVolume = _usePlayTone.setVolume,
-      onClickActivateAudioContext = _usePlayTone.onClickActivateAudioContext; // listen for playTone commands from the buzzer
+      onClickActivateAudioContext = _usePlayTone.onClickActivateAudioContext,
+      activated = _usePlayTone.activated; // listen for playTone commands from the buzzer
 
 
   (0,react.useEffect)(function () {
@@ -231,10 +245,22 @@ function DashboardBuzzer(props) {
     };
   }();
 
+  var handleUnlock = function handleUnlock() {
+    return sendPlayTone(400);
+  };
+
   (0,react.useEffect)(function () {
     return setVolume === null || setVolume === void 0 ? void 0 : setVolume(volume);
   }, [volume]);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, server && !activated && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "warning"
+  }, "Click to activate sounds. \xA0", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+    "aria-label": "unlock sounds",
+    onClick: handleUnlock
+  }, /*#__PURE__*/react.createElement(VolumeUp/* default */.Z, null)))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: true
   }, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(PianoWidget, {
