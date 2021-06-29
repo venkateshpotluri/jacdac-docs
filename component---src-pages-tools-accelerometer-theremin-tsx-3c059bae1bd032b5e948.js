@@ -47,13 +47,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
 
 
 
@@ -89,37 +82,45 @@ function AccelerometerTheremin() {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     var unsubs = accelerometers.map(function (accelerometer) {
       return accelerometer.readingRegister.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .REPORT_UPDATE */ .rGZ, // don't trigger more than every 100ms
-      (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .throttle */ .P2)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _accelerometer$readin, x, _iterator, _step, buzzer, pkt;
+      (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_5__/* .throttle */ .P2)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var _accelerometer$readin, x;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 _accelerometer$readin = accelerometer.readingRegister.unpackedValue, x = _accelerometer$readin[0];
-                _iterator = _createForOfIteratorHelperLoose(buzzers);
+                _context2.next = 3;
+                return Promise.all(buzzers.map( /*#__PURE__*/function () {
+                  var _ref2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(buzzer) {
+                    var pkt;
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            pkt = _jacdac_ts_src_jdom_packet__WEBPACK_IMPORTED_MODULE_4__/* .default.from */ .Z.from(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .BuzzerCmd.PlayTone */ .Rv2.PlayTone, tonePayload(1000 + Math.abs(x) * 1000, TONE_DURATION, 1));
+                            _context.next = 3;
+                            return buzzer.sendPacketAsync(pkt);
 
-              case 2:
-                if ((_step = _iterator()).done) {
-                  _context.next = 9;
-                  break;
-                }
+                          case 3:
+                          case "end":
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee);
+                  }));
 
-                buzzer = _step.value;
-                pkt = _jacdac_ts_src_jdom_packet__WEBPACK_IMPORTED_MODULE_4__/* .default.from */ .Z.from(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_2__/* .BuzzerCmd.PlayTone */ .Rv2.PlayTone, tonePayload(1000 + Math.abs(x) * 1000, TONE_DURATION, 1));
-                _context.next = 7;
-                return buzzer.sendPacketAsync(pkt);
+                  return function (_x) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }()));
 
-              case 7:
-                _context.next = 2;
-                break;
-
-              case 9:
+              case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       })), TONE_THROTTLE));
     }); // cleanup callback
 
