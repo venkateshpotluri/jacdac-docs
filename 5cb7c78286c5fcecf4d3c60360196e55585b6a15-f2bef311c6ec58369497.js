@@ -159,7 +159,7 @@ function useFirmwareBlobs() {
 
 
             _context.next = 24;
-            return (0,utils/* delay */.gw)(5000);
+            return bus.delay(5000);
 
           case 24:
             _context.next = 8;

@@ -19,9 +19,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(91635);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(84377);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(54774);
-/* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(81794);
-/* harmony import */ var _widgets_LEDWidget__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(56931);
-/* harmony import */ var _hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(82677);
+/* harmony import */ var _widgets_LEDWidget__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(56931);
+/* harmony import */ var _hooks_useRegister__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(82677);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(20392);
 
 
 
@@ -38,8 +38,11 @@ __webpack_require__.r(__webpack_exports__);
 function DashboardLED(props) {
   var service = props.service;
 
-  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_7__/* .default */ .ZP),
-      setError = _useContext.setError;
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_7__/* .default */ .ZP),
+      setError = _useContext2.setError;
 
   var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(service);
   var color = server ? "secondary" : "primary";
@@ -48,17 +51,17 @@ function DashboardLED(props) {
       speed = _useState[0],
       setSpeed = _useState[1];
 
-  var waveLengthRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.WaveLength */ .Abo.WaveLength);
+  var waveLengthRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.WaveLength */ .Abo.WaveLength);
 
   var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(waveLengthRegister, props),
       waveLength = _useRegisterUnpackedV[0];
 
-  var busColorRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.Color */ .Abo.Color);
+  var busColorRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.Color */ .Abo.Color);
   var busColor = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(busColorRegister, props);
   var serverColor = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(server === null || server === void 0 ? void 0 : server.color, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.values();
   });
-  var ledCountRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.LedCount */ .Abo.LedCount);
+  var ledCountRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(service, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .LedReg.LedCount */ .Abo.LedCount);
 
   var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_3__/* .useRegisterUnpackedValue */ .Pf)(ledCountRegister, props),
       ledCount = _useRegisterUnpackedV2[0];
@@ -84,7 +87,7 @@ function DashboardLED(props) {
 
             case 3:
               _context.next = 5;
-              return (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_9__/* .delay */ .gw)(500);
+              return bus.delay(500);
 
             case 5:
               _context.next = 7;
@@ -112,7 +115,7 @@ function DashboardLED(props) {
     };
   }();
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets_LEDWidget__WEBPACK_IMPORTED_MODULE_10__.default, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets_LEDWidget__WEBPACK_IMPORTED_MODULE_9__.default, {
     color: color,
     ledColor: rgb,
     waveLength: waveLength,

@@ -48582,7 +48582,7 @@ var FlashClient = /*#__PURE__*/function () {
 
             case 18:
               _context2.next = 20;
-              return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(BL_SESSION_DELAY);
+              return this.bus.delay(BL_SESSION_DELAY);
 
             case 20:
               _context2.next = 7;
@@ -48646,7 +48646,7 @@ var FlashClient = /*#__PURE__*/function () {
 
               f = _step3.value;
               _context3.next = 5;
-              return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(10);
+              return this.bus.delay(10);
 
             case 5:
               _context3.next = 7;
@@ -48716,7 +48716,7 @@ var FlashClient = /*#__PURE__*/function () {
 
             case 4:
               _context4.next = 6;
-              return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(5);
+              return this.bus.delay(5);
 
             case 6:
               ++i;
@@ -48829,7 +48829,7 @@ var FlashClient = /*#__PURE__*/function () {
 
             case 34:
               _context5.next = 36;
-              return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(BL_PAGE_DELAY);
+              return this.bus.delay(BL_PAGE_DELAY);
 
             case 36:
               suboff += BL_SUBPAGE_SIZE;
@@ -48955,7 +48955,7 @@ var FlashClient = /*#__PURE__*/function () {
               }
 
               _context6.next = 26;
-              return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(150);
+              return this.bus.delay(150);
 
             case 26:
               prog();
@@ -49203,7 +49203,7 @@ function _scanCore() {
 
           case 15:
             _context8.next = 17;
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(10);
+            return bus.delay(10);
 
           case 17:
             _i2++;
@@ -49223,7 +49223,7 @@ function _scanCore() {
 
           case 24:
             _context8.next = 26;
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_4__/* .delay */ .gw)(10);
+            return bus.delay(10);
 
           case 26:
             ++i;
@@ -52713,7 +52713,6 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
 
 
 
-
 var CALIBRATION_DELAY = 5000;
 
 var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
@@ -52979,7 +52978,7 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
               this.statusCode.setValues([specconstants/* SystemStatusCodes.Calibrating */._kj.Calibrating, 0]); // wait 5 seconds
 
               _context5.next = 3;
-              return (0,utils/* delay */.gw)(CALIBRATION_DELAY);
+              return this.device.bus.delay(CALIBRATION_DELAY);
 
             case 3:
               // finish calibraion
@@ -59843,8 +59842,6 @@ var react = __webpack_require__(67294);
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Error.js
 var Error = __webpack_require__(13840);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
 ;// CONCATENATED MODULE: ./src/components/hooks/useAnalytics.ts
@@ -59904,6 +59901,8 @@ function useAnalytics() {
 var useMounted = __webpack_require__(72179);
 // EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
 var clsx_m = __webpack_require__(85505);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
 ;// CONCATENATED MODULE: ./src/components/CmdButton.tsx
 
 
@@ -59952,8 +59951,11 @@ function CmdButton(props) {
       color = props.color,
       others = (0,objectWithoutPropertiesLoose/* default */.Z)(props, _excluded);
 
-  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
-      setAppError = _useContext.setError;
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
+      setAppError = _useContext2.setError;
 
   var classes = useStyles();
 
@@ -60016,7 +60018,7 @@ function CmdButton(props) {
               }
 
               _context.next = 15;
-              return (0,utils/* delay */.gw)(ackResetDelay || ACK_RESET_DELAY);
+              return bus.delay(ackResetDelay || ACK_RESET_DELAY);
 
             case 15:
               if (mounted) {
@@ -60054,7 +60056,7 @@ function CmdButton(props) {
               }
 
               _context.next = 29;
-              return (0,utils/* delay */.gw)(ERROR_RESET_DELAY);
+              return bus.delay(ERROR_RESET_DELAY);
 
             case 29:
               if (mounted()) {
@@ -68625,7 +68627,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "04901f0a66a61ce46d41b6d45492672d851e23d1";
+  var sha = "8ad72a65aaa884f8d8d6829d073431330599bb81";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71211,7 +71213,7 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
     var pkt = packet/* default.from */.Z.from(cmd, data);
     this._lastSetTimestamp = this.service.device.bus.timestamp;
     var p = this.service.sendPacketAsync(pkt, this.service.registersUseAcks);
-    if (autoRefresh) p = (0,utils/* delay */.gw)(50).then(function () {
+    if (autoRefresh) p = this.service.device.bus.delay(50).then(function () {
       return _this2.sendGetAsync();
     });
     return p;
@@ -71268,10 +71270,10 @@ var JDRegister = /*#__PURE__*/function (_JDServiceMemberNode) {
 
 
       _this4.sendGetAsync().then(function () {
-        return (0,utils/* delay */.gw)(constants/* REGISTER_REFRESH_RETRY_0 */.ZDL);
+        return bus.delay(constants/* REGISTER_REFRESH_RETRY_0 */.ZDL);
       }).then(function () {
         if (resolve) return _this4.sendGetAsync().then(function () {
-          return (0,utils/* delay */.gw)(constants/* REGISTER_REFRESH_RETRY_1 */.K$p);
+          return bus.delay(constants/* REGISTER_REFRESH_RETRY_1 */.K$p);
         });
       }).then(function () {
         if (resolve) return _this4.sendGetAsync();
@@ -71726,6 +71728,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
       timeout = 500;
     }
 
+    var bus = this.device.bus;
     return new Promise(function (resolve, reject) {
       var handleRes = function handleRes(resp) {
         if (resp.serviceCommand == pkt.serviceCommand) {
@@ -71736,7 +71739,7 @@ var JDService = /*#__PURE__*/function (_JDNode) {
         }
       };
 
-      (0,utils/* delay */.gw)(timeout).then(function () {
+      bus.delay(timeout).then(function () {
         if (!resolve) return;
         resolve = null;
 
@@ -72132,7 +72135,6 @@ var QualityOfService = /*#__PURE__*/function (_JDEventSource) {
 
 
 
-
 function trgbToValues(trgb) {
   return [trgb >> 16 & 0xff, trgb >> 8 & 0xff, trgb & 0xff, trgb >> 24 & 0xff];
 }
@@ -72153,42 +72155,43 @@ var LEDController = /*#__PURE__*/function (_JDEventSource) {
 
   _proto.blink = /*#__PURE__*/function () {
     var _blink = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(from, to, interval, repeat) {
-      var on, off, i;
+      var on, off, bus, i;
       return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               on = (0,pack/* jdpack */.AV)("u8 u8 u8 u8", trgbToValues(from));
               off = (0,pack/* jdpack */.AV)("u8 u8 u8 u8", trgbToValues(to));
+              bus = this.service.device.bus;
               i = 0;
 
-            case 3:
+            case 4:
               if (!(i < repeat)) {
-                _context.next = 15;
+                _context.next = 16;
                 break;
               }
 
-              _context.next = 6;
+              _context.next = 7;
               return this.service.sendCmdAsync(this.command, on);
 
-            case 6:
-              _context.next = 8;
-              return (0,utils/* delay */.gw)(interval - 1);
+            case 7:
+              _context.next = 9;
+              return bus.delay(interval - 1);
 
-            case 8:
-              _context.next = 10;
+            case 9:
+              _context.next = 11;
               return this.service.sendCmdAsync(this.command, off);
 
-            case 10:
-              _context.next = 12;
-              return (0,utils/* delay */.gw)(interval - 1);
+            case 11:
+              _context.next = 13;
+              return bus.delay(interval - 1);
 
-            case 12:
+            case 13:
               ++i;
-              _context.next = 3;
+              _context.next = 4;
               break;
 
-            case 15:
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -72438,7 +72441,7 @@ var JDDevice = /*#__PURE__*/function (_JDNode) {
 
             case 14:
               _context.next = 16;
-              return (0,utils/* delay */.gw)(constants/* IDENTIFY_DURATION */.r2I);
+              return this.bus.delay(constants/* IDENTIFY_DURATION */.r2I);
 
             case 16:
               _context.next = 21;
@@ -73755,6 +73758,10 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
     this._startTime = Date.now() - delta;
     this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.delay = function delay(millis, value) {
+    return (0,utils/* delay */.gw)(millis, value);
   };
 
   _proto.pingLoggers = /*#__PURE__*/function () {
@@ -77718,7 +77725,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.84"};
+var package_namespaceObject = {"i8":"1.13.86"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 

@@ -879,7 +879,7 @@ function TestCard(props) {
 
             case 12:
               _context.prev = 12;
-              setOutput(log.join('\n'));
+              setOutput(log.join("\n"));
               return _context.finish(12);
 
             case 15:
@@ -1038,6 +1038,10 @@ function RegisterProtocolTest(props) {
   var rw = props.rw,
       ro = props.ro,
       ev = props.ev;
+
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
   var specification = rw.specification,
       fields = rw.fields;
   var name = specification.name.replace(/^rw_/, ""); // event code and command code are the same as rw register
@@ -1091,7 +1095,7 @@ function RegisterProtocolTest(props) {
 
             case 11:
               _context2.next = 13;
-              return (0,utils/* delay */.gw)(100);
+              return bus.delay(100);
 
             case 13:
               // check read
@@ -1118,7 +1122,7 @@ function RegisterProtocolTest(props) {
 
             case 21:
               _context2.next = 23;
-              return (0,utils/* delay */.gw)(100);
+              return bus.delay(100);
 
             case 23:
               ropayload = (0,pack/* jdunpack */.TE)(ro.data, packFormat);
@@ -1184,7 +1188,7 @@ function RegisterProtocolTest(props) {
 
             case 10:
               _context3.next = 12;
-              return (0,utils/* delay */.gw)(100);
+              return bus.delay(100);
 
             case 12:
               // check read
@@ -1264,6 +1268,10 @@ function RegisterProtocolTest(props) {
 function ServiceProtocolTest(props) {
   var service = props.service;
   var device = service.device;
+
+  var _useContext2 = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext2.bus;
+
   var regs = service.registers();
   var rws = service.registers().filter(function (reg) {
     return reg.specification.kind == "rw";
@@ -1303,7 +1311,7 @@ function ServiceProtocolTest(props) {
 
             case 8:
               _context5.next = 10;
-              return (0,utils/* delay */.gw)(100);
+              return bus.delay(100);
 
             case 10:
               log("data recv: " + (0,utils/* toHex */.NC)(rw.data));
@@ -1384,8 +1392,8 @@ function ServiceProtocolTest(props) {
 }
 
 function ProtocolTest() {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
+  var _useContext3 = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext3.bus;
 
   var _useState = (0,react.useState)(false),
       host = _useState[0],
