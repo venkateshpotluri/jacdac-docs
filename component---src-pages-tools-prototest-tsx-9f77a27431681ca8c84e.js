@@ -1418,7 +1418,7 @@ function ProtocolTest() {
       return bus.removeServiceProvider(d);
     };
   }, [host]);
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h1", null, "Protocol Test"), /*#__PURE__*/react.createElement("p", null, "A helper page to test the Jacdac protocol against a", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h1", null, "Protocol Test"), /*#__PURE__*/react.createElement("p", null, "A helper page to test the Jacdac protocol against a \xA0", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     to: "/services/prototest/"
   }, "protocol test"), " service."), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
