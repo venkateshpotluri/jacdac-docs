@@ -47792,6 +47792,8 @@ var JDClient = /*#__PURE__*/function (_JDEventSource) {
 /* harmony export */   "mZW": function() { return /* binding */ ERROR_MICROBIT_INVALID_MEMORY; },
 /* harmony export */   "l9m": function() { return /* binding */ ROLE_BOUND; },
 /* harmony export */   "CCp": function() { return /* binding */ ROLE_UNBOUND; },
+/* harmony export */   "E5I": function() { return /* binding */ BOUND; },
+/* harmony export */   "BKI": function() { return /* binding */ UNBOUND; },
 /* harmony export */   "bdf": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.bdf; },
 /* harmony export */   "r8S": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.r8S; },
 /* harmony export */   "ogr": function() { return /* reexport safe */ _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__.ogr; },
@@ -48121,6 +48123,8 @@ var ERROR_MICROBIT_INVALID_MEMORY = "microbit/invalid-memory";
 var ROLE_BOUND = "roleBound";
 var ROLE_UNBOUND = "roleUnbound";
 var ROLE_HAS_NO_SERVICE = "roleHasNoService";
+var BOUND = "bound";
+var UNBOUND = "unbound";
 
 
 /***/ }),
@@ -68621,7 +68625,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "71bab498be4e9f30cdf0962f895f6421eb9cc542";
+  var sha = "04901f0a66a61ce46d41b6d45492672d851e23d1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -77714,7 +77718,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.83"};
+var package_namespaceObject = {"i8":"1.13.84"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 

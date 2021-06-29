@@ -8937,10 +8937,10 @@ var createClass = __webpack_require__(53719);
 var assertThisInitialized = __webpack_require__(25342);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(85413);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
-var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
+var client = __webpack_require__(47235);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/servers/rolemanager.ts
 
 
@@ -8962,38 +8962,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 // TODO: replicate MakeCode role manager logic
-var RoleManager = /*#__PURE__*/function (_JDEventSource) {
-  (0,inheritsLoose/* default */.Z)(RoleManager, _JDEventSource);
+var RoleManager = /*#__PURE__*/function (_JDClient) {
+  (0,inheritsLoose/* default */.Z)(RoleManager, _JDClient);
 
   function RoleManager(bus) {
     var _this;
 
-    _this = _JDEventSource.call(this) || this;
+    _this = _JDClient.call(this) || this;
     _this._roles = [];
     _this.bus = bus;
 
-    _this.bus.on(constants/* DEVICE_ANNOUNCE */.Hob, _this.addServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+    _this.mount(_this.bus.subscribe(constants/* DEVICE_ANNOUNCE */.Hob, _this.addServices.bind((0,assertThisInitialized/* default */.Z)(_this))));
 
-    _this.bus.on(constants/* DEVICE_DISCONNECT */.O55, _this.removeServices.bind((0,assertThisInitialized/* default */.Z)(_this)));
+    _this.mount(_this.bus.subscribe(constants/* DEVICE_DISCONNECT */.O55, _this.removeServices.bind((0,assertThisInitialized/* default */.Z)(_this))));
 
-    _this.bus.devices({
-      ignoreSelf: true,
-      announced: true
-    }).forEach(function (dev) {
-      return _this.addServices(dev);
-    });
+    _this.bindServices(); // debug
+    //this.on(ROLE_UNBOUND, role => console.log(`role unbound`, { role }))
+    //this.on(ROLE_BOUND, role => console.log(`role bound`, { role }))
 
-    _this.on(constants/* ROLE_UNBOUND */.CCp, function (role) {
-      return console.log("role unbound", {
-        role: role
-      });
-    });
-
-    _this.on(constants/* ROLE_BOUND */.l9m, function (role) {
-      return console.log("role bound", {
-        role: role
-      });
-    });
 
     return _this;
   }
@@ -9003,6 +8989,7 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   _proto.setRoles = function setRoles(newRoles) {
     var _this2 = this;
 
+    var oldBound = this.bound;
     var changed = false; // remove unknown roles
 
     var supportedNewRoles = newRoles.filter(function (_ref) {
@@ -9061,63 +9048,11 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
 
     for (var _iterator = _createForOfIteratorHelperLoose(supportedNewRoles), _step; !(_step = _iterator()).done;) {
       _loop2();
-    } // emit change as needed
+    } // bound services
 
 
-    if (changed) this.emit(constants/* CHANGE */.Ver); // bound services
-
-    this.bindServices();
-  };
-
-  _proto.bindServices = function bindServices() {
-    var _this3 = this;
-
-    var changed = false;
-    this.unboundRoles.forEach(function (binding) {
-      var boundRoles = _this3.boundRoles;
-
-      var service = _this3.bus.services({
-        ignoreSelf: true,
-        serviceName: binding.serviceShortId
-      }).find(function (srv) {
-        return !boundRoles.find(function (b) {
-          return b.service === srv;
-        });
-      });
-
-      binding.service = service;
-
-      _this3.emit(constants/* ROLE_BOUND */.l9m, binding.role);
-
-      changed = true;
-    });
-    if (changed) this.emit(constants/* CHANGE */.Ver);
-  };
-
-  _proto.addServices = function addServices(dev) {
-    if (dev === this.bus.selfDevice) return;
-    this.bindServices();
-  };
-
-  _proto.removeServices = function removeServices(dev) {
-    var _this4 = this;
-
-    var changed = false;
-
-    this._roles.filter(function (r) {
-      var _r$service;
-
-      return ((_r$service = r.service) === null || _r$service === void 0 ? void 0 : _r$service.device) === dev;
-    }).forEach(function (r) {
-      r.service = undefined;
-
-      _this4.emit(constants/* ROLE_UNBOUND */.CCp, r.role);
-
-      changed = true;
-    });
-
-    this.bindServices();
-    if (changed) this.emit(constants/* CHANGE */.Ver);
+    this.bindServices(changed);
+    this.emitBoundEvents(oldBound);
   };
 
   _proto.getService = function getService(role) {
@@ -9129,7 +9064,7 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.addRoleService = function addRoleService(role, serviceShortId) {
-    var _this5 = this;
+    var _this3 = this;
 
     if (!(0,spec/* serviceSpecificationFromName */.kB)(serviceShortId)) return; // unknown role type
 
@@ -9138,7 +9073,8 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
     }); // check if we already have this role
 
 
-    if (binding && serviceShortId === binding.serviceShortId) return; // new role
+    if (binding && serviceShortId === binding.serviceShortId) return;
+    var oldBound = this.bound; // new role
 
     binding = {
       role: role,
@@ -9151,7 +9087,7 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
       ignoreSelf: true,
       serviceName: serviceShortId
     }).find(function (s) {
-      return !_this5._roles.find(function (r) {
+      return !_this3._roles.find(function (r) {
         return r.service === s;
       });
     });
@@ -9164,6 +9100,61 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
     }
 
     this.emit(constants/* CHANGE */.Ver);
+    this.emitBoundEvents(oldBound);
+  };
+
+  _proto.emitBoundEvents = function emitBoundEvents(oldBound) {
+    var bound = this.bound;
+    if (oldBound !== bound) this.emit(bound ? constants/* BOUND */.E5I : constants/* UNBOUND */.BKI);
+  };
+
+  _proto.bindServices = function bindServices(changed) {
+    var _this4 = this;
+
+    this.unboundRoles.forEach(function (binding) {
+      var boundRoles = _this4.boundRoles;
+
+      var service = _this4.bus.services({
+        ignoreSelf: true,
+        serviceName: binding.serviceShortId
+      }).find(function (srv) {
+        return !boundRoles.find(function (b) {
+          return b.service === srv;
+        });
+      });
+
+      binding.service = service;
+
+      _this4.emit(constants/* ROLE_BOUND */.l9m, binding.role);
+
+      changed = true;
+    });
+    if (changed) this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.addServices = function addServices(dev) {
+    if (dev === this.bus.selfDevice) return;
+    this.bindServices();
+  };
+
+  _proto.removeServices = function removeServices(dev) {
+    var _this5 = this;
+
+    var changed = false;
+
+    this._roles.filter(function (r) {
+      var _r$service;
+
+      return ((_r$service = r.service) === null || _r$service === void 0 ? void 0 : _r$service.device) === dev;
+    }).forEach(function (r) {
+      r.service = undefined;
+
+      _this5.emit(constants/* ROLE_UNBOUND */.CCp, r.role);
+
+      changed = true;
+    });
+
+    this.bindServices(changed);
   };
 
   (0,createClass/* default */.Z)(RoleManager, [{
@@ -9185,10 +9176,18 @@ var RoleManager = /*#__PURE__*/function (_JDEventSource) {
         return !r.service;
       });
     }
+  }, {
+    key: "bound",
+    get: function get() {
+      return this._roles.every(function (_ref2) {
+        var service = _ref2.service;
+        return !!service;
+      });
+    }
   }]);
 
   return RoleManager;
-}(eventsource/* JDEventSource */.a);
+}(client/* JDClient */.z);
 
 
 ;// CONCATENATED MODULE: ./src/components/hooks/useRoleManager.ts
