@@ -54968,7 +54968,15 @@ var BuzzerServer = /*#__PURE__*/function (_JDServiceServer) {
         duration = _jdunpack[2];
 
     var frequency = 1000000 / period;
-    this.emit(BuzzerServer.PLAY_TONE, [frequency, duration]);
+
+    var _this$volume$values = this.volume.values(),
+        volume = _this$volume$values[0];
+
+    this.emit(BuzzerServer.PLAY_TONE, {
+      frequency: frequency,
+      duration: duration,
+      volume: volume
+    });
   };
 
   return BuzzerServer;
@@ -59636,6 +59644,7 @@ function serviceProviderDefinitions() {
 function addServiceProvider(bus, definition) {
   var _definition$factory;
 
+  if (!definition) return undefined;
   var services = definition.services();
   var options = {
     resetIn: definition.resetIn
@@ -59651,7 +59660,7 @@ function serviceProviderDefinitionFromServiceClass(serviceClass) {
 }
 function startServiceProviderFromServiceClass(bus, serviceClass) {
   var provider = serviceProviderDefinitionFromServiceClass(serviceClass);
-  if (provider) addServiceProvider(bus, provider);
+  return addServiceProvider(bus, provider);
 }
 
 /***/ }),
@@ -64602,7 +64611,7 @@ var DashboardAccelerometer = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 7470).then(__webpack_require__.bind(__webpack_require__, 67470));
 });
 var DashboardBuzzer = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 5769).then(__webpack_require__.bind(__webpack_require__, 15769));
+  return __webpack_require__.e(/* import() */ 1171).then(__webpack_require__.bind(__webpack_require__, 51171));
 });
 var DashboardLEDPixel = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 5403).then(__webpack_require__.bind(__webpack_require__, 15403));
@@ -68627,7 +68636,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "44c5df5317f76dfd26fc209cff7d0aaadc53b943";
+  var sha = "79e78f28d38749219e5473c9634a21fbf18d7c5d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -70169,8 +70178,8 @@ function Suspense(props) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ ThemedLayout; }
 /* harmony export */ });
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(87761);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(28526);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(87761);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(28526);
 /* harmony import */ var notistack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70076);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
 /* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19640);
@@ -70181,6 +70190,8 @@ function Suspense(props) {
 /* harmony import */ var _ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(99808);
 /* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(35414);
 /* harmony import */ var _makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(54888);
+/* harmony import */ var _WebAudioContext__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(94564);
+
 
 
 
@@ -70196,14 +70207,14 @@ function ThemedLayout(props) {
   var theme = props.theme,
       maxSnack = props.maxSnack,
       children = props.children;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, {
     theme: theme
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(notistack__WEBPACK_IMPORTED_MODULE_0__/* .SnackbarProvider */ .wT, {
     maxSnack: maxSnack || 1,
     dense: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_DbContext__WEBPACK_IMPORTED_MODULE_5__/* .DbProvider */ .WQ, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_2__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_DbContext__WEBPACK_IMPORTED_MODULE_5__/* .DbProvider */ .WQ, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_WebAudioContext__WEBPACK_IMPORTED_MODULE_10__/* .WebAudioProvider */ .IH, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     connectOnStart: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__/* .ServiceManagerProvider */ .Aq, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_PacketsContext__WEBPACK_IMPORTED_MODULE_6__/* .PacketsProvider */ .l, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .AppProvider */ .wI, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__/* .MakeCodeSnippetProvider */ .u, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .ZP, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_helmet__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("link", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ServiceManagerContext__WEBPACK_IMPORTED_MODULE_7__/* .ServiceManagerProvider */ .Aq, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_PacketsContext__WEBPACK_IMPORTED_MODULE_6__/* .PacketsProvider */ .l, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .AppProvider */ .wI, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_makecode_MakeCodeSnippetContext__WEBPACK_IMPORTED_MODULE_9__/* .MakeCodeSnippetProvider */ .u, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .ZP, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_helmet__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("link", {
     rel: "preconnect",
     href: "https://fonts.googleapis.com",
     crossOrigin: "anonymous"
@@ -70214,7 +70225,7 @@ function ThemedLayout(props) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("meta", {
     name: "viewport",
     content: "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-  })), children)))))))));
+  })), children))))))))));
 }
 
 /***/ }),
@@ -70236,6 +70247,144 @@ var Tooltip = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z
   };
 })(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP);
 /* harmony default export */ __webpack_exports__["Z"] = (Tooltip);
+
+/***/ }),
+
+/***/ 94564:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "WW": function() { return /* binding */ createToneContext; },
+/* harmony export */   "IH": function() { return /* binding */ WebAudioProvider; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+var VOLUME_GAIN = 0.4;
+var WebAudioContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  onClickActivateAudioContext: function onClickActivateAudioContext() {},
+  playTone: function playTone() {},
+  setVolume: function setVolume() {},
+  activated: false
+});
+WebAudioContext.displayName = "WebAudio";
+/* harmony default export */ __webpack_exports__["ZP"] = (WebAudioContext);
+function createToneContext() {
+  try {
+    console.log("create tone context");
+    var ctx = new (window.AudioContext || // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    window.webkitAudioContext)(); // play silence sound within onlick to unlock it
+
+    var buffer = ctx.createBuffer(1, 1, 22050);
+    var source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(ctx.destination);
+    source.start(); // output node with volume
+
+    var globalVolume = ctx.createGain();
+    globalVolume.connect(ctx.destination);
+    globalVolume.gain.value = VOLUME_GAIN;
+
+    var setVolume = function setVolume(v) {
+      if (globalVolume && !isNaN(v)) {
+        globalVolume.gain.value = v * VOLUME_GAIN;
+      }
+    };
+
+    var playTone = function playTone(frequency, duration, vol) {
+      if (ctx.state !== "running") {
+        console.debug("playTone on closed context");
+        return;
+      }
+
+      try {
+        var tone = ctx.createOscillator();
+        tone.type = "sawtooth";
+        tone.frequency.value = frequency; // update frequency
+
+        var _volume = ctx.createGain();
+
+        _volume.gain.value = vol; // tone -> volume -> globalVolume
+
+        tone.connect(_volume);
+
+        _volume.connect(globalVolume);
+
+        tone.start(); // start and stop
+
+        tone.stop(ctx.currentTime + duration / 1000);
+      } catch (e) {
+        console.debug(e);
+      }
+    };
+
+    var close = function close() {
+      try {
+        if (ctx.state === "running") ctx.close();
+      } catch (e) {
+        console.warn(e);
+      }
+    };
+
+    console.log("tone context created");
+    return {
+      setVolume: setVolume,
+      playTone: playTone,
+      close: close
+    };
+  } catch (e) {
+    return undefined;
+  }
+}
+function WebAudioProvider(props) {
+  var children = props.children;
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      activated = _useState[0],
+      setActivated = _useState[1]; // final cleanup
+
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return function () {
+      var _context$current;
+
+      (_context$current = context.current) === null || _context$current === void 0 ? void 0 : _context$current.close();
+    };
+  }, []); // needs to be initiated in onClick on safari mobile
+
+  var onClickActivateAudioContext = function onClickActivateAudioContext() {
+    if (context.current) return;
+
+    try {
+      context.current = createToneContext();
+      setActivated(true);
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
+  var setVolume = function setVolume(volume) {
+    var _context$current2;
+
+    return (_context$current2 = context.current) === null || _context$current2 === void 0 ? void 0 : _context$current2.setVolume(volume);
+  };
+
+  var playTone = function playTone(frequency, duration, volume) {
+    var _context$current3;
+
+    return (_context$current3 = context.current) === null || _context$current3 === void 0 ? void 0 : _context$current3.playTone(frequency, duration, volume);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WebAudioContext.Provider, {
+    value: {
+      onClickActivateAudioContext: onClickActivateAudioContext,
+      setVolume: setVolume,
+      playTone: playTone,
+      activated: activated
+    }
+  }, children);
+}
 
 /***/ }),
 

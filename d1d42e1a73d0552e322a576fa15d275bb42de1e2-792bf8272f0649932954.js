@@ -14168,15 +14168,15 @@ function NoServiceAlert() {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ NoteField; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73108);
 /* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(53719);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _hooks_toneContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(66775);
-/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69672);
-/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77576);
+/* harmony import */ var _ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(94564);
+/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69672);
+/* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(77576);
 
 
 
@@ -14190,7 +14190,7 @@ var PianoWidget = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.lazy)(funct
 });
 
 var NoteField = /*#__PURE__*/function (_ReactField) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(NoteField, _ReactField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(NoteField, _ReactField);
 
   NoteField.fromJson = function fromJson(options) {
     return new NoteField(options);
@@ -14202,7 +14202,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
 
     _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
 
-    _this.events.on(_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .UNMOUNT */ .lo, function () {
+    _this.events.on(_ReactField__WEBPACK_IMPORTED_MODULE_4__/* .UNMOUNT */ .lo, function () {
       var _this$toneContext;
 
       (_this$toneContext = _this.toneContext) === null || _this$toneContext === void 0 ? void 0 : _this$toneContext.close();
@@ -14222,7 +14222,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
     var _this2 = this;
 
     var handlePlayTone = /*#__PURE__*/function () {
-      var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(newFrequency) {
+      var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(newFrequency) {
         var _this2$toneContext;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -14230,8 +14230,8 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
             switch (_context.prev = _context.next) {
               case 0:
                 _this2.value = newFrequency;
-                if (!_this2.toneContext) _this2.toneContext = (0,_hooks_toneContext__WEBPACK_IMPORTED_MODULE_6__/* .createToneContext */ .W)();
-                (_this2$toneContext = _this2.toneContext) === null || _this2$toneContext === void 0 ? void 0 : _this2$toneContext.playTone(newFrequency, 400);
+                if (!_this2.toneContext) _this2.toneContext = (0,_ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_2__/* .createToneContext */ .WW)();
+                (_this2$toneContext = _this2.toneContext) === null || _this2$toneContext === void 0 ? void 0 : _this2$toneContext.playTone(newFrequency, 400, 0.5);
 
               case 3:
               case "end":
@@ -14246,7 +14246,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
       };
     }();
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(PianoWidget, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(PianoWidget, {
       playTone: handlePlayTone
     }));
   };
@@ -14259,10 +14259,10 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
   }]);
 
   return NoteField;
-}(_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP);
+}(_ReactField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP);
 
 NoteField.KEY = "jacdac_field_note";
-NoteField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_3__/* .toShadowDefinition */ ._t)(NoteField);
+NoteField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_4__/* .toShadowDefinition */ ._t)(NoteField);
 
 
 /***/ }),
@@ -16087,72 +16087,6 @@ function useWorkspaceEvent(workspace, handler) {
       return workspace === null || workspace === void 0 ? void 0 : workspace.removeChangeListener(handler);
     };
   }, [workspace, handler]);
-}
-
-/***/ }),
-
-/***/ 66775:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "W": function() { return /* binding */ createToneContext; }
-/* harmony export */ });
-var VOLUME_GAIN = 0.4;
-function createToneContext(defaultVolume) {
-  try {
-    console.log("create tone context");
-    var ctx = new (window.AudioContext || // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.webkitAudioContext)(); // play silence sound within onlick to unlock it
-
-    var buffer = ctx.createBuffer(1, 1, 22050);
-    var source = ctx.createBufferSource();
-    source.buffer = buffer;
-    source.connect(ctx.destination);
-    source.start(); // output node with volume
-
-    var volume = ctx.createGain();
-    volume.connect(ctx.destination);
-    volume.gain.value = (defaultVolume !== undefined ? defaultVolume : 0.2) * VOLUME_GAIN;
-
-    var setVolume = function setVolume(v) {
-      if (volume && !isNaN(v)) {
-        volume.gain.value = v * VOLUME_GAIN;
-      }
-    };
-
-    var playTone = function playTone(frequency, duration) {
-      try {
-        var tone = ctx.createOscillator();
-        tone.type = "sawtooth";
-        tone.connect(volume);
-        tone.frequency.value = frequency; // update frequency
-
-        tone.start(); // start and stop
-
-        tone.stop(ctx.currentTime + duration / 1000);
-      } catch (e) {
-        console.debug(e);
-      }
-    };
-
-    var close = function close() {
-      try {
-        if (ctx.state === "running") ctx.close();
-      } catch (e) {
-        console.warn(e);
-      }
-    };
-
-    console.log("tone context created");
-    return {
-      setVolume: setVolume,
-      playTone: playTone,
-      close: close
-    };
-  } catch (e) {
-    return undefined;
-  }
 }
 
 /***/ }),
