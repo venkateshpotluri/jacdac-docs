@@ -11372,14 +11372,11 @@ function BlockMiniMap(props) {
 
   if (!metrics || !view) return null;
   var scroll = metrics.scroll,
-      contents = metrics.contents,
       blocks = metrics.blocks;
   var cleft = scroll.left;
   var ctop = scroll.top;
   var cwidth = scroll.width;
-  var cheight = scroll.height; // all blocks visible
-
-  if (contents.left >= view.left && contents.top >= view.top && contents.left + contents.width <= view.left + view.width && contents.top + contents.height <= view.top + view.height) return null;
+  var cheight = scroll.height;
   return /*#__PURE__*/react.createElement("svg", {
     ref: svgRef,
     viewBox: "0 0 " + cwidth + " " + cheight,
