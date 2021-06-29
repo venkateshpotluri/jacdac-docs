@@ -5498,7 +5498,7 @@ var fieldsdsl = __webpack_require__(76658);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/jsondsl.ts
 
 
-var jsondsl_colour = "#654321";
+var jsondsl_colour = "#ff8c00";
 var JSON_FIELD_TYPE = "JSONField";
 var JSON_OBJECT_BLOCK = "json_object";
 var JSON_FIELD_SET_BLOCK = "json_field_set";
