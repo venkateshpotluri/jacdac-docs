@@ -52997,6 +52997,18 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }();
 
   (0,createClass/* default */.Z)(JDServiceServer, [{
+    key: "device",
+    get: function get() {
+      return this._device;
+    },
+    set: function set(value) {
+      if (this._device !== value) {
+        this._device = value;
+        this.emit(constants/* DEVICE_CHANGE */.RoP);
+        this.emit(constants/* CHANGE */.Ver);
+      }
+    }
+  }, {
     key: "twin",
     get: function get() {
       return this._twin;
@@ -59621,7 +59633,6 @@ function serviceProviderDefinitions() {
 function addServiceProvider(bus, definition) {
   var _definition$factory;
 
-  if (!definition) return undefined;
   var services = definition.services();
   var options = {
     resetIn: definition.resetIn
@@ -59637,7 +59648,7 @@ function serviceProviderDefinitionFromServiceClass(serviceClass) {
 }
 function startServiceProviderFromServiceClass(bus, serviceClass) {
   var provider = serviceProviderDefinitionFromServiceClass(serviceClass);
-  return addServiceProvider(bus, provider);
+  if (provider) addServiceProvider(bus, provider);
 }
 
 /***/ }),
@@ -64180,8 +64191,8 @@ function BinaryButton(props) {
   return /*#__PURE__*/react.createElement(ButtonWidget/* default */.Z, {
     checked: !!pressed,
     color: color,
-    onDown: server && handleDown,
-    onUp: server && handleUp,
+    onDown: server ? handleDown : undefined,
+    onUp: server ? handleUp : undefined,
     label: label,
     size: widgetSize
   });
@@ -68610,7 +68621,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "cee5a1339098556950bed4738a2809a3da9fb06f";
+  var sha = "71bab498be4e9f30cdf0962f895f6421eb9cc542";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
