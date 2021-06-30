@@ -9237,7 +9237,8 @@ function registerDataSolver(block) {
   var services = block.jacdacServices; // register data transforms
 
   var _ref = (0,toolbox/* resolveBlockDefinition */.Pq)(block.type) || {},
-      transformData = _ref.transformData;
+      transformData = _ref.transformData,
+      alwaysTransformData = _ref.alwaysTransformData;
 
   if (!transformData) return;
   services.on(constants/* CHANGE */.Ver, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
@@ -9260,18 +9261,18 @@ function registerDataSolver(block) {
             next = ((_block$nextConnection = block.nextConnection) === null || _block$nextConnection === void 0 ? void 0 : _block$nextConnection.targetBlock()) || ((_block$childBlocks_ = block.childBlocks_) === null || _block$childBlocks_ === void 0 ? void 0 : _block$childBlocks_[0]);
             nextServices = next === null || next === void 0 ? void 0 : next.jacdacServices;
 
-            if (!nextServices) {
+            if (!(nextServices || alwaysTransformData)) {
               _context.next = 15;
               break;
             }
 
             _context.prev = 5;
             _context.next = 8;
-            return transformData(block, services.data, nextServices.data);
+            return transformData(block, services.data, nextServices === null || nextServices === void 0 ? void 0 : nextServices.data);
 
           case 8:
             newData = _context.sent;
-            nextServices.data = newData;
+            if (nextServices) nextServices.data = newData;
             _context.next = 15;
             break;
 
@@ -12295,12 +12296,13 @@ var dataDsl = {
       nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
       colour: colour,
       template: "meta",
+      alwaysTransformData: true,
       transformData: function transformData(block, data) {
         // grab the variable from the block
         var variable = block.getFieldValue("data");
         if (!variable) return Promise.resolve(undefined);
         var readBlocks = block.workspace.getBlocksByType(DATA_DATAVARIABLE_READ_BLOCK, false);
-        readBlocks.filter(function (b) {
+        var readServices = readBlocks.filter(function (b) {
           return b.isEnabled();
         }).filter(function (b) {
           return b.getFieldValue("data") === variable;
@@ -12308,7 +12310,8 @@ var dataDsl = {
           return b.jacdacServices;
         }).filter(function (services) {
           return !!services;
-        }).forEach(function (services) {
+        });
+        readServices.forEach(function (services) {
           return services.data = data;
         });
         return Promise.resolve(data);
