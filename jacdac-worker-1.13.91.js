@@ -4720,6 +4720,7 @@ class CMSISProto {
     startRecvToLoop() {
         console.assert(!this._lastInterval);
         let last = this.recvTo;
+        // do not use bus schedulere here
         this._lastInterval = setInterval(() => {
             if (!this.io)
                 this.stopRecvToLoop();

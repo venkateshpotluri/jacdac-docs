@@ -174,8 +174,8 @@ var DarkModeContext = __webpack_require__(91350);
 var KindIcon = __webpack_require__(50048);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 22 modules
-var providerbus = __webpack_require__(70590);
+// EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 23 modules
+var providerbus = __webpack_require__(14806);
 ;// CONCATENATED MODULE: ./src/components/ToolsDrawer.tsx
 
 

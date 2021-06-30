@@ -49466,9 +49466,7 @@ var JDIFrameClient = /*#__PURE__*/function (_JDClient) {
   (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(JDIFrameClient, [{
     key: "origin",
     get: function get() {
-      var _this$bus$options;
-
-      return ((_this$bus$options = this.bus.options) === null || _this$bus$options === void 0 ? void 0 : _this$bus$options.parentOrigin) || "*";
+      return this.bus.parentOrigin;
     }
   }]);
 
@@ -53592,14 +53590,14 @@ var TracePlayer = /*#__PURE__*/function (_JDClient) {
 
     this._busStartTimestamp = this.bus.timestamp;
     this._index = 0;
-    this._interval = setInterval(this.tick, 50);
+    this._interval = this.bus.scheduler.setInterval(this.tick, 50);
     this.emit(_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver);
     this.emitProgress(true);
   };
 
   _proto.stop = function stop() {
     if (this._interval) {
-      clearInterval(this._interval);
+      this.bus.scheduler.clearInterval(this._interval);
       this._interval = undefined;
       this.emitProgress(true);
       this.emit(_constants__WEBPACK_IMPORTED_MODULE_1__/* .CHANGE */ .Ver);
@@ -62959,6 +62957,8 @@ function RegisterInput(props) {
 /* harmony import */ var _Trend__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(25090);
 /* harmony import */ var _useChartPalette__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74039);
 /* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(54774);
+/* harmony import */ var _hooks_useInterval__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(63944);
+
 
 
 
@@ -62979,26 +62979,22 @@ function RegisterTrend(props) {
       bus = _useContext.bus;
 
   var palette = (0,_useChartPalette__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)();
-  var dataSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(_FieldDataSet__WEBPACK_IMPORTED_MODULE_3__/* .default.create */ .Z.create(bus, [register], "output", palette, 100));
-  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(dataSet.current);
+  var dataSet = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return _FieldDataSet__WEBPACK_IMPORTED_MODULE_3__/* .default.create */ .Z.create(bus, [register], "output", palette, 100);
+  }, [register, palette]);
+  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(dataSet);
 
   var addRow = function addRow() {
-    return dataSet.current.addRow();
+    return dataSet.addRow();
   }; // register on change if no intervals
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     return interval ? undefined : register === null || register === void 0 ? void 0 : register.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .REPORT_RECEIVE */ .Gb8, addRow);
-  }, [interval, register]); // keep logging
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var id = interval && setInterval(addRow, interval);
-    return function () {
-      return id && clearInterval(id);
-    };
-  }, [interval]);
+  }, [interval, register, dataSet]);
+  (0,_hooks_useInterval__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(!!interval, addRow, interval, [dataSet]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Trend__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
-    dataSet: dataSet.current,
+    dataSet: dataSet,
     horizon: horizon || DEFAULT_HORIZON,
     gradient: true,
     height: height || DEFAULT_HEIGHT,
@@ -65204,9 +65200,12 @@ var Grid = __webpack_require__(80838);
 var DialogActions = __webpack_require__(89952);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
 var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./src/components/hooks/useInterval.ts
+var useInterval = __webpack_require__(63944);
 // EXTERNAL MODULE: ./src/components/ui/Alert.tsx
 var Alert = __webpack_require__(95453);
 ;// CONCATENATED MODULE: ./src/components/dialogs/IdentifyDialog.tsx
+
 
 
 
@@ -65282,16 +65281,7 @@ function IdentifyDialog(props) {
     return onClose();
   };
 
-  (0,react.useEffect)(function () {
-    if (open) {
-      var timerId = setInterval(function () {
-        return handleSendIdentify();
-      }, 3500);
-      return function () {
-        return clearInterval(timerId);
-      };
-    }
-  }, [open]);
+  (0,useInterval/* default */.Z)(open, handleSendIdentify, 3500, [device]);
   return /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
     open: open,
     onClose: handleCloseIdentify
@@ -67471,6 +67461,30 @@ function useFireKey(handler) {
 
 /***/ }),
 
+/***/ 63944:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useInterval; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(90293);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+
+function useInterval(enabled, handler, delay, deps) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (enabled && delay > 0) {
+      var id = setInterval(handler, delay);
+      return function () {
+        return clearInterval(id);
+      };
+    }
+  }, [enabled, delay].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(deps || [])));
+}
+
+/***/ }),
+
 /***/ 20509:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -68636,7 +68650,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "55af4d161b5ecb2ee37dbabce85627337a222f1f";
+  var sha = "8a8e92d583201f60bbe95599519c710f02e855b5";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -69077,8 +69091,8 @@ function ui_Breadcrumbs_Breadcrumbs(props) {
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Forum.js
 var Forum = __webpack_require__(22203);
-// EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 22 modules
-var providerbus = __webpack_require__(70590);
+// EXTERNAL MODULE: ./src/jacdac/providerbus.ts + 23 modules
+var providerbus = __webpack_require__(14806);
 // EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
 var notistack_esm = __webpack_require__(70076);
 ;// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/useScrollTrigger/useScrollTrigger.js
@@ -70403,7 +70417,10 @@ function useChartPalette() {
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_ui_DarkModeContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
       darkMode = _useContext.darkMode;
 
-  if (darkMode == 'light') return ["#003f5c", "#ffa600", "#665191", "#a05195", "#ff7c43", "#d45087", "#f95d6a", "#2f4b7c"];else return ["#60ccfe", "#ffdd9e", "#c3b9d8", "#dcbbd7", "#fecdb7", "#eebcd1", "#fcc1c6", "#a1b6db"];
+  var palette = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    if (darkMode == "light") return ["#003f5c", "#ffa600", "#665191", "#a05195", "#ff7c43", "#d45087", "#f95d6a", "#2f4b7c"];else return ["#60ccfe", "#ffdd9e", "#c3b9d8", "#dcbbd7", "#fecdb7", "#eebcd1", "#fcc1c6", "#a1b6db"];
+  }, [darkMode]);
+  return palette;
 }
 
 /***/ }),
@@ -71093,7 +71110,7 @@ JacdacContext.displayName = "Jacdac";
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20392);
-/* harmony import */ var _providerbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70590);
+/* harmony import */ var _providerbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14806);
 
 
 
@@ -71124,7 +71141,7 @@ function JacdacProvider(props) {
 
 /***/ }),
 
-/***/ 70590:
+/***/ 14806:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73464,6 +73481,103 @@ var RoleManagerClient = /*#__PURE__*/function (_JDServiceClient) {
 RoleManagerClient.unroledSrvs = [constants/* SRV_CONTROL */.gm9, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_LOGGER */.w9j];
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
 var random = __webpack_require__(80303);
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/scheduler.ts
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+var WallClockScheduler = /*#__PURE__*/function () {
+  function WallClockScheduler() {
+    this._now = typeof performance !== "undefined" ? function () {
+      return performance.now();
+    } : function () {
+      return Date.now();
+    };
+    this._startTime = this._now();
+  }
+
+  var _proto = WallClockScheduler.prototype;
+
+  _proto.resetTime = function resetTime(delta) {
+    if (delta === void 0) {
+      delta = 0;
+    }
+
+    this._startTime = this._now() - delta;
+  };
+
+  _proto.setTimeout = function (_setTimeout) {
+    function setTimeout(_x, _x2) {
+      return _setTimeout.apply(this, arguments);
+    }
+
+    setTimeout.toString = function () {
+      return _setTimeout.toString();
+    };
+
+    return setTimeout;
+  }(function (handler, delay) {
+    for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      args[_key - 2] = arguments[_key];
+    }
+
+    return setTimeout(handler, delay, args);
+  });
+
+  _proto.clearTimeout = function (_clearTimeout) {
+    function clearTimeout(_x3) {
+      return _clearTimeout.apply(this, arguments);
+    }
+
+    clearTimeout.toString = function () {
+      return _clearTimeout.toString();
+    };
+
+    return clearTimeout;
+  }(function (handle) {
+    clearTimeout(handle);
+  });
+
+  _proto.setInterval = function (_setInterval) {
+    function setInterval(_x4, _x5) {
+      return _setInterval.apply(this, arguments);
+    }
+
+    setInterval.toString = function () {
+      return _setInterval.toString();
+    };
+
+    return setInterval;
+  }(function (handler, delay) {
+    for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      args[_key2 - 2] = arguments[_key2];
+    }
+
+    return setInterval(handler, delay, args);
+  });
+
+  _proto.clearInterval = function (_clearInterval) {
+    function clearInterval(_x6) {
+      return _clearInterval.apply(this, arguments);
+    }
+
+    clearInterval.toString = function () {
+      return _clearInterval.toString();
+    };
+
+    return clearInterval;
+  }(function (handle) {
+    clearInterval(handle);
+  });
+
+  (0,createClass/* default */.Z)(WallClockScheduler, [{
+    key: "timestamp",
+    get: function get() {
+      return this._now() - this._startTime;
+    }
+  }]);
+
+  return WallClockScheduler;
+}();
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/bus.ts
 
 
@@ -73481,6 +73595,7 @@ function bus_createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof
 function bus_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return bus_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return bus_arrayLikeToArray(o, minLen); }
 
 function bus_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 
 
 
@@ -73522,19 +73637,16 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     _this._minLoggerPriority = constants/* LoggerPriority.Debug */.qit.Debug;
     _this._gcDevicesEnabled = 0;
     _this._serviceProviders = [];
-    _this.options = options;
+    _this.selfDeviceId = (options === null || options === void 0 ? void 0 : options.deviceId) || (0,random/* randomDeviceId */.b_)();
+    _this.scheduler = (options === null || options === void 0 ? void 0 : options.scheduler) || new WallClockScheduler();
+    _this.parentOrigin = (options === null || options === void 0 ? void 0 : options.parentOrigin) || "*";
+    _this.stats = new BusStatsMonitor((0,assertThisInitialized/* default */.Z)(_this));
     transports === null || transports === void 0 ? void 0 : transports.filter(function (tr) {
       return !!tr;
     }).map(function (tr) {
       return _this.addTransport(tr);
-    });
-    _this.options = _this.options || {};
-    if (!_this.options.deviceId) _this.options.deviceId = (0,random/* randomDeviceId */.b_)();
-    _this.stats = new BusStatsMonitor((0,assertThisInitialized/* default */.Z)(_this));
-
-    _this.resetTime(); // tell loggers to send data, every now and then
+    }); // tell loggers to send data, every now and then
     // send resetin packets
-
 
     _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.sendAnnounce.bind((0,assertThisInitialized/* default */.Z)(_this)));
 
@@ -73709,11 +73821,11 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   _proto.start = function start() {
     var _this4 = this;
 
-    if (!this._announceInterval) this._announceInterval = setInterval(function () {
+    if (!this._announceInterval) this._announceInterval = this.scheduler.setInterval(function () {
       return _this4.emit(constants/* SELF_ANNOUNCE */.Pbc);
     }, 499);
     this.backgroundRefreshRegisters = true;
-    if (!this._gcInterval) this._gcInterval = setInterval(function () {
+    if (!this._gcInterval) this._gcInterval = this.scheduler.setInterval(function () {
       return _this4.gcDevices();
     }, constants/* JD_DEVICE_DISCONNECTED_DELAY */.SkZ);
   };
@@ -73729,7 +73841,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
             case 2:
               if (this._announceInterval) {
-                clearInterval(this._announceInterval);
+                this.scheduler.clearInterval(this._announceInterval);
                 this._announceInterval = undefined;
               }
 
@@ -73737,7 +73849,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
               this.backgroundRefreshRegisters = false;
 
               if (this._gcInterval) {
-                clearInterval(this._gcInterval);
+                this.scheduler.clearInterval(this._gcInterval);
                 this._gcInterval = undefined;
               }
 
@@ -73905,12 +74017,18 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       delta = 0;
     }
 
-    this._startTime = Date.now() - delta;
+    this.scheduler.resetTime(delta);
     this.emit(constants/* CHANGE */.Ver);
   };
 
   _proto.delay = function delay(millis, value) {
-    return (0,utils/* delay */.gw)(millis, value);
+    var _this7 = this;
+
+    return new Promise(function (resolve) {
+      return _this7.scheduler.setTimeout(function () {
+        return resolve(value);
+      }, millis);
+    });
   };
 
   _proto.pingLoggers = /*#__PURE__*/function () {
@@ -74017,7 +74135,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
    * Gets the current list of known devices on the bus
    */
   _proto.devices = function devices(options) {
-    var _this7 = this;
+    var _this8 = this;
 
     if (options !== null && options !== void 0 && options.serviceName && (options === null || options === void 0 ? void 0 : options.serviceClass) > -1) throw Error("serviceClass and serviceName cannot be used together");
     var sc = (options === null || options === void 0 ? void 0 : options.serviceClass) > -1 ? options === null || options === void 0 ? void 0 : options.serviceClass : (0,pretty/* serviceClass */.Sm)(options === null || options === void 0 ? void 0 : options.serviceName);
@@ -74028,13 +74146,13 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       return s.hasService(sc);
     });
     if (options !== null && options !== void 0 && options.ignoreSelf) r = r.filter(function (s) {
-      return s.deviceId !== _this7.selfDeviceId;
+      return s.deviceId !== _this8.selfDeviceId;
     });
     if (options !== null && options !== void 0 && options.announced) r = r.filter(function (s) {
       return s.announced;
     });
     if (options !== null && options !== void 0 && options.ignoreSimulators) r = r.filter(function (r) {
-      return !_this7.findServiceProvider(r.deviceId);
+      return !_this8.findServiceProvider(r.deviceId);
     });
     if (options !== null && options !== void 0 && options.firmwareIdentifier) r = r.filter(function (r) {
       return !!r.firmwareIdentifier;
@@ -74165,7 +74283,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.setBackgroundFirmwareScans = function setBackgroundFirmwareScans(enabled) {
-    var _this8 = this;
+    var _this9 = this;
 
     var isSSR = typeof window === "undefined";
     if (isSSR) enabled = false;
@@ -74177,7 +74295,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
             while (1) {
               switch (_context8.prev = _context8.next) {
                 case 0:
-                  if (!_this8._transports.some(function (tr) {
+                  if (!_this9._transports.some(function (tr) {
                     return tr.connected;
                   })) {
                     _context8.next = 4;
@@ -74186,7 +74304,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
                   console.info("scanning firmwares");
                   _context8.next = 4;
-                  return (0,flashing/* scanFirmwares */.CQ)(_this8);
+                  return (0,flashing/* scanFirmwares */.CQ)(_this9);
 
                 case 4:
                 case "end":
@@ -74216,15 +74334,13 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.gcDevices = function gcDevices() {
-    var _this$options, _this$options2;
-
     if (this.devicesFrozen) {
       console.debug("devices frozen");
       return;
     }
 
-    var LOST_DELAY = ((_this$options = this.options) === null || _this$options === void 0 ? void 0 : _this$options.deviceLostDelay) || constants/* JD_DEVICE_LOST_DELAY */.byt;
-    var DISCONNECTED_DELAY = ((_this$options2 = this.options) === null || _this$options2 === void 0 ? void 0 : _this$options2.deviceDisconnectedDelay) || constants/* JD_DEVICE_DISCONNECTED_DELAY */.SkZ;
+    var LOST_DELAY = constants/* JD_DEVICE_LOST_DELAY */.byt;
+    var DISCONNECTED_DELAY = constants/* JD_DEVICE_DISCONNECTED_DELAY */.SkZ;
     var lostCutoff = this.timestamp - LOST_DELAY;
     var disconnectedCutoff = this.timestamp - DISCONNECTED_DELAY; // cycle through events and disconnect devices that are long gone
 
@@ -74425,7 +74541,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   ;
 
   _proto.withTimeout = function withTimeout(timeout, p) {
-    var _this9 = this;
+    var _this10 = this;
 
     return new Promise(function (resolve, reject) {
       var done = false;
@@ -74433,19 +74549,19 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
         if (!done) {
           done = true;
 
-          if (!_this9._transports.some(function (tr) {
+          if (!_this10._transports.some(function (tr) {
             return tr.connected;
           })) {
             // the bus got disconnected so all operation will
             // time out going further
-            _this9.emit(constants/* TIMEOUT_DISCONNECT */.Xxe);
+            _this10.emit(constants/* TIMEOUT_DISCONNECT */.Xxe);
 
             resolve(undefined);
           } else {
             // the command timed out
-            _this9.emit(constants/* TIMEOUT */.LXI);
+            _this10.emit(constants/* TIMEOUT */.LXI);
 
-            _this9.emit(constants/* ERROR */.pnR, "Timeout (" + timeout + "ms)");
+            _this10.emit(constants/* ERROR */.pnR, "Timeout (" + timeout + "ms)");
 
             resolve(undefined);
           }
@@ -74458,7 +74574,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
           resolve(v);
         } else {
           // we already gave up
-          _this9.emit(constants/* LATE */.h2Z);
+          _this10.emit(constants/* LATE */.h2Z);
         }
       }, function (e) {
         if (!done) {
@@ -74486,19 +74602,19 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       return !!this._safeBootInterval;
     },
     set: function set(enabled) {
-      var _this10 = this;
+      var _this11 = this;
 
       if (enabled && !this._safeBootInterval) {
-        this._safeBootInterval = setInterval(function () {
+        this._safeBootInterval = this.scheduler.setInterval(function () {
           // don't send message if any device is flashing
-          if (_this10._devices.some(function (d) {
+          if (_this11._devices.some(function (d) {
             return d.flashing;
           })) return;
-          (0,flashing/* sendStayInBootloaderCommand */.s_)(_this10);
+          (0,flashing/* sendStayInBootloaderCommand */.s_)(_this11);
         }, 50);
         this.emit(constants/* CHANGE */.Ver);
       } else if (!enabled && this._safeBootInterval) {
-        clearInterval(this._safeBootInterval);
+        this.scheduler.clearInterval(this._safeBootInterval);
         this._safeBootInterval = undefined;
         this.emit(constants/* CHANGE */.Ver);
       }
@@ -74550,7 +74666,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   }, {
     key: "timestamp",
     get: function get() {
-      return Date.now() - this._startTime;
+      return this.scheduler.timestamp;
     }
   }, {
     key: "minLoggerPriority",
@@ -74589,11 +74705,6 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
       return this._gcDevicesEnabled > 0;
     }
   }, {
-    key: "selfDeviceId",
-    get: function get() {
-      return this.options.deviceId;
-    }
-  }, {
     key: "selfDevice",
     get: function get() {
       return this.device(this.selfDeviceId);
@@ -74606,10 +74717,10 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     set: function set(value) {
       if (!!value !== this.backgroundRefreshRegisters) {
         if (!value) {
-          if (this._refreshRegistersInterval) clearInterval(this._refreshRegistersInterval);
+          if (this._refreshRegistersInterval) this.scheduler.clearInterval(this._refreshRegistersInterval);
           this._refreshRegistersInterval = undefined;
         } else {
-          this._refreshRegistersInterval = setInterval(this.handleRefreshRegisters.bind(this), constants/* REFRESH_REGISTER_POLL */.vnD);
+          this._refreshRegistersInterval = this.scheduler.setInterval(this.handleRefreshRegisters.bind(this), constants/* REFRESH_REGISTER_POLL */.vnD);
         }
       }
     }
@@ -75065,7 +75176,8 @@ var CMSISProto = /*#__PURE__*/function () {
     var _this = this;
 
     console.assert(!this._lastInterval);
-    var last = this.recvTo;
+    var last = this.recvTo; // do not use bus schedulere here
+
     this._lastInterval = setInterval(function () {
       if (!_this.io) _this.stopRecvToLoop();
 
@@ -77545,7 +77657,8 @@ var IFrameBridgeClient = /*#__PURE__*/function (_JDIFrameClient) {
 
     this.mount(this.bus.subscribe(constants/* DEVICE_ANNOUNCE */.Hob, function () {
       return _this2.emit(constants/* CHANGE */.Ver);
-    }));
+    })); // don't use bus.schedulere here
+
     var id = setInterval(this.handleResize, 1000);
     this.mount(function () {
       return clearInterval(id);
@@ -77874,7 +77987,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.89"};
+var package_namespaceObject = {"i8":"1.13.91"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
@@ -80208,7 +80321,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));
   },
   "component---src-pages-dashboard-tsx": function componentSrcPagesDashboardTsx() {
-    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(3689), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
+    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(5493), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
   },
   "component---src-pages-devices-tsx": function componentSrcPagesDevicesTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-devices-tsx */ 8524).then(__webpack_require__.bind(__webpack_require__, 17673));
@@ -80253,28 +80366,28 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-software-mdx */ 8307).then(__webpack_require__.bind(__webpack_require__, 46690));
   },
   "component---src-pages-tools-accelerometer-theremin-tsx": function componentSrcPagesToolsAccelerometerThereminTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-accelerometer-theremin-tsx */[__webpack_require__.e(3689), __webpack_require__.e(5023)]).then(__webpack_require__.bind(__webpack_require__, 67396));
+    return Promise.all(/* import() | component---src-pages-tools-accelerometer-theremin-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5023)]).then(__webpack_require__.bind(__webpack_require__, 67396));
   },
   "component---src-pages-tools-azure-device-twin-designer-tsx": function componentSrcPagesToolsAzureDeviceTwinDesignerTsx() {
     return Promise.all(/* import() | component---src-pages-tools-azure-device-twin-designer-tsx */[__webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(2460), __webpack_require__.e(3420)]).then(__webpack_require__.bind(__webpack_require__, 95522));
   },
   "component---src-pages-tools-collector-tsx": function componentSrcPagesToolsCollectorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(5018), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
+    return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(7684), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
   },
   "component---src-pages-tools-data-science-editor-tsx": function componentSrcPagesToolsDataScienceEditorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(5917), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 30321));
   },
   "component---src-pages-tools-device-registration-tsx": function componentSrcPagesToolsDeviceRegistrationTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(5018), __webpack_require__.e(7788), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));
+    return Promise.all(/* import() | component---src-pages-tools-device-registration-tsx */[__webpack_require__.e(7684), __webpack_require__.e(7788), __webpack_require__.e(9231)]).then(__webpack_require__.bind(__webpack_require__, 61725));
   },
   "component---src-pages-tools-edge-impulse-tsx": function componentSrcPagesToolsEdgeImpulseTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-edge-impulse-tsx */[__webpack_require__.e(5018), __webpack_require__.e(5637), __webpack_require__.e(3382)]).then(__webpack_require__.bind(__webpack_require__, 2649));
+    return Promise.all(/* import() | component---src-pages-tools-edge-impulse-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5637), __webpack_require__.e(3382)]).then(__webpack_require__.bind(__webpack_require__, 2649));
   },
   "component---src-pages-tools-flood-test-tsx": function componentSrcPagesToolsFloodTestTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-flood-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(5356)]).then(__webpack_require__.bind(__webpack_require__, 79410));
+    return Promise.all(/* import() | component---src-pages-tools-flood-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5356)]).then(__webpack_require__.bind(__webpack_require__, 79410));
   },
   "component---src-pages-tools-hid-events-tsx": function componentSrcPagesToolsHidEventsTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-hid-events-tsx */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(5018), __webpack_require__.e(5444)]).then(__webpack_require__.bind(__webpack_require__, 24180));
+    return Promise.all(/* import() | component---src-pages-tools-hid-events-tsx */[__webpack_require__.e(532), __webpack_require__.e(7919), __webpack_require__.e(7684), __webpack_require__.e(5444)]).then(__webpack_require__.bind(__webpack_require__, 24180));
   },
   "component---src-pages-tools-jupyterlab-mdx": function componentSrcPagesToolsJupyterlabMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-jupyterlab-mdx */ 6394).then(__webpack_require__.bind(__webpack_require__, 95844));
@@ -80283,16 +80396,16 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */ 6456).then(__webpack_require__.bind(__webpack_require__, 25900));
   },
   "component---src-pages-tools-makecode-sim-tsx": function componentSrcPagesToolsMakecodeSimTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(3689), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
+    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(5493), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
   },
   "component---src-pages-tools-mdx": function componentSrcPagesToolsMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));
   },
   "component---src-pages-tools-model-uploader-tsx": function componentSrcPagesToolsModelUploaderTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(5018), __webpack_require__.e(5637)]).then(__webpack_require__.bind(__webpack_require__, 46905));
+    return Promise.all(/* import() | component---src-pages-tools-model-uploader-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5637)]).then(__webpack_require__.bind(__webpack_require__, 46905));
   },
   "component---src-pages-tools-packet-inspector-tsx": function componentSrcPagesToolsPacketInspectorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(5018), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(7617), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));
+    return Promise.all(/* import() | component---src-pages-tools-packet-inspector-tsx */[__webpack_require__.e(7684), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(7617), __webpack_require__.e(2937)]).then(__webpack_require__.bind(__webpack_require__, 55662));
   },
   "component---src-pages-tools-peers-tsx": function componentSrcPagesToolsPeersTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-peers-tsx */ 6992).then(__webpack_require__.bind(__webpack_require__, 27238));
@@ -80310,19 +80423,19 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-release-assets-tsx */ 9225).then(__webpack_require__.bind(__webpack_require__, 71044));
   },
   "component---src-pages-tools-service-editor-tsx": function componentSrcPagesToolsServiceEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(5018), __webpack_require__.e(701), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
+    return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(7684), __webpack_require__.e(701), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
   },
   "component---src-pages-tools-service-test-editor-tsx": function componentSrcPagesToolsServiceTestEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(5018), __webpack_require__.e(701), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(7684), __webpack_require__.e(701), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
   },
   "component---src-pages-tools-service-test-tsx": function componentSrcPagesToolsServiceTestTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
   },
   "component---src-pages-tools-settings-tsx": function componentSrcPagesToolsSettingsTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-settings-tsx */[__webpack_require__.e(5018), __webpack_require__.e(5560)]).then(__webpack_require__.bind(__webpack_require__, 360));
+    return Promise.all(/* import() | component---src-pages-tools-settings-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5560)]).then(__webpack_require__.bind(__webpack_require__, 360));
   },
   "component---src-pages-tools-updater-tsx": function componentSrcPagesToolsUpdaterTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(5018), __webpack_require__.e(5224), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
+    return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5224), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 961));
@@ -80337,10 +80450,10 @@ exports.components = {
     return Promise.all(/* import() | component---src-templates-device-tsx */[__webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(7788), __webpack_require__.e(2460), __webpack_require__.e(5092), __webpack_require__.e(8323)]).then(__webpack_require__.bind(__webpack_require__, 10454));
   },
   "component---src-templates-service-playground-tsx": function componentSrcTemplatesServicePlaygroundTsx() {
-    return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(5018), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
+    return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(7684), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
   },
   "component---src-templates-service-test-tsx": function componentSrcTemplatesServiceTestTsx() {
-    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(5018), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
+    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
   },
   "component---src-templates-service-tsx": function componentSrcTemplatesServiceTsx() {
     return Promise.all(/* import() | component---src-templates-service-tsx */[__webpack_require__.e(9871), __webpack_require__.e(3133)]).then(__webpack_require__.bind(__webpack_require__, 59828));
