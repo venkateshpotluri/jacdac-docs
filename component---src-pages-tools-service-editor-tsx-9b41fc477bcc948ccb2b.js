@@ -1020,8 +1020,8 @@ var jdspec = __webpack_require__(13996);
 var spec = __webpack_require__(13173);
 // EXTERNAL MODULE: ./src/components/RandomGenerator.tsx
 var RandomGenerator = __webpack_require__(72833);
-// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
-var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/hooks/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(34093);
 // EXTERNAL MODULE: ./src/components/ui/HighlightTextField.tsx + 1 modules
 var HighlightTextField = __webpack_require__(33024);
 // EXTERNAL MODULE: ./src/components/ServiceSpecification.tsx + 1 modules

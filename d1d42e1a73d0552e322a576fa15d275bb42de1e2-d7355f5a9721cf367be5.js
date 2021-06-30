@@ -9203,8 +9203,8 @@ function useRoleManager() {
   }, [bus]);
   return roleManager;
 }
-// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
-var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/hooks/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(34093);
 // EXTERNAL MODULE: ./src/components/blockly/jsonvisitor.ts
 var jsonvisitor = __webpack_require__(32641);
 ;// CONCATENATED MODULE: ./src/components/blockly/blockwarning.ts

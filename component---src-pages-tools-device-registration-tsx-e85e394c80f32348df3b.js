@@ -477,8 +477,8 @@ var react = __webpack_require__(67294);
 var Link = __webpack_require__(94850);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
-var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/hooks/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(34093);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js

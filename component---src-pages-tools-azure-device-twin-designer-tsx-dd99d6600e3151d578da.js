@@ -218,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(1059);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81794);
-/* harmony import */ var _components_useLocalStorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(86581);
+/* harmony import */ var _components_hooks_useLocalStorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34093);
 /* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(94500);
 /* harmony import */ var _jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13173);
 /* harmony import */ var _components_AddServiceIconButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27498);
@@ -327,7 +327,7 @@ function validateTwinComponent(twin, component) {
 function AzureDeviceTwinDesigner() {
   var variant = "outlined";
 
-  var _useLocalStorage = (0,_components_useLocalStorage__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)("jacdac:digitaltwin;1", {
+  var _useLocalStorage = (0,_components_hooks_useLocalStorage__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)("jacdac:digitaltwin;1", {
     displayName: "mydesigner",
     components: []
   }),

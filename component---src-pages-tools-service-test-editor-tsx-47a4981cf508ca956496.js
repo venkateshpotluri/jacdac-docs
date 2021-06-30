@@ -2365,8 +2365,8 @@ function parseSpecificationTestMarkdownToJSON(filecontent, spec, filename) {
 }
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
-var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/hooks/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(34093);
 // EXTERNAL MODULE: ./src/components/ui/HighlightTextField.tsx + 1 modules
 var HighlightTextField = __webpack_require__(33024);
 // EXTERNAL MODULE: ./src/components/ServiceSpecificationSelect.tsx

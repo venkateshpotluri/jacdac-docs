@@ -62458,8 +62458,8 @@ var TraceView = /*#__PURE__*/function (_JDClient) {
 }(client/* JDClient */.z);
 
 
-// EXTERNAL MODULE: ./src/components/useLocalStorage.ts
-var useLocalStorage = __webpack_require__(86581);
+// EXTERNAL MODULE: ./src/components/hooks/useLocalStorage.ts
+var useLocalStorage = __webpack_require__(34093);
 ;// CONCATENATED MODULE: ./src/components/PacketsContext.tsx
 
 
@@ -67485,6 +67485,57 @@ function useInterval(enabled, handler, delay, deps) {
 
 /***/ }),
 
+/***/ 34093:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useLocalStorage; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+var PREFIX = "jacdac:";
+function useLocalStorage(key, initialValue) {
+  var pkey = PREFIX + key; // State to store our value
+  // Pass initial state function to useState so logic is only executed once
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
+    try {
+      // Get from local storage by key
+      var item = typeof window !== "undefined" && key && window.localStorage.getItem(pkey); // Parse stored json or if none return initialValue
+
+      // Parse stored json or if none return initialValue
+      return item && JSON.parse(item) || initialValue;
+    } catch (error) {
+      // If error also return initialValue
+      console.log(error);
+      return initialValue;
+    }
+  }),
+      storedValue = _useState[0],
+      setStoredValue = _useState[1]; // Return a wrapped version of useState's setter function that ...
+  // ... persists the new value to localStorage.
+
+
+  var setValue = function setValue(value) {
+    try {
+      // Allow value to be a function so we have same API as useState
+      var valueToStore = value; // Save state
+
+      setStoredValue(valueToStore); // Save to local storage
+
+      if (typeof window !== "undefined" && key) window.localStorage.setItem(pkey, JSON.stringify(valueToStore));
+    } catch (error) {
+      // A more advanced implementation would handle the error case
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+
+/***/ }),
+
 /***/ 20509:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -68650,7 +68701,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8c50ab06a99823a3008897ff5e3df3a268f9d81c";
+  var sha = "962242c3481db713434f6ed7ab08f60fcaa2e562";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -69575,7 +69626,7 @@ function LayoutWithContext(props) {
 /* harmony export */   "u": function() { return /* binding */ MakeCodeSnippetProvider; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _useLocalStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(86581);
+/* harmony import */ var _hooks_useLocalStorage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34093);
 
 
 var editors = {
@@ -69594,11 +69645,11 @@ var MakeCodeSnippetContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.
 MakeCodeSnippetContext.displayName = "MakeCode";
 /* harmony default export */ __webpack_exports__["Z"] = (MakeCodeSnippetContext);
 function MakeCodeSnippetProvider(props) {
-  var _useLocalStorage = (0,_useLocalStorage__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("mkcd:editor", "microbit"),
+  var _useLocalStorage = (0,_hooks_useLocalStorage__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("mkcd:editor", "microbit"),
       target = _useLocalStorage[0],
       setTarget = _useLocalStorage[1];
 
-  var _useLocalStorage2 = (0,_useLocalStorage__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("mdcd:editor", "blocks"),
+  var _useLocalStorage2 = (0,_hooks_useLocalStorage__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("mdcd:editor", "blocks"),
       editor = _useLocalStorage2[0],
       setEditor = _useLocalStorage2[1];
 
@@ -70427,57 +70478,6 @@ function useEffectAsync(effect, dependencies) {
       mounted = false;
     };
   }, dependencies);
-}
-
-/***/ }),
-
-/***/ 86581:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ useLocalStorage; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-
-var PREFIX = "jacdac:";
-function useLocalStorage(key, initialValue) {
-  var pkey = PREFIX + key; // State to store our value
-  // Pass initial state function to useState so logic is only executed once
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
-    try {
-      // Get from local storage by key
-      var item = typeof window !== "undefined" && key && window.localStorage.getItem(pkey); // Parse stored json or if none return initialValue
-
-      // Parse stored json or if none return initialValue
-      return item && JSON.parse(item) || initialValue;
-    } catch (error) {
-      // If error also return initialValue
-      console.log(error);
-      return initialValue;
-    }
-  }),
-      storedValue = _useState[0],
-      setStoredValue = _useState[1]; // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
-
-
-  var setValue = function setValue(value) {
-    try {
-      // Allow value to be a function so we have same API as useState
-      var valueToStore = value; // Save state
-
-      setStoredValue(valueToStore); // Save to local storage
-
-      if (typeof window !== "undefined" && key) window.localStorage.setItem(pkey, JSON.stringify(valueToStore));
-    } catch (error) {
-      // A more advanced implementation would handle the error case
-      console.log(error);
-    }
-  };
-
-  return [storedValue, setValue];
 }
 
 /***/ }),
