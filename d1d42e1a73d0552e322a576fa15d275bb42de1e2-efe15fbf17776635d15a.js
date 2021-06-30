@@ -14240,18 +14240,7 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
   ;
 
   function NoteField(options) {
-    var _this;
-
-    _this = _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
-
-    _this.events.on(_ReactField__WEBPACK_IMPORTED_MODULE_4__/* .UNMOUNT */ .lo, function () {
-      var _this$toneContext;
-
-      (_this$toneContext = _this.toneContext) === null || _this$toneContext === void 0 ? void 0 : _this$toneContext.close();
-      _this.toneContext = undefined;
-    });
-
-    return _this;
+    return _ReactField.call(this, options === null || options === void 0 ? void 0 : options.value, undefined, options) || this;
   }
 
   var _proto = NoteField.prototype;
@@ -14261,19 +14250,19 @@ var NoteField = /*#__PURE__*/function (_ReactField) {
   };
 
   _proto.renderField = function renderField() {
-    var _this2 = this;
+    var _this = this;
 
     var handlePlayTone = /*#__PURE__*/function () {
       var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(newFrequency) {
-        var _this2$toneContext;
+        var _this$toneContext;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this2.value = newFrequency;
-                if (!_this2.toneContext) _this2.toneContext = (0,_ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_2__/* .createToneContext */ .WW)();
-                (_this2$toneContext = _this2.toneContext) === null || _this2$toneContext === void 0 ? void 0 : _this2$toneContext.playTone(newFrequency, 400, 0.5);
+                _this.value = newFrequency;
+                if (!_this.toneContext) _this.toneContext = (0,_ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_2__/* .createToneContext */ .WW)();
+                (_this$toneContext = _this.toneContext) === null || _this$toneContext === void 0 ? void 0 : _this$toneContext.playTone(newFrequency, 400, 0.5);
 
               case 3:
               case "end":
@@ -14478,13 +14467,12 @@ function PointerBoundary(props) {
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z8": function() { return /* binding */ VALUE_CHANGE; },
-/* harmony export */   "lo": function() { return /* binding */ UNMOUNT; },
 /* harmony export */   "ZP": function() { return /* binding */ ReactField; },
 /* harmony export */   "_t": function() { return /* binding */ toShadowDefinition; }
 /* harmony export */ });
-/* unused harmony exports SOURCE_BLOCK_CHANGE, MOUNT */
-/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(53719);
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(85413);
+/* unused harmony exports SOURCE_BLOCK_CHANGE, MOUNT, UNMOUNT */
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(85413);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73935);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(74640);
@@ -14493,16 +14481,18 @@ function PointerBoundary(props) {
 /* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
 /* harmony import */ var _ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7796);
 /* harmony import */ var _ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(25853);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8266);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(8266);
 /* harmony import */ var _jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81794);
 /* harmony import */ var _ValueContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(86415);
 /* harmony import */ var _jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(45484);
 /* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(71815);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(89801);
+/* harmony import */ var _ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(94564);
 
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 
 
@@ -14522,7 +14512,7 @@ var MOUNT = "mount";
 var UNMOUNT = "unmount";
 
 var ReactField = /*#__PURE__*/function (_Blockly$Field) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(ReactField, _Blockly$Field);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z)(ReactField, _Blockly$Field);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ReactField(value, validator, options, size) {
@@ -14661,14 +14651,14 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
       field: this
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
       fixedDarkMode: "dark"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ValueContext__WEBPACK_IMPORTED_MODULE_8__/* .ValueProvider */ .Lt, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_12__/* .WebAudioProvider */ .IH, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ValueContext__WEBPACK_IMPORTED_MODULE_8__/* .ValueProvider */ .Lt, {
       value: this.value,
       onValueChange: onValueChange
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, {
       m: 0.5,
       borderRadius: "0.25rem",
       bgcolor: "background.paper"
-    }, this.renderField())))))));
+    }, this.renderField()))))))));
   };
 
   _proto.renderField = function renderField() {
@@ -14681,7 +14671,7 @@ var ReactField = /*#__PURE__*/function (_Blockly$Field) {
     _Blockly$Field.prototype.dispose.call(this);
   };
 
-  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(ReactField, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z)(ReactField, [{
     key: "defaultValue",
     get: function get() {
       return {};
@@ -14733,11 +14723,11 @@ function toShadowDefinition(fieldType) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": function() { return /* binding */ ReactInlineField; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(85413);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73935);
 /* harmony import */ var _ReactField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(77576);
-/* harmony import */ var _widgets_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(41173);
+/* harmony import */ var _widgets_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(41173);
 /* harmony import */ var _ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7796);
 /* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(19640);
 /* harmony import */ var _jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(727);
@@ -14745,6 +14735,8 @@ function toShadowDefinition(fieldType) {
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(74640);
 /* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _WorkspaceContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(89801);
+/* harmony import */ var _ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(94564);
+
 
 
 
@@ -14758,7 +14750,7 @@ function toShadowDefinition(fieldType) {
 
 
 var ReactInlineField = /*#__PURE__*/function (_ReactField) {
-  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(ReactInlineField, _ReactField);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(ReactInlineField, _ReactField);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function ReactInlineField(options) {
@@ -14783,7 +14775,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
     var _this$size_ = this.size_,
         width = _this$size_.width,
         height = _this$size_.height;
-    var fo = (0,_widgets_svg__WEBPACK_IMPORTED_MODULE_10__/* .child */ .iU)(this.fieldGroup_, "foreignObject", {
+    var fo = (0,_widgets_svg__WEBPACK_IMPORTED_MODULE_11__/* .child */ .iU)(this.fieldGroup_, "foreignObject", {
       x: 0,
       y: 0,
       width: width,
@@ -14841,7 +14833,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
       field: this
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_DarkModeProvider__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
       fixedDarkMode: "dark"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, this.renderInlineField())))));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_use_id_hook__WEBPACK_IMPORTED_MODULE_4__/* .IdProvider */ .vc, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_WebAudioContext__WEBPACK_IMPORTED_MODULE_9__/* .WebAudioProvider */ .IH, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_jacdac_Provider__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_AppTheme__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null, this.renderInlineField()))))));
   };
 
   _proto.getText_ = function getText_() {

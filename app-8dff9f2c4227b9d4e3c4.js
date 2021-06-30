@@ -68650,7 +68650,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "37b539f1497bfccd791752d688a78e6efd834a82";
+  var sha = "fcdfd30a33be0b21941933eff813bc670c03d66b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -70283,7 +70283,12 @@ var WebAudioContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createC
 });
 WebAudioContext.displayName = "WebAudio";
 /* harmony default export */ __webpack_exports__["ZP"] = (WebAudioContext);
+
+var _globalCtx;
+
 function createToneContext() {
+  if (_globalCtx) return _globalCtx;
+
   try {
     console.log("create tone context");
     var ctx = new (window.AudioContext || // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70332,19 +70337,10 @@ function createToneContext() {
       }
     };
 
-    var close = function close() {
-      try {
-        if (ctx.state === "running") ctx.close();
-      } catch (e) {
-        console.warn(e);
-      }
-    };
-
     console.log("tone context created");
-    return {
+    return _globalCtx = {
       setVolume: setVolume,
-      playTone: playTone,
-      close: close
+      playTone: playTone
     };
   } catch (e) {
     return undefined;
@@ -70352,42 +70348,29 @@ function createToneContext() {
 }
 function WebAudioProvider(props) {
   var children = props.children;
-  var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(createToneContext());
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!!context.current),
       activated = _useState[0],
-      setActivated = _useState[1]; // final cleanup
+      setActivated = _useState[1]; // needs to be initiated in onClick on safari mobile
 
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return function () {
-      var _context$current;
-
-      (_context$current = context.current) === null || _context$current === void 0 ? void 0 : _context$current.close();
-    };
-  }, []); // needs to be initiated in onClick on safari mobile
 
   var onClickActivateAudioContext = function onClickActivateAudioContext() {
     if (context.current) return;
-
-    try {
-      context.current = createToneContext();
-      setActivated(true);
-    } catch (e) {
-      console.warn(e);
-    }
+    context.current = createToneContext();
+    if (context.current) setActivated(true);
   };
 
   var setVolume = function setVolume(volume) {
-    var _context$current2;
+    var _context$current;
 
-    return (_context$current2 = context.current) === null || _context$current2 === void 0 ? void 0 : _context$current2.setVolume(volume);
+    return (_context$current = context.current) === null || _context$current === void 0 ? void 0 : _context$current.setVolume(volume);
   };
 
   var playTone = function playTone(frequency, duration, volume) {
-    var _context$current3;
+    var _context$current2;
 
-    return (_context$current3 = context.current) === null || _context$current3 === void 0 ? void 0 : _context$current3.playTone(frequency, duration, volume);
+    return (_context$current2 = context.current) === null || _context$current2 === void 0 ? void 0 : _context$current2.playTone(frequency, duration, volume);
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(WebAudioContext.Provider, {
