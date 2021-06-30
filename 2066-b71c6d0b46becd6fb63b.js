@@ -2009,26 +2009,26 @@ var handlers = {
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groupBy(by, [// eslint-disable-next-line @typescript-eslint/no-explicit-any
         summarize({
-          Mean: mean(column)
+          mean: mean(column)
         })]));
 
       case "med":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groupBy(by, [// eslint-disable-next-line @typescript-eslint/no-explicit-any
         summarize({
-          Median: median(column)
+          median: median(column)
         })]));
 
       case "min":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groupBy(by, [summarize({
-          Min: min(column)
+          min: min(column)
         })]));
 
       case "max":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groupBy(by, [summarize({
-          Max: max(column)
+          max: max(column)
         })]));
 
       default:
@@ -2065,7 +2065,7 @@ var handlers = {
 
     return binned.map(function (b) {
       return {
-        length: b.length,
+        count: b.length,
         x0: b.x0,
         x1: b.x1
       };
