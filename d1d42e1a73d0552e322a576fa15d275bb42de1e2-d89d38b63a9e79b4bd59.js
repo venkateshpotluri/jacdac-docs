@@ -11711,6 +11711,10 @@ var BlockServices = /*#__PURE__*/function (_JDEventSource2) {
 
   var _proto = BlockServices.prototype;
 
+  _proto.setDataNoEvent = function setDataNoEvent(value) {
+    this._data = value;
+  };
+
   _proto.clearData = function clearData() {
     this.data = undefined;
   };
@@ -11894,8 +11898,8 @@ var regenerator = __webpack_require__(42656);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
-// EXTERNAL MODULE: ./src/components/blockly/fields/BuiltinDataSetField.tsx + 1 modules
-var BuiltinDataSetField = __webpack_require__(90319);
+// EXTERNAL MODULE: ./src/components/blockly/fields/BuiltinDataSetField.tsx
+var BuiltinDataSetField = __webpack_require__(69223);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataColumnChooserField.ts
 var DataColumnChooserField = __webpack_require__(44393);
 // EXTERNAL MODULE: ./src/components/blockly/fields/DataTableField.tsx
@@ -11944,11 +11948,20 @@ function _postTransformData() {
   }));
   return _postTransformData.apply(this, arguments);
 }
+// EXTERNAL MODULE: ./src/components/blockly/fields/FileSaveField.ts
+var FileSaveField = __webpack_require__(4383);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/csv.proxy.ts
+var csv_proxy = __webpack_require__(53480);
+// EXTERNAL MODULE: ./src/components/blockly/fields/FileOpenField.ts
+var FileOpenField = __webpack_require__(39311);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datadsl.ts
 
 
 
 /* eslint-disable @typescript-eslint/ban-types */
+
+
+
 
 
 
@@ -11969,8 +11982,10 @@ var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
 var DATA_DATASET_BUILTIN_BLOCK = "data_dataset_builtin";
 var DATA_TABLE_TYPE = "DataTable";
 var DATA_SHOW_TABLE_BLOCK = "data_show_table";
-var DATA_RECORD_WINDOW_BLOCK = "data_record_window_block";
-var DATA_BIN_BLOCK = "data_bin_block";
+var DATA_RECORD_WINDOW_BLOCK = "data_record_window";
+var DATA_BIN_BLOCK = "data_bin";
+var DATA_LOAD_FILE_BLOCK = "data_load_file";
+var DATA_SAVE_FILE_BLOCK = "data_save_file";
 var colour = "#777";
 var dataDsl = {
   id: "dataScience",
@@ -12400,6 +12415,67 @@ var dataDsl = {
 
         return transformData;
       }()
+    }, {
+      kind: "block",
+      type: DATA_LOAD_FILE_BLOCK,
+      message0: "dataset from file %1",
+      args0: [{
+        type: FileOpenField/* default.KEY */.Z.KEY,
+        name: "file"
+      }],
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: colour,
+      template: "meta",
+      inputsInline: false,
+      transformData: toolbox/* identityTransformData */.FW
+    }, {
+      kind: "block",
+      type: DATA_SAVE_FILE_BLOCK,
+      message0: "save dataset to file %1",
+      args0: [{
+        type: FileSaveField/* default.KEY */.Z.KEY,
+        name: "file"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: colour,
+      template: "meta",
+      inputsInline: false,
+      alwaysTransformData: true,
+      transformData: function () {
+        var _transformData3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(block, data) {
+          var file;
+          return regenerator_default().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  file = block.getField("file");
+
+                  if (!(file !== null && file !== void 0 && file.fileHandle && data)) {
+                    _context3.next = 4;
+                    break;
+                  }
+
+                  _context3.next = 4;
+                  return (0,csv_proxy/* saveCSV */.Eg)(file.fileHandle, data);
+
+                case 4:
+                  return _context3.abrupt("return", data);
+
+                case 5:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        function transformData(_x6, _x7) {
+          return _transformData3.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
     }];
   },
   createCategory: function createCategory() {
@@ -12413,6 +12489,12 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_DATASET_BUILTIN_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_LOAD_FILE_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_SAVE_FILE_BLOCK
       }, {
         kind: "label",
         text: "Operators"
@@ -12797,6 +12879,122 @@ var variablesDsl = {
 
 /***/ }),
 
+/***/ 53480:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EZ": function() { return /* binding */ downloadCSV; },
+/* harmony export */   "Eg": function() { return /* binding */ saveCSV; },
+/* harmony export */   "bW": function() { return /* binding */ parseCSV; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _proxy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51805);
+
+
+
+/* eslint-disable @typescript-eslint/ban-types */
+
+function downloadCSV(_x) {
+  return _downloadCSV.apply(this, arguments);
+}
+
+function _downloadCSV() {
+  _downloadCSV = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(url) {
+    var worker, res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            worker = (0,_proxy__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("csv");
+            _context.next = 3;
+            return worker.postMessage({
+              worker: "csv",
+              type: "download",
+              url: url
+            });
+
+          case 3:
+            res = _context.sent;
+            return _context.abrupt("return", res === null || res === void 0 ? void 0 : res.file);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _downloadCSV.apply(this, arguments);
+}
+
+function saveCSV(_x2, _x3) {
+  return _saveCSV.apply(this, arguments);
+}
+
+function _saveCSV() {
+  _saveCSV = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(fileHandle, data) {
+    var worker;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            worker = (0,_proxy__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("csv");
+            _context2.next = 3;
+            return worker.postMessage({
+              worker: "csv",
+              type: "save",
+              fileHandle: fileHandle,
+              data: data
+            });
+
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _saveCSV.apply(this, arguments);
+}
+
+function parseCSV(_x4) {
+  return _parseCSV.apply(this, arguments);
+}
+
+function _parseCSV() {
+  _parseCSV = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(source) {
+    var worker, resp;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            worker = (0,_proxy__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)("csv");
+            _context3.next = 3;
+            return worker.postMessage({
+              worker: "csv",
+              type: "parse",
+              source: source
+            });
+
+          case 3:
+            resp = _context3.sent;
+            return _context3.abrupt("return", resp === null || resp === void 0 ? void 0 : resp.file);
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _parseCSV.apply(this, arguments);
+}
+
+/***/ }),
+
 /***/ 51805:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -13014,77 +13212,35 @@ BarChartField.EDITABLE = false;
 
 /***/ }),
 
-/***/ 90319:
+/***/ 69223:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ BuiltinDataSetField; }
-});
-
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(85413);
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-// EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(35313);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(73108);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(42656);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./src/components/blockly/dsl/workers/proxy.ts + 3 modules
-var proxy = __webpack_require__(51805);
-;// CONCATENATED MODULE: ./src/components/blockly/dsl/workers/csv.proxy.ts
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ BuiltinDataSetField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(35313);
+/* harmony import */ var _dsl_workers_csv_proxy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53480);
 
 
-
-function downloadCSV(_x) {
-  return _downloadCSV.apply(this, arguments);
-}
-
-function _downloadCSV() {
-  _downloadCSV = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(url) {
-    var worker, res;
-    return regenerator_default().wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            worker = (0,proxy/* default */.Z)("csv");
-            _context.next = 3;
-            return worker.postMessage({
-              worker: "csv",
-              url: url
-            });
-
-          case 3:
-            res = _context.sent;
-            return _context.abrupt("return", res === null || res === void 0 ? void 0 : res.file);
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-  return _downloadCSV.apply(this, arguments);
-}
-;// CONCATENATED MODULE: ./src/components/blockly/fields/BuiltinDataSetField.tsx
 
 
 
 
 var builtins = {
-  cereal: (0,gatsby_browser_entry.withPrefix)("/datasets/cereal.csv"),
-  penguins: (0,gatsby_browser_entry.withPrefix)("/datasets/penguins.csv"),
-  mt: (0,gatsby_browser_entry.withPrefix)("/datasets/mt.csv")
+  cereal: (0,gatsby__WEBPACK_IMPORTED_MODULE_2__.withPrefix)("/datasets/cereal.csv"),
+  penguins: (0,gatsby__WEBPACK_IMPORTED_MODULE_2__.withPrefix)("/datasets/penguins.csv"),
+  mt: (0,gatsby__WEBPACK_IMPORTED_MODULE_2__.withPrefix)("/datasets/mt.csv")
 };
 
 var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
-  (0,inheritsLoose/* default */.Z)(BuiltinDataSetField, _FieldDropdown);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(BuiltinDataSetField, _FieldDropdown);
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   BuiltinDataSetField.fromJson = function fromJson(options) {
@@ -13102,26 +13258,64 @@ var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
 
   var _proto = BuiltinDataSetField.prototype;
 
-  _proto.updateData = function updateData() {
-    var url = builtins[this.getValue()];
-    if (!url) return; // load dataset as needed
+  _proto.updateData = /*#__PURE__*/function () {
+    var _updateData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var url, sourceBlock, services, _yield$downloadCSV, data, errors;
 
-    var sourceBlock = this.getSourceBlock();
-    var services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
-    if (!services) return;
-    if (services.cache[BuiltinDataSetField.KEY] === url) return; // already downloaded
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              url = builtins[this.getValue()];
 
-    downloadCSV(url).then(function (_ref) {
-      var data = _ref.data,
-          errors = _ref.errors;
-      console.debug("csv parse", {
-        data: data,
-        errors: errors
-      });
-      services.data = data;
-      services.cache[BuiltinDataSetField.KEY] = url;
-    });
-  };
+              if (url) {
+                _context.next = 3;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 3:
+              // load dataset as needed
+              sourceBlock = this.getSourceBlock();
+              services = sourceBlock === null || sourceBlock === void 0 ? void 0 : sourceBlock.jacdacServices;
+
+              if (!(!services || services.cache[BuiltinDataSetField.KEY] === url)) {
+                _context.next = 7;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 7:
+              _context.next = 9;
+              return (0,_dsl_workers_csv_proxy__WEBPACK_IMPORTED_MODULE_3__/* .downloadCSV */ .EZ)(url);
+
+            case 9:
+              _yield$downloadCSV = _context.sent;
+              data = _yield$downloadCSV.data;
+              errors = _yield$downloadCSV.errors;
+              console.debug("csv parse", {
+                data: data,
+                errors: errors
+              });
+              services.cache[BuiltinDataSetField.KEY] = url;
+              services.data = data;
+
+            case 15:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function updateData() {
+      return _updateData.apply(this, arguments);
+    }
+
+    return updateData;
+  }();
 
   _proto.setSourceBlock = function setSourceBlock(block) {
     _FieldDropdown.prototype.setSourceBlock.call(this, block);
@@ -13140,7 +13334,7 @@ var BuiltinDataSetField = /*#__PURE__*/function (_FieldDropdown) {
   };
 
   return BuiltinDataSetField;
-}(blockly.FieldDropdown);
+}(blockly__WEBPACK_IMPORTED_MODULE_1__.FieldDropdown);
 
 BuiltinDataSetField.KEY = "jacdac_field_data_builtin_dataset";
 
@@ -13343,6 +13537,421 @@ var DataTableField = /*#__PURE__*/function (_ReactInlineField) {
 
 DataTableField.KEY = "jacdac_field_data_table";
 DataTableField.EDITABLE = false;
+
+
+/***/ }),
+
+/***/ 39311:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ FileOpenField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _dsl_workers_csv_proxy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53480);
+
+
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
+
+// inline browser-fs-access until issue of ssr is fixed
+var getFileWithHandle = /*#__PURE__*/function () {
+  var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(handle) {
+    var file;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return handle.getFile();
+
+          case 2:
+            file = _context.sent;
+            file.handle = handle;
+            return _context.abrupt("return", file);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function getFileWithHandle(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var fileOpen = /*#__PURE__*/function () {
+  var _ref2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(options) {
+    var accept, handleOrHandles, files;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            if (options === void 0) {
+              options = {};
+            }
+
+            accept = {};
+
+            if (options.mimeTypes) {
+              options.mimeTypes.map(function (mimeType) {
+                accept[mimeType] = options.extensions || [];
+              });
+            } else {
+              accept["*/*"] = options.extensions || [];
+            }
+
+            _context2.next = 5;
+            return window.showOpenFilePicker({
+              types: [{
+                description: options.description || "",
+                accept: accept
+              }],
+              multiple: options.multiple || false
+            });
+
+          case 5:
+            handleOrHandles = _context2.sent;
+            _context2.next = 8;
+            return Promise.all(handleOrHandles.map(getFileWithHandle));
+
+          case 8:
+            files = _context2.sent;
+
+            if (!options.multiple) {
+              _context2.next = 11;
+              break;
+            }
+
+            return _context2.abrupt("return", files);
+
+          case 11:
+            return _context2.abrupt("return", files[0]);
+
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function fileOpen(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var FileOpenField = /*#__PURE__*/function (_Field) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(FileOpenField, _Field);
+
+  function FileOpenField(options) {
+    var _this;
+
+    _this = _Field.call(this, "...", null, options) || this;
+    _this.SERIALIZABLE = true;
+    return _this;
+  }
+
+  FileOpenField.fromJson = function fromJson(options) {
+    return new FileOpenField(options);
+  };
+
+  var _proto = FileOpenField.prototype;
+
+  _proto.toXml = function toXml(fieldElement) {
+    fieldElement.textContent = JSON.stringify(this.value_);
+    return fieldElement;
+  };
+
+  _proto.fromXml = function fromXml(fieldElement) {
+    try {
+      var v = JSON.parse(fieldElement.textContent);
+      this.value_ = v;
+      this.parseSource();
+    } catch (e) {
+      console.log(e, {
+        text: fieldElement.textContent
+      });
+      this.value_ = undefined;
+    }
+  };
+
+  _proto.getText_ = function getText_() {
+    var _this$value_;
+
+    return ((_this$value_ = this.value_) === null || _this$value_ === void 0 ? void 0 : _this$value_.name) || "...";
+  };
+
+  _proto.setSourceBlock = function setSourceBlock(block) {
+    _Field.prototype.setSourceBlock.call(this, block);
+
+    this.updateData();
+  };
+
+  _proto.doValueUpdate_ = function doValueUpdate_(newValue) {
+    _Field.prototype.doValueUpdate_.call(this, newValue);
+
+    this.parseSource();
+  };
+
+  _proto.parseSource = /*#__PURE__*/function () {
+    var _parseSource = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var _this$value_2;
+
+      var source, csv;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              source = (_this$value_2 = this.value_) === null || _this$value_2 === void 0 ? void 0 : _this$value_2.source;
+
+              if (!source) {
+                _context3.next = 7;
+                break;
+              }
+
+              _context3.next = 4;
+              return (0,_dsl_workers_csv_proxy__WEBPACK_IMPORTED_MODULE_2__/* .parseCSV */ .bW)(source);
+
+            case 4:
+              csv = _context3.sent;
+              this._data = csv === null || csv === void 0 ? void 0 : csv.data;
+              this.updateData();
+
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function parseSource() {
+      return _parseSource.apply(this, arguments);
+    }
+
+    return parseSource;
+  }();
+
+  _proto.notifyServicesChanged = function notifyServicesChanged() {
+    this.updateData();
+  };
+
+  _proto.updateData = /*#__PURE__*/function () {
+    var _updateData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var block, services;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              block = this.getSourceBlock();
+              services = block === null || block === void 0 ? void 0 : block.jacdacServices;
+
+              if (services) {
+                _context4.next = 4;
+                break;
+              }
+
+              return _context4.abrupt("return");
+
+            case 4:
+              services.data = this._data;
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function updateData() {
+      return _updateData.apply(this, arguments);
+    }
+
+    return updateData;
+  }();
+
+  _proto.showEditor_ = function showEditor_() {
+    this.openFileHandle();
+  };
+
+  _proto.openFileHandle = /*#__PURE__*/function () {
+    var _openFileHandle = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var file, source;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return fileOpen({
+                mimeTypes: ["text/csv"],
+                extensions: [".csv"],
+                description: "CSV data sets",
+                multiple: false
+              });
+
+            case 2:
+              file = _context5.sent;
+
+              if (file) {
+                _context5.next = 5;
+                break;
+              }
+
+              return _context5.abrupt("return");
+
+            case 5:
+              _context5.next = 7;
+              return file.text();
+
+            case 7:
+              source = _context5.sent;
+              this.setValue({
+                name: file.name,
+                source: source
+              });
+
+            case 9:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function openFileHandle() {
+      return _openFileHandle.apply(this, arguments);
+    }
+
+    return openFileHandle;
+  }();
+
+  return FileOpenField;
+}(blockly__WEBPACK_IMPORTED_MODULE_1__.Field);
+
+FileOpenField.KEY = "jacdac_field_file_open";
+
+
+/***/ }),
+
+/***/ 4383:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ FileSaveField; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74640);
+/* harmony import */ var blockly__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(blockly__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+
+var FileSaveField = /*#__PURE__*/function (_Field) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(FileSaveField, _Field);
+
+  function FileSaveField(options) {
+    var _this;
+
+    _this = _Field.call(this, "...", null, options) || this;
+    _this.SERIALIZABLE = true;
+    _this.fileType = (options === null || options === void 0 ? void 0 : options.fileType) || "csv";
+    return _this;
+  }
+
+  FileSaveField.fromJson = function fromJson(options) {
+    return new FileSaveField(options);
+  };
+
+  var _proto = FileSaveField.prototype;
+
+  _proto.showEditor_ = function showEditor_() {
+    this.openFileHandle();
+  };
+
+  _proto.openFileHandle = /*#__PURE__*/function () {
+    var _openFileHandle = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _this2 = this,
+          _window$showSaveFileP,
+          _window,
+          _this$fileHandle;
+
+      var options;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              options = {
+                types: [{
+                  id: "text",
+                  description: "Text Files",
+                  accept: {
+                    "text/plain": [".txt"]
+                  }
+                }, {
+                  id: "csv",
+                  description: "CSV Files",
+                  accept: {
+                    "text/csv": [".csv"]
+                  }
+                }, {
+                  id: "json",
+                  description: "JSON Files",
+                  accept: {
+                    "application/json": [".json"]
+                  }
+                }].filter(function (_ref) {
+                  var id = _ref.id;
+                  return _this2.fileType === id;
+                }),
+                excludeAcceptAllOption: true
+              };
+              _context.next = 3;
+              return (_window$showSaveFileP = (_window = window).showSaveFilePicker) === null || _window$showSaveFileP === void 0 ? void 0 : _window$showSaveFileP.call(_window, options);
+
+            case 3:
+              this.fileHandle = _context.sent;
+              this.setValue(((_this$fileHandle = this.fileHandle) === null || _this$fileHandle === void 0 ? void 0 : _this$fileHandle.name) || "");
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function openFileHandle() {
+      return _openFileHandle.apply(this, arguments);
+    }
+
+    return openFileHandle;
+  }();
+
+  return FileSaveField;
+}(blockly__WEBPACK_IMPORTED_MODULE_1__.Field);
+
+FileSaveField.KEY = "jacdac_field_file_save";
 
 
 /***/ }),
@@ -15642,9 +16251,13 @@ WatchValueField.EDITABLE = false;
 /* harmony import */ var _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(44393);
 /* harmony import */ var _LinePlotField__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(70659);
 /* harmony import */ var _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(61162);
-/* harmony import */ var _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(90319);
+/* harmony import */ var _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(69223);
 /* harmony import */ var _BarField__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(9950);
 /* harmony import */ var _PieField__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(37505);
+/* harmony import */ var _FileSaveField__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(4383);
+/* harmony import */ var _FileOpenField__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(39311);
+
+
 
 
 
@@ -15683,7 +16296,7 @@ function registerFields() {
     if (fieldType.SHADOW) reactFieldShadows.push(fieldType.SHADOW);
   };
 
-  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, _BarField__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, _PieField__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z];
+  var fieldTypes = [_KeyboardKeyField__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, _NoteField__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, _LEDMatrixField__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, _ServoAngleField__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, _LEDColorField__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, _TwinField__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, _JDomTreeField__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, _GaugeWidgetField__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, _WatchValueField__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, _LogViewField__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z, _VariablesFields__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, _DataTableField__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, _DataColumnChooserField__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, _BuiltinDataSetField__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, _ScatterPlotField__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, _LinePlotField__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, _BarField__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, _PieField__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z, _FileSaveField__WEBPACK_IMPORTED_MODULE_20__/* .default */ .Z, _FileOpenField__WEBPACK_IMPORTED_MODULE_21__/* .default */ .Z];
   fieldTypes.forEach(registerType);
 }
 function fieldShadows() {

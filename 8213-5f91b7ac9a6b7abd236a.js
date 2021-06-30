@@ -8,6 +8,24 @@ var _regeneratorRuntime = __webpack_require__(22917);
 
 var _asyncToGenerator = __webpack_require__(50358);
 
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : typeof self !== 'undefined' ? self : {};
 
 function createCommonjsModule(fn) {
@@ -776,8 +794,6 @@ var papaparse_min = createCommonjsModule(function (module, exports) {
     }), (l.prototype = Object.create(u.prototype)).constructor = l, (c.prototype = Object.create(u.prototype)).constructor = c, (p.prototype = Object.create(p.prototype)).constructor = p, (g.prototype = Object.create(u.prototype)).constructor = g, b;
   });
 });
-/* eslint-disable @typescript-eslint/ban-types */
-
 var cachedCSVs = {};
 
 function downloadCSV(url) {
@@ -788,6 +804,8 @@ function downloadCSV(url) {
       download: true,
       header: true,
       dynamicTyping: true,
+      skipEmptyLines: true,
+      comments: "#",
       transformHeader: function transformHeader(h) {
         return h.trim().toLocaleLowerCase();
       },
@@ -801,45 +819,158 @@ function downloadCSV(url) {
   });
 }
 
-function handleMessage(_x) {
+var handlers = {
+  download: function () {
+    var _download = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(msg) {
+      var url, file;
+      return _regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              url = msg.url;
+              _context.next = 3;
+              return downloadCSV(url);
+
+            case 3:
+              file = _context.sent;
+              return _context.abrupt("return", {
+                file: file
+              });
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function download(_x) {
+      return _download.apply(this, arguments);
+    }
+
+    return download;
+  }(),
+  save: function () {
+    var _save = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee2(msg) {
+      var fileHandle, data, contents, writable;
+      return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              fileHandle = msg.fileHandle, data = msg.data; // convert to CSV
+
+              contents = papaparse_min.unparse(data); // Create a FileSystemWritableFileStream to write to.
+
+              _context2.next = 4;
+              return fileHandle.createWritable();
+
+            case 4:
+              writable = _context2.sent;
+              _context2.next = 7;
+              return writable.write(contents);
+
+            case 7:
+              _context2.next = 9;
+              return writable.close();
+
+            case 9:
+              return _context2.abrupt("return", {});
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function save(_x2) {
+      return _save.apply(this, arguments);
+    }
+
+    return save;
+  }(),
+  parse: function () {
+    var _parse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee3(msg) {
+      var source;
+      return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              source = msg.source;
+              return _context3.abrupt("return", new Promise(function (resolve) {
+                papaparse_min.parse(source, {
+                  header: true,
+                  dynamicTyping: true,
+                  skipEmptyLines: true,
+                  comments: "#",
+                  transformHeader: function transformHeader(h) {
+                    return h.trim().toLocaleLowerCase();
+                  },
+                  complete: function complete(r) {
+                    return resolve({
+                      file: r
+                    });
+                  }
+                });
+              }));
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    function parse(_x3) {
+      return _parse.apply(this, arguments);
+    }
+
+    return parse;
+  }()
+};
+
+function handleMessage(_x4) {
   return _handleMessage.apply(this, arguments);
 }
 
 function _handleMessage() {
-  _handleMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(event) {
-    var message, worker, url, file;
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
+  _handleMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee4(event) {
+    var message, worker, type, handler, resp;
+    return _regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             message = event.data;
-            worker = message.worker, url = message.url;
+            worker = message.worker, type = message.type;
 
             if (!(worker !== "csv")) {
-              _context.next = 4;
+              _context4.next = 4;
               break;
             }
 
-            return _context.abrupt("return");
+            return _context4.abrupt("return");
 
           case 4:
-            _context.next = 6;
-            return downloadCSV(url);
+            handler = handlers[type];
+            _context4.next = 7;
+            return handler(message);
 
-          case 6:
-            file = _context.sent;
-            self.postMessage({
+          case 7:
+            resp = _context4.sent;
+            self.postMessage(_extends({
               id: message.id,
-              worker: "csv",
-              file: file
-            });
+              worker: "csv"
+            }, resp));
 
-          case 8:
+          case 9:
           case "end":
-            return _context.stop();
+            return _context4.stop();
         }
       }
-    }, _callee);
+    }, _callee4);
   }));
   return _handleMessage.apply(this, arguments);
 }
