@@ -13115,7 +13115,7 @@ function workerProxy(workerid) {
 
 
 var Bar = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8029)]).then(__webpack_require__.bind(__webpack_require__, 78029));
+  return Promise.all(/* import() */[__webpack_require__.e(9774), __webpack_require__.e(317), __webpack_require__.e(8029)]).then(__webpack_require__.bind(__webpack_require__, 78029));
 });
 
 function BarChartWidget() {
@@ -14572,7 +14572,7 @@ LEDMatrixField.KEY = "jacdac_field_led_matrix";
 
 
 var Line = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(4973)]).then(__webpack_require__.bind(__webpack_require__, 64973));
+  return Promise.all(/* import() */[__webpack_require__.e(9774), __webpack_require__.e(317), __webpack_require__.e(4973)]).then(__webpack_require__.bind(__webpack_require__, 64973));
 });
 
 function LineChartWidget() {
@@ -14938,7 +14938,7 @@ NoteField.SHADOW = (0,_ReactField__WEBPACK_IMPORTED_MODULE_4__/* .toShadowDefini
 
 
 var Pie = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8423)]).then(__webpack_require__.bind(__webpack_require__, 28423));
+  return Promise.all(/* import() */[__webpack_require__.e(9774), __webpack_require__.e(317), __webpack_require__.e(8423)]).then(__webpack_require__.bind(__webpack_require__, 28423));
 });
 
 function PieChartWidget() {
@@ -15494,7 +15494,7 @@ var ReactInlineField = /*#__PURE__*/function (_ReactField) {
 
 
 var ScatterPlot = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(6471)]).then(__webpack_require__.bind(__webpack_require__, 66471));
+  return Promise.all(/* import() */[__webpack_require__.e(9774), __webpack_require__.e(317), __webpack_require__.e(6471)]).then(__webpack_require__.bind(__webpack_require__, 66471));
 });
 
 function ScatterChartWidget() {

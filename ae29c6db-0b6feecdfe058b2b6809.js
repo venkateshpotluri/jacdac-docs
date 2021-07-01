@@ -5,7 +5,7 @@
 
 /*!
  * 
- *   react-simple-keyboard v3.1.66
+ *   react-simple-keyboard v3.2.6
  *   https://github.com/hodgef/react-simple-keyboard
  *
  *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -155,7 +155,7 @@
       86: function _(t) {
         /*!
          * 
-         *   simple-keyboard v3.1.53
+         *   simple-keyboard v3.2.4
          *   https://github.com/hodgef/simple-keyboard
          *
          *   Copyright (c) Francisco Hodge (https://github.com/hodgef) and project contributors.
@@ -636,7 +636,7 @@
                     k,
                     I = function I(t) {
                   if (t === d && T) return T;
-                  if (!v && t in C) return C[t];
+                  if (!v && t in A) return A[t];
 
                   switch (t) {
                     case y:
@@ -652,24 +652,24 @@
                   };
                 },
                     P = e + " Iterator",
-                    A = !1,
-                    C = t.prototype,
-                    M = C[g] || C["@@iterator"] || d && C[d],
+                    C = !1,
+                    A = t.prototype,
+                    M = A[g] || A["@@iterator"] || d && A[d],
                     T = !v && M || I(d),
-                    N = "Array" == e && C.entries || M;
+                    j = "Array" == e && A.entries || M;
 
-                if (N && (E = i(N.call(new t())), h !== Object.prototype && E.next && (f || i(E) === h || (a ? a(E, h) : "function" != typeof E[g] && u(E, g, x)), s(E, P, !0, !0), f && (p[P] = x))), d == m && M && M.name !== m && (A = !0, T = function T() {
+                if (j && (E = i(j.call(new t())), h !== Object.prototype && E.next && (f || i(E) === h || (a ? a(E, h) : "function" != typeof E[g] && u(E, g, x)), s(E, P, !0, !0), f && (p[P] = x))), d == m && M && M.name !== m && (C = !0, T = function T() {
                   return M.call(this);
-                }), f && !O || C[g] === T || u(C, g, T), p[e] = T, d) if (S = {
+                }), f && !O || A[g] === T || u(A, g, T), p[e] = T, d) if (S = {
                   values: I(m),
                   keys: w ? T : I(y),
                   entries: I(b)
                 }, O) for (k in S) {
-                  (v || A || !(k in C)) && c(C, k, S[k]);
+                  (v || C || !(k in A)) && c(A, k, S[k]);
                 } else o({
                   target: e,
                   proto: !0,
-                  forced: v || A
+                  forced: v || C
                 }, S);
                 return S;
               };
@@ -2461,25 +2461,25 @@
                   k = /a/g,
                   I = /a/g,
                   P = new O(k) !== k,
-                  A = p.UNSUPPORTED_Y;
+                  C = p.UNSUPPORTED_Y;
 
-              if (i("RegExp", o && (!P || A || b || x || h(function () {
+              if (i("RegExp", o && (!P || C || b || x || h(function () {
                 return I[w] = !1, O(k) != k || O(I) == I || "/a/i" != O(k, "i");
               })))) {
-                for (var C = function C(t, e) {
+                for (var A = function A(t, e) {
                   var n,
                       o,
                       r,
                       i,
                       u,
                       c,
-                      p = this instanceof C,
+                      p = this instanceof A,
                       d = l(t),
                       h = void 0 === e,
                       y = [],
                       m = t;
-                  if (!p && d && h && t.constructor === C) return t;
-                  if ((d || t instanceof C) && (t = t.source, h && (e = ("flags" in m) ? m.flags : f.call(m))), t = void 0 === t ? "" : String(t), e = void 0 === e ? "" : String(e), m = t, b && ("dotAll" in k) && (o = !!e && e.indexOf("s") > -1) && (e = e.replace(/s/g, "")), n = e, A && ("sticky" in k) && (r = !!e && e.indexOf("y") > -1) && (e = e.replace(/y/g, "")), x && (t = (i = function (t) {
+                  if (!p && d && h && t.constructor === A) return t;
+                  if ((d || t instanceof A) && (t = t.source, h && (e = ("flags" in m) ? m.flags : f.call(m))), t = void 0 === t ? "" : String(t), e = void 0 === e ? "" : String(e), m = t, b && ("dotAll" in k) && (o = !!e && e.indexOf("s") > -1) && (e = e.replace(/s/g, "")), n = e, C && ("sticky" in k) && (r = !!e && e.indexOf("y") > -1) && (e = e.replace(/y/g, "")), x && (t = (i = function (t) {
                     for (var e, n = t.length, o = 0, r = "", i = [], a = {}, s = !1, u = !1, c = 0, l = ""; o <= n; o++) {
                       if ("\\" === (e = t.charAt(o))) e += t.charAt(++o);else if ("]" === e) s = !1;else if (!s) switch (!0) {
                         case "[" === e:
@@ -2499,7 +2499,7 @@
                     }
 
                     return [r, i];
-                  }(t))[0], y = i[1]), u = a(O(t, e), p ? this : E, C), (o || r || y.length) && (c = g(u), o && (c.dotAll = !0, c.raw = C(function (t) {
+                  }(t))[0], y = i[1]), u = a(O(t, e), p ? this : E, A), (o || r || y.length) && (c = g(u), o && (c.dotAll = !0, c.raw = A(function (t) {
                     for (var e, n = t.length, o = 0, r = "", i = !1; o <= n; o++) {
                       "\\" !== (e = t.charAt(o)) ? i || "." !== e ? ("[" === e ? i = !0 : "]" === e && (i = !1), r += e) : r += "[\\s\\S]" : r += e + t.charAt(++o);
                     }
@@ -2510,7 +2510,7 @@
                   } catch (t) {}
                   return u;
                 }, M = function M(t) {
-                  (t in C) || u(C, t, {
+                  (t in A) || u(A, t, {
                     configurable: !0,
                     get: function get() {
                       return O[t];
@@ -2519,11 +2519,11 @@
                       O[t] = e;
                     }
                   });
-                }, T = c(O), N = 0; T.length > N;) {
-                  M(T[N++]);
+                }, T = c(O), j = 0; T.length > j;) {
+                  M(T[j++]);
                 }
 
-                E.constructor = C, C.prototype = E, d(r, "RegExp", C);
+                E.constructor = A, A.prototype = E, d(r, "RegExp", A);
               }
 
               y("RegExp");
@@ -2694,17 +2694,17 @@
                   for (var w, O = "", E = 0, S = 0; S < b.length; S++) {
                     x = b[S];
 
-                    for (var k = String(x[0]), I = d(h(s(x.index), v.length), 0), P = [], A = 1; A < x.length; A++) {
-                      P.push(void 0 === (w = x[A]) ? w : String(w));
+                    for (var k = String(x[0]), I = d(h(s(x.index), v.length), 0), P = [], C = 1; C < x.length; C++) {
+                      P.push(void 0 === (w = x[C]) ? w : String(w));
                     }
 
-                    var C = x.groups;
+                    var A = x.groups;
 
                     if (g) {
                       var M = [k].concat(P, I, v);
-                      void 0 !== C && M.push(C);
+                      void 0 !== A && M.push(A);
                       var T = String(r.apply(void 0, M));
-                    } else T = l(k, v, I, P, C, r);
+                    } else T = l(k, v, I, P, A, r);
 
                     I >= E && (O += v.slice(E, I) + T, E = I + k.length);
                   }
@@ -2890,12 +2890,12 @@
                   k = n(3070),
                   I = n(5296),
                   P = n(8880),
-                  A = n(1320),
-                  C = n(2309),
+                  C = n(1320),
+                  A = n(2309),
                   M = n(6200),
                   T = n(3501),
-                  N = n(9711),
-                  j = n(5112),
+                  j = n(9711),
+                  N = n(5112),
                   D = n(6061),
                   L = n(7235),
                   R = n(8003),
@@ -2903,7 +2903,7 @@
                   _ = n(2092).forEach,
                   K = M("hidden"),
                   F = "Symbol",
-                  U = j("toPrimitive"),
+                  U = N("toPrimitive"),
                   H = B.set,
                   $ = B.getterFor(F),
                   V = Object.prototype,
@@ -2913,11 +2913,11 @@
                   W = k.f,
                   q = O.f,
                   J = I.f,
-                  X = C("symbols"),
-                  Q = C("op-symbols"),
-                  Z = C("string-to-symbol-registry"),
-                  tt = C("symbol-to-string-registry"),
-                  et = C("wks"),
+                  X = A("symbols"),
+                  Q = A("op-symbols"),
+                  Z = A("string-to-symbol-registry"),
+                  tt = A("symbol-to-string-registry"),
+                  et = A("wks"),
                   nt = r.QObject,
                   ot = !nt || !nt.prototype || !nt.prototype.findChild,
                   rt = s && l(function () {
@@ -2990,11 +2990,11 @@
                 }), o;
               };
 
-              u || (A((_G = function G() {
+              u || (C((_G = function G() {
                 if (this instanceof _G) throw TypeError("Symbol is not a constructor");
 
                 var t = arguments.length && void 0 !== arguments[0] ? String(arguments[0]) : void 0,
-                    e = N(t),
+                    e = j(t),
                     n = function n(t) {
                   this === V && n.call(Q, t), f(this, K) && f(this[K], e) && (this[K][e] = !1), rt(this, e, m(1, t));
                 };
@@ -3005,16 +3005,16 @@
                 }), it(e, t);
               }).prototype, "toString", function () {
                 return $(this).tag;
-              }), A(_G, "withoutSetter", function (t) {
-                return it(N(t), t);
-              }), I.f = ct, k.f = st, S.f = lt, w.f = O.f = ft, E.f = pt, D.f = function (t) {
+              }), C(_G, "withoutSetter", function (t) {
                 return it(j(t), t);
+              }), I.f = ct, k.f = st, S.f = lt, w.f = O.f = ft, E.f = pt, D.f = function (t) {
+                return it(N(t), t);
               }, s && (W(_G.prototype, "description", {
                 configurable: !0,
                 get: function get() {
                   return $(this).description;
                 }
-              }), a || A(V, "propertyIsEnumerable", ct, {
+              }), a || C(V, "propertyIsEnumerable", ct, {
                 unsafe: !0
               }))), o({
                 global: !0,
@@ -3852,8 +3852,8 @@
                       targetElement: o,
                       pageIndex: this.pageIndex,
                       nbPages: i.length,
-                      onItemSelected: function onItemSelected(t) {
-                        r(t), e.destroy();
+                      onItemSelected: function onItemSelected(t, n) {
+                        r(t, n), e.destroy();
                       }
                     });
                   }
@@ -3871,9 +3871,17 @@
                   null === (e = this.candidateBoxElement) || void 0 === e || e.remove(), this.candidateBoxElement = document.createElement("div"), this.candidateBoxElement.className = "hg-candidate-box";
                   var u = document.createElement("ul");
                   u.className = "hg-candidate-box-list", o[i].forEach(function (t) {
-                    var e = document.createElement("li");
+                    var e = document.createElement("li"),
+                        n = function n() {
+                      var t = new MouseEvent("click");
+                      return Object.defineProperty(t, "target", {
+                        value: e
+                      }), t;
+                    };
+
                     e.className = "hg-candidate-box-list-item", e.textContent = t, e.onclick = function () {
-                      return s(t);
+                      var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : n();
+                      return s(t, e);
                     }, u.appendChild(e);
                   });
                   var c = i > 0,
@@ -4058,28 +4066,30 @@
               }, {
                 key: "getInputCandidates",
                 value: function value(t) {
-                  var e = this.options.layoutCandidates;
-                  if (!e || "object" !== g(e)) return {};
-                  var n = Object.keys(e).filter(function (e) {
-                    var n = new RegExp("".concat(e, "$"), "g");
-                    return !!h(t.matchAll(n)).length;
+                  var e = this,
+                      n = this.options.layoutCandidates;
+                  if (!n || "object" !== g(n)) return {};
+                  var o = Object.keys(n).filter(function (n) {
+                    var o = t.substring(0, e.getCaretPositionEnd() || 0) || t,
+                        r = new RegExp("".concat(n, "$"), "g");
+                    return !!h(o.matchAll(r)).length;
                   });
 
-                  if (n.length > 1) {
-                    var o = n.sort(function (t, e) {
+                  if (o.length > 1) {
+                    var r = o.sort(function (t, e) {
                       return e.length - t.length;
                     })[0];
                     return {
-                      candidateKey: o,
-                      candidateValue: e[o]
+                      candidateKey: r,
+                      candidateValue: n[r]
                     };
                   }
 
-                  if (n.length) {
-                    var r = n[0];
+                  if (o.length) {
+                    var i = o[0];
                     return {
-                      candidateKey: r,
-                      candidateValue: e[r]
+                      candidateKey: i,
+                      candidateValue: n[i]
                     };
                   }
 
@@ -4092,11 +4102,16 @@
                   this.candidateBox && this.candidateBox.show({
                     candidateValue: e,
                     targetElement: n,
-                    onSelect: function onSelect(e) {
-                      var n = o.getInput(o.options.inputName, !0),
-                          r = new RegExp("".concat(t, "$"), "g"),
-                          i = n.replace(r, e);
-                      o.setInput(i, o.options.inputName, !0), "function" == typeof o.options.onChange && o.options.onChange(o.getInput(o.options.inputName, !0)), "function" == typeof o.options.onChangeAll && o.options.onChangeAll(o.getAllInputs());
+                    onSelect: function onSelect(e, n) {
+                      var r = o.getInput(o.options.inputName, !0),
+                          i = o.getCaretPositionEnd() || 0,
+                          a = r.substring(0, i || 0) || r,
+                          s = new RegExp("".concat(t, "$"), "g"),
+                          u = a.replace(s, e),
+                          c = r.replace(a, u),
+                          l = u.length - a.length,
+                          f = (i || r.length) + l;
+                      f < 0 && (f = 0), o.setInput(c, o.options.inputName, !0), o.setCaretPosition(f), "function" == typeof o.options.onChange && o.options.onChange(o.getInput(o.options.inputName, !0), n), "function" == typeof o.options.onChangeAll && o.options.onChangeAll(o.getAllInputs(), n);
                     }
                   });
                 }
@@ -4113,11 +4128,11 @@
                     var a = this.utilities.getUpdatedInput(t, this.input[r], this.caretPosition, this.caretPositionEnd);
                     if (this.utilities.isStandardButton(t) && this.activeInputElement && this.input[r] && this.input[r] === a && 0 === this.caretPosition && this.caretPositionEnd === a.length) return this.setInput("", this.options.inputName, !0), this.setCaretPosition(0), this.activeInputElement.value = "", this.activeInputElement.setSelectionRange(0, 0), void this.handleButtonClicked(t, e);
 
-                    if ("function" == typeof this.options.onKeyPress && this.options.onKeyPress(t), this.input[r] !== a && (!this.options.inputPattern || this.options.inputPattern && this.inputPatternIsValid(a))) {
+                    if ("function" == typeof this.options.onKeyPress && this.options.onKeyPress(t, e), this.input[r] !== a && (!this.options.inputPattern || this.options.inputPattern && this.inputPatternIsValid(a))) {
                       if (this.options.maxLength && this.utilities.handleMaxLength(this.input, a)) return;
                       var s = this.utilities.getUpdatedInput(t, this.input[r], this.caretPosition, this.caretPositionEnd, !0);
 
-                      if (this.setInput(s, this.options.inputName, !0), i && console.log("Input changed:", this.getAllInputs()), this.options.debug && console.log("Caret at: ", this.getCaretPosition(), this.getCaretPositionEnd(), "(".concat(this.keyboardDOMClass, ")")), this.options.syncInstanceInputs && this.syncInstanceInputs(), "function" == typeof this.options.onChange && this.options.onChange(this.getInput(this.options.inputName, !0)), "function" == typeof this.options.onChangeAll && this.options.onChangeAll(this.getAllInputs()), null != e && e.target && this.options.enableLayoutCandidates) {
+                      if (this.setInput(s, this.options.inputName, !0), i && console.log("Input changed:", this.getAllInputs()), this.options.debug && console.log("Caret at: ", this.getCaretPosition(), this.getCaretPositionEnd(), "(".concat(this.keyboardDOMClass, ")")), this.options.syncInstanceInputs && this.syncInstanceInputs(), "function" == typeof this.options.onChange && this.options.onChange(this.getInput(this.options.inputName, !0), e), "function" == typeof this.options.onChangeAll && this.options.onChangeAll(this.getAllInputs(), e), null != e && e.target && this.options.enableLayoutCandidates) {
                         var u,
                             c = this.getInputCandidates(a),
                             l = c.candidateKey,
@@ -4585,21 +4600,16 @@
       "use strict";
 
       o.r(r), o.d(r, {
-        KeyboardReactInterface: function KeyboardReactInterface() {
-          return t.KeyboardReactInterface;
-        },
         default: function _default() {
-          return l;
+          return c;
         }
       });
-      var t = {};
-      o.r(t);
       o(752);
-      var e = o(698),
-          n = o(86),
-          i = o.n(n);
+      var t = o(698),
+          e = o(86),
+          n = o.n(e);
 
-      function a(t, e) {
+      function i(t, e) {
         var n = Object.keys(t);
 
         if (Object.getOwnPropertySymbols) {
@@ -4612,12 +4622,12 @@
         return n;
       }
 
-      function s(t) {
+      function a(t) {
         for (var e = 1; e < arguments.length; e++) {
           var n = null != arguments[e] ? arguments[e] : {};
-          e % 2 ? a(Object(n), !0).forEach(function (e) {
-            u(t, e, n[e]);
-          }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(t, Object.getOwnPropertyDescriptors(n)) : a(Object(n)).forEach(function (e) {
+          e % 2 ? i(Object(n), !0).forEach(function (e) {
+            s(t, e, n[e]);
+          }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(t, Object.getOwnPropertyDescriptors(n)) : i(Object(n)).forEach(function (e) {
             Object.defineProperty(t, e, Object.getOwnPropertyDescriptor(n, e));
           });
         }
@@ -4625,7 +4635,7 @@
         return t;
       }
 
-      function u(t, e, n) {
+      function s(t, e, n) {
         return e in t ? Object.defineProperty(t, e, {
           value: n,
           enumerable: !0,
@@ -4634,39 +4644,39 @@
         }) : t[e] = n, t;
       }
 
-      var c = function c(t) {
-        return s(s({}, t), {}, {
+      var u = function u(t) {
+        return a(a({}, t), {}, {
           keyboardRef: null
         });
       },
-          l = function l(t) {
-        var n = t.baseClass || "react-simple-keyboard",
-            o = e.useRef(null),
-            r = e.useRef(null),
-            a = e.useRef(t);
-        return e.useEffect(function () {
-          var e = function (t) {
-            return s(s({}, t), {}, {
+          c = function c(e) {
+        var o = e.baseClass || "react-simple-keyboard",
+            r = t.useRef(null),
+            i = t.useRef(null),
+            s = t.useRef(e);
+        return t.useEffect(function () {
+          var t = function (t) {
+            return a(a({}, t), {}, {
               theme: "simple-keyboard ".concat(t.theme || "hg-theme-default")
             });
-          }(t);
+          }(e);
 
-          o.current || (o.current = !0, e.debug && console.log("ReactSimpleKeyboard: Init"), r.current = new (i())(".".concat(n), e), e.keyboardRef && e.keyboardRef(r.current));
+          r.current || (r.current = !0, t.debug && console.log("ReactSimpleKeyboard: Init"), i.current = new (n())(".".concat(o), t), t.keyboardRef && t.keyboardRef(i.current));
 
-          var u = function (t, e) {
-            var n = c(e),
-                o = c(t);
+          var c = function (t, e) {
+            var n = u(e),
+                o = u(t);
             return Object.keys(n).filter(function (t) {
               return n[t] !== o[t];
             });
-          }(a.current, e);
+          }(s.current, t);
 
-          if (u.length) {
-            var l = r.current;
-            a.current = e, null == l || l.setOptions(e), e.debug && console.log("ReactSimpleKeyboard - setOptions called due to updated props:", u);
+          if (c.length) {
+            var l = i.current;
+            s.current = t, null == l || l.setOptions(t), t.debug && console.log("ReactSimpleKeyboard - setOptions called due to updated props:", c);
           }
-        }, [o, n, a, t]), e.createElement("div", {
-          className: n
+        }, [r, o, s, e]), t.createElement("div", {
+          className: o
         });
       };
     }(), r;

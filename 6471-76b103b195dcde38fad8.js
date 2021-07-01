@@ -14,8 +14,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
-var nivo_core_es = __webpack_require__(50928);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(67587);
 // EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 14 modules
 var nivo_axes_es = __webpack_require__(21100);
 // EXTERNAL MODULE: ./node_modules/@nivo/legends/dist/nivo-legends.es.js
@@ -43,6 +43,8 @@ var linear = __webpack_require__(44076);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(45697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
 // EXTERNAL MODULE: ./node_modules/@nivo/tooltip/dist/nivo-tooltip.es.js
 var nivo_tooltip_es = __webpack_require__(62529);
 // EXTERNAL MODULE: ./node_modules/react-motion/lib/react-motion.js
@@ -50,6 +52,7 @@ var react_motion = __webpack_require__(44235);
 // EXTERNAL MODULE: ./node_modules/@nivo/voronoi/dist/nivo-voronoi.es.js + 5 modules
 var nivo_voronoi_es = __webpack_require__(8374);
 ;// CONCATENATED MODULE: ./node_modules/@nivo/scatterplot/dist/nivo-scatterplot.es.js
+
 
 
 
@@ -139,7 +142,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -304,7 +307,7 @@ var Node = function Node(_ref) {
       onMouseMove = _ref.onMouseMove,
       onMouseLeave = _ref.onMouseLeave,
       onClick = _ref.onClick;
-  return react.createElement("circle", {
+  return (0,jsx_runtime.jsx)("circle", {
     cx: x,
     cy: y,
     r: size / 2,
@@ -323,7 +326,7 @@ var Node$1 = (0,react.memo)(Node);
 
 var Tooltip = function Tooltip(_ref) {
   var node = _ref.node;
-  return react.createElement(nivo_tooltip_es/* BasicTooltip */._5, {
+  return (0,jsx_runtime.jsx)(nivo_tooltip_es/* BasicTooltip */._5, {
     id: node.data.serieId,
     value: "x: ".concat(node.data.formattedX, ", y: ").concat(node.data.formattedY),
     enableChip: true,
@@ -470,13 +473,13 @@ var NodeWrapper = function NodeWrapper(_ref) {
       hideTooltip = _useTooltip.hideTooltip;
 
   var handleMouseEnter = (0,react.useCallback)(function (event) {
-    showTooltipFromEvent(react.createElement(tooltip, {
+    showTooltipFromEvent((0,react.createElement)(tooltip, {
       node: node
     }), event);
     onMouseEnter && onMouseEnter(node, event);
   }, [node, tooltip, showTooltipFromEvent, onMouseEnter]);
   var handleMouseMove = (0,react.useCallback)(function (event) {
-    showTooltipFromEvent(react.createElement(tooltip, {
+    showTooltipFromEvent((0,react.createElement)(tooltip, {
       node: node
     }), event);
     onMouseMove && onMouseMove(node, event);
@@ -488,7 +491,7 @@ var NodeWrapper = function NodeWrapper(_ref) {
   var handleClick = (0,react.useCallback)(function (event) {
     onClick && onClick(node, event);
   }, [node, onClick]);
-  return react.createElement(NodeComponent, {
+  return (0,react.createElement)(NodeComponent, {
     node: node,
     x: x,
     y: y,
@@ -502,6 +505,21 @@ var NodeWrapper = function NodeWrapper(_ref) {
   });
 };
 
+NodeWrapper.propTypes = {
+  node: NodePropType.isRequired,
+  renderNode: prop_types_default().oneOfType([(prop_types_default()).func, (prop_types_default()).object]).isRequired,
+  x: (prop_types_default()).number.isRequired,
+  y: (prop_types_default()).number.isRequired,
+  size: (prop_types_default()).number.isRequired,
+  color: (prop_types_default()).string.isRequired,
+  isInteractive: (prop_types_default()).bool.isRequired,
+  onMouseEnter: (prop_types_default()).func,
+  onMouseMove: (prop_types_default()).func,
+  onMouseLeave: (prop_types_default()).func,
+  onClick: (prop_types_default()).func,
+  tooltip: prop_types_default().oneOfType([(prop_types_default()).func, (prop_types_default()).object]).isRequired,
+  blendMode: nivo_core_es/* blendModePropType.isRequired */.wM.isRequired
+};
 var NodeWrapper$1 = (0,react.memo)(NodeWrapper);
 
 var AnimatedNodes = function AnimatedNodes(_ref) {
@@ -518,7 +536,7 @@ var AnimatedNodes = function AnimatedNodes(_ref) {
   var _useMotionConfig = (0,nivo_core_es/* useMotionConfig */.tf)(),
       springConfig = _useMotionConfig.springConfig;
 
-  return react.createElement(react_motion/* TransitionMotion */.bg, {
+  return (0,jsx_runtime.jsx)(react_motion/* TransitionMotion */.bg, {
     styles: nodes.map(function (node) {
       return {
         key: node.id,
@@ -529,29 +547,31 @@ var AnimatedNodes = function AnimatedNodes(_ref) {
           size: (0,react_motion/* spring */.ST)(node.size, springConfig)
         }
       };
-    })
-  }, function (interpolatedStyles) {
-    return react.createElement(react.Fragment, null, interpolatedStyles.map(function (_ref2) {
-      var key = _ref2.key,
-          style = _ref2.style,
-          node = _ref2.data;
-      return react.createElement(NodeWrapper$1, {
-        key: key,
-        node: node,
-        renderNode: renderNode,
-        x: style.x,
-        y: style.y,
-        size: style.size,
-        color: node.style.color,
-        isInteractive: isInteractive,
-        onMouseEnter: onMouseEnter,
-        onMouseMove: onMouseMove,
-        onMouseLeave: onMouseLeave,
-        onClick: onClick,
-        tooltip: tooltip,
-        blendMode: blendMode
+    }),
+    children: function children(interpolatedStyles) {
+      return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+        children: interpolatedStyles.map(function (_ref2) {
+          var key = _ref2.key,
+              style = _ref2.style,
+              node = _ref2.data;
+          return (0,jsx_runtime.jsx)(NodeWrapper$1, {
+            node: node,
+            renderNode: renderNode,
+            x: style.x,
+            y: style.y,
+            size: style.size,
+            color: node.style.color,
+            isInteractive: isInteractive,
+            onMouseEnter: onMouseEnter,
+            onMouseMove: onMouseMove,
+            onMouseLeave: onMouseLeave,
+            onClick: onClick,
+            tooltip: tooltip,
+            blendMode: blendMode
+          }, key);
+        })
       });
-    }));
+    }
   });
 };
 
@@ -562,9 +582,7 @@ var ScatterPlotAnnotations = function ScatterPlotAnnotations(_ref) {
       annotations = _ref.annotations;
   var boundAnnotations = useScatterPlotAnnotations(nodes, annotations);
   return boundAnnotations.map(function (annotation, i) {
-    return react.createElement(nivo_annotations_es/* Annotation */.q6, Object.assign({
-      key: i
-    }, annotation));
+    return (0,jsx_runtime.jsx)(nivo_annotations_es/* Annotation */.q6, _objectSpread2({}, annotation), i);
   });
 };
 
@@ -579,8 +597,7 @@ var StaticNodes = function StaticNodes(_ref) {
       tooltip = _ref.tooltip,
       blendMode = _ref.blendMode;
   return nodes.map(function (node) {
-    return react.createElement(NodeWrapper$1, {
-      key: node.id,
+    return (0,jsx_runtime.jsx)(NodeWrapper$1, {
       node: node,
       renderNode: renderNode,
       x: node.x,
@@ -594,7 +611,7 @@ var StaticNodes = function StaticNodes(_ref) {
       onClick: onClick,
       tooltip: tooltip,
       blendMode: blendMode
-    });
+    }, node.id);
   });
 };
 
@@ -616,13 +633,13 @@ var Mesh = function Mesh(_ref) {
       hideTooltip = _useTooltip.hideTooltip;
 
   var handleMouseEnter = (0,react.useCallback)(function (node, event) {
-    showTooltipFromEvent(react.createElement(tooltip, {
+    showTooltipFromEvent((0,react.createElement)(tooltip, {
       node: node
     }), event);
     onMouseEnter && onMouseEnter(node, event);
   }, [showTooltipFromEvent, tooltip, onMouseEnter]);
   var handleMouseMove = (0,react.useCallback)(function (node, event) {
-    showTooltipFromEvent(react.createElement(tooltip, {
+    showTooltipFromEvent((0,react.createElement)(tooltip, {
       node: node
     }), event);
     onMouseMove && onMouseMove(node, event);
@@ -634,7 +651,7 @@ var Mesh = function Mesh(_ref) {
   var handleClick = (0,react.useCallback)(function (node, event) {
     onClick && onClick(node, event);
   }, [onClick]);
-  return react.createElement(nivo_voronoi_es/* Mesh */.Kj, {
+  return (0,jsx_runtime.jsx)(nivo_voronoi_es/* Mesh */.Kj, {
     nodes: nodes,
     width: width,
     height: height,
@@ -727,17 +744,15 @@ var ScatterPlot = function ScatterPlot(props) {
   }, [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight]);
   var Nodes = animate ? AnimatedNodes$1 : StaticNodes$1;
   var layerById = {
-    grid: react.createElement(nivo_axes_es/* Grid */.rj, {
-      key: "grid",
+    grid: (0,jsx_runtime.jsx)(nivo_axes_es/* Grid */.rj, {
       width: innerWidth,
       height: innerHeight,
       xScale: enableGridX ? xScale : null,
       yScale: enableGridY ? yScale : null,
       xValues: gridXValues,
       yValues: gridYValues
-    }),
-    axes: react.createElement(nivo_axes_es/* Axes */.dk, {
-      key: "axes",
+    }, "grid"),
+    axes: (0,jsx_runtime.jsx)(nivo_axes_es/* Axes */.dk, {
       xScale: xScale,
       yScale: yScale,
       width: innerWidth,
@@ -746,8 +761,8 @@ var ScatterPlot = function ScatterPlot(props) {
       right: axisRight,
       bottom: axisBottom,
       left: axisLeft
-    }),
-    nodes: react.createElement(Nodes, {
+    }, "axes"),
+    nodes: (0,react.createElement)(Nodes, {
       key: 'nodes',
       nodes: nodes,
       renderNode: renderNode,
@@ -759,38 +774,33 @@ var ScatterPlot = function ScatterPlot(props) {
       tooltip: tooltip,
       blendMode: blendMode
     }),
-    markers: react.createElement(nivo_core_es/* CartesianMarkers */.TL, {
-      key: "markers",
+    markers: (0,jsx_runtime.jsx)(nivo_core_es/* CartesianMarkers */.TL, {
       markers: markers,
       width: innerWidth,
       height: innerHeight,
       xScale: xScale,
       yScale: yScale
-    }),
+    }, "markers"),
     mesh: null,
-    annotations: react.createElement(ScatterPlotAnnotations, {
-      key: "annotations",
+    annotations: (0,jsx_runtime.jsx)(ScatterPlotAnnotations, {
       nodes: nodes,
       annotations: annotations,
       innerWidth: innerWidth,
       innerHeight: innerHeight,
       animate: animate
-    }),
+    }, "annotations"),
     legends: legends.map(function (legend, i) {
-      return react.createElement(nivo_legends_es/* BoxLegendSvg */.$6, Object.assign({
-        key: i
-      }, legend, {
+      return (0,jsx_runtime.jsx)(nivo_legends_es/* BoxLegendSvg */.$6, _objectSpread2(_objectSpread2({}, legend), {}, {
         containerWidth: innerWidth,
         containerHeight: innerHeight,
         data: legendData,
         theme: theme
-      }));
+      }), i);
     })
   };
 
   if (isInteractive === true && useMesh === true) {
-    layerById.mesh = react.createElement(Mesh$1, {
-      key: "mesh",
+    layerById.mesh = (0,jsx_runtime.jsx)(Mesh$1, {
       nodes: nodes,
       width: innerWidth,
       height: innerHeight,
@@ -800,41 +810,44 @@ var ScatterPlot = function ScatterPlot(props) {
       onClick: onClick,
       tooltip: tooltip,
       debug: debugMesh
-    });
+    }, "mesh");
   }
 
-  return react.createElement(nivo_core_es/* SvgWrapper */.tM, {
+  return (0,jsx_runtime.jsx)(nivo_core_es/* SvgWrapper */.tM, {
     width: outerWidth,
     height: outerHeight,
     margin: margin,
     theme: theme,
-    role: role
-  }, layers.map(function (layer, i) {
-    if (layerById[layer] !== undefined) {
-      return layerById[layer];
-    }
+    role: role,
+    children: layers.map(function (layer, i) {
+      if (layerById[layer] !== undefined) {
+        return layerById[layer];
+      }
 
-    if (typeof layer === 'function') {
-      return react.createElement(react.Fragment, {
-        key: i
-      }, react.createElement(layer, customLayerProps));
-    }
+      if (typeof layer === 'function') {
+        return (0,jsx_runtime.jsx)(react.Fragment, {
+          children: (0,react.createElement)(layer, customLayerProps)
+        }, i);
+      }
 
-    throw new Error("Unknown layer (".concat(layer, ")"));
-  }));
+      throw new Error("Unknown layer (".concat(layer, ")"));
+    })
+  });
 };
 
 ScatterPlot.defaultProps = ScatterPlotDefaultProps;
 var ScatterPlot$1 = (0,react.memo)((0,nivo_core_es/* withContainer */.li)(ScatterPlot));
 
 var ResponsiveScatterPlot = function ResponsiveScatterPlot(props) {
-  return React.createElement(ResponsiveWrapper, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return React.createElement(ScatterPlot$1, Object.assign({
-      width: width,
-      height: height
-    }, props));
+  return jsx(ResponsiveWrapper, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return jsx(ScatterPlot$1, _objectSpread2({
+        width: width,
+        height: height
+      }, props));
+    }
   });
 };
 
@@ -1053,7 +1066,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
     setCurrentNode(node);
 
     if (node) {
-      showTooltipFromEvent(react.createElement(tooltip, {
+      showTooltipFromEvent((0,react.createElement)(tooltip, {
         node: node
       }), event);
 
@@ -1083,7 +1096,7 @@ var ScatterPlotCanvas = function ScatterPlotCanvas(props) {
       node && onClick(node, event);
     }
   }, [getNodeFromMouseEvent, onClick]);
-  return react.createElement("canvas", {
+  return (0,jsx_runtime.jsx)("canvas", {
     ref: canvasEl,
     width: outerWidth * pixelRatio,
     height: outerHeight * pixelRatio,
@@ -1110,13 +1123,15 @@ ScatterPlotCanvas.defaultProps = _objectSpread2(_objectSpread2({}, ScatterPlotCa
 var ScatterPlotCanvas$1 = (0,react.memo)((0,nivo_core_es/* withContainer */.li)(ScatterPlotCanvas));
 
 var ResponsiveScatterPlotCanvas = function ResponsiveScatterPlotCanvas(props) {
-  return React.createElement(ResponsiveWrapper, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return React.createElement(ScatterPlotCanvas$1, Object.assign({
-      width: width,
-      height: height
-    }, props));
+  return jsx(ResponsiveWrapper, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return jsx(ScatterPlotCanvas$1, _objectSpread2({
+        width: width,
+        height: height
+      }, props));
+    }
   });
 };
 

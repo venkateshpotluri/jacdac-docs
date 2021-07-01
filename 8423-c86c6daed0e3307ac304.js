@@ -14,12 +14,14 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
-var nivo_core_es = __webpack_require__(50928);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(67587);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
 // EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
 var react_spring_web_esm = __webpack_require__(85468);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
 // EXTERNAL MODULE: ./node_modules/d3-shape/src/line.js
 var line = __webpack_require__(84887);
 // EXTERNAL MODULE: ./node_modules/d3-path/src/path.js
@@ -261,6 +263,7 @@ function cornerTangents(x0, y0, x1, y1, r1, rc, cw) {
   return arc;
 }
 ;// CONCATENATED MODULE: ./node_modules/@nivo/arcs/dist/nivo-arcs.es.js
+
 
 
 
@@ -575,17 +578,19 @@ var ArcLabel = function ArcLabel(_ref) {
   var label = _ref.label,
       style = _ref.style;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
-  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
+  return (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.g */.q.g, {
     transform: style.transform,
     opacity: style.progress,
-    style: staticStyle
-  }, react.createElement(react_spring_web_esm/* animated.text */.q.text, {
-    textAnchor: "middle",
-    dominantBaseline: "central",
-    style: _objectSpread2(_objectSpread2({}, theme.labels.text), {}, {
-      fill: style.textColor
+    style: staticStyle,
+    children: (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.text */.q.text, {
+      textAnchor: "middle",
+      dominantBaseline: "central",
+      style: _objectSpread2(_objectSpread2({}, theme.labels.text), {}, {
+        fill: style.textColor
+      }),
+      children: label
     })
-  }, label));
+  });
 };
 
 var ArcLabelsLayer = function ArcLabelsLayer(_ref) {
@@ -612,19 +617,20 @@ var ArcLabelsLayer = function ArcLabelsLayer(_ref) {
       interpolate = _useArcCentersTransit.interpolate;
 
   var Label = component;
-  return react.createElement("g", {
-    transform: "translate(".concat(center[0], ",").concat(center[1], ")")
-  }, transition(function (transitionProps, datum) {
-    return react.createElement(Label, {
-      key: datum.id,
-      datum: datum,
-      label: getLabel(datum),
-      style: _objectSpread2(_objectSpread2({}, transitionProps), {}, {
-        transform: interpolate(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius),
-        textColor: getTextColor(datum)
-      })
-    });
-  }));
+  return (0,jsx_runtime.jsx)("g", {
+    transform: "translate(".concat(center[0], ",").concat(center[1], ")"),
+    children: transition(function (transitionProps, datum) {
+      return (0,react.createElement)(Label, {
+        key: datum.id,
+        datum: datum,
+        label: getLabel(datum),
+        style: _objectSpread2(_objectSpread2({}, transitionProps), {}, {
+          transform: interpolate(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius),
+          textColor: getTextColor(datum)
+        })
+      });
+    })
+  });
 };
 
 var nivo_arcs_es_drawCanvasArcLabels = function drawCanvasArcLabels(ctx, labels, theme) {
@@ -861,21 +867,23 @@ var ArcLinkLabel = function ArcLinkLabel(_ref) {
   var label = _ref.label,
       style = _ref.style;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
-  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
-    opacity: style.opacity
-  }, react.createElement(react_spring_web_esm/* animated.path */.q.path, {
-    fill: "none",
-    stroke: style.linkColor,
-    strokeWidth: style.thickness,
-    d: style.path
-  }), react.createElement(react_spring_web_esm/* animated.text */.q.text, {
-    transform: style.textPosition,
-    textAnchor: style.textAnchor,
-    dominantBaseline: "central",
-    style: _objectSpread2(_objectSpread2({}, theme.labels.text), {}, {
-      fill: style.textColor
-    })
-  }, label));
+  return (0,jsx_runtime.jsxs)(react_spring_web_esm/* animated.g */.q.g, {
+    opacity: style.opacity,
+    children: [(0,jsx_runtime.jsx)(react_spring_web_esm/* animated.path */.q.path, {
+      fill: "none",
+      stroke: style.linkColor,
+      strokeWidth: style.thickness,
+      d: style.path
+    }), (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.text */.q.text, {
+      transform: style.textPosition,
+      textAnchor: style.textAnchor,
+      dominantBaseline: "central",
+      style: _objectSpread2(_objectSpread2({}, theme.labels.text), {}, {
+        fill: style.textColor
+      }),
+      children: label
+    })]
+  });
 };
 
 var ArcLinkLabelsLayer = function ArcLinkLabelsLayer(_ref) {
@@ -910,21 +918,22 @@ var ArcLinkLabelsLayer = function ArcLinkLabelsLayer(_ref) {
       interpolateTextPosition = _useArcLinkLabelsTran.interpolateTextPosition;
 
   var Label = component;
-  return react.createElement("g", {
-    transform: "translate(".concat(center[0], ",").concat(center[1], ")")
-  }, transition(function (transitionProps, datum) {
-    return react.createElement(Label, {
-      key: datum.id,
-      datum: datum,
-      label: getLabel(datum),
-      style: _objectSpread2(_objectSpread2({}, transitionProps), {}, {
-        thickness: strokeWidth,
-        path: interpolateLink(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius, transitionProps.offset, transitionProps.diagonalLength, transitionProps.straightLength),
-        textAnchor: interpolateTextAnchor(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius),
-        textPosition: interpolateTextPosition(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius, transitionProps.offset, transitionProps.diagonalLength, transitionProps.straightLength, transitionProps.textOffset)
-      })
-    });
-  }));
+  return (0,jsx_runtime.jsx)("g", {
+    transform: "translate(".concat(center[0], ",").concat(center[1], ")"),
+    children: transition(function (transitionProps, datum) {
+      return (0,react.createElement)(Label, {
+        key: datum.id,
+        datum: datum,
+        label: getLabel(datum),
+        style: _objectSpread2(_objectSpread2({}, transitionProps), {}, {
+          thickness: strokeWidth,
+          path: interpolateLink(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius, transitionProps.offset, transitionProps.diagonalLength, transitionProps.straightLength),
+          textAnchor: interpolateTextAnchor(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius),
+          textPosition: interpolateTextPosition(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius, transitionProps.offset, transitionProps.diagonalLength, transitionProps.straightLength, transitionProps.textOffset)
+        })
+      });
+    })
+  });
 };
 
 var nivo_arcs_es_drawCanvasArcLinkLabels = function drawCanvasArcLinkLabels(ctx, labels, theme, strokeWidth) {
@@ -1038,7 +1047,7 @@ var ArcShape = function ArcShape(_ref) {
   var handleMouseLeave = (0,react.useCallback)(function (event) {
     return onMouseLeave === null || onMouseLeave === void 0 ? void 0 : onMouseLeave(datum, event);
   }, [onMouseLeave, datum]);
-  return react.createElement(react_spring_web_esm/* animated.path */.q.path, {
+  return (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.path */.q.path, {
     d: style.path,
     opacity: style.opacity,
     fill: datum.fill || style.color,
@@ -1132,22 +1141,23 @@ var ArcsLayer = function ArcsLayer(_ref) {
       interpolate = _useArcsTransition.interpolate;
 
   var Arc = component;
-  return react.createElement("g", {
-    transform: "translate(".concat(center[0], ",").concat(center[1], ")")
-  }, transition(function (transitionProps, datum) {
-    return (0,react.createElement)(Arc, {
-      key: datum.id,
-      datum: datum,
-      style: _objectSpread2(_objectSpread2({}, transitionProps), {}, {
-        borderWidth: borderWidth,
-        path: interpolate(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius, arcGenerator)
-      }),
-      onClick: onClick,
-      onMouseEnter: onMouseEnter,
-      onMouseMove: onMouseMove,
-      onMouseLeave: onMouseLeave
-    });
-  }));
+  return (0,jsx_runtime.jsx)("g", {
+    transform: "translate(".concat(center[0], ",").concat(center[1], ")"),
+    children: transition(function (transitionProps, datum) {
+      return (0,react.createElement)(Arc, {
+        key: datum.id,
+        datum: datum,
+        style: _objectSpread2(_objectSpread2({}, transitionProps), {}, {
+          borderWidth: borderWidth,
+          path: interpolate(transitionProps.startAngle, transitionProps.endAngle, transitionProps.innerRadius, transitionProps.outerRadius, arcGenerator)
+        }),
+        onClick: onClick,
+        onMouseEnter: onMouseEnter,
+        onMouseMove: onMouseMove,
+        onMouseLeave: onMouseLeave
+      });
+    })
+  });
 };
 
 function _arrayLikeToArray(arr, len) {
@@ -1173,7 +1183,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -1431,135 +1441,6 @@ var nivo_tooltip_es = __webpack_require__(62529);
 
 
 
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
-
-var PieLegends = function PieLegends(_ref) {
-  var width = _ref.width,
-      height = _ref.height,
-      legends = _ref.legends,
-      data = _ref.data,
-      toggleSerie = _ref.toggleSerie;
-  return react.createElement(react.Fragment, null, legends.map(function (legend, i) {
-    var _legend$data;
-
-    return react.createElement(nivo_legends_es/* BoxLegendSvg */.$6, Object.assign({
-      key: i
-    }, legend, {
-      containerWidth: width,
-      containerHeight: height,
-      data: (_legend$data = legend.data) !== null && _legend$data !== void 0 ? _legend$data : data,
-      toggleSerie: legend.toggleSerie ? toggleSerie : undefined
-    }));
-  }));
-};
-
-function nivo_pie_es_arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function nivo_pie_es_arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return nivo_pie_es_arrayLikeToArray(arr);
-}
-
-function nivo_pie_es_iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-
-function nivo_pie_es_unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return nivo_pie_es_arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nivo_pie_es_arrayLikeToArray(o, minLen);
-}
-
-function nivo_pie_es_nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function nivo_pie_es_toConsumableArray(arr) {
-  return nivo_pie_es_arrayWithoutHoles(arr) || nivo_pie_es_iterableToArray(arr) || nivo_pie_es_unsupportedIterableToArray(arr) || nivo_pie_es_nonIterableSpread();
-}
-
-function nivo_pie_es_arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function nivo_pie_es_iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function nivo_pie_es_nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function nivo_pie_es_slicedToArray(arr, i) {
-  return nivo_pie_es_arrayWithHoles(arr) || nivo_pie_es_iterableToArrayLimit(arr, i) || nivo_pie_es_unsupportedIterableToArray(arr, i) || nivo_pie_es_nonIterableRest();
-}
 
 function nivo_pie_es_defineProperty(obj, key, value) {
   if (key in obj) {
@@ -1610,9 +1491,139 @@ function nivo_pie_es_objectSpread2(target) {
   return target;
 }
 
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+var PieLegends = function PieLegends(_ref) {
+  var width = _ref.width,
+      height = _ref.height,
+      legends = _ref.legends,
+      data = _ref.data,
+      toggleSerie = _ref.toggleSerie;
+  return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+    children: legends.map(function (legend, i) {
+      var _legend$data;
+
+      return (0,jsx_runtime.jsx)(nivo_legends_es/* BoxLegendSvg */.$6, nivo_pie_es_objectSpread2(nivo_pie_es_objectSpread2({}, legend), {}, {
+        containerWidth: width,
+        containerHeight: height,
+        data: (_legend$data = legend.data) !== null && _legend$data !== void 0 ? _legend$data : data,
+        toggleSerie: legend.toggleSerie ? toggleSerie : undefined
+      }), i);
+    })
+  });
+};
+
+function nivo_pie_es_arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function nivo_pie_es_arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return nivo_pie_es_arrayLikeToArray(arr);
+}
+
+function nivo_pie_es_iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+
+function nivo_pie_es_unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return nivo_pie_es_arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nivo_pie_es_arrayLikeToArray(o, minLen);
+}
+
+function nivo_pie_es_nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function nivo_pie_es_toConsumableArray(arr) {
+  return nivo_pie_es_arrayWithoutHoles(arr) || nivo_pie_es_iterableToArray(arr) || nivo_pie_es_unsupportedIterableToArray(arr) || nivo_pie_es_nonIterableSpread();
+}
+
+function nivo_pie_es_arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function nivo_pie_es_iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function nivo_pie_es_nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function nivo_pie_es_slicedToArray(arr, i) {
+  return nivo_pie_es_arrayWithHoles(arr) || nivo_pie_es_iterableToArrayLimit(arr, i) || nivo_pie_es_unsupportedIterableToArray(arr, i) || nivo_pie_es_nonIterableRest();
+}
+
 var PieTooltip = function PieTooltip(_ref) {
   var datum = _ref.datum;
-  return react.createElement(nivo_tooltip_es/* BasicTooltip */._5, {
+  return (0,jsx_runtime.jsx)(nivo_tooltip_es/* BasicTooltip */._5, {
     id: datum.id,
     value: datum.formattedValue,
     enableChip: true,
@@ -1998,7 +2009,7 @@ var Arcs = function Arcs(_ref) {
       onMouseLeave === null || onMouseLeave === void 0 ? void 0 : onMouseLeave(datum, event);
     };
   }, [isInteractive, hideTooltip, setActiveId, onMouseLeave]);
-  return react.createElement(ArcsLayer, {
+  return (0,jsx_runtime.jsx)(ArcsLayer, {
     center: center,
     data: data,
     arcGenerator: arcGenerator,
@@ -2147,8 +2158,7 @@ var InnerPie = function InnerPie(_ref) {
   };
 
   if (enableArcLinkLabels && layers.includes('arcLinkLabels')) {
-    layerById.arcLinkLabels = react.createElement(ArcLinkLabelsLayer, {
-      key: "arcLinkLabels",
+    layerById.arcLinkLabels = (0,jsx_runtime.jsx)(ArcLinkLabelsLayer, {
       center: [centerX, centerY],
       data: dataWithArc,
       label: arcLinkLabel,
@@ -2161,12 +2171,11 @@ var InnerPie = function InnerPie(_ref) {
       textColor: arcLinkLabelsTextColor,
       linkColor: arcLinkLabelsColor,
       component: arcLinkLabelComponent
-    });
+    }, "arcLinkLabels");
   }
 
   if (layers.includes('arcs')) {
-    layerById.arcs = react.createElement(Arcs, {
-      key: "arcs",
+    layerById.arcs = (0,jsx_runtime.jsx)(Arcs, {
       center: [centerX, centerY],
       data: dataWithArc,
       arcGenerator: arcGenerator,
@@ -2180,12 +2189,11 @@ var InnerPie = function InnerPie(_ref) {
       setActiveId: setActiveId,
       tooltip: tooltip,
       transitionMode: transitionMode
-    });
+    }, "arcs");
   }
 
   if (enableArcLabels && layers.includes('arcLabels')) {
-    layerById.arcLabels = react.createElement(ArcLabelsLayer, {
-      key: "arcLabels",
+    layerById.arcLabels = (0,jsx_runtime.jsx)(ArcLabelsLayer, {
       center: [centerX, centerY],
       data: dataWithArc,
       label: arcLabel,
@@ -2194,18 +2202,17 @@ var InnerPie = function InnerPie(_ref) {
       textColor: arcLabelsTextColor,
       transitionMode: transitionMode,
       component: arcLabelsComponent
-    });
+    }, "arcLabels");
   }
 
   if (legends.length > 0 && layers.includes('legends')) {
-    layerById.legends = react.createElement(PieLegends, {
-      key: "legends",
+    layerById.legends = (0,jsx_runtime.jsx)(PieLegends, {
       width: innerWidth,
       height: innerHeight,
       data: legendData,
       legends: legends,
       toggleSerie: toggleSerie
-    });
+    }, "legends");
   }
 
   var layerContext = usePieLayerContext({
@@ -2216,25 +2223,26 @@ var InnerPie = function InnerPie(_ref) {
     radius: radius,
     innerRadius: innerRadius
   });
-  return react.createElement(nivo_core_es/* SvgWrapper */.tM, {
+  return (0,jsx_runtime.jsx)(nivo_core_es/* SvgWrapper */.tM, {
     width: outerWidth,
     height: outerHeight,
     margin: margin,
     defs: boundDefs,
-    role: role
-  }, layers.map(function (layer, i) {
-    if (layerById[layer] !== undefined) {
-      return layerById[layer];
-    }
+    role: role,
+    children: layers.map(function (layer, i) {
+      if (layerById[layer] !== undefined) {
+        return layerById[layer];
+      }
 
-    if (typeof layer === 'function') {
-      return react.createElement(react.Fragment, {
-        key: i
-      }, (0,react.createElement)(layer, layerContext));
-    }
+      if (typeof layer === 'function') {
+        return (0,jsx_runtime.jsx)(react.Fragment, {
+          children: (0,react.createElement)(layer, layerContext)
+        }, i);
+      }
 
-    return null;
-  }));
+      return null;
+    })
+  });
 };
 
 var Pie = function Pie(_ref2) {
@@ -2248,25 +2256,28 @@ var Pie = function Pie(_ref2) {
       renderWrapper = _ref2.renderWrapper,
       otherProps = _objectWithoutProperties(_ref2, ["isInteractive", "animate", "motionConfig", "theme", "renderWrapper"]);
 
-  return react.createElement(nivo_core_es/* Container */.W2, {
+  return (0,jsx_runtime.jsx)(nivo_core_es/* Container */.W2, {
     animate: animate,
     isInteractive: isInteractive,
     motionConfig: motionConfig,
     renderWrapper: renderWrapper,
-    theme: theme
-  }, react.createElement(InnerPie, Object.assign({
-    isInteractive: isInteractive
-  }, otherProps)));
+    theme: theme,
+    children: (0,jsx_runtime.jsx)(InnerPie, nivo_pie_es_objectSpread2({
+      isInteractive: isInteractive
+    }, otherProps))
+  });
 };
 
 var ResponsivePie = function ResponsivePie(props) {
-  return React.createElement(ResponsiveWrapper, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return React.createElement(Pie, Object.assign({
-      width: width,
-      height: height
-    }, props));
+  return jsx(ResponsiveWrapper, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return jsx(Pie, nivo_pie_es_objectSpread2({
+        width: width,
+        height: height
+      }, props));
+    }
   });
 };
 
@@ -2502,7 +2513,7 @@ var InnerPieCanvas = function InnerPieCanvas(_ref) {
     }
   };
 
-  return React.createElement("canvas", {
+  return jsx("canvas", {
     ref: canvasEl,
     width: outerWidth * pixelRatio,
     height: outerHeight * pixelRatio,
@@ -2525,23 +2536,26 @@ var PieCanvas = function PieCanvas(_ref2) {
       renderWrapper = _ref2.renderWrapper,
       otherProps = _objectWithoutProperties(_ref2, ["isInteractive", "theme", "renderWrapper"]);
 
-  return React.createElement(Container, {
+  return jsx(Container, {
     isInteractive: isInteractive,
     renderWrapper: renderWrapper,
-    theme: theme
-  }, React.createElement(InnerPieCanvas, Object.assign({
-    isInteractive: isInteractive
-  }, otherProps)));
+    theme: theme,
+    children: jsx(InnerPieCanvas, nivo_pie_es_objectSpread2({
+      isInteractive: isInteractive
+    }, otherProps))
+  });
 };
 
 var ResponsivePieCanvas = function ResponsivePieCanvas(props) {
-  return React.createElement(ResponsiveWrapper, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return React.createElement(PieCanvas, Object.assign({
-      width: width,
-      height: height
-    }, props));
+  return jsx(ResponsiveWrapper, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return jsx(PieCanvas, nivo_pie_es_objectSpread2({
+        width: width,
+        height: height
+      }, props));
+    }
   });
 };
 

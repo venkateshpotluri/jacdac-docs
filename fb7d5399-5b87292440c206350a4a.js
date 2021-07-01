@@ -513,7 +513,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
  * Copyright 2010-2021 Three.js Authors
  * SPDX-License-Identifier: MIT
  */
-var REVISION = '129';
+var REVISION = '130';
 var MOUSE = {
   LEFT: 0,
   MIDDLE: 1,
@@ -2556,8 +2556,10 @@ var WebGLRenderTarget = /*#__PURE__*/function (_EventDispatcher2) {
 
   var _super2 = _createSuper(WebGLRenderTarget);
 
-  function WebGLRenderTarget(width, height, options) {
+  function WebGLRenderTarget(width, height) {
     var _this3;
+
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WebGLRenderTarget);
 
@@ -2568,12 +2570,12 @@ var WebGLRenderTarget = /*#__PURE__*/function (_EventDispatcher2) {
     _this3.scissor = new Vector4(0, 0, width, height);
     _this3.scissorTest = false;
     _this3.viewport = new Vector4(0, 0, width, height);
-    options = options || {};
     _this3.texture = new Texture(undefined, options.mapping, options.wrapS, options.wrapT, options.magFilter, options.minFilter, options.format, options.type, options.anisotropy, options.encoding);
-    _this3.texture.image = {};
-    _this3.texture.image.width = width;
-    _this3.texture.image.height = height;
-    _this3.texture.image.depth = 1;
+    _this3.texture.image = {
+      width: width,
+      height: height,
+      depth: 1
+    };
     _this3.texture.generateMipmaps = options.generateMipmaps !== undefined ? options.generateMipmaps : false;
     _this3.texture.minFilter = options.minFilter !== undefined ? options.minFilter : LinearFilter;
     _this3.depthBuffer = options.depthBuffer !== undefined ? options.depthBuffer : true;
@@ -4043,21 +4045,11 @@ var Box3 = /*#__PURE__*/function () {
   }, {
     key: "getCenter",
     value: function getCenter(target) {
-      if (target === undefined) {
-        console.warn('THREE.Box3: .getCenter() target is now required');
-        target = new Vector3();
-      }
-
       return this.isEmpty() ? target.set(0, 0, 0) : target.addVectors(this.min, this.max).multiplyScalar(0.5);
     }
   }, {
     key: "getSize",
     value: function getSize(target) {
-      if (target === undefined) {
-        console.warn('THREE.Box3: .getSize() target is now required');
-        target = new Vector3();
-      }
-
       return this.isEmpty() ? target.set(0, 0, 0) : target.subVectors(this.max, this.min);
     }
   }, {
@@ -4124,11 +4116,6 @@ var Box3 = /*#__PURE__*/function () {
     value: function getParameter(point, target) {
       // This can potentially have a divide by zero if the box
       // has a size dimension of 0.
-      if (target === undefined) {
-        console.warn('THREE.Box3: .getParameter() target is now required');
-        target = new Vector3();
-      }
-
       return target.set((point.x - this.min.x) / (this.max.x - this.min.x), (point.y - this.min.y) / (this.max.y - this.min.y), (point.z - this.min.z) / (this.max.z - this.min.z));
     }
   }, {
@@ -4230,11 +4217,6 @@ var Box3 = /*#__PURE__*/function () {
   }, {
     key: "clampPoint",
     value: function clampPoint(point, target) {
-      if (target === undefined) {
-        console.warn('THREE.Box3: .clampPoint() target is now required');
-        target = new Vector3();
-      }
-
       return target.copy(point).clamp(this.min, this.max);
     }
   }, {
@@ -4247,10 +4229,6 @@ var Box3 = /*#__PURE__*/function () {
   }, {
     key: "getBoundingSphere",
     value: function getBoundingSphere(target) {
-      if (target === undefined) {
-        console.error('THREE.Box3: .getBoundingSphere() target is now required'); //target = new Sphere(); // removed to avoid cyclic dependency
-      }
-
       this.getCenter(target.center);
       target.radius = this.getSize(_vector$b).length() * 0.5;
       return target;
@@ -4466,12 +4444,6 @@ var Sphere = /*#__PURE__*/function () {
     key: "clampPoint",
     value: function clampPoint(point, target) {
       var deltaLengthSq = this.center.distanceToSquared(point);
-
-      if (target === undefined) {
-        console.warn('THREE.Sphere: .clampPoint() target is now required');
-        target = new Vector3();
-      }
-
       target.copy(point);
 
       if (deltaLengthSq > this.radius * this.radius) {
@@ -4484,11 +4456,6 @@ var Sphere = /*#__PURE__*/function () {
   }, {
     key: "getBoundingBox",
     value: function getBoundingBox(target) {
-      if (target === undefined) {
-        console.warn('THREE.Sphere: .getBoundingBox() target is now required');
-        target = new Box3();
-      }
-
       if (this.isEmpty()) {
         // Empty sphere produces empty bounding box
         target.makeEmpty();
@@ -4602,11 +4569,6 @@ var Ray = /*#__PURE__*/function () {
   }, {
     key: "at",
     value: function at(t, target) {
-      if (target === undefined) {
-        console.warn('THREE.Ray: .at() target is now required');
-        target = new Vector3();
-      }
-
       return target.copy(this.direction).multiplyScalar(t).add(this.origin);
     }
   }, {
@@ -4624,11 +4586,6 @@ var Ray = /*#__PURE__*/function () {
   }, {
     key: "closestPointToPoint",
     value: function closestPointToPoint(point, target) {
-      if (target === undefined) {
-        console.warn('THREE.Ray: .closestPointToPoint() target is now required');
-        target = new Vector3();
-      }
-
       target.subVectors(point, this.origin);
       var directionDistance = target.dot(this.direction);
 
@@ -5812,11 +5769,12 @@ var Euler = /*#__PURE__*/function () {
     }
   }, {
     key: "set",
-    value: function set(x, y, z, order) {
+    value: function set(x, y, z) {
+      var order = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this._order;
       this._x = x;
       this._y = y;
       this._z = z;
-      this._order = order || this._order;
+      this._order = order;
 
       this._onChangeCallback();
 
@@ -5841,7 +5799,9 @@ var Euler = /*#__PURE__*/function () {
     }
   }, {
     key: "setFromRotationMatrix",
-    value: function setFromRotationMatrix(m, order, update) {
+    value: function setFromRotationMatrix(m) {
+      var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._order;
+      var update = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
       // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
       var te = m.elements;
       var m11 = te[0],
@@ -5853,7 +5813,6 @@ var Euler = /*#__PURE__*/function () {
       var m31 = te[2],
           m32 = te[6],
           m33 = te[10];
-      order = order || this._order;
 
       switch (order) {
         case 'XYZ':
@@ -5939,7 +5898,7 @@ var Euler = /*#__PURE__*/function () {
       }
 
       this._order = order;
-      if (update !== false) this._onChangeCallback();
+      if (update === true) this._onChangeCallback();
       return this;
     }
   }, {
@@ -5951,8 +5910,9 @@ var Euler = /*#__PURE__*/function () {
     }
   }, {
     key: "setFromVector3",
-    value: function setFromVector3(v, order) {
-      return this.set(v.x, v.y, v.z, order || this._order);
+    value: function setFromVector3(v) {
+      var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this._order;
+      return this.set(v.x, v.y, v.z, order);
     }
   }, {
     key: "reorder",
@@ -6439,22 +6399,12 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
   }, {
     key: "getWorldPosition",
     value: function getWorldPosition(target) {
-      if (target === undefined) {
-        console.warn('THREE.Object3D: .getWorldPosition() target is now required');
-        target = new Vector3();
-      }
-
       this.updateWorldMatrix(true, false);
       return target.setFromMatrixPosition(this.matrixWorld);
     }
   }, {
     key: "getWorldQuaternion",
     value: function getWorldQuaternion(target) {
-      if (target === undefined) {
-        console.warn('THREE.Object3D: .getWorldQuaternion() target is now required');
-        target = new Quaternion();
-      }
-
       this.updateWorldMatrix(true, false);
       this.matrixWorld.decompose(_position$3, target, _scale$2);
       return target;
@@ -6462,11 +6412,6 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
   }, {
     key: "getWorldScale",
     value: function getWorldScale(target) {
-      if (target === undefined) {
-        console.warn('THREE.Object3D: .getWorldScale() target is now required');
-        target = new Vector3();
-      }
-
       this.updateWorldMatrix(true, false);
       this.matrixWorld.decompose(_position$3, _quaternion$2, target);
       return target;
@@ -6474,11 +6419,6 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
   }, {
     key: "getWorldDirection",
     value: function getWorldDirection(target) {
-      if (target === undefined) {
-        console.warn('THREE.Object3D: .getWorldDirection() target is now required');
-        target = new Vector3();
-      }
-
       this.updateWorldMatrix(true, false);
       var e = this.matrixWorld.elements;
       return target.set(e[8], e[9], e[10]).normalize();
@@ -6630,7 +6570,19 @@ var Object3D = /*#__PURE__*/function (_EventDispatcher3) {
         return element.uuid;
       }
 
-      if (this.isMesh || this.isLine || this.isPoints) {
+      if (this.isScene) {
+        if (this.background) {
+          if (this.background.isColor) {
+            object.background = this.background.toJSON();
+          } else if (this.background.isTexture) {
+            object.background = this.background.toJSON(meta).uuid;
+          }
+        }
+
+        if (this.environment && this.environment.isTexture) {
+          object.environment = this.environment.toJSON(meta).uuid;
+        }
+      } else if (this.isMesh || this.isLine || this.isPoints) {
         object.geometry = serialize(meta.geometries, this.geometry);
         var parameters = this.geometry.parameters;
 
@@ -6772,187 +6724,6 @@ Object3D.DefaultUp = new Vector3(0, 1, 0);
 Object3D.DefaultMatrixAutoUpdate = true;
 Object3D.prototype.isObject3D = true;
 
-var _vector1 = /*@__PURE__*/new Vector3();
-
-var _vector2$1 = /*@__PURE__*/new Vector3();
-
-var _normalMatrix = /*@__PURE__*/new Matrix3();
-
-var Plane = /*#__PURE__*/function () {
-  function Plane() {
-    var normal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3(1, 0, 0);
-    var constant = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Plane);
-
-    // normal is assumed to be normalized
-    this.normal = normal;
-    this.constant = constant;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Plane, [{
-    key: "set",
-    value: function set(normal, constant) {
-      this.normal.copy(normal);
-      this.constant = constant;
-      return this;
-    }
-  }, {
-    key: "setComponents",
-    value: function setComponents(x, y, z, w) {
-      this.normal.set(x, y, z);
-      this.constant = w;
-      return this;
-    }
-  }, {
-    key: "setFromNormalAndCoplanarPoint",
-    value: function setFromNormalAndCoplanarPoint(normal, point) {
-      this.normal.copy(normal);
-      this.constant = -point.dot(this.normal);
-      return this;
-    }
-  }, {
-    key: "setFromCoplanarPoints",
-    value: function setFromCoplanarPoints(a, b, c) {
-      var normal = _vector1.subVectors(c, b).cross(_vector2$1.subVectors(a, b)).normalize(); // Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
-
-
-      this.setFromNormalAndCoplanarPoint(normal, a);
-      return this;
-    }
-  }, {
-    key: "copy",
-    value: function copy(plane) {
-      this.normal.copy(plane.normal);
-      this.constant = plane.constant;
-      return this;
-    }
-  }, {
-    key: "normalize",
-    value: function normalize() {
-      // Note: will lead to a divide by zero if the plane is invalid.
-      var inverseNormalLength = 1.0 / this.normal.length();
-      this.normal.multiplyScalar(inverseNormalLength);
-      this.constant *= inverseNormalLength;
-      return this;
-    }
-  }, {
-    key: "negate",
-    value: function negate() {
-      this.constant *= -1;
-      this.normal.negate();
-      return this;
-    }
-  }, {
-    key: "distanceToPoint",
-    value: function distanceToPoint(point) {
-      return this.normal.dot(point) + this.constant;
-    }
-  }, {
-    key: "distanceToSphere",
-    value: function distanceToSphere(sphere) {
-      return this.distanceToPoint(sphere.center) - sphere.radius;
-    }
-  }, {
-    key: "projectPoint",
-    value: function projectPoint(point, target) {
-      if (target === undefined) {
-        console.warn('THREE.Plane: .projectPoint() target is now required');
-        target = new Vector3();
-      }
-
-      return target.copy(this.normal).multiplyScalar(-this.distanceToPoint(point)).add(point);
-    }
-  }, {
-    key: "intersectLine",
-    value: function intersectLine(line, target) {
-      if (target === undefined) {
-        console.warn('THREE.Plane: .intersectLine() target is now required');
-        target = new Vector3();
-      }
-
-      var direction = line.delta(_vector1);
-      var denominator = this.normal.dot(direction);
-
-      if (denominator === 0) {
-        // line is coplanar, return origin
-        if (this.distanceToPoint(line.start) === 0) {
-          return target.copy(line.start);
-        } // Unsure if this is the correct method to handle this case.
-
-
-        return null;
-      }
-
-      var t = -(line.start.dot(this.normal) + this.constant) / denominator;
-
-      if (t < 0 || t > 1) {
-        return null;
-      }
-
-      return target.copy(direction).multiplyScalar(t).add(line.start);
-    }
-  }, {
-    key: "intersectsLine",
-    value: function intersectsLine(line) {
-      // Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
-      var startSign = this.distanceToPoint(line.start);
-      var endSign = this.distanceToPoint(line.end);
-      return startSign < 0 && endSign > 0 || endSign < 0 && startSign > 0;
-    }
-  }, {
-    key: "intersectsBox",
-    value: function intersectsBox(box) {
-      return box.intersectsPlane(this);
-    }
-  }, {
-    key: "intersectsSphere",
-    value: function intersectsSphere(sphere) {
-      return sphere.intersectsPlane(this);
-    }
-  }, {
-    key: "coplanarPoint",
-    value: function coplanarPoint(target) {
-      if (target === undefined) {
-        console.warn('THREE.Plane: .coplanarPoint() target is now required');
-        target = new Vector3();
-      }
-
-      return target.copy(this.normal).multiplyScalar(-this.constant);
-    }
-  }, {
-    key: "applyMatrix4",
-    value: function applyMatrix4(matrix, optionalNormalMatrix) {
-      var normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix(matrix);
-
-      var referencePoint = this.coplanarPoint(_vector1).applyMatrix4(matrix);
-      var normal = this.normal.applyMatrix3(normalMatrix).normalize();
-      this.constant = -referencePoint.dot(normal);
-      return this;
-    }
-  }, {
-    key: "translate",
-    value: function translate(offset) {
-      this.constant -= offset.dot(this.normal);
-      return this;
-    }
-  }, {
-    key: "equals",
-    value: function equals(plane) {
-      return plane.normal.equals(this.normal) && plane.constant === this.constant;
-    }
-  }, {
-    key: "clone",
-    value: function clone() {
-      return new this.constructor().copy(this);
-    }
-  }]);
-
-  return Plane;
-}();
-
-Plane.prototype.isPlane = true;
-
 var _v0$1 = /*@__PURE__*/new Vector3();
 
 var _v1$3 = /*@__PURE__*/new Vector3();
@@ -7027,11 +6798,6 @@ var Triangle = /*#__PURE__*/function () {
   }, {
     key: "getMidpoint",
     value: function getMidpoint(target) {
-      if (target === undefined) {
-        console.warn('THREE.Triangle: .getMidpoint() target is now required');
-        target = new Vector3();
-      }
-
       return target.addVectors(this.a, this.b).add(this.c).multiplyScalar(1 / 3);
     }
   }, {
@@ -7042,11 +6808,6 @@ var Triangle = /*#__PURE__*/function () {
   }, {
     key: "getPlane",
     value: function getPlane(target) {
-      if (target === undefined) {
-        console.warn('THREE.Triangle: .getPlane() target is now required');
-        target = new Plane();
-      }
-
       return target.setFromCoplanarPoints(this.a, this.b, this.c);
     }
   }, {
@@ -7077,11 +6838,6 @@ var Triangle = /*#__PURE__*/function () {
   }, {
     key: "closestPointToPoint",
     value: function closestPointToPoint(p, target) {
-      if (target === undefined) {
-        console.warn('THREE.Triangle: .closestPointToPoint() target is now required');
-        target = new Vector3();
-      }
-
       var a = this.a,
           b = this.b,
           c = this.c;
@@ -7169,11 +6925,6 @@ var Triangle = /*#__PURE__*/function () {
   }], [{
     key: "getNormal",
     value: function getNormal(a, b, c, target) {
-      if (target === undefined) {
-        console.warn('THREE.Triangle: .getNormal() target is now required');
-        target = new Vector3();
-      }
-
       target.subVectors(c, b);
 
       _v0$1.subVectors(a, b);
@@ -7208,13 +6959,7 @@ var Triangle = /*#__PURE__*/function () {
 
       var dot12 = _v1$3.dot(_v2$2);
 
-      var denom = dot00 * dot11 - dot01 * dot01;
-
-      if (target === undefined) {
-        console.warn('THREE.Triangle: .getBarycoord() target is now required');
-        target = new Vector3();
-      } // collinear or singular triangle
-
+      var denom = dot00 * dot11 - dot01 * dot01; // collinear or singular triangle
 
       if (denom === 0) {
         // arbitrary location outside of triangle?
@@ -8051,15 +7796,6 @@ var Color = /*#__PURE__*/function () {
     key: "getHSL",
     value: function getHSL(target) {
       // h,s,l ranges are in 0.0 - 1.0
-      if (target === undefined) {
-        console.warn('THREE.Color: .getHSL() target is now required');
-        target = {
-          h: 0,
-          s: 0,
-          l: 0
-        };
-      }
-
       var r = this.r,
           g = this.g,
           b = this.b;
@@ -8342,7 +8078,7 @@ MeshBasicMaterial.prototype.isMeshBasicMaterial = true;
 
 var _vector$9 = /*@__PURE__*/new Vector3();
 
-var _vector2 = /*@__PURE__*/new Vector2();
+var _vector2$1 = /*@__PURE__*/new Vector2();
 
 var BufferAttribute = /*#__PURE__*/function () {
   function BufferAttribute(array, itemSize, normalized) {
@@ -8497,11 +8233,11 @@ var BufferAttribute = /*#__PURE__*/function () {
     value: function applyMatrix3(m) {
       if (this.itemSize === 2) {
         for (var _i34 = 0, l = this.count; _i34 < l; _i34++) {
-          _vector2.fromBufferAttribute(this, _i34);
+          _vector2$1.fromBufferAttribute(this, _i34);
 
-          _vector2.applyMatrix3(m);
+          _vector2$1.applyMatrix3(m);
 
-          this.setXY(_i34, _vector2.x, _vector2.y);
+          this.setXY(_i34, _vector2$1.x, _vector2$1.y);
         }
       } else if (this.itemSize === 3) {
         for (var _i35 = 0, _l2 = this.count; _i35 < _l2; _i35++) {
@@ -9439,7 +9175,11 @@ var BufferGeometry = /*#__PURE__*/function (_EventDispatcher5) {
             index2 = 0;
 
         for (var _i53 = 0, l = indices.length; _i53 < l; _i53++) {
-          index = indices[_i53] * itemSize;
+          if (attribute.isInterleavedBufferAttribute) {
+            index = indices[_i53] * attribute.data.stride + attribute.offset;
+          } else {
+            index = indices[_i53] * itemSize;
+          }
 
           for (var j = 0; j < itemSize; j++) {
             array2[index2++] = array[index++];
@@ -10179,6 +9919,13 @@ var BoxGeometry = /*#__PURE__*/function (_BufferGeometry) {
     return _this11;
   }
 
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(BoxGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new BoxGeometry(data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments);
+    }
+  }]);
+
   return BoxGeometry;
 }(BufferGeometry);
 /**
@@ -10431,11 +10178,6 @@ var Camera = /*#__PURE__*/function (_Object3D2) {
   }, {
     key: "getWorldDirection",
     value: function getWorldDirection(target) {
-      if (target === undefined) {
-        console.warn('THREE.Camera: .getWorldDirection() target is now required');
-        target = new Vector3();
-      }
-
       this.updateWorldMatrix(true, false);
       var e = this.matrixWorld.elements;
       return target.set(-e[8], -e[9], -e[10]).normalize();
@@ -10912,6 +10654,172 @@ var WebGLCubeRenderTarget = /*#__PURE__*/function (_WebGLRenderTarget3) {
 
 WebGLCubeRenderTarget.prototype.isWebGLCubeRenderTarget = true;
 
+var _vector1 = /*@__PURE__*/new Vector3();
+
+var _vector2 = /*@__PURE__*/new Vector3();
+
+var _normalMatrix = /*@__PURE__*/new Matrix3();
+
+var Plane = /*#__PURE__*/function () {
+  function Plane() {
+    var normal = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3(1, 0, 0);
+    var constant = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Plane);
+
+    // normal is assumed to be normalized
+    this.normal = normal;
+    this.constant = constant;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Plane, [{
+    key: "set",
+    value: function set(normal, constant) {
+      this.normal.copy(normal);
+      this.constant = constant;
+      return this;
+    }
+  }, {
+    key: "setComponents",
+    value: function setComponents(x, y, z, w) {
+      this.normal.set(x, y, z);
+      this.constant = w;
+      return this;
+    }
+  }, {
+    key: "setFromNormalAndCoplanarPoint",
+    value: function setFromNormalAndCoplanarPoint(normal, point) {
+      this.normal.copy(normal);
+      this.constant = -point.dot(this.normal);
+      return this;
+    }
+  }, {
+    key: "setFromCoplanarPoints",
+    value: function setFromCoplanarPoints(a, b, c) {
+      var normal = _vector1.subVectors(c, b).cross(_vector2.subVectors(a, b)).normalize(); // Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
+
+
+      this.setFromNormalAndCoplanarPoint(normal, a);
+      return this;
+    }
+  }, {
+    key: "copy",
+    value: function copy(plane) {
+      this.normal.copy(plane.normal);
+      this.constant = plane.constant;
+      return this;
+    }
+  }, {
+    key: "normalize",
+    value: function normalize() {
+      // Note: will lead to a divide by zero if the plane is invalid.
+      var inverseNormalLength = 1.0 / this.normal.length();
+      this.normal.multiplyScalar(inverseNormalLength);
+      this.constant *= inverseNormalLength;
+      return this;
+    }
+  }, {
+    key: "negate",
+    value: function negate() {
+      this.constant *= -1;
+      this.normal.negate();
+      return this;
+    }
+  }, {
+    key: "distanceToPoint",
+    value: function distanceToPoint(point) {
+      return this.normal.dot(point) + this.constant;
+    }
+  }, {
+    key: "distanceToSphere",
+    value: function distanceToSphere(sphere) {
+      return this.distanceToPoint(sphere.center) - sphere.radius;
+    }
+  }, {
+    key: "projectPoint",
+    value: function projectPoint(point, target) {
+      return target.copy(this.normal).multiplyScalar(-this.distanceToPoint(point)).add(point);
+    }
+  }, {
+    key: "intersectLine",
+    value: function intersectLine(line, target) {
+      var direction = line.delta(_vector1);
+      var denominator = this.normal.dot(direction);
+
+      if (denominator === 0) {
+        // line is coplanar, return origin
+        if (this.distanceToPoint(line.start) === 0) {
+          return target.copy(line.start);
+        } // Unsure if this is the correct method to handle this case.
+
+
+        return null;
+      }
+
+      var t = -(line.start.dot(this.normal) + this.constant) / denominator;
+
+      if (t < 0 || t > 1) {
+        return null;
+      }
+
+      return target.copy(direction).multiplyScalar(t).add(line.start);
+    }
+  }, {
+    key: "intersectsLine",
+    value: function intersectsLine(line) {
+      // Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
+      var startSign = this.distanceToPoint(line.start);
+      var endSign = this.distanceToPoint(line.end);
+      return startSign < 0 && endSign > 0 || endSign < 0 && startSign > 0;
+    }
+  }, {
+    key: "intersectsBox",
+    value: function intersectsBox(box) {
+      return box.intersectsPlane(this);
+    }
+  }, {
+    key: "intersectsSphere",
+    value: function intersectsSphere(sphere) {
+      return sphere.intersectsPlane(this);
+    }
+  }, {
+    key: "coplanarPoint",
+    value: function coplanarPoint(target) {
+      return target.copy(this.normal).multiplyScalar(-this.constant);
+    }
+  }, {
+    key: "applyMatrix4",
+    value: function applyMatrix4(matrix, optionalNormalMatrix) {
+      var normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix(matrix);
+
+      var referencePoint = this.coplanarPoint(_vector1).applyMatrix4(matrix);
+      var normal = this.normal.applyMatrix3(normalMatrix).normalize();
+      this.constant = -referencePoint.dot(normal);
+      return this;
+    }
+  }, {
+    key: "translate",
+    value: function translate(offset) {
+      this.constant -= offset.dot(this.normal);
+      return this;
+    }
+  }, {
+    key: "equals",
+    value: function equals(plane) {
+      return plane.normal.equals(this.normal) && plane.constant === this.constant;
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor().copy(this);
+    }
+  }]);
+
+  return Plane;
+}();
+
+Plane.prototype.isPlane = true;
+
 var _sphere$2 = /*@__PURE__*/new Sphere();
 
 var _vector$7 = /*@__PURE__*/new Vector3();
@@ -11282,6 +11190,13 @@ var PlaneGeometry = /*#__PURE__*/function (_BufferGeometry2) {
     return _this18;
   }
 
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PlaneGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new PlaneGeometry(data.width, data.height, data.widthSegments, data.heightSegments);
+    }
+  }]);
+
   return PlaneGeometry;
 }(BufferGeometry);
 
@@ -11292,7 +11207,7 @@ var aomap_fragment = "#ifdef USE_AOMAP\n\tfloat ambientOcclusion = ( texture2D( 
 var aomap_pars_fragment = "#ifdef USE_AOMAP\n\tuniform sampler2D aoMap;\n\tuniform float aoMapIntensity;\n#endif";
 var begin_vertex = "vec3 transformed = vec3( position );";
 var beginnormal_vertex = "vec3 objectNormal = vec3( normal );\n#ifdef USE_TANGENT\n\tvec3 objectTangent = vec3( tangent.xyz );\n#endif";
-var bsdfs = "vec2 integrateSpecularBRDF( const in float dotNV, const in float roughness ) {\n\tconst vec4 c0 = vec4( - 1, - 0.0275, - 0.572, 0.022 );\n\tconst vec4 c1 = vec4( 1, 0.0425, 1.04, - 0.04 );\n\tvec4 r = roughness * c0 + c1;\n\tfloat a004 = min( r.x * r.x, exp2( - 9.28 * dotNV ) ) * r.x + r.y;\n\treturn vec2( -1.04, 1.04 ) * a004 + r.zw;\n}\nfloat punctualLightIntensityToIrradianceFactor( const in float lightDistance, const in float cutoffDistance, const in float decayExponent ) {\n#if defined ( PHYSICALLY_CORRECT_LIGHTS )\n\tfloat distanceFalloff = 1.0 / max( pow( lightDistance, decayExponent ), 0.01 );\n\tif( cutoffDistance > 0.0 ) {\n\t\tdistanceFalloff *= pow2( saturate( 1.0 - pow4( lightDistance / cutoffDistance ) ) );\n\t}\n\treturn distanceFalloff;\n#else\n\tif( cutoffDistance > 0.0 && decayExponent > 0.0 ) {\n\t\treturn pow( saturate( -lightDistance / cutoffDistance + 1.0 ), decayExponent );\n\t}\n\treturn 1.0;\n#endif\n}\nvec3 BRDF_Diffuse_Lambert( const in vec3 diffuseColor ) {\n\treturn RECIPROCAL_PI * diffuseColor;\n}\nvec3 F_Schlick( const in vec3 specularColor, const in float dotLH ) {\n\tfloat fresnel = exp2( ( -5.55473 * dotLH - 6.98316 ) * dotLH );\n\treturn ( 1.0 - specularColor ) * fresnel + specularColor;\n}\nvec3 F_Schlick_RoughnessDependent( const in vec3 F0, const in float dotNV, const in float roughness ) {\n\tfloat fresnel = exp2( ( -5.55473 * dotNV - 6.98316 ) * dotNV );\n\tvec3 Fr = max( vec3( 1.0 - roughness ), F0 ) - F0;\n\treturn Fr * fresnel + F0;\n}\nfloat G_GGX_Smith( const in float alpha, const in float dotNL, const in float dotNV ) {\n\tfloat a2 = pow2( alpha );\n\tfloat gl = dotNL + sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNL ) );\n\tfloat gv = dotNV + sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNV ) );\n\treturn 1.0 / ( gl * gv );\n}\nfloat G_GGX_SmithCorrelated( const in float alpha, const in float dotNL, const in float dotNV ) {\n\tfloat a2 = pow2( alpha );\n\tfloat gv = dotNL * sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNV ) );\n\tfloat gl = dotNV * sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNL ) );\n\treturn 0.5 / max( gv + gl, EPSILON );\n}\nfloat D_GGX( const in float alpha, const in float dotNH ) {\n\tfloat a2 = pow2( alpha );\n\tfloat denom = pow2( dotNH ) * ( a2 - 1.0 ) + 1.0;\n\treturn RECIPROCAL_PI * a2 / pow2( denom );\n}\nvec3 BRDF_Specular_GGX( const in IncidentLight incidentLight, const in vec3 viewDir, const in vec3 normal, const in vec3 specularColor, const in float roughness ) {\n\tfloat alpha = pow2( roughness );\n\tvec3 halfDir = normalize( incidentLight.direction + viewDir );\n\tfloat dotNL = saturate( dot( normal, incidentLight.direction ) );\n\tfloat dotNV = saturate( dot( normal, viewDir ) );\n\tfloat dotNH = saturate( dot( normal, halfDir ) );\n\tfloat dotLH = saturate( dot( incidentLight.direction, halfDir ) );\n\tvec3 F = F_Schlick( specularColor, dotLH );\n\tfloat G = G_GGX_SmithCorrelated( alpha, dotNL, dotNV );\n\tfloat D = D_GGX( alpha, dotNH );\n\treturn F * ( G * D );\n}\nvec2 LTC_Uv( const in vec3 N, const in vec3 V, const in float roughness ) {\n\tconst float LUT_SIZE = 64.0;\n\tconst float LUT_SCALE = ( LUT_SIZE - 1.0 ) / LUT_SIZE;\n\tconst float LUT_BIAS = 0.5 / LUT_SIZE;\n\tfloat dotNV = saturate( dot( N, V ) );\n\tvec2 uv = vec2( roughness, sqrt( 1.0 - dotNV ) );\n\tuv = uv * LUT_SCALE + LUT_BIAS;\n\treturn uv;\n}\nfloat LTC_ClippedSphereFormFactor( const in vec3 f ) {\n\tfloat l = length( f );\n\treturn max( ( l * l + f.z ) / ( l + 1.0 ), 0.0 );\n}\nvec3 LTC_EdgeVectorFormFactor( const in vec3 v1, const in vec3 v2 ) {\n\tfloat x = dot( v1, v2 );\n\tfloat y = abs( x );\n\tfloat a = 0.8543985 + ( 0.4965155 + 0.0145206 * y ) * y;\n\tfloat b = 3.4175940 + ( 4.1616724 + y ) * y;\n\tfloat v = a / b;\n\tfloat theta_sintheta = ( x > 0.0 ) ? v : 0.5 * inversesqrt( max( 1.0 - x * x, 1e-7 ) ) - v;\n\treturn cross( v1, v2 ) * theta_sintheta;\n}\nvec3 LTC_Evaluate( const in vec3 N, const in vec3 V, const in vec3 P, const in mat3 mInv, const in vec3 rectCoords[ 4 ] ) {\n\tvec3 v1 = rectCoords[ 1 ] - rectCoords[ 0 ];\n\tvec3 v2 = rectCoords[ 3 ] - rectCoords[ 0 ];\n\tvec3 lightNormal = cross( v1, v2 );\n\tif( dot( lightNormal, P - rectCoords[ 0 ] ) < 0.0 ) return vec3( 0.0 );\n\tvec3 T1, T2;\n\tT1 = normalize( V - N * dot( V, N ) );\n\tT2 = - cross( N, T1 );\n\tmat3 mat = mInv * transposeMat3( mat3( T1, T2, N ) );\n\tvec3 coords[ 4 ];\n\tcoords[ 0 ] = mat * ( rectCoords[ 0 ] - P );\n\tcoords[ 1 ] = mat * ( rectCoords[ 1 ] - P );\n\tcoords[ 2 ] = mat * ( rectCoords[ 2 ] - P );\n\tcoords[ 3 ] = mat * ( rectCoords[ 3 ] - P );\n\tcoords[ 0 ] = normalize( coords[ 0 ] );\n\tcoords[ 1 ] = normalize( coords[ 1 ] );\n\tcoords[ 2 ] = normalize( coords[ 2 ] );\n\tcoords[ 3 ] = normalize( coords[ 3 ] );\n\tvec3 vectorFormFactor = vec3( 0.0 );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 0 ], coords[ 1 ] );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 1 ], coords[ 2 ] );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 2 ], coords[ 3 ] );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 3 ], coords[ 0 ] );\n\tfloat result = LTC_ClippedSphereFormFactor( vectorFormFactor );\n\treturn vec3( result );\n}\nvec3 BRDF_Specular_GGX_Environment( const in vec3 viewDir, const in vec3 normal, const in vec3 specularColor, const in float roughness ) {\n\tfloat dotNV = saturate( dot( normal, viewDir ) );\n\tvec2 brdf = integrateSpecularBRDF( dotNV, roughness );\n\treturn specularColor * brdf.x + brdf.y;\n}\nvoid BRDF_Specular_Multiscattering_Environment( const in GeometricContext geometry, const in vec3 specularColor, const in float roughness, inout vec3 singleScatter, inout vec3 multiScatter ) {\n\tfloat dotNV = saturate( dot( geometry.normal, geometry.viewDir ) );\n\tvec3 F = F_Schlick_RoughnessDependent( specularColor, dotNV, roughness );\n\tvec2 brdf = integrateSpecularBRDF( dotNV, roughness );\n\tvec3 FssEss = F * brdf.x + brdf.y;\n\tfloat Ess = brdf.x + brdf.y;\n\tfloat Ems = 1.0 - Ess;\n\tvec3 Favg = specularColor + ( 1.0 - specularColor ) * 0.047619;\tvec3 Fms = FssEss * Favg / ( 1.0 - Ems * Favg );\n\tsingleScatter += FssEss;\n\tmultiScatter += Fms * Ems;\n}\nfloat G_BlinnPhong_Implicit( ) {\n\treturn 0.25;\n}\nfloat D_BlinnPhong( const in float shininess, const in float dotNH ) {\n\treturn RECIPROCAL_PI * ( shininess * 0.5 + 1.0 ) * pow( dotNH, shininess );\n}\nvec3 BRDF_Specular_BlinnPhong( const in IncidentLight incidentLight, const in GeometricContext geometry, const in vec3 specularColor, const in float shininess ) {\n\tvec3 halfDir = normalize( incidentLight.direction + geometry.viewDir );\n\tfloat dotNH = saturate( dot( geometry.normal, halfDir ) );\n\tfloat dotLH = saturate( dot( incidentLight.direction, halfDir ) );\n\tvec3 F = F_Schlick( specularColor, dotLH );\n\tfloat G = G_BlinnPhong_Implicit( );\n\tfloat D = D_BlinnPhong( shininess, dotNH );\n\treturn F * ( G * D );\n}\nfloat GGXRoughnessToBlinnExponent( const in float ggxRoughness ) {\n\treturn ( 2.0 / pow2( ggxRoughness + 0.0001 ) - 2.0 );\n}\nfloat BlinnExponentToGGXRoughness( const in float blinnExponent ) {\n\treturn sqrt( 2.0 / ( blinnExponent + 2.0 ) );\n}\n#if defined( USE_SHEEN )\nfloat D_Charlie(float roughness, float NoH) {\n\tfloat invAlpha = 1.0 / roughness;\n\tfloat cos2h = NoH * NoH;\n\tfloat sin2h = max(1.0 - cos2h, 0.0078125);\treturn (2.0 + invAlpha) * pow(sin2h, invAlpha * 0.5) / (2.0 * PI);\n}\nfloat V_Neubelt(float NoV, float NoL) {\n\treturn saturate(1.0 / (4.0 * (NoL + NoV - NoL * NoV)));\n}\nvec3 BRDF_Specular_Sheen( const in float roughness, const in vec3 L, const in GeometricContext geometry, vec3 specularColor ) {\n\tvec3 N = geometry.normal;\n\tvec3 V = geometry.viewDir;\n\tvec3 H = normalize( V + L );\n\tfloat dotNH = saturate( dot( N, H ) );\n\treturn specularColor * D_Charlie( roughness, dotNH ) * V_Neubelt( dot(N, V), dot(N, L) );\n}\n#endif";
+var bsdfs = "vec2 integrateSpecularBRDF( const in float dotNV, const in float roughness ) {\n\tconst vec4 c0 = vec4( - 1, - 0.0275, - 0.572, 0.022 );\n\tconst vec4 c1 = vec4( 1, 0.0425, 1.04, - 0.04 );\n\tvec4 r = roughness * c0 + c1;\n\tfloat a004 = min( r.x * r.x, exp2( - 9.28 * dotNV ) ) * r.x + r.y;\n\treturn vec2( -1.04, 1.04 ) * a004 + r.zw;\n}\nfloat punctualLightIntensityToIrradianceFactor( const in float lightDistance, const in float cutoffDistance, const in float decayExponent ) {\n#if defined ( PHYSICALLY_CORRECT_LIGHTS )\n\tfloat distanceFalloff = 1.0 / max( pow( lightDistance, decayExponent ), 0.01 );\n\tif( cutoffDistance > 0.0 ) {\n\t\tdistanceFalloff *= pow2( saturate( 1.0 - pow4( lightDistance / cutoffDistance ) ) );\n\t}\n\treturn distanceFalloff;\n#else\n\tif( cutoffDistance > 0.0 && decayExponent > 0.0 ) {\n\t\treturn pow( saturate( -lightDistance / cutoffDistance + 1.0 ), decayExponent );\n\t}\n\treturn 1.0;\n#endif\n}\nvec3 BRDF_Diffuse_Lambert( const in vec3 diffuseColor ) {\n\treturn RECIPROCAL_PI * diffuseColor;\n}\nvec3 F_Schlick( const in vec3 specularColor, const in float dotVH ) {\n\tfloat fresnel = exp2( ( -5.55473 * dotVH - 6.98316 ) * dotVH );\n\treturn ( 1.0 - specularColor ) * fresnel + specularColor;\n}\nvec3 F_Schlick_RoughnessDependent( const in vec3 F0, const in float dotNV, const in float roughness ) {\n\tfloat fresnel = exp2( ( -5.55473 * dotNV - 6.98316 ) * dotNV );\n\tvec3 Fr = max( vec3( 1.0 - roughness ), F0 ) - F0;\n\treturn Fr * fresnel + F0;\n}\nfloat G_GGX_Smith( const in float alpha, const in float dotNL, const in float dotNV ) {\n\tfloat a2 = pow2( alpha );\n\tfloat gl = dotNL + sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNL ) );\n\tfloat gv = dotNV + sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNV ) );\n\treturn 1.0 / ( gl * gv );\n}\nfloat G_GGX_SmithCorrelated( const in float alpha, const in float dotNL, const in float dotNV ) {\n\tfloat a2 = pow2( alpha );\n\tfloat gv = dotNL * sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNV ) );\n\tfloat gl = dotNV * sqrt( a2 + ( 1.0 - a2 ) * pow2( dotNL ) );\n\treturn 0.5 / max( gv + gl, EPSILON );\n}\nfloat D_GGX( const in float alpha, const in float dotNH ) {\n\tfloat a2 = pow2( alpha );\n\tfloat denom = pow2( dotNH ) * ( a2 - 1.0 ) + 1.0;\n\treturn RECIPROCAL_PI * a2 / pow2( denom );\n}\nvec3 BRDF_Specular_GGX( const in IncidentLight incidentLight, const in vec3 viewDir, const in vec3 normal, const in vec3 specularColor, const in float roughness ) {\n\tfloat alpha = pow2( roughness );\n\tvec3 halfDir = normalize( incidentLight.direction + viewDir );\n\tfloat dotNL = saturate( dot( normal, incidentLight.direction ) );\n\tfloat dotNV = saturate( dot( normal, viewDir ) );\n\tfloat dotNH = saturate( dot( normal, halfDir ) );\n\tfloat dotLH = saturate( dot( incidentLight.direction, halfDir ) );\n\tvec3 F = F_Schlick( specularColor, dotLH );\n\tfloat G = G_GGX_SmithCorrelated( alpha, dotNL, dotNV );\n\tfloat D = D_GGX( alpha, dotNH );\n\treturn F * ( G * D );\n}\nvec2 LTC_Uv( const in vec3 N, const in vec3 V, const in float roughness ) {\n\tconst float LUT_SIZE = 64.0;\n\tconst float LUT_SCALE = ( LUT_SIZE - 1.0 ) / LUT_SIZE;\n\tconst float LUT_BIAS = 0.5 / LUT_SIZE;\n\tfloat dotNV = saturate( dot( N, V ) );\n\tvec2 uv = vec2( roughness, sqrt( 1.0 - dotNV ) );\n\tuv = uv * LUT_SCALE + LUT_BIAS;\n\treturn uv;\n}\nfloat LTC_ClippedSphereFormFactor( const in vec3 f ) {\n\tfloat l = length( f );\n\treturn max( ( l * l + f.z ) / ( l + 1.0 ), 0.0 );\n}\nvec3 LTC_EdgeVectorFormFactor( const in vec3 v1, const in vec3 v2 ) {\n\tfloat x = dot( v1, v2 );\n\tfloat y = abs( x );\n\tfloat a = 0.8543985 + ( 0.4965155 + 0.0145206 * y ) * y;\n\tfloat b = 3.4175940 + ( 4.1616724 + y ) * y;\n\tfloat v = a / b;\n\tfloat theta_sintheta = ( x > 0.0 ) ? v : 0.5 * inversesqrt( max( 1.0 - x * x, 1e-7 ) ) - v;\n\treturn cross( v1, v2 ) * theta_sintheta;\n}\nvec3 LTC_Evaluate( const in vec3 N, const in vec3 V, const in vec3 P, const in mat3 mInv, const in vec3 rectCoords[ 4 ] ) {\n\tvec3 v1 = rectCoords[ 1 ] - rectCoords[ 0 ];\n\tvec3 v2 = rectCoords[ 3 ] - rectCoords[ 0 ];\n\tvec3 lightNormal = cross( v1, v2 );\n\tif( dot( lightNormal, P - rectCoords[ 0 ] ) < 0.0 ) return vec3( 0.0 );\n\tvec3 T1, T2;\n\tT1 = normalize( V - N * dot( V, N ) );\n\tT2 = - cross( N, T1 );\n\tmat3 mat = mInv * transposeMat3( mat3( T1, T2, N ) );\n\tvec3 coords[ 4 ];\n\tcoords[ 0 ] = mat * ( rectCoords[ 0 ] - P );\n\tcoords[ 1 ] = mat * ( rectCoords[ 1 ] - P );\n\tcoords[ 2 ] = mat * ( rectCoords[ 2 ] - P );\n\tcoords[ 3 ] = mat * ( rectCoords[ 3 ] - P );\n\tcoords[ 0 ] = normalize( coords[ 0 ] );\n\tcoords[ 1 ] = normalize( coords[ 1 ] );\n\tcoords[ 2 ] = normalize( coords[ 2 ] );\n\tcoords[ 3 ] = normalize( coords[ 3 ] );\n\tvec3 vectorFormFactor = vec3( 0.0 );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 0 ], coords[ 1 ] );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 1 ], coords[ 2 ] );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 2 ], coords[ 3 ] );\n\tvectorFormFactor += LTC_EdgeVectorFormFactor( coords[ 3 ], coords[ 0 ] );\n\tfloat result = LTC_ClippedSphereFormFactor( vectorFormFactor );\n\treturn vec3( result );\n}\nvec3 BRDF_Specular_GGX_Environment( const in vec3 viewDir, const in vec3 normal, const in vec3 specularColor, const in float roughness ) {\n\tfloat dotNV = saturate( dot( normal, viewDir ) );\n\tvec2 brdf = integrateSpecularBRDF( dotNV, roughness );\n\treturn specularColor * brdf.x + brdf.y;\n}\nvoid BRDF_Specular_Multiscattering_Environment( const in GeometricContext geometry, const in vec3 specularColor, const in float roughness, inout vec3 singleScatter, inout vec3 multiScatter ) {\n\tfloat dotNV = saturate( dot( geometry.normal, geometry.viewDir ) );\n\tvec3 F = F_Schlick_RoughnessDependent( specularColor, dotNV, roughness );\n\tvec2 brdf = integrateSpecularBRDF( dotNV, roughness );\n\tvec3 FssEss = F * brdf.x + brdf.y;\n\tfloat Ess = brdf.x + brdf.y;\n\tfloat Ems = 1.0 - Ess;\n\tvec3 Favg = specularColor + ( 1.0 - specularColor ) * 0.047619;\tvec3 Fms = FssEss * Favg / ( 1.0 - Ems * Favg );\n\tsingleScatter += FssEss;\n\tmultiScatter += Fms * Ems;\n}\nfloat G_BlinnPhong_Implicit( ) {\n\treturn 0.25;\n}\nfloat D_BlinnPhong( const in float shininess, const in float dotNH ) {\n\treturn RECIPROCAL_PI * ( shininess * 0.5 + 1.0 ) * pow( dotNH, shininess );\n}\nvec3 BRDF_Specular_BlinnPhong( const in IncidentLight incidentLight, const in GeometricContext geometry, const in vec3 specularColor, const in float shininess ) {\n\tvec3 halfDir = normalize( incidentLight.direction + geometry.viewDir );\n\tfloat dotNH = saturate( dot( geometry.normal, halfDir ) );\n\tfloat dotLH = saturate( dot( incidentLight.direction, halfDir ) );\n\tvec3 F = F_Schlick( specularColor, dotLH );\n\tfloat G = G_BlinnPhong_Implicit( );\n\tfloat D = D_BlinnPhong( shininess, dotNH );\n\treturn F * ( G * D );\n}\nfloat GGXRoughnessToBlinnExponent( const in float ggxRoughness ) {\n\treturn ( 2.0 / pow2( ggxRoughness + 0.0001 ) - 2.0 );\n}\nfloat BlinnExponentToGGXRoughness( const in float blinnExponent ) {\n\treturn sqrt( 2.0 / ( blinnExponent + 2.0 ) );\n}\n#if defined( USE_SHEEN )\nfloat D_Charlie(float roughness, float NoH) {\n\tfloat invAlpha = 1.0 / roughness;\n\tfloat cos2h = NoH * NoH;\n\tfloat sin2h = max(1.0 - cos2h, 0.0078125);\treturn (2.0 + invAlpha) * pow(sin2h, invAlpha * 0.5) / (2.0 * PI);\n}\nfloat V_Neubelt(float NoV, float NoL) {\n\treturn saturate(1.0 / (4.0 * (NoL + NoV - NoL * NoV)));\n}\nvec3 BRDF_Specular_Sheen( const in float roughness, const in vec3 L, const in GeometricContext geometry, vec3 specularColor ) {\n\tvec3 N = geometry.normal;\n\tvec3 V = geometry.viewDir;\n\tvec3 H = normalize( V + L );\n\tfloat dotNH = saturate( dot( N, H ) );\n\treturn specularColor * D_Charlie( roughness, dotNH ) * V_Neubelt( dot(N, V), dot(N, L) );\n}\n#endif";
 var bumpmap_pars_fragment = "#ifdef USE_BUMPMAP\n\tuniform sampler2D bumpMap;\n\tuniform float bumpScale;\n\tvec2 dHdxy_fwd() {\n\t\tvec2 dSTdx = dFdx( vUv );\n\t\tvec2 dSTdy = dFdy( vUv );\n\t\tfloat Hll = bumpScale * texture2D( bumpMap, vUv ).x;\n\t\tfloat dBx = bumpScale * texture2D( bumpMap, vUv + dSTdx ).x - Hll;\n\t\tfloat dBy = bumpScale * texture2D( bumpMap, vUv + dSTdy ).x - Hll;\n\t\treturn vec2( dBx, dBy );\n\t}\n\tvec3 perturbNormalArb( vec3 surf_pos, vec3 surf_norm, vec2 dHdxy, float faceDirection ) {\n\t\tvec3 vSigmaX = vec3( dFdx( surf_pos.x ), dFdx( surf_pos.y ), dFdx( surf_pos.z ) );\n\t\tvec3 vSigmaY = vec3( dFdy( surf_pos.x ), dFdy( surf_pos.y ), dFdy( surf_pos.z ) );\n\t\tvec3 vN = surf_norm;\n\t\tvec3 R1 = cross( vSigmaY, vN );\n\t\tvec3 R2 = cross( vN, vSigmaX );\n\t\tfloat fDet = dot( vSigmaX, R1 ) * faceDirection;\n\t\tvec3 vGrad = sign( fDet ) * ( dHdxy.x * R1 + dHdxy.y * R2 );\n\t\treturn normalize( abs( fDet ) * surf_norm - vGrad );\n\t}\n#endif";
 var clipping_planes_fragment = "#if NUM_CLIPPING_PLANES > 0\n\tvec4 plane;\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < UNION_CLIPPING_PLANES; i ++ ) {\n\t\tplane = clippingPlanes[ i ];\n\t\tif ( dot( vClipPosition, plane.xyz ) > plane.w ) discard;\n\t}\n\t#pragma unroll_loop_end\n\t#if UNION_CLIPPING_PLANES < NUM_CLIPPING_PLANES\n\t\tbool clipped = true;\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = UNION_CLIPPING_PLANES; i < NUM_CLIPPING_PLANES; i ++ ) {\n\t\t\tplane = clippingPlanes[ i ];\n\t\t\tclipped = ( dot( vClipPosition, plane.xyz ) > plane.w ) && clipped;\n\t\t}\n\t\t#pragma unroll_loop_end\n\t\tif ( clipped ) discard;\n\t#endif\n#endif";
 var clipping_planes_pars_fragment = "#if NUM_CLIPPING_PLANES > 0\n\tvarying vec3 vClipPosition;\n\tuniform vec4 clippingPlanes[ NUM_CLIPPING_PLANES ];\n#endif";
@@ -11330,7 +11245,7 @@ var lights_toon_fragment = "ToonMaterial material;\nmaterial.diffuseColor = diff
 var lights_toon_pars_fragment = "varying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\nstruct ToonMaterial {\n\tvec3 diffuseColor;\n};\nvoid RE_Direct_Toon( const in IncidentLight directLight, const in GeometricContext geometry, const in ToonMaterial material, inout ReflectedLight reflectedLight ) {\n\tvec3 irradiance = getGradientIrradiance( geometry.normal, directLight.direction ) * directLight.color;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tirradiance *= PI;\n\t#endif\n\treflectedLight.directDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\nvoid RE_IndirectDiffuse_Toon( const in vec3 irradiance, const in GeometricContext geometry, const in ToonMaterial material, inout ReflectedLight reflectedLight ) {\n\treflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\n#define RE_Direct\t\t\t\tRE_Direct_Toon\n#define RE_IndirectDiffuse\t\tRE_IndirectDiffuse_Toon\n#define Material_LightProbeLOD( material )\t(0)";
 var lights_phong_fragment = "BlinnPhongMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb;\nmaterial.specularColor = specular;\nmaterial.specularShininess = shininess;\nmaterial.specularStrength = specularStrength;";
 var lights_phong_pars_fragment = "varying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\nstruct BlinnPhongMaterial {\n\tvec3 diffuseColor;\n\tvec3 specularColor;\n\tfloat specularShininess;\n\tfloat specularStrength;\n};\nvoid RE_Direct_BlinnPhong( const in IncidentLight directLight, const in GeometricContext geometry, const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {\n\tfloat dotNL = saturate( dot( geometry.normal, directLight.direction ) );\n\tvec3 irradiance = dotNL * directLight.color;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tirradiance *= PI;\n\t#endif\n\treflectedLight.directDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n\treflectedLight.directSpecular += irradiance * BRDF_Specular_BlinnPhong( directLight, geometry, material.specularColor, material.specularShininess ) * material.specularStrength;\n}\nvoid RE_IndirectDiffuse_BlinnPhong( const in vec3 irradiance, const in GeometricContext geometry, const in BlinnPhongMaterial material, inout ReflectedLight reflectedLight ) {\n\treflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\n#define RE_Direct\t\t\t\tRE_Direct_BlinnPhong\n#define RE_IndirectDiffuse\t\tRE_IndirectDiffuse_BlinnPhong\n#define Material_LightProbeLOD( material )\t(0)";
-var lights_physical_fragment = "PhysicalMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb * ( 1.0 - metalnessFactor );\nvec3 dxy = max( abs( dFdx( geometryNormal ) ), abs( dFdy( geometryNormal ) ) );\nfloat geometryRoughness = max( max( dxy.x, dxy.y ), dxy.z );\nmaterial.specularRoughness = max( roughnessFactor, 0.0525 );material.specularRoughness += geometryRoughness;\nmaterial.specularRoughness = min( material.specularRoughness, 1.0 );\n#ifdef REFLECTIVITY\n\tmaterial.specularColor = mix( vec3( MAXIMUM_SPECULAR_COEFFICIENT * pow2( reflectivity ) ), rawDiffuseColor, metalnessFactor );\n#else\n\tmaterial.specularColor = mix( vec3( DEFAULT_SPECULAR_COEFFICIENT ), rawDiffuseColor, metalnessFactor );\n#endif\n#ifdef CLEARCOAT\n\tmaterial.clearcoat = clearcoat;\n\tmaterial.clearcoatRoughness = clearcoatRoughness;\n\t#ifdef USE_CLEARCOATMAP\n\t\tmaterial.clearcoat *= texture2D( clearcoatMap, vUv ).x;\n\t#endif\n\t#ifdef USE_CLEARCOAT_ROUGHNESSMAP\n\t\tmaterial.clearcoatRoughness *= texture2D( clearcoatRoughnessMap, vUv ).y;\n\t#endif\n\tmaterial.clearcoat = saturate( material.clearcoat );\tmaterial.clearcoatRoughness = max( material.clearcoatRoughness, 0.0525 );\n\tmaterial.clearcoatRoughness += geometryRoughness;\n\tmaterial.clearcoatRoughness = min( material.clearcoatRoughness, 1.0 );\n#endif\n#ifdef USE_SHEEN\n\tmaterial.sheenColor = sheen;\n#endif";
+var lights_physical_fragment = "PhysicalMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb * ( 1.0 - metalnessFactor );\nvec3 dxy = max( abs( dFdx( geometryNormal ) ), abs( dFdy( geometryNormal ) ) );\nfloat geometryRoughness = max( max( dxy.x, dxy.y ), dxy.z );\nmaterial.specularRoughness = max( roughnessFactor, 0.0525 );material.specularRoughness += geometryRoughness;\nmaterial.specularRoughness = min( material.specularRoughness, 1.0 );\n#ifdef REFLECTIVITY\n\tmaterial.specularColor = mix( vec3( MAXIMUM_SPECULAR_COEFFICIENT * pow2( reflectivity ) ), diffuseColor.rgb, metalnessFactor );\n#else\n\tmaterial.specularColor = mix( vec3( DEFAULT_SPECULAR_COEFFICIENT ), diffuseColor.rgb, metalnessFactor );\n#endif\n#ifdef CLEARCOAT\n\tmaterial.clearcoat = clearcoat;\n\tmaterial.clearcoatRoughness = clearcoatRoughness;\n\t#ifdef USE_CLEARCOATMAP\n\t\tmaterial.clearcoat *= texture2D( clearcoatMap, vUv ).x;\n\t#endif\n\t#ifdef USE_CLEARCOAT_ROUGHNESSMAP\n\t\tmaterial.clearcoatRoughness *= texture2D( clearcoatRoughnessMap, vUv ).y;\n\t#endif\n\tmaterial.clearcoat = saturate( material.clearcoat );\tmaterial.clearcoatRoughness = max( material.clearcoatRoughness, 0.0525 );\n\tmaterial.clearcoatRoughness += geometryRoughness;\n\tmaterial.clearcoatRoughness = min( material.clearcoatRoughness, 1.0 );\n#endif\n#ifdef USE_SHEEN\n\tmaterial.sheenColor = sheen;\n#endif";
 var lights_physical_pars_fragment = "struct PhysicalMaterial {\n\tvec3 diffuseColor;\n\tfloat specularRoughness;\n\tvec3 specularColor;\n#ifdef CLEARCOAT\n\tfloat clearcoat;\n\tfloat clearcoatRoughness;\n#endif\n#ifdef USE_SHEEN\n\tvec3 sheenColor;\n#endif\n};\n#define MAXIMUM_SPECULAR_COEFFICIENT 0.16\n#define DEFAULT_SPECULAR_COEFFICIENT 0.04\nfloat clearcoatDHRApprox( const in float roughness, const in float dotNL ) {\n\treturn DEFAULT_SPECULAR_COEFFICIENT + ( 1.0 - DEFAULT_SPECULAR_COEFFICIENT ) * ( pow( 1.0 - dotNL, 5.0 ) * pow( 1.0 - roughness, 2.0 ) );\n}\n#if NUM_RECT_AREA_LIGHTS > 0\n\tvoid RE_Direct_RectArea_Physical( const in RectAreaLight rectAreaLight, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight ) {\n\t\tvec3 normal = geometry.normal;\n\t\tvec3 viewDir = geometry.viewDir;\n\t\tvec3 position = geometry.position;\n\t\tvec3 lightPos = rectAreaLight.position;\n\t\tvec3 halfWidth = rectAreaLight.halfWidth;\n\t\tvec3 halfHeight = rectAreaLight.halfHeight;\n\t\tvec3 lightColor = rectAreaLight.color;\n\t\tfloat roughness = material.specularRoughness;\n\t\tvec3 rectCoords[ 4 ];\n\t\trectCoords[ 0 ] = lightPos + halfWidth - halfHeight;\t\trectCoords[ 1 ] = lightPos - halfWidth - halfHeight;\n\t\trectCoords[ 2 ] = lightPos - halfWidth + halfHeight;\n\t\trectCoords[ 3 ] = lightPos + halfWidth + halfHeight;\n\t\tvec2 uv = LTC_Uv( normal, viewDir, roughness );\n\t\tvec4 t1 = texture2D( ltc_1, uv );\n\t\tvec4 t2 = texture2D( ltc_2, uv );\n\t\tmat3 mInv = mat3(\n\t\t\tvec3( t1.x, 0, t1.y ),\n\t\t\tvec3(    0, 1,    0 ),\n\t\t\tvec3( t1.z, 0, t1.w )\n\t\t);\n\t\tvec3 fresnel = ( material.specularColor * t2.x + ( vec3( 1.0 ) - material.specularColor ) * t2.y );\n\t\treflectedLight.directSpecular += lightColor * fresnel * LTC_Evaluate( normal, viewDir, position, mInv, rectCoords );\n\t\treflectedLight.directDiffuse += lightColor * material.diffuseColor * LTC_Evaluate( normal, viewDir, position, mat3( 1.0 ), rectCoords );\n\t}\n#endif\nvoid RE_Direct_Physical( const in IncidentLight directLight, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight ) {\n\tfloat dotNL = saturate( dot( geometry.normal, directLight.direction ) );\n\tvec3 irradiance = dotNL * directLight.color;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tirradiance *= PI;\n\t#endif\n\t#ifdef CLEARCOAT\n\t\tfloat ccDotNL = saturate( dot( geometry.clearcoatNormal, directLight.direction ) );\n\t\tvec3 ccIrradiance = ccDotNL * directLight.color;\n\t\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\t\tccIrradiance *= PI;\n\t\t#endif\n\t\tfloat clearcoatDHR = material.clearcoat * clearcoatDHRApprox( material.clearcoatRoughness, ccDotNL );\n\t\treflectedLight.directSpecular += ccIrradiance * material.clearcoat * BRDF_Specular_GGX( directLight, geometry.viewDir, geometry.clearcoatNormal, vec3( DEFAULT_SPECULAR_COEFFICIENT ), material.clearcoatRoughness );\n\t#else\n\t\tfloat clearcoatDHR = 0.0;\n\t#endif\n\t#ifdef USE_SHEEN\n\t\treflectedLight.directSpecular += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Specular_Sheen(\n\t\t\tmaterial.specularRoughness,\n\t\t\tdirectLight.direction,\n\t\t\tgeometry,\n\t\t\tmaterial.sheenColor\n\t\t);\n\t#else\n\t\treflectedLight.directSpecular += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Specular_GGX( directLight, geometry.viewDir, geometry.normal, material.specularColor, material.specularRoughness);\n\t#endif\n\treflectedLight.directDiffuse += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\nvoid RE_IndirectDiffuse_Physical( const in vec3 irradiance, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight ) {\n\treflectedLight.indirectDiffuse += irradiance * BRDF_Diffuse_Lambert( material.diffuseColor );\n}\nvoid RE_IndirectSpecular_Physical( const in vec3 radiance, const in vec3 irradiance, const in vec3 clearcoatRadiance, const in GeometricContext geometry, const in PhysicalMaterial material, inout ReflectedLight reflectedLight) {\n\t#ifdef CLEARCOAT\n\t\tfloat ccDotNV = saturate( dot( geometry.clearcoatNormal, geometry.viewDir ) );\n\t\treflectedLight.indirectSpecular += clearcoatRadiance * material.clearcoat * BRDF_Specular_GGX_Environment( geometry.viewDir, geometry.clearcoatNormal, vec3( DEFAULT_SPECULAR_COEFFICIENT ), material.clearcoatRoughness );\n\t\tfloat ccDotNL = ccDotNV;\n\t\tfloat clearcoatDHR = material.clearcoat * clearcoatDHRApprox( material.clearcoatRoughness, ccDotNL );\n\t#else\n\t\tfloat clearcoatDHR = 0.0;\n\t#endif\n\tfloat clearcoatInv = 1.0 - clearcoatDHR;\n\tvec3 singleScattering = vec3( 0.0 );\n\tvec3 multiScattering = vec3( 0.0 );\n\tvec3 cosineWeightedIrradiance = irradiance * RECIPROCAL_PI;\n\tBRDF_Specular_Multiscattering_Environment( geometry, material.specularColor, material.specularRoughness, singleScattering, multiScattering );\n\tvec3 diffuse = material.diffuseColor * ( 1.0 - ( singleScattering + multiScattering ) );\n\treflectedLight.indirectSpecular += clearcoatInv * radiance * singleScattering;\n\treflectedLight.indirectSpecular += multiScattering * cosineWeightedIrradiance;\n\treflectedLight.indirectDiffuse += diffuse * cosineWeightedIrradiance;\n}\n#define RE_Direct\t\t\t\tRE_Direct_Physical\n#define RE_Direct_RectArea\t\tRE_Direct_RectArea_Physical\n#define RE_IndirectDiffuse\t\tRE_IndirectDiffuse_Physical\n#define RE_IndirectSpecular\t\tRE_IndirectSpecular_Physical\nfloat computeSpecularOcclusion( const in float dotNV, const in float ambientOcclusion, const in float roughness ) {\n\treturn saturate( pow( dotNV + ambientOcclusion, exp2( - 16.0 * roughness - 1.0 ) ) - 1.0 + ambientOcclusion );\n}";
 var lights_fragment_begin = "\nGeometricContext geometry;\ngeometry.position = - vViewPosition;\ngeometry.normal = normal;\ngeometry.viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\n#ifdef CLEARCOAT\n\tgeometry.clearcoatNormal = clearcoatNormal;\n#endif\nIncidentLight directLight;\n#if ( NUM_POINT_LIGHTS > 0 ) && defined( RE_Direct )\n\tPointLight pointLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0\n\tPointLightShadow pointLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_POINT_LIGHTS; i ++ ) {\n\t\tpointLight = pointLights[ i ];\n\t\tgetPointDirectLightIrradiance( pointLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_POINT_LIGHT_SHADOWS )\n\t\tpointLightShadow = pointLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getPointShadow( pointShadowMap[ i ], pointLightShadow.shadowMapSize, pointLightShadow.shadowBias, pointLightShadow.shadowRadius, vPointShadowCoord[ i ], pointLightShadow.shadowCameraNear, pointLightShadow.shadowCameraFar ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_SPOT_LIGHTS > 0 ) && defined( RE_Direct )\n\tSpotLight spotLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_SPOT_LIGHT_SHADOWS > 0\n\tSpotLightShadow spotLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_SPOT_LIGHTS; i ++ ) {\n\t\tspotLight = spotLights[ i ];\n\t\tgetSpotDirectLightIrradiance( spotLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_SPOT_LIGHT_SHADOWS )\n\t\tspotLightShadow = spotLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getShadow( spotShadowMap[ i ], spotLightShadow.shadowMapSize, spotLightShadow.shadowBias, spotLightShadow.shadowRadius, vSpotShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )\n\tDirectionalLight directionalLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 0\n\tDirectionalLightShadow directionalLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {\n\t\tdirectionalLight = directionalLights[ i ];\n\t\tgetDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_DIR_LIGHT_SHADOWS )\n\t\tdirectionalLightShadow = directionalLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getShadow( directionalShadowMap[ i ], directionalLightShadow.shadowMapSize, directionalLightShadow.shadowBias, directionalLightShadow.shadowRadius, vDirectionalShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_RECT_AREA_LIGHTS > 0 ) && defined( RE_Direct_RectArea )\n\tRectAreaLight rectAreaLight;\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_RECT_AREA_LIGHTS; i ++ ) {\n\t\trectAreaLight = rectAreaLights[ i ];\n\t\tRE_Direct_RectArea( rectAreaLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if defined( RE_IndirectDiffuse )\n\tvec3 iblIrradiance = vec3( 0.0 );\n\tvec3 irradiance = getAmbientLightIrradiance( ambientLightColor );\n\tirradiance += getLightProbeIrradiance( lightProbe, geometry );\n\t#if ( NUM_HEMI_LIGHTS > 0 )\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i < NUM_HEMI_LIGHTS; i ++ ) {\n\t\t\tirradiance += getHemisphereLightIrradiance( hemisphereLights[ i ], geometry );\n\t\t}\n\t\t#pragma unroll_loop_end\n\t#endif\n#endif\n#if defined( RE_IndirectSpecular )\n\tvec3 radiance = vec3( 0.0 );\n\tvec3 clearcoatRadiance = vec3( 0.0 );\n#endif";
 var lights_fragment_maps = "#if defined( RE_IndirectDiffuse )\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel= texture2D( lightMap, vUv2 );\n\t\tvec3 lightMapIrradiance = lightMapTexelToLinear( lightMapTexel ).rgb * lightMapIntensity;\n\t\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\t\tlightMapIrradiance *= PI;\n\t\t#endif\n\t\tirradiance += lightMapIrradiance;\n\t#endif\n\t#if defined( USE_ENVMAP ) && defined( STANDARD ) && defined( ENVMAP_TYPE_CUBE_UV )\n\t\tiblIrradiance += getLightProbeIndirectIrradiance( geometry, maxMipLevel );\n\t#endif\n#endif\n#if defined( USE_ENVMAP ) && defined( RE_IndirectSpecular )\n\tradiance += getLightProbeIndirectRadiance( geometry.viewDir, geometry.normal, material.specularRoughness, maxMipLevel );\n\t#ifdef CLEARCOAT\n\t\tclearcoatRadiance += getLightProbeIndirectRadiance( geometry.viewDir, geometry.clearcoatNormal, material.clearcoatRoughness, maxMipLevel );\n\t#endif\n#endif";
@@ -11373,8 +11288,8 @@ var specularmap_fragment = "float specularStrength;\n#ifdef USE_SPECULARMAP\n\tv
 var specularmap_pars_fragment = "#ifdef USE_SPECULARMAP\n\tuniform sampler2D specularMap;\n#endif";
 var tonemapping_fragment = "#if defined( TONE_MAPPING )\n\tgl_FragColor.rgb = toneMapping( gl_FragColor.rgb );\n#endif";
 var tonemapping_pars_fragment = "#ifndef saturate\n#define saturate(a) clamp( a, 0.0, 1.0 )\n#endif\nuniform float toneMappingExposure;\nvec3 LinearToneMapping( vec3 color ) {\n\treturn toneMappingExposure * color;\n}\nvec3 ReinhardToneMapping( vec3 color ) {\n\tcolor *= toneMappingExposure;\n\treturn saturate( color / ( vec3( 1.0 ) + color ) );\n}\nvec3 OptimizedCineonToneMapping( vec3 color ) {\n\tcolor *= toneMappingExposure;\n\tcolor = max( vec3( 0.0 ), color - 0.004 );\n\treturn pow( ( color * ( 6.2 * color + 0.5 ) ) / ( color * ( 6.2 * color + 1.7 ) + 0.06 ), vec3( 2.2 ) );\n}\nvec3 RRTAndODTFit( vec3 v ) {\n\tvec3 a = v * ( v + 0.0245786 ) - 0.000090537;\n\tvec3 b = v * ( 0.983729 * v + 0.4329510 ) + 0.238081;\n\treturn a / b;\n}\nvec3 ACESFilmicToneMapping( vec3 color ) {\n\tconst mat3 ACESInputMat = mat3(\n\t\tvec3( 0.59719, 0.07600, 0.02840 ),\t\tvec3( 0.35458, 0.90834, 0.13383 ),\n\t\tvec3( 0.04823, 0.01566, 0.83777 )\n\t);\n\tconst mat3 ACESOutputMat = mat3(\n\t\tvec3(  1.60475, -0.10208, -0.00327 ),\t\tvec3( -0.53108,  1.10813, -0.07276 ),\n\t\tvec3( -0.07367, -0.00605,  1.07602 )\n\t);\n\tcolor *= toneMappingExposure / 0.6;\n\tcolor = ACESInputMat * color;\n\tcolor = RRTAndODTFit( color );\n\tcolor = ACESOutputMat * color;\n\treturn saturate( color );\n}\nvec3 CustomToneMapping( vec3 color ) { return color; }";
-var transmission_fragment = "#ifdef USE_TRANSMISSION\n\t#ifdef USE_TRANSMISSIONMAP\n\t\ttotalTransmission *= texture2D( transmissionMap, vUv ).r;\n\t#endif\n\t#ifdef USE_THICKNESSNMAP\n\t\tthicknessFactor *= texture2D( thicknessMap, vUv ).g;\n\t#endif\n\tvec3 pos = vWorldPosition.xyz / vWorldPosition.w;\n\tvec3 v = normalize( cameraPosition - pos );\n\tvec3 viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\n\tfloat ior = ( 1.0 + 0.4 * reflectivity ) / ( 1.0 - 0.4 * reflectivity );\n\tvec3 f0 = vec3( pow( ior - 1.0, 2.0 ) / pow( ior + 1.0, 2.0 ) );\n\tvec3 f90 = vec3( 1.0 );\n\tvec3 f_transmission = totalTransmission * getIBLVolumeRefraction(\n\t\tnormal, v, viewDir, roughnessFactor, diffuseColor.rgb, f0, f90,\n\t\tpos, modelMatrix, viewMatrix, projectionMatrix, ior, thicknessFactor,\n\t\tattenuationColor, attenuationDistance);\n\tdiffuseColor.rgb = mix( diffuseColor.rgb, f_transmission, totalTransmission );\n#endif";
-var transmission_pars_fragment = "#ifdef USE_TRANSMISSION\n\t#ifdef USE_TRANSMISSIONMAP\n\t\tuniform sampler2D transmissionMap;\n\t#endif\n\t#ifdef USE_THICKNESSMAP\n\t\tuniform sampler2D thicknessMap;\n\t#endif\n\tuniform vec2 transmissionSamplerSize;\n\tuniform sampler2D transmissionSamplerMap;\n\tuniform mat4 modelMatrix;\n\tuniform mat4 projectionMatrix;\n\tvarying vec4 vWorldPosition;\n\tvec3 getVolumeTransmissionRay(vec3 n, vec3 v, float thickness, float ior, mat4 modelMatrix) {\n\t\tvec3 refractionVector = refract(-v, normalize(n), 1.0 / ior);\n\t\tvec3 modelScale;\n\t\tmodelScale.x = length(vec3(modelMatrix[0].xyz));\n\t\tmodelScale.y = length(vec3(modelMatrix[1].xyz));\n\t\tmodelScale.z = length(vec3(modelMatrix[2].xyz));\n\t\treturn normalize(refractionVector) * thickness * modelScale;\n\t}\n\tfloat applyIorToRoughness(float roughness, float ior) {\n\t\treturn roughness * clamp(ior * 2.0 - 2.0, 0.0, 1.0);\n\t}\n\tvec3 getTransmissionSample(vec2 fragCoord, float roughness, float ior) {\n\t\tfloat framebufferLod = log2(transmissionSamplerSize.x) * applyIorToRoughness(roughness, ior);\n\t\treturn texture2DLodEXT(transmissionSamplerMap, fragCoord.xy, framebufferLod).rgb;\n\t}\n\tvec3 applyVolumeAttenuation(vec3 radiance, float transmissionDistance, vec3 attenuationColor, float attenuationDistance) {\n\t\tif (attenuationDistance == 0.0) {\n\t\t\treturn radiance;\n\t\t} else {\n\t\t\tvec3 attenuationCoefficient = -log(attenuationColor) / attenuationDistance;\n\t\t\tvec3 transmittance = exp(-attenuationCoefficient * transmissionDistance);\t\t\treturn transmittance * radiance;\n\t\t}\n\t}\n\tvec3 getIBLVolumeRefraction(vec3 n, vec3 v, vec3 viewDir, float perceptualRoughness, vec3 baseColor, vec3 f0, vec3 f90,\n\t\tvec3 position, mat4 modelMatrix, mat4 viewMatrix, mat4 projMatrix, float ior, float thickness, vec3 attenuationColor, float attenuationDistance) {\n\t\tvec3 transmissionRay = getVolumeTransmissionRay(n, v, thickness, ior, modelMatrix);\n\t\tvec3 refractedRayExit = position + transmissionRay;\n\t\tvec4 ndcPos = projMatrix * viewMatrix * vec4(refractedRayExit, 1.0);\n\t\tvec2 refractionCoords = ndcPos.xy / ndcPos.w;\n\t\trefractionCoords += 1.0;\n\t\trefractionCoords /= 2.0;\n\t\tvec3 transmittedLight = getTransmissionSample(refractionCoords, perceptualRoughness, ior);\n\t\tvec3 attenuatedColor = applyVolumeAttenuation(transmittedLight, length(transmissionRay), attenuationColor, attenuationDistance);\n\t\tfloat NdotV = saturate(dot(n, viewDir));\n\t\tvec2 brdf = integrateSpecularBRDF(NdotV, perceptualRoughness);\n\t\tvec3 specularColor = f0 * brdf.x + f90 * brdf.y;\n\t\treturn (1.0 - specularColor) * attenuatedColor * baseColor;\n\t}\n#endif";
+var transmission_fragment = "#ifdef USE_TRANSMISSION\n\tfloat transmissionFactor = transmission;\n\tfloat thicknessFactor = thickness;\n\t#ifdef USE_TRANSMISSIONMAP\n\t\ttransmissionFactor *= texture2D( transmissionMap, vUv ).r;\n\t#endif\n\t#ifdef USE_THICKNESSNMAP\n\t\tthicknessFactor *= texture2D( thicknessMap, vUv ).g;\n\t#endif\n\tvec3 pos = vWorldPosition.xyz / vWorldPosition.w;\n\tvec3 v = normalize( cameraPosition - pos );\n\tfloat ior = ( 1.0 + 0.4 * reflectivity ) / ( 1.0 - 0.4 * reflectivity );\n\tvec3 transmission = transmissionFactor * getIBLVolumeRefraction(\n\t\tnormal, v, roughnessFactor, material.diffuseColor, totalSpecular,\n\t\tpos, modelMatrix, viewMatrix, projectionMatrix, ior, thicknessFactor,\n\t\tattenuationColor, attenuationDistance );\n\ttotalDiffuse = mix( totalDiffuse, transmission, transmissionFactor );\n#endif";
+var transmission_pars_fragment = "#ifdef USE_TRANSMISSION\n\t#ifdef USE_TRANSMISSIONMAP\n\t\tuniform sampler2D transmissionMap;\n\t#endif\n\t#ifdef USE_THICKNESSMAP\n\t\tuniform sampler2D thicknessMap;\n\t#endif\n\tuniform vec2 transmissionSamplerSize;\n\tuniform sampler2D transmissionSamplerMap;\n\tuniform mat4 modelMatrix;\n\tuniform mat4 projectionMatrix;\n\tvarying vec4 vWorldPosition;\n\tvec3 getVolumeTransmissionRay(vec3 n, vec3 v, float thickness, float ior, mat4 modelMatrix) {\n\t\tvec3 refractionVector = refract(-v, normalize(n), 1.0 / ior);\n\t\tvec3 modelScale;\n\t\tmodelScale.x = length(vec3(modelMatrix[0].xyz));\n\t\tmodelScale.y = length(vec3(modelMatrix[1].xyz));\n\t\tmodelScale.z = length(vec3(modelMatrix[2].xyz));\n\t\treturn normalize(refractionVector) * thickness * modelScale;\n\t}\n\tfloat applyIorToRoughness(float roughness, float ior) {\n\t\treturn roughness * clamp(ior * 2.0 - 2.0, 0.0, 1.0);\n\t}\n\tvec3 getTransmissionSample(vec2 fragCoord, float roughness, float ior) {\n\t\tfloat framebufferLod = log2(transmissionSamplerSize.x) * applyIorToRoughness(roughness, ior);\n\t\treturn texture2DLodEXT(transmissionSamplerMap, fragCoord.xy, framebufferLod).rgb;\n\t}\n\tvec3 applyVolumeAttenuation(vec3 radiance, float transmissionDistance, vec3 attenuationColor, float attenuationDistance) {\n\t\tif (attenuationDistance == 0.0) {\n\t\t\treturn radiance;\n\t\t} else {\n\t\t\tvec3 attenuationCoefficient = -log(attenuationColor) / attenuationDistance;\n\t\t\tvec3 transmittance = exp(-attenuationCoefficient * transmissionDistance);\t\t\treturn transmittance * radiance;\n\t\t}\n\t}\n\tvec3 getIBLVolumeRefraction(vec3 n, vec3 v, float perceptualRoughness, vec3 baseColor, vec3 specularColor,\n\t\tvec3 position, mat4 modelMatrix, mat4 viewMatrix, mat4 projMatrix, float ior, float thickness,\n\t\tvec3 attenuationColor, float attenuationDistance) {\n\t\tvec3 transmissionRay = getVolumeTransmissionRay(n, v, thickness, ior, modelMatrix);\n\t\tvec3 refractedRayExit = position + transmissionRay;\n\t\tvec4 ndcPos = projMatrix * viewMatrix * vec4(refractedRayExit, 1.0);\n\t\tvec2 refractionCoords = ndcPos.xy / ndcPos.w;\n\t\trefractionCoords += 1.0;\n\t\trefractionCoords /= 2.0;\n\t\tvec3 transmittedLight = getTransmissionSample(refractionCoords, perceptualRoughness, ior);\n\t\tvec3 attenuatedColor = applyVolumeAttenuation(transmittedLight, length(transmissionRay), attenuationColor, attenuationDistance);\n\t\treturn (1.0 - specularColor) * attenuatedColor * baseColor;\n\t}\n#endif";
 var uv_pars_fragment = "#if ( defined( USE_UV ) && ! defined( UVS_VERTEX_ONLY ) )\n\tvarying vec2 vUv;\n#endif";
 var uv_pars_vertex = "#ifdef USE_UV\n\t#ifdef UVS_VERTEX_ONLY\n\t\tvec2 vUv;\n\t#else\n\t\tvarying vec2 vUv;\n\t#endif\n\tuniform mat3 uvTransform;\n#endif";
 var uv_vertex = "#ifdef USE_UV\n\tvUv = ( uvTransform * vec3( uv, 1 ) ).xy;\n#endif";
@@ -11404,7 +11319,7 @@ var meshtoon_frag = "#define TOON\nuniform vec3 diffuse;\nuniform vec3 emissive;
 var meshtoon_vert = "#define TOON\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
 var meshphong_frag = "#define PHONG\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform vec3 specular;\nuniform float shininess;\nuniform float opacity;\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <bsdfs>\n#include <lights_pars_begin>\n#include <lights_phong_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\t#include <lights_phong_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\t#include <envmap_fragment>\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
 var meshphong_vert = "#define PHONG\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <envmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <envmap_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
-var meshphysical_frag = "#define STANDARD\n#ifdef PHYSICAL\n\t#define REFLECTIVITY\n\t#define CLEARCOAT\n#endif\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform float roughness;\nuniform float metalness;\nuniform float opacity;\n#ifdef USE_TRANSMISSION\n\tuniform float transmission;\n\tuniform float thickness;\n\tuniform vec3 attenuationColor;\n\tuniform float attenuationDistance;\n#endif\n#ifdef REFLECTIVITY\n\tuniform float reflectivity;\n#endif\n#ifdef CLEARCOAT\n\tuniform float clearcoat;\n\tuniform float clearcoatRoughness;\n#endif\n#ifdef USE_SHEEN\n\tuniform vec3 sheen;\n#endif\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <bsdfs>\n#include <transmission_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_physical_pars_fragment>\n#include <fog_pars_fragment>\n#include <lights_pars_begin>\n#include <lights_physical_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <clearcoat_pars_fragment>\n#include <roughnessmap_pars_fragment>\n#include <metalnessmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#ifdef USE_TRANSMISSION\n\t\tfloat totalTransmission = transmission;\n\t\tfloat thicknessFactor = thickness;\n\t#endif\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <roughnessmap_fragment>\n\t#include <metalnessmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <clearcoat_normal_fragment_begin>\n\t#include <clearcoat_normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\tvec3 rawDiffuseColor = diffuseColor.rgb;\n\t#include <transmission_fragment>\n\t#include <lights_physical_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
+var meshphysical_frag = "#define STANDARD\n#ifdef PHYSICAL\n\t#define REFLECTIVITY\n\t#define CLEARCOAT\n#endif\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform float roughness;\nuniform float metalness;\nuniform float opacity;\n#ifdef USE_TRANSMISSION\n\tuniform float transmission;\n\tuniform float thickness;\n\tuniform vec3 attenuationColor;\n\tuniform float attenuationDistance;\n#endif\n#ifdef REFLECTIVITY\n\tuniform float reflectivity;\n#endif\n#ifdef CLEARCOAT\n\tuniform float clearcoat;\n\tuniform float clearcoatRoughness;\n#endif\n#ifdef USE_SHEEN\n\tuniform vec3 sheen;\n#endif\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <packing>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <emissivemap_pars_fragment>\n#include <bsdfs>\n#include <transmission_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_physical_pars_fragment>\n#include <fog_pars_fragment>\n#include <lights_pars_begin>\n#include <lights_physical_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <clearcoat_pars_fragment>\n#include <roughnessmap_pars_fragment>\n#include <metalnessmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <roughnessmap_fragment>\n\t#include <metalnessmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <clearcoat_normal_fragment_begin>\n\t#include <clearcoat_normal_fragment_maps>\n\t#include <emissivemap_fragment>\n\t#include <lights_physical_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\t#include <aomap_fragment>\n\tvec3 totalDiffuse = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse;\n\tvec3 totalSpecular = reflectedLight.directSpecular + reflectedLight.indirectSpecular;\n\t#include <transmission_fragment>\n\tvec3 outgoingLight = totalDiffuse + totalSpecular + totalEmissiveRadiance;\n\tgl_FragColor = vec4( outgoingLight, diffuseColor.a );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
 var meshphysical_vert = "#define STANDARD\nvarying vec3 vViewPosition;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#ifdef USE_TRANSMISSION\n\tvarying vec4 vWorldPosition;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n\t#ifdef USE_TANGENT\n\t\tvTangent = normalize( transformedTangent );\n\t\tvBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );\n\t#endif\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n#ifdef USE_TRANSMISSION\n\tvWorldPosition = worldPosition;\n#endif\n}";
 var normal_frag = "#define NORMAL\nuniform float opacity;\n#if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || defined( TANGENTSPACE_NORMALMAP )\n\tvarying vec3 vViewPosition;\n#endif\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <packing>\n#include <uv_pars_fragment>\n#include <bumpmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\t#include <logdepthbuf_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\tgl_FragColor = vec4( packNormalToRGB( normal ), opacity );\n}";
 var normal_vert = "#define NORMAL\n#if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || defined( TANGENTSPACE_NORMALMAP )\n\tvarying vec3 vViewPosition;\n#endif\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n\t#ifdef USE_TANGENT\n\t\tvarying vec3 vTangent;\n\t\tvarying vec3 vBitangent;\n\t#endif\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <displacementmap_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n#ifndef FLAT_SHADED\n\tvNormal = normalize( transformedNormal );\n\t#ifdef USE_TANGENT\n\t\tvTangent = normalize( transformedTangent );\n\t\tvBitangent = normalize( cross( vNormal, vTangent ) * tangent.w );\n\t#endif\n#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <displacementmap_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n#if defined( FLAT_SHADED ) || defined( USE_BUMPMAP ) || defined( TANGENTSPACE_NORMALMAP )\n\tvViewPosition = - mvPosition.xyz;\n#endif\n}";
@@ -13215,7 +13130,7 @@ function WebGLMorphtargets(gl) {
     var length = objectInfluences === undefined ? 0 : objectInfluences.length;
     var influences = influencesList[geometry.id];
 
-    if (influences === undefined) {
+    if (influences === undefined || influences.length !== length) {
       // initialise list
       influences = [];
 
@@ -14757,7 +14672,7 @@ function WebGLPrograms(renderer, cubemaps, extensions, capabilities, bindingStat
       vertexTangents: material.normalMap && material.vertexTangents,
       vertexColors: material.vertexColors,
       vertexAlphas: material.vertexColors === true && object.geometry && object.geometry.attributes.color && object.geometry.attributes.color.itemSize === 4,
-      vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.displacementMap || !!material.transmission || !!material.transmissionMap || !!material.thicknessMap,
+      vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.displacementMap || !!material.transmissionMap || !!material.thicknessMap,
       uvsVertexOnly: !(!!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatNormalMap || !!material.transmission || !!material.transmissionMap || !!material.thicknessMap) && !!material.displacementMap,
       fog: !!fog,
       useFog: material.fog,
@@ -18121,6 +18036,9 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
     var referenceSpace = null;
     var referenceSpaceType = 'local-floor';
     var pose = null;
+    var glBinding = null;
+    var glFramebuffer = null;
+    var glProjLayer = null;
     var controllers = [];
     var inputSourcesMap = new Map(); //
 
@@ -18230,7 +18148,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
 
     _this25.setSession = /*#__PURE__*/function () {
       var _ref = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(value) {
-        var attributes, layerInit, baseLayer;
+        var attributes, layerInit, baseLayer, depthFormat, projectionlayerInit;
         return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -18238,7 +18156,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
                 session = value;
 
                 if (!(session !== null)) {
-                  _context2.next = 24;
+                  _context2.next = 22;
                   break;
                 }
 
@@ -18261,22 +18179,44 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
                 return gl.makeXRCompatible();
 
               case 14:
-                layerInit = {
-                  antialias: attributes.antialias,
-                  alpha: attributes.alpha,
-                  depth: attributes.depth,
-                  stencil: attributes.stencil,
-                  framebufferScaleFactor: framebufferScaleFactor
-                }; // eslint-disable-next-line no-undef
+                if (session.renderState.layers === undefined) {
+                  layerInit = {
+                    antialias: attributes.antialias,
+                    alpha: attributes.alpha,
+                    depth: attributes.depth,
+                    stencil: attributes.stencil,
+                    framebufferScaleFactor: framebufferScaleFactor
+                  }; // eslint-disable-next-line no-undef
 
-                baseLayer = new XRWebGLLayer(session, gl, layerInit);
-                session.updateRenderState({
-                  baseLayer: baseLayer
-                });
-                _context2.next = 19;
+                  baseLayer = new XRWebGLLayer(session, gl, layerInit);
+                  session.updateRenderState({
+                    baseLayer: baseLayer
+                  });
+                } else {
+                  depthFormat = 0;
+
+                  if (attributes.depth) {
+                    depthFormat = attributes.stencil ? 34041 : 6402;
+                  }
+
+                  projectionlayerInit = {
+                    colorFormat: attributes.alpha ? 6408 : 6407,
+                    depthFormat: depthFormat,
+                    scaleFactor: framebufferScaleFactor
+                  }; // eslint-disable-next-line no-undef
+
+                  glBinding = new XRWebGLBinding(session, gl);
+                  glProjLayer = glBinding.createProjectionLayer(projectionlayerInit);
+                  glFramebuffer = gl.createFramebuffer();
+                  session.updateRenderState({
+                    layers: [glProjLayer]
+                  });
+                }
+
+                _context2.next = 17;
                 return session.requestReferenceSpace(referenceSpaceType);
 
-              case 19:
+              case 17:
                 referenceSpace = _context2.sent;
                 animation.setContext(session);
                 animation.start();
@@ -18285,7 +18225,7 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
                   type: 'sessionstart'
                 });
 
-              case 24:
+              case 22:
               case "end":
                 return _context2.stop();
             }
@@ -18414,12 +18354,15 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
 
       for (var _i122 = 0; _i122 < cameras.length; _i122++) {
         updateCamera(cameras[_i122], parent);
-      } // update camera and its children
+      }
 
+      cameraVR.matrixWorld.decompose(cameraVR.position, cameraVR.quaternion, cameraVR.scale); // update user camera and its children
 
-      camera.matrixWorld.copy(cameraVR.matrixWorld);
+      camera.position.copy(cameraVR.position);
+      camera.quaternion.copy(cameraVR.quaternion);
+      camera.scale.copy(cameraVR.scale);
       camera.matrix.copy(cameraVR.matrix);
-      camera.matrix.decompose(camera.position, camera.quaternion, camera.scale);
+      camera.matrixWorld.copy(cameraVR.matrixWorld);
       var children = camera.children;
 
       for (var _i123 = 0, l = children.length; _i123 < l; _i123++) {
@@ -18448,7 +18391,11 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
       if (pose !== null) {
         var views = pose.views;
         var baseLayer = session.renderState.baseLayer;
-        state.bindXRFramebuffer(baseLayer.framebuffer);
+
+        if (session.renderState.layers === undefined) {
+          state.bindXRFramebuffer(baseLayer.framebuffer);
+        }
+
         var cameraVRNeedsUpdate = false; // check if it's necessary to rebuild cameraVR's camera list
 
         if (views.length !== cameraVR.cameras.length) {
@@ -18458,7 +18405,24 @@ var WebXRManager = /*#__PURE__*/function (_EventDispatcher6) {
 
         for (var _i124 = 0; _i124 < views.length; _i124++) {
           var view = views[_i124];
-          var viewport = baseLayer.getViewport(view);
+          var viewport = null;
+
+          if (session.renderState.layers === undefined) {
+            viewport = baseLayer.getViewport(view);
+          } else {
+            var glSubImage = glBinding.getViewSubImage(glProjLayer, view);
+            gl.bindFramebuffer(36160, glFramebuffer);
+            gl.framebufferTexture2D(36160, 36064, 3553, glSubImage.colorTexture, 0);
+
+            if (glSubImage.depthStencilTexture !== undefined) {
+              gl.framebufferTexture2D(36160, 36096, 3553, glSubImage.depthStencilTexture, 0);
+            }
+
+            gl.bindFramebuffer(36160, null);
+            state.bindXRFramebuffer(glFramebuffer);
+            viewport = glSubImage.viewport;
+          }
+
           var camera = cameras[_i124];
           camera.matrix.fromArray(view.transform.matrix);
           camera.projectionMatrix.fromArray(view.projectionMatrix);
@@ -18993,8 +18957,8 @@ function createCanvasElement() {
   return canvas;
 }
 
-function WebGLRenderer(parameters) {
-  parameters = parameters || {};
+function WebGLRenderer() {
+  var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var _canvas = parameters.canvas !== undefined ? parameters.canvas : createCanvasElement(),
       _context = parameters.context !== undefined ? parameters.context : null,
@@ -19238,11 +19202,6 @@ function WebGLRenderer(parameters) {
   };
 
   this.getSize = function (target) {
-    if (target === undefined) {
-      console.warn('WebGLRenderer: .getsize() now requires a Vector2 as an argument');
-      target = new Vector2();
-    }
-
     return target.set(_width, _height);
   };
 
@@ -19266,11 +19225,6 @@ function WebGLRenderer(parameters) {
   };
 
   this.getDrawingBufferSize = function (target) {
-    if (target === undefined) {
-      console.warn('WebGLRenderer: .getdrawingBufferSize() now requires a Vector2 as an argument');
-      target = new Vector2();
-    }
-
     return target.set(_width * _pixelRatio, _height * _pixelRatio).floor();
   };
 
@@ -19284,11 +19238,6 @@ function WebGLRenderer(parameters) {
   };
 
   this.getCurrentViewport = function (target) {
-    if (target === undefined) {
-      console.warn('WebGLRenderer: .getCurrentViewport() now requires a Vector4 as an argument');
-      target = new Vector4();
-    }
-
     return target.copy(_currentViewport);
   };
 
@@ -19338,11 +19287,6 @@ function WebGLRenderer(parameters) {
 
 
   this.getClearColor = function (target) {
-    if (target === undefined) {
-      console.warn('WebGLRenderer: .getClearColor() now requires a Color as an argument');
-      target = new Color();
-    }
-
     return target.copy(background.getClearColor());
   };
 
@@ -19716,10 +19660,10 @@ function WebGLRenderer(parameters) {
     if (transparentObjects.length > 0) renderObjects(transparentObjects, scene, camera); //
 
     if (_currentRenderTarget !== null) {
-      // Generate mipmap if we're using any kind of mipmap filtering
-      textures.updateRenderTargetMipmap(_currentRenderTarget); // resolve multisample renderbuffers to a single-sample texture if necessary
+      // resolve multisample renderbuffers to a single-sample texture if necessary
+      textures.updateMultisampleRenderTarget(_currentRenderTarget); // Generate mipmap if we're using any kind of mipmap filtering
 
-      textures.updateMultisampleRenderTarget(_currentRenderTarget);
+      textures.updateRenderTargetMipmap(_currentRenderTarget);
     } //
 
 
@@ -19829,8 +19773,11 @@ function WebGLRenderer(parameters) {
 
   function renderTransmissiveObjects(opaqueObjects, transmissiveObjects, scene, camera) {
     if (_transmissionRenderTarget === null) {
-      _transmissionRenderTarget = new WebGLRenderTarget(1024, 1024, {
+      var needsAntialias = _antialias === true && capabilities.isWebGL2 === true;
+      var renderTargetType = needsAntialias ? WebGLMultisampleRenderTarget : WebGLRenderTarget;
+      _transmissionRenderTarget = new renderTargetType(1024, 1024, {
         generateMipmaps: true,
+        type: utils.convert(HalfFloatType) !== null ? HalfFloatType : UnsignedByteType,
         minFilter: LinearMipmapLinearFilter,
         magFilter: NearestFilter,
         wrapS: ClampToEdgeWrapping,
@@ -19842,9 +19789,15 @@ function WebGLRenderer(parameters) {
 
     _this.setRenderTarget(_transmissionRenderTarget);
 
-    _this.clear();
+    _this.clear(); // Turn off the features which can affect the frag color for opaque objects pass.
+    // Otherwise they are applied twice in opaque objects pass and transmission objects pass.
 
+
+    var currentToneMapping = _this.toneMapping;
+    _this.toneMapping = NoToneMapping;
     renderObjects(opaqueObjects, scene, camera);
+    _this.toneMapping = currentToneMapping;
+    textures.updateMultisampleRenderTarget(_transmissionRenderTarget);
     textures.updateRenderTargetMipmap(_transmissionRenderTarget);
 
     _this.setRenderTarget(currentRenderTarget);
@@ -19891,7 +19844,21 @@ function WebGLRenderer(parameters) {
       bindingStates.reset();
       renderObjectImmediate(object, program);
     } else {
-      _this.renderBufferDirect(camera, scene, geometry, material, object, group);
+      if (material.transparent === true && material.side === DoubleSide) {
+        material.side = BackSide;
+        material.needsUpdate = true;
+
+        _this.renderBufferDirect(camera, scene, geometry, material, object, group);
+
+        material.side = FrontSide;
+        material.needsUpdate = true;
+
+        _this.renderBufferDirect(camera, scene, geometry, material, object, group);
+
+        material.side = DoubleSide;
+      } else {
+        _this.renderBufferDirect(camera, scene, geometry, material, object, group);
+      }
     }
 
     object.onAfterRender(_this, scene, camera, geometry, material, group);
@@ -20355,6 +20322,7 @@ function WebGLRenderer(parameters) {
 
     if (capabilities.isWebGL2) {
       // Workaround for https://bugs.chromium.org/p/chromium/issues/detail?id=1120100
+      // Not needed in Chrome 93+
       if (glFormat === 6407) glFormat = 32849;
       if (glFormat === 6408) glFormat = 32856;
     }
@@ -20404,10 +20372,9 @@ function WebGLRenderer(parameters) {
       return;
     }
 
-    var _srcTexture$image = srcTexture.image,
-        width = _srcTexture$image.width,
-        height = _srcTexture$image.height,
-        data = _srcTexture$image.data;
+    var width = sourceBox.max.x - sourceBox.min.x + 1;
+    var height = sourceBox.max.y - sourceBox.min.y + 1;
+    var depth = sourceBox.max.z - sourceBox.min.z + 1;
     var glFormat = utils.convert(dstTexture.format);
     var glType = utils.convert(dstTexture.type);
     var glTarget;
@@ -20439,9 +20406,11 @@ function WebGLRenderer(parameters) {
 
     var unpackSkipImages = _gl.getParameter(32877);
 
-    _gl.pixelStorei(3314, width);
+    var image = srcTexture.isCompressedTexture ? srcTexture.mipmaps[0] : srcTexture.image;
 
-    _gl.pixelStorei(32878, height);
+    _gl.pixelStorei(3314, image.width);
+
+    _gl.pixelStorei(32878, image.height);
 
     _gl.pixelStorei(3316, sourceBox.min.x);
 
@@ -20449,7 +20418,17 @@ function WebGLRenderer(parameters) {
 
     _gl.pixelStorei(32877, sourceBox.min.z);
 
-    _gl.texSubImage3D(glTarget, level, position.x, position.y, position.z, sourceBox.max.x - sourceBox.min.x + 1, sourceBox.max.y - sourceBox.min.y + 1, sourceBox.max.z - sourceBox.min.z + 1, glFormat, glType, data);
+    if (srcTexture.isDataTexture || srcTexture.isDataTexture3D) {
+      _gl.texSubImage3D(glTarget, level, position.x, position.y, position.z, width, height, depth, glFormat, glType, image.data);
+    } else {
+      if (srcTexture.isCompressedTexture) {
+        console.warn('THREE.WebGLRenderer.copyTextureToTexture3D: untested support for compressed srcTexture.');
+
+        _gl.compressedTexSubImage3D(glTarget, level, position.x, position.y, position.z, width, height, depth, glFormat, image.data);
+      } else {
+        _gl.texSubImage3D(glTarget, level, position.x, position.y, position.z, width, height, depth, glFormat, glType, image);
+      }
+    }
 
     _gl.pixelStorei(3314, unpackRowLen);
 
@@ -20620,8 +20599,6 @@ var Scene = /*#__PURE__*/function (_Object3D5) {
     value: function toJSON(meta) {
       var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(Scene.prototype), "toJSON", this).call(this, meta);
 
-      if (this.background !== null) data.object.background = this.background.toJSON(meta);
-      if (this.environment !== null) data.object.environment = this.environment.toJSON(meta);
       if (this.fog !== null) data.object.fog = this.fog.toJSON();
       return data;
     }
@@ -20750,7 +20727,9 @@ InterleavedBuffer.prototype.isInterleavedBuffer = true;
 var _vector$6 = /*@__PURE__*/new Vector3();
 
 var InterleavedBufferAttribute = /*#__PURE__*/function () {
-  function InterleavedBufferAttribute(interleavedBuffer, itemSize, offset, normalized) {
+  function InterleavedBufferAttribute(interleavedBuffer, itemSize, offset) {
+    var normalized = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InterleavedBufferAttribute);
 
     this.name = '';
@@ -21485,19 +21464,32 @@ var DataTexture = /*#__PURE__*/function (_Texture4) {
 
   var _super42 = _createSuper(DataTexture);
 
-  function DataTexture(data, width, height, format, type, mapping, wrapS, wrapT, magFilter, minFilter, anisotropy, encoding) {
+  function DataTexture() {
     var _this32;
+
+    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+    var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    var format = arguments.length > 3 ? arguments[3] : undefined;
+    var type = arguments.length > 4 ? arguments[4] : undefined;
+    var mapping = arguments.length > 5 ? arguments[5] : undefined;
+    var wrapS = arguments.length > 6 ? arguments[6] : undefined;
+    var wrapT = arguments.length > 7 ? arguments[7] : undefined;
+    var magFilter = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : NearestFilter;
+    var minFilter = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : NearestFilter;
+    var anisotropy = arguments.length > 10 ? arguments[10] : undefined;
+    var encoding = arguments.length > 11 ? arguments[11] : undefined;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataTexture);
 
     _this32 = _super42.call(this, null, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy, encoding);
     _this32.image = {
-      data: data || null,
-      width: width || 1,
-      height: height || 1
+      data: data,
+      width: width,
+      height: height
     };
-    _this32.magFilter = magFilter !== undefined ? magFilter : NearestFilter;
-    _this32.minFilter = minFilter !== undefined ? minFilter : NearestFilter;
+    _this32.magFilter = magFilter;
+    _this32.minFilter = minFilter;
     _this32.generateMipmaps = false;
     _this32.flipY = false;
     _this32.unpackAlignment = 1;
@@ -22575,6 +22567,13 @@ var CircleGeometry = /*#__PURE__*/function (_BufferGeometry3) {
     return _this44;
   }
 
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CircleGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new CircleGeometry(data.radius, data.segments, data.thetaStart, data.thetaLength);
+    }
+  }]);
+
   return CircleGeometry;
 }(BufferGeometry);
 
@@ -22770,6 +22769,13 @@ var CylinderGeometry = /*#__PURE__*/function (_BufferGeometry4) {
     return _this45;
   }
 
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CylinderGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new CylinderGeometry(data.radiusTop, data.radiusBottom, data.height, data.radialSegments, data.heightSegments, data.openEnded, data.thetaStart, data.thetaLength);
+    }
+  }]);
+
   return CylinderGeometry;
 }(BufferGeometry);
 
@@ -22804,6 +22810,13 @@ var ConeGeometry = /*#__PURE__*/function (_CylinderGeometry) {
     };
     return _this46;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ConeGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new ConeGeometry(data.radius, data.height, data.radialSegments, data.heightSegments, data.openEnded, data.thetaStart, data.thetaLength);
+    }
+  }]);
 
   return ConeGeometry;
 }(CylinderGeometry);
@@ -23013,6 +23026,13 @@ var PolyhedronGeometry = /*#__PURE__*/function (_BufferGeometry5) {
     return _this47;
   }
 
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(PolyhedronGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new PolyhedronGeometry(data.vertices, data.indices, data.radius, data.details);
+    }
+  }]);
+
   return PolyhedronGeometry;
 }(BufferGeometry);
 
@@ -23045,6 +23065,13 @@ var DodecahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry) {
     };
     return _this48;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DodecahedronGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new DodecahedronGeometry(data.radius, data.detail);
+    }
+  }]);
 
   return DodecahedronGeometry;
 }(PolyhedronGeometry);
@@ -23175,13 +23202,1288 @@ var EdgesGeometry = /*#__PURE__*/function (_BufferGeometry6) {
   return EdgesGeometry;
 }(BufferGeometry);
 /**
+ * Extensible curve object.
+ *
+ * Some common of curve methods:
+ * .getPoint( t, optionalTarget ), .getTangent( t, optionalTarget )
+ * .getPointAt( u, optionalTarget ), .getTangentAt( u, optionalTarget )
+ * .getPoints(), .getSpacedPoints()
+ * .getLength()
+ * .updateArcLengths()
+ *
+ * This following curves inherit from THREE.Curve:
+ *
+ * -- 2D curves --
+ * THREE.ArcCurve
+ * THREE.CubicBezierCurve
+ * THREE.EllipseCurve
+ * THREE.LineCurve
+ * THREE.QuadraticBezierCurve
+ * THREE.SplineCurve
+ *
+ * -- 3D curves --
+ * THREE.CatmullRomCurve3
+ * THREE.CubicBezierCurve3
+ * THREE.LineCurve3
+ * THREE.QuadraticBezierCurve3
+ *
+ * A series of curves can be represented as a THREE.CurvePath.
+ *
+ **/
+
+
+var Curve = /*#__PURE__*/function () {
+  function Curve() {
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Curve);
+
+    this.type = 'Curve';
+    this.arcLengthDivisions = 200;
+  } // Virtual base class method to overwrite and implement in subclasses
+  //	- t [0 .. 1]
+
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Curve, [{
+    key: "getPoint",
+    value: function getPoint()
+    /* t, optionalTarget */
+    {
+      console.warn('THREE.Curve: .getPoint() not implemented.');
+      return null;
+    } // Get point at relative position in curve according to arc length
+    // - u [0 .. 1]
+
+  }, {
+    key: "getPointAt",
+    value: function getPointAt(u, optionalTarget) {
+      var t = this.getUtoTmapping(u);
+      return this.getPoint(t, optionalTarget);
+    } // Get sequence of points using getPoint( t )
+
+  }, {
+    key: "getPoints",
+    value: function getPoints() {
+      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+      var points = [];
+
+      for (var d = 0; d <= divisions; d++) {
+        points.push(this.getPoint(d / divisions));
+      }
+
+      return points;
+    } // Get sequence of points using getPointAt( u )
+
+  }, {
+    key: "getSpacedPoints",
+    value: function getSpacedPoints() {
+      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+      var points = [];
+
+      for (var d = 0; d <= divisions; d++) {
+        points.push(this.getPointAt(d / divisions));
+      }
+
+      return points;
+    } // Get total curve arc length
+
+  }, {
+    key: "getLength",
+    value: function getLength() {
+      var lengths = this.getLengths();
+      return lengths[lengths.length - 1];
+    } // Get list of cumulative segment lengths
+
+  }, {
+    key: "getLengths",
+    value: function getLengths() {
+      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.arcLengthDivisions;
+
+      if (this.cacheArcLengths && this.cacheArcLengths.length === divisions + 1 && !this.needsUpdate) {
+        return this.cacheArcLengths;
+      }
+
+      this.needsUpdate = false;
+      var cache = [];
+      var current,
+          last = this.getPoint(0);
+      var sum = 0;
+      cache.push(0);
+
+      for (var p = 1; p <= divisions; p++) {
+        current = this.getPoint(p / divisions);
+        sum += current.distanceTo(last);
+        cache.push(sum);
+        last = current;
+      }
+
+      this.cacheArcLengths = cache;
+      return cache; // { sums: cache, sum: sum }; Sum is in the last element.
+    }
+  }, {
+    key: "updateArcLengths",
+    value: function updateArcLengths() {
+      this.needsUpdate = true;
+      this.getLengths();
+    } // Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equidistant
+
+  }, {
+    key: "getUtoTmapping",
+    value: function getUtoTmapping(u, distance) {
+      var arcLengths = this.getLengths();
+      var i = 0;
+      var il = arcLengths.length;
+      var targetArcLength; // The targeted u distance value to get
+
+      if (distance) {
+        targetArcLength = distance;
+      } else {
+        targetArcLength = u * arcLengths[il - 1];
+      } // binary search for the index with largest value smaller than target u distance
+
+
+      var low = 0,
+          high = il - 1,
+          comparison;
+
+      while (low <= high) {
+        i = Math.floor(low + (high - low) / 2); // less likely to overflow, though probably not issue here, JS doesn't really have integers, all numbers are floats
+
+        comparison = arcLengths[i] - targetArcLength;
+
+        if (comparison < 0) {
+          low = i + 1;
+        } else if (comparison > 0) {
+          high = i - 1;
+        } else {
+          high = i;
+          break; // DONE
+        }
+      }
+
+      i = high;
+
+      if (arcLengths[i] === targetArcLength) {
+        return i / (il - 1);
+      } // we could get finer grain at lengths, or use simple interpolation between two points
+
+
+      var lengthBefore = arcLengths[i];
+      var lengthAfter = arcLengths[i + 1];
+      var segmentLength = lengthAfter - lengthBefore; // determine where we are between the 'before' and 'after' points
+
+      var segmentFraction = (targetArcLength - lengthBefore) / segmentLength; // add that fractional amount to t
+
+      var t = (i + segmentFraction) / (il - 1);
+      return t;
+    } // Returns a unit vector tangent at t
+    // In case any sub curve does not implement its tangent derivation,
+    // 2 points a small delta apart will be used to find its gradient
+    // which seems to give a reasonable approximation
+
+  }, {
+    key: "getTangent",
+    value: function getTangent(t, optionalTarget) {
+      var delta = 0.0001;
+      var t1 = t - delta;
+      var t2 = t + delta; // Capping in case of danger
+
+      if (t1 < 0) t1 = 0;
+      if (t2 > 1) t2 = 1;
+      var pt1 = this.getPoint(t1);
+      var pt2 = this.getPoint(t2);
+      var tangent = optionalTarget || (pt1.isVector2 ? new Vector2() : new Vector3());
+      tangent.copy(pt2).sub(pt1).normalize();
+      return tangent;
+    }
+  }, {
+    key: "getTangentAt",
+    value: function getTangentAt(u, optionalTarget) {
+      var t = this.getUtoTmapping(u);
+      return this.getTangent(t, optionalTarget);
+    }
+  }, {
+    key: "computeFrenetFrames",
+    value: function computeFrenetFrames(segments, closed) {
+      // see http://www.cs.indiana.edu/pub/techreports/TR425.pdf
+      var normal = new Vector3();
+      var tangents = [];
+      var normals = [];
+      var binormals = [];
+      var vec = new Vector3();
+      var mat = new Matrix4(); // compute the tangent vectors for each segment on the curve
+
+      for (var _i170 = 0; _i170 <= segments; _i170++) {
+        var u = _i170 / segments;
+        tangents[_i170] = this.getTangentAt(u, new Vector3());
+
+        tangents[_i170].normalize();
+      } // select an initial normal vector perpendicular to the first tangent vector,
+      // and in the direction of the minimum tangent xyz component
+
+
+      normals[0] = new Vector3();
+      binormals[0] = new Vector3();
+      var min = Number.MAX_VALUE;
+      var tx = Math.abs(tangents[0].x);
+      var ty = Math.abs(tangents[0].y);
+      var tz = Math.abs(tangents[0].z);
+
+      if (tx <= min) {
+        min = tx;
+        normal.set(1, 0, 0);
+      }
+
+      if (ty <= min) {
+        min = ty;
+        normal.set(0, 1, 0);
+      }
+
+      if (tz <= min) {
+        normal.set(0, 0, 1);
+      }
+
+      vec.crossVectors(tangents[0], normal).normalize();
+      normals[0].crossVectors(tangents[0], vec);
+      binormals[0].crossVectors(tangents[0], normals[0]); // compute the slowly-varying normal and binormal vectors for each segment on the curve
+
+      for (var _i171 = 1; _i171 <= segments; _i171++) {
+        normals[_i171] = normals[_i171 - 1].clone();
+        binormals[_i171] = binormals[_i171 - 1].clone();
+        vec.crossVectors(tangents[_i171 - 1], tangents[_i171]);
+
+        if (vec.length() > Number.EPSILON) {
+          vec.normalize();
+          var theta = Math.acos(clamp(tangents[_i171 - 1].dot(tangents[_i171]), -1, 1)); // clamp for floating pt errors
+
+          normals[_i171].applyMatrix4(mat.makeRotationAxis(vec, theta));
+        }
+
+        binormals[_i171].crossVectors(tangents[_i171], normals[_i171]);
+      } // if the curve is closed, postprocess the vectors so the first and last normal vectors are the same
+
+
+      if (closed === true) {
+        var _theta = Math.acos(clamp(normals[0].dot(normals[segments]), -1, 1));
+
+        _theta /= segments;
+
+        if (tangents[0].dot(vec.crossVectors(normals[0], normals[segments])) > 0) {
+          _theta = -_theta;
+        }
+
+        for (var _i172 = 1; _i172 <= segments; _i172++) {
+          // twist a little...
+          normals[_i172].applyMatrix4(mat.makeRotationAxis(tangents[_i172], _theta * _i172));
+
+          binormals[_i172].crossVectors(tangents[_i172], normals[_i172]);
+        }
+      }
+
+      return {
+        tangents: tangents,
+        normals: normals,
+        binormals: binormals
+      };
+    }
+  }, {
+    key: "clone",
+    value: function clone() {
+      return new this.constructor().copy(this);
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      this.arcLengthDivisions = source.arcLengthDivisions;
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = {
+        metadata: {
+          version: 4.5,
+          type: 'Curve',
+          generator: 'Curve.toJSON'
+        }
+      };
+      data.arcLengthDivisions = this.arcLengthDivisions;
+      data.type = this.type;
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      this.arcLengthDivisions = json.arcLengthDivisions;
+      return this;
+    }
+  }]);
+
+  return Curve;
+}();
+
+var EllipseCurve = /*#__PURE__*/function (_Curve) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(EllipseCurve, _Curve);
+
+  var _super60 = _createSuper(EllipseCurve);
+
+  function EllipseCurve() {
+    var _this50;
+
+    var aX = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    var aY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var xRadius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+    var yRadius = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+    var aStartAngle = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+    var aEndAngle = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : Math.PI * 2;
+    var aClockwise = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+    var aRotation = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, EllipseCurve);
+
+    _this50 = _super60.call(this);
+    _this50.type = 'EllipseCurve';
+    _this50.aX = aX;
+    _this50.aY = aY;
+    _this50.xRadius = xRadius;
+    _this50.yRadius = yRadius;
+    _this50.aStartAngle = aStartAngle;
+    _this50.aEndAngle = aEndAngle;
+    _this50.aClockwise = aClockwise;
+    _this50.aRotation = aRotation;
+    return _this50;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EllipseCurve, [{
+    key: "getPoint",
+    value: function getPoint(t, optionalTarget) {
+      var point = optionalTarget || new Vector2();
+      var twoPi = Math.PI * 2;
+      var deltaAngle = this.aEndAngle - this.aStartAngle;
+      var samePoints = Math.abs(deltaAngle) < Number.EPSILON; // ensures that deltaAngle is 0 .. 2 PI
+
+      while (deltaAngle < 0) {
+        deltaAngle += twoPi;
+      }
+
+      while (deltaAngle > twoPi) {
+        deltaAngle -= twoPi;
+      }
+
+      if (deltaAngle < Number.EPSILON) {
+        if (samePoints) {
+          deltaAngle = 0;
+        } else {
+          deltaAngle = twoPi;
+        }
+      }
+
+      if (this.aClockwise === true && !samePoints) {
+        if (deltaAngle === twoPi) {
+          deltaAngle = -twoPi;
+        } else {
+          deltaAngle = deltaAngle - twoPi;
+        }
+      }
+
+      var angle = this.aStartAngle + t * deltaAngle;
+      var x = this.aX + this.xRadius * Math.cos(angle);
+      var y = this.aY + this.yRadius * Math.sin(angle);
+
+      if (this.aRotation !== 0) {
+        var cos = Math.cos(this.aRotation);
+        var sin = Math.sin(this.aRotation);
+        var tx = x - this.aX;
+        var ty = y - this.aY; // Rotate the point about the center of the ellipse.
+
+        x = tx * cos - ty * sin + this.aX;
+        y = tx * sin + ty * cos + this.aY;
+      }
+
+      return point.set(x, y);
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "copy", this).call(this, source);
+
+      this.aX = source.aX;
+      this.aY = source.aY;
+      this.xRadius = source.xRadius;
+      this.yRadius = source.yRadius;
+      this.aStartAngle = source.aStartAngle;
+      this.aEndAngle = source.aEndAngle;
+      this.aClockwise = source.aClockwise;
+      this.aRotation = source.aRotation;
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "toJSON", this).call(this);
+
+      data.aX = this.aX;
+      data.aY = this.aY;
+      data.xRadius = this.xRadius;
+      data.yRadius = this.yRadius;
+      data.aStartAngle = this.aStartAngle;
+      data.aEndAngle = this.aEndAngle;
+      data.aClockwise = this.aClockwise;
+      data.aRotation = this.aRotation;
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "fromJSON", this).call(this, json);
+
+      this.aX = json.aX;
+      this.aY = json.aY;
+      this.xRadius = json.xRadius;
+      this.yRadius = json.yRadius;
+      this.aStartAngle = json.aStartAngle;
+      this.aEndAngle = json.aEndAngle;
+      this.aClockwise = json.aClockwise;
+      this.aRotation = json.aRotation;
+      return this;
+    }
+  }]);
+
+  return EllipseCurve;
+}(Curve);
+
+EllipseCurve.prototype.isEllipseCurve = true;
+
+var ArcCurve = /*#__PURE__*/function (_EllipseCurve) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ArcCurve, _EllipseCurve);
+
+  var _super61 = _createSuper(ArcCurve);
+
+  function ArcCurve(aX, aY, aRadius, aStartAngle, aEndAngle, aClockwise) {
+    var _this51;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ArcCurve);
+
+    _this51 = _super61.call(this, aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
+    _this51.type = 'ArcCurve';
+    return _this51;
+  }
+
+  return ArcCurve;
+}(EllipseCurve);
+
+ArcCurve.prototype.isArcCurve = true;
+/**
+ * Centripetal CatmullRom Curve - which is useful for avoiding
+ * cusps and self-intersections in non-uniform catmull rom curves.
+ * http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf
+ *
+ * curve.type accepts centripetal(default), chordal and catmullrom
+ * curve.tension is used for catmullrom which defaults to 0.5
+ */
+
+/*
+Based on an optimized c++ solution in
+ - http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections/
+ - http://ideone.com/NoEbVM
+
+This CubicPoly class could be used for reusing some variables and calculations,
+but for three.js curve use, it could be possible inlined and flatten into a single function call
+which can be placed in CurveUtils.
+*/
+
+function CubicPoly() {
+  var c0 = 0,
+      c1 = 0,
+      c2 = 0,
+      c3 = 0;
+  /*
+   * Compute coefficients for a cubic polynomial
+   *   p(s) = c0 + c1*s + c2*s^2 + c3*s^3
+   * such that
+   *   p(0) = x0, p(1) = x1
+   *  and
+   *   p'(0) = t0, p'(1) = t1.
+   */
+
+  function init(x0, x1, t0, t1) {
+    c0 = x0;
+    c1 = t0;
+    c2 = -3 * x0 + 3 * x1 - 2 * t0 - t1;
+    c3 = 2 * x0 - 2 * x1 + t0 + t1;
+  }
+
+  return {
+    initCatmullRom: function initCatmullRom(x0, x1, x2, x3, tension) {
+      init(x1, x2, tension * (x2 - x0), tension * (x3 - x1));
+    },
+    initNonuniformCatmullRom: function initNonuniformCatmullRom(x0, x1, x2, x3, dt0, dt1, dt2) {
+      // compute tangents when parameterized in [t1,t2]
+      var t1 = (x1 - x0) / dt0 - (x2 - x0) / (dt0 + dt1) + (x2 - x1) / dt1;
+      var t2 = (x2 - x1) / dt1 - (x3 - x1) / (dt1 + dt2) + (x3 - x2) / dt2; // rescale tangents for parametrization in [0,1]
+
+      t1 *= dt1;
+      t2 *= dt1;
+      init(x1, x2, t1, t2);
+    },
+    calc: function calc(t) {
+      var t2 = t * t;
+      var t3 = t2 * t;
+      return c0 + c1 * t + c2 * t2 + c3 * t3;
+    }
+  };
+} //
+
+
+var tmp = new Vector3();
+var px = new CubicPoly(),
+    py = new CubicPoly(),
+    pz = new CubicPoly();
+
+var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CatmullRomCurve3, _Curve2);
+
+  var _super62 = _createSuper(CatmullRomCurve3);
+
+  function CatmullRomCurve3() {
+    var _this52;
+
+    var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var closed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var curveType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'centripetal';
+    var tension = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0.5;
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CatmullRomCurve3);
+
+    _this52 = _super62.call(this);
+    _this52.type = 'CatmullRomCurve3';
+    _this52.points = points;
+    _this52.closed = closed;
+    _this52.curveType = curveType;
+    _this52.tension = tension;
+    return _this52;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CatmullRomCurve3, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+      var point = optionalTarget;
+      var points = this.points;
+      var l = points.length;
+      var p = (l - (this.closed ? 0 : 1)) * t;
+      var intPoint = Math.floor(p);
+      var weight = p - intPoint;
+
+      if (this.closed) {
+        intPoint += intPoint > 0 ? 0 : (Math.floor(Math.abs(intPoint) / l) + 1) * l;
+      } else if (weight === 0 && intPoint === l - 1) {
+        intPoint = l - 2;
+        weight = 1;
+      }
+
+      var p0, p3; // 4 points (p1 & p2 defined below)
+
+      if (this.closed || intPoint > 0) {
+        p0 = points[(intPoint - 1) % l];
+      } else {
+        // extrapolate first point
+        tmp.subVectors(points[0], points[1]).add(points[0]);
+        p0 = tmp;
+      }
+
+      var p1 = points[intPoint % l];
+      var p2 = points[(intPoint + 1) % l];
+
+      if (this.closed || intPoint + 2 < l) {
+        p3 = points[(intPoint + 2) % l];
+      } else {
+        // extrapolate last point
+        tmp.subVectors(points[l - 1], points[l - 2]).add(points[l - 1]);
+        p3 = tmp;
+      }
+
+      if (this.curveType === 'centripetal' || this.curveType === 'chordal') {
+        // init Centripetal / Chordal Catmull-Rom
+        var pow = this.curveType === 'chordal' ? 0.5 : 0.25;
+        var dt0 = Math.pow(p0.distanceToSquared(p1), pow);
+        var dt1 = Math.pow(p1.distanceToSquared(p2), pow);
+        var dt2 = Math.pow(p2.distanceToSquared(p3), pow); // safety check for repeated points
+
+        if (dt1 < 1e-4) dt1 = 1.0;
+        if (dt0 < 1e-4) dt0 = dt1;
+        if (dt2 < 1e-4) dt2 = dt1;
+        px.initNonuniformCatmullRom(p0.x, p1.x, p2.x, p3.x, dt0, dt1, dt2);
+        py.initNonuniformCatmullRom(p0.y, p1.y, p2.y, p3.y, dt0, dt1, dt2);
+        pz.initNonuniformCatmullRom(p0.z, p1.z, p2.z, p3.z, dt0, dt1, dt2);
+      } else if (this.curveType === 'catmullrom') {
+        px.initCatmullRom(p0.x, p1.x, p2.x, p3.x, this.tension);
+        py.initCatmullRom(p0.y, p1.y, p2.y, p3.y, this.tension);
+        pz.initCatmullRom(p0.z, p1.z, p2.z, p3.z, this.tension);
+      }
+
+      point.set(px.calc(weight), py.calc(weight), pz.calc(weight));
+      return point;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "copy", this).call(this, source);
+
+      this.points = [];
+
+      for (var _i173 = 0, l = source.points.length; _i173 < l; _i173++) {
+        var point = source.points[_i173];
+        this.points.push(point.clone());
+      }
+
+      this.closed = source.closed;
+      this.curveType = source.curveType;
+      this.tension = source.tension;
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "toJSON", this).call(this);
+
+      data.points = [];
+
+      for (var _i174 = 0, l = this.points.length; _i174 < l; _i174++) {
+        var point = this.points[_i174];
+        data.points.push(point.toArray());
+      }
+
+      data.closed = this.closed;
+      data.curveType = this.curveType;
+      data.tension = this.tension;
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "fromJSON", this).call(this, json);
+
+      this.points = [];
+
+      for (var _i175 = 0, l = json.points.length; _i175 < l; _i175++) {
+        var point = json.points[_i175];
+        this.points.push(new Vector3().fromArray(point));
+      }
+
+      this.closed = json.closed;
+      this.curveType = json.curveType;
+      this.tension = json.tension;
+      return this;
+    }
+  }]);
+
+  return CatmullRomCurve3;
+}(Curve);
+
+CatmullRomCurve3.prototype.isCatmullRomCurve3 = true;
+/**
+ * Bezier Curves formulas obtained from
+ * http://en.wikipedia.org/wiki/Bézier_curve
+ */
+
+function CatmullRom(t, p0, p1, p2, p3) {
+  var v0 = (p2 - p0) * 0.5;
+  var v1 = (p3 - p1) * 0.5;
+  var t2 = t * t;
+  var t3 = t * t2;
+  return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+} //
+
+
+function QuadraticBezierP0(t, p) {
+  var k = 1 - t;
+  return k * k * p;
+}
+
+function QuadraticBezierP1(t, p) {
+  return 2 * (1 - t) * t * p;
+}
+
+function QuadraticBezierP2(t, p) {
+  return t * t * p;
+}
+
+function QuadraticBezier(t, p0, p1, p2) {
+  return QuadraticBezierP0(t, p0) + QuadraticBezierP1(t, p1) + QuadraticBezierP2(t, p2);
+} //
+
+
+function CubicBezierP0(t, p) {
+  var k = 1 - t;
+  return k * k * k * p;
+}
+
+function CubicBezierP1(t, p) {
+  var k = 1 - t;
+  return 3 * k * k * t * p;
+}
+
+function CubicBezierP2(t, p) {
+  return 3 * (1 - t) * t * t * p;
+}
+
+function CubicBezierP3(t, p) {
+  return t * t * t * p;
+}
+
+function CubicBezier(t, p0, p1, p2, p3) {
+  return CubicBezierP0(t, p0) + CubicBezierP1(t, p1) + CubicBezierP2(t, p2) + CubicBezierP3(t, p3);
+}
+
+var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicBezierCurve, _Curve3);
+
+  var _super63 = _createSuper(CubicBezierCurve);
+
+  function CubicBezierCurve() {
+    var _this53;
+
+    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
+    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector2();
+    var v3 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Vector2();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicBezierCurve);
+
+    _this53 = _super63.call(this);
+    _this53.type = 'CubicBezierCurve';
+    _this53.v0 = v0;
+    _this53.v1 = v1;
+    _this53.v2 = v2;
+    _this53.v3 = v3;
+    return _this53;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+      var point = optionalTarget;
+      var v0 = this.v0,
+          v1 = this.v1,
+          v2 = this.v2,
+          v3 = this.v3;
+      point.set(CubicBezier(t, v0.x, v1.x, v2.x, v3.x), CubicBezier(t, v0.y, v1.y, v2.y, v3.y));
+      return point;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "copy", this).call(this, source);
+
+      this.v0.copy(source.v0);
+      this.v1.copy(source.v1);
+      this.v2.copy(source.v2);
+      this.v3.copy(source.v3);
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "toJSON", this).call(this);
+
+      data.v0 = this.v0.toArray();
+      data.v1 = this.v1.toArray();
+      data.v2 = this.v2.toArray();
+      data.v3 = this.v3.toArray();
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "fromJSON", this).call(this, json);
+
+      this.v0.fromArray(json.v0);
+      this.v1.fromArray(json.v1);
+      this.v2.fromArray(json.v2);
+      this.v3.fromArray(json.v3);
+      return this;
+    }
+  }]);
+
+  return CubicBezierCurve;
+}(Curve);
+
+CubicBezierCurve.prototype.isCubicBezierCurve = true;
+
+var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicBezierCurve3, _Curve4);
+
+  var _super64 = _createSuper(CubicBezierCurve3);
+
+  function CubicBezierCurve3() {
+    var _this54;
+
+    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
+    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
+    var v3 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Vector3();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicBezierCurve3);
+
+    _this54 = _super64.call(this);
+    _this54.type = 'CubicBezierCurve3';
+    _this54.v0 = v0;
+    _this54.v1 = v1;
+    _this54.v2 = v2;
+    _this54.v3 = v3;
+    return _this54;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve3, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+      var point = optionalTarget;
+      var v0 = this.v0,
+          v1 = this.v1,
+          v2 = this.v2,
+          v3 = this.v3;
+      point.set(CubicBezier(t, v0.x, v1.x, v2.x, v3.x), CubicBezier(t, v0.y, v1.y, v2.y, v3.y), CubicBezier(t, v0.z, v1.z, v2.z, v3.z));
+      return point;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "copy", this).call(this, source);
+
+      this.v0.copy(source.v0);
+      this.v1.copy(source.v1);
+      this.v2.copy(source.v2);
+      this.v3.copy(source.v3);
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "toJSON", this).call(this);
+
+      data.v0 = this.v0.toArray();
+      data.v1 = this.v1.toArray();
+      data.v2 = this.v2.toArray();
+      data.v3 = this.v3.toArray();
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "fromJSON", this).call(this, json);
+
+      this.v0.fromArray(json.v0);
+      this.v1.fromArray(json.v1);
+      this.v2.fromArray(json.v2);
+      this.v3.fromArray(json.v3);
+      return this;
+    }
+  }]);
+
+  return CubicBezierCurve3;
+}(Curve);
+
+CubicBezierCurve3.prototype.isCubicBezierCurve3 = true;
+
+var LineCurve = /*#__PURE__*/function (_Curve5) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineCurve, _Curve5);
+
+  var _super65 = _createSuper(LineCurve);
+
+  function LineCurve() {
+    var _this55;
+
+    var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
+    var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineCurve);
+
+    _this55 = _super65.call(this);
+    _this55.type = 'LineCurve';
+    _this55.v1 = v1;
+    _this55.v2 = v2;
+    return _this55;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+      var point = optionalTarget;
+
+      if (t === 1) {
+        point.copy(this.v2);
+      } else {
+        point.copy(this.v2).sub(this.v1);
+        point.multiplyScalar(t).add(this.v1);
+      }
+
+      return point;
+    } // Line curve is linear, so we can overwrite default getPointAt
+
+  }, {
+    key: "getPointAt",
+    value: function getPointAt(u, optionalTarget) {
+      return this.getPoint(u, optionalTarget);
+    }
+  }, {
+    key: "getTangent",
+    value: function getTangent(t, optionalTarget) {
+      var tangent = optionalTarget || new Vector2();
+      tangent.copy(this.v2).sub(this.v1).normalize();
+      return tangent;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "copy", this).call(this, source);
+
+      this.v1.copy(source.v1);
+      this.v2.copy(source.v2);
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "toJSON", this).call(this);
+
+      data.v1 = this.v1.toArray();
+      data.v2 = this.v2.toArray();
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "fromJSON", this).call(this, json);
+
+      this.v1.fromArray(json.v1);
+      this.v2.fromArray(json.v2);
+      return this;
+    }
+  }]);
+
+  return LineCurve;
+}(Curve);
+
+LineCurve.prototype.isLineCurve = true;
+
+var LineCurve3 = /*#__PURE__*/function (_Curve6) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineCurve3, _Curve6);
+
+  var _super66 = _createSuper(LineCurve3);
+
+  function LineCurve3() {
+    var _this56;
+
+    var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
+    var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineCurve3);
+
+    _this56 = _super66.call(this);
+    _this56.type = 'LineCurve3';
+    _this56.isLineCurve3 = true;
+    _this56.v1 = v1;
+    _this56.v2 = v2;
+    return _this56;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve3, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+      var point = optionalTarget;
+
+      if (t === 1) {
+        point.copy(this.v2);
+      } else {
+        point.copy(this.v2).sub(this.v1);
+        point.multiplyScalar(t).add(this.v1);
+      }
+
+      return point;
+    } // Line curve is linear, so we can overwrite default getPointAt
+
+  }, {
+    key: "getPointAt",
+    value: function getPointAt(u, optionalTarget) {
+      return this.getPoint(u, optionalTarget);
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "copy", this).call(this, source);
+
+      this.v1.copy(source.v1);
+      this.v2.copy(source.v2);
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "toJSON", this).call(this);
+
+      data.v1 = this.v1.toArray();
+      data.v2 = this.v2.toArray();
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "fromJSON", this).call(this, json);
+
+      this.v1.fromArray(json.v1);
+      this.v2.fromArray(json.v2);
+      return this;
+    }
+  }]);
+
+  return LineCurve3;
+}(Curve);
+
+var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuadraticBezierCurve, _Curve7);
+
+  var _super67 = _createSuper(QuadraticBezierCurve);
+
+  function QuadraticBezierCurve() {
+    var _this57;
+
+    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
+    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector2();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuadraticBezierCurve);
+
+    _this57 = _super67.call(this);
+    _this57.type = 'QuadraticBezierCurve';
+    _this57.v0 = v0;
+    _this57.v1 = v1;
+    _this57.v2 = v2;
+    return _this57;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+      var point = optionalTarget;
+      var v0 = this.v0,
+          v1 = this.v1,
+          v2 = this.v2;
+      point.set(QuadraticBezier(t, v0.x, v1.x, v2.x), QuadraticBezier(t, v0.y, v1.y, v2.y));
+      return point;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "copy", this).call(this, source);
+
+      this.v0.copy(source.v0);
+      this.v1.copy(source.v1);
+      this.v2.copy(source.v2);
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "toJSON", this).call(this);
+
+      data.v0 = this.v0.toArray();
+      data.v1 = this.v1.toArray();
+      data.v2 = this.v2.toArray();
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "fromJSON", this).call(this, json);
+
+      this.v0.fromArray(json.v0);
+      this.v1.fromArray(json.v1);
+      this.v2.fromArray(json.v2);
+      return this;
+    }
+  }]);
+
+  return QuadraticBezierCurve;
+}(Curve);
+
+QuadraticBezierCurve.prototype.isQuadraticBezierCurve = true;
+
+var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuadraticBezierCurve3, _Curve8);
+
+  var _super68 = _createSuper(QuadraticBezierCurve3);
+
+  function QuadraticBezierCurve3() {
+    var _this58;
+
+    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
+    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuadraticBezierCurve3);
+
+    _this58 = _super68.call(this);
+    _this58.type = 'QuadraticBezierCurve3';
+    _this58.v0 = v0;
+    _this58.v1 = v1;
+    _this58.v2 = v2;
+    return _this58;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve3, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
+      var point = optionalTarget;
+      var v0 = this.v0,
+          v1 = this.v1,
+          v2 = this.v2;
+      point.set(QuadraticBezier(t, v0.x, v1.x, v2.x), QuadraticBezier(t, v0.y, v1.y, v2.y), QuadraticBezier(t, v0.z, v1.z, v2.z));
+      return point;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "copy", this).call(this, source);
+
+      this.v0.copy(source.v0);
+      this.v1.copy(source.v1);
+      this.v2.copy(source.v2);
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "toJSON", this).call(this);
+
+      data.v0 = this.v0.toArray();
+      data.v1 = this.v1.toArray();
+      data.v2 = this.v2.toArray();
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "fromJSON", this).call(this, json);
+
+      this.v0.fromArray(json.v0);
+      this.v1.fromArray(json.v1);
+      this.v2.fromArray(json.v2);
+      return this;
+    }
+  }]);
+
+  return QuadraticBezierCurve3;
+}(Curve);
+
+QuadraticBezierCurve3.prototype.isQuadraticBezierCurve3 = true;
+
+var SplineCurve = /*#__PURE__*/function (_Curve9) {
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SplineCurve, _Curve9);
+
+  var _super69 = _createSuper(SplineCurve);
+
+  function SplineCurve() {
+    var _this59;
+
+    var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SplineCurve);
+
+    _this59 = _super69.call(this);
+    _this59.type = 'SplineCurve';
+    _this59.points = points;
+    return _this59;
+  }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SplineCurve, [{
+    key: "getPoint",
+    value: function getPoint(t) {
+      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
+      var point = optionalTarget;
+      var points = this.points;
+      var p = (points.length - 1) * t;
+      var intPoint = Math.floor(p);
+      var weight = p - intPoint;
+      var p0 = points[intPoint === 0 ? intPoint : intPoint - 1];
+      var p1 = points[intPoint];
+      var p2 = points[intPoint > points.length - 2 ? points.length - 1 : intPoint + 1];
+      var p3 = points[intPoint > points.length - 3 ? points.length - 1 : intPoint + 2];
+      point.set(CatmullRom(weight, p0.x, p1.x, p2.x, p3.x), CatmullRom(weight, p0.y, p1.y, p2.y, p3.y));
+      return point;
+    }
+  }, {
+    key: "copy",
+    value: function copy(source) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "copy", this).call(this, source);
+
+      this.points = [];
+
+      for (var _i176 = 0, l = source.points.length; _i176 < l; _i176++) {
+        var point = source.points[_i176];
+        this.points.push(point.clone());
+      }
+
+      return this;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "toJSON", this).call(this);
+
+      data.points = [];
+
+      for (var _i177 = 0, l = this.points.length; _i177 < l; _i177++) {
+        var point = this.points[_i177];
+        data.points.push(point.toArray());
+      }
+
+      return data;
+    }
+  }, {
+    key: "fromJSON",
+    value: function fromJSON(json) {
+      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "fromJSON", this).call(this, json);
+
+      this.points = [];
+
+      for (var _i178 = 0, l = json.points.length; _i178 < l; _i178++) {
+        var point = json.points[_i178];
+        this.points.push(new Vector2().fromArray(point));
+      }
+
+      return this;
+    }
+  }]);
+
+  return SplineCurve;
+}(Curve);
+
+SplineCurve.prototype.isSplineCurve = true;
+var Curves = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  ArcCurve: ArcCurve,
+  CatmullRomCurve3: CatmullRomCurve3,
+  CubicBezierCurve: CubicBezierCurve,
+  CubicBezierCurve3: CubicBezierCurve3,
+  EllipseCurve: EllipseCurve,
+  LineCurve: LineCurve,
+  LineCurve3: LineCurve3,
+  QuadraticBezierCurve: QuadraticBezierCurve,
+  QuadraticBezierCurve3: QuadraticBezierCurve3,
+  SplineCurve: SplineCurve
+});
+/**
  * Port from https://github.com/mapbox/earcut (v2.2.2)
  */
 
-
 var Earcut = {
-  triangulate: function triangulate(data, holeIndices, dim) {
-    dim = dim || 2;
+  triangulate: function triangulate(data, holeIndices) {
+    var dim = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
     var hasHoles = holeIndices && holeIndices.length;
     var outerLen = hasHoles ? holeIndices[0] * dim : data.length;
     var outerNode = linkedList(data, 0, outerLen, dim, true);
@@ -23194,9 +24496,9 @@ var Earcut = {
       minX = maxX = data[0];
       minY = maxY = data[1];
 
-      for (var _i170 = dim; _i170 < outerLen; _i170 += dim) {
-        x = data[_i170];
-        y = data[_i170 + 1];
+      for (var _i179 = dim; _i179 < outerLen; _i179 += dim) {
+        x = data[_i179];
+        y = data[_i179 + 1];
         if (x < minX) minX = x;
         if (y < minY) minY = y;
         if (x > maxX) maxX = x;
@@ -23759,9 +25061,9 @@ function Node(i, x, y) {
 function signedArea(data, start, end, dim) {
   var sum = 0;
 
-  for (var _i171 = start, j = end - dim; _i171 < end; _i171 += dim) {
-    sum += (data[j] - data[_i171]) * (data[_i171 + 1] + data[j + 1]);
-    j = _i171;
+  for (var _i180 = start, j = end - dim; _i180 < end; _i180 += dim) {
+    sum += (data[j] - data[_i180]) * (data[_i180 + 1] + data[j + 1]);
+    j = _i180;
   }
 
   return sum;
@@ -23805,17 +25107,17 @@ var ShapeUtils = /*#__PURE__*/function () {
       var holeIndex = contour.length;
       holes.forEach(removeDupEndPts);
 
-      for (var _i172 = 0; _i172 < holes.length; _i172++) {
+      for (var _i181 = 0; _i181 < holes.length; _i181++) {
         holeIndices.push(holeIndex);
-        holeIndex += holes[_i172].length;
-        addContour(vertices, holes[_i172]);
+        holeIndex += holes[_i181].length;
+        addContour(vertices, holes[_i181]);
       } //
 
 
       var triangles = Earcut.triangulate(vertices, holeIndices); //
 
-      for (var _i173 = 0; _i173 < triangles.length; _i173 += 3) {
-        faces.push(triangles.slice(_i173, _i173 + 3));
+      for (var _i182 = 0; _i182 < triangles.length; _i182 += 3) {
+        faces.push(triangles.slice(_i182, _i182 + 3));
       }
 
       return faces;
@@ -23834,9 +25136,9 @@ function removeDupEndPts(points) {
 }
 
 function addContour(vertices, contour) {
-  for (var _i174 = 0; _i174 < contour.length; _i174++) {
-    vertices.push(contour[_i174].x);
-    vertices.push(contour[_i174].y);
+  for (var _i183 = 0; _i183 < contour.length; _i183++) {
+    vertices.push(contour[_i183].x);
+    vertices.push(contour[_i183].y);
   }
 }
 /**
@@ -23865,37 +25167,37 @@ function addContour(vertices, contour) {
 var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ExtrudeGeometry, _BufferGeometry7);
 
-  var _super60 = _createSuper(ExtrudeGeometry);
+  var _super70 = _createSuper(ExtrudeGeometry);
 
   function ExtrudeGeometry(shapes, options) {
-    var _this50;
+    var _this60;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ExtrudeGeometry);
 
-    _this50 = _super60.call(this);
-    _this50.type = 'ExtrudeGeometry';
-    _this50.parameters = {
+    _this60 = _super70.call(this);
+    _this60.type = 'ExtrudeGeometry';
+    _this60.parameters = {
       shapes: shapes,
       options: options
     };
     shapes = Array.isArray(shapes) ? shapes : [shapes];
 
-    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this50);
+    var scope = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this60);
 
     var verticesArray = [];
     var uvArray = [];
 
-    for (var _i175 = 0, l = shapes.length; _i175 < l; _i175++) {
-      var shape = shapes[_i175];
+    for (var _i184 = 0, l = shapes.length; _i184 < l; _i184++) {
+      var shape = shapes[_i184];
       addShape(shape);
     } // build geometry
 
 
-    _this50.setAttribute('position', new Float32BufferAttribute(verticesArray, 3));
+    _this60.setAttribute('position', new Float32BufferAttribute(verticesArray, 3));
 
-    _this50.setAttribute('uv', new Float32BufferAttribute(uvArray, 2));
+    _this60.setAttribute('uv', new Float32BufferAttribute(uvArray, 2));
 
-    _this50.computeVertexNormals(); // functions
+    _this60.computeVertexNormals(); // functions
 
 
     function addShape(shape) {
@@ -24061,12 +25363,12 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
       var contourMovements = [];
 
-      for (var _i176 = 0, il = contour.length, j = il - 1, k = _i176 + 1; _i176 < il; _i176++, j++, k++) {
+      for (var _i185 = 0, il = contour.length, j = il - 1, k = _i185 + 1; _i185 < il; _i185++, j++, k++) {
         if (j === il) j = 0;
         if (k === il) k = 0; //  (j)---(i)---(k)
         // console.log('i,j,k', i, j , k)
 
-        contourMovements[_i176] = getBevelVec(contour[_i176], contour[j], contour[k]);
+        contourMovements[_i185] = getBevelVec(contour[_i185], contour[j], contour[k]);
       }
 
       var holesMovements = [];
@@ -24077,11 +25379,11 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
         var _ahole2 = holes[_h2];
         oneHoleMovements = [];
 
-        for (var _i177 = 0, _il13 = _ahole2.length, _j6 = _il13 - 1, _k = _i177 + 1; _i177 < _il13; _i177++, _j6++, _k++) {
+        for (var _i186 = 0, _il13 = _ahole2.length, _j6 = _il13 - 1, _k = _i186 + 1; _i186 < _il13; _i186++, _j6++, _k++) {
           if (_j6 === _il13) _j6 = 0;
           if (_k === _il13) _k = 0; //  (j)---(i)---(k)
 
-          oneHoleMovements[_i177] = getBevelVec(_ahole2[_i177], _ahole2[_j6], _ahole2[_k]);
+          oneHoleMovements[_i186] = getBevelVec(_ahole2[_i186], _ahole2[_j6], _ahole2[_k]);
         }
 
         holesMovements.push(oneHoleMovements);
@@ -24097,8 +25399,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
         var _bs = bevelSize * Math.sin(t * Math.PI / 2) + bevelOffset; // contract shape
 
 
-        for (var _i178 = 0, _il14 = contour.length; _i178 < _il14; _i178++) {
-          var vert = scalePt2(contour[_i178], contourMovements[_i178], _bs);
+        for (var _i187 = 0, _il14 = contour.length; _i187 < _il14; _i187++) {
+          var vert = scalePt2(contour[_i187], contourMovements[_i187], _bs);
           v(vert.x, vert.y, -z);
         } // expand holes
 
@@ -24107,8 +25409,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
           var _ahole3 = holes[_h3];
           oneHoleMovements = holesMovements[_h3];
 
-          for (var _i179 = 0, _il15 = _ahole3.length; _i179 < _il15; _i179++) {
-            var _vert = scalePt2(_ahole3[_i179], oneHoleMovements[_i179], _bs);
+          for (var _i188 = 0, _il15 = _ahole3.length; _i188 < _il15; _i188++) {
+            var _vert = scalePt2(_ahole3[_i188], oneHoleMovements[_i188], _bs);
 
             v(_vert.x, _vert.y, -z);
           }
@@ -24117,8 +25419,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
       var bs = bevelSize + bevelOffset; // Back facing vertices
 
-      for (var _i180 = 0; _i180 < vlen; _i180++) {
-        var _vert2 = bevelEnabled ? scalePt2(vertices[_i180], verticesMovements[_i180], bs) : vertices[_i180];
+      for (var _i189 = 0; _i189 < vlen; _i189++) {
+        var _vert2 = bevelEnabled ? scalePt2(vertices[_i189], verticesMovements[_i189], bs) : vertices[_i189];
 
         if (!extrudeByPath) {
           v(_vert2.x, _vert2.y, 0);
@@ -24134,8 +25436,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
 
       for (var s = 1; s <= steps; s++) {
-        for (var _i181 = 0; _i181 < vlen; _i181++) {
-          var _vert3 = bevelEnabled ? scalePt2(vertices[_i181], verticesMovements[_i181], bs) : vertices[_i181];
+        for (var _i190 = 0; _i190 < vlen; _i190++) {
+          var _vert3 = bevelEnabled ? scalePt2(vertices[_i190], verticesMovements[_i190], bs) : vertices[_i190];
 
           if (!extrudeByPath) {
             v(_vert3.x, _vert3.y, depth / steps * s);
@@ -24159,8 +25461,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
         var _bs2 = bevelSize * Math.sin(_t * Math.PI / 2) + bevelOffset; // contract shape
 
 
-        for (var _i182 = 0, _il16 = contour.length; _i182 < _il16; _i182++) {
-          var _vert4 = scalePt2(contour[_i182], contourMovements[_i182], _bs2);
+        for (var _i191 = 0, _il16 = contour.length; _i191 < _il16; _i191++) {
+          var _vert4 = scalePt2(contour[_i191], contourMovements[_i191], _bs2);
 
           v(_vert4.x, _vert4.y, depth + _z2);
         } // expand holes
@@ -24170,8 +25472,8 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
           var _ahole4 = holes[_h4];
           oneHoleMovements = holesMovements[_h4];
 
-          for (var _i183 = 0, _il17 = _ahole4.length; _i183 < _il17; _i183++) {
-            var _vert5 = scalePt2(_ahole4[_i183], oneHoleMovements[_i183], _bs2);
+          for (var _i192 = 0, _il17 = _ahole4.length; _i192 < _il17; _i192++) {
+            var _vert5 = scalePt2(_ahole4[_i192], oneHoleMovements[_i192], _bs2);
 
             if (!extrudeByPath) {
               v(_vert5.x, _vert5.y, depth + _z2);
@@ -24197,28 +25499,28 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
 
           var offset = vlen * layer; // Bottom faces
 
-          for (var _i184 = 0; _i184 < flen; _i184++) {
-            var face = faces[_i184];
+          for (var _i193 = 0; _i193 < flen; _i193++) {
+            var face = faces[_i193];
             f3(face[2] + offset, face[1] + offset, face[0] + offset);
           }
 
           layer = steps + bevelSegments * 2;
           offset = vlen * layer; // Top faces
 
-          for (var _i185 = 0; _i185 < flen; _i185++) {
-            var _face = faces[_i185];
+          for (var _i194 = 0; _i194 < flen; _i194++) {
+            var _face = faces[_i194];
             f3(_face[0] + offset, _face[1] + offset, _face[2] + offset);
           }
         } else {
           // Bottom faces
-          for (var _i186 = 0; _i186 < flen; _i186++) {
-            var _face2 = faces[_i186];
+          for (var _i195 = 0; _i195 < flen; _i195++) {
+            var _face2 = faces[_i195];
             f3(_face2[2], _face2[1], _face2[0]);
           } // Top faces
 
 
-          for (var _i187 = 0; _i187 < flen; _i187++) {
-            var _face3 = faces[_i187];
+          for (var _i196 = 0; _i196 < flen; _i196++) {
+            var _face3 = faces[_i196];
             f3(_face3[0] + vlen * steps, _face3[1] + vlen * steps, _face3[2] + vlen * steps);
           }
         }
@@ -24313,7 +25615,7 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
       }
     }
 
-    return _this50;
+    return _this60;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ExtrudeGeometry, [{
@@ -24324,6 +25626,24 @@ var ExtrudeGeometry = /*#__PURE__*/function (_BufferGeometry7) {
       var shapes = this.parameters.shapes;
       var options = this.parameters.options;
       return toJSON$1(shapes, options, data);
+    }
+  }], [{
+    key: "fromJSON",
+    value: function fromJSON(data, shapes) {
+      var geometryShapes = [];
+
+      for (var j = 0, jl = data.shapes.length; j < jl; j++) {
+        var shape = shapes[data.shapes[j]];
+        geometryShapes.push(shape);
+      }
+
+      var extrudePath = data.options.extrudePath;
+
+      if (extrudePath !== undefined) {
+        data.options.extrudePath = new Curves[extrudePath.type]().fromJSON(extrudePath);
+      }
+
+      return new ExtrudeGeometry(geometryShapes, data.options);
     }
   }]);
 
@@ -24366,8 +25686,8 @@ function toJSON$1(shapes, options, data) {
   data.shapes = [];
 
   if (Array.isArray(shapes)) {
-    for (var _i188 = 0, l = shapes.length; _i188 < l; _i188++) {
-      var shape = shapes[_i188];
+    for (var _i197 = 0, l = shapes.length; _i197 < l; _i197++) {
+      var shape = shapes[_i197];
       data.shapes.push(shape.uuid);
     }
   } else {
@@ -24381,10 +25701,10 @@ function toJSON$1(shapes, options, data) {
 var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(IcosahedronGeometry, _PolyhedronGeometry2);
 
-  var _super61 = _createSuper(IcosahedronGeometry);
+  var _super71 = _createSuper(IcosahedronGeometry);
 
   function IcosahedronGeometry() {
-    var _this51;
+    var _this61;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -24394,14 +25714,21 @@ var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
     var t = (1 + Math.sqrt(5)) / 2;
     var vertices = [-1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, 0, 0, -1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, t, 0, -1, t, 0, 1, -t, 0, -1, -t, 0, 1];
     var indices = [0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1];
-    _this51 = _super61.call(this, vertices, indices, radius, detail);
-    _this51.type = 'IcosahedronGeometry';
-    _this51.parameters = {
+    _this61 = _super71.call(this, vertices, indices, radius, detail);
+    _this61.type = 'IcosahedronGeometry';
+    _this61.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this51;
+    return _this61;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(IcosahedronGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new IcosahedronGeometry(data.radius, data.detail);
+    }
+  }]);
 
   return IcosahedronGeometry;
 }(PolyhedronGeometry);
@@ -24409,10 +25736,10 @@ var IcosahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry2) {
 var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LatheGeometry, _BufferGeometry8);
 
-  var _super62 = _createSuper(LatheGeometry);
+  var _super72 = _createSuper(LatheGeometry);
 
   function LatheGeometry(points) {
-    var _this52;
+    var _this62;
 
     var segments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
     var phiStart = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -24420,9 +25747,9 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LatheGeometry);
 
-    _this52 = _super62.call(this);
-    _this52.type = 'LatheGeometry';
-    _this52.parameters = {
+    _this62 = _super72.call(this);
+    _this62.type = 'LatheGeometry';
+    _this62.parameters = {
       points: points,
       segments: segments,
       phiStart: phiStart,
@@ -24440,8 +25767,8 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
     var vertex = new Vector3();
     var uv = new Vector2(); // generate vertices and uvs
 
-    for (var _i189 = 0; _i189 <= segments; _i189++) {
-      var phi = phiStart + _i189 * inverseSegments * phiLength;
+    for (var _i198 = 0; _i198 <= segments; _i198++) {
+      var phi = phiStart + _i198 * inverseSegments * phiLength;
       var sin = Math.sin(phi);
       var cos = Math.cos(phi);
 
@@ -24452,16 +25779,16 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
         vertex.z = points[j].x * cos;
         vertices.push(vertex.x, vertex.y, vertex.z); // uv
 
-        uv.x = _i189 / segments;
+        uv.x = _i198 / segments;
         uv.y = j / (points.length - 1);
         uvs.push(uv.x, uv.y);
       }
     } // indices
 
 
-    for (var _i190 = 0; _i190 < segments; _i190++) {
+    for (var _i199 = 0; _i199 < segments; _i199++) {
       for (var _j8 = 0; _j8 < points.length - 1; _j8++) {
-        var base = _j8 + _i190 * points.length;
+        var base = _j8 + _i199 * points.length;
         var a = base;
         var b = base + points.length;
         var c = base + points.length + 1;
@@ -24473,26 +25800,26 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
     } // build geometry
 
 
-    _this52.setIndex(indices);
+    _this62.setIndex(indices);
 
-    _this52.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this62.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this52.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // generate normals
+    _this62.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // generate normals
 
 
-    _this52.computeVertexNormals(); // if the geometry is closed, we need to average the normals along the seam.
+    _this62.computeVertexNormals(); // if the geometry is closed, we need to average the normals along the seam.
     // because the corresponding vertices are identical (but still have different UVs).
 
 
     if (phiLength === Math.PI * 2) {
-      var normals = _this52.attributes.normal.array;
+      var normals = _this62.attributes.normal.array;
       var n1 = new Vector3();
       var n2 = new Vector3();
       var n = new Vector3(); // this is the buffer offset for the last line of vertices
 
       var _base = segments * points.length * 3;
 
-      for (var _i191 = 0, _j9 = 0; _i191 < points.length; _i191++, _j9 += 3) {
+      for (var _i200 = 0, _j9 = 0; _i200 < points.length; _i200++, _j9 += 3) {
         // select the normal of the vertex in the first line
         n1.x = normals[_j9 + 0];
         n1.y = normals[_j9 + 1];
@@ -24510,8 +25837,15 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
       }
     }
 
-    return _this52;
+    return _this62;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LatheGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new LatheGeometry(data.points, data.segments, data.phiStart, data.phiLength);
+    }
+  }]);
 
   return LatheGeometry;
 }(BufferGeometry);
@@ -24519,10 +25853,10 @@ var LatheGeometry = /*#__PURE__*/function (_BufferGeometry8) {
 var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(OctahedronGeometry, _PolyhedronGeometry3);
 
-  var _super63 = _createSuper(OctahedronGeometry);
+  var _super73 = _createSuper(OctahedronGeometry);
 
   function OctahedronGeometry() {
-    var _this53;
+    var _this63;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -24531,14 +25865,21 @@ var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
 
     var vertices = [1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 1, 0, 0, -1];
     var indices = [0, 2, 4, 0, 4, 3, 0, 3, 5, 0, 5, 2, 1, 2, 5, 1, 5, 3, 1, 3, 4, 1, 4, 2];
-    _this53 = _super63.call(this, vertices, indices, radius, detail);
-    _this53.type = 'OctahedronGeometry';
-    _this53.parameters = {
+    _this63 = _super73.call(this, vertices, indices, radius, detail);
+    _this63.type = 'OctahedronGeometry';
+    _this63.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this53;
+    return _this63;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(OctahedronGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new OctahedronGeometry(data.radius, data.detail);
+    }
+  }]);
 
   return OctahedronGeometry;
 }(PolyhedronGeometry);
@@ -24551,16 +25892,16 @@ var OctahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry3) {
 var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ParametricGeometry, _BufferGeometry9);
 
-  var _super64 = _createSuper(ParametricGeometry);
+  var _super74 = _createSuper(ParametricGeometry);
 
   function ParametricGeometry(func, slices, stacks) {
-    var _this54;
+    var _this64;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ParametricGeometry);
 
-    _this54 = _super64.call(this);
-    _this54.type = 'ParametricGeometry';
-    _this54.parameters = {
+    _this64 = _super74.call(this);
+    _this64.type = 'ParametricGeometry';
+    _this64.parameters = {
       func: func,
       slices: slices,
       stacks: stacks
@@ -24584,8 +25925,8 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
 
     var sliceCount = slices + 1;
 
-    for (var _i192 = 0; _i192 <= stacks; _i192++) {
-      var v = _i192 / stacks;
+    for (var _i201 = 0; _i201 <= stacks; _i201++) {
+      var v = _i201 / stacks;
 
       for (var j = 0; j <= slices; j++) {
         var u = j / slices; // vertex
@@ -24619,12 +25960,12 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
     } // generate indices
 
 
-    for (var _i193 = 0; _i193 < stacks; _i193++) {
+    for (var _i202 = 0; _i202 < stacks; _i202++) {
       for (var _j10 = 0; _j10 < slices; _j10++) {
-        var a = _i193 * sliceCount + _j10;
-        var b = _i193 * sliceCount + _j10 + 1;
-        var c = (_i193 + 1) * sliceCount + _j10 + 1;
-        var d = (_i193 + 1) * sliceCount + _j10; // faces one and two
+        var a = _i202 * sliceCount + _j10;
+        var b = _i202 * sliceCount + _j10 + 1;
+        var c = (_i202 + 1) * sliceCount + _j10 + 1;
+        var d = (_i202 + 1) * sliceCount + _j10; // faces one and two
 
         indices.push(a, b, d);
         indices.push(b, c, d);
@@ -24632,15 +25973,15 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
     } // build geometry
 
 
-    _this54.setIndex(indices);
+    _this64.setIndex(indices);
 
-    _this54.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this64.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this54.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this64.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this54.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this64.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this54;
+    return _this64;
   }
 
   return ParametricGeometry;
@@ -24649,10 +25990,10 @@ var ParametricGeometry = /*#__PURE__*/function (_BufferGeometry9) {
 var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RingGeometry, _BufferGeometry10);
 
-  var _super65 = _createSuper(RingGeometry);
+  var _super75 = _createSuper(RingGeometry);
 
   function RingGeometry() {
-    var _this55;
+    var _this65;
 
     var innerRadius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0.5;
     var outerRadius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -24663,9 +26004,9 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, RingGeometry);
 
-    _this55 = _super65.call(this);
-    _this55.type = 'RingGeometry';
-    _this55.parameters = {
+    _this65 = _super75.call(this);
+    _this65.type = 'RingGeometry';
+    _this65.parameters = {
       innerRadius: innerRadius,
       outerRadius: outerRadius,
       thetaSegments: thetaSegments,
@@ -24687,9 +26028,9 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     var uv = new Vector2(); // generate vertices, normals and uvs
 
     for (var j = 0; j <= phiSegments; j++) {
-      for (var _i194 = 0; _i194 <= thetaSegments; _i194++) {
+      for (var _i203 = 0; _i203 <= thetaSegments; _i203++) {
         // values are generate from the inside of the ring to the outside
-        var segment = thetaStart + _i194 / thetaSegments * thetaLength; // vertex
+        var segment = thetaStart + _i203 / thetaSegments * thetaLength; // vertex
 
         vertex.x = radius * Math.cos(segment);
         vertex.y = radius * Math.sin(segment);
@@ -24710,8 +26051,8 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     for (var _j11 = 0; _j11 < phiSegments; _j11++) {
       var thetaSegmentLevel = _j11 * (thetaSegments + 1);
 
-      for (var _i195 = 0; _i195 < thetaSegments; _i195++) {
-        var _segment = _i195 + thetaSegmentLevel;
+      for (var _i204 = 0; _i204 < thetaSegments; _i204++) {
+        var _segment = _i204 + thetaSegmentLevel;
 
         var a = _segment;
         var b = _segment + thetaSegments + 1;
@@ -24724,16 +26065,23 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
     } // build geometry
 
 
-    _this55.setIndex(indices);
+    _this65.setIndex(indices);
 
-    _this55.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this65.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this55.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this65.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this55.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this65.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this55;
+    return _this65;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(RingGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new RingGeometry(data.innerRadius, data.outerRadius, data.thetaSegments, data.phiSegments, data.thetaStart, data.thetaLength);
+    }
+  }]);
 
   return RingGeometry;
 }(BufferGeometry);
@@ -24741,18 +26089,18 @@ var RingGeometry = /*#__PURE__*/function (_BufferGeometry10) {
 var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ShapeGeometry, _BufferGeometry11);
 
-  var _super66 = _createSuper(ShapeGeometry);
+  var _super76 = _createSuper(ShapeGeometry);
 
   function ShapeGeometry(shapes) {
-    var _this56;
+    var _this66;
 
     var curveSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 12;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShapeGeometry);
 
-    _this56 = _super66.call(this);
-    _this56.type = 'ShapeGeometry';
-    _this56.parameters = {
+    _this66 = _super76.call(this);
+    _this66.type = 'ShapeGeometry';
+    _this66.parameters = {
       shapes: shapes,
       curveSegments: curveSegments
     }; // buffers
@@ -24768,10 +26116,10 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
     if (Array.isArray(shapes) === false) {
       addShape(shapes);
     } else {
-      for (var _i196 = 0; _i196 < shapes.length; _i196++) {
-        addShape(shapes[_i196]);
+      for (var _i205 = 0; _i205 < shapes.length; _i205++) {
+        addShape(shapes[_i205]);
 
-        _this56.addGroup(groupStart, groupCount, _i196); // enables MultiMaterial support
+        _this66.addGroup(groupStart, groupCount, _i205); // enables MultiMaterial support
 
 
         groupStart += groupCount;
@@ -24780,13 +26128,13 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
     } // build geometry
 
 
-    _this56.setIndex(indices);
+    _this66.setIndex(indices);
 
-    _this56.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this66.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this56.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this66.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this56.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // helper functions
+    _this66.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // helper functions
 
 
     function addShape(shape) {
@@ -24799,32 +26147,32 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
         shapeVertices = shapeVertices.reverse();
       }
 
-      for (var _i197 = 0, l = shapeHoles.length; _i197 < l; _i197++) {
-        var shapeHole = shapeHoles[_i197];
+      for (var _i206 = 0, l = shapeHoles.length; _i206 < l; _i206++) {
+        var shapeHole = shapeHoles[_i206];
 
         if (ShapeUtils.isClockWise(shapeHole) === true) {
-          shapeHoles[_i197] = shapeHole.reverse();
+          shapeHoles[_i206] = shapeHole.reverse();
         }
       }
 
       var faces = ShapeUtils.triangulateShape(shapeVertices, shapeHoles); // join vertices of inner and outer paths to a single array
 
-      for (var _i198 = 0, _l7 = shapeHoles.length; _i198 < _l7; _i198++) {
-        var _shapeHole = shapeHoles[_i198];
+      for (var _i207 = 0, _l7 = shapeHoles.length; _i207 < _l7; _i207++) {
+        var _shapeHole = shapeHoles[_i207];
         shapeVertices = shapeVertices.concat(_shapeHole);
       } // vertices, normals, uvs
 
 
-      for (var _i199 = 0, _l8 = shapeVertices.length; _i199 < _l8; _i199++) {
-        var vertex = shapeVertices[_i199];
+      for (var _i208 = 0, _l8 = shapeVertices.length; _i208 < _l8; _i208++) {
+        var vertex = shapeVertices[_i208];
         vertices.push(vertex.x, vertex.y, 0);
         normals.push(0, 0, 1);
         uvs.push(vertex.x, vertex.y); // world uvs
       } // incides
 
 
-      for (var _i200 = 0, _l9 = faces.length; _i200 < _l9; _i200++) {
-        var face = faces[_i200];
+      for (var _i209 = 0, _l9 = faces.length; _i209 < _l9; _i209++) {
+        var face = faces[_i209];
         var a = face[0] + indexOffset;
         var b = face[1] + indexOffset;
         var c = face[2] + indexOffset;
@@ -24833,7 +26181,7 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
       }
     }
 
-    return _this56;
+    return _this66;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShapeGeometry, [{
@@ -24844,6 +26192,18 @@ var ShapeGeometry = /*#__PURE__*/function (_BufferGeometry11) {
       var shapes = this.parameters.shapes;
       return _toJSON(shapes, data);
     }
+  }], [{
+    key: "fromJSON",
+    value: function fromJSON(data, shapes) {
+      var geometryShapes = [];
+
+      for (var j = 0, jl = data.shapes.length; j < jl; j++) {
+        var shape = shapes[data.shapes[j]];
+        geometryShapes.push(shape);
+      }
+
+      return new ShapeGeometry(geometryShapes, data.curveSegments);
+    }
   }]);
 
   return ShapeGeometry;
@@ -24853,8 +26213,8 @@ function _toJSON(shapes, data) {
   data.shapes = [];
 
   if (Array.isArray(shapes)) {
-    for (var _i201 = 0, l = shapes.length; _i201 < l; _i201++) {
-      var shape = shapes[_i201];
+    for (var _i210 = 0, l = shapes.length; _i210 < l; _i210++) {
+      var shape = shapes[_i210];
       data.shapes.push(shape.uuid);
     }
   } else {
@@ -24867,10 +26227,10 @@ function _toJSON(shapes, data) {
 var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SphereGeometry, _BufferGeometry12);
 
-  var _super67 = _createSuper(SphereGeometry);
+  var _super77 = _createSuper(SphereGeometry);
 
   function SphereGeometry() {
-    var _this57;
+    var _this67;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var widthSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 8;
@@ -24882,9 +26242,9 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SphereGeometry);
 
-    _this57 = _super67.call(this);
-    _this57.type = 'SphereGeometry';
-    _this57.parameters = {
+    _this67 = _super77.call(this);
+    _this67.type = 'SphereGeometry';
+    _this67.parameters = {
       radius: radius,
       widthSegments: widthSegments,
       heightSegments: heightSegments,
@@ -24949,16 +26309,23 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
     } // build geometry
 
 
-    _this57.setIndex(indices);
+    _this67.setIndex(indices);
 
-    _this57.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this67.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this57.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this67.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this57.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this67.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this57;
+    return _this67;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SphereGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new SphereGeometry(data.radius, data.widthSegments, data.heightSegments, data.phiStart, data.phiLength, data.thetaStart, data.thetaLength);
+    }
+  }]);
 
   return SphereGeometry;
 }(BufferGeometry);
@@ -24966,10 +26333,10 @@ var SphereGeometry = /*#__PURE__*/function (_BufferGeometry12) {
 var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TetrahedronGeometry, _PolyhedronGeometry4);
 
-  var _super68 = _createSuper(TetrahedronGeometry);
+  var _super78 = _createSuper(TetrahedronGeometry);
 
   function TetrahedronGeometry() {
-    var _this58;
+    var _this68;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var detail = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -24978,14 +26345,21 @@ var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
 
     var vertices = [1, 1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1];
     var indices = [2, 1, 0, 0, 3, 2, 1, 3, 0, 2, 3, 1];
-    _this58 = _super68.call(this, vertices, indices, radius, detail);
-    _this58.type = 'TetrahedronGeometry';
-    _this58.parameters = {
+    _this68 = _super78.call(this, vertices, indices, radius, detail);
+    _this68.type = 'TetrahedronGeometry';
+    _this68.parameters = {
       radius: radius,
       detail: detail
     };
-    return _this58;
+    return _this68;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TetrahedronGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new TetrahedronGeometry(data.radius, data.detail);
+    }
+  }]);
 
   return TetrahedronGeometry;
 }(PolyhedronGeometry);
@@ -25010,10 +26384,10 @@ var TetrahedronGeometry = /*#__PURE__*/function (_PolyhedronGeometry4) {
 var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TextGeometry, _ExtrudeGeometry);
 
-  var _super69 = _createSuper(TextGeometry);
+  var _super79 = _createSuper(TextGeometry);
 
   function TextGeometry(text) {
-    var _this59;
+    var _this69;
 
     var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
@@ -25023,7 +26397,7 @@ var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
 
     if (!(font && font.isFont)) {
       console.error('THREE.TextGeometry: font parameter is not an instance of THREE.Font.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this59, new BufferGeometry());
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this69, new BufferGeometry());
     }
 
     var shapes = font.generateShapes(text, parameters.size); // translate parameters to ExtrudeGeometry API
@@ -25033,9 +26407,9 @@ var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
     if (parameters.bevelThickness === undefined) parameters.bevelThickness = 10;
     if (parameters.bevelSize === undefined) parameters.bevelSize = 8;
     if (parameters.bevelEnabled === undefined) parameters.bevelEnabled = false;
-    _this59 = _super69.call(this, shapes, parameters);
-    _this59.type = 'TextGeometry';
-    return _this59;
+    _this69 = _super79.call(this, shapes, parameters);
+    _this69.type = 'TextGeometry';
+    return _this69;
   }
 
   return TextGeometry;
@@ -25044,10 +26418,10 @@ var TextGeometry = /*#__PURE__*/function (_ExtrudeGeometry) {
 var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TorusGeometry, _BufferGeometry13);
 
-  var _super70 = _createSuper(TorusGeometry);
+  var _super80 = _createSuper(TorusGeometry);
 
   function TorusGeometry() {
-    var _this60;
+    var _this70;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var tube = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.4;
@@ -25057,9 +26431,9 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TorusGeometry);
 
-    _this60 = _super70.call(this);
-    _this60.type = 'TorusGeometry';
-    _this60.parameters = {
+    _this70 = _super80.call(this);
+    _this70.type = 'TorusGeometry';
+    _this70.parameters = {
       radius: radius,
       tube: tube,
       radialSegments: radialSegments,
@@ -25079,8 +26453,8 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
     var normal = new Vector3(); // generate vertices, normals and uvs
 
     for (var j = 0; j <= radialSegments; j++) {
-      for (var _i202 = 0; _i202 <= tubularSegments; _i202++) {
-        var u = _i202 / tubularSegments * arc;
+      for (var _i211 = 0; _i211 <= tubularSegments; _i211++) {
+        var u = _i211 / tubularSegments * arc;
         var v = j / radialSegments * Math.PI * 2; // vertex
 
         vertex.x = (radius + tube * Math.cos(v)) * Math.cos(u);
@@ -25093,19 +26467,19 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
         normal.subVectors(vertex, center).normalize();
         normals.push(normal.x, normal.y, normal.z); // uv
 
-        uvs.push(_i202 / tubularSegments);
+        uvs.push(_i211 / tubularSegments);
         uvs.push(j / radialSegments);
       }
     } // generate indices
 
 
     for (var _j12 = 1; _j12 <= radialSegments; _j12++) {
-      for (var _i203 = 1; _i203 <= tubularSegments; _i203++) {
+      for (var _i212 = 1; _i212 <= tubularSegments; _i212++) {
         // indices
-        var a = (tubularSegments + 1) * _j12 + _i203 - 1;
-        var b = (tubularSegments + 1) * (_j12 - 1) + _i203 - 1;
-        var c = (tubularSegments + 1) * (_j12 - 1) + _i203;
-        var d = (tubularSegments + 1) * _j12 + _i203; // faces
+        var a = (tubularSegments + 1) * _j12 + _i212 - 1;
+        var b = (tubularSegments + 1) * (_j12 - 1) + _i212 - 1;
+        var c = (tubularSegments + 1) * (_j12 - 1) + _i212;
+        var d = (tubularSegments + 1) * _j12 + _i212; // faces
 
         indices.push(a, b, d);
         indices.push(b, c, d);
@@ -25113,16 +26487,23 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
     } // build geometry
 
 
-    _this60.setIndex(indices);
+    _this70.setIndex(indices);
 
-    _this60.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this70.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this60.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this70.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this60.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+    _this70.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
 
-    return _this60;
+    return _this70;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new TorusGeometry(data.radius, data.tube, data.radialSegments, data.tubularSegments, data.arc);
+    }
+  }]);
 
   return TorusGeometry;
 }(BufferGeometry);
@@ -25130,10 +26511,10 @@ var TorusGeometry = /*#__PURE__*/function (_BufferGeometry13) {
 var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TorusKnotGeometry, _BufferGeometry14);
 
-  var _super71 = _createSuper(TorusKnotGeometry);
+  var _super81 = _createSuper(TorusKnotGeometry);
 
   function TorusKnotGeometry() {
-    var _this61;
+    var _this71;
 
     var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     var tube = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.4;
@@ -25144,9 +26525,9 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TorusKnotGeometry);
 
-    _this61 = _super71.call(this);
-    _this61.type = 'TorusKnotGeometry';
-    _this61.parameters = {
+    _this71 = _super81.call(this);
+    _this71.type = 'TorusKnotGeometry';
+    _this71.parameters = {
       radius: radius,
       tube: tube,
       tubularSegments: tubularSegments,
@@ -25170,9 +26551,9 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
     var T = new Vector3();
     var N = new Vector3(); // generate vertices, normals and uvs
 
-    for (var _i204 = 0; _i204 <= tubularSegments; ++_i204) {
+    for (var _i213 = 0; _i213 <= tubularSegments; ++_i213) {
       // the radian "u" is used to calculate the position on the torus curve of the current tubular segement
-      var u = _i204 / tubularSegments * p * Math.PI * 2; // now we calculate two points. P1 is our current position on the curve, P2 is a little farther ahead.
+      var u = _i213 / tubularSegments * p * Math.PI * 2; // now we calculate two points. P1 is our current position on the curve, P2 is a little farther ahead.
       // these points are used to create a special "coordinate space", which is necessary to calculate the correct vertex positions
 
       calculatePositionOnCurve(u, p, q, radius, P1);
@@ -25202,19 +26583,19 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
         normal.subVectors(vertex, P1).normalize();
         normals.push(normal.x, normal.y, normal.z); // uv
 
-        uvs.push(_i204 / tubularSegments);
+        uvs.push(_i213 / tubularSegments);
         uvs.push(j / radialSegments);
       }
     } // generate indices
 
 
     for (var _j13 = 1; _j13 <= tubularSegments; _j13++) {
-      for (var _i205 = 1; _i205 <= radialSegments; _i205++) {
+      for (var _i214 = 1; _i214 <= radialSegments; _i214++) {
         // indices
-        var a = (radialSegments + 1) * (_j13 - 1) + (_i205 - 1);
-        var b = (radialSegments + 1) * _j13 + (_i205 - 1);
-        var c = (radialSegments + 1) * _j13 + _i205;
-        var d = (radialSegments + 1) * (_j13 - 1) + _i205; // faces
+        var a = (radialSegments + 1) * (_j13 - 1) + (_i214 - 1);
+        var b = (radialSegments + 1) * _j13 + (_i214 - 1);
+        var c = (radialSegments + 1) * _j13 + _i214;
+        var d = (radialSegments + 1) * (_j13 - 1) + _i214; // faces
 
         indices.push(a, b, d);
         indices.push(b, c, d);
@@ -25222,13 +26603,13 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
     } // build geometry
 
 
-    _this61.setIndex(indices);
+    _this71.setIndex(indices);
 
-    _this61.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this71.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this61.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this71.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this61.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // this function calculates the current position on the torus curve
+    _this71.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // this function calculates the current position on the torus curve
 
 
     function calculatePositionOnCurve(u, p, q, radius, position) {
@@ -25241,8 +26622,15 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
       position.z = radius * Math.sin(quOverP) * 0.5;
     }
 
-    return _this61;
+    return _this71;
   }
+
+  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TorusKnotGeometry, null, [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      return new TorusKnotGeometry(data.radius, data.tube, data.tubularSegments, data.radialSegments, data.p, data.q);
+    }
+  }]);
 
   return TorusKnotGeometry;
 }(BufferGeometry);
@@ -25250,10 +26638,10 @@ var TorusKnotGeometry = /*#__PURE__*/function (_BufferGeometry14) {
 var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TubeGeometry, _BufferGeometry15);
 
-  var _super72 = _createSuper(TubeGeometry);
+  var _super82 = _createSuper(TubeGeometry);
 
   function TubeGeometry(path) {
-    var _this62;
+    var _this72;
 
     var tubularSegments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 64;
     var radius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
@@ -25262,9 +26650,9 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TubeGeometry);
 
-    _this62 = _super72.call(this);
-    _this62.type = 'TubeGeometry';
-    _this62.parameters = {
+    _this72 = _super82.call(this);
+    _this72.type = 'TubeGeometry';
+    _this72.parameters = {
       path: path,
       tubularSegments: tubularSegments,
       radius: radius,
@@ -25273,9 +26661,9 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
     };
     var frames = path.computeFrenetFrames(tubularSegments, closed); // expose internals
 
-    _this62.tangents = frames.tangents;
-    _this62.normals = frames.normals;
-    _this62.binormals = frames.binormals; // helper variables
+    _this72.tangents = frames.tangents;
+    _this72.normals = frames.normals;
+    _this72.binormals = frames.binormals; // helper variables
 
     var vertex = new Vector3();
     var normal = new Vector3();
@@ -25289,18 +26677,18 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 
     generateBufferData(); // build geometry
 
-    _this62.setIndex(indices);
+    _this72.setIndex(indices);
 
-    _this62.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this72.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    _this62.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+    _this72.setAttribute('normal', new Float32BufferAttribute(normals, 3));
 
-    _this62.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // functions
+    _this72.setAttribute('uv', new Float32BufferAttribute(uvs, 2)); // functions
 
 
     function generateBufferData() {
-      for (var _i206 = 0; _i206 < tubularSegments; _i206++) {
-        generateSegment(_i206);
+      for (var _i215 = 0; _i215 < tubularSegments; _i215++) {
+        generateSegment(_i215);
       } // if the geometry is not closed, generate the last row of vertices and normals
       // at the regular position on the given path
       //
@@ -25342,11 +26730,11 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 
     function generateIndices() {
       for (var j = 1; j <= tubularSegments; j++) {
-        for (var _i207 = 1; _i207 <= radialSegments; _i207++) {
-          var a = (radialSegments + 1) * (j - 1) + (_i207 - 1);
-          var b = (radialSegments + 1) * j + (_i207 - 1);
-          var c = (radialSegments + 1) * j + _i207;
-          var d = (radialSegments + 1) * (j - 1) + _i207; // faces
+        for (var _i216 = 1; _i216 <= radialSegments; _i216++) {
+          var a = (radialSegments + 1) * (j - 1) + (_i216 - 1);
+          var b = (radialSegments + 1) * j + (_i216 - 1);
+          var c = (radialSegments + 1) * j + _i216;
+          var d = (radialSegments + 1) * (j - 1) + _i216; // faces
 
           indices.push(a, b, d);
           indices.push(b, c, d);
@@ -25355,16 +26743,16 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
     }
 
     function generateUVs() {
-      for (var _i208 = 0; _i208 <= tubularSegments; _i208++) {
+      for (var _i217 = 0; _i217 <= tubularSegments; _i217++) {
         for (var j = 0; j <= radialSegments; j++) {
-          uv.x = _i208 / tubularSegments;
+          uv.x = _i217 / tubularSegments;
           uv.y = j / radialSegments;
           uvs.push(uv.x, uv.y);
         }
       }
     }
 
-    return _this62;
+    return _this72;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TubeGeometry, [{
@@ -25375,6 +26763,13 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
       data.path = this.parameters.path.toJSON();
       return data;
     }
+  }], [{
+    key: "fromJSON",
+    value: function fromJSON(data) {
+      // This only works for built-in curves (e.g. CatmullRomCurve3).
+      // User defined curves or instances of CurvePath will not be deserialized.
+      return new TubeGeometry(new Curves[data.path.type]().fromJSON(data.path), data.tubularSegments, data.radius, data.radialSegments, data.closed);
+    }
   }]);
 
   return TubeGeometry;
@@ -25383,19 +26778,19 @@ var TubeGeometry = /*#__PURE__*/function (_BufferGeometry15) {
 var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(WireframeGeometry, _BufferGeometry16);
 
-  var _super73 = _createSuper(WireframeGeometry);
+  var _super83 = _createSuper(WireframeGeometry);
 
   function WireframeGeometry(geometry) {
-    var _this63;
+    var _this73;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, WireframeGeometry);
 
-    _this63 = _super73.call(this);
-    _this63.type = 'WireframeGeometry';
+    _this73 = _super83.call(this);
+    _this73.type = 'WireframeGeometry';
 
     if (geometry.isGeometry === true) {
       console.error('THREE.WireframeGeometry no longer supports THREE.Geometry. Use THREE.BufferGeometry instead.');
-      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this63);
+      return (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(_this73);
     } // buffer
 
 
@@ -25425,10 +26820,10 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
         var start = group.start;
         var count = group.count;
 
-        for (var _i209 = start, l = start + count; _i209 < l; _i209 += 3) {
+        for (var _i218 = start, l = start + count; _i218 < l; _i218 += 3) {
           for (var j = 0; j < 3; j++) {
-            var edge1 = indices.getX(_i209 + j);
-            var edge2 = indices.getX(_i209 + (j + 1) % 3);
+            var edge1 = indices.getX(_i218 + j);
+            var edge2 = indices.getX(_i218 + (j + 1) % 3);
             edge[0] = Math.min(edge1, edge2); // sorting prevents duplicates
 
             edge[1] = Math.max(edge1, edge2);
@@ -25456,14 +26851,14 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
       // non-indexed BufferGeometry
       var _position2 = geometry.attributes.position;
 
-      for (var _i210 = 0, _l10 = _position2.count / 3; _i210 < _l10; _i210++) {
+      for (var _i219 = 0, _l10 = _position2.count / 3; _i219 < _l10; _i219++) {
         for (var _j14 = 0; _j14 < 3; _j14++) {
           // three edges per triangle, an edge is represented as (index1, index2)
           // e.g. the first triangle has the following edges: (0,1),(1,2),(2,0)
-          var index1 = 3 * _i210 + _j14;
+          var index1 = 3 * _i219 + _j14;
           vertex.fromBufferAttribute(_position2, index1);
           vertices.push(vertex.x, vertex.y, vertex.z);
-          var index2 = 3 * _i210 + (_j14 + 1) % 3;
+          var index2 = 3 * _i219 + (_j14 + 1) % 3;
           vertex.fromBufferAttribute(_position2, index2);
           vertices.push(vertex.x, vertex.y, vertex.z);
         }
@@ -25471,9 +26866,9 @@ var WireframeGeometry = /*#__PURE__*/function (_BufferGeometry16) {
     } // build geometry
 
 
-    _this63.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    _this73.setAttribute('position', new Float32BufferAttribute(vertices, 3));
 
-    return _this63;
+    return _this73;
   }
 
   return WireframeGeometry;
@@ -25533,21 +26928,21 @@ var Geometries = /*#__PURE__*/Object.freeze({
 var ShadowMaterial = /*#__PURE__*/function (_Material8) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ShadowMaterial, _Material8);
 
-  var _super74 = _createSuper(ShadowMaterial);
+  var _super84 = _createSuper(ShadowMaterial);
 
   function ShadowMaterial(parameters) {
-    var _this64;
+    var _this74;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ShadowMaterial);
 
-    _this64 = _super74.call(this);
-    _this64.type = 'ShadowMaterial';
-    _this64.color = new Color(0x000000);
-    _this64.transparent = true;
+    _this74 = _super84.call(this);
+    _this74.type = 'ShadowMaterial';
+    _this74.color = new Color(0x000000);
+    _this74.transparent = true;
 
-    _this64.setValues(parameters);
+    _this74.setValues(parameters);
 
-    return _this64;
+    return _this74;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ShadowMaterial, [{
@@ -25568,16 +26963,16 @@ ShadowMaterial.prototype.isShadowMaterial = true;
 var RawShaderMaterial = /*#__PURE__*/function (_ShaderMaterial) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(RawShaderMaterial, _ShaderMaterial);
 
-  var _super75 = _createSuper(RawShaderMaterial);
+  var _super85 = _createSuper(RawShaderMaterial);
 
   function RawShaderMaterial(parameters) {
-    var _this65;
+    var _this75;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, RawShaderMaterial);
 
-    _this65 = _super75.call(this, parameters);
-    _this65.type = 'RawShaderMaterial';
-    return _this65;
+    _this75 = _super85.call(this, parameters);
+    _this75.type = 'RawShaderMaterial';
+    return _this75;
   }
 
   return RawShaderMaterial;
@@ -25638,56 +27033,56 @@ RawShaderMaterial.prototype.isRawShaderMaterial = true;
 var MeshStandardMaterial = /*#__PURE__*/function (_Material9) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshStandardMaterial, _Material9);
 
-  var _super76 = _createSuper(MeshStandardMaterial);
+  var _super86 = _createSuper(MeshStandardMaterial);
 
   function MeshStandardMaterial(parameters) {
-    var _this66;
+    var _this76;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshStandardMaterial);
 
-    _this66 = _super76.call(this);
-    _this66.defines = {
+    _this76 = _super86.call(this);
+    _this76.defines = {
       'STANDARD': ''
     };
-    _this66.type = 'MeshStandardMaterial';
-    _this66.color = new Color(0xffffff); // diffuse
+    _this76.type = 'MeshStandardMaterial';
+    _this76.color = new Color(0xffffff); // diffuse
 
-    _this66.roughness = 1.0;
-    _this66.metalness = 0.0;
-    _this66.map = null;
-    _this66.lightMap = null;
-    _this66.lightMapIntensity = 1.0;
-    _this66.aoMap = null;
-    _this66.aoMapIntensity = 1.0;
-    _this66.emissive = new Color(0x000000);
-    _this66.emissiveIntensity = 1.0;
-    _this66.emissiveMap = null;
-    _this66.bumpMap = null;
-    _this66.bumpScale = 1;
-    _this66.normalMap = null;
-    _this66.normalMapType = TangentSpaceNormalMap;
-    _this66.normalScale = new Vector2(1, 1);
-    _this66.displacementMap = null;
-    _this66.displacementScale = 1;
-    _this66.displacementBias = 0;
-    _this66.roughnessMap = null;
-    _this66.metalnessMap = null;
-    _this66.alphaMap = null;
-    _this66.envMap = null;
-    _this66.envMapIntensity = 1.0;
-    _this66.refractionRatio = 0.98;
-    _this66.wireframe = false;
-    _this66.wireframeLinewidth = 1;
-    _this66.wireframeLinecap = 'round';
-    _this66.wireframeLinejoin = 'round';
-    _this66.morphTargets = false;
-    _this66.morphNormals = false;
-    _this66.flatShading = false;
-    _this66.vertexTangents = false;
+    _this76.roughness = 1.0;
+    _this76.metalness = 0.0;
+    _this76.map = null;
+    _this76.lightMap = null;
+    _this76.lightMapIntensity = 1.0;
+    _this76.aoMap = null;
+    _this76.aoMapIntensity = 1.0;
+    _this76.emissive = new Color(0x000000);
+    _this76.emissiveIntensity = 1.0;
+    _this76.emissiveMap = null;
+    _this76.bumpMap = null;
+    _this76.bumpScale = 1;
+    _this76.normalMap = null;
+    _this76.normalMapType = TangentSpaceNormalMap;
+    _this76.normalScale = new Vector2(1, 1);
+    _this76.displacementMap = null;
+    _this76.displacementScale = 1;
+    _this76.displacementBias = 0;
+    _this76.roughnessMap = null;
+    _this76.metalnessMap = null;
+    _this76.alphaMap = null;
+    _this76.envMap = null;
+    _this76.envMapIntensity = 1.0;
+    _this76.refractionRatio = 0.98;
+    _this76.wireframe = false;
+    _this76.wireframeLinewidth = 1;
+    _this76.wireframeLinecap = 'round';
+    _this76.wireframeLinejoin = 'round';
+    _this76.morphTargets = false;
+    _this76.morphNormals = false;
+    _this76.flatShading = false;
+    _this76.vertexTangents = false;
 
-    _this66.setValues(parameters);
+    _this76.setValues(parameters);
 
-    return _this66;
+    return _this76;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshStandardMaterial, [{
@@ -25766,28 +27161,28 @@ MeshStandardMaterial.prototype.isMeshStandardMaterial = true;
 var MeshPhysicalMaterial = /*#__PURE__*/function (_MeshStandardMaterial) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshPhysicalMaterial, _MeshStandardMaterial);
 
-  var _super77 = _createSuper(MeshPhysicalMaterial);
+  var _super87 = _createSuper(MeshPhysicalMaterial);
 
   function MeshPhysicalMaterial(parameters) {
-    var _this67;
+    var _this77;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshPhysicalMaterial);
 
-    _this67 = _super77.call(this);
-    _this67.defines = {
+    _this77 = _super87.call(this);
+    _this77.defines = {
       'STANDARD': '',
       'PHYSICAL': ''
     };
-    _this67.type = 'MeshPhysicalMaterial';
-    _this67.clearcoat = 0.0;
-    _this67.clearcoatMap = null;
-    _this67.clearcoatRoughness = 0.0;
-    _this67.clearcoatRoughnessMap = null;
-    _this67.clearcoatNormalScale = new Vector2(1, 1);
-    _this67.clearcoatNormalMap = null;
-    _this67.reflectivity = 0.5; // maps to F0 = 0.04
+    _this77.type = 'MeshPhysicalMaterial';
+    _this77.clearcoat = 0.0;
+    _this77.clearcoatMap = null;
+    _this77.clearcoatRoughness = 0.0;
+    _this77.clearcoatRoughnessMap = null;
+    _this77.clearcoatNormalScale = new Vector2(1, 1);
+    _this77.clearcoatNormalMap = null;
+    _this77.reflectivity = 0.5; // maps to F0 = 0.04
 
-    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this67), 'ior', {
+    Object.defineProperty((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(_this77), 'ior', {
       get: function get() {
         return (1 + 0.4 * this.reflectivity) / (1 - 0.4 * this.reflectivity);
       },
@@ -25795,18 +27190,18 @@ var MeshPhysicalMaterial = /*#__PURE__*/function (_MeshStandardMaterial) {
         this.reflectivity = clamp(2.5 * (ior - 1) / (ior + 1), 0, 1);
       }
     });
-    _this67.sheen = null; // null will disable sheen bsdf
+    _this77.sheen = null; // null will disable sheen bsdf
 
-    _this67.transmission = 0.0;
-    _this67.transmissionMap = null;
-    _this67.thickness = 0.01;
-    _this67.thicknessMap = null;
-    _this67.attenuationDistance = 0.0;
-    _this67.attenuationColor = new Color(1, 1, 1);
+    _this77.transmission = 0.0;
+    _this77.transmissionMap = null;
+    _this77.thickness = 0.01;
+    _this77.thicknessMap = null;
+    _this77.attenuationDistance = 0.0;
+    _this77.attenuationColor = new Color(1, 1, 1);
 
-    _this67.setValues(parameters);
+    _this77.setValues(parameters);
 
-    return _this67;
+    return _this77;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhysicalMaterial, [{
@@ -25898,52 +27293,52 @@ MeshPhysicalMaterial.prototype.isMeshPhysicalMaterial = true;
 var MeshPhongMaterial = /*#__PURE__*/function (_Material10) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshPhongMaterial, _Material10);
 
-  var _super78 = _createSuper(MeshPhongMaterial);
+  var _super88 = _createSuper(MeshPhongMaterial);
 
   function MeshPhongMaterial(parameters) {
-    var _this68;
+    var _this78;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshPhongMaterial);
 
-    _this68 = _super78.call(this);
-    _this68.type = 'MeshPhongMaterial';
-    _this68.color = new Color(0xffffff); // diffuse
+    _this78 = _super88.call(this);
+    _this78.type = 'MeshPhongMaterial';
+    _this78.color = new Color(0xffffff); // diffuse
 
-    _this68.specular = new Color(0x111111);
-    _this68.shininess = 30;
-    _this68.map = null;
-    _this68.lightMap = null;
-    _this68.lightMapIntensity = 1.0;
-    _this68.aoMap = null;
-    _this68.aoMapIntensity = 1.0;
-    _this68.emissive = new Color(0x000000);
-    _this68.emissiveIntensity = 1.0;
-    _this68.emissiveMap = null;
-    _this68.bumpMap = null;
-    _this68.bumpScale = 1;
-    _this68.normalMap = null;
-    _this68.normalMapType = TangentSpaceNormalMap;
-    _this68.normalScale = new Vector2(1, 1);
-    _this68.displacementMap = null;
-    _this68.displacementScale = 1;
-    _this68.displacementBias = 0;
-    _this68.specularMap = null;
-    _this68.alphaMap = null;
-    _this68.envMap = null;
-    _this68.combine = MultiplyOperation;
-    _this68.reflectivity = 1;
-    _this68.refractionRatio = 0.98;
-    _this68.wireframe = false;
-    _this68.wireframeLinewidth = 1;
-    _this68.wireframeLinecap = 'round';
-    _this68.wireframeLinejoin = 'round';
-    _this68.morphTargets = false;
-    _this68.morphNormals = false;
-    _this68.flatShading = false;
+    _this78.specular = new Color(0x111111);
+    _this78.shininess = 30;
+    _this78.map = null;
+    _this78.lightMap = null;
+    _this78.lightMapIntensity = 1.0;
+    _this78.aoMap = null;
+    _this78.aoMapIntensity = 1.0;
+    _this78.emissive = new Color(0x000000);
+    _this78.emissiveIntensity = 1.0;
+    _this78.emissiveMap = null;
+    _this78.bumpMap = null;
+    _this78.bumpScale = 1;
+    _this78.normalMap = null;
+    _this78.normalMapType = TangentSpaceNormalMap;
+    _this78.normalScale = new Vector2(1, 1);
+    _this78.displacementMap = null;
+    _this78.displacementScale = 1;
+    _this78.displacementBias = 0;
+    _this78.specularMap = null;
+    _this78.alphaMap = null;
+    _this78.envMap = null;
+    _this78.combine = MultiplyOperation;
+    _this78.reflectivity = 1;
+    _this78.refractionRatio = 0.98;
+    _this78.wireframe = false;
+    _this78.wireframeLinewidth = 1;
+    _this78.wireframeLinecap = 'round';
+    _this78.wireframeLinejoin = 'round';
+    _this78.morphTargets = false;
+    _this78.morphNormals = false;
+    _this78.flatShading = false;
 
-    _this68.setValues(parameters);
+    _this78.setValues(parameters);
 
-    return _this68;
+    return _this78;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshPhongMaterial, [{
@@ -26032,47 +27427,47 @@ MeshPhongMaterial.prototype.isMeshPhongMaterial = true;
 var MeshToonMaterial = /*#__PURE__*/function (_Material11) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshToonMaterial, _Material11);
 
-  var _super79 = _createSuper(MeshToonMaterial);
+  var _super89 = _createSuper(MeshToonMaterial);
 
   function MeshToonMaterial(parameters) {
-    var _this69;
+    var _this79;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshToonMaterial);
 
-    _this69 = _super79.call(this);
-    _this69.defines = {
+    _this79 = _super89.call(this);
+    _this79.defines = {
       'TOON': ''
     };
-    _this69.type = 'MeshToonMaterial';
-    _this69.color = new Color(0xffffff);
-    _this69.map = null;
-    _this69.gradientMap = null;
-    _this69.lightMap = null;
-    _this69.lightMapIntensity = 1.0;
-    _this69.aoMap = null;
-    _this69.aoMapIntensity = 1.0;
-    _this69.emissive = new Color(0x000000);
-    _this69.emissiveIntensity = 1.0;
-    _this69.emissiveMap = null;
-    _this69.bumpMap = null;
-    _this69.bumpScale = 1;
-    _this69.normalMap = null;
-    _this69.normalMapType = TangentSpaceNormalMap;
-    _this69.normalScale = new Vector2(1, 1);
-    _this69.displacementMap = null;
-    _this69.displacementScale = 1;
-    _this69.displacementBias = 0;
-    _this69.alphaMap = null;
-    _this69.wireframe = false;
-    _this69.wireframeLinewidth = 1;
-    _this69.wireframeLinecap = 'round';
-    _this69.wireframeLinejoin = 'round';
-    _this69.morphTargets = false;
-    _this69.morphNormals = false;
+    _this79.type = 'MeshToonMaterial';
+    _this79.color = new Color(0xffffff);
+    _this79.map = null;
+    _this79.gradientMap = null;
+    _this79.lightMap = null;
+    _this79.lightMapIntensity = 1.0;
+    _this79.aoMap = null;
+    _this79.aoMapIntensity = 1.0;
+    _this79.emissive = new Color(0x000000);
+    _this79.emissiveIntensity = 1.0;
+    _this79.emissiveMap = null;
+    _this79.bumpMap = null;
+    _this79.bumpScale = 1;
+    _this79.normalMap = null;
+    _this79.normalMapType = TangentSpaceNormalMap;
+    _this79.normalScale = new Vector2(1, 1);
+    _this79.displacementMap = null;
+    _this79.displacementScale = 1;
+    _this79.displacementBias = 0;
+    _this79.alphaMap = null;
+    _this79.wireframe = false;
+    _this79.wireframeLinewidth = 1;
+    _this79.wireframeLinecap = 'round';
+    _this79.wireframeLinejoin = 'round';
+    _this79.morphTargets = false;
+    _this79.morphNormals = false;
 
-    _this69.setValues(parameters);
+    _this79.setValues(parameters);
 
-    return _this69;
+    return _this79;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshToonMaterial, [{
@@ -26141,33 +27536,33 @@ MeshToonMaterial.prototype.isMeshToonMaterial = true;
 var MeshNormalMaterial = /*#__PURE__*/function (_Material12) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshNormalMaterial, _Material12);
 
-  var _super80 = _createSuper(MeshNormalMaterial);
+  var _super90 = _createSuper(MeshNormalMaterial);
 
   function MeshNormalMaterial(parameters) {
-    var _this70;
+    var _this80;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshNormalMaterial);
 
-    _this70 = _super80.call(this);
-    _this70.type = 'MeshNormalMaterial';
-    _this70.bumpMap = null;
-    _this70.bumpScale = 1;
-    _this70.normalMap = null;
-    _this70.normalMapType = TangentSpaceNormalMap;
-    _this70.normalScale = new Vector2(1, 1);
-    _this70.displacementMap = null;
-    _this70.displacementScale = 1;
-    _this70.displacementBias = 0;
-    _this70.wireframe = false;
-    _this70.wireframeLinewidth = 1;
-    _this70.fog = false;
-    _this70.morphTargets = false;
-    _this70.morphNormals = false;
-    _this70.flatShading = false;
+    _this80 = _super90.call(this);
+    _this80.type = 'MeshNormalMaterial';
+    _this80.bumpMap = null;
+    _this80.bumpScale = 1;
+    _this80.normalMap = null;
+    _this80.normalMapType = TangentSpaceNormalMap;
+    _this80.normalScale = new Vector2(1, 1);
+    _this80.displacementMap = null;
+    _this80.displacementScale = 1;
+    _this80.displacementBias = 0;
+    _this80.wireframe = false;
+    _this80.wireframeLinewidth = 1;
+    _this80.fog = false;
+    _this80.morphTargets = false;
+    _this80.morphNormals = false;
+    _this80.flatShading = false;
 
-    _this70.setValues(parameters);
+    _this80.setValues(parameters);
 
-    return _this70;
+    return _this80;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshNormalMaterial, [{
@@ -26233,41 +27628,41 @@ MeshNormalMaterial.prototype.isMeshNormalMaterial = true;
 var MeshLambertMaterial = /*#__PURE__*/function (_Material13) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshLambertMaterial, _Material13);
 
-  var _super81 = _createSuper(MeshLambertMaterial);
+  var _super91 = _createSuper(MeshLambertMaterial);
 
   function MeshLambertMaterial(parameters) {
-    var _this71;
+    var _this81;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshLambertMaterial);
 
-    _this71 = _super81.call(this);
-    _this71.type = 'MeshLambertMaterial';
-    _this71.color = new Color(0xffffff); // diffuse
+    _this81 = _super91.call(this);
+    _this81.type = 'MeshLambertMaterial';
+    _this81.color = new Color(0xffffff); // diffuse
 
-    _this71.map = null;
-    _this71.lightMap = null;
-    _this71.lightMapIntensity = 1.0;
-    _this71.aoMap = null;
-    _this71.aoMapIntensity = 1.0;
-    _this71.emissive = new Color(0x000000);
-    _this71.emissiveIntensity = 1.0;
-    _this71.emissiveMap = null;
-    _this71.specularMap = null;
-    _this71.alphaMap = null;
-    _this71.envMap = null;
-    _this71.combine = MultiplyOperation;
-    _this71.reflectivity = 1;
-    _this71.refractionRatio = 0.98;
-    _this71.wireframe = false;
-    _this71.wireframeLinewidth = 1;
-    _this71.wireframeLinecap = 'round';
-    _this71.wireframeLinejoin = 'round';
-    _this71.morphTargets = false;
-    _this71.morphNormals = false;
+    _this81.map = null;
+    _this81.lightMap = null;
+    _this81.lightMapIntensity = 1.0;
+    _this81.aoMap = null;
+    _this81.aoMapIntensity = 1.0;
+    _this81.emissive = new Color(0x000000);
+    _this81.emissiveIntensity = 1.0;
+    _this81.emissiveMap = null;
+    _this81.specularMap = null;
+    _this81.alphaMap = null;
+    _this81.envMap = null;
+    _this81.combine = MultiplyOperation;
+    _this81.reflectivity = 1;
+    _this81.refractionRatio = 0.98;
+    _this81.wireframe = false;
+    _this81.wireframeLinewidth = 1;
+    _this81.wireframeLinecap = 'round';
+    _this81.wireframeLinejoin = 'round';
+    _this81.morphTargets = false;
+    _this81.morphNormals = false;
 
-    _this71.setValues(parameters);
+    _this81.setValues(parameters);
 
-    return _this71;
+    return _this81;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshLambertMaterial, [{
@@ -26336,38 +27731,38 @@ MeshLambertMaterial.prototype.isMeshLambertMaterial = true;
 var MeshMatcapMaterial = /*#__PURE__*/function (_Material14) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(MeshMatcapMaterial, _Material14);
 
-  var _super82 = _createSuper(MeshMatcapMaterial);
+  var _super92 = _createSuper(MeshMatcapMaterial);
 
   function MeshMatcapMaterial(parameters) {
-    var _this72;
+    var _this82;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, MeshMatcapMaterial);
 
-    _this72 = _super82.call(this);
-    _this72.defines = {
+    _this82 = _super92.call(this);
+    _this82.defines = {
       'MATCAP': ''
     };
-    _this72.type = 'MeshMatcapMaterial';
-    _this72.color = new Color(0xffffff); // diffuse
+    _this82.type = 'MeshMatcapMaterial';
+    _this82.color = new Color(0xffffff); // diffuse
 
-    _this72.matcap = null;
-    _this72.map = null;
-    _this72.bumpMap = null;
-    _this72.bumpScale = 1;
-    _this72.normalMap = null;
-    _this72.normalMapType = TangentSpaceNormalMap;
-    _this72.normalScale = new Vector2(1, 1);
-    _this72.displacementMap = null;
-    _this72.displacementScale = 1;
-    _this72.displacementBias = 0;
-    _this72.alphaMap = null;
-    _this72.morphTargets = false;
-    _this72.morphNormals = false;
-    _this72.flatShading = false;
+    _this82.matcap = null;
+    _this82.map = null;
+    _this82.bumpMap = null;
+    _this82.bumpScale = 1;
+    _this82.normalMap = null;
+    _this82.normalMapType = TangentSpaceNormalMap;
+    _this82.normalScale = new Vector2(1, 1);
+    _this82.displacementMap = null;
+    _this82.displacementScale = 1;
+    _this82.displacementBias = 0;
+    _this82.alphaMap = null;
+    _this82.morphTargets = false;
+    _this82.morphNormals = false;
+    _this82.flatShading = false;
 
-    _this72.setValues(parameters);
+    _this82.setValues(parameters);
 
-    return _this72;
+    return _this82;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(MeshMatcapMaterial, [{
@@ -26417,22 +27812,22 @@ MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true;
 var LineDashedMaterial = /*#__PURE__*/function (_LineBasicMaterial) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineDashedMaterial, _LineBasicMaterial);
 
-  var _super83 = _createSuper(LineDashedMaterial);
+  var _super93 = _createSuper(LineDashedMaterial);
 
   function LineDashedMaterial(parameters) {
-    var _this73;
+    var _this83;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineDashedMaterial);
 
-    _this73 = _super83.call(this);
-    _this73.type = 'LineDashedMaterial';
-    _this73.scale = 1;
-    _this73.dashSize = 3;
-    _this73.gapSize = 1;
+    _this83 = _super93.call(this);
+    _this83.type = 'LineDashedMaterial';
+    _this83.scale = 1;
+    _this83.dashSize = 3;
+    _this83.gapSize = 1;
 
-    _this73.setValues(parameters);
+    _this83.setValues(parameters);
 
-    return _this73;
+    return _this83;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineDashedMaterial, [{
@@ -26506,8 +27901,8 @@ var AnimationUtils = {
     var n = times.length;
     var result = new Array(n);
 
-    for (var _i211 = 0; _i211 !== n; ++_i211) {
-      result[_i211] = _i211;
+    for (var _i220 = 0; _i220 !== n; ++_i220) {
+      result[_i220] = _i220;
     }
 
     result.sort(compareTime);
@@ -26518,8 +27913,8 @@ var AnimationUtils = {
     var nValues = values.length;
     var result = new values.constructor(nValues);
 
-    for (var _i212 = 0, dstOffset = 0; dstOffset !== nValues; ++_i212) {
-      var srcOffset = order[_i212] * stride;
+    for (var _i221 = 0, dstOffset = 0; dstOffset !== nValues; ++_i221) {
+      var srcOffset = order[_i221] * stride;
 
       for (var j = 0; j !== stride; ++j) {
         result[dstOffset++] = values[srcOffset + j];
@@ -26585,8 +27980,8 @@ var AnimationUtils = {
     clip.name = name;
     var tracks = [];
 
-    for (var _i213 = 0; _i213 < clip.tracks.length; ++_i213) {
-      var track = clip.tracks[_i213];
+    for (var _i222 = 0; _i222 < clip.tracks.length; ++_i222) {
+      var track = clip.tracks[_i222];
       var valueSize = track.getValueSize();
       var times = [];
       var values = [];
@@ -26611,15 +28006,15 @@ var AnimationUtils = {
 
     var minStartTime = Infinity;
 
-    for (var _i214 = 0; _i214 < clip.tracks.length; ++_i214) {
-      if (minStartTime > clip.tracks[_i214].times[0]) {
-        minStartTime = clip.tracks[_i214].times[0];
+    for (var _i223 = 0; _i223 < clip.tracks.length; ++_i223) {
+      if (minStartTime > clip.tracks[_i223].times[0]) {
+        minStartTime = clip.tracks[_i223].times[0];
       }
     } // shift all tracks such that clip begins at t=0
 
 
-    for (var _i215 = 0; _i215 < clip.tracks.length; ++_i215) {
-      clip.tracks[_i215].shift(-1 * minStartTime);
+    for (var _i224 = 0; _i224 < clip.tracks.length; ++_i224) {
+      clip.tracks[_i224].shift(-1 * minStartTime);
     }
 
     clip.resetDuration();
@@ -26633,8 +28028,8 @@ var AnimationUtils = {
     var numTracks = referenceClip.tracks.length;
     var referenceTime = referenceFrame / fps; // Make each track's values relative to the values at the reference frame
 
-    var _loop = function _loop(_i216) {
-      var referenceTrack = referenceClip.tracks[_i216];
+    var _loop = function _loop(_i225) {
+      var referenceTrack = referenceClip.tracks[_i225];
       var referenceTrackType = referenceTrack.ValueTypeName; // Skip this track if it's non-numeric
 
       if (referenceTrackType === 'bool' || referenceTrackType === 'string') return "continue"; // Find the track in the target clip whose name and type matches the reference track
@@ -26708,8 +28103,8 @@ var AnimationUtils = {
       }
     };
 
-    for (var _i216 = 0; _i216 < numTracks; ++_i216) {
-      var _ret = _loop(_i216);
+    for (var _i225 = 0; _i225 < numTracks; ++_i225) {
+      var _ret = _loop(_i225);
 
       if (_ret === "continue") continue;
     }
@@ -26885,8 +28280,8 @@ var Interpolant = /*#__PURE__*/function () {
           stride = this.valueSize,
           offset = index * stride;
 
-      for (var _i217 = 0; _i217 !== stride; ++_i217) {
-        result[_i217] = values[offset + _i217];
+      for (var _i226 = 0; _i226 !== stride; ++_i226) {
+        result[_i226] = values[offset + _i226];
       }
 
       return result;
@@ -26924,23 +28319,23 @@ Interpolant.prototype.afterEnd_ = Interpolant.prototype.copySampleValue_;
 var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicInterpolant, _Interpolant);
 
-  var _super84 = _createSuper(CubicInterpolant);
+  var _super94 = _createSuper(CubicInterpolant);
 
   function CubicInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
-    var _this74;
+    var _this84;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicInterpolant);
 
-    _this74 = _super84.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
-    _this74._weightPrev = -0;
-    _this74._offsetPrev = -0;
-    _this74._weightNext = -0;
-    _this74._offsetNext = -0;
-    _this74.DefaultSettings_ = {
+    _this84 = _super94.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    _this84._weightPrev = -0;
+    _this84._offsetPrev = -0;
+    _this84._weightNext = -0;
+    _this84._offsetNext = -0;
+    _this84.DefaultSettings_ = {
       endingStart: ZeroCurvatureEnding,
       endingEnd: ZeroCurvatureEnding
     };
-    return _this74;
+    return _this84;
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicInterpolant, [{
@@ -27024,8 +28419,8 @@ var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
       var s1 = (-1 - wN) * ppp + (1.5 + wN) * pp + 0.5 * p;
       var sN = wN * ppp - wN * pp; // combine data linearly
 
-      for (var _i218 = 0; _i218 !== stride; ++_i218) {
-        result[_i218] = sP * values[oP + _i218] + s0 * values[o0 + _i218] + s1 * values[o1 + _i218] + sN * values[oN + _i218];
+      for (var _i227 = 0; _i227 !== stride; ++_i227) {
+        result[_i227] = sP * values[oP + _i227] + s0 * values[o0 + _i227] + s1 * values[o1 + _i227] + sN * values[oN + _i227];
       }
 
       return result;
@@ -27038,12 +28433,12 @@ var CubicInterpolant = /*#__PURE__*/function (_Interpolant) {
 var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LinearInterpolant, _Interpolant2);
 
-  var _super85 = _createSuper(LinearInterpolant);
+  var _super95 = _createSuper(LinearInterpolant);
 
   function LinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LinearInterpolant);
 
-    return _super85.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    return _super95.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LinearInterpolant, [{
@@ -27057,8 +28452,8 @@ var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
           weight1 = (t - t0) / (t1 - t0),
           weight0 = 1 - weight1;
 
-      for (var _i219 = 0; _i219 !== stride; ++_i219) {
-        result[_i219] = values[offset0 + _i219] * weight0 + values[offset1 + _i219] * weight1;
+      for (var _i228 = 0; _i228 !== stride; ++_i228) {
+        result[_i228] = values[offset0 + _i228] * weight0 + values[offset1 + _i228] * weight1;
       }
 
       return result;
@@ -27077,12 +28472,12 @@ var LinearInterpolant = /*#__PURE__*/function (_Interpolant2) {
 var DiscreteInterpolant = /*#__PURE__*/function (_Interpolant3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DiscreteInterpolant, _Interpolant3);
 
-  var _super86 = _createSuper(DiscreteInterpolant);
+  var _super96 = _createSuper(DiscreteInterpolant);
 
   function DiscreteInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DiscreteInterpolant);
 
-    return _super86.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    return _super96.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DiscreteInterpolant, [{
@@ -27190,8 +28585,8 @@ var KeyframeTrack = /*#__PURE__*/function () {
       if (timeOffset !== 0.0) {
         var times = this.times;
 
-        for (var _i220 = 0, n = times.length; _i220 !== n; ++_i220) {
-          times[_i220] += timeOffset;
+        for (var _i229 = 0, n = times.length; _i229 !== n; ++_i229) {
+          times[_i229] += timeOffset;
         }
       }
 
@@ -27204,8 +28599,8 @@ var KeyframeTrack = /*#__PURE__*/function () {
       if (timeScale !== 1.0) {
         var times = this.times;
 
-        for (var _i221 = 0, n = times.length; _i221 !== n; ++_i221) {
-          times[_i221] *= timeScale;
+        for (var _i230 = 0, n = times.length; _i230 !== n; ++_i230) {
+          times[_i230] *= timeScale;
         }
       }
 
@@ -27268,17 +28663,17 @@ var KeyframeTrack = /*#__PURE__*/function () {
 
       var prevTime = null;
 
-      for (var _i222 = 0; _i222 !== nKeys; _i222++) {
-        var currTime = times[_i222];
+      for (var _i231 = 0; _i231 !== nKeys; _i231++) {
+        var currTime = times[_i231];
 
         if (typeof currTime === 'number' && isNaN(currTime)) {
-          console.error('THREE.KeyframeTrack: Time is not a valid number.', this, _i222, currTime);
+          console.error('THREE.KeyframeTrack: Time is not a valid number.', this, _i231, currTime);
           valid = false;
           break;
         }
 
         if (prevTime !== null && prevTime > currTime) {
-          console.error('THREE.KeyframeTrack: Out of order keys.', this, _i222, currTime, prevTime);
+          console.error('THREE.KeyframeTrack: Out of order keys.', this, _i231, currTime, prevTime);
           valid = false;
           break;
         }
@@ -27288,11 +28683,11 @@ var KeyframeTrack = /*#__PURE__*/function () {
 
       if (values !== undefined) {
         if (AnimationUtils.isTypedArray(values)) {
-          for (var _i223 = 0, n = values.length; _i223 !== n; ++_i223) {
-            var value = values[_i223];
+          for (var _i232 = 0, n = values.length; _i232 !== n; ++_i232) {
+            var value = values[_i232];
 
             if (isNaN(value)) {
-              console.error('THREE.KeyframeTrack: Value is not a valid number.', this, _i223, value);
+              console.error('THREE.KeyframeTrack: Value is not a valid number.', this, _i232, value);
               valid = false;
               break;
             }
@@ -27315,15 +28710,15 @@ var KeyframeTrack = /*#__PURE__*/function () {
           lastIndex = times.length - 1;
       var writeIndex = 1;
 
-      for (var _i224 = 1; _i224 < lastIndex; ++_i224) {
+      for (var _i233 = 1; _i233 < lastIndex; ++_i233) {
         var keep = false;
-        var time = times[_i224];
-        var timeNext = times[_i224 + 1]; // remove adjacent keyframes scheduled at the same time
+        var time = times[_i233];
+        var timeNext = times[_i233 + 1]; // remove adjacent keyframes scheduled at the same time
 
-        if (time !== timeNext && (_i224 !== 1 || time !== times[0])) {
+        if (time !== timeNext && (_i233 !== 1 || time !== times[0])) {
           if (!smoothInterpolation) {
             // remove unnecessary keyframes same as their neighbors
-            var offset = _i224 * stride,
+            var offset = _i233 * stride,
                 offsetP = offset - stride,
                 offsetN = offset + stride;
 
@@ -27342,9 +28737,9 @@ var KeyframeTrack = /*#__PURE__*/function () {
 
 
         if (keep) {
-          if (_i224 !== writeIndex) {
-            times[writeIndex] = times[_i224];
-            var readOffset = _i224 * stride,
+          if (_i233 !== writeIndex) {
+            times[writeIndex] = times[_i233];
+            var readOffset = _i233 * stride,
                 writeOffset = writeIndex * stride;
 
             for (var _j15 = 0; _j15 !== stride; ++_j15) {
@@ -27429,12 +28824,12 @@ KeyframeTrack.prototype.DefaultInterpolation = InterpolateLinear;
 var BooleanKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(BooleanKeyframeTrack, _KeyframeTrack);
 
-  var _super87 = _createSuper(BooleanKeyframeTrack);
+  var _super97 = _createSuper(BooleanKeyframeTrack);
 
   function BooleanKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, BooleanKeyframeTrack);
 
-    return _super87.apply(this, arguments);
+    return _super97.apply(this, arguments);
   }
 
   return BooleanKeyframeTrack;
@@ -27452,12 +28847,12 @@ BooleanKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 var ColorKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ColorKeyframeTrack, _KeyframeTrack2);
 
-  var _super88 = _createSuper(ColorKeyframeTrack);
+  var _super98 = _createSuper(ColorKeyframeTrack);
 
   function ColorKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ColorKeyframeTrack);
 
-    return _super88.apply(this, arguments);
+    return _super98.apply(this, arguments);
   }
 
   return ColorKeyframeTrack;
@@ -27471,12 +28866,12 @@ ColorKeyframeTrack.prototype.ValueTypeName = 'color';
 var NumberKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(NumberKeyframeTrack, _KeyframeTrack3);
 
-  var _super89 = _createSuper(NumberKeyframeTrack);
+  var _super99 = _createSuper(NumberKeyframeTrack);
 
   function NumberKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, NumberKeyframeTrack);
 
-    return _super89.apply(this, arguments);
+    return _super99.apply(this, arguments);
   }
 
   return NumberKeyframeTrack;
@@ -27490,12 +28885,12 @@ NumberKeyframeTrack.prototype.ValueTypeName = 'number';
 var QuaternionLinearInterpolant = /*#__PURE__*/function (_Interpolant4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuaternionLinearInterpolant, _Interpolant4);
 
-  var _super90 = _createSuper(QuaternionLinearInterpolant);
+  var _super100 = _createSuper(QuaternionLinearInterpolant);
 
   function QuaternionLinearInterpolant(parameterPositions, sampleValues, sampleSize, resultBuffer) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuaternionLinearInterpolant);
 
-    return _super90.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
+    return _super100.call(this, parameterPositions, sampleValues, sampleSize, resultBuffer);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionLinearInterpolant, [{
@@ -27525,12 +28920,12 @@ var QuaternionLinearInterpolant = /*#__PURE__*/function (_Interpolant4) {
 var QuaternionKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuaternionKeyframeTrack, _KeyframeTrack4);
 
-  var _super91 = _createSuper(QuaternionKeyframeTrack);
+  var _super101 = _createSuper(QuaternionKeyframeTrack);
 
   function QuaternionKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuaternionKeyframeTrack);
 
-    return _super91.apply(this, arguments);
+    return _super101.apply(this, arguments);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuaternionKeyframeTrack, [{
@@ -27554,12 +28949,12 @@ QuaternionKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 var StringKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(StringKeyframeTrack, _KeyframeTrack5);
 
-  var _super92 = _createSuper(StringKeyframeTrack);
+  var _super102 = _createSuper(StringKeyframeTrack);
 
   function StringKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, StringKeyframeTrack);
 
-    return _super92.apply(this, arguments);
+    return _super102.apply(this, arguments);
   }
 
   return StringKeyframeTrack;
@@ -27577,12 +28972,12 @@ StringKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 var VectorKeyframeTrack = /*#__PURE__*/function (_KeyframeTrack6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(VectorKeyframeTrack, _KeyframeTrack6);
 
-  var _super93 = _createSuper(VectorKeyframeTrack);
+  var _super103 = _createSuper(VectorKeyframeTrack);
 
   function VectorKeyframeTrack() {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, VectorKeyframeTrack);
 
-    return _super93.apply(this, arguments);
+    return _super103.apply(this, arguments);
   }
 
   return VectorKeyframeTrack;
@@ -27615,8 +29010,8 @@ var AnimationClip = /*#__PURE__*/function () {
       var tracks = this.tracks;
       var duration = 0;
 
-      for (var _i225 = 0, n = tracks.length; _i225 !== n; ++_i225) {
-        var track = this.tracks[_i225];
+      for (var _i234 = 0, n = tracks.length; _i234 !== n; ++_i234) {
+        var track = this.tracks[_i234];
         duration = Math.max(duration, track.times[track.times.length - 1]);
       }
 
@@ -27626,8 +29021,8 @@ var AnimationClip = /*#__PURE__*/function () {
   }, {
     key: "trim",
     value: function trim() {
-      for (var _i226 = 0; _i226 < this.tracks.length; _i226++) {
-        this.tracks[_i226].trim(0, this.duration);
+      for (var _i235 = 0; _i235 < this.tracks.length; _i235++) {
+        this.tracks[_i235].trim(0, this.duration);
       }
 
       return this;
@@ -27637,8 +29032,8 @@ var AnimationClip = /*#__PURE__*/function () {
     value: function validate() {
       var valid = true;
 
-      for (var _i227 = 0; _i227 < this.tracks.length; _i227++) {
-        valid = valid && this.tracks[_i227].validate();
+      for (var _i236 = 0; _i236 < this.tracks.length; _i236++) {
+        valid = valid && this.tracks[_i236].validate();
       }
 
       return valid;
@@ -27646,8 +29041,8 @@ var AnimationClip = /*#__PURE__*/function () {
   }, {
     key: "optimize",
     value: function optimize() {
-      for (var _i228 = 0; _i228 < this.tracks.length; _i228++) {
-        this.tracks[_i228].optimize();
+      for (var _i237 = 0; _i237 < this.tracks.length; _i237++) {
+        this.tracks[_i237].optimize();
       }
 
       return this;
@@ -27657,8 +29052,8 @@ var AnimationClip = /*#__PURE__*/function () {
     value: function clone() {
       var tracks = [];
 
-      for (var _i229 = 0; _i229 < this.tracks.length; _i229++) {
-        tracks.push(this.tracks[_i229].clone());
+      for (var _i238 = 0; _i238 < this.tracks.length; _i238++) {
+        tracks.push(this.tracks[_i238].clone());
       }
 
       return new this.constructor(this.name, this.duration, tracks, this.blendMode);
@@ -27675,8 +29070,8 @@ var AnimationClip = /*#__PURE__*/function () {
           jsonTracks = json.tracks,
           frameTime = 1.0 / (json.fps || 1.0);
 
-      for (var _i230 = 0, n = jsonTracks.length; _i230 !== n; ++_i230) {
-        tracks.push(parseKeyframeTrack(jsonTracks[_i230]).scale(frameTime));
+      for (var _i239 = 0, n = jsonTracks.length; _i239 !== n; ++_i239) {
+        tracks.push(parseKeyframeTrack(jsonTracks[_i239]).scale(frameTime));
       }
 
       var clip = new this(json.name, json.duration, tracks, json.blendMode);
@@ -27696,8 +29091,8 @@ var AnimationClip = /*#__PURE__*/function () {
         'blendMode': clip.blendMode
       };
 
-      for (var _i231 = 0, n = clipTracks.length; _i231 !== n; ++_i231) {
-        tracks.push(KeyframeTrack.toJSON(clipTracks[_i231]));
+      for (var _i240 = 0, n = clipTracks.length; _i240 !== n; ++_i240) {
+        tracks.push(KeyframeTrack.toJSON(clipTracks[_i240]));
       }
 
       return json;
@@ -27708,10 +29103,10 @@ var AnimationClip = /*#__PURE__*/function () {
       var numMorphTargets = morphTargetSequence.length;
       var tracks = [];
 
-      for (var _i232 = 0; _i232 < numMorphTargets; _i232++) {
+      for (var _i241 = 0; _i241 < numMorphTargets; _i241++) {
         var times = [];
         var values = [];
-        times.push((_i232 + numMorphTargets - 1) % numMorphTargets, _i232, (_i232 + 1) % numMorphTargets);
+        times.push((_i241 + numMorphTargets - 1) % numMorphTargets, _i241, (_i241 + 1) % numMorphTargets);
         values.push(0, 1, 0);
         var order = AnimationUtils.getKeyframeOrder(times);
         times = AnimationUtils.sortedArray(times, 1, order);
@@ -27723,7 +29118,7 @@ var AnimationClip = /*#__PURE__*/function () {
           values.push(values[0]);
         }
 
-        tracks.push(new NumberKeyframeTrack('.morphTargetInfluences[' + morphTargetSequence[_i232].name + ']', times, values).scale(1.0 / fps));
+        tracks.push(new NumberKeyframeTrack('.morphTargetInfluences[' + morphTargetSequence[_i241].name + ']', times, values).scale(1.0 / fps));
       }
 
       return new this(name, -1, tracks);
@@ -27738,9 +29133,9 @@ var AnimationClip = /*#__PURE__*/function () {
         clipArray = o.geometry && o.geometry.animations || o.animations;
       }
 
-      for (var _i233 = 0; _i233 < clipArray.length; _i233++) {
-        if (clipArray[_i233].name === name) {
-          return clipArray[_i233];
+      for (var _i242 = 0; _i242 < clipArray.length; _i242++) {
+        if (clipArray[_i242].name === name) {
+          return clipArray[_i242];
         }
       }
 
@@ -27755,8 +29150,8 @@ var AnimationClip = /*#__PURE__*/function () {
       var pattern = /^([\w-]*?)([\d]+)$/; // sort morph target names into animation groups based
       // patterns like Walk_001, Walk_002, Run_001, Run_002
 
-      for (var _i234 = 0, il = morphTargets.length; _i234 < il; _i234++) {
-        var morphTarget = morphTargets[_i234];
+      for (var _i243 = 0, il = morphTargets.length; _i243 < il; _i243++) {
+        var morphTarget = morphTargets[_i243];
         var parts = morphTarget.name.match(pattern);
 
         if (parts && parts.length > 1) {
@@ -28021,9 +29416,9 @@ var LoadingManager = function LoadingManager(onLoad, onProgress, onError) {
   };
 
   this.getHandler = function (file) {
-    for (var _i235 = 0, l = handlers.length; _i235 < l; _i235 += 2) {
-      var regex = handlers[_i235];
-      var loader = handlers[_i235 + 1];
+    for (var _i244 = 0, l = handlers.length; _i244 < l; _i244 += 2) {
+      var regex = handlers[_i244];
+      var loader = handlers[_i244 + 1];
       if (regex.global) regex.lastIndex = 0; // see #17920
 
       if (regex.test(file)) {
@@ -28107,12 +29502,12 @@ var loading = {};
 var FileLoader = /*#__PURE__*/function (_Loader) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(FileLoader, _Loader);
 
-  var _super94 = _createSuper(FileLoader);
+  var _super104 = _createSuper(FileLoader);
 
   function FileLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, FileLoader);
 
-    return _super94.call(this, manager);
+    return _super104.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(FileLoader, [{
@@ -28164,8 +29559,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
             case 'blob':
               var view = new Uint8Array(data.length);
 
-              for (var _i236 = 0; _i236 < data.length; _i236++) {
-                view[_i236] = data.charCodeAt(_i236);
+              for (var _i245 = 0; _i245 < data.length; _i245++) {
+                view[_i245] = data.charCodeAt(_i245);
               }
 
               if (responseType === 'blob') {
@@ -28229,15 +29624,15 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
 
             Cache.add(url, response);
 
-            for (var _i237 = 0, il = callbacks.length; _i237 < il; _i237++) {
-              var callback = callbacks[_i237];
+            for (var _i246 = 0, il = callbacks.length; _i246 < il; _i246++) {
+              var callback = callbacks[_i246];
               if (callback.onLoad) callback.onLoad(response);
             }
 
             scope.manager.itemEnd(url);
           } else {
-            for (var _i238 = 0, _il18 = callbacks.length; _i238 < _il18; _i238++) {
-              var _callback = callbacks[_i238];
+            for (var _i247 = 0, _il18 = callbacks.length; _i247 < _il18; _i247++) {
+              var _callback = callbacks[_i247];
               if (_callback.onError) _callback.onError(event);
             }
 
@@ -28248,8 +29643,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
         request.addEventListener('progress', function (event) {
           var callbacks = loading[url];
 
-          for (var _i239 = 0, il = callbacks.length; _i239 < il; _i239++) {
-            var callback = callbacks[_i239];
+          for (var _i248 = 0, il = callbacks.length; _i248 < il; _i248++) {
+            var callback = callbacks[_i248];
             if (callback.onProgress) callback.onProgress(event);
           }
         }, false);
@@ -28257,8 +29652,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
           var callbacks = loading[url];
           delete loading[url];
 
-          for (var _i240 = 0, il = callbacks.length; _i240 < il; _i240++) {
-            var callback = callbacks[_i240];
+          for (var _i249 = 0, il = callbacks.length; _i249 < il; _i249++) {
+            var callback = callbacks[_i249];
             if (callback.onError) callback.onError(event);
           }
 
@@ -28269,8 +29664,8 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
           var callbacks = loading[url];
           delete loading[url];
 
-          for (var _i241 = 0, il = callbacks.length; _i241 < il; _i241++) {
-            var callback = callbacks[_i241];
+          for (var _i250 = 0, il = callbacks.length; _i250 < il; _i250++) {
+            var callback = callbacks[_i250];
             if (callback.onError) callback.onError(event);
           }
 
@@ -28311,12 +29706,12 @@ var FileLoader = /*#__PURE__*/function (_Loader) {
 var AnimationLoader = /*#__PURE__*/function (_Loader2) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(AnimationLoader, _Loader2);
 
-  var _super95 = _createSuper(AnimationLoader);
+  var _super105 = _createSuper(AnimationLoader);
 
   function AnimationLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, AnimationLoader);
 
-    return _super95.call(this, manager);
+    return _super105.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AnimationLoader, [{
@@ -28346,8 +29741,8 @@ var AnimationLoader = /*#__PURE__*/function (_Loader2) {
     value: function parse(json) {
       var animations = [];
 
-      for (var _i242 = 0; _i242 < json.length; _i242++) {
-        var clip = AnimationClip.parse(json[_i242]);
+      for (var _i251 = 0; _i251 < json.length; _i251++) {
+        var clip = AnimationClip.parse(json[_i251]);
         animations.push(clip);
       }
 
@@ -28367,12 +29762,12 @@ var AnimationLoader = /*#__PURE__*/function (_Loader2) {
 var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CompressedTextureLoader, _Loader3);
 
-  var _super96 = _createSuper(CompressedTextureLoader);
+  var _super106 = _createSuper(CompressedTextureLoader);
 
   function CompressedTextureLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CompressedTextureLoader);
 
-    return _super96.call(this, manager);
+    return _super106.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CompressedTextureLoader, [{
@@ -28410,8 +29805,8 @@ var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
       }
 
       if (Array.isArray(url)) {
-        for (var _i243 = 0, il = url.length; _i243 < il; ++_i243) {
-          loadTexture(_i243);
+        for (var _i252 = 0, il = url.length; _i252 < il; ++_i252) {
+          loadTexture(_i252);
         }
       } else {
         // compressed cubemap texture stored in a single DDS file
@@ -28426,8 +29821,8 @@ var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
                 mipmaps: []
               };
 
-              for (var _i244 = 0; _i244 < texDatas.mipmapCount; _i244++) {
-                images[f].mipmaps.push(texDatas.mipmaps[f * texDatas.mipmapCount + _i244]);
+              for (var _i253 = 0; _i253 < texDatas.mipmapCount; _i253++) {
+                images[f].mipmaps.push(texDatas.mipmaps[f * texDatas.mipmapCount + _i253]);
                 images[f].format = texDatas.format;
                 images[f].width = texDatas.width;
                 images[f].height = texDatas.height;
@@ -28461,12 +29856,12 @@ var CompressedTextureLoader = /*#__PURE__*/function (_Loader3) {
 var ImageLoader = /*#__PURE__*/function (_Loader4) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ImageLoader, _Loader4);
 
-  var _super97 = _createSuper(ImageLoader);
+  var _super107 = _createSuper(ImageLoader);
 
   function ImageLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ImageLoader);
 
-    return _super97.call(this, manager);
+    return _super107.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(ImageLoader, [{
@@ -28523,12 +29918,12 @@ var ImageLoader = /*#__PURE__*/function (_Loader4) {
 var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubeTextureLoader, _Loader5);
 
-  var _super98 = _createSuper(CubeTextureLoader);
+  var _super108 = _createSuper(CubeTextureLoader);
 
   function CubeTextureLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubeTextureLoader);
 
-    return _super98.call(this, manager);
+    return _super108.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubeTextureLoader, [{
@@ -28552,8 +29947,8 @@ var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
         }, undefined, onError);
       }
 
-      for (var _i245 = 0; _i245 < urls.length; ++_i245) {
-        loadTexture(_i245);
+      for (var _i254 = 0; _i254 < urls.length; ++_i254) {
+        loadTexture(_i254);
       }
 
       return texture;
@@ -28572,12 +29967,12 @@ var CubeTextureLoader = /*#__PURE__*/function (_Loader5) {
 var DataTextureLoader = /*#__PURE__*/function (_Loader6) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(DataTextureLoader, _Loader6);
 
-  var _super99 = _createSuper(DataTextureLoader);
+  var _super109 = _createSuper(DataTextureLoader);
 
   function DataTextureLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, DataTextureLoader);
 
-    return _super99.call(this, manager);
+    return _super109.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(DataTextureLoader, [{
@@ -28650,12 +30045,12 @@ var DataTextureLoader = /*#__PURE__*/function (_Loader6) {
 var TextureLoader = /*#__PURE__*/function (_Loader7) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(TextureLoader, _Loader7);
 
-  var _super100 = _createSuper(TextureLoader);
+  var _super110 = _createSuper(TextureLoader);
 
   function TextureLoader(manager) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, TextureLoader);
 
-    return _super100.call(this, manager);
+    return _super110.call(this, manager);
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(TextureLoader, [{
@@ -28682,1286 +30077,11 @@ var TextureLoader = /*#__PURE__*/function (_Loader7) {
 
   return TextureLoader;
 }(Loader);
-/**
- * Extensible curve object.
- *
- * Some common of curve methods:
- * .getPoint( t, optionalTarget ), .getTangent( t, optionalTarget )
- * .getPointAt( u, optionalTarget ), .getTangentAt( u, optionalTarget )
- * .getPoints(), .getSpacedPoints()
- * .getLength()
- * .updateArcLengths()
- *
- * This following curves inherit from THREE.Curve:
- *
- * -- 2D curves --
- * THREE.ArcCurve
- * THREE.CubicBezierCurve
- * THREE.EllipseCurve
- * THREE.LineCurve
- * THREE.QuadraticBezierCurve
- * THREE.SplineCurve
- *
- * -- 3D curves --
- * THREE.CatmullRomCurve3
- * THREE.CubicBezierCurve3
- * THREE.LineCurve3
- * THREE.QuadraticBezierCurve3
- *
- * A series of curves can be represented as a THREE.CurvePath.
- *
- **/
-
-
-var Curve = /*#__PURE__*/function () {
-  function Curve() {
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, Curve);
-
-    this.type = 'Curve';
-    this.arcLengthDivisions = 200;
-  } // Virtual base class method to overwrite and implement in subclasses
-  //	- t [0 .. 1]
-
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(Curve, [{
-    key: "getPoint",
-    value: function getPoint()
-    /* t, optionalTarget */
-    {
-      console.warn('THREE.Curve: .getPoint() not implemented.');
-      return null;
-    } // Get point at relative position in curve according to arc length
-    // - u [0 .. 1]
-
-  }, {
-    key: "getPointAt",
-    value: function getPointAt(u, optionalTarget) {
-      var t = this.getUtoTmapping(u);
-      return this.getPoint(t, optionalTarget);
-    } // Get sequence of points using getPoint( t )
-
-  }, {
-    key: "getPoints",
-    value: function getPoints() {
-      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
-      var points = [];
-
-      for (var d = 0; d <= divisions; d++) {
-        points.push(this.getPoint(d / divisions));
-      }
-
-      return points;
-    } // Get sequence of points using getPointAt( u )
-
-  }, {
-    key: "getSpacedPoints",
-    value: function getSpacedPoints() {
-      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
-      var points = [];
-
-      for (var d = 0; d <= divisions; d++) {
-        points.push(this.getPointAt(d / divisions));
-      }
-
-      return points;
-    } // Get total curve arc length
-
-  }, {
-    key: "getLength",
-    value: function getLength() {
-      var lengths = this.getLengths();
-      return lengths[lengths.length - 1];
-    } // Get list of cumulative segment lengths
-
-  }, {
-    key: "getLengths",
-    value: function getLengths() {
-      var divisions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.arcLengthDivisions;
-
-      if (this.cacheArcLengths && this.cacheArcLengths.length === divisions + 1 && !this.needsUpdate) {
-        return this.cacheArcLengths;
-      }
-
-      this.needsUpdate = false;
-      var cache = [];
-      var current,
-          last = this.getPoint(0);
-      var sum = 0;
-      cache.push(0);
-
-      for (var p = 1; p <= divisions; p++) {
-        current = this.getPoint(p / divisions);
-        sum += current.distanceTo(last);
-        cache.push(sum);
-        last = current;
-      }
-
-      this.cacheArcLengths = cache;
-      return cache; // { sums: cache, sum: sum }; Sum is in the last element.
-    }
-  }, {
-    key: "updateArcLengths",
-    value: function updateArcLengths() {
-      this.needsUpdate = true;
-      this.getLengths();
-    } // Given u ( 0 .. 1 ), get a t to find p. This gives you points which are equidistant
-
-  }, {
-    key: "getUtoTmapping",
-    value: function getUtoTmapping(u, distance) {
-      var arcLengths = this.getLengths();
-      var i = 0;
-      var il = arcLengths.length;
-      var targetArcLength; // The targeted u distance value to get
-
-      if (distance) {
-        targetArcLength = distance;
-      } else {
-        targetArcLength = u * arcLengths[il - 1];
-      } // binary search for the index with largest value smaller than target u distance
-
-
-      var low = 0,
-          high = il - 1,
-          comparison;
-
-      while (low <= high) {
-        i = Math.floor(low + (high - low) / 2); // less likely to overflow, though probably not issue here, JS doesn't really have integers, all numbers are floats
-
-        comparison = arcLengths[i] - targetArcLength;
-
-        if (comparison < 0) {
-          low = i + 1;
-        } else if (comparison > 0) {
-          high = i - 1;
-        } else {
-          high = i;
-          break; // DONE
-        }
-      }
-
-      i = high;
-
-      if (arcLengths[i] === targetArcLength) {
-        return i / (il - 1);
-      } // we could get finer grain at lengths, or use simple interpolation between two points
-
-
-      var lengthBefore = arcLengths[i];
-      var lengthAfter = arcLengths[i + 1];
-      var segmentLength = lengthAfter - lengthBefore; // determine where we are between the 'before' and 'after' points
-
-      var segmentFraction = (targetArcLength - lengthBefore) / segmentLength; // add that fractional amount to t
-
-      var t = (i + segmentFraction) / (il - 1);
-      return t;
-    } // Returns a unit vector tangent at t
-    // In case any sub curve does not implement its tangent derivation,
-    // 2 points a small delta apart will be used to find its gradient
-    // which seems to give a reasonable approximation
-
-  }, {
-    key: "getTangent",
-    value: function getTangent(t, optionalTarget) {
-      var delta = 0.0001;
-      var t1 = t - delta;
-      var t2 = t + delta; // Capping in case of danger
-
-      if (t1 < 0) t1 = 0;
-      if (t2 > 1) t2 = 1;
-      var pt1 = this.getPoint(t1);
-      var pt2 = this.getPoint(t2);
-      var tangent = optionalTarget || (pt1.isVector2 ? new Vector2() : new Vector3());
-      tangent.copy(pt2).sub(pt1).normalize();
-      return tangent;
-    }
-  }, {
-    key: "getTangentAt",
-    value: function getTangentAt(u, optionalTarget) {
-      var t = this.getUtoTmapping(u);
-      return this.getTangent(t, optionalTarget);
-    }
-  }, {
-    key: "computeFrenetFrames",
-    value: function computeFrenetFrames(segments, closed) {
-      // see http://www.cs.indiana.edu/pub/techreports/TR425.pdf
-      var normal = new Vector3();
-      var tangents = [];
-      var normals = [];
-      var binormals = [];
-      var vec = new Vector3();
-      var mat = new Matrix4(); // compute the tangent vectors for each segment on the curve
-
-      for (var _i246 = 0; _i246 <= segments; _i246++) {
-        var u = _i246 / segments;
-        tangents[_i246] = this.getTangentAt(u, new Vector3());
-
-        tangents[_i246].normalize();
-      } // select an initial normal vector perpendicular to the first tangent vector,
-      // and in the direction of the minimum tangent xyz component
-
-
-      normals[0] = new Vector3();
-      binormals[0] = new Vector3();
-      var min = Number.MAX_VALUE;
-      var tx = Math.abs(tangents[0].x);
-      var ty = Math.abs(tangents[0].y);
-      var tz = Math.abs(tangents[0].z);
-
-      if (tx <= min) {
-        min = tx;
-        normal.set(1, 0, 0);
-      }
-
-      if (ty <= min) {
-        min = ty;
-        normal.set(0, 1, 0);
-      }
-
-      if (tz <= min) {
-        normal.set(0, 0, 1);
-      }
-
-      vec.crossVectors(tangents[0], normal).normalize();
-      normals[0].crossVectors(tangents[0], vec);
-      binormals[0].crossVectors(tangents[0], normals[0]); // compute the slowly-varying normal and binormal vectors for each segment on the curve
-
-      for (var _i247 = 1; _i247 <= segments; _i247++) {
-        normals[_i247] = normals[_i247 - 1].clone();
-        binormals[_i247] = binormals[_i247 - 1].clone();
-        vec.crossVectors(tangents[_i247 - 1], tangents[_i247]);
-
-        if (vec.length() > Number.EPSILON) {
-          vec.normalize();
-          var theta = Math.acos(clamp(tangents[_i247 - 1].dot(tangents[_i247]), -1, 1)); // clamp for floating pt errors
-
-          normals[_i247].applyMatrix4(mat.makeRotationAxis(vec, theta));
-        }
-
-        binormals[_i247].crossVectors(tangents[_i247], normals[_i247]);
-      } // if the curve is closed, postprocess the vectors so the first and last normal vectors are the same
-
-
-      if (closed === true) {
-        var _theta = Math.acos(clamp(normals[0].dot(normals[segments]), -1, 1));
-
-        _theta /= segments;
-
-        if (tangents[0].dot(vec.crossVectors(normals[0], normals[segments])) > 0) {
-          _theta = -_theta;
-        }
-
-        for (var _i248 = 1; _i248 <= segments; _i248++) {
-          // twist a little...
-          normals[_i248].applyMatrix4(mat.makeRotationAxis(tangents[_i248], _theta * _i248));
-
-          binormals[_i248].crossVectors(tangents[_i248], normals[_i248]);
-        }
-      }
-
-      return {
-        tangents: tangents,
-        normals: normals,
-        binormals: binormals
-      };
-    }
-  }, {
-    key: "clone",
-    value: function clone() {
-      return new this.constructor().copy(this);
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      this.arcLengthDivisions = source.arcLengthDivisions;
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = {
-        metadata: {
-          version: 4.5,
-          type: 'Curve',
-          generator: 'Curve.toJSON'
-        }
-      };
-      data.arcLengthDivisions = this.arcLengthDivisions;
-      data.type = this.type;
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      this.arcLengthDivisions = json.arcLengthDivisions;
-      return this;
-    }
-  }]);
-
-  return Curve;
-}();
-
-var EllipseCurve = /*#__PURE__*/function (_Curve) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(EllipseCurve, _Curve);
-
-  var _super101 = _createSuper(EllipseCurve);
-
-  function EllipseCurve() {
-    var _this75;
-
-    var aX = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-    var aY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-    var xRadius = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-    var yRadius = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
-    var aStartAngle = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
-    var aEndAngle = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : Math.PI * 2;
-    var aClockwise = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-    var aRotation = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 0;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, EllipseCurve);
-
-    _this75 = _super101.call(this);
-    _this75.type = 'EllipseCurve';
-    _this75.aX = aX;
-    _this75.aY = aY;
-    _this75.xRadius = xRadius;
-    _this75.yRadius = yRadius;
-    _this75.aStartAngle = aStartAngle;
-    _this75.aEndAngle = aEndAngle;
-    _this75.aClockwise = aClockwise;
-    _this75.aRotation = aRotation;
-    return _this75;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(EllipseCurve, [{
-    key: "getPoint",
-    value: function getPoint(t, optionalTarget) {
-      var point = optionalTarget || new Vector2();
-      var twoPi = Math.PI * 2;
-      var deltaAngle = this.aEndAngle - this.aStartAngle;
-      var samePoints = Math.abs(deltaAngle) < Number.EPSILON; // ensures that deltaAngle is 0 .. 2 PI
-
-      while (deltaAngle < 0) {
-        deltaAngle += twoPi;
-      }
-
-      while (deltaAngle > twoPi) {
-        deltaAngle -= twoPi;
-      }
-
-      if (deltaAngle < Number.EPSILON) {
-        if (samePoints) {
-          deltaAngle = 0;
-        } else {
-          deltaAngle = twoPi;
-        }
-      }
-
-      if (this.aClockwise === true && !samePoints) {
-        if (deltaAngle === twoPi) {
-          deltaAngle = -twoPi;
-        } else {
-          deltaAngle = deltaAngle - twoPi;
-        }
-      }
-
-      var angle = this.aStartAngle + t * deltaAngle;
-      var x = this.aX + this.xRadius * Math.cos(angle);
-      var y = this.aY + this.yRadius * Math.sin(angle);
-
-      if (this.aRotation !== 0) {
-        var cos = Math.cos(this.aRotation);
-        var sin = Math.sin(this.aRotation);
-        var tx = x - this.aX;
-        var ty = y - this.aY; // Rotate the point about the center of the ellipse.
-
-        x = tx * cos - ty * sin + this.aX;
-        y = tx * sin + ty * cos + this.aY;
-      }
-
-      return point.set(x, y);
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "copy", this).call(this, source);
-
-      this.aX = source.aX;
-      this.aY = source.aY;
-      this.xRadius = source.xRadius;
-      this.yRadius = source.yRadius;
-      this.aStartAngle = source.aStartAngle;
-      this.aEndAngle = source.aEndAngle;
-      this.aClockwise = source.aClockwise;
-      this.aRotation = source.aRotation;
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "toJSON", this).call(this);
-
-      data.aX = this.aX;
-      data.aY = this.aY;
-      data.xRadius = this.xRadius;
-      data.yRadius = this.yRadius;
-      data.aStartAngle = this.aStartAngle;
-      data.aEndAngle = this.aEndAngle;
-      data.aClockwise = this.aClockwise;
-      data.aRotation = this.aRotation;
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(EllipseCurve.prototype), "fromJSON", this).call(this, json);
-
-      this.aX = json.aX;
-      this.aY = json.aY;
-      this.xRadius = json.xRadius;
-      this.yRadius = json.yRadius;
-      this.aStartAngle = json.aStartAngle;
-      this.aEndAngle = json.aEndAngle;
-      this.aClockwise = json.aClockwise;
-      this.aRotation = json.aRotation;
-      return this;
-    }
-  }]);
-
-  return EllipseCurve;
-}(Curve);
-
-EllipseCurve.prototype.isEllipseCurve = true;
-
-var ArcCurve = /*#__PURE__*/function (_EllipseCurve) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(ArcCurve, _EllipseCurve);
-
-  var _super102 = _createSuper(ArcCurve);
-
-  function ArcCurve(aX, aY, aRadius, aStartAngle, aEndAngle, aClockwise) {
-    var _this76;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, ArcCurve);
-
-    _this76 = _super102.call(this, aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
-    _this76.type = 'ArcCurve';
-    return _this76;
-  }
-
-  return ArcCurve;
-}(EllipseCurve);
-
-ArcCurve.prototype.isArcCurve = true;
-/**
- * Centripetal CatmullRom Curve - which is useful for avoiding
- * cusps and self-intersections in non-uniform catmull rom curves.
- * http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf
- *
- * curve.type accepts centripetal(default), chordal and catmullrom
- * curve.tension is used for catmullrom which defaults to 0.5
- */
-
-/*
-Based on an optimized c++ solution in
- - http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections/
- - http://ideone.com/NoEbVM
-
-This CubicPoly class could be used for reusing some variables and calculations,
-but for three.js curve use, it could be possible inlined and flatten into a single function call
-which can be placed in CurveUtils.
-*/
-
-function CubicPoly() {
-  var c0 = 0,
-      c1 = 0,
-      c2 = 0,
-      c3 = 0;
-  /*
-   * Compute coefficients for a cubic polynomial
-   *   p(s) = c0 + c1*s + c2*s^2 + c3*s^3
-   * such that
-   *   p(0) = x0, p(1) = x1
-   *  and
-   *   p'(0) = t0, p'(1) = t1.
-   */
-
-  function init(x0, x1, t0, t1) {
-    c0 = x0;
-    c1 = t0;
-    c2 = -3 * x0 + 3 * x1 - 2 * t0 - t1;
-    c3 = 2 * x0 - 2 * x1 + t0 + t1;
-  }
-
-  return {
-    initCatmullRom: function initCatmullRom(x0, x1, x2, x3, tension) {
-      init(x1, x2, tension * (x2 - x0), tension * (x3 - x1));
-    },
-    initNonuniformCatmullRom: function initNonuniformCatmullRom(x0, x1, x2, x3, dt0, dt1, dt2) {
-      // compute tangents when parameterized in [t1,t2]
-      var t1 = (x1 - x0) / dt0 - (x2 - x0) / (dt0 + dt1) + (x2 - x1) / dt1;
-      var t2 = (x2 - x1) / dt1 - (x3 - x1) / (dt1 + dt2) + (x3 - x2) / dt2; // rescale tangents for parametrization in [0,1]
-
-      t1 *= dt1;
-      t2 *= dt1;
-      init(x1, x2, t1, t2);
-    },
-    calc: function calc(t) {
-      var t2 = t * t;
-      var t3 = t2 * t;
-      return c0 + c1 * t + c2 * t2 + c3 * t3;
-    }
-  };
-} //
-
-
-var tmp = new Vector3();
-var px = new CubicPoly(),
-    py = new CubicPoly(),
-    pz = new CubicPoly();
-
-var CatmullRomCurve3 = /*#__PURE__*/function (_Curve2) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CatmullRomCurve3, _Curve2);
-
-  var _super103 = _createSuper(CatmullRomCurve3);
-
-  function CatmullRomCurve3() {
-    var _this77;
-
-    var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var closed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var curveType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'centripetal';
-    var tension = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0.5;
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CatmullRomCurve3);
-
-    _this77 = _super103.call(this);
-    _this77.type = 'CatmullRomCurve3';
-    _this77.points = points;
-    _this77.closed = closed;
-    _this77.curveType = curveType;
-    _this77.tension = tension;
-    return _this77;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CatmullRomCurve3, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-      var point = optionalTarget;
-      var points = this.points;
-      var l = points.length;
-      var p = (l - (this.closed ? 0 : 1)) * t;
-      var intPoint = Math.floor(p);
-      var weight = p - intPoint;
-
-      if (this.closed) {
-        intPoint += intPoint > 0 ? 0 : (Math.floor(Math.abs(intPoint) / l) + 1) * l;
-      } else if (weight === 0 && intPoint === l - 1) {
-        intPoint = l - 2;
-        weight = 1;
-      }
-
-      var p0, p3; // 4 points (p1 & p2 defined below)
-
-      if (this.closed || intPoint > 0) {
-        p0 = points[(intPoint - 1) % l];
-      } else {
-        // extrapolate first point
-        tmp.subVectors(points[0], points[1]).add(points[0]);
-        p0 = tmp;
-      }
-
-      var p1 = points[intPoint % l];
-      var p2 = points[(intPoint + 1) % l];
-
-      if (this.closed || intPoint + 2 < l) {
-        p3 = points[(intPoint + 2) % l];
-      } else {
-        // extrapolate last point
-        tmp.subVectors(points[l - 1], points[l - 2]).add(points[l - 1]);
-        p3 = tmp;
-      }
-
-      if (this.curveType === 'centripetal' || this.curveType === 'chordal') {
-        // init Centripetal / Chordal Catmull-Rom
-        var pow = this.curveType === 'chordal' ? 0.5 : 0.25;
-        var dt0 = Math.pow(p0.distanceToSquared(p1), pow);
-        var dt1 = Math.pow(p1.distanceToSquared(p2), pow);
-        var dt2 = Math.pow(p2.distanceToSquared(p3), pow); // safety check for repeated points
-
-        if (dt1 < 1e-4) dt1 = 1.0;
-        if (dt0 < 1e-4) dt0 = dt1;
-        if (dt2 < 1e-4) dt2 = dt1;
-        px.initNonuniformCatmullRom(p0.x, p1.x, p2.x, p3.x, dt0, dt1, dt2);
-        py.initNonuniformCatmullRom(p0.y, p1.y, p2.y, p3.y, dt0, dt1, dt2);
-        pz.initNonuniformCatmullRom(p0.z, p1.z, p2.z, p3.z, dt0, dt1, dt2);
-      } else if (this.curveType === 'catmullrom') {
-        px.initCatmullRom(p0.x, p1.x, p2.x, p3.x, this.tension);
-        py.initCatmullRom(p0.y, p1.y, p2.y, p3.y, this.tension);
-        pz.initCatmullRom(p0.z, p1.z, p2.z, p3.z, this.tension);
-      }
-
-      point.set(px.calc(weight), py.calc(weight), pz.calc(weight));
-      return point;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "copy", this).call(this, source);
-
-      this.points = [];
-
-      for (var _i249 = 0, l = source.points.length; _i249 < l; _i249++) {
-        var point = source.points[_i249];
-        this.points.push(point.clone());
-      }
-
-      this.closed = source.closed;
-      this.curveType = source.curveType;
-      this.tension = source.tension;
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "toJSON", this).call(this);
-
-      data.points = [];
-
-      for (var _i250 = 0, l = this.points.length; _i250 < l; _i250++) {
-        var point = this.points[_i250];
-        data.points.push(point.toArray());
-      }
-
-      data.closed = this.closed;
-      data.curveType = this.curveType;
-      data.tension = this.tension;
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CatmullRomCurve3.prototype), "fromJSON", this).call(this, json);
-
-      this.points = [];
-
-      for (var _i251 = 0, l = json.points.length; _i251 < l; _i251++) {
-        var point = json.points[_i251];
-        this.points.push(new Vector3().fromArray(point));
-      }
-
-      this.closed = json.closed;
-      this.curveType = json.curveType;
-      this.tension = json.tension;
-      return this;
-    }
-  }]);
-
-  return CatmullRomCurve3;
-}(Curve);
-
-CatmullRomCurve3.prototype.isCatmullRomCurve3 = true;
-/**
- * Bezier Curves formulas obtained from
- * http://en.wikipedia.org/wiki/Bézier_curve
- */
-
-function CatmullRom(t, p0, p1, p2, p3) {
-  var v0 = (p2 - p0) * 0.5;
-  var v1 = (p3 - p1) * 0.5;
-  var t2 = t * t;
-  var t3 = t * t2;
-  return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (-3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
-} //
-
-
-function QuadraticBezierP0(t, p) {
-  var k = 1 - t;
-  return k * k * p;
-}
-
-function QuadraticBezierP1(t, p) {
-  return 2 * (1 - t) * t * p;
-}
-
-function QuadraticBezierP2(t, p) {
-  return t * t * p;
-}
-
-function QuadraticBezier(t, p0, p1, p2) {
-  return QuadraticBezierP0(t, p0) + QuadraticBezierP1(t, p1) + QuadraticBezierP2(t, p2);
-} //
-
-
-function CubicBezierP0(t, p) {
-  var k = 1 - t;
-  return k * k * k * p;
-}
-
-function CubicBezierP1(t, p) {
-  var k = 1 - t;
-  return 3 * k * k * t * p;
-}
-
-function CubicBezierP2(t, p) {
-  return 3 * (1 - t) * t * t * p;
-}
-
-function CubicBezierP3(t, p) {
-  return t * t * t * p;
-}
-
-function CubicBezier(t, p0, p1, p2, p3) {
-  return CubicBezierP0(t, p0) + CubicBezierP1(t, p1) + CubicBezierP2(t, p2) + CubicBezierP3(t, p3);
-}
-
-var CubicBezierCurve = /*#__PURE__*/function (_Curve3) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicBezierCurve, _Curve3);
-
-  var _super104 = _createSuper(CubicBezierCurve);
-
-  function CubicBezierCurve() {
-    var _this78;
-
-    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
-    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector2();
-    var v3 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Vector2();
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicBezierCurve);
-
-    _this78 = _super104.call(this);
-    _this78.type = 'CubicBezierCurve';
-    _this78.v0 = v0;
-    _this78.v1 = v1;
-    _this78.v2 = v2;
-    _this78.v3 = v3;
-    return _this78;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-      var point = optionalTarget;
-      var v0 = this.v0,
-          v1 = this.v1,
-          v2 = this.v2,
-          v3 = this.v3;
-      point.set(CubicBezier(t, v0.x, v1.x, v2.x, v3.x), CubicBezier(t, v0.y, v1.y, v2.y, v3.y));
-      return point;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "copy", this).call(this, source);
-
-      this.v0.copy(source.v0);
-      this.v1.copy(source.v1);
-      this.v2.copy(source.v2);
-      this.v3.copy(source.v3);
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "toJSON", this).call(this);
-
-      data.v0 = this.v0.toArray();
-      data.v1 = this.v1.toArray();
-      data.v2 = this.v2.toArray();
-      data.v3 = this.v3.toArray();
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve.prototype), "fromJSON", this).call(this, json);
-
-      this.v0.fromArray(json.v0);
-      this.v1.fromArray(json.v1);
-      this.v2.fromArray(json.v2);
-      this.v3.fromArray(json.v3);
-      return this;
-    }
-  }]);
-
-  return CubicBezierCurve;
-}(Curve);
-
-CubicBezierCurve.prototype.isCubicBezierCurve = true;
-
-var CubicBezierCurve3 = /*#__PURE__*/function (_Curve4) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CubicBezierCurve3, _Curve4);
-
-  var _super105 = _createSuper(CubicBezierCurve3);
-
-  function CubicBezierCurve3() {
-    var _this79;
-
-    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
-    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
-    var v3 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Vector3();
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, CubicBezierCurve3);
-
-    _this79 = _super105.call(this);
-    _this79.type = 'CubicBezierCurve3';
-    _this79.v0 = v0;
-    _this79.v1 = v1;
-    _this79.v2 = v2;
-    _this79.v3 = v3;
-    return _this79;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(CubicBezierCurve3, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-      var point = optionalTarget;
-      var v0 = this.v0,
-          v1 = this.v1,
-          v2 = this.v2,
-          v3 = this.v3;
-      point.set(CubicBezier(t, v0.x, v1.x, v2.x, v3.x), CubicBezier(t, v0.y, v1.y, v2.y, v3.y), CubicBezier(t, v0.z, v1.z, v2.z, v3.z));
-      return point;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "copy", this).call(this, source);
-
-      this.v0.copy(source.v0);
-      this.v1.copy(source.v1);
-      this.v2.copy(source.v2);
-      this.v3.copy(source.v3);
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "toJSON", this).call(this);
-
-      data.v0 = this.v0.toArray();
-      data.v1 = this.v1.toArray();
-      data.v2 = this.v2.toArray();
-      data.v3 = this.v3.toArray();
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(CubicBezierCurve3.prototype), "fromJSON", this).call(this, json);
-
-      this.v0.fromArray(json.v0);
-      this.v1.fromArray(json.v1);
-      this.v2.fromArray(json.v2);
-      this.v3.fromArray(json.v3);
-      return this;
-    }
-  }]);
-
-  return CubicBezierCurve3;
-}(Curve);
-
-CubicBezierCurve3.prototype.isCubicBezierCurve3 = true;
-
-var LineCurve = /*#__PURE__*/function (_Curve5) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineCurve, _Curve5);
-
-  var _super106 = _createSuper(LineCurve);
-
-  function LineCurve() {
-    var _this80;
-
-    var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
-    var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineCurve);
-
-    _this80 = _super106.call(this);
-    _this80.type = 'LineCurve';
-    _this80.v1 = v1;
-    _this80.v2 = v2;
-    return _this80;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-      var point = optionalTarget;
-
-      if (t === 1) {
-        point.copy(this.v2);
-      } else {
-        point.copy(this.v2).sub(this.v1);
-        point.multiplyScalar(t).add(this.v1);
-      }
-
-      return point;
-    } // Line curve is linear, so we can overwrite default getPointAt
-
-  }, {
-    key: "getPointAt",
-    value: function getPointAt(u, optionalTarget) {
-      return this.getPoint(u, optionalTarget);
-    }
-  }, {
-    key: "getTangent",
-    value: function getTangent(t, optionalTarget) {
-      var tangent = optionalTarget || new Vector2();
-      tangent.copy(this.v2).sub(this.v1).normalize();
-      return tangent;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "copy", this).call(this, source);
-
-      this.v1.copy(source.v1);
-      this.v2.copy(source.v2);
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "toJSON", this).call(this);
-
-      data.v1 = this.v1.toArray();
-      data.v2 = this.v2.toArray();
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve.prototype), "fromJSON", this).call(this, json);
-
-      this.v1.fromArray(json.v1);
-      this.v2.fromArray(json.v2);
-      return this;
-    }
-  }]);
-
-  return LineCurve;
-}(Curve);
-
-LineCurve.prototype.isLineCurve = true;
-
-var LineCurve3 = /*#__PURE__*/function (_Curve6) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(LineCurve3, _Curve6);
-
-  var _super107 = _createSuper(LineCurve3);
-
-  function LineCurve3() {
-    var _this81;
-
-    var v1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
-    var v2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, LineCurve3);
-
-    _this81 = _super107.call(this);
-    _this81.type = 'LineCurve3';
-    _this81.isLineCurve3 = true;
-    _this81.v1 = v1;
-    _this81.v2 = v2;
-    return _this81;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(LineCurve3, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-      var point = optionalTarget;
-
-      if (t === 1) {
-        point.copy(this.v2);
-      } else {
-        point.copy(this.v2).sub(this.v1);
-        point.multiplyScalar(t).add(this.v1);
-      }
-
-      return point;
-    } // Line curve is linear, so we can overwrite default getPointAt
-
-  }, {
-    key: "getPointAt",
-    value: function getPointAt(u, optionalTarget) {
-      return this.getPoint(u, optionalTarget);
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "copy", this).call(this, source);
-
-      this.v1.copy(source.v1);
-      this.v2.copy(source.v2);
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "toJSON", this).call(this);
-
-      data.v1 = this.v1.toArray();
-      data.v2 = this.v2.toArray();
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(LineCurve3.prototype), "fromJSON", this).call(this, json);
-
-      this.v1.fromArray(json.v1);
-      this.v2.fromArray(json.v2);
-      return this;
-    }
-  }]);
-
-  return LineCurve3;
-}(Curve);
-
-var QuadraticBezierCurve = /*#__PURE__*/function (_Curve7) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuadraticBezierCurve, _Curve7);
-
-  var _super108 = _createSuper(QuadraticBezierCurve);
-
-  function QuadraticBezierCurve() {
-    var _this82;
-
-    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector2();
-    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector2();
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuadraticBezierCurve);
-
-    _this82 = _super108.call(this);
-    _this82.type = 'QuadraticBezierCurve';
-    _this82.v0 = v0;
-    _this82.v1 = v1;
-    _this82.v2 = v2;
-    return _this82;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-      var point = optionalTarget;
-      var v0 = this.v0,
-          v1 = this.v1,
-          v2 = this.v2;
-      point.set(QuadraticBezier(t, v0.x, v1.x, v2.x), QuadraticBezier(t, v0.y, v1.y, v2.y));
-      return point;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "copy", this).call(this, source);
-
-      this.v0.copy(source.v0);
-      this.v1.copy(source.v1);
-      this.v2.copy(source.v2);
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "toJSON", this).call(this);
-
-      data.v0 = this.v0.toArray();
-      data.v1 = this.v1.toArray();
-      data.v2 = this.v2.toArray();
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve.prototype), "fromJSON", this).call(this, json);
-
-      this.v0.fromArray(json.v0);
-      this.v1.fromArray(json.v1);
-      this.v2.fromArray(json.v2);
-      return this;
-    }
-  }]);
-
-  return QuadraticBezierCurve;
-}(Curve);
-
-QuadraticBezierCurve.prototype.isQuadraticBezierCurve = true;
-
-var QuadraticBezierCurve3 = /*#__PURE__*/function (_Curve8) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(QuadraticBezierCurve3, _Curve8);
-
-  var _super109 = _createSuper(QuadraticBezierCurve3);
-
-  function QuadraticBezierCurve3() {
-    var _this83;
-
-    var v0 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Vector3();
-    var v1 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-    var v2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Vector3();
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, QuadraticBezierCurve3);
-
-    _this83 = _super109.call(this);
-    _this83.type = 'QuadraticBezierCurve3';
-    _this83.v0 = v0;
-    _this83.v1 = v1;
-    _this83.v2 = v2;
-    return _this83;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(QuadraticBezierCurve3, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector3();
-      var point = optionalTarget;
-      var v0 = this.v0,
-          v1 = this.v1,
-          v2 = this.v2;
-      point.set(QuadraticBezier(t, v0.x, v1.x, v2.x), QuadraticBezier(t, v0.y, v1.y, v2.y), QuadraticBezier(t, v0.z, v1.z, v2.z));
-      return point;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "copy", this).call(this, source);
-
-      this.v0.copy(source.v0);
-      this.v1.copy(source.v1);
-      this.v2.copy(source.v2);
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "toJSON", this).call(this);
-
-      data.v0 = this.v0.toArray();
-      data.v1 = this.v1.toArray();
-      data.v2 = this.v2.toArray();
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(QuadraticBezierCurve3.prototype), "fromJSON", this).call(this, json);
-
-      this.v0.fromArray(json.v0);
-      this.v1.fromArray(json.v1);
-      this.v2.fromArray(json.v2);
-      return this;
-    }
-  }]);
-
-  return QuadraticBezierCurve3;
-}(Curve);
-
-QuadraticBezierCurve3.prototype.isQuadraticBezierCurve3 = true;
-
-var SplineCurve = /*#__PURE__*/function (_Curve9) {
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(SplineCurve, _Curve9);
-
-  var _super110 = _createSuper(SplineCurve);
-
-  function SplineCurve() {
-    var _this84;
-
-    var points = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-    (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, SplineCurve);
-
-    _this84 = _super110.call(this);
-    _this84.type = 'SplineCurve';
-    _this84.points = points;
-    return _this84;
-  }
-
-  (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(SplineCurve, [{
-    key: "getPoint",
-    value: function getPoint(t) {
-      var optionalTarget = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Vector2();
-      var point = optionalTarget;
-      var points = this.points;
-      var p = (points.length - 1) * t;
-      var intPoint = Math.floor(p);
-      var weight = p - intPoint;
-      var p0 = points[intPoint === 0 ? intPoint : intPoint - 1];
-      var p1 = points[intPoint];
-      var p2 = points[intPoint > points.length - 2 ? points.length - 1 : intPoint + 1];
-      var p3 = points[intPoint > points.length - 3 ? points.length - 1 : intPoint + 2];
-      point.set(CatmullRom(weight, p0.x, p1.x, p2.x, p3.x), CatmullRom(weight, p0.y, p1.y, p2.y, p3.y));
-      return point;
-    }
-  }, {
-    key: "copy",
-    value: function copy(source) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "copy", this).call(this, source);
-
-      this.points = [];
-
-      for (var _i252 = 0, l = source.points.length; _i252 < l; _i252++) {
-        var point = source.points[_i252];
-        this.points.push(point.clone());
-      }
-
-      return this;
-    }
-  }, {
-    key: "toJSON",
-    value: function toJSON() {
-      var data = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "toJSON", this).call(this);
-
-      data.points = [];
-
-      for (var _i253 = 0, l = this.points.length; _i253 < l; _i253++) {
-        var point = this.points[_i253];
-        data.points.push(point.toArray());
-      }
-
-      return data;
-    }
-  }, {
-    key: "fromJSON",
-    value: function fromJSON(json) {
-      (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_get__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)((0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(SplineCurve.prototype), "fromJSON", this).call(this, json);
-
-      this.points = [];
-
-      for (var _i254 = 0, l = json.points.length; _i254 < l; _i254++) {
-        var point = json.points[_i254];
-        this.points.push(new Vector2().fromArray(point));
-      }
-
-      return this;
-    }
-  }]);
-
-  return SplineCurve;
-}(Curve);
-
-SplineCurve.prototype.isSplineCurve = true;
-var Curves = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  ArcCurve: ArcCurve,
-  CatmullRomCurve3: CatmullRomCurve3,
-  CubicBezierCurve: CubicBezierCurve,
-  CubicBezierCurve3: CubicBezierCurve3,
-  EllipseCurve: EllipseCurve,
-  LineCurve: LineCurve,
-  LineCurve3: LineCurve3,
-  QuadraticBezierCurve: QuadraticBezierCurve,
-  QuadraticBezierCurve3: QuadraticBezierCurve3,
-  SplineCurve: SplineCurve
-});
 /**************************************************************
  *	Curved Path - a curve path is simply a array of connected
  *  curves, but retains the api of a curve
  **************************************************************/
+
 
 var CurvePath = /*#__PURE__*/function (_Curve10) {
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)(CurvePath, _Curve10);
@@ -31662,8 +31782,10 @@ var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
 
   var _super128 = _createSuper(InstancedBufferAttribute);
 
-  function InstancedBufferAttribute(array, itemSize, normalized, meshPerAttribute) {
+  function InstancedBufferAttribute(array, itemSize, normalized) {
     var _this101;
+
+    var meshPerAttribute = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InstancedBufferAttribute);
 
@@ -31674,7 +31796,7 @@ var InstancedBufferAttribute = /*#__PURE__*/function (_BufferAttribute11) {
     }
 
     _this101 = _super128.call(this, array, itemSize, normalized);
-    _this101.meshPerAttribute = meshPerAttribute || 1;
+    _this101.meshPerAttribute = meshPerAttribute;
     return _this101;
   }
 
@@ -31906,6 +32028,58 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       }, onProgress, onError);
     }
   }, {
+    key: "loadAsync",
+    value: function () {
+      var _loadAsync = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2(url, onProgress) {
+        var scope, path, loader, text, json, metadata;
+        return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                scope = this;
+                path = this.path === '' ? LoaderUtils.extractUrlBase(url) : this.path;
+                this.resourcePath = this.resourcePath || path;
+                loader = new FileLoader(this.manager);
+                loader.setPath(this.path);
+                loader.setRequestHeader(this.requestHeader);
+                loader.setWithCredentials(this.withCredentials);
+                _context3.next = 9;
+                return loader.loadAsync(url, onProgress);
+
+              case 9:
+                text = _context3.sent;
+                json = JSON.parse(text);
+                metadata = json.metadata;
+
+                if (!(metadata === undefined || metadata.type === undefined || metadata.type.toLowerCase() === 'geometry')) {
+                  _context3.next = 14;
+                  break;
+                }
+
+                throw new Error('THREE.ObjectLoader: Can\'t load ' + url);
+
+              case 14:
+                _context3.next = 16;
+                return scope.parseAsync(json);
+
+              case 16:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 17:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function loadAsync(_x6, _x7) {
+        return _loadAsync.apply(this, arguments);
+      }
+
+      return loadAsync;
+    }()
+  }, {
     key: "parse",
     value: function parse(json, onLoad) {
       var animations = this.parseAnimations(json.animations);
@@ -31916,7 +32090,7 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       });
       var textures = this.parseTextures(json.textures, images);
       var materials = this.parseMaterials(json.materials, textures);
-      var object = this.parseObject(json.object, geometries, materials, animations);
+      var object = this.parseObject(json.object, geometries, materials, textures, animations);
       var skeletons = this.parseSkeletons(json.skeletons, object);
       this.bindSkeletons(object, skeletons); //
 
@@ -31935,6 +32109,44 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
 
       return object;
     }
+  }, {
+    key: "parseAsync",
+    value: function () {
+      var _parseAsync = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee3(json) {
+        var animations, shapes, geometries, images, textures, materials, object, skeletons;
+        return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee3$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                animations = this.parseAnimations(json.animations);
+                shapes = this.parseShapes(json.shapes);
+                geometries = this.parseGeometries(json.geometries, shapes);
+                _context4.next = 5;
+                return this.parseImagesAsync(json.images);
+
+              case 5:
+                images = _context4.sent;
+                textures = this.parseTextures(json.textures, images);
+                materials = this.parseMaterials(json.materials, textures);
+                object = this.parseObject(json.object, geometries, materials, textures, animations);
+                skeletons = this.parseSkeletons(json.skeletons, object);
+                this.bindSkeletons(object, skeletons);
+                return _context4.abrupt("return", object);
+
+              case 12:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function parseAsync(_x8) {
+        return _parseAsync.apply(this, arguments);
+      }
+
+      return parseAsync;
+    }()
   }, {
     key: "parseShapes",
     value: function parseShapes(json) {
@@ -31972,7 +32184,6 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
     key: "parseGeometries",
     value: function parseGeometries(json, shapes) {
       var geometries = {};
-      var geometryShapes;
 
       if (json !== undefined) {
         var bufferGeometryLoader = new BufferGeometryLoader();
@@ -31982,121 +32193,22 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
           var data = json[_i281];
 
           switch (data.type) {
-            case 'PlaneGeometry':
-            case 'PlaneBufferGeometry':
-              geometry = new Geometries[data.type](data.width, data.height, data.widthSegments, data.heightSegments);
-              break;
-
-            case 'BoxGeometry':
-            case 'BoxBufferGeometry':
-              geometry = new Geometries[data.type](data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments);
-              break;
-
-            case 'CircleGeometry':
-            case 'CircleBufferGeometry':
-              geometry = new Geometries[data.type](data.radius, data.segments, data.thetaStart, data.thetaLength);
-              break;
-
-            case 'CylinderGeometry':
-            case 'CylinderBufferGeometry':
-              geometry = new Geometries[data.type](data.radiusTop, data.radiusBottom, data.height, data.radialSegments, data.heightSegments, data.openEnded, data.thetaStart, data.thetaLength);
-              break;
-
-            case 'ConeGeometry':
-            case 'ConeBufferGeometry':
-              geometry = new Geometries[data.type](data.radius, data.height, data.radialSegments, data.heightSegments, data.openEnded, data.thetaStart, data.thetaLength);
-              break;
-
-            case 'SphereGeometry':
-            case 'SphereBufferGeometry':
-              geometry = new Geometries[data.type](data.radius, data.widthSegments, data.heightSegments, data.phiStart, data.phiLength, data.thetaStart, data.thetaLength);
-              break;
-
-            case 'DodecahedronGeometry':
-            case 'DodecahedronBufferGeometry':
-            case 'IcosahedronGeometry':
-            case 'IcosahedronBufferGeometry':
-            case 'OctahedronGeometry':
-            case 'OctahedronBufferGeometry':
-            case 'TetrahedronGeometry':
-            case 'TetrahedronBufferGeometry':
-              geometry = new Geometries[data.type](data.radius, data.detail);
-              break;
-
-            case 'RingGeometry':
-            case 'RingBufferGeometry':
-              geometry = new Geometries[data.type](data.innerRadius, data.outerRadius, data.thetaSegments, data.phiSegments, data.thetaStart, data.thetaLength);
-              break;
-
-            case 'TorusGeometry':
-            case 'TorusBufferGeometry':
-              geometry = new Geometries[data.type](data.radius, data.tube, data.radialSegments, data.tubularSegments, data.arc);
-              break;
-
-            case 'TorusKnotGeometry':
-            case 'TorusKnotBufferGeometry':
-              geometry = new Geometries[data.type](data.radius, data.tube, data.tubularSegments, data.radialSegments, data.p, data.q);
-              break;
-
-            case 'TubeGeometry':
-            case 'TubeBufferGeometry':
-              // This only works for built-in curves (e.g. CatmullRomCurve3).
-              // User defined curves or instances of CurvePath will not be deserialized.
-              geometry = new Geometries[data.type](new Curves[data.path.type]().fromJSON(data.path), data.tubularSegments, data.radius, data.radialSegments, data.closed);
-              break;
-
-            case 'LatheGeometry':
-            case 'LatheBufferGeometry':
-              geometry = new Geometries[data.type](data.points, data.segments, data.phiStart, data.phiLength);
-              break;
-
-            case 'PolyhedronGeometry':
-            case 'PolyhedronBufferGeometry':
-              geometry = new Geometries[data.type](data.vertices, data.indices, data.radius, data.details);
-              break;
-
-            case 'ShapeGeometry':
-            case 'ShapeBufferGeometry':
-              geometryShapes = [];
-
-              for (var j = 0, jl = data.shapes.length; j < jl; j++) {
-                var shape = shapes[data.shapes[j]];
-                geometryShapes.push(shape);
-              }
-
-              geometry = new Geometries[data.type](geometryShapes, data.curveSegments);
-              break;
-
-            case 'ExtrudeGeometry':
-            case 'ExtrudeBufferGeometry':
-              geometryShapes = [];
-
-              for (var _j17 = 0, _jl3 = data.shapes.length; _j17 < _jl3; _j17++) {
-                var _shape = shapes[data.shapes[_j17]];
-                geometryShapes.push(_shape);
-              }
-
-              var extrudePath = data.options.extrudePath;
-
-              if (extrudePath !== undefined) {
-                data.options.extrudePath = new Curves[extrudePath.type]().fromJSON(extrudePath);
-              }
-
-              geometry = new Geometries[data.type](geometryShapes, data.options);
-              break;
-
             case 'BufferGeometry':
             case 'InstancedBufferGeometry':
               geometry = bufferGeometryLoader.parse(data);
               break;
 
             case 'Geometry':
-              console.error('THREE.ObjectLoader: Loading "Geometry" is not supported anymore.');
+              console.error('THREE.ObjectLoader: The legacy Geometry type is no longer supported.');
               break;
 
             default:
-              console.warn('THREE.ObjectLoader: Unsupported geometry type "' + data.type + '"');
-              continue;
+              if (data.type in Geometries) {
+                geometry = Geometries[data.type].fromJSON(data, shapes);
+              } else {
+                console.warn("THREE.ObjectLoader: Unsupported geometry type \"".concat(data.type, "\""));
+              }
+
           }
 
           geometry.uuid = data.uuid;
@@ -32239,6 +32351,160 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       return images;
     }
   }, {
+    key: "parseImagesAsync",
+    value: function () {
+      var _parseImagesAsync = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee5(json) {
+        var scope, images, loader, deserializeImage, _deserializeImage, _i285, il, image, url, j, jl, currentUrl, deserializedImage, _deserializedImage2;
+
+        return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee5$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _deserializeImage = function _deserializeImage3() {
+                  _deserializeImage = (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)( /*#__PURE__*/_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee4(image) {
+                    var _url, path;
+
+                    return _home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee4$(_context5) {
+                      while (1) {
+                        switch (_context5.prev = _context5.next) {
+                          case 0:
+                            if (!(typeof image === 'string')) {
+                              _context5.next = 8;
+                              break;
+                            }
+
+                            _url = image;
+                            path = /^(\/\/)|([a-z]+:(\/\/)?)/i.test(_url) ? _url : scope.resourcePath + _url;
+                            _context5.next = 5;
+                            return loader.loadAsync(path);
+
+                          case 5:
+                            return _context5.abrupt("return", _context5.sent);
+
+                          case 8:
+                            if (!image.data) {
+                              _context5.next = 12;
+                              break;
+                            }
+
+                            return _context5.abrupt("return", {
+                              data: getTypedArray(image.type, image.data),
+                              width: image.width,
+                              height: image.height
+                            });
+
+                          case 12:
+                            return _context5.abrupt("return", null);
+
+                          case 13:
+                          case "end":
+                            return _context5.stop();
+                        }
+                      }
+                    }, _callee4);
+                  }));
+                  return _deserializeImage.apply(this, arguments);
+                };
+
+                deserializeImage = function _deserializeImage2(_x10) {
+                  return _deserializeImage.apply(this, arguments);
+                };
+
+                scope = this;
+                images = {};
+
+                if (!(json !== undefined && json.length > 0)) {
+                  _context6.next = 32;
+                  break;
+                }
+
+                loader = new ImageLoader(this.manager);
+                loader.setCrossOrigin(this.crossOrigin);
+                _i285 = 0, il = json.length;
+
+              case 8:
+                if (!(_i285 < il)) {
+                  _context6.next = 32;
+                  break;
+                }
+
+                image = json[_i285];
+                url = image.url;
+
+                if (!Array.isArray(url)) {
+                  _context6.next = 25;
+                  break;
+                }
+
+                // load array of images e.g CubeTexture
+                images[image.uuid] = [];
+                j = 0, jl = url.length;
+
+              case 14:
+                if (!(j < jl)) {
+                  _context6.next = 23;
+                  break;
+                }
+
+                currentUrl = url[j];
+                _context6.next = 18;
+                return deserializeImage(currentUrl);
+
+              case 18:
+                deserializedImage = _context6.sent;
+
+                if (deserializedImage !== null) {
+                  if (deserializedImage instanceof HTMLImageElement) {
+                    images[image.uuid].push(deserializedImage);
+                  } else {
+                    // special case: handle array of data textures for cube textures
+                    images[image.uuid].push(new DataTexture(deserializedImage.data, deserializedImage.width, deserializedImage.height));
+                  }
+                }
+
+              case 20:
+                j++;
+                _context6.next = 14;
+                break;
+
+              case 23:
+                _context6.next = 29;
+                break;
+
+              case 25:
+                _context6.next = 27;
+                return deserializeImage(image.url);
+
+              case 27:
+                _deserializedImage2 = _context6.sent;
+
+                if (_deserializedImage2 !== null) {
+                  images[image.uuid] = _deserializedImage2;
+                }
+
+              case 29:
+                _i285++;
+                _context6.next = 8;
+                break;
+
+              case 32:
+                return _context6.abrupt("return", images);
+
+              case 33:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function parseImagesAsync(_x9) {
+        return _parseImagesAsync.apply(this, arguments);
+      }
+
+      return parseImagesAsync;
+    }()
+  }, {
     key: "parseTextures",
     value: function parseTextures(json, images) {
       function parseConstant(value, type) {
@@ -32250,8 +32516,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       var textures = {};
 
       if (json !== undefined) {
-        for (var _i285 = 0, l = json.length; _i285 < l; _i285++) {
-          var data = json[_i285];
+        for (var _i286 = 0, l = json.length; _i286 < l; _i286++) {
+          var data = json[_i286];
 
           if (data.image === undefined) {
             console.warn('THREE.ObjectLoader: No "image" specified for', data.uuid);
@@ -32307,7 +32573,7 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
     }
   }, {
     key: "parseObject",
-    value: function parseObject(data, geometries, materials, animations) {
+    value: function parseObject(data, geometries, materials, textures, animations) {
       var object;
 
       function getGeometry(name) {
@@ -32324,8 +32590,8 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
         if (Array.isArray(name)) {
           var array = [];
 
-          for (var _i286 = 0, l = name.length; _i286 < l; _i286++) {
-            var uuid = name[_i286];
+          for (var _i287 = 0, l = name.length; _i287 < l; _i287++) {
+            var uuid = name[_i287];
 
             if (materials[uuid] === undefined) {
               console.warn('THREE.ObjectLoader: Undefined material', uuid);
@@ -32344,6 +32610,14 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
         return materials[name];
       }
 
+      function getTexture(uuid) {
+        if (textures[uuid] === undefined) {
+          console.warn('THREE.ObjectLoader: Undefined texture', uuid);
+        }
+
+        return textures[uuid];
+      }
+
       var geometry, material;
 
       switch (data.type) {
@@ -32353,8 +32627,12 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
           if (data.background !== undefined) {
             if (Number.isInteger(data.background)) {
               object.background = new Color(data.background);
+            } else {
+              object.background = getTexture(data.background);
             }
           }
+
+          if (data.environment !== undefined) object.environment = getTexture(data.environment);
 
           if (data.fog !== undefined) {
             if (data.fog.type === 'Fog') {
@@ -32506,16 +32784,16 @@ var ObjectLoader = /*#__PURE__*/function (_Loader10) {
       if (data.children !== undefined) {
         var children = data.children;
 
-        for (var _i287 = 0; _i287 < children.length; _i287++) {
-          object.add(this.parseObject(children[_i287], geometries, materials, animations));
+        for (var _i288 = 0; _i288 < children.length; _i288++) {
+          object.add(this.parseObject(children[_i288], geometries, materials, textures, animations));
         }
       }
 
       if (data.animations !== undefined) {
         var objectAnimations = data.animations;
 
-        for (var _i288 = 0; _i288 < objectAnimations.length; _i288++) {
-          var uuid = objectAnimations[_i288];
+        for (var _i289 = 0; _i289 < objectAnimations.length; _i289++) {
+          var uuid = objectAnimations[_i289];
           object.animations.push(animations[uuid]);
         }
       }
@@ -32713,8 +32991,8 @@ var ShapePath = /*#__PURE__*/function () {
       function toShapesNoHoles(inSubpaths) {
         var shapes = [];
 
-        for (var _i289 = 0, l = inSubpaths.length; _i289 < l; _i289++) {
-          var _tmpPath = inSubpaths[_i289];
+        for (var _i290 = 0, l = inSubpaths.length; _i290 < l; _i290++) {
+          var _tmpPath = inSubpaths[_i290];
 
           var _tmpShape = new Shape();
 
@@ -32799,8 +33077,8 @@ var ShapePath = /*#__PURE__*/function () {
       newShapes[mainIdx] = undefined;
       newShapeHoles[mainIdx] = [];
 
-      for (var _i290 = 0, l = subPaths.length; _i290 < l; _i290++) {
-        tmpPath = subPaths[_i290];
+      for (var _i291 = 0, l = subPaths.length; _i291 < l; _i291++) {
+        tmpPath = subPaths[_i291];
         tmpPoints = tmpPath.getPoints();
         solid = isClockWise(tmpPoints);
         solid = isCCW ? !solid : solid;
@@ -32872,10 +33150,10 @@ var ShapePath = /*#__PURE__*/function () {
 
       var tmpHoles;
 
-      for (var _i291 = 0, il = newShapes.length; _i291 < il; _i291++) {
-        tmpShape = newShapes[_i291].s;
+      for (var _i292 = 0, il = newShapes.length; _i292 < il; _i292++) {
+        tmpShape = newShapes[_i292].s;
         shapes.push(tmpShape);
-        tmpHoles = newShapeHoles[_i291];
+        tmpHoles = newShapeHoles[_i292];
 
         for (var j = 0, jl = tmpHoles.length; j < jl; j++) {
           tmpShape.holes.push(tmpHoles[j].h);
@@ -32924,8 +33202,8 @@ function createPaths(text, size, data) {
   var offsetX = 0,
       offsetY = 0;
 
-  for (var _i292 = 0; _i292 < chars.length; _i292++) {
-    var char = chars[_i292];
+  for (var _i293 = 0; _i293 < chars.length; _i293++) {
+    var char = chars[_i293];
 
     if (char === '\n') {
       offsetX = 0;
@@ -32954,41 +33232,41 @@ function createPath(char, scale, offsetX, offsetY, data) {
   if (glyph.o) {
     var outline = glyph._cachedOutline || (glyph._cachedOutline = glyph.o.split(' '));
 
-    for (var _i293 = 0, l = outline.length; _i293 < l;) {
-      var action = outline[_i293++];
+    for (var _i294 = 0, l = outline.length; _i294 < l;) {
+      var action = outline[_i294++];
 
       switch (action) {
         case 'm':
           // moveTo
-          x = outline[_i293++] * scale + offsetX;
-          y = outline[_i293++] * scale + offsetY;
+          x = outline[_i294++] * scale + offsetX;
+          y = outline[_i294++] * scale + offsetY;
           path.moveTo(x, y);
           break;
 
         case 'l':
           // lineTo
-          x = outline[_i293++] * scale + offsetX;
-          y = outline[_i293++] * scale + offsetY;
+          x = outline[_i294++] * scale + offsetX;
+          y = outline[_i294++] * scale + offsetY;
           path.lineTo(x, y);
           break;
 
         case 'q':
           // quadraticCurveTo
-          cpx = outline[_i293++] * scale + offsetX;
-          cpy = outline[_i293++] * scale + offsetY;
-          cpx1 = outline[_i293++] * scale + offsetX;
-          cpy1 = outline[_i293++] * scale + offsetY;
+          cpx = outline[_i294++] * scale + offsetX;
+          cpy = outline[_i294++] * scale + offsetY;
+          cpx1 = outline[_i294++] * scale + offsetX;
+          cpy1 = outline[_i294++] * scale + offsetY;
           path.quadraticCurveTo(cpx1, cpy1, cpx, cpy);
           break;
 
         case 'b':
           // bezierCurveTo
-          cpx = outline[_i293++] * scale + offsetX;
-          cpy = outline[_i293++] * scale + offsetY;
-          cpx1 = outline[_i293++] * scale + offsetX;
-          cpy1 = outline[_i293++] * scale + offsetY;
-          cpx2 = outline[_i293++] * scale + offsetX;
-          cpy2 = outline[_i293++] * scale + offsetY;
+          cpx = outline[_i294++] * scale + offsetX;
+          cpy = outline[_i294++] * scale + offsetY;
+          cpx1 = outline[_i294++] * scale + offsetX;
+          cpy1 = outline[_i294++] * scale + offsetY;
+          cpx2 = outline[_i294++] * scale + offsetX;
+          cpy2 = outline[_i294++] * scale + offsetY;
           path.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, cpx, cpy);
           break;
       }
@@ -33565,8 +33843,8 @@ var Audio = /*#__PURE__*/function (_Object3D13) {
       if (this.filters.length > 0) {
         this.source.connect(this.filters[0]);
 
-        for (var _i294 = 1, l = this.filters.length; _i294 < l; _i294++) {
-          this.filters[_i294 - 1].connect(this.filters[_i294]);
+        for (var _i295 = 1, l = this.filters.length; _i295 < l; _i295++) {
+          this.filters[_i295 - 1].connect(this.filters[_i295]);
         }
 
         this.filters[this.filters.length - 1].connect(this.getOutput());
@@ -33583,8 +33861,8 @@ var Audio = /*#__PURE__*/function (_Object3D13) {
       if (this.filters.length > 0) {
         this.source.disconnect(this.filters[0]);
 
-        for (var _i295 = 1, l = this.filters.length; _i295 < l; _i295++) {
-          this.filters[_i295 - 1].disconnect(this.filters[_i295]);
+        for (var _i296 = 1, l = this.filters.length; _i296 < l; _i296++) {
+          this.filters[_i296 - 1].disconnect(this.filters[_i296]);
         }
 
         this.filters[this.filters.length - 1].disconnect(this.getOutput());
@@ -33861,8 +34139,8 @@ var AudioAnalyser = /*#__PURE__*/function () {
       var value = 0;
       var data = this.getFrequencyData();
 
-      for (var _i296 = 0; _i296 < data.length; _i296++) {
-        value += data[_i296];
+      for (var _i297 = 0; _i297 < data.length; _i297++) {
+        value += data[_i297];
       }
 
       return value / data.length;
@@ -33944,8 +34222,8 @@ var PropertyMixer = /*#__PURE__*/function () {
 
       if (currentWeight === 0) {
         // accuN := incoming * weight
-        for (var _i297 = 0; _i297 !== stride; ++_i297) {
-          buffer[offset + _i297] = buffer[_i297];
+        for (var _i298 = 0; _i298 !== stride; ++_i298) {
+          buffer[offset + _i298] = buffer[_i298];
         }
 
         currentWeight = weight;
@@ -34002,8 +34280,8 @@ var PropertyMixer = /*#__PURE__*/function () {
         this._mixBufferRegionAdditive(buffer, offset, this._addIndex * stride, 1, stride);
       }
 
-      for (var _i298 = stride, e = stride + stride; _i298 !== e; ++_i298) {
-        if (buffer[_i298] !== buffer[_i298 + stride]) {
+      for (var _i299 = stride, e = stride + stride; _i299 !== e; ++_i299) {
+        if (buffer[_i299] !== buffer[_i299 + stride]) {
           // value has changed -> update scene graph
           binding.setValue(buffer, offset);
           break;
@@ -34020,8 +34298,8 @@ var PropertyMixer = /*#__PURE__*/function () {
           originalValueOffset = stride * this._origIndex;
       binding.getValue(buffer, originalValueOffset); // accu[0..1] := orig -- initially detect changes against the original
 
-      for (var _i299 = stride, e = originalValueOffset; _i299 !== e; ++_i299) {
-        buffer[_i299] = buffer[originalValueOffset + _i299 % stride];
+      for (var _i300 = stride, e = originalValueOffset; _i300 !== e; ++_i300) {
+        buffer[_i300] = buffer[originalValueOffset + _i300 % stride];
       } // Add to identity for additive
 
 
@@ -34043,8 +34321,8 @@ var PropertyMixer = /*#__PURE__*/function () {
       var startIndex = this._addIndex * this.valueSize;
       var endIndex = startIndex + this.valueSize;
 
-      for (var _i300 = startIndex; _i300 < endIndex; _i300++) {
-        this.buffer[_i300] = 0;
+      for (var _i301 = startIndex; _i301 < endIndex; _i301++) {
+        this.buffer[_i301] = 0;
       }
     }
   }, {
@@ -34060,8 +34338,8 @@ var PropertyMixer = /*#__PURE__*/function () {
       var startIndex = this._origIndex * this.valueSize;
       var targetIndex = this._addIndex * this.valueSize;
 
-      for (var _i301 = 0; _i301 < this.valueSize; _i301++) {
-        this.buffer[targetIndex + _i301] = this.buffer[startIndex + _i301];
+      for (var _i302 = 0; _i302 < this.valueSize; _i302++) {
+        this.buffer[targetIndex + _i302] = this.buffer[startIndex + _i302];
       }
     } // mix functions
 
@@ -34069,8 +34347,8 @@ var PropertyMixer = /*#__PURE__*/function () {
     key: "_select",
     value: function _select(buffer, dstOffset, srcOffset, t, stride) {
       if (t >= 0.5) {
-        for (var _i302 = 0; _i302 !== stride; ++_i302) {
-          buffer[dstOffset + _i302] = buffer[srcOffset + _i302];
+        for (var _i303 = 0; _i303 !== stride; ++_i303) {
+          buffer[dstOffset + _i303] = buffer[srcOffset + _i303];
         }
       }
     }
@@ -34093,17 +34371,17 @@ var PropertyMixer = /*#__PURE__*/function () {
     value: function _lerp(buffer, dstOffset, srcOffset, t, stride) {
       var s = 1 - t;
 
-      for (var _i303 = 0; _i303 !== stride; ++_i303) {
-        var j = dstOffset + _i303;
-        buffer[j] = buffer[j] * s + buffer[srcOffset + _i303] * t;
+      for (var _i304 = 0; _i304 !== stride; ++_i304) {
+        var j = dstOffset + _i304;
+        buffer[j] = buffer[j] * s + buffer[srcOffset + _i304] * t;
       }
     }
   }, {
     key: "_lerpAdditive",
     value: function _lerpAdditive(buffer, dstOffset, srcOffset, t, stride) {
-      for (var _i304 = 0; _i304 !== stride; ++_i304) {
-        var j = dstOffset + _i304;
-        buffer[j] = buffer[j] + buffer[srcOffset + _i304] * t;
+      for (var _i305 = 0; _i305 !== stride; ++_i305) {
+        var j = dstOffset + _i305;
+        buffer[j] = buffer[j] + buffer[srcOffset + _i305] * t;
       }
     }
   }]);
@@ -34166,8 +34444,8 @@ var Composite = /*#__PURE__*/function () {
     value: function setValue(array, offset) {
       var bindings = this._bindings;
 
-      for (var _i305 = this._targetGroup.nCachedObjects_, n = bindings.length; _i305 !== n; ++_i305) {
-        bindings[_i305].setValue(array, offset);
+      for (var _i306 = this._targetGroup.nCachedObjects_, n = bindings.length; _i306 !== n; ++_i306) {
+        bindings[_i306].setValue(array, offset);
       }
     }
   }, {
@@ -34175,8 +34453,8 @@ var Composite = /*#__PURE__*/function () {
     value: function bind() {
       var bindings = this._bindings;
 
-      for (var _i306 = this._targetGroup.nCachedObjects_, n = bindings.length; _i306 !== n; ++_i306) {
-        bindings[_i306].bind();
+      for (var _i307 = this._targetGroup.nCachedObjects_, n = bindings.length; _i307 !== n; ++_i307) {
+        bindings[_i307].bind();
       }
     }
   }, {
@@ -34184,8 +34462,8 @@ var Composite = /*#__PURE__*/function () {
     value: function unbind() {
       var bindings = this._bindings;
 
-      for (var _i307 = this._targetGroup.nCachedObjects_, n = bindings.length; _i307 !== n; ++_i307) {
-        bindings[_i307].unbind();
+      for (var _i308 = this._targetGroup.nCachedObjects_, n = bindings.length; _i308 !== n; ++_i308) {
+        bindings[_i308].unbind();
       }
     }
   }]);
@@ -34229,8 +34507,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _getValue_array(buffer, offset) {
       var source = this.resolvedProperty;
 
-      for (var _i308 = 0, n = source.length; _i308 !== n; ++_i308) {
-        buffer[offset++] = source[_i308];
+      for (var _i309 = 0, n = source.length; _i309 !== n; ++_i309) {
+        buffer[offset++] = source[_i309];
       }
     }
   }, {
@@ -34267,8 +34545,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _setValue_array(buffer, offset) {
       var dest = this.resolvedProperty;
 
-      for (var _i309 = 0, n = dest.length; _i309 !== n; ++_i309) {
-        dest[_i309] = buffer[offset++];
+      for (var _i310 = 0, n = dest.length; _i310 !== n; ++_i310) {
+        dest[_i310] = buffer[offset++];
       }
     }
   }, {
@@ -34276,8 +34554,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _setValue_array_setNeedsUpdate(buffer, offset) {
       var dest = this.resolvedProperty;
 
-      for (var _i310 = 0, n = dest.length; _i310 !== n; ++_i310) {
-        dest[_i310] = buffer[offset++];
+      for (var _i311 = 0, n = dest.length; _i311 !== n; ++_i311) {
+        dest[_i311] = buffer[offset++];
       }
 
       this.targetObject.needsUpdate = true;
@@ -34287,8 +34565,8 @@ var PropertyBinding = /*#__PURE__*/function () {
     value: function _setValue_array_setMatrixWorldNeedsUpdate(buffer, offset) {
       var dest = this.resolvedProperty;
 
-      for (var _i311 = 0, n = dest.length; _i311 !== n; ++_i311) {
-        dest[_i311] = buffer[offset++];
+      for (var _i312 = 0, n = dest.length; _i312 !== n; ++_i312) {
+        dest[_i312] = buffer[offset++];
       }
 
       this.targetObject.matrixWorldNeedsUpdate = true;
@@ -34393,9 +34671,9 @@ var PropertyBinding = /*#__PURE__*/function () {
 
             targetObject = targetObject.skeleton.bones; // support resolving morphTarget names into indices.
 
-            for (var _i312 = 0; _i312 < targetObject.length; _i312++) {
-              if (targetObject[_i312].name === objectIndex) {
-                objectIndex = _i312;
+            for (var _i313 = 0; _i313 < targetObject.length; _i313++) {
+              if (targetObject[_i313].name === objectIndex) {
+                objectIndex = _i313;
                 break;
               }
             }
@@ -34576,8 +34854,8 @@ var PropertyBinding = /*#__PURE__*/function () {
 
       if (root.children) {
         var searchNodeSubtree = function searchNodeSubtree(children) {
-          for (var _i313 = 0; _i313 < children.length; _i313++) {
-            var childNode = children[_i313];
+          for (var _i314 = 0; _i314 < children.length; _i314++) {
+            var childNode = children[_i314];
 
             if (childNode.name === nodeName || childNode.uuid === nodeName) {
               return childNode;
@@ -34664,8 +34942,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
     var indices = {};
     this._indicesByUUID = indices; // for bookkeeping
 
-    for (var _i314 = 0, n = arguments.length; _i314 !== n; ++_i314) {
-      indices[arguments[_i314].uuid] = _i314;
+    for (var _i315 = 0, n = arguments.length; _i315 !== n; ++_i315) {
+      indices[arguments[_i315].uuid] = _i315;
     }
 
     this._paths = []; // inside: string
@@ -34709,8 +34987,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
           nObjects = objects.length,
           nCachedObjects = this.nCachedObjects_;
 
-      for (var _i315 = 0, n = arguments.length; _i315 !== n; ++_i315) {
-        var object = arguments[_i315],
+      for (var _i316 = 0, n = arguments.length; _i316 !== n; ++_i316) {
+        var object = arguments[_i316],
             uuid = object.uuid;
         var index = indicesByUUID[uuid];
 
@@ -34733,8 +35011,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
           indicesByUUID[uuid] = firstActiveIndex;
           objects[firstActiveIndex] = object; // accounting is done, now do the same for all bindings
 
-          for (var _j18 = 0, _m2 = nBindings; _j18 !== _m2; ++_j18) {
-            var bindingsForPath = bindings[_j18],
+          for (var _j17 = 0, _m2 = nBindings; _j17 !== _m2; ++_j17) {
+            var bindingsForPath = bindings[_j17],
                 lastCached = bindingsForPath[firstActiveIndex];
             var binding = bindingsForPath[index];
             bindingsForPath[index] = lastCached;
@@ -34743,7 +35021,7 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
               // since we do not bother to create new bindings
               // for objects that are cached, the binding may
               // or may not exist
-              binding = new PropertyBinding(object, paths[_j18], parsedPaths[_j18]);
+              binding = new PropertyBinding(object, paths[_j17], parsedPaths[_j17]);
             }
 
             bindingsForPath[firstActiveIndex] = binding;
@@ -34766,8 +35044,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
           nBindings = bindings.length;
       var nCachedObjects = this.nCachedObjects_;
 
-      for (var _i316 = 0, n = arguments.length; _i316 !== n; ++_i316) {
-        var object = arguments[_i316],
+      for (var _i317 = 0, n = arguments.length; _i317 !== n; ++_i317) {
+        var object = arguments[_i317],
             uuid = object.uuid,
             index = indicesByUUID[uuid];
 
@@ -34804,8 +35082,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
       var nCachedObjects = this.nCachedObjects_,
           nObjects = objects.length;
 
-      for (var _i317 = 0, n = arguments.length; _i317 !== n; ++_i317) {
-        var object = arguments[_i317],
+      for (var _i318 = 0, n = arguments.length; _i318 !== n; ++_i318) {
+        var object = arguments[_i318],
             uuid = object.uuid,
             index = indicesByUUID[uuid];
 
@@ -34846,8 +35124,8 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
             objects[index] = _lastObject;
             objects.pop(); // accounting is done, now do the same for all bindings
 
-            for (var _j19 = 0, _m3 = nBindings; _j19 !== _m3; ++_j19) {
-              var _bindingsForPath = bindings[_j19];
+            for (var _j18 = 0, _m3 = nBindings; _j18 !== _m3; ++_j18) {
+              var _bindingsForPath = bindings[_j18];
               _bindingsForPath[index] = _bindingsForPath[_lastIndex];
 
               _bindingsForPath.pop();
@@ -34883,9 +35161,9 @@ var AnimationObjectGroup = /*#__PURE__*/function () {
       parsedPaths.push(parsedPath);
       bindings.push(bindingsForPath);
 
-      for (var _i318 = nCachedObjects, n = objects.length; _i318 !== n; ++_i318) {
-        var object = objects[_i318];
-        bindingsForPath[_i318] = new PropertyBinding(object, path, parsedPath);
+      for (var _i319 = nCachedObjects, n = objects.length; _i319 !== n; ++_i319) {
+        var object = objects[_i319];
+        bindingsForPath[_i319] = new PropertyBinding(object, path, parsedPath);
       }
 
       return bindingsForPath;
@@ -34940,10 +35218,10 @@ var AnimationAction = /*#__PURE__*/function () {
       endingEnd: ZeroCurvatureEnding
     };
 
-    for (var _i319 = 0; _i319 !== nTracks; ++_i319) {
-      var interpolant = tracks[_i319].createInterpolant(null);
+    for (var _i320 = 0; _i320 !== nTracks; ++_i320) {
+      var interpolant = tracks[_i320].createInterpolant(null);
 
-      interpolants[_i319] = interpolant;
+      interpolants[_i320] = interpolant;
       interpolant.settings = interpolantSettings;
     }
 
@@ -35235,10 +35513,10 @@ var AnimationAction = /*#__PURE__*/function () {
 
           case NormalAnimationBlendMode:
           default:
-            for (var _j20 = 0, _m4 = interpolants.length; _j20 !== _m4; ++_j20) {
-              interpolants[_j20].evaluate(clipTime);
+            for (var _j19 = 0, _m4 = interpolants.length; _j19 !== _m4; ++_j19) {
+              interpolants[_j19].evaluate(clipTime);
 
-              propertyMixers[_j20].accumulate(accuIndex, weight);
+              propertyMixers[_j19].accumulate(accuIndex, weight);
             }
 
         }
@@ -35495,15 +35773,15 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
         bindingsByRoot[rootUuid] = bindingsByName;
       }
 
-      for (var _i320 = 0; _i320 !== nTracks; ++_i320) {
-        var track = tracks[_i320],
+      for (var _i321 = 0; _i321 !== nTracks; ++_i321) {
+        var track = tracks[_i321],
             trackName = track.name;
         var binding = bindingsByName[trackName];
 
         if (binding !== undefined) {
-          bindings[_i320] = binding;
+          bindings[_i321] = binding;
         } else {
-          binding = bindings[_i320];
+          binding = bindings[_i321];
 
           if (binding !== undefined) {
             // existing binding, make sure the cache knows
@@ -35516,16 +35794,16 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
             continue;
           }
 
-          var path = prototypeAction && prototypeAction._propertyBindings[_i320].binding.parsedPath;
+          var path = prototypeAction && prototypeAction._propertyBindings[_i321].binding.parsedPath;
           binding = new PropertyMixer(PropertyBinding.create(root, trackName, path), track.ValueTypeName, track.getValueSize());
           ++binding.referenceCount;
 
           this._addInactiveBinding(binding, rootUuid, trackName);
 
-          bindings[_i320] = binding;
+          bindings[_i321] = binding;
         }
 
-        interpolants[_i320].resultBuffer = binding.buffer;
+        interpolants[_i321].resultBuffer = binding.buffer;
       }
     }
   }, {
@@ -35546,8 +35824,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
 
         var bindings = action._propertyBindings; // increment reference counts / sort out state
 
-        for (var _i321 = 0, n = bindings.length; _i321 !== n; ++_i321) {
-          var binding = bindings[_i321];
+        for (var _i322 = 0, n = bindings.length; _i322 !== n; ++_i322) {
+          var binding = bindings[_i322];
 
           if (binding.useCount++ === 0) {
             this._lendBinding(binding);
@@ -35565,8 +35843,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
       if (this._isActiveAction(action)) {
         var bindings = action._propertyBindings; // decrement reference counts / sort out state
 
-        for (var _i322 = 0, n = bindings.length; _i322 !== n; ++_i322) {
-          var binding = bindings[_i322];
+        for (var _i323 = 0, n = bindings.length; _i323 !== n; ++_i323) {
+          var binding = bindings[_i323];
 
           if (--binding.useCount === 0) {
             binding.restoreOriginalState();
@@ -35699,8 +35977,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
     value: function _removeInactiveBindingsForAction(action) {
       var bindings = action._propertyBindings;
 
-      for (var _i323 = 0, n = bindings.length; _i323 !== n; ++_i323) {
-        var binding = bindings[_i323];
+      for (var _i324 = 0, n = bindings.length; _i324 !== n; ++_i324) {
+        var binding = bindings[_i324];
 
         if (--binding.referenceCount === 0) {
           this._removeInactiveBinding(binding);
@@ -35900,8 +36178,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
       var actions = this._actions,
           nActions = this._nActiveActions;
 
-      for (var _i324 = nActions - 1; _i324 >= 0; --_i324) {
-        actions[_i324].stop();
+      for (var _i325 = nActions - 1; _i325 >= 0; --_i325) {
+        actions[_i325].stop();
       }
 
       return this;
@@ -35917,8 +36195,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
           timeDirection = Math.sign(deltaTime),
           accuIndex = this._accuIndex ^= 1; // run active actions
 
-      for (var _i325 = 0; _i325 !== nActions; ++_i325) {
-        var action = actions[_i325];
+      for (var _i326 = 0; _i326 !== nActions; ++_i326) {
+        var action = actions[_i326];
 
         action._update(time, deltaTime, timeDirection, accuIndex);
       } // update scene graph
@@ -35927,8 +36205,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
       var bindings = this._bindings,
           nBindings = this._nActiveBindings;
 
-      for (var _i326 = 0; _i326 !== nBindings; ++_i326) {
-        bindings[_i326].apply(accuIndex);
+      for (var _i327 = 0; _i327 !== nBindings; ++_i327) {
+        bindings[_i327].apply(accuIndex);
       }
 
       return this;
@@ -35939,8 +36217,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
     value: function setTime(timeInSeconds) {
       this.time = 0; // Zero out time attribute for AnimationMixer object;
 
-      for (var _i327 = 0; _i327 < this._actions.length; _i327++) {
-        this._actions[_i327].time = 0; // Zero out time attribute for all associated AnimationAction objects.
+      for (var _i328 = 0; _i328 < this._actions.length; _i328++) {
+        this._actions[_i328].time = 0; // Zero out time attribute for all associated AnimationAction objects.
       }
 
       return this.update(timeInSeconds); // Update used to set exact time. Returns "this" AnimationMixer object.
@@ -35966,8 +36244,8 @@ var AnimationMixer = /*#__PURE__*/function (_EventDispatcher7) {
         // just throw away
         var actionsToRemove = actionsForClip.knownActions;
 
-        for (var _i328 = 0, n = actionsToRemove.length; _i328 !== n; ++_i328) {
-          var action = actionsToRemove[_i328];
+        for (var _i329 = 0, n = actionsToRemove.length; _i329 !== n; ++_i329) {
+          var action = actionsToRemove[_i329];
 
           this._deactivateAction(action);
 
@@ -36069,7 +36347,7 @@ var InstancedInterleavedBuffer = /*#__PURE__*/function (_InterleavedBuffer) {
     (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this, InstancedInterleavedBuffer);
 
     _this109 = _super140.call(this, array, stride);
-    _this109.meshPerAttribute = meshPerAttribute || 1;
+    _this109.meshPerAttribute = meshPerAttribute;
     return _this109;
   }
 
@@ -36219,8 +36497,8 @@ var Raycaster = /*#__PURE__*/function () {
       var recursive = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       var intersects = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
-      for (var _i329 = 0, l = objects.length; _i329 < l; _i329++) {
-        _intersectObject(objects[_i329], this, intersects, recursive);
+      for (var _i330 = 0, l = objects.length; _i330 < l; _i330++) {
+        _intersectObject(objects[_i330], this, intersects, recursive);
       }
 
       intersects.sort(ascSort);
@@ -36243,8 +36521,8 @@ function _intersectObject(object, raycaster, intersects, recursive) {
   if (recursive === true) {
     var children = object.children;
 
-    for (var _i330 = 0, l = children.length; _i330 < l; _i330++) {
-      _intersectObject(children[_i330], raycaster, intersects, true);
+    for (var _i331 = 0, l = children.length; _i331 < l; _i331++) {
+      _intersectObject(children[_i331], raycaster, intersects, true);
     }
   }
 }
@@ -36411,8 +36689,8 @@ var Box2 = /*#__PURE__*/function () {
     value: function setFromPoints(points) {
       this.makeEmpty();
 
-      for (var _i331 = 0, il = points.length; _i331 < il; _i331++) {
-        this.expandByPoint(points[_i331]);
+      for (var _i332 = 0, il = points.length; _i332 < il; _i332++) {
+        this.expandByPoint(points[_i332]);
       }
 
       return this;
@@ -36454,21 +36732,11 @@ var Box2 = /*#__PURE__*/function () {
   }, {
     key: "getCenter",
     value: function getCenter(target) {
-      if (target === undefined) {
-        console.warn('THREE.Box2: .getCenter() target is now required');
-        target = new Vector2();
-      }
-
       return this.isEmpty() ? target.set(0, 0) : target.addVectors(this.min, this.max).multiplyScalar(0.5);
     }
   }, {
     key: "getSize",
     value: function getSize(target) {
-      if (target === undefined) {
-        console.warn('THREE.Box2: .getSize() target is now required');
-        target = new Vector2();
-      }
-
       return this.isEmpty() ? target.set(0, 0) : target.subVectors(this.max, this.min);
     }
   }, {
@@ -36507,11 +36775,6 @@ var Box2 = /*#__PURE__*/function () {
     value: function getParameter(point, target) {
       // This can potentially have a divide by zero if the box
       // has a size dimension of 0.
-      if (target === undefined) {
-        console.warn('THREE.Box2: .getParameter() target is now required');
-        target = new Vector2();
-      }
-
       return target.set((point.x - this.min.x) / (this.max.x - this.min.x), (point.y - this.min.y) / (this.max.y - this.min.y));
     }
   }, {
@@ -36523,11 +36786,6 @@ var Box2 = /*#__PURE__*/function () {
   }, {
     key: "clampPoint",
     value: function clampPoint(point, target) {
-      if (target === undefined) {
-        console.warn('THREE.Box2: .clampPoint() target is now required');
-        target = new Vector2();
-      }
-
       return target.copy(point).clamp(this.min, this.max);
     }
   }, {
@@ -36602,21 +36860,11 @@ var Line3 = /*#__PURE__*/function () {
   }, {
     key: "getCenter",
     value: function getCenter(target) {
-      if (target === undefined) {
-        console.warn('THREE.Line3: .getCenter() target is now required');
-        target = new Vector3();
-      }
-
       return target.addVectors(this.start, this.end).multiplyScalar(0.5);
     }
   }, {
     key: "delta",
     value: function delta(target) {
-      if (target === undefined) {
-        console.warn('THREE.Line3: .delta() target is now required');
-        target = new Vector3();
-      }
-
       return target.subVectors(this.end, this.start);
     }
   }, {
@@ -36632,11 +36880,6 @@ var Line3 = /*#__PURE__*/function () {
   }, {
     key: "at",
     value: function at(t, target) {
-      if (target === undefined) {
-        console.warn('THREE.Line3: .at() target is now required');
-        target = new Vector3();
-      }
-
       return this.delta(target).multiplyScalar(t).add(this.start);
     }
   }, {
@@ -36662,12 +36905,6 @@ var Line3 = /*#__PURE__*/function () {
     key: "closestPointToPoint",
     value: function closestPointToPoint(point, clampToLine, target) {
       var t = this.closestPointToPointParameter(point, clampToLine);
-
-      if (target === undefined) {
-        console.warn('THREE.Line3: .closestPointToPoint() target is now required');
-        target = new Vector3();
-      }
-
       return this.delta(target).multiplyScalar(t).add(this.start);
     }
   }, {
@@ -36749,8 +36986,8 @@ var SpotLightHelper = /*#__PURE__*/function (_Object3D15) {
     var geometry = new BufferGeometry();
     var positions = [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, -1, 1];
 
-    for (var _i332 = 0, j = 1, l = 32; _i332 < l; _i332++, j++) {
-      var p1 = _i332 / l * Math.PI * 2;
+    for (var _i333 = 0, j = 1, l = 32; _i333 < l; _i333++, j++) {
+      var p1 = _i333 / l * Math.PI * 2;
       var p2 = j / l * Math.PI * 2;
       positions.push(Math.cos(p1), Math.sin(p1), 1, Math.cos(p2), Math.sin(p2), 1);
     }
@@ -36821,8 +37058,8 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
     var color1 = new Color(0, 0, 1);
     var color2 = new Color(0, 1, 0);
 
-    for (var _i333 = 0; _i333 < bones.length; _i333++) {
-      var bone = bones[_i333];
+    for (var _i334 = 0; _i334 < bones.length; _i334++) {
+      var bone = bones[_i334];
 
       if (bone.parent && bone.parent.isBone) {
         vertices.push(0, 0, 0);
@@ -36860,8 +37097,8 @@ var SkeletonHelper = /*#__PURE__*/function (_LineSegments) {
 
       _matrixWorldInv.copy(this.root.matrixWorld).invert();
 
-      for (var _i334 = 0, j = 0; _i334 < bones.length; _i334++) {
-        var bone = bones[_i334];
+      for (var _i335 = 0, j = 0; _i335 < bones.length; _i335++) {
+        var bone = bones[_i335];
 
         if (bone.parent && bone.parent.isBone) {
           _boneMatrix.multiplyMatrices(_matrixWorldInv, bone.matrixWorld);
@@ -36895,8 +37132,8 @@ function getBoneList(object) {
     boneList.push(object);
   }
 
-  for (var _i335 = 0; _i335 < object.children.length; _i335++) {
-    boneList.push.apply(boneList, getBoneList(object.children[_i335]));
+  for (var _i336 = 0; _i336 < object.children.length; _i336++) {
+    boneList.push.apply(boneList, getBoneList(object.children[_i336]));
   }
 
   return boneList;
@@ -37041,9 +37278,9 @@ var HemisphereLightHelper = /*#__PURE__*/function (_Object3D16) {
 
         _color2.copy(this.light.groundColor);
 
-        for (var _i336 = 0, l = colors.count; _i336 < l; _i336++) {
-          var color = _i336 < l / 2 ? _color1 : _color2;
-          colors.setXYZ(_i336, color.r, color.g, color.b);
+        for (var _i337 = 0, l = colors.count; _i337 < l; _i337++) {
+          var color = _i337 < l / 2 ? _color1 : _color2;
+          colors.setXYZ(_i337, color.r, color.g, color.b);
         }
 
         colors.needsUpdate = true;
@@ -37079,10 +37316,10 @@ var GridHelper = /*#__PURE__*/function (_LineSegments2) {
     var vertices = [],
         colors = [];
 
-    for (var _i337 = 0, j = 0, k = -halfSize; _i337 <= divisions; _i337++, k += step) {
+    for (var _i338 = 0, j = 0, k = -halfSize; _i338 <= divisions; _i338++, k += step) {
       vertices.push(-halfSize, 0, k, halfSize, 0, k);
       vertices.push(k, 0, -halfSize, k, 0, halfSize);
-      var color = _i337 === center ? color1 : color2;
+      var color = _i338 === center ? color1 : color2;
       color.toArray(colors, j);
       j += 3;
       color.toArray(colors, j);
@@ -37130,38 +37367,38 @@ var PolarGridHelper = /*#__PURE__*/function (_LineSegments3) {
     var vertices = [];
     var colors = []; // create the radials
 
-    for (var _i338 = 0; _i338 <= radials; _i338++) {
-      var v = _i338 / radials * (Math.PI * 2);
+    for (var _i339 = 0; _i339 <= radials; _i339++) {
+      var v = _i339 / radials * (Math.PI * 2);
       var x = Math.sin(v) * radius;
       var z = Math.cos(v) * radius;
       vertices.push(0, 0, 0);
       vertices.push(x, 0, z);
-      var color = _i338 & 1 ? color1 : color2;
+      var color = _i339 & 1 ? color1 : color2;
       colors.push(color.r, color.g, color.b);
       colors.push(color.r, color.g, color.b);
     } // create the circles
 
 
-    for (var _i339 = 0; _i339 <= circles; _i339++) {
-      var _color = _i339 & 1 ? color1 : color2;
+    for (var _i340 = 0; _i340 <= circles; _i340++) {
+      var _color = _i340 & 1 ? color1 : color2;
 
-      var r = radius - radius / circles * _i339;
+      var r = radius - radius / circles * _i340;
 
       for (var j = 0; j < divisions; j++) {
         // first vertex
         var _v = j / divisions * (Math.PI * 2);
 
-        var _x6 = Math.sin(_v) * r;
+        var _x11 = Math.sin(_v) * r;
 
         var _z3 = Math.cos(_v) * r;
 
-        vertices.push(_x6, 0, _z3);
+        vertices.push(_x11, 0, _z3);
         colors.push(_color.r, _color.g, _color.b); // second vertex
 
         _v = (j + 1) / divisions * (Math.PI * 2);
-        _x6 = Math.sin(_v) * r;
+        _x11 = Math.sin(_v) * r;
         _z3 = Math.cos(_v) * r;
-        vertices.push(_x6, 0, _z3);
+        vertices.push(_x11, 0, _z3);
         colors.push(_color.r, _color.g, _color.b);
       }
     }
@@ -37420,8 +37657,8 @@ function setPoint(point, pointMap, geometry, camera, x, y, z) {
   if (points !== undefined) {
     var position = geometry.getAttribute('position');
 
-    for (var _i340 = 0, l = points.length; _i340 < l; _i340++) {
-      position.setXYZ(points[_i340], _vector.x, _vector.y, _vector.z);
+    for (var _i341 = 0, l = points.length; _i341 < l; _i341++) {
+      position.setXYZ(points[_i341], _vector.x, _vector.y, _vector.z);
     }
   }
 }
@@ -37773,6 +38010,23 @@ var AxesHelper = /*#__PURE__*/function (_LineSegments7) {
   }
 
   (0,_home_runner_work_jacdac_docs_jacdac_docs_node_modules_babel_preset_gatsby_node_modules_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(AxesHelper, [{
+    key: "setColors",
+    value: function setColors(xAxisColor, yAxisColor, zAxisColor) {
+      var color = new Color();
+      var array = this.geometry.attributes.color.array;
+      color.set(xAxisColor);
+      color.toArray(array, 0);
+      color.toArray(array, 3);
+      color.set(yAxisColor);
+      color.toArray(array, 6);
+      color.toArray(array, 9);
+      color.set(zAxisColor);
+      color.toArray(array, 12);
+      color.toArray(array, 15);
+      this.geometry.attributes.color.needsUpdate = true;
+      return this;
+    }
+  }, {
     key: "dispose",
     value: function dispose() {
       this.geometry.dispose();
@@ -38016,8 +38270,8 @@ var PMREMGenerator = /*#__PURE__*/function () {
       if (this._cubemapShader !== null) this._cubemapShader.dispose();
       if (this._equirectShader !== null) this._equirectShader.dispose();
 
-      for (var _i341 = 0; _i341 < _lodPlanes.length; _i341++) {
-        _lodPlanes[_i341].dispose();
+      for (var _i342 = 0; _i342 < _lodPlanes.length; _i342++) {
+        _lodPlanes[_i342].dispose();
       }
     } // private interface
 
@@ -38110,21 +38364,21 @@ var PMREMGenerator = /*#__PURE__*/function () {
         useSolidColor = true;
       }
 
-      for (var _i342 = 0; _i342 < 6; _i342++) {
-        var col = _i342 % 3;
+      for (var _i343 = 0; _i343 < 6; _i343++) {
+        var col = _i343 % 3;
 
         if (col == 0) {
-          cubeCamera.up.set(0, upSign[_i342], 0);
-          cubeCamera.lookAt(forwardSign[_i342], 0, 0);
+          cubeCamera.up.set(0, upSign[_i343], 0);
+          cubeCamera.lookAt(forwardSign[_i343], 0, 0);
         } else if (col == 1) {
-          cubeCamera.up.set(0, 0, upSign[_i342]);
-          cubeCamera.lookAt(0, forwardSign[_i342], 0);
+          cubeCamera.up.set(0, 0, upSign[_i343]);
+          cubeCamera.lookAt(0, forwardSign[_i343], 0);
         } else {
-          cubeCamera.up.set(0, upSign[_i342], 0);
-          cubeCamera.lookAt(0, 0, forwardSign[_i342]);
+          cubeCamera.up.set(0, upSign[_i343], 0);
+          cubeCamera.lookAt(0, 0, forwardSign[_i343]);
         }
 
-        _setViewport(cubeUVRenderTarget, col * SIZE_MAX, _i342 > 2 ? SIZE_MAX : 0, SIZE_MAX, SIZE_MAX);
+        _setViewport(cubeUVRenderTarget, col * SIZE_MAX, _i343 > 2 ? SIZE_MAX : 0, SIZE_MAX, SIZE_MAX);
 
         renderer.setRenderTarget(cubeUVRenderTarget);
 
@@ -38178,11 +38432,11 @@ var PMREMGenerator = /*#__PURE__*/function () {
       var autoClear = renderer.autoClear;
       renderer.autoClear = false;
 
-      for (var _i343 = 1; _i343 < TOTAL_LODS; _i343++) {
-        var sigma = Math.sqrt(_sigmas[_i343] * _sigmas[_i343] - _sigmas[_i343 - 1] * _sigmas[_i343 - 1]);
-        var poleAxis = _axisDirections[(_i343 - 1) % _axisDirections.length];
+      for (var _i344 = 1; _i344 < TOTAL_LODS; _i344++) {
+        var sigma = Math.sqrt(_sigmas[_i344] * _sigmas[_i344] - _sigmas[_i344 - 1] * _sigmas[_i344 - 1]);
+        var poleAxis = _axisDirections[(_i344 - 1) % _axisDirections.length];
 
-        this._blur(cubeUVRenderTarget, _i343 - 1, _i343, sigma, poleAxis);
+        this._blur(cubeUVRenderTarget, _i344 - 1, _i344, sigma, poleAxis);
       }
 
       renderer.autoClear = autoClear;
@@ -38230,21 +38484,21 @@ var PMREMGenerator = /*#__PURE__*/function () {
       var weights = [];
       var sum = 0;
 
-      for (var _i344 = 0; _i344 < MAX_SAMPLES; ++_i344) {
-        var _x7 = _i344 / sigmaPixels;
+      for (var _i345 = 0; _i345 < MAX_SAMPLES; ++_i345) {
+        var _x12 = _i345 / sigmaPixels;
 
-        var weight = Math.exp(-_x7 * _x7 / 2);
+        var weight = Math.exp(-_x12 * _x12 / 2);
         weights.push(weight);
 
-        if (_i344 == 0) {
+        if (_i345 == 0) {
           sum += weight;
-        } else if (_i344 < samples) {
+        } else if (_i345 < samples) {
           sum += 2 * weight;
         }
       }
 
-      for (var _i345 = 0; _i345 < weights.length; _i345++) {
-        weights[_i345] = weights[_i345] / sum;
+      for (var _i346 = 0; _i346 < weights.length; _i346++) {
+        weights[_i346] = weights[_i346] / sum;
       }
 
       blurUniforms['envMap'].value = targetIn.texture;
@@ -38285,16 +38539,16 @@ function _createPlanes() {
   var _sigmas = [];
   var lod = LOD_MAX;
 
-  for (var _i346 = 0; _i346 < TOTAL_LODS; _i346++) {
+  for (var _i347 = 0; _i347 < TOTAL_LODS; _i347++) {
     var sizeLod = Math.pow(2, lod);
 
     _sizeLods.push(sizeLod);
 
     var sigma = 1.0 / sizeLod;
 
-    if (_i346 > LOD_MAX - LOD_MIN) {
-      sigma = EXTRA_LOD_SIGMA[_i346 - LOD_MAX + LOD_MIN - 1];
-    } else if (_i346 == 0) {
+    if (_i347 > LOD_MAX - LOD_MIN) {
+      sigma = EXTRA_LOD_SIGMA[_i347 - LOD_MAX + LOD_MIN - 1];
+    } else if (_i347 == 0) {
       sigma = 0;
     }
 

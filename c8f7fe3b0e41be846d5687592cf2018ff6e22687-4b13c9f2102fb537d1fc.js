@@ -2017,9 +2017,10 @@ if (false) {}
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "q6": function() { return /* binding */ Annotation; },
 /* harmony export */   "dS": function() { return /* binding */ renderAnnotationsToCanvas; },
-/* harmony export */   "O2": function() { return /* binding */ useAnnotations; }
+/* harmony export */   "O2": function() { return /* binding */ useAnnotations; },
+/* harmony export */   "zs": function() { return /* binding */ useComputedAnnotations; }
 /* harmony export */ });
-/* unused harmony exports bindAnnotations, computeAnnotation, defaultProps, getLinkAngle, isCanvasNote, isCircleAnnotation, isDotAnnotation, isRectAnnotation, isSvgNote, useComputedAnnotation, useComputedAnnotations */
+/* unused harmony exports bindAnnotations, computeAnnotation, defaultProps, getLinkAngle, isCanvasNote, isCircleAnnotation, isDotAnnotation, isRectAnnotation, isSvgNote, useComputedAnnotation */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(57557);
 /* harmony import */ var lodash_omit__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_omit__WEBPACK_IMPORTED_MODULE_1__);
@@ -2027,8 +2028,10 @@ if (false) {}
 /* harmony import */ var lodash_isNumber__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_isNumber__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(63105);
 /* harmony import */ var lodash_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_filter__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50928);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(67587);
 /* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85468);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(85893);
+
 
 
 
@@ -2108,7 +2111,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -2295,7 +2298,7 @@ var useAnnotations = function useAnnotations(_ref) {
 
 var useComputedAnnotations = function useComputedAnnotations(_ref2) {
   var annotations = _ref2.annotations;
-  return useMemo(function () {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     return annotations.map(function (annotation) {
       return _objectSpread2(_objectSpread2({}, annotation), {}, {
         computed: computeAnnotation(_objectSpread2({}, annotation))
@@ -2336,19 +2339,23 @@ var AnnotationNote = function AnnotationNote(_ref) {
     });
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.text.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.text */ .q.text, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.text), {}, {
-      strokeLinejoin: 'round',
-      strokeWidth: theme.annotations.text.outlineWidth * 2,
-      stroke: theme.annotations.text.outlineColor
-    })
-  }, note), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.text */ .q.text, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    style: lodash_omit__WEBPACK_IMPORTED_MODULE_1___default()(theme.annotations.text, ['outlineWidth', 'outlineColor'])
-  }, note));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [theme.annotations.text.outlineWidth > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.text */ .q.text, {
+      x: animatedProps.x,
+      y: animatedProps.y,
+      style: _objectSpread2(_objectSpread2({}, theme.annotations.text), {}, {
+        strokeLinejoin: 'round',
+        strokeWidth: theme.annotations.text.outlineWidth * 2,
+        stroke: theme.annotations.text.outlineColor
+      }),
+      children: note
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.text */ .q.text, {
+      x: animatedProps.x,
+      y: animatedProps.y,
+      style: lodash_omit__WEBPACK_IMPORTED_MODULE_1___default()(theme.annotations.text, ['outlineWidth', 'outlineColor']),
+      children: note
+    })]
+  });
 };
 
 function _arrayWithHoles(arr) {
@@ -2426,7 +2433,7 @@ var AnnotationLink = function AnnotationLink(_ref) {
     style.stroke = theme.annotations.link.outlineColor;
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.path */ .q.path, {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.path */ .q.path, {
     fill: "none",
     d: animatedPath,
     style: style
@@ -2450,21 +2457,23 @@ var CircleAnnotationOutline = function CircleAnnotationOutline(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
-      fill: 'none',
-      strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
-      stroke: theme.annotations.outline.outlineColor
-    })
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: theme.annotations.outline
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [theme.annotations.outline.outlineWidth > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
+      cx: animatedProps.x,
+      cy: animatedProps.y,
+      r: animatedProps.radius,
+      style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
+        fill: 'none',
+        strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
+        stroke: theme.annotations.outline.outlineColor
+      })
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
+      cx: animatedProps.x,
+      cy: animatedProps.y,
+      r: animatedProps.radius,
+      style: theme.annotations.outline
+    })]
+  });
 };
 
 var DotAnnotationOutline = function DotAnnotationOutline(_ref) {
@@ -2485,21 +2494,23 @@ var DotAnnotationOutline = function DotAnnotationOutline(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
-      fill: 'none',
-      strokeWidth: theme.annotations.outline.outlineWidth * 2,
-      stroke: theme.annotations.outline.outlineColor
-    })
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
-    cx: animatedProps.x,
-    cy: animatedProps.y,
-    r: animatedProps.radius,
-    style: theme.annotations.symbol
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [theme.annotations.outline.outlineWidth > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
+      cx: animatedProps.x,
+      cy: animatedProps.y,
+      r: animatedProps.radius,
+      style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
+        fill: 'none',
+        strokeWidth: theme.annotations.outline.outlineWidth * 2,
+        stroke: theme.annotations.outline.outlineColor
+      })
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.circle */ .q.circle, {
+      cx: animatedProps.x,
+      cy: animatedProps.y,
+      r: animatedProps.radius,
+      style: theme.annotations.symbol
+    })]
+  });
 };
 
 var RectAnnotationOutline = function RectAnnotationOutline(_ref) {
@@ -2521,23 +2532,25 @@ var RectAnnotationOutline = function RectAnnotationOutline(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, theme.annotations.outline.outlineWidth > 0 && react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.rect */ .q.rect, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    width: animatedProps.width,
-    height: animatedProps.height,
-    style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
-      fill: 'none',
-      strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
-      stroke: theme.annotations.outline.outlineColor
-    })
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.rect */ .q.rect, {
-    x: animatedProps.x,
-    y: animatedProps.y,
-    width: animatedProps.width,
-    height: animatedProps.height,
-    style: theme.annotations.outline
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [theme.annotations.outline.outlineWidth > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.rect */ .q.rect, {
+      x: animatedProps.x,
+      y: animatedProps.y,
+      width: animatedProps.width,
+      height: animatedProps.height,
+      style: _objectSpread2(_objectSpread2({}, theme.annotations.outline), {}, {
+        fill: 'none',
+        strokeWidth: theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2,
+        stroke: theme.annotations.outline.outlineColor
+      })
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_5__/* .animated.rect */ .q.rect, {
+      x: animatedProps.x,
+      y: animatedProps.y,
+      width: animatedProps.width,
+      height: animatedProps.height,
+      style: theme.annotations.outline
+    })]
+  });
 };
 
 var Annotation = function Annotation(annotation) {
@@ -2551,30 +2564,32 @@ var Annotation = function Annotation(annotation) {
     throw new Error('note should be a valid react element');
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationLink, {
-    points: computed.points,
-    isOutline: true
-  }), isCircleAnnotation(annotation) && react__WEBPACK_IMPORTED_MODULE_0__.createElement(CircleAnnotationOutline, {
-    x: x,
-    y: y,
-    size: annotation.size
-  }), isDotAnnotation(annotation) && react__WEBPACK_IMPORTED_MODULE_0__.createElement(DotAnnotationOutline, {
-    x: x,
-    y: y,
-    size: annotation.size
-  }), isRectAnnotation(annotation) && react__WEBPACK_IMPORTED_MODULE_0__.createElement(RectAnnotationOutline, {
-    x: x,
-    y: y,
-    width: annotation.width,
-    height: annotation.height
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationLink, {
-    points: computed.points
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(AnnotationNote, {
-    datum: datum,
-    x: computed.text[0],
-    y: computed.text[1],
-    note: note
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AnnotationLink, {
+      points: computed.points,
+      isOutline: true
+    }), isCircleAnnotation(annotation) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(CircleAnnotationOutline, {
+      x: x,
+      y: y,
+      size: annotation.size
+    }), isDotAnnotation(annotation) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(DotAnnotationOutline, {
+      x: x,
+      y: y,
+      size: annotation.size
+    }), isRectAnnotation(annotation) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(RectAnnotationOutline, {
+      x: x,
+      y: y,
+      width: annotation.width,
+      height: annotation.height
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AnnotationLink, {
+      points: computed.points
+    }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(AnnotationNote, {
+      datum: datum,
+      x: computed.text[0],
+      y: computed.text[1],
+      note: note
+    })]
+  });
 };
 
 var drawPoints = function drawPoints(ctx, points) {
@@ -2713,8 +2728,8 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(67294);
 // EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
 var react_spring_web_esm = __webpack_require__(85468);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
-var nivo_core_es = __webpack_require__(50928);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(67587);
 ;// CONCATENATED MODULE: ./node_modules/d3-time/src/interval.js
 var t0 = new Date(),
     t1 = new Date();
@@ -3032,10 +3047,13 @@ var utcYears = utcYear.range;
 var defaultLocale = __webpack_require__(12439);
 // EXTERNAL MODULE: ./node_modules/d3-format/src/defaultLocale.js + 11 modules
 var src_defaultLocale = __webpack_require__(61270);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(45697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 ;// CONCATENATED MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js
+
 
 
 
@@ -3139,7 +3157,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -3434,20 +3452,23 @@ var AxisTick = function AxisTick(_ref) {
       }
     };
   }, [animatedProps.opacity, _onClick, value]);
-  return react.createElement(react_spring_web_esm/* animated.g */.q.g, Object.assign({
+  return (0,jsx_runtime.jsxs)(react_spring_web_esm/* animated.g */.q.g, _objectSpread2(_objectSpread2({
     transform: animatedProps.transform
-  }, props), react.createElement("line", {
-    x1: 0,
-    x2: lineX,
-    y1: 0,
-    y2: lineY,
-    style: theme.axis.ticks.line
-  }), react.createElement(react_spring_web_esm/* animated.text */.q.text, {
-    dominantBaseline: textBaseline,
-    textAnchor: textAnchor,
-    transform: animatedProps.textTransform,
-    style: theme.axis.ticks.text
-  }, value));
+  }, props), {}, {
+    children: [(0,jsx_runtime.jsx)("line", {
+      x1: 0,
+      x2: lineX,
+      y1: 0,
+      y2: lineY,
+      style: theme.axis.ticks.line
+    }), (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.text */.q.text, {
+      dominantBaseline: textBaseline,
+      textAnchor: textAnchor,
+      transform: animatedProps.textTransform,
+      style: theme.axis.ticks.text,
+      children: value
+    })]
+  }));
 };
 
 var memoizedAxisTick = (0,react.memo)(AxisTick);
@@ -3531,13 +3552,14 @@ var Axis = function Axis(_ref) {
       }
     }
 
-    legendNode = react.createElement("text", {
+    legendNode = (0,jsx_runtime.jsx)("text", {
       transform: "translate(".concat(legendX, ", ").concat(legendY, ") rotate(").concat(legendRotation, ")"),
       textAnchor: textAnchor,
       style: _objectSpread2({
         dominantBaseline: 'central'
-      }, theme.axis.legend.text)
-    }, legend);
+      }, theme.axis.legend.text),
+      children: legend
+    });
   }
 
   var _useMotionConfig = (0,nivo_core_es/* useMotionConfig */.tf)(),
@@ -3589,27 +3611,28 @@ var Axis = function Axis(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
+  return (0,jsx_runtime.jsxs)(react_spring_web_esm/* animated.g */.q.g, {
     transform: animatedProps.transform,
-    "aria-hidden": ariaHidden
-  }, transition(function (transitionProps, tick, _state, tickIndex) {
-    return react.createElement(renderTick, _objectSpread2(_objectSpread2({
-      tickIndex: tickIndex,
-      format: formatValue,
-      rotate: tickRotation,
-      textBaseline: textBaseline,
-      textAnchor: textAlign,
-      animatedProps: transitionProps
-    }, tick), onClick ? {
-      onClick: onClick
-    } : {}));
-  }), react.createElement(react_spring_web_esm/* animated.line */.q.line, {
-    style: theme.axis.domain.line,
-    x1: 0,
-    x2: animatedProps.lineX2,
-    y1: 0,
-    y2: animatedProps.lineY2
-  }), legendNode);
+    "aria-hidden": ariaHidden,
+    children: [transition(function (transitionProps, tick, _state, tickIndex) {
+      return (0,react.createElement)(renderTick, _objectSpread2(_objectSpread2({
+        tickIndex: tickIndex,
+        format: formatValue,
+        rotate: tickRotation,
+        textBaseline: textBaseline,
+        textAnchor: textAlign,
+        animatedProps: transitionProps
+      }, tick), onClick ? {
+        onClick: onClick
+      } : {}));
+    }), (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.line */.q.line, {
+      style: theme.axis.domain.line,
+      x1: 0,
+      x2: animatedProps.lineX2,
+      y1: 0,
+      y2: animatedProps.lineY2
+    }), legendNode]
+  });
 };
 
 var memoizedAxis = (0,react.memo)(Axis);
@@ -3643,27 +3666,27 @@ var Axes = (0,react.memo)(function (_ref) {
     bottom: bottom,
     left: left
   };
-  return react.createElement(react.Fragment, null, positions.map(function (position) {
-    var axis = axes[position];
-    if (!axis) return null;
-    var isXAxis = position === 'top' || position === 'bottom';
-    var ticksPosition = position === 'top' || position === 'left' ? 'before' : 'after';
-    return react.createElement(memoizedAxis, Object.assign({
-      key: position
-    }, axis, {
-      axis: isXAxis ? 'x' : 'y',
-      x: position === 'right' ? width : 0,
-      y: position === 'bottom' ? height : 0,
-      scale: isXAxis ? xScale : yScale,
-      length: isXAxis ? width : height,
-      ticksPosition: ticksPosition
-    }));
-  }));
+  return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+    children: positions.map(function (position) {
+      var axis = axes[position];
+      if (!axis) return null;
+      var isXAxis = position === 'top' || position === 'bottom';
+      var ticksPosition = position === 'top' || position === 'left' ? 'before' : 'after';
+      return (0,jsx_runtime.jsx)(memoizedAxis, _objectSpread2(_objectSpread2({}, axis), {}, {
+        axis: isXAxis ? 'x' : 'y',
+        x: position === 'right' ? width : 0,
+        y: position === 'bottom' ? height : 0,
+        scale: isXAxis ? xScale : yScale,
+        length: isXAxis ? width : height,
+        ticksPosition: ticksPosition
+      }), position);
+    })
+  });
 });
 var GridLine = (0,react.memo)(function (_ref) {
   var animatedProps = _ref.animatedProps;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
-  return react.createElement(react_spring_web_esm/* animated.line */.q.line, Object.assign({}, animatedProps, theme.grid.line));
+  return (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.line */.q.line, _objectSpread2(_objectSpread2({}, animatedProps), theme.grid.line));
 });
 var GridLines = (0,react.memo)(function (_ref) {
   var lines = _ref.lines;
@@ -3718,12 +3741,14 @@ var GridLines = (0,react.memo)(function (_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement("g", null, transition(function (animatedProps, line) {
-    return react.createElement(GridLine, Object.assign({}, line, {
-      key: line.key,
-      animatedProps: animatedProps
-    }));
-  }));
+  return (0,jsx_runtime.jsx)("g", {
+    children: transition(function (animatedProps, line) {
+      return (0,react.createElement)(GridLine, _objectSpread2(_objectSpread2({}, line), {}, {
+        key: line.key,
+        animatedProps: animatedProps
+      }));
+    })
+  });
 });
 var Grid = (0,react.memo)(function (_ref) {
   var width = _ref.width,
@@ -3752,11 +3777,13 @@ var Grid = (0,react.memo)(function (_ref) {
       values: yValues
     });
   }, [height, width, yScale, yValues]);
-  return react.createElement(react.Fragment, null, xLines && react.createElement(GridLines, {
-    lines: xLines
-  }), yLines && react.createElement(GridLines, {
-    lines: yLines
-  }));
+  return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+    children: [xLines && (0,jsx_runtime.jsx)(GridLines, {
+      lines: xLines
+    }), yLines && (0,jsx_runtime.jsx)(GridLines, {
+      lines: yLines
+    })]
+  });
 });
 
 var renderAxisToCanvas = function renderAxisToCanvas(ctx, _ref) {
@@ -3969,16 +3996,12 @@ var renderGridLinesToCanvas = function renderGridLinesToCanvas(ctx, _ref3) {
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "t": function() { return /* binding */ colorPropertyAccessorPropType; },
-  "B3": function() { return /* binding */ getInheritedColorGenerator; },
-  "Kc": function() { return /* binding */ getOrdinalColorScale; },
-  "UO": function() { return /* binding */ inheritedColorPropType; },
   "qi": function() { return /* binding */ ordinalColorsPropType; },
   "Bf": function() { return /* binding */ useInheritedColor; },
   "U": function() { return /* binding */ useOrdinalColorScale; }
 });
 
-// UNUSED EXPORTS: categoricalColorSchemeIds, categoricalColorSchemes, colorInterpolatorIds, colorInterpolators, colorSchemeIds, colorSchemes, cyclicalColorInterpolators, divergingColorInterpolators, divergingColorSchemeIds, divergingColorSchemes, getInterpolatedColor, interpolateColor, isCategoricalColorScheme, isDivergingColorScheme, isSequentialColorScheme, sequentialColorInterpolators, sequentialColorSchemeIds, sequentialColorSchemes
+// UNUSED EXPORTS: categoricalColorSchemeIds, categoricalColorSchemes, colorInterpolatorIds, colorInterpolators, colorPropertyAccessorPropType, colorSchemeIds, colorSchemes, cyclicalColorInterpolators, divergingColorInterpolators, divergingColorSchemeIds, divergingColorSchemes, getInheritedColorGenerator, getInterpolatedColor, getOrdinalColorScale, inheritedColorPropType, interpolateColor, isCategoricalColorScheme, isDivergingColorScheme, isSequentialColorScheme, sequentialColorInterpolators, sequentialColorSchemeIds, sequentialColorSchemes
 
 ;// CONCATENATED MODULE: ./node_modules/d3-scale-chromatic/src/sequential-multi/turbo.js
 /* harmony default export */ function turbo(t) {
@@ -4304,7 +4327,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -4316,9 +4339,12 @@ function _slicedToArray(arr, i) {
   return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
-function _createForOfIteratorHelper(o) {
+function _createForOfIteratorHelper(o, allowArrayLike) {
+  var it;
+
   if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+      if (it) o = it;
       var i = 0;
 
       var F = function F() {};
@@ -4344,8 +4370,7 @@ function _createForOfIteratorHelper(o) {
     throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
 
-  var it,
-      normalCompletion = true,
+  var normalCompletion = true,
       didErr = false,
       err;
   return {
@@ -4610,7 +4635,7 @@ var inheritedColorPropType = prop_types_default().oneOfType([(prop_types_default
 
 /***/ }),
 
-/***/ 50928:
+/***/ 67587:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4620,7 +4645,6 @@ __webpack_require__.d(__webpack_exports__, {
   "TL": function() { return /* binding */ CartesianMarkers$1; },
   "W2": function() { return /* binding */ Container; },
   "F_": function() { return /* binding */ DotsItem$1; },
-  "Qf": function() { return /* binding */ LegacyContainer; },
   "d": function() { return /* binding */ ResponsiveWrapper; },
   "tM": function() { return /* binding */ SvgWrapper; },
   "bt": function() { return /* binding */ absoluteAngleDegrees; },
@@ -4636,7 +4660,6 @@ __webpack_require__.d(__webpack_exports__, {
   "VZ": function() { return /* binding */ lineCurvePropType; },
   "Vp": function() { return /* binding */ midAngle; },
   "w$": function() { return /* binding */ motionPropTypes; },
-  "ZT": function() { return /* binding */ nivo_core_es_noop; },
   "re": function() { return /* binding */ positionFromAngle; },
   "vi": function() { return /* binding */ radiansToDegrees; },
   "a6": function() { return /* binding */ textPropsByEngine; },
@@ -4647,13 +4670,10 @@ __webpack_require__.d(__webpack_exports__, {
   "LR": function() { return /* binding */ usePropertyAccessor; },
   "Fg": function() { return /* binding */ useTheme; },
   "O_": function() { return /* binding */ useValueFormatter; },
-  "li": function() { return /* binding */ withContainer; },
-  "U6": function() { return /* binding */ withDimensions; },
-  "Gt": function() { return /* binding */ withMotion; },
-  "Zz": function() { return /* binding */ withTheme; }
+  "li": function() { return /* binding */ withContainer; }
 });
 
-// UNUSED EXPORTS: CartesianMarkersItem, Defs, DotsItemDefaultProps, LinearGradient, MotionConfigProvider, PatternDots, PatternLines, PatternSquares, TWO_PI, ThemeProvider, absoluteAngleRadians, alignBox, annotationsPropType, areaCurvePropKeys, areaCurvePropType, axisThemePropType, blendModes, boxAlignments, closedCurvePropKeys, closedCurvePropType, colorInterpolatorIds, colorInterpolators, colorSchemeIds, crosshairPropType, curvePropKeys, curvePropMapping, curvePropType, defaultAnimate, defaultCategoricalColors, defaultColorRange, defaultMargin, defaultMotionDamping, defaultMotionStiffness, defaultTheme, dotsThemePropType, extendDefaultTheme, getAngle, getColorScale, getDistance, getPolarLabelProps, getValueFormatter, gradientTypes, gridThemePropType, guessQuantizeColorScale, isMatchingDef, labelsThemePropType, legendsThemePropType, lineCurvePropKeys, linearGradientDef, marginPropType, markersThemePropType, motionConfigContext, motionDefaultProps, nivoCategoricalColors, patternDotsDef, patternLinesDef, patternSquaresDef, patternTypes, quantizeColorScalePropType, quantizeColorScales, quantizeColorScalesKeys, stackOffsetFromProp, stackOffsetPropKeys, stackOffsetPropMapping, stackOffsetPropType, stackOrderFromProp, stackOrderPropKeys, stackOrderPropMapping, stackOrderPropType, themeContext, themePropType, treeMapTileFromProp, treeMapTilePropKeys, treeMapTilePropMapping, treeMapTilePropType, useCurveInterpolation, usePartialTheme, withCurve, withHierarchy
+// UNUSED EXPORTS: CartesianMarkersItem, Defs, DotsItemDefaultProps, LegacyContainer, LinearGradient, MotionConfigProvider, PatternDots, PatternLines, PatternSquares, TWO_PI, ThemeProvider, absoluteAngleRadians, alignBox, annotationsPropType, areaCurvePropKeys, areaCurvePropType, axisThemePropType, blendModes, boxAlignments, closedCurvePropKeys, closedCurvePropType, colorInterpolatorIds, colorInterpolators, colorSchemeIds, crosshairPropType, curvePropKeys, curvePropMapping, curvePropType, defaultAnimate, defaultCategoricalColors, defaultColorRange, defaultMargin, defaultMotionDamping, defaultMotionStiffness, defaultTheme, dotsThemePropType, extendDefaultTheme, getAngle, getColorScale, getDistance, getPolarLabelProps, getValueFormatter, gradientTypes, gridThemePropType, guessQuantizeColorScale, isMatchingDef, labelsThemePropType, legendsThemePropType, lineCurvePropKeys, linearGradientDef, marginPropType, markersThemePropType, motionConfigContext, motionDefaultProps, nivoCategoricalColors, noop, patternDotsDef, patternLinesDef, patternSquaresDef, patternTypes, quantizeColorScalePropType, quantizeColorScales, quantizeColorScalesKeys, stackOffsetFromProp, stackOffsetPropKeys, stackOffsetPropMapping, stackOffsetPropType, stackOrderFromProp, stackOrderPropKeys, stackOrderPropMapping, stackOrderPropType, themeContext, themePropType, treeMapTileFromProp, treeMapTilePropKeys, treeMapTilePropMapping, treeMapTilePropType, useCurveInterpolation, usePartialTheme, withCurve, withDimensions, withHierarchy, withMotion, withTheme
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
@@ -4678,6 +4698,8 @@ var react_spring_web_esm = __webpack_require__(85468);
 // EXTERNAL MODULE: ./node_modules/lodash/isString.js
 var isString = __webpack_require__(47037);
 var isString_default = /*#__PURE__*/__webpack_require__.n(isString);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
 // EXTERNAL MODULE: ./node_modules/lodash/last.js
 var last = __webpack_require__(10928);
 var last_default = /*#__PURE__*/__webpack_require__.n(last);
@@ -6189,41 +6211,250 @@ function squarifyRatio(ratio, parent, x0, y0, x1, y1) {
 var defaultLocale = __webpack_require__(61270);
 // EXTERNAL MODULE: ./node_modules/d3-time-format/src/defaultLocale.js + 9 modules
 var src_defaultLocale = __webpack_require__(12439);
-// EXTERNAL MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
-var nivo_recompose_es = __webpack_require__(21566);
-// EXTERNAL MODULE: ./node_modules/lodash/isEqual.js
-var isEqual = __webpack_require__(18446);
-var isEqual_default = /*#__PURE__*/__webpack_require__.n(isEqual);
-// EXTERNAL MODULE: ./node_modules/lodash/isPlainObject.js
-var isPlainObject = __webpack_require__(68630);
-var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
-// EXTERNAL MODULE: ./node_modules/lodash/pick.js
-var pick = __webpack_require__(78718);
-var pick_default = /*#__PURE__*/__webpack_require__.n(pick);
-;// CONCATENATED MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js
+// EXTERNAL MODULE: ./.cache/react-lifecycles-compat.js
+var react_lifecycles_compat = __webpack_require__(11507);
+;// CONCATENATED MODULE: ./node_modules/@nivo/recompose/dist/nivo-recompose.es.js
 
 
 
+var getDisplayName = function getDisplayName(component) {
+  if (typeof component === 'string') {
+    return component;
+  }
 
+  if (!component) {
+    return undefined;
+  }
 
+  return component.displayName || component.name || 'Component';
+};
 
+var setStatic = function setStatic(key, value) {
+  return function (BaseComponent) {
+    BaseComponent[key] = value;
+    return BaseComponent;
+  };
+};
 
+var setDisplayName = function setDisplayName(displayName) {
+  return setStatic('displayName', displayName);
+};
 
+var nivo_recompose_es_hasOwnProperty = Object.prototype.hasOwnProperty;
 
+function is(x, y) {
+  if (x === y) {
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  }
 
+  return x !== x && y !== y;
+}
 
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
 
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
 
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
 
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
 
+  for (var i = 0; i < keysA.length; i++) {
+    if (!nivo_recompose_es_hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
 
+  return true;
+}
 
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
 
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
 
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
 
+  return _setPrototypeOf(o, p);
+}
 
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
 
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
+  return "".concat(hocName, "(").concat(getDisplayName(BaseComponent), ")");
+};
+
+var shouldUpdate = function shouldUpdate(test) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+
+    var ShouldUpdate = function (_Component) {
+      _inherits(ShouldUpdate, _Component);
+
+      var _super = _createSuper(ShouldUpdate);
+
+      function ShouldUpdate() {
+        _classCallCheck(this, ShouldUpdate);
+
+        return _super.apply(this, arguments);
+      }
+
+      _createClass(ShouldUpdate, [{
+        key: "shouldComponentUpdate",
+        value: function shouldComponentUpdate(nextProps) {
+          return test(this.props, nextProps);
+        }
+      }, {
+        key: "render",
+        value: function render() {
+          return factory(this.props);
+        }
+      }]);
+
+      return ShouldUpdate;
+    }(Component);
+
+    if (false) {}
+
+    return ShouldUpdate;
+  };
+};
+
+var pure = function pure(component) {
+  var hoc = shouldUpdate(function (props, nextProps) {
+    return !shallowEqual(props, nextProps);
+  });
+
+  if (false) {}
+
+  return hoc(component);
+};
+
+var nivo_recompose_es_compose = function compose() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  return funcs.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(void 0, arguments));
+    };
+  }, function (arg) {
+    return arg;
+  });
+};
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -6274,6 +6505,263 @@ function _objectSpread2(target) {
   return target;
 }
 
+var pick = function pick(obj, keys) {
+  var result = {};
+
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+
+    if (obj.hasOwnProperty(key)) {
+      result[key] = obj[key];
+    }
+  }
+
+  return result;
+};
+
+var nivo_recompose_es_withPropsOnChange = function withPropsOnChange(shouldMapOrKeys, propsMapper) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+    var shouldMap = typeof shouldMapOrKeys === 'function' ? shouldMapOrKeys : function (props, nextProps) {
+      return !shallowEqual(pick(props, shouldMapOrKeys), pick(nextProps, shouldMapOrKeys));
+    };
+
+    var WithPropsOnChange = function (_Component) {
+      _inherits(WithPropsOnChange, _Component);
+
+      var _super = _createSuper(WithPropsOnChange);
+
+      function WithPropsOnChange() {
+        var _this;
+
+        _classCallCheck(this, WithPropsOnChange);
+
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        _this = _super.call.apply(_super, [this].concat(args));
+        _this.state = {
+          computedProps: propsMapper(_this.props),
+          prevProps: _this.props
+        };
+        return _this;
+      }
+
+      _createClass(WithPropsOnChange, [{
+        key: "render",
+        value: function render() {
+          return factory(_objectSpread2(_objectSpread2({}, this.props), this.state.computedProps));
+        }
+      }], [{
+        key: "getDerivedStateFromProps",
+        value: function getDerivedStateFromProps(nextProps, prevState) {
+          if (shouldMap(prevState.prevProps, nextProps)) {
+            return {
+              computedProps: propsMapper(nextProps),
+              prevProps: nextProps
+            };
+          }
+
+          return {
+            prevProps: nextProps
+          };
+        }
+      }]);
+
+      return WithPropsOnChange;
+    }(Component);
+
+    polyfill(WithPropsOnChange);
+
+    if (false) {}
+
+    return WithPropsOnChange;
+  };
+};
+
+var nivo_recompose_es_defaultProps = function defaultProps(props) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+
+    var DefaultProps = function DefaultProps(ownerProps) {
+      return factory(ownerProps);
+    };
+
+    DefaultProps.defaultProps = props;
+
+    if (false) {}
+
+    return DefaultProps;
+  };
+};
+
+var mapProps = function mapProps(propsMapper) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+
+    var MapProps = function MapProps(props) {
+      return factory(propsMapper(props));
+    };
+
+    if (false) {}
+
+    return MapProps;
+  };
+};
+
+var nivo_recompose_es_withProps = function withProps(createProps) {
+  var hoc = mapProps(function (props) {
+    return _objectSpread2(_objectSpread2({}, props), typeof createProps === 'function' ? createProps(props) : createProps);
+  });
+
+  if (false) {}
+
+  return hoc;
+};
+
+var nivo_recompose_es_setPropTypes = function setPropTypes(propTypes) {
+  return setStatic('propTypes', propTypes);
+};
+
+var withState = function withState(stateName, stateUpdaterName, initialState) {
+  return function (BaseComponent) {
+    var factory = createFactory(BaseComponent);
+
+    var WithState = function (_Component) {
+      _inherits(WithState, _Component);
+
+      var _super = _createSuper(WithState);
+
+      function WithState() {
+        var _this;
+
+        _classCallCheck(this, WithState);
+
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        _this = _super.call.apply(_super, [this].concat(args));
+        _this.state = {
+          stateValue: typeof initialState === 'function' ? initialState(_this.props) : initialState
+        };
+
+        _this.updateStateValue = function (updateFn, callback) {
+          return _this.setState(function (_ref) {
+            var stateValue = _ref.stateValue;
+            return {
+              stateValue: typeof updateFn === 'function' ? updateFn(stateValue) : updateFn
+            };
+          }, callback);
+        };
+
+        return _this;
+      }
+
+      _createClass(WithState, [{
+        key: "render",
+        value: function render() {
+          var _objectSpread2$1;
+
+          return factory(_objectSpread2(_objectSpread2({}, this.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, stateName, this.state.stateValue), _defineProperty(_objectSpread2$1, stateUpdaterName, this.updateStateValue), _objectSpread2$1)));
+        }
+      }]);
+
+      return WithState;
+    }(Component);
+
+    if (false) {}
+
+    return WithState;
+  };
+};
+
+
+// EXTERNAL MODULE: ./node_modules/lodash/isEqual.js
+var lodash_isEqual = __webpack_require__(18446);
+var isEqual_default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual);
+// EXTERNAL MODULE: ./node_modules/lodash/isPlainObject.js
+var isPlainObject = __webpack_require__(68630);
+var isPlainObject_default = /*#__PURE__*/__webpack_require__.n(isPlainObject);
+// EXTERNAL MODULE: ./node_modules/lodash/pick.js
+var lodash_pick = __webpack_require__(78718);
+var pick_default = /*#__PURE__*/__webpack_require__.n(lodash_pick);
+;// CONCATENATED MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function nivo_core_es_defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function nivo_core_es_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function nivo_core_es_objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      nivo_core_es_ownKeys(Object(source), true).forEach(function (key) {
+        nivo_core_es_defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      nivo_core_es_ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 var textProps = {
   fill: (prop_types_default()).string,
   fontSize: (prop_types_default()).number,
@@ -6293,10 +6781,10 @@ var axisThemePropType = prop_types_default().shape({
       strokeWidth: (prop_types_default()).number.isRequired,
       strokeDasharray: (prop_types_default()).string
     }).isRequired,
-    text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
+    text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
   }).isRequired,
   legend: prop_types_default().shape({
-    text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
+    text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
   }).isRequired
 });
 var gridThemePropType = prop_types_default().shape({
@@ -6312,20 +6800,20 @@ var legendsThemePropType = prop_types_default().shape({
       fill: (prop_types_default()).string.isRequired,
       opacity: (prop_types_default()).number
     }).isRequired,
-    text: prop_types_default().shape(_objectSpread2(_objectSpread2({}, textProps), {}, {
+    text: prop_types_default().shape(nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, textProps), {}, {
       opacity: (prop_types_default()).number
     })).isRequired
   }).isRequired,
-  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
 });
 var labelsThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
 });
 var dotsThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
 });
 var markersThemePropType = prop_types_default().shape({
-  text: prop_types_default().shape(_objectSpread2({}, textProps)).isRequired
+  text: prop_types_default().shape(nivo_core_es_objectSpread2({}, textProps)).isRequired
 });
 var crosshairPropType = prop_types_default().shape({
   line: prop_types_default().shape({
@@ -6335,7 +6823,7 @@ var crosshairPropType = prop_types_default().shape({
   }).isRequired
 });
 var annotationsPropType = prop_types_default().shape({
-  text: prop_types_default().shape(_objectSpread2(_objectSpread2({}, textProps), {}, {
+  text: prop_types_default().shape(nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, textProps), {}, {
     outlineWidth: (prop_types_default()).number.isRequired,
     outlineColor: (prop_types_default()).string.isRequired
   })).isRequired,
@@ -6524,9 +7012,10 @@ var MotionConfigProvider = function MotionConfigProvider(_ref) {
       config: reactSpringConfig
     };
   }, [animate, stiffness, damping, config$1]);
-  return react.createElement(motionConfigContext.Provider, {
-    value: value
-  }, children);
+  return (0,jsx_runtime.jsx)(motionConfigContext.Provider, {
+    value: value,
+    children: children
+  });
 };
 
 var motionPropTypes = {
@@ -6881,7 +7370,7 @@ var defaultMargin = {
 var useDimensions = function useDimensions(width, height) {
   var partialMargin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   return (0,react.useMemo)(function () {
-    var margin = _objectSpread2(_objectSpread2({}, defaultMargin), partialMargin);
+    var margin = nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, defaultMargin), partialMargin);
 
     return {
       margin: margin,
@@ -6939,7 +7428,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -7630,9 +8119,10 @@ var ThemeProvider = function ThemeProvider(_ref) {
       partialTheme = _ref$theme === void 0 ? defaultPartialTheme : _ref$theme,
       children = _ref.children;
   var theme = usePartialTheme(partialTheme);
-  return react.createElement(themeContext.Provider, {
-    value: theme
-  }, children);
+  return (0,jsx_runtime.jsx)(themeContext.Provider, {
+    value: theme,
+    children: children
+  });
 };
 
 var useTheme = function useTheme() {
@@ -7663,22 +8153,26 @@ var Container = function Container(_ref) {
       motionDamping = _ref.motionDamping,
       motionConfig = _ref.motionConfig;
   var container = (0,react.useRef)(null);
-  return react.createElement(ThemeProvider, {
-    theme: theme
-  }, react.createElement(MotionConfigProvider, {
-    animate: animate,
-    stiffness: motionStiffness,
-    damping: motionDamping,
-    config: motionConfig
-  }, react.createElement(nivo_tooltip_es/* TooltipProvider */.pn, {
-    container: container
-  }, react.createElement(ConditionalWrapper, {
-    condition: renderWrapper,
-    wrapper: react.createElement("div", {
-      style: containerStyle,
-      ref: container
+  return (0,jsx_runtime.jsx)(ThemeProvider, {
+    theme: theme,
+    children: (0,jsx_runtime.jsx)(MotionConfigProvider, {
+      animate: animate,
+      stiffness: motionStiffness,
+      damping: motionDamping,
+      config: motionConfig,
+      children: (0,jsx_runtime.jsx)(nivo_tooltip_es/* TooltipProvider */.pn, {
+        container: container,
+        children: (0,jsx_runtime.jsxs)(ConditionalWrapper, {
+          condition: renderWrapper,
+          wrapper: (0,jsx_runtime.jsx)("div", {
+            style: containerStyle,
+            ref: container
+          }),
+          children: [children, isInteractive && (0,jsx_runtime.jsx)(nivo_tooltip_es/* Tooltip */.u, {})]
+        })
+      })
     })
-  }, children, isInteractive && react.createElement(nivo_tooltip_es/* Tooltip */.u, null)))));
+  });
 };
 
 var nivo_core_es_noop = function noop() {};
@@ -7698,39 +8192,44 @@ var LegacyContainer = function LegacyContainer(_ref) {
       motionStiffness = _ref.motionStiffness,
       motionDamping = _ref.motionDamping,
       motionConfig = _ref.motionConfig;
-  var container = (0,react.useRef)(null);
+  var container = useRef(null);
 
-  var _useTooltipHandlers = (0,nivo_tooltip_es/* useTooltipHandlers */._0)(container),
+  var _useTooltipHandlers = useTooltipHandlers(container),
       tooltipActions = _useTooltipHandlers.actions,
       tooltipState = _useTooltipHandlers.state;
 
-  var showTooltip = (0,react.useCallback)(function (content, event) {
+  var showTooltip = useCallback(function (content, event) {
     return tooltipActions.showTooltipFromEvent(content, event);
   }, [tooltipActions.showTooltipFromEvent]);
-  var handlers = (0,react.useMemo)(function () {
+  var handlers = useMemo(function () {
     return {
       showTooltip: isInteractive ? showTooltip : nivo_core_es_noop,
       hideTooltip: isInteractive ? tooltipActions.hideTooltip : nivo_core_es_noop
     };
   }, [tooltipActions.hideTooltip, isInteractive, showTooltip]);
-  return react.createElement(ThemeProvider, {
-    theme: theme
-  }, react.createElement(MotionConfigProvider, {
-    animate: animate,
-    stiffness: motionStiffness,
-    damping: motionDamping,
-    config: motionConfig
-  }, react.createElement(nivo_tooltip_es/* TooltipActionsContext.Provider */.Zb.Provider, {
-    value: tooltipActions
-  }, react.createElement(nivo_tooltip_es/* TooltipStateContext.Provider */.L8.Provider, {
-    value: tooltipState
-  }, react.createElement(ConditionalWrapper, {
-    condition: renderWrapper,
-    wrapper: react.createElement("div", {
-      style: containerStyle$1,
-      ref: container
+  return jsx(ThemeProvider, {
+    theme: theme,
+    children: jsx(MotionConfigProvider, {
+      animate: animate,
+      stiffness: motionStiffness,
+      damping: motionDamping,
+      config: motionConfig,
+      children: jsx(TooltipActionsContext.Provider, {
+        value: tooltipActions,
+        children: jsx(TooltipStateContext.Provider, {
+          value: tooltipState,
+          children: jsxs(ConditionalWrapper, {
+            condition: renderWrapper,
+            wrapper: jsx("div", {
+              style: containerStyle$1,
+              ref: container
+            }),
+            children: [children(handlers), isInteractive && jsx(Tooltip, {})]
+          })
+        })
+      })
     })
-  }, children(handlers), isInteractive && react.createElement(nivo_tooltip_es/* Tooltip */.u, null))))));
+  });
 };
 
 var ResponsiveWrapper = function ResponsiveWrapper(_ref) {
@@ -7742,43 +8241,44 @@ var ResponsiveWrapper = function ResponsiveWrapper(_ref) {
       bounds = _useMeasure2[1];
 
   var shouldRender = bounds.width > 0 && bounds.height > 0;
-  return react.createElement("div", {
+  return (0,jsx_runtime.jsx)("div", {
     ref: measureRef,
     style: {
       width: '100%',
       height: '100%'
-    }
-  }, shouldRender && children({
-    width: bounds.width,
-    height: bounds.height
-  }));
+    },
+    children: shouldRender && children({
+      width: bounds.width,
+      height: bounds.height
+    })
+  });
 };
 
 var LinearGradient = function LinearGradient(_ref) {
   var id = _ref.id,
       colors = _ref.colors;
-  return react.createElement("linearGradient", {
+  return (0,jsx_runtime.jsx)("linearGradient", {
     id: id,
     x1: 0,
     x2: 0,
     y1: 0,
-    y2: 1
-  }, colors.map(function (_ref2) {
-    var offset = _ref2.offset,
-        color = _ref2.color,
-        opacity = _ref2.opacity;
-    return react.createElement("stop", {
-      key: offset,
-      offset: "".concat(offset, "%"),
-      stopColor: color,
-      stopOpacity: opacity !== undefined ? opacity : 1
-    });
-  }));
+    y2: 1,
+    children: colors.map(function (_ref2) {
+      var offset = _ref2.offset,
+          color = _ref2.color,
+          opacity = _ref2.opacity;
+      return (0,jsx_runtime.jsx)("stop", {
+        offset: "".concat(offset, "%"),
+        stopColor: color,
+        stopOpacity: opacity !== undefined ? opacity : 1
+      }, offset);
+    })
+  });
 };
 
 var linearGradientDef = function linearGradientDef(id, colors) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return _objectSpread2({
+  return nivo_core_es_objectSpread2({
     id: id,
     type: 'linearGradient',
     colors: colors
@@ -7803,26 +8303,27 @@ var PatternDots = (0,react.memo)(function (_ref) {
     fullSize = size * 2 + padding * 2;
   }
 
-  return react.createElement("pattern", {
+  return (0,jsx_runtime.jsxs)("pattern", {
     id: id,
     width: fullSize,
     height: fullSize,
-    patternUnits: "userSpaceOnUse"
-  }, react.createElement("rect", {
-    width: fullSize,
-    height: fullSize,
-    fill: background
-  }), react.createElement("circle", {
-    cx: halfPadding + radius,
-    cy: halfPadding + radius,
-    r: radius,
-    fill: color
-  }), stagger && react.createElement("circle", {
-    cx: padding * 1.5 + size + radius,
-    cy: padding * 1.5 + size + radius,
-    r: radius,
-    fill: color
-  }));
+    patternUnits: "userSpaceOnUse",
+    children: [(0,jsx_runtime.jsx)("rect", {
+      width: fullSize,
+      height: fullSize,
+      fill: background
+    }), (0,jsx_runtime.jsx)("circle", {
+      cx: halfPadding + radius,
+      cy: halfPadding + radius,
+      r: radius,
+      fill: color
+    }), stagger && (0,jsx_runtime.jsx)("circle", {
+      cx: padding * 1.5 + size + radius,
+      cy: padding * 1.5 + size + radius,
+      r: radius,
+      fill: color
+    })]
+  });
 });
 PatternDots.displayName = 'PatternDots';
 PatternDots.defaultProps = {
@@ -7835,7 +8336,7 @@ PatternDots.defaultProps = {
 
 var patternDotsDef = function patternDotsDef(id) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _objectSpread2({
+  return nivo_core_es_objectSpread2({
     id: id,
     type: 'patternDots'
   }, options);
@@ -7973,23 +8474,24 @@ var PatternLines = (0,react.memo)(function (_ref) {
     }
   }
 
-  return react.createElement("pattern", {
+  return (0,jsx_runtime.jsxs)("pattern", {
     id: id,
     width: width,
     height: height,
-    patternUnits: "userSpaceOnUse"
-  }, react.createElement("rect", {
-    width: width,
-    height: height,
-    fill: background,
-    stroke: "rgba(255, 0, 0, 0.1)",
-    strokeWidth: 0
-  }), react.createElement("path", {
-    d: path,
-    strokeWidth: lineWidth,
-    stroke: color,
-    strokeLinecap: "square"
-  }));
+    patternUnits: "userSpaceOnUse",
+    children: [(0,jsx_runtime.jsx)("rect", {
+      width: width,
+      height: height,
+      fill: background,
+      stroke: "rgba(255, 0, 0, 0.1)",
+      strokeWidth: 0
+    }), (0,jsx_runtime.jsx)("path", {
+      d: path,
+      strokeWidth: lineWidth,
+      stroke: color,
+      strokeLinecap: "square"
+    })]
+  });
 });
 PatternLines.displayName = 'PatternLines';
 PatternLines.defaultProps = {
@@ -8002,7 +8504,7 @@ PatternLines.defaultProps = {
 
 var patternLinesDef = function patternLinesDef(id) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _objectSpread2({
+  return nivo_core_es_objectSpread2({
     id: id,
     type: 'patternLines'
   }, options);
@@ -8022,28 +8524,29 @@ var PatternSquares = (0,react.memo)(function (_ref) {
     fullSize = size * 2 + padding * 2;
   }
 
-  return react.createElement("pattern", {
+  return (0,jsx_runtime.jsxs)("pattern", {
     id: id,
     width: fullSize,
     height: fullSize,
-    patternUnits: "userSpaceOnUse"
-  }, react.createElement("rect", {
-    width: fullSize,
-    height: fullSize,
-    fill: background
-  }), react.createElement("rect", {
-    x: halfPadding,
-    y: halfPadding,
-    width: size,
-    height: size,
-    fill: color
-  }), stagger && react.createElement("rect", {
-    x: padding * 1.5 + size,
-    y: padding * 1.5 + size,
-    width: size,
-    height: size,
-    fill: color
-  }));
+    patternUnits: "userSpaceOnUse",
+    children: [(0,jsx_runtime.jsx)("rect", {
+      width: fullSize,
+      height: fullSize,
+      fill: background
+    }), (0,jsx_runtime.jsx)("rect", {
+      x: halfPadding,
+      y: halfPadding,
+      width: size,
+      height: size,
+      fill: color
+    }), stagger && (0,jsx_runtime.jsx)("rect", {
+      x: padding * 1.5 + size,
+      y: padding * 1.5 + size,
+      width: size,
+      height: size,
+      fill: color
+    })]
+  });
 });
 PatternSquares.displayName = 'PatternSquares';
 PatternSquares.defaultProps = {
@@ -8056,7 +8559,7 @@ PatternSquares.defaultProps = {
 
 var patternSquaresDef = function patternSquaresDef(id) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _objectSpread2({
+  return nivo_core_es_objectSpread2({
     id: id,
     type: 'patternSquares'
   }, options);
@@ -8104,20 +8607,22 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-var defsMapping = _objectSpread2(_objectSpread2({}, gradientTypes), patternTypes);
+var defsMapping = nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, gradientTypes), patternTypes);
 
 var Defs = function Defs(_ref) {
   var definitions = _ref.defs;
   if (!definitions || definitions.length < 1) return null;
-  return react.createElement("defs", null, definitions.map(function (_ref2) {
-    var type = _ref2.type,
-        def = _objectWithoutProperties(_ref2, ["type"]);
+  return (0,jsx_runtime.jsx)("defs", {
+    children: definitions.map(function (_ref2) {
+      var type = _ref2.type,
+          def = _objectWithoutProperties(_ref2, ["type"]);
 
-    if (defsMapping[type]) return react.createElement(defsMapping[type], _objectSpread2({
-      key: def.id
-    }, def));
-    return null;
-  }));
+      if (defsMapping[type]) return (0,react.createElement)(defsMapping[type], nivo_core_es_objectSpread2({
+        key: def.id
+      }, def));
+      return null;
+    })
+  });
 };
 
 var Defs$1 = (0,react.memo)(Defs);
@@ -8130,20 +8635,22 @@ var SvgWrapper = function SvgWrapper(_ref) {
       children = _ref.children,
       role = _ref.role;
   var theme = useTheme();
-  return react.createElement("svg", {
+  return (0,jsx_runtime.jsxs)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     role: role,
     width: width,
-    height: height
-  }, react.createElement(Defs$1, {
-    defs: defs
-  }), react.createElement("rect", {
-    width: width,
     height: height,
-    fill: theme.background
-  }), react.createElement("g", {
-    transform: "translate(".concat(margin.left, ",").concat(margin.top, ")")
-  }, children));
+    children: [(0,jsx_runtime.jsx)(Defs$1, {
+      defs: defs
+    }), (0,jsx_runtime.jsx)("rect", {
+      width: width,
+      height: height,
+      fill: theme.background
+    }), (0,jsx_runtime.jsx)("g", {
+      transform: "translate(".concat(margin.left, ",").concat(margin.top, ")"),
+      children: children
+    })]
+  });
 };
 
 var DotsItemSymbol = function DotsItemSymbol(_ref) {
@@ -8151,7 +8658,7 @@ var DotsItemSymbol = function DotsItemSymbol(_ref) {
       color = _ref.color,
       borderWidth = _ref.borderWidth,
       borderColor = _ref.borderColor;
-  return react.createElement("circle", {
+  return (0,jsx_runtime.jsx)("circle", {
     r: size / 2,
     fill: color,
     stroke: borderColor,
@@ -8187,22 +8694,24 @@ var DotsItem = function DotsItem(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement(react_spring_web_esm/* animated.g */.q.g, {
+  return (0,jsx_runtime.jsxs)(react_spring_web_esm/* animated.g */.q.g, {
     transform: animatedProps.transform,
     style: {
       pointerEvents: 'none'
-    }
-  }, react.createElement(symbol, {
-    size: size,
-    color: color,
-    datum: datum,
-    borderWidth: borderWidth,
-    borderColor: borderColor
-  }), label && react.createElement("text", {
-    textAnchor: labelTextAnchor,
-    y: labelYOffset,
-    style: theme.dots.text
-  }, label));
+    },
+    children: [(0,react.createElement)(symbol, {
+      size: size,
+      color: color,
+      datum: datum,
+      borderWidth: borderWidth,
+      borderColor: borderColor
+    }), label && (0,jsx_runtime.jsx)("text", {
+      textAnchor: labelTextAnchor,
+      y: labelYOffset,
+      style: theme.dots.text,
+      children: label
+    })]
+  });
 };
 
 var DotsItemDefaultProps = {
@@ -8443,25 +8952,27 @@ var CartesianMarkersItem = function CartesianMarkersItem(_ref2) {
       offsetY: legendOffsetY,
       orientation: legendOrientation
     });
-    legendNode = react.createElement("text", {
+    legendNode = (0,jsx_runtime.jsx)("text", {
       transform: "translate(".concat(legendProps.x, ", ").concat(legendProps.y, ") rotate(").concat(legendProps.rotation, ")"),
       textAnchor: legendProps.textAnchor,
       dominantBaseline: "central",
-      style: textStyle
-    }, legend);
+      style: textStyle,
+      children: legend
+    });
   }
 
-  return react.createElement("g", {
-    transform: "translate(".concat(x, ", ").concat(y, ")")
-  }, react.createElement("line", {
-    x1: 0,
-    x2: x2,
-    y1: 0,
-    y2: y2,
-    stroke: theme.markers.lineColor,
-    strokeWidth: theme.markers.lineStrokeWidth,
-    style: lineStyle
-  }), legendNode);
+  return (0,jsx_runtime.jsxs)("g", {
+    transform: "translate(".concat(x, ", ").concat(y, ")"),
+    children: [(0,jsx_runtime.jsx)("line", {
+      x1: 0,
+      x2: x2,
+      y1: 0,
+      y2: y2,
+      stroke: theme.markers.lineColor,
+      strokeWidth: theme.markers.lineStrokeWidth,
+      style: lineStyle
+    }), legendNode]
+  });
 };
 
 CartesianMarkersItem.defaultProps = {
@@ -8480,13 +8991,11 @@ var CartesianMarkers = function CartesianMarkers(_ref) {
       yScale = _ref.yScale;
   if (!markers || markers.length === 0) return null;
   return markers.map(function (marker, i) {
-    return react.createElement(CartesianMarkersItem$1, Object.assign({
-      key: i
-    }, marker, {
+    return (0,jsx_runtime.jsx)(CartesianMarkersItem$1, nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, marker), {}, {
       width: width,
       height: height,
       scale: marker.axis === 'y' ? yScale : xScale
-    }));
+    }), i);
   });
 };
 
@@ -8500,19 +9009,19 @@ var withCurve = function withCurve() {
       destKey = _ref$destKey === void 0 ? 'curveInterpolator' : _ref$destKey;
 
   return withProps(function (props) {
-    return _defineProperty({}, destKey, curveFromProp(props[srcKey]));
+    return nivo_core_es_defineProperty({}, destKey, curveFromProp(props[srcKey]));
   });
 };
 
 var withDimensions = function withDimensions() {
-  return (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* defaultProps */.lG)({
+  return compose(defaultProps({
     margin: defaultMargin
-  }), (0,nivo_recompose_es/* setPropTypes */.BH)({
-    width: (prop_types_default()).number.isRequired,
-    height: (prop_types_default()).number.isRequired,
+  }), setPropTypes({
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
     margin: marginPropType
-  }), (0,nivo_recompose_es/* withPropsOnChange */.x3)(function (props, nextProps) {
-    return props.width !== nextProps.width || props.height !== nextProps.height || !isEqual_default()(props.margin, nextProps.margin);
+  }), withPropsOnChange(function (props, nextProps) {
+    return props.width !== nextProps.width || props.height !== nextProps.height || !isEqual(props.margin, nextProps.margin);
   }, function (props) {
     var margin = Object.assign({}, defaultMargin, props.margin);
     return {
@@ -8566,13 +9075,13 @@ var withHierarchy = function withHierarchy() {
       _ref$valueDefault = _ref.valueDefault,
       valueDefault = _ref$valueDefault === void 0 ? 'value' : _ref$valueDefault;
 
-  return compose(defaultProps(_defineProperty({}, valueKey, valueDefault)), setPropTypes((_setPropTypes = {}, _defineProperty(_setPropTypes, srcKey, PropTypes.object.isRequired), _defineProperty(_setPropTypes, valueKey, PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired), _setPropTypes)), withPropsOnChange([srcKey, valueKey], function (props) {
-    return _defineProperty({}, destKey, hierarchy(props[srcKey]).sum(getPropertyAccessor(props[valueKey])));
+  return compose(defaultProps(nivo_core_es_defineProperty({}, valueKey, valueDefault)), setPropTypes((_setPropTypes = {}, nivo_core_es_defineProperty(_setPropTypes, srcKey, PropTypes.object.isRequired), nivo_core_es_defineProperty(_setPropTypes, valueKey, PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired), _setPropTypes)), withPropsOnChange([srcKey, valueKey], function (props) {
+    return nivo_core_es_defineProperty({}, destKey, hierarchy(props[srcKey]).sum(getPropertyAccessor(props[valueKey])));
   }));
 };
 
 var withMotion = function withMotion() {
-  return (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* setPropTypes */.BH)(motionPropTypes), (0,nivo_recompose_es/* defaultProps */.lG)({
+  return compose(setPropTypes(motionPropTypes), defaultProps({
     animate: defaultAnimate,
     motionDamping: defaultMotionDamping,
     motionStiffness: defaultMotionStiffness
@@ -8586,18 +9095,18 @@ var withTheme = function withTheme() {
       _ref$destKey = _ref.destKey,
       destKey = _ref$destKey === void 0 ? 'theme' : _ref$destKey;
 
-  return (0,nivo_recompose_es/* compose */.qC)((0,nivo_recompose_es/* setPropTypes */.BH)(_defineProperty({}, srcKey, (prop_types_default()).object)), (0,nivo_recompose_es/* withPropsOnChange */.x3)([srcKey], function (props) {
-    return _defineProperty({}, destKey, extendDefaultTheme(defaultTheme, props[srcKey]));
+  return compose(setPropTypes(nivo_core_es_defineProperty({}, srcKey, PropTypes.object)), withPropsOnChange([srcKey], function (props) {
+    return nivo_core_es_defineProperty({}, destKey, extendDefaultTheme(defaultTheme, props[srcKey]));
   }));
 };
 
-function _classCallCheck(instance, Constructor) {
+function nivo_core_es_classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
 
-function _defineProperties(target, props) {
+function nivo_core_es_defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -8607,22 +9116,22 @@ function _defineProperties(target, props) {
   }
 }
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
+function nivo_core_es_createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) nivo_core_es_defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) nivo_core_es_defineProperties(Constructor, staticProps);
   return Constructor;
 }
 
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+function nivo_core_es_setPrototypeOf(o, p) {
+  nivo_core_es_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
     o.__proto__ = p;
     return o;
   };
 
-  return _setPrototypeOf(o, p);
+  return nivo_core_es_setPrototypeOf(o, p);
 }
 
-function _inherits(subClass, superClass) {
+function nivo_core_es_inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
@@ -8634,17 +9143,17 @@ function _inherits(subClass, superClass) {
       configurable: true
     }
   });
-  if (superClass) _setPrototypeOf(subClass, superClass);
+  if (superClass) nivo_core_es_setPrototypeOf(subClass, superClass);
 }
 
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+function nivo_core_es_getPrototypeOf(o) {
+  nivo_core_es_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
-  return _getPrototypeOf(o);
+  return nivo_core_es_getPrototypeOf(o);
 }
 
-function _isNativeReflectConstruct() {
+function nivo_core_es_isNativeReflectConstruct() {
   if (typeof Reflect === "undefined" || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
@@ -8657,23 +9166,23 @@ function _isNativeReflectConstruct() {
   }
 }
 
-function _typeof(obj) {
+function nivo_core_es_typeof(obj) {
   "@babel/helpers - typeof";
 
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
+    nivo_core_es_typeof = function _typeof(obj) {
       return typeof obj;
     };
   } else {
-    _typeof = function _typeof(obj) {
+    nivo_core_es_typeof = function _typeof(obj) {
       return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
     };
   }
 
-  return _typeof(obj);
+  return nivo_core_es_typeof(obj);
 }
 
-function _assertThisInitialized(self) {
+function nivo_core_es_assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
@@ -8681,44 +9190,46 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+function nivo_core_es_possibleConstructorReturn(self, call) {
+  if (call && (nivo_core_es_typeof(call) === "object" || typeof call === "function")) {
     return call;
   }
 
-  return _assertThisInitialized(self);
+  return nivo_core_es_assertThisInitialized(self);
 }
 
-function _createSuper(Derived) {
-  return function () {
-    var Super = _getPrototypeOf(Derived),
+function nivo_core_es_createSuper(Derived) {
+  var hasNativeReflectConstruct = nivo_core_es_isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = nivo_core_es_getPrototypeOf(Derived),
         result;
 
-    if (_isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = nivo_core_es_getPrototypeOf(this).constructor;
 
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
       result = Super.apply(this, arguments);
     }
 
-    return _possibleConstructorReturn(this, result);
+    return nivo_core_es_possibleConstructorReturn(this, result);
   };
 }
 
 var withContainer = function withContainer(WrappedComponent) {
   return function (_Component) {
-    _inherits(_class, _Component);
+    nivo_core_es_inherits(_class, _Component);
 
-    var _super = _createSuper(_class);
+    var _super = nivo_core_es_createSuper(_class);
 
     function _class() {
-      _classCallCheck(this, _class);
+      nivo_core_es_classCallCheck(this, _class);
 
       return _super.apply(this, arguments);
     }
 
-    _createClass(_class, [{
+    nivo_core_es_createClass(_class, [{
       key: "render",
       value: function render() {
         var _this$props = this.props,
@@ -8730,15 +9241,16 @@ var withContainer = function withContainer(WrappedComponent) {
             motionConfig = _this$props.motionConfig,
             childProps = _objectWithoutProperties(_this$props, ["theme", "renderWrapper", "animate", "motionStiffness", "motionDamping", "motionConfig"]);
 
-        return react.createElement(Container, {
+        return (0,jsx_runtime.jsx)(Container, {
           theme: theme,
           renderWrapper: renderWrapper,
           isInteractive: childProps.isInteractive,
           animate: animate,
           motionStiffness: motionStiffness,
           motionDamping: motionDamping,
-          motionConfig: motionConfig
-        }, react.createElement(WrappedComponent, childProps));
+          motionConfig: motionConfig,
+          children: (0,jsx_runtime.jsx)(WrappedComponent, nivo_core_es_objectSpread2({}, childProps))
+        });
       }
     }]);
 
@@ -8895,7 +9407,7 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
                 set_default()(node, targetKey, "url(#".concat(inheritedId, ")"));
 
                 if (!generatedIds[inheritedId]) {
-                  boundDefs.push(_objectSpread2(_objectSpread2({}, def), {}, {
+                  boundDefs.push(nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, def), {}, {
                     id: inheritedId,
                     background: background,
                     color: color
@@ -8916,11 +9428,11 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
 
                 var _inheritedId = id;
 
-                var inheritedDef = _objectSpread2(_objectSpread2({}, def), {}, {
+                var inheritedDef = nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, def), {}, {
                   colors: def.colors.map(function (colorStop, i) {
                     if (colorStop.color !== 'inherit') return colorStop;
                     _inheritedId = "".concat(_inheritedId, ".").concat(i, ".").concat(_nodeColor);
-                    return _objectSpread2(_objectSpread2({}, colorStop), {}, {
+                    return nivo_core_es_objectSpread2(nivo_core_es_objectSpread2({}, colorStop), {}, {
                       color: colorStop.color === 'inherit' ? _nodeColor : colorStop.color
                     });
                   })
@@ -8969,9 +9481,11 @@ var bindDefs = function bindDefs(defs, nodes, rules) {
 /* harmony export */ });
 /* unused harmony exports LegendSvg, LegendSvgItem, useQuantizeColorScaleLegendData */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50928);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45697);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67587);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85893);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45697);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -9071,7 +9585,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -9287,7 +9801,7 @@ var SymbolCircle = function SymbolCircle(_ref) {
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
       borderColor = _ref$borderColor === void 0 ? 'transparent' : _ref$borderColor;
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("circle", {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("circle", {
     r: size / 2,
     cx: x + size / 2,
     cy: y + size / 2,
@@ -9312,18 +9826,19 @@ var SymbolDiamond = function SymbolDiamond(_ref) {
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
       borderColor = _ref$borderColor === void 0 ? 'transparent' : _ref$borderColor;
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
-    transform: "translate(".concat(x, ",").concat(y, ")")
-  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
-    d: "\n                    M".concat(size / 2, " 0\n                    L").concat(size * 0.8, " ").concat(size / 2, "\n                    L").concat(size / 2, " ").concat(size, "\n                    L").concat(size * 0.2, " ").concat(size / 2, "\n                    L").concat(size / 2, " 0\n                "),
-    fill: fill,
-    opacity: opacity,
-    strokeWidth: borderWidth,
-    stroke: borderColor,
-    style: {
-      pointerEvents: 'none'
-    }
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("g", {
+    transform: "translate(".concat(x, ",").concat(y, ")"),
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+      d: "\n                    M".concat(size / 2, " 0\n                    L").concat(size * 0.8, " ").concat(size / 2, "\n                    L").concat(size / 2, " ").concat(size, "\n                    L").concat(size * 0.2, " ").concat(size / 2, "\n                    L").concat(size / 2, " 0\n                "),
+      fill: fill,
+      opacity: opacity,
+      strokeWidth: borderWidth,
+      stroke: borderColor,
+      style: {
+        pointerEvents: 'none'
+      }
+    })
+  });
 };
 
 var SymbolSquare = function SymbolSquare(_ref) {
@@ -9337,7 +9852,7 @@ var SymbolSquare = function SymbolSquare(_ref) {
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
       borderColor = _ref$borderColor === void 0 ? 'transparent' : _ref$borderColor;
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("rect", {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("rect", {
     x: x,
     y: y,
     fill: fill,
@@ -9363,18 +9878,19 @@ var SymbolTriangle = function SymbolTriangle(_ref) {
       borderWidth = _ref$borderWidth === void 0 ? 0 : _ref$borderWidth,
       _ref$borderColor = _ref.borderColor,
       borderColor = _ref$borderColor === void 0 ? 'transparent' : _ref$borderColor;
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
-    transform: "translate(".concat(x, ",").concat(y, ")")
-  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
-    d: "\n                M".concat(size / 2, " 0\n                L").concat(size, " ").concat(size, "\n                L0 ").concat(size, "\n                L").concat(size / 2, " 0\n            "),
-    fill: fill,
-    opacity: opacity,
-    strokeWidth: borderWidth,
-    stroke: borderColor,
-    style: {
-      pointerEvents: 'none'
-    }
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("g", {
+    transform: "translate(".concat(x, ",").concat(y, ")"),
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+      d: "\n                M".concat(size / 2, " 0\n                L").concat(size, " ").concat(size, "\n                L0 ").concat(size, "\n                L").concat(size / 2, " 0\n            "),
+      fill: fill,
+      opacity: opacity,
+      strokeWidth: borderWidth,
+      stroke: borderColor,
+      style: {
+        pointerEvents: 'none'
+      }
+    })
+  });
 };
 
 var symbolByShape = {
@@ -9475,43 +9991,45 @@ var LegendSvgItem = function LegendSvgItem(_ref) {
     return handler !== undefined;
   });
   var SymbolShape = typeof symbolShape === 'function' ? symbolShape : symbolByShape[symbolShape];
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("g", {
     transform: "translate(".concat(x, ",").concat(y, ")"),
     style: {
       opacity: (_style$itemOpacity = style.itemOpacity) !== null && _style$itemOpacity !== void 0 ? _style$itemOpacity : opacity
-    }
-  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("rect", {
-    width: width,
-    height: height,
-    fill: (_style$itemBackground = style.itemBackground) !== null && _style$itemBackground !== void 0 ? _style$itemBackground : background,
-    style: {
-      cursor: isInteractive ? 'pointer' : 'auto'
     },
-    onClick: function onClick(event) {
-      _onClick === null || _onClick === void 0 ? void 0 : _onClick(data, event);
-      toggleSerie === null || toggleSerie === void 0 ? void 0 : toggleSerie(data.id);
-    },
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave
-  }), react__WEBPACK_IMPORTED_MODULE_0__.createElement(SymbolShape, _objectSpread2({
-    id: data.id,
-    x: symbolX,
-    y: symbolY,
-    size: (_style$symbolSize2 = style.symbolSize) !== null && _style$symbolSize2 !== void 0 ? _style$symbolSize2 : symbolSize,
-    fill: (_ref4 = (_data$fill = data.fill) !== null && _data$fill !== void 0 ? _data$fill : data.color) !== null && _ref4 !== void 0 ? _ref4 : 'black',
-    borderWidth: (_style$symbolBorderWi = style.symbolBorderWidth) !== null && _style$symbolBorderWi !== void 0 ? _style$symbolBorderWi : symbolBorderWidth,
-    borderColor: (_style$symbolBorderCo = style.symbolBorderColor) !== null && _style$symbolBorderCo !== void 0 ? _style$symbolBorderCo : symbolBorderColor
-  }, data.hidden ? theme.legends.hidden.symbol : undefined)), react__WEBPACK_IMPORTED_MODULE_0__.createElement("text", {
-    textAnchor: labelAnchor,
-    style: _objectSpread2(_objectSpread2({}, theme.legends.text), {}, {
-      fill: (_ref5 = (_ref6 = (_style$itemTextColor = style.itemTextColor) !== null && _style$itemTextColor !== void 0 ? _style$itemTextColor : textColor) !== null && _ref6 !== void 0 ? _ref6 : theme.legends.text.fill) !== null && _ref5 !== void 0 ? _ref5 : 'black',
-      dominantBaseline: labelAlignment,
-      pointerEvents: 'none',
-      userSelect: 'none'
-    }, data.hidden ? theme.legends.hidden.text : undefined),
-    x: labelX,
-    y: labelY
-  }, data.label));
+    children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("rect", {
+      width: width,
+      height: height,
+      fill: (_style$itemBackground = style.itemBackground) !== null && _style$itemBackground !== void 0 ? _style$itemBackground : background,
+      style: {
+        cursor: isInteractive ? 'pointer' : 'auto'
+      },
+      onClick: function onClick(event) {
+        _onClick === null || _onClick === void 0 ? void 0 : _onClick(data, event);
+        toggleSerie === null || toggleSerie === void 0 ? void 0 : toggleSerie(data.id);
+      },
+      onMouseEnter: handleMouseEnter,
+      onMouseLeave: handleMouseLeave
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SymbolShape, _objectSpread2({
+      id: data.id,
+      x: symbolX,
+      y: symbolY,
+      size: (_style$symbolSize2 = style.symbolSize) !== null && _style$symbolSize2 !== void 0 ? _style$symbolSize2 : symbolSize,
+      fill: (_ref4 = (_data$fill = data.fill) !== null && _data$fill !== void 0 ? _data$fill : data.color) !== null && _ref4 !== void 0 ? _ref4 : 'black',
+      borderWidth: (_style$symbolBorderWi = style.symbolBorderWidth) !== null && _style$symbolBorderWi !== void 0 ? _style$symbolBorderWi : symbolBorderWidth,
+      borderColor: (_style$symbolBorderCo = style.symbolBorderColor) !== null && _style$symbolBorderCo !== void 0 ? _style$symbolBorderCo : symbolBorderColor
+    }, data.hidden ? theme.legends.hidden.symbol : undefined)), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("text", {
+      textAnchor: labelAnchor,
+      style: _objectSpread2(_objectSpread2({}, theme.legends.text), {}, {
+        fill: (_ref5 = (_ref6 = (_style$itemTextColor = style.itemTextColor) !== null && _style$itemTextColor !== void 0 ? _style$itemTextColor : textColor) !== null && _ref6 !== void 0 ? _ref6 : theme.legends.text.fill) !== null && _ref5 !== void 0 ? _ref5 : 'black',
+        dominantBaseline: labelAlignment,
+        pointerEvents: 'none',
+        userSelect: 'none'
+      }, data.hidden ? theme.legends.hidden.text : undefined),
+      x: labelX,
+      y: labelY,
+      children: data.label
+    })]
+  });
 };
 
 var LegendSvg = function LegendSvg(_ref) {
@@ -9556,33 +10074,33 @@ var LegendSvg = function LegendSvg(_ref) {
 
   var xStep = direction === 'row' ? itemWidth + itemsSpacing : 0;
   var yStep = direction === 'column' ? itemHeight + itemsSpacing : 0;
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("g", {
-    transform: "translate(".concat(x, ",").concat(y, ")")
-  }, data.map(function (data, i) {
-    return react__WEBPACK_IMPORTED_MODULE_0__.createElement(LegendSvgItem, {
-      key: i,
-      data: data,
-      x: i * xStep + padding.left,
-      y: i * yStep + padding.top,
-      width: itemWidth,
-      height: itemHeight,
-      direction: itemDirection,
-      justify: justify,
-      effects: effects,
-      textColor: itemTextColor,
-      background: itemBackground,
-      opacity: itemOpacity,
-      symbolShape: symbolShape,
-      symbolSize: symbolSize,
-      symbolSpacing: symbolSpacing,
-      symbolBorderWidth: symbolBorderWidth,
-      symbolBorderColor: symbolBorderColor,
-      onClick: onClick,
-      onMouseEnter: onMouseEnter,
-      onMouseLeave: onMouseLeave,
-      toggleSerie: toggleSerie
-    });
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("g", {
+    transform: "translate(".concat(x, ",").concat(y, ")"),
+    children: data.map(function (data, i) {
+      return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(LegendSvgItem, {
+        data: data,
+        x: i * xStep + padding.left,
+        y: i * yStep + padding.top,
+        width: itemWidth,
+        height: itemHeight,
+        direction: itemDirection,
+        justify: justify,
+        effects: effects,
+        textColor: itemTextColor,
+        background: itemBackground,
+        opacity: itemOpacity,
+        symbolShape: symbolShape,
+        symbolSize: symbolSize,
+        symbolSpacing: symbolSpacing,
+        symbolBorderWidth: symbolBorderWidth,
+        symbolBorderColor: symbolBorderColor,
+        onClick: onClick,
+        onMouseEnter: onMouseEnter,
+        onMouseLeave: onMouseLeave,
+        toggleSerie: toggleSerie
+      }, i);
+    })
+  });
 };
 
 var BoxLegendSvg = function BoxLegendSvg(_ref) {
@@ -9640,7 +10158,7 @@ var BoxLegendSvg = function BoxLegendSvg(_ref) {
       x = _computePositionFromA.x,
       y = _computePositionFromA.y;
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(LegendSvg, {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(LegendSvg, {
     data: data,
     x: x,
     y: y,
@@ -9798,518 +10316,38 @@ var useQuantizeColorScaleLegendData = function useQuantizeColorScaleLegendData(_
 };
 
 var LegendPropShape = {
-  data: prop_types__WEBPACK_IMPORTED_MODULE_2___default().arrayOf((prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)),
-  anchor: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['top', 'top-right', 'right', 'bottom-right', 'bottom', 'bottom-left', 'left', 'top-left', 'center']).isRequired,
-  translateX: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  translateY: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  direction: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['row', 'column']).isRequired,
-  itemsSpacing: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  itemWidth: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number.isRequired),
-  itemHeight: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number.isRequired),
-  itemDirection: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']),
-  itemTextColor: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  itemBackground: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  itemOpacity: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  symbolShape: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['circle', 'diamond', 'square', 'triangle']), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func)]),
-  symbolSize: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  symbolSpacing: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  symbolBorderWidth: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-  symbolBorderColor: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
-  onMouseEnter: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
-  onMouseLeave: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func),
-  effects: prop_types__WEBPACK_IMPORTED_MODULE_2___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default().shape({
-    on: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOf(['hover'])]).isRequired,
-    style: prop_types__WEBPACK_IMPORTED_MODULE_2___default().shape({
-      itemTextColor: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-      itemBackground: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-      itemOpacity: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-      symbolSize: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-      symbolBorderWidth: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().number),
-      symbolBorderColor: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)
+  data: prop_types__WEBPACK_IMPORTED_MODULE_3___default().arrayOf((prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)),
+  anchor: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['top', 'top-right', 'right', 'bottom-right', 'bottom', 'bottom-left', 'left', 'top-left', 'center']).isRequired,
+  translateX: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  translateY: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  direction: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['row', 'column']).isRequired,
+  itemsSpacing: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  itemWidth: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number.isRequired),
+  itemHeight: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number.isRequired),
+  itemDirection: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']),
+  itemTextColor: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  itemBackground: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  itemOpacity: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  symbolShape: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['circle', 'diamond', 'square', 'triangle']), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func)]),
+  symbolSize: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  symbolSpacing: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  symbolBorderWidth: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  symbolBorderColor: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  onMouseEnter: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  onMouseLeave: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  effects: prop_types__WEBPACK_IMPORTED_MODULE_3___default().arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_3___default().shape({
+    on: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['hover'])]).isRequired,
+    style: prop_types__WEBPACK_IMPORTED_MODULE_3___default().shape({
+      itemTextColor: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+      itemBackground: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+      itemOpacity: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+      symbolSize: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+      symbolBorderWidth: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+      symbolBorderColor: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)
     }).isRequired
   }))
 };
-
-
-/***/ }),
-
-/***/ 21566:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "qC": function() { return /* binding */ compose; },
-/* harmony export */   "lG": function() { return /* binding */ defaultProps; },
-/* harmony export */   "Le": function() { return /* binding */ pure; },
-/* harmony export */   "hC": function() { return /* binding */ setDisplayName; },
-/* harmony export */   "BH": function() { return /* binding */ setPropTypes; },
-/* harmony export */   "x3": function() { return /* binding */ withPropsOnChange; }
-/* harmony export */ });
-/* unused harmony exports getDisplayName, setStatic, shallowEqual, shouldUpdate, withProps, withState, wrapDisplayName */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11507);
-
-
-
-var getDisplayName = function getDisplayName(component) {
-  if (typeof component === 'string') {
-    return component;
-  }
-
-  if (!component) {
-    return undefined;
-  }
-
-  return component.displayName || component.name || 'Component';
-};
-
-var setStatic = function setStatic(key, value) {
-  return function (BaseComponent) {
-    BaseComponent[key] = value;
-    return BaseComponent;
-  };
-};
-
-var setDisplayName = function setDisplayName(displayName) {
-  return setStatic('displayName', displayName);
-};
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-function is(x, y) {
-  if (x === y) {
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  }
-
-  return x !== x && y !== y;
-}
-
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
-
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
-
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
-
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  for (var i = 0; i < keysA.length; i++) {
-    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
-
-  try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _createSuper(Derived) {
-  return function () {
-    var Super = _getPrototypeOf(Derived),
-        result;
-
-    if (_isNativeReflectConstruct()) {
-      var NewTarget = _getPrototypeOf(this).constructor;
-
-      result = Reflect.construct(Super, arguments, NewTarget);
-    } else {
-      result = Super.apply(this, arguments);
-    }
-
-    return _possibleConstructorReturn(this, result);
-  };
-}
-
-var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
-  return "".concat(hocName, "(").concat(getDisplayName(BaseComponent), ")");
-};
-
-var shouldUpdate = function shouldUpdate(test) {
-  return function (BaseComponent) {
-    var factory = (0,react__WEBPACK_IMPORTED_MODULE_0__.createFactory)(BaseComponent);
-
-    var ShouldUpdate = function (_Component) {
-      _inherits(ShouldUpdate, _Component);
-
-      var _super = _createSuper(ShouldUpdate);
-
-      function ShouldUpdate() {
-        _classCallCheck(this, ShouldUpdate);
-
-        return _super.apply(this, arguments);
-      }
-
-      _createClass(ShouldUpdate, [{
-        key: "shouldComponentUpdate",
-        value: function shouldComponentUpdate(nextProps) {
-          return test(this.props, nextProps);
-        }
-      }, {
-        key: "render",
-        value: function render() {
-          return factory(this.props);
-        }
-      }]);
-
-      return ShouldUpdate;
-    }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-    if (false) {}
-
-    return ShouldUpdate;
-  };
-};
-
-var pure = function pure(component) {
-  var hoc = shouldUpdate(function (props, nextProps) {
-    return !shallowEqual(props, nextProps);
-  });
-
-  if (false) {}
-
-  return hoc(component);
-};
-
-var compose = function compose() {
-  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.reduce(function (a, b) {
-    return function () {
-      return a(b.apply(void 0, arguments));
-    };
-  }, function (arg) {
-    return arg;
-  });
-};
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-var pick = function pick(obj, keys) {
-  var result = {};
-
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-
-    if (obj.hasOwnProperty(key)) {
-      result[key] = obj[key];
-    }
-  }
-
-  return result;
-};
-
-var withPropsOnChange = function withPropsOnChange(shouldMapOrKeys, propsMapper) {
-  return function (BaseComponent) {
-    var factory = (0,react__WEBPACK_IMPORTED_MODULE_0__.createFactory)(BaseComponent);
-    var shouldMap = typeof shouldMapOrKeys === 'function' ? shouldMapOrKeys : function (props, nextProps) {
-      return !shallowEqual(pick(props, shouldMapOrKeys), pick(nextProps, shouldMapOrKeys));
-    };
-
-    var WithPropsOnChange = function (_Component) {
-      _inherits(WithPropsOnChange, _Component);
-
-      var _super = _createSuper(WithPropsOnChange);
-
-      function WithPropsOnChange() {
-        var _this;
-
-        _classCallCheck(this, WithPropsOnChange);
-
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this = _super.call.apply(_super, [this].concat(args));
-        _this.state = {
-          computedProps: propsMapper(_this.props),
-          prevProps: _this.props
-        };
-        return _this;
-      }
-
-      _createClass(WithPropsOnChange, [{
-        key: "render",
-        value: function render() {
-          return factory(_objectSpread2(_objectSpread2({}, this.props), this.state.computedProps));
-        }
-      }], [{
-        key: "getDerivedStateFromProps",
-        value: function getDerivedStateFromProps(nextProps, prevState) {
-          if (shouldMap(prevState.prevProps, nextProps)) {
-            return {
-              computedProps: propsMapper(nextProps),
-              prevProps: nextProps
-            };
-          }
-
-          return {
-            prevProps: nextProps
-          };
-        }
-      }]);
-
-      return WithPropsOnChange;
-    }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-    (0,react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__/* .polyfill */ .O)(WithPropsOnChange);
-
-    if (false) {}
-
-    return WithPropsOnChange;
-  };
-};
-
-var defaultProps = function defaultProps(props) {
-  return function (BaseComponent) {
-    var factory = (0,react__WEBPACK_IMPORTED_MODULE_0__.createFactory)(BaseComponent);
-
-    var DefaultProps = function DefaultProps(ownerProps) {
-      return factory(ownerProps);
-    };
-
-    DefaultProps.defaultProps = props;
-
-    if (false) {}
-
-    return DefaultProps;
-  };
-};
-
-var mapProps = function mapProps(propsMapper) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-
-    var MapProps = function MapProps(props) {
-      return factory(propsMapper(props));
-    };
-
-    if (false) {}
-
-    return MapProps;
-  };
-};
-
-var withProps = function withProps(createProps) {
-  var hoc = mapProps(function (props) {
-    return _objectSpread2(_objectSpread2({}, props), typeof createProps === 'function' ? createProps(props) : createProps);
-  });
-
-  if (false) {}
-
-  return hoc;
-};
-
-var setPropTypes = function setPropTypes(propTypes) {
-  return setStatic('propTypes', propTypes);
-};
-
-var withState = function withState(stateName, stateUpdaterName, initialState) {
-  return function (BaseComponent) {
-    var factory = createFactory(BaseComponent);
-
-    var WithState = function (_Component) {
-      _inherits(WithState, _Component);
-
-      var _super = _createSuper(WithState);
-
-      function WithState() {
-        var _this;
-
-        _classCallCheck(this, WithState);
-
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this = _super.call.apply(_super, [this].concat(args));
-        _this.state = {
-          stateValue: typeof initialState === 'function' ? initialState(_this.props) : initialState
-        };
-
-        _this.updateStateValue = function (updateFn, callback) {
-          return _this.setState(function (_ref) {
-            var stateValue = _ref.stateValue;
-            return {
-              stateValue: typeof updateFn === 'function' ? updateFn(stateValue) : updateFn
-            };
-          }, callback);
-        };
-
-        return _this;
-      }
-
-      _createClass(WithState, [{
-        key: "render",
-        value: function render() {
-          var _objectSpread2$1;
-
-          return factory(_objectSpread2(_objectSpread2({}, this.props), {}, (_objectSpread2$1 = {}, _defineProperty(_objectSpread2$1, stateName, this.state.stateValue), _defineProperty(_objectSpread2$1, stateUpdaterName, this.updateStateValue), _objectSpread2$1)));
-        }
-      }]);
-
-      return WithState;
-    }(Component);
-
-    if (false) {}
-
-    return WithState;
-  };
-};
-
 
 
 /***/ }),
@@ -11194,7 +11232,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -11725,16 +11763,15 @@ var stackY = function stackY(xy, series) {
 /* harmony export */   "YS": function() { return /* binding */ Crosshair; },
 /* harmony export */   "zI": function() { return /* binding */ TableTooltip; },
 /* harmony export */   "u": function() { return /* binding */ Tooltip; },
-/* harmony export */   "Zb": function() { return /* binding */ TooltipActionsContext; },
 /* harmony export */   "pn": function() { return /* binding */ TooltipProvider; },
-/* harmony export */   "L8": function() { return /* binding */ TooltipStateContext; },
-/* harmony export */   "lL": function() { return /* binding */ useTooltip; },
-/* harmony export */   "_0": function() { return /* binding */ useTooltipHandlers; }
+/* harmony export */   "lL": function() { return /* binding */ useTooltip; }
 /* harmony export */ });
-/* unused harmony exports TooltipWrapper, hiddenTooltipState, isVisibleTooltipState, useTooltipState */
+/* unused harmony exports TooltipActionsContext, TooltipStateContext, TooltipWrapper, hiddenTooltipState, isVisibleTooltipState, useTooltipHandlers, useTooltipState */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _react_spring_web__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(85468);
-/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50928);
+/* harmony import */ var _nivo_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67587);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85893);
+
 
 
 
@@ -11834,7 +11871,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -11922,10 +11959,11 @@ var TooltipWrapper = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref)
     transform: (_animatedProps$transf = animatedProps.transform) !== null && _animatedProps$transf !== void 0 ? _animatedProps$transf : translate(x, y)
   });
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_1__/* .animated.div */ .q.div, {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_1__/* .animated.div */ .q.div, {
     ref: measureRef,
-    style: style
-  }, children);
+    style: style,
+    children: children
+  });
 });
 TooltipWrapper.displayName = 'TooltipWrapper';
 var Chip = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
@@ -11934,7 +11972,7 @@ var Chip = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
       color = _ref.color,
       _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style;
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
     style: _objectSpread2({
       display: 'block',
       width: size,
@@ -11964,17 +12002,23 @@ var BasicTooltip = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
       value = formatValue(value);
     }
 
-    content = react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      style: theme.tooltip.basic
-    }, enableChip && react__WEBPACK_IMPORTED_MODULE_0__.createElement(Chip, {
-      color: color,
-      style: theme.tooltip.chip
-    }), value !== undefined ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, id, ": ", react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "".concat(value))) : id);
+    content = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      style: theme.tooltip.basic,
+      children: [enableChip && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Chip, {
+        color: color,
+        style: theme.tooltip.chip
+      }), value !== undefined ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+        children: [id, ": ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
+          children: "".concat(value)
+        })]
+      }) : id]
+    });
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    style: theme.tooltip.container
-  }, content);
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    style: theme.tooltip.container,
+    children: content
+  });
 });
 var tableStyle = {
   width: '100%',
@@ -11992,23 +12036,29 @@ var TableTooltip = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
   if (typeof renderContent === 'function') {
     content = renderContent();
   } else {
-    content = react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, title && title, react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
-      style: _objectSpread2(_objectSpread2({}, tableStyle), theme.tooltip.table)
-    }, react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, rows.map(function (row, i) {
-      return react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
-        key: i
-      }, row.map(function (column, j) {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
-          key: j,
-          style: theme.tooltip.tableCell
-        }, column);
-      }));
-    }))));
+    content = (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      children: [title && title, (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("table", {
+        style: _objectSpread2(_objectSpread2({}, tableStyle), theme.tooltip.table),
+        children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
+          children: rows.map(function (row, i) {
+            return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+              children: row.map(function (column, j) {
+                return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                  style: theme.tooltip.tableCell,
+                  children: column
+                }, j);
+              })
+            }, i);
+          })
+        })
+      })]
+    });
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    style: theme.tooltip.container
-  }, content);
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    style: theme.tooltip.container,
+    children: content
+  });
 });
 TableTooltip.displayName = 'TableTooltip';
 var CrosshairLine = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
@@ -12035,7 +12085,7 @@ var CrosshairLine = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) 
     config: springConfig,
     immediate: !animate
   });
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_react_spring_web__WEBPACK_IMPORTED_MODULE_1__/* .animated.line */ .q.line, Object.assign({}, animatedProps, {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_react_spring_web__WEBPACK_IMPORTED_MODULE_1__/* .animated.line */ .q.line, _objectSpread2(_objectSpread2({}, animatedProps), {}, {
     fill: "none",
     style: style
   }));
@@ -12159,17 +12209,19 @@ var Crosshair = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (_ref) {
     };
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, xLine && react__WEBPACK_IMPORTED_MODULE_0__.createElement(CrosshairLine, {
-    x0: xLine.x0,
-    x1: xLine.x1,
-    y0: xLine.y0,
-    y1: xLine.y1
-  }), yLine && react__WEBPACK_IMPORTED_MODULE_0__.createElement(CrosshairLine, {
-    x0: yLine.x0,
-    x1: yLine.x1,
-    y0: yLine.y0,
-    y1: yLine.y1
-  }));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [xLine && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CrosshairLine, {
+      x0: xLine.x0,
+      x1: xLine.x1,
+      y0: xLine.y0,
+      y1: xLine.y1
+    }), yLine && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(CrosshairLine, {
+      x0: yLine.x0,
+      x1: yLine.x1,
+      y0: yLine.y0,
+      y1: yLine.y1
+    })]
+  });
 });
 Crosshair.displayName = 'Crosshair';
 var defaultActions = {
@@ -12269,10 +12321,11 @@ var Tooltip = function Tooltip() {
     return null;
   }
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(TooltipWrapper, {
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(TooltipWrapper, {
     position: state.position,
-    anchor: state.anchor
-  }, state.content);
+    anchor: state.anchor,
+    children: state.content
+  });
 };
 
 var TooltipProvider = function TooltipProvider(_ref) {
@@ -12283,11 +12336,13 @@ var TooltipProvider = function TooltipProvider(_ref) {
       actions = _useTooltipHandlers.actions,
       state = _useTooltipHandlers.state;
 
-  return react__WEBPACK_IMPORTED_MODULE_0__.createElement(TooltipActionsContext.Provider, {
-    value: actions
-  }, react__WEBPACK_IMPORTED_MODULE_0__.createElement(TooltipStateContext.Provider, {
-    value: state
-  }, children));
+  return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(TooltipActionsContext.Provider, {
+    value: actions,
+    children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(TooltipStateContext.Provider, {
+      value: state,
+      children: children
+    })
+  });
 };
 
 
@@ -12311,8 +12366,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
-var nivo_core_es = __webpack_require__(50928);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(67587);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 var classCallCheck = __webpack_require__(32738);
 // EXTERNAL MODULE: ./node_modules/babel-preset-gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
@@ -14039,11 +14094,63 @@ function flatIterable(points, fx, fy, that) {
     }
   }, _marked, null, [[2, 15, 18, 21]]);
 }
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
 ;// CONCATENATED MODULE: ./node_modules/@nivo/voronoi/dist/nivo-voronoi.es.js
 
 
 
 
+
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
 
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
@@ -14258,42 +14365,38 @@ var InnerVoronoi = function InnerVoronoi(_ref) {
   };
 
   if (enableLinks && layers.includes('links')) {
-    layerById.links = React.createElement("path", {
-      key: "links",
+    layerById.links = jsx("path", {
       stroke: linkLineColor,
       strokeWidth: linkLineWidth,
       fill: "none",
       d: delaunay.render()
-    });
+    }, "links");
   }
 
   if (enableCells && layers.includes('cells')) {
-    layerById.cells = React.createElement("path", {
-      key: "cells",
+    layerById.cells = jsx("path", {
       d: voronoi.render(),
       fill: "none",
       stroke: cellLineColor,
       strokeWidth: cellLineWidth
-    });
+    }, "cells");
   }
 
   if (enablePoints && layers.includes('points')) {
-    layerById.points = React.createElement("path", {
-      key: "points",
+    layerById.points = jsx("path", {
       stroke: "none",
       fill: pointColor,
       d: delaunay.renderPoints(undefined, pointSize / 2)
-    });
+    }, "points");
   }
 
   if (layers.includes('bounds')) {
-    layerById.bounds = React.createElement("path", {
-      key: "bounds",
+    layerById.bounds = jsx("path", {
       fill: "none",
       stroke: cellLineColor,
       strokeWidth: cellLineWidth,
       d: voronoi.renderBounds()
-    });
+    }, "bounds");
   }
 
   var layerContext = useVoronoiLayerContext({
@@ -14301,45 +14404,49 @@ var InnerVoronoi = function InnerVoronoi(_ref) {
     delaunay: delaunay,
     voronoi: voronoi
   });
-  return React.createElement(SvgWrapper, {
+  return jsx(SvgWrapper, {
     width: outerWidth,
     height: outerHeight,
     margin: margin,
-    role: role
-  }, layers.map(function (layer, i) {
-    if (layerById[layer] !== undefined) {
-      return layerById[layer];
-    }
+    role: role,
+    children: layers.map(function (layer, i) {
+      if (layerById[layer] !== undefined) {
+        return layerById[layer];
+      }
 
-    if (typeof layer === 'function') {
-      return React.createElement(Fragment, {
-        key: i
-      }, createElement(layer, layerContext));
-    }
+      if (typeof layer === 'function') {
+        return jsx(Fragment, {
+          children: createElement(layer, layerContext)
+        }, i);
+      }
 
-    return null;
-  }));
+      return null;
+    })
+  });
 };
 
 var nivo_voronoi_es_Voronoi = function Voronoi(_ref2) {
   var theme = _ref2.theme,
       otherProps = _objectWithoutProperties(_ref2, ["theme"]);
 
-  return React.createElement(Container, {
+  return jsx(Container, {
     isInteractive: false,
     animate: false,
-    theme: theme
-  }, React.createElement(InnerVoronoi, otherProps));
+    theme: theme,
+    children: jsx(InnerVoronoi, _objectSpread2({}, otherProps))
+  });
 };
 
 var ResponsiveVoronoi = function ResponsiveVoronoi(props) {
-  return React.createElement(ResponsiveWrapper, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return React.createElement(nivo_voronoi_es_Voronoi, Object.assign({
-      width: width,
-      height: height
-    }, props));
+  return jsx(ResponsiveWrapper, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return jsx(nivo_voronoi_es_Voronoi, _objectSpread2({
+        width: width,
+        height: height
+      }, props));
+    }
   });
 };
 
@@ -14389,7 +14496,7 @@ function nivo_voronoi_es_unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return nivo_voronoi_es_arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return nivo_voronoi_es_arrayLikeToArray(o, minLen);
 }
 
@@ -14499,30 +14606,33 @@ var Mesh = function Mesh(_ref) {
       onClick === null || onClick === void 0 ? void 0 : onClick(node, event);
     }
   }, [getIndexAndNodeFromEvent, setCurrentIndex, onClick]);
-  return react.createElement("g", {
-    ref: elementRef
-  }, debug && voronoi && react.createElement(react.Fragment, null, react.createElement("path", {
-    d: voronoiPath,
-    stroke: "red",
-    strokeWidth: 1,
-    opacity: 0.75
-  }), currentIndex !== null && react.createElement("path", {
-    fill: "pink",
-    opacity: 0.35,
-    d: voronoi.renderCell(currentIndex)
-  })), react.createElement("rect", {
-    width: width,
-    height: height,
-    fill: "red",
-    opacity: 0,
-    style: {
-      cursor: 'auto'
-    },
-    onMouseEnter: handleMouseEnter,
-    onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave,
-    onClick: handleClick
-  }));
+  return (0,jsx_runtime.jsxs)("g", {
+    ref: elementRef,
+    children: [debug && voronoi && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+      children: [(0,jsx_runtime.jsx)("path", {
+        d: voronoiPath,
+        stroke: "red",
+        strokeWidth: 1,
+        opacity: 0.75
+      }), currentIndex !== null && (0,jsx_runtime.jsx)("path", {
+        fill: "pink",
+        opacity: 0.35,
+        d: voronoi.renderCell(currentIndex)
+      })]
+    }), (0,jsx_runtime.jsx)("rect", {
+      width: width,
+      height: height,
+      fill: "red",
+      opacity: 0,
+      style: {
+        cursor: 'auto'
+      },
+      onMouseEnter: handleMouseEnter,
+      onMouseMove: handleMouseMove,
+      onMouseLeave: handleMouseLeave,
+      onClick: handleClick
+    })]
+  });
 };
 
 var renderVoronoiToCanvas = function renderVoronoiToCanvas(ctx, voronoi) {
@@ -42590,7 +42700,6 @@ function createRenderer(roots) {
         array.splice(array.indexOf(beforeChild), 0, child);
       } else if (child.attachObject || child.attach && !is.fun(child.attach)) {
         // attach and attachObject don't have an order anyway, so just append
-        added = true;
         return appendChild(parentInstance, child);
       } else if (child.isObject3D) {
         child.parent = parentInstance;
@@ -43015,6 +43124,7 @@ var createStore = function createStore(applyProps, _invalidate, _advance, props)
       flat: flat,
       scene: prepare(new three_module.Scene()),
       camera: camera,
+      controls: null,
       raycaster: raycaster,
       clock: clock,
       mouse: new three_module.Vector2(),
@@ -43644,7 +43754,7 @@ function render(element, canvas) {
 
     if (props.dpr !== undefined && !is.equ(lastProps.dpr, props.dpr)) state.setDpr(props.dpr); // Check size
 
-    if (size !== undefined && !is.equ(lastProps.size, size)) state.setSize(size.width, size.height); // For some props we want to reset the entire root
+    if (!is.equ(lastProps.size, size)) state.setSize(size.width, size.height); // For some props we want to reset the entire root
     // Changes to the color-space
 
     var linearChanged = props.linear !== lastProps.linear;
@@ -43673,9 +43783,8 @@ function render(element, canvas) {
       size: size
     }, props));
 
-    var _state = store.getState();
+    var _state = store.getState(); // Create renderer
 
-    _state.get; // Create renderer
 
     fiber = reconciler.createContainer(store, modes.indexOf(mode), false, null); // Map it
 
@@ -45737,7 +45846,7 @@ var MapControls = /*#__PURE__*/(/* unused pure expression or super */ null && (f
 
 ;// CONCATENATED MODULE: ./node_modules/@react-three/drei/core/OrbitControls.js
 
-var OrbitControls_excluded = ["camera", "regress", "enableDamping"];
+var OrbitControls_excluded = ["camera", "regress", "domElement", "enableDamping"];
 
 
 
@@ -45745,6 +45854,7 @@ var OrbitControls_excluded = ["camera", "regress", "enableDamping"];
 var OrbitControls_OrbitControls = /*#__PURE__*/react.forwardRef(function (_ref, ref) {
   var camera = _ref.camera,
       regress = _ref.regress,
+      domElement = _ref.domElement,
       _ref$enableDamping = _ref.enableDamping,
       enableDamping = _ref$enableDamping === void 0 ? true : _ref$enableDamping,
       restProps = (0,objectWithoutProperties/* default */.Z)(_ref, OrbitControls_excluded);
@@ -45766,6 +45876,7 @@ var OrbitControls_OrbitControls = /*#__PURE__*/react.forwardRef(function (_ref, 
     return performance;
   });
   var explCamera = camera || defaultCamera;
+  var explDomElement = domElement || gl.domElement;
   var controls = react.useMemo(function () {
     return new OrbitControls(explCamera);
   }, [explCamera]);
@@ -45778,7 +45889,7 @@ var OrbitControls_OrbitControls = /*#__PURE__*/react.forwardRef(function (_ref, 
       if (regress) performance.regress();
     };
 
-    controls.connect(gl.domElement);
+    controls.connect(explDomElement);
     controls.addEventListener('change', callback);
     return function () {
       controls.removeEventListener('change', callback);

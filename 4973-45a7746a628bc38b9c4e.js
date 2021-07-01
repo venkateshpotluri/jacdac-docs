@@ -14,8 +14,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 29 modules
-var nivo_core_es = __webpack_require__(50928);
+// EXTERNAL MODULE: ./node_modules/@nivo/core/dist/nivo-core.es.js + 30 modules
+var nivo_core_es = __webpack_require__(67587);
 // EXTERNAL MODULE: ./node_modules/@nivo/colors/dist/nivo-colors.es.js + 2 modules
 var nivo_colors_es = __webpack_require__(68204);
 // EXTERNAL MODULE: ./node_modules/@nivo/axes/dist/nivo-axes.es.js + 14 modules
@@ -149,11 +149,14 @@ var nivo_scales_es = __webpack_require__(12685);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(45697);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
 // EXTERNAL MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
 var react_spring_web_esm = __webpack_require__(85468);
 // EXTERNAL MODULE: ./node_modules/@nivo/voronoi/dist/nivo-voronoi.es.js + 5 modules
 var nivo_voronoi_es = __webpack_require__(8374);
 ;// CONCATENATED MODULE: ./node_modules/@nivo/line/dist/nivo-line.es.js
+
 
 
 
@@ -261,7 +264,7 @@ function _unsupportedIterableToArray(o, minLen) {
   if (typeof o === "string") return _arrayLikeToArray(o, minLen);
   var n = Object.prototype.toString.call(o).slice(8, -1);
   if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
 
@@ -291,8 +294,14 @@ function _toConsumableArray(arr) {
 
 var LinePointTooltip = function LinePointTooltip(_ref) {
   var point = _ref.point;
-  return react.createElement(nivo_tooltip_es/* BasicTooltip */._5, {
-    id: react.createElement("span", null, "x: ", react.createElement("strong", null, point.data.xFormatted), ", y:", ' ', react.createElement("strong", null, point.data.yFormatted)),
+  return (0,jsx_runtime.jsx)(nivo_tooltip_es/* BasicTooltip */._5, {
+    id: (0,jsx_runtime.jsxs)("span", {
+      children: ["x: ", (0,jsx_runtime.jsx)("strong", {
+        children: point.data.xFormatted
+      }), ", y:", ' ', (0,jsx_runtime.jsx)("strong", {
+        children: point.data.yFormatted
+      })]
+    }),
     enableChip: true,
     color: point.serieColor
   });
@@ -305,16 +314,15 @@ var SliceTooltip = function SliceTooltip(_ref) {
       axis = _ref.axis;
   var theme = (0,nivo_core_es/* useTheme */.Fg)();
   var otherAxis = axis === 'x' ? 'y' : 'x';
-  return react.createElement(nivo_tooltip_es/* TableTooltip */.zI, {
+  return (0,jsx_runtime.jsx)(nivo_tooltip_es/* TableTooltip */.zI, {
     rows: slice.points.map(function (point) {
-      return [react.createElement(nivo_tooltip_es/* Chip */.Af, {
-        key: "chip",
+      return [(0,jsx_runtime.jsx)(nivo_tooltip_es/* Chip */.Af, {
         color: point.serieColor,
         style: theme.tooltip.chip
-      }), point.serieId, react.createElement("span", {
-        key: "value",
-        style: theme.tooltip.tableCellValue
-      }, point.data["".concat(otherAxis, "Formatted")])];
+      }, "chip"), point.serieId, (0,jsx_runtime.jsx)("span", {
+        style: theme.tooltip.tableCellValue,
+        children: point.data["".concat(otherAxis, "Formatted")]
+      }, "value")];
     })
   });
 };
@@ -707,7 +715,7 @@ var AreaPath = function AreaPath(_ref) {
     config: springConfig,
     immediate: !animate
   });
-  return react.createElement(react_spring_web_esm/* animated.path */.q.path, {
+  return (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.path */.q.path, {
     d: animatedPath,
     fill: fill ? fill : animatedProps.color,
     fillOpacity: areaOpacity,
@@ -724,17 +732,18 @@ var Areas = function Areas(_ref2) {
       areaBlendMode = _ref2.areaBlendMode,
       lines = _ref2.lines;
   var computedLines = lines.slice(0).reverse();
-  return react.createElement("g", null, computedLines.map(function (line) {
-    return react.createElement(AreaPath, Object.assign({
-      key: line.id,
-      path: areaGenerator(line.data.map(function (d) {
-        return d.position;
-      }))
-    }, _objectSpread2({
-      areaOpacity: areaOpacity,
-      areaBlendMode: areaBlendMode
-    }, line)));
-  }));
+  return (0,jsx_runtime.jsx)("g", {
+    children: computedLines.map(function (line) {
+      return (0,jsx_runtime.jsx)(AreaPath, _objectSpread2({
+        path: areaGenerator(line.data.map(function (d) {
+          return d.position;
+        }))
+      }, _objectSpread2({
+        areaOpacity: areaOpacity,
+        areaBlendMode: areaBlendMode
+      }, line)), line.id);
+    })
+  });
 };
 
 var Areas$1 = (0,react.memo)(Areas);
@@ -748,7 +757,7 @@ var LinesItem = function LinesItem(_ref) {
     return lineGenerator(points);
   }, [lineGenerator, points]);
   var animatedPath = (0,nivo_core_es/* useAnimatedPath */.NS)(path);
-  return react.createElement(react_spring_web_esm/* animated.path */.q.path, {
+  return (0,jsx_runtime.jsx)(react_spring_web_esm/* animated.path */.q.path, {
     d: animatedPath,
     fill: "none",
     strokeWidth: thickness,
@@ -766,8 +775,7 @@ var Lines = function Lines(_ref) {
     var id = _ref2.id,
         data = _ref2.data,
         color = _ref2.color;
-    return react.createElement(LinesItem$1, {
-      key: id,
+    return (0,jsx_runtime.jsx)(LinesItem$1, {
       id: id,
       points: data.map(function (d) {
         return d.position;
@@ -775,7 +783,7 @@ var Lines = function Lines(_ref) {
       lineGenerator: lineGenerator,
       color: color,
       thickness: lineWidth
-    });
+    }, id);
   });
 };
 
@@ -794,14 +802,14 @@ var SlicesItem = function SlicesItem(_ref) {
       hideTooltip = _useTooltip.hideTooltip;
 
   var handleMouseEnter = (0,react.useCallback)(function (event) {
-    showTooltipFromEvent(react.createElement(tooltip, {
+    showTooltipFromEvent((0,react.createElement)(tooltip, {
       slice: slice,
       axis: axis
     }), event, 'right');
     setCurrent(slice);
   }, [showTooltipFromEvent, tooltip, slice]);
   var handleMouseMove = (0,react.useCallback)(function (event) {
-    showTooltipFromEvent(react.createElement(tooltip, {
+    showTooltipFromEvent((0,react.createElement)(tooltip, {
       slice: slice,
       axis: axis
     }), event, 'right');
@@ -810,7 +818,7 @@ var SlicesItem = function SlicesItem(_ref) {
     hideTooltip();
     setCurrent(null);
   }, [hideTooltip]);
-  return react.createElement("rect", {
+  return (0,jsx_runtime.jsx)("rect", {
     x: slice.x0,
     y: slice.y0,
     width: slice.width,
@@ -837,8 +845,7 @@ var Slices = function Slices(_ref) {
       current = _ref.current,
       setCurrent = _ref.setCurrent;
   return slices.map(function (slice) {
-    return react.createElement(SlicesItem$1, {
-      key: slice.id,
+    return (0,jsx_runtime.jsx)(SlicesItem$1, {
       slice: slice,
       axis: axis,
       debug: debug,
@@ -846,7 +853,7 @@ var Slices = function Slices(_ref) {
       tooltip: tooltip,
       setCurrent: setCurrent,
       isCurrent: current !== null && current.id === slice.id
-    });
+    }, slice.id);
   });
 };
 
@@ -874,22 +881,23 @@ var Points = function Points(_ref) {
     };
     return mappedPoint;
   });
-  return react.createElement("g", null, mappedPoints.map(function (point) {
-    return react.createElement(nivo_core_es/* DotsItem */.F_, {
-      key: point.id,
-      x: point.x,
-      y: point.y,
-      datum: point.datum,
-      symbol: symbol,
-      size: size,
-      color: point.fill,
-      borderWidth: borderWidth,
-      borderColor: point.stroke,
-      label: point.label,
-      labelYOffset: labelYOffset,
-      theme: theme
-    });
-  }));
+  return (0,jsx_runtime.jsx)("g", {
+    children: mappedPoints.map(function (point) {
+      return (0,jsx_runtime.jsx)(nivo_core_es/* DotsItem */.F_, {
+        x: point.x,
+        y: point.y,
+        datum: point.datum,
+        symbol: symbol,
+        size: size,
+        color: point.fill,
+        borderWidth: borderWidth,
+        borderColor: point.stroke,
+        label: point.label,
+        labelYOffset: labelYOffset,
+        theme: theme
+      }, point.id);
+    })
+  });
 };
 
 var Points$1 = (0,react.memo)(Points);
@@ -912,14 +920,14 @@ var Mesh = function Mesh(_ref) {
       hideTooltip = _useTooltip.hideTooltip;
 
   var handleMouseEnter = (0,react.useCallback)(function (point, event) {
-    showTooltipAt(react.createElement(tooltip, {
+    showTooltipAt((0,react.createElement)(tooltip, {
       point: point
     }), [point.x + margin.left, point.y + margin.top], 'top');
     setCurrent(point);
     onMouseEnter && onMouseEnter(point, event);
   }, [setCurrent, showTooltipAt, tooltip, onMouseEnter, margin]);
   var handleMouseMove = (0,react.useCallback)(function (point, event) {
-    showTooltipAt(react.createElement(tooltip, {
+    showTooltipAt((0,react.createElement)(tooltip, {
       point: point
     }), [point.x + margin.left, point.y + margin.top], 'top');
     setCurrent(point);
@@ -933,7 +941,7 @@ var Mesh = function Mesh(_ref) {
   var handleClick = (0,react.useCallback)(function (point, event) {
     onClick && onClick(point, event);
   }, [onClick]);
-  return react.createElement(nivo_voronoi_es/* Mesh */.Kj, {
+  return (0,jsx_runtime.jsx)(nivo_voronoi_es/* Mesh */.Kj, {
     nodes: points,
     width: width,
     height: height,
@@ -1047,8 +1055,7 @@ var Line = function Line(props) {
       setCurrentSlice = _useState4[1];
 
   var layerById = {
-    grid: react.createElement(nivo_axes_es/* Grid */.rj, {
-      key: "grid",
+    grid: (0,jsx_runtime.jsx)(nivo_axes_es/* Grid */.rj, {
       theme: theme,
       width: innerWidth,
       height: innerHeight,
@@ -1056,18 +1063,16 @@ var Line = function Line(props) {
       yScale: enableGridY ? yScale : null,
       xValues: gridXValues,
       yValues: gridYValues
-    }),
-    markers: react.createElement(nivo_core_es/* CartesianMarkers */.TL, {
-      key: "markers",
+    }, "grid"),
+    markers: (0,jsx_runtime.jsx)(nivo_core_es/* CartesianMarkers */.TL, {
       markers: markers,
       width: innerWidth,
       height: innerHeight,
       xScale: xScale,
       yScale: yScale,
       theme: theme
-    }),
-    axes: react.createElement(nivo_axes_es/* Axes */.dk, {
-      key: "axes",
+    }, "markers"),
+    axes: (0,jsx_runtime.jsx)(nivo_axes_es/* Axes */.dk, {
       xScale: xScale,
       yScale: yScale,
       width: innerWidth,
@@ -1077,45 +1082,40 @@ var Line = function Line(props) {
       right: axisRight,
       bottom: axisBottom,
       left: axisLeft
-    }),
+    }, "axes"),
     areas: null,
-    lines: react.createElement(Lines$1, {
-      key: "lines",
+    lines: (0,jsx_runtime.jsx)(Lines$1, {
       lines: series,
       lineGenerator: lineGenerator,
       lineWidth: lineWidth
-    }),
+    }, "lines"),
     slices: null,
     points: null,
     crosshair: null,
     mesh: null,
     legends: legends.map(function (legend, i) {
-      return react.createElement(nivo_legends_es/* BoxLegendSvg */.$6, Object.assign({
-        key: "legend.".concat(i)
-      }, legend, {
+      return (0,jsx_runtime.jsx)(nivo_legends_es/* BoxLegendSvg */.$6, _objectSpread2(_objectSpread2({}, legend), {}, {
         containerWidth: innerWidth,
         containerHeight: innerHeight,
         data: legend.data || legendData,
         theme: theme,
         toggleSerie: legend.toggleSerie ? toggleSerie : undefined
-      }));
+      }), "legend.".concat(i));
     })
   };
   var boundDefs = (0,nivo_core_es/* bindDefs */.yU)(defs, series, fill);
 
   if (enableArea) {
-    layerById.areas = react.createElement(Areas$1, {
-      key: "areas",
+    layerById.areas = (0,jsx_runtime.jsx)(Areas$1, {
       areaGenerator: areaGenerator,
       areaOpacity: areaOpacity,
       areaBlendMode: areaBlendMode,
       lines: series
-    });
+    }, "areas");
   }
 
   if (isInteractive && enableSlices !== false) {
-    layerById.slices = react.createElement(Slices$1, {
-      key: "slices",
+    layerById.slices = (0,jsx_runtime.jsx)(Slices$1, {
       slices: slices,
       axis: enableSlices,
       debug: debugSlices,
@@ -1123,12 +1123,11 @@ var Line = function Line(props) {
       tooltip: sliceTooltip,
       current: currentSlice,
       setCurrent: setCurrentSlice
-    });
+    }, "slices");
   }
 
   if (enablePoints) {
-    layerById.points = react.createElement(Points$1, {
-      key: "points",
+    layerById.points = (0,jsx_runtime.jsx)(Points$1, {
       points: points,
       symbol: pointSymbol,
       size: pointSize,
@@ -1138,36 +1137,33 @@ var Line = function Line(props) {
       enableLabel: enablePointLabel,
       label: pointLabel,
       labelYOffset: pointLabelYOffset
-    });
+    }, "points");
   }
 
   if (isInteractive && enableCrosshair) {
     if (currentPoint !== null) {
-      layerById.crosshair = react.createElement(nivo_tooltip_es/* Crosshair */.YS, {
-        key: "crosshair",
+      layerById.crosshair = (0,jsx_runtime.jsx)(nivo_tooltip_es/* Crosshair */.YS, {
         width: innerWidth,
         height: innerHeight,
         x: currentPoint.x,
         y: currentPoint.y,
         type: crosshairType
-      });
+      }, "crosshair");
     }
 
     if (currentSlice !== null) {
-      layerById.crosshair = react.createElement(nivo_tooltip_es/* Crosshair */.YS, {
-        key: "crosshair",
+      layerById.crosshair = (0,jsx_runtime.jsx)(nivo_tooltip_es/* Crosshair */.YS, {
         width: innerWidth,
         height: innerHeight,
         x: currentSlice.x,
         y: currentSlice.y,
         type: enableSlices
-      });
+      }, "crosshair");
     }
   }
 
   if (isInteractive && useMesh && enableSlices === false) {
-    layerById.mesh = react.createElement(Mesh$1, {
-      key: "mesh",
+    layerById.mesh = (0,jsx_runtime.jsx)(Mesh$1, {
       points: points,
       width: innerWidth,
       height: innerHeight,
@@ -1180,51 +1176,54 @@ var Line = function Line(props) {
       onClick: onClick,
       tooltip: tooltip,
       debug: debugMesh
-    });
+    }, "mesh");
   }
 
-  return react.createElement(nivo_core_es/* SvgWrapper */.tM, {
+  return (0,jsx_runtime.jsx)(nivo_core_es/* SvgWrapper */.tM, {
     defs: boundDefs,
     width: outerWidth,
     height: outerHeight,
     margin: margin,
-    role: role
-  }, layers.map(function (layer, i) {
-    if (typeof layer === 'function') {
-      return react.createElement(react.Fragment, {
-        key: i
-      }, layer(_objectSpread2(_objectSpread2({}, props), {}, {
-        innerWidth: innerWidth,
-        innerHeight: innerHeight,
-        series: series,
-        slices: slices,
-        points: points,
-        xScale: xScale,
-        yScale: yScale,
-        lineGenerator: lineGenerator,
-        areaGenerator: areaGenerator,
-        currentPoint: currentPoint,
-        setCurrentPoint: setCurrentPoint,
-        currentSlice: currentSlice,
-        setCurrentSlice: setCurrentSlice
-      })));
-    }
+    role: role,
+    children: layers.map(function (layer, i) {
+      if (typeof layer === 'function') {
+        return (0,jsx_runtime.jsx)(react.Fragment, {
+          children: layer(_objectSpread2(_objectSpread2({}, props), {}, {
+            innerWidth: innerWidth,
+            innerHeight: innerHeight,
+            series: series,
+            slices: slices,
+            points: points,
+            xScale: xScale,
+            yScale: yScale,
+            lineGenerator: lineGenerator,
+            areaGenerator: areaGenerator,
+            currentPoint: currentPoint,
+            setCurrentPoint: setCurrentPoint,
+            currentSlice: currentSlice,
+            setCurrentSlice: setCurrentSlice
+          }))
+        }, i);
+      }
 
-    return layerById[layer];
-  }));
+      return layerById[layer];
+    })
+  });
 };
 
 Line.defaultProps = LineDefaultProps;
 var Line$1 = (0,nivo_core_es/* withContainer */.li)(Line);
 
 var ResponsiveLine = function ResponsiveLine(props) {
-  return React.createElement(ResponsiveWrapper, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return React.createElement(Line$1, Object.assign({
-      width: width,
-      height: height
-    }, props));
+  return jsx(ResponsiveWrapper, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return jsx(Line$1, _objectSpread2({
+        width: width,
+        height: height
+      }, props));
+    }
   });
 };
 
@@ -1464,7 +1463,7 @@ var LineCanvas = function LineCanvas(_ref) {
     setCurrentPoint(point);
 
     if (point) {
-      showTooltipFromEvent(react.createElement(tooltip, {
+      showTooltipFromEvent((0,react.createElement)(tooltip, {
         point: point
       }), event);
     } else {
@@ -1482,7 +1481,7 @@ var LineCanvas = function LineCanvas(_ref) {
       point && onClick(point, event);
     }
   }, [getPointFromMouseEvent, onClick]);
-  return react.createElement("canvas", {
+  return (0,jsx_runtime.jsx)("canvas", {
     ref: canvasEl,
     width: outerWidth * pixelRatio,
     height: outerHeight * pixelRatio,
@@ -1501,21 +1500,23 @@ var LineCanvas = function LineCanvas(_ref) {
 LineCanvas.defaultProps = LineCanvasDefaultProps;
 var LineCanvasWithContainer = (0,nivo_core_es/* withContainer */.li)(LineCanvas);
 var LineCanvas$1 = (0,react.forwardRef)(function (props, ref) {
-  return react.createElement(LineCanvasWithContainer, Object.assign({}, props, {
+  return (0,jsx_runtime.jsx)(LineCanvasWithContainer, _objectSpread2(_objectSpread2({}, props), {}, {
     canvasRef: ref
   }));
 });
 
 var ResponsiveLineCanvas = function ResponsiveLineCanvas(props, ref) {
-  return react.createElement(nivo_core_es/* ResponsiveWrapper */.d, null, function (_ref) {
-    var width = _ref.width,
-        height = _ref.height;
-    return react.createElement(LineCanvas$1, Object.assign({
-      width: width,
-      height: height
-    }, props, {
-      ref: ref
-    }));
+  return (0,jsx_runtime.jsx)(nivo_core_es/* ResponsiveWrapper */.d, {
+    children: function children(_ref) {
+      var width = _ref.width,
+          height = _ref.height;
+      return (0,jsx_runtime.jsx)(LineCanvas$1, _objectSpread2(_objectSpread2({
+        width: width,
+        height: height
+      }, props), {}, {
+        ref: ref
+      }));
+    }
   });
 };
 
