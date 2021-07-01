@@ -225,13 +225,19 @@ function tonePayload(frequency, ms, volume) {
 }
 
 var TONE_DURATION = 50;
-var TONE_THROTTLE = 100;
+var TONE_THROTTLE = 100; // this is a React component that gets run numerous time,
+// whenever a change is detected in the React state
+// for example, useServices is a hook that tracks the accelerometer services,
+// so it will render again and update the accelerometers array whenever the bus connects/disconnects
+// an accelerometer
+
 function AccelerometerTheremin() {
   // bus is a variable that is shared across the entire site.
   // it represents the transport to the physical Jacdac bus (USB/BLE)
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z),
       bus = _useContext.bus; // useServices accepts a number of filters and returns any services that match
   // get all accelerometer + buzzer services
+  // under the hood, it uses the bus and events.
 
 
   var accelerometers = (0,_components_hooks_useServices__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)({
@@ -239,8 +245,9 @@ function AccelerometerTheremin() {
   });
   var buzzers = (0,_components_hooks_useServices__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)({
     serviceClass: _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .SRV_BUZZER */ .J1$
-  }); // create two variables to hold the service selected as our accelerometer
-  // and the virtual buzzerServer created when someone turns audio on on the page.
+  }); // create two state variables to hold the service selected as our accelerometer
+  // and the virtual buzzerServer created when someone turns audio on on the page
+  // when using setAccelService/setBuzzerServer, React will render again this component
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
       accelService = _useState[0],
@@ -283,7 +290,7 @@ function AccelerometerTheremin() {
 
   var handleSelectAccelerometerService = function handleSelectAccelerometerService(accel) {
     return function () {
-      accelService == accel ? setAccelService(null) : setAccelService(accel);
+      accelService == accel ? setAccelService(undefined) : setAccelService(accel);
     };
   }; // when start browser audio button is clicked:
   // get a browser audio context
@@ -291,6 +298,8 @@ function AccelerometerTheremin() {
 
 
   var handleBrowserAudioEnable = function handleBrowserAudioEnable() {
+    // browser security dictates that the audio context be used within a click event
+    // must be done once to allow background sounds
     onClickActivateAudioContext();
 
     if (!buzzerServer) {
@@ -306,6 +315,7 @@ function AccelerometerTheremin() {
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // ?. checks that the callee is defined
     var unsubs = accelService === null || accelService === void 0 ? void 0 : accelService.readingRegister.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_4__/* .REPORT_UPDATE */ .rGZ, // don't trigger more than every 100ms
     (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .throttle */ .P2)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var _accelService$reading, x;
