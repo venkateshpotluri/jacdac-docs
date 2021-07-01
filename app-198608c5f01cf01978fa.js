@@ -49785,15 +49785,11 @@ var JDNode = /*#__PURE__*/function (_JDEventSource) {
   var _proto = JDNode.prototype;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  _proto.emitPropagated = function emitPropagated(event) {
+  _proto.emitPropagated = function emitPropagated(event, arg) {
     var current = this;
 
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
     while (current) {
-      current.emit(event, args);
+      current.emit(event, arg);
       current = current.parent;
     }
   };
@@ -68701,7 +68697,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "ac0535ffceaa9025aa54b0fad4cf3add863a00fe";
+  var sha = "14e22e6d8ce0057229a7159d1db02a918857ddc1";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
