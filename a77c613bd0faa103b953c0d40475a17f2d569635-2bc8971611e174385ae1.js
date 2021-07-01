@@ -545,33 +545,6 @@ function ConnectAlert(props) {
 
 /***/ }),
 
-/***/ 60145:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "M": function() { return /* binding */ DeviceLostAlert; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
-/* harmony import */ var _jacdac_useEventRaised__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28417);
-/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95453);
-
-
-
-
-function DeviceLostAlert(props) {
-  var device = props.device;
-  var lost = (0,_jacdac_useEventRaised__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)([_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .LOST */ .XWw, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .FOUND */ .a6y], device, function (dev) {
-    return !!(dev !== null && dev !== void 0 && dev.lost);
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, lost && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
-    severity: "info"
-  }, "Device lost..."));
-}
-
-/***/ }),
-
 /***/ 29177:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -660,31 +633,6 @@ function useGridBreakpoints(itemCount) {
     lg: 4,
     xl: 3
   };
-}
-
-/***/ }),
-
-/***/ 28417:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ useEventRaised; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-
-function useEventRaised(eventName, node, query) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      version = _useState[0],
-      setVersion = _useState[1];
-
-  var value = query ? query(node) : undefined;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return node === null || node === void 0 ? void 0 : node.subscribe(eventName, function () {
-      setVersion(version + 1);
-    });
-  }, [node, version]);
-  return value;
 }
 
 /***/ }),

@@ -63592,6 +63592,33 @@ function Trend(props) {
 
 /***/ }),
 
+/***/ 60145:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "M": function() { return /* binding */ DeviceLostAlert; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
+/* harmony import */ var _jacdac_useEventRaised__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28417);
+/* harmony import */ var _ui_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(95453);
+
+
+
+
+function DeviceLostAlert(props) {
+  var device = props.device;
+  var lost = (0,_jacdac_useEventRaised__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)([_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .LOST */ .XWw, _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_1__/* .FOUND */ .a6y], device, function (dev) {
+    return !!(dev !== null && dev !== void 0 && dev.lost);
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, lost && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
+    severity: "info"
+  }, "Device lost..."));
+}
+
+/***/ }),
+
 /***/ 84125:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -63945,6 +63972,8 @@ var node = __webpack_require__(60154);
 var useMediaQueries = __webpack_require__(20509);
 // EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
 var notistack_esm = __webpack_require__(70076);
+// EXTERNAL MODULE: ./src/components/alert/DeviceLostAlert.tsx
+var DeviceLostAlert = __webpack_require__(60145);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardDevice.tsx
 
 
@@ -63954,6 +63983,7 @@ var notistack_esm = __webpack_require__(70076);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -64067,7 +64097,9 @@ function DashboardDevice(props) {
     style: {
       paddingTop: 0
     }
-  }, /*#__PURE__*/react.createElement(ServiceWidgets, null), expanded && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(DeviceLostAlert/* DeviceLostAlert */.M, {
+    device: device
+  }), /*#__PURE__*/react.createElement(ServiceWidgets, null), expanded && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "column",
     spacing: 1,
@@ -68697,7 +68729,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "14e22e6d8ce0057229a7159d1db02a918857ddc1";
+  var sha = "d4fa5fdc5dd2267587096acc030f6e6acd2c4ae5";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -78157,6 +78189,31 @@ function useDeviceSpecification(device) {
 
   var specification = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .deviceSpecificationFromFirmwareIdentifier */ .IL)(firmwareIdentifier);
   return specification;
+}
+
+/***/ }),
+
+/***/ 28417:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useEventRaised; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+function useEventRaised(eventName, node, query) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      version = _useState[0],
+      setVersion = _useState[1];
+
+  var value = query ? query(node) : undefined;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    return node === null || node === void 0 ? void 0 : node.subscribe(eventName, function () {
+      setVersion(version + 1);
+    });
+  }, [node, version]);
+  return value;
 }
 
 /***/ }),

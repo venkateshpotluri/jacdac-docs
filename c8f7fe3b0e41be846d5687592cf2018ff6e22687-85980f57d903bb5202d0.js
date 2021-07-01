@@ -47583,31 +47583,6 @@ function useEventCount(event) {
 
 /***/ }),
 
-/***/ 28417:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ useEventRaised; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-
-function useEventRaised(eventName, node, query) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      version = _useState[0],
-      setVersion = _useState[1];
-
-  var value = query ? query(node) : undefined;
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    return node === null || node === void 0 ? void 0 : node.subscribe(eventName, function () {
-      setVersion(version + 1);
-    });
-  }, [node, version]);
-  return value;
-}
-
-/***/ }),
-
 /***/ 18552:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
