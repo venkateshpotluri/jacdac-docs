@@ -46849,6 +46849,7 @@ function parseIntFloat(spec, w, allowFloat) {
 
 function exprVisitor(parent, current, structVisit) {
   if (Array.isArray(current)) {
+    ;
     current.forEach(function (c) {
       return exprVisitor(current, c, structVisit);
     });
@@ -46894,6 +46895,7 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
       ret = {
         role: this.spec.shortName,
         spec: this.spec,
+        client: true,
         rest: e
       };
     } else if (e.type === "Identifier") {
@@ -46906,9 +46908,14 @@ var SpecSymbolResolver = /*#__PURE__*/function () {
         this.error("no specification found for " + obj.name);
       }
 
+      var _this$role2spec = this.role2spec(obj.name),
+          _spec = _this$role2spec.spec,
+          client = _this$role2spec.client;
+
       ret = {
         role: obj.name,
-        spec: this.role2spec(obj.name),
+        spec: _spec,
+        client: client,
         rest: e.property
       };
     }
@@ -47085,8 +47092,9 @@ var VMChecker = /*#__PURE__*/function () {
       if (root.callee.type === "MemberExpression") {
         var _this$resolver$specRe = this.resolver.specResolve(root.callee),
             _role = _this$resolver$specRe.role,
-            _spec = _this$resolver$specRe.spec,
-            rest = _this$resolver$specRe.rest;
+            _spec2 = _this$resolver$specRe.spec,
+            rest = _this$resolver$specRe.rest,
+            client = _this$resolver$specRe.client;
 
         var _this$resolver$destru = this.resolver.destructAccessPath(rest),
             command = _this$resolver$destru[0],
@@ -47096,18 +47104,18 @@ var VMChecker = /*#__PURE__*/function () {
           this.error("command does not conform to expected call expression");
           return undefined;
         } else {
-          var _spec$packets3;
+          var _spec2$packets;
 
           // we have a spec, now look for command
-          var commands = (_spec$packets3 = _spec.packets) === null || _spec$packets3 === void 0 ? void 0 : _spec$packets3.filter(function (pkt) {
-            return pkt.kind === "command";
+          var commands = (_spec2$packets = _spec2.packets) === null || _spec2$packets === void 0 ? void 0 : _spec2$packets.filter(function (pkt) {
+            return client && pkt.kind === "command" || !client && pkt.kind === "event";
           });
           theCommand = commands.find(function (c) {
             return (c === null || c === void 0 ? void 0 : c.name) === command;
           });
 
           if (!theCommand) {
-            this.error("cannot find command named " + command + " in spec " + _spec.shortName);
+            this.error("cannot find command named " + command + " in spec " + _spec2.shortName);
           } else return this.processSpecCommandFunction(root, theCommand);
         }
       } else {
@@ -47208,6 +47216,7 @@ var VMChecker = /*#__PURE__*/function () {
         }
       } else if (argType === "events") {
         if (arg.type != "ArrayExpression") _this3.error("events function expects a list of service events");else {
+          ;
           arg.elements.forEach(function (e) {
             return _this3.resolver.lookupEvent(e);
           });
@@ -51716,7 +51725,7 @@ function printPacket(pkt, opts) {
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
 /* harmony import */ var _pack__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(91635);
 /* harmony import */ var _pipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(93642);
-/* harmony import */ var _serviceserver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34106);
+/* harmony import */ var _serviceserver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50457);
 
 
 
@@ -51860,6 +51869,266 @@ function randomDeviceId() {
 
 /***/ }),
 
+/***/ 1591:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ JDRegisterServer; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _pack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91635);
+/* harmony import */ var _packet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57683);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
+/* harmony import */ var _eventsource__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(45484);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(71815);
+/* harmony import */ var _spec__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13173);
+
+
+
+
+
+
+
+
+
+
+
+function defaultFieldPayload(specification) {
+  var r = undefined;
+
+  switch (specification.type) {
+    case "bool":
+      r = 0;
+      break;
+
+    case "i8":
+    case "i16":
+    case "i32":
+    case "u8":
+    case "u16":
+    case "u32":
+      {
+        var min = (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .pick */ .ei)(specification.typicalMin, specification.absoluteMin, undefined);
+        var max = (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .pick */ .ei)(specification.typicalMax, specification.absoluteMax, undefined);
+        if (max !== undefined && min !== undefined) r = (max + min) / 2;else r = 0;
+        break;
+      }
+
+    case "bytes":
+      {
+        r = new Uint8Array(0);
+        break;
+      }
+
+    case "string":
+    case "string0":
+      {
+        r = "";
+        break;
+      }
+  }
+
+  if (/^(u0|i1)\.\d+$/.test(specification.type)) r = 0;
+  return r;
+}
+
+function defaultPayload(specification) {
+  var fields = specification.fields;
+  var rs = fields.map(defaultFieldPayload);
+  return rs;
+}
+
+var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(JDRegisterServer, _JDEventSource);
+
+  function JDRegisterServer(service, identifier, defaultValue) {
+    var _this$data, _this$specification;
+
+    var _this;
+
+    _this = _JDEventSource.call(this) || this;
+    _this.skipBoundaryCheck = false;
+    _this.skipErrorInjection = false;
+    _this.service = service;
+    _this.identifier = identifier;
+    var serviceSpecification = _this.service.specification;
+    _this.specification = serviceSpecification.packets.find(function (pkt) {
+      return (0,_spec__WEBPACK_IMPORTED_MODULE_6__/* .isRegister */ .x5)(pkt) && pkt.identifier === _this.identifier;
+    });
+    var v = defaultValue;
+    if (!v && !_this.specification.optional) v = defaultPayload(_this.specification);
+
+    if (v !== undefined && !v.some(function (vi) {
+      return vi === undefined;
+    })) {
+      _this.data = (0,_pack__WEBPACK_IMPORTED_MODULE_1__/* .jdpack */ .AV)(_this.packFormat, v);
+    } // keep a copy to handle reset
+
+
+    _this.resetData = (_this$data = _this.data) === null || _this$data === void 0 ? void 0 : _this$data.slice(0); // don't check boundaries if there are none
+
+    _this.skipBoundaryCheck = !((_this$specification = _this.specification) !== null && _this$specification !== void 0 && _this$specification.fields.some(function (field) {
+      return (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .isSet */ .DM)(field.absoluteMin) || (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .isSet */ .DM)(field.absoluteMax);
+    }));
+    return _this;
+  }
+
+  var _proto = JDRegisterServer.prototype;
+
+  _proto.values = function values() {
+    return (0,_pack__WEBPACK_IMPORTED_MODULE_1__/* .jdunpack */ .TE)(this.data, this.packFormat);
+  };
+
+  _proto.normalize = function normalize(values) {
+    // enforce boundaries from spec
+    if (!this.skipBoundaryCheck) {
+      var _this$specification2;
+
+      (_this$specification2 = this.specification) === null || _this$specification2 === void 0 ? void 0 : _this$specification2.fields.forEach(function (field, fieldi) {
+        if (field.isSimpleType) {
+          var value = values[fieldi]; // clamp within bounds
+
+          var min = field.absoluteMin;
+          if (min !== undefined) value = Math.max(min, value);
+          var max = field.absoluteMax;
+          if (max !== undefined) value = Math.min(max, value); // update
+
+          values[fieldi] = value;
+        }
+      });
+    } // enforce other boundaries
+
+
+    this.emit(_constants__WEBPACK_IMPORTED_MODULE_5__/* .PACKET_DATA_NORMALIZE */ .fjv, values);
+  };
+
+  _proto.shouldNormalize = function shouldNormalize() {
+    return !this.skipBoundaryCheck || this.listenerCount(_constants__WEBPACK_IMPORTED_MODULE_5__/* .PACKET_DATA_NORMALIZE */ .fjv);
+  };
+
+  _proto.setValues = function setValues(values, skipChangeEvent) {
+    if (this.readOnly) return;
+    if (this.shouldNormalize()) this.normalize(values);
+    var d = (0,_pack__WEBPACK_IMPORTED_MODULE_1__/* .jdpack */ .AV)(this.packFormat, values);
+
+    if (!(0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .bufferEq */ .zo)(this.data, d)) {
+      this.data = d;
+      if (!skipChangeEvent) this.emit(_constants__WEBPACK_IMPORTED_MODULE_5__/* .CHANGE */ .Ver);
+    }
+  };
+
+  _proto.reset = function reset() {
+    var _this$resetData;
+
+    this.data = (_this$resetData = this.resetData) === null || _this$resetData === void 0 ? void 0 : _this$resetData.slice(0);
+  };
+
+  _proto.sendGetAsync = /*#__PURE__*/function () {
+    var _sendGetAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _this$errorRegister;
+
+      var d, error, vs, i;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              this.emit(_constants__WEBPACK_IMPORTED_MODULE_5__/* .REGISTER_PRE_GET */ .q5h);
+              d = this.data;
+
+              if (d) {
+                _context.next = 4;
+                break;
+              }
+
+              return _context.abrupt("return");
+
+            case 4:
+              error = !this.skipErrorInjection && ((_this$errorRegister = this.errorRegister) === null || _this$errorRegister === void 0 ? void 0 : _this$errorRegister.values()[0]);
+
+              if (error && !isNaN(error)) {
+                // apply error artifically
+                vs = this.values();
+
+                for (i = 0; i < vs.length; ++i) {
+                  vs[i] += Math.random() * error;
+                }
+
+                d = (0,_pack__WEBPACK_IMPORTED_MODULE_1__/* .jdpack */ .AV)(this.packFormat, vs);
+              }
+
+              _context.next = 8;
+              return this.service.sendPacketAsync(_packet__WEBPACK_IMPORTED_MODULE_2__/* .default.from */ .Z.from(this.identifier | _constants__WEBPACK_IMPORTED_MODULE_5__/* .CMD_GET_REG */ .V4G, d));
+
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendGetAsync() {
+      return _sendGetAsync.apply(this, arguments);
+    }
+
+    return sendGetAsync;
+  }();
+
+  _proto.handlePacket = function handlePacket(pkt) {
+    if (this.identifier !== pkt.registerIdentifier) return false;
+
+    if (pkt.isRegisterGet) {
+      this.sendGetAsync();
+    } else if (this.identifier >> 8 !== 0x1) {
+      // set, non-const
+      var changed = false;
+      var d = pkt.data; // unpack and check boundaries
+
+      if (this.shouldNormalize()) {
+        try {
+          // unpack, apply boundaries, repack
+          var values = (0,_pack__WEBPACK_IMPORTED_MODULE_1__/* .jdunpack */ .TE)(d, this.packFormat);
+          this.normalize(values);
+          d = (0,_pack__WEBPACK_IMPORTED_MODULE_1__/* .jdpack */ .AV)(this.packFormat, values);
+        } catch (e) {
+          // invalid format, refuse
+          this.emit(_constants__WEBPACK_IMPORTED_MODULE_5__/* .PACKET_INVALID_DATA */ .bBc, pkt);
+        }
+      } // test if anything changed
+
+
+      if (!(0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .bufferEq */ .zo)(this.data, d)) {
+        this.data = d;
+        changed = true;
+      }
+
+      this.lastSetTime = this.service.timestamp;
+      this.emit(_constants__WEBPACK_IMPORTED_MODULE_5__/* .REPORT_RECEIVE */ .Gb8);
+      if (changed) this.emit(_constants__WEBPACK_IMPORTED_MODULE_5__/* .CHANGE */ .Ver);
+    }
+
+    return true;
+  };
+
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(JDRegisterServer, [{
+    key: "packFormat",
+    get: function get() {
+      return this.specification.packFormat;
+    }
+  }]);
+
+  return JDRegisterServer;
+}(_eventsource__WEBPACK_IMPORTED_MODULE_4__/* .JDEventSource */ .a);
+
+
+
+/***/ }),
+
 /***/ 56763:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -51940,8 +52209,8 @@ var utils = __webpack_require__(81794);
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
 var pack = __webpack_require__(91635);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceserver.ts + 1 modules
-var serviceserver = __webpack_require__(34106);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceserver.ts
+var serviceserver = __webpack_require__(50457);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/controlserver.ts
 
 
@@ -52420,282 +52689,25 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
 
 /***/ }),
 
-/***/ 34106:
+/***/ 50457:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ JDServiceServer; }
-});
-
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(73108);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
-var createClass = __webpack_require__(53719);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-var assertThisInitialized = __webpack_require__(25342);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(85413);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(42656);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/dist/specconstants.ts
-var specconstants = __webpack_require__(73512);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
-var constants = __webpack_require__(71815);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
-var eventsource = __webpack_require__(45484);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/packet.ts
-var packet = __webpack_require__(57683);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
-var pack = __webpack_require__(91635);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/registerserver.ts
-
-
-
-
-
-
-
-
-
-
-
-function defaultFieldPayload(specification) {
-  var r = undefined;
-
-  switch (specification.type) {
-    case "bool":
-      r = 0;
-      break;
-
-    case "i8":
-    case "i16":
-    case "i32":
-    case "u8":
-    case "u16":
-    case "u32":
-      {
-        var min = (0,utils/* pick */.ei)(specification.typicalMin, specification.absoluteMin, undefined);
-        var max = (0,utils/* pick */.ei)(specification.typicalMax, specification.absoluteMax, undefined);
-        if (max !== undefined && min !== undefined) r = (max + min) / 2;else r = 0;
-        break;
-      }
-
-    case "bytes":
-      {
-        r = new Uint8Array(0);
-        break;
-      }
-
-    case "string":
-    case "string0":
-      {
-        r = "";
-        break;
-      }
-  }
-
-  if (/^(u0|i1)\.\d+$/.test(specification.type)) r = 0;
-  return r;
-}
-
-function defaultPayload(specification) {
-  var fields = specification.fields;
-  var rs = fields.map(defaultFieldPayload);
-  return rs;
-}
-
-var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
-  (0,inheritsLoose/* default */.Z)(JDRegisterServer, _JDEventSource);
-
-  function JDRegisterServer(service, identifier, defaultValue) {
-    var _this$data, _this$specification;
-
-    var _this;
-
-    _this = _JDEventSource.call(this) || this;
-    _this.skipBoundaryCheck = false;
-    _this.skipErrorInjection = false;
-    _this.service = service;
-    _this.identifier = identifier;
-    var serviceSpecification = _this.service.specification;
-    _this.specification = serviceSpecification.packets.find(function (pkt) {
-      return (0,spec/* isRegister */.x5)(pkt) && pkt.identifier === _this.identifier;
-    });
-    var v = defaultValue;
-    if (!v && !_this.specification.optional) v = defaultPayload(_this.specification);
-
-    if (v !== undefined && !v.some(function (vi) {
-      return vi === undefined;
-    })) {
-      _this.data = (0,pack/* jdpack */.AV)(_this.packFormat, v);
-    } // keep a copy to handle reset
-
-
-    _this.resetData = (_this$data = _this.data) === null || _this$data === void 0 ? void 0 : _this$data.slice(0); // don't check boundaries if there are none
-
-    _this.skipBoundaryCheck = !((_this$specification = _this.specification) !== null && _this$specification !== void 0 && _this$specification.fields.some(function (field) {
-      return (0,utils/* isSet */.DM)(field.absoluteMin) || (0,utils/* isSet */.DM)(field.absoluteMax);
-    }));
-    return _this;
-  }
-
-  var _proto = JDRegisterServer.prototype;
-
-  _proto.values = function values() {
-    return (0,pack/* jdunpack */.TE)(this.data, this.packFormat);
-  };
-
-  _proto.normalize = function normalize(values) {
-    // enforce boundaries from spec
-    if (!this.skipBoundaryCheck) {
-      var _this$specification2;
-
-      (_this$specification2 = this.specification) === null || _this$specification2 === void 0 ? void 0 : _this$specification2.fields.forEach(function (field, fieldi) {
-        if (field.isSimpleType) {
-          var value = values[fieldi]; // clamp within bounds
-
-          var min = field.absoluteMin;
-          if (min !== undefined) value = Math.max(min, value);
-          var max = field.absoluteMax;
-          if (max !== undefined) value = Math.min(max, value); // update
-
-          values[fieldi] = value;
-        }
-      });
-    } // enforce other boundaries
-
-
-    this.emit(constants/* PACKET_DATA_NORMALIZE */.fjv, values);
-  };
-
-  _proto.shouldNormalize = function shouldNormalize() {
-    return !this.skipBoundaryCheck || this.listenerCount(constants/* PACKET_DATA_NORMALIZE */.fjv);
-  };
-
-  _proto.setValues = function setValues(values, skipChangeEvent) {
-    if (this.readOnly) return;
-    if (this.shouldNormalize()) this.normalize(values);
-    var d = (0,pack/* jdpack */.AV)(this.packFormat, values);
-
-    if (!(0,utils/* bufferEq */.zo)(this.data, d)) {
-      this.data = d;
-      if (!skipChangeEvent) this.emit(constants/* CHANGE */.Ver);
-    }
-  };
-
-  _proto.reset = function reset() {
-    var _this$resetData;
-
-    this.data = (_this$resetData = this.resetData) === null || _this$resetData === void 0 ? void 0 : _this$resetData.slice(0);
-  };
-
-  _proto.sendGetAsync = /*#__PURE__*/function () {
-    var _sendGetAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      var _this$errorRegister;
-
-      var d, error, vs, i;
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              this.emit(constants/* REGISTER_PRE_GET */.q5h);
-              d = this.data;
-
-              if (d) {
-                _context.next = 4;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 4:
-              error = !this.skipErrorInjection && ((_this$errorRegister = this.errorRegister) === null || _this$errorRegister === void 0 ? void 0 : _this$errorRegister.values()[0]);
-
-              if (error && !isNaN(error)) {
-                // apply error artifically
-                vs = this.values();
-
-                for (i = 0; i < vs.length; ++i) {
-                  vs[i] += Math.random() * error;
-                }
-
-                d = (0,pack/* jdpack */.AV)(this.packFormat, vs);
-              }
-
-              _context.next = 8;
-              return this.service.sendPacketAsync(packet/* default.from */.Z.from(this.identifier | constants/* CMD_GET_REG */.V4G, d));
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function sendGetAsync() {
-      return _sendGetAsync.apply(this, arguments);
-    }
-
-    return sendGetAsync;
-  }();
-
-  _proto.handlePacket = function handlePacket(pkt) {
-    if (this.identifier !== pkt.registerIdentifier) return false;
-
-    if (pkt.isRegisterGet) {
-      this.sendGetAsync();
-    } else if (this.identifier >> 8 !== 0x1) {
-      // set, non-const
-      var changed = false;
-      var d = pkt.data; // unpack and check boundaries
-
-      if (this.shouldNormalize()) {
-        try {
-          // unpack, apply boundaries, repack
-          var values = (0,pack/* jdunpack */.TE)(d, this.packFormat);
-          this.normalize(values);
-          d = (0,pack/* jdpack */.AV)(this.packFormat, values);
-        } catch (e) {
-          // invalid format, refuse
-          this.emit(constants/* PACKET_INVALID_DATA */.bBc, pkt);
-        }
-      } // test if anything changed
-
-
-      if (!(0,utils/* bufferEq */.zo)(this.data, d)) {
-        this.data = d;
-        changed = true;
-      }
-
-      this.lastSetTime = this.service.timestamp;
-      this.emit(constants/* REPORT_RECEIVE */.Gb8);
-      if (changed) this.emit(constants/* CHANGE */.Ver);
-    }
-
-    return true;
-  };
-
-  (0,createClass/* default */.Z)(JDRegisterServer, [{
-    key: "packFormat",
-    get: function get() {
-      return this.specification.packFormat;
-    }
-  }]);
-
-  return JDRegisterServer;
-}(eventsource/* JDEventSource */.a);
-
-
-;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/serviceserver.ts
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ JDServiceServer; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(53719);
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(25342);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73512);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71815);
+/* harmony import */ var _eventsource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45484);
+/* harmony import */ var _packet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57683);
+/* harmony import */ var _registerserver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1591);
+/* harmony import */ var _spec__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13173);
 
 
 
@@ -52710,7 +52722,7 @@ var JDRegisterServer = /*#__PURE__*/function (_JDEventSource) {
 var CALIBRATION_DELAY = 5000;
 
 var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
-  (0,inheritsLoose/* default */.Z)(JDServiceServer, _JDEventSource);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(JDServiceServer, _JDEventSource);
 
   function JDServiceServer(serviceClass, options) {
     var _this;
@@ -52728,12 +52740,12 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
         intensityValues = _ref.intensityValues,
         registerValues = _ref.registerValues;
 
-    _this.specification = (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(_this.serviceClass);
-    _this.statusCode = _this.addRegister(specconstants/* SystemReg.StatusCode */.ZJq.StatusCode, [specconstants/* SystemStatusCodes.Ready */._kj.Ready, 0]);
-    if (valueValues) _this.addRegister(specconstants/* SystemReg.Value */.ZJq.Value, valueValues);
-    if (intensityValues) _this.addRegister(specconstants/* SystemReg.Intensity */.ZJq.Intensity, intensityValues);
-    if (variant) _this.addRegister(specconstants/* SystemReg.Variant */.ZJq.Variant, [variant]);
-    _this.instanceName = _this.addRegister(specconstants/* SystemReg.InstanceName */.ZJq.InstanceName, [instanceName || ""]); // any extra
+    _this.specification = (0,_spec__WEBPACK_IMPORTED_MODULE_6__/* .serviceSpecificationFromClassIdentifier */ .d5)(_this.serviceClass);
+    _this.statusCode = _this.addRegister(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemReg.StatusCode */ .ZJq.StatusCode, [_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemStatusCodes.Ready */ ._kj.Ready, 0]);
+    if (valueValues) _this.addRegister(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemReg.Value */ .ZJq.Value, valueValues);
+    if (intensityValues) _this.addRegister(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemReg.Intensity */ .ZJq.Intensity, intensityValues);
+    if (variant) _this.addRegister(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemReg.Variant */ .ZJq.Variant, [variant]);
+    _this.instanceName = _this.addRegister(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemReg.InstanceName */ .ZJq.InstanceName, [instanceName || ""]); // any extra
 
     registerValues === null || registerValues === void 0 ? void 0 : registerValues.forEach(function (_ref2) {
       var code = _ref2.code,
@@ -52741,21 +52753,21 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       return _this.addRegister(code, values);
     }); // emit event when status code changes
 
-    _this.statusCode.on(constants/* CHANGE */.Ver, function () {
-      return _this.sendEvent(specconstants/* BaseEvent.StatusCodeChanged */.DVg.StatusCodeChanged, _this.statusCode.data);
+    _this.statusCode.on(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver, function () {
+      return _this.sendEvent(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .BaseEvent.StatusCodeChanged */ .DVg.StatusCodeChanged, _this.statusCode.data);
     }); // if the device has a calibrate command, regiser handler
     // and put device in calibrationneeded state
 
 
     if (_this.specification.packets.find(function (pkt) {
-      return pkt.kind === "command" && pkt.identifier === specconstants/* SystemCmd.Calibrate */.xSq.Calibrate;
+      return pkt.kind === "command" && pkt.identifier === _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemCmd.Calibrate */ .xSq.Calibrate;
     })) {
-      _this.addCommand(specconstants/* SystemCmd.Calibrate */.xSq.Calibrate, _this.handleCalibrate.bind((0,assertThisInitialized/* default */.Z)(_this)));
+      _this.addCommand(_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemCmd.Calibrate */ .xSq.Calibrate, _this.handleCalibrate.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_this)));
 
-      _this.statusCode.setValues([specconstants/* SystemStatusCodes.CalibrationNeeded */._kj.CalibrationNeeded, 0], true);
+      _this.statusCode.setValues([_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemStatusCodes.CalibrationNeeded */ ._kj.CalibrationNeeded, 0], true);
     }
 
-    _this.handleTwinPacket = _this.handleTwinPacket.bind((0,assertThisInitialized/* default */.Z)(_this));
+    _this.handleTwinPacket = _this.handleTwinPacket.bind((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(_this));
     return _this;
   }
 
@@ -52771,6 +52783,12 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
     });
   };
 
+  _proto.addExistingRegister = function addExistingRegister(reg) {
+    this._registers.push(reg);
+
+    return reg;
+  };
+
   _proto.addRegister = function addRegister(identifier, defaultValue) {
     var reg = this._registers.find(function (r) {
       return r.identifier === identifier;
@@ -52779,9 +52797,9 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
     if (!reg) {
       // make sure this register is supported
       if (!this.specification.packets.find(function (pkt) {
-        return (0,spec/* isRegister */.x5)(pkt) && pkt.identifier === identifier;
+        return (0,_spec__WEBPACK_IMPORTED_MODULE_6__/* .isRegister */ .x5)(pkt) && pkt.identifier === identifier;
       })) return undefined;
-      reg = new JDRegisterServer(this, identifier, defaultValue);
+      reg = new _registerserver__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z(this, identifier, defaultValue);
 
       this._registers.push(reg);
     }
@@ -52800,10 +52818,10 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.handlePacket = /*#__PURE__*/function () {
-    var _handlePacket = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(pkt) {
+    var _handlePacket = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(pkt) {
       var _reg, rid, reg, cmd;
 
-      return regenerator_default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
@@ -52844,8 +52862,8 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }();
 
   _proto.sendPacketAsync = /*#__PURE__*/function () {
-    var _sendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(pkt) {
-      return regenerator_default().wrap(function _callee2$(_context2) {
+    var _sendPacketAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(pkt) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
@@ -52877,9 +52895,9 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }();
 
   _proto.sendEvent = /*#__PURE__*/function () {
-    var _sendEvent = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(eventCode, data) {
+    var _sendEvent = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(eventCode, data) {
       var device, bus, now, cmd, pkt;
-      return regenerator_default().wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
@@ -52904,7 +52922,7 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
             case 6:
               now = bus.timestamp;
               cmd = device.createEventCmd(eventCode);
-              pkt = packet/* default.from */.Z.from(cmd, data || new Uint8Array(0));
+              pkt = _packet__WEBPACK_IMPORTED_MODULE_4__/* .default.from */ .Z.from(cmd, data || new Uint8Array(0));
               _context3.next = 11;
               return this.sendPacketAsync(pkt);
 
@@ -52928,16 +52946,16 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }();
 
   _proto.handleCalibrate = /*#__PURE__*/function () {
-    var _handleCalibrate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+    var _handleCalibrate = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       var _this$statusCode$valu, status;
 
-      return regenerator_default().wrap(function _callee4$(_context4) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               _this$statusCode$valu = this.statusCode.values(), status = _this$statusCode$valu[0];
 
-              if (!(status !== specconstants/* SystemStatusCodes.Ready */._kj.Ready)) {
+              if (!(status !== _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemStatusCodes.Ready */ ._kj.Ready)) {
                 _context4.next = 3;
                 break;
               }
@@ -52963,20 +52981,20 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }();
 
   _proto.calibrate = /*#__PURE__*/function () {
-    var _calibrate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5() {
-      return regenerator_default().wrap(function _callee5$(_context5) {
+    var _calibrate = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               // notify that calibration started
-              this.statusCode.setValues([specconstants/* SystemStatusCodes.Calibrating */._kj.Calibrating, 0]); // wait 5 seconds
+              this.statusCode.setValues([_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemStatusCodes.Calibrating */ ._kj.Calibrating, 0]); // wait 5 seconds
 
               _context5.next = 3;
               return this.device.bus.delay(CALIBRATION_DELAY);
 
             case 3:
               // finish calibraion
-              this.statusCode.setValues([specconstants/* SystemStatusCodes.Ready */._kj.Ready, 0]);
+              this.statusCode.setValues([_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemStatusCodes.Ready */ ._kj.Ready, 0]);
 
             case 4:
             case "end":
@@ -52993,7 +53011,7 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
     return calibrate;
   }();
 
-  (0,createClass/* default */.Z)(JDServiceServer, [{
+  (0,_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_10__/* .default */ .Z)(JDServiceServer, [{
     key: "device",
     get: function get() {
       return this._device;
@@ -53001,8 +53019,8 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
     set: function set(value) {
       if (this._device !== value) {
         this._device = value;
-        this.emit(constants/* DEVICE_CHANGE */.RoP);
-        this.emit(constants/* CHANGE */.Ver);
+        this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .DEVICE_CHANGE */ .RoP);
+        this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
       }
     }
   }, {
@@ -53016,9 +53034,9 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       if (service === this._twin) return;
 
       if (this._twin) {
-        this._twin.off(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
+        this._twin.off(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_RECEIVE */ .u_S, this.handleTwinPacket);
 
-        this._twin.off(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
+        this._twin.off(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_SEND */ .RaS, this.handleTwinPacket);
 
         this._twinCleanup.forEach(function (tw) {
           return tw();
@@ -53030,9 +53048,9 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
       this._twinCleanup = service ? [] : undefined;
 
       if (this._twin) {
-        this._twin.on(constants/* PACKET_RECEIVE */.u_S, this.handleTwinPacket);
+        this._twin.on(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_RECEIVE */ .u_S, this.handleTwinPacket);
 
-        this._twin.on(constants/* PACKET_SEND */.RaS, this.handleTwinPacket);
+        this._twin.on(_constants__WEBPACK_IMPORTED_MODULE_2__/* .PACKET_SEND */ .RaS, this.handleTwinPacket);
 
         this._twin.registers().forEach(function (twinReg) {
           var reg = _this2.register(twinReg.code);
@@ -53040,14 +53058,14 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
           if (reg) {
             reg === null || reg === void 0 ? void 0 : reg.setValues(twinReg.unpackedValue);
 
-            _this2._twinCleanup.push(twinReg.subscribe(constants/* REPORT_UPDATE */.rGZ, function () {
+            _this2._twinCleanup.push(twinReg.subscribe(_constants__WEBPACK_IMPORTED_MODULE_2__/* .REPORT_UPDATE */ .rGZ, function () {
               return reg.setValues(twinReg.unpackedValue);
             }));
           }
         });
       }
 
-      this.emit(constants/* CHANGE */.Ver);
+      this.emit(_constants__WEBPACK_IMPORTED_MODULE_2__/* .CHANGE */ .Ver);
     }
   }, {
     key: "registers",
@@ -53065,7 +53083,7 @@ var JDServiceServer = /*#__PURE__*/function (_JDEventSource) {
   }]);
 
   return JDServiceServer;
-}(eventsource/* JDEventSource */.a);
+}(_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
 
 
 
@@ -53088,6 +53106,8 @@ __webpack_require__.d(__webpack_exports__, {
   "ao": function() { return /* binding */ isCommand; },
   "n6": function() { return /* binding */ isConstRegister; },
   "cO": function() { return /* binding */ isEvent; },
+  "jl": function() { return /* binding */ isHighLevelEvent; },
+  "vr": function() { return /* binding */ isHighLevelRegister; },
   "lz": function() { return /* binding */ isInfrastructure; },
   "V9": function() { return /* binding */ isInstanceOf; },
   "YF": function() { return /* binding */ isIntegerType; },
@@ -53267,6 +53287,14 @@ function isRegister(pkt) {
 }
 function isReading(pkt) {
   return pkt && pkt.kind == "ro" && pkt.identifier == constants/* SystemReg.Reading */.ZJq.Reading;
+}
+var includedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
+function isHighLevelRegister(pkt) {
+  return isRegister(pkt) && !pkt.lowLevel && includedRegisters.indexOf(pkt.identifier) > -1;
+}
+var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged];
+function isHighLevelEvent(pkt) {
+  return isEvent(pkt) && !pkt.lowLevel && ignoredEvents.indexOf(pkt.identifier) < 0;
 }
 function isOptionalReadingRegisterCode(code) {
   var regs = [constants/* SystemReg.MinReading */.ZJq.MinReading, constants/* SystemReg.MaxReading */.ZJq.MaxReading, constants/* SystemReg.ReadingError */.ZJq.ReadingError, constants/* SystemReg.ReadingResolution */.ZJq.ReadingResolution, constants/* SystemReg.StreamingPreferredInterval */.ZJq.StreamingPreferredInterval];
@@ -54933,7 +54961,7 @@ function range(end) {
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85413);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
 /* harmony import */ var _jdom_pack__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(91635);
-/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50457);
 
 
 
@@ -54996,7 +55024,7 @@ BuzzerServer.PLAY_TONE = "playTone";
 /* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25342);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85413);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
-/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50457);
 
 
 
@@ -55238,7 +55266,7 @@ function renderKeyboardKey(selector, modifiers, pretty) {
 /* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25342);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85413);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
-/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50457);
 
 
 
@@ -55514,7 +55542,7 @@ var JoystickServer = /*#__PURE__*/function (_SensorServer) {
 /* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25342);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(85413);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
-/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50457);
 
 
 
@@ -55607,7 +55635,7 @@ var LEDMatrixServer = /*#__PURE__*/function (_JDServiceServer) {
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(85413);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71815);
 /* harmony import */ var _jdom_light__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69130);
-/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50457);
 /* harmony import */ var _jdom_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81794);
 
 
@@ -56345,7 +56373,7 @@ var RealTimeClockServer = /*#__PURE__*/function (_SensorServer) {
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85413);
 /* harmony import */ var _jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73512);
 /* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71815);
-/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34106);
+/* harmony import */ var _jdom_serviceserver__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50457);
 
 
 
@@ -56447,8 +56475,8 @@ var constants = __webpack_require__(71815);
 var serviceprovider = __webpack_require__(73138);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/protocoltestserver.ts
 var protocoltestserver = __webpack_require__(80375);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceserver.ts + 1 modules
-var serviceserver = __webpack_require__(34106);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceserver.ts
+var serviceserver = __webpack_require__(50457);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(73108);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/createClass.js
@@ -59638,7 +59666,6 @@ function serviceProviderDefinitions() {
 function addServiceProvider(bus, definition) {
   var _definition$factory;
 
-  if (!definition) return undefined;
   var services = definition.services();
   var options = {
     resetIn: definition.resetIn
@@ -68729,7 +68756,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "d4fa5fdc5dd2267587096acc030f6e6acd2c4ae5";
+  var sha = "21469813e50398f105259c83169463c6e36fe43e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -80462,10 +80489,10 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-service-editor-tsx */[__webpack_require__.e(7684), __webpack_require__.e(701), __webpack_require__.e(7617), __webpack_require__.e(2219)]).then(__webpack_require__.bind(__webpack_require__, 37207));
   },
   "component---src-pages-tools-service-test-editor-tsx": function componentSrcPagesToolsServiceTestEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(7684), __webpack_require__.e(701), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-editor-tsx */[__webpack_require__.e(7684), __webpack_require__.e(701), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(6091)]).then(__webpack_require__.bind(__webpack_require__, 21838));
   },
   "component---src-pages-tools-service-test-tsx": function componentSrcPagesToolsServiceTestTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
+    return Promise.all(/* import() | component---src-pages-tools-service-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(3919)]).then(__webpack_require__.bind(__webpack_require__, 26651));
   },
   "component---src-pages-tools-settings-tsx": function componentSrcPagesToolsSettingsTsx() {
     return Promise.all(/* import() | component---src-pages-tools-settings-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5560)]).then(__webpack_require__.bind(__webpack_require__, 360));
@@ -80474,7 +80501,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5224), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(3), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 961));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 85360));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));
@@ -80489,7 +80516,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-templates-service-playground-tsx */[__webpack_require__.e(7684), __webpack_require__.e(7617), __webpack_require__.e(6540)]).then(__webpack_require__.bind(__webpack_require__, 97230));
   },
   "component---src-templates-service-test-tsx": function componentSrcTemplatesServiceTestTsx() {
-    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(9871), __webpack_require__.e(3), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
+    return Promise.all(/* import() | component---src-templates-service-test-tsx */[__webpack_require__.e(7684), __webpack_require__.e(9871), __webpack_require__.e(5910), __webpack_require__.e(636)]).then(__webpack_require__.bind(__webpack_require__, 88387));
   },
   "component---src-templates-service-tsx": function componentSrcTemplatesServiceTsx() {
     return Promise.all(/* import() | component---src-templates-service-tsx */[__webpack_require__.e(9871), __webpack_require__.e(3133)]).then(__webpack_require__.bind(__webpack_require__, 59828));

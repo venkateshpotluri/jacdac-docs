@@ -687,6 +687,620 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 1797:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "z": function() { return /* binding */ VMServiceClient; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(85413);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _jdom_spec__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13173);
+/* harmony import */ var _jdom_serviceclient__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(56763);
+/* harmony import */ var _jdom_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71815);
+/* harmony import */ var _jdom_pack__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(91635);
+
+
+
+
+
+
+
+var VMServiceClient = /*#__PURE__*/function (_JDServiceClient) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(VMServiceClient, _JDServiceClient);
+
+  function VMServiceClient(service) {
+    var _this;
+
+    _this = _JDServiceClient.call(this, service) || this;
+    _this._registers = {};
+    _this._events = {};
+    return _this;
+  }
+
+  var _proto = VMServiceClient.prototype;
+
+  _proto.registerRegister = function registerRegister(regName, handler) {
+    if (!this._registers[regName]) {
+      var pkt = this.service.specification.packets.find(function (pkt) {
+        return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isRegister */ .x5)(pkt) && pkt.name === regName;
+      });
+
+      if (pkt) {
+        var register = this.service.register(pkt.identifier);
+        this._registers[regName] = register;
+        this.mount(register.subscribe(_jdom_constants__WEBPACK_IMPORTED_MODULE_3__/* .CHANGE */ .Ver, handler));
+      }
+    }
+  };
+
+  _proto.registerEvent = function registerEvent(eventName, handler) {
+    if (!this._events[eventName]) {
+      var pkt = this.service.specification.packets.find(function (pkt) {
+        return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isEvent */ .cO)(pkt) && pkt.name === eventName;
+      });
+
+      if (pkt) {
+        var event = this.service.event(pkt.identifier);
+        this._events[eventName] = event;
+        this.mount(event.subscribe(_jdom_constants__WEBPACK_IMPORTED_MODULE_3__/* .EVENT */ .Ks0, handler));
+      }
+    }
+  };
+
+  _proto.sendCommandAsync = /*#__PURE__*/function () {
+    var _sendCommandAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(commandName, values) {
+      var pkt;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              pkt = this.service.specification.packets.find(function (p) {
+                return (0,_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isCommand */ .ao)(p) && p.name === commandName;
+              });
+
+              if (!pkt) {
+                _context.next = 4;
+                break;
+              }
+
+              _context.next = 4;
+              return this.service.sendCmdAsync(pkt.identifier, (0,_jdom_pack__WEBPACK_IMPORTED_MODULE_4__/* .jdpack */ .AV)(pkt.packFormat, values), true);
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendCommandAsync(_x, _x2) {
+      return _sendCommandAsync.apply(this, arguments);
+    }
+
+    return sendCommandAsync;
+  }();
+
+  _proto.writeRegisterAsync = /*#__PURE__*/function () {
+    var _writeRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(regName, values) {
+      var register;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              register = this._registers[regName];
+
+              if (!(register.code === _jdom_constants__WEBPACK_IMPORTED_MODULE_3__/* .SystemReg.Value */ .ZJq.Value)) {
+                _context2.next = 4;
+                break;
+              }
+
+              _context2.next = 4;
+              return this.setEnabled();
+
+            case 4:
+              _context2.next = 6;
+              return this.writeRegAsync(this._registers[regName], values);
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function writeRegisterAsync(_x3, _x4) {
+      return _writeRegisterAsync.apply(this, arguments);
+    }
+
+    return writeRegisterAsync;
+  }();
+
+  _proto.writeRegAsync = /*#__PURE__*/function () {
+    var _writeRegAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(jdreg, values) {
+      var _jdreg$specification;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return jdreg === null || jdreg === void 0 ? void 0 : jdreg.sendSetPackedAsync((_jdreg$specification = jdreg.specification) === null || _jdreg$specification === void 0 ? void 0 : _jdreg$specification.packFormat, values, true);
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    function writeRegAsync(_x5, _x6) {
+      return _writeRegAsync.apply(this, arguments);
+    }
+
+    return writeRegAsync;
+  }();
+
+  _proto.setEnabled = /*#__PURE__*/function () {
+    var _setEnabled = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var pkt, jdreg;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              pkt = this.service.specification.packets.find(_jdom_spec__WEBPACK_IMPORTED_MODULE_1__/* .isIntensity */ .tC);
+
+              if (!(pkt && pkt.fields[0].type === "bool")) {
+                _context4.next = 5;
+                break;
+              }
+
+              jdreg = this.service.register(_jdom_constants__WEBPACK_IMPORTED_MODULE_3__/* .SystemReg.Intensity */ .ZJq.Intensity);
+              _context4.next = 5;
+              return this.writeRegAsync(jdreg, [true]);
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function setEnabled() {
+      return _setEnabled.apply(this, arguments);
+    }
+
+    return setEnabled;
+  }();
+
+  _proto.lookupRegisterAsync = /*#__PURE__*/function () {
+    var _lookupRegisterAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(root, fld) {
+      var _register$unpackedVal, register, field, _this$_events$root$fi, _field;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!(root in this._registers)) {
+                _context5.next = 12;
+                break;
+              }
+
+              register = this._registers[root];
+              _context5.next = 4;
+              return register.refresh();
+
+            case 4:
+              if (fld) {
+                _context5.next = 8;
+                break;
+              }
+
+              return _context5.abrupt("return", (_register$unpackedVal = register.unpackedValue) === null || _register$unpackedVal === void 0 ? void 0 : _register$unpackedVal[0]);
+
+            case 8:
+              field = register.fields.find(function (f) {
+                return f.name === fld;
+              });
+              return _context5.abrupt("return", field === null || field === void 0 ? void 0 : field.value);
+
+            case 10:
+              _context5.next = 15;
+              break;
+
+            case 12:
+              if (!(root in this._events)) {
+                _context5.next = 15;
+                break;
+              }
+
+              _field = (_this$_events$root$fi = this._events[root].fields) === null || _this$_events$root$fi === void 0 ? void 0 : _this$_events$root$fi.find(function (f) {
+                return f.name === fld;
+              });
+              return _context5.abrupt("return", _field === null || _field === void 0 ? void 0 : _field.value);
+
+            case 15:
+              return _context5.abrupt("return", undefined);
+
+            case 16:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, this);
+    }));
+
+    function lookupRegisterAsync(_x7, _x8) {
+      return _lookupRegisterAsync.apply(this, arguments);
+    }
+
+    return lookupRegisterAsync;
+  }();
+
+  return VMServiceClient;
+}(_jdom_serviceclient__WEBPACK_IMPORTED_MODULE_2__/* .JDServiceClient */ .P);
+
+/***/ }),
+
+/***/ 18108:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ unparse; },
+/* harmony export */   "W": function() { return /* binding */ VMExprEvaluator; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(73108);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42656);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function unparse(e) {
+  switch (e.type) {
+    case "ArrayExpression":
+      {
+        var ae = e;
+        return "[" + ae.elements.map(unparse).join(", ") + "]";
+      }
+
+    case "CallExpression":
+      {
+        var caller = e;
+        return unparse(caller.callee) + "(" + caller.arguments.map(unparse).join(", ") + ")";
+      }
+
+    case "MemberExpression":
+      {
+        var root = e;
+        return root.computed ? unparse(root.object) + "[" + unparse(root.property) + "]" : unparse(root.object) + "." + unparse(root.property);
+      }
+
+    case "BinaryExpression":
+    case "LogicalExpression":
+      {
+        var be = e;
+        return "(" + unparse(be.left) + " " + be.operator + " " + unparse(be.right) + ")";
+      }
+
+    case "UnaryExpression":
+      {
+        var ue = e;
+        return "" + ue.operator + unparse(ue.argument);
+      }
+
+    case "Identifier":
+      {
+        return e.name;
+      }
+
+    case "Literal":
+      {
+        return e.raw;
+      }
+
+    default:
+      return "TODO";
+  }
+}
+var VMExprEvaluator = /*#__PURE__*/function () {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function VMExprEvaluator(env, callEval) {
+    this.exprStack = [];
+    this.env = env;
+    this.callEval = callEval;
+  }
+
+  var _proto = VMExprEvaluator.prototype;
+
+  _proto.tos = function tos() {
+    return this.exprStack[this.exprStack.length - 1];
+  };
+
+  _proto.pop = function pop() {
+    return this.exprStack.pop();
+  };
+
+  _proto.evalAsync = /*#__PURE__*/function () {
+    var _evalAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              this.exprStack = [];
+              _context.next = 3;
+              return this.visitExpressionAsync(e);
+
+            case 3:
+              return _context.abrupt("return", this.exprStack.pop());
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function evalAsync(_x) {
+      return _evalAsync.apply(this, arguments);
+    }
+
+    return evalAsync;
+  }();
+
+  _proto.visitExpressionAsync = /*#__PURE__*/function () {
+    var _visitExpressionAsync = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+      var ret, be, right, left, ue, top, le, val, id, _val, lit;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.t0 = e.type;
+              _context2.next = _context2.t0 === "ArrayExpression" ? 3 : _context2.t0 === "CallExpression" ? 4 : _context2.t0 === "BinaryExpression" ? 6 : _context2.t0 === "UnaryExpression" ? 55 : _context2.t0 === "LogicalExpression" ? 73 : _context2.t0 === "MemberExpression" ? 94 : _context2.t0 === "Identifier" ? 99 : _context2.t0 === "Literal" ? 105 : 108;
+              break;
+
+            case 3:
+              return _context2.abrupt("break", 108);
+
+            case 4:
+              if (this.callEval) {
+                ret = this.callEval(e, this);
+                this.exprStack.push(ret);
+              } else this.exprStack.push(undefined);
+
+              return _context2.abrupt("break", 108);
+
+            case 6:
+              be = e;
+              _context2.next = 9;
+              return this.visitExpressionAsync(be.left);
+
+            case 9:
+              _context2.next = 11;
+              return this.visitExpressionAsync(be.right);
+
+            case 11:
+              right = this.exprStack.pop();
+              left = this.exprStack.pop();
+              _context2.t1 = be.operator;
+              _context2.next = _context2.t1 === "+" ? 16 : _context2.t1 === "-" ? 18 : _context2.t1 === "/" ? 20 : _context2.t1 === "*" ? 22 : _context2.t1 === "%" ? 24 : _context2.t1 === ">>" ? 26 : _context2.t1 === ">>>" ? 28 : _context2.t1 === "<<" ? 30 : _context2.t1 === "|" ? 32 : _context2.t1 === "&" ? 34 : _context2.t1 === "^" ? 36 : _context2.t1 === "==" ? 38 : _context2.t1 === "!=" ? 40 : _context2.t1 === "===" ? 42 : _context2.t1 === "!==" ? 44 : _context2.t1 === "<" ? 46 : _context2.t1 === ">" ? 48 : _context2.t1 === "<=" ? 50 : _context2.t1 === ">=" ? 52 : 54;
+              break;
+
+            case 16:
+              this.exprStack.push(left + right);
+              return _context2.abrupt("return");
+
+            case 18:
+              this.exprStack.push(left - right);
+              return _context2.abrupt("return");
+
+            case 20:
+              this.exprStack.push(left / right);
+              return _context2.abrupt("return");
+
+            case 22:
+              this.exprStack.push(left * right);
+              return _context2.abrupt("return");
+
+            case 24:
+              this.exprStack.push(left % right);
+              return _context2.abrupt("return");
+
+            case 26:
+              this.exprStack.push(left >> right);
+              return _context2.abrupt("return");
+
+            case 28:
+              this.exprStack.push(left >>> right);
+              return _context2.abrupt("return");
+
+            case 30:
+              this.exprStack.push(left << right);
+              return _context2.abrupt("return");
+
+            case 32:
+              this.exprStack.push(left | right);
+              return _context2.abrupt("return");
+
+            case 34:
+              this.exprStack.push(left & right);
+              return _context2.abrupt("return");
+
+            case 36:
+              this.exprStack.push(left ^ right);
+              return _context2.abrupt("return");
+
+            case 38:
+              this.exprStack.push(left == right);
+              return _context2.abrupt("return");
+
+            case 40:
+              this.exprStack.push(left != right);
+              return _context2.abrupt("return");
+
+            case 42:
+              this.exprStack.push(left === right);
+              return _context2.abrupt("return");
+
+            case 44:
+              this.exprStack.push(left !== right);
+              return _context2.abrupt("return");
+
+            case 46:
+              this.exprStack.push(left < right);
+              return _context2.abrupt("return");
+
+            case 48:
+              this.exprStack.push(left > right);
+              return _context2.abrupt("return");
+
+            case 50:
+              this.exprStack.push(left <= right);
+              return _context2.abrupt("return");
+
+            case 52:
+              this.exprStack.push(left >= right);
+              return _context2.abrupt("return");
+
+            case 54:
+              return _context2.abrupt("break", 108);
+
+            case 55:
+              ue = e;
+              _context2.next = 58;
+              return this.visitExpressionAsync(ue.argument);
+
+            case 58:
+              top = this.exprStack.pop();
+              _context2.t2 = ue.operator;
+              _context2.next = _context2.t2 === "ABS" ? 62 : _context2.t2 === "!" ? 64 : _context2.t2 === "~" ? 66 : _context2.t2 === "-" ? 68 : _context2.t2 === "+" ? 70 : 72;
+              break;
+
+            case 62:
+              this.exprStack.push(Math.abs(top));
+              return _context2.abrupt("return");
+
+            case 64:
+              this.exprStack.push(!top);
+              return _context2.abrupt("return");
+
+            case 66:
+              this.exprStack.push(~top);
+              return _context2.abrupt("return");
+
+            case 68:
+              this.exprStack.push(-top);
+              return _context2.abrupt("return");
+
+            case 70:
+              this.exprStack.push(+top);
+              return _context2.abrupt("return");
+
+            case 72:
+              return _context2.abrupt("break", 108);
+
+            case 73:
+              le = e;
+              _context2.next = 76;
+              return this.visitExpressionAsync(le.left);
+
+            case 76:
+              _context2.t3 = le.operator;
+              _context2.next = _context2.t3 === "||" ? 79 : _context2.t3 === "&&" ? 86 : 93;
+              break;
+
+            case 79:
+              if (!this.tos()) {
+                _context2.next = 83;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 83:
+              _context2.next = 85;
+              return this.visitExpressionAsync(le.right);
+
+            case 85:
+              return _context2.abrupt("return");
+
+            case 86:
+              if (this.tos()) {
+                _context2.next = 90;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 90:
+              _context2.next = 92;
+              return this.visitExpressionAsync(le.right);
+
+            case 92:
+              return _context2.abrupt("return");
+
+            case 93:
+              return _context2.abrupt("break", 108);
+
+            case 94:
+              _context2.next = 96;
+              return this.env(e);
+
+            case 96:
+              val = _context2.sent;
+              //if (val === undefined) {
+              //    throw new VMError(VMCode.InternalError, `lookup of ${unparse(e)} failed`)
+              //}
+              this.exprStack.push(val);
+              return _context2.abrupt("return");
+
+            case 99:
+              id = e;
+              _context2.next = 102;
+              return this.env(id.name);
+
+            case 102:
+              _val = _context2.sent;
+              // if (val === undefined)
+              //    throw new VMError(VMCode.InternalError, `lookup of ${id.name} failed`)
+              this.exprStack.push(_val);
+              return _context2.abrupt("return");
+
+            case 105:
+              lit = e;
+              this.exprStack.push(lit.value);
+              return _context2.abrupt("return");
+
+            case 108:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function visitExpressionAsync(_x2) {
+      return _visitExpressionAsync.apply(this, arguments);
+    }
+
+    return visitExpressionAsync;
+  }();
+
+  return VMExprEvaluator;
+}();
+
+/***/ }),
+
 /***/ 20119:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -760,7 +1374,7 @@ function ImportButton(props) {
 
 /***/ }),
 
-/***/ 961:
+/***/ 85360:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -795,14 +1409,686 @@ var createClass = __webpack_require__(53719);
 var inheritsLoose = __webpack_require__(85413);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/wrapNativeSuper.js + 4 modules
 var wrapNativeSuper = __webpack_require__(83001);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/environment.ts
-var environment = __webpack_require__(96699);
-// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
-var vm_expr = __webpack_require__(18108);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/eventsource.ts
 var eventsource = __webpack_require__(45484);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
+var jdom_spec = __webpack_require__(13173);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceserver.ts
+var serviceserver = __webpack_require__(50457);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
+var pack = __webpack_require__(91635);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/registerserver.ts
+var registerserver = __webpack_require__(1591);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/server.ts
+
+
+
+
+
+
+
+
+
+var VM_EXTERNAL_REQUEST = "vmExternalRequest";
+
+var VMRegisterServer = /*#__PURE__*/function (_JDRegisterServer) {
+  (0,inheritsLoose/* default */.Z)(VMRegisterServer, _JDRegisterServer);
+
+  function VMRegisterServer(serviceServer, reg, defaultValue) {
+    var _this;
+
+    _this = _JDRegisterServer.call(this, serviceServer, reg.identifier, defaultValue) || this;
+    _this.serviceServer = serviceServer;
+    _this.reg = reg;
+    return _this;
+  }
+
+  var _proto = VMRegisterServer.prototype;
+
+  _proto.sendGetAsync = /*#__PURE__*/function () {
+    var _sendGetAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              this.serviceServer.raiseGetRegisterEvent(this.reg.name);
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendGetAsync() {
+      return _sendGetAsync.apply(this, arguments);
+    }
+
+    return sendGetAsync;
+  }();
+
+  _proto.theRealSendGetAsync = /*#__PURE__*/function () {
+    var _theRealSendGetAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _JDRegisterServer.prototype.sendGetAsync.call(this);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function theRealSendGetAsync() {
+      return _theRealSendGetAsync.apply(this, arguments);
+    }
+
+    return theRealSendGetAsync;
+  }();
+
+  return VMRegisterServer;
+}(registerserver/* default */.Z);
+
+var VMServiceServer = /*#__PURE__*/function (_JDServiceServer) {
+  (0,inheritsLoose/* default */.Z)(VMServiceServer, _JDServiceServer);
+
+  function VMServiceServer(role, shortId, spec) {
+    var _this2;
+
+    _this2 = _JDServiceServer.call(this, spec.classIdentifier) || this;
+    _this2.eventNameToId = {};
+    _this2.regNameToId = {};
+    _this2.regFieldToId = {};
+    _this2.commandPackets = {};
+    _this2.cmdFieldToId = {};
+    _this2.role = role;
+    _this2.shortId = shortId;
+    _this2.spec = spec;
+    spec.packets.filter(jdom_spec/* isHighLevelRegister */.vr).map(function (reg) {
+      var _reg$fields;
+
+      var regServer = _this2.addExistingRegister(new VMRegisterServer((0,assertThisInitialized/* default */.Z)(_this2), reg));
+
+      _this2.regNameToId[reg.name] = reg.identifier;
+      (_reg$fields = reg.fields) === null || _reg$fields === void 0 ? void 0 : _reg$fields.forEach(function (pkt, index) {
+        _this2.regFieldToId[reg.name + ":" + pkt.name] = index;
+      });
+      regServer.subscribe(constants/* CHANGE */.Ver, function () {
+        _this2.emit(VM_EXTERNAL_REQUEST, {
+          kind: "set",
+          role: _this2.role,
+          tgt: reg.name
+        });
+      });
+    });
+    spec.packets.filter(jdom_spec/* isCommand */.ao).map(function (cmd) {
+      var _cmd$fields;
+
+      _this2.addCommand(cmd.identifier, function (pkt) {
+        _this2.commandPackets[cmd.identifier] = pkt.decoded;
+
+        _this2.emit(VM_EXTERNAL_REQUEST, {
+          kind: "cmd",
+          role: _this2.role,
+          tgt: cmd.name
+        });
+      });
+
+      (_cmd$fields = cmd.fields) === null || _cmd$fields === void 0 ? void 0 : _cmd$fields.forEach(function (pkt, index) {
+        _this2.regFieldToId[cmd.name + ":" + pkt.name] = index;
+      });
+    });
+    spec.packets.filter(jdom_spec/* isHighLevelEvent */.jl).forEach(function (pkt) {
+      _this2.eventNameToId[pkt.name] = pkt.identifier;
+    });
+    return _this2;
+  }
+
+  var _proto2 = VMServiceServer.prototype;
+
+  _proto2.raiseGetRegisterEvent = function raiseGetRegisterEvent(regName) {
+    this.emit(VM_EXTERNAL_REQUEST, {
+      kind: "get",
+      role: this.role,
+      tgt: regName
+    });
+  };
+
+  _proto2.respondToGetRegisterEvent = /*#__PURE__*/function () {
+    var _respondToGetRegisterEvent = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(regName) {
+      var reg;
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              reg = this.register(this.regNameToId[regName]);
+              _context3.next = 3;
+              return reg.theRealSendGetAsync();
+
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function respondToGetRegisterEvent(_x) {
+      return _respondToGetRegisterEvent.apply(this, arguments);
+    }
+
+    return respondToGetRegisterEvent;
+  }();
+
+  _proto2.sendEventNameAsync = /*#__PURE__*/function () {
+    var _sendEventNameAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4(eventName, values) {
+      var pkt;
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              pkt = this.spec.packets.find(function (p) {
+                return (0,jdom_spec/* isHighLevelEvent */.jl)(p) && p.name === eventName;
+              });
+
+              if (!pkt) {
+                _context4.next = 4;
+                break;
+              }
+
+              _context4.next = 4;
+              return this.sendEvent(this.eventNameToId[eventName], (0,pack/* jdpack */.AV)(pkt.packFormat, values));
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function sendEventNameAsync(_x2, _x3) {
+      return _sendEventNameAsync.apply(this, arguments);
+    }
+
+    return sendEventNameAsync;
+  }();
+
+  _proto2.lookupRegister = function lookupRegister(root, fld) {
+    if (this.regNameToId[root]) {
+      var _reg$values;
+
+      var _reg = this.register(this.regNameToId[root]);
+
+      if (!fld) return (_reg$values = _reg.values()) === null || _reg$values === void 0 ? void 0 : _reg$values[0];else {
+        var _reg$values2;
+
+        return (_reg$values2 = _reg.values()) === null || _reg$values2 === void 0 ? void 0 : _reg$values2[this.regFieldToId[root + ":" + fld]];
+      }
+    } else if (this.commandPackets[root]) {
+      var _cmd$decoded, _cmd$decoded$this$cmd;
+
+      var cmd = this.commandPackets[root];
+      return (_cmd$decoded = cmd.decoded) === null || _cmd$decoded === void 0 ? void 0 : (_cmd$decoded$this$cmd = _cmd$decoded[this.cmdFieldToId[root + ":" + fld]]) === null || _cmd$decoded$this$cmd === void 0 ? void 0 : _cmd$decoded$this$cmd.value;
+    }
+
+    return undefined;
+  };
+
+  _proto2.writeRegister = function writeRegister(root, ev) {
+    var reg = this.register(this.regNameToId[root]);
+    reg.setValues(ev);
+  };
+
+  return VMServiceServer;
+}(serviceserver/* default */.Z);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/client.ts
+var client = __webpack_require__(1797);
+;// CONCATENATED MODULE: ./jacdac-ts/src/vm/environment.ts
+
+
+
+
+
+
+
+
+
+var GLOBAL_CHANGE = "vmEnvGlobalChange";
+var REGISTER_CHANGE = "vmEnvRegisterChange";
+var EXTERNAL_REQUEST = "vmEnvEventChange";
+var VMExceptionCode;
+
+(function (VMExceptionCode) {
+  VMExceptionCode["RoleNoService"] = "vmEnvRoleNoService";
+  VMExceptionCode["TypeMismatch"] = "vmEnvTypeMismatch";
+  VMExceptionCode["InternalError"] = "vmInternalError";
+})(VMExceptionCode || (VMExceptionCode = {}));
+
+var VMException = /*#__PURE__*/function (_Error) {
+  (0,inheritsLoose/* default */.Z)(VMException, _Error);
+
+  function VMException(code, data) {
+    var _this;
+
+    _this = _Error.call(this) || this;
+    _this.code = code;
+    _this.data = data;
+    return _this;
+  }
+
+  return VMException;
+}( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
+var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
+  (0,inheritsLoose/* default */.Z)(VMEnvironment, _JDEventSource);
+
+  function VMEnvironment(registers, events, serverRoles) {
+    var _this2;
+
+    _this2 = _JDEventSource.call(this) || this;
+    _this2._currentRequest = undefined;
+    _this2._clientEnvs = {};
+    _this2._serverEnvs = {};
+    _this2._globals = {};
+    _this2._rolesBound = [];
+    _this2._rolesUnbound = [];
+    _this2.registers = registers;
+    _this2.events = events;
+    serverRoles.forEach(function (p) {
+      // get the service
+      var service = (0,jdom_spec/* serviceSpecificationFromName */.kB)(p.serviceShortId);
+
+      if (service) {
+        // spin up JDServiceServer
+        var serviceServer = new VMServiceServer(p.role, p.serviceShortId, service);
+        _this2._serverEnvs[p.role] = serviceServer;
+        serviceServer.subscribe(VM_EXTERNAL_REQUEST, function (p) {
+          _this2._currentRequest = p;
+
+          _this2.emit(EXTERNAL_REQUEST, p);
+        });
+      }
+    });
+    return _this2;
+  }
+
+  var _proto = VMEnvironment.prototype;
+
+  _proto.globals = function globals() {
+    return this._globals;
+  };
+
+  _proto.servers = function servers() {
+    var _this3 = this;
+
+    return Object.keys(this._serverEnvs).map(function (k) {
+      return {
+        role: k,
+        shortId: _this3._serverEnvs[k].shortId,
+        server: _this3._serverEnvs[k]
+      };
+    });
+  };
+
+  _proto.serviceChanged = function serviceChanged(role, service) {
+    var _this4 = this;
+
+    if (this._clientEnvs[role]) {
+      this._clientEnvs[role].unmount();
+
+      this._clientEnvs[role] = undefined;
+    }
+
+    if (!service) this._rolesUnbound.push(role);else {
+      this._rolesBound.push(role);
+
+      this._clientEnvs[role] = new client/* VMServiceClient */.z(service);
+      this.registers.forEach(function (r) {
+        if (r.role === role) {
+          _this4.registerRegister(role, r.register);
+        }
+      });
+      this.events.forEach(function (e) {
+        if (e.role === role) {
+          _this4.registerEvent(role, e.event);
+        }
+      });
+    }
+  };
+
+  _proto.roleBound = function roleBound(role) {
+    return !!this._clientEnvs[role];
+  };
+
+  _proto.registerRegister = function registerRegister(role, reg) {
+    var _this5 = this;
+
+    var serviceEnv = this.getService(role);
+    serviceEnv.registerRegister(reg, function () {
+      _this5.emit(REGISTER_CHANGE, reg);
+    });
+  };
+
+  _proto.registerEvent = function registerEvent(role, tgt) {
+    var _this6 = this;
+
+    var serviceEnv = this.getService(role);
+    serviceEnv.registerEvent(tgt, function () {
+      _this6._currentRequest = {
+        kind: "event",
+        role: role,
+        tgt: tgt
+      };
+
+      _this6.emit(EXTERNAL_REQUEST, _this6._currentRequest);
+    });
+  };
+
+  _proto.getRootName = function getRootName(e) {
+    if (!e) return undefined;
+    if (typeof e === "string") return e;
+    if (e.type === "MemberExpression") return e.object.name;
+    return undefined;
+  };
+
+  _proto.getService = function getService(e) {
+    var root = this.getRootName(e);
+    if (!root) return undefined;
+    var s = this._clientEnvs[root];
+    return s;
+  };
+
+  _proto.getServer = function getServer(e) {
+    var root = this.getRootName(e);
+    if (!root) return undefined;
+    var s = this._serverEnvs[root];
+    return s;
+  } // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;
+
+  _proto.sendCommandAsync =
+  /*#__PURE__*/
+  function () {
+    var _sendCommandAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(e, values) {
+      var serviceEnv, server;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              serviceEnv = this.getService(e);
+
+              if (!serviceEnv) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 4;
+              return serviceEnv === null || serviceEnv === void 0 ? void 0 : serviceEnv.sendCommandAsync(e.property.name, values);
+
+            case 4:
+              _context.next = 9;
+              break;
+
+            case 6:
+              server = this.getServer(e);
+              _context.next = 9;
+              return server === null || server === void 0 ? void 0 : server.sendEventNameAsync(e.property.name, values);
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    function sendCommandAsync(_x, _x2) {
+      return _sendCommandAsync.apply(this, arguments);
+    }
+
+    return sendCommandAsync;
+  }();
+
+  _proto.lookupAsync = /*#__PURE__*/function () {
+    var _lookupAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(e) {
+      var roleName, me, _this$_globals$local, local, ep, root, fld, serviceEnv, server;
+
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              roleName = this.getRootName(e);
+
+              if (!roleName.startsWith("$var")) {
+                _context2.next = 7;
+                break;
+              }
+
+              me = e;
+
+              if (!(me.property.type === "Identifier")) {
+                _context2.next = 6;
+                break;
+              }
+
+              local = me.property.name;
+              return _context2.abrupt("return", (_this$_globals$local = this._globals[local]) === null || _this$_globals$local === void 0 ? void 0 : _this$_globals$local.value);
+
+            case 6:
+              return _context2.abrupt("return", undefined);
+
+            case 7:
+              ep = e.property;
+              root = typeof ep === "string" ? ep : ep.type === "Identifier" ? ep.name : ep.object.name;
+              fld = typeof ep === "string" ? undefined : ep.type === "Identifier" ? undefined : ep.property.name;
+              serviceEnv = this.getService(e);
+
+              if (!serviceEnv) {
+                _context2.next = 17;
+                break;
+              }
+
+              _context2.next = 14;
+              return serviceEnv.lookupRegisterAsync(root, fld);
+
+            case 14:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 17:
+              server = this.getServer(e);
+              return _context2.abrupt("return", server.lookupRegister(root, fld));
+
+            case 19:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    function lookupAsync(_x3) {
+      return _lookupAsync.apply(this, arguments);
+    }
+
+    return lookupAsync;
+  }();
+
+  _proto.writeRegisterAsync = /*#__PURE__*/function () {
+    var _writeRegisterAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(e, values) {
+      var serviceEnv, me, reg, server;
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              serviceEnv = this.getService(e);
+              me = e;
+
+              if (!(me.property.type === "Identifier")) {
+                _context3.next = 11;
+                break;
+              }
+
+              reg = me.property.name;
+
+              if (!serviceEnv) {
+                _context3.next = 9;
+                break;
+              }
+
+              _context3.next = 7;
+              return serviceEnv.writeRegisterAsync(reg, values);
+
+            case 7:
+              _context3.next = 11;
+              break;
+
+            case 9:
+              server = this.getServer(e);
+              return _context3.abrupt("return", server.writeRegister(reg, values));
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, this);
+    }));
+
+    function writeRegisterAsync(_x4, _x5) {
+      return _writeRegisterAsync.apply(this, arguments);
+    }
+
+    return writeRegisterAsync;
+  }();
+
+  _proto.writeGlobal = function writeGlobal(e, value) {
+    var roleName = this.getRootName(e);
+    if (!roleName || !roleName.startsWith("$var")) return undefined;
+    var me = e;
+
+    if (me.property.type === "Identifier") {
+      var local = me.property.name;
+
+      if (this._globals[local]) {
+        var firstType = this._globals[local].type;
+
+        if (firstType !== typeof value) {
+          throw new VMException(VMExceptionCode.TypeMismatch, "variable " + local + " has first type " + firstType + "; trying to assign " + value.toString());
+        }
+
+        if (value !== this._globals[local].value) {
+          this._globals[local].value = value;
+          this.emit(GLOBAL_CHANGE);
+        }
+      } else {
+        var _firstType = typeof value;
+
+        if (_firstType !== "string" && _firstType !== "boolean" && _firstType !== "number") {
+          throw new VMException(VMExceptionCode.TypeMismatch, "Value of type " + _firstType + " not supported");
+        }
+
+        this._globals[local] = {
+          type: _firstType,
+          value: value
+        };
+        this.emit(GLOBAL_CHANGE);
+      }
+
+      return true;
+    }
+
+    return false;
+  };
+
+  _proto.clearExternalStimulii = function clearExternalStimulii() {
+    this._currentRequest = undefined;
+    this.rolesReset();
+  };
+
+  _proto.hasRequest = function hasRequest(e) {
+    var roleName = this.getRootName(e);
+    var me = e;
+
+    if (me.property.type === "Identifier") {
+      var _this$_currentRequest, _this$_currentRequest2;
+
+      var op = me.property.name;
+      if (((_this$_currentRequest = this._currentRequest) === null || _this$_currentRequest === void 0 ? void 0 : _this$_currentRequest.role) === roleName && ((_this$_currentRequest2 = this._currentRequest) === null || _this$_currentRequest2 === void 0 ? void 0 : _this$_currentRequest2.tgt) === op) return this._currentRequest;
+    }
+
+    return undefined;
+  };
+
+  _proto.completeRequest = /*#__PURE__*/function () {
+    var _completeRequest = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4(request) {
+      var server;
+      return regenerator_default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              (0,utils/* assert */.hu)(request.kind === "get");
+              server = this.getServer(request.role);
+              _context4.next = 4;
+              return server.respondToGetRegisterEvent(request.tgt);
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, this);
+    }));
+
+    function completeRequest(_x6) {
+      return _completeRequest.apply(this, arguments);
+    }
+
+    return completeRequest;
+  }() // role events
+  ;
+
+  _proto.rolesReset = function rolesReset() {
+    this._rolesBound = [];
+    this._rolesUnbound = [];
+  };
+
+  _proto.initRoles = function initRoles() {
+    this._rolesBound = Object.keys(this._clientEnvs).slice(0);
+  };
+
+  _proto.roleTransition = function roleTransition(role, event) {
+    if (event === "bound") {
+      return !!this._rolesBound.find(function (r) {
+        return role === "any" || r === role;
+      });
+    } else {
+      return !!this._rolesUnbound.find(function (r) {
+        return role === "any" || r === role;
+      });
+    }
+  };
+
+  _proto.unsubscribe = function unsubscribe() {
+    for (var _i = 0, _Object$values = Object.values(this._clientEnvs); _i < _Object$values.length; _i++) {
+      var vs = _Object$values[_i];
+      vs.unmount();
+    }
+  };
+
+  return VMEnvironment;
+}(eventsource/* JDEventSource */.a);
+// EXTERNAL MODULE: ./jacdac-ts/src/vm/expr.ts
+var vm_expr = __webpack_require__(18108);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/compile.ts + 1 modules
 var compile = __webpack_require__(79973);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/events.ts
@@ -842,10 +2128,10 @@ var Mutex = /*#__PURE__*/function () {
 
   return Mutex;
 }();
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
-var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
-var client = __webpack_require__(47235);
+var jdom_client = __webpack_require__(47235);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceprovider.ts + 1 modules
+var serviceprovider = __webpack_require__(73138);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/runner.ts
 
 
@@ -865,6 +2151,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 
 
@@ -917,14 +2204,28 @@ var VMTimerException = /*#__PURE__*/function (_Error2) {
   return VMTimerException;
 }( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
 
+var VMRequestException = /*#__PURE__*/function (_Error3) {
+  (0,inheritsLoose/* default */.Z)(VMRequestException, _Error3);
+
+  function VMRequestException(request) {
+    var _this3;
+
+    _this3 = _Error3.call(this) || this;
+    _this3.request = request;
+    return _this3;
+  }
+
+  return VMRequestException;
+}( /*#__PURE__*/(0,wrapNativeSuper/* default */.Z)(Error));
+
 var VMCommandEvaluator = /*#__PURE__*/function () {
-  function VMCommandEvaluator(parent, env, gc) {
+  function VMCommandEvaluator(parent, env, cmd) {
     this._regSaved = undefined;
     this._changeSaved = undefined;
     this._started = false;
     this.parent = parent;
     this.env = env;
-    this.gc = gc;
+    this.cmd = cmd;
   }
 
   var _proto = VMCommandEvaluator.prototype;
@@ -935,12 +2236,12 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
     }
 
     this.parent.trace(msg, _objectSpread({
-      command: this.gc.command.type
+      command: this.cmd.command.type
     }, context));
   };
 
   _proto.callEval = function callEval() {
-    var _this3 = this;
+    var _this4 = this;
 
     return function (caller, ee) {
       var callee = caller.callee;
@@ -953,20 +2254,20 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
           case "roleBoundExpression":
             {
               var _role = args[0].name;
-              return _this3.env.roleBound(_role);
+              return _this4.env.roleBound(_role);
             }
 
           default: // ERROR
 
         }
 
-        throw new environment/* VMException */.nt(environment/* VMExceptionCode.InternalError */.S8.InternalError, "unknown function " + namespace + "." + funName);
-      } else throw new environment/* VMException */.nt(environment/* VMExceptionCode.InternalError */.S8.InternalError, "unknown namespace " + namespace);
+        throw new VMException(VMExceptionCode.InternalError, "unknown function " + namespace + "." + funName);
+      } else throw new VMException(VMExceptionCode.InternalError, "unknown namespace " + namespace);
     };
   };
 
   _proto.newEval = function newEval() {
-    var _this4 = this;
+    var _this5 = this;
 
     return new vm_expr/* VMExprEvaluator */.W( /*#__PURE__*/function () {
       var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(e) {
@@ -975,7 +2276,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this4.env.lookupAsync(e);
+                return _this5.env.lookupAsync(e);
 
               case 2:
                 return _context.abrupt("return", _context.sent);
@@ -991,8 +2292,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
       return function (_x) {
         return _ref.apply(this, arguments);
       };
-    }(), this.callEval() // TODO: call expression for bound
-    );
+    }(), this.callEval());
   };
 
   _proto.evalExpressionAsync = /*#__PURE__*/function () {
@@ -1071,13 +2371,13 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              if (!(this.gc.command.callee.type !== "MemberExpression" && (this.inst === "awaitRegister" || this.inst === "awaitChange"))) {
+              if (!(this.cmd.command.callee.type !== "MemberExpression" && (this.inst === "awaitRegister" || this.inst === "awaitChange"))) {
                 _context4.next = 10;
                 break;
               }
 
               // need to capture register value for awaitChange/awaitRegister
-              args = this.gc.command.arguments;
+              args = this.cmd.command.arguments;
               _context4.next = 4;
               return this.evalExpressionAsync(args[0]);
 
@@ -1118,7 +2418,7 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
   _proto.evaluate = /*#__PURE__*/function () {
     var _evaluate = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5() {
-      var neededStart, args, expr, _values, _iterator, _step, a, _expr, event, _role2, _event, regValue, _expr2, ev, reg, _this$gc, _expr3, _ev, _this$gc2, _expr4, _ev2, evString, _expr5, _ev3;
+      var neededStart, args, expr, _values, _iterator, _step, a, _expr, event, _request, _role2, _event, regValue, _expr2, _values2, _iterator2, _step2, _a, reg, _this$cmd, _expr3, ev, _this$cmd2, _expr4, _ev, evString, _expr5, _ev2;
 
       return regenerator_default().wrap(function _callee5$(_context5) {
         while (1) {
@@ -1144,18 +2444,17 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
               return _context5.abrupt("return", VMInternalStatus.Running);
 
             case 7:
-              args = this.gc.command.arguments;
+              args = this.cmd.command.arguments;
 
-              if (!(this.gc.command.callee.type === "MemberExpression")) {
+              if (!(this.cmd.command.callee.type === "MemberExpression")) {
                 _context5.next = 24;
                 break;
               }
 
               // interpret as a service command (role.comand)
-              expr = this.newEval(); // TODO
-
+              expr = this.newEval();
               _values = [];
-              _iterator = _createForOfIteratorHelperLoose(this.gc.command.arguments);
+              _iterator = _createForOfIteratorHelperLoose(this.cmd.command.arguments);
 
             case 12:
               if ((_step = _iterator()).done) {
@@ -1179,14 +2478,14 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 21:
               _context5.next = 23;
-              return this.env.sendCommandAsync(this.gc.command.callee, _values);
+              return this.env.sendCommandAsync(this.cmd.command.callee, _values);
 
             case 23:
               return _context5.abrupt("return", VMInternalStatus.Completed);
 
             case 24:
               _context5.t2 = this.inst;
-              _context5.next = _context5.t2 === "branchOnCondition" ? 27 : _context5.t2 === "jump" ? 33 : _context5.t2 === "label" ? 34 : _context5.t2 === "awaitEvent" ? 35 : _context5.t2 === "roleBound" ? 46 : _context5.t2 === "awaitCondition" ? 49 : _context5.t2 === "awaitChange" ? 57 : _context5.t2 === "awaitRegister" ? 57 : _context5.t2 === "writeRegister" ? 63 : _context5.t2 === "writeLocal" ? 63 : _context5.t2 === "watch" ? 77 : _context5.t2 === "log" ? 83 : _context5.t2 === "halt" ? 90 : _context5.t2 === "nop" ? 91 : _context5.t2 === "wait" ? 92 : 97;
+              _context5.next = _context5.t2 === "branchOnCondition" ? 27 : _context5.t2 === "jump" ? 33 : _context5.t2 === "label" ? 34 : _context5.t2 === "awaitEvent" ? 35 : _context5.t2 === "roleBound" ? 43 : _context5.t2 === "awaitCondition" ? 46 : _context5.t2 === "awaitChange" ? 54 : _context5.t2 === "awaitRegister" ? 54 : _context5.t2 === "writeRegister" ? 60 : _context5.t2 === "writeLocal" ? 60 : _context5.t2 === "watch" ? 82 : _context5.t2 === "log" ? 88 : _context5.t2 === "halt" ? 95 : _context5.t2 === "nop" ? 96 : _context5.t2 === "wait" ? 97 : 102;
               break;
 
             case 27:
@@ -1214,150 +2513,162 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 
             case 35:
               event = args[0];
+              _request = this.env.hasRequest(event);
 
-              if (!this.env.hasEvent(event)) {
-                _context5.next = 45;
+              if (!_request) {
+                _context5.next = 42;
                 break;
               }
 
-              _context5.next = 39;
+              _context5.next = 40;
               return this.checkExpressionAsync(args[1]);
 
-            case 39:
+            case 40:
               if (!_context5.sent) {
-                _context5.next = 43;
+                _context5.next = 42;
                 break;
               }
 
-              _context5.t3 = VMInternalStatus.Completed;
-              _context5.next = 44;
-              break;
+              throw new VMRequestException(_request);
 
-            case 43:
-              _context5.t3 = VMInternalStatus.Running;
-
-            case 44:
-              return _context5.abrupt("return", _context5.t3);
-
-            case 45:
+            case 42:
               return _context5.abrupt("return", VMInternalStatus.Running);
 
-            case 46:
+            case 43:
               _role2 = args[0].name;
               _event = args[1].name;
               return _context5.abrupt("return", this.env.roleTransition(_role2, _event) ? VMInternalStatus.Completed : VMInternalStatus.Running);
 
-            case 49:
-              _context5.next = 51;
+            case 46:
+              _context5.next = 48;
               return this.checkExpressionAsync(args[0]);
 
-            case 51:
+            case 48:
               if (!_context5.sent) {
-                _context5.next = 55;
+                _context5.next = 52;
                 break;
               }
 
-              _context5.t4 = VMInternalStatus.Completed;
-              _context5.next = 56;
+              _context5.t3 = VMInternalStatus.Completed;
+              _context5.next = 53;
               break;
 
-            case 55:
-              _context5.t4 = VMInternalStatus.Running;
+            case 52:
+              _context5.t3 = VMInternalStatus.Running;
 
-            case 56:
-              return _context5.abrupt("return", _context5.t4);
+            case 53:
+              return _context5.abrupt("return", _context5.t3);
 
-            case 57:
-              _context5.next = 59;
+            case 54:
+              _context5.next = 56;
               return this.evalExpressionAsync(args[0]);
 
-            case 59:
+            case 56:
               regValue = _context5.sent;
 
               if (!(this.inst === "awaitRegister" && regValue !== this._regSaved || this.inst === "awaitChange" && (this._changeSaved === 0 && regValue !== this._regSaved || this._changeSaved < 0 && regValue <= this._regSaved + this._changeSaved || this._changeSaved > 0 && regValue >= this._regSaved + this._changeSaved))) {
-                _context5.next = 62;
+                _context5.next = 59;
                 break;
               }
 
               return _context5.abrupt("return", VMInternalStatus.Completed);
 
-            case 62:
+            case 59:
               return _context5.abrupt("return", VMInternalStatus.Running);
 
-            case 63:
+            case 60:
               _expr2 = this.newEval();
-              _context5.next = 66;
-              return _expr2.evalAsync(args[1]);
+              _values2 = [];
+              _iterator2 = _createForOfIteratorHelperLoose(this.cmd.command.arguments.slice(1));
 
-            case 66:
-              ev = _context5.sent;
+            case 63:
+              if ((_step2 = _iterator2()).done) {
+                _context5.next = 72;
+                break;
+              }
+
+              _a = _step2.value;
+              _context5.t4 = _values2;
+              _context5.next = 68;
+              return _expr2.evalAsync(_a);
+
+            case 68:
+              _context5.t5 = _context5.sent;
+
+              _context5.t4.push.call(_context5.t4, _context5.t5);
+
+            case 70:
+              _context5.next = 63;
+              break;
+
+            case 72:
               this.trace("eval-end", {
                 expr: (0,vm_expr/* unparse */.Z)(args[1])
               });
               reg = args[0];
 
               if (!(this.inst === "writeRegister")) {
-                _context5.next = 75;
+                _context5.next = 80;
                 break;
               }
 
-              _context5.next = 72;
-              return this.env.writeRegisterAsync(reg, ev);
-
-            case 72:
-              this.trace("write-after-wait", {
-                reg: (0,vm_expr/* unparse */.Z)(reg),
-                expr: ev
-              });
-              _context5.next = 76;
-              break;
-
-            case 75:
-              this.env.writeGlobal(reg, ev);
-
-            case 76:
-              return _context5.abrupt("return", VMInternalStatus.Completed);
+              _context5.next = 77;
+              return this.env.writeRegisterAsync(reg, _values2);
 
             case 77:
-              _expr3 = this.newEval();
-              _context5.next = 80;
-              return _expr3.evalAsync(args[0]);
+              this.trace("write-after-wait", {
+                reg: (0,vm_expr/* unparse */.Z)(reg),
+                expr: _values2[0]
+              });
+              _context5.next = 81;
+              break;
 
             case 80:
-              _ev = _context5.sent;
-              this.parent.watch((_this$gc = this.gc) === null || _this$gc === void 0 ? void 0 : _this$gc.sourceId, _ev);
+              this.env.writeGlobal(reg, _values2[0]);
+
+            case 81:
               return _context5.abrupt("return", VMInternalStatus.Completed);
 
-            case 83:
+            case 82:
+              _expr3 = this.newEval();
+              _context5.next = 85;
+              return _expr3.evalAsync(args[0]);
+
+            case 85:
+              ev = _context5.sent;
+              this.parent.watch((_this$cmd = this.cmd) === null || _this$cmd === void 0 ? void 0 : _this$cmd.sourceId, ev);
+              return _context5.abrupt("return", VMInternalStatus.Completed);
+
+            case 88:
               _expr4 = this.newEval();
-              _context5.next = 86;
+              _context5.next = 91;
               return _expr4.evalAsync(args[0]);
 
-            case 86:
-              _ev2 = _context5.sent;
-              evString = _ev2 + "";
-              this.parent.writeLog((_this$gc2 = this.gc) === null || _this$gc2 === void 0 ? void 0 : _this$gc2.sourceId, evString);
-              return _context5.abrupt("return", VMInternalStatus.Completed);
-
-            case 90:
-              return _context5.abrupt("return", VMInternalStatus.Stopped);
-
             case 91:
+              _ev = _context5.sent;
+              evString = _ev + "";
+              this.parent.writeLog((_this$cmd2 = this.cmd) === null || _this$cmd2 === void 0 ? void 0 : _this$cmd2.sourceId, evString);
               return _context5.abrupt("return", VMInternalStatus.Completed);
-
-            case 92:
-              _expr5 = this.newEval();
-              _context5.next = 95;
-              return _expr5.evalAsync(args[0]);
 
             case 95:
-              _ev3 = _context5.sent;
-              throw new VMTimerException(_ev3 * 1000);
+              return _context5.abrupt("return", VMInternalStatus.Stopped);
+
+            case 96:
+              return _context5.abrupt("return", VMInternalStatus.Completed);
 
             case 97:
-              throw new environment/* VMException */.nt(environment/* VMExceptionCode.InternalError */.S8.InternalError, "Unknown instruction " + this.inst);
+              _expr5 = this.newEval();
+              _context5.next = 100;
+              return _expr5.evalAsync(args[0]);
 
-            case 98:
+            case 100:
+              _ev2 = _context5.sent;
+              throw new VMTimerException(_ev2 * 1000);
+
+            case 102:
+              throw new VMException(VMExceptionCode.InternalError, "Unknown instruction " + this.inst);
+
+            case 103:
             case "end":
               return _context5.stop();
           }
@@ -1375,9 +2686,9 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
   (0,createClass/* default */.Z)(VMCommandEvaluator, [{
     key: "inst",
     get: function get() {
-      var _this$gc$command$call;
+      var _this$cmd$command$cal;
 
-      return (_this$gc$command$call = this.gc.command.callee) === null || _this$gc$command$call === void 0 ? void 0 : _this$gc$command$call.name;
+      return (_this$cmd$command$cal = this.cmd.command.callee) === null || _this$cmd$command$cal === void 0 ? void 0 : _this$cmd$command$cal.name;
     }
   }]);
 
@@ -1385,12 +2696,12 @@ var VMCommandEvaluator = /*#__PURE__*/function () {
 }();
 
 var VMCommandRunner = /*#__PURE__*/function () {
-  function VMCommandRunner(parent, handlerId, env, gc) {
+  function VMCommandRunner(parent, handlerId, env, cmd) {
     this._status = VMInternalStatus.Running;
     this.parent = parent;
     this.handlerId = handlerId;
-    this.gc = gc;
-    this._eval = new VMCommandEvaluator(this, env, gc);
+    this.cmd = cmd;
+    this._eval = new VMCommandEvaluator(this, env, cmd);
   }
 
   var _proto2 = VMCommandRunner.prototype;
@@ -1424,7 +2735,7 @@ var VMCommandRunner = /*#__PURE__*/function () {
                 break;
               }
 
-              this.trace((0,vm_expr/* unparse */.Z)(this.gc.command));
+              this.trace((0,vm_expr/* unparse */.Z)(this.cmd.command));
               _context6.next = 4;
               return this._eval.evaluate();
 
@@ -1463,20 +2774,20 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   (0,inheritsLoose/* default */.Z)(VMHandlerRunner, _JDEventSource);
 
   function VMHandlerRunner(parent, id, env, handler) {
-    var _this5;
+    var _this6;
 
-    _this5 = _JDEventSource.call(this) || this; // find the label commands (targets of jumps)
+    _this6 = _JDEventSource.call(this) || this; // find the label commands (targets of jumps)
 
-    _this5._commandIndex = undefined;
-    _this5._currentCommand = undefined;
-    _this5.stopped = false;
-    _this5._labelToIndex = {};
-    _this5.parent = parent;
-    _this5.id = id;
-    _this5.env = env;
-    _this5.handler = handler;
+    _this6._commandIndex = undefined;
+    _this6._currentCommand = undefined;
+    _this6.stopped = false;
+    _this6._labelToIndex = {};
+    _this6.parent = parent;
+    _this6.id = id;
+    _this6.env = env;
+    _this6.handler = handler;
 
-    _this5.handler.commands.forEach(function (c, index) {
+    _this6.handler.commands.forEach(function (c, index) {
       var _cmd$command;
 
       var cmd = c;
@@ -1484,13 +2795,13 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 
       if ((id === null || id === void 0 ? void 0 : id.name) === "label") {
         var _label = cmd.command.arguments[0];
-        _this5._labelToIndex[_label.name] = index;
+        _this6._labelToIndex[_label.name] = index;
       }
     });
 
-    _this5.reset();
+    _this6.reset();
 
-    return _this5;
+    return _this6;
   }
 
   var _proto3 = VMHandlerRunner.prototype;
@@ -1520,11 +2831,6 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
   _proto3.reset = function reset() {
     this.commandIndex = undefined;
     this.stopped = false;
-  };
-
-  _proto3.cancel = function cancel() {
-    this.stopped = true;
-    this.env.unsubscribe();
   };
 
   _proto3.wake = function wake() {
@@ -1643,7 +2949,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
     var cmd = this.handler.commands[this._commandIndex];
 
     if (cmd.type === "ite") {
-      throw new environment/* VMException */.nt(environment/* VMExceptionCode.InternalError */.S8.InternalError, "ite not compiled away");
+      throw new VMException(VMExceptionCode.InternalError, "ite not compiled away");
     }
 
     return cmd;
@@ -1663,7 +2969,7 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               }
 
               this.trace("step begin");
-              sid = (_this$_currentCommand = this._currentCommand.gc) === null || _this$_currentCommand === void 0 ? void 0 : _this$_currentCommand.sourceId;
+              sid = (_this$_currentCommand = this._currentCommand.cmd) === null || _this$_currentCommand === void 0 ? void 0 : _this$_currentCommand.sourceId;
               _context8.t0 = !singleStep;
 
               if (!_context8.t0) {
@@ -1710,27 +3016,26 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
 
   _proto3.singleStepAsync = /*#__PURE__*/function () {
     var _singleStepAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee9() {
-      var sid, _ref2, _label2, index, vmt;
+      var _ref2, _label2, index, _ref3, _ms, _ref4, _request2;
 
       return regenerator_default().wrap(function _callee9$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
-              sid = this._currentCommand.gc.sourceId;
-              _context9.prev = 1;
-              _context9.next = 4;
+              _context9.prev = 0;
+              _context9.next = 3;
               return this._currentCommand.stepAsync();
 
-            case 4:
-              _context9.next = 24;
+            case 3:
+              _context9.next = 29;
               break;
 
-            case 6:
-              _context9.prev = 6;
-              _context9.t0 = _context9["catch"](1);
+            case 5:
+              _context9.prev = 5;
+              _context9.t0 = _context9["catch"](0);
 
               if (!(_context9.t0 instanceof VMJumpException)) {
-                _context9.next = 15;
+                _context9.next = 14;
                 break;
               }
 
@@ -1738,37 +3043,49 @@ var VMHandlerRunner = /*#__PURE__*/function (_JDEventSource) {
               index = this._labelToIndex[_label2];
               this.commandIndex = index;
               this._currentCommand.status = VMInternalStatus.Completed;
-              _context9.next = 24;
+              _context9.next = 29;
               break;
 
-            case 15:
+            case 14:
               if (!(_context9.t0 instanceof VMTimerException)) {
-                _context9.next = 22;
+                _context9.next = 21;
                 break;
               }
 
-              vmt = _context9.t0;
+              _ref3 = _context9.t0, _ms = _ref3.ms;
               this._currentCommand.status = VMInternalStatus.Sleeping;
-              _context9.next = 20;
-              return this.parent.sleepAsync(this, vmt.ms);
+              _context9.next = 19;
+              return this.parent.sleepAsync(this, _ms);
 
-            case 20:
-              _context9.next = 24;
+            case 19:
+              _context9.next = 29;
               break;
 
-            case 22:
-              this.emit(vm_events/* VM_COMMAND_FAILED */.ai, this._currentCommand.gc.sourceId);
+            case 21:
+              if (!(_context9.t0 instanceof VMRequestException)) {
+                _context9.next = 27;
+                break;
+              }
+
+              _ref4 = _context9.t0, _request2 = _ref4.request;
+              this._currentCommand.status = VMInternalStatus.Completed;
+              this.parent.handlerWokeOnRequest(this, _request2);
+              _context9.next = 29;
+              break;
+
+            case 27:
+              this.emit(vm_events/* VM_COMMAND_FAILED */.ai, this._currentCommand.cmd.sourceId);
               throw _context9.t0;
 
-            case 24:
+            case 29:
               if (this._currentCommand.status === VMInternalStatus.Stopped) this.stopped = true;
 
-            case 25:
+            case 30:
             case "end":
               return _context9.stop();
           }
         }
-      }, _callee9, this, [[1, 6]]);
+      }, _callee9, this, [[0, 5]]);
     }));
 
     function singleStepAsync() {
@@ -1816,8 +3133,8 @@ function isEveryHandler(h) {
   (0,utils/* assert */.hu)(!!h);
 
   if (h.commands.length) {
-    var cmd = h.commands[0].command.callee;
-    return cmd.name === "wait";
+    var _cmd = h.commands[0].command.callee;
+    return _cmd.name === "wait";
   }
 
   return false;
@@ -1837,23 +3154,23 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   // program, environment
   // debugging
-  function VMProgramRunner(bus, roleManager, program) {
-    var _this6;
+  function VMProgramRunner(roleManager, program) {
+    var _this7;
 
-    _this6 = _JDClient.call(this) || this;
-    _this6._handlerRunners = [];
-    _this6._roles = [];
-    _this6._waitQueue = [];
-    _this6._everyQueue = [];
-    _this6._runQueue = [];
-    _this6._sleepQueue = [];
-    _this6._watch = {};
-    _this6._log = [];
-    _this6._breaks = {};
-    _this6._in_run = false;
-    _this6.bus = bus;
-    _this6.roleManager = roleManager;
-    _this6.program = program;
+    _this7 = _JDClient.call(this) || this;
+    _this7._handlerRunners = [];
+    _this7._roles = [];
+    _this7._waitQueue = [];
+    _this7._everyQueue = [];
+    _this7._runQueue = [];
+    _this7._sleepQueue = [];
+    _this7._watch = {};
+    _this7._log = [];
+    _this7._breaks = {};
+    _this7._onCompletionOfExternalRequest = [];
+    _this7._in_run = false;
+    _this7.roleManager = roleManager;
+    _this7.program = program;
     var compiled = (0,compile/* compileProgram */.IJ)(program);
 
     var _checkProgram = (0,compile/* checkProgram */.i_)(compiled),
@@ -1861,14 +3178,26 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         events = _checkProgram.events,
         errors = _checkProgram.errors;
 
-    _this6._roles = compiled.roles;
+    _this7._roles = compiled.roles;
     if (errors !== null && errors !== void 0 && errors.length) console.debug("ERRORS", errors); // data structures for running program
 
-    _this6._status = VMStatus.Stopped;
-    _this6._env = new environment/* VMEnvironment */.uH(registers, events);
-    _this6._handlerRunners = compiled.handlers.map(function (h, index) {
-      return new VMHandlerRunner((0,assertThisInitialized/* default */.Z)(_this6), index, _this6._env, h);
-    }); // TODO: can't add multiple handlers until we have deduplicate CHANGE on Event
+    _this7._status = VMStatus.Stopped;
+    _this7._env = new VMEnvironment(registers, events, compiled.serverRoles);
+    _this7._handlerRunners = compiled.handlers.map(function (h, index) {
+      return new VMHandlerRunner((0,assertThisInitialized/* default */.Z)(_this7), index, _this7._env, h);
+    });
+
+    var servers = _this7._env.servers();
+
+    if (servers.length) {
+      _this7._provider = new serviceprovider/* default */.Z(servers.map(function (s) {
+        return s.server;
+      }), {
+        deviceId: "VMServiceProvider"
+      });
+      _this7._provider.bus = roleManager.bus; // bus.addServiceProvider(this._provider)
+      // what about the role Manager?
+    } // TODO: can't add multiple handlers until we have deduplicate CHANGE on Event
 
     /*
     const len = this._handlerRunners.length
@@ -1878,32 +3207,52 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         )
     )*/
 
-    _this6._waitRunMutex = new Mutex();
-    _this6._breaksMutex = new Mutex();
-    _this6._sleepMutex = new Mutex(); // TODO: only try to wake handlers that are waiting on change to reg or event
 
-    _this6.mount(_this6._env.subscribe(environment/* REGISTER_CHANGE */.nI, function (reg) {
-      _this6.waitingToRunning();
+    _this7._waitRunMutex = new Mutex();
+    _this7._breaksMutex = new Mutex();
+    _this7._sleepMutex = new Mutex(); // TODO: only try to wake handlers that are waiting on change to reg or event
+
+    _this7.mount(_this7._env.subscribe(REGISTER_CHANGE, function (reg) {
+      _this7.waitingToRunning();
+    })); // control requests (client:{event}, server:{set, get, cmd})
+
+
+    _this7.mount(_this7._env.subscribe(EXTERNAL_REQUEST, function (request) {
+      switch (request.kind) {
+        case "get":
+          {
+            // TODO: in this case, if there is a handler
+            // waiting on this Request then the function
+            // handlerWokeOnRequest will be invoked. If 
+            // it is not then we should just return the
+            // current value of register 
+            break;
+          }
+        // these handler invocations are "fire and forget"
+
+        case "set":
+        case "cmd":
+        case "event":
+          break;
+      }
+
+      _this7.waitingToRunning();
     }));
 
-    _this6.mount(_this6._env.subscribe(environment/* EVENT_CHANGE */.KT, function (event) {
-      _this6.waitingToRunning();
+    _this7.mount(_this7._env.subscribe(GLOBAL_CHANGE, function (name) {
+      _this7.emit(vm_events/* VM_GLOBAL_CHANGE */.b4, name);
+
+      _this7.waitingToRunning();
     }));
 
-    _this6.mount(_this6._env.subscribe(environment/* GLOBAL_CHANGE */.pO, function (name) {
-      _this6.emit(vm_events/* VM_GLOBAL_CHANGE */.b4, name);
-
-      _this6.waitingToRunning();
-    }));
-
-    _this6.mount(_this6.subscribe(VM_WAKE_SLEEPER, /*#__PURE__*/function () {
-      var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee10(h) {
+    _this7.mount(_this7.subscribe(VM_WAKE_SLEEPER, /*#__PURE__*/function () {
+      var _ref5 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee10(h) {
         return regenerator_default().wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
                 _context10.next = 2;
-                return _this6.wakeSleeper(h);
+                return _this7.wakeSleeper(h);
 
               case 2:
               case "end":
@@ -1914,17 +3263,26 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       }));
 
       return function (_x6) {
-        return _ref3.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       };
     }()));
 
-    _this6.initializeRoleManagement();
+    _this7.initializeRoleManagement();
 
-    return _this6;
-  } // control of VM
-
+    return _this7;
+  }
 
   var _proto4 = VMProgramRunner.prototype;
+
+  _proto4.handlerWokeOnRequest = function handlerWokeOnRequest(handler, request) {
+    if (request.kind === "get") {
+      this._onCompletionOfExternalRequest.push({
+        handler: handler,
+        request: request
+      });
+    }
+  } // control of VM
+  ;
 
   _proto4.globals = function globals() {
     var g = this._env.globals();
@@ -1982,7 +3340,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.setBreakpointsAsync = /*#__PURE__*/function () {
     var _setBreakpointsAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee12(breaks) {
-      var _this7 = this;
+      var _this8 = this;
 
       return regenerator_default().wrap(function _callee12$(_context12) {
         while (1) {
@@ -1994,9 +3352,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context11.prev = _context11.next) {
                       case 0:
-                        _this7._breaks = {};
+                        _this8._breaks = {};
                         breaks.forEach(function (b) {
-                          _this7._breaks[b] = true;
+                          _this8._breaks[b] = true;
                         });
 
                       case 2:
@@ -2024,7 +3382,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.clearBreakpointsAsync = /*#__PURE__*/function () {
     var _clearBreakpointsAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee14() {
-      var _this8 = this;
+      var _this9 = this;
 
       return regenerator_default().wrap(function _callee14$(_context14) {
         while (1) {
@@ -2036,7 +3394,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context13.prev = _context13.next) {
                       case 0:
-                        _this8._breaks = {};
+                        _this9._breaks = {};
 
                       case 1:
                       case "end":
@@ -2063,7 +3421,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.breakpointOnAsync = /*#__PURE__*/function () {
     var _breakpointOnAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee16(id) {
-      var _this9 = this;
+      var _this10 = this;
 
       var ret;
       return regenerator_default().wrap(function _callee16$(_context16) {
@@ -2073,13 +3431,13 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               ret = false;
               _context16.next = 3;
               return this._breaksMutex.acquire( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee15() {
-                var _this9$_breaks;
+                var _this10$_breaks;
 
                 return regenerator_default().wrap(function _callee15$(_context15) {
                   while (1) {
                     switch (_context15.prev = _context15.next) {
                       case 0:
-                        ret = !!((_this9$_breaks = _this9._breaks) !== null && _this9$_breaks !== void 0 && _this9$_breaks[id]);
+                        ret = !!((_this10$_breaks = _this10._breaks) !== null && _this10$_breaks !== void 0 && _this10$_breaks[id]);
 
                       case 1:
                       case "end":
@@ -2112,7 +3470,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   /*#__PURE__*/
   function () {
     var _sleepAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee18(h, ms, handler) {
-      var _this10 = this;
+      var _this11 = this;
 
       return regenerator_default().wrap(function _callee18$(_context18) {
         while (1) {
@@ -2131,10 +3489,10 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                     switch (_context17.prev = _context17.next) {
                       case 0:
                         id = setTimeout(function () {
-                          _this10.emit(VM_WAKE_SLEEPER, h ? h : handler);
+                          _this11.emit(VM_WAKE_SLEEPER, h ? h : handler);
                         }, ms);
 
-                        _this10._sleepQueue.push({
+                        _this11._sleepQueue.push({
                           ms: ms,
                           handlerRunner: h,
                           id: id,
@@ -2166,7 +3524,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.startAsync = /*#__PURE__*/function () {
     var _startAsync2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee20() {
-      var _this11 = this;
+      var _this12 = this;
 
       return regenerator_default().wrap(function _callee20$(_context20) {
         while (1) {
@@ -2190,20 +3548,21 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context19.prev = _context19.next) {
                       case 0:
-                        _this11._waitQueue = _this11._handlerRunners.slice(0);
+                        _this12._waitQueue = _this12._handlerRunners.slice(0);
 
-                        _this11._waitQueue.forEach(function (h) {
+                        _this12._waitQueue.forEach(function (h) {
                           return h.reset();
                         });
 
-                        _this11._runQueue = [];
-                        _this11._everyQueue = [];
+                        _this12._runQueue = [];
+                        _this12._everyQueue = [];
+                        _this12._onCompletionOfExternalRequest = [];
 
-                        _this11._env.clearEvents();
+                        _this12._env.clearExternalStimulii();
 
-                        _this11._env.initRoles();
+                        _this12._env.initRoles();
 
-                        _this11.stopSleepers(); // make sure to have another handler for every
+                        _this12.stopSleepers(); // make sure to have another handler for every
 
                         /*
                         for (const h of this._waitQueue) {
@@ -2220,7 +3579,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         }*/
 
 
-                      case 7:
+                      case 8:
                       case "end":
                         return _context19.stop();
                     }
@@ -2299,7 +3658,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.getCurrentRunner = /*#__PURE__*/function () {
     var _getCurrentRunner = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee23() {
-      var _this12 = this;
+      var _this13 = this;
 
       return regenerator_default().wrap(function _callee23$(_context23) {
         while (1) {
@@ -2311,12 +3670,12 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context22.prev = _context22.next) {
                       case 0:
-                        if (!_this12._runQueue.length) {
+                        if (!_this13._runQueue.length) {
                           _context22.next = 2;
                           break;
                         }
 
-                        return _context22.abrupt("return", _this12._runQueue[0]);
+                        return _context22.abrupt("return", _this13._runQueue[0]);
 
                       case 2:
                         return _context22.abrupt("return", undefined);
@@ -2497,9 +3856,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   }();
 
   _proto4.emitBreakpoint = function emitBreakpoint(h) {
-    var _h$command$gc;
+    var _h$command$cmd;
 
-    this.emit(vm_events/* VM_BREAKPOINT */.Di, h, h.status === VMInternalStatus.Completed ? "" : (_h$command$gc = h.command.gc) === null || _h$command$gc === void 0 ? void 0 : _h$command$gc.sourceId);
+    this.emit(vm_events/* VM_BREAKPOINT */.Di, h, h.status === VMInternalStatus.Completed ? "" : (_h$command$cmd = h.command.cmd) === null || _h$command$cmd === void 0 ? void 0 : _h$command$cmd.sourceId);
   };
 
   _proto4.runHandlerAsync = /*#__PURE__*/function () {
@@ -2536,9 +3895,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               _context26.prev = 9;
               _context26.t0 = _context26["catch"](1);
 
-              if (_context26.t0 instanceof environment/* VMException */.nt) {
+              if (_context26.t0 instanceof VMException) {
                 ex = _context26.t0;
-                if (ex.code === environment/* VMExceptionCode.RoleNoService */.S8.RoleNoService) this.emit(vm_events/* VM_ROLE_MISSING */.XD, _context26.t0.data);
+                if (ex.code === VMExceptionCode.RoleNoService) this.emit(vm_events/* VM_ROLE_MISSING */.XD, _context26.t0.data);
               } else {
                 console.debug(_context26.t0);
                 this.emit(vm_events/* VM_INTERNAL_ERROR */.c2, _context26.t0);
@@ -2564,15 +3923,16 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.postProcessHandler = /*#__PURE__*/function () {
     var _postProcessHandler = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee29(h) {
-      var _this13 = this;
+      var _this14 = this;
 
-      var done;
+      var done, q, index, _q$splice, del;
+
       return regenerator_default().wrap(function _callee29$(_context29) {
         while (1) {
           switch (_context29.prev = _context29.next) {
             case 0:
               if (!(h.status === VMInternalStatus.Ready || h.status === VMInternalStatus.Sleeping || h.status === VMInternalStatus.Stopped)) {
-                _context29.next = 13;
+                _context29.next = 15;
                 break;
               }
 
@@ -2584,13 +3944,13 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context27.prev = _context27.next) {
                       case 0:
-                        (0,utils/* assert */.hu)(!!_this13._runQueue.length);
-                        (0,utils/* assert */.hu)(h === _this13._runQueue[0]);
-                        done = _this13._runQueue.shift();
+                        (0,utils/* assert */.hu)(!!_this14._runQueue.length);
+                        (0,utils/* assert */.hu)(h === _this14._runQueue[0]);
+                        done = _this14._runQueue.shift();
                         moveToWait = h.status === VMInternalStatus.Ready;
 
                         if (moveToWait && !isEveryHandler(h.handler)) {
-                          _this13._waitQueue.push(done);
+                          _this14._waitQueue.push(done);
 
                           done = undefined;
                         }
@@ -2633,7 +3993,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context28.prev = _context28.next) {
                       case 0:
-                        _this13._runQueue.unshift(h); // this.emitBreakpoint(h)
+                        _this14._runQueue.unshift(h); // this.emitBreakpoint(h)
 
 
                       case 1:
@@ -2645,6 +4005,30 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               })));
 
             case 13:
+              _context29.next = 22;
+              break;
+
+            case 15:
+              if (!(h.status === VMInternalStatus.Completed)) {
+                _context29.next = 22;
+                break;
+              }
+
+              q = this._onCompletionOfExternalRequest;
+              index = q.findIndex(function (p) {
+                return p.handler === h;
+              });
+
+              if (!(index > -1)) {
+                _context29.next = 22;
+                break;
+              }
+
+              _q$splice = q.splice(index, 1), del = _q$splice[0];
+              _context29.next = 22;
+              return this._env.completeRequest(del.request);
+
+            case 22:
             case "end":
               return _context29.stop();
           }
@@ -2664,7 +4048,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   /*#__PURE__*/
   function () {
     var _waitingToRunning = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee31() {
-      var _this14 = this;
+      var _this15 = this;
 
       return regenerator_default().wrap(function _callee31$(_context32) {
         while (1) {
@@ -2678,13 +4062,13 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               this.trace("waiting to running - try");
               _context32.next = 4;
               return this._waitRunMutex.acquire( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee30() {
-                var handlersStarted, newRunners, sleepingRunners, _loop, _iterator2, _step2;
+                var handlersStarted, newRunners, sleepingRunners, _loop, _iterator3, _step3;
 
                 return regenerator_default().wrap(function _callee30$(_context31) {
                   while (1) {
                     switch (_context31.prev = _context31.next) {
                       case 0:
-                        if (!(_this14.status === VMStatus.Paused && _this14._runQueue.length)) {
+                        if (!(_this15.status === VMStatus.Paused && _this15._runQueue.length)) {
                           _context31.next = 2;
                           break;
                         }
@@ -2692,7 +4076,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         return _context31.abrupt("return");
 
                       case 2:
-                        _this14.trace("waiting to running - start");
+                        _this15.trace("waiting to running - start");
 
                         handlersStarted = [];
                         newRunners = [];
@@ -2703,9 +4087,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                             while (1) {
                               switch (_context30.prev = _context30.next) {
                                 case 0:
-                                  h = _step2.value;
+                                  h = _step3.value;
                                   _context30.next = 3;
-                                  return _this14.runHandlerAsync(h, true);
+                                  return _this15.runHandlerAsync(h, true);
 
                                 case 3:
                                   if (h.status === VMInternalStatus.Sleeping) {
@@ -2724,10 +4108,10 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                             }
                           }, _loop);
                         });
-                        _iterator2 = _createForOfIteratorHelperLoose(_this14._waitQueue);
+                        _iterator3 = _createForOfIteratorHelperLoose(_this15._waitQueue);
 
                       case 8:
-                        if ((_step2 = _iterator2()).done) {
+                        if ((_step3 = _iterator3()).done) {
                           _context31.next = 12;
                           break;
                         }
@@ -2740,16 +4124,16 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
                       case 12:
                         newRunners.forEach(function (h) {
-                          _this14._runQueue.push(h);
+                          _this15._runQueue.push(h);
 
-                          var index = _this14._waitQueue.indexOf(h);
+                          var index = _this15._waitQueue.indexOf(h);
 
-                          if (index >= 0) _this14._waitQueue.splice(index, 1);
+                          if (index >= 0) _this15._waitQueue.splice(index, 1);
                         });
                         sleepingRunners.forEach(function (h) {
-                          var index = _this14._waitQueue.indexOf(h);
+                          var index = _this15._waitQueue.indexOf(h);
 
-                          if (index >= 0) _this14._waitQueue.splice(index, 1);
+                          if (index >= 0) _this15._waitQueue.splice(index, 1);
                         });
 
                       case 14:
@@ -2765,7 +4149,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               return this.runAsync();
 
             case 6:
-              this._env.clearEvents();
+              this._env.clearExternalStimulii();
 
             case 7:
             case "end":
@@ -2784,7 +4168,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.stopSleepers = /*#__PURE__*/function () {
     var _stopSleepers = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee33() {
-      var _this15 = this;
+      var _this16 = this;
 
       return regenerator_default().wrap(function _callee33$(_context34) {
         while (1) {
@@ -2792,18 +4176,18 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
             case 0:
               _context34.next = 2;
               return this._sleepMutex.acquire( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee32() {
-                var _iterator3, _step3, s;
+                var _iterator4, _step4, s;
 
                 return regenerator_default().wrap(function _callee32$(_context33) {
                   while (1) {
                     switch (_context33.prev = _context33.next) {
                       case 0:
-                        for (_iterator3 = _createForOfIteratorHelperLoose(_this15._sleepQueue); !(_step3 = _iterator3()).done;) {
-                          s = _step3.value;
+                        for (_iterator4 = _createForOfIteratorHelperLoose(_this16._sleepQueue); !(_step4 = _iterator4()).done;) {
+                          s = _step4.value;
                           clearTimeout(s.id);
                         }
 
-                        _this15._sleepQueue = [];
+                        _this16._sleepQueue = [];
 
                       case 2:
                       case "end":
@@ -2830,7 +4214,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   _proto4.wakeSleeper = /*#__PURE__*/function () {
     var _wakeSleeper = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee36(h) {
-      var _this16 = this;
+      var _this17 = this;
 
       var handlerRunner;
       return regenerator_default().wrap(function _callee36$(_context37) {
@@ -2848,20 +4232,20 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                   while (1) {
                     switch (_context35.prev = _context35.next) {
                       case 0:
-                        index = _this16._sleepQueue.findIndex(function (p) {
+                        index = _this17._sleepQueue.findIndex(function (p) {
                           return (p === null || p === void 0 ? void 0 : p.handlerRunner) === h;
                         } // || p?.handler === h
                         );
                         (0,utils/* assert */.hu)(index >= 0);
 
                         if (index >= 0) {
-                          p = _this16._sleepQueue[index]; //  handlerMs = p.ms
+                          p = _this17._sleepQueue[index]; //  handlerMs = p.ms
 
                           //  handlerMs = p.ms
                           handlerRunner = p.handlerRunner; // handler = p?.handler
 
                           // handler = p?.handler
-                          _this16._sleepQueue.splice(index, 1); // clearTimeout(p.id)
+                          _this17._sleepQueue.splice(index, 1); // clearTimeout(p.id)
 
                         }
 
@@ -2903,7 +4287,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                           // transition to the run queue
                           handlerRunner.wake();
 
-                          _this16._runQueue.push(handlerRunner);
+                          _this17._runQueue.push(handlerRunner);
                         }
 
                       case 1:
@@ -2971,34 +4355,34 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   }();
 
   _proto4.initializeRoleManagement = function initializeRoleManagement() {
-    var _this17 = this;
+    var _this18 = this;
 
     // adding a (role,service) binding
     var addRoleService = function addRoleService(role) {
-      var service = _this17.roleManager.getService(role);
+      var service = _this18.roleManager.getService(role);
 
       if (service) {
-        _this17._env.serviceChanged(role, service);
+        _this18._env.serviceChanged(role, service);
       }
     }; // initialize
 
 
     this.roleManager.roles.forEach(function (r) {
-      if (_this17._roles.find(function (rv) {
+      if (_this18._roles.find(function (rv) {
         return rv.role === r.role;
       })) {
         addRoleService(r.role);
       }
     });
     this.mount(this.roleManager.subscribe(constants/* ROLE_BOUND */.l9m, /*#__PURE__*/function () {
-      var _ref16 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee37(role) {
+      var _ref18 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee37(role) {
         return regenerator_default().wrap(function _callee37$(_context38) {
           while (1) {
             switch (_context38.prev = _context38.next) {
               case 0:
                 addRoleService(role);
 
-                _this17.waitingToRunning();
+                _this18.waitingToRunning();
 
               case 2:
               case "end":
@@ -3009,13 +4393,13 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       }));
 
       return function (_x16) {
-        return _ref16.apply(this, arguments);
+        return _ref18.apply(this, arguments);
       };
     }()));
     this.mount(this.roleManager.subscribe(constants/* ROLE_UNBOUND */.CCp, function (role) {
-      _this17._env.serviceChanged(role, undefined);
+      _this18._env.serviceChanged(role, undefined);
 
-      _this17.waitingToRunning();
+      _this18.waitingToRunning();
     }));
   };
 
@@ -3032,9 +4416,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
   }]);
 
   return VMProgramRunner;
-}(client/* JDClient */.z);
-// EXTERNAL MODULE: ./src/jacdac/Context.tsx
-var Context = __webpack_require__(20392);
+}(jdom_client/* JDClient */.z);
 // EXTERNAL MODULE: ./src/components/AppContext.tsx
 var AppContext = __webpack_require__(84377);
 ;// CONCATENATED MODULE: ./src/components/vm/useVMRunner.ts
@@ -3046,13 +4428,9 @@ var AppContext = __webpack_require__(84377);
 
 
 
-
 function useVMRunner(roleManager, program, autoRun) {
-  var _useContext = (0,react.useContext)(Context/* default */.Z),
-      bus = _useContext.bus;
-
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      setError = _useContext2.setError;
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext.setError;
 
   var _useState = (0,react.useState)(),
       runner = _useState[0],
@@ -3119,7 +4497,7 @@ function useVMRunner(roleManager, program, autoRun) {
 
   (0,react.useEffect)(function () {
     try {
-      var newTestRunner = program && new VMProgramRunner(bus, roleManager, program);
+      var newTestRunner = program && new VMProgramRunner(roleManager, program);
       setRunner(newTestRunner);
       return function () {
         return newTestRunner === null || newTestRunner === void 0 ? void 0 : newTestRunner.unmount();
@@ -3172,31 +4550,29 @@ function VMDiagnostics(props) {
     downloadText: JSON.stringify(program, null, 2)
   }, JSON.stringify(program, null, 2)));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
-var Chip = __webpack_require__(4998);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
-var Tooltip = __webpack_require__(14685);
-// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
-var DeviceAvatar = __webpack_require__(4726);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
-var spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
-var servers = __webpack_require__(48363);
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 16 modules
+var BlockContext = __webpack_require__(82393);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
+var DeviceAvatar = __webpack_require__(4726);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(48363);
 // EXTERNAL MODULE: ./src/components/hooks/useServiceServer.ts
 var useServiceServer = __webpack_require__(49013);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Cancel.js
 var Cancel = __webpack_require__(30263);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 16 modules
-var BlockContext = __webpack_require__(82393);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js + 1 modules
+var Chip = __webpack_require__(4998);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Tooltip/Tooltip.js
+var Tooltip = __webpack_require__(14685);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
-;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
+;// CONCATENATED MODULE: ./src/components/blockly/RoleChip.tsx
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
-
 
 
 
@@ -3217,13 +4593,16 @@ function RoleChip(props) {
   var _useContext2 = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext2.bus;
 
-  var server = (0,useServiceServer/* default */.Z)(service);
+  var serviceServer = (0,useServiceServer/* default */.Z)(service);
 
   var handleRoleClick = function handleRoleClick() {
     // spin off simulator
     if (!service) {
-      var specification = (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
-      if (specification) (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+      var specification = (0,jdom_spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+
+      if (specification) {
+        (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
+      }
     } // add twin block
 
 
@@ -3239,9 +4618,10 @@ function RoleChip(props) {
 
       if (!twinBlock) {
         twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
-        var variable = workspace.getVariable(role, serviceShortId);
+        var variable = workspace.getVariable(role, serviceShortId + ":client");
         console.log("new twin", {
-          twinBlock: twinBlock
+          twinBlock: twinBlock,
+          variable: variable
         });
         var field = twinBlock.inputList[0].fieldRow.find(function (f) {
           return f.name === "role";
@@ -3258,7 +4638,7 @@ function RoleChip(props) {
   };
 
   var handleDelete = function handleDelete() {
-    return bus.removeServiceProvider(server.device);
+    return bus.removeServiceProvider(serviceServer.device);
   };
 
   return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
@@ -3268,16 +4648,21 @@ function RoleChip(props) {
       device: service.device
     }),
     onClick: handleRoleClick,
-    onDelete: server ? handleDelete : undefined,
+    onDelete: serviceServer ? handleDelete : undefined,
     deleteIcon: /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
       title: "stop simulator"
     }, /*#__PURE__*/react.createElement(Cancel/* default */.Z, null))
   });
 }
+;// CONCATENATED MODULE: ./src/components/blockly/BlockRoles.tsx
 
-function BlockRoles() {
-  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
-      roleManager = _useContext3.roleManager;
+
+
+
+
+function BlockClientRoles() {
+  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
+      roleManager = _useContext.roleManager;
 
   var roles = (0,useChange/* default */.Z)(roleManager, function (_) {
     return _ === null || _ === void 0 ? void 0 : _.roles;
@@ -3292,7 +4677,8 @@ function BlockRoles() {
     }, /*#__PURE__*/react.createElement(RoleChip, {
       role: role,
       service: service,
-      serviceShortId: serviceShortId
+      serviceShortId: serviceShortId,
+      server: undefined
     }));
   }));
 }
@@ -3731,7 +5117,7 @@ function VMToolbar(props) {
     cancel: cancel
   }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(BlockRoles, null));
+  }, /*#__PURE__*/react.createElement(VMStartSimulatorButton, null)), /*#__PURE__*/react.createElement(BlockClientRoles, null));
 }
 // EXTERNAL MODULE: ./src/components/blockly/BlockDiagnostics.tsx
 var BlockDiagnostics = __webpack_require__(9370);
@@ -3741,38 +5127,21 @@ var VMgenerator = __webpack_require__(15056);
 var BlockEditor = __webpack_require__(81753);
 // EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(90293);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
-var es_array_flat_map = __webpack_require__(86535);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
-var es_array_unscopables_flat_map = __webpack_require__(99244);
-// EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(35313);
-// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
-var jdspec = __webpack_require__(13996);
 // EXTERNAL MODULE: ./src/components/blockly/fields/KeyboardKeyField.tsx
 var KeyboardKeyField = __webpack_require__(90422);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LEDColorField.tsx
 var LEDColorField = __webpack_require__(68514);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LEDMatrixField.tsx + 1 modules
 var LEDMatrixField = __webpack_require__(11772);
-// EXTERNAL MODULE: ./src/components/blockly/fields/NoteField.tsx
-var NoteField = __webpack_require__(50585);
-// EXTERNAL MODULE: ./src/components/blockly/fields/ServoAngleField.tsx + 1 modules
-var ServoAngleField = __webpack_require__(891);
 // EXTERNAL MODULE: ./src/components/blockly/fields/JDomTreeField.tsx
 var JDomTreeField = __webpack_require__(90263);
 // EXTERNAL MODULE: ./src/components/blockly/fields/TwinField.tsx
 var TwinField = __webpack_require__(35361);
+// EXTERNAL MODULE: ./src/components/blockly/dsl/servicesbase.ts
+var servicesbase = __webpack_require__(21910);
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/spectool/jdspec.ts
+var jdspec = __webpack_require__(13996);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/servicesdsl.ts
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3788,181 +5157,40 @@ var SET_STATUS_LIGHT_BLOCK = "jacdac_set_status_light";
 var ROLE_BOUND_EVENT_BLOCK = "jacdac_role_bound_event";
 var ROLE_BOUND_BLOCK = "jacdac_role_bound";
 var INSPECT_BLOCK = "jacdac_tools_inspect";
-
-function isBooleanField(field) {
-  return field.type === "bool";
-}
-
-function isStringField(field) {
-  return field.type === "string";
-}
-
-function toBlocklyType(field) {
-  return field.encoding === "JSON" ? toolbox/* JSON_TYPE */.oj : isBooleanField(field) ? toolbox/* BOOLEAN_TYPE */.lu : isStringField(field) ? toolbox/* STRING_TYPE */.jt : (0,jdspec/* isNumericType */.FV)(field) ? toolbox/* NUMBER_TYPE */.sS : undefined;
-}
-
-function enumInfo(srv, field) {
-  var _srv$enums;
-
-  var e = (_srv$enums = srv.enums) === null || _srv$enums === void 0 ? void 0 : _srv$enums[field.type];
-  return e;
-}
-
-var ignoredServices = [constants/* SRV_CONTROL */.gm9, constants/* SRV_LOGGER */.w9j, constants/* SRV_ROLE_MANAGER */.igi, constants/* SRV_PROTO_TEST */.$Bn, constants/* SRV_BOOTLOADER */.PWm];
-var ignoredEvents = [constants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged];
-var includedRegisters = [constants/* SystemReg.Reading */.ZJq.Reading, constants/* SystemReg.Value */.ZJq.Value, constants/* SystemReg.Intensity */.ZJq.Intensity];
-var customMessages = [{
-  service: constants/* SRV_JOYSTICK */.vRO,
-  register: constants/* JoystickReg.Direction */.ztd.Direction,
-  field: "buttons",
-  get: "is %1 %2 pressed"
-}];
 var commandColor = "#8c6a1d";
-var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
+var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function (_ServicesBaseDSL) {
+  (0,inheritsLoose/* default */.Z)(ServicesBlockDomainSpecificLanguage, _ServicesBaseDSL);
+
   function ServicesBlockDomainSpecificLanguage() {
-    this.id = "jacdacServices";
-    this.supportedServices = [];
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _ServicesBaseDSL.call.apply(_ServicesBaseDSL, [this].concat(args)) || this;
+    _this.id = "jacdacServices";
+    return _this;
   }
 
   var _proto = ServicesBlockDomainSpecificLanguage.prototype;
 
-  _proto.createServiceColor = function createServiceColor(theme) {
-    var sensorColor = theme.palette.success.main;
-    var otherColor = theme.palette.info.main;
-
-    var serviceColor = function serviceColor(srv) {
-      return (0,spec/* isSensor */.rq)(srv) ? sensorColor : otherColor;
-    };
-
-    return serviceColor;
-  };
-
   _proto.createBlocks = function createBlocks(options) {
+    var _this2 = this;
+
     var theme = options.theme;
-    var serviceColor = this.createServiceColor(theme); // blocks
+    this.serviceColor = (0,servicesbase/* createServiceColor */.JO)(theme); // pure service information here
 
-    var customShadows = [{
-      serviceClass: constants/* SRV_SERVO */.$X_,
-      kind: "rw",
-      identifier: constants/* ServoReg.Angle */.pmu.Angle,
-      field: "_",
-      shadow: {
-        kind: "block",
-        type: ServoAngleField/* default.SHADOW.type */.Z.SHADOW.type
-      }
-    }, {
-      serviceClass: constants/* SRV_BUZZER */.J1$,
-      kind: "command",
-      identifier: constants/* BuzzerCmd.PlayNote */.Rv2.PlayNote,
-      field: "frequency",
-      shadow: {
-        kind: "block",
-        type: NoteField/* default.SHADOW.type */.Z.SHADOW.type
-      }
-    }];
-
-    var lookupCustomShadow = function lookupCustomShadow(service, info, field) {
-      var _customShadows$find;
-
-      return (_customShadows$find = customShadows.find(function (cs) {
-        return cs.serviceClass === service.classIdentifier && cs.kind == info.kind && cs.identifier === info.identifier && cs.field == field.name;
-      })) === null || _customShadows$find === void 0 ? void 0 : _customShadows$find.shadow;
-    };
-
-    var serviceHelp = function serviceHelp(service) {
-      return (0,gatsby_browser_entry.withPrefix)("/services/" + service.shortId);
-    };
-
-    var fieldsSupported = function fieldsSupported(pkt) {
-      return pkt.fields.every(toBlocklyType);
-    };
-
-    var fieldName = function fieldName(reg, field) {
-      return field.name === "_" ? reg.name : field.name;
-    };
-
-    var fieldToShadow = function fieldToShadow(service, info, field) {
-      return lookupCustomShadow(service, info, field) || (isBooleanField(field) ? {
-        kind: "block",
-        type: "jacdac_on_off"
-      } : isStringField(field) ? {
-        kind: "block",
-        type: "text"
-      } : field.unit === "°" ? {
-        kind: "block",
-        type: "jacdac_angle"
-      } : field.unit === "/" ? {
-        kind: "block",
-        type: "jacdac_ratio"
-      } : /^%/.test(field.unit) ? {
-        kind: "block",
-        type: "jacdac_percent"
-      } : field.type === "u8" ? {
-        kind: "block",
-        type: "jacdac_byte"
-      } : {
-        kind: "block",
-        type: "math_number",
-        value: field.defaultValue || 0,
-        min: field.typicalMin || field.absoluteMin,
-        max: field.typicalMax || field.absoluteMax
-      });
-    };
-
-    var variableName = function variableName(srv) {
-      return (0,jdspec/* humanify */.lW)(srv.camelName).toLowerCase() + " 1";
-    };
-
-    var fieldVariable = function fieldVariable(service) {
-      return {
-        type: "field_variable",
-        name: "role",
-        variable: variableName(service),
-        variableTypes: [service.shortId],
-        defaultType: service.shortId
-      };
-    };
-
-    var fieldsToFieldInputs = function fieldsToFieldInputs(info) {
-      return info.fields.map(function (field) {
-        return {
-          type: "input_value",
-          name: fieldName(info, field),
-          check: toBlocklyType(field)
-        };
-      });
-    };
-
-    var fieldsToValues = function fieldsToValues(service, info) {
-      return (0,utils/* toMap */.qL)(info.fields, function (field) {
-        return fieldName(info, field);
-      }, function (field) {
-        return fieldToShadow(service, info, field);
-      });
-    };
-
-    var fieldsToMessage = function fieldsToMessage(info) {
-      return info.fields.map(function (field, i) {
-        return (0,jdspec/* humanify */.lW)(field.name) + " %" + (2 + i);
-      }).join(" ");
-    };
-
-    var isEnabledRegister = function isEnabledRegister(info) {
-      return info.fields.length === 1 && info.fields[0].type === "bool" && info.name === "enabled";
-    };
-
-    var customMessage = function customMessage(srv, reg, field) {
-      return customMessages.find(function (m) {
-        return m.service === srv.classIdentifier && m.register === reg.identifier && m.field === field.name;
-      });
-    };
-
-    var allServices = (0,spec/* serviceSpecifications */.Le)();
-    this.supportedServices = allServices.filter(function (service) {
-      return !/^_/.test(service.shortId) && service.status !== "deprecated";
-    }).filter(function (service) {
-      return ignoredServices.indexOf(service.classIdentifier) < 0;
-    });
+    var _getServiceInfo = (0,servicesbase/* getServiceInfo */.wi)(),
+        allServices = _getServiceInfo.allServices,
+        supportedServices = _getServiceInfo.supportedServices,
+        registers = _getServiceInfo.registers,
+        events = _getServiceInfo.events,
+        commands = _getServiceInfo.commands,
+        registerSimpleTypes = _getServiceInfo.registerSimpleTypes,
+        registerComposites = _getServiceInfo.registerComposites,
+        registerSimpleEnumTypes = _getServiceInfo.registerSimpleEnumTypes,
+        registerCompositeEnumTypes = _getServiceInfo.registerCompositeEnumTypes;
 
     var resolveService = function resolveService(cls) {
       return allServices.filter(function (srv) {
@@ -3970,42 +5198,12 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       });
     };
 
-    var registers = (0,utils/* arrayConcatMany */.ue)(this.supportedServices.map(function (service) {
-      return service.packets.filter(function (pkt) {
-        return (0,spec/* isRegister */.x5)(pkt) && !pkt.lowLevel && includedRegisters.indexOf(pkt.identifier) > -1;
-      }).map(function (register) {
-        return {
-          service: service,
-          register: register
-        };
-      });
-    }));
-    var events = this.supportedServices.map(function (service) {
-      return {
-        service: service,
-        events: service.packets.filter(function (pkt) {
-          return (0,spec/* isEvent */.cO)(pkt) && !pkt.lowLevel && ignoredEvents.indexOf(pkt.identifier) < 0;
-        })
-      };
-    }).filter(function (kv) {
-      return !!kv.events.length;
-    });
-    var commands = (0,utils/* arrayConcatMany */.ue)(this.supportedServices.map(function (service) {
-      return service.packets.filter(function (pkt) {
-        return (0,spec/* isCommand */.ao)(pkt) && !pkt.lowLevel && fieldsSupported(pkt);
-      }).map(function (pkt) {
-        return {
-          service: service,
-          command: pkt
-        };
-      });
-    }));
-    var customBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
+    var customClientBlockDefinitions = [].concat((0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_HID_KEYBOARD */.Hg9).map(function (service) {
       return {
         kind: "block",
         type: "key",
         message0: "%1 %2 key %3",
-        args0: [fieldVariable(service), {
+        args0: [(0,servicesbase/* roleVariable */.xH)(service), {
           type: "field_dropdown",
           name: "action",
           options: [["press", "press"], ["down", "down"], ["up", "up"]]
@@ -4013,12 +5211,12 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
           type: KeyboardKeyField/* default.KEY */.Z.KEY,
           name: "combo"
         }],
-        colour: serviceColor(service),
+        colour: _this2.serviceColor(service),
         inputsInline: true,
         previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         tooltip: "Send a keyboard key combo",
-        helpUrl: serviceHelp(service),
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
         service: service,
         expression: "role.key(combo.selectors, combo.modifiers, action)",
         template: "custom"
@@ -4028,7 +5226,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         kind: "block",
         type: "fade",
         message0: "fade %1 to %2 at speed %3",
-        args0: [fieldVariable(service), {
+        args0: [(0,servicesbase/* roleVariable */.xH)(service), {
           type: "input_value",
           name: "color",
           check: "Number"
@@ -4047,12 +5245,12 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
             type: "jacdac_ratio"
           }
         },
-        colour: serviceColor(service),
+        colour: _this2.serviceColor(service),
         inputsInline: true,
         previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         tooltip: "Fade LED color",
-        helpUrl: serviceHelp(service),
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
         service: service,
         expression: "role.animate((color >> 16) & 0xff, (color >> 8) & 0xff, (color >> 0) & 0xff, speed * 0xff)",
         template: "custom"
@@ -4062,7 +5260,7 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         kind: "block",
         type: "set_digits",
         message0: "set %1 digits to %2",
-        args0: [fieldVariable(service), {
+        args0: [(0,servicesbase/* roleVariable */.xH)(service), {
           type: "input_value",
           name: "digits",
           check: "Number"
@@ -4073,14 +5271,13 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
             type: "math_number"
           }
         },
-        colour: serviceColor(service),
+        colour: _this2.serviceColor(service),
         inputsInline: true,
         previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         tooltip: "Display a number of the screen",
-        helpUrl: serviceHelp(service),
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
         service: service,
-        // encode digits
         template: "custom"
       };
     })), (0,toConsumableArray/* default */.Z)(resolveService(constants/* SRV_LED_MATRIX */.ZmS).map(function (service) {
@@ -4088,16 +5285,16 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         kind: "block",
         type: "show_leds",
         message0: "show %1 leds %2",
-        args0: [fieldVariable(service), {
+        args0: [(0,servicesbase/* roleVariable */.xH)(service), {
           type: LEDMatrixField/* default.KEY */.Z.KEY,
           name: "leds"
         }],
-        colour: serviceColor(service),
+        colour: _this2.serviceColor(service),
         inputsInline: true,
         previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         tooltip: "Display LEDs on the LED matrix",
-        helpUrl: serviceHelp(service),
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
         service: service,
         // encode digits
         template: "custom"
@@ -4106,221 +5303,48 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       def.type = "jacdac_custom_" + def.service.shortId.toLowerCase() + "_" + def.type;
       return def;
     });
-    var eventBlocks = events.map(function (_ref) {
+    var eventClientBlocks = events.map(function (_ref) {
       var service = _ref.service,
           events = _ref.events;
       return {
         kind: "block",
         type: "jacdac_events_" + service.shortId,
         message0: "on %1 %2",
-        args0: [fieldVariable(service), {
+        args0: [(0,servicesbase/* roleVariable */.xH)(service), {
           type: "field_dropdown",
           name: "event",
           options: events.map(function (event) {
             return [(0,jdspec/* humanify */.lW)(event.name), event.name];
           })
         }],
-        colour: serviceColor(service),
+        colour: _this2.serviceColor(service),
         inputsInline: true,
         nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
         tooltip: "Events for the " + service.name + " service",
-        helpUrl: serviceHelp(service),
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
         service: service,
         events: events,
         template: "event"
       };
     });
-    var registerChangeByEventBlocks = registers.filter(function (_ref2) {
-      var service = _ref2.service;
-      return !service.packets.some(function (pkt) {
-        return (0,spec/* isEvent */.cO)(pkt) && ignoredEvents.indexOf(pkt.identifier) < 0;
-      });
-    }).filter(function (_ref3) {
-      var register = _ref3.register;
-      return register.fields.length === 1 && (0,jdspec/* isNumericType */.FV)(register.fields[0]) && register.identifier !== constants/* SystemReg.Intensity */.ZJq.Intensity;
-    }).map(function (_ref4) {
-      var service = _ref4.service,
-          register = _ref4.register;
-      return {
-        kind: "block",
-        type: "jacdac_change_by_events_" + service.shortId + "_" + register.name,
-        message0: "on %1 " + (0,jdspec/* humanify */.lW)(register.name) + " change by %2",
-        args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))).filter(function (v) {
-          return !!v;
-        }),
-        values: fieldsToValues(service, register),
-        inputsInline: true,
-        nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-        colour: serviceColor(service),
-        tooltip: "Event raised when " + register.name + " changes",
-        helpUrl: serviceHelp(service),
-        service: service,
-        register: register,
-        template: "register_change_event"
-      };
-    });
-
-    var _splitFilter = (0,utils/* splitFilter */.ap)(registers, function (reg) {
-      return reg.register.fields.length == 1;
-    }),
-        registerSimples = _splitFilter[0],
-        registerComposites = _splitFilter[1];
-
-    var _splitFilter2 = (0,utils/* splitFilter */.ap)(registerSimples, function (_ref5) {
-      var register = _ref5.register;
-      return !!toBlocklyType(register.fields[0]);
-    }),
-        registerSimpleTypes = _splitFilter2[0],
-        registerSimpleOthers = _splitFilter2[1];
-
-    var registerSimplesGetBlocks = registerSimpleTypes.map(function (_ref6) {
-      var _customMessage;
-
-      var service = _ref6.service,
-          register = _ref6.register;
-      return {
-        kind: "block",
-        type: "jacdac_get_simple_" + service.shortId + "_" + register.name,
-        message0: ((_customMessage = customMessage(service, register, register.fields[0])) === null || _customMessage === void 0 ? void 0 : _customMessage.get) || "%1 " + (0,jdspec/* humanify */.lW)(register.name),
-        args0: [fieldVariable(service)],
-        inputsInline: true,
-        output: toBlocklyType(register.fields[0]),
-        colour: serviceColor(service),
-        tooltip: register.description,
-        helpUrl: serviceHelp(service),
-        service: service,
-        register: register,
-        field: register.fields[0],
-        template: "register_get"
-      };
-    });
-    var registerSimpleEnumTypes = registerSimpleOthers.filter(function (_ref7) {
-      var service = _ref7.service,
-          register = _ref7.register;
-      return !!enumInfo(service, register.fields[0]);
-    }).map(function (_ref8) {
-      var service = _ref8.service,
-          register = _ref8.register;
-      return {
-        service: service,
-        register: register,
-        field: register.fields[0],
-        einfo: enumInfo(service, register.fields[0])
-      };
-    });
-    var registerCompositeEnumTypes = (0,utils/* arrayConcatMany */.ue)(registerComposites.map(function (_ref9) {
-      var service = _ref9.service,
-          register = _ref9.register;
-      return register.fields.map(function (field) {
-        return {
-          service: service,
-          register: register,
-          field: field,
-          einfo: enumInfo(service, field)
-        };
-      }).filter(function (_ref10) {
-        var einfo = _ref10.einfo;
-        return !!einfo;
-      });
-    }));
-    var registerEnumGetBlocks = [].concat((0,toConsumableArray/* default */.Z)(registerSimpleEnumTypes), (0,toConsumableArray/* default */.Z)(registerCompositeEnumTypes)).map(function (_ref11) {
-      var _customMessage2;
-
-      var service = _ref11.service,
-          register = _ref11.register,
-          field = _ref11.field,
-          einfo = _ref11.einfo;
-      return {
-        kind: "block",
-        type: "jacdac_get_enum_" + service.shortId + "_" + register.name + "_" + field.name,
-        message0: ((_customMessage2 = customMessage(service, register, field)) === null || _customMessage2 === void 0 ? void 0 : _customMessage2.get) || "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (field.name === "_" ? "" : " " + field.name) + " %2",
-        args0: [fieldVariable(service), {
-          type: "field_dropdown",
-          name: field.name,
-          options: Object.keys(einfo.members).map(function (member) {
-            return [(0,jdspec/* humanify */.lW)(member), member];
-          })
-        }],
-        inputsInline: true,
-        output: "Boolean",
-        colour: serviceColor(service),
-        tooltip: register.description,
-        helpUrl: serviceHelp(service),
-        service: service,
-        register: register,
-        field: field,
-        template: "register_get"
-      };
-    });
-    var registerNumericsGetBlocks = registerComposites.filter(function (re) {
-      return re.register.fields.some(jdspec/* isNumericType */.FV);
-    }).map(function (_ref12) {
-      var service = _ref12.service,
-          register = _ref12.register;
-      return {
-        kind: "block",
-        type: "jacdac_get_numerics_" + service.shortId + "_" + register.name,
-        message0: "%1 " + (0,jdspec/* humanify */.lW)(register.name) + (register.fields.length > 1 ? " %2" : ""),
-        args0: [fieldVariable(service), register.fields.length > 1 ? {
-          type: "field_dropdown",
-          name: "field",
-          options: register.fields.filter(function (f) {
-            return (0,jdspec/* isNumericType */.FV)(f);
-          }).map(function (field) {
-            return [(0,jdspec/* humanify */.lW)(field.name), fieldName(register, field)];
-          })
-        } : undefined].filter(function (v) {
-          return !!v;
-        }),
-        inputsInline: true,
-        output: "Number",
-        colour: serviceColor(service),
-        tooltip: register.description,
-        helpUrl: serviceHelp(service),
-        service: service,
-        register: register,
-        template: "register_get"
-      };
-    });
-    var registerSetBlocks = registers.filter(function (_ref13) {
-      var register = _ref13.register;
-      return register.kind === "rw";
-    }).filter(function (_ref14) {
-      var register = _ref14.register;
-      return fieldsSupported(register);
-    }).map(function (_ref15) {
-      var service = _ref15.service,
-          register = _ref15.register;
-      return {
-        kind: "block",
-        type: "jacdac_set_" + service.shortId + "_" + register.name,
-        message0: isEnabledRegister(register) ? "set %1 %2" : "set %1 " + register.name + " to " + (register.fields.length === 1 ? "%2" : fieldsToMessage(register)),
-        args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(register))),
-        values: fieldsToValues(service, register),
-        inputsInline: true,
-        colour: serviceColor(service),
-        tooltip: register.description,
-        helpUrl: serviceHelp(service),
-        service: service,
-        register: register,
-        previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-        nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
-        template: "register_set"
-      };
-    });
-    var commandBlocks = commands.map(function (_ref16) {
-      var service = _ref16.service,
-          command = _ref16.command;
+    var registerChangeByEventClientBlocks = this.makeRegisterChangeByEventBlocks(registers);
+    var registerSimpleGetClientBlocks = this.makeRegisterSimpleGetBlocks(registerSimpleTypes);
+    var registerEnumGetClientBlocks = this.makeRegisterEnumGetBlocks([].concat((0,toConsumableArray/* default */.Z)(registerSimpleEnumTypes), (0,toConsumableArray/* default */.Z)(registerCompositeEnumTypes)));
+    var registerNumericsGetClientBlocks = this.makeRegisterNumericsGetBlocks(registerComposites);
+    var registerSetClientBlocks = this.makeRegisterSetBlocks(registers);
+    var commandClientBlocks = commands.map(function (_ref2) {
+      var service = _ref2.service,
+          command = _ref2.command;
       return {
         kind: "block",
         type: "jacdac_command_" + service.shortId + "_" + command.name,
-        message0: !command.fields.length ? (0,jdspec/* humanify */.lW)(command.name) + " %1" : (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + fieldsToMessage(command),
-        args0: [fieldVariable(service)].concat((0,toConsumableArray/* default */.Z)(fieldsToFieldInputs(command))),
-        values: fieldsToValues(service, command),
+        message0: !command.fields.length ? (0,jdspec/* humanify */.lW)(command.name) + " %1" : (0,jdspec/* humanify */.lW)(command.name) + " %1 with " + (0,servicesbase/* fieldsToMessage */.Bo)(command),
+        args0: [(0,servicesbase/* roleVariable */.xH)(service)].concat((0,toConsumableArray/* default */.Z)((0,servicesbase/* fieldsToFieldInputs */.GB)(command))),
+        values: (0,servicesbase/* fieldsToValues */.ki)(service, command),
         inputsInline: true,
-        colour: serviceColor(service),
+        colour: _this2.serviceColor(service),
         tooltip: command.description,
-        helpUrl: serviceHelp(service),
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
         service: service,
         command: command,
         previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
@@ -4328,65 +5352,15 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         template: "command"
       };
     });
-    this._serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventBlocks), (0,toConsumableArray/* default */.Z)(registerChangeByEventBlocks), (0,toConsumableArray/* default */.Z)(registerSimplesGetBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetBlocks), (0,toConsumableArray/* default */.Z)(registerSetBlocks), (0,toConsumableArray/* default */.Z)(customBlockDefinitions), (0,toConsumableArray/* default */.Z)(commandBlocks));
-    var eventFieldGroups = [{
-      output: toolbox/* NUMBER_TYPE */.sS,
-      filter: jdspec/* isNumericType */.FV
-    }, {
-      output: toolbox/* BOOLEAN_TYPE */.lu,
-      filter: isBooleanField
-    }, {
-      output: toolbox/* STRING_TYPE */.jt,
-      filter: function filter(f) {
-        return isStringField(f) && f.encoding !== "JSON";
-      }
-    }, {
-      output: toolbox/* JSON_TYPE */.oj,
-      filter: function filter(f) {
-        return isStringField(f) && f.encoding === "JSON";
-      }
-    }]; // generate accessor blocks for event data with numbers
+    this._serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventClientBlocks), (0,toConsumableArray/* default */.Z)(registerSimpleGetClientBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetClientBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetClientBlocks), (0,toConsumableArray/* default */.Z)(registerSetClientBlocks), (0,toConsumableArray/* default */.Z)(commandClientBlocks), (0,toConsumableArray/* default */.Z)(customClientBlockDefinitions), (0,toConsumableArray/* default */.Z)(registerChangeByEventClientBlocks));
+    this._eventFieldBlocks = this.makeFieldBlocks(events.map(function (p) {
+      return {
+        service: p.service,
+        packets: p.events
+      };
+    })); // client only
 
-    this._eventFieldBlocks = (0,utils/* arrayConcatMany */.ue)((0,utils/* arrayConcatMany */.ue)(eventFieldGroups.map(function (_ref17) {
-      var output = _ref17.output,
-          filter = _ref17.filter;
-      return events.map(function (_ref18) {
-        var service = _ref18.service,
-            events = _ref18.events;
-        return events.filter(function (event) {
-          return event.fields.filter(filter).length > 0;
-        }).map(function (event) {
-          return {
-            service: service,
-            event: event
-          };
-        }).map(function (_ref19) {
-          var service = _ref19.service,
-              event = _ref19.event;
-          return {
-            kind: "block",
-            type: "jacdac_event_field_" + output.toLowerCase() + "_" + service.shortId + "_" + event.name,
-            message0: event.name + " %1",
-            args0: [{
-              type: "field_dropdown",
-              name: "field",
-              options: event.fields.map(function (field) {
-                return [(0,jdspec/* humanify */.lW)(field.name), field.name];
-              })
-            }],
-            colour: serviceColor(service),
-            inputsInline: true,
-            tooltip: "Data fields of the " + event.name + " event",
-            helpUrl: serviceHelp(service),
-            service: service,
-            event: event,
-            output: output,
-            template: "event_field"
-          };
-        });
-      });
-    })));
-    this._runtimeBlocks = [{
+    this._roleBlocks = [{
       kind: "block",
       type: ROLE_BOUND_EVENT_BLOCK,
       message0: "on %1 %2",
@@ -4394,8 +5368,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         type: "field_variable",
         name: "role",
         variable: "any",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(this.supportedServices.map(function (service) {
-          return service.shortId;
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (srv) {
+          return (0,servicesbase/* toRoleType */.tT)(srv);
         }))),
         defaultType: "client"
       }, {
@@ -4417,8 +5391,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         type: "field_variable",
         name: "role",
         variable: "any",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(this.supportedServices.map(function (service) {
-          return service.shortId;
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (srv) {
+          return (0,servicesbase/* toRoleType */.tT)(srv);
         }))),
         defaultType: "client"
       }],
@@ -4436,8 +5410,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         type: "field_variable",
         name: "role",
         variable: "all",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(this.supportedServices.map(function (service) {
-          return service.shortId;
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (srv) {
+          return (0,servicesbase/* toRoleType */.tT)(srv);
         }))),
         defaultType: "client"
       }, {
@@ -4466,8 +5440,10 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         type: "field_variable",
         name: "role",
         variable: "none",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(servicesDSL.supportedServices.map(function (service) {
-          return service.shortId;
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (srv) {
+          return (0,servicesbase/* toRoleType */.tT)(srv);
+        })), (0,toConsumableArray/* default */.Z)(supportedServices.map(function (srv) {
+          return (0,servicesbase/* toRoleType */.tT)(srv, false);
         }))),
         defaultType: "client"
       }, {
@@ -4491,8 +5467,8 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         type: "field_variable",
         name: "role",
         variable: "none",
-        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(servicesDSL.supportedServices.map(function (service) {
-          return service.shortId;
+        variableTypes: ["client"].concat((0,toConsumableArray/* default */.Z)(supportedServices.map(function (srv) {
+          return (0,servicesbase/* toRoleType */.tT)(srv);
         }))),
         defaultType: "client"
       }, {
@@ -4507,109 +5483,12 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
       helpUrl: "",
       template: "meta"
     }];
-    return [].concat((0,toConsumableArray/* default */.Z)(this._serviceBlocks), (0,toConsumableArray/* default */.Z)(this._eventFieldBlocks), (0,toConsumableArray/* default */.Z)(this._runtimeBlocks), toolsBlocks);
+    return [].concat((0,toConsumableArray/* default */.Z)(this._serviceBlocks), (0,toConsumableArray/* default */.Z)(this._eventFieldBlocks), (0,toConsumableArray/* default */.Z)(this._roleBlocks), toolsBlocks);
   };
 
   _proto.createCategory = function createCategory(options) {
-    var _source$blocks,
-        _this = this;
-
-    var theme = options.theme,
-        source = options.source,
-        liveServices = options.liveServices;
-    var serviceColor = this.createServiceColor(theme);
-    var blockServices = (source === null || source === void 0 ? void 0 : source.variables.map(function (v) {
-      return v.type;
-    }).filter(function (type) {
-      return !!(0,spec/* serviceSpecificationFromName */.kB)(type);
-    })) || [];
-    var usedEvents = new Set(source === null || source === void 0 ? void 0 : (_source$blocks = source.blocks) === null || _source$blocks === void 0 ? void 0 : _source$blocks.map(function (block) {
-      return {
-        block: block,
-        definition: (0,toolbox/* resolveBlockDefinition */.Pq)(block.type)
-      };
-    }).filter(function (_ref20) {
-      var definition = _ref20.definition;
-      return (definition === null || definition === void 0 ? void 0 : definition.template) === "event";
-    }).map(function (_ref21) {
-      var block = _ref21.block,
-          definition = _ref21.definition;
-      var eventName = block.inputs[0].fields["event"].value;
-      return definition.events.find(function (ev) {
-        return ev.name === eventName;
-      });
-    }).filter(function (ev) {
-      return !!ev;
-    }));
-
-    var jdBlocks = this._serviceBlocks.filter(function (block) {
-      return !!block.service;
-    });
-
-    var services = (0,utils/* uniqueMap */.EM)(jdBlocks, function (block) {
-      return block.service.shortId;
-    }, function (block) {
-      return block.service;
-    });
-    var toolboxServices = (0,utils/* uniqueMap */.EM)(flags/* default.diagnostics */.Z.diagnostics ? services : [].concat((0,toConsumableArray/* default */.Z)(blockServices.map(function (srvid) {
-      return services.find(function (service) {
-        return service.shortId === srvid;
-      });
-    }).filter(function (srv) {
-      return !!srv;
-    })), (0,toConsumableArray/* default */.Z)(liveServices.map(function (srv) {
-      return srv.specification;
-    }))), function (srv) {
-      return srv.shortId;
-    }, function (srv) {
-      return srv;
-    }).filter(function (srv) {
-      return srv && ignoredServices.indexOf(srv.classIdentifier) < 0;
-    }).sort(function (l, r) {
-      return l.name.localeCompare(r.name);
-    });
-    var servicesCategories = toolboxServices.map(function (service) {
-      return {
-        service: service,
-        serviceBlocks: _this._serviceBlocks.filter(function (block) {
-          return block.service === service;
-        })
-      };
-    }).map(function (_ref22) {
-      var service = _ref22.service,
-          serviceBlocks = _ref22.serviceBlocks;
-      return {
-        kind: "category",
-        name: service.name,
-        colour: serviceColor(service),
-        contents: [{
-          kind: "button",
-          text: "Add " + service.name + " role",
-          callbackKey: "jacdac_add_role_callback_" + service.shortId,
-          callback: function callback(workspace) {
-            return blockly.Variables.createVariableButtonHandler(workspace, null, service.shortId);
-          }
-        }].concat((0,toConsumableArray/* default */.Z)(serviceBlocks.map(function (block) {
-          return {
-            kind: "block",
-            type: block.type,
-            values: block.values
-          };
-        })), (0,toConsumableArray/* default */.Z)(_this._eventFieldBlocks.filter(function (ev) {
-          return ev.service === service && usedEvents.has(ev.event);
-        }).map(function (block) {
-          return {
-            kind: "block",
-            type: block.type,
-            values: block.values
-          };
-        })))
-      };
-    }).filter(function (cat) {
-      var _cat$contents;
-
-      return !!((_cat$contents = cat.contents) !== null && _cat$contents !== void 0 && _cat$contents.length);
-    });
+    var makeServicesCategories = this.createCategoryHelper(options);
+    var clientServicesCategories = makeServicesCategories(this._serviceBlocks, this._eventFieldBlocks);
     var commonCategory = {
       kind: "category",
       name: "Roles",
@@ -4643,213 +5522,182 @@ var ServicesBlockDomainSpecificLanguage = /*#__PURE__*/function () {
         type: INSPECT_BLOCK
       }]
     };
-    return [].concat((0,toConsumableArray/* default */.Z)(servicesCategories), [commonCategory, toolsCategory]);
-  };
-
-  _proto.compileEventToVM = function compileEventToVM(options) {
-    var makeAwaitEvent = function makeAwaitEvent(cmd, role, eventName) {
-      return {
-        expression: {
-          type: "CallExpression",
-          arguments: cmd == "awaitEvent" ? [(0,compile/* toMemberExpression */.vf)(role.toString(), eventName.toString())] : [(0,compile/* toIdentifier */.EB)(role.toString()), (0,compile/* toIdentifier */.EB)(eventName.toString())],
-          callee: (0,compile/* toIdentifier */.EB)(cmd)
-        },
-        event: {
-          role: role.toString(),
-          event: eventName.toString()
-        }
-      };
-    };
-
-    var block = options.block,
-        definition = options.definition,
-        blockToExpression = options.blockToExpression;
-    var inputs = block.inputs;
-    var template = definition.template;
-
-    switch (template) {
-      case "event":
-        {
-          var role = inputs[0].fields["role"].value;
-          var eventName = inputs[0].fields["event"].value;
-          return makeAwaitEvent("awaitEvent", role.toString(), eventName.toString());
-        }
-
-      case "register_change_event":
-        {
-          var _role = inputs[0].fields["role"].value;
-          var _ref23 = definition,
-              register = _ref23.register;
-
-          var _blockToExpression = blockToExpression(undefined, inputs[0].child),
-              expr = _blockToExpression.expr,
-              errors = _blockToExpression.errors;
-
-          return {
-            expression: {
-              type: "CallExpression",
-              arguments: [(0,compile/* toMemberExpression */.vf)(_role.toString(), register.name), expr],
-              callee: (0,compile/* toIdentifier */.EB)("awaitChange")
-            },
-            errors: errors
-          };
-        }
-
-      default:
-        {
-          var type = block.type;
-
-          switch (type) {
-            case ROLE_BOUND_EVENT_BLOCK:
-              {
-                var _role2 = inputs[0].fields["role"].value;
-                var _eventName = inputs[0].fields["event"].value;
-                return makeAwaitEvent("roleBound", _role2.toString(), _eventName.toString());
-              }
-          }
-        }
-    }
-
-    return undefined;
-  };
-
-  _proto.compileExpressionToVM = function compileExpressionToVM(options) {
-    var event = options.event,
-        definition = options.definition,
-        block = options.block;
-    var inputs = block.inputs,
-        id = block.id;
-    var template = definition.template;
-
-    switch (template) {
-      case "register_get":
-        {
-          var _ref24 = definition,
-              register = _ref24.register;
-          var role = inputs[0].fields["role"].value;
-          var field = inputs[0].fields["field"];
-          return {
-            expr: (0,compile/* toMemberExpression */.vf)(role, field ? (0,compile/* toMemberExpression */.vf)(register.name, field.value) : register.name),
-            errors: []
-          };
-        }
-
-      case "event_field":
-        {
-          var _ref25 = definition,
-              eventInfo = _ref25.event;
-          var errors = [];
-
-          if (event.event !== eventInfo.name) {
-            errors.push({
-              sourceId: id,
-              message: "Event " + eventInfo.name + " is not available in this handler."
-            });
-          }
-
-          var _field = inputs[0].fields["field"];
-          return {
-            expr: (0,compile/* toMemberExpression */.vf)(event.role, (0,compile/* toMemberExpression */.vf)(event.event, _field.value)),
-            errors: errors
-          };
-        }
-
-      default:
-        {
-          var type = block.type;
-          var _errors = [];
-
-          switch (type) {
-            case ROLE_BOUND_BLOCK:
-              {
-                var _role3 = inputs[0].fields["role"].value;
-                return {
-                  expr: {
-                    type: "CallExpression",
-                    arguments: [(0,compile/* toIdentifier */.EB)(_role3.toString())],
-                    callee: (0,compile/* toMemberExpression */.vf)("$fun", "roleBoundExpression")
-                  },
-                  errors: _errors
-                };
-              }
-          }
-        }
-    }
-
-    return undefined;
-  };
-
-  _proto.compileCommandToVM = function compileCommandToVM(options) {
-    var event = options.event,
-        block = options.block,
-        definition = options.definition,
-        blockToExpression = options.blockToExpression;
-    var template = definition.template;
-    var inputs = block.inputs;
-
-    switch (template) {
-      case "register_set":
-        {
-          var _ref26 = definition,
-              register = _ref26.register;
-
-          var _blockToExpression2 = blockToExpression(event, inputs[0].child),
-              expr = _blockToExpression2.expr,
-              errors = _blockToExpression2.errors;
-
-          var role = inputs[0].fields.role.value;
-          return {
-            cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
-              type: "CallExpression",
-              arguments: [(0,compile/* toMemberExpression */.vf)(role, register.name), expr],
-              callee: (0,compile/* toIdentifier */.EB)("writeRegister")
-            }),
-            errors: errors
-          };
-        }
-
-      case "command":
-        {
-          var _ref27 = definition,
-              serviceCommand = _ref27.command;
-          var _role4 = inputs[0].fields.role.value;
-          var exprsErrors = inputs.map(function (a) {
-            return blockToExpression(event, a.child);
-          });
-          return {
-            cmd: (0,VMgenerator/* makeVMBase */.IZ)(block, {
-              type: "CallExpression",
-              arguments: exprsErrors.map(function (p) {
-                return p.expr;
-              }),
-              callee: (0,compile/* toMemberExpression */.vf)(_role4, serviceCommand.name)
-            }),
-            errors: exprsErrors.flatMap(function (p) {
-              return p.errors;
-            })
-          };
-        }
-
-      default:
-        {
-          var type = block.type;
-
-          switch (type) {
-            case SET_STATUS_LIGHT_BLOCK:
-              {
-                console.log("SET_STATUS");
-              }
-          }
-        }
-    }
-
-    return undefined;
+    return [].concat((0,toConsumableArray/* default */.Z)(clientServicesCategories), [commonCategory, toolsCategory]);
   };
 
   return ServicesBlockDomainSpecificLanguage;
-}();
+}(servicesbase/* ServicesBaseDSL */.Hy);
 var servicesDSL = new ServicesBlockDomainSpecificLanguage();
 /* harmony default export */ var servicesdsl = (servicesDSL);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.flat-map.js
+var es_array_flat_map = __webpack_require__(86535);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.unscopables.flat-map.js
+var es_array_unscopables_flat_map = __webpack_require__(99244);
+;// CONCATENATED MODULE: ./src/components/blockly/dsl/serverservicesdsl.ts
+
+
+
+
+
+
+
+var ServerServicesBlockDomainSpecificLanguage = /*#__PURE__*/function (_ServicesBaseDSL) {
+  (0,inheritsLoose/* default */.Z)(ServerServicesBlockDomainSpecificLanguage, _ServicesBaseDSL);
+
+  function ServerServicesBlockDomainSpecificLanguage() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _ServicesBaseDSL.call.apply(_ServicesBaseDSL, [this].concat(args)) || this;
+    _this.id = "jacdacServerServices";
+    _this.supportedServices = [];
+    return _this;
+  }
+
+  var _proto = ServerServicesBlockDomainSpecificLanguage.prototype;
+
+  _proto.makeRegisterGetSetRequestBlocks = function makeRegisterGetSetRequestBlocks(registers, isGet) {
+    var _this2 = this;
+
+    return registers.filter(function (r) {
+      return isGet && (r.register.kind === "ro" || r.register.kind === "rw") || !isGet && r.register.kind == "rw";
+    }).map(function (_ref) {
+      var service = _ref.service,
+          register = _ref.register;
+      return {
+        kind: "block",
+        type: "jacdac_register_" + (isGet ? "get" : "set") + "_request_" + service.shortId + "_" + register.name,
+        message0: "on register " + (isGet ? "get" : "set") + " %1 " + (0,jdspec/* humanify */.lW)(register.name),
+        args0: [(0,servicesbase/* roleVariable */.xH)(service, false)],
+        colour: _this2.serviceColor(service),
+        inputsInline: true,
+        nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+        tooltip: register.description,
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
+        service: service,
+        events: [register],
+        template: "event"
+      };
+    });
+  };
+
+  _proto.createBlocks = function createBlocks(options) {
+    var _this3 = this;
+
+    var theme = options.theme;
+    this.serviceColor = (0,servicesbase/* createServiceColor */.JO)(theme); // pure service information here
+
+    var _getServiceInfo = (0,servicesbase/* getServiceInfo */.wi)(),
+        registers = _getServiceInfo.registers,
+        events = _getServiceInfo.events,
+        commands = _getServiceInfo.commands,
+        registerSimpleTypes = _getServiceInfo.registerSimpleTypes,
+        registerComposites = _getServiceInfo.registerComposites,
+        registerSimpleEnumTypes = _getServiceInfo.registerSimpleEnumTypes,
+        registerCompositeEnumTypes = _getServiceInfo.registerCompositeEnumTypes;
+
+    var eventServerBlocks = events.flatMap(function (_ref2) {
+      var service = _ref2.service,
+          events = _ref2.events;
+      var eventsNoArgs = events.filter(function (ev) {
+        return ev.fields.length === 0;
+      });
+      var retNoArgs = {
+        kind: "block",
+        type: "jacdac_raise_event_" + service.shortId,
+        message0: "raise %1 %2",
+        args0: [(0,servicesbase/* roleVariable */.xH)(service, false), {
+          type: "field_dropdown",
+          name: "event",
+          options: eventsNoArgs.map(function (event) {
+            return [(0,jdspec/* humanify */.lW)(event.name), event.name];
+          })
+        }],
+        inputsInline: true,
+        colour: _this3.serviceColor(service),
+        tooltip: "Events for the " + service.name + " service",
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
+        service: service,
+        command: undefined,
+        previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+        nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+        template: "raiseNo"
+      };
+      var eventsArgs = events.filter(function (ev) {
+        return ev.fields.length;
+      });
+      var retArgs = eventsArgs.map(function (ev) {
+        return {
+          kind: "block",
+          type: "jacdac_raise_event_" + service.shortId + "_" + ev.name,
+          message0: !ev.fields.length ? "raise %1 " + (0,jdspec/* humanify */.lW)(ev.name) : "raise %1 " + (0,jdspec/* humanify */.lW)(ev.name) + " with " + (0,servicesbase/* fieldsToMessage */.Bo)(ev),
+          args0: [(0,servicesbase/* roleVariable */.xH)(service, false)].concat((0,toConsumableArray/* default */.Z)((0,servicesbase/* fieldsToFieldInputs */.GB)(ev))),
+          values: (0,servicesbase/* fieldsToValues */.ki)(service, ev),
+          inputsInline: true,
+          colour: _this3.serviceColor(service),
+          tooltip: ev.description,
+          helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
+          service: service,
+          command: ev,
+          previousStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+          nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+          template: "raiseArgs"
+        };
+      });
+      return [retNoArgs].concat((0,toConsumableArray/* default */.Z)(retArgs));
+    });
+    var registerSimpleGetServerBlocks = this.makeRegisterSimpleGetBlocks(registerSimpleTypes, false);
+    var registerEnumGetServerBlocks = this.makeRegisterEnumGetBlocks([].concat((0,toConsumableArray/* default */.Z)(registerSimpleEnumTypes), (0,toConsumableArray/* default */.Z)(registerCompositeEnumTypes)), false);
+    var registerNumericsGetServerBlocks = this.makeRegisterNumericsGetBlocks(registerComposites, false);
+    var registerSetServerBlocks = this.makeRegisterSetBlocks(registers, false);
+    var registerSetRequestBlocks = this.makeRegisterGetSetRequestBlocks(registers, false);
+    var registerGetRequestBlocks = this.makeRegisterGetSetRequestBlocks(registers, true);
+    var commandServerBlocks = commands.map(function (_ref3) {
+      var service = _ref3.service,
+          command = _ref3.command;
+      return {
+        kind: "block",
+        type: "jacdac_command_server_" + service.shortId + "_" + command.name,
+        message0: "on " + (0,jdspec/* humanify */.lW)(command.name) + " %1",
+        args0: [(0,servicesbase/* roleVariable */.xH)(service, false)],
+        colour: _this3.serviceColor(service),
+        inputsInline: true,
+        nextStatement: toolbox/* CODE_STATEMENT_TYPE */.lL,
+        tooltip: command.description,
+        helpUrl: (0,servicesbase/* serviceHelp */.me)(service),
+        service: service,
+        events: [command],
+        template: "event"
+      };
+    });
+    this._serviceBlocks = [].concat((0,toConsumableArray/* default */.Z)(eventServerBlocks), (0,toConsumableArray/* default */.Z)(registerSimpleGetServerBlocks), (0,toConsumableArray/* default */.Z)(registerEnumGetServerBlocks), (0,toConsumableArray/* default */.Z)(registerNumericsGetServerBlocks), (0,toConsumableArray/* default */.Z)(registerSetServerBlocks), (0,toConsumableArray/* default */.Z)(commandServerBlocks), (0,toConsumableArray/* default */.Z)(registerSetRequestBlocks), (0,toConsumableArray/* default */.Z)(registerGetRequestBlocks));
+    this._eventFieldBlocks = this.makeFieldBlocks(commands.map(function (p) {
+      return {
+        service: p.service,
+        packets: [p.command]
+      };
+    }), false);
+    return [].concat((0,toConsumableArray/* default */.Z)(this._serviceBlocks), (0,toConsumableArray/* default */.Z)(this._eventFieldBlocks));
+  };
+
+  _proto.createCategory = function createCategory(options) {
+    var makeServicesCategories = this.createCategoryHelper(options);
+    var serverServicesCategories = makeServicesCategories(this._serviceBlocks, this._eventFieldBlocks, false);
+    return [{
+      kind: "sep"
+    }, {
+      kind: "label",
+      text: "Servers"
+    }].concat((0,toConsumableArray/* default */.Z)(serverServicesCategories));
+  };
+
+  return ServerServicesBlockDomainSpecificLanguage;
+}(servicesbase/* ServicesBaseDSL */.Hy);
+var serverServicesDSL = new ServerServicesBlockDomainSpecificLanguage();
+/* harmony default export */ var serverservicesdsl = (serverServicesDSL);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LogViewField.tsx
 var LogViewField = __webpack_require__(86899);
 // EXTERNAL MODULE: ./src/components/blockly/fields/VariablesFields.tsx
@@ -5856,7 +6704,8 @@ var widgetDSL = {
 
 
 
-var vmDsls = [servicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, widgetdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
+
+var vmDsls = [servicesdsl, serverservicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, widgetdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
 /* harmony default export */ var vmdsls = (vmDsls);
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
