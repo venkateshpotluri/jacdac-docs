@@ -4677,8 +4677,7 @@ function BlockClientRoles() {
     }, /*#__PURE__*/react.createElement(RoleChip, {
       role: role,
       service: service,
-      serviceShortId: serviceShortId,
-      server: undefined
+      serviceShortId: serviceShortId
     }));
   }));
 }
