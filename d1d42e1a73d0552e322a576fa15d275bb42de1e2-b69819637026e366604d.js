@@ -12845,7 +12845,7 @@ var fieldToShadow = function fieldToShadow(service, info, field) {
 };
 
 var variableName = function variableName(srv, client) {
-  return "" + (0,_jacdac_ts_jacdac_spec_spectool_jdspec__WEBPACK_IMPORTED_MODULE_3__/* .humanify */ .lW)(srv.camelName).toLowerCase() + (client ? "" : "Srv") + " 1";
+  return "" + (0,_jacdac_ts_jacdac_spec_spectool_jdspec__WEBPACK_IMPORTED_MODULE_3__/* .humanify */ .lW)(srv.camelName).toLowerCase() + (client ? "" : " server") + " 1";
 };
 
 var isEnabledRegister = function isEnabledRegister(info) {
@@ -13337,11 +13337,11 @@ var ServicesBaseDSL = /*#__PURE__*/function () {
     var makeCategory = function makeCategory(service, isClient, serviceBlocks, eventFieldBLocks) {
       return {
         kind: "category",
-        name: service.name + (isClient ? "" : ":S"),
+        name: service.name + (isClient ? "" : " Server"),
         colour: _this7.serviceColor(service),
         contents: [{
           kind: "button",
-          text: "Add " + service.name + " role",
+          text: "Add " + service.name + " " + (isClient ? "role" : "server"),
           callbackKey: "jacdac_add_role_callback_" + toRoleType(service, isClient),
           callback: function callback(workspace) {
             return blockly__WEBPACK_IMPORTED_MODULE_13__.Variables.createVariableButtonHandler(workspace, null, toRoleType(service, isClient));
