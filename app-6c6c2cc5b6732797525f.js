@@ -68756,7 +68756,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "92a3a1b79c8bf44af154ffa1445d9a9e97476230";
+  var sha = "0b4b8d8c52d7296931fec9dfda6a0ad02b11de1d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -80384,7 +80384,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-clients-web-mdx */ 7598).then(__webpack_require__.bind(__webpack_require__, 27889));
   },
   "component---src-pages-dashboard-tsx": function componentSrcPagesDashboardTsx() {
-    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(5493), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
+    return Promise.all(/* import() | component---src-pages-dashboard-tsx */[__webpack_require__.e(5939), __webpack_require__.e(7378)]).then(__webpack_require__.bind(__webpack_require__, 54542));
   },
   "component---src-pages-devices-tsx": function componentSrcPagesDevicesTsx() {
     return __webpack_require__.e(/* import() | component---src-pages-devices-tsx */ 8524).then(__webpack_require__.bind(__webpack_require__, 17673));
@@ -80437,6 +80437,9 @@ exports.components = {
   "component---src-pages-tools-collector-tsx": function componentSrcPagesToolsCollectorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-collector-tsx */[__webpack_require__.e(7684), __webpack_require__.e(8814)]).then(__webpack_require__.bind(__webpack_require__, 21586));
   },
+  "component---src-pages-tools-commissioner-tsx": function componentSrcPagesToolsCommissionerTsx() {
+    return Promise.all(/* import() | component---src-pages-tools-commissioner-tsx */[__webpack_require__.e(5939), __webpack_require__.e(1322)]).then(__webpack_require__.bind(__webpack_require__, 7877));
+  },
   "component---src-pages-tools-data-science-editor-tsx": function componentSrcPagesToolsDataScienceEditorTsx() {
     return Promise.all(/* import() | component---src-pages-tools-data-science-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(5917), __webpack_require__.e(1323)]).then(__webpack_require__.bind(__webpack_require__, 30321));
   },
@@ -80459,7 +80462,7 @@ exports.components = {
     return __webpack_require__.e(/* import() | component---src-pages-tools-makecode-editor-extension-tsx */ 6456).then(__webpack_require__.bind(__webpack_require__, 25900));
   },
   "component---src-pages-tools-makecode-sim-tsx": function componentSrcPagesToolsMakecodeSimTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(5493), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
+    return Promise.all(/* import() | component---src-pages-tools-makecode-sim-tsx */[__webpack_require__.e(5939), __webpack_require__.e(6450)]).then(__webpack_require__.bind(__webpack_require__, 98874));
   },
   "component---src-pages-tools-mdx": function componentSrcPagesToolsMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-tools-mdx */ 5818).then(__webpack_require__.bind(__webpack_require__, 6673));
