@@ -8284,22 +8284,22 @@ function removeIfThenElse(handler) {
 var getServiceFromRole = function getServiceFromRole(info) {
   return function (role) {
     // lookup in roles first
-    var shortId = info.roles.find(function (pair) {
+    var roleFound = info.roles.find(function (pair) {
       return pair.role === role;
     });
     var client = true;
 
-    if (!shortId) {
-      shortId = info.serverRoles.find(function (pair) {
+    if (!roleFound) {
+      roleFound = info.serverRoles.find(function (pair) {
         return pair.role === role;
       });
       client = false;
     }
 
-    if (shortId) {
+    if (roleFound) {
       // must succeed
-      var spec = (0,jdom_spec/* serviceSpecificationFromName */.kB)(shortId.serviceShortId);
-      (0,utils/* assert */.hu)(!!spec, "service " + shortId.serviceShortId + " not resolved");
+      var spec = (0,jdom_spec/* serviceSpecificationFromClassIdentifier */.d5)(roleFound.serviceClass);
+      (0,utils/* assert */.hu)(!!spec, "service class " + roleFound.serviceClass + " not resolved");
       return {
         spec: spec,
         client: client
@@ -8995,7 +8995,7 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
 
     _this.mount(_this.bus.subscribe(constants/* DEVICE_DISCONNECT */.O55, _this.removeServices.bind((0,assertThisInitialized/* default */.Z)(_this))));
 
-    _this.bindServices([]);
+    _this.bindServices();
 
     return _this;
   }
@@ -9009,8 +9009,8 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
     var changed = false; // remove unknown roles
 
     var supportedNewRoles = newRoles.filter(function (_ref) {
-      var serviceShortId = _ref.serviceShortId;
-      return (0,spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+      var serviceClass = _ref.serviceClass;
+      return (0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
     }); // unbind removed roles
 
     var i = 0;
@@ -9048,10 +9048,10 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
         changed = true;
 
         _this2._roles.push(_objectSpread({}, newRole));
-      } else if (existingRole.serviceShortId !== newRole.serviceShortId) {
+      } else if (existingRole.serviceClass !== newRole.serviceClass) {
         // modified type, force rebinding
         changed = true;
-        existingRole.serviceShortId = newRole.serviceShortId;
+        existingRole.serviceClass = newRole.serviceClass;
 
         if (existingRole.service) {
           existingRole.service = undefined;
@@ -9067,7 +9067,7 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
     } // bound services
 
 
-    this.bindServices(newRoles, changed);
+    this.bindServices(changed);
     this.emitBoundEvents(oldBound);
   };
 
@@ -9079,39 +9079,33 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
     })) === null || _this$_roles$find === void 0 ? void 0 : _this$_roles$find.service;
   };
 
-  _proto.addRoleService = function addRoleService(role, serviceShortId) {
-    var _this3 = this;
-
-    if (!(0,spec/* serviceSpecificationFromName */.kB)(serviceShortId)) return; // unknown role type
+  _proto.addRoleService = function addRoleService(role, serviceClass, preferredDeviceId) {
+    if (!(0,spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass)) return; // unknown role type
 
     var binding = this._roles.find(function (r) {
       return r.role === role;
     }); // check if we already have this role
 
 
-    if (binding && serviceShortId === binding.serviceShortId) return;
+    if (binding && serviceClass === binding.serviceClass) {
+      if (!binding.service && preferredDeviceId) {
+        binding.preferredDeviceId = preferredDeviceId;
+      }
+
+      return;
+    }
+
     var oldBound = this.bound; // new role
 
     binding = {
       role: role,
-      serviceShortId: serviceShortId
+      serviceClass: serviceClass,
+      preferredDeviceId: preferredDeviceId
     };
 
     this._roles.push(binding);
 
-    var ret = this.bus.services({
-      ignoreSelf: true,
-      serviceName: serviceShortId
-    }).find(function (s) {
-      return !_this3._roles.find(function (r) {
-        return r.service === s;
-      });
-    });
-
-    if (ret) {
-      binding.service = ret;
-      this.emit(constants/* ROLE_BOUND */.l9m, role);
-    } else {
+    if (!this.bindRole(binding)) {
       this.emit(constants/* ROLE_UNBOUND */.CCp, role);
     }
 
@@ -9122,43 +9116,51 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
   _proto.emitBoundEvents = function emitBoundEvents(oldBound) {
     var bound = this.bound;
     if (oldBound !== bound) this.emit(bound ? constants/* BOUND */.E5I : constants/* UNBOUND */.BKI);
+  } // TODO: need to respect other (unbound) role's preferredDeviceId
+  ;
+
+  _proto.bindRole = function bindRole(role) {
+    var _this3 = this;
+
+    var ret = this.bus.services({
+      ignoreSelf: true,
+      serviceClass: role.serviceClass
+    }).filter(function (s) {
+      return !_this3.boundRoles.find(function (r) {
+        return r.service === s;
+      });
+    });
+
+    if (ret.length) {
+      var theOne = ret[0];
+
+      if (role.preferredDeviceId) {
+        var newOne = ret.find(function (s) {
+          return s.device.deviceId === role.preferredDeviceId;
+        });
+        if (newOne) theOne = newOne;
+      }
+
+      role.service = theOne;
+      this.emit(constants/* ROLE_BOUND */.l9m, role.role);
+      return true;
+    }
+
+    return false;
   };
 
-  _proto.bindServices = function bindServices(newRoles, changed) {
+  _proto.bindServices = function bindServices(changed) {
     var _this4 = this;
 
     this.unboundRoles.forEach(function (binding) {
-      var shortId = binding.serviceShortId;
-      var boundRoles = _this4.boundRoles;
-      var providedService = newRoles.find(function (p) {
-        return p.role === binding.role;
-      });
-
-      if (providedService !== null && providedService !== void 0 && providedService.service) {
-        binding.service = providedService === null || providedService === void 0 ? void 0 : providedService.service;
-      } else {
-        var service = _this4.bus.services({
-          ignoreSelf: true,
-          serviceName: shortId
-        }).find(function (srv) {
-          return !boundRoles.find(function (b) {
-            return b.service === srv;
-          });
-        });
-
-        binding.service = service;
-      }
-
-      _this4.emit(constants/* ROLE_BOUND */.l9m, binding.role);
-
-      changed = true;
+      if (_this4.bindRole(binding)) changed = true;
     });
     if (changed) this.emit(constants/* CHANGE */.Ver);
   };
 
   _proto.addServices = function addServices(dev) {
     if (dev === this.bus.selfDevice) return;
-    this.bindServices([]);
+    this.bindServices();
   };
 
   _proto.removeServices = function removeServices(dev) {
@@ -9178,7 +9180,7 @@ var RoleManager = /*#__PURE__*/function (_JDClient) {
       changed = true;
     });
 
-    this.bindServices([], changed);
+    this.bindServices(changed);
   };
 
   (0,createClass/* default */.Z)(RoleManager, [{
@@ -11783,7 +11785,7 @@ var WorkspaceContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.create
   sourceId: undefined,
   services: undefined,
   role: undefined,
-  roleServiceShortId: undefined,
+  roleServiceClass: undefined,
   roleService: undefined,
   runner: undefined
 });
@@ -11846,12 +11848,12 @@ function WorkspaceProvider(props) {
       roleService = _useState4[0],
       setRoleService = _useState4[1];
 
-  var roleServiceShortId = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(roleManager, function (_) {
+  var roleServiceClass = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(roleManager, function (_) {
     var _$roles$find;
 
     return _ === null || _ === void 0 ? void 0 : (_$roles$find = _.roles.find(function (r) {
       return r.role === role;
-    })) === null || _$roles$find === void 0 ? void 0 : _$roles$find.serviceShortId;
+    })) === null || _$roles$find === void 0 ? void 0 : _$roles$find.serviceClass;
   });
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(!!(sourceBlock !== null && sourceBlock !== void 0 && sourceBlock.isInFlyout)),
@@ -11897,7 +11899,7 @@ function WorkspaceProvider(props) {
         sourceId: sourceId,
         services: services,
         role: role,
-        roleServiceShortId: roleServiceShortId,
+        roleServiceClass: roleServiceClass,
         roleService: roleService,
         runner: runner,
         flyout: flyout
@@ -12875,19 +12877,19 @@ var eventFieldGroups = [{
     return isStringField(f) && f.encoding === "JSON";
   }
 }];
-// exports 
+// exports
 function toRoleType(service, client) {
   if (client === void 0) {
     client = true;
   }
 
-  return service.shortId + ":" + (client ? "client" : "server");
+  return service.classIdentifier + ":" + (client ? "client" : "server");
 }
 function parseRoleType(v) {
   var split = v.type.split(":");
   return {
     role: v.name,
-    serviceShortId: split[0],
+    serviceClass: parseInt(split[0]),
     client: split.length === 2 ? split[1] === "client" : true
   };
 }
@@ -13270,7 +13272,7 @@ var ServicesBaseDSL = /*#__PURE__*/function () {
         liveServices = options.liveServices;
     this.serviceColor = createServiceColor(theme);
     var blockServices = (source === null || source === void 0 ? void 0 : source.variables.map(parseRoleType).filter(function (vt) {
-      return !!(0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_6__/* .serviceSpecificationFromName */ .kB)(vt.serviceShortId);
+      return !!(0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_6__/* .serviceSpecificationFromClassIdentifier */ .d5)(vt.serviceClass);
     })) || [];
     var usedEvents = new Set(source === null || source === void 0 ? void 0 : (_source$blocks = source.blocks) === null || _source$blocks === void 0 ? void 0 : _source$blocks.map(function (block) {
       return {
@@ -13306,7 +13308,7 @@ var ServicesBaseDSL = /*#__PURE__*/function () {
     });
     var toolboxServices = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_7__/* .uniqueMap */ .EM)(_jacdac_ts_src_jdom_flags__WEBPACK_IMPORTED_MODULE_5__/* .default.diagnostics */ .Z.diagnostics ? services : [].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)(blockServices.map(function (pair) {
       return services.find(function (service) {
-        return service.shortId === pair.serviceShortId;
+        return service.classIdentifier === pair.serviceClass;
       });
     }).filter(function (srv) {
       return !!srv;
@@ -15715,10 +15717,10 @@ function NoServiceAlert() {
 
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_WorkspaceContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
       roleService = _useContext2.roleService,
-      roleServiceShortId = _useContext2.roleServiceShortId,
+      roleServiceClass = _useContext2.roleServiceClass,
       flyout = _useContext2.flyout;
 
-  var spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__/* .serviceSpecificationFromName */ .kB)(roleServiceShortId);
+  var spec = (0,_jacdac_ts_src_jdom_spec__WEBPACK_IMPORTED_MODULE_4__/* .serviceSpecificationFromClassIdentifier */ .d5)(roleServiceClass);
 
   var handleStartSimulator = function handleStartSimulator() {
     return (0,_jacdac_ts_src_servers_servers__WEBPACK_IMPORTED_MODULE_1__/* .startServiceProviderFromServiceClass */ .V6)(bus, spec.classIdentifier);
@@ -15727,7 +15729,7 @@ function NoServiceAlert() {
 
   if (roleService || flyout) return null; // unresolved, unknown service
 
-  if (!roleService && !roleServiceShortId) return null; // unknown spec
+  if (!roleService && !roleServiceClass) return null; // unknown spec
 
   if (!spec) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_lab__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     severity: "warning"

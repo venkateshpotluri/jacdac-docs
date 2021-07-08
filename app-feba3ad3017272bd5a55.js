@@ -52478,9 +52478,10 @@ var JDServiceProvider = /*#__PURE__*/function (_JDEventSource) {
 
     this.controlService.announce(); // also send status codes, for non-zero codes
 
-    this.services().filter(function (srv) {
+    var activeServices = this.services().filter(function (srv) {
       return !(0,utils/* isBufferEmpty */.pL)(srv.statusCode.data);
-    }).forEach(function (srv) {
+    });
+    activeServices.forEach(function (srv) {
       return srv.statusCode.sendGetAsync();
     }); // reset counter
 
@@ -64609,7 +64610,9 @@ function DashboardSwitch(props) {
   var widgetSize = "clamp(5em, 25vw, 100%)";
 
   var handleToggle = function handleToggle() {
-    return server === null || server === void 0 ? void 0 : server.toggle();
+    var _server$toggle;
+
+    return server === null || server === void 0 ? void 0 : (_server$toggle = server.toggle) === null || _server$toggle === void 0 ? void 0 : _server$toggle.call(server);
   };
 
   if (on === undefined) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null);
@@ -68756,7 +68759,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "0b4b8d8c52d7296931fec9dfda6a0ad02b11de1d";
+  var sha = "057feddaefd582e698c9eb04eedd520f5beff52a";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

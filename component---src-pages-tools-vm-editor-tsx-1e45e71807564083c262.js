@@ -1388,6 +1388,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
+var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/NoSsr/NoSsr.js
@@ -1415,14 +1417,14 @@ var utils = __webpack_require__(81794);
 var eventsource = __webpack_require__(45484);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var jdom_spec = __webpack_require__(13173);
-// EXTERNAL MODULE: ./jacdac-ts/src/jdom/serviceserver.ts
-var serviceserver = __webpack_require__(50457);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/pack.ts
 var pack = __webpack_require__(91635);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
 var constants = __webpack_require__(71815);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/registerserver.ts
 var registerserver = __webpack_require__(1591);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/sensorserver.ts
+var sensorserver = __webpack_require__(85863);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/server.ts
 
 
@@ -1497,22 +1499,26 @@ var VMRegisterServer = /*#__PURE__*/function (_JDRegisterServer) {
   }();
 
   return VMRegisterServer;
-}(registerserver/* default */.Z);
+}(registerserver/* default */.Z); // TODO: need to take specification into account and 
+// TOOD: implement the proper base class (SensorServer)
 
-var VMServiceServer = /*#__PURE__*/function (_JDServiceServer) {
-  (0,inheritsLoose/* default */.Z)(VMServiceServer, _JDServiceServer);
 
-  function VMServiceServer(role, shortId, spec) {
+var VMServiceServer = /*#__PURE__*/function (_SensorServer) {
+  (0,inheritsLoose/* default */.Z)(VMServiceServer, _SensorServer);
+
+  function VMServiceServer(role, spec) {
     var _this2;
 
-    _this2 = _JDServiceServer.call(this, spec.classIdentifier) || this;
+    _this2 = _SensorServer.call(this, spec.classIdentifier, {
+      readingValues: [false],
+      streamingInterval: 50
+    }) || this;
     _this2.eventNameToId = {};
     _this2.regNameToId = {};
     _this2.regFieldToId = {};
     _this2.commandPackets = {};
     _this2.cmdFieldToId = {};
     _this2.role = role;
-    _this2.shortId = shortId;
     _this2.spec = spec;
     spec.packets.filter(jdom_spec/* isHighLevelRegister */.vr).map(function (reg) {
       var _reg$fields;
@@ -1651,7 +1657,7 @@ var VMServiceServer = /*#__PURE__*/function (_JDServiceServer) {
   };
 
   return VMServiceServer;
-}(serviceserver/* default */.Z);
+}(sensorserver/* default */.Z);
 // EXTERNAL MODULE: ./jacdac-ts/src/vm/client.ts
 var client = __webpack_require__(1797);
 ;// CONCATENATED MODULE: ./jacdac-ts/src/vm/environment.ts
@@ -1704,44 +1710,53 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
     _this2._rolesUnbound = [];
     _this2.registers = registers;
     _this2.events = events;
-    serverRoles.forEach(function (p) {
-      // get the service
-      var service = (0,jdom_spec/* serviceSpecificationFromName */.kB)(p.serviceShortId);
+    _this2.serverRoles = serverRoles;
 
-      if (service) {
-        // spin up JDServiceServer
-        var serviceServer = new VMServiceServer(p.role, p.serviceShortId, service);
-        _this2._serverEnvs[p.role] = serviceServer;
-        serviceServer.subscribe(VM_EXTERNAL_REQUEST, function (p) {
-          _this2._currentRequest = p;
+    _this2.setupServers();
 
-          _this2.emit(EXTERNAL_REQUEST, p);
-        });
-      }
-    });
     return _this2;
   }
 
   var _proto = VMEnvironment.prototype;
+
+  _proto.setupServers = function setupServers() {
+    var _this3 = this;
+
+    this.serverRoles.forEach(function (p) {
+      // get the service
+      var service = (0,jdom_spec/* serviceSpecificationFromClassIdentifier */.d5)(p.serviceClass);
+
+      if (service) {
+        // spin up JDServiceServer
+        var serviceServer = new VMServiceServer(p.role, service);
+        _this3._serverEnvs[p.role] = serviceServer;
+        serviceServer.subscribe(VM_EXTERNAL_REQUEST, function (p) {
+          _this3._currentRequest = p;
+
+          _this3.emit(EXTERNAL_REQUEST, p);
+        });
+      }
+    });
+  };
 
   _proto.globals = function globals() {
     return this._globals;
   };
 
   _proto.servers = function servers() {
-    var _this3 = this;
+    var _this4 = this;
 
     return Object.keys(this._serverEnvs).map(function (k) {
       return {
         role: k,
-        shortId: _this3._serverEnvs[k].shortId,
-        server: _this3._serverEnvs[k]
+        serviceClass: _this4._serverEnvs[k].serviceClass,
+        server: _this4._serverEnvs[k]
       };
     });
   };
 
   _proto.serviceChanged = function serviceChanged(role, service) {
-    var _this4 = this;
+    var _this5 = this;
 
     if (this._clientEnvs[role]) {
       this._clientEnvs[role].unmount();
@@ -1755,12 +1770,12 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
       this._clientEnvs[role] = new client/* VMServiceClient */.z(service);
       this.registers.forEach(function (r) {
         if (r.role === role) {
-          _this4.registerRegister(role, r.register);
+          _this5.registerRegister(role, r.register);
         }
       });
       this.events.forEach(function (e) {
         if (e.role === role) {
-          _this4.registerEvent(role, e.event);
+          _this5.registerEvent(role, e.event);
         }
       });
     }
@@ -1771,26 +1786,26 @@ var VMEnvironment = /*#__PURE__*/function (_JDEventSource) {
   };
 
   _proto.registerRegister = function registerRegister(role, reg) {
-    var _this5 = this;
+    var _this6 = this;
 
     var serviceEnv = this.getService(role);
     serviceEnv.registerRegister(reg, function () {
-      _this5.emit(REGISTER_CHANGE, reg);
+      _this6.emit(REGISTER_CHANGE, reg);
     });
   };
 
   _proto.registerEvent = function registerEvent(role, tgt) {
-    var _this6 = this;
+    var _this7 = this;
 
     var serviceEnv = this.getService(role);
     serviceEnv.registerEvent(tgt, function () {
-      _this6._currentRequest = {
+      _this7._currentRequest = {
         kind: "event",
         role: role,
         tgt: tgt
       };
 
-      _this6.emit(EXTERNAL_REQUEST, _this6._currentRequest);
+      _this7.emit(EXTERNAL_REQUEST, _this7._currentRequest);
     });
   };
 
@@ -3154,12 +3169,14 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
 
   // program, environment
   // debugging
+  // providing new services
   function VMProgramRunner(roleManager, program) {
     var _this7;
 
     _this7 = _JDClient.call(this) || this;
     _this7._handlerRunners = [];
     _this7._roles = [];
+    _this7._serverRoles = [];
     _this7._waitQueue = [];
     _this7._everyQueue = [];
     _this7._runQueue = [];
@@ -3167,6 +3184,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
     _this7._watch = {};
     _this7._log = [];
     _this7._breaks = {};
+    _this7._provider = undefined;
     _this7._onCompletionOfExternalRequest = [];
     _this7._in_run = false;
     _this7.roleManager = roleManager;
@@ -3179,25 +3197,14 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         errors = _checkProgram.errors;
 
     _this7._roles = compiled.roles;
+    _this7._serverRoles = compiled.serverRoles;
     if (errors !== null && errors !== void 0 && errors.length) console.debug("ERRORS", errors); // data structures for running program
 
     _this7._status = VMStatus.Stopped;
     _this7._env = new VMEnvironment(registers, events, compiled.serverRoles);
     _this7._handlerRunners = compiled.handlers.map(function (h, index) {
       return new VMHandlerRunner((0,assertThisInitialized/* default */.Z)(_this7), index, _this7._env, h);
-    });
-
-    var servers = _this7._env.servers();
-
-    if (servers.length) {
-      _this7._provider = new serviceprovider/* default */.Z(servers.map(function (s) {
-        return s.server;
-      }), {
-        deviceId: "VMServiceProvider"
-      });
-      _this7._provider.bus = roleManager.bus; // bus.addServiceProvider(this._provider)
-      // what about the role Manager?
-    } // TODO: can't add multiple handlers until we have deduplicate CHANGE on Event
+    }); // TODO: can't add multiple handlers until we have deduplicate CHANGE on Event
 
     /*
     const len = this._handlerRunners.length
@@ -3207,13 +3214,18 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
         )
     )*/
 
-
     _this7._waitRunMutex = new Mutex();
     _this7._breaksMutex = new Mutex();
     _this7._sleepMutex = new Mutex(); // TODO: only try to wake handlers that are waiting on change to reg or event
 
     _this7.mount(_this7._env.subscribe(REGISTER_CHANGE, function (reg) {
       _this7.waitingToRunning();
+    }));
+
+    _this7.mount(_this7.roleManager.bus.subscribe(constants/* SERVICE_PROVIDER_REMOVED */.$dk, function (provider) {
+      if (provider === _this7._provider) {
+        _this7._provider = undefined;
+      }
     })); // control requests (client:{event}, server:{set, get, cmd})
 
 
@@ -3223,9 +3235,9 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
           {
             // TODO: in this case, if there is a handler
             // waiting on this Request then the function
-            // handlerWokeOnRequest will be invoked. If 
+            // handlerWokeOnRequest will be invoked. If
             // it is not then we should just return the
-            // current value of register 
+            // current value of register
             break;
           }
         // these handler invocations are "fire and forget"
@@ -3541,13 +3553,24 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
               // already running
               this.trace("start");
               _context20.prev = 3;
-              this.roleManager.setRoles(this._roles);
-              _context20.next = 7;
+              _context20.next = 6;
               return this._waitRunMutex.acquire( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee19() {
                 return regenerator_default().wrap(function _callee19$(_context19) {
                   while (1) {
                     switch (_context19.prev = _context19.next) {
                       case 0:
+                        if (_this12._provider) {
+                          _context19.next = 4;
+                          break;
+                        }
+
+                        _context19.next = 3;
+                        return _this12.startProvider();
+
+                      case 3:
+                        _this12._provider = _context19.sent;
+
+                      case 4:
                         _this12._waitQueue = _this12._handlerRunners.slice(0);
 
                         _this12._waitQueue.forEach(function (h) {
@@ -3579,7 +3602,7 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                         }*/
 
 
-                      case 8:
+                      case 12:
                       case "end":
                         return _context19.stop();
                     }
@@ -3587,25 +3610,25 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
                 }, _callee19);
               })));
 
-            case 7:
+            case 6:
               this.clearBreakpointsAsync();
               this.setStatus(VMStatus.Running);
               this.waitingToRunning();
-              _context20.next = 16;
+              _context20.next = 15;
               break;
 
-            case 12:
-              _context20.prev = 12;
+            case 11:
+              _context20.prev = 11;
               _context20.t0 = _context20["catch"](3);
               console.debug(_context20.t0);
               this.emit(vm_events/* VM_INTERNAL_ERROR */.c2, _context20.t0);
 
-            case 16:
+            case 15:
             case "end":
               return _context20.stop();
           }
         }
-      }, _callee20, this, [[3, 12]]);
+      }, _callee20, this, [[3, 11]]);
     }));
 
     function startAsync() {
@@ -4364,27 +4387,34 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       if (service) {
         _this18._env.serviceChanged(role, service);
       }
-    }; // initialize
+    }; // initialize client
 
 
-    this.roleManager.roles.forEach(function (r) {
-      if (_this18._roles.find(function (rv) {
-        return rv.role === r.role;
-      })) {
-        addRoleService(r.role);
-      }
+    this._roles.forEach(function (r) {
+      addRoleService(r.role);
     });
+
     this.mount(this.roleManager.subscribe(constants/* ROLE_BOUND */.l9m, /*#__PURE__*/function () {
       var _ref18 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee37(role) {
         return regenerator_default().wrap(function _callee37$(_context38) {
           while (1) {
             switch (_context38.prev = _context38.next) {
               case 0:
+                if (!_this18._serverRoles.find(function (r) {
+                  return r.role === role;
+                })) {
+                  _context38.next = 2;
+                  break;
+                }
+
+                return _context38.abrupt("return");
+
+              case 2:
                 addRoleService(role);
 
                 _this18.waitingToRunning();
 
-              case 2:
+              case 4:
               case "end":
                 return _context38.stop();
             }
@@ -4397,10 +4427,94 @@ var VMProgramRunner = /*#__PURE__*/function (_JDClient) {
       };
     }()));
     this.mount(this.roleManager.subscribe(constants/* ROLE_UNBOUND */.CCp, function (role) {
+      if (_this18._serverRoles.find(function (r) {
+        return r.role === role;
+      })) return;
+
       _this18._env.serviceChanged(role, undefined);
 
       _this18.waitingToRunning();
     }));
+  } // spin up provider
+  ;
+
+  _proto4.startProvider =
+  /*#__PURE__*/
+  function () {
+    var _startProvider = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee38() {
+      var _this19 = this;
+
+      var servers, provider, device, _iterator5, _step5, s;
+
+      return regenerator_default().wrap(function _callee38$(_context39) {
+        while (1) {
+          switch (_context39.prev = _context39.next) {
+            case 0:
+              servers = this._env.servers();
+
+              if (!servers.length) {
+                _context39.next = 13;
+                break;
+              }
+
+              provider = new serviceprovider/* default */.Z(servers.map(function (s) {
+                return s.server;
+              }) // if we create a deviceId, then trouble ensues
+              // as a second device gets spun up later
+              //{
+              //    deviceId: "VMServiceProvider",
+              //}
+              );
+              device = this.roleManager.bus.addServiceProvider(provider);
+              servers.forEach(function (s, index) {
+                _this19.roleManager.addRoleService(_this19._serverRoles[index].role, s.serviceClass, device.deviceId);
+              }); // make sure it gets known (HACK)
+
+              _iterator5 = _createForOfIteratorHelperLoose(servers);
+
+            case 6:
+              if ((_step5 = _iterator5()).done) {
+                _context39.next = 12;
+                break;
+              }
+
+              s = _step5.value;
+              _context39.next = 10;
+              return s.server.statusCode.sendGetAsync();
+
+            case 10:
+              _context39.next = 6;
+              break;
+
+            case 12:
+              return _context39.abrupt("return", provider);
+
+            case 13:
+              return _context39.abrupt("return", undefined);
+
+            case 14:
+            case "end":
+              return _context39.stop();
+          }
+        }
+      }, _callee38, this);
+    }));
+
+    function startProvider() {
+      return _startProvider.apply(this, arguments);
+    }
+
+    return startProvider;
+  }();
+
+  _proto4.unmount = function unmount() {
+    console.log("VMProgram (unmount)");
+
+    _JDClient.prototype.unmount.call(this);
+
+    if (this._provider) {
+      this.roleManager.bus.removeServiceProvider(this._provider);
+    }
   };
 
   (0,createClass/* default */.Z)(VMProgramRunner, [{
@@ -4588,7 +4702,8 @@ function RoleChip(props) {
 
   var role = props.role,
       service = props.service,
-      serviceShortId = props.serviceShortId;
+      serviceClass = props.serviceClass,
+      preferredDeviceId = props.preferredDeviceId;
 
   var _useContext2 = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext2.bus;
@@ -4597,8 +4712,8 @@ function RoleChip(props) {
 
   var handleRoleClick = function handleRoleClick() {
     // spin off simulator
-    if (!service) {
-      var specification = (0,jdom_spec/* serviceSpecificationFromName */.kB)(serviceShortId);
+    if (!service && !preferredDeviceId) {
+      var specification = (0,jdom_spec/* serviceSpecificationFromClassIdentifier */.d5)(serviceClass);
 
       if (specification) {
         (0,servers/* addServiceProvider */.Q6)(bus, (0,servers/* serviceProviderDefinitionFromServiceClass */.vd)(specification.classIdentifier));
@@ -4618,7 +4733,8 @@ function RoleChip(props) {
 
       if (!twinBlock) {
         twinBlock = workspace.newBlock(toolbox/* TWIN_BLOCK */.Zt);
-        var variable = workspace.getVariable(role, serviceShortId + ":client");
+        var variable = workspace.getVariable(role, serviceClass + ":client");
+        if (!variable) variable = workspace.getVariable(role, serviceClass + ":server");
         console.log("new twin", {
           twinBlock: twinBlock,
           variable: variable
@@ -4670,14 +4786,16 @@ function BlockClientRoles() {
   return /*#__PURE__*/react.createElement(react.Fragment, null, roles === null || roles === void 0 ? void 0 : roles.map(function (_ref) {
     var role = _ref.role,
         service = _ref.service,
-        serviceShortId = _ref.serviceShortId;
+        serviceClass = _ref.serviceClass,
+        preferredDeviceId = _ref.preferredDeviceId;
     return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
       item: true,
       key: role
     }, /*#__PURE__*/react.createElement(RoleChip, {
       role: role,
       service: service,
-      serviceShortId: serviceShortId
+      serviceClass: serviceClass,
+      preferredDeviceId: preferredDeviceId
     }));
   }));
 }
@@ -5124,8 +5242,6 @@ var BlockDiagnostics = __webpack_require__(9370);
 var VMgenerator = __webpack_require__(15056);
 // EXTERNAL MODULE: ./src/components/blockly/BlockEditor.tsx + 4 modules
 var BlockEditor = __webpack_require__(81753);
-// EXTERNAL MODULE: ./node_modules/gatsby/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
-var toConsumableArray = __webpack_require__(90293);
 // EXTERNAL MODULE: ./src/components/blockly/fields/KeyboardKeyField.tsx
 var KeyboardKeyField = __webpack_require__(90422);
 // EXTERNAL MODULE: ./src/components/blockly/fields/LEDColorField.tsx
@@ -5685,12 +5801,19 @@ var ServerServicesBlockDomainSpecificLanguage = /*#__PURE__*/function (_Services
   _proto.createCategory = function createCategory(options) {
     var makeServicesCategories = this.createCategoryHelper(options);
     var serverServicesCategories = makeServicesCategories(this._serviceBlocks, this._eventFieldBlocks, false);
+    var inlineCategory = serverServicesCategories.flatMap(function (cd) {
+      return [{
+        kind: "label",
+        text: cd.name
+      }].concat((0,toConsumableArray/* default */.Z)(cd.contents));
+    });
     return [{
       kind: "sep"
     }, {
-      kind: "label",
-      text: "Servers"
-    }].concat((0,toConsumableArray/* default */.Z)(serverServicesCategories));
+      kind: "category",
+      name: "Servers",
+      contents: inlineCategory
+    }];
   };
 
   return ServerServicesBlockDomainSpecificLanguage;
@@ -6721,6 +6844,7 @@ var vmDsls = [servicesdsl, serverservicesdsl, loopsdsl, logicdsl, mathdsl, jsond
 
 
 
+
 var VM_SOURCE_STORAGE_KEY = "tools:vmeditor";
 
 function VMEditorWithContext() {
@@ -6757,7 +6881,13 @@ function VMEditorWithContext() {
     }
   }, [dsls, workspaceJSON]);
   (0,react.useEffect)(function () {
-    return program && (roleManager === null || roleManager === void 0 ? void 0 : roleManager.setRoles(program.roles));
+    return program && (roleManager === null || roleManager === void 0 ? void 0 : roleManager.setRoles([].concat((0,toConsumableArray/* default */.Z)(program.roles), (0,toConsumableArray/* default */.Z)(program.serverRoles.map(function (r) {
+      return {
+        role: r.role,
+        serviceClass: r.serviceClass,
+        preferredDeviceId: "TBD"
+      };
+    })))));
   }, [roleManager, program]);
   (0,react.useEffect)(function () {
     return setWarnings(toolbox/* VM_WARNINGS_CATEGORY */.nY, (0,utils/* arrayConcatMany */.ue)(program === null || program === void 0 ? void 0 : program.handlers.map(function (h) {
