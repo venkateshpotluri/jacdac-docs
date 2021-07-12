@@ -252,7 +252,7 @@ function parseTrace(contents) {
   var packets = [];
   contents === null || contents === void 0 ? void 0 : contents.split(/\r?\n/).forEach(function (ln) {
     // parse data
-    var m = /(\d+)\s+([a-f0-9]{12,})/i.exec(ln);
+    var m = /^(\d+.?\d*)\s+([a-f0-9]{12,})/i.exec(ln);
 
     if (!m) {
       // probably junk data

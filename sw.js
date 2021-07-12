@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-120d6a4e2d0dc08a53e5.js"
+    "url": "webpack-runtime-01fe6a363293045c719b.js"
   },
   {
     "url": "styles.c4ea7b12a2ed1ae9c67c.css"
@@ -43,7 +43,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "bb445354e4e8623d81b73d2437073e51"
+    "revision": "f0e48fc4562a61a311d5c15f14d6d101"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -63,11 +63,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "2c01e65acbb55a738a19152f082f8408"
+    "revision": "14567951ee1218e66182e33198ec166c"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "4e3ce5484a3b2b35d068720c10bb6e82"
+    "revision": "50af8645d25cc76124d2ea6b7a706694"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -75,7 +75,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "000aa8492bddac0d2d45c0a72ce5810f"
+    "revision": "247426b969717d36855f82fe9fd4fc26"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -83,7 +83,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "cc53930274ec600cfdacac4ce3266e70"
+    "revision": "47d553c5ad1f89eae14dd413199c6715"
   },
   {
     "url": "polyfill-042dc952af3299468968.js"
@@ -190,7 +190,7 @@ self.__precacheManifest = [
     "revision": "cf94bce2e12f08fc7626fdc6aea18b8c"
   },
   {
-    "url": "component---src-pages-tools-mdx-54a5dbcf9df8bfa7b028.js"
+    "url": "component---src-pages-tools-mdx-5ebcf8501468ffb46f3b.js"
   },
   {
     "url": "page-data/tools/page-data.json",
@@ -1324,7 +1324,7 @@ self.__precacheManifest = [
     "revision": "1572e9d03bac7733f1811a6446baf873"
   },
   {
-    "url": "component---src-pages-tools-commissioner-tsx-3a445cc40862376984a5.js"
+    "url": "component---src-pages-tools-commissioner-tsx-3f9585698501a078e711.js"
   },
   {
     "url": "page-data/tools/commissioner/page-data.json",
@@ -1580,7 +1580,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-eac66314762a7de82ba6.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-eca0d08e45e54a9f93ef.js`))) {
     return await fetch(event.request)
   }
 

@@ -98,7 +98,7 @@ function MDXContent(_ref) {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
-    "href": "/jacdac-docs/tools/vm-editor"
+    "href": "/jacdac-docs/tools/vm-editor/"
   }, "virtual machine editor"), ", block coding for the VM"), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
@@ -125,13 +125,18 @@ function MDXContent(_ref) {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
-    "href": "/jacdac-docs/tools/hid-events"
+    "href": "/jacdac-docs/tools/hid-events/"
   }, "HID keyboard events")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
     parentName: "ul"
   }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
     parentName: "li",
-    "href": "/jacdac-docs/tools/qr-silk"
-  }, "QR silk"))), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
+    "href": "/jacdac-docs/tools/qr-silk/"
+  }, "QR silk")), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("li", {
+    parentName: "ul"
+  }, (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("a", {
+    parentName: "li",
+    "href": "/jacdac-docs/tools/commisionner/"
+  }, "Commisionner"))), (0,_mdx_js_react__WEBPACK_IMPORTED_MODULE_1__.mdx)("h2", {
     "id": "integration-points",
     "style": {
       "position": "relative"
