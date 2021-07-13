@@ -63565,6 +63565,8 @@ var PacketsProvider = function PacketsProvider(_ref) {
                 player.current.stop();
               } else {
                 clearPackets();
+                bus.clear(); // clear all devices
+
                 player.current.start();
               }
 
@@ -69747,7 +69749,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "2640c2425a02b3b35f700e59d899ec7f09c407ac";
+  var sha = "75fb6b899dbe70082cf551a60a75b9153234422c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
