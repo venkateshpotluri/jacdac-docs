@@ -62749,6 +62749,7 @@ function parsePacketFilter(bus, text) {
   var collapseAck = true;
   var collapsePipes = true;
   var collapseGets = true;
+  var selfDevice = undefined;
   text.split(/\s+/g).forEach(function (part) {
     var _ref = /([a-z\-_]+)([:=]([^\s]+))?/.exec(part) || [],
         prefix = _ref[1],
@@ -62779,6 +62780,10 @@ function parsePacketFilter(bus, text) {
       case "repeated-announce":
       case "ra":
         repeatedAnnounce = parseBoolean(value);
+        break;
+
+      case "self":
+        selfDevice = parseBoolean(value);
         break;
 
       case "reset-in":
@@ -62912,6 +62917,7 @@ function parsePacketFilter(bus, text) {
     regGet: regGet,
     regSet: regSet,
     devices: devices,
+    selfDevice: selfDevice,
     serviceClasses: !!serviceClasses.size && Array.from(serviceClasses.keys()),
     pkts: !!pkts.size && Array.from(pkts.keys()),
     before: before,
@@ -62950,6 +62956,7 @@ function compileFilter(props) {
       regGet = props.regGet,
       regSet = props.regSet,
       devices = props.devices,
+      selfDevice = props.selfDevice,
       serviceClasses = props.serviceClasses,
       pkts = props.pkts,
       before = props.before,
@@ -62997,6 +63004,15 @@ function compileFilter(props) {
   if (log !== undefined) filters.push(function (pkt) {
     return (pkt.serviceClass === specconstants/* SRV_LOGGER */.w9j && pkt.isReport) === log;
   });
+
+  if (selfDevice !== undefined) {
+    filters.push(function (pkt) {
+      var device = pkt.device;
+      if (!device) return true;
+      return device === device.bus.selfDevice === selfDevice;
+    });
+  }
+
   if (Object.keys(devices).length) filters.push(function (pkt) {
     if (!pkt.device) return false;
     var f = devices[pkt.device.deviceId];
@@ -69607,7 +69623,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "217edebc70861e211934947baa7d801c6e915f69";
+  var sha = "51aae2264f84c8940fad0bb09b1ae719e121d911";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

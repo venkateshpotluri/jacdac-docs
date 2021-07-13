@@ -40253,7 +40253,12 @@ function FilterMenu(props) {
     onClick: handleAdd("grouping:false")
   }, /*#__PURE__*/react.createElement(ListItemIcon/* default */.Z, null, /*#__PURE__*/react.createElement(GroupWork/* default */.Z, null)), /*#__PURE__*/react.createElement(Typography/* default */.Z, null, "Disable grouping"), "\xA0", /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "subtitle2"
-  }, "grouping:false")), devices === null || devices === void 0 ? void 0 : devices.map(function (device) {
+  }, "grouping:false")), /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
+    key: "self",
+    onClick: handleAdd("self:false")
+  }, /*#__PURE__*/react.createElement(ListItemIcon/* default */.Z, null, /*#__PURE__*/react.createElement(GroupWork/* default */.Z, null)), /*#__PURE__*/react.createElement(Typography/* default */.Z, null, "Disable self device"), "\xA0", /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+    variant: "subtitle2"
+  }, "self:false")), devices === null || devices === void 0 ? void 0 : devices.map(function (device) {
     return /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
       key: "dev:" + device.id,
       onClick: handleAdd("dev:" + (device.name || device.shortId))
