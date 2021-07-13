@@ -11120,6 +11120,9 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
       "& .blocklyText": {
         fontWeight: "normal !important",
         fontFamily: theme.typography.fontFamily + " !important"
+      },
+      "& .blocklyTreeIconOpen, & .blocklyTreeIconClosed": {
+        opacity: 0.5
       }
     }
   });
@@ -11200,8 +11203,7 @@ function BlockEditor(props) {
     return function () {
       return observer.disconnect();
     };
-  }, [workspace, blocklyRef.current]); // minimap 
-
+  }, [workspace, blocklyRef.current]);
   useBlockMinimap(workspace);
   return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("div", {
     className: (0,clsx_m/* default */.Z)(classes.editor, className),

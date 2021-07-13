@@ -5801,18 +5801,13 @@ var ServerServicesBlockDomainSpecificLanguage = /*#__PURE__*/function (_Services
   _proto.createCategory = function createCategory(options) {
     var makeServicesCategories = this.createCategoryHelper(options);
     var serverServicesCategories = makeServicesCategories(this._serviceBlocks, this._eventFieldBlocks, false);
-    var inlineCategory = serverServicesCategories.flatMap(function (cd) {
-      return [{
-        kind: "label",
-        text: cd.name
-      }].concat((0,toConsumableArray/* default */.Z)(cd.contents));
-    });
+    if (!(serverServicesCategories !== null && serverServicesCategories !== void 0 && serverServicesCategories.length)) return [];
     return [{
       kind: "sep"
     }, {
       kind: "category",
       name: "Servers",
-      contents: inlineCategory
+      contents: serverServicesCategories
     }];
   };
 
