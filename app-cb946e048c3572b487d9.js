@@ -64535,7 +64535,7 @@ function DashboardRotaryEncoder(props) {
     };
   }();
 
-  var throttled = (0,useThrottledValue/* default */.Z)(position, clicksPerTurn);
+  var throttled = (0,useThrottledValue/* default */.Z)(position, clicksPerTurn, 1.5);
   var angle = throttled / clicksPerTurn * 360;
   var min = Math.floor(position / clicksPerTurn - 1) * clicksPerTurn;
   var max = Math.ceil(position / clicksPerTurn + 1) * clicksPerTurn;
@@ -67794,7 +67794,11 @@ function useSvgButtonProps(label, onDown, onUp) {
 /* harmony import */ var _useAnimationFrame__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17368);
 
 
-function useThrottledValue(value, maxRate) {
+function useThrottledValue(value, maxRate, maxCycles) {
+  if (maxCycles === void 0) {
+    maxCycles = 2;
+  }
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(value),
       actual = _useState[0],
       setActual = _useState[1];
@@ -67814,16 +67818,23 @@ function useThrottledValue(value, maxRate) {
     var maxError = maxRate * dt; // deg
 
     var active = true;
-    animated += Math.sign(error) * Math.min(Math.abs(error), maxError);
+    animated += Math.sign(error) * Math.min(Math.abs(error), maxError); // close to goal, finish animation
 
     if (Math.abs(value - animated) / maxRate < 0.01) {
       animated = value;
       active = false;
-    }
+    } // very far from goal, get closer immediately
+
+
+    if (!isNaN(maxCycles)) {
+      var maxErrorRange = maxRate * maxCycles;
+      animated = Math.max(value - maxErrorRange, Math.min(value + maxErrorRange, animated));
+    } // store and update ui
+
 
     setActual(animated);
     return active;
-  }, [value, maxRate]);
+  }, [value, maxRate, maxCycles]);
   return actual;
 }
 
@@ -68759,7 +68770,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "887e210ef7012e4c37567548ec1d186fec739437";
+  var sha = "812bef8e184d3c103bb2ca74202257a0798ce603";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
