@@ -62749,7 +62749,11 @@ var TraceRecorder = /*#__PURE__*/function (_JDClient) {
     _this.bus = bus;
     _this.handlePacket = _this.handlePacket.bind((0,assertThisInitialized/* default */.Z)(_this));
 
-    _this.mount(_this.bus.subscribe([constants/* PACKET_PROCESS */.wY8, constants/* PACKET_SEND */.RaS], _this.handlePacket));
+    _this.mount(function () {
+      var _this$_subscription, _this2;
+
+      return (_this$_subscription = (_this2 = _this)._subscription) === null || _this$_subscription === void 0 ? void 0 : _this$_subscription.call(_this2);
+    });
 
     return _this;
   }
@@ -62758,13 +62762,18 @@ var TraceRecorder = /*#__PURE__*/function (_JDClient) {
 
   _proto.start = function start() {
     if (this.recording) return;
+    this._subscription = this.bus.subscribe([constants/* PACKET_PROCESS */.wY8, constants/* PACKET_SEND */.RaS], this.handlePacket);
     this._trace = new trace/* default */.Z();
     this.emit(constants/* START */.tj6);
     this.emit(constants/* CHANGE */.Ver);
   };
 
   _proto.stop = function stop() {
+    var _this$_subscription2;
+
     if (!this.recording) return;
+    (_this$_subscription2 = this._subscription) === null || _this$_subscription2 === void 0 ? void 0 : _this$_subscription2.call(this);
+    this._subscription = undefined;
     var t = this._trace;
     this._trace = undefined;
     this.emit(constants/* STOP */.N70);
@@ -62773,8 +62782,7 @@ var TraceRecorder = /*#__PURE__*/function (_JDClient) {
   };
 
   _proto.handlePacket = function handlePacket(pkt) {
-    if (!this.recording) return; // record packets in traces
-
+    // record packets in traces
     this._trace.addPacket(pkt, this.maxRecordingLength); // notify that this packet has been processed
 
 
@@ -63547,8 +63555,8 @@ var PacketsProvider = function PacketsProvider(_ref) {
     if (recorder.current.recording) {
       player.current.trace = recorder.current.stop();
     } else {
-      player.current.trace = undefined;
       recorder.current.start();
+      player.current.trace = undefined;
       setProgress(undefined);
     }
   };
@@ -63632,14 +63640,15 @@ var PacketsProvider = function PacketsProvider(_ref) {
               return bus.stop();
 
             case 5:
-              _context3.next = 9;
+              _context3.next = 10;
               break;
 
             case 7:
-              _context3.next = 9;
+              if (!recorder.current.trace) bus.clear();
+              _context3.next = 10;
               return bus.start();
 
-            case 9:
+            case 10:
             case "end":
               return _context3.stop();
           }
@@ -69749,7 +69758,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "75fb6b899dbe70082cf551a60a75b9153234422c";
+  var sha = "d7c91fc7863117ea110015ca3eb5d2a8795c0d3b";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
