@@ -63364,7 +63364,8 @@ var PacketsContext = /*#__PURE__*/(0,react.createContext)({
   setTimeRange: function setTimeRange() {}
 });
 PacketsContext.displayName = "packets";
-/* harmony default export */ var components_PacketsContext = (PacketsContext); // eslint-disable-next-line react/prop-types
+/* harmony default export */ var components_PacketsContext = (PacketsContext);
+var DEFAULT_PACKET_FILTER = "announce:false reset-in:false min-priority:false"; // eslint-disable-next-line react/prop-types
 
 var PacketsProvider = function PacketsProvider(_ref) {
   var children = _ref.children;
@@ -63372,7 +63373,7 @@ var PacketsProvider = function PacketsProvider(_ref) {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
-  var _useLocalStorage = (0,useLocalStorage/* default */.Z)("packetfilter", "announce:false reset-in:false min-priority:false"),
+  var _useLocalStorage = (0,useLocalStorage/* default */.Z)("packetfilter", DEFAULT_PACKET_FILTER),
       filter = _useLocalStorage[0],
       _setFilter = _useLocalStorage[1];
 
@@ -69623,7 +69624,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "51aae2264f84c8940fad0bb09b1ae719e121d911";
+  var sha = "9bc4de6a0fbfc34a7478e48a8393f8c0c149030e";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
