@@ -48123,7 +48123,7 @@ var BLUETOOTH_JACDAC_RX_CHARACTERISTIC = "f8530002-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_TX_CHARACTERISTIC = "f8530003-a97f-49f5-a554-3e373fbea2d5";
 var BLUETOOTH_JACDAC_DIAG_CHARACTERISTIC = "f8530004-a97f-49f5-a554-3e373fbea2d5";
 var TRANSPORT_CONNECT_RETRY_DELAY = 500;
-var TRANSPORT_PULSE_TIMEOUT = 15000; // don't interfere with manual flashing of devices
+var TRANSPORT_PULSE_TIMEOUT = 60000; // don't interfere with manual flashing of devices
 
 var ERROR_MICROBIT_V1 = "microbit/v1-not-supported";
 var ERROR_MICROBIT_UNKNOWN = "microbit/unknown-hardware-revision";
@@ -68775,7 +68775,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c774a04663a8ebd5d339b557ce613f649dfcf62c";
+  var sha = "4b44d868cbe64505dc4826971f50927e3f23f748";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -78044,7 +78044,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.91"};
+var package_namespaceObject = {"i8":"1.13.92"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 

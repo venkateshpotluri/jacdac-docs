@@ -1499,7 +1499,7 @@ var VMRegisterServer = /*#__PURE__*/function (_JDRegisterServer) {
   }();
 
   return VMRegisterServer;
-}(registerserver/* default */.Z); // TODO: need to take specification into account and 
+}(registerserver/* default */.Z); // TODO: need to take specification into account and
 // TOOD: implement the proper base class (SensorServer)
 
 
