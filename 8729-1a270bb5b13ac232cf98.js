@@ -627,7 +627,7 @@ function TracePlayButton(props) {
   return /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, Object.assign({}, others, {
     disabled: disabled || recording || !replayTrace,
     indeterminate: progress !== undefined,
-    title: !replayTrace ? "Load or record a trace to replay it" : tracing ? "Stop trace" : "Play trace",
+    title: tracing ? "Stop trace" : "Play trace",
     onClick: toggleTracing,
     progress: progress !== undefined && progress * 100
   }), tracing ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null));
@@ -677,10 +677,11 @@ function PacketRecorder() {
     disabled: tracing || recording
   }), /*#__PURE__*/react.createElement(SaveTraceButton, {
     disabled: tracing || !replayTrace
-  }), !!replayTrace && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "Clear Trace",
     size: "small",
-    onClick: clearTrace
+    onClick: clearTrace,
+    disabled: !replayTrace
   }, /*#__PURE__*/react.createElement(Clear/* default */.Z, null)), "|", /*#__PURE__*/react.createElement(TracePlayButton, {
     size: "small"
   }), /*#__PURE__*/react.createElement(TraceRecordButton, {
