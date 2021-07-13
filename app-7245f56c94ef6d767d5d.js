@@ -19889,6 +19889,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 58590:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+}), 'Clear');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 29181:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -20561,6 +20589,34 @@ exports.Z = _default;
 
 /***/ }),
 
+/***/ 42404:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M8 5v14l11-7z"
+}), 'PlayArrow');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 4621:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -20696,6 +20752,34 @@ var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
   d: "M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
 }), 'Settings');
+
+exports.Z = _default;
+
+/***/ }),
+
+/***/ 34257:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M6 6h12v12H6z"
+}), 'Stop');
 
 exports.Z = _default;
 
@@ -62122,19 +62206,21 @@ function DeviceSpecificationList(props) {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84377);
-/* harmony import */ var _material_ui_icons_History__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(9080);
-/* harmony import */ var _material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92516);
-/* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(89615);
+/* harmony import */ var _material_ui_icons_History__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(9080);
+/* harmony import */ var _material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(92516);
+/* harmony import */ var _material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(89615);
 /* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79885);
 /* harmony import */ var _buttons_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45608);
 /* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69882);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(28142);
+/* harmony import */ var _trace_TraceClearButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77653);
+/* harmony import */ var _trace_TracePlayButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(86360);
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -62145,14 +62231,15 @@ function DrawerToolsButtonGroup(props) {
   var className = props.className,
       showToc = props.showToc,
       showCurrent = props.showCurrent,
-      showConnect = props.showConnect;
+      showConnect = props.showConnect,
+      showTrace = props.showTrace;
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .ZP),
       drawerType = _useContext.drawerType,
       setDrawerType = _useContext.setDrawerType;
 
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PacketsContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z),
-      recording = _useContext2.recording;
+      replayTrace = _useContext2.replayTrace;
 
   var handleDrawer = function handleDrawer(drawer) {
     return function () {
@@ -62163,16 +62250,15 @@ function DrawerToolsButtonGroup(props) {
   var drawers = [showToc && {
     drawer: _AppContext__WEBPACK_IMPORTED_MODULE_1__/* .DrawerType.Toc */ .jw.Toc,
     label: "open table of contents",
-    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null)
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Menu__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null)
   }, {
     drawer: _AppContext__WEBPACK_IMPORTED_MODULE_1__/* .DrawerType.Dom */ .jw.Dom,
     label: "open device tree",
-    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, null)
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_AccountTree__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, null)
   }, {
     drawer: _AppContext__WEBPACK_IMPORTED_MODULE_1__/* .DrawerType.Packets */ .jw.Packets,
     label: "open packet console",
-    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_History__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null),
-    badge: recording
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_History__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, null)
   }].filter(function (d) {
     return !!d;
   }).filter(function (d) {
@@ -62186,10 +62272,13 @@ function DrawerToolsButtonGroup(props) {
       color: "inherit",
       onClick: handleDrawer(drawer.drawer),
       edge: "start"
-    }, " ", drawer.badge ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
-      color: "error",
-      variant: "dot"
-    }, drawer.icon) : drawer.icon);
+    }, drawer.icon);
+  }), showTrace && replayTrace && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_trace_TracePlayButton__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
+    size: "small",
+    color: "inherit"
+  }), showTrace && replayTrace && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_trace_TraceClearButton__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+    size: "small",
+    color: "inherit"
   }), showConnect && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_buttons_ConnectButtons__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     transparent: true,
     full: false
@@ -68155,7 +68244,7 @@ var JDomTreeView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(func
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(4084)]).then(__webpack_require__.bind(__webpack_require__, 10188));
 });
 var PacketView = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8590)]).then(__webpack_require__.bind(__webpack_require__, 3189));
+  return __webpack_require__.e(/* import() */ 8445).then(__webpack_require__.bind(__webpack_require__, 38445));
 });
 function Tools() {
   var _useDevices;
@@ -69658,7 +69747,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "c37bb489eee628e2bdad5cdfaa81a62d345ebb58";
+  var sha = "2640c2425a02b3b35f700e59d899ec7f09c407ac";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -69789,7 +69878,7 @@ var _RandomGenerator = /*#__PURE__*/(0,react.lazy)(function () {
 });
 
 var _TraceList = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 7944).then(__webpack_require__.bind(__webpack_require__, 57944));
+  return __webpack_require__.e(/* import() */ 5604).then(__webpack_require__.bind(__webpack_require__, 65604));
 });
 
 var _SpecificationUnitList = /*#__PURE__*/(0,react.lazy)(function () {
@@ -70250,7 +70339,7 @@ var WebDiagnostics = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 6521).then(__webpack_require__.bind(__webpack_require__, 6521));
 });
 var AppDrawer = /*#__PURE__*/(0,react.lazy)(function () {
-  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(8729)]).then(__webpack_require__.bind(__webpack_require__, 28729));
+  return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(301)]).then(__webpack_require__.bind(__webpack_require__, 50301));
 });
 var ToolsDrawer = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(4706)]).then(__webpack_require__.bind(__webpack_require__, 54706));
@@ -70446,7 +70535,8 @@ function MainAppBar() {
   }, /*#__PURE__*/react.createElement(Toolbar_Toolbar, null, /*#__PURE__*/react.createElement(DrawerToolsButtonGroup/* default */.Z, {
     className: (0,clsx_m/* default */.Z)(classes.menuButton, drawerOpen && classes.hideMobile),
     showToc: true,
-    showCurrent: true
+    showCurrent: true,
+    showTrace: true
   }), /*#__PURE__*/react.createElement(Hidden_Hidden, {
     implementation: "css",
     xsDown: true
@@ -70679,6 +70769,86 @@ function useRoleManagerClient() {
     });
   });
   return mgr;
+}
+
+/***/ }),
+
+/***/ 77653:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ TraceClearButton; }
+/* harmony export */ });
+/* harmony import */ var _material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(58590);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69882);
+/* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79885);
+// tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
+
+
+function TraceClearButton(props) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PacketsContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
+      replayTrace = _useContext.replayTrace,
+      setReplayTrace = _useContext.setReplayTrace;
+
+  var clearTrace = function clearTrace() {
+    return setReplayTrace(undefined);
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, Object.assign({
+    title: "Clear Trace",
+    onClick: clearTrace,
+    disabled: !replayTrace
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, null));
+}
+
+/***/ }),
+
+/***/ 86360:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ TracePlayButton; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19756);
+/* harmony import */ var _material_ui_icons_PlayArrow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(42404);
+/* harmony import */ var _material_ui_icons_Stop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34257);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _PacketsContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69882);
+/* harmony import */ var _ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16845);
+
+var _excluded = ["disabled"];
+// tslint:disable-next-line: no-submodule-imports match-default-export-name
+ // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
+
+
+
+function TracePlayButton(props) {
+  var disabled = props.disabled,
+      others = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(props, _excluded);
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_PacketsContext__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
+      toggleTracing = _useContext.toggleTracing,
+      tracing = _useContext.tracing,
+      recording = _useContext.recording,
+      replayTrace = _useContext.replayTrace,
+      progress = _useContext.progress;
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithProgress__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, Object.assign({}, others, {
+    disabled: disabled || recording || !replayTrace,
+    indeterminate: progress !== undefined,
+    title: tracing ? "Stop trace" : "Play trace",
+    onClick: toggleTracing,
+    progress: progress !== undefined && progress * 100,
+    progressColor: "secondary",
+    color: "inherit"
+  }), tracing ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_Stop__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_PlayArrow__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, null));
 }
 
 /***/ }),
@@ -75232,9 +75402,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     var disconnectedCutoff = this.timestamp - DISCONNECTED_DELAY; // cycle through events and disconnect devices that are long gone
 
     for (var i = 0; i < this._devices.length; ++i) {
-      var dev = this._devices[i]; // don't gc traces
-
-      if (dev.replay) continue;
+      var dev = this._devices[i];
 
       if (dev.lastSeen < disconnectedCutoff) {
         this._devices.splice(i, 1);

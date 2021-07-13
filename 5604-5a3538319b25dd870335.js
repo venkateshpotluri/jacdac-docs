@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[7944],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[5604],{
 
 /***/ 31186:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -187,7 +187,7 @@ function replayLog(bus, frames, speed) {
 
 /***/ }),
 
-/***/ 57944:
+/***/ 65604:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -225,7 +225,7 @@ var AppContext = __webpack_require__(84377);
 var Markdown = __webpack_require__(98784);
 // EXTERNAL MODULE: ./src/components/PacketsContext.tsx + 3 modules
 var PacketsContext = __webpack_require__(69882);
-;// CONCATENATED MODULE: ./src/components/TraceCard.tsx
+;// CONCATENATED MODULE: ./src/components/trace/TraceCard.tsx
 
 
 
@@ -264,7 +264,7 @@ function TraceCard(props) {
 }
 // EXTERNAL MODULE: ./src/components/useGridBreakpoints.ts
 var useGridBreakpoints = __webpack_require__(7746);
-;// CONCATENATED MODULE: ./src/components/TraceList.tsx
+;// CONCATENATED MODULE: ./src/components/trace/TraceList.tsx
 
 
 

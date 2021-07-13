@@ -8380,7 +8380,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 var TraceSnippet = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 7510).then(__webpack_require__.bind(__webpack_require__, 27510));
+  return __webpack_require__.e(/* import() */ 5599).then(__webpack_require__.bind(__webpack_require__, 15599));
 });
 var CodeSandboxButton = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 8574).then(__webpack_require__.bind(__webpack_require__, 18574));

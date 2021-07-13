@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[8729,8590],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[301],{
 
 /***/ 80460:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -23,34 +23,6 @@ var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
   d: "M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
 }), 'ChevronLeft');
-
-exports.Z = _default;
-
-/***/ }),
-
-/***/ 58590:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-}), 'Clear');
 
 exports.Z = _default;
 
@@ -112,34 +84,6 @@ exports.Z = _default;
 
 /***/ }),
 
-/***/ 42404:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M8 5v14l11-7z"
-}), 'PlayArrow');
-
-exports.Z = _default;
-
-/***/ }),
-
 /***/ 69313:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -191,34 +135,6 @@ var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
   d: "M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
 }), 'Save');
-
-exports.Z = _default;
-
-/***/ }),
-
-/***/ 34257:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M6 6h12v12H6z"
-}), 'Stop');
 
 exports.Z = _default;
 
@@ -362,7 +278,7 @@ function replayLog(bus, frames, speed) {
 
 /***/ }),
 
-/***/ 28729:
+/***/ 50301:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -415,7 +331,7 @@ var packet = __webpack_require__(57683);
 var utils = __webpack_require__(81794);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/trace.ts
 var jdom_trace = __webpack_require__(79918);
-;// CONCATENATED MODULE: ./src/components/TraceImportButton.tsx
+;// CONCATENATED MODULE: ./src/components/trace/TraceImportButton.tsx
 
 
 
@@ -524,14 +440,14 @@ var Save = __webpack_require__(8567);
 var ServiceManagerContext = __webpack_require__(99808);
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
-;// CONCATENATED MODULE: ./src/components/SaveTraceButton.tsx
+;// CONCATENATED MODULE: ./src/components/trace/TraceSaveButton.tsx
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
 
 
 
 
 
-function SaveTraceButton(props) {
+function TraceSaveButton(props) {
   var disabled = props.disabled;
 
   var _useContext = (0,react.useContext)(PacketsContext/* default */.Z),
@@ -567,7 +483,7 @@ var createSvgIcon = __webpack_require__(6018);
 }), 'FiberManualRecord'));
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithProgress.tsx + 1 modules
 var IconButtonWithProgress = __webpack_require__(16845);
-;// CONCATENATED MODULE: ./src/components/TraceRecordButton.tsx
+;// CONCATENATED MODULE: ./src/components/trace/TraceRecordButton.tsx
 
 var _excluded = ["disabled"];
 
@@ -599,45 +515,16 @@ function TraceRecordButton(props) {
     }
   }));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/PlayArrow.js
-var PlayArrow = __webpack_require__(42404);
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Stop.js
-var Stop = __webpack_require__(34257);
-;// CONCATENATED MODULE: ./src/components/TracePlayButton.tsx
-
-var TracePlayButton_excluded = ["disabled"];
-// tslint:disable-next-line: no-submodule-imports match-default-export-name
- // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
-
-
-
-
-function TracePlayButton(props) {
-  var disabled = props.disabled,
-      others = (0,objectWithoutPropertiesLoose/* default */.Z)(props, TracePlayButton_excluded);
-
-  var _useContext = (0,react.useContext)(PacketsContext/* default */.Z),
-      toggleTracing = _useContext.toggleTracing,
-      tracing = _useContext.tracing,
-      recording = _useContext.recording,
-      replayTrace = _useContext.replayTrace,
-      progress = _useContext.progress;
-
-  return /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, Object.assign({}, others, {
-    disabled: disabled || recording || !replayTrace,
-    indeterminate: progress !== undefined,
-    title: tracing ? "Stop trace" : "Play trace",
-    onClick: toggleTracing,
-    progress: progress !== undefined && progress * 100
-  }), tracing ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null));
-}
+// EXTERNAL MODULE: ./src/components/trace/TracePlayButton.tsx
+var TracePlayButton = __webpack_require__(86360);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Replay.js
 var Replay = __webpack_require__(69313);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Pause.js
 var Pause = __webpack_require__(66601);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/LiveTv.js
 var LiveTv = __webpack_require__(82226);
+// EXTERNAL MODULE: ./src/components/trace/TraceClearButton.tsx
+var TraceClearButton = __webpack_require__(77653);
 ;// CONCATENATED MODULE: ./src/components/PacketRecorder.tsx
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
@@ -655,6 +542,7 @@ var LiveTv = __webpack_require__(82226);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
 
+
 function PacketRecorder() {
   var _useContext = (0,react.useContext)(PacketsContext/* default */.Z),
       clearPackets = _useContext.clearPackets,
@@ -663,28 +551,20 @@ function PacketRecorder() {
       recording = _useContext.recording,
       tracing = _useContext.tracing,
       paused = _useContext.paused,
-      setPaused = _useContext.setPaused,
-      setReplayTrace = _useContext.setReplayTrace;
-
-  var clearTrace = function clearTrace() {
-    return setReplayTrace(undefined);
-  };
+      setPaused = _useContext.setPaused;
 
   return /*#__PURE__*/react.createElement(react.Fragment, null, !recording && replayTrace && /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "caption"
   }, replayTrace.packets.length, " packets"), /*#__PURE__*/react.createElement(TraceImportButton, {
     icon: true,
     disabled: tracing || recording
-  }), /*#__PURE__*/react.createElement(SaveTraceButton, {
+  }), /*#__PURE__*/react.createElement(TraceSaveButton, {
     disabled: tracing || !replayTrace
-  }), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
-    title: "Clear Trace",
-    size: "small",
-    onClick: clearTrace,
-    disabled: !replayTrace
-  }, /*#__PURE__*/react.createElement(Clear/* default */.Z, null)), "|", /*#__PURE__*/react.createElement(TracePlayButton, {
+  }), "|", /*#__PURE__*/react.createElement(TraceRecordButton, {
     size: "small"
-  }), /*#__PURE__*/react.createElement(TraceRecordButton, {
+  }), /*#__PURE__*/react.createElement(TracePlayButton/* default */.Z, {
+    size: "small"
+  }), /*#__PURE__*/react.createElement(TraceClearButton/* default */.Z, {
     size: "small"
   }), "|", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: paused ? "Resume packets" : "pause packets",
@@ -734,7 +614,7 @@ var Toc = /*#__PURE__*/(0,react.lazy)(function () {
   return __webpack_require__.e(/* import() */ 1018).then(__webpack_require__.bind(__webpack_require__, 91018));
 });
 var PacketView = /*#__PURE__*/(0,react.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 317).then(__webpack_require__.bind(__webpack_require__, 3189));
+  return __webpack_require__.e(/* import() */ 8445).then(__webpack_require__.bind(__webpack_require__, 38445));
 });
 var JDomTreeView = /*#__PURE__*/(0,react.lazy)(function () {
   return Promise.all(/* import() */[__webpack_require__.e(317), __webpack_require__.e(4084)]).then(__webpack_require__.bind(__webpack_require__, 10188));
