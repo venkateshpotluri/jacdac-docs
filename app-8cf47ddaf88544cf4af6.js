@@ -64537,8 +64537,12 @@ function DashboardRotaryEncoder(props) {
 
   var throttled = (0,useThrottledValue/* default */.Z)(position, clicksPerTurn, 1.5);
   var angle = throttled / clicksPerTurn * 360;
-  var min = Math.floor(position / clicksPerTurn - 1) * clicksPerTurn;
-  var max = Math.ceil(position / clicksPerTurn + 1) * clicksPerTurn;
+  var range = Math.abs(Math.round(position / clicksPerTurn));
+  var min = (-range - 1) * clicksPerTurn;
+  var max = (range + 1) * clicksPerTurn;
+  var marks = [{
+    value: 0
+  }];
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
     direction: "column"
@@ -64576,7 +64580,8 @@ function DashboardRotaryEncoder(props) {
     step: 1,
     value: position,
     valueLabelDisplay: "off",
-    onChange: handleChange
+    onChange: handleChange,
+    marks: marks
   })));
 }
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
@@ -68770,7 +68775,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "812bef8e184d3c103bb2ca74202257a0798ce603";
+  var sha = "c774a04663a8ebd5d339b557ce613f649dfcf62c";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
