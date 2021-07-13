@@ -63432,10 +63432,27 @@ var PacketsProvider = function PacketsProvider(_ref) {
     bus.clear();
   };
 
-  var setReplayTrace = function setReplayTrace(trace) {
-    clearPackets();
-    player.current.trace = trace;
-  };
+  var setReplayTrace = /*#__PURE__*/function () {
+    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(trace) {
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              clearPackets();
+              player.current.trace = trace;
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function setReplayTrace(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
 
   var toggleRecording = function toggleRecording() {
     if (recorder.current.recording) {
@@ -63448,40 +63465,30 @@ var PacketsProvider = function PacketsProvider(_ref) {
   };
 
   var toggleTracing = /*#__PURE__*/function () {
-    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
-      return regenerator_default().wrap(function _callee$(_context) {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
+      return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               console.log("player toggle running " + player.current.running);
 
-              if (!player.current.running) {
-                _context.next = 5;
-                break;
+              if (player.current.running) {
+                player.current.stop();
+              } else {
+                clearPackets();
+                player.current.start();
               }
 
-              player.current.stop();
-              _context.next = 9;
-              break;
-
-            case 5:
-              clearPackets();
-              _context.next = 8;
-              return bus.disconnect();
-
-            case 8:
-              player.current.start();
-
-            case 9:
+            case 2:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
 
     return function toggleTracing() {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
 
@@ -63516,13 +63523,40 @@ var PacketsProvider = function PacketsProvider(_ref) {
     recorder.current.mount(recorder.current.subscribe(constants/* CHANGE */.Ver, function () {
       setRecording(recorder.current.recording);
     }));
-    player.current.mount(player.current.subscribe(constants/* CHANGE */.Ver, function () {
-      setTracing(player.current.running);
+    player.current.mount(player.current.subscribe(constants/* CHANGE */.Ver, /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+      return regenerator_default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              setTracing(player.current.running);
 
-      _setReplayTrace(player.current.trace);
-    }));
+              _setReplayTrace(player.current.trace);
+
+              if (!player.current.trace) {
+                _context3.next = 7;
+                break;
+              }
+
+              _context3.next = 5;
+              return bus.stop();
+
+            case 5:
+              _context3.next = 9;
+              break;
+
+            case 7:
+              _context3.next = 9;
+              return bus.start();
+
+            case 9:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))));
     player.current.mount(player.current.subscribe(constants/* PROGRESS */.ad7, function () {
-      setProgress(player.current.progress);
+      return setProgress(player.current.progress);
     }));
     return function () {
       recorder.current.unmount();
@@ -69624,7 +69658,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "b5b4444d8c257d5abb567f2c5c9a70a6c34cd171";
+  var sha = "c37bb489eee628e2bdad5cdfaa81a62d345ebb58";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
