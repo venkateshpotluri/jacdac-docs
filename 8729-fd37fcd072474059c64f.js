@@ -663,7 +663,12 @@ function PacketRecorder() {
       recording = _useContext.recording,
       tracing = _useContext.tracing,
       paused = _useContext.paused,
-      setPaused = _useContext.setPaused;
+      setPaused = _useContext.setPaused,
+      setReplayTrace = _useContext.setReplayTrace;
+
+  var clearTrace = function clearTrace() {
+    return setReplayTrace(undefined);
+  };
 
   return /*#__PURE__*/react.createElement(react.Fragment, null, !recording && replayTrace && /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "caption"
@@ -672,7 +677,11 @@ function PacketRecorder() {
     disabled: tracing || recording
   }), /*#__PURE__*/react.createElement(SaveTraceButton, {
     disabled: tracing || !replayTrace
-  }), "|", /*#__PURE__*/react.createElement(TracePlayButton, {
+  }), !!replayTrace && /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "Clear Trace",
+    size: "small",
+    onClick: clearTrace
+  }, /*#__PURE__*/react.createElement(Clear/* default */.Z, null)), "|", /*#__PURE__*/react.createElement(TracePlayButton, {
     size: "small"
   }), /*#__PURE__*/react.createElement(TraceRecordButton, {
     size: "small"

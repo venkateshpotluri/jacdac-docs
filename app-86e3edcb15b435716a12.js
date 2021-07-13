@@ -69624,7 +69624,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "9bc4de6a0fbfc34a7478e48a8393f8c0c149030e";
+  var sha = "ad15a260069b9126c5229bbd3407c48bc9cf8267";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -74540,11 +74540,7 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     }); // tell loggers to send data, every now and then
     // send resetin packets
 
-    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.sendAnnounce.bind((0,assertThisInitialized/* default */.Z)(_this)));
-
-    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.sendResetIn.bind((0,assertThisInitialized/* default */.Z)(_this)));
-
-    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.pingLoggers.bind((0,assertThisInitialized/* default */.Z)(_this))); // tell RTC clock the computer time
+    _this.on(constants/* SELF_ANNOUNCE */.Pbc, _this.handleSelfAnnounce.bind((0,assertThisInitialized/* default */.Z)(_this))); // tell RTC clock the computer time
 
 
     _this.on(constants/* DEVICE_ANNOUNCE */.Hob, _this.handleRealTimeClockSync.bind((0,assertThisInitialized/* default */.Z)(_this))); // grab the default role manager
@@ -74923,61 +74919,26 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     });
   };
 
-  _proto.pingLoggers = /*#__PURE__*/function () {
-    var _pingLoggers = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5() {
-      var pkt;
+  _proto.handleRealTimeClockSync = /*#__PURE__*/function () {
+    var _handleRealTimeClockSync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5(device) {
       return regenerator_default().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              if (!(this._minLoggerPriority < constants/* LoggerPriority.Silent */.qit.Silent && this.timestamp - this._lastPingLoggerTime > constants/* PING_LOGGERS_POLL */.Cot && this.devices({
-                ignoreSelf: true,
-                serviceClass: constants/* SRV_LOGGER */.w9j
-              }).length > 0)) {
-                _context5.next = 5;
+              if (!device.hasService(constants/* SRV_REAL_TIME_CLOCK */.XXX)) {
+                _context5.next = 3;
                 break;
               }
 
-              this._lastPingLoggerTime = this.timestamp;
-              pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | constants/* LoggerReg.MinPriority */.hXV.MinPriority, "u8", [this._minLoggerPriority]);
-              _context5.next = 5;
-              return pkt.sendAsMultiCommandAsync(this, constants/* SRV_LOGGER */.w9j);
+              _context5.next = 3;
+              return realtimeclockserver/* default.syncTime */.Z.syncTime(this);
 
-            case 5:
+            case 3:
             case "end":
               return _context5.stop();
           }
         }
       }, _callee5, this);
-    }));
-
-    function pingLoggers() {
-      return _pingLoggers.apply(this, arguments);
-    }
-
-    return pingLoggers;
-  }();
-
-  _proto.handleRealTimeClockSync = /*#__PURE__*/function () {
-    var _handleRealTimeClockSync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee6(device) {
-      return regenerator_default().wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              if (!device.hasService(constants/* SRV_REAL_TIME_CLOCK */.XXX)) {
-                _context6.next = 3;
-                break;
-              }
-
-              _context6.next = 3;
-              return realtimeclockserver/* default.syncTime */.Z.syncTime(this);
-
-            case 3:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6, this);
     }));
 
     function handleRealTimeClockSync(_x2) {
@@ -74996,24 +74957,24 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
   };
 
   _proto.sendPacketAsync = /*#__PURE__*/function () {
-    var _sendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee7(p) {
-      return regenerator_default().wrap(function _callee7$(_context7) {
+    var _sendPacketAsync = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee6(p) {
+      return regenerator_default().wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
               p.timestamp = this.timestamp;
               this.emit(constants/* PACKET_SEND */.RaS, p);
-              _context7.next = 4;
+              _context6.next = 4;
               return Promise.all(this._transports.map(function (transport) {
                 return transport.sendPacketAsync(p);
               }));
 
             case 4:
             case "end":
-              return _context7.stop();
+              return _context6.stop();
           }
         }
-      }, _callee7, this);
+      }, _callee6, this);
     }));
 
     function sendPacketAsync(_x3) {
@@ -75182,28 +75143,28 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
 
     if (enabled) {
       if (!this._debouncedScanFirmwares) {
-        this._debouncedScanFirmwares = (0,utils/* debounceAsync */.kl)( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee8() {
-          return regenerator_default().wrap(function _callee8$(_context8) {
+        this._debouncedScanFirmwares = (0,utils/* debounceAsync */.kl)( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee7() {
+          return regenerator_default().wrap(function _callee7$(_context7) {
             while (1) {
-              switch (_context8.prev = _context8.next) {
+              switch (_context7.prev = _context7.next) {
                 case 0:
                   if (!_this9._transports.some(function (tr) {
                     return tr.connected;
                   })) {
-                    _context8.next = 4;
+                    _context7.next = 4;
                     break;
                   }
 
                   console.info("scanning firmwares");
-                  _context8.next = 4;
+                  _context7.next = 4;
                   return (0,flashing/* scanFirmwares */.CQ)(_this9);
 
                 case 4:
                 case "end":
-                  return _context8.stop();
+                  return _context7.stop();
               }
             }
-          }, _callee8);
+          }, _callee7);
         })), SCAN_FIRMWARE_INTERVAL);
         this.on(constants/* DEVICE_ANNOUNCE */.Hob, this._debouncedScanFirmwares);
       }
@@ -75312,25 +75273,111 @@ var bus_JDBus = /*#__PURE__*/function (_JDNode) {
     }
   };
 
-  _proto.sendAnnounce = function sendAnnounce() {
-    // we do not support any services (at least yet)
-    if (this._restartCounter < 0xf) this._restartCounter++;
-    var pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_ADVERTISEMENT_DATA */.zf$, "u32", [this._restartCounter | 0x100]);
-    pkt.serviceIndex = constants/* JD_SERVICE_INDEX_CTRL */.fey;
-    pkt.deviceIdentifier = this.selfDeviceId;
-    pkt.sendReportAsync(this.selfDevice);
+  _proto.handleSelfAnnounce = function handleSelfAnnounce() {
+    return Promise.all([this.sendAnnounce(), this.sendResetIn(), this.pingLoggers()]).then(function () {});
   };
 
-  _proto.sendResetIn = function sendResetIn() {
-    // don't send reset if already received
-    // or no devices
-    if (this._lastResetInTime - this.timestamp > constants/* RESET_IN_TIME_US */._$y / 3 || !this.devices({
-      ignoreSelf: true
-    }).length) return;
-    this._lastResetInTime = this.timestamp;
-    var rst = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn, "u32", [constants/* RESET_IN_TIME_US */._$y]);
-    rst.sendAsMultiCommandAsync(this, specconstants/* SRV_CONTROL */.gm9);
-  };
+  _proto.sendAnnounce = /*#__PURE__*/function () {
+    var _sendAnnounce = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee8() {
+      var pkt;
+      return regenerator_default().wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              // we do not support any services (at least yet)
+              if (this._restartCounter < 0xf) this._restartCounter++;
+              pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_ADVERTISEMENT_DATA */.zf$, "u32", [this._restartCounter | 0x100]);
+              pkt.serviceIndex = constants/* JD_SERVICE_INDEX_CTRL */.fey;
+              pkt.deviceIdentifier = this.selfDeviceId;
+              _context8.next = 6;
+              return pkt.sendReportAsync(this.selfDevice);
+
+            case 6:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, this);
+    }));
+
+    function sendAnnounce() {
+      return _sendAnnounce.apply(this, arguments);
+    }
+
+    return sendAnnounce;
+  }();
+
+  _proto.sendResetIn = /*#__PURE__*/function () {
+    var _sendResetIn = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee9() {
+      var rst;
+      return regenerator_default().wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              if (!(this._lastResetInTime - this.timestamp > constants/* RESET_IN_TIME_US */._$y / 3 || !this.devices({
+                ignoreSelf: true
+              }).length)) {
+                _context9.next = 2;
+                break;
+              }
+
+              return _context9.abrupt("return");
+
+            case 2:
+              this._lastResetInTime = this.timestamp;
+              rst = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | specconstants/* ControlReg.ResetIn */.toU.ResetIn, "u32", [constants/* RESET_IN_TIME_US */._$y]);
+              _context9.next = 6;
+              return rst.sendAsMultiCommandAsync(this, specconstants/* SRV_CONTROL */.gm9);
+
+            case 6:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9, this);
+    }));
+
+    function sendResetIn() {
+      return _sendResetIn.apply(this, arguments);
+    }
+
+    return sendResetIn;
+  }();
+
+  _proto.pingLoggers = /*#__PURE__*/function () {
+    var _pingLoggers = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee10() {
+      var pkt;
+      return regenerator_default().wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              if (!(this._minLoggerPriority < constants/* LoggerPriority.Silent */.qit.Silent && this.timestamp - this._lastPingLoggerTime > constants/* PING_LOGGERS_POLL */.Cot && this.devices({
+                ignoreSelf: true,
+                serviceClass: constants/* SRV_LOGGER */.w9j
+              }).length > 0)) {
+                _context10.next = 5;
+                break;
+              }
+
+              this._lastPingLoggerTime = this.timestamp;
+              pkt = packet/* default.jdpacked */.Z.jdpacked(constants/* CMD_SET_REG */.YUL | constants/* LoggerReg.MinPriority */.hXV.MinPriority, "u8", [this._minLoggerPriority]);
+              _context10.next = 5;
+              return pkt.sendAsMultiCommandAsync(this, constants/* SRV_LOGGER */.w9j);
+
+            case 5:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10, this);
+    }));
+
+    function pingLoggers() {
+      return _pingLoggers.apply(this, arguments);
+    }
+
+    return pingLoggers;
+  }();
 
   /**
    * Cycles through all known registers and refreshes the once that have REPORT_UPDATE registered
@@ -78879,7 +78926,7 @@ var GamepadHostManager = /*#__PURE__*/function (_JDClient) {
 
 
 ;// CONCATENATED MODULE: ./jacdac-ts/package.json
-var package_namespaceObject = {"i8":"1.13.92"};
+var package_namespaceObject = {"i8":"1.13.93"};
 ;// CONCATENATED MODULE: ./src/jacdac/providerbus.ts
 
 
