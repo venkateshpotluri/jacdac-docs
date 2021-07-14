@@ -1241,6 +1241,9 @@ function Collector() {
   var recordId = (0,react_use_id_hook_esm/* useId */.Me)();
   var recordingsId = (0,react_use_id_hook_esm/* useId */.Me)();
   var dashboardId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var samplingIntervalId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var samplingDurationId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var prefixId = (0,react_use_id_hook_esm/* useId */.Me)();
   (0,react.useEffect)(function () {
     //console.log(`trigger event`, triggerEventId, triggerEvent)
     var un = triggerEvent === null || triggerEvent === void 0 ? void 0 : triggerEvent.subscribe(constants/* EVENT */.Ks0, function () {
@@ -1497,6 +1500,7 @@ function Collector() {
   }, "Save configuration")), /*#__PURE__*/react.createElement("div", {
     className: classes.row
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: samplingIntervalId,
     className: classes.field,
     error: errorSamplingIntervalDelay,
     disabled: recording,
@@ -1510,6 +1514,7 @@ function Collector() {
     },
     onChange: handleSamplingIntervalChange
   }), /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: samplingDurationId,
     className: classes.field,
     error: errorSamplingDuration,
     disabled: recording,
@@ -1523,6 +1528,7 @@ function Collector() {
     },
     onChange: handleSamplingDurationChange
   }), /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: prefixId,
     className: classes.field,
     disabled: recording,
     label: "File name prefix",
