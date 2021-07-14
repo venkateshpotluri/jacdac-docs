@@ -25,8 +25,6 @@ var useRegisterValue = __webpack_require__(89196);
 var useServiceServer = __webpack_require__(49013);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
 var Grid = __webpack_require__(80838);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Slider/Slider.js + 1 modules
-var Slider = __webpack_require__(50514);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Mic.js
 var Mic = __webpack_require__(11497);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
@@ -237,7 +235,6 @@ function HostMicrophoneButton(props) {
     }));
   }, [server, volume, visible]);
   return /*#__PURE__*/react.createElement(IconButtonWithProgress/* default */.Z, {
-    "aria-label": title,
     title: title,
     indeterminate: enabled,
     onClick: handleClick
@@ -253,14 +250,6 @@ function DashboardSoundLevel(props) {
       soundLevel = _useRegisterUnpackedV3[0];
 
   var server = (0,useServiceServer/* default */.Z)(service);
-  var color = server ? "secondary" : "primary";
-
-  var onChange = function onChange(event, newValue) {
-    var svalue = newValue;
-    server === null || server === void 0 ? void 0 : server.reading.setValues([svalue]);
-    soundLevelRegister.sendGetAsync(); // refresh
-  };
-
   if (soundLevel === undefined) return /*#__PURE__*/react.createElement(LoadingProgress/* default */.Z, null);
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     container: true,
@@ -274,29 +263,11 @@ function DashboardSoundLevel(props) {
     horizon: 64
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    container: true,
-    spacing: 2,
-    alignItems: "center"
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
   }, /*#__PURE__*/react.createElement(HostMicrophoneButton, {
     service: service,
     server: server,
     visible: visible
-  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true,
-    xs: true
-  }, /*#__PURE__*/react.createElement(Slider/* default */.Z, {
-    disabled: !server,
-    valueLabelDisplay: "off",
-    min: 0,
-    max: 1,
-    step: 0.1,
-    value: soundLevel,
-    onChange: onChange,
-    color: color
-  })))));
+  })));
 }
 
 /***/ })
