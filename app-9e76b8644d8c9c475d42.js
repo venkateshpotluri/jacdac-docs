@@ -62377,7 +62377,8 @@ var Example = /*#__PURE__*/function () {
 
   _proto.toVector = function toVector(startTimestamp) {
     var t = this.timestamp - (startTimestamp || 0);
-    return [t].concat(this.data);
+    var s = (0,_jacdac_ts_src_jdom_utils__WEBPACK_IMPORTED_MODULE_2__/* .roundWithPrecision */ .JI)(t / 1000, 3);
+    return [s].concat(this.data);
   };
 
   return Example;
@@ -62497,7 +62498,7 @@ var FieldDataSet = /*#__PURE__*/function (_JDEventSource) {
     var allheaders = ["time"].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this.headers)).join(sep);
     var start = this.startTimestamp;
     var csv = [allheaders];
-    if (options !== null && options !== void 0 && options.units) csv.push(["ms"].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this.units)).join(sep));
+    if (options !== null && options !== void 0 && options.units) csv.push(["s"].concat((0,_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(this.units)).join(sep));
     this.rows.forEach(function (row) {
       return csv.push(row.toVector(start).map(function (cell) {
         return cell !== undefined ? cell.toString() : "";
@@ -69758,7 +69759,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "33e4754649baf79c1ad686ce8833277bc8f00375";
+  var sha = "05f3b314856b8ae131a8e9dbf93eebc1145a1c3f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

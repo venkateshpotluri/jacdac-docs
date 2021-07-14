@@ -99,6 +99,34 @@ var InputAdornment = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(
 
 /***/ }),
 
+/***/ 88880:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(95318);
+
+var _interopRequireWildcard = __webpack_require__(20862);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var React = _interopRequireWildcard(__webpack_require__(67294));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
+  d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+}), 'Add');
+
+exports.Z = _default;
+
+/***/ }),
+
 /***/ 94500:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -572,6 +600,83 @@ function ReadingFieldGrid(props) {
 
 /***/ }),
 
+/***/ 24301:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ DashboardDeviceItem; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19756);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80838);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _DashboardDevice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54886);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
+/* harmony import */ var _DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73205);
+/* harmony import */ var _AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(84377);
+
+var _excluded = ["device", "expanded", "toggleExpanded", "variant"];
+
+
+
+
+
+
+function DashboardDeviceItem(props) {
+  var device = props.device,
+      expanded = props.expanded,
+      toggleExpanded = props.toggleExpanded,
+      variant = props.variant,
+      other = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(props, _excluded);
+
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_AppContext__WEBPACK_IMPORTED_MODULE_4__/* .default */ .ZP),
+      drawerType = _useContext.drawerType;
+
+  var breakpoints = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(device, function () {
+    var breakpointWeight = device.services().map(function (srv) {
+      return (0,_DashboardServiceWidget__WEBPACK_IMPORTED_MODULE_3__/* .dashboardServiceWeight */ .o2)(srv) || (srv.readingRegister || srv.valueRegister || srv.intensityRegister ? 1 : 0);
+    }).reduce(function (c, v) {
+      return c + v;
+    }, 0);
+    if (breakpointWeight > 3 || drawerType !== _AppContext__WEBPACK_IMPORTED_MODULE_4__/* .DrawerType.None */ .jw.None) return {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 6,
+      xl: 6
+    };else if (breakpointWeight == 3) return {
+      xs: 12,
+      sm: 12,
+      md: 4,
+      lg: 4,
+      xl: 4
+    };else if (breakpointWeight == 2) return {
+      xs: 12,
+      sm: 6,
+      md: 4,
+      lg: 3,
+      xl: 4
+    };else return {
+      xs: expanded ? 12 : 6,
+      sm: 4,
+      md: 3,
+      lg: 2,
+      xl: "auto"
+    };
+  }, [expanded, drawerType]); // based on size, expanded or reduce widget size
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, Object.assign({
+    item: true
+  }, breakpoints), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DashboardDevice__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, Object.assign({
+    device: device,
+    expanded: expanded,
+    toggleExpanded: toggleExpanded,
+    variant: variant
+  }, other)));
+}
+
+/***/ }),
+
 /***/ 2928:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -889,18 +994,39 @@ var sensoraggregatorclient = __webpack_require__(84264);
 var useChartPalette = __webpack_require__(74039);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
 var spec = __webpack_require__(13173);
+// EXTERNAL MODULE: ./jacdac-ts/jacdac-spec/dist/specconstants.ts
+var specconstants = __webpack_require__(73512);
 // EXTERNAL MODULE: ./src/components/hooks/useServices.ts
 var useServices = __webpack_require__(2928);
 ;// CONCATENATED MODULE: ./src/components/hooks/useEvents.ts
 
 
+
 function useEvents(options) {
+  var _ref = options || {},
+      ignoreChange = _ref.ignoreChange;
+
   var services = (0,useServices/* default */.Z)(options);
   var events = (0,utils/* arrayConcatMany */.ue)(services.map(function (srv) {
     return srv.events;
   }));
+  if (ignoreChange) events = events.filter(function (ev) {
+    return ev.code !== specconstants/* SystemEvent.StatusCodeChanged */.nSK.StatusCodeChanged && ev.code !== specconstants/* SystemEvent.Change */.nSK.Change;
+  });
   return events;
 }
+// EXTERNAL MODULE: ./src/components/hooks/useDevices.ts
+var useDevices = __webpack_require__(53074);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./src/components/dashboard/DashboardDeviceItem.tsx
+var DashboardDeviceItem = __webpack_require__(24301);
+// EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
+var IconButtonWithTooltip = __webpack_require__(79885);
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
+var Add = __webpack_require__(88880);
 ;// CONCATENATED MODULE: ./src/pages/tools/collector.tsx
 
 
@@ -919,6 +1045,12 @@ function useEvents(options) {
 
 
  // tslint:disable-next-line: no-submodule-imports
+
+
+
+
+
+
 
 
 
@@ -982,10 +1114,13 @@ function Collector() {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
 
+  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
+      toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
+
   var classes = useStyles();
 
-  var _useContext2 = (0,react.useContext)(ServiceManagerContext/* default */.ZP),
-      fileStorage = _useContext2.fileStorage;
+  var _useContext3 = (0,react.useContext)(ServiceManagerContext/* default */.ZP),
+      fileStorage = _useContext3.fileStorage;
 
   var _useState = (0,react.useState)([]),
       registerIdsChecked = _useState[0],
@@ -1030,17 +1165,24 @@ function Collector() {
       setTriggerEventId = _useState11[1];
 
   var chartPalette = (0,useChartPalette/* default */.Z)();
-  var readingRegisters = (0,useChange/* default */.Z)(bus, function (bus) {
-    return (0,utils/* arrayConcatMany */.ue)(bus.devices().map(function (device) {
-      return device.services().filter(function (srv) {
-        return (0,spec/* isSensor */.rq)(srv.specification);
-      }).map(function (srv) {
-        return srv.readingRegister;
-      });
-    }));
+  var devices = (0,useDevices/* default */.Z)({
+    ignoreSelf: true,
+    announced: true
   });
+  var readingRegisters = (0,utils/* arrayConcatMany */.ue)(devices.map(function (device) {
+    return device.services().filter(function (srv) {
+      return (0,spec/* isSensor */.rq)(srv.specification);
+    }).map(function (srv) {
+      return srv.readingRegister;
+    });
+  }));
   var recordingRegisters = readingRegisters.filter(function (reg) {
     return registerIdsChecked.indexOf(reg.id) > -1;
+  });
+  var recordingDevices = (0,utils/* uniqueMap */.EM)(recordingRegisters, function (reg) {
+    return reg.service.device.deviceId;
+  }, function (reg) {
+    return reg.service.device;
   });
   var aggregators = (0,useChange/* default */.Z)(bus, function (bus) {
     return bus.services({
@@ -1057,7 +1199,14 @@ function Collector() {
   var error = errorSamplingDuration || errorSamplingIntervalDelay;
   var triggerEvent = bus.node(triggerEventId);
   var startEnabled = !!(recordingRegisters !== null && recordingRegisters !== void 0 && recordingRegisters.length);
-  var events = useEvents();
+  var events = useEvents({
+    ignoreChange: true
+  });
+  var aggregatorsId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var sensorsId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var recordId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var recordingsId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var dashboardId = (0,react_use_id_hook_esm/* useId */.Me)();
   (0,react.useEffect)(function () {
     //console.log(`trigger event`, triggerEventId, triggerEvent)
     var un = triggerEvent === null || triggerEvent === void 0 ? void 0 : triggerEvent.subscribe(constants/* EVENT */.Ks0, function () {
@@ -1257,8 +1406,8 @@ function Collector() {
   }, [recording, liveDataSet, registerIdsChecked, aggregator]);
   return /*#__PURE__*/react.createElement("div", {
     className: classes.root
-  }, /*#__PURE__*/react.createElement("h1", null, "Data Collector"), /*#__PURE__*/react.createElement("p", null, "Use this page to collect streaming data from Jacdac devices into various output formats."), !!aggregators.length && /*#__PURE__*/react.createElement("div", {
-    key: "aggregators"
+  }, /*#__PURE__*/react.createElement("h1", null, "Data Collector"), /*#__PURE__*/react.createElement("p", null, "Use this page to collect streaming data from Jacdac devices into various output formats."), !!aggregators.length && /*#__PURE__*/react.createElement("section", {
+    id: aggregatorsId
   }, /*#__PURE__*/react.createElement("h3", null, "(Optional) Choose a data aggregator"), /*#__PURE__*/react.createElement("p", null, "A ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     to: "/services/aggregator"
   }, "data aggregator"), " ", "service collects collects sensor data on the bus and returns an aggregated at regular intervals."), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -1276,9 +1425,12 @@ function Collector() {
       disabled: recording,
       onChange: handleAggregatorChecked(aggregator)
     }))));
-  }))), /*#__PURE__*/react.createElement("div", {
-    key: "sensors"
-  }, /*#__PURE__*/react.createElement("h3", null, "Choose sensors"), !readingRegisters.length && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+  }))), /*#__PURE__*/react.createElement("section", {
+    id: sensorsId
+  }, /*#__PURE__*/react.createElement("h3", null, "Choose sensors \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+    title: "start simulator",
+    onClick: toggleShowDeviceHostsDialog
+  }, /*#__PURE__*/react.createElement(Add/* default */.Z, null))), !readingRegisters.length && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     className: classes.grow,
     severity: "info"
   }, "Waiting for sensor..."), !!readingRegisters.length && /*#__PURE__*/react.createElement(ReadingFieldGrid/* default */.Z, {
@@ -1287,8 +1439,8 @@ function Collector() {
     recording: recording,
     liveDataSet: liveDataSet,
     handleRegisterCheck: handleRegisterCheck
-  })), /*#__PURE__*/react.createElement("div", {
-    key: "record"
+  })), /*#__PURE__*/react.createElement("section", {
+    id: recordId
   }, /*#__PURE__*/react.createElement("h3", null, "Record data"), aggregator && /*#__PURE__*/react.createElement("p", null, "Record the sensor input configuration in order to up your ML model later on."), /*#__PURE__*/react.createElement("div", {
     className: classes.buttons
   }, /*#__PURE__*/react.createElement(Button/* default */.Z, {
@@ -1346,6 +1498,16 @@ function Collector() {
     eventId: triggerEventId,
     onChange: handleTriggerChange,
     label: "Start Event"
+  }))), !!(recordingDevices !== null && recordingDevices !== void 0 && recordingDevices.length) && /*#__PURE__*/react.createElement("section", {
+    id: dashboardId
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1
+  }, recordingDevices === null || recordingDevices === void 0 ? void 0 : recordingDevices.map(function (device) {
+    return /*#__PURE__*/react.createElement(DashboardDeviceItem/* default */.Z, {
+      key: device.id,
+      device: device
+    });
   }))), liveDataSet && /*#__PURE__*/react.createElement(Trend/* default */.Z, {
     key: "trends",
     height: 12,
@@ -1353,8 +1515,8 @@ function Collector() {
     horizon: LIVE_HORIZON,
     dot: true,
     gradient: true
-  }), !!tables.length && /*#__PURE__*/react.createElement("div", {
-    key: "recordings"
+  }), !!tables.length && /*#__PURE__*/react.createElement("section", {
+    id: recordingsId
   }, /*#__PURE__*/react.createElement("h3", null, "Recordings"), /*#__PURE__*/react.createElement(DataSetGrid, {
     tables: tables,
     handleDeleteTable: handleDeleteTable
