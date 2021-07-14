@@ -43100,7 +43100,10 @@ var KeyboardShortcuts = {
   }]
 };
 
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
 ;// CONCATENATED MODULE: ./src/components/widgets/PianoWidget.tsx
+
 
 
 
@@ -43119,10 +43122,12 @@ function PianoWidget(props) {
       return 440 / 32 * Math.pow(2, (x - 9) / 12);
     });
   }, []);
+  var pianoId = (0,react_use_id_hook_esm/* useId */.Me)();
   return /*#__PURE__*/react.createElement(Box/* default */.Z, {
     mb: 1,
     mt: 1
   }, /*#__PURE__*/react.createElement(Piano, {
+    id: pianoId,
     width: 400,
     noteRange: {
       first: firstNote,

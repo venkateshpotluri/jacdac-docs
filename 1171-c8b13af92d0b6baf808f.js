@@ -190,7 +190,8 @@ function DashboardBuzzer(props) {
     onClick: handleUnlock
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_icons_VolumeUp__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z, null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
     item: true,
-    xs: true
+    xs: true,
+    "aria-hidden": true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(PianoWidget, {
     playTone: sendPlayTone
   }))), volume !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
@@ -210,7 +211,7 @@ function DashboardBuzzer(props) {
     valueLabelDisplay: "off",
     min: 0,
     max: 1,
-    step: 0.05,
+    step: 0.1,
     "aria-label": "volume",
     value: volume,
     color: color,
