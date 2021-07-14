@@ -95,7 +95,7 @@ function DashbaordRainGauge(props) {
     };
   }();
 
-  var buttonProps = (0,_hooks_useSvgButtonProps__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)("rain gauge at level " + Math.round(25 + level * 100) + "%", handleClick);
+  var buttonProps = (0,_hooks_useSvgButtonProps__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)("rain level " + Math.round(25 + level * 100) + "%", handleClick);
   var w = 128;
   var h = 64;
   var bw = w / 2;
@@ -127,8 +127,7 @@ function DashbaordRainGauge(props) {
     height: bh,
     strokeWidth: sw,
     stroke: active,
-    fill: background,
-    "aria-live": "polite"
+    fill: background
   }, buttonProps, {
     className: clickeable ? "clickeable" : undefined,
     role: clickeable ? "button" : undefined

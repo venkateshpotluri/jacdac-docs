@@ -65180,7 +65180,10 @@ var useAnimationFrame = __webpack_require__(17368);
 var useRegister = __webpack_require__(82677);
 // EXTERNAL MODULE: ./src/components/hooks/useEvent.ts
 var useEvent = __webpack_require__(59626);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
 ;// CONCATENATED MODULE: ./src/components/dashboard/DashboardButton.tsx
+
 
 
 
@@ -65250,6 +65253,7 @@ function BinaryButton(props) {
 
 var ACTIVE_SPEED = 0.05;
 var INACTIVE_SPEED = 0.1;
+var LABEL_PRECISION = 2;
 
 function AnalogButton(props) {
   var service = props.service,
@@ -65280,7 +65284,7 @@ function AnalogButton(props) {
   var widgetSize = "clamp(3rem, 10vw, 16vw)";
   var server = (0,useServiceServer/* default */.Z)(service);
   var color = server ? "secondary" : "primary";
-  var label = "button pressure " + pressure;
+  var label = "button pressure " + (0,utils/* roundWithPrecision */.JI)(pressure, LABEL_PRECISION);
 
   var _useWidgetTheme = (0,useWidgetTheme/* default */.Z)(color),
       background = _useWidgetTheme.background,
@@ -65361,14 +65365,13 @@ function AnalogButton(props) {
     cx: cx,
     cy: mo,
     r: mo / 3,
-    "aria-label": "active threshold " + threshold,
+    "aria-label": "active threshold " + (0,utils/* roundWithPrecision */.JI)(threshold, LABEL_PRECISION),
     fill: controlBackground,
     transform: "rotate(" + range * threshold + ", " + cx + ", " + cy + ")"
   }), /*#__PURE__*/react.createElement("circle", Object.assign({
     cx: cx,
     cy: cy,
     r: ri,
-    "aria-live": "polite",
     fill: pressed ? active : controlBackground
   }, buttonProps)));
 }
@@ -69759,7 +69762,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "8092c3d9b8a7cc704fd640e17483eca056564d83";
+  var sha = "34fda14bd7fc54a3e0f5d27f1e5766d9fe18b0b6";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71692,7 +71695,6 @@ function ButtonWidget(props) {
     cx: cx,
     cy: cy,
     r: ri,
-    "aria-live": "polite",
     fill: checked ? active : controlBackground
   }, buttonProps)));
 }
