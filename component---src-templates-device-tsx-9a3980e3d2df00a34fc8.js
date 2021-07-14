@@ -877,10 +877,10 @@ function DeviceSpecification(props) {
     to: device.link
   }, device.name)), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "subtitle1"
-  }, "by ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+  }, "by", " ", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
     to: "/devices/" + (0,spec/* identifierToUrlPath */.uM)((0,jdspec/* escapeDeviceIdentifier */.o9)(device.company))
   }, device.company)), /*#__PURE__*/react.createElement("img", {
-    alt: "image of the device",
+    alt: "device " + device.name,
     src: imageUrl,
     loading: "lazy"
   }), device.description && /*#__PURE__*/react.createElement(Markdown/* default */.Z, {

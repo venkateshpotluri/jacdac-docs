@@ -62126,17 +62126,17 @@ var useMediaQueries = __webpack_require__(20509);
 var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   return (0,createStyles/* default */.Z)({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "space-around",
+      overflow: "hidden",
       backgroundColor: theme.palette.background.paper
     },
     ellipsis: {
-      textOverflow: 'ellipsis'
+      textOverflow: "ellipsis"
     },
     icon: {
-      color: 'rgba(255, 255, 255, 0.54)'
+      color: "rgba(255, 255, 255, 0.54)"
     }
   });
 });
@@ -62184,7 +62184,7 @@ function DeviceSpecificationList(props) {
       title: spec.name,
       subtitle: /*#__PURE__*/react.createElement(Markdown/* default */.Z, {
         className: classes.ellipsis,
-        source: spec.description.split('.', 1)[0]
+        source: spec.description.split(".", 1)[0]
       }),
       actionIcon: /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
         to: "/devices/" + (0,jdom_spec/* identifierToUrlPath */.uM)(spec.id),
@@ -69759,7 +69759,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "81cff691def540c7e2b77aaa30d678aa4bd2c9e4";
+  var sha = "719bcd71a845db155c5e35e0d1af9f3bc6024c8d";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

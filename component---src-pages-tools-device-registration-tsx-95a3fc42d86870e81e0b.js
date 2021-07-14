@@ -844,7 +844,7 @@ function ImportImageCanvas(props) {
     width: "100%",
     height: "18rem"
   }), canvasUrl && /*#__PURE__*/react.createElement("img", {
-    alt: "the imported image",
+    alt: "preview",
     src: canvasUrl,
     width: "100%",
     height: "100%"
