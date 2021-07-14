@@ -513,16 +513,15 @@ var SensorAggregatorClient = /*#__PURE__*/function (_JDServiceClient) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(95823);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(29114);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(31186);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(76544);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _DeviceActions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87993);
-/* harmony import */ var _useGridBreakpoints__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7746);
+/* harmony import */ var _useGridBreakpoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7746);
 /* harmony import */ var _material_ui_icons_FiberManualRecord__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(95067);
 /* harmony import */ var _devices_useDeviceName__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5738);
-
+/* harmony import */ var _ui_SwitchWithLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(64973);
 
 
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
 
 
 
@@ -540,9 +539,11 @@ function ReadingFieldGridItem(props) {
       recording = props.recording,
       registerChecked = props.registerChecked,
       liveDataSet = props.liveDataSet;
-  var gridBreakpoints = (0,_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)();
+  var service = register.service;
+  var device = service.device;
+  var gridBreakpoints = (0,_useGridBreakpoints__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)();
   var classes = useStyles();
-  var deviceName = (0,_devices_useDeviceName__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(register.service.device);
+  var deviceName = (0,_devices_useDeviceName__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z)(device);
 
   var handleCheck = function handleCheck() {
     return handleRegisterCheck(register);
@@ -554,11 +555,7 @@ function ReadingFieldGridItem(props) {
     key: "source" + register.id
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
     subheader: register.service.name,
-    title: deviceName + "/" + register.name,
-    action: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DeviceActions__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-      device: register.service.device,
-      showReset: true
-    })
+    title: deviceName + "/" + register.name
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, null, register.fields.map(function (field) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
       key: field.id
@@ -569,10 +566,11 @@ function ReadingFieldGridItem(props) {
         color: registerChecked && (liveDataSet === null || liveDataSet === void 0 ? void 0 : liveDataSet.colorOf(field)) || "#ccc"
       }
     }), field.name);
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_11__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_SwitchWithLabel__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     disabled: recording,
     onChange: handleCheck,
-    checked: registerChecked
+    checked: registerChecked,
+    label: "record " + deviceName + "/" + register.name
   }))));
 }
 
@@ -735,6 +733,7 @@ function SelectWithLabel(props) {
       none = props.none;
   var labelId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_1__/* .useId */ .Me)();
   var descrId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_1__/* .useId */ .Me)();
+  var id = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_1__/* .useId */ .Me)();
   var hasDescr = !!helperText || !!error;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
     fullWidth: fullWidth,
@@ -743,6 +742,7 @@ function SelectWithLabel(props) {
     id: labelId,
     key: "label"
   }, required ? label + " *" : label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
+    id: id,
     disabled: disabled,
     label: label,
     value: value,
@@ -754,12 +754,39 @@ function SelectWithLabel(props) {
     "aria-describedby": hasDescr ? descrId : undefined,
     onChange: onChange,
     onClose: onClose
-  }, none && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
+  }, none !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
     key: "none",
     value: ""
   }, none), children), hasDescr && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ .Z, {
     id: descrId
   }, error || helperText));
+}
+
+/***/ }),
+
+/***/ 64973:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ SwitchWithLabel; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19756);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48086);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(76544);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+var _excluded = ["label"];
+
+
+function SwitchWithLabel(props) {
+  var label = props.label,
+      rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(props, _excluded);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    control: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, rest),
+    label: label
+  });
 }
 
 /***/ }),
@@ -897,7 +924,8 @@ function SelectEvent(props) {
     helperText: label || "choose an event",
     value: eventId,
     onChange: handleChange,
-    disabled: !(events !== null && events !== void 0 && events.length)
+    disabled: !(events !== null && events !== void 0 && events.length),
+    none: "None"
   }, events === null || events === void 0 ? void 0 : events.map(function (ev) {
     return /*#__PURE__*/react.createElement(MenuItem/* default */.Z, {
       key: ev.id,
@@ -1027,6 +1055,8 @@ var IconButtonWithTooltip = __webpack_require__(79885);
 var AppContext = __webpack_require__(84377);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Add.js
 var Add = __webpack_require__(88880);
+// EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
+var notistack_esm = __webpack_require__(70076);
 ;// CONCATENATED MODULE: ./src/pages/tools/collector.tsx
 
 
@@ -1045,6 +1075,7 @@ var Add = __webpack_require__(88880);
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -1113,6 +1144,9 @@ function createDataSet(bus, registers, name, live, palette) {
 function Collector() {
   var _useContext = (0,react.useContext)(Context/* default */.Z),
       bus = _useContext.bus;
+
+  var _useSnackbar = (0,notistack_esm/* useSnackbar */.Ds)(),
+      enqueueSnackbar = _useSnackbar.enqueueSnackbar;
 
   var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
       toggleShowDeviceHostsDialog = _useContext2.toggleShowDeviceHostsDialog;
@@ -1253,10 +1287,10 @@ function Collector() {
 
   var stopRecording = function stopRecording() {
     if (recording) {
-      //console.log(`stop recording`, liveDataSet)
       setTables([liveDataSet].concat((0,toConsumableArray/* default */.Z)(tables)));
       setLiveDataSet(newDataSet(registerIdsChecked, true));
       setRecording(false);
+      enqueueSnackbar("recording stopped");
     }
   };
 
@@ -1268,7 +1302,7 @@ function Collector() {
           switch (_context.prev = _context.next) {
             case 0:
               if (!(!recording && recordingRegisters.length)) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
@@ -1288,6 +1322,9 @@ function Collector() {
               client.collect(samplingCount);
 
             case 8:
+              enqueueSnackbar("recording started");
+
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -1447,8 +1484,7 @@ function Collector() {
     size: "large",
     variant: "contained",
     color: recording ? "secondary" : "primary",
-    "aria-label": "start/stop recording",
-    title: "start/stop recording",
+    title: recording ? "stop recording" : "start recording",
     onClick: toggleRecording,
     startIcon: recording ? /*#__PURE__*/react.createElement(Stop/* default */.Z, null) : /*#__PURE__*/react.createElement(PlayArrow/* default */.Z, null),
     disabled: !startEnabled
@@ -1497,7 +1533,8 @@ function Collector() {
     events: events,
     eventId: triggerEventId,
     onChange: handleTriggerChange,
-    label: "Start Event"
+    label: "Start Event",
+    friendlyName: true
   }))), !!(recordingDevices !== null && recordingDevices !== void 0 && recordingDevices.length) && /*#__PURE__*/react.createElement("section", {
     id: dashboardId
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -1506,7 +1543,9 @@ function Collector() {
   }, recordingDevices === null || recordingDevices === void 0 ? void 0 : recordingDevices.map(function (device) {
     return /*#__PURE__*/react.createElement(DashboardDeviceItem/* default */.Z, {
       key: device.id,
-      device: device
+      device: device,
+      showAvatar: true,
+      showHeader: true
     });
   }))), liveDataSet && /*#__PURE__*/react.createElement(Trend/* default */.Z, {
     key: "trends",
