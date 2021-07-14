@@ -14510,7 +14510,7 @@ function GaugeWidgetView() {
   value = Math.min(max, Math.max(min, value));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
     container: true,
-    justify: "center",
+    justifyContent: "center",
     alignContent: "center",
     alignItems: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z, {
@@ -16368,7 +16368,7 @@ function TwinWidget() {
     container: true,
     alignItems: "center",
     alignContent: "center",
-    justify: "center",
+    justifyContent: "center",
     spacing: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
     item: true
@@ -16626,7 +16626,7 @@ function WatchValueWidget() {
     container: true,
     alignItems: "flex-end",
     alignContent: "center",
-    justify: "center",
+    justifyContent: "center",
     spacing: 1
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z, {
     item: true

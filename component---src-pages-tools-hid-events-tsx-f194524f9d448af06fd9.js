@@ -514,7 +514,7 @@ function GridHeader(props) {
     container: true,
     direction: "row",
     spacing: 1,
-    justify: "center",
+    justifyContent: "center",
     alignItems: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     item: true

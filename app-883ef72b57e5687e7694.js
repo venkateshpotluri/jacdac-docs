@@ -65052,7 +65052,7 @@ function DashboardDevice(props) {
       component: "div",
       container: true,
       spacing: 2,
-      justify: "center",
+      justifyContent: "center",
       alignItems: "flex-end",
       alignContent: "space-between"
     }, services === null || services === void 0 ? void 0 : (_services$filter = services.filter(function (srv) {
@@ -67055,7 +67055,7 @@ function CarouselGrid(props) {
     item: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     container: true,
-    justify: "center",
+    justifyContent: "center",
     direction: "row",
     spacing: 2,
     alignContent: "center",
@@ -67087,7 +67087,7 @@ function CenterGrid(props) {
     container: true,
     spacing: 2,
     direction: "column",
-    justify: "center",
+    justifyContent: "center",
     alignContent: "center",
     alignItems: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FeatureItem__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, Object.assign({}, props, {
@@ -69759,7 +69759,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "719bcd71a845db155c5e35e0d1af9f3bc6024c8d";
+  var sha = "8092c3d9b8a7cc704fd640e17483eca056564d83";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer

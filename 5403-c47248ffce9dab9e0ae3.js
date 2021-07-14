@@ -743,7 +743,7 @@ function LightCommand(props) {
     spacing: 1,
     direction: "row",
     alignItems: "center",
-    justify: "flex-start"
+    justifyContent: "flex-start"
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     key: "descr",
@@ -800,7 +800,7 @@ function LightCommand(props) {
     direction: "row",
     alignItems: "center",
     alignContent: "flex-start",
-    justify: "flex-start"
+    justifyContent: "flex-start"
   }, (args === "K" || args === "PC") && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     key: "K"

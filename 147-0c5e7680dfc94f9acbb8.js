@@ -1,4 +1,53 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[2164],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[147],{
+
+/***/ 31186:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export styles */
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(22122);
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(81253);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(85505);
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(34621);
+
+
+
+
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: 8
+  },
+
+  /* Styles applied to the root element if `disableSpacing={false}`. */
+  spacing: {
+    '& > :not(:first-child)': {
+      marginLeft: 8
+    }
+  }
+};
+var CardActions = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(function CardActions(props, ref) {
+  var _props$disableSpacing = props.disableSpacing,
+      disableSpacing = _props$disableSpacing === void 0 ? false : _props$disableSpacing,
+      classes = props.classes,
+      className = props.className,
+      other = (0,_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(props, ["disableSpacing", "classes", "className"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)({
+    className: (0,clsx__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(classes.root, className, !disableSpacing && classes.spacing),
+    ref: ref
+  }, other));
+});
+ false ? 0 : void 0;
+/* harmony default export */ __webpack_exports__["Z"] = ((0,_styles_withStyles__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(styles, {
+  name: 'MuiCardActions'
+})(CardActions));
+
+/***/ }),
 
 /***/ 4998:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -463,248 +512,432 @@ var Chip = /*#__PURE__*/react.forwardRef(function Chip(props, ref) {
 
 /***/ }),
 
-/***/ 57198:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
-}), 'ArrowDownward');
-
-exports.Z = _default;
-
-/***/ }),
-
-/***/ 72164:
+/***/ 87617:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ DashboardAzureIoTHub; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(92137);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
-/* harmony import */ var _hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(49013);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(80838);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(80453);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(76544);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(1059);
-/* harmony import */ var _hooks_useRegister__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(82677);
-/* harmony import */ var _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(73512);
-/* harmony import */ var _jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(89196);
-/* harmony import */ var react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(19640);
-/* harmony import */ var _hooks_useEvent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59626);
-/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(54774);
-/* harmony import */ var _CmdButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(82613);
-/* harmony import */ var _jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(91635);
-/* harmony import */ var _material_ui_icons_ArrowDownward__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(57198);
-/* harmony import */ var _jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(71815);
-/* harmony import */ var _widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(60650);
-/* harmony import */ var _ui_GridHeader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(95393);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ Peers; }
+});
+
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Card/Card.js
+var Card = __webpack_require__(85420);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardContent/CardContent.js
+var CardContent = __webpack_require__(29114);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
+var TextField = __webpack_require__(1059);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardActions/CardActions.js
+var CardActions = __webpack_require__(31186);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardHeader/CardHeader.js
+var CardHeader = __webpack_require__(95823);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./src/jacdac/useChange.ts
+var useChange = __webpack_require__(54774);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/createClass.js
+var createClass = __webpack_require__(5991);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+var assertThisInitialized = __webpack_require__(63349);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+var inheritsLoose = __webpack_require__(41788);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/client.ts
+var client = __webpack_require__(47235);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/packet.ts
+var packet = __webpack_require__(57683);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/random.ts
+var random = __webpack_require__(80303);
+;// CONCATENATED MODULE: ./jacdac-ts/src/jdom/bridge.ts
+
+
+
+
+function _createForOfIteratorHelperLoose(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (it) return (it = it.call(o)).next.bind(it); if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; return function () { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
 
 
+/**
+ * A client that bridges received and sent packets to a parent iframe.
+ */
 
+var JDBridge = /*#__PURE__*/function (_JDClient) {
+  (0,inheritsLoose/* default */.Z)(JDBridge, _JDClient);
 
+  function JDBridge() {
+    var _this;
 
+    _this = _JDClient.call(this) || this;
+    _this.bridgeId = (0,random/* randomDeviceId */.b_)();
+    _this.packetSent = 0;
+    _this.packetProcessed = 0;
+    _this.handleSendPacket = _this.handleSendPacket.bind((0,assertThisInitialized/* default */.Z)(_this));
+    return _this;
+  }
 
+  var _proto = JDBridge.prototype;
 
+  /**
+   * Receives frame data payload and injects it into the bus
+   * @param data
+   * @returns
+   */
+  _proto.receiveFrame = function receiveFrame(data) {
+    if (!this._bus) return; // disconnected
+    // try frame format (sent by hardware, hosts)
 
+    var pkts = packet/* default.fromFrame */.Z.fromFrame(data, this.bus.timestamp);
+    this.dispatchPackets(pkts);
+  }
+  /**
+   * Receives packet data payload and injects it into the bus
+   * @param data
+   * @returns
+   */
+  ;
 
+  _proto.receivePacket = function receivePacket(data) {
+    if (!this._bus) return; // disconnected
+    // try as a single packet (send by the MakeCode simulator)
 
-
-
-
-
-var HORIZON = 10;
-function DashboardAzureIoTHub(props) {
-  var service = props.service;
-  var connectId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__/* .useId */ .Me)();
-  var cdMessageId = (0,react_use_id_hook__WEBPACK_IMPORTED_MODULE_6__/* .useId */ .Me)();
-  var cdMessageCounter = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(0);
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(JSON.stringify({
-    message: "hello from the cloud"
-  })),
-      cdMessage = _useState[0],
-      setCDMessage = _useState[1];
-
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
-      cdMessages = _useState2[0],
-      setCDMessages = _useState2[1];
-
-  var hubNameRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(service, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubReg.HubName */ .VNh.HubName);
-  var deviceIdRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(service, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubReg.DeviceId */ .VNh.DeviceId);
-  var connectionStatusRegister = (0,_hooks_useRegister__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z)(service, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubReg.ConnectionStatus */ .VNh.ConnectionStatus);
-
-  var _useRegisterUnpackedV = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_5__/* .useRegisterUnpackedValue */ .Pf)(hubNameRegister, props),
-      hubName = _useRegisterUnpackedV[0];
-
-  var _useRegisterUnpackedV2 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_5__/* .useRegisterUnpackedValue */ .Pf)(deviceIdRegister, props),
-      deviceId = _useRegisterUnpackedV2[0];
-
-  var _useRegisterUnpackedV3 = (0,_jacdac_useRegisterValue__WEBPACK_IMPORTED_MODULE_5__/* .useRegisterUnpackedValue */ .Pf)(connectionStatusRegister, props),
-      connectionStatus = _useRegisterUnpackedV3[0];
-
-  var connectedEvent = (0,_hooks_useEvent__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubEvent.Connected */ .ogr.Connected);
-  var disconnectedEvent = (0,_hooks_useEvent__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubEvent.Disconnected */ .ogr.Disconnected);
-  var messageEvent = (0,_hooks_useEvent__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(service, _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubEvent.Message */ .ogr.Message);
-  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(connectedEvent, function () {
-    return connectionStatusRegister === null || connectionStatusRegister === void 0 ? void 0 : connectionStatusRegister.refresh();
-  });
-  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(disconnectedEvent, function () {
-    return connectionStatusRegister === null || connectionStatusRegister === void 0 ? void 0 : connectionStatusRegister.refresh();
-  }); // sniff cloud-to-device events
-
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    return messageEvent === null || messageEvent === void 0 ? void 0 : messageEvent.subscribe(_jacdac_ts_src_jdom_constants__WEBPACK_IMPORTED_MODULE_11__/* .EVENT */ .Ks0, function () {
-      var data = messageEvent.data,
-          timestamp = messageEvent.lastDataTimestamp;
-      if (!data) return;
-
-      var _jdunpack = (0,_jacdac_ts_src_jdom_pack__WEBPACK_IMPORTED_MODULE_10__/* .jdunpack */ .TE)(messageEvent.data, "s"),
-          body = _jdunpack[0];
-
-      setCDMessages(function (prevMsgs) {
-        var newMsgs = prevMsgs.slice(0, HORIZON - 1);
-        newMsgs.unshift({
-          counter: cdMessageCounter.current++,
-          timestamp: timestamp,
-          body: body
-        });
-        return newMsgs;
-      });
-    });
-  }, [messageEvent]);
-  var connected = connectionStatus === "ok";
-  var server = (0,_hooks_useServiceServer__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(service);
-  var color = server ? "secondary" : "primary";
-
-  var _useWidgetTheme = (0,_widgets_useWidgetTheme__WEBPACK_IMPORTED_MODULE_12__/* .default */ .Z)(color),
-      textPrimary = _useWidgetTheme.textPrimary;
-
-  var deviceToCloudMessages = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_8__/* .default */ .Z)(server, function (_) {
-    return _ === null || _ === void 0 ? void 0 : _.deviceToCloudMessages;
-  });
-
-  var handleConnect = /*#__PURE__*/function () {
-    var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return service.sendCmdAsync(connected ? _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubCmd.Disconnect */ .r8S.Disconnect : _jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_4__/* .AzureIotHubCmd.Connect */ .r8S.Connect);
-
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }));
-
-    return function handleConnect() {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  var handleSendCloudMessage = /*#__PURE__*/function () {
-    var _ref2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_14__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              return _context2.abrupt("return", server.emitMessage(cdMessage));
-
-            case 1:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function handleSendCloudMessage() {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-
-  var handleCDMessageChange = function handleCDMessageChange(ev) {
-    setCDMessage(ev.target.value || "");
+    var pkt = packet/* default.fromBinary */.Z.fromBinary(data, this.bus.timestamp);
+    if (pkt) this.dispatchPackets([pkt]);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
-    container: true,
-    spacing: 1,
-    style: {
-      color: textPrimary,
-      minWidth: "16rem"
+  _proto.dispatchPackets = function dispatchPackets(pkts) {
+    // bail out if no packets
+    if (!(pkts !== null && pkts !== void 0 && pkts.length)) return;
+    this.packetProcessed += pkts.length;
+
+    for (var _iterator = _createForOfIteratorHelperLoose(pkts), _step; !(_step = _iterator()).done;) {
+      var pkt = _step.value;
+      // tracing the source of packets to avoid self-resending
+      pkt.sender = this.bridgeId; // send to native bus
+
+      this.bus.sendPacketAsync(pkt); // send to javascript bus
+
+      this.bus.processPacket(pkt);
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  };
+
+  _proto.handleSendPacket = function handleSendPacket(pkt) {
+    if (!this._bus || pkt.sender === this.bridgeId) return;
+    this.packetSent++;
+    this.sendPacket(pkt.toBuffer());
+  }
+  /**
+   * Sends packet data over the bridge
+   * @param pkt
+   */
+  ;
+
+  (0,createClass/* default */.Z)(JDBridge, [{
+    key: "bus",
+    get: function get() {
+      return this._bus;
+    },
+    set: function set(newBus) {
+      if (newBus !== this._bus) {
+        if (this._bus) this.unmount();
+        this._bus = newBus;
+
+        if (this._bus) {
+          this.mount(this._bus.subscribe(constants/* PACKET_PROCESS */.wY8, this.handleSendPacket));
+          this.mount(this._bus.subscribe(constants/* PACKET_SEND */.RaS, this.handleSendPacket));
+          this.mount(this._bus.addBridge(this));
+        }
+
+        this.emit(constants/* CHANGE */.Ver);
+      }
+    }
+  }]);
+
+  return JDBridge;
+}(client/* JDClient */.z);
+
+
+// EXTERNAL MODULE: ./node_modules/peerjs/dist/peerjs.min.js
+var peerjs_min = __webpack_require__(35168);
+var peerjs_min_default = /*#__PURE__*/__webpack_require__.n(peerjs_min);
+;// CONCATENATED MODULE: ./src/components/peer/peerjsbridge.ts
+
+
+
+// tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
+
+
+var PeerJSBridge = /*#__PURE__*/function (_JDBridge) {
+  (0,inheritsLoose/* default */.Z)(PeerJSBridge, _JDBridge);
+
+  function PeerJSBridge() {
+    var _this;
+
+    _this = _JDBridge.call(this) || this;
+    _this._connections = [];
+    _this._peer = new (peerjs_min_default())();
+
+    _this._peer.on("open", function () {
+      _this.log("open");
+
+      _this.emit(constants/* CHANGE */.Ver);
+    });
+
+    _this._peer.on("connection", _this.addConnection.bind((0,assertThisInitialized/* default */.Z)(_this)));
+
+    _this._peer.on("disconnected", function () {
+      _this.log("disconnected");
+
+      _this.bus = undefined;
+    });
+
+    _this._peer.on("error", console.error);
+
+    _this.mount(function () {
+      if (!_this._peer.destroyed) {
+        _this._connections = [];
+
+        _this._peer.destroy();
+      }
+    });
+
+    return _this;
+  }
+
+  var _proto = PeerJSBridge.prototype;
+
+  _proto.addConnection = function addConnection(conn) {
+    var _this2 = this;
+
+    this.log("connection");
+
+    this._connections.push(conn);
+
+    conn.on("open", function () {
+      _this2.log("open");
+
+      _this2.emit(constants/* CHANGE */.Ver);
+    });
+    conn.on("data", function (buf) {
+      var data = new Uint8Array(buf);
+
+      _this2.receivePacket(data);
+    });
+    conn.on("close", function () {
+      var i = _this2._connections.indexOf(conn);
+
+      if (i > -1) {
+        _this2._connections.splice(i, 1);
+
+        _this2.emit(constants/* CHANGE */.Ver);
+      }
+    });
+    conn.on("error", console.error);
+    this.emit(constants/* CHANGE */.Ver);
+  };
+
+  _proto.sendPacket = function sendPacket(data) {
+    this._connections.filter(function (conn) {
+      return conn.open;
+    }).forEach(function (conn) {
+      return conn.send(data);
+    });
+  };
+
+  _proto.connect = function connect(id) {
+    var conn = this._peer.connect(id);
+
+    this.addConnection(conn);
+  };
+
+  (0,createClass/* default */.Z)(PeerJSBridge, [{
+    key: "connections",
+    get: function get() {
+      return this._connections;
+    }
+  }, {
+    key: "id",
+    get: function get() {
+      var _this$_peer;
+
+      return (_this$_peer = this._peer) === null || _this$_peer === void 0 ? void 0 : _this$_peer.id;
+    }
+  }]);
+
+  return PeerJSBridge;
+}(JDBridge);
+
+
+// EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
+var GridHeader = __webpack_require__(95393);
+// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
+var Alert = __webpack_require__(95453);
+;// CONCATENATED MODULE: ./src/components/peer/PeerConfiguration.tsx
+
+ // tslint:disable-next-line: no-submodule-imports match-default-export-name
+
+
+
+
+
+
+
+
+function PeerItem(props) {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var peer = props.peer;
+
+  var _ref = (0,useChange/* default */.Z)(peer, function (_) {
+    return _;
+  }) || {},
+      id = _ref.id;
+
+  (0,useChange/* default */.Z)(peer);
+
+  var handleStop = function handleStop() {
+    peer.bus = undefined;
+  };
+
+  var handleStart = function handleStart() {
+    var p = new PeerJSBridge();
+    p.bus = bus;
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_16__/* .default */ .Z, {
-    component: "span",
-    variant: "subtitle1"
-  }, "hub: ", hubName, ", device: ", deviceId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_17__/* .default */ .Z, {
-    checked: connected,
-    "aria-labelledby": connectId,
+  }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(CardContent/* default */.Z, null, /*#__PURE__*/react.createElement(Typography/* default */.Z, null, "Connect to be able join other Jacdac networks."), id && /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    value: id,
+    disabled: true,
+    fullWidth: true,
+    type: "text",
+    label: "peer identifier"
+  })), /*#__PURE__*/react.createElement(CardActions/* default */.Z, null, !id ? /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "contained",
+    color: "primary",
+    onClick: handleStart
+  }, "connect") : /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "contained",
+    onClick: handleStop
+  }, "disconnect"))));
+}
+
+function ConnectItem(props) {
+  var peer = props.peer;
+  var disconnected = !peer;
+
+  var _useChange = (0,useChange/* default */.Z)(peer, function (_) {
+    return _;
+  }),
+      myid = _useChange.id;
+
+  var _useState = (0,react.useState)(""),
+      id = _useState[0],
+      setId = _useState[1];
+
+  var handleChange = function handleChange(ev) {
+    setId(ev.target.value);
+  };
+
+  var handleConnect = function handleConnect() {
+    peer.connect(id);
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12,
+    sm: 6
+  }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(CardContent/* default */.Z, null, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    value: id,
+    onChange: handleChange,
+    fullWidth: true,
+    type: "text",
+    label: "Peer identifier"
+  })), /*#__PURE__*/react.createElement(CardActions/* default */.Z, null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    disabled: disconnected || !id || id === myid,
+    variant: "contained",
     onClick: handleConnect
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
-    className: ".no-pointer-events",
-    id: connectId
-  }, connected ? "connected" : "disconnected", " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_GridHeader__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-    title: "cloud to device",
-    action: server && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_CmdButton__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z, {
-      title: "Send cloud to device message",
-      icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_icons_ArrowDownward__WEBPACK_IMPORTED_MODULE_18__/* .default */ .Z, null),
-      onClick: handleSendCloudMessage,
-      disabled: !connected
-    })
-  }), server && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
+  }, "Join"))));
+}
+
+function ConnectionItem(props) {
+  var connection = props.connection;
+  var label = connection.label;
+
+  var handleDisconnect = function handleDisconnect() {
+    return connection.close();
+  };
+
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
-    xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_19__/* .default */ .Z, {
-    id: cdMessageId,
-    label: "message",
-    value: cdMessage,
-    onChange: handleCDMessageChange,
-    fullWidth: true
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("pre", null, cdMessages === null || cdMessages === void 0 ? void 0 : cdMessages.map(function (m) {
-    return m.counter + ": " + m.body;
-  }).join("\n"))), deviceToCloudMessages && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_GridHeader__WEBPACK_IMPORTED_MODULE_13__/* .default */ .Z, {
-    title: "device to cloud"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__/* .default */ .Z, {
-    item: true,
-    xs: 12
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("pre", null, deviceToCloudMessages.map(function (m) {
-    return m.counter + ": " + m.body;
-  }).join("\n")))));
+    xs: true
+  }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(CardHeader/* default */.Z, {
+    title: label
+  }), /*#__PURE__*/react.createElement(CardActions/* default */.Z, null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "outlined",
+    onClick: handleDisconnect
+  }, "Disconnect"))));
+}
+
+function Peers() {
+  var _useContext2 = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext2.bus;
+
+  var _UIFlags = UIFlags,
+      enabled = _UIFlags.peers;
+  var peer = (0,useChange/* default */.Z)(bus, function (_) {
+    return _.bridges.find(function (b) {
+      return b instanceof PeerJSBridge;
+    });
+  });
+
+  var _ref2 = (0,useChange/* default */.Z)(peer, function (_) {
+    return _;
+  }) || {},
+      connections = _ref2.connections;
+
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("h1", null, "Jacdac Peers"), /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "warning"
+  }, "Experimental feature"), /*#__PURE__*/react.createElement("p", null, "This section allows you to connect multiple Jacdac dashboard in real time over the web (using WebRTC). This functionality uses the \xA0", /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
+    href: "https://peerjs.com/peerserver.html"
+  }, "PeerServer Cloud Service"), "to establish connections. No data is sent through the server."), !enabled && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "error"
+  }, "This functionality is not enabled."), enabled && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 1
+  }, /*#__PURE__*/react.createElement(PeerItem, {
+    peer: peer
+  }), /*#__PURE__*/react.createElement(GridHeader/* default */.Z, {
+    title: "Peers"
+  }), peer && /*#__PURE__*/react.createElement(ConnectItem, {
+    peer: peer
+  }), connections === null || connections === void 0 ? void 0 : connections.map(function (conn) {
+    return /*#__PURE__*/react.createElement(ConnectionItem, {
+      key: conn.label,
+      connection: conn
+    });
+  })));
 }
 
 /***/ }),
@@ -751,7 +984,7 @@ function GridHeader(props) {
     container: true,
     direction: "row",
     spacing: 1,
-    justify: "center",
+    justifyContent: "center",
     alignItems: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
     item: true
@@ -777,6 +1010,21 @@ function GridHeader(props) {
     className: classes.hr
   }))));
 }
+
+/***/ }),
+
+/***/ 15784:
+/***/ (function(module) {
+
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+webpackEmptyContext.id = 15784;
+module.exports = webpackEmptyContext;
 
 /***/ })
 
