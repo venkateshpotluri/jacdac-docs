@@ -11575,6 +11575,8 @@ var DATA_TABLE_TYPE = "DataTable";
 var DATA_SHOW_TABLE_BLOCK = "data_show_table";
 var DATA_RECORD_WINDOW_BLOCK = "data_record_window";
 var DATA_BIN_BLOCK = "data_bin";
+var DATA_CORRELATION_BLOCK = "data_correlation";
+var DATA_LINEAR_REGRESSION_BLOCK = "data_linear_regression";
 var DATA_LOAD_FILE_BLOCK = "data_load_file";
 var DATA_SAVE_FILE_BLOCK = "data_save_file";
 var colour = "#777";
@@ -12008,6 +12010,98 @@ var dataDsl = {
       }()
     }, {
       kind: "block",
+      type: DATA_CORRELATION_BLOCK,
+      message0: "Correlation %1 %2",
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column1"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column2"
+      }],
+      inputsInline: false,
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: colour,
+      template: "meta",
+      transformData: function () {
+        var _transformData3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(block, data) {
+          var column1, column2;
+          return regenerator_default().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  column1 = block.getFieldValue("column1");
+                  column2 = block.getFieldValue("column2");
+                  return _context3.abrupt("return", postTransformData({
+                    type: "correlation",
+                    column1: column1,
+                    column2: column2,
+                    data: data
+                  }));
+
+                case 3:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        function transformData(_x6, _x7) {
+          return _transformData3.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
+    }, {
+      kind: "block",
+      type: DATA_LINEAR_REGRESSION_BLOCK,
+      message0: "Linear Regression %1 %2",
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column1"
+      }, {
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column2"
+      }],
+      inputsInline: false,
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      colour: colour,
+      template: "meta",
+      transformData: function () {
+        var _transformData4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4(block, data) {
+          var column1, column2;
+          return regenerator_default().wrap(function _callee4$(_context4) {
+            while (1) {
+              switch (_context4.prev = _context4.next) {
+                case 0:
+                  column1 = block.getFieldValue("column1");
+                  column2 = block.getFieldValue("column2");
+                  return _context4.abrupt("return", postTransformData({
+                    type: "linear_regression",
+                    column1: column1,
+                    column2: column2,
+                    data: data
+                  }));
+
+                case 3:
+                case "end":
+                  return _context4.stop();
+              }
+            }
+          }, _callee4);
+        }));
+
+        function transformData(_x8, _x9) {
+          return _transformData4.apply(this, arguments);
+        }
+
+        return transformData;
+      }()
+    }, {
+      kind: "block",
       type: DATA_LOAD_FILE_BLOCK,
       message0: "dataset from file %1",
       args0: [{
@@ -12034,35 +12128,35 @@ var dataDsl = {
       inputsInline: false,
       alwaysTransformData: true,
       transformData: function () {
-        var _transformData3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(block, data) {
+        var _transformData5 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee5(block, data) {
           var file;
-          return regenerator_default().wrap(function _callee3$(_context3) {
+          return regenerator_default().wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
                   file = block.getField("file");
 
                   if (!(file !== null && file !== void 0 && file.fileHandle && data)) {
-                    _context3.next = 4;
+                    _context5.next = 4;
                     break;
                   }
 
-                  _context3.next = 4;
+                  _context5.next = 4;
                   return (0,csv_proxy/* saveCSV */.Eg)(file.fileHandle, data);
 
                 case 4:
-                  return _context3.abrupt("return", data);
+                  return _context5.abrupt("return", data);
 
                 case 5:
                 case "end":
-                  return _context3.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee3);
+          }, _callee5);
         }));
 
-        function transformData(_x6, _x7) {
-          return _transformData3.apply(this, arguments);
+        function transformData(_x10, _x11) {
+          return _transformData5.apply(this, arguments);
         }
 
         return transformData;
@@ -12119,6 +12213,15 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_BIN_BLOCK
+      }, {
+        kind: "label",
+        text: "Statistics"
+      }, {
+        kind: "block",
+        type: DATA_CORRELATION_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_LINEAR_REGRESSION_BLOCK
       }, {
         kind: "label",
         text: "Live"
