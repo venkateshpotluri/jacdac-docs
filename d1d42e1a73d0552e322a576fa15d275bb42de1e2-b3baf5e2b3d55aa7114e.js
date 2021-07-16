@@ -12402,13 +12402,12 @@ var dataDsl = {
   },
   createCategory: function createCategory() {
     return [{
+      kind: "sep"
+    }, {
       kind: "category",
-      name: "Data",
+      name: "Data sets",
       colour: colour,
       contents: [{
-        kind: "label",
-        text: "Data sets"
-      }, {
         kind: "block",
         type: DATA_DATASET_BUILTIN_BLOCK
       }, {
@@ -12417,10 +12416,12 @@ var dataDsl = {
       }, {
         kind: "block",
         type: DATA_SAVE_FILE_BLOCK
-      }, {
-        kind: "label",
-        text: "Operators"
-      }, {
+      }]
+    }, {
+      kind: "category",
+      name: "Operators",
+      colour: colour,
+      contents: [{
         kind: "block",
         type: DATA_SHOW_TABLE_BLOCK
       }, {
@@ -12457,24 +12458,25 @@ var dataDsl = {
         kind: "block",
         type: DATA_BIN_BLOCK
       }, {
-        kind: "label",
-        text: "Statistics"
-      }, {
+        kind: "block",
+        type: DATA_RECORD_WINDOW_BLOCK
+      }]
+    }, {
+      kind: "category",
+      name: "Statistics",
+      colour: colour,
+      contents: [{
         kind: "block",
         type: DATA_CORRELATION_BLOCK
       }, {
         kind: "block",
         type: DATA_LINEAR_REGRESSION_BLOCK
-      }, {
-        kind: "label",
-        text: "Live"
-      }, {
-        kind: "block",
-        type: DATA_RECORD_WINDOW_BLOCK
-      }, {
-        kind: "label",
-        text: "Data variables"
-      }, {
+      }]
+    }, {
+      kind: "category",
+      name: "Data variables",
+      colour: colour,
+      contents: [{
         kind: "button",
         text: "Add dataset variable",
         callbackKey: DATA_ADD_VARIABLE_CALLBACK,
