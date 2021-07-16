@@ -175,6 +175,29 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
+/***/ 59713:
+/***/ (function(module) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+module.exports.default = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ 16525:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -563,6 +586,8 @@ module.exports = __webpack_require__(35666);
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
 var _asyncToGenerator = __webpack_require__(48926);
+
+var _defineProperty = __webpack_require__(59713);
 
 var _toConsumableArray = __webpack_require__(319);
 
@@ -1157,13 +1182,14 @@ function quickselect(array, k) {
 
   while (right > left) {
     if (right - left > 600) {
-      var n = right - left + 1;
+      var _n = right - left + 1;
+
       var m = k - left + 1;
-      var z = Math.log(n);
+      var z = Math.log(_n);
       var s = 0.5 * Math.exp(2 * z / 3);
-      var sd = 0.5 * Math.sqrt(z * s * (n - s) / n) * (m - n / 2 < 0 ? -1 : 1);
-      var newLeft = Math.max(left, Math.floor(k - m * s / n + sd));
-      var newRight = Math.min(right, Math.floor(k + (n - m) * s / n + sd));
+      var sd = 0.5 * Math.sqrt(z * s * (_n - s) / _n) * (m - _n / 2 < 0 ? -1 : 1);
+      var newLeft = Math.max(left, Math.floor(k - m * s / _n + sd));
+      var newRight = Math.min(right, Math.floor(k + (_n - m) * s / _n + sd));
       quickselect(array, k, newLeft, newRight, compare);
     }
 
@@ -1288,7 +1314,7 @@ function isEmpty(value) {
   return value == null || value !== value;
 }
 
-function summarize(summarizeSpec, options) {
+function _summarize3(summarizeSpec, options) {
   var _summarize = function _summarize(items) {
     options = options != null ? options : {};
     var summarized = {};
@@ -1771,6 +1797,50 @@ function exportLevels(grouped, options) {
 
   var initialOutputObject = levelSpecs[0].createEmptySubgroup();
   return groupTraversal(grouped, initialOutputObject, [], addSubgroup, addLeaf);
+}
+
+function n() {
+  return function (items) {
+    return items.length;
+  };
+}
+
+function sum$1(key) {
+  var keyFn = typeof key === "function" ? key : function (d) {
+    return d[key];
+  };
+  return function (items) {
+    return fsum(items, keyFn);
+  };
+}
+
+function tally(options) {
+  var _tally = function _tally(items) {
+    var _ref6 = options != null ? options : {},
+        _ref6$name = _ref6.name,
+        name = _ref6$name === void 0 ? "n" : _ref6$name,
+        wt = _ref6.wt;
+
+    var summarized = _summarize3(_defineProperty({}, name, wt == null ? n() : sum$1(wt)))(items);
+
+    return summarized;
+  };
+
+  return _tally;
+}
+
+function count$1(groupKeys, options) {
+  var _count = function _count(items) {
+    options = options != null ? options : {};
+    var _options = options,
+        _options$name = _options.name,
+        name = _options$name === void 0 ? "n" : _options$name,
+        sort = _options.sort;
+    var results = tidy(items, groupBy(groupKeys, [tally(options)]), sort ? _arrange2(desc(name)) : identity$1);
+    return results;
+  };
+
+  return _count;
 }
 
 function keysFromItems(items) {
@@ -2839,6 +2909,41 @@ var handlers = {
         return data;
     }
   },
+  summarize: function summarize(props) {
+    var column = props.column,
+        calc = props.calc,
+        data = props.data;
+    if (!column || !calc) return data;
+
+    switch (calc) {
+      case "mean":
+        return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        _summarize3({
+          mean: mean$1(column)
+        }));
+
+      case "med":
+        return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        _summarize3({
+          median: median(column)
+        }));
+
+      case "min":
+        return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        _summarize3({
+          min: min(column)
+        }));
+
+      case "max":
+        return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        _summarize3({
+          max: max(column)
+        }));
+
+      default:
+        return data;
+    }
+  },
   summarize_by_group: function summarize_by_group(props) {
     var column = props.column,
         by = props.by,
@@ -2850,32 +2955,39 @@ var handlers = {
       case "mean":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groupBy(by, [// eslint-disable-next-line @typescript-eslint/no-explicit-any
-        summarize({
+        _summarize3({
           mean: mean$1(column)
         })]));
 
       case "med":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
         groupBy(by, [// eslint-disable-next-line @typescript-eslint/no-explicit-any
-        summarize({
+        _summarize3({
           median: median(column)
         })]));
 
       case "min":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        groupBy(by, [summarize({
+        groupBy(by, [_summarize3({
           min: min(column)
         })]));
 
       case "max":
         return tidy(data, // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        groupBy(by, [summarize({
+        groupBy(by, [_summarize3({
           max: max(column)
         })]));
 
       default:
         return data;
     }
+  },
+  count: function count(props) {
+    var column = props.column,
+        data = props.data;
+    if (!column) return data; // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    return tidy(data, count$1(column));
   },
   record_window: function record_window(props) {
     var _previousData;

@@ -11566,7 +11566,9 @@ var DATA_FILTER_COLUMNS_BLOCK = "data_filter_columns";
 var DATA_FILTER_STRING_BLOCK = "data_filter_string";
 var DATA_MUTATE_COLUMNS_BLOCK = "data_mutate_columns";
 var DATA_MUTATE_NUMBER_BLOCK = "data_mutate_number";
+var DATA_SUMMARIZE_BLOCK = "data_summarize";
 var DATA_SUMMARIZE_BY_GROUP_BLOCK = "data_summarize_by_group";
+var DATA_COUNT_BLOCK = "data_count";
 var DATA_ADD_VARIABLE_CALLBACK = "data_add_variable";
 var DATA_DATAVARIABLE_READ_BLOCK = "data_dataset_read";
 var DATA_DATAVARIABLE_WRITE_BLOCK = "data_dataset_write";
@@ -11825,6 +11827,33 @@ var dataDsl = {
       template: "meta"
     }, {
       kind: "block",
+      type: DATA_SUMMARIZE_BLOCK,
+      message0: "summarize %1 calculate %2",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column"
+      }, {
+        type: "field_dropdown",
+        name: "calc",
+        options: [["mean", "mean"], ["median", "med"], ["min", "min"], ["max", "max"]]
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var column = b.getFieldValue("column");
+        var calc = b.getFieldValue("calc");
+        return postTransformData({
+          type: "summarize",
+          column: column,
+          calc: calc,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
       type: DATA_SUMMARIZE_BY_GROUP_BLOCK,
       message0: "group %1 by %2 calculate %3",
       colour: colour,
@@ -11851,6 +11880,27 @@ var dataDsl = {
           column: column,
           by: by,
           calc: calc,
+          data: data
+        });
+      },
+      template: "meta"
+    }, {
+      kind: "block",
+      type: DATA_COUNT_BLOCK,
+      message0: "count %1",
+      colour: colour,
+      args0: [{
+        type: DataColumnChooserField/* default.KEY */.Z.KEY,
+        name: "column"
+      }],
+      previousStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      nextStatement: toolbox/* DATA_SCIENCE_STATEMENT_TYPE */.zN,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformData: function transformData(b, data) {
+        var column = b.getFieldValue("column");
+        return postTransformData({
+          type: "count",
+          column: column,
           data: data
         });
       },
@@ -12209,7 +12259,13 @@ var dataDsl = {
         type: DATA_MUTATE_NUMBER_BLOCK
       }, {
         kind: "block",
+        type: DATA_SUMMARIZE_BLOCK
+      }, {
+        kind: "block",
         type: DATA_SUMMARIZE_BY_GROUP_BLOCK
+      }, {
+        kind: "block",
+        type: DATA_COUNT_BLOCK
       }, {
         kind: "block",
         type: DATA_BIN_BLOCK
