@@ -706,7 +706,9 @@ function AppDrawer(props) {
     pagePath: pagePath
   })), !showSearchResults && drawerType === AppContext/* DrawerType.Packets */.jw.Packets ? /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(PacketView, {
     showTime: true
-  })) : drawerType === AppContext/* DrawerType.Dom */.jw.Dom ? /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(ConnectAlert/* default */.Z, null), /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomTreeView, null))) : undefined);
+  })) : drawerType === AppContext/* DrawerType.Dom */.jw.Dom ? /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(ConnectAlert/* default */.Z, {
+    closeable: true
+  }), /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(JDomTreeView, null))) : undefined);
 }
 
 /***/ }),
@@ -748,7 +750,8 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__/* .default */ 
 
 function NoSsrConnectAlert(props) {
   var classes = useStyles();
-  var serviceClass = props.serviceClass;
+  var serviceClass = props.serviceClass,
+      closeable = props.closeable;
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z),
       bus = _useContext.bus;
@@ -767,7 +770,7 @@ function NoSsrConnectAlert(props) {
     displayPrint: "none"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_ui_Alert__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z, {
     severity: "info",
-    closeable: true
+    closeable: closeable
   }, !spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, "Did you connect your device?"), spec && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("span", null, "Did you connect a ", spec.name, " device?"), transports.map(function (transport) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_buttons_ConnectButton__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
       key: transport.type,
