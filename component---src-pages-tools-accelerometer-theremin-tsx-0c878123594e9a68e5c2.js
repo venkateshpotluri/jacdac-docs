@@ -1,467 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[7378],{
-
-/***/ 4998:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": function() { return /* binding */ Chip_Chip; }
-});
-
-// UNUSED EXPORTS: styles
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(22122);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js
-var objectWithoutProperties = __webpack_require__(81253);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/clsx/dist/clsx.m.js
-var clsx_m = __webpack_require__(85505);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/createSvgIcon.js
-var createSvgIcon = __webpack_require__(6018);
-;// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/internal/svg-icons/Cancel.js
-
-
-/**
- * @ignore - internal component.
- */
-
-/* harmony default export */ var Cancel = ((0,createSvgIcon/* default */.Z)( /*#__PURE__*/react.createElement("path", {
-  d: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
-}), 'Cancel'));
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/withStyles.js
-var withStyles = __webpack_require__(34621);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/colorManipulator.js
-var colorManipulator = __webpack_require__(37595);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/useForkRef.js
-var useForkRef = __webpack_require__(11291);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/utils/capitalize.js
-var capitalize = __webpack_require__(81664);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/ButtonBase/ButtonBase.js + 4 modules
-var ButtonBase = __webpack_require__(67055);
-;// CONCATENATED MODULE: ./node_modules/@material-ui/core/esm/Chip/Chip.js
-
-
-
-
-
-
-
-
-
-
-
-var styles = function styles(theme) {
-  var backgroundColor = theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700];
-  var deleteIconColor = (0,colorManipulator/* alpha */.Fq)(theme.palette.text.primary, 0.26);
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      fontFamily: theme.typography.fontFamily,
-      fontSize: theme.typography.pxToRem(13),
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 32,
-      color: theme.palette.getContrastText(backgroundColor),
-      backgroundColor: backgroundColor,
-      borderRadius: 32 / 2,
-      whiteSpace: 'nowrap',
-      transition: theme.transitions.create(['background-color', 'box-shadow']),
-      // label will inherit this from root, then `clickable` class overrides this for both
-      cursor: 'default',
-      // We disable the focus ring for mouse, touch and keyboard users.
-      outline: 0,
-      textDecoration: 'none',
-      border: 'none',
-      // Remove `button` border
-      padding: 0,
-      // Remove `button` padding
-      verticalAlign: 'middle',
-      boxSizing: 'border-box',
-      '&$disabled': {
-        opacity: 0.5,
-        pointerEvents: 'none'
-      },
-      '& $avatar': {
-        marginLeft: 5,
-        marginRight: -6,
-        width: 24,
-        height: 24,
-        color: theme.palette.type === 'light' ? theme.palette.grey[700] : theme.palette.grey[300],
-        fontSize: theme.typography.pxToRem(12)
-      },
-      '& $avatarColorPrimary': {
-        color: theme.palette.primary.contrastText,
-        backgroundColor: theme.palette.primary.dark
-      },
-      '& $avatarColorSecondary': {
-        color: theme.palette.secondary.contrastText,
-        backgroundColor: theme.palette.secondary.dark
-      },
-      '& $avatarSmall': {
-        marginLeft: 4,
-        marginRight: -4,
-        width: 18,
-        height: 18,
-        fontSize: theme.typography.pxToRem(10)
-      }
-    },
-
-    /* Styles applied to the root element if `size="small"`. */
-    sizeSmall: {
-      height: 24
-    },
-
-    /* Styles applied to the root element if `color="primary"`. */
-    colorPrimary: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText
-    },
-
-    /* Styles applied to the root element if `color="secondary"`. */
-    colorSecondary: {
-      backgroundColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText
-    },
-
-    /* Pseudo-class applied to the root element if `disabled={true}`. */
-    disabled: {},
-
-    /* Styles applied to the root element if `onClick` is defined or `clickable={true}`. */
-    clickable: {
-      userSelect: 'none',
-      WebkitTapHighlightColor: 'transparent',
-      cursor: 'pointer',
-      '&:hover, &:focus': {
-        backgroundColor: (0,colorManipulator/* emphasize */._4)(backgroundColor, 0.08)
-      },
-      '&:active': {
-        boxShadow: theme.shadows[1]
-      }
-    },
-
-    /* Styles applied to the root element if `onClick` and `color="primary"` is defined or `clickable={true}`. */
-    clickableColorPrimary: {
-      '&:hover, &:focus': {
-        backgroundColor: (0,colorManipulator/* emphasize */._4)(theme.palette.primary.main, 0.08)
-      }
-    },
-
-    /* Styles applied to the root element if `onClick` and `color="secondary"` is defined or `clickable={true}`. */
-    clickableColorSecondary: {
-      '&:hover, &:focus': {
-        backgroundColor: (0,colorManipulator/* emphasize */._4)(theme.palette.secondary.main, 0.08)
-      }
-    },
-
-    /* Styles applied to the root element if `onDelete` is defined. */
-    deletable: {
-      '&:focus': {
-        backgroundColor: (0,colorManipulator/* emphasize */._4)(backgroundColor, 0.08)
-      }
-    },
-
-    /* Styles applied to the root element if `onDelete` and `color="primary"` is defined. */
-    deletableColorPrimary: {
-      '&:focus': {
-        backgroundColor: (0,colorManipulator/* emphasize */._4)(theme.palette.primary.main, 0.2)
-      }
-    },
-
-    /* Styles applied to the root element if `onDelete` and `color="secondary"` is defined. */
-    deletableColorSecondary: {
-      '&:focus': {
-        backgroundColor: (0,colorManipulator/* emphasize */._4)(theme.palette.secondary.main, 0.2)
-      }
-    },
-
-    /* Styles applied to the root element if `variant="outlined"`. */
-    outlined: {
-      backgroundColor: 'transparent',
-      border: "1px solid ".concat(theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)'),
-      '$clickable&:hover, $clickable&:focus, $deletable&:focus': {
-        backgroundColor: (0,colorManipulator/* alpha */.Fq)(theme.palette.text.primary, theme.palette.action.hoverOpacity)
-      },
-      '& $avatar': {
-        marginLeft: 4
-      },
-      '& $avatarSmall': {
-        marginLeft: 2
-      },
-      '& $icon': {
-        marginLeft: 4
-      },
-      '& $iconSmall': {
-        marginLeft: 2
-      },
-      '& $deleteIcon': {
-        marginRight: 5
-      },
-      '& $deleteIconSmall': {
-        marginRight: 3
-      }
-    },
-
-    /* Styles applied to the root element if `variant="outlined"` and `color="primary"`. */
-    outlinedPrimary: {
-      color: theme.palette.primary.main,
-      border: "1px solid ".concat(theme.palette.primary.main),
-      '$clickable&:hover, $clickable&:focus, $deletable&:focus': {
-        backgroundColor: (0,colorManipulator/* alpha */.Fq)(theme.palette.primary.main, theme.palette.action.hoverOpacity)
-      }
-    },
-
-    /* Styles applied to the root element if `variant="outlined"` and `color="secondary"`. */
-    outlinedSecondary: {
-      color: theme.palette.secondary.main,
-      border: "1px solid ".concat(theme.palette.secondary.main),
-      '$clickable&:hover, $clickable&:focus, $deletable&:focus': {
-        backgroundColor: (0,colorManipulator/* alpha */.Fq)(theme.palette.secondary.main, theme.palette.action.hoverOpacity)
-      }
-    },
-    // TODO v5: remove
-
-    /* Styles applied to the `avatar` element. */
-    avatar: {},
-
-    /* Styles applied to the `avatar` element if `size="small"`. */
-    avatarSmall: {},
-
-    /* Styles applied to the `avatar` element if `color="primary"`. */
-    avatarColorPrimary: {},
-
-    /* Styles applied to the `avatar` element if `color="secondary"`. */
-    avatarColorSecondary: {},
-
-    /* Styles applied to the `icon` element. */
-    icon: {
-      color: theme.palette.type === 'light' ? theme.palette.grey[700] : theme.palette.grey[300],
-      marginLeft: 5,
-      marginRight: -6
-    },
-
-    /* Styles applied to the `icon` element if `size="small"`. */
-    iconSmall: {
-      width: 18,
-      height: 18,
-      marginLeft: 4,
-      marginRight: -4
-    },
-
-    /* Styles applied to the `icon` element if `color="primary"`. */
-    iconColorPrimary: {
-      color: 'inherit'
-    },
-
-    /* Styles applied to the `icon` element if `color="secondary"`. */
-    iconColorSecondary: {
-      color: 'inherit'
-    },
-
-    /* Styles applied to the label `span` element. */
-    label: {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      paddingLeft: 12,
-      paddingRight: 12,
-      whiteSpace: 'nowrap'
-    },
-
-    /* Styles applied to the label `span` element if `size="small"`. */
-    labelSmall: {
-      paddingLeft: 8,
-      paddingRight: 8
-    },
-
-    /* Styles applied to the `deleteIcon` element. */
-    deleteIcon: {
-      WebkitTapHighlightColor: 'transparent',
-      color: deleteIconColor,
-      height: 22,
-      width: 22,
-      cursor: 'pointer',
-      margin: '0 5px 0 -6px',
-      '&:hover': {
-        color: (0,colorManipulator/* alpha */.Fq)(deleteIconColor, 0.4)
-      }
-    },
-
-    /* Styles applied to the `deleteIcon` element if `size="small"`. */
-    deleteIconSmall: {
-      height: 16,
-      width: 16,
-      marginRight: 4,
-      marginLeft: -4
-    },
-
-    /* Styles applied to the deleteIcon element if `color="primary"` and `variant="default"`. */
-    deleteIconColorPrimary: {
-      color: (0,colorManipulator/* alpha */.Fq)(theme.palette.primary.contrastText, 0.7),
-      '&:hover, &:active': {
-        color: theme.palette.primary.contrastText
-      }
-    },
-
-    /* Styles applied to the deleteIcon element if `color="secondary"` and `variant="default"`. */
-    deleteIconColorSecondary: {
-      color: (0,colorManipulator/* alpha */.Fq)(theme.palette.secondary.contrastText, 0.7),
-      '&:hover, &:active': {
-        color: theme.palette.secondary.contrastText
-      }
-    },
-
-    /* Styles applied to the deleteIcon element if `color="primary"` and `variant="outlined"`. */
-    deleteIconOutlinedColorPrimary: {
-      color: (0,colorManipulator/* alpha */.Fq)(theme.palette.primary.main, 0.7),
-      '&:hover, &:active': {
-        color: theme.palette.primary.main
-      }
-    },
-
-    /* Styles applied to the deleteIcon element if `color="secondary"` and `variant="outlined"`. */
-    deleteIconOutlinedColorSecondary: {
-      color: (0,colorManipulator/* alpha */.Fq)(theme.palette.secondary.main, 0.7),
-      '&:hover, &:active': {
-        color: theme.palette.secondary.main
-      }
-    }
-  };
-};
-
-function isDeleteKeyboardEvent(keyboardEvent) {
-  return keyboardEvent.key === 'Backspace' || keyboardEvent.key === 'Delete';
-}
-/**
- * Chips represent complex entities in small blocks, such as a contact.
- */
-
-
-var Chip = /*#__PURE__*/react.forwardRef(function Chip(props, ref) {
-  var avatarProp = props.avatar,
-      classes = props.classes,
-      className = props.className,
-      clickableProp = props.clickable,
-      _props$color = props.color,
-      color = _props$color === void 0 ? 'default' : _props$color,
-      ComponentProp = props.component,
-      deleteIconProp = props.deleteIcon,
-      _props$disabled = props.disabled,
-      disabled = _props$disabled === void 0 ? false : _props$disabled,
-      iconProp = props.icon,
-      label = props.label,
-      onClick = props.onClick,
-      onDelete = props.onDelete,
-      onKeyDown = props.onKeyDown,
-      onKeyUp = props.onKeyUp,
-      _props$size = props.size,
-      size = _props$size === void 0 ? 'medium' : _props$size,
-      _props$variant = props.variant,
-      variant = _props$variant === void 0 ? 'default' : _props$variant,
-      other = (0,objectWithoutProperties/* default */.Z)(props, ["avatar", "classes", "className", "clickable", "color", "component", "deleteIcon", "disabled", "icon", "label", "onClick", "onDelete", "onKeyDown", "onKeyUp", "size", "variant"]);
-
-  var chipRef = react.useRef(null);
-  var handleRef = (0,useForkRef/* default */.Z)(chipRef, ref);
-
-  var handleDeleteIconClick = function handleDeleteIconClick(event) {
-    // Stop the event from bubbling up to the `Chip`
-    event.stopPropagation();
-
-    if (onDelete) {
-      onDelete(event);
-    }
-  };
-
-  var handleKeyDown = function handleKeyDown(event) {
-    // Ignore events from children of `Chip`.
-    if (event.currentTarget === event.target && isDeleteKeyboardEvent(event)) {
-      // will be handled in keyUp, otherwise some browsers
-      // might init navigation
-      event.preventDefault();
-    }
-
-    if (onKeyDown) {
-      onKeyDown(event);
-    }
-  };
-
-  var handleKeyUp = function handleKeyUp(event) {
-    // Ignore events from children of `Chip`.
-    if (event.currentTarget === event.target) {
-      if (onDelete && isDeleteKeyboardEvent(event)) {
-        onDelete(event);
-      } else if (event.key === 'Escape' && chipRef.current) {
-        chipRef.current.blur();
-      }
-    }
-
-    if (onKeyUp) {
-      onKeyUp(event);
-    }
-  };
-
-  var clickable = clickableProp !== false && onClick ? true : clickableProp;
-  var small = size === 'small';
-  var Component = ComponentProp || (clickable ? ButtonBase/* default */.Z : 'div');
-  var moreProps = Component === ButtonBase/* default */.Z ? {
-    component: 'div'
-  } : {};
-  var deleteIcon = null;
-
-  if (onDelete) {
-    var customClasses = (0,clsx_m/* default */.Z)(color !== 'default' && (variant === "default" ? classes["deleteIconColor".concat((0,capitalize/* default */.Z)(color))] : classes["deleteIconOutlinedColor".concat((0,capitalize/* default */.Z)(color))]), small && classes.deleteIconSmall);
-    deleteIcon = deleteIconProp && /*#__PURE__*/react.isValidElement(deleteIconProp) ? /*#__PURE__*/react.cloneElement(deleteIconProp, {
-      className: (0,clsx_m/* default */.Z)(deleteIconProp.props.className, classes.deleteIcon, customClasses),
-      onClick: handleDeleteIconClick
-    }) : /*#__PURE__*/react.createElement(Cancel, {
-      className: (0,clsx_m/* default */.Z)(classes.deleteIcon, customClasses),
-      onClick: handleDeleteIconClick
-    });
-  }
-
-  var avatar = null;
-
-  if (avatarProp && /*#__PURE__*/react.isValidElement(avatarProp)) {
-    avatar = /*#__PURE__*/react.cloneElement(avatarProp, {
-      className: (0,clsx_m/* default */.Z)(classes.avatar, avatarProp.props.className, small && classes.avatarSmall, color !== 'default' && classes["avatarColor".concat((0,capitalize/* default */.Z)(color))])
-    });
-  }
-
-  var icon = null;
-
-  if (iconProp && /*#__PURE__*/react.isValidElement(iconProp)) {
-    icon = /*#__PURE__*/react.cloneElement(iconProp, {
-      className: (0,clsx_m/* default */.Z)(classes.icon, iconProp.props.className, small && classes.iconSmall, color !== 'default' && classes["iconColor".concat((0,capitalize/* default */.Z)(color))])
-    });
-  }
-
-  if (false) {}
-
-  return /*#__PURE__*/react.createElement(Component, (0,esm_extends/* default */.Z)({
-    role: clickable || onDelete ? 'button' : undefined,
-    className: (0,clsx_m/* default */.Z)(classes.root, className, color !== 'default' && [classes["color".concat((0,capitalize/* default */.Z)(color))], clickable && classes["clickableColor".concat((0,capitalize/* default */.Z)(color))], onDelete && classes["deletableColor".concat((0,capitalize/* default */.Z)(color))]], variant !== "default" && [classes.outlined, {
-      'primary': classes.outlinedPrimary,
-      'secondary': classes.outlinedSecondary
-    }[color]], disabled && classes.disabled, small && classes.sizeSmall, clickable && classes.clickable, onDelete && classes.deletable),
-    "aria-disabled": disabled ? true : undefined,
-    tabIndex: clickable || onDelete ? 0 : undefined,
-    onClick: onClick,
-    onKeyDown: handleKeyDown,
-    onKeyUp: handleKeyUp,
-    ref: handleRef
-  }, moreProps, other), avatar || icon, /*#__PURE__*/react.createElement("span", {
-    className: (0,clsx_m/* default */.Z)(classes.label, small && classes.labelSmall)
-  }, label), deleteIcon);
-});
- false ? 0 : void 0;
-/* harmony default export */ var Chip_Chip = ((0,withStyles/* default */.Z)(styles, {
-  name: 'MuiChip'
-})(Chip));
-
-/***/ }),
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[5023],{
 
 /***/ 88880:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
@@ -755,23 +292,38 @@ function SimulateDeviceHint() {
     onClick: handleStartSimulator(constants/* SRV_BUTTON */.XJR),
     title: "button",
     "aria-label": "start button simulator"
-  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "button emoji",
+    role: "img"
+  }, "\uD83D\uDD18")), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_BUZZER */.J1$),
     title: "buzzer",
     "aria-label": "start buzzer simulator"
-  }, "\uD83C\uDFB9"), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "piano emoji",
+    role: "img"
+  }, "\uD83C\uDFB9")), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_JOYSTICK */.vRO),
     title: "joystick",
     "aria-label": "start joystick simulator"
-  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "joystick emoji",
+    role: "img"
+  }, "\uD83D\uDD79\uFE0F")), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_LED */.i04),
     title: "LED",
     "aria-label": "start LED simulator"
-  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "lightbulb emoji",
+    role: "img"
+  }, "\uD83D\uDCA1")), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_TRAFFIC_LIGHT */.jHN),
     title: "traffic light",
     "aria-label": "start traffic light simulator"
-  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "traffic light emoji",
+    role: "img"
+  }, "\uD83D\uDEA6")), ", ...) by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "start simulator",
     onClick: toggleShowDeviceHostsDialog
   }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), ".");
@@ -996,6 +548,31 @@ function DashboardDeviceItem(props) {
 
 /***/ }),
 
+/***/ 2928:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ useServices; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_Context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20392);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
+
+
+
+function useServices(options) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_jacdac_Context__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z),
+      bus = _useContext.bus;
+
+  var services = (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z)(bus, function (b) {
+    return b.services(options);
+  }, [JSON.stringify(options)]);
+  return services;
+}
+
+/***/ }),
+
 /***/ 95393:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1067,25 +644,315 @@ function GridHeader(props) {
 
 /***/ }),
 
-/***/ 54542:
+/***/ 82702:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ Page; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65063);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ AccelerometerTheremin; }
+});
+
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(92137);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(87757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/constants.ts
+var constants = __webpack_require__(71815);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
+// EXTERNAL MODULE: ./src/components/hooks/useServices.ts
+var useServices = __webpack_require__(2928);
+// EXTERNAL MODULE: ./src/components/ui/GridHeader.tsx
+var GridHeader = __webpack_require__(95393);
+// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
+var gatsby_theme_material_ui = __webpack_require__(36176);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Grid/Grid.js
+var Grid = __webpack_require__(80838);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Card/Card.js
+var Card = __webpack_require__(85420);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardContent/CardContent.js
+var CardContent = __webpack_require__(29114);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Typography/Typography.js
+var Typography = __webpack_require__(80453);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardActions/CardActions.js
+var CardActions = __webpack_require__(31186);
+// EXTERNAL MODULE: ./src/components/alert/ConnectAlert.tsx
+var ConnectAlert = __webpack_require__(94431);
+// EXTERNAL MODULE: ./src/components/DeviceCardHeader.tsx + 2 modules
+var DeviceCardHeader = __webpack_require__(31477);
+// EXTERNAL MODULE: ./src/jacdac/Context.tsx
+var Context = __webpack_require__(20392);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/servers.ts + 24 modules
+var servers = __webpack_require__(48363);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/packet.ts
+var packet = __webpack_require__(57683);
+// EXTERNAL MODULE: ./jacdac-ts/src/servers/buzzerserver.ts
+var buzzerserver = __webpack_require__(69589);
+// EXTERNAL MODULE: ./src/components/ui/WebAudioContext.tsx
+var WebAudioContext = __webpack_require__(94564);
+;// CONCATENATED MODULE: ./src/components/hooks/usePlayTone.tsx
 
 
-function Page() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-    showAvatar: true,
-    showHeader: true,
-    showConnect: true,
-    showStartSimulators: true
+
+
+
+
+
+
+
+
+function usePlayTone() {
+  var _useContext = (0,react.useContext)(Context/* default */.Z),
+      bus = _useContext.bus;
+
+  var buzzers = (0,useServices/* default */.Z)({
+    serviceClass: constants/* SRV_BUZZER */.J1$
   });
+
+  var _useState = (0,react.useState)(),
+      buzzerServer = _useState[0],
+      setBuzzerServer = _useState[1];
+
+  var _useContext2 = (0,react.useContext)(WebAudioContext/* default */.ZP),
+      playTone = _useContext2.playTone,
+      onClickActivateAudioContext = _useContext2.onClickActivateAudioContext,
+      activated = _useContext2.activated; // useEffect invokes a function call whenever the variables
+  // (passed as an array) change.
+  // if clean up is required, return a clean up callback
+  //
+  // listen for playTone commands from the buzzer via subscribe
+  // subscribe returns a clean up function that is invoked when the user
+  // browses away from the page.
+  // playtone uses the audio context set in handleBrowserAudioEnable
+
+
+  (0,react.useEffect)(function () {
+    return buzzerServer === null || buzzerServer === void 0 ? void 0 : buzzerServer.subscribe(buzzerserver/* default.PLAY_TONE */.Z.PLAY_TONE, function (_ref) {
+      var frequency = _ref.frequency,
+          duration = _ref.duration,
+          volume = _ref.volume;
+      return playTone(frequency, duration, volume);
+    });
+  }, [buzzerServer]); // clean out buzzer server on page close.
+  // defines an empty function that returns a function.
+  // invoked each time buzzerServer changes
+
+  (0,react.useEffect)(function () {
+    return function () {
+      return (buzzerServer === null || buzzerServer === void 0 ? void 0 : buzzerServer.device) && bus.removeServiceProvider(buzzerServer.device);
+    };
+  }, [buzzerServer]); // when start browser audio button is clicked:
+  // get a browser audio context
+  // spin up a virtual buzzer that we latermap to the browser audio engine
+
+  var toggleBrowserAudio = function toggleBrowserAudio() {
+    // browser security dictates that the audio context be used within a click event
+    // must be done once to allow background sounds
+    onClickActivateAudioContext();
+
+    if (!buzzerServer) {
+      var dev = (0,servers/* startServiceProviderFromServiceClass */.V6)(bus, constants/* SRV_BUZZER */.J1$);
+      var srv = dev.services().find(function (s) {
+        return s.serviceClass === constants/* SRV_BUZZER */.J1$;
+      });
+      setBuzzerServer(srv);
+    } else {
+      setBuzzerServer(undefined);
+    }
+  };
+
+  var buzzerPlayTone = (0,react.useCallback)( /*#__PURE__*/function () {
+    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(frequency, duration, volume) {
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return Promise.all( // for each buzzer, map x acceleration to buzzer output
+              buzzers === null || buzzers === void 0 ? void 0 : buzzers.map( /*#__PURE__*/function () {
+                var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(buzzer) {
+                  var pkt;
+                  return regenerator_default().wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          pkt = packet/* default.from */.Z.from(constants/* BuzzerCmd.PlayTone */.Rv2.PlayTone, (0,buzzerserver/* tonePayload */.x)(frequency, duration, volume));
+                          _context.next = 3;
+                          return buzzer.sendPacketAsync(pkt);
+
+                        case 3:
+                        case "end":
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee);
+                }));
+
+                return function (_x4) {
+                  return _ref3.apply(this, arguments);
+                };
+              }()));
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x, _x2, _x3) {
+      return _ref2.apply(this, arguments);
+    };
+  }(), [buzzers]);
+  var browserAudio = activated && !!buzzerServer;
+  return {
+    playTone: buzzerPlayTone,
+    toggleBrowserAudio: toggleBrowserAudio,
+    browserAudio: browserAudio
+  };
+}
+// EXTERNAL MODULE: ./src/components/dashboard/Dashboard.tsx + 3 modules
+var Dashboard = __webpack_require__(65063);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+;// CONCATENATED MODULE: ./src/pages/tools/accelerometer-theremin.tsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var TONE_DURATION = 50;
+var TONE_THROTTLE = 100; // this is a React component that gets run numerous time,
+// whenever a change is detected in the React state
+// for example, useServices is a hook that tracks the accelerometer services,
+// so it will render again and update the accelerometers array whenever the bus connects/disconnects
+// an accelerometer
+
+function AccelerometerTheremin() {
+  var _usePlayTone = usePlayTone(),
+      playTone = _usePlayTone.playTone,
+      toggleBrowserAudio = _usePlayTone.toggleBrowserAudio,
+      browserAudio = _usePlayTone.browserAudio; // identifiers for accessibility
+
+
+  var sectionId = (0,react_use_id_hook_esm/* useId */.Me)(); // useServices accepts a number of filters and returns any services that match
+  // get all accelerometer + buzzer services
+  // under the hood, it uses the bus and events.
+
+  var accelerometers = (0,useServices/* default */.Z)({
+    serviceClass: constants/* SRV_ACCELEROMETER */.QF7
+  }); // create two state variables to hold the service selected as our accelerometer
+  // and the virtual buzzerServer created when someone turns audio on on the page
+  // when using setAccelService/setBuzzerServer, React will render again this component
+
+  var _useState = (0,react.useState)(),
+      accelService = _useState[0],
+      setAccelService = _useState[1]; // use a closure to capture accel variable
+  // act as a toggle for the button the indicates streaming state.
+
+
+  var handleSelectAccelerometerService = function handleSelectAccelerometerService(accel) {
+    return function () {
+      accelService == accel ? setAccelService(undefined) : setAccelService(accel);
+    };
+  }; // filter to only show accelerometers in dashboard
+
+
+  var dashboardDeviceFilter = function dashboardDeviceFilter(d) {
+    return d.hasService(constants/* SRV_ACCELEROMETER */.QF7);
+  }; // register for accelerometer data events
+
+
+  (0,react.useEffect)(function () {
+    // ?. checks that the callee is defined
+    var unsubs = accelService === null || accelService === void 0 ? void 0 : accelService.readingRegister.subscribe(constants/* REPORT_UPDATE */.rGZ, // don't trigger more than every 100ms
+    (0,utils/* throttle */.P2)( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var _accelService$reading, x;
+
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              // get x acceleration data
+              _accelService$reading = accelService.readingRegister.unpackedValue, x = _accelService$reading[0]; // get all acceleration data
+              // const [x, y, z] = accelService.readingRegister.unpackedValue
+
+              _context.next = 3;
+              return playTone(1000 + x * 1000, TONE_DURATION, 1);
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })), TONE_THROTTLE)); // cleanup callback
+
+    return function () {
+      return unsubs === null || unsubs === void 0 ? void 0 : unsubs();
+    };
+  }, [accelService, playTone]); // re-register if accelerometers, buzzers change
+
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("section", {
+    id: sectionId
+  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    container: true,
+    spacing: 2
+  }, /*#__PURE__*/react.createElement(GridHeader/* default */.Z, {
+    title: "Audio controls"
+  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+    variant: "outlined",
+    onClick: toggleBrowserAudio
+  }, browserAudio ? "Stop browser audio" : "Start browser audio")), !accelerometers.length && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(GridHeader/* default */.Z, {
+    title: "Connect a device"
+  }), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: true
+  }, /*#__PURE__*/react.createElement(ConnectAlert/* default */.Z, {
+    serviceClass: constants/* SRV_ACCELEROMETER */.QF7
+  }))), !!accelerometers.length && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(GridHeader/* default */.Z, {
+    title: "Available accelerometers"
+  }), accelerometers.map(function (accelerometer) {
+    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+      item: true,
+      xs: 12,
+      sm: 6,
+      lg: 4,
+      xl: 3,
+      key: accelerometer.id
+    }, /*#__PURE__*/react.createElement(Card/* default */.Z, null, /*#__PURE__*/react.createElement(DeviceCardHeader/* default */.Z, {
+      device: accelerometer.device,
+      showAvatar: true,
+      showMedia: true
+    }), /*#__PURE__*/react.createElement(CardContent/* default */.Z, null, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+      variant: "h5"
+    }, (accelerometer === accelService ? "Streaming from " : "") + (accelerometer.device.physical ? "Physical " : "Virtual ") + ("Accelerometer " + accelerometer.friendlyName))), /*#__PURE__*/react.createElement(CardActions/* default */.Z, null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Button, {
+      variant: "outlined",
+      onClick: handleSelectAccelerometerService(accelerometer)
+    }, accelerometer === accelService ? "Stop streaming" : "Start streaming"))));
+  })))), /*#__PURE__*/react.createElement(Dashboard/* default */.Z, {
+    deviceFilter: dashboardDeviceFilter
+  }));
 }
 
 /***/ })

@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-357c62ece946ec8c297a.js"
+    "url": "webpack-runtime-b3ba02629fa4f579360a.js"
   },
   {
     "url": "styles.93b64694aab152332397.css"
@@ -43,7 +43,7 @@ self.__precacheManifest = [
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "b113739b110d8f816042e47a7509213c"
+    "revision": "d2648c1752f421dfee7645328da518a5"
   },
   {
     "url": "static/webfonts/s/roboto/v27/KFOlCnqEu92Fr1MmSU5fBBc4.woff2"
@@ -63,11 +63,11 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2307937736.json",
-    "revision": "1effa85ba06fe5fd662ac3c468a2472f"
+    "revision": "98f42b4d66333127f7bdbad7fa0955bd"
   },
   {
     "url": "page-data/sq/d/2744294623.json",
-    "revision": "61df647d8c3b7beec2119ca562a5c156"
+    "revision": "11093c5c2c18f92bf5bf8cf9105a1677"
   },
   {
     "url": "page-data/sq/d/2898794040.json",
@@ -75,7 +75,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/413816803.json",
-    "revision": "361f45b287f94174f9e92d3a51e4c323"
+    "revision": "5d4394bfc2e3c9c19d801cc7c4fff23e"
   },
   {
     "url": "page-data/sq/d/63159454.json",
@@ -83,7 +83,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "8c51e2746480a5ac94e56ee8cfa5f17a"
+    "revision": "efb1a7936cb439c4480230af293d84a9"
   },
   {
     "url": "polyfill-b85ba5557898c2964643.js"
@@ -107,7 +107,7 @@ self.__precacheManifest = [
     "revision": "9be0850a21e1c0fbd7afa699649413b0"
   },
   {
-    "url": "component---src-pages-dashboard-tsx-40dcab6c5ccf526b23b4.js"
+    "url": "component---src-pages-dashboard-tsx-116df367117d4fc73718.js"
   },
   {
     "url": "page-data/dashboard/page-data.json",
@@ -1303,7 +1303,7 @@ self.__precacheManifest = [
     "revision": "fc8bd57726b1df41cc0ec5cd57f20d3e"
   },
   {
-    "url": "component---src-pages-tools-accelerometer-theremin-tsx-2c4827bf828177abc13a.js"
+    "url": "component---src-pages-tools-accelerometer-theremin-tsx-0c878123594e9a68e5c2.js"
   },
   {
     "url": "page-data/tools/accelerometer-theremin/page-data.json",
@@ -1324,7 +1324,7 @@ self.__precacheManifest = [
     "revision": "1572e9d03bac7733f1811a6446baf873"
   },
   {
-    "url": "component---src-pages-tools-commissioner-tsx-f145d422e9d57986a623.js"
+    "url": "component---src-pages-tools-commissioner-tsx-b847e1f256097e85c7c9.js"
   },
   {
     "url": "page-data/tools/commissioner/page-data.json",
@@ -1334,10 +1334,10 @@ self.__precacheManifest = [
     "url": "d711c980-d3ff004cf73d953b3de8.js"
   },
   {
-    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-75b1473702f2adbb6247.js"
+    "url": "d1d42e1a73d0552e322a576fa15d275bb42de1e2-d4f0d004aa020824232e.js"
   },
   {
-    "url": "component---src-pages-tools-data-science-editor-tsx-c3515d1c4f6764739faf.js"
+    "url": "component---src-pages-tools-data-science-editor-tsx-105147b0dc596244b0ff.js"
   },
   {
     "url": "page-data/tools/data-science-editor/page-data.json",
@@ -1392,7 +1392,7 @@ self.__precacheManifest = [
     "revision": "8f6256b0f209021e94527886b16a3c47"
   },
   {
-    "url": "component---src-pages-tools-makecode-sim-tsx-a493d08860d78f6f485a.js"
+    "url": "component---src-pages-tools-makecode-sim-tsx-d5ff8c3ea519f02a28fb.js"
   },
   {
     "url": "page-data/tools/makecode-sim/page-data.json",
@@ -1480,7 +1480,7 @@ self.__precacheManifest = [
     "revision": "864c93ce3b218b17339d430700617342"
   },
   {
-    "url": "component---src-pages-tools-vm-editor-tsx-e52d30ba0e1efa2497ef.js"
+    "url": "component---src-pages-tools-vm-editor-tsx-1c32d31eb88622a0599c.js"
   },
   {
     "url": "page-data/tools/vm-editor/page-data.json",
@@ -1580,7 +1580,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/jacdac-docs/app-3d124c75504d331477f9.js`))) {
+  if (!resources || !(await caches.match(`/jacdac-docs/app-0a0bef8a267cd64929f3.js`))) {
     return await fetch(event.request)
   }
 

@@ -61195,6 +61195,7 @@ var IDBDb = /*#__PURE__*/function (_JDEventSource2) {
     _this2.blobs = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_BLOBS);
     _this2.values = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_STORAGE);
     _this2.firmwares = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_FIRMWARE_BLOBS);
+    _this2.directories = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this2), IDBDb.STORE_DIRECTORIES);
     return _this2;
   }
 
@@ -61219,6 +61220,7 @@ var IDBDb = /*#__PURE__*/function (_JDEventSource2) {
           if (!stores.contains(IDBDb.STORE_STORAGE)) _db.createObjectStore(IDBDb.STORE_STORAGE);
           if (!stores.contains(IDBDb.STORE_FIRMWARE_BLOBS)) _db.createObjectStore(IDBDb.STORE_FIRMWARE_BLOBS);
           if (!stores.contains(IDBDb.STORE_BLOBS)) _db.createObjectStore(IDBDb.STORE_BLOBS);
+          if (!stores.contains(IDBDb.STORE_DIRECTORIES)) _db.createObjectStore(IDBDb.STORE_DIRECTORIES);
 
           _db.onerror = function (event) {
             console.log("idb error", event);
@@ -61381,11 +61383,12 @@ var IDBDb = /*#__PURE__*/function (_JDEventSource2) {
   return IDBDb;
 }(_jacdac_ts_src_jdom_eventsource__WEBPACK_IMPORTED_MODULE_3__/* .JDEventSource */ .a);
 
-IDBDb.DB_VERSION = 17;
+IDBDb.DB_VERSION = 18;
 IDBDb.DB_NAME = "JACDAC";
 IDBDb.STORE_BLOBS = "BLOBS";
 IDBDb.STORE_FIRMWARE_BLOBS = "STORE_FIRMWARE_BLOBS";
 IDBDb.STORE_STORAGE = "STORAGE";
+IDBDb.STORE_DIRECTORIES = "FILE_SYSTEM_ACCESS_DIRECTORIES";
 
 var MemoryDb = /*#__PURE__*/function (_JDEventSource3) {
   (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_7__/* .default */ .Z)(MemoryDb, _JDEventSource3);
@@ -61396,10 +61399,11 @@ var MemoryDb = /*#__PURE__*/function (_JDEventSource3) {
     var _this8;
 
     _this8 = _JDEventSource3.call(this) || this;
-    _this8.tables = (_this8$tables = {}, _this8$tables[IDBDb.STORE_BLOBS] = {}, _this8$tables[IDBDb.STORE_STORAGE] = {}, _this8$tables[IDBDb.STORE_FIRMWARE_BLOBS] = {}, _this8$tables);
+    _this8.tables = (_this8$tables = {}, _this8$tables[IDBDb.STORE_BLOBS] = {}, _this8$tables[IDBDb.STORE_STORAGE] = {}, _this8$tables[IDBDb.STORE_FIRMWARE_BLOBS] = {}, _this8$tables[IDBDb.STORE_DIRECTORIES] = {}, _this8$tables);
     _this8.blobs = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_BLOBS);
     _this8.values = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_STORAGE);
     _this8.firmwares = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_FIRMWARE_BLOBS);
+    _this8.directories = new DbStore((0,_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_9__/* .default */ .Z)(_this8), IDBDb.STORE_DIRECTORIES);
     return _this8;
   } // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
@@ -69768,7 +69772,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "e48b3732d498fcbe953f51793d2a6b46aa026f41";
+  var sha = "154857c5ef33fe6201ff0a49bd55866c908f3fbb";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -81627,7 +81631,7 @@ exports.components = {
     return Promise.all(/* import() | component---src-pages-tools-updater-tsx */[__webpack_require__.e(7684), __webpack_require__.e(5224), __webpack_require__.e(7788), __webpack_require__.e(5092), __webpack_require__.e(6366)]).then(__webpack_require__.bind(__webpack_require__, 5179));
   },
   "component---src-pages-tools-vm-editor-tsx": function componentSrcPagesToolsVmEditorTsx() {
-    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 85360));
+    return Promise.all(/* import() | component---src-pages-tools-vm-editor-tsx */[__webpack_require__.e(9978), __webpack_require__.e(701), __webpack_require__.e(5224), __webpack_require__.e(5917), __webpack_require__.e(1762)]).then(__webpack_require__.bind(__webpack_require__, 89978));
   },
   "component---src-pages-traces-mdx": function componentSrcPagesTracesMdx() {
     return __webpack_require__.e(/* import() | component---src-pages-traces-mdx */ 1356).then(__webpack_require__.bind(__webpack_require__, 23478));

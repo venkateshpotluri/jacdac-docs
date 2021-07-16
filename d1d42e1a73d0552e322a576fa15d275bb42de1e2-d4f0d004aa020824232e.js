@@ -8482,7 +8482,7 @@ function CodeBlock(props) {
 
 /***/ }),
 
-/***/ 82393:
+/***/ 76349:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8495,6 +8495,11 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(85061);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(92137);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(87757);
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/blockly/index.js
 var blockly = __webpack_require__(74640);
 var blockly_default = /*#__PURE__*/__webpack_require__.n(blockly);
@@ -8812,11 +8817,6 @@ function collectWarnings(workspace) {
   });
   return warnings;
 }
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(92137);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(87757);
-var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./src/components/blockly/toolbox.ts
 var toolbox = __webpack_require__(16582);
 ;// CONCATENATED MODULE: ./src/components/blockly/dsl/datasolver.ts
@@ -10114,10 +10114,7 @@ function loadBlocks(dsls, theme) {
 
       return b;
     });
-  }));
-  console.log("blocks", {
-    blocks: blocks
-  }); // register field editors
+  })); // register field editors
 
   (0,fields/* registerFields */.k)(); // re-register blocks with blocklys
 
@@ -10221,6 +10218,63 @@ function useToolboxButtons(workspace, toolboxConfiguration) {
 }
 // EXTERNAL MODULE: ./src/components/blockly/WorkspaceContext.tsx
 var WorkspaceContext = __webpack_require__(89801);
+// EXTERNAL MODULE: ./src/components/AppContext.tsx
+var AppContext = __webpack_require__(84377);
+// EXTERNAL MODULE: ./src/components/hooks/useDirectoryHandle.ts
+var useDirectoryHandle = __webpack_require__(254);
+;// CONCATENATED MODULE: ./src/components/hooks/useFileStorage.ts
+
+
+function useFileStorage(fileHandle) {
+  // if no file, return nothing
+  if (!fileHandle) return undefined;
+
+  var save = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(value) {
+      var writable;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              console.debug("saving " + fileHandle.name);
+              _context.next = 4;
+              return fileHandle.createWritable();
+
+            case 4:
+              writable = _context.sent;
+              _context.next = 7;
+              return writable.write(value || "");
+
+            case 7:
+              _context.next = 9;
+              return writable.close();
+
+            case 9:
+              _context.next = 14;
+              break;
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](0);
+              console.debug(_context.t0);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 11]]);
+    }));
+
+    return function save(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }(); // storage values
+
+
+  return save;
+}
 ;// CONCATENATED MODULE: ./src/components/blockly/BlockContext.tsx
 
 
@@ -10238,7 +10292,14 @@ var WorkspaceContext = __webpack_require__(89801);
 
 
 
+
+
+
+
+
 var BlockContext = /*#__PURE__*/(0,react.createContext)({
+  editorId: "",
+  setEditorId: function setEditorId() {},
   dsls: [],
   workspace: undefined,
   workspaceXml: undefined,
@@ -10248,9 +10309,12 @@ var BlockContext = /*#__PURE__*/(0,react.createContext)({
   dragging: false,
   setWarnings: function setWarnings() {},
   setWorkspace: function setWorkspace() {},
-  setWorkspaceXml: function setWorkspaceXml() {}
+  setWorkspaceXml: function setWorkspaceXml() {},
+  workspaceFileHandle: undefined,
+  setWorkspaceFileHandle: undefined
 });
 BlockContext.displayName = "Block";
+var DEFAULT_XML = '<xml xmlns="http://www.w3.org/1999/xhtml"></xml>';
 /* harmony default export */ var blockly_BlockContext = (BlockContext); // eslint-disable-next-line react/prop-types
 
 function BlockProvider(props) {
@@ -10258,37 +10322,81 @@ function BlockProvider(props) {
       dsls = props.dsls,
       children = props.children;
 
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext.setError;
+
+  var _useState = (0,react.useState)(),
+      workspaceFileHandle = _useState[0],
+      setFileHandle = _useState[1];
+
   var _useLocalStorage = (0,useLocalStorage/* default */.Z)(storageKey, toolbox/* NEW_PROJET_XML */.Uz),
       storedXml = _useLocalStorage[0],
       setStoredXml = _useLocalStorage[1];
 
+  var setWorkspaceFileContent = useFileStorage(workspaceFileHandle);
   var roleManager = useRoleManager();
 
-  var _useState = (0,react.useState)(undefined),
-      workspace = _useState[0],
-      setWorkspace = _useState[1];
+  var _useState2 = (0,react.useState)(undefined),
+      workspace = _useState2[0],
+      setWorkspace = _useState2[1];
 
-  var _useState2 = (0,react.useState)(storedXml),
-      workspaceXml = _useState2[0],
-      _setWorkspaceXml = _useState2[1];
+  var _useState3 = (0,react.useState)(storedXml),
+      workspaceXml = _useState3[0],
+      _setWorkspaceXml = _useState3[1];
 
-  var _useState3 = (0,react.useState)(undefined),
-      workspaceJSON = _useState3[0],
-      setWorkspaceJSON = _useState3[1];
+  var _useState4 = (0,react.useState)(undefined),
+      workspaceJSON = _useState4[0],
+      setWorkspaceJSON = _useState4[1];
 
-  var _useState4 = (0,react.useState)([]),
-      warnings = _useState4[0],
-      _setWarnings = _useState4[1];
+  var _useState5 = (0,react.useState)([]),
+      warnings = _useState5[0],
+      _setWarnings = _useState5[1];
 
-  var _useState5 = (0,react.useState)(false),
-      dragging = _useState5[0],
-      setDragging = _useState5[1];
+  var _useState6 = (0,react.useState)(false),
+      dragging = _useState6[0],
+      setDragging = _useState6[1];
 
-  var setWorkspaceXml = function setWorkspaceXml(xml) {
-    setStoredXml(xml);
+  var _useState7 = (0,react.useState)(""),
+      editorId = _useState7[0],
+      setEditorId = _useState7[1];
 
-    _setWorkspaceXml(xml);
-  };
+  var setWorkspaceXml = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(xml) {
+      var _file, fileContent;
+
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setStoredXml(xml);
+
+              _setWorkspaceXml(xml);
+
+              if (!setWorkspaceFileContent) {
+                _context.next = 7;
+                break;
+              }
+
+              _file = {
+                editor: editorId,
+                xml: xml
+              };
+              fileContent = JSON.stringify(_file);
+              _context.next = 7;
+              return setWorkspaceFileContent(fileContent);
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function setWorkspaceXml(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 
   var setWarnings = function setWarnings(category, entries) {
     var i = warnings.findIndex(function (w) {
@@ -10317,9 +10425,9 @@ function BlockProvider(props) {
         var _i$fieldRow;
 
         return (_i$fieldRow = i.fieldRow) === null || _i$fieldRow === void 0 ? void 0 : _i$fieldRow.forEach(function (f) {
-          var _notifyServicesChange, _ref;
+          var _notifyServicesChange, _ref2;
 
-          return (_notifyServicesChange = (_ref = f).notifyServicesChanged) === null || _notifyServicesChange === void 0 ? void 0 : _notifyServicesChange.call(_ref);
+          return (_notifyServicesChange = (_ref2 = f).notifyServicesChanged) === null || _notifyServicesChange === void 0 ? void 0 : _notifyServicesChange.call(_ref2);
         });
       });
     }
@@ -10362,8 +10470,75 @@ function BlockProvider(props) {
       var _cev = event;
       handleBlockChange(_cev.blockId);
     }
-  }; // plugins
+  };
 
+  var setWorkspaceFileHandle = (0,useDirectoryHandle/* fileSystemHandleSupported */.o)() ? /*#__PURE__*/function () {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(f) {
+      var _file2, text, json, _ref4, editor, xml, dom;
+
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              if (f) {
+                _context2.next = 3;
+                break;
+              }
+
+              setFileHandle(f);
+              return _context2.abrupt("return");
+
+            case 3:
+              _context2.prev = 3;
+              console.debug("reading " + f.name);
+              _context2.next = 7;
+              return f.getFile();
+
+            case 7:
+              _file2 = _context2.sent;
+              _context2.next = 10;
+              return _file2.text();
+
+            case 10:
+              text = _context2.sent;
+              json = JSON.parse(text);
+              _ref4 = json || {}, editor = _ref4.editor, xml = _ref4.xml;
+
+              if (!(editor !== editorId)) {
+                _context2.next = 15;
+                break;
+              }
+
+              throw new Error("Wrong block editor");
+
+            case 15:
+              // try loading xml into a dummy blockly workspace
+              dom = blockly.Xml.textToDom(xml || DEFAULT_XML); // all good, load in workspace
+
+              workspace.clear();
+              blockly.Xml.domToWorkspace(dom, workspace);
+              setFileHandle(f);
+              _context2.next = 25;
+              break;
+
+            case 21:
+              _context2.prev = 21;
+              _context2.t0 = _context2["catch"](3);
+              setError(_context2.t0);
+              setFileHandle(undefined);
+
+            case 25:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[3, 21]]);
+    }));
+
+    return function (_x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }() : undefined; // plugins
 
   useBlocklyPlugins(workspace);
   useBlocklyEvents(workspace);
@@ -10455,6 +10630,8 @@ function BlockProvider(props) {
   }, []);
   return /*#__PURE__*/react.createElement(BlockContext.Provider, {
     value: {
+      editorId: editorId,
+      setEditorId: setEditorId,
       dsls: dsls,
       workspace: workspace,
       workspaceXml: workspaceXml,
@@ -10464,7 +10641,9 @@ function BlockProvider(props) {
       dragging: dragging,
       setWarnings: setWarnings,
       setWorkspace: setWorkspace,
-      setWorkspaceXml: setWorkspaceXml
+      setWorkspaceXml: setWorkspaceXml,
+      workspaceFileHandle: workspaceFileHandle,
+      setWorkspaceFileHandle: setWorkspaceFileHandle
     }
   }, children);
 }
@@ -10482,7 +10661,7 @@ function BlockProvider(props) {
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(80453);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
 /* harmony import */ var _CodeBlock__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50274);
-/* harmony import */ var _BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(82393);
+/* harmony import */ var _BlockContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(76349);
 
 
 
@@ -10733,7 +10912,6 @@ function BlocklyModalDialogs() {
 
 
     return function () {
-      console.log("cleanup");
       (blockly_default()).alert = previous.alert;
       (blockly_default()).confirm = previous.confirm;
       (blockly_default()).prompt = previous.prompt;
@@ -10807,8 +10985,8 @@ var clsx_m = __webpack_require__(85505);
 var gatsby_browser_entry = __webpack_require__(35313);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/flags.ts
 var flags = __webpack_require__(21258);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 16 modules
-var BlockContext = __webpack_require__(82393);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 17 modules
+var BlockContext = __webpack_require__(76349);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 2 modules
 var toConsumableArray = __webpack_require__(85061);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/styles/useTheme.js
@@ -11128,13 +11306,15 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
   });
 });
 function BlockEditor(props) {
-  var className = props.className;
+  var editorId = props.editorId,
+      className = props.className;
 
   var _useContext = (0,react.useContext)(BlockContext/* default */.C),
       toolboxConfiguration = _useContext.toolboxConfiguration,
       workspaceXml = _useContext.workspaceXml,
       setWorkspace = _useContext.setWorkspace,
-      setWorkspaceXml = _useContext.setWorkspaceXml;
+      setWorkspaceXml = _useContext.setWorkspaceXml,
+      setEditorId = _useContext.setEditorId;
 
   var classes = useStyles();
 
@@ -11144,7 +11324,14 @@ function BlockEditor(props) {
   var _useContext3 = (0,react.useContext)(AppContext/* default */.ZP),
       setError = _useContext3.setError;
 
-  var theme = darkMode === "dark" ? theme_dark_src : src; // ReactBlockly
+  var theme = darkMode === "dark" ? theme_dark_src : src; // setup editor id in context
+
+  (0,react.useEffect)(function () {
+    setEditorId(editorId);
+    return function () {
+      return setEditorId("");
+    };
+  }, [editorId]); // ReactBlockly
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   var blocklyRef = (0,react.useRef)(null);
@@ -17382,6 +17569,207 @@ function useBestRegister(service) {
     if (hasIntensity) return service.register(_jacdac_ts_jacdac_spec_dist_specconstants__WEBPACK_IMPORTED_MODULE_1__/* .SystemReg.Intensity */ .ZJq.Intensity);
     return undefined;
   }, [service]);
+}
+
+/***/ }),
+
+/***/ 254:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "o": function() { return /* binding */ fileSystemHandleSupported; },
+/* harmony export */   "Z": function() { return /* binding */ useDirectoryHandle; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(92137);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(87757);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67294);
+/* harmony import */ var _jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(54774);
+/* harmony import */ var _DbContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(94904);
+
+
+
+
+
+
+function verifyPermission(_x) {
+  return _verifyPermission.apply(this, arguments);
+}
+
+function _verifyPermission() {
+  _verifyPermission = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(fileHandle) {
+    var options;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            if (fileHandle) {
+              _context3.next = 2;
+              break;
+            }
+
+            return _context3.abrupt("return", false);
+
+          case 2:
+            options = {
+              mode: "readwrite"
+            }; // Check if permission was already granted. If so, return true.
+
+            _context3.next = 5;
+            return fileHandle.queryPermission(options);
+
+          case 5:
+            _context3.t0 = _context3.sent;
+
+            if (!(_context3.t0 === "granted")) {
+              _context3.next = 8;
+              break;
+            }
+
+            return _context3.abrupt("return", true);
+
+          case 8:
+            _context3.next = 10;
+            return fileHandle.requestPermission(options);
+
+          case 10:
+            _context3.t1 = _context3.sent;
+
+            if (!(_context3.t1 === "granted")) {
+              _context3.next = 13;
+              break;
+            }
+
+            return _context3.abrupt("return", true);
+
+          case 13:
+            return _context3.abrupt("return", false);
+
+          case 14:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _verifyPermission.apply(this, arguments);
+}
+
+function fileSystemHandleSupported() {
+  return typeof window !== "undefined" && !!window.showDirectoryPicker;
+}
+function useDirectoryHandle(storageKey) {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_DbContext__WEBPACK_IMPORTED_MODULE_3__/* .default */ .ZP),
+      db = _useContext.db;
+
+  var directories = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
+    return db === null || db === void 0 ? void 0 : db.directories;
+  }, [db]);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
+      directory = _useState[0],
+      setDirectory = _useState[1];
+
+  var supported = fileSystemHandleSupported();
+  var showDirectoryPicker = supported ? /*#__PURE__*/function () {
+    var _ref = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(options) {
+      var dir;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return window.showDirectoryPicker(options);
+
+            case 3:
+              dir = _context.sent;
+              if (dir !== directory) directories.set(storageKey, dir);
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              console.debug(_context.t0);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 7]]);
+    }));
+
+    return function (_x2) {
+      return _ref.apply(this, arguments);
+    };
+  }() : undefined;
+
+  var clearDirectory = function clearDirectory() {
+    return directories === null || directories === void 0 ? void 0 : directories.set(storageKey, undefined);
+  }; // reload directory from DB
+
+
+  (0,_jacdac_useChange__WEBPACK_IMPORTED_MODULE_2__/* .useChangeAsync */ .R)(directories, /*#__PURE__*/function () {
+    var _ref2 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(_) {
+      var dir, perm;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _ === null || _ === void 0 ? void 0 : _.get(storageKey);
+
+            case 2:
+              dir = _context2.sent;
+              console.debug("load directory", {
+                storageKey: storageKey,
+                _: _,
+                dir: dir
+              });
+
+              if (!dir) {
+                _context2.next = 9;
+                break;
+              }
+
+              _context2.next = 7;
+              return verifyPermission(dir);
+
+            case 7:
+              perm = _context2.sent;
+
+              if (!perm) {
+                console.debug("permission verification failed"); // clear from db
+
+                _.set(storageKey, undefined);
+
+                dir = undefined;
+              }
+
+            case 9:
+              if (dir !== directory) setDirectory(dir);
+
+            case 10:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x3) {
+      return _ref2.apply(this, arguments);
+    };
+  }(), [storageKey]);
+  return {
+    supported: supported,
+    showDirectoryPicker: showDirectoryPicker,
+    directory: directory,
+    clearDirectory: clearDirectory
+  };
 }
 
 /***/ }),

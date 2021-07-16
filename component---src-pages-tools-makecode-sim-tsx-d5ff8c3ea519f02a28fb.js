@@ -292,23 +292,38 @@ function SimulateDeviceHint() {
     onClick: handleStartSimulator(constants/* SRV_BUTTON */.XJR),
     title: "button",
     "aria-label": "start button simulator"
-  }, "\uD83D\uDD18"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "button emoji",
+    role: "img"
+  }, "\uD83D\uDD18")), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_BUZZER */.J1$),
     title: "buzzer",
     "aria-label": "start buzzer simulator"
-  }, "\uD83C\uDFB9"), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "piano emoji",
+    role: "img"
+  }, "\uD83C\uDFB9")), /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_JOYSTICK */.vRO),
     title: "joystick",
     "aria-label": "start joystick simulator"
-  }, "\uD83D\uDD79\uFE0F"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "joystick emoji",
+    role: "img"
+  }, "\uD83D\uDD79\uFE0F")), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_LED */.i04),
     title: "LED",
     "aria-label": "start LED simulator"
-  }, "\uD83D\uDCA1"), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "lightbulb emoji",
+    role: "img"
+  }, "\uD83D\uDCA1")), ",", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     onClick: handleStartSimulator(constants/* SRV_TRAFFIC_LIGHT */.jHN),
     title: "traffic light",
     "aria-label": "start traffic light simulator"
-  }, "\uD83D\uDEA6"), ", ...) by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
+  }, /*#__PURE__*/react.createElement("span", {
+    "aria-label": "traffic light emoji",
+    role: "img"
+  }, "\uD83D\uDEA6")), ", ...) by clicking \xA0", /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     title: "start simulator",
     onClick: toggleShowDeviceHostsDialog
   }, /*#__PURE__*/react.createElement(Add/* default */.Z, null)), ".");

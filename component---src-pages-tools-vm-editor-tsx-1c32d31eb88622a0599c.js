@@ -1,4 +1,4 @@
-(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1762,119],{
+(self["webpackChunkjacdac_docs"] = self["webpackChunkjacdac_docs"] || []).push([[1762],{
 
 /***/ 4998:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
@@ -598,34 +598,6 @@ var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
 var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
   d: "M11 5v5.59H7.5l4.5 4.5 4.5-4.5H13V5h-2zm-5 9c0 3.31 2.69 6 6 6s6-2.69 6-6h-2c0 2.21-1.79 4-4 4s-4-1.79-4-4H6z"
 }), 'PlayForWork');
-
-exports.Z = _default;
-
-/***/ }),
-
-/***/ 8567:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-var _interopRequireDefault = __webpack_require__(95318);
-
-var _interopRequireWildcard = __webpack_require__(20862);
-
-__webpack_unused_export__ = ({
-  value: true
-});
-exports.Z = void 0;
-
-var React = _interopRequireWildcard(__webpack_require__(67294));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(58786));
-
-var _default = (0, _createSvgIcon.default)( /*#__PURE__*/React.createElement("path", {
-  d: "M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
-}), 'Save');
 
 exports.Z = _default;
 
@@ -1245,80 +1217,86 @@ var VMExprEvaluator = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 20119:
+/***/ 68786:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ ImportButton; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33287);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(83332);
-/* harmony import */ var _material_ui_icons_OpenInBrowser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(95552);
-/* harmony import */ var _ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(79885);
-/* harmony import */ var _ui_Suspense__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69672);
 
- // tslint:disable-next-line: no-submodule-imports match-default-export-name
-
-
-
-
-var DropzoneDialog = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return __webpack_require__.e(/* import() */ 8411).then(__webpack_require__.bind(__webpack_require__, 28411));
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": function() { return /* binding */ useKeyboardNavigationProps; }
 });
-function ImportButton(props) {
-  var text = props.text,
-      onFilesUploaded = props.onFilesUploaded,
-      disabled = props.disabled,
-      acceptedFiles = props.acceptedFiles,
-      icon = props.icon,
-      filesLimit = props.filesLimit,
-      className = props.className;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      open = _useState[0],
-      setOpen = _useState[1];
+// EXTERNAL MODULE: ./src/components/hooks/useFireKey.ts
+var useFireKey = __webpack_require__(8966);
+;// CONCATENATED MODULE: ./src/components/hooks/useArrowKeys.ts
 
-  var handleOpen = function handleOpen() {
-    setOpen(true);
+var LEFT_KEY = 37;
+var UP_KEY = 38;
+var RIGHT_KEY = 39;
+var DOWN_KEY = 40;
+function useArrowKeys(options) {
+  var _handlers;
+
+  var onLeft = options.onLeft,
+      onUp = options.onUp,
+      onRight = options.onRight,
+      onDown = options.onDown,
+      symmetric = options.symmetric;
+  if (!onLeft && !onUp && !onRight && !onDown) return undefined;
+  var handlers = (_handlers = {}, _handlers[LEFT_KEY] = onLeft, _handlers[RIGHT_KEY] = onRight, _handlers[UP_KEY] = onUp || symmetric && onRight, _handlers[DOWN_KEY] = onDown || symmetric && onLeft, _handlers);
+  return function (e) {
+    var charCode = (0,useFireKey/* keyCodeFromEvent */.$)(e);
+    var handler = handlers[charCode];
+
+    if (handler) {
+      e.preventDefault();
+      handler();
+    }
+  };
+}
+;// CONCATENATED MODULE: ./src/components/hooks/useKeyboardNavigation.ts
+function useKeyboardNavigation(parentRef) {
+  var query = '[tabindex="0"]';
+
+  var onMove = function onMove(offset) {
+    return function () {
+      console.log('keyboard move', {
+        offset: offset
+      });
+      var focusable = Array.from((parentRef === null || parentRef === void 0 ? void 0 : parentRef.querySelectorAll(query)) || []);
+
+      if (focusable.length) {
+        var me = focusable.findIndex(function (f) {
+          return f === document.activeElement;
+        });
+        var next = (me + offset + focusable.length) % focusable.length;
+        focusable[next].focus();
+      }
+    };
   };
 
-  var handleSave = function handleSave(files) {
-    if (files !== null && files !== void 0 && files.length) onFilesUploaded(files);
-    setOpen(false);
-  };
+  return onMove;
+}
+;// CONCATENATED MODULE: ./src/components/hooks/useKeyboardNavigationProps.ts
 
-  var handleClose = function handleClose() {
-    return setOpen(false);
-  };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, {
-    className: className
-  }, icon && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_IconButtonWithTooltip__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
-    title: text,
-    onClick: handleOpen
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_OpenInBrowser__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null)), !icon && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_5__/* .default */ .Z, {
-    disabled: disabled,
-    variant: "outlined",
-    onClick: handleOpen,
-    startIcon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_icons_OpenInBrowser__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, null)
-  }, text), open && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_ui_Suspense__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(DropzoneDialog, {
-    open: open,
-    onSave: handleSave,
-    maxFileSize: 5000000,
-    onClose: handleClose,
-    acceptedFiles: acceptedFiles,
-    clearOnUnmount: true,
-    filesLimit: filesLimit || 1,
-    submitButtonText: "import"
-  })));
+function useKeyboardNavigationProps(parentRef, vertical) {
+  var onMove = useKeyboardNavigation(parentRef);
+  var onKeyDown = useArrowKeys({
+    onLeft: !vertical && onMove(-1),
+    onRight: !vertical && onMove(1),
+    onDown: vertical && onMove(1),
+    onUp: vertical && onMove(-1)
+  });
+  return {
+    onKeyDown: parentRef && onKeyDown
+  };
 }
 
 /***/ }),
 
-/***/ 85360:
+/***/ 89978:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4610,8 +4588,8 @@ function VMDiagnostics(props) {
 }
 // EXTERNAL MODULE: ./src/jacdac/useChange.ts
 var useChange = __webpack_require__(54774);
-// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 16 modules
-var BlockContext = __webpack_require__(82393);
+// EXTERNAL MODULE: ./src/components/blockly/BlockContext.tsx + 17 modules
+var BlockContext = __webpack_require__(76349);
 // EXTERNAL MODULE: ./src/jacdac/Context.tsx
 var Context = __webpack_require__(20392);
 // EXTERNAL MODULE: ./src/components/devices/DeviceAvatar.tsx + 3 modules
@@ -5031,132 +5009,7 @@ function VMStartSimulatorButton() {
     onClick: toggleShowDeviceHostsDialog
   }, /*#__PURE__*/react.createElement(Add/* default */.Z, null));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/icons/Save.js
-var Save = __webpack_require__(8567);
-// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
-var gatsby_theme_material_ui = __webpack_require__(36176);
-// EXTERNAL MODULE: ./src/components/ImportButton.tsx
-var ImportButton = __webpack_require__(20119);
-// EXTERNAL MODULE: ./node_modules/blockly/index.js
-var blockly = __webpack_require__(74640);
-;// CONCATENATED MODULE: ./src/components/blockly/BlockFileButtons.tsx
-
-
-
-
-
-
-
-
-
-
-
-function LoadButton() {
-  var _useContext = (0,react.useContext)(BlockContext/* default */.C),
-      workspace = _useContext.workspace;
-
-  var _useContext2 = (0,react.useContext)(AppContext/* default */.ZP),
-      setError = _useContext2.setError;
-
-  var disabled = !workspace;
-
-  var handleFiles = /*#__PURE__*/function () {
-    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(files) {
-      var file, text, jsfile, xml, dom;
-      return regenerator_default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              file = files === null || files === void 0 ? void 0 : files[0];
-
-              if (file) {
-                _context.next = 3;
-                break;
-              }
-
-              return _context.abrupt("return");
-
-            case 3:
-              _context.prev = 3;
-              _context.next = 6;
-              return file.text();
-
-            case 6:
-              text = _context.sent;
-              jsfile = JSON.parse(text);
-              console.debug("imported file", jsfile);
-              xml = jsfile === null || jsfile === void 0 ? void 0 : jsfile.xml;
-
-              if (!(typeof xml !== "string")) {
-                _context.next = 12;
-                break;
-              }
-
-              throw new Error("Invalid file format");
-
-            case 12:
-              // try loading xml into a dummy blockly workspace
-              dom = blockly.Xml.textToDom(xml); // all good, load in workspace
-
-              workspace.clear();
-              blockly.Xml.domToWorkspace(dom, workspace);
-              _context.next = 20;
-              break;
-
-            case 17:
-              _context.prev = 17;
-              _context.t0 = _context["catch"](3);
-              setError(_context.t0);
-
-            case 20:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[3, 17]]);
-    }));
-
-    return function handleFiles(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-
-  return /*#__PURE__*/react.createElement(ImportButton.default, {
-    text: "Open...",
-    icon: true,
-    disabled: disabled,
-    acceptedFiles: ["application/json"],
-    onFilesUploaded: handleFiles,
-    filesLimit: 1
-  });
-}
-
-function SaveButton() {
-  var _useContext3 = (0,react.useContext)(BlockContext/* default */.C),
-      workspaceXml = _useContext3.workspaceXml; // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
-
-  var json = {
-    xml: workspaceXml
-  };
-  var url = "data:application/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(json));
-  return /*#__PURE__*/react.createElement(gatsby_theme_material_ui.Link, {
-    download: "jacdac-blocks.json",
-    href: url
-  }, /*#__PURE__*/react.createElement(Tooltip/* default */.ZP, {
-    title: "Save"
-  }, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, null, /*#__PURE__*/react.createElement(Save/* default */.Z, null))));
-}
-
-function BlockFileButtons() {
-  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(SaveButton, null)), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
-    item: true
-  }, /*#__PURE__*/react.createElement(LoadButton, null)));
-}
 ;// CONCATENATED MODULE: ./src/components/vm/VMToolbar.tsx
-
 
 
 
@@ -5172,7 +5025,7 @@ function VMToolbar(props) {
     spacing: 1,
     alignItems: "center",
     alignContent: "center"
-  }, /*#__PURE__*/react.createElement(BlockFileButtons, null), /*#__PURE__*/react.createElement(VMRunnerButtons, {
+  }, /*#__PURE__*/react.createElement(VMRunnerButtons, {
     runner: runner,
     run: run,
     cancel: cancel
@@ -6768,6 +6621,420 @@ var widgetDSL = {
 
 var vmDsls = [servicesdsl, serverservicesdsl, loopsdsl, logicdsl, mathdsl, jsondsl, variablesdsl/* default */.Z, toolsdsl, widgetdsl, chartdsl, datadsl/* default */.Z, shadowdsl/* default */.Z, fieldsdsl/* default */.Z];
 /* harmony default export */ var vmdsls = (vmDsls);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Dialog/Dialog.js
+var Dialog = __webpack_require__(52468);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContent/DialogContent.js
+var DialogContent = __webpack_require__(65733);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogContentText/DialogContentText.js
+var DialogContentText = __webpack_require__(32253);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
+var TextField = __webpack_require__(1059);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/DialogActions/DialogActions.js
+var DialogActions = __webpack_require__(89952);
+// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Button/Button.js
+var Button = __webpack_require__(83332);
+// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+var objectWithoutPropertiesLoose = __webpack_require__(19756);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncIterator.js
+function _asyncIterator(iterable) {
+  var method;
+
+  if (typeof Symbol !== "undefined") {
+    if (Symbol.asyncIterator) method = iterable[Symbol.asyncIterator];
+    if (method == null && Symbol.iterator) method = iterable[Symbol.iterator];
+  }
+
+  if (method == null) method = iterable["@@asyncIterator"];
+  if (method == null) method = iterable["@@iterator"];
+  if (method == null) throw new TypeError("Object is not async iterable");
+  return method.call(iterable);
+}
+// EXTERNAL MODULE: ./src/components/useEffectAsync.ts
+var useEffectAsync = __webpack_require__(7751);
+// EXTERNAL MODULE: ./src/components/hooks/useDirectoryHandle.ts
+var useDirectoryHandle = __webpack_require__(254);
+;// CONCATENATED MODULE: ./src/components/hooks/useDirectoryFileHandles.ts
+
+
+
+
+var _excluded = ["directory"];
+
+function useDirectoryFileHandles_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function useDirectoryFileHandles_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { useDirectoryFileHandles_ownKeys(Object(source), true).forEach(function (key) { (0,defineProperty/* default */.Z)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { useDirectoryFileHandles_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+
+
+
+
+
+function useDirectoryFileHandles(storageKey) {
+  var _useDirectoryHandle = (0,useDirectoryHandle/* default */.Z)(storageKey),
+      directory = _useDirectoryHandle.directory,
+      rest = (0,objectWithoutPropertiesLoose/* default */.Z)(_useDirectoryHandle, _excluded);
+
+  var _useContext = (0,react.useContext)(AppContext/* default */.ZP),
+      setError = _useContext.setError;
+
+  var _useState = (0,react.useState)([]),
+      files = _useState[0],
+      setFiles = _useState[1];
+
+  var refresh = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var values, newFiles, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, _value, entry;
+
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              values = directory === null || directory === void 0 ? void 0 : directory.values();
+              newFiles = [];
+
+              if (!values) {
+                _context.next = 36;
+                break;
+              }
+
+              _iteratorNormalCompletion = true;
+              _didIteratorError = false;
+              _context.prev = 5;
+              _iterator = _asyncIterator(values);
+
+            case 7:
+              _context.next = 9;
+              return _iterator.next();
+
+            case 9:
+              _step = _context.sent;
+              _iteratorNormalCompletion = _step.done;
+              _context.next = 13;
+              return _step.value;
+
+            case 13:
+              _value = _context.sent;
+
+              if (_iteratorNormalCompletion) {
+                _context.next = 20;
+                break;
+              }
+
+              entry = _value;
+              if (entry.kind === "file") newFiles.push(entry);
+
+            case 17:
+              _iteratorNormalCompletion = true;
+              _context.next = 7;
+              break;
+
+            case 20:
+              _context.next = 26;
+              break;
+
+            case 22:
+              _context.prev = 22;
+              _context.t0 = _context["catch"](5);
+              _didIteratorError = true;
+              _iteratorError = _context.t0;
+
+            case 26:
+              _context.prev = 26;
+              _context.prev = 27;
+
+              if (!(!_iteratorNormalCompletion && _iterator.return != null)) {
+                _context.next = 31;
+                break;
+              }
+
+              _context.next = 31;
+              return _iterator.return();
+
+            case 31:
+              _context.prev = 31;
+
+              if (!_didIteratorError) {
+                _context.next = 34;
+                break;
+              }
+
+              throw _iteratorError;
+
+            case 34:
+              return _context.finish(31);
+
+            case 35:
+              return _context.finish(26);
+
+            case 36:
+              setFiles(newFiles);
+              return _context.abrupt("return", newFiles);
+
+            case 38:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[5, 22, 26, 36], [27,, 31, 35]]);
+    }));
+
+    return function refresh() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var createFile = /*#__PURE__*/function () {
+    var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(filename, content) {
+      var fileHandle, file, newFiles;
+      return regenerator_default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return directory.getFileHandle(filename, {
+                create: true
+              });
+
+            case 3:
+              fileHandle = _context2.sent;
+              _context2.next = 6;
+              return fileHandle.createWritable({
+                keepExistingData: false
+              });
+
+            case 6:
+              file = _context2.sent;
+              _context2.next = 9;
+              return file.write(content);
+
+            case 9:
+              _context2.next = 11;
+              return file.close();
+
+            case 11:
+              _context2.next = 13;
+              return refresh();
+
+            case 13:
+              newFiles = _context2.sent;
+              return _context2.abrupt("return", newFiles.find(function (f) {
+                return f.name === filename;
+              }));
+
+            case 17:
+              _context2.prev = 17;
+              _context2.t0 = _context2["catch"](0);
+              setError(_context2.t0);
+              return _context2.abrupt("return", undefined);
+
+            case 21:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 17]]);
+    }));
+
+    return function createFile(_x, _x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  (0,useEffectAsync/* default */.Z)( /*#__PURE__*/(0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
+    return regenerator_default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return refresh();
+
+          case 2:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  })), [directory]);
+  return useDirectoryFileHandles_objectSpread({
+    directory: directory,
+    files: files,
+    createFile: createFile,
+    refresh: refresh
+  }, rest);
+}
+// EXTERNAL MODULE: ./node_modules/@material-ui/icons/OpenInBrowser.js
+var OpenInBrowser = __webpack_require__(95552);
+// EXTERNAL MODULE: ./node_modules/react-use-id-hook/dist/react-use-id-hook.esm.js
+var react_use_id_hook_esm = __webpack_require__(19640);
+// EXTERNAL MODULE: ./src/components/hooks/useKeyboardNavigationProps.ts + 2 modules
+var useKeyboardNavigationProps = __webpack_require__(68786);
+;// CONCATENATED MODULE: ./src/components/fs/FileTabs.tsx
+
+
+
+
+
+
+
+
+
+
+function FileChip(props) {
+  var file = props.file,
+      selected = props.selected,
+      onClick = props.onClick;
+  var name = file.name;
+  return /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    clickable: true,
+    label: name.replace(/\.json$/i, ""),
+    color: selected ? "primary" : undefined,
+    onClick: onClick
+  });
+}
+
+function NewFileDialogButton(props) {
+  var createFile = props.createFile,
+      newFileContent = props.newFileContent,
+      onFileHandleCreated = props.onFileHandleCreated;
+
+  var _useState = (0,react.useState)(false),
+      open = _useState[0],
+      setOpen = _useState[1];
+
+  var _useState2 = (0,react.useState)(""),
+      value = _useState2[0],
+      setValue = _useState2[1];
+
+  var valueId = (0,react_use_id_hook_esm/* useId */.Me)();
+
+  var handleOpen = function handleOpen() {
+    return setOpen(true);
+  };
+
+  var handleOk = /*#__PURE__*/function () {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var filename, fileHandle;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setOpen(false);
+              filename = value.toLocaleLowerCase().replace(/\s+/g, "") + ".json";
+              _context.next = 4;
+              return createFile(filename, newFileContent);
+
+            case 4:
+              fileHandle = _context.sent;
+              if (fileHandle) onFileHandleCreated(fileHandle);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function handleOk() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var handleCancel = function handleCancel() {
+    return setOpen(false);
+  };
+
+  var handleValueChange = function handleValueChange(event) {
+    setValue(event.target.value);
+  };
+
+  return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    clickable: true,
+    label: "new file...",
+    icon: /*#__PURE__*/react.createElement(Add/* default */.Z, null),
+    onClick: handleOpen
+  }), /*#__PURE__*/react.createElement(Dialog/* default */.Z, {
+    open: open
+  }, /*#__PURE__*/react.createElement(DialogContent/* default */.Z, null, /*#__PURE__*/react.createElement(DialogContentText/* default */.Z, null, "Choose a file name"), /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: valueId,
+    value: value,
+    label: "Value",
+    fullWidth: true,
+    onChange: handleValueChange
+  })), /*#__PURE__*/react.createElement(DialogActions/* default */.Z, null, /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "contained",
+    onClick: handleCancel
+  }, "Cancel"), /*#__PURE__*/react.createElement(Button/* default */.Z, {
+    variant: "contained",
+    color: "primary",
+    disabled: !value,
+    onClick: handleOk
+  }, "Ok"))));
+}
+
+function FileTabs(props) {
+  var storageKey = props.storageKey,
+      selectedFileHandle = props.selectedFileHandle,
+      onFileHandleSelected = props.onFileHandleSelected,
+      newFileContent = props.newFileContent,
+      onFileHandleCreated = props.onFileHandleCreated;
+
+  var _useDirectoryFileHand = useDirectoryFileHandles(storageKey),
+      files = _useDirectoryFileHand.files,
+      directory = _useDirectoryFileHand.directory,
+      supported = _useDirectoryFileHand.supported,
+      showDirectoryPicker = _useDirectoryFileHand.showDirectoryPicker,
+      clearDirectory = _useDirectoryFileHand.clearDirectory,
+      createFile = _useDirectoryFileHand.createFile;
+
+  var gridRef = (0,react.useRef)();
+  var keyboardProps = (0,useKeyboardNavigationProps/* default */.Z)(gridRef.current);
+
+  var handleOpenDirectory = function handleOpenDirectory() {
+    return showDirectoryPicker();
+  };
+
+  var handleCloseDirectory = function handleCloseDirectory() {
+    return clearDirectory();
+  };
+
+  var handleFileHandleSelected = function handleFileHandleSelected(file) {
+    return function () {
+      return onFileHandleSelected(file);
+    };
+  };
+
+  if (!supported) return null;
+  return /*#__PURE__*/react.createElement(Grid/* default */.Z, Object.assign({
+    ref: gridRef,
+    container: true,
+    spacing: 1
+  }, keyboardProps), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(Chip/* default */.Z, {
+    clickable: true,
+    avatar: /*#__PURE__*/react.createElement(OpenInBrowser/* default */.Z, null),
+    label: (directory === null || directory === void 0 ? void 0 : directory.name) || "open directory",
+    onClick: handleOpenDirectory,
+    onDelete: directory ? handleCloseDirectory : undefined
+  })), files === null || files === void 0 ? void 0 : files.map(function (file) {
+    return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+      item: true,
+      key: file.name
+    }, /*#__PURE__*/react.createElement(FileChip, {
+      file: file,
+      selected: file === selectedFileHandle,
+      onClick: handleFileHandleSelected(file)
+    }));
+  }), directory && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true
+  }, /*#__PURE__*/react.createElement(NewFileDialogButton, {
+    createFile: createFile,
+    newFileContent: newFileContent,
+    onFileHandleCreated: onFileHandleCreated
+  })));
+}
 ;// CONCATENATED MODULE: ./src/components/vm/VMEditor.tsx
 
 
@@ -6784,7 +7051,13 @@ var vmDsls = [servicesdsl, serverservicesdsl, loopsdsl, logicdsl, mathdsl, jsond
 
 
 
+
+var VM_EDITOR_ID = "vm";
 var VM_SOURCE_STORAGE_KEY = "tools:vmeditor";
+var VM_NEW_FILE_CONTENT = JSON.stringify({
+  editor: VM_EDITOR_ID,
+  xml: ""
+});
 
 function VMEditorWithContext() {
   var _useContext = (0,react.useContext)(BlockContext/* default */.C),
@@ -6793,7 +7066,9 @@ function VMEditorWithContext() {
       workspaceJSON = _useContext.workspaceJSON,
       roleManager = _useContext.roleManager,
       setWarnings = _useContext.setWarnings,
-      dragging = _useContext.dragging;
+      dragging = _useContext.dragging,
+      workspaceFileHandle = _useContext.workspaceFileHandle,
+      setWorkspaceFileHandle = _useContext.setWorkspaceFileHandle;
 
   var _useState = (0,react.useState)(),
       program = _useState[0],
@@ -6846,7 +7121,16 @@ function VMEditorWithContext() {
     container: true,
     direction: "column",
     spacing: 1
-  }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, !!setWorkspaceFileHandle && /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    item: true,
+    xs: 12
+  }, /*#__PURE__*/react.createElement(FileTabs, {
+    storageKey: VM_SOURCE_STORAGE_KEY,
+    selectedFileHandle: workspaceFileHandle,
+    onFileHandleSelected: setWorkspaceFileHandle,
+    onFileHandleCreated: setWorkspaceFileHandle,
+    newFileContent: VM_NEW_FILE_CONTENT
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(VMToolbar, {
@@ -6856,7 +7140,9 @@ function VMEditorWithContext() {
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, null)), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(VMDiagnostics, {
+  }, /*#__PURE__*/react.createElement(BlockEditor/* default */.Z, {
+    editorId: VM_EDITOR_ID
+  })), flags/* default.diagnostics */.Z.diagnostics && /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(VMDiagnostics, {
     program: program
   }), /*#__PURE__*/react.createElement(BlockDiagnostics/* default */.Z, null)));
 }
