@@ -501,6 +501,33 @@ function useServices(options) {
 
 /***/ }),
 
+/***/ 64973:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ SwitchWithLabel; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19756);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48086);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(76544);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+var _excluded = ["label"];
+
+
+function SwitchWithLabel(props) {
+  var label = props.label,
+      rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(props, _excluded);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    control: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, rest),
+    label: label
+  });
+}
+
+/***/ }),
+
 /***/ 79465:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -563,8 +590,6 @@ var regenerator = __webpack_require__(87757);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/TextField/TextField.js
 var TextField = __webpack_require__(1059);
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
-var Switch = __webpack_require__(76544);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Card/Card.js
 var Card = __webpack_require__(85420);
 // EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/CardContent/CardContent.js
@@ -589,6 +614,10 @@ var CmdButton = __webpack_require__(82613);
 var react_use_id_hook_esm = __webpack_require__(19640);
 // EXTERNAL MODULE: ./src/components/ui/LoadingProgress.tsx
 var LoadingProgress = __webpack_require__(2285);
+// EXTERNAL MODULE: ./src/components/ui/SwitchWithLabel.tsx
+var SwitchWithLabel = __webpack_require__(64973);
+// EXTERNAL MODULE: ./jacdac-ts/src/jdom/utils.ts
+var utils = __webpack_require__(81794);
 ;// CONCATENATED MODULE: ./src/components/SettingsCard.tsx
 
 
@@ -600,6 +629,8 @@ var LoadingProgress = __webpack_require__(2285);
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
  // tslint:disable-next-line: match-default-export-name no-submodule-imports
+
+
 
 
 
@@ -636,6 +667,8 @@ function SettingRow(props) {
     };
   }();
 
+  var keyId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var valueId = (0,react_use_id_hook_esm/* useId */.Me)();
   var nameError = "";
   var valueError = "";
   return /*#__PURE__*/react.createElement(Grid/* default */.Z, {
@@ -647,6 +680,7 @@ function SettingRow(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: keyId,
     error: !!nameError,
     variant: "outlined",
     label: "key",
@@ -657,6 +691,7 @@ function SettingRow(props) {
     item: true,
     xs: true
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: valueId,
     fullWidth: true,
     error: !!valueError,
     variant: "outlined",
@@ -688,7 +723,8 @@ function AddSettingRow(props) {
       secret = _useState3[0],
       setSecret = _useState3[1];
 
-  var secretLabelId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var keyId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var valueId = (0,react_use_id_hook_esm/* useId */.Me)();
 
   var handleNameChange = function handleNameChange(ev) {
     setName(ev.target.value.trim());
@@ -741,6 +777,7 @@ function AddSettingRow(props) {
   }, /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: keyId,
     error: !!keyError,
     variant: "outlined",
     label: "Add key",
@@ -751,6 +788,7 @@ function AddSettingRow(props) {
     item: true,
     xs: true
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: valueId,
     fullWidth: true,
     error: !!valueError,
     variant: "outlined",
@@ -760,13 +798,11 @@ function AddSettingRow(props) {
     onChange: handleValueChange
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
-  }, /*#__PURE__*/react.createElement(Switch/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(SwitchWithLabel/* default */.Z, {
     checked: secret,
     onChange: handleChecked,
-    "aria-labelledby": secretLabelId
-  }), /*#__PURE__*/react.createElement("label", {
-    id: secretLabelId
-  }, "Secret")), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+    label: "Secret"
+  })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true
   }, /*#__PURE__*/react.createElement(CmdButton/* default */.Z, {
     trackName: "settings.add",
@@ -839,7 +875,7 @@ function SettingsCard(props) {
     return /*#__PURE__*/react.createElement(SettingRow, {
       key: key,
       name: key,
-      value: value,
+      value: (0,utils/* bufferToString */.zT)(value),
       client: client,
       mutable: mutable
     });
@@ -852,7 +888,7 @@ function SettingsCard(props) {
     return /*#__PURE__*/react.createElement(SettingRow, {
       key: key,
       name: key,
-      value: value,
+      value: (0,utils/* bufferToString */.zT)(value),
       client: client,
       mutable: mutable
     });
