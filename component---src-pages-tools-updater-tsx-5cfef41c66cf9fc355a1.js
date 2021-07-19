@@ -287,6 +287,33 @@ function CircularProgressWithLabel(props) {
 
 /***/ }),
 
+/***/ 64973:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ SwitchWithLabel; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19756);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48086);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(76544);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
+
+var _excluded = ["label"];
+
+
+function SwitchWithLabel(props) {
+  var label = props.label,
+      rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(props, _excluded);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__/* .default */ .Z, {
+    control: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z, rest),
+    label: label
+  });
+}
+
+/***/ }),
+
 /***/ 5179:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -911,14 +938,14 @@ function UpdateDeviceList() {
     }));
   }));
 }
-// EXTERNAL MODULE: ./node_modules/@material-ui/core/esm/Switch/Switch.js + 1 modules
-var Switch = __webpack_require__(76544);
 // EXTERNAL MODULE: ./src/components/DbContext.tsx
 var DbContext = __webpack_require__(94904);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/DeleteForever.js
 var DeleteForever = __webpack_require__(86426);
 // EXTERNAL MODULE: ./node_modules/notistack/dist/notistack.esm.js
 var notistack_esm = __webpack_require__(70076);
+// EXTERNAL MODULE: ./src/components/ui/SwitchWithLabel.tsx
+var SwitchWithLabel = __webpack_require__(64973);
 ;// CONCATENATED MODULE: ./src/components/firmware/SafeBootAlert.tsx
 
 
@@ -928,6 +955,7 @@ var notistack_esm = __webpack_require__(70076);
 
 
  // tslint:disable-next-line: match-default-export-name tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -1006,13 +1034,14 @@ function SafeBootAlert() {
   }, [safeBoot]);
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
-  }, /*#__PURE__*/react.createElement(Switch/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(SwitchWithLabel/* default */.Z, {
     value: safeBoot,
-    onChange: handleRecovery
-  }), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    component: "span",
-    variant: "body1"
-  }, "recovery mode"), /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    onChange: handleRecovery,
+    label: /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+      component: "span",
+      variant: "body1"
+    }, "recovery mode")
+  }), /*#__PURE__*/react.createElement(Box/* default */.Z, {
     mr: 1
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     component: "span",
@@ -1094,6 +1123,7 @@ function SelectDevice(props) {
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -1237,13 +1267,14 @@ function ManualFirmwareAlert() {
 
   return /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement(Alert/* default */.Z, {
     severity: "info"
-  }, /*#__PURE__*/react.createElement(Switch/* default */.Z, {
+  }, /*#__PURE__*/react.createElement(SwitchWithLabel/* default */.Z, {
     value: enabled,
-    onChange: handleToggle
-  }), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    component: "span",
-    variant: "body1"
-  }, "manual mode"), /*#__PURE__*/react.createElement(Box/* default */.Z, {
+    onChange: handleToggle,
+    label: /*#__PURE__*/react.createElement(Typography/* default */.Z, {
+      component: "span",
+      variant: "body1"
+    }, "manual mode")
+  }), /*#__PURE__*/react.createElement(Box/* default */.Z, {
     mr: 1
   }, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     component: "span",
