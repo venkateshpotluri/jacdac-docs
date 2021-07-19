@@ -6909,7 +6909,8 @@ function NewFileDialogButton(props) {
   var valueId = (0,react_use_id_hook_esm/* useId */.Me)();
 
   var handleOpen = function handleOpen() {
-    return setOpen(true);
+    setValue("");
+    setOpen(true);
   };
 
   var handleOk = /*#__PURE__*/function () {
