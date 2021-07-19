@@ -1308,11 +1308,11 @@ function Flash() {
     value: tab,
     onChange: handleTabChange,
     "aria-label": "View specification formats"
-  }, /*#__PURE__*/react.createElement(Tab/* default */.Z, Object.assign({
+  }, /*#__PURE__*/react.createElement(Tab/* default */.Z, {
     label: "Updates"
-  }, (0,TabPanel/* a11yProps */.P)(1))), /*#__PURE__*/react.createElement(Tab/* default */.Z, Object.assign({
+  }), /*#__PURE__*/react.createElement(Tab/* default */.Z, {
     label: "Firmwares"
-  }, (0,TabPanel/* a11yProps */.P)(0)))), /*#__PURE__*/react.createElement(TabPanel/* default */.Z, {
+  })), /*#__PURE__*/react.createElement(TabPanel/* default */.Z, {
     value: tab,
     index: 0
   }, /*#__PURE__*/react.createElement(UpdateDeviceList, null)), /*#__PURE__*/react.createElement(TabPanel/* default */.Z, {

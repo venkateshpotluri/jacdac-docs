@@ -1011,8 +1011,7 @@ var Tabs = /*#__PURE__*/react.forwardRef(function Tabs(props, ref) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ TabPanel; },
-/* harmony export */   "P": function() { return /* binding */ a11yProps; }
+/* harmony export */   "Z": function() { return /* binding */ TabPanel; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19756);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67294);
@@ -1041,12 +1040,6 @@ function TabPanel(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z, {
     component: "span"
   }, children)));
-}
-function a11yProps(index) {
-  return {
-    id: "simple-tab-" + index,
-    'aria-controls': "simple-tabpanel-" + index
-  };
 }
 
 /***/ })

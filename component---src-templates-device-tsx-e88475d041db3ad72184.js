@@ -822,10 +822,10 @@ function DeviceSpecificationSource(props) {
   }, [showSpecification && "Specification", showJSON && "JSON", showDTDL && "Device Twin"].filter(function (n) {
     return !!n;
   }).map(function (n, i) {
-    return /*#__PURE__*/react.createElement(Tab/* default */.Z, Object.assign({
+    return /*#__PURE__*/react.createElement(Tab/* default */.Z, {
       key: n,
       label: n
-    }, (0,TabPanel/* a11yProps */.P)(i)));
+    });
   })), showSpecification && /*#__PURE__*/react.createElement(TabPanel/* default */.Z, {
     key: "spec",
     value: tab,
