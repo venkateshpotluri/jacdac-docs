@@ -66689,7 +66689,8 @@ function ValueWithUnitWidget(props) {
     max: max,
     step: step,
     value: value,
-    onChange: onChange
+    onChange: onChange,
+    "aria-label": label || secondaryLabel
   })));
 }
 // EXTERNAL MODULE: ./src/components/icons/HumidityIcon.tsx
@@ -69772,7 +69773,7 @@ var useStyles = (0,makeStyles/* default */.Z)(function (theme) {
 function Footer() {
   var classes = useStyles();
   var repo = "microsoft/jacdac-docs";
-  var sha = "48c4edd08557cf4d23e0f7eb19d57d5c0cb3798b";
+  var sha = "de30ebca44b03e2b7ed467512499d59699e6387f";
   return /*#__PURE__*/react.createElement("footer", {
     role: "contentinfo",
     className: classes.footer
@@ -71324,7 +71325,8 @@ function LoadingProgress(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z, {
     disableShrink: true,
     variant: "indeterminate",
-    size: size || "1em"
+    size: size || "1em",
+    "aria-label": "loading"
   });
 }
 
