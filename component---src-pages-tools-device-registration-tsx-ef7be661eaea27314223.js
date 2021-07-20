@@ -2477,6 +2477,8 @@ var DeviceCardHeader = __webpack_require__(31477);
 var specconstants = __webpack_require__(73512);
 // EXTERNAL MODULE: ./src/components/useGridBreakpoints.ts
 var useGridBreakpoints = __webpack_require__(7746);
+// EXTERNAL MODULE: ./src/components/ui/Alert.tsx
+var Alert = __webpack_require__(95453);
 ;// CONCATENATED MODULE: ./src/pages/tools/device-registration.tsx
 
 
@@ -2496,6 +2498,7 @@ var useGridBreakpoints = __webpack_require__(7746);
 
 
  // tslint:disable-next-line: no-submodule-imports
+
 
 
 
@@ -2592,6 +2595,7 @@ function DeviceRegistration() {
   var firmwareMenuId = (0,react_use_id_hook_esm/* useId */.Me)();
   var repoId = (0,react_use_id_hook_esm/* useId */.Me)();
   var identifierId = (0,react_use_id_hook_esm/* useId */.Me)();
+  var descriptionId = (0,react_use_id_hook_esm/* useId */.Me)();
   var homepageId = (0,react_use_id_hook_esm/* useId */.Me)();
 
   var handleServiceAdd = function handleServiceAdd(srv) {
@@ -2874,6 +2878,7 @@ function DeviceRegistration() {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
+    id: identifierId,
     disabled: true,
     error: !!idError,
     fullWidth: true,
@@ -2885,7 +2890,7 @@ function DeviceRegistration() {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(TextField/* default */.Z, {
-    id: identifierId,
+    id: descriptionId,
     fullWidth: true,
     required: true,
     label: "Description",
@@ -2911,17 +2916,16 @@ function DeviceRegistration() {
   })), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/react.createElement(PaperBox/* default */.Z, null, /*#__PURE__*/react.createElement(Typography/* default */.Z, {
-    color: imageError ? "error" : "inherit"
-  }, "Catalog image"), /*#__PURE__*/react.createElement(ImportImageCanvas, {
+  }, /*#__PURE__*/react.createElement(PaperBox/* default */.Z, null, /*#__PURE__*/react.createElement(Typography/* default */.Z, null, "Catalog image"), /*#__PURE__*/react.createElement(ImportImageCanvas, {
     width: jdspec/* DEVICE_IMAGE_WIDTH */.AE,
     height: jdspec/* DEVICE_IMAGE_HEIGHT */.CO,
     onImageImported: handleImageImported
   }), /*#__PURE__*/react.createElement(Typography/* default */.Z, {
     variant: "caption",
-    color: imageError ? "error" : "inherit",
     component: "div"
-  }, "Import a " + jdspec/* DEVICE_IMAGE_WIDTH */.AE + "x" + jdspec/* DEVICE_IMAGE_HEIGHT */.CO + " image of the device."))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
+  }, "Import a " + jdspec/* DEVICE_IMAGE_WIDTH */.AE + "x" + jdspec/* DEVICE_IMAGE_HEIGHT */.CO + " image of the device."), imageError && /*#__PURE__*/react.createElement(Alert/* default */.Z, {
+    severity: "error"
+  }, imageError))), /*#__PURE__*/react.createElement(Grid/* default */.Z, {
     item: true,
     xs: 12
   }, /*#__PURE__*/react.createElement(Suspense/* default */.Z, null, /*#__PURE__*/react.createElement(GithubPullRequestButton, {

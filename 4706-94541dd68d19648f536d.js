@@ -395,12 +395,6 @@ function ToolsDrawer() {
       kind: constants/* SERVICE_NODE_NAME */.M_U
     })
   }, {
-    text: "Service Test Editor",
-    url: "/tools/service-test-editor/",
-    icon: /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
-      kind: constants/* SERVICE_TEST_NODE_NAME */.BCz
-    })
-  }, {
     text: "Device registration",
     url: "/tools/device-registration/",
     icon: /*#__PURE__*/react.createElement(KindIcon/* default */.ZP, {
