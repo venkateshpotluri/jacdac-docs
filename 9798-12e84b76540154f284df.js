@@ -93,7 +93,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded = ["worker"];
+var _excluded = ["id", "worker"];
 
 function handleMessage(_x) {
   return _handleMessage.apply(this, arguments);
@@ -101,14 +101,14 @@ function handleMessage(_x) {
 
 function _handleMessage() {
   _handleMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(event) {
-    var message, worker, rest, resp;
+    var message, id, worker, rest, resp;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             message = event.data; // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-            worker = message.worker, rest = _objectWithoutPropertiesLoose(message, _excluded);
+            id = message.id, worker = message.worker, rest = _objectWithoutPropertiesLoose(message, _excluded);
 
             if (!(worker !== "vm")) {
               _context.next = 4;
@@ -120,6 +120,7 @@ function _handleMessage() {
           case 4:
             // do something
             resp = _extends({
+              id: id,
               worker: worker
             }, rest);
             self.postMessage(resp);

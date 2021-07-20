@@ -2631,7 +2631,7 @@ function sampleCorrelation(x, y) {
   return cov / xstd / ystd;
 }
 
-var _excluded = ["worker", "data", "previousData"];
+var _excluded = ["id", "worker", "data", "previousData"];
 var handlers = {
   arrange: function arrange(props) {
     var column = props.column,
@@ -3075,14 +3075,14 @@ function handleMessage(_x) {
 
 function _handleMessage() {
   _handleMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(event) {
-    var message, worker, rest, newData, resp;
+    var message, id, worker, rest, newData, resp;
     return _regeneratorRuntime.wrap(function _callee$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             message = event.data; // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-            worker = message.worker, rest = _objectWithoutPropertiesLoose(message, _excluded);
+            id = message.id, worker = message.worker, rest = _objectWithoutPropertiesLoose(message, _excluded);
 
             if (!(worker !== "data")) {
               _context2.next = 4;
@@ -3092,25 +3092,38 @@ function _handleMessage() {
             return _context2.abrupt("return");
 
           case 4:
-            _context2.next = 6;
+            _context2.prev = 4;
+            _context2.next = 7;
             return transformData(message);
 
-          case 6:
+          case 7:
             newData = _context2.sent;
             //console.debug("Jacdac data out:", { message })
             resp = _extends({
+              id: id,
               worker: worker
             }, rest, {
               data: newData
             });
             self.postMessage(resp);
+            _context2.next = 15;
+            break;
 
-          case 9:
+          case 12:
+            _context2.prev = 12;
+            _context2.t0 = _context2["catch"](4);
+            self.postMessage({
+              id: id,
+              worker: worker,
+              error: _context2.t0 + ""
+            });
+
+          case 15:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[4, 12]]);
   }));
   return _handleMessage.apply(this, arguments);
 }

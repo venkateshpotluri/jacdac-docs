@@ -990,13 +990,13 @@ function handleMessage(_x4) {
 
 function _handleMessage() {
   _handleMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee4(event) {
-    var message, worker, type, handler, resp;
+    var message, id, worker, type, handler, resp;
     return _regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             message = event.data;
-            worker = message.worker, type = message.type;
+            id = message.id, worker = message.worker, type = message.type;
 
             if (!(worker !== "csv")) {
               _context4.next = 4;
@@ -1006,23 +1006,35 @@ function _handleMessage() {
             return _context4.abrupt("return");
 
           case 4:
+            _context4.prev = 4;
             handler = handlers[type];
-            _context4.next = 7;
+            _context4.next = 8;
             return handler(message);
 
-          case 7:
+          case 8:
             resp = _context4.sent;
             self.postMessage(_extends({
-              id: message.id,
-              worker: "csv"
+              id: id,
+              worker: worker
             }, resp));
+            _context4.next = 15;
+            break;
 
-          case 9:
+          case 12:
+            _context4.prev = 12;
+            _context4.t0 = _context4["catch"](4);
+            self.postMessage({
+              id: id,
+              worker: worker,
+              error: _context4.t0 + ""
+            });
+
+          case 15:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4);
+    }, _callee4, null, [[4, 12]]);
   }));
   return _handleMessage.apply(this, arguments);
 }
