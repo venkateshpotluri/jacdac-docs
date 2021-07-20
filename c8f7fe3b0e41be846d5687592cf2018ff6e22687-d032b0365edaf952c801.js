@@ -36407,7 +36407,6 @@ var _excluded = ["labelText", "kind", "icon", "labelInfo", "color", "bgColor", "
  // tslint:disable-next-line: no-submodule-imports match-default-export-name
 // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
- // tslint:disable-next-line: no-submodule-imports match-default-export-name
 
 
 var useTreeItemStyles = (0,makeStyles/* default */.Z)(function (theme) {
@@ -36418,7 +36417,7 @@ var useTreeItemStyles = (0,makeStyles/* default */.Z)(function (theme) {
         backgroundColor: theme.palette.action.hover
       },
       "&:focus > $content, &$selected > $content": {
-        backgroundColor: "var(--tree-view-bg-color, " + theme.palette.grey[400] + ")",
+        backgroundColor: "var(--tree-view-bg-color, " + theme.palette.grey + ")",
         color: "var(--tree-view-color)"
       },
       "&:focus > $content $label, &:hover > $content $label, &$selected > $content $label": {

@@ -3445,8 +3445,6 @@ function TraceTimeFilterRangeSlider() {
 }
 // EXTERNAL MODULE: ./src/components/ui/IconButtonWithTooltip.tsx + 1 modules
 var IconButtonWithTooltip = __webpack_require__(79885);
-// EXTERNAL MODULE: ./node_modules/gatsby-theme-material-ui/index.js
-var gatsby_theme_material_ui = __webpack_require__(36176);
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/GroupWork.js
 var GroupWork = __webpack_require__(15683);
 // EXTERNAL MODULE: ./jacdac-ts/src/jdom/spec.ts + 2 modules
@@ -3474,8 +3472,7 @@ var react_use_id_hook_esm = __webpack_require__(19640);
 
 
 
- // tslint:disable-next-line: match-default-export-name no-submodule-imports
-
+// tslint:disable-next-line: match-default-export-name no-submodule-imports
 
 
 
@@ -3565,11 +3562,10 @@ function FilterMenu(props) {
     component: "span"
   }, /*#__PURE__*/react.createElement(Tooltip/* default */.Z, {
     title: text
-  }, /*#__PURE__*/react.createElement("span", null, /*#__PURE__*/react.createElement(gatsby_theme_material_ui.IconButton, {
+  }, /*#__PURE__*/react.createElement("span", null, /*#__PURE__*/react.createElement(IconButtonWithTooltip/* default */.Z, {
     className: classes.iconButton,
-    "aria-controls": "simple-menu",
-    "aria-haspopup": "true",
-    onClick: handleClick
+    onClick: handleClick,
+    title: "open filter menu"
   }, icon || /*#__PURE__*/react.createElement(FilterList/* default */.Z, null)))), /*#__PURE__*/react.createElement(Menu/* default */.Z, {
     anchorEl: anchorEl,
     keepMounted: true,
